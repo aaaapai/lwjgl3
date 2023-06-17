@@ -48,7 +48,6 @@ yes | ant -Dplatform.macos=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
-  -Dbinding.glfw=false \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=false \
   -Dbinding.libdivide=false \
