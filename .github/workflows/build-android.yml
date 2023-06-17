@@ -1,0 +1,40 @@
+name: Android build
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        arch: [ "arm64", "arm32", "x86", "x64" ]
+      fail-fast: false
+
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 8
+
+    - name: Build for Android ${{matrix.arch}}
+      run: |
+        export JAVA8_HOME=$JAVA_HOME_8_${{runner.arch}}
+        export LWJGL_BUILD_ARCH=${{matrix.arch}}
+        bash ci_build_android.bash
+
+    - name: Upload modules release output
+      if: ${{matrix.arch == 'arm64'}} # Only upload this once
+      uses: actions/upload-artifact@v1
+      with:
+        name: lwjgl3-android-modules
+        path: bin/RELEASE
+
+    - name: Upload native build output
+      uses: actions/upload-artifact@v1
+      with:
+        name: lwjgl3-android-natives-${{matrix.arch}}
+        path: bin/out

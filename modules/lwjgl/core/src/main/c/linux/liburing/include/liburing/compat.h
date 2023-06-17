@@ -12,10 +12,12 @@
 
 typedef int __kernel_rwf_t;
 
+#ifndef __ANDROID__
 struct __kernel_timespec {
 	int64_t		tv_sec;
 	long long	tv_nsec;
 };
+#endif
 
 struct open_how {
 	uint64_t	flags;

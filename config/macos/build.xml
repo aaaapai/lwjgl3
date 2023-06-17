@@ -5,14 +5,18 @@
 <project name="native-macos" basedir="../.." xmlns:if="ant:if" xmlns:unless="ant:unless">
     <import file="../build-definitions.xml"/>
 
-    <!-- Find the macOS SDK root. -->
+    <!-- Find the iOS SDK root. -->
     <exec executable="xcrun" outputproperty="sdkroot" failonerror="true">
-        <arg line="--show-sdk-path --sdk macosx"/>
+        <arg line="--show-sdk-path --sdk iphoneos"/>
     </exec>
 
+<!--
     <condition property="macosx-version-min" value="11.0" else="10.9">
         <isset property="build.arch.arm"/>
     </condition>
+-->
+    <property name="ios-version-min" value="14.0"/>
+    <property name="build.arch.arm" value="true"/>
 
     <property name="module.lwjgl.rel" value="../../../../${module.lwjgl}"/>
 
@@ -33,7 +37,7 @@
             <apply dir="@{dest}" executable="${clang}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
                 <arg line="-c -ObjC" unless:set="cpp"/>
                 <arg line="-c -std=c++14" if:set="cpp"/>
-                <arg line="-O3 -flto -fPIC @{flags} -DNDEBUG -DLWJGL_MACOS -DLWJGL_${build.arch} -isysroot ${sdkroot} -mmacosx-version-min=${macosx-version-min}"/>
+                <arg line="-O3 -flto -fPIC @{flags} -DNDEBUG -DLWJGL_MACOS -DLWJGL_${build.arch} -isysroot ${sdkroot} -miphoneos-version-min=${ios-version-min}"/>
                 <arg line="-target aarch64-apple-darwin -arch arm64" if:set="build.arch.arm"/>
 
                 <arg value="-I${jni.headers}"/>
@@ -56,7 +60,7 @@
         <attribute name="module"/>
         <attribute name="linker" default="clang"/>
         <attribute name="lang" default="c"/>
-        <attribute name="flags" default="-Werror -Wfatal-errors"/>
+        <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <element name="beforeCompile" optional="true"/>
         <element name="source" optional="true"/>
@@ -108,7 +112,7 @@
             <beforeLink unless:set="lib-uptodate"/>
             <apply executable="${clang}" failonerror="true" parallel="true" taskname="Linker" unless:set="lib-uptodate">
                 <srcfile/>
-                <arg line='-dynamiclib -Wl,-no_compact_unwind -mmacosx-version-min=${macosx-version-min} -o ${lib.arch}/lib${name}.dylib -O3 -flto -fPIC'/>
+                <arg line='-dynamiclib -Wl,-no_compact_unwind -miphoneos-version-min=${ios-version-min} -o ${lib.arch}/lib${name}.dylib -O3 -flto -fPIC -isysroot ${sdkroot}'/>
                 <arg line="-target aarch64-apple-darwin -arch arm64" if:set="build.arch.arm"/>
                 <fileset dir="${dest}" includes="*.o"/>
                 <link/>
@@ -136,7 +140,7 @@
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic">
+        <build module="core" flags="-Wall -Wextra -pedantic">
             <source>
                 <arg value="-I${src.main.rel}/libffi"/>
                 <arg value="-I${src.main.rel}/libffi/aarch64" if:set="build.arch.arm64"/>
