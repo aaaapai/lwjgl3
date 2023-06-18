@@ -293,16 +293,17 @@ public final class GL {
     /** PojavLauncher: sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
         long currentContext;
-        if (System.getenv("POJAV_RENDERER").equals("opengles3_virgl") || System.getenv("POJAV_RENDERER").equals("vulkan_zink")) {
+        String renderer = System.getProperty("org.lwjgl.opengl.libname");
+        if (renderer.startsWith("libOSMesa")) {
             int[] dims = getNativeWidthHeight();
             currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
             callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
-        } else if (System.getenv("POJAV_RENDERER").startsWith("opengles")) {
-            // This fixed framebuffer issue on 1.13+ 64-bit by another making current. FIXME: is it needed for iOS?
+        } else if (renderer.matches("(libgl4es).*|libtiny(gl4angle|wrapper).*")) {
+            // This fixed framebuffer issue on 1.13+ 64-bit by another making current.
             Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
             currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
             glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
-        }
+        } else throw new RuntimeException("Unknown renderer: " + renderer);
     }
 
     /**
