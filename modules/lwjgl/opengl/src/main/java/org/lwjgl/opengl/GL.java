@@ -5,7 +5,6 @@
 package org.lwjgl.opengl;
 
 import org.lwjgl.*;
-import org.lwjgl.glfw.*;
 import org.lwjgl.system.*;
 import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
@@ -291,6 +290,21 @@ public final class GL {
         }
     }
 
+    /** PojavLauncher: sets the OpenGL context again to workaround framebuffer issue */
+    private static void fixPojavGLContext() throws Exception {
+        long currentContext;
+        if (System.getenv("POJAV_RENDERER").equals("opengles3_virgl") || System.getenv("POJAV_RENDERER").equals("vulkan_zink")) {
+            int[] dims = getNativeWidthHeight();
+            currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
+            callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
+        } else if (System.getenv("POJAV_RENDERER").startsWith("opengles")) {
+            // This fixed framebuffer issue on 1.13+ 64-bit by another making current. FIXME: is it needed for iOS?
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+            glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        }
+    }
+
     /**
      * Creates a new {@link GLCapabilities} instance for the OpenGL context that is current in the current thread.
      *
@@ -357,12 +371,12 @@ public final class GL {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (System.getenv("POJAV_RENDERER").equals("opengles3_virgl") || System.getenv("POJAV_RENDERER").equals("vulkan_zink")) {
-            int[] dims = getNativeWidthHeight();
-            callJPI(GLFW.glfwGetCurrentContext(),getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
-        } else if (System.getenv("POJAV_RENDERER").startsWith("opengles")) {
-            // This fixed framebuffer issue on 1.13+ 64-bit by another making current
-            GLFW.glfwMakeContextCurrent(GLFW.mainContext);
+        if (System.getenv("POJAV_RENDERER") != null) {
+            try {
+                fixPojavGLContext();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // We don't have a current ContextCapabilities when this method is called

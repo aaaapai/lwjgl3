@@ -26,6 +26,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  * existing applications and does not lay claim to the main loop.</p>
  */
 public class GLFW {
+// -- Begin overrride stubs --
+    public static long nglfwCreateContext(long share) {
+        throw new RuntimeException("stub function called");
+    }
+// -- End override stubs --
 
     private static final SharedLibrary GLFW = Library.loadNative(GLFW.class, "org.lwjgl.glfw", Configuration.GLFW_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("glfw")), true);
 
