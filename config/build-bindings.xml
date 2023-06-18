@@ -80,6 +80,7 @@ This script is included in /config/build-definitions.xml.
     <property name="java-only.binding.egl" value="true"/>
     <property name="java-only.binding.fmod" value="true"/>
     <property name="java-only.binding.jawt" value="true"/>
+    <property name="java-only.binding.lwjglx" value="true"/>
     <property name="java-only.binding.odbc" value="true"/>
     <property name="java-only.binding.opencl" value="true"/>
 
