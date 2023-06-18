@@ -167,7 +167,16 @@ public final class AL {
     static void init() {
     }
 
-    static void destroy() {
+    public static void destroy() {
+        // LWJGL2 code
+        if (created_lwjgl2) {
+            ALC10.alcMakeContextCurrent(MemoryUtil.NULL);
+            ALC10.alcDestroyContext(alContext);
+            ALC10.alcCloseDevice(alcDevice.device);
+            alContext = -1;
+            alcDevice = null;
+            created_lwjgl2 = false;
+        }
         setCurrentProcess(null);
     }
 
