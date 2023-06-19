@@ -290,22 +290,6 @@ public final class GL {
         }
     }
 
-    /** PojavLauncher: sets the OpenGL context again to workaround framebuffer issue */
-    private static void fixPojavGLContext() throws Exception {
-        long currentContext;
-        String renderer = System.getProperty("org.lwjgl.opengl.libname");
-        if (renderer.startsWith("libOSMesa")) {
-            int[] dims = getNativeWidthHeight();
-            currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
-            callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
-        } else if (renderer.matches("(libgl4es).*|libtiny(gl4angle|wrapper).*")) {
-            // This fixed framebuffer issue on 1.13+ 64-bit by another making current.
-            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-            currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
-            glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
-        } else throw new RuntimeException("Unknown renderer: " + renderer);
-    }
-
     /**
      * Creates a new {@link GLCapabilities} instance for the OpenGL context that is current in the current thread.
      *
@@ -370,14 +354,6 @@ public final class GL {
         FunctionProvider functionProvider = GL.functionProvider;
         if (functionProvider == null) {
             throw new IllegalStateException("OpenGL library has not been loaded.");
-        }
-
-        if (System.getenv("POJAV_RENDERER") != null) {
-            try {
-                fixPojavGLContext();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
         // We don't have a current ContextCapabilities when this method is called

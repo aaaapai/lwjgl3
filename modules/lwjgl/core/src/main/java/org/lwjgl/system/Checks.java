@@ -113,7 +113,7 @@ public final class Checks {
             }
             caps.put(index, address);
         }
-        return available;
+        return true; // otherwise the lookup chain will be broken (ANGLE renderer)
     }
 
     /**
@@ -141,7 +141,7 @@ public final class Checks {
             }
             available = false;
         }
-        return available;
+        return true; // otherwise the lookup chain will be broken (ANGLE renderer)
     }
 
     /**
@@ -168,12 +168,12 @@ public final class Checks {
             }
             caps[index] = address;
         }
-        return available;
+        return true; // otherwise the lookup chain will be broken (ANGLE renderer)
     }
 
     public static boolean reportMissing(String api, String extension) {
         apiLog("[" + api + "] " + extension + " was reported as available but an entry point is missing.");
-        return false;
+        return true; // otherwise the lookup chain will be broken (ANGLE renderer)
     }
 
     /**
