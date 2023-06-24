@@ -1,3 +1,26 @@
+LWJGL 3.3.1 modified for PojavLauncher Android and iOS.
+This branch also integrates [lwjglx](https://github.com/grum/lwjglx), allowing Minecraft 1.12.2 and older to run on this LWJGL version.
+
+![Build lwjgl3](https://github.com/PojavLauncherTeam/lwjgl3/workflows/Build%20lwjgl3/badge.svg)
+
+### Building
+Output: `bin/RELEASE` (Java); `bin/out` (natives)
+
+#### Android
+```bash
+export ANDROID_NDK_HOME=/path/to/ndk-bundle
+
+# Valid archs: arm64, arm32, x64, x86. Only set one at a time
+export LWJGL_BUILD_ARCH=arm64
+
+bash ci_build_android.bash
+```
+
+#### iOS
+Just run `bash ci_build_ios.bash` on macOS
+
+---
+
 [![Maven Central](https://img.shields.io/maven-central/v/org.lwjgl/lwjgl.svg?label=maven%20central)](https://search.maven.org/search?q=g:org.lwjgl)
 [![API Javadoc](https://img.shields.io/badge/API-docs-blue.svg)](https://javadoc.lwjgl.org/)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg?colorB=lightgray)](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md)
