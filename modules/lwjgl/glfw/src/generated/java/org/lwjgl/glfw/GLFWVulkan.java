@@ -291,7 +291,7 @@ public class GLFWVulkan {
             VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
                 .calloc()
                 .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
-                .pWindow(PointerBuffer.create(window, 1));
+                .window(window);
             return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
         }
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
