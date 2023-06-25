@@ -19,7 +19,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.vulkan.EXTMetalSurface.*;
-//import static org.lwjgl.vulkan.KHRAndroidSurface.*;
+import static org.lwjgl.vulkan.KHRAndroidSurface.*;
 
 import org.lwjgl.vulkan.*;
 
@@ -287,13 +287,13 @@ public class GLFWVulkan {
                 .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
                 .pLayer(PointerBuffer.create(window, 1));
             return vkCreateMetalSurfaceEXT(instance, pCreateInfo, null, surface);
-        } /* else {
+        } else if (Platform.get() == Platform.LINUX) {
             VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
                 .calloc()
                 .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
                 .pWindow(PointerBuffer.create(window, 1));
             return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
-        } */
+        }
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
