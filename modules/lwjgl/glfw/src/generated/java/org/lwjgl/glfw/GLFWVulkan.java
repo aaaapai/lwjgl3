@@ -18,27 +18,15 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.vulkan.EXTMetalSurface.*;
+//import static org.lwjgl.vulkan.KHRAndroidSurface.*;
 
 import org.lwjgl.vulkan.*;
 
 /** Native bindings to the GLFW library's Vulkan functions. */
 public class GLFWVulkan {
 
-    /** Contains the function pointers loaded from {@code GLFW.getLibrary()}. */
-    public static final class Functions {
-
-        private Functions() {}
-
-        /** Function address. */
-        public static final long
-            InitVulkanLoader                     = apiGetFunctionAddress(GLFW.getLibrary(), "glfwInitVulkanLoader"),
-            VulkanSupported                      = apiGetFunctionAddress(GLFW.getLibrary(), "glfwVulkanSupported"),
-            GetRequiredInstanceExtensions        = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetRequiredInstanceExtensions"),
-            GetInstanceProcAddress               = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetInstanceProcAddress"),
-            GetPhysicalDevicePresentationSupport = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetPhysicalDevicePresentationSupport"),
-            CreateWindowSurface                  = apiGetFunctionAddress(GLFW.getLibrary(), "glfwCreateWindowSurface");
-
-    }
+     /** PojavLauncher: stub or wrap all functions to equivalent Vulkan functions */
 
     static {
         if (Platform.get() == Platform.MACOSX) {
@@ -78,8 +66,8 @@ public class GLFWVulkan {
      * @since version 3.4
      */
     public static void glfwInitVulkanLoader(@NativeType("PFN_vkGetInstanceProcAddr") long loader) {
-        long __functionAddress = Functions.InitVulkanLoader;
-        invokePV(loader, __functionAddress);
+        //long __functionAddress = Functions.InitVulkanLoader;
+        //invokePV(loader, __functionAddress);
     }
 
     // --- [ glfwVulkanSupported ] ---
@@ -101,21 +89,10 @@ public class GLFWVulkan {
      */
     @NativeType("int")
     public static boolean glfwVulkanSupported() {
-        long __functionAddress = Functions.VulkanSupported;
-        return invokeI(__functionAddress) != 0;
+        return true;
     }
 
     // --- [ glfwGetRequiredInstanceExtensions ] ---
-
-    /**
-     * Unsafe version of: {@link #glfwGetRequiredInstanceExtensions GetRequiredInstanceExtensions}
-     *
-     * @param count where to store the number of extensions in the returned array. This is set to zero if an error occurred.
-     */
-    public static long nglfwGetRequiredInstanceExtensions(long count) {
-        long __functionAddress = Functions.GetRequiredInstanceExtensions;
-        return invokePP(count, __functionAddress);
-    }
 
     /**
      * Returns an array of names of Vulkan instance extensions required by GLFW for creating Vulkan surfaces for GLFW windows. If successful, the list will
@@ -144,22 +121,14 @@ public class GLFWVulkan {
     @Nullable
     @NativeType("char const **")
     public static PointerBuffer glfwGetRequiredInstanceExtensions() {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        IntBuffer count = stack.callocInt(1);
-        try {
-            long __result = nglfwGetRequiredInstanceExtensions(memAddress(count));
-            return memPointerBufferSafe(__result, count.get(0));
-        } finally {
-            stack.setPointer(stackPointer);
+        MemoryStack stack = MemoryStack.stackPush();
+        String platformSurface;
+        if (Platform.get() == Platform.MACOSX) {
+            platformSurface = "VK_EXT_metal_surface";
+        } else {
+            platformSurface = "VK_KHR_android_surface";
         }
-    }
-
-    // --- [ glfwGetInstanceProcAddress ] ---
-
-    /** Unsafe version of: {@link #glfwGetInstanceProcAddress GetInstanceProcAddress} */
-    public static long nglfwGetInstanceProcAddress(long instance, long procname) {
-        long __functionAddress = Functions.GetInstanceProcAddress;
-        return invokePPP(instance, procname, __functionAddress);
+        return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
     /**
@@ -196,7 +165,7 @@ public class GLFWVulkan {
         if (CHECKS) {
             checkNT1(procname);
         }
-        return nglfwGetInstanceProcAddress(memAddressSafe(instance), memAddress(procname));
+        return VK10.vkGetInstanceProcAddr(instance, procname);
     }
 
     /**
@@ -230,14 +199,7 @@ public class GLFWVulkan {
      */
     @NativeType("GLFWvkproc")
     public static long glfwGetInstanceProcAddress(@Nullable VkInstance instance, @NativeType("char const *") CharSequence procname) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        try {
-            stack.nASCII(procname, true);
-            long procnameEncoded = stack.getPointerAddress();
-            return nglfwGetInstanceProcAddress(memAddressSafe(instance), procnameEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+        return VK10.vkGetInstanceProcAddr(instance, procname);
     }
 
     // --- [ glfwGetPhysicalDevicePresentationSupport ] ---
@@ -266,20 +228,10 @@ public class GLFWVulkan {
      */
     @NativeType("int")
     public static boolean glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, @NativeType("uint32_t") int queuefamily) {
-        long __functionAddress = Functions.GetPhysicalDevicePresentationSupport;
-        return invokePPI(instance.address(), device.address(), queuefamily, __functionAddress) != 0;
+        return true;
     }
 
     // --- [ glfwCreateWindowSurface ] ---
-
-    /** Unsafe version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
-    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        long __functionAddress = Functions.CreateWindowSurface;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePPPPI(instance, window, allocator, surface, __functionAddress);
-    }
 
     /**
      * Creates a Vulkan surface for the specified window.
@@ -329,18 +281,30 @@ public class GLFWVulkan {
         if (CHECKS) {
             check(surface, 1);
         }
-        return nglfwCreateWindowSurface(instance.address(), window, memAddressSafe(allocator), memAddress(surface));
+        if (Platform.get() == Platform.MACOSX) {
+            VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
+                .calloc()
+                .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
+                .pLayer(PointerBuffer.create(window, 1));
+            return vkCreateMetalSurfaceEXT(instance, pCreateInfo, null, surface);
+        } /* else {
+            VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
+                .calloc()
+                .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
+                .pWindow(PointerBuffer.create(window, 1));
+            return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
+        } */
+        return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
     /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
     @NativeType("VkResult")
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
-        long __functionAddress = Functions.CreateWindowSurface;
-        if (CHECKS) {
-            check(window);
-            check(surface, 1);
-        }
-        return invokePPPPI(instance.address(), window, memAddressSafe(allocator), surface, __functionAddress);
+        MemoryStack stack = stackGet();
+        LongBuffer pSurface = stack.mallocLong(1);
+        int result = glfwCreateWindowSurface(instance, window, allocator, pSurface);
+        surface[0] = pSurface.get(0);
+        return result;
     }
 
     /**
