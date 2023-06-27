@@ -26,7 +26,7 @@ mkdir -p $LWJGL_NATIVE
 
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
-  if [ ! -f libffi ]; then
+  if [ ! -d libffi ]; then
     wget https://github.com/libffi/libffi/releases/download/v$LIBFFI_VERSION/libffi-$LIBFFI_VERSION.tar.gz
     tar xvf libffi-$LIBFFI_VERSION.tar.gz
     mv libffi-$LIBFFI_VERSION libffi

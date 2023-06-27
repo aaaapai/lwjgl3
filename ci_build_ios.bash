@@ -9,24 +9,29 @@ mkdir -p $LWJGL_NATIVE
 
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
-  if [ ! -f libffi ]; then
+  if [ ! -d libffi ]; then
     wget https://github.com/libffi/libffi/releases/download/v$LIBFFI_VERSION/libffi-$LIBFFI_VERSION.tar.gz
     tar xvf libffi-$LIBFFI_VERSION.tar.gz
     mv libffi-$LIBFFI_VERSION libffi
   fi
   cd libffi
 
-  # Build libffi
-  bash configure --host=aarch64-apple-ios --prefix=$PWD/aarch64-apple-ios \
-    CC="$(xcrun -find -sdk iphoneos clang)" \
-    CXX="$(xcrun -find -sdk iphoneos clang++)" \
-    CFLAGS="-Wno-implicit-function-declaration -O3 -arch arm64 -isysroot $(xcrun --sdk iphoneos --show-sdk-path) -miphoneos-version-min=14.0" \
-    || (cat */config.log && exit 1)
-  make -j4
-  cd ..
+  # Patch generator to produce iOS arm64 only
+   sed -i'.bak' \
+       -e '/\(ios_device64\)/! s/build_target(ios_/#build_target(ios_/g' \
+       generate-darwin-source-and-headers.py
+
+   # Generate configure file
+   python3 generate-darwin-source-and-headers.py --only-ios
+
+   # Restore generator
+   mv generate-darwin-source-and-headers.py.bak generate-darwin-source-and-headers.py
+
+   # Build libffi
+   xcodebuild -arch arm64 -sdk iphoneos -target libffi-iOS || echo "Exit code: $?"
 
   # Copy libffi
-  cp libffi/aarch64-apple-ios/.libs/libffi.a $LWJGL_NATIVE/
+  cp libffi/build/Release-iphoneos/libffi.a $LWJGL_NATIVE/
 fi
 
 # Download libraries
