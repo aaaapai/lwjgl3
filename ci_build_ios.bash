@@ -31,6 +31,7 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   xcodebuild -arch arm64 -sdk iphoneos -target libffi-iOS || echo "Exit code: $?"
 
   # Copy libffi
+  cd ..
   cp libffi/build/Release-iphoneos/libffi.a $LWJGL_NATIVE/
 fi
 
