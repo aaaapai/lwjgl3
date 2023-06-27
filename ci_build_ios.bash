@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.4.2
+export LIBFFI_VERSION=3.4.4
 export LWJGL_BUILD_OFFLINE=1
 export LWJGL_BUILD_ARCH=arm64
 
@@ -17,18 +17,18 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   cd libffi
 
   # Patch generator to produce iOS arm64 only
-   sed -i'.bak' \
-       -e '/\(ios_device64\)/! s/build_target(ios_/#build_target(ios_/g' \
-       generate-darwin-source-and-headers.py
+  echo sed -i'.bak' \
+      -e '/\(ios_device64\)/! s/build_target(ios_/#build_target(ios_/g' \
+      generate-darwin-source-and-headers.py
 
-   # Generate configure file
-   python3 generate-darwin-source-and-headers.py --only-ios
+  # Generate configure file
+  python3 generate-darwin-source-and-headers.py --only-ios
 
-   # Restore generator
-   mv generate-darwin-source-and-headers.py.bak generate-darwin-source-and-headers.py
+  # Restore generator
+  echo mv generate-darwin-source-and-headers.py.bak generate-darwin-source-and-headers.py
 
-   # Build libffi
-   xcodebuild -arch arm64 -sdk iphoneos -target libffi-iOS || echo "Exit code: $?"
+  # Build libffi
+  xcodebuild -arch arm64 -sdk iphoneos -target libffi-iOS || echo "Exit code: $?"
 
   # Copy libffi
   cp libffi/build/Release-iphoneos/libffi.a $LWJGL_NATIVE/
