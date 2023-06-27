@@ -17,15 +17,15 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   cd libffi
 
   # Patch generator to produce iOS arm64 only
-  echo sed -i'.bak' \
-      -e '/\(ios_device64\)/! s/build_target(ios_/#build_target(ios_/g' \
+  sed -i'.bak' \
+      -e '/\(64_platform\)/! s/build_target(ios_/#build_target(ios_/g' \
       generate-darwin-source-and-headers.py
 
   # Generate configure file
   python3 generate-darwin-source-and-headers.py --only-ios
 
   # Restore generator
-  echo mv generate-darwin-source-and-headers.py.bak generate-darwin-source-and-headers.py
+  mv generate-darwin-source-and-headers.py.bak generate-darwin-source-and-headers.py
 
   # Build libffi
   xcodebuild -arch arm64 -sdk iphoneos -target libffi-iOS || echo "Exit code: $?"
