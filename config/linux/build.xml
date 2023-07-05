@@ -49,7 +49,7 @@
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${gcc}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
                 <arg line="-c -std=gnu11" unless:set="cpp"/>
-                <arg line="-c -static-libstdc++ -std=gnu++14" if:set="cpp"/>
+                <arg line="-c -std=gnu++14" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
                 <arg line="-O3 @{lto} -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
@@ -126,11 +126,24 @@
             <property name="version.script" location="config/${platform}/version.script"/>
 
             <local name="gcc"/>
+            <property name="gcc" value="@{gcc.exec}"/>
+<!--
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}">
                 <and>
                     <equals arg1="@{lang}" arg2="c"/>
                     <equals arg1="@{linker}" arg2="gcc"/>
                 </and>
+            </condition>
+-->
+
+            <local name="force-cpp-static-linking"/>
+            <condition property="force-cpp-static-linking" value="true">
+                <not>
+                    <and>
+                        <equals arg1="@{lang}" arg2="c"/>
+                        <equals arg1="@{linker}" arg2="gcc"/>
+                    </and>
+                </not>
             </condition>
 
             <echo message="Linking ${name}" taskname="${gcc}" unless:set="lib-uptodate"/>
@@ -142,6 +155,7 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
+                <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
                 <arg line="-O3 -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
