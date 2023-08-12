@@ -40,7 +40,11 @@ public class ALC10 {
     public static void alcGetInteger(ALCdevice device, int pname, java.nio.IntBuffer integerdata) {
         int res = alcGetInteger(device.device, pname);
         integerdata.put(0, res);
-	}
+    }
+
+    public static String alcGetString(ALCdevice device, int pname) {
+        return alcGetString(device.device, pname);
+    }
 // -- End LWJGL2 --
 
     /** General tokens. */
