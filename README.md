@@ -7,11 +7,18 @@ This branch also integrates [lwjglx](https://github.com/grum/lwjglx), allowing M
 Output: `bin/RELEASE` (Java); `bin/out` (natives)
 
 #### Android
+
+Dependencies:
+ - ant
+
+Your default `java` version should be java 8.
+
 ```bash
 export ANDROID_NDK_HOME=/path/to/ndk-bundle
 
 # Valid archs: arm64, arm32, x64, x86. Only set one at a time
 export LWJGL_BUILD_ARCH=arm64
+export JAVA8_HOME=/path/to/java8
 
 bash ci_build_android.bash
 ```
