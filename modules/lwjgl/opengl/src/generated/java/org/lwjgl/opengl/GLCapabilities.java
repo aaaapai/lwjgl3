@@ -7699,7 +7699,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL30(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL30")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
@@ -7726,7 +7726,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL31(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL31")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
@@ -7740,7 +7740,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL32(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL32")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
@@ -7755,7 +7755,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL33(FunctionProvider provider, PointerBuffer caps, Set<String> ext, boolean fc) {
         if (!ext.contains("OpenGL33")) {
-            return false;
+            //return false;
         }
 
         return ((fc || checkFunctions(provider, caps, new int[] {
