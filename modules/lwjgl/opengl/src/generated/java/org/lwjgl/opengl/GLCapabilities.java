@@ -7522,7 +7522,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL11(FunctionProvider provider, PointerBuffer caps, Set<String> ext, boolean fc) {
         if (!ext.contains("OpenGL11")) {
-            return false;
+            //return false;
         }
 
         int flag0 = !fc || ext.contains("GL_NV_vertex_buffer_unified_memory") ? 0 : Integer.MIN_VALUE;
@@ -7586,7 +7586,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL12(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL12")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
@@ -7598,7 +7598,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL13(FunctionProvider provider, PointerBuffer caps, Set<String> ext, boolean fc) {
         if (!ext.contains("OpenGL13")) {
-            return false;
+            //return false;
         }
 
         return ((fc || checkFunctions(provider, caps, new int[] {
@@ -7622,7 +7622,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL14(FunctionProvider provider, PointerBuffer caps, Set<String> ext, boolean fc) {
         if (!ext.contains("OpenGL14")) {
-            return false;
+            //return false;
         }
 
         return ((fc || checkFunctions(provider, caps, new int[] {
@@ -7645,7 +7645,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL15(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL15")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
@@ -7659,7 +7659,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL20(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL20")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
@@ -7687,7 +7687,7 @@ public final class GLCapabilities {
 
     private static boolean check_GL21(FunctionProvider provider, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("OpenGL21")) {
-            return false;
+            //return false;
         }
 
         return (checkFunctions(provider, caps, new int[] {
