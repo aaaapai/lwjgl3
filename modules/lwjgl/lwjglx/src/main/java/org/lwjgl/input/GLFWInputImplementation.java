@@ -33,7 +33,7 @@ public class GLFWInputImplementation implements InputImplementation {
 
     @Override
     public int getButtonCount() {
-        return 3;
+        return GLFW.GLFW_MOUSE_BUTTON_LAST + 1;
     }
 
     @Override
