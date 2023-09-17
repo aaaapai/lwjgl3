@@ -21,6 +21,9 @@ import java.util.regex.*;
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.Checks.*;
 
+import org.lwjgl.system.linux.LinuxLibrary;
+import org.lwjgl.system.windows.WindowsLibrary;
+
 /**
  * Initializes the LWJGL shared library and handles loading additional shared libraries.
  *
@@ -444,6 +447,17 @@ public final class Library {
                 return fallback.get();
             }
             throw t; // original error
+        }
+    }
+
+    public static SharedLibrary createFromHandle(String libraryName, long handle) {
+        switch (Platform.get()) {
+            case WINDOWS:
+                return new WindowsLibrary(name, handle);
+            case LINUX:
+                return new LinuxLibrary(name, handle);
+            default:
+                throw new IllegalStateException();
         }
     }
 
