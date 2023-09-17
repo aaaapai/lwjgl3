@@ -45,7 +45,7 @@ fi
 # Download libraries
 POJAV_NATIVES="https://github.com/PojavLauncherTeam/PojavLauncher/raw/v3_openjdk/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
-wget -nc "https://nightly.link/khanhduytran0/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
+wget -nc "https://nightly.link/PojavLauncherTeam/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 
 # HACK: Skip compiling and running the generator to save time and keep LWJGLX functions
