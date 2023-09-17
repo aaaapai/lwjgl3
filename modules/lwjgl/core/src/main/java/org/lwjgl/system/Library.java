@@ -450,7 +450,7 @@ public final class Library {
         }
     }
 
-    public static SharedLibrary createFromHandle(String libraryName, long handle) {
+    public static SharedLibrary createFromHandle(String name, long handle) {
         switch (Platform.get()) {
             case WINDOWS:
                 return new WindowsLibrary(name, handle);
