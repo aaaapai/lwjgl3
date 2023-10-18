@@ -395,7 +395,7 @@ public class Keyboard {
     public static boolean isKeyDown(int key) {
         if (!created)
             throw new IllegalStateException("Keyboard must be created before you can query key state");
-        if(key >= KEYBOARD_SIZE) return false;
+        if(key < 0 || key >= keyDownBuffer.limit()) return false;
         return keyDownBuffer.get(key) != 0;
     }
 
