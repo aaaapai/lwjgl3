@@ -141,7 +141,7 @@ public final class Checks {
             }
             available = false;
         }
-        return true; // otherwise the lookup chain will be broken (ANGLE renderer)
+        return available;
     }
 
     /**
