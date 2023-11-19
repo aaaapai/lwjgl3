@@ -5,7 +5,12 @@
 #include "common_tools.h"
 #include <string.h>
 
+#define MAX_PRINT_COUNT 10
+
 static void JNICALL functionMissingAbort(void) {
+    static int called = 0;
+    if(++called > MAX_PRINT_COUNT) return;
+
     jboolean async;
     JNIEnv* env = getEnv(&async);
 
@@ -14,7 +19,7 @@ static void JNICALL functionMissingAbort(void) {
     jstring threadName = (*env)->      CallObjectMethod(env, thread, (*env)->      GetMethodID(env, Thread,      "toString", "()Ljava/lang/String;"));
     
     const char* utfChars = (*env)->GetStringUTFChars(env, threadName, NULL);
-    printf("%s: No context is current or a function that is not available in the current context was called. Are you running essential and/or <1.13?", utfChars);
+    printf("%s: No context is current or a function that is not available in the current context was called. Are you running essential and/or <1.13?\n", utfChars);
     (*env)->ReleaseStringUTFChars(env, threadName, utfChars);
     (*env)->DeleteLocalRef(env, Thread);
     (*env)->DeleteLocalRef(env, thread);
