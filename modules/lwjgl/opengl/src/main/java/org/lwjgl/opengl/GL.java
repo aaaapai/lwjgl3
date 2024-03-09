@@ -93,6 +93,9 @@ public final class GL {
         // intentionally empty to trigger static initializer
     }
 
+    private static native long getGraphicsBufferAddr();
+    private static native int[] getNativeWidthHeight();
+
     /** Loads the OpenGL native library, using the default library name. */
     public static void create() {
         SharedLibrary GL;
@@ -290,10 +293,25 @@ public final class GL {
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
         long currentContext;
-        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
-        Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-        currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
-        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        String renderer = System.getProperty("org.lwjgl.opengl.libname");
+        if (renderer.startsWith("libOSMesa")
+        || renderer.startsWith("libOSMesa_8")
+        || renderer.startsWith("libOSMesa_81")
+        || renderer.startsWith("libOSMesa_82")) {
+            int[] dims = getNativeWidthHeight();
+            currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
+            callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
+        } else if (renderer.matches("lib(gl4es|tinywrapper).*")) {
+            // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+            glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        } else {
+            // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+            glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        }
     }
 
     /**
