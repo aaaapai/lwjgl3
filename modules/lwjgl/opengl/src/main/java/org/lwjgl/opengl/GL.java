@@ -295,6 +295,7 @@ public final class GL {
         long currentContext;
         String renderer = System.getProperty("org.lwjgl.opengl.libname");
         if (Platform.get() == Platform.LINUX && System.getenv("POJAV_EXP_SETUP") != null) {
+            printf("[LWJGL] You turned on the experimental settings and tried to use the frame buffer\n");
             if (renderer.startsWith("libOSMesa")
             || renderer.startsWith("libOSMesa_8")
             || renderer.startsWith("libOSMesa_81")
