@@ -296,18 +296,15 @@ public final class GL {
         if (Platform.get() == Platform.LINUX
         && System.getenv("POJAV_EXP_SETUP") != null
         && System.getenv("POJAV_ZINK_CRASH_HANDLE") != null) {
-            System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer\n");
+            System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
             String renderer = System.getProperty("org.lwjgl.opengl.libname");
-            if (renderer.startsWith("libOSMesa")
-            || renderer.startsWith("libOSMesa_8")
-            || renderer.startsWith("libOSMesa_81")
-            || renderer.startsWith("libOSMesa_82")
-            || renderer.startsWith("libOSMesa_pan")) {
+            if (renderer.startsWith("libOSMesa")) {
+                System.out.println("[LWJGL] Repair GL Context for Mesa renderer");
                 int[] dims = getNativeWidthHeight();
                 currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
                 callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
-            } else if (renderer.matches("lib(gl4es|tinywrapper).*")) {
-                // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
+            } else if (renderer.matches("lib(gl4es|vgpu|tinywrapper).*")) {
+                System.out.println("[LWJGL] Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit");
                 Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
                 currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
                 glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
