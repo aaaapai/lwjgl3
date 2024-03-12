@@ -293,26 +293,31 @@ public final class GL {
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
         long currentContext;
+        String renderer = System.getProperty("org.lwjgl.opengl.libname");
         if (Platform.get() == Platform.LINUX
         && System.getenv("POJAV_EXP_SETUP") != null
         && System.getenv("POJAV_EXP_FRAME_BUFFER") != null) {
             System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
-            String renderer = System.getProperty("org.lwjgl.opengl.libname");
             if (renderer.startsWith("libOSMesa")) {
                 if (System.getenv("POJAV_ZINK_CRASH_HANDLE") != null || System.getenv("DCLAT_FRAMEBUFFER") != null) {
-                    System.out.println("[LWJGL] Repair GL Context for Mesa renderer");
+                    System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
                     int[] dims = getNativeWidthHeight();
                     currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
                     callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
                 } else {
                     System.out.println("[LWJGL] Frame buffers are not used");
+                    Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+                    currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+                    glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
                 }
             }
         }
-        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
-        Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-        currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
-        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        if (!renderer.startsWith("libOSMesa" )) {
+            // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+            glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        }
     }
 
     /**
