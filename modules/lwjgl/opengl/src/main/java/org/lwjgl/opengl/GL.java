@@ -301,11 +301,9 @@ public final class GL {
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
         String renderer = System.getProperty("org.lwjgl.opengl.libname");
-        if (Platform.get() == Platform.LINUX
-        && System.getenv("POJAV_EXP_SETUP") != null
-        && System.getenv("POJAV_EXP_FRAME_BUFFER") != null) {
-            System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
-            if (renderer.startsWith("libOSMesa")) {
+        if (Platform.get() == Platform.LINUX && renderer.startsWith("libOSMesa")) {
+            if (System.getenv("POJAV_EXP_FRAME_BUFFER") != null && System.getenv("POJAV_EXP_SETUP") != null) {
+                System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
                 if (System.getenv("POJAV_ZINK_CRASH_HANDLE") != null || System.getenv("DCLAT_FRAMEBUFFER") != null) {
                     System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
                     long currentContext;
@@ -316,9 +314,10 @@ public final class GL {
                     System.out.println("[LWJGL] Frame buffers are not used");
                     fixPojavGLContestPro();
                 }
+            } else {
+                fixPojavGLContestPro();
             }
-        }
-        if (!renderer.startsWith("libOSMesa" )) {
+        } else {
             fixPojavGLContestPro();
         }
     }
