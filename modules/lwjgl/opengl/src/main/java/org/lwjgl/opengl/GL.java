@@ -290,7 +290,7 @@ public final class GL {
         }
     }
 
-    private static void fixPojavGLContestPro() {
+    private static void fixPojavGLContestPro() throws Exception {
         // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
         long currentContext;
         Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
