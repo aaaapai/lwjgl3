@@ -305,9 +305,7 @@ public final class GL {
                     currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
                     callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
                 } else {
-                    Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-                    currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
-                    glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+                    System.out.println("[LWJGL] Frame buffers are not used");
                 }
             }
         }
