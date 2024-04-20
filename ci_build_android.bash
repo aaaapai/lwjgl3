@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
-wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
-unzip android-ndk-r26d-linux.zip >> /dev/null
-export LIBFFI_VERSION=3.4.2
+#wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
+#unzip android-ndk-r26d-linux.zip >> /dev/null
+export LIBFFI_VERSION=3.4.6
 export ANDROID=1 LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
 
@@ -21,7 +21,7 @@ elif [ "$LWJGL_BUILD_ARCH" == "x64" ]; then
 fi
 
 export TARGET=$NDK_TARGET-linux-android$NDK_SUFFIX
-export PATH=$PATH:./android-ndk-r26d/toolchains/llvm/prebuilt/linux-x86_64/bin
+export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
 
 LWJGL_NATIVE=bin/libs/native/linux/$LWJGL_BUILD_ARCH/org/lwjgl
 mkdir -p $LWJGL_NATIVE
