@@ -2,6 +2,7 @@
 set -e
 #wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
 #unzip android-ndk-r26d-linux.zip >> /dev/null
+export CFLAGS+= -DANDROID -pipe -integrated-as -fno-plt -Ofast -flto -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce
 export LIBFFI_VERSION=3.4.6
 export ANDROID=1 LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
@@ -47,7 +48,7 @@ fi
 # Download libraries
 POJAV_NATIVES="https://github.com/PojavLauncherTeam/PojavLauncher/raw/v3_openjdk/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
-wget -nc "https://github.com/aaaapai/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
+wget -nc "https://nightly.link/aaaapai/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 
 # HACK: Skip compiling and running the generator to save time and keep LWJGLX functions
