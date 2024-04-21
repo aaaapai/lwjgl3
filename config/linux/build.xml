@@ -17,7 +17,7 @@
     </condition>
 -->
 
-    <property name="ndk.abi" value="21"/>
+    <property name="ndk.abi" value="24"/>
     <property name="ndk.home" value="${env.ANDROID_NDK_HOME}"/>
     <property name="ndk.bin" value="${ndk.home}/toolchains/llvm/prebuilt/linux-x86_64/bin"/>
 
@@ -52,7 +52,7 @@
                 <arg line="-c -std=gnu++14" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
-                <arg line="-O3 @{lto} -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
+                <arg line="-DANDROID -pipe -integrated-as -fno-plt -Ofast -flto -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce @{lto} -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
                 <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
                 <arg line="-D_FILE_OFFSET_BITS=64"/>
 
