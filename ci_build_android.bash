@@ -22,7 +22,6 @@ fi
 
 export TARGET=$NDK_TARGET-linux-android$NDK_SUFFIX
 export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
-export CFLAGS+= -DANDROID -pipe -integrated-as -fno-plt -Ofast -flto -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce
 LWJGL_NATIVE=bin/libs/native/linux/$LWJGL_BUILD_ARCH/org/lwjgl
 mkdir -p $LWJGL_NATIVE
 
