@@ -18,7 +18,7 @@
 -->
 
     <property name="ndk.abi" value="21"/>
-    <property name="ndk.home" value="./android-ndk-r26d"/>
+    <property name="ndk.home" value="${env.ANDROID_NDK_HOME}"/>
     <property name="ndk.bin" value="${ndk.home}/toolchains/llvm/prebuilt/linux-x86_64/bin"/>
 
     <property name="ndk.prefix" value="${ndk.bin}/aarch64-linux-android" if:set="build.arch.arm64"/>
