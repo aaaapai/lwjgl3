@@ -18,7 +18,7 @@
 -->
 
     <property name="ndk.abi" value="21"/>
-    <property name="ndk.home" value="${env.ANDROID_NDK_HOME}"/>
+    <property name="ndk.home" value="./android-ndk-r26d"/>
     <property name="ndk.bin" value="${ndk.home}/toolchains/llvm/prebuilt/linux-x86_64/bin"/>
 
     <property name="ndk.prefix" value="${ndk.bin}/aarch64-linux-android" if:set="build.arch.arm64"/>
@@ -156,7 +156,7 @@
 
                 <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
-                <arg line="-O3 -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-DANDROID -pipe -integrated-as -fno-plt -Ofast -flto -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
