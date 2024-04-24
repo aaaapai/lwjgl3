@@ -14,6 +14,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Get JRE17
+      uses: dawidd6/action-download-artifact@v3
+      with:
+        workflow: buildjre17.yml
+        path: bin/libs/native/linux/arm64/org/lwjgl
+        workflow_conclusion: success
+        repo: aaaapai/openal-soft
+        branch: patch-1
+        name: openal
+          
     - name: set up JDK
       uses: actions/setup-java@v4
       with:
@@ -22,7 +32,7 @@ jobs:
 
     - name: Build for Android ${{matrix.arch}}
       run: |
-        export JAVA8_HOME=$JAVA_HOME_21_${{runner.arch}}
+        export JAVA8_HOME=$JAVA_HOME_8_${{runner.arch}}
         export LWJGL_BUILD_ARCH=${{matrix.arch}}
         bash ci_build_android.bash
 
