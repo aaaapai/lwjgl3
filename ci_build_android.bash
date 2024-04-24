@@ -44,8 +44,6 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
 fi
 
 # Download libraries
-POJAV_NATIVES="https://github.com/Vera-Firefly/Pojav-Glow-Worm/raw/exp_v3/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
-wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
 wget -nc "https://nightly.link/aaaapai/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 
