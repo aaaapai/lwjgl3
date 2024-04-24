@@ -14,12 +14,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Get JRE17
+    - name: Get openal
       uses: dawidd6/action-download-artifact@v3
       with:
-        workflow: CMake.yml
         path: bin/libs/native/linux/arm64/org/lwjgl
-        workflow_conclusion: success
         repo: aaaapai/openal-soft
         branch: patch-1
         name: openal
