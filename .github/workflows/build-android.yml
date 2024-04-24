@@ -9,19 +9,11 @@ jobs:
         arch: [ "arm64" ]
       fail-fast: false
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Get openal
-      uses: dawidd6/action-download-artifact@v3
-      with:
-        path: bin/libs/native/linux/arm64/org/lwjgl
-        repo: aaaapai/openal-soft
-        branch: patch-1
-        name: openal
-          
     - name: set up JDK
       uses: actions/setup-java@v4
       with:
