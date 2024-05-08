@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 export LIBFFI_VERSION=3.4.2
-export ANDROID=1 LWJGL_BUILD_OFFLINE=1
+export ANDROID=1
+export LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
