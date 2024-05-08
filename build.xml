@@ -1457,11 +1457,11 @@
 
         <local name="input"/>
         <input
-            message="It is recommended to build LWJGL releases on JDK 16 or higher. Continue with current JDK?"
+            message="It is recommended to build LWJGL releases on JDK 10 or higher. Continue with current JDK?"
             validargs="y,n"
             defaultvalue="n"
             addproperty="input"
-            unless:set="jdk16"
+            unless:set="jdk10"
         />
         <fail message="Cancelled" unless:set="jdk16">
             <condition>
