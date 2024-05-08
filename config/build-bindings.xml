@@ -43,36 +43,36 @@ This script is included in /config/build-definitions.xml.
     </condition>
     <property name="binding.meshoptimizer" value="true"/>
     <property name="binding.nanovg" value="true"/>
-    <property name="binding.nfd" value="true"/>
-    <property name="binding.nuklear" value="true"/>
-    <property name="binding.odbc" value="true"/>
+    <property name="binding.nfd" value="false"/>
+    <property name="binding.nuklear" value="false"/>
+    <property name="binding.odbc" value="false"/>
     <property name="binding.openal" value="true"/>
-    <property name="binding.opencl" value="true"/>
+    <property name="binding.opencl" value="false"/>
     <property name="binding.opengl" value="true"/>
     <property name="binding.opengles" value="true"/>
-    <condition property="binding.openvr" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
-    <property name="binding.openxr" value="true"/>
-    <property name="binding.opus" value="true"/>
-    <property name="binding.par" value="true"/>
-    <condition property="binding.remotery" value="false" else="true">
+    <condition property="binding.openvr" value="false" else="false"><isset property="build.arch.x64|x86"/></condition>
+    <property name="binding.openxr" value="false"/>
+    <property name="binding.opus" value="false"/>
+    <property name="binding.par" value="false"/>
+    <condition property="binding.remotery" value="false" else="false">
         <and>
             <isset property="platform.windows"/>
             <isset property="build.arch.arm"/>
         </and>
     </condition>
-    <property name="binding.rpmalloc" value="true"/>
+    <property name="binding.rpmalloc" value="false"/>
     <property name="binding.shaderc" value="true"/>
-    <property name="binding.spvc" value="true"/>
-    <condition property="binding.sse" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
+    <property name="binding.spvc" value="false"/>
+    <condition property="binding.sse" value="false" else="false"><isset property="build.arch.x64|x86"/></condition>
     <property name="binding.stb" value="true"/>
-    <property name="binding.tinyexr" value="true"/>
+    <property name="binding.tinyexr" value="false"/>
     <property name="binding.tinyfd" value="true"/>
-    <condition property="binding.tootle" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
+    <condition property="binding.tootle" value="false" else="false"><isset property="build.arch.x64|x86"/></condition>
     <property name="binding.vulkan" value="true"/>
     <condition property="binding.vma" value="true" else="false"><istrue value="${binding.vulkan}"/></condition>
-    <property name="binding.xxhash" value="true"/>
-    <property name="binding.yoga" value="true"/>
-    <property name="binding.zstd" value="true"/>
+    <property name="binding.xxhash" value="false"/>
+    <property name="binding.yoga" value="false"/>
+    <property name="binding.zstd" value="false"/>
 
     <!-- TODO: automate -->
     <property name="java-only.binding.cuda" value="true"/>

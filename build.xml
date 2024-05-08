@@ -630,7 +630,7 @@
         </java>
     </target>
 
-    <target name="compile-tests" description="Compiles the LWJGL test suite" depends="compile">
+    <target name="compile-tests" description="Compiles the LWJGL test suite">
         <mkdir dir="${bin.test}"/>
         <forEachModule>
             <local name="hasTests"/>
@@ -872,7 +872,7 @@
         </lwjgl.javac>
     </target>
 
-    <target name="tests" description="Runs the LWJGL test suite" depends="compile-tests, compile-native">
+    <target name="tests" description="Runs the LWJGL test suite" depends="compile-tests">
         <testng haltonfailure="true" outputDir="${bin.test.html}" taskname="Tests">
             <classpath>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/9" if:set="core.java9"/>
