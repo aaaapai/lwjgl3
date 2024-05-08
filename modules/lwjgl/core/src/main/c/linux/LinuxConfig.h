@@ -10,6 +10,7 @@
     _Pragma("GCC diagnostic push")
     _Pragma("GCC diagnostic ignored \"-Wall\"") \
     _Pragma("GCC diagnostic ignored \"-Wextra\"")
+    _Pragma("GCC diagnostic ignored \"-Wgnu-statement-expression\"")
 
 #define ENABLE_WARNINGS() \
     _Pragma("GCC diagnostic pop")
