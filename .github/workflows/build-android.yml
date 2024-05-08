@@ -23,7 +23,6 @@ jobs:
     - name: Build for Android ${{matrix.arch}}
       run: |
         export JAVA8_HOME=$JAVA_HOME_8_${{runner.arch}}
-        export LWJGL_BUILD_ARCH=${{matrix.arch}}
         bash ci_build_android.bash
 
     - name: Upload modules release output
