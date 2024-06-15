@@ -28,7 +28,6 @@ val EXT_blend_operation_advanced = "EXTBlendOperationAdvanced".nativeClassVK("EX
 
         In addition to the coherency issues on implementations not supporting {@code advancedBlendCoherentOperations}, this extension has several limitations worth noting. First, the new blend operations have a limit on the number of color attachments they <b>can</b> be used with, as indicated by ##VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT{@code ::advancedBlendMaxColorAttachments}. Additionally, blending precision <b>may</b> be limited to 16-bit floating-point, which <b>may</b> result in a loss of precision and dynamic range for framebuffer formats with 32-bit floating-point components, and in a loss of precision for formats with 12- and 16-bit signed or unsigned normalized integer components.
 
-        <h5>VK_EXT_blend_operation_advanced</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_blend_operation_advanced}</dd>
@@ -43,13 +42,11 @@ val EXT_blend_operation_advanced = "EXTBlendOperationAdvanced".nativeClassVK("EX
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_blend_operation_advanced]%20@jeffbolznv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_blend_operation_advanced%20extension%3E%3E">jeffbolznv</a></li>
+                <li>Jeff Bolz <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_blend_operation_advanced]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_blend_operation_advanced%20extension*">jeffbolznv</a></li>
             </ul></dd>
         </dl>
 
@@ -173,7 +170,7 @@ val EXT_blend_operation_advanced = "EXTBlendOperationAdvanced".nativeClassVK("EX
         </table>
 
         <h5>See Also</h5>
-        ##VkPipelineColorBlendAdvancedStateCreateInfoEXT
+        ##VkColorBlendAdvancedEXT, ##VkPipelineColorBlendAdvancedStateCreateInfoEXT
         """,
 
         "BLEND_OVERLAP_UNCORRELATED_EXT".."0",

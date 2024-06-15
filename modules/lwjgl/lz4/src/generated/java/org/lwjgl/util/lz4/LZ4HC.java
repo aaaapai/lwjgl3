@@ -13,7 +13,7 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Native bindings to the high-compression API of <a target="_blank" href="http://lz4.github.io/lz4/">LZ4</a>.
+ * Native bindings to the high-compression API of <a href="https://lz4.org/">LZ4</a>.
  * 
  * <h3>Streaming Compression - Bufferless synchronous API</h3>
  * 
@@ -69,9 +69,7 @@ public class LZ4HC {
 
     public static final int LZ4HC_HASH_MASK = (LZ4HC_HASHTABLESIZE - 1);
 
-    public static final int LZ4_STREAMHCSIZE = 262200;
-
-    public static final int LZ4_STREAMHCSIZE_VOIDP = (LZ4_STREAMHCSIZE / Pointer.POINTER_SIZE);
+    public static final int LZ4_STREAMHC_MINSIZE = 262200;
 
     protected LZ4HC() {
         throw new UnsupportedOperationException();

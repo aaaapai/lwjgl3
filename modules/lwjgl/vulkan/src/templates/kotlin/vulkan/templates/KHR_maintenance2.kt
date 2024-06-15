@@ -25,7 +25,7 @@ val KHR_maintenance2 = "KHRMaintenance2".nativeClassVK("KHR_maintenance2", type 
         </ul>
 
         <h5>Input Attachment Specification</h5>
-        Input attachment specification allows an application to specify which aspect of a multi-aspect image (e.g. a combined depth stencil format) will be accessed via a {@code subpassLoad} operation.
+        Input attachment specification allows an application to specify which aspect of a multi-aspect image (e.g. a depth/stencil format) will be accessed via a {@code subpassLoad} operation.
 
         On some implementations there <b>may</b> be a performance penalty if the implementation does not know (at #CreateRenderPass() time) which aspect(s) of multi-aspect images <b>can</b> be accessed as input attachments.
 
@@ -64,7 +64,6 @@ val KHR_maintenance2 = "KHRMaintenance2".nativeClassVK("KHR_maintenance2", type 
 ￿
 ￿    vkCreateRenderPass(...);</code></pre>
 
-        <h5>VK_KHR_maintenance2</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_maintenance2}</dd>
@@ -78,19 +77,14 @@ val KHR_maintenance2 = "KHRMaintenance2".nativeClassVK("KHR_maintenance2", type 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
-            <dt><b>Deprecation state</b></dt>
-            <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Michael Worcester <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_maintenance2]%20@michaelworcester%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_maintenance2%20extension%3E%3E">michaelworcester</a></li>
+                <li>Michael Worcester <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_maintenance2]%20@michaelworcester%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_maintenance2%20extension*">michaelworcester</a></li>
             </ul></dd>
         </dl>
 
@@ -98,11 +92,6 @@ val KHR_maintenance2 = "KHRMaintenance2".nativeClassVK("KHR_maintenance2", type 
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2017-09-05</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.1 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

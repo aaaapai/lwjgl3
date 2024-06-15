@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If the {@link VkPhysicalDevicePrivateDataFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDevicePrivateDataFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
+ * <p>If the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -32,12 +32,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR {
- *     VkStructureType sType;
- *     void * pNext;
+ *     VkStructureType {@link #sType};
+ *     void * {@link #pNext};
  *     VkBool32 {@link #shaderSubgroupUniformControlFlow};
  * }</code></pre>
  */
-public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends Struct implements NativeResource {
+public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends Struct<VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,6 +66,15 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
         SHADERSUBGROUPUNIFORMCONTROLFLOW = layout.offsetof(2);
     }
 
+    protected VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR create(long address, @Nullable ByteBuffer container) {
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(address, container);
+    }
+
     /**
      * Creates a {@code VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -79,21 +88,21 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code sType} field. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** @return the value of the {@code pNext} field. */
+    /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
     /** specifies whether the implementation supports the shader execution mode {@code SubgroupUniformControlFlowKHR} */
     @NativeType("VkBool32")
     public boolean shaderSubgroupUniformControlFlow() { return nshaderSubgroupUniformControlFlow(address()) != 0; }
 
-    /** Sets the specified value to the {@code sType} field. */
+    /** Sets the specified value to the {@link #sType} field. */
     public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRShaderSubgroupUniformControlFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR} value to the {@code sType} field. */
+    /** Sets the {@link KHRShaderSubgroupUniformControlFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR} value to the {@link #sType} field. */
     public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR sType$Default() { return sType(KHRShaderSubgroupUniformControlFlow.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR); }
-    /** Sets the specified value to the {@code pNext} field. */
+    /** Sets the specified value to the {@link #pNext} field. */
     public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #shaderSubgroupUniformControlFlow} field. */
     public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR shaderSubgroupUniformControlFlow(@NativeType("VkBool32") boolean value) { nshaderSubgroupUniformControlFlow(address(), value ? 1 : 0); return this; }
@@ -127,29 +136,29 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
 
     /** Returns a new {@code VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR malloc() {
-        return wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, nmemAllocChecked(SIZEOF));
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR calloc() {
-        return wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} instance allocated with {@link BufferUtils}. */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, memAddress(container), container);
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR} instance for the specified memory address. */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR create(long address) {
-        return wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, address);
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, address);
+        return address == NULL ? null : new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(address, null);
     }
 
     /**
@@ -158,7 +167,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -167,7 +176,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -177,7 +186,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -187,13 +196,13 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -202,7 +211,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR malloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -211,7 +220,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param stack the stack from which to allocate
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR calloc(MemoryStack stack) {
-        return wrap(VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -221,7 +230,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -231,7 +240,7 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
      * @param capacity the buffer capacity
      */
     public static VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -260,9 +269,9 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
         /**
          * Creates a new {@code VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -288,21 +297,21 @@ public class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code sType} field. */
+        /** @return the value of the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.nsType(address()); }
-        /** @return the value of the {@code pNext} field. */
+        /** @return the value of the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.npNext(address()); }
         /** @return the value of the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#shaderSubgroupUniformControlFlow} field. */
         @NativeType("VkBool32")
         public boolean shaderSubgroupUniformControlFlow() { return VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.nshaderSubgroupUniformControlFlow(address()) != 0; }
 
-        /** Sets the specified value to the {@code sType} field. */
+        /** Sets the specified value to the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#sType} field. */
         public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRShaderSubgroupUniformControlFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR} value to the {@code sType} field. */
+        /** Sets the {@link KHRShaderSubgroupUniformControlFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR} value to the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#sType} field. */
         public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer sType$Default() { return sType(KHRShaderSubgroupUniformControlFlow.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR); }
-        /** Sets the specified value to the {@code pNext} field. */
+        /** Sets the specified value to the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#pNext} field. */
         public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR#shaderSubgroupUniformControlFlow} field. */
         public VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.Buffer shaderSubgroupUniformControlFlow(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR.nshaderSubgroupUniformControlFlow(address(), value ? 1 : 0); return this; }

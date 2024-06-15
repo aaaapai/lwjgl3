@@ -15,7 +15,6 @@ val NV_fragment_coverage_to_color = "NVFragmentCoverageToColor".nativeClassVK("N
 
         This functionality may be useful for deferred rendering algorithms, where the second pass needs to know which samples belong to which original fragments.
 
-        <h5>VK_NV_fragment_coverage_to_color</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_fragment_coverage_to_color}</dd>
@@ -29,14 +28,9 @@ val NV_fragment_coverage_to_color = "NVFragmentCoverageToColor".nativeClassVK("N
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jeff Bolz <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_fragment_coverage_to_color]%20@jeffbolznv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_fragment_coverage_to_color%20extension%3E%3E">jeffbolznv</a></li>
+                <li>Jeff Bolz <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_fragment_coverage_to_color]%20@jeffbolznv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_fragment_coverage_to_color%20extension*">jeffbolznv</a></li>
             </ul></dd>
         </dl>
 

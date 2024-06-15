@@ -14,7 +14,7 @@ import org.lwjgl.*;
 import org.lwjgl.system.*;
 
 /**
- * Native bindings to the <a target="_blank" href="https://www.khronos.org/registry/OpenGL/extensions/ARB/ARB_separate_shader_objects.txt">ARB_separate_shader_objects</a> extension.
+ * Native bindings to the <a href="https://www.khronos.org/registry/OpenGL/extensions/ARB/ARB_separate_shader_objects.txt">ARB_separate_shader_objects</a> extension.
  * 
  * <p>Conventional GLSL requires multiple shader stages (vertex, fragment, geometry, tessellation control, and tessellation evaluation) to be linked into a
  * single monolithic program object to specify a GLSL shader for each stage.</p>
@@ -157,7 +157,7 @@ public class ARBSeparateShaderObjects {
      * @param strings an array of pointers to source code strings from which to create the program object
      */
     @NativeType("GLuint")
-    public static int glCreateShaderProgramv(@NativeType("GLenum") int type, @NativeType("GLchar const **") PointerBuffer strings) {
+    public static int glCreateShaderProgramv(@NativeType("GLenum") int type, @NativeType("GLchar const * const *") PointerBuffer strings) {
         return GL41C.glCreateShaderProgramv(type, strings);
     }
 
@@ -195,7 +195,7 @@ public class ARBSeparateShaderObjects {
      * @param strings an array of pointers to source code strings from which to create the program object
      */
     @NativeType("GLuint")
-    public static int glCreateShaderProgramv(@NativeType("GLenum") int type, @NativeType("GLchar const **") CharSequence... strings) {
+    public static int glCreateShaderProgramv(@NativeType("GLenum") int type, @NativeType("GLchar const * const *") CharSequence... strings) {
         return GL41C.glCreateShaderProgramv(type, strings);
     }
 
@@ -232,7 +232,7 @@ public class ARBSeparateShaderObjects {
      * @param type the type of shader to create
      */
     @NativeType("GLuint")
-    public static int glCreateShaderProgramv(@NativeType("GLenum") int type, @NativeType("GLchar const **") CharSequence string) {
+    public static int glCreateShaderProgramv(@NativeType("GLenum") int type, @NativeType("GLchar const * const *") CharSequence string) {
         return GL41C.glCreateShaderProgramv(type, string);
     }
 

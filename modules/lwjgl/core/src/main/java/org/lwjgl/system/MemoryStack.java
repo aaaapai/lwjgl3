@@ -200,9 +200,16 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
             if (popped != null) {
                 reportAsymmetricPop(pushed, popped);
             }
-            debugFrames[frameIndex - 1] = null;
 
+            debugFrames[frameIndex - 1] = null;
             return super.pop();
+        }
+
+        // No need to check pop in try-with-resources
+        @Override
+        public void close() {
+            debugFrames[frameIndex - 1] = null;
+            super.pop();
         }
 
         private static void reportAsymmetricPop(Object pushed, Object popped) {
@@ -497,13 +504,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** CLong version of {@link #malloc(int)}. */
-    public CLongBuffer mallocCLong(int size) { return wrap(CLongBuffer.class, nmalloc(CLONG_SIZE, size << CLONG_SHIFT), size); }
+    public CLongBuffer mallocCLong(int size) { return CLongBuffer.create(nmalloc(CLONG_SIZE, size << CLONG_SHIFT), size); }
     /** CLong version of {@link #calloc(int)}. */
     public CLongBuffer callocCLong(int size) {
         int  bytes   = size * CLONG_SIZE;
         long address = nmalloc(CLONG_SIZE, bytes);
         memSet(address, 0, bytes);
-        return wrap(CLongBuffer.class, address, size);
+        return CLongBuffer.create(address, size);
     }
 
     /** Unsafe version of {@link #clongs(long)}. */
@@ -596,13 +603,13 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
     // -------------------------------------------------
 
     /** Pointer version of {@link #malloc(int)}. */
-    public PointerBuffer mallocPointer(int size) { return wrap(PointerBuffer.class, nmalloc(POINTER_SIZE, size << POINTER_SHIFT), size); }
+    public PointerBuffer mallocPointer(int size) { return PointerBuffer.create(nmalloc(POINTER_SIZE, size << POINTER_SHIFT), size); }
     /** Pointer version of {@link #calloc(int)}. */
     public PointerBuffer callocPointer(int size) {
         int  bytes   = size * POINTER_SIZE;
         long address = nmalloc(POINTER_SIZE, bytes);
         memSet(address, 0, bytes);
-        return wrap(PointerBuffer.class, address, size);
+        return PointerBuffer.create(address, size);
     }
 
     /** Unsafe version of {@link #pointers(long)}. */
@@ -688,6 +695,30 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
             buffer.put(i, memAddress(values[i]));
         }
         return buffer;
+    }
+
+    // -------------------------------------------------
+
+    /**
+     * Allocates a new {@link PointerBuffer} of size {@code buffer.remaining()}
+     * and fills it with the addresses of the values within the provided {@link CustomBuffer}
+     * starting at {@code buffer.position()}.
+     *
+     * @param buffer the {@link CustomBuffer} to obtain its element addresses of
+     *
+     * @return a {@link PointerBuffer} containing the buffer's element addresses
+     */
+    public PointerBuffer pointersOfElements(CustomBuffer<?> buffer) {
+        int  remaining = buffer.remaining();
+        long addr      = buffer.address();
+        long sizeof    = buffer.sizeof();
+
+        PointerBuffer pointerBuffer = mallocPointer(remaining);
+        for (int i = 0; i < remaining; i++) {
+            pointerBuffer.put(i, addr + sizeof * i);
+        }
+
+        return pointerBuffer;
     }
 
     // -------------------------------------------------

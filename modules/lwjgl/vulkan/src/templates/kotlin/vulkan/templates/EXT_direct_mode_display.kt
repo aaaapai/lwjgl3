@@ -13,7 +13,6 @@ val EXT_direct_mode_display = "EXTDirectModeDisplay".nativeClassVK("EXT_direct_m
         """
         This is extension, along with related platform extensions, allows applications to take exclusive control of displays associated with a native windowing system. This is especially useful for virtual reality applications that wish to hide HMDs (head mounted displays) from the native platform’s display management system, desktop, and/or other applications.
 
-        <h5>VK_EXT_direct_mode_display</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_direct_mode_display}</dd>
@@ -28,14 +27,11 @@ val EXT_direct_mode_display = "EXTDirectModeDisplay".nativeClassVK("EXT_direct_m
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRDisplay VK_KHR_display}</li>
-            </ul></dd>
+            <dd>{@link KHRDisplay VK_KHR_display}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_direct_mode_display]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_direct_mode_display%20extension%3E%3E">cubanismo</a></li>
+                <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_direct_mode_display]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_direct_mode_display%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 

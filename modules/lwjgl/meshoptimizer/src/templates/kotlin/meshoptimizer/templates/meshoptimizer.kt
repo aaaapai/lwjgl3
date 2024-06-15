@@ -7,18 +7,19 @@ package meshoptimizer.templates
 import meshoptimizer.*
 import org.lwjgl.generator.*
 
-val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "MESHOPTIMIZER", prefixMethod = "meshopt_") {
+val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "meshopt", prefixMethod = "meshopt_") {
     nativeImport("meshoptimizer.h")
     javaImport("static java.lang.Float.*")
 
+    cpp = true
     documentation =
         """
         Native bindings to ${url("https://github.com/zeux/meshoptimizer", "meshoptimizer")}.
-        
+
         When a GPU renders triangle meshes, various stages of the GPU pipeline have to process vertex and index data. The efficiency of these stages depends on
         the data you feed to them; this library provides algorithms to help optimize meshes for these stages, as well as algorithms to reduce the mesh
         complexity and storage overhead.
-        
+
         <h3>Pipeline</h3>
 
         When optimizing a mesh, you should typically feed it through a set of optimizations (the order is important!):
@@ -292,7 +293,7 @@ meshopt_setAllocator(malloc, free);""")}
         via arguments.
 
         All functions have bounded stack usage that does not exceed 32 KB for any algorithms.
-        
+
         LWJGL note: meshoptimizer can be configured to use the LWJGL memory allocator with the following code:
         ${codeBlock("""
 nmeshopt_setAllocator(
@@ -301,23 +302,23 @@ nmeshopt_setAllocator(
 );""")}
         """
 
-    IntConstant("", "VERSION".."170")
+    IntConstant("", "MESHOPTIMIZER_VERSION".."200").noPrefix()
 
     size_t(
         "generateVertexRemap",
         """
         Generates a vertex remap table from the vertex buffer and an optional index buffer and returns number of unique vertices.
-        
+
         As a result, all vertices that are binary equivalent map to the same (new) location, with no gaps in the resulting sequence. Resulting remap table
         maps old vertices to new vertices and can be used in #remapVertexBuffer()/#remapIndexBuffer(). Note that binary equivalence considers all
         {@code vertex_size} bytes, including padding which should be zero-initialized.
         """,
 
-        unsigned_int.p("destination", "must contain enough space for the resulting remap table ({@code vertex_count} elements)"),
+        Check("vertex_count")..unsigned_int.p("destination", "must contain enough space for the resulting remap table ({@code vertex_count} elements)"),
         Check("index_count")..nullable..unsigned_int.const.p("indices", "can be #NULL if the input is unindexed"),
         size_t("index_count", ""),
         Check("vertex_count * vertex_size")..void.const.p("vertices", ""),
-        UseVariable..AutoSize("destination")..size_t("vertex_count", ""),
+        size_t("vertex_count", ""),
         size_t("vertex_size", "")
     )
 
@@ -325,19 +326,19 @@ nmeshopt_setAllocator(
         "generateVertexRemapMulti",
         """
         Generates a vertex remap table from multiple vertex streams and an optional index buffer and returns number of unique vertices.
-         
+
         As a result, all vertices that are binary equivalent map to the same (new) location, with no gaps in the resulting sequence. Resulting remap table maps
         old vertices to new vertices and can be used in #remapVertexBuffer()/#remapIndexBuffer(). To remap vertex buffers, you will need to call
         {@code meshopt_remapVertexBuffer} for each vertex stream. Note that binary equivalence considers all size bytes in each stream, including padding which
         should be zero-initialized.
         """,
 
-        unsigned_int.p("destination", "must contain enough space for the resulting remap table ({@code vertex_count} elements)"),
-        Check("index_count")..nullable..unsigned_int.const.p("indices", "can be #NULL if the input is unindexed"),
-        size_t("index_count", ""),
-        UseVariable..AutoSize("destination")..size_t("vertex_count", ""),
+        Check("vertex_count")..unsigned_int.p("destination", "must contain enough space for the resulting remap table ({@code vertex_count} elements)"),
+        nullable..unsigned_int.const.p("indices", "can be #NULL if the input is unindexed"),
+        AutoSize("indices")..size_t("index_count", ""),
+        size_t("vertex_count", ""),
         meshopt_Stream.const.p("streams", ""),
-        AutoSize("streams")..size_t("stream_count", "")
+        AutoSize("streams")..size_t("stream_count", "must be &le; 16")
     )
 
     void(
@@ -349,21 +350,21 @@ nmeshopt_setAllocator(
             "must contain enough space for the resulting vertex buffer ({@code unique_vertex_count} elements, returned by {@code meshopt_generateVertexRemap})"
         ),
         Check("vertex_count * vertex_size")..void.const.p("vertices", ""),
-        UseVariable..AutoSize("remap")..size_t(
+        size_t(
             "vertex_count",
             "should be the initial vertex count and not the value returned by {@code meshopt_generateVertexRemap}"
         ),
         size_t("vertex_size", ""),
-        unsigned_int.const.p("remap", "")
+        Check("vertex_count")..unsigned_int.const.p("remap", "")
     )
 
     void(
         "remapIndexBuffer",
         "Generates index buffer from the source index buffer and remap table generated by #generateVertexRemap().",
 
-        unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
-        nullable..unsigned_int.const.p("indices", "can be #NULL if the input is unindexed"),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        Check("index_count")..unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
+        Check("index_count")..nullable..unsigned_int.const.p("indices", "can be #NULL if the input is unindexed"),
+        size_t("index_count", ""),
         Unsafe..unsigned_int.const.p("remap", "")
     )
 
@@ -371,7 +372,7 @@ nmeshopt_setAllocator(
         "generateShadowIndexBuffer",
         """
         Generates index buffer that can be used for more efficient rendering when only a subset of the vertex attributes is necessary.
-        
+
         All vertices that are binary equivalent (wrt first {@code vertex_size} bytes) map to the first vertex in the original vertex buffer. This makes it
         possible to use the index buffer for Z pre-pass or shadowmap rendering, while using the original index buffer for regular rendering. Note that binary
         equivalence considers all {@code vertex_size} bytes, including padding which should be zero-initialized.
@@ -379,7 +380,7 @@ nmeshopt_setAllocator(
 
         unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         Check("vertex_count * vertex_stride")..void.const.p("vertices", ""),
         size_t("vertex_count", ""),
         size_t("vertex_size", ""),
@@ -390,7 +391,7 @@ nmeshopt_setAllocator(
         "generateShadowIndexBufferMulti",
         """
         Generates index buffer that can be used for more efficient rendering when only a subset of the vertex attributes is necessary.
-        
+
         All vertices that are binary equivalent (wrt specified {@code streams}) map to the first vertex in the original vertex buffer. This makes it possible
         to use the index buffer for Z pre-pass or shadowmap rendering, while using the original index buffer for regular rendering. Note that binary
         equivalence considers all size bytes in each stream, including padding which should be zero-initialized.
@@ -398,10 +399,10 @@ nmeshopt_setAllocator(
 
         unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         size_t("vertex_count", ""),
         meshopt_Stream.const.p("streams", ""),
-        AutoSize("streams")..size_t("stream_count", "")
+        AutoSize("streams")..size_t("stream_count", "must be &le; 16")
     )
 
     void(
@@ -424,7 +425,7 @@ nmeshopt_setAllocator(
         AutoSize("indices")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
@@ -434,7 +435,7 @@ nmeshopt_setAllocator(
         "generateTessellationIndexBuffer",
         """
         Generate index buffer that can be used for PN-AEN tessellation with crack-free displacement.
-        
+
         Each triangle is converted into a 12-vertex patch with the following layout:
         ${ul(
             "0, 1, 2: original triangle vertices",
@@ -453,7 +454,7 @@ nmeshopt_setAllocator(
         AutoSize("indices")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
@@ -463,14 +464,14 @@ nmeshopt_setAllocator(
         "optimizeVertexCache",
         """
         Vertex transform cache optimizer.
-        
+
         Reorders {@code indices} to reduce the number of GPU vertex shader invocations. If index buffer contains multiple ranges for multiple draw calls, this
         function needs to be called on each range individually.
         """,
 
         unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         size_t("vertex_count", "")
     )
 
@@ -485,7 +486,7 @@ nmeshopt_setAllocator(
 
         unsigned_int.p("destination", ""),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         size_t("vertex_count", "")
     )
 
@@ -493,7 +494,7 @@ nmeshopt_setAllocator(
         "optimizeVertexCacheFifo",
         """
         Vertex transform cache optimizer for FIFO caches.
-        
+
         Reorders indices to reduce the number of GPU vertex shader invocations. Generally takes ~3x less time to optimize meshes but produces inferior results
         compared to #optimizeVertexCache(). If index buffer contains multiple ranges for multiple draw calls, this function needs to be called on each range
         individually.
@@ -501,7 +502,7 @@ nmeshopt_setAllocator(
 
         unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         size_t("vertex_count", ""),
         unsigned_int("cache_size", "should be less than the actual GPU cache size to avoid cache thrashing")
     )
@@ -510,17 +511,17 @@ nmeshopt_setAllocator(
         "optimizeOverdraw",
         """
         Overdraw optimizer.
-         
+
         Reorders indices to reduce the number of GPU vertex shader invocations and the pixel overdraw. If index buffer contains multiple ranges for multiple
         draw calls, this function needs to be called on each range individually.
         """,
 
         unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
         unsigned_int.const.p("indices", "must contain index data that is the result of #optimizeVertexCache() (<b>not</b> the original mesh indices!)"),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", ""),
@@ -534,7 +535,7 @@ nmeshopt_setAllocator(
         "optimizeVertexFetch",
         """
         Vertex fetch cache optimizer.
-         
+
         Reorders vertices and changes indices to reduce the amount of GPU memory fetches during vertex processing. Returns the number of unique vertices, which
         is the same as input vertex count unless some vertices are unused. This function works for a single vertex stream; for multiple vertex streams, use
         #optimizeVertexFetchRemap() + #remapVertexBuffer() for each stream.
@@ -552,7 +553,7 @@ nmeshopt_setAllocator(
         "optimizeVertexFetchRemap",
         """
         Vertex fetch cache optimizer.
-         
+
         Generates vertex remap to reduce the amount of GPU memory fetches during vertex processing. Returns the number of unique vertices, which is the same as
         input vertex count unless some vertices are unused. The resulting remap table should be used to reorder vertex/index buffers using
         #remapVertexBuffer()/#remapIndexBuffer().
@@ -568,7 +569,7 @@ nmeshopt_setAllocator(
         "encodeIndexBuffer",
         """
         Index buffer encoder.
-         
+
         Encodes index data into an array of bytes that is generally much smaller (&lt;1.5 bytes/triangle) and compresses better (&lt;1 bytes/triangle) compared
         to original. Input index buffer must represent a triangle list. Returns encoded data size on success, 0 on error; the only error condition is if buffer
         doesn't have enough space. For maximum efficiency the index buffer being encoded has to be optimized for vertex cache and vertex fetch first.
@@ -599,7 +600,7 @@ nmeshopt_setAllocator(
         "decodeIndexBuffer",
         """
         Index buffer decoder.
-         
+
         Decodes index data from an array of bytes generated by #encodeIndexBuffer(). Returns 0 if decoding was successful, and an error code otherwise. The
         decoder is safe to use for untrusted input, but it may produce garbage data (e.g. out of range indices).
         """,
@@ -654,7 +655,7 @@ nmeshopt_setAllocator(
         "encodeVertexBuffer",
         """
         Vertex buffer encoder.
-        
+
         Encodes vertex data into an array of bytes that is generally smaller and compresses better compared to original. Returns encoded data size on success,
         0 on error; the only error condition is if buffer doesn't have enough space. This function works for a single vertex stream; for multiple vertex
         streams, call {@code meshopt_encodeVertexBuffer} for each stream. Note that all {@code vertex_size} bytes of each vertex are encoded verbatim,
@@ -687,7 +688,7 @@ nmeshopt_setAllocator(
         "decodeVertexBuffer",
         """
         Vertex buffer decoder.
-         
+
         Decodes vertex data from an array of bytes generated by #encodeVertexBuffer(). Returns 0 if decoding was successful, and an error code otherwise. The
         decoder is safe to use for untrusted input, but it may produce garbage data.
         """,
@@ -739,11 +740,19 @@ nmeshopt_setAllocator(
         size_t("stride", "")
     )
 
+    EnumConstant(
+        "{@code meshopt_EncodeExpMode}",
+
+        "EncodeExpSeparate".enum("When encoding exponents, use separate values for each component (maximum quality).", "0"),
+        "EncodeExpSharedVector".enum("When encoding exponents, use shared value for all components of each vector (better compression)."),
+        "EncodeExpSharedComponent".enum("When encoding exponents, use shared value for each component of all vectors (best compression).")
+    )
+
     void(
         "encodeFilterOct",
         """
         Experimental: Encodes unit vectors with K-bit (K &le; 16) signed X/Y as an output.
-     
+
         Each component is stored as an 8-bit or 16-bit normalized integer; {@code stride} must be equal to 4 or 8. {@code W} is preserved as is. Input data
         must contain 4 floats for every vector ({@code count*4} total).
         """,
@@ -785,14 +794,28 @@ nmeshopt_setAllocator(
         size_t("count", ""),
         size_t("stride", ""),
         int("bits", ""),
-        Check("count * (stride >> 2)")..float.const.p("data", "")
+        Check("count * (stride >> 2)")..float.const.p("data", ""),
+        meshopt_EncodeExpMode("mode", "")
+    )
+
+    EnumConstant(
+        "Simplification options.",
+
+        "SimplifyLockBorder".enum(
+            """
+            Do not move vertices that are located on the topological border (vertices on triangle edges that don't have a paired triangle).
+
+            Useful for simplifying portions of the larger mesh.
+            """,
+            "1 << 0"
+        )
     )
 
     size_t(
         "simplify",
         """
-        Experimental: Mesh simplifier. Reduces the number of triangles in the mesh, attempting to preserve mesh appearance as much as possible.
-         
+        Mesh simplifier. Reduces the number of triangles in the mesh, attempting to preserve mesh appearance as much as possible.
+
         The algorithm tries to preserve mesh topology and can stop short of the target goal based on topology constraints or target error. If not all
         attributes from the input mesh are required, it's recommended to reindex the mesh using #generateShadowIndexBuffer() prior to simplification. Returns
         the number of indices after simplification, with destination containing new index data. The resulting index buffer references vertices from the
@@ -804,15 +827,67 @@ nmeshopt_setAllocator(
             "must contain enough space for the target index buffer, worst case is {@code index_count} elements (<b>not</b> {@code target_index_count})!"
         ),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", ""),
         size_t("target_index_count", ""),
-        float("target_error", "represents the error relative to mesh extents that can be tolerated, e.g. {@code 0.01 = 1% deformation}"),
+        float(
+            "target_error",
+            "represents the error relative to mesh extents that can be tolerated, e.g. {@code 0.01 = 1% deformation}; value range {@code [0..1]}"
+        ),
+        unsigned_int("options", "must be a bitmask composed of {@code meshopt_SimplifyX} options; 0 is a safe default"),
+        Check(1)..nullable..float.p("result_error", "can be #NULL; when it's not #NULL, it will contain the resulting (relative) error after simplification")
+    )
+
+    size_t(
+        "simplifyWithAttributes",
+        """
+        Experimental: Mesh simplifier with attribute metric.
+
+        The algorithm ehnahces #simplify() by incorporating attribute values into the error metric used to prioritize simplification order; see #simplify() for
+        details. Note that the number of attributes affects memory requirements and running time; this algorithm requires {@code ~1.5x} more memory and time
+        compared to #simplify() when using 4 scalar attributes.
+        """,
+
+        unsigned_int.p(
+            "destination",
+            "must contain enough space for the target index buffer, worst case is {@code index_count} elements (<b>not</b> {@code target_index_count})!"
+        ),
+        unsigned_int.const.p("indices", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
+        Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
+            "vertex_positions",
+            "should have {@code float3} position in the first 12 bytes of each vertex"
+        ),
+        size_t("vertex_count", ""),
+        size_t("vertex_positions_stride", ""),
+        Check("vertex_count * (vertex_attributes_stride >>> 2)")..float.const.p(
+            "vertex_attributes",
+            "should have {@code attribute_count} floats for each vertex"
+        ),
+        size_t("vertex_attributes_stride", ""),
+        float.const.p(
+            "attribute_weights",
+            """
+            should have {@code attribute_count} floats in total; the weights determine relative priority of attributes between each other and wrt position. The
+            recommended weight range is {@code [1e-3..1e-1]}, assuming attribute data is in {@code [0..1]} range.
+            """
+        ),
+        AutoSize("attribute_weights")..size_t("attribute_count", "must be &le; 16"),
+        Check("vertex_count")..nullable..unsigned_char.const.p(
+            "vertex_lock",
+            "can be #NULL; when it's not #NULL, it should have a value for each vertex; 1 denotes vertices that can't be moved"
+        ),
+        size_t("target_index_count", ""),
+        float(
+            "target_error",
+            "represents the error relative to mesh extents that can be tolerated, e.g. {@code 0.01 = 1% deformation}; value range {@code [0..1]}"
+        ),
+        unsigned_int("options", "must be a bitmask composed of {@code meshopt_SimplifyX} options; 0 is a safe default"),
         Check(1)..nullable..float.p("result_error", "can be #NULL; when it's not #NULL, it will contain the resulting (relative) error after simplification")
     )
 
@@ -820,7 +895,7 @@ nmeshopt_setAllocator(
         "simplifySloppy",
         """
         Experimental: Mesh simplifier (sloppy). Reduces the number of triangles in the mesh, sacrificing mesh appearance for simplification performance.
-         
+
         The algorithm doesn't preserve mesh topology but can stop short of the target goal based on target error. Returns the number of indices after
         simplification, with destination containing new index data. The resulting index buffer references vertices from the original vertex buffer. If the
         original vertex data isn't required, creating a compact vertex buffer using #optimizeVertexFetch() is recommended.
@@ -831,15 +906,18 @@ nmeshopt_setAllocator(
             "must contain enough space for the target index buffer, worst case is {@code index_count} elements (<b>not</b> {@code target_index_count})!"
         ),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", ""),
         size_t("target_index_count", ""),
-        float("target_error", "represents the error relative to mesh extents that can be tolerated, e.g. {@code 0.01 = 1% deformation}"),
+        float(
+            "target_error",
+            "represents the error relative to mesh extents that can be tolerated, e.g. {@code 0.01 = 1% deformation}; value range {@code [0..1]}"
+        ),
         Check(1)..nullable..float.p("result_error", "can be #NULL; when it's not #NULL, it will contain the resulting (relative) error after simplification")
     )
 
@@ -859,18 +937,24 @@ nmeshopt_setAllocator(
         ),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", ""),
+        Check("vertex_count * (vertex_colors_stride >>> 2)")..nullable..float.const.p(
+            "vertex_colors",
+            "can be #NULL; when it's not #NULL, it should have {@code float3} color in the first 12 bytes of each vertex"
+        ),
+        size_t("vertex_colors_stride", ""),
+        float("color_weight", ""),
         size_t("target_vertex_count", "")
     )
 
     float(
         "simplifyScale",
         """
-        Experimental: Returns the error scaling factor used by the simplifier to convert between absolute and relative extents.
-     
+        Returns the error scaling factor used by the simplifier to convert between absolute and relative extents.
+
         Absolute error must be <b>divided</b> by the scaling factor before passing it to #simplify() as {@code target_error}. Relative error returned by
         {@code meshopt_simplify} via {@code result_error} must be <b>multiplied</b> by the scaling factor to get absolute error.
         """,
@@ -885,7 +969,7 @@ nmeshopt_setAllocator(
         """
         Mesh stripifier. Converts a previously vertex cache optimized triangle list to triangle strip, stitching strips using restart index or degenerate
         triangles.
-         
+
         Returns the number of indices in the resulting strip, with destination containing new index data. For maximum efficiency the index buffer being
         converted has to be optimized for vertex cache first. Using restart indices can result in ~10% smaller index buffers, but on some GPUs restart indices
         may result in decreased performance.
@@ -909,7 +993,7 @@ nmeshopt_setAllocator(
         "unstripify",
         """
         Mesh unstripifier. Converts a triangle strip to a triangle list.
-         
+
         Returns the number of indices in the resulting list, with destination containing new index data.
         """,
 
@@ -930,7 +1014,7 @@ nmeshopt_setAllocator(
         "analyzeVertexCache",
         """
         Vertex transform cache analyzer.
-        
+
         Returns cache hit statistics using a simplified FIFO model. Results may not match actual GPU performance.
         """,
 
@@ -946,7 +1030,7 @@ nmeshopt_setAllocator(
         "analyzeOverdraw",
         """
         Overdraw analyzer. Returns overdraw statistics using a software rasterizer.
-        
+
         Results may not match actual GPU performance.
         """,
 
@@ -954,7 +1038,7 @@ nmeshopt_setAllocator(
         AutoSize("indices")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
@@ -964,7 +1048,7 @@ nmeshopt_setAllocator(
         "analyzeVertexFetch",
         """
         Vertex fetch cache analyzer. Returns cache hit statistics using a simplified direct mapped model.
-        
+
         Results may not match actual GPU performance.
         """,
 
@@ -979,7 +1063,7 @@ nmeshopt_setAllocator(
         """
         Meshlet builder. Splits the mesh into a set of meshlets where each meshlet has a micro index buffer indexing into meshlet vertices that refer to the
         original vertex buffer.
-         
+
         The resulting data can be used to render meshes using NVidia programmable mesh shading pipeline, or in other cluster-based renderers. When using
         {@code buildMeshlets}, vertex positions need to be provided to minimize the size of the resulting clusters. When using #buildMeshletsScan(), for
         maximum efficiency the index buffer being converted has to be optimized for vertex cache first.
@@ -998,12 +1082,12 @@ nmeshopt_setAllocator(
         AutoSize("indices")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", ""),
         size_t("max_vertices", "must not exceed implementation limits ({@code max_vertices} &le; 255 - not 256!)"),
-        size_t("max_triangles", "must not exceed implementation limits ({@code max_triangles} &le; 512)"),
+        size_t("max_triangles", "must not exceed implementation limits ({@code max_triangles} &le; 512, must be divisible by 4)"),
         float(
             "cone_weight",
             """
@@ -1035,6 +1119,20 @@ nmeshopt_setAllocator(
         size_t("max_triangles", "")
     )
 
+    void(
+        "optimizeMeshlet",
+        """
+        Experimental: Meshlet optimizer. Reorders meshlet vertices and triangles to maximize locality to improve rasterizer throughput.
+
+        When {@code buildMeshlets*} is used, the index data needs to be computed from meshlet's {@code vertex_offset} and {@code triangle_offset}.
+        """,
+
+        unsigned_int.p("meshlet_vertices", "must refer to meshlet vertex index data"),
+        unsigned_char.p("meshlet_triangles", "must refer to meshlet triangle index data"),
+        AutoSizeDiv("3", "meshlet_triangles")..size_t("triangle_count", "must not exceed implementation limits ({@code triangle_count} &le; 512)"),
+        AutoSize("meshlet_vertices")..size_t("vertex_count", "must not exceed implementation limits ({@code vertex_count} &le; 255 - not 256!)")
+    )
+
     meshopt_Bounds(
         "computeClusterBounds",
         """
@@ -1042,7 +1140,7 @@ nmeshopt_setAllocator(
 
         For backface culling with orthographic projection, use the following formula to reject backfacing clusters: {@code dot(view, cone_axis) >= cone_cutoff}
 
-        For perspective projection, you can the formula that needs cone apex in addition to axis &amp; cutoff:
+        For perspective projection, you can use the formula that needs cone apex in addition to axis &amp; cutoff:
         {@code dot(normalize(cone_apex - camera_position), cone_axis) >= cone_cutoff}.
 
         Alternatively, you can use the formula that doesn't need cone apex and uses bounding sphere instead:
@@ -1051,7 +1149,7 @@ nmeshopt_setAllocator(
         {@code dot(center - camera_position, cone_axis) >= cone_cutoff * length(center - camera_position) + radius}
 
         The formula that uses the apex is slightly more accurate but needs the apex; if you are already using bounding sphere to do frustum/occlusion culling,
-        the formula that doesn't use the apex may be preferable.
+        the formula that doesn't use the apex may be preferable (for derivation see Real-Time Rendering 4th Edition, section 19.3).
         """,
 
         unsigned_int.const.p("indices", ""),
@@ -1061,7 +1159,7 @@ nmeshopt_setAllocator(
         ),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
@@ -1072,8 +1170,8 @@ nmeshopt_setAllocator(
         "See #computeClusterBounds().",
 
         Unsafe..unsigned_int.const.p("meshlet_vertices", ""),
-        Check("triangle_count * 3")..unsigned_char.const.p("meshlet_triangles", ""),
-        size_t("triangle_count", ""),
+        unsigned_char.const.p("meshlet_triangles", ""),
+        AutoSizeDiv("3", "meshlet_triangles")..size_t("triangle_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p("vertex_positions", ""),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
@@ -1082,14 +1180,17 @@ nmeshopt_setAllocator(
     void(
         "spatialSortRemap",
         """
-        Experimental: Spatial sorter. Generates a remap table that can be used to reorder points for spatial locality.
-        
+        Spatial sorter. Generates a remap table that can be used to reorder points for spatial locality.
+
         Resulting remap table maps old vertices to new vertices and can be used in #remapVertexBuffer().
         """,
 
-        unsigned_int.p("destination", "must contain enough space for the resulting remap table ({@code vertex_count} elements)"),
-        Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p("vertex_positions", ""),
-        UseVariable..AutoSize("destination")..size_t("vertex_count", ""),
+        Check("vertex_count")..unsigned_int.p("destination", "must contain enough space for the resulting remap table ({@code vertex_count} elements)"),
+        Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
+            "vertex_positions",
+            "should have {@code float3} position in the first 12 bytes of each vertex"
+        ),
+        size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
     )
 
@@ -1097,16 +1198,16 @@ nmeshopt_setAllocator(
         "spatialSortTriangles",
         """
         Experimental: Spatial sorter. Reorders triangles for spatial locality, and generates a new index buffer.
-        
+
         The resulting index buffer can be used with other functions like #optimizeVertexCache().
         """,
 
         unsigned_int.p("destination", "must contain enough space for the resulting index buffer ({@code index_count} elements)"),
         unsigned_int.const.p("indices", ""),
-        AutoSize("destination", "indices")..size_t("index_count", ""),
+        AutoSize("indices", "destination")..size_t("index_count", ""),
         Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p(
             "vertex_positions",
-            "should have {@code float3} position in the first 12 bytes of each vertex - similar to {@code glVertexPointer}"
+            "should have {@code float3} position in the first 12 bytes of each vertex"
         ),
         size_t("vertex_count", ""),
         size_t("vertex_positions_stride", "")
@@ -1116,7 +1217,7 @@ nmeshopt_setAllocator(
         "setAllocator",
         """
         Set allocation callbacks.
-        
+
         These callbacks will be used instead of the default operator new/operator delete for all temporary allocations in the library. Note that all algorithms
         only allocate memory for temporary use. {@code allocate}/{@code deallocate} are always called in a stack-like order - last pointer to be allocated is
         deallocated first.
@@ -1126,8 +1227,8 @@ nmeshopt_setAllocator(
         meshopt_DeallocateCB("deallocate", "")
     )
 
-    /*int(
-        "quantizeUnorm",
+    NativeName("meshopt_quantizeUnorm")..internal..int(
+        "quantizeUnorm_ref",
         """
         Quantizes a float in {@code [0..1]} range into an N-bit fixed point {@code unorm} value.
 
@@ -1139,8 +1240,8 @@ nmeshopt_setAllocator(
         int("N", "")
     )
 
-    int(
-        "quantizeSnorm",
+    NativeName("meshopt_quantizeSnorm")..internal..int(
+        "quantizeSnorm_ref",
         """
         Quantizes a float in {@code [-1..1]} range into an N-bit fixed point {@code snorm} value.
 
@@ -1152,8 +1253,8 @@ nmeshopt_setAllocator(
         int("N", "")
     )
 
-    short(
-        "quantizeHalf",
+    NativeName("meshopt_quantizeHalf")..internal..short(
+        "quantizeHalf_ref",
         """
         Quantizes a float into half-precision floating point value.
 
@@ -1164,10 +1265,10 @@ nmeshopt_setAllocator(
         float("v", "")
     )
 
-    float(
-        "quantizeFloat",
+    NativeName("meshopt_quantizeFloat")..internal..float(
+        "quantizeFloat_ref",
         """
-        Quantizes a float into a floating point value with a limited number of significant mantissa bits.
+        Quantizes a float into a floating point value with a limited number of significant mantissa bits, preserving the IEEE-754 fp32 binary representation.
 
         Generates {@code +-inf} for overflow, preserves {@code NaN}, flushes denormals to zero, rounds to nearest. Assumes {@code N} is in a valid mantissa
         precision range, which is {@code 1..23}.
@@ -1175,7 +1276,19 @@ nmeshopt_setAllocator(
 
         float("v", ""),
         int("N", "")
-    )*/
+    )
+
+    NativeName("meshopt_dequantizeHalf")..internal..float(
+        "dequantizeHalf_ref",
+        """
+        Reverse quantization of a half-precision (as defined by IEEE-754 fp16) floating point value.
+
+        Preserves Inf/NaN, flushes denormals to zero.
+        """,
+
+        unsigned_short("h", "")
+    )
+
     customMethod("""
     /**
      * Quantizes a float in {@code [0..1]} range into an N-bit fixed point {@code unorm} value.
@@ -1210,7 +1323,7 @@ nmeshopt_setAllocator(
     }
 
     /**
-     * Quantizes a float into half-precision floating point value.
+     * Quantizes a float into half-precision (as defined by IEEE-754 fp16) floating point value.
      * 
      * <p>Generates {@code +-inf} for overflow, preserves {@code NaN}, flushes denormals to zero, rounds to nearest. Representable magnitude range:
      * {@code [6e-5; 65504]}. Maximum relative reconstruction error: {@code 5e-4}.</p>
@@ -1237,7 +1350,7 @@ nmeshopt_setAllocator(
     }
 
     /**
-     * Quantizes a float into a floating point value with a limited number of significant mantissa bits.
+     * Quantizes a float into a floating point value with a limited number of significant mantissa bits, preserving the IEEE-754 fp32 binary representation.
      * 
      * <p>Generates {@code +-inf} for overflow, preserves {@code NaN}, flushes denormals to zero, rounds to nearest. Assumes {@code N} is in a valid mantissa
      * precision range, which is {@code 1..23}.</p>
@@ -1258,5 +1371,27 @@ nmeshopt_setAllocator(
         ui = e == 0 ? 0 : ui;
 
         return intBitsToFloat(ui);
+    }
+
+    /**
+     * Reverse quantization of a half-precision (as defined by IEEE-754 fp16) floating point value.
+     * 
+     * <p>Preserves Inf/NaN, flushes denormals to zero.</p>
+     */
+    public static float meshopt_dequantizeHalf(@NativeType("unsigned short") short h) {
+        int s = (h & 0x8000) << 16;
+        int em = h & 0x7fff;
+
+        // bias exponent and pad mantissa with 0; 112 is relative exponent bias (127-15)
+        int r = (em + (112 << 10)) << 13;
+
+        // denormal: flush to zero
+        r = (em < (1 << 10)) ? 0 : r;
+
+        // infinity/NaN; note that we preserve NaN payload as a byproduct of unifying inf/nan cases
+        // 112 is an exponent bias fixup; since we already applied it once, applying it twice converts 31 to 255
+        r += (em >= (31 << 10)) ? (112 << 23) : 0;
+
+        return intBitsToFloat(s | r);
     }""")
 }

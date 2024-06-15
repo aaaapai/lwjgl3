@@ -8,8 +8,6 @@ package org.lwjgl.vulkan;
 /**
  * A {@code dma_buf} is a type of file descriptor, defined by the Linux kernel, that allows sharing memory across kernel device drivers and across processes. This extension enables applications to import a {@code dma_buf} as {@code VkDeviceMemory}, to export {@code VkDeviceMemory} as a {@code dma_buf}, and to create {@code VkBuffer} objects that <b>can</b> be bound to that memory.
  * 
- * <h5>VK_EXT_external_memory_dma_buf</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_external_memory_dma_buf}</dd>
@@ -20,13 +18,10 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRExternalMemoryFd VK_KHR_external_memory_fd}</li>
- * </ul></dd>
+ * <dd>{@link KHRExternalMemoryFd VK_KHR_external_memory_fd}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Chad Versace <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_dma_buf]%20@chadversary%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_dma_buf%20extension%3E%3E">chadversary</a></li>
+ * <li>Lina Versace <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_dma_buf]%20@versalinyaa%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_dma_buf%20extension*">versalinyaa</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -39,9 +34,9 @@ package org.lwjgl.vulkan;
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
- * <li>Chad Versace, Google</li>
+ * <li>Lina Versace, Google</li>
  * <li>James Jones, NVIDIA</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * </ul></dd>
  * </dl>
  */

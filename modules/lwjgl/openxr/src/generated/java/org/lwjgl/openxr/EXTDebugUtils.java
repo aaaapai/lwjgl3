@@ -13,11 +13,22 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The EXT_debug_utils extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_EXT_debug_utils">XR_EXT_debug_utils</a> extension.
+ * 
+ * <p>Due to the nature of the OpenXR interface, there is very little error information available to the developer and application. By using the {@link EXTDebugUtils XR_EXT_debug_utils} extension, developers <b>can</b> obtain more information. When combined with validation layers, even more detailed feedback on the application’s use of OpenXR will be provided.</p>
+ * 
+ * <p>This extension provides the following capabilities:</p>
+ * 
+ * <ul>
+ * <li>The ability to create a debug messenger which will pass along debug messages to an application supplied callback.</li>
+ * <li>The ability to identify specific OpenXR handles using a name to improve tracking.</li>
+ * </ul>
+ */
 public class EXTDebugUtils {
 
     /** The extension specification version. */
-    public static final int XR_EXT_debug_utils_SPEC_VERSION = 4;
+    public static final int XR_EXT_debug_utils_SPEC_VERSION = 5;
 
     /** The extension name. */
     public static final String XR_EXT_DEBUG_UTILS_EXTENSION_NAME = "XR_EXT_debug_utils";
@@ -44,7 +55,7 @@ public class EXTDebugUtils {
     public static final int XR_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT = 1000019000;
 
     /**
-     * XrDebugUtilsMessageSeverityFlagBitsEXT
+     * XrDebugUtilsMessageSeverityFlagBitsEXT - XrDebugUtilsMessageSeverityFlagBitsEXT
      * 
      * <h5>Enum values:</h5>
      * 
@@ -62,7 +73,7 @@ public class EXTDebugUtils {
         XR_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT   = 0x1000;
 
     /**
-     * XrDebugUtilsMessageTypeFlagBitsEXT
+     * XrDebugUtilsMessageTypeFlagBitsEXT - XrDebugUtilsMessageTypeFlagBitsEXT
      * 
      * <h5>Enum values:</h5>
      * 
@@ -216,7 +227,7 @@ public class EXTDebugUtils {
      * 
      * <p>The application <b>must</b> ensure that {@link #xrCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT} is not executed in parallel with any OpenXR function that is also called with {@code instance} or child of {@code instance}.</p>
      * 
-     * <p>When an event of interest occurs a debug messenger calls its {@code createInfo}-&gt;{@code userCallback} with a debug message from the producer of the event. Additionally, the debug messenger <b>must</b> filter out any debug messages that the application’s callback is not interested in based on {@link XrDebugUtilsMessengerCreateInfoEXT} flags, as described below.</p>
+     * <p>When an event of interest occurs a debug messenger calls its {@link XrDebugUtilsMessengerCreateInfoEXT}{@code ::userCallback} with a debug message from the producer of the event. Additionally, the debug messenger <b>must</b> filter out any debug messages that the application’s callback is not interested in based on {@link XrDebugUtilsMessengerCreateInfoEXT} flags, as described below.</p>
      * 
      * <h5>See Also</h5>
      * 
@@ -317,7 +328,7 @@ public class EXTDebugUtils {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>For each structure in {@code objects} found in {@code callbackData}, the value of {@link XrDebugUtilsObjectNameInfoEXT}{@code ::objectType} <b>must</b> not be {@link XR10#XR_OBJECT_TYPE_UNKNOWN OBJECT_TYPE_UNKNOWN}</li>
+     * <li>For each structure in {@link XrDebugUtilsMessengerCallbackDataEXT}{@code ::objects}, the value of {@link XrDebugUtilsObjectNameInfoEXT}{@code ::objectType} <b>must</b> not be {@link XR10#XR_OBJECT_TYPE_UNKNOWN OBJECT_TYPE_UNKNOWN}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>

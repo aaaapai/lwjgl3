@@ -16,8 +16,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>This extension also provides a bit which <b>can</b> be used to enlarge a sample region dependency to a fragment region dependency, so that a framebuffer-region dependency <b>can</b> replace a framebuffer-global dependency in some cases.</p>
  * 
- * <h5>VK_QCOM_render_pass_shader_resolve</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_QCOM_render_pass_shader_resolve}</dd>
@@ -27,13 +25,9 @@ package org.lwjgl.vulkan;
  * <dd>172</dd>
  * <dt><b>Revision</b></dt>
  * <dd>4</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Bill Licea-Kane <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_render_pass_shader_resolve]%20@wwlk%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_render_pass_shader_resolve%20extension%3E%3E">wwlk</a></li>
+ * <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_render_pass_shader_resolve]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_render_pass_shader_resolve%20extension*">mnetsch</a></li>
  * </ul></dd>
  * </dl>
  * 

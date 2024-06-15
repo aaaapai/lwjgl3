@@ -14,19 +14,19 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-import static org.lwjgl.util.lz4.LZ4.LZ4_STREAMDECODESIZE_U64;
+import static org.lwjgl.util.lz4.LZ4.LZ4_STREAMDECODE_MINSIZE;
 
 /**
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * union LZ4_streamDecode_t {
- *     unsigned long long table[LZ4_STREAMDECODESIZE_U64];
+ *     char minStateSize[LZ4_STREAMDECODE_MINSIZE];
  *     {@link LZ4StreamDecodeInternal LZ4_streamDecode_t_internal} internal_donotuse;
  * }</code></pre>
  */
 @NativeType("union LZ4_streamDecode_t")
-public class LZ4StreamDecode extends Struct {
+public class LZ4StreamDecode extends Struct<LZ4StreamDecode> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -36,20 +36,29 @@ public class LZ4StreamDecode extends Struct {
 
     /** The struct member offsets. */
     public static final int
-        TABLE,
+        MINSTATESIZE,
         INTERNAL_DONOTUSE;
 
     static {
         Layout layout = __union(
-            __array(8, LZ4_STREAMDECODESIZE_U64),
+            __array(1, LZ4_STREAMDECODE_MINSIZE),
             __member(LZ4StreamDecodeInternal.SIZEOF, LZ4StreamDecodeInternal.ALIGNOF)
         );
 
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
-        TABLE = layout.offsetof(0);
+        MINSTATESIZE = layout.offsetof(0);
         INTERNAL_DONOTUSE = layout.offsetof(1);
+    }
+
+    protected LZ4StreamDecode(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected LZ4StreamDecode create(long address, @Nullable ByteBuffer container) {
+        return new LZ4StreamDecode(address, container);
     }
 
     /**
@@ -65,12 +74,12 @@ public class LZ4StreamDecode extends Struct {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return a {@link LongBuffer} view of the {@code table} field. */
-    @NativeType("unsigned long long[LZ4_STREAMDECODESIZE_U64]")
-    public LongBuffer table() { return ntable(address()); }
-    /** @return the value at the specified index of the {@code table} field. */
-    @NativeType("unsigned long long")
-    public long table(int index) { return ntable(address(), index); }
+    /** @return a {@link ByteBuffer} view of the {@code minStateSize} field. */
+    @NativeType("char[LZ4_STREAMDECODE_MINSIZE]")
+    public ByteBuffer minStateSize() { return nminStateSize(address()); }
+    /** @return the value at the specified index of the {@code minStateSize} field. */
+    @NativeType("char")
+    public byte minStateSize(int index) { return nminStateSize(address(), index); }
     /** @return a {@link LZ4StreamDecodeInternal} view of the {@code internal_donotuse} field. */
     @NativeType("LZ4_streamDecode_t_internal")
     public LZ4StreamDecodeInternal internal_donotuse() { return ninternal_donotuse(address()); }
@@ -79,13 +88,13 @@ public class LZ4StreamDecode extends Struct {
 
     /** Returns a new {@code LZ4StreamDecode} instance for the specified memory address. */
     public static LZ4StreamDecode create(long address) {
-        return wrap(LZ4StreamDecode.class, address);
+        return new LZ4StreamDecode(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4StreamDecode createSafe(long address) {
-        return address == NULL ? null : wrap(LZ4StreamDecode.class, address);
+        return address == NULL ? null : new LZ4StreamDecode(address, null);
     }
 
     /**
@@ -95,22 +104,22 @@ public class LZ4StreamDecode extends Struct {
      * @param capacity the buffer capacity
      */
     public static LZ4StreamDecode.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4StreamDecode.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #table}. */
-    public static LongBuffer ntable(long struct) { return memLongBuffer(struct + LZ4StreamDecode.TABLE, LZ4_STREAMDECODESIZE_U64); }
-    /** Unsafe version of {@link #table(int) table}. */
-    public static long ntable(long struct, int index) {
-        return UNSAFE.getLong(null, struct + LZ4StreamDecode.TABLE + check(index, LZ4_STREAMDECODESIZE_U64) * 8);
+    /** Unsafe version of {@link #minStateSize}. */
+    public static ByteBuffer nminStateSize(long struct) { return memByteBuffer(struct + LZ4StreamDecode.MINSTATESIZE, LZ4_STREAMDECODE_MINSIZE); }
+    /** Unsafe version of {@link #minStateSize(int) minStateSize}. */
+    public static byte nminStateSize(long struct, int index) {
+        return UNSAFE.getByte(null, struct + LZ4StreamDecode.MINSTATESIZE + check(index, LZ4_STREAMDECODE_MINSIZE) * 1);
     }
     /** Unsafe version of {@link #internal_donotuse}. */
     public static LZ4StreamDecodeInternal ninternal_donotuse(long struct) { return LZ4StreamDecodeInternal.create(struct + LZ4StreamDecode.INTERNAL_DONOTUSE); }
@@ -125,9 +134,9 @@ public class LZ4StreamDecode extends Struct {
         /**
          * Creates a new {@code LZ4StreamDecode.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link LZ4StreamDecode#SIZEOF}, and its mark will be undefined.
+         * by {@link LZ4StreamDecode#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -153,12 +162,12 @@ public class LZ4StreamDecode extends Struct {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link LongBuffer} view of the {@code table} field. */
-        @NativeType("unsigned long long[LZ4_STREAMDECODESIZE_U64]")
-        public LongBuffer table() { return LZ4StreamDecode.ntable(address()); }
-        /** @return the value at the specified index of the {@code table} field. */
-        @NativeType("unsigned long long")
-        public long table(int index) { return LZ4StreamDecode.ntable(address(), index); }
+        /** @return a {@link ByteBuffer} view of the {@code minStateSize} field. */
+        @NativeType("char[LZ4_STREAMDECODE_MINSIZE]")
+        public ByteBuffer minStateSize() { return LZ4StreamDecode.nminStateSize(address()); }
+        /** @return the value at the specified index of the {@code minStateSize} field. */
+        @NativeType("char")
+        public byte minStateSize(int index) { return LZ4StreamDecode.nminStateSize(address(), index); }
         /** @return a {@link LZ4StreamDecodeInternal} view of the {@code internal_donotuse} field. */
         @NativeType("LZ4_streamDecode_t_internal")
         public LZ4StreamDecodeInternal internal_donotuse() { return LZ4StreamDecode.ninternal_donotuse(address()); }

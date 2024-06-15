@@ -38,6 +38,7 @@ import static org.lwjgl.bgfx.BGFX.BGFX_TOPOLOGY_COUNT;
  *     uint32_t {@link #numCompute};
  *     uint32_t {@link #numBlit};
  *     uint32_t {@link #maxGpuLatency};
+ *     uint32_t {@link #gpuFrameNum};
  *     uint16_t {@link #numDynamicIndexBuffers};
  *     uint16_t {@link #numDynamicVertexBuffers};
  *     uint16_t {@link #numFrameBuffers};
@@ -67,7 +68,7 @@ import static org.lwjgl.bgfx.BGFX.BGFX_TOPOLOGY_COUNT;
  * }</code></pre>
  */
 @NativeType("struct bgfx_stats_t")
-public class BGFXStats extends Struct {
+public class BGFXStats extends Struct<BGFXStats> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -90,6 +91,7 @@ public class BGFXStats extends Struct {
         NUMCOMPUTE,
         NUMBLIT,
         MAXGPULATENCY,
+        GPUFRAMENUM,
         NUMDYNAMICINDEXBUFFERS,
         NUMDYNAMICVERTEXBUFFERS,
         NUMFRAMEBUFFERS,
@@ -128,6 +130,7 @@ public class BGFXStats extends Struct {
             __member(8),
             __member(8),
             __member(8),
+            __member(4),
             __member(4),
             __member(4),
             __member(4),
@@ -176,32 +179,42 @@ public class BGFXStats extends Struct {
         NUMCOMPUTE = layout.offsetof(10);
         NUMBLIT = layout.offsetof(11);
         MAXGPULATENCY = layout.offsetof(12);
-        NUMDYNAMICINDEXBUFFERS = layout.offsetof(13);
-        NUMDYNAMICVERTEXBUFFERS = layout.offsetof(14);
-        NUMFRAMEBUFFERS = layout.offsetof(15);
-        NUMINDEXBUFFERS = layout.offsetof(16);
-        NUMOCCLUSIONQUERIES = layout.offsetof(17);
-        NUMPROGRAMS = layout.offsetof(18);
-        NUMSHADERS = layout.offsetof(19);
-        NUMTEXTURES = layout.offsetof(20);
-        NUMUNIFORMS = layout.offsetof(21);
-        NUMVERTEXBUFFERS = layout.offsetof(22);
-        NUMVERTEXLAYOUTS = layout.offsetof(23);
-        TEXTUREMEMORYUSED = layout.offsetof(24);
-        RTMEMORYUSED = layout.offsetof(25);
-        TRANSIENTVBUSED = layout.offsetof(26);
-        TRANSIENTIBUSED = layout.offsetof(27);
-        NUMPRIMS = layout.offsetof(28);
-        GPUMEMORYMAX = layout.offsetof(29);
-        GPUMEMORYUSED = layout.offsetof(30);
-        WIDTH = layout.offsetof(31);
-        HEIGHT = layout.offsetof(32);
-        TEXTWIDTH = layout.offsetof(33);
-        TEXTHEIGHT = layout.offsetof(34);
-        NUMVIEWS = layout.offsetof(35);
-        VIEWSTATS = layout.offsetof(36);
-        NUMENCODERS = layout.offsetof(37);
-        ENCODERSTATS = layout.offsetof(38);
+        GPUFRAMENUM = layout.offsetof(13);
+        NUMDYNAMICINDEXBUFFERS = layout.offsetof(14);
+        NUMDYNAMICVERTEXBUFFERS = layout.offsetof(15);
+        NUMFRAMEBUFFERS = layout.offsetof(16);
+        NUMINDEXBUFFERS = layout.offsetof(17);
+        NUMOCCLUSIONQUERIES = layout.offsetof(18);
+        NUMPROGRAMS = layout.offsetof(19);
+        NUMSHADERS = layout.offsetof(20);
+        NUMTEXTURES = layout.offsetof(21);
+        NUMUNIFORMS = layout.offsetof(22);
+        NUMVERTEXBUFFERS = layout.offsetof(23);
+        NUMVERTEXLAYOUTS = layout.offsetof(24);
+        TEXTUREMEMORYUSED = layout.offsetof(25);
+        RTMEMORYUSED = layout.offsetof(26);
+        TRANSIENTVBUSED = layout.offsetof(27);
+        TRANSIENTIBUSED = layout.offsetof(28);
+        NUMPRIMS = layout.offsetof(29);
+        GPUMEMORYMAX = layout.offsetof(30);
+        GPUMEMORYUSED = layout.offsetof(31);
+        WIDTH = layout.offsetof(32);
+        HEIGHT = layout.offsetof(33);
+        TEXTWIDTH = layout.offsetof(34);
+        TEXTHEIGHT = layout.offsetof(35);
+        NUMVIEWS = layout.offsetof(36);
+        VIEWSTATS = layout.offsetof(37);
+        NUMENCODERS = layout.offsetof(38);
+        ENCODERSTATS = layout.offsetof(39);
+    }
+
+    protected BGFXStats(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected BGFXStats create(long address, @Nullable ByteBuffer container) {
+        return new BGFXStats(address, container);
     }
 
     /**
@@ -256,6 +269,9 @@ public class BGFXStats extends Struct {
     /** GPU driver latency */
     @NativeType("uint32_t")
     public int maxGpuLatency() { return nmaxGpuLatency(address()); }
+    /** frame which generated {@code gpuTimeBegin}, {@code gpuTimeEnd} */
+    @NativeType("uint32_t")
+    public int gpuFrameNum() { return ngpuFrameNum(address()); }
     /** number of used dynamic index buffers */
     @NativeType("uint16_t")
     public short numDynamicIndexBuffers() { return nnumDynamicIndexBuffers(address()); }
@@ -342,13 +358,13 @@ public class BGFXStats extends Struct {
 
     /** Returns a new {@code BGFXStats} instance for the specified memory address. */
     public static BGFXStats create(long address) {
-        return wrap(BGFXStats.class, address);
+        return new BGFXStats(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXStats createSafe(long address) {
-        return address == NULL ? null : wrap(BGFXStats.class, address);
+        return address == NULL ? null : new BGFXStats(address, null);
     }
 
     /**
@@ -358,13 +374,13 @@ public class BGFXStats extends Struct {
      * @param capacity the buffer capacity
      */
     public static BGFXStats.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXStats.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -395,6 +411,8 @@ public class BGFXStats extends Struct {
     public static int nnumBlit(long struct) { return UNSAFE.getInt(null, struct + BGFXStats.NUMBLIT); }
     /** Unsafe version of {@link #maxGpuLatency}. */
     public static int nmaxGpuLatency(long struct) { return UNSAFE.getInt(null, struct + BGFXStats.MAXGPULATENCY); }
+    /** Unsafe version of {@link #gpuFrameNum}. */
+    public static int ngpuFrameNum(long struct) { return UNSAFE.getInt(null, struct + BGFXStats.GPUFRAMENUM); }
     /** Unsafe version of {@link #numDynamicIndexBuffers}. */
     public static short nnumDynamicIndexBuffers(long struct) { return UNSAFE.getShort(null, struct + BGFXStats.NUMDYNAMICINDEXBUFFERS); }
     /** Unsafe version of {@link #numDynamicVertexBuffers}. */
@@ -462,9 +480,9 @@ public class BGFXStats extends Struct {
         /**
          * Creates a new {@code BGFXStats.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link BGFXStats#SIZEOF}, and its mark will be undefined.
+         * by {@link BGFXStats#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -529,6 +547,9 @@ public class BGFXStats extends Struct {
         /** @return the value of the {@link BGFXStats#maxGpuLatency} field. */
         @NativeType("uint32_t")
         public int maxGpuLatency() { return BGFXStats.nmaxGpuLatency(address()); }
+        /** @return the value of the {@link BGFXStats#gpuFrameNum} field. */
+        @NativeType("uint32_t")
+        public int gpuFrameNum() { return BGFXStats.ngpuFrameNum(address()); }
         /** @return the value of the {@link BGFXStats#numDynamicIndexBuffers} field. */
         @NativeType("uint16_t")
         public short numDynamicIndexBuffers() { return BGFXStats.nnumDynamicIndexBuffers(address()); }

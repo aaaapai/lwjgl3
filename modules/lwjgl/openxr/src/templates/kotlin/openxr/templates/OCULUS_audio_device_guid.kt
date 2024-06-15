@@ -11,7 +11,11 @@ import openxr.*
 val OCULUS_audio_device_guid = "OCULUSAudioDeviceGuid".nativeClassXR("OCULUS_audio_device_guid", type = "instance", postfix = "OCULUS") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_OCULUS_audio_device_guid">XR_OCULUS_audio_device_guid</a> extension.
+
+        This extension enables the querying of audio device information associated with an OpenXR instance.
+
+        On Windows, there may be multiple audio devices available on the system. This extensions allows applications to query the runtime for the appropriate audio devices for the active HMD.
         """
 
     IntConstant(
@@ -73,7 +77,7 @@ val OCULUS_audio_device_guid = "OCULUSAudioDeviceGuid".nativeClassXR("OCULUS_aud
         """,
 
         XrInstance("instance", "the {@code XrInstance} to query the audio device state in."),
-        Check("XR_MAX_AUDIO_DEVICE_STR_SIZE_OCULUS")..wchar_t.p("buffer", "a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a target=\"_blank\" href=\"https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid\">IMMDevice::GetId</a> API.")
+        Check("XR_MAX_AUDIO_DEVICE_STR_SIZE_OCULUS")..wchar_t.p("buffer", "a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a href=\"https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid\">IMMDevice::GetId</a> API.")
     )
 
     XrResult(
@@ -117,6 +121,6 @@ val OCULUS_audio_device_guid = "OCULUSAudioDeviceGuid".nativeClassXR("OCULUS_aud
         """,
 
         XrInstance("instance", "the {@code XrInstance} to query the audio device state in."),
-        Check("XR_MAX_AUDIO_DEVICE_STR_SIZE_OCULUS")..wchar_t.p("buffer", "a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a target=\"_blank\" href=\"https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid\">IMMDevice::GetId</a> API.")
+        Check("XR_MAX_AUDIO_DEVICE_STR_SIZE_OCULUS")..wchar_t.p("buffer", "a fixed size buffer which will contain the audio device GUID. The format of this data matches the <a href=\"https://docs.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-getid\">IMMDevice::GetId</a> API.")
     )
 }

@@ -13,7 +13,6 @@ val EXT_external_memory_host = "EXTExternalMemoryHost".nativeClassVK("EXT_extern
         """
         This extension enables an application to import host allocations and host mapped foreign device memory to Vulkan memory objects.
 
-        <h5>VK_EXT_external_memory_host</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_external_memory_host}</dd>
@@ -28,14 +27,11 @@ val EXT_external_memory_host = "EXTExternalMemoryHost".nativeClassVK("EXT_extern
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRExternalMemory VK_KHR_external_memory}</li>
-            </ul></dd>
+            <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Daniel Rakos <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_host]%20@drakos-amd%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_host%20extension%3E%3E">drakos-amd</a></li>
+                <li>Daniel Rakos <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_external_memory_host]%20@drakos-amd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_external_memory_host%20extension*">drakos-amd</a></li>
             </ul></dd>
         </dl>
 
@@ -53,7 +49,7 @@ val EXT_external_memory_host = "EXTExternalMemoryHost".nativeClassVK("EXT_extern
                 <li>David Mao, AMD</li>
                 <li>Daniel Rakos, AMD</li>
                 <li>Tobias Hector, Imagination Technologies</li>
-                <li>Jason Ekstrand, Intel</li>
+                <li>Faith Ekstrand, Intel</li>
                 <li>James Jones, NVIDIA</li>
             </ul></dd>
         </dl>
@@ -113,6 +109,7 @@ val EXT_external_memory_host = "EXTExternalMemoryHost".nativeClassVK("EXT_extern
         <ul>
             <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
             <li>{@code handleType} <b>must</b> be a valid {@code VkExternalMemoryHandleTypeFlagBits} value</li>
+            <li>{@code pHostPointer} <b>must</b> be a pointer value</li>
             <li>{@code pMemoryHostPointerProperties} <b>must</b> be a valid pointer to a ##VkMemoryHostPointerPropertiesEXT structure</li>
         </ul>
 

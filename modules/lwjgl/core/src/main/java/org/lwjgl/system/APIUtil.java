@@ -5,6 +5,7 @@
 package org.lwjgl.system;
 
 import org.lwjgl.*;
+import org.lwjgl.system.freebsd.*;
 import org.lwjgl.system.libffi.*;
 import org.lwjgl.system.linux.*;
 import org.lwjgl.system.macosx.*;
@@ -22,7 +23,6 @@ import java.util.stream.*;
 
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.wrap;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
@@ -80,10 +80,27 @@ public final class APIUtil {
      *
      * @param msg the message to print
      */
-    public static void apiLog(@Nullable CharSequence msg) {
+    public static void apiLog(CharSequence msg) {
         if (DEBUG) {
-            DEBUG_STREAM.print("[LWJGL] ");
-            DEBUG_STREAM.println(msg);
+            DEBUG_STREAM.print("[LWJGL] " + msg + "\n");
+        }
+    }
+
+    /**
+     * Same as {@link #apiLog}, but replaces the LWJGL prefix with a tab character.
+     *
+     * @param msg the message to print, in continuation of a previous message
+     */
+    public static void apiLogMore(CharSequence msg) {
+        if (DEBUG) {
+            DEBUG_STREAM.print("\t" + msg + "\n");
+        }
+    }
+
+    public static void apiLogMissing(String api, ByteBuffer functionName) {
+        if (DEBUG) {
+            String function = memASCII(functionName, functionName.remaining() - 1);
+            DEBUG_STREAM.print("[LWJGL] Failed to locate address for " + api + " function " + function + "\n");
         }
     }
 
@@ -105,12 +122,14 @@ public final class APIUtil {
 
     public static SharedLibrary apiCreateLibrary(String name) {
         switch (Platform.get()) {
-            case WINDOWS:
-                return new WindowsLibrary(name);
+            case FREEBSD:
+                return new FreeBSDLibrary(name);
             case LINUX:
                 return new LinuxLibrary(name);
             case MACOSX:
                 return MacOSXLibrary.create(name);
+            case WINDOWS:
+                return new WindowsLibrary(name);
             default:
                 throw new IllegalStateException();
         }
@@ -123,10 +142,22 @@ public final class APIUtil {
         }
         return a;
     }
-
     private static void requiredFunctionMissing(String functionName) {
         if (!Configuration.DISABLE_FUNCTION_CHECKS.get(false)) {
             throw new NullPointerException("A required function is missing: " + functionName);
+        }
+    }
+
+    public static long apiGetFunctionAddressOptional(SharedLibrary library, String functionName) {
+        long a = library.getFunctionAddress(functionName);
+        if (DEBUG_FUNCTIONS && a == NULL) {
+            optionalFunctionMissing(library, functionName);
+        }
+        return a;
+    }
+    private static void optionalFunctionMissing(SharedLibrary library, String functionName) {
+        if (DEBUG) {
+            DEBUG_STREAM.print("[LWJGL] Failed to locate address for " + library.getName() + " function " + functionName + "\n");
         }
     }
 

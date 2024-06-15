@@ -21,6 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct StdVideoH264PictureParameterSet {
+ *     {@link StdVideoH264PpsFlags StdVideoH264PpsFlags} flags;
  *     uint8_t seq_parameter_set_id;
  *     uint8_t pic_parameter_set_id;
  *     uint8_t num_ref_idx_l0_default_active_minus1;
@@ -30,11 +31,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int8_t pic_init_qs_minus26;
  *     int8_t chroma_qp_index_offset;
  *     int8_t second_chroma_qp_index_offset;
- *     {@link StdVideoH264PpsFlags StdVideoH264PpsFlags} flags;
- *     {@link StdVideoH264ScalingLists StdVideoH264ScalingLists} * {@link #pScalingLists};
+ *     {@link StdVideoH264ScalingLists StdVideoH264ScalingLists} const * {@link #pScalingLists};
  * }</code></pre>
  */
-public class StdVideoH264PictureParameterSet extends Struct implements NativeResource {
+public class StdVideoH264PictureParameterSet extends Struct<StdVideoH264PictureParameterSet> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -44,6 +44,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
 
     /** The struct member offsets. */
     public static final int
+        FLAGS,
         SEQ_PARAMETER_SET_ID,
         PIC_PARAMETER_SET_ID,
         NUM_REF_IDX_L0_DEFAULT_ACTIVE_MINUS1,
@@ -53,11 +54,11 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
         PIC_INIT_QS_MINUS26,
         CHROMA_QP_INDEX_OFFSET,
         SECOND_CHROMA_QP_INDEX_OFFSET,
-        FLAGS,
         PSCALINGLISTS;
 
     static {
         Layout layout = __struct(
+            __member(StdVideoH264PpsFlags.SIZEOF, StdVideoH264PpsFlags.ALIGNOF),
             __member(1),
             __member(1),
             __member(1),
@@ -67,24 +68,32 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
             __member(1),
             __member(1),
             __member(1),
-            __member(StdVideoH264PpsFlags.SIZEOF, StdVideoH264PpsFlags.ALIGNOF),
             __member(POINTER_SIZE)
         );
 
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
-        SEQ_PARAMETER_SET_ID = layout.offsetof(0);
-        PIC_PARAMETER_SET_ID = layout.offsetof(1);
-        NUM_REF_IDX_L0_DEFAULT_ACTIVE_MINUS1 = layout.offsetof(2);
-        NUM_REF_IDX_L1_DEFAULT_ACTIVE_MINUS1 = layout.offsetof(3);
-        WEIGHTED_BIPRED_IDC = layout.offsetof(4);
-        PIC_INIT_QP_MINUS26 = layout.offsetof(5);
-        PIC_INIT_QS_MINUS26 = layout.offsetof(6);
-        CHROMA_QP_INDEX_OFFSET = layout.offsetof(7);
-        SECOND_CHROMA_QP_INDEX_OFFSET = layout.offsetof(8);
-        FLAGS = layout.offsetof(9);
+        FLAGS = layout.offsetof(0);
+        SEQ_PARAMETER_SET_ID = layout.offsetof(1);
+        PIC_PARAMETER_SET_ID = layout.offsetof(2);
+        NUM_REF_IDX_L0_DEFAULT_ACTIVE_MINUS1 = layout.offsetof(3);
+        NUM_REF_IDX_L1_DEFAULT_ACTIVE_MINUS1 = layout.offsetof(4);
+        WEIGHTED_BIPRED_IDC = layout.offsetof(5);
+        PIC_INIT_QP_MINUS26 = layout.offsetof(6);
+        PIC_INIT_QS_MINUS26 = layout.offsetof(7);
+        CHROMA_QP_INDEX_OFFSET = layout.offsetof(8);
+        SECOND_CHROMA_QP_INDEX_OFFSET = layout.offsetof(9);
         PSCALINGLISTS = layout.offsetof(10);
+    }
+
+    protected StdVideoH264PictureParameterSet(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected StdVideoH264PictureParameterSet create(long address, @Nullable ByteBuffer container) {
+        return new StdVideoH264PictureParameterSet(address, container);
     }
 
     /**
@@ -100,6 +109,8 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
     @Override
     public int sizeof() { return SIZEOF; }
 
+    /** @return a {@link StdVideoH264PpsFlags} view of the {@code flags} field. */
+    public StdVideoH264PpsFlags flags() { return nflags(address()); }
     /** @return the value of the {@code seq_parameter_set_id} field. */
     @NativeType("uint8_t")
     public byte seq_parameter_set_id() { return nseq_parameter_set_id(address()); }
@@ -127,12 +138,14 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
     /** @return the value of the {@code second_chroma_qp_index_offset} field. */
     @NativeType("int8_t")
     public byte second_chroma_qp_index_offset() { return nsecond_chroma_qp_index_offset(address()); }
-    /** @return a {@link StdVideoH264PpsFlags} view of the {@code flags} field. */
-    public StdVideoH264PpsFlags flags() { return nflags(address()); }
     /** must be a valid pointer if  StdVideoH264PpsFlags::pic_scaling_matrix_present_flag is set */
-    @NativeType("StdVideoH264ScalingLists *")
+    @NativeType("StdVideoH264ScalingLists const *")
     public StdVideoH264ScalingLists pScalingLists() { return npScalingLists(address()); }
 
+    /** Copies the specified {@link StdVideoH264PpsFlags} to the {@code flags} field. */
+    public StdVideoH264PictureParameterSet flags(StdVideoH264PpsFlags value) { nflags(address(), value); return this; }
+    /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
+    public StdVideoH264PictureParameterSet flags(java.util.function.Consumer<StdVideoH264PpsFlags> consumer) { consumer.accept(flags()); return this; }
     /** Sets the specified value to the {@code seq_parameter_set_id} field. */
     public StdVideoH264PictureParameterSet seq_parameter_set_id(@NativeType("uint8_t") byte value) { nseq_parameter_set_id(address(), value); return this; }
     /** Sets the specified value to the {@code pic_parameter_set_id} field. */
@@ -151,15 +164,12 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
     public StdVideoH264PictureParameterSet chroma_qp_index_offset(@NativeType("int8_t") byte value) { nchroma_qp_index_offset(address(), value); return this; }
     /** Sets the specified value to the {@code second_chroma_qp_index_offset} field. */
     public StdVideoH264PictureParameterSet second_chroma_qp_index_offset(@NativeType("int8_t") byte value) { nsecond_chroma_qp_index_offset(address(), value); return this; }
-    /** Copies the specified {@link StdVideoH264PpsFlags} to the {@code flags} field. */
-    public StdVideoH264PictureParameterSet flags(StdVideoH264PpsFlags value) { nflags(address(), value); return this; }
-    /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public StdVideoH264PictureParameterSet flags(java.util.function.Consumer<StdVideoH264PpsFlags> consumer) { consumer.accept(flags()); return this; }
     /** Sets the address of the specified {@link StdVideoH264ScalingLists} to the {@link #pScalingLists} field. */
-    public StdVideoH264PictureParameterSet pScalingLists(@NativeType("StdVideoH264ScalingLists *") StdVideoH264ScalingLists value) { npScalingLists(address(), value); return this; }
+    public StdVideoH264PictureParameterSet pScalingLists(@NativeType("StdVideoH264ScalingLists const *") StdVideoH264ScalingLists value) { npScalingLists(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public StdVideoH264PictureParameterSet set(
+        StdVideoH264PpsFlags flags,
         byte seq_parameter_set_id,
         byte pic_parameter_set_id,
         byte num_ref_idx_l0_default_active_minus1,
@@ -169,9 +179,9 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
         byte pic_init_qs_minus26,
         byte chroma_qp_index_offset,
         byte second_chroma_qp_index_offset,
-        StdVideoH264PpsFlags flags,
         StdVideoH264ScalingLists pScalingLists
     ) {
+        flags(flags);
         seq_parameter_set_id(seq_parameter_set_id);
         pic_parameter_set_id(pic_parameter_set_id);
         num_ref_idx_l0_default_active_minus1(num_ref_idx_l0_default_active_minus1);
@@ -181,7 +191,6 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
         pic_init_qs_minus26(pic_init_qs_minus26);
         chroma_qp_index_offset(chroma_qp_index_offset);
         second_chroma_qp_index_offset(second_chroma_qp_index_offset);
-        flags(flags);
         pScalingLists(pScalingLists);
 
         return this;
@@ -203,29 +212,29 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
 
     /** Returns a new {@code StdVideoH264PictureParameterSet} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static StdVideoH264PictureParameterSet malloc() {
-        return wrap(StdVideoH264PictureParameterSet.class, nmemAllocChecked(SIZEOF));
+        return new StdVideoH264PictureParameterSet(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoH264PictureParameterSet} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static StdVideoH264PictureParameterSet calloc() {
-        return wrap(StdVideoH264PictureParameterSet.class, nmemCallocChecked(1, SIZEOF));
+        return new StdVideoH264PictureParameterSet(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code StdVideoH264PictureParameterSet} instance allocated with {@link BufferUtils}. */
     public static StdVideoH264PictureParameterSet create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(StdVideoH264PictureParameterSet.class, memAddress(container), container);
+        return new StdVideoH264PictureParameterSet(memAddress(container), container);
     }
 
     /** Returns a new {@code StdVideoH264PictureParameterSet} instance for the specified memory address. */
     public static StdVideoH264PictureParameterSet create(long address) {
-        return wrap(StdVideoH264PictureParameterSet.class, address);
+        return new StdVideoH264PictureParameterSet(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoH264PictureParameterSet createSafe(long address) {
-        return address == NULL ? null : wrap(StdVideoH264PictureParameterSet.class, address);
+        return address == NULL ? null : new StdVideoH264PictureParameterSet(address, null);
     }
 
     /**
@@ -234,7 +243,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoH264PictureParameterSet.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -243,7 +252,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoH264PictureParameterSet.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -253,7 +262,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      */
     public static StdVideoH264PictureParameterSet.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -263,13 +272,13 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoH264PictureParameterSet.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static StdVideoH264PictureParameterSet.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -278,7 +287,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static StdVideoH264PictureParameterSet malloc(MemoryStack stack) {
-        return wrap(StdVideoH264PictureParameterSet.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new StdVideoH264PictureParameterSet(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -287,7 +296,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param stack the stack from which to allocate
      */
     public static StdVideoH264PictureParameterSet calloc(MemoryStack stack) {
-        return wrap(StdVideoH264PictureParameterSet.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new StdVideoH264PictureParameterSet(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -297,7 +306,7 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoH264PictureParameterSet.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -307,11 +316,13 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
      * @param capacity the buffer capacity
      */
     public static StdVideoH264PictureParameterSet.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
 
+    /** Unsafe version of {@link #flags}. */
+    public static StdVideoH264PpsFlags nflags(long struct) { return StdVideoH264PpsFlags.create(struct + StdVideoH264PictureParameterSet.FLAGS); }
     /** Unsafe version of {@link #seq_parameter_set_id}. */
     public static byte nseq_parameter_set_id(long struct) { return UNSAFE.getByte(null, struct + StdVideoH264PictureParameterSet.SEQ_PARAMETER_SET_ID); }
     /** Unsafe version of {@link #pic_parameter_set_id}. */
@@ -330,11 +341,11 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
     public static byte nchroma_qp_index_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoH264PictureParameterSet.CHROMA_QP_INDEX_OFFSET); }
     /** Unsafe version of {@link #second_chroma_qp_index_offset}. */
     public static byte nsecond_chroma_qp_index_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoH264PictureParameterSet.SECOND_CHROMA_QP_INDEX_OFFSET); }
-    /** Unsafe version of {@link #flags}. */
-    public static StdVideoH264PpsFlags nflags(long struct) { return StdVideoH264PpsFlags.create(struct + StdVideoH264PictureParameterSet.FLAGS); }
     /** Unsafe version of {@link #pScalingLists}. */
     public static StdVideoH264ScalingLists npScalingLists(long struct) { return StdVideoH264ScalingLists.create(memGetAddress(struct + StdVideoH264PictureParameterSet.PSCALINGLISTS)); }
 
+    /** Unsafe version of {@link #flags(StdVideoH264PpsFlags) flags}. */
+    public static void nflags(long struct, StdVideoH264PpsFlags value) { memCopy(value.address(), struct + StdVideoH264PictureParameterSet.FLAGS, StdVideoH264PpsFlags.SIZEOF); }
     /** Unsafe version of {@link #seq_parameter_set_id(byte) seq_parameter_set_id}. */
     public static void nseq_parameter_set_id(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH264PictureParameterSet.SEQ_PARAMETER_SET_ID, value); }
     /** Unsafe version of {@link #pic_parameter_set_id(byte) pic_parameter_set_id}. */
@@ -353,8 +364,6 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
     public static void nchroma_qp_index_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH264PictureParameterSet.CHROMA_QP_INDEX_OFFSET, value); }
     /** Unsafe version of {@link #second_chroma_qp_index_offset(byte) second_chroma_qp_index_offset}. */
     public static void nsecond_chroma_qp_index_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH264PictureParameterSet.SECOND_CHROMA_QP_INDEX_OFFSET, value); }
-    /** Unsafe version of {@link #flags(StdVideoH264PpsFlags) flags}. */
-    public static void nflags(long struct, StdVideoH264PpsFlags value) { memCopy(value.address(), struct + StdVideoH264PictureParameterSet.FLAGS, StdVideoH264PpsFlags.SIZEOF); }
     /** Unsafe version of {@link #pScalingLists(StdVideoH264ScalingLists) pScalingLists}. */
     public static void npScalingLists(long struct, StdVideoH264ScalingLists value) { memPutAddress(struct + StdVideoH264PictureParameterSet.PSCALINGLISTS, value.address()); }
 
@@ -377,9 +386,9 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
         /**
          * Creates a new {@code StdVideoH264PictureParameterSet.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link StdVideoH264PictureParameterSet#SIZEOF}, and its mark will be undefined.
+         * by {@link StdVideoH264PictureParameterSet#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -405,6 +414,8 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
             return ELEMENT_FACTORY;
         }
 
+        /** @return a {@link StdVideoH264PpsFlags} view of the {@code flags} field. */
+        public StdVideoH264PpsFlags flags() { return StdVideoH264PictureParameterSet.nflags(address()); }
         /** @return the value of the {@code seq_parameter_set_id} field. */
         @NativeType("uint8_t")
         public byte seq_parameter_set_id() { return StdVideoH264PictureParameterSet.nseq_parameter_set_id(address()); }
@@ -432,12 +443,14 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
         /** @return the value of the {@code second_chroma_qp_index_offset} field. */
         @NativeType("int8_t")
         public byte second_chroma_qp_index_offset() { return StdVideoH264PictureParameterSet.nsecond_chroma_qp_index_offset(address()); }
-        /** @return a {@link StdVideoH264PpsFlags} view of the {@code flags} field. */
-        public StdVideoH264PpsFlags flags() { return StdVideoH264PictureParameterSet.nflags(address()); }
         /** @return a {@link StdVideoH264ScalingLists} view of the struct pointed to by the {@link StdVideoH264PictureParameterSet#pScalingLists} field. */
-        @NativeType("StdVideoH264ScalingLists *")
+        @NativeType("StdVideoH264ScalingLists const *")
         public StdVideoH264ScalingLists pScalingLists() { return StdVideoH264PictureParameterSet.npScalingLists(address()); }
 
+        /** Copies the specified {@link StdVideoH264PpsFlags} to the {@code flags} field. */
+        public StdVideoH264PictureParameterSet.Buffer flags(StdVideoH264PpsFlags value) { StdVideoH264PictureParameterSet.nflags(address(), value); return this; }
+        /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
+        public StdVideoH264PictureParameterSet.Buffer flags(java.util.function.Consumer<StdVideoH264PpsFlags> consumer) { consumer.accept(flags()); return this; }
         /** Sets the specified value to the {@code seq_parameter_set_id} field. */
         public StdVideoH264PictureParameterSet.Buffer seq_parameter_set_id(@NativeType("uint8_t") byte value) { StdVideoH264PictureParameterSet.nseq_parameter_set_id(address(), value); return this; }
         /** Sets the specified value to the {@code pic_parameter_set_id} field. */
@@ -456,12 +469,8 @@ public class StdVideoH264PictureParameterSet extends Struct implements NativeRes
         public StdVideoH264PictureParameterSet.Buffer chroma_qp_index_offset(@NativeType("int8_t") byte value) { StdVideoH264PictureParameterSet.nchroma_qp_index_offset(address(), value); return this; }
         /** Sets the specified value to the {@code second_chroma_qp_index_offset} field. */
         public StdVideoH264PictureParameterSet.Buffer second_chroma_qp_index_offset(@NativeType("int8_t") byte value) { StdVideoH264PictureParameterSet.nsecond_chroma_qp_index_offset(address(), value); return this; }
-        /** Copies the specified {@link StdVideoH264PpsFlags} to the {@code flags} field. */
-        public StdVideoH264PictureParameterSet.Buffer flags(StdVideoH264PpsFlags value) { StdVideoH264PictureParameterSet.nflags(address(), value); return this; }
-        /** Passes the {@code flags} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public StdVideoH264PictureParameterSet.Buffer flags(java.util.function.Consumer<StdVideoH264PpsFlags> consumer) { consumer.accept(flags()); return this; }
         /** Sets the address of the specified {@link StdVideoH264ScalingLists} to the {@link StdVideoH264PictureParameterSet#pScalingLists} field. */
-        public StdVideoH264PictureParameterSet.Buffer pScalingLists(@NativeType("StdVideoH264ScalingLists *") StdVideoH264ScalingLists value) { StdVideoH264PictureParameterSet.npScalingLists(address(), value); return this; }
+        public StdVideoH264PictureParameterSet.Buffer pScalingLists(@NativeType("StdVideoH264ScalingLists const *") StdVideoH264ScalingLists value) { StdVideoH264PictureParameterSet.npScalingLists(address(), value); return this; }
 
     }
 

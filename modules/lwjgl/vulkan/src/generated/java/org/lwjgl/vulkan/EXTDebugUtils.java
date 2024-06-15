@@ -50,15 +50,15 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     PFN_vkDestroyDebugUtilsMessengerEXT pfnDestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
  * 
  *     VkDebugUtilsMessengerCreateInfoEXT callback1 = {
- *             VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,  // sType
- *             NULL,                                                     // pNext
- *             0,                                                        // flags
- *             VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |           // messageSeverity
- *             VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT,
- *             VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |             // messageType
- *             VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT,
- *             myOutputDebugString,                                      // pfnUserCallback
- *             NULL                                                      // pUserData
+ *         .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
+ *         .pNext = NULL,
+ *         .flags = 0,
+ *         .messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |
+ *                            VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT,
+ *         .messageType= VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
+ *                       VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT,
+ *         .pfnUserCallback = myOutputDebugString,
+ *         .pUserData = NULL
  *     };
  *     res = pfnCreateDebugUtilsMessengerEXT(instance, &amp;callback1, NULL, &amp;cb1);
  *     if (res != VK_SUCCESS) {
@@ -74,14 +74,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     }
  * 
  *     VkDebugUtilsMessengerCreateInfoEXT callback3 = {
- *             VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,  // sType
- *             NULL,                                                     // pNext
- *             0,                                                        // flags
- *             VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT,          // messageSeverity
- *             VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |             // messageType
- *             VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT,
- *             mystdOutLogger,                                           // pfnUserCallback
- *             NULL                                                      // pUserData
+ *         .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
+ *         .pNext = NULL,
+ *         .flags = 0,
+ *         .messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT,
+ *         .messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
+ *                        VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT,
+ *         .pfnUserCallback = mystdOutLogger,
+ *         .pUserData = NULL
  *     };
  *     res = pfnCreateDebugUtilsMessengerEXT(instance, &amp;callback3, NULL, &amp;cb3);
  *     if (res != VK_SUCCESS) {
@@ -110,11 +110,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     // Set a name on the image
  *     const VkDebugUtilsObjectNameInfoEXT imageNameInfo =
  *     {
- *         VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT, // sType
- *         NULL,                                               // pNext
- *         VK_OBJECT_TYPE_IMAGE,                               // objectType
- *         (uint64_t)image,                                    // objectHandle
- *         "Brick Diffuse Texture",                            // pObjectName
+ *         .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT,
+ *         .pNext = NULL,
+ *         .objectType = VK_OBJECT_TYPE_IMAGE,
+ *         .objectHandle = (uint64_t)image,
+ *         .pObjectName = "Brick Diffuse Texture",
  *     };
  * 
  *     pfnSetDebugUtilsObjectNameEXT(device, &amp;imageNameInfo);
@@ -141,10 +141,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     // Describe the area being rendered
  *     const VkDebugUtilsLabelEXT houseLabel =
  *     {
- *         VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, // sType
- *         NULL,                                    // pNext
- *         "Brick House",                           // pLabelName
- *         { 1.0f, 0.0f, 0.0f, 1.0f },              // color
+ *         .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT,
+ *         .pNext = NULL,
+ *         .pLabelName = "Brick House",
+ *         .color = { 1.0f, 0.0f, 0.0f, 1.0f },
  *     };
  * 
  *     // Start an annotated group of calls under the 'Brick House' name
@@ -153,10 +153,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  *         // A mutable structure for each part being rendered
  *         VkDebugUtilsLabelEXT housePartLabel =
  *         {
- *             VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, // sType
- *             NULL,                                    // pNext
- *             NULL,                                    // pLabelName
- *             { 0.0f, 0.0f, 0.0f, 0.0f },              // color
+ *             .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT,
+ *             .pNext = NULL,
+ *             .pLabelName = NULL,
+ *             .color = { 0.0f, 0.0f, 0.0f, 0.0f },
  *         };
  * 
  *         // Set the name and insert the marker
@@ -195,10 +195,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     // Describe the queue being used
  *     const VkDebugUtilsLabelEXT queueLabel =
  *     {
- *         VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, // sType
- *         NULL,                                    // pNext
- *         "Main Render Work",                      // pLabelName
- *         { 0.0f, 1.0f, 0.0f, 1.0f },              // color
+ *         .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT,
+ *         .pNext = NULL,
+ *         .pLabelName = "Main Render Work",
+ *         .color = { 0.0f, 1.0f, 0.0f, 1.0f },
  *     };
  * 
  *     // Identify the queue label region
@@ -206,21 +206,22 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  *     // Submit the work for the main render thread
  *     const VkCommandBuffer cmd_bufs[] = {commandBuffer};
- *     VkSubmitInfo submit_info = {.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
- *                                 .pNext = NULL,
- *                                 .waitSemaphoreCount = 0,
- *                                 .pWaitSemaphores = NULL,
- *                                 .pWaitDstStageMask = NULL,
- *                                 .commandBufferCount = 1,
- *                                 .pCommandBuffers = cmd_bufs,
- *                                 .signalSemaphoreCount = 0,
- *                                 .pSignalSemaphores = NULL};
+ *     VkSubmitInfo submit_info =
+ *     {
+ *         .sType = VK_STRUCTURE_TYPE_SUBMIT_INFO,
+ *         .pNext = NULL,
+ *         .waitSemaphoreCount = 0,
+ *         .pWaitSemaphores = NULL,
+ *         .pWaitDstStageMask = NULL,
+ *         .commandBufferCount = 1,
+ *         .pCommandBuffers = cmd_bufs,
+ *         .signalSemaphoreCount = 0,
+ *         .pSignalSemaphores = NULL
+ *     };
  *     vkQueueSubmit(queue, 1, &amp;submit_info, fence);
  * 
  *     // End the queue label region
  *     pfnQueueEndDebugUtilsLabelEXT(queue);</code></pre>
- * 
- * <h5>VK_EXT_debug_utils</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -231,17 +232,13 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>129</dd>
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Debugging tools</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Debugging tools</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Mark Young <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_debug_utils]%20@marky-lunarg%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_debug_utils%20extension%3E%3E">marky-lunarg</a></li>
+ * <li>Mark Young <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_debug_utils]%20@marky-lunarg%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_debug_utils%20extension*">marky-lunarg</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -354,6 +351,7 @@ public class EXTDebugUtils {
      * <li>{@link #VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT} specifies that some general event has occurred. This is typically a non-specification, non-performance event.</li>
      * <li>{@link #VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT} specifies that something has occurred during validation against the Vulkan specification that may indicate invalid behavior.</li>
      * <li>{@link #VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT} specifies a potentially non-optimal use of Vulkan, e.g. using {@link VK10#vkCmdClearColorImage CmdClearColorImage} when setting {@link VkAttachmentDescription}{@code ::loadOp} to {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR} would have worked.</li>
+     * <li>{@link EXTDeviceAddressBindingReport#VK_DEBUG_UTILS_MESSAGE_TYPE_DEVICE_ADDRESS_BINDING_BIT_EXT DEBUG_UTILS_MESSAGE_TYPE_DEVICE_ADDRESS_BINDING_BIT_EXT} specifies that the implementation has modified the set of GPU-visible virtual addresses associated with a Vulkan object.</li>
      * </ul>
      */
     public static final int
@@ -369,7 +367,7 @@ public class EXTDebugUtils {
 
     /** Unsafe version of: {@link #vkSetDebugUtilsObjectNameEXT SetDebugUtilsObjectNameEXT} */
     public static int nvkSetDebugUtilsObjectNameEXT(VkDevice device, long pNameInfo) {
-        long __functionAddress = device.getCapabilities().vkSetDebugUtilsObjectNameEXT;
+        long __functionAddress = device.getCapabilitiesInstance().vkSetDebugUtilsObjectNameEXT;
         if (CHECKS) {
             check(__functionAddress);
         }
@@ -391,6 +389,9 @@ public class EXTDebugUtils {
      * <ul>
      * <li>{@code pNameInfo→objectType} <b>must</b> not be {@link VK10#VK_OBJECT_TYPE_UNKNOWN OBJECT_TYPE_UNKNOWN}</li>
      * <li>{@code pNameInfo→objectHandle} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+     * <li>If {@code pNameInfo→objectHandle} is the valid handle of an instance-level object, the {@code VkDevice} identified by {@code device} <b>must</b> be a descendent of the same {@code VkInstance} as the object identified by {@code pNameInfo→objectHandle}</li>
+     * <li>If {@code pNameInfo→objectHandle} is the valid handle of a physical-device-level object, the {@code VkDevice} identified by {@code device} <b>must</b> be a descendant of the same {@code VkPhysicalDevice} as the object identified by {@code pNameInfo→objectHandle}</li>
+     * <li>If {@code pNameInfo→objectHandle} is the valid handle of a device-level object, that object <b>must</b> be a descendent of the {@code VkDevice} identified by {@code device}</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -424,7 +425,7 @@ public class EXTDebugUtils {
      * 
      * <p>{@link VkDebugUtilsObjectNameInfoEXT}</p>
      *
-     * @param device    the device that created the object.
+     * @param device    the device that is associated with the named object passed in via {@code objectHandle}.
      * @param pNameInfo a pointer to a {@link VkDebugUtilsObjectNameInfoEXT} structure specifying parameters of the name to set on the object.
      */
     @NativeType("VkResult")
@@ -436,7 +437,7 @@ public class EXTDebugUtils {
 
     /** Unsafe version of: {@link #vkSetDebugUtilsObjectTagEXT SetDebugUtilsObjectTagEXT} */
     public static int nvkSetDebugUtilsObjectTagEXT(VkDevice device, long pTagInfo) {
-        long __functionAddress = device.getCapabilities().vkSetDebugUtilsObjectTagEXT;
+        long __functionAddress = device.getCapabilitiesInstance().vkSetDebugUtilsObjectTagEXT;
         if (CHECKS) {
             check(__functionAddress);
             VkDebugUtilsObjectTagInfoEXT.validate(pTagInfo);
@@ -453,6 +454,14 @@ public class EXTDebugUtils {
      * VkResult vkSetDebugUtilsObjectTagEXT(
      *     VkDevice                                    device,
      *     const VkDebugUtilsObjectTagInfoEXT*         pTagInfo);</code></pre>
+     * 
+     * <h5>Valid Usage</h5>
+     * 
+     * <ul>
+     * <li>If {@code pNameInfo→objectHandle} is the valid handle of an instance-level object, the {@code VkDevice} identified by {@code device} <b>must</b> be a descendent of the same {@code VkInstance} as the object identified by {@code pNameInfo→objectHandle}</li>
+     * <li>If {@code pNameInfo→objectHandle} is the valid handle of a physical-device-level object, the {@code VkDevice} identified by {@code device} <b>must</b> be a descendant of the same {@code VkPhysicalDevice} as the object identified by {@code pNameInfo→objectHandle}</li>
+     * <li>If {@code pNameInfo→objectHandle} is the valid handle of a device-level object, that object <b>must</b> be a descendent of the {@code VkDevice} identified by {@code device}</li>
+     * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -497,7 +506,7 @@ public class EXTDebugUtils {
 
     /** Unsafe version of: {@link #vkQueueBeginDebugUtilsLabelEXT QueueBeginDebugUtilsLabelEXT} */
     public static void nvkQueueBeginDebugUtilsLabelEXT(VkQueue queue, long pLabelInfo) {
-        long __functionAddress = queue.getCapabilities().vkQueueBeginDebugUtilsLabelEXT;
+        long __functionAddress = queue.getCapabilitiesInstance().vkQueueBeginDebugUtilsLabelEXT;
         if (CHECKS) {
             check(__functionAddress);
             VkDebugUtilsLabelEXT.validate(pLabelInfo);
@@ -527,8 +536,8 @@ public class EXTDebugUtils {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>-</td><td>-</td><td>Any</td></tr></tbody>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>-</td><td>-</td><td>-</td><td>Any</td><td>-</td></tr></tbody>
      * </table>
      * 
      * <h5>See Also</h5>
@@ -574,14 +583,14 @@ public class EXTDebugUtils {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>-</td><td>-</td><td>Any</td></tr></tbody>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>-</td><td>-</td><td>-</td><td>Any</td><td>-</td></tr></tbody>
      * </table>
      *
      * @param queue the queue in which a debug label region should be closed.
      */
     public static void vkQueueEndDebugUtilsLabelEXT(VkQueue queue) {
-        long __functionAddress = queue.getCapabilities().vkQueueEndDebugUtilsLabelEXT;
+        long __functionAddress = queue.getCapabilitiesInstance().vkQueueEndDebugUtilsLabelEXT;
         if (CHECKS) {
             check(__functionAddress);
         }
@@ -592,7 +601,7 @@ public class EXTDebugUtils {
 
     /** Unsafe version of: {@link #vkQueueInsertDebugUtilsLabelEXT QueueInsertDebugUtilsLabelEXT} */
     public static void nvkQueueInsertDebugUtilsLabelEXT(VkQueue queue, long pLabelInfo) {
-        long __functionAddress = queue.getCapabilities().vkQueueInsertDebugUtilsLabelEXT;
+        long __functionAddress = queue.getCapabilitiesInstance().vkQueueInsertDebugUtilsLabelEXT;
         if (CHECKS) {
             check(__functionAddress);
             VkDebugUtilsLabelEXT.validate(pLabelInfo);
@@ -622,8 +631,8 @@ public class EXTDebugUtils {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>-</td><td>-</td><td>Any</td></tr></tbody>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>-</td><td>-</td><td>-</td><td>Any</td><td>-</td></tr></tbody>
      * </table>
      * 
      * <h5>See Also</h5>
@@ -641,7 +650,7 @@ public class EXTDebugUtils {
 
     /** Unsafe version of: {@link #vkCmdBeginDebugUtilsLabelEXT CmdBeginDebugUtilsLabelEXT} */
     public static void nvkCmdBeginDebugUtilsLabelEXT(VkCommandBuffer commandBuffer, long pLabelInfo) {
-        long __functionAddress = commandBuffer.getCapabilities().vkCmdBeginDebugUtilsLabelEXT;
+        long __functionAddress = commandBuffer.getCapabilitiesInstance().vkCmdBeginDebugUtilsLabelEXT;
         if (CHECKS) {
             check(__functionAddress);
             VkDebugUtilsLabelEXT.validate(pLabelInfo);
@@ -666,8 +675,9 @@ public class EXTDebugUtils {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pLabelInfo} <b>must</b> be a valid pointer to a valid {@link VkDebugUtilsLabelEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
+     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>
@@ -680,8 +690,8 @@ public class EXTDebugUtils {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics Compute</td></tr></tbody>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>Action State</td></tr></tbody>
      * </table>
      * 
      * <h5>See Also</h5>
@@ -725,8 +735,9 @@ public class EXTDebugUtils {
      * 
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
+     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>
@@ -739,14 +750,14 @@ public class EXTDebugUtils {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics Compute</td></tr></tbody>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>Action State</td></tr></tbody>
      * </table>
      *
      * @param commandBuffer the command buffer into which the command is recorded.
      */
     public static void vkCmdEndDebugUtilsLabelEXT(VkCommandBuffer commandBuffer) {
-        long __functionAddress = commandBuffer.getCapabilities().vkCmdEndDebugUtilsLabelEXT;
+        long __functionAddress = commandBuffer.getCapabilitiesInstance().vkCmdEndDebugUtilsLabelEXT;
         if (CHECKS) {
             check(__functionAddress);
         }
@@ -757,7 +768,7 @@ public class EXTDebugUtils {
 
     /** Unsafe version of: {@link #vkCmdInsertDebugUtilsLabelEXT CmdInsertDebugUtilsLabelEXT} */
     public static void nvkCmdInsertDebugUtilsLabelEXT(VkCommandBuffer commandBuffer, long pLabelInfo) {
-        long __functionAddress = commandBuffer.getCapabilities().vkCmdInsertDebugUtilsLabelEXT;
+        long __functionAddress = commandBuffer.getCapabilitiesInstance().vkCmdInsertDebugUtilsLabelEXT;
         if (CHECKS) {
             check(__functionAddress);
             VkDebugUtilsLabelEXT.validate(pLabelInfo);
@@ -782,8 +793,9 @@ public class EXTDebugUtils {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pLabelInfo} <b>must</b> be a valid pointer to a valid {@link VkDebugUtilsLabelEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support graphics, or compute operations</li>
+     * <li>This command <b>must</b> only be called outside of a video coding scope</li>
      * </ul>
      * 
      * <h5>Host Synchronization</h5>
@@ -796,8 +808,8 @@ public class EXTDebugUtils {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th></tr></thead>
-     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Graphics Compute</td></tr></tbody>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <tbody><tr><td>Primary Secondary</td><td>Both</td><td>Outside</td><td>Graphics Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
      * <h5>See Also</h5>
@@ -866,7 +878,7 @@ public class EXTDebugUtils {
      *
      * @param instance    the instance the messenger will be used with.
      * @param pCreateInfo a pointer to a {@link VkDebugUtilsMessengerCreateInfoEXT} structure containing the callback pointer, as well as defining conditions under which this messenger will trigger the callback.
-     * @param pAllocator  controls host memory allocation as described in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pMessenger  a pointer to a {@code VkDebugUtilsMessengerEXT} handle in which the created object is returned.
      */
     @NativeType("VkResult")
@@ -931,7 +943,7 @@ public class EXTDebugUtils {
      *
      * @param instance   the instance where the callback was created.
      * @param messenger  the {@code VkDebugUtilsMessengerEXT} object to destroy. {@code messenger} is an externally synchronized object and <b>must</b> not be used on more than one thread at a time. This means that {@code vkDestroyDebugUtilsMessengerEXT} <b>must</b> not be called when a callback is active.
-     * @param pAllocator controls host memory allocation as described in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
     public static void vkDestroyDebugUtilsMessengerEXT(VkInstance instance, @NativeType("VkDebugUtilsMessengerEXT") long messenger, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
         nvkDestroyDebugUtilsMessengerEXT(instance, messenger, memAddressSafe(pAllocator));

@@ -79,8 +79,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     free(disassembly);
  * }</code></pre>
  * 
- * <h5>VK_AMD_shader_info</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_AMD_shader_info}</dd>
@@ -90,17 +88,13 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>43</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Jaakko Konttinen <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_shader_info]%20@jaakkoamd%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_shader_info%20extension%3E%3E">jaakkoamd</a></li>
+ * <li>Jaakko Konttinen <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMD_shader_info]%20@jaakkoamd%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_AMD_shader_info%20extension*">jaakkoamd</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -133,7 +127,7 @@ public class AMDShaderInfo {
      * <ul>
      * <li>{@link #VK_SHADER_INFO_TYPE_STATISTICS_AMD SHADER_INFO_TYPE_STATISTICS_AMD} specifies that device resources used by a shader will be queried.</li>
      * <li>{@link #VK_SHADER_INFO_TYPE_BINARY_AMD SHADER_INFO_TYPE_BINARY_AMD} specifies that implementation-specific information will be queried.</li>
-     * <li>{@link #VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD SHADER_INFO_TYPE_DISASSEMBLY_AMD} specifies that human-readable dissassembly of a shader.</li>
+     * <li>{@link #VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD SHADER_INFO_TYPE_DISASSEMBLY_AMD} specifies that human-readable disassembly of a shader.</li>
      * </ul>
      * 
      * <h5>See Also</h5>
@@ -190,7 +184,7 @@ public class AMDShaderInfo {
      * 
      * <p>For {@code infoType} {@link #VK_SHADER_INFO_TYPE_STATISTICS_AMD SHADER_INFO_TYPE_STATISTICS_AMD}, a {@link VkShaderStatisticsInfoAMD} structure will be written to the buffer pointed to by {@code pInfo}. This structure will be populated with statistics regarding the physical device resources used by that shader along with other miscellaneous information and is described in further detail below.</p>
      * 
-     * <p>For {@code infoType} {@link #VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD SHADER_INFO_TYPE_DISASSEMBLY_AMD}, {@code pInfo} is a pointer to a UTF-8 null-terminated string containing human-readable disassembly. The exact formatting and contents of the disassembly string are vendor-specific.</p>
+     * <p>For {@code infoType} {@link #VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD SHADER_INFO_TYPE_DISASSEMBLY_AMD}, {@code pInfo} is a pointer to a null-terminated UTF-8 string containing human-readable disassembly. The exact formatting and contents of the disassembly string are vendor-specific.</p>
      * 
      * <p>The formatting and contents of all other types of information, including {@code infoType} {@link #VK_SHADER_INFO_TYPE_BINARY_AMD SHADER_INFO_TYPE_BINARY_AMD}, are left to the vendor and are not further specified by this extension.</p>
      * 

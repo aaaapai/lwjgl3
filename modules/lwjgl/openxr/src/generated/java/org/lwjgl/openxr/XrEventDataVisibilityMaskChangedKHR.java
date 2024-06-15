@@ -12,7 +12,6 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -24,9 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHRVisibilityMask XR_KHR_visibility_mask} extension <b>must</b> be enabled prior to using {@link XrEventDataVisibilityMaskChangedKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVisibilityMask#XR_TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
- * <li>{@code viewConfigurationType} <b>must</b> be a valid {@code XrViewConfigurationType} value</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -40,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #viewIndex};
  * }</code></pre>
  */
-public class XrEventDataVisibilityMaskChangedKHR extends Struct implements NativeResource {
+public class XrEventDataVisibilityMaskChangedKHR extends Struct<XrEventDataVisibilityMaskChangedKHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -73,6 +70,15 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
         SESSION = layout.offsetof(2);
         VIEWCONFIGURATIONTYPE = layout.offsetof(3);
         VIEWINDEX = layout.offsetof(4);
+    }
+
+    protected XrEventDataVisibilityMaskChangedKHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrEventDataVisibilityMaskChangedKHR create(long address, @Nullable ByteBuffer container) {
+        return new XrEventDataVisibilityMaskChangedKHR(address, container);
     }
 
     /**
@@ -110,26 +116,14 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
     public XrEventDataVisibilityMaskChangedKHR type$Default() { return type(KHRVisibilityMask.XR_TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR); }
     /** Sets the specified value to the {@link #next} field. */
     public XrEventDataVisibilityMaskChangedKHR next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #session} field. */
-    public XrEventDataVisibilityMaskChangedKHR session(XrSession value) { nsession(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewConfigurationType} field. */
-    public XrEventDataVisibilityMaskChangedKHR viewConfigurationType(@NativeType("XrViewConfigurationType") int value) { nviewConfigurationType(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewIndex} field. */
-    public XrEventDataVisibilityMaskChangedKHR viewIndex(@NativeType("uint32_t") int value) { nviewIndex(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataVisibilityMaskChangedKHR set(
         int type,
-        long next,
-        XrSession session,
-        int viewConfigurationType,
-        int viewIndex
+        long next
     ) {
         type(type);
         next(next);
-        session(session);
-        viewConfigurationType(viewConfigurationType);
-        viewIndex(viewIndex);
 
         return this;
     }
@@ -150,34 +144,34 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
 
     /** Returns a new {@code XrEventDataVisibilityMaskChangedKHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrEventDataVisibilityMaskChangedKHR malloc() {
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, nmemAllocChecked(SIZEOF));
+        return new XrEventDataVisibilityMaskChangedKHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrEventDataVisibilityMaskChangedKHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrEventDataVisibilityMaskChangedKHR calloc() {
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, nmemCallocChecked(1, SIZEOF));
+        return new XrEventDataVisibilityMaskChangedKHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrEventDataVisibilityMaskChangedKHR} instance allocated with {@link BufferUtils}. */
     public static XrEventDataVisibilityMaskChangedKHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, memAddress(container), container);
+        return new XrEventDataVisibilityMaskChangedKHR(memAddress(container), container);
     }
 
     /** Returns a new {@code XrEventDataVisibilityMaskChangedKHR} instance for the specified memory address. */
     public static XrEventDataVisibilityMaskChangedKHR create(long address) {
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, address);
+        return new XrEventDataVisibilityMaskChangedKHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataVisibilityMaskChangedKHR createSafe(long address) {
-        return address == NULL ? null : wrap(XrEventDataVisibilityMaskChangedKHR.class, address);
+        return address == NULL ? null : new XrEventDataVisibilityMaskChangedKHR(address, null);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataVisibilityMaskChangedKHR}. */
     public static XrEventDataVisibilityMaskChangedKHR create(XrEventDataBaseHeader value) {
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, value);
+        return new XrEventDataVisibilityMaskChangedKHR(value.address(), __getContainer(value));
     }
 
     /**
@@ -186,7 +180,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -195,7 +189,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -205,7 +199,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -215,18 +209,18 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrEventDataVisibilityMaskChangedKHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataVisibilityMaskChangedKHR.Buffer}. */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer create(XrEventDataBaseHeader.Buffer value) {
-        return wrap(Buffer.class, value);
+        return new XrEventDataVisibilityMaskChangedKHR.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -235,7 +229,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param stack the stack from which to allocate
      */
     public static XrEventDataVisibilityMaskChangedKHR malloc(MemoryStack stack) {
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrEventDataVisibilityMaskChangedKHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -244,7 +238,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param stack the stack from which to allocate
      */
     public static XrEventDataVisibilityMaskChangedKHR calloc(MemoryStack stack) {
-        return wrap(XrEventDataVisibilityMaskChangedKHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrEventDataVisibilityMaskChangedKHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -254,7 +248,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -264,7 +258,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
      * @param capacity the buffer capacity
      */
     public static XrEventDataVisibilityMaskChangedKHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -284,21 +278,6 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataVisibilityMaskChangedKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataVisibilityMaskChangedKHR.NEXT, value); }
-    /** Unsafe version of {@link #session(XrSession) session}. */
-    public static void nsession(long struct, XrSession value) { memPutAddress(struct + XrEventDataVisibilityMaskChangedKHR.SESSION, value.address()); }
-    /** Unsafe version of {@link #viewConfigurationType(int) viewConfigurationType}. */
-    public static void nviewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataVisibilityMaskChangedKHR.VIEWCONFIGURATIONTYPE, value); }
-    /** Unsafe version of {@link #viewIndex(int) viewIndex}. */
-    public static void nviewIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataVisibilityMaskChangedKHR.VIEWINDEX, value); }
-
-    /**
-     * Validates pointer members that should not be {@code NULL}.
-     *
-     * @param struct the struct to validate
-     */
-    public static void validate(long struct) {
-        check(memGetAddress(struct + XrEventDataVisibilityMaskChangedKHR.SESSION));
-    }
 
     // -----------------------------------
 
@@ -310,9 +289,9 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
         /**
          * Creates a new {@code XrEventDataVisibilityMaskChangedKHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrEventDataVisibilityMaskChangedKHR#SIZEOF}, and its mark will be undefined.
+         * by {@link XrEventDataVisibilityMaskChangedKHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -360,12 +339,6 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct implements Nativ
         public XrEventDataVisibilityMaskChangedKHR.Buffer type$Default() { return type(KHRVisibilityMask.XR_TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR); }
         /** Sets the specified value to the {@link XrEventDataVisibilityMaskChangedKHR#next} field. */
         public XrEventDataVisibilityMaskChangedKHR.Buffer next(@NativeType("void const *") long value) { XrEventDataVisibilityMaskChangedKHR.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataVisibilityMaskChangedKHR#session} field. */
-        public XrEventDataVisibilityMaskChangedKHR.Buffer session(XrSession value) { XrEventDataVisibilityMaskChangedKHR.nsession(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataVisibilityMaskChangedKHR#viewConfigurationType} field. */
-        public XrEventDataVisibilityMaskChangedKHR.Buffer viewConfigurationType(@NativeType("XrViewConfigurationType") int value) { XrEventDataVisibilityMaskChangedKHR.nviewConfigurationType(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataVisibilityMaskChangedKHR#viewIndex} field. */
-        public XrEventDataVisibilityMaskChangedKHR.Buffer viewIndex(@NativeType("uint32_t") int value) { XrEventDataVisibilityMaskChangedKHR.nviewIndex(address(), value); return this; }
 
     }
 

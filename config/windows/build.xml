@@ -150,7 +150,7 @@ EXPORTS
                 <arg value="/I${src.main}\libffi"/>
                 <arg value="/I${src.main}\libffi\aarch64" if:set="build.arch.arm64"/>
                 <arg value="/I${src.main}\libffi\arm" if:set="build.arch.arm32"/>
-                <arg value="/I${src.main}\libffi\x86" unless:set="build.arch.arm"/>
+                <arg value="/I${src.main}\libffi\x86" if:set="build.arch.x64|x86"/>
                 <!-- for libffi/x86/ffitarget.h -->
                 <arg value="/DX86_WIN32" if:set="build.arch.x86"/>
                 <arg value="/DX86_WIN64" if:set="build.arch.x64"/>
@@ -236,10 +236,7 @@ EXPORTS
         <build module="nfd" simple="true" if:true="${binding.nfd}">
             <beforeCompile>
                 <compile>
-                    <arg value="/I${src.main}"/>
-                    <arg value="/DUNICODE"/>
-                    <arg value="/D_UNICODE"/>
-                    <fileset dir="." includes="${src.main}/nfd_common.c"/>
+                    <arg value="/I${src.main}\include"/>
                     <fileset dir="." includes="${src.main}/nfd_win.cpp"/>
                 </compile>
             </beforeCompile>
@@ -287,6 +284,7 @@ EXPORTS
         <build module="remotery" if:true="${binding.remotery}">
             <compileargs>
                 <arg value="/I${src.main}"/>
+                <arg value="/I${module.lwjgl}\vulkan\src\main\c"/>
             </compileargs>
             <source>
                 <fileset dir="." includes="${src.generated}/*.c" excludes="**/*Metal.c"/>
@@ -368,6 +366,7 @@ EXPORTS
         <!-- Vulkan Memory Allocator -->
         <build module="vma" if:true="${binding.vma}">
             <compileargs>
+                <arg value="/std:c++20"/>
                 <arg value="/I${src.main}"/>
                 <arg value="/I${module.lwjgl}\vulkan\src\main\c"/>
             </compileargs>
@@ -383,6 +382,7 @@ EXPORTS
         <build module="yoga" simple="true" if:true="${binding.yoga}">
             <beforeCompile>
                 <compile>
+                    <arg value="/std:c++20"/>
                     <arg value="/I${src.main}"/>
                     <fileset dir="." includes="${src.main}/**/*.cpp"/>
                 </compile>
@@ -401,10 +401,6 @@ EXPORTS
                     <fileset dir="." includes="${module.lwjgl}/xxhash/src/main/c/xxhash.c"/>
                 </compile>
             </beforeCompile>
-            <compileargs>
-                <arg value="/I${src.main}\common"/>
-                <arg value="/I${src.main}\dictBuilder"/>
-            </compileargs>
         </build>
 
         </parallel>
@@ -423,9 +419,14 @@ EXPORTS
             <parallel threadsPerProcessor="4" failonany="true">
 
             <update-dependency module="assimp" artifact="assimp.dll"/>
+            <update-dependency module="assimp" artifact="draco.dll"/>
             <update-dependency module="bgfx" artifact="bgfx.dll"/>
-            <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
+            <update-dependency module="freetype" artifact="freetype.dll"/>
             <update-dependency module="glfw" artifact="glfw.dll"/>
+            <update-dependency module="harfbuzz" artifact="harfbuzz.dll"/>
+            <update-dependency module="hwloc" artifact="hwloc.dll"/>
+            <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
+            <update-dependency module="ktx" artifact="ktx.dll" unless:set="build.arch.x86"/>
             <update-dependency module="openal" artifact="OpenAL.dll"/>
             <update-dependency module="openvr" artifact="openvr_api.dll"/>
             <update-dependency module="openxr" artifact="openxr-loader.dll"/>

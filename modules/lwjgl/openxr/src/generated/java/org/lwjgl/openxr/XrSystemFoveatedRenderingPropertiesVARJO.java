@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VARJOFoveatedRendering XR_VARJO_foveated_rendering} extension <b>must</b> be enabled prior to using {@link XrSystemFoveatedRenderingPropertiesVARJO}</li>
  * <li>{@code type} <b>must</b> be {@link VARJOFoveatedRendering#XR_TYPE_SYSTEM_FOVEATED_RENDERING_PROPERTIES_VARJO TYPE_SYSTEM_FOVEATED_RENDERING_PROPERTIES_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -39,7 +39,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrBool32 {@link #supportsFoveatedRendering};
  * }</code></pre>
  */
-public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements NativeResource {
+public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct<XrSystemFoveatedRenderingPropertiesVARJO> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -66,6 +66,15 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
         TYPE = layout.offsetof(0);
         NEXT = layout.offsetof(1);
         SUPPORTSFOVEATEDRENDERING = layout.offsetof(2);
+    }
+
+    protected XrSystemFoveatedRenderingPropertiesVARJO(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrSystemFoveatedRenderingPropertiesVARJO create(long address, @Nullable ByteBuffer container) {
+        return new XrSystemFoveatedRenderingPropertiesVARJO(address, container);
     }
 
     /**
@@ -97,18 +106,14 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
     public XrSystemFoveatedRenderingPropertiesVARJO type$Default() { return type(VARJOFoveatedRendering.XR_TYPE_SYSTEM_FOVEATED_RENDERING_PROPERTIES_VARJO); }
     /** Sets the specified value to the {@link #next} field. */
     public XrSystemFoveatedRenderingPropertiesVARJO next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportsFoveatedRendering} field. */
-    public XrSystemFoveatedRenderingPropertiesVARJO supportsFoveatedRendering(@NativeType("XrBool32") boolean value) { nsupportsFoveatedRendering(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSystemFoveatedRenderingPropertiesVARJO set(
         int type,
-        long next,
-        boolean supportsFoveatedRendering
+        long next
     ) {
         type(type);
         next(next);
-        supportsFoveatedRendering(supportsFoveatedRendering);
 
         return this;
     }
@@ -129,29 +134,29 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
 
     /** Returns a new {@code XrSystemFoveatedRenderingPropertiesVARJO} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrSystemFoveatedRenderingPropertiesVARJO malloc() {
-        return wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, nmemAllocChecked(SIZEOF));
+        return new XrSystemFoveatedRenderingPropertiesVARJO(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrSystemFoveatedRenderingPropertiesVARJO} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrSystemFoveatedRenderingPropertiesVARJO calloc() {
-        return wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, nmemCallocChecked(1, SIZEOF));
+        return new XrSystemFoveatedRenderingPropertiesVARJO(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrSystemFoveatedRenderingPropertiesVARJO} instance allocated with {@link BufferUtils}. */
     public static XrSystemFoveatedRenderingPropertiesVARJO create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, memAddress(container), container);
+        return new XrSystemFoveatedRenderingPropertiesVARJO(memAddress(container), container);
     }
 
     /** Returns a new {@code XrSystemFoveatedRenderingPropertiesVARJO} instance for the specified memory address. */
     public static XrSystemFoveatedRenderingPropertiesVARJO create(long address) {
-        return wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, address);
+        return new XrSystemFoveatedRenderingPropertiesVARJO(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemFoveatedRenderingPropertiesVARJO createSafe(long address) {
-        return address == NULL ? null : wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, address);
+        return address == NULL ? null : new XrSystemFoveatedRenderingPropertiesVARJO(address, null);
     }
 
     /**
@@ -160,7 +165,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -169,7 +174,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -179,7 +184,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -189,13 +194,13 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -204,7 +209,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param stack the stack from which to allocate
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO malloc(MemoryStack stack) {
-        return wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrSystemFoveatedRenderingPropertiesVARJO(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -213,7 +218,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param stack the stack from which to allocate
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO calloc(MemoryStack stack) {
-        return wrap(XrSystemFoveatedRenderingPropertiesVARJO.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrSystemFoveatedRenderingPropertiesVARJO(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -223,7 +228,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -233,7 +238,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
      * @param capacity the buffer capacity
      */
     public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -249,8 +254,6 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
     public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFoveatedRenderingPropertiesVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemFoveatedRenderingPropertiesVARJO.NEXT, value); }
-    /** Unsafe version of {@link #supportsFoveatedRendering(boolean) supportsFoveatedRendering}. */
-    public static void nsupportsFoveatedRendering(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFoveatedRenderingPropertiesVARJO.SUPPORTSFOVEATEDRENDERING, value); }
 
     // -----------------------------------
 
@@ -262,9 +265,9 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
         /**
          * Creates a new {@code XrSystemFoveatedRenderingPropertiesVARJO.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrSystemFoveatedRenderingPropertiesVARJO#SIZEOF}, and its mark will be undefined.
+         * by {@link XrSystemFoveatedRenderingPropertiesVARJO#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -306,8 +309,6 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct implements 
         public XrSystemFoveatedRenderingPropertiesVARJO.Buffer type$Default() { return type(VARJOFoveatedRendering.XR_TYPE_SYSTEM_FOVEATED_RENDERING_PROPERTIES_VARJO); }
         /** Sets the specified value to the {@link XrSystemFoveatedRenderingPropertiesVARJO#next} field. */
         public XrSystemFoveatedRenderingPropertiesVARJO.Buffer next(@NativeType("void *") long value) { XrSystemFoveatedRenderingPropertiesVARJO.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSystemFoveatedRenderingPropertiesVARJO#supportsFoveatedRendering} field. */
-        public XrSystemFoveatedRenderingPropertiesVARJO.Buffer supportsFoveatedRendering(@NativeType("XrBool32") boolean value) { XrSystemFoveatedRenderingPropertiesVARJO.nsupportsFoveatedRendering(address(), value ? 1 : 0); return this; }
 
     }
 

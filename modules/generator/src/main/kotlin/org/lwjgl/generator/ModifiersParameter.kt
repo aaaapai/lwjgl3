@@ -71,12 +71,12 @@ class AutoSizeFactor(
     fun scale(operand: String) = if (expression === OPERAND)
         operator.replace(OPERAND, operand)
     else
-        "$operand $operator $expression"
+        "$operand $operator ${if (expression.contains(' ')) "($expression)" else expression}"
 
     fun scaleInv(operand: String) = if (expression === OPERAND)
         operatorInv.replace(OPERAND, operand)
     else
-        "$operand $operatorInv $expression"
+        "$operand $operatorInv ${if (expression.contains(' ')) "($expression)" else expression}"
 }
 
 class AutoSize(
@@ -98,6 +98,7 @@ class AutoSize(
             } else {
                 when (param.nativeType.mapping) {
                     PointerMapping.DATA_INT,
+                    PointerMapping.DATA_CLONG,
                     PointerMapping.DATA_POINTER -> {
                     }
                     else                        -> throw IllegalArgumentException("Output pointer parameters with the AutoSize modifier must be integer pointer types.")
@@ -138,6 +139,7 @@ class AutoSizeResultParam(val expression: String?) : ParameterModifier {
             if (param.nativeType.mapping.nativeMethodType.isPrimitive) {
                 when (param.nativeType.mapping) {
                     PrimitiveMapping.INT,
+                    PrimitiveMapping.CLONG,
                     PrimitiveMapping.POINTER -> {
                     }
                     else                     -> {

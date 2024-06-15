@@ -16,16 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Value for {@link CU#CU_EXEC_AFFINITY_TYPE_SM_COUNT EXEC_AFFINITY_TYPE_SM_COUNT}.
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUexecAffinitySmCount {
- *     unsigned int {@link #val};
+ *     unsigned int val;
  * }</code></pre>
  */
-public class CUexecAffinitySmCount extends Struct implements NativeResource {
+public class CUexecAffinitySmCount extends Struct<CUexecAffinitySmCount> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -48,6 +46,15 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
         VAL = layout.offsetof(0);
     }
 
+    protected CUexecAffinitySmCount(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected CUexecAffinitySmCount create(long address, @Nullable ByteBuffer container) {
+        return new CUexecAffinitySmCount(address, container);
+    }
+
     /**
      * Creates a {@code CUexecAffinitySmCount} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -61,11 +68,11 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of SMs the context is limited to use */
+    /** @return the value of the {@code val} field. */
     @NativeType("unsigned int")
     public int val() { return nval(address()); }
 
-    /** Sets the specified value to the {@link #val} field. */
+    /** Sets the specified value to the {@code val} field. */
     public CUexecAffinitySmCount val(@NativeType("unsigned int") int value) { nval(address(), value); return this; }
 
     /**
@@ -84,29 +91,29 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
 
     /** Returns a new {@code CUexecAffinitySmCount} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUexecAffinitySmCount malloc() {
-        return wrap(CUexecAffinitySmCount.class, nmemAllocChecked(SIZEOF));
+        return new CUexecAffinitySmCount(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code CUexecAffinitySmCount} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUexecAffinitySmCount calloc() {
-        return wrap(CUexecAffinitySmCount.class, nmemCallocChecked(1, SIZEOF));
+        return new CUexecAffinitySmCount(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code CUexecAffinitySmCount} instance allocated with {@link BufferUtils}. */
     public static CUexecAffinitySmCount create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(CUexecAffinitySmCount.class, memAddress(container), container);
+        return new CUexecAffinitySmCount(memAddress(container), container);
     }
 
     /** Returns a new {@code CUexecAffinitySmCount} instance for the specified memory address. */
     public static CUexecAffinitySmCount create(long address) {
-        return wrap(CUexecAffinitySmCount.class, address);
+        return new CUexecAffinitySmCount(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUexecAffinitySmCount createSafe(long address) {
-        return address == NULL ? null : wrap(CUexecAffinitySmCount.class, address);
+        return address == NULL ? null : new CUexecAffinitySmCount(address, null);
     }
 
     /**
@@ -115,7 +122,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUexecAffinitySmCount.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -124,7 +131,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUexecAffinitySmCount.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -134,7 +141,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      */
     public static CUexecAffinitySmCount.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -144,13 +151,13 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUexecAffinitySmCount.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUexecAffinitySmCount.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -159,7 +166,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CUexecAffinitySmCount malloc(MemoryStack stack) {
-        return wrap(CUexecAffinitySmCount.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new CUexecAffinitySmCount(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -168,7 +175,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CUexecAffinitySmCount calloc(MemoryStack stack) {
-        return wrap(CUexecAffinitySmCount.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new CUexecAffinitySmCount(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -178,7 +185,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUexecAffinitySmCount.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -188,7 +195,7 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUexecAffinitySmCount.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -209,9 +216,9 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
         /**
          * Creates a new {@code CUexecAffinitySmCount.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUexecAffinitySmCount#SIZEOF}, and its mark will be undefined.
+         * by {@link CUexecAffinitySmCount#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -237,11 +244,11 @@ public class CUexecAffinitySmCount extends Struct implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CUexecAffinitySmCount#val} field. */
+        /** @return the value of the {@code val} field. */
         @NativeType("unsigned int")
         public int val() { return CUexecAffinitySmCount.nval(address()); }
 
-        /** Sets the specified value to the {@link CUexecAffinitySmCount#val} field. */
+        /** Sets the specified value to the {@code val} field. */
         public CUexecAffinitySmCount.Buffer val(@NativeType("unsigned int") int value) { CUexecAffinitySmCount.nval(address(), value); return this; }
 
     }

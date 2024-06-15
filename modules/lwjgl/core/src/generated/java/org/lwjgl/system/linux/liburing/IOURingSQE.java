@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * IO submission data structure (Submission Queue Entry).
  * 
  * <p>Once the submission queue entry is initialized, I/O is submitted by placing the index of the submission queue entry into the tail of the submission
- * queue. After one or more indexes are added to the queue, and the queue tail is advanced, the {@link LibIOURing#io_uring_enter enter} system call can be invoked to initiate the I/O.</p>
+ * queue. After one or more indexes are added to the queue, and the queue tail is advanced, the {@link LibURing#io_uring_enter enter} system call can be invoked to initiate the I/O.</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -33,10 +33,18 @@ import static org.lwjgl.system.MemoryStack.*;
  *     union {
  *         __u64 {@link #off};
  *         __u64 addr2;
+ *         struct {
+ *             __u32 cmd_op;
+ *             __u32 __pad1;
+ *         };
  *     };
  *     union {
  *         __u64 {@link #addr};
  *         __u64 splice_off_in;
+ *         struct {
+ *             __u32 level;
+ *             __u32 optname;
+ *         };
  *     };
  *     __u32 {@link #len};
  *     union {
@@ -56,6 +64,12 @@ import static org.lwjgl.system.MemoryStack.*;
  *         __u32 rename_flags;
  *         __u32 unlink_flags;
  *         __u32 hardlink_flags;
+ *         __u32 xattr_flags;
+ *         __u32 msg_ring_flags;
+ *         __u32 uring_cmd_flags;
+ *         __u32 waitid_flags;
+ *         __u32 futex_flags;
+ *         __u32 install_fd_flags;
  *     };
  *     __u64 {@link #user_data};
  *     union {
@@ -66,12 +80,24 @@ import static org.lwjgl.system.MemoryStack.*;
  *     union {
  *         __s32 splice_fd_in;
  *         __u32 file_index;
+ *         __u32 optlen;
+ *         struct {
+ *             __u16 addr_len;
+ *             __u16 __pad3[1];
+ *         };
  *     };
- *     __u64 __pad2[2];
+ *     union {
+ *         struct {
+ *             __u64 addr3;
+ *             __u64 __pad2[1];
+ *         };
+ *         __u64 optval;
+ *         __u8 {@link #cmd}[0];
+ *     };
  * }</code></pre>
  */
 @NativeType("struct io_uring_sqe")
-public class IOURingSQE extends Struct implements NativeResource {
+public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -87,8 +113,12 @@ public class IOURingSQE extends Struct implements NativeResource {
         FD,
         OFF,
         ADDR2,
+        CMD_OP,
+        __PAD1,
         ADDR,
         SPLICE_OFF_IN,
+        LEVEL,
+        OPTNAME,
         LEN,
         RW_FLAGS,
         FSYNC_FLAGS,
@@ -106,13 +136,25 @@ public class IOURingSQE extends Struct implements NativeResource {
         RENAME_FLAGS,
         UNLINK_FLAGS,
         HARDLINK_FLAGS,
+        XATTR_FLAGS,
+        MSG_RING_FLAGS,
+        URING_CMD_FLAGS,
+        WAITID_FLAGS,
+        FUTEX_FLAGS,
+        INSTALL_FD_FLAGS,
         USER_DATA,
         BUF_INDEX,
         BUF_GROUP,
         PERSONALITY,
         SPLICE_FD_IN,
         FILE_INDEX,
-        __PAD2;
+        OPTLEN,
+        ADDR_LEN,
+        __PAD3,
+        ADDR3,
+        __PAD2,
+        OPTVAL,
+        CMD;
 
     static {
         Layout layout = __struct(
@@ -122,17 +164,31 @@ public class IOURingSQE extends Struct implements NativeResource {
             __member(4),
             __union(
                 __member(8),
-                __member(8)
+                __member(8),
+                __struct(
+                    __member(4),
+                    __member(4)
+                )
             ),
             __union(
                 __member(8),
-                __member(8)
+                __member(8),
+                __struct(
+                    __member(4),
+                    __member(4)
+                )
             ),
             __member(4),
             __union(
                 __member(4),
                 __member(4),
                 __member(2),
+                __member(4),
+                __member(4),
+                __member(4),
+                __member(4),
+                __member(4),
+                __member(4),
                 __member(4),
                 __member(4),
                 __member(4),
@@ -155,9 +211,21 @@ public class IOURingSQE extends Struct implements NativeResource {
             __member(2),
             __union(
                 __member(4),
-                __member(4)
+                __member(4),
+                __member(4),
+                __struct(
+                    __member(2),
+                    __array(2, 1)
+                )
             ),
-            __array(8, 2)
+            __union(
+                __struct(
+                    __member(8),
+                    __array(8, 1)
+                ),
+                __member(8),
+                __array(1, 0)
+            )
         );
 
         SIZEOF = layout.getSize();
@@ -169,32 +237,57 @@ public class IOURingSQE extends Struct implements NativeResource {
         FD = layout.offsetof(3);
         OFF = layout.offsetof(5);
         ADDR2 = layout.offsetof(6);
-        ADDR = layout.offsetof(8);
-        SPLICE_OFF_IN = layout.offsetof(9);
-        LEN = layout.offsetof(10);
-        RW_FLAGS = layout.offsetof(12);
-        FSYNC_FLAGS = layout.offsetof(13);
-        POLL_EVENTS = layout.offsetof(14);
-        POLL32_EVENTS = layout.offsetof(15);
-        SYNC_RANGE_FLAGS = layout.offsetof(16);
-        MSG_FLAGS = layout.offsetof(17);
-        TIMEOUT_FLAGS = layout.offsetof(18);
-        ACCEPT_FLAGS = layout.offsetof(19);
-        CANCEL_FLAGS = layout.offsetof(20);
-        OPEN_FLAGS = layout.offsetof(21);
-        STATX_FLAGS = layout.offsetof(22);
-        FADVISE_ADVICE = layout.offsetof(23);
-        SPLICE_FLAGS = layout.offsetof(24);
-        RENAME_FLAGS = layout.offsetof(25);
-        UNLINK_FLAGS = layout.offsetof(26);
-        HARDLINK_FLAGS = layout.offsetof(27);
-        USER_DATA = layout.offsetof(28);
-        BUF_INDEX = layout.offsetof(30);
-        BUF_GROUP = layout.offsetof(31);
-        PERSONALITY = layout.offsetof(32);
-        SPLICE_FD_IN = layout.offsetof(34);
-        FILE_INDEX = layout.offsetof(35);
-        __PAD2 = layout.offsetof(36);
+        CMD_OP = layout.offsetof(8);
+        __PAD1 = layout.offsetof(9);
+        ADDR = layout.offsetof(11);
+        SPLICE_OFF_IN = layout.offsetof(12);
+        LEVEL = layout.offsetof(14);
+        OPTNAME = layout.offsetof(15);
+        LEN = layout.offsetof(16);
+        RW_FLAGS = layout.offsetof(18);
+        FSYNC_FLAGS = layout.offsetof(19);
+        POLL_EVENTS = layout.offsetof(20);
+        POLL32_EVENTS = layout.offsetof(21);
+        SYNC_RANGE_FLAGS = layout.offsetof(22);
+        MSG_FLAGS = layout.offsetof(23);
+        TIMEOUT_FLAGS = layout.offsetof(24);
+        ACCEPT_FLAGS = layout.offsetof(25);
+        CANCEL_FLAGS = layout.offsetof(26);
+        OPEN_FLAGS = layout.offsetof(27);
+        STATX_FLAGS = layout.offsetof(28);
+        FADVISE_ADVICE = layout.offsetof(29);
+        SPLICE_FLAGS = layout.offsetof(30);
+        RENAME_FLAGS = layout.offsetof(31);
+        UNLINK_FLAGS = layout.offsetof(32);
+        HARDLINK_FLAGS = layout.offsetof(33);
+        XATTR_FLAGS = layout.offsetof(34);
+        MSG_RING_FLAGS = layout.offsetof(35);
+        URING_CMD_FLAGS = layout.offsetof(36);
+        WAITID_FLAGS = layout.offsetof(37);
+        FUTEX_FLAGS = layout.offsetof(38);
+        INSTALL_FD_FLAGS = layout.offsetof(39);
+        USER_DATA = layout.offsetof(40);
+        BUF_INDEX = layout.offsetof(42);
+        BUF_GROUP = layout.offsetof(43);
+        PERSONALITY = layout.offsetof(44);
+        SPLICE_FD_IN = layout.offsetof(46);
+        FILE_INDEX = layout.offsetof(47);
+        OPTLEN = layout.offsetof(48);
+        ADDR_LEN = layout.offsetof(50);
+        __PAD3 = layout.offsetof(51);
+        ADDR3 = layout.offsetof(54);
+        __PAD2 = layout.offsetof(55);
+        OPTVAL = layout.offsetof(56);
+        CMD = layout.offsetof(57);
+    }
+
+    protected IOURingSQE(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOURingSQE create(long address, @Nullable ByteBuffer container) {
+        return new IOURingSQE(address, container);
     }
 
     /**
@@ -228,12 +321,24 @@ public class IOURingSQE extends Struct implements NativeResource {
     /** @return the value of the {@code addr2} field. */
     @NativeType("__u64")
     public long addr2() { return naddr2(address()); }
+    /** @return the value of the {@code cmd_op} field. */
+    @NativeType("__u32")
+    public int cmd_op() { return ncmd_op(address()); }
+    /** @return the value of the {@code __pad1} field. */
+    @NativeType("__u32")
+    public int __pad1() { return n__pad1(address()); }
     /** pointer to buffer or {@code iovecs} */
     @NativeType("__u64")
     public long addr() { return naddr(address()); }
     /** @return the value of the {@code splice_off_in} field. */
     @NativeType("__u64")
     public long splice_off_in() { return nsplice_off_in(address()); }
+    /** @return the value of the {@code level} field. */
+    @NativeType("__u32")
+    public int level() { return nlevel(address()); }
+    /** @return the value of the {@code optname} field. */
+    @NativeType("__u32")
+    public int optname() { return noptname(address()); }
     /** buffer size or number of {@code iovecs} */
     @NativeType("__u32")
     public int len() { return nlen(address()); }
@@ -289,6 +394,24 @@ public class IOURingSQE extends Struct implements NativeResource {
     /** @return the value of the {@code hardlink_flags} field. */
     @NativeType("__u32")
     public int hardlink_flags() { return nhardlink_flags(address()); }
+    /** @return the value of the {@code xattr_flags} field. */
+    @NativeType("__u32")
+    public int xattr_flags() { return nxattr_flags(address()); }
+    /** @return the value of the {@code msg_ring_flags} field. */
+    @NativeType("__u32")
+    public int msg_ring_flags() { return nmsg_ring_flags(address()); }
+    /** @return the value of the {@code uring_cmd_flags} field. */
+    @NativeType("__u32")
+    public int uring_cmd_flags() { return nuring_cmd_flags(address()); }
+    /** @return the value of the {@code waitid_flags} field. */
+    @NativeType("__u32")
+    public int waitid_flags() { return nwaitid_flags(address()); }
+    /** @return the value of the {@code futex_flags} field. */
+    @NativeType("__u32")
+    public int futex_flags() { return nfutex_flags(address()); }
+    /** @return the value of the {@code install_fd_flags} field. */
+    @NativeType("__u32")
+    public int install_fd_flags() { return ninstall_fd_flags(address()); }
     /** an application-supplied value that will be copied into the completion queue entry */
     @NativeType("__u64")
     public long user_data() { return nuser_data(address()); }
@@ -301,7 +424,7 @@ public class IOURingSQE extends Struct implements NativeResource {
     /**
      * the credentials id to use for this operation.
      * 
-     * <p>See {@link LibIOURing#io_uring_register register} for how to register personalities with {@code io_uring}. If set to 0, the current personality of the submitting task is used.</p>
+     * <p>See {@link LibURing#io_uring_register register} for how to register personalities with {@code io_uring}. If set to 0, the current personality of the submitting task is used.</p>
      */
     @NativeType("__u16")
     public short personality() { return npersonality(address()); }
@@ -311,6 +434,36 @@ public class IOURingSQE extends Struct implements NativeResource {
     /** @return the value of the {@code file_index} field. */
     @NativeType("__u32")
     public int file_index() { return nfile_index(address()); }
+    /** @return the value of the {@code optlen} field. */
+    @NativeType("__u32")
+    public int optlen() { return noptlen(address()); }
+    /** @return the value of the {@code addr_len} field. */
+    @NativeType("__u16")
+    public short addr_len() { return naddr_len(address()); }
+    /** @return a {@link ShortBuffer} view of the {@code __pad3} field. */
+    @NativeType("__u16[1]")
+    public ShortBuffer __pad3() { return n__pad3(address()); }
+    /** @return the value at the specified index of the {@code __pad3} field. */
+    @NativeType("__u16")
+    public short __pad3(int index) { return n__pad3(address(), index); }
+    /** @return the value of the {@code addr3} field. */
+    @NativeType("__u64")
+    public long addr3() { return naddr3(address()); }
+    /** @return a {@link LongBuffer} view of the {@code __pad2} field. */
+    @NativeType("__u64[1]")
+    public LongBuffer __pad2() { return n__pad2(address()); }
+    /** @return the value at the specified index of the {@code __pad2} field. */
+    @NativeType("__u64")
+    public long __pad2(int index) { return n__pad2(address(), index); }
+    /** @return the value of the {@code optval} field. */
+    @NativeType("__u64")
+    public long optval() { return noptval(address()); }
+    /** If the ring is initialized with {@link LibIOURing#IORING_SETUP_SQE128 SETUP_SQE128}, then this field is used for 80 bytes of arbitrary command data */
+    @NativeType("__u8[0]")
+    public ByteBuffer cmd() { return ncmd(address()); }
+    /** If the ring is initialized with {@link LibIOURing#IORING_SETUP_SQE128 SETUP_SQE128}, then this field is used for 80 bytes of arbitrary command data */
+    @NativeType("__u8")
+    public byte cmd(int index) { return ncmd(address(), index); }
 
     /** Sets the specified value to the {@link #opcode} field. */
     public IOURingSQE opcode(@NativeType("__u8") byte value) { nopcode(address(), value); return this; }
@@ -324,10 +477,18 @@ public class IOURingSQE extends Struct implements NativeResource {
     public IOURingSQE off(@NativeType("__u64") long value) { noff(address(), value); return this; }
     /** Sets the specified value to the {@code addr2} field. */
     public IOURingSQE addr2(@NativeType("__u64") long value) { naddr2(address(), value); return this; }
+    /** Sets the specified value to the {@code cmd_op} field. */
+    public IOURingSQE cmd_op(@NativeType("__u32") int value) { ncmd_op(address(), value); return this; }
+    /** Sets the specified value to the {@code __pad1} field. */
+    public IOURingSQE __pad1(@NativeType("__u32") int value) { n__pad1(address(), value); return this; }
     /** Sets the specified value to the {@link #addr} field. */
     public IOURingSQE addr(@NativeType("__u64") long value) { naddr(address(), value); return this; }
     /** Sets the specified value to the {@code splice_off_in} field. */
     public IOURingSQE splice_off_in(@NativeType("__u64") long value) { nsplice_off_in(address(), value); return this; }
+    /** Sets the specified value to the {@code level} field. */
+    public IOURingSQE level(@NativeType("__u32") int value) { nlevel(address(), value); return this; }
+    /** Sets the specified value to the {@code optname} field. */
+    public IOURingSQE optname(@NativeType("__u32") int value) { noptname(address(), value); return this; }
     /** Sets the specified value to the {@link #len} field. */
     public IOURingSQE len(@NativeType("__u32") int value) { nlen(address(), value); return this; }
     /** Sets the specified value to the {@link #rw_flags} field. */
@@ -362,6 +523,18 @@ public class IOURingSQE extends Struct implements NativeResource {
     public IOURingSQE unlink_flags(@NativeType("__u32") int value) { nunlink_flags(address(), value); return this; }
     /** Sets the specified value to the {@code hardlink_flags} field. */
     public IOURingSQE hardlink_flags(@NativeType("__u32") int value) { nhardlink_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code xattr_flags} field. */
+    public IOURingSQE xattr_flags(@NativeType("__u32") int value) { nxattr_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code msg_ring_flags} field. */
+    public IOURingSQE msg_ring_flags(@NativeType("__u32") int value) { nmsg_ring_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code uring_cmd_flags} field. */
+    public IOURingSQE uring_cmd_flags(@NativeType("__u32") int value) { nuring_cmd_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code waitid_flags} field. */
+    public IOURingSQE waitid_flags(@NativeType("__u32") int value) { nwaitid_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code futex_flags} field. */
+    public IOURingSQE futex_flags(@NativeType("__u32") int value) { nfutex_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code install_fd_flags} field. */
+    public IOURingSQE install_fd_flags(@NativeType("__u32") int value) { ninstall_fd_flags(address(), value); return this; }
     /** Sets the specified value to the {@link #user_data} field. */
     public IOURingSQE user_data(@NativeType("__u64") long value) { nuser_data(address(), value); return this; }
     /** Sets the specified value to the {@link #buf_index} field. */
@@ -374,6 +547,26 @@ public class IOURingSQE extends Struct implements NativeResource {
     public IOURingSQE splice_fd_in(@NativeType("__s32") int value) { nsplice_fd_in(address(), value); return this; }
     /** Sets the specified value to the {@code file_index} field. */
     public IOURingSQE file_index(@NativeType("__u32") int value) { nfile_index(address(), value); return this; }
+    /** Sets the specified value to the {@code optlen} field. */
+    public IOURingSQE optlen(@NativeType("__u32") int value) { noptlen(address(), value); return this; }
+    /** Sets the specified value to the {@code addr_len} field. */
+    public IOURingSQE addr_len(@NativeType("__u16") short value) { naddr_len(address(), value); return this; }
+    /** Copies the specified {@link ShortBuffer} to the {@code __pad3} field. */
+    public IOURingSQE __pad3(@NativeType("__u16[1]") ShortBuffer value) { n__pad3(address(), value); return this; }
+    /** Sets the specified value at the specified index of the {@code __pad3} field. */
+    public IOURingSQE __pad3(int index, @NativeType("__u16") short value) { n__pad3(address(), index, value); return this; }
+    /** Sets the specified value to the {@code addr3} field. */
+    public IOURingSQE addr3(@NativeType("__u64") long value) { naddr3(address(), value); return this; }
+    /** Copies the specified {@link LongBuffer} to the {@code __pad2} field. */
+    public IOURingSQE __pad2(@NativeType("__u64[1]") LongBuffer value) { n__pad2(address(), value); return this; }
+    /** Sets the specified value at the specified index of the {@code __pad2} field. */
+    public IOURingSQE __pad2(int index, @NativeType("__u64") long value) { n__pad2(address(), index, value); return this; }
+    /** Sets the specified value to the {@code optval} field. */
+    public IOURingSQE optval(@NativeType("__u64") long value) { noptval(address(), value); return this; }
+    /** Copies the specified {@link ByteBuffer} to the {@link #cmd} field. */
+    public IOURingSQE cmd(@NativeType("__u8[0]") ByteBuffer value) { ncmd(address(), value); return this; }
+    /** Sets the specified value at the specified index of the {@link #cmd} field. */
+    public IOURingSQE cmd(int index, @NativeType("__u8") byte value) { ncmd(address(), index, value); return this; }
 
     /**
      * Copies the specified struct data to this struct.
@@ -391,29 +584,29 @@ public class IOURingSQE extends Struct implements NativeResource {
 
     /** Returns a new {@code IOURingSQE} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURingSQE malloc() {
-        return wrap(IOURingSQE.class, nmemAllocChecked(SIZEOF));
+        return new IOURingSQE(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingSQE} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURingSQE calloc() {
-        return wrap(IOURingSQE.class, nmemCallocChecked(1, SIZEOF));
+        return new IOURingSQE(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOURingSQE} instance allocated with {@link BufferUtils}. */
     public static IOURingSQE create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOURingSQE.class, memAddress(container), container);
+        return new IOURingSQE(memAddress(container), container);
     }
 
     /** Returns a new {@code IOURingSQE} instance for the specified memory address. */
     public static IOURingSQE create(long address) {
-        return wrap(IOURingSQE.class, address);
+        return new IOURingSQE(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingSQE createSafe(long address) {
-        return address == NULL ? null : wrap(IOURingSQE.class, address);
+        return address == NULL ? null : new IOURingSQE(address, null);
     }
 
     /**
@@ -422,7 +615,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQE.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -431,7 +624,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQE.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -441,7 +634,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      */
     public static IOURingSQE.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -451,13 +644,13 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQE.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURingSQE.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -466,7 +659,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingSQE malloc(MemoryStack stack) {
-        return wrap(IOURingSQE.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOURingSQE(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -475,7 +668,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURingSQE calloc(MemoryStack stack) {
-        return wrap(IOURingSQE.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOURingSQE(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -485,7 +678,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQE.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -495,7 +688,7 @@ public class IOURingSQE extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURingSQE.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -512,10 +705,17 @@ public class IOURingSQE extends Struct implements NativeResource {
     public static long noff(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.OFF); }
     /** Unsafe version of {@link #addr2}. */
     public static long naddr2(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.ADDR2); }
+    /** Unsafe version of {@link #cmd_op}. */
+    public static int ncmd_op(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.CMD_OP); }
+    public static int n__pad1(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.__PAD1); }
     /** Unsafe version of {@link #addr}. */
     public static long naddr(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.ADDR); }
     /** Unsafe version of {@link #splice_off_in}. */
     public static long nsplice_off_in(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.SPLICE_OFF_IN); }
+    /** Unsafe version of {@link #level}. */
+    public static int nlevel(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.LEVEL); }
+    /** Unsafe version of {@link #optname}. */
+    public static int noptname(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.OPTNAME); }
     /** Unsafe version of {@link #len}. */
     public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.LEN); }
     /** Unsafe version of {@link #rw_flags}. */
@@ -550,6 +750,18 @@ public class IOURingSQE extends Struct implements NativeResource {
     public static int nunlink_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.UNLINK_FLAGS); }
     /** Unsafe version of {@link #hardlink_flags}. */
     public static int nhardlink_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.HARDLINK_FLAGS); }
+    /** Unsafe version of {@link #xattr_flags}. */
+    public static int nxattr_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.XATTR_FLAGS); }
+    /** Unsafe version of {@link #msg_ring_flags}. */
+    public static int nmsg_ring_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.MSG_RING_FLAGS); }
+    /** Unsafe version of {@link #uring_cmd_flags}. */
+    public static int nuring_cmd_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.URING_CMD_FLAGS); }
+    /** Unsafe version of {@link #waitid_flags}. */
+    public static int nwaitid_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.WAITID_FLAGS); }
+    /** Unsafe version of {@link #futex_flags}. */
+    public static int nfutex_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.FUTEX_FLAGS); }
+    /** Unsafe version of {@link #install_fd_flags}. */
+    public static int ninstall_fd_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.INSTALL_FD_FLAGS); }
     /** Unsafe version of {@link #user_data}. */
     public static long nuser_data(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.USER_DATA); }
     /** Unsafe version of {@link #buf_index}. */
@@ -562,9 +774,27 @@ public class IOURingSQE extends Struct implements NativeResource {
     public static int nsplice_fd_in(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.SPLICE_FD_IN); }
     /** Unsafe version of {@link #file_index}. */
     public static int nfile_index(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.FILE_INDEX); }
-    public static LongBuffer n__pad2(long struct) { return memLongBuffer(struct + IOURingSQE.__PAD2, 2); }
+    /** Unsafe version of {@link #optlen}. */
+    public static int noptlen(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.OPTLEN); }
+    /** Unsafe version of {@link #addr_len}. */
+    public static short naddr_len(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.ADDR_LEN); }
+    public static ShortBuffer n__pad3(long struct) { return memShortBuffer(struct + IOURingSQE.__PAD3, 1); }
+    public static short n__pad3(long struct, int index) {
+        return UNSAFE.getShort(null, struct + IOURingSQE.__PAD3 + check(index, 1) * 2);
+    }
+    /** Unsafe version of {@link #addr3}. */
+    public static long naddr3(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.ADDR3); }
+    public static LongBuffer n__pad2(long struct) { return memLongBuffer(struct + IOURingSQE.__PAD2, 1); }
     public static long n__pad2(long struct, int index) {
-        return UNSAFE.getLong(null, struct + IOURingSQE.__PAD2 + check(index, 2) * 8);
+        return UNSAFE.getLong(null, struct + IOURingSQE.__PAD2 + check(index, 1) * 8);
+    }
+    /** Unsafe version of {@link #optval}. */
+    public static long noptval(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.OPTVAL); }
+    /** Unsafe version of {@link #cmd}. */
+    public static ByteBuffer ncmd(long struct) { return memByteBuffer(struct + IOURingSQE.CMD, 0); }
+    /** Unsafe version of {@link #cmd(int) cmd}. */
+    public static byte ncmd(long struct, int index) {
+        return UNSAFE.getByte(null, struct + IOURingSQE.CMD + check(index, 0) * 1);
     }
 
     /** Unsafe version of {@link #opcode(byte) opcode}. */
@@ -579,10 +809,17 @@ public class IOURingSQE extends Struct implements NativeResource {
     public static void noff(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.OFF, value); }
     /** Unsafe version of {@link #addr2(long) addr2}. */
     public static void naddr2(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.ADDR2, value); }
+    /** Unsafe version of {@link #cmd_op(int) cmd_op}. */
+    public static void ncmd_op(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.CMD_OP, value); }
+    public static void n__pad1(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.__PAD1, value); }
     /** Unsafe version of {@link #addr(long) addr}. */
     public static void naddr(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.ADDR, value); }
     /** Unsafe version of {@link #splice_off_in(long) splice_off_in}. */
     public static void nsplice_off_in(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.SPLICE_OFF_IN, value); }
+    /** Unsafe version of {@link #level(int) level}. */
+    public static void nlevel(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.LEVEL, value); }
+    /** Unsafe version of {@link #optname(int) optname}. */
+    public static void noptname(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.OPTNAME, value); }
     /** Unsafe version of {@link #len(int) len}. */
     public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.LEN, value); }
     /** Unsafe version of {@link #rw_flags(int) rw_flags}. */
@@ -617,6 +854,18 @@ public class IOURingSQE extends Struct implements NativeResource {
     public static void nunlink_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.UNLINK_FLAGS, value); }
     /** Unsafe version of {@link #hardlink_flags(int) hardlink_flags}. */
     public static void nhardlink_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.HARDLINK_FLAGS, value); }
+    /** Unsafe version of {@link #xattr_flags(int) xattr_flags}. */
+    public static void nxattr_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.XATTR_FLAGS, value); }
+    /** Unsafe version of {@link #msg_ring_flags(int) msg_ring_flags}. */
+    public static void nmsg_ring_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.MSG_RING_FLAGS, value); }
+    /** Unsafe version of {@link #uring_cmd_flags(int) uring_cmd_flags}. */
+    public static void nuring_cmd_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.URING_CMD_FLAGS, value); }
+    /** Unsafe version of {@link #waitid_flags(int) waitid_flags}. */
+    public static void nwaitid_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.WAITID_FLAGS, value); }
+    /** Unsafe version of {@link #futex_flags(int) futex_flags}. */
+    public static void nfutex_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.FUTEX_FLAGS, value); }
+    /** Unsafe version of {@link #install_fd_flags(int) install_fd_flags}. */
+    public static void ninstall_fd_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.INSTALL_FD_FLAGS, value); }
     /** Unsafe version of {@link #user_data(long) user_data}. */
     public static void nuser_data(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.USER_DATA, value); }
     /** Unsafe version of {@link #buf_index(short) buf_index}. */
@@ -629,12 +878,36 @@ public class IOURingSQE extends Struct implements NativeResource {
     public static void nsplice_fd_in(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.SPLICE_FD_IN, value); }
     /** Unsafe version of {@link #file_index(int) file_index}. */
     public static void nfile_index(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.FILE_INDEX, value); }
+    /** Unsafe version of {@link #optlen(int) optlen}. */
+    public static void noptlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.OPTLEN, value); }
+    /** Unsafe version of {@link #addr_len(short) addr_len}. */
+    public static void naddr_len(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.ADDR_LEN, value); }
+    public static void n__pad3(long struct, ShortBuffer value) {
+        if (CHECKS) { checkGT(value, 1); }
+        memCopy(memAddress(value), struct + IOURingSQE.__PAD3, value.remaining() * 2);
+    }
+    public static void n__pad3(long struct, int index, short value) {
+        UNSAFE.putShort(null, struct + IOURingSQE.__PAD3 + check(index, 1) * 2, value);
+    }
+    /** Unsafe version of {@link #addr3(long) addr3}. */
+    public static void naddr3(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.ADDR3, value); }
     public static void n__pad2(long struct, LongBuffer value) {
-        if (CHECKS) { checkGT(value, 2); }
+        if (CHECKS) { checkGT(value, 1); }
         memCopy(memAddress(value), struct + IOURingSQE.__PAD2, value.remaining() * 8);
     }
     public static void n__pad2(long struct, int index, long value) {
-        UNSAFE.putLong(null, struct + IOURingSQE.__PAD2 + check(index, 2) * 8, value);
+        UNSAFE.putLong(null, struct + IOURingSQE.__PAD2 + check(index, 1) * 8, value);
+    }
+    /** Unsafe version of {@link #optval(long) optval}. */
+    public static void noptval(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.OPTVAL, value); }
+    /** Unsafe version of {@link #cmd(ByteBuffer) cmd}. */
+    public static void ncmd(long struct, ByteBuffer value) {
+        if (CHECKS) { checkGT(value, 0); }
+        memCopy(memAddress(value), struct + IOURingSQE.CMD, value.remaining() * 1);
+    }
+    /** Unsafe version of {@link #cmd(int, byte) cmd}. */
+    public static void ncmd(long struct, int index, byte value) {
+        UNSAFE.putByte(null, struct + IOURingSQE.CMD + check(index, 0) * 1, value);
     }
 
     // -----------------------------------
@@ -647,9 +920,9 @@ public class IOURingSQE extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOURingSQE.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURingSQE#SIZEOF}, and its mark will be undefined.
+         * by {@link IOURingSQE#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -693,12 +966,24 @@ public class IOURingSQE extends Struct implements NativeResource {
         /** @return the value of the {@code addr2} field. */
         @NativeType("__u64")
         public long addr2() { return IOURingSQE.naddr2(address()); }
+        /** @return the value of the {@code cmd_op} field. */
+        @NativeType("__u32")
+        public int cmd_op() { return IOURingSQE.ncmd_op(address()); }
+        /** @return the value of the {@code __pad1} field. */
+        @NativeType("__u32")
+        public int __pad1() { return IOURingSQE.n__pad1(address()); }
         /** @return the value of the {@link IOURingSQE#addr} field. */
         @NativeType("__u64")
         public long addr() { return IOURingSQE.naddr(address()); }
         /** @return the value of the {@code splice_off_in} field. */
         @NativeType("__u64")
         public long splice_off_in() { return IOURingSQE.nsplice_off_in(address()); }
+        /** @return the value of the {@code level} field. */
+        @NativeType("__u32")
+        public int level() { return IOURingSQE.nlevel(address()); }
+        /** @return the value of the {@code optname} field. */
+        @NativeType("__u32")
+        public int optname() { return IOURingSQE.noptname(address()); }
         /** @return the value of the {@link IOURingSQE#len} field. */
         @NativeType("__u32")
         public int len() { return IOURingSQE.nlen(address()); }
@@ -750,6 +1035,24 @@ public class IOURingSQE extends Struct implements NativeResource {
         /** @return the value of the {@code hardlink_flags} field. */
         @NativeType("__u32")
         public int hardlink_flags() { return IOURingSQE.nhardlink_flags(address()); }
+        /** @return the value of the {@code xattr_flags} field. */
+        @NativeType("__u32")
+        public int xattr_flags() { return IOURingSQE.nxattr_flags(address()); }
+        /** @return the value of the {@code msg_ring_flags} field. */
+        @NativeType("__u32")
+        public int msg_ring_flags() { return IOURingSQE.nmsg_ring_flags(address()); }
+        /** @return the value of the {@code uring_cmd_flags} field. */
+        @NativeType("__u32")
+        public int uring_cmd_flags() { return IOURingSQE.nuring_cmd_flags(address()); }
+        /** @return the value of the {@code waitid_flags} field. */
+        @NativeType("__u32")
+        public int waitid_flags() { return IOURingSQE.nwaitid_flags(address()); }
+        /** @return the value of the {@code futex_flags} field. */
+        @NativeType("__u32")
+        public int futex_flags() { return IOURingSQE.nfutex_flags(address()); }
+        /** @return the value of the {@code install_fd_flags} field. */
+        @NativeType("__u32")
+        public int install_fd_flags() { return IOURingSQE.ninstall_fd_flags(address()); }
         /** @return the value of the {@link IOURingSQE#user_data} field. */
         @NativeType("__u64")
         public long user_data() { return IOURingSQE.nuser_data(address()); }
@@ -768,6 +1071,36 @@ public class IOURingSQE extends Struct implements NativeResource {
         /** @return the value of the {@code file_index} field. */
         @NativeType("__u32")
         public int file_index() { return IOURingSQE.nfile_index(address()); }
+        /** @return the value of the {@code optlen} field. */
+        @NativeType("__u32")
+        public int optlen() { return IOURingSQE.noptlen(address()); }
+        /** @return the value of the {@code addr_len} field. */
+        @NativeType("__u16")
+        public short addr_len() { return IOURingSQE.naddr_len(address()); }
+        /** @return a {@link ShortBuffer} view of the {@code __pad3} field. */
+        @NativeType("__u16[1]")
+        public ShortBuffer __pad3() { return IOURingSQE.n__pad3(address()); }
+        /** @return the value at the specified index of the {@code __pad3} field. */
+        @NativeType("__u16")
+        public short __pad3(int index) { return IOURingSQE.n__pad3(address(), index); }
+        /** @return the value of the {@code addr3} field. */
+        @NativeType("__u64")
+        public long addr3() { return IOURingSQE.naddr3(address()); }
+        /** @return a {@link LongBuffer} view of the {@code __pad2} field. */
+        @NativeType("__u64[1]")
+        public LongBuffer __pad2() { return IOURingSQE.n__pad2(address()); }
+        /** @return the value at the specified index of the {@code __pad2} field. */
+        @NativeType("__u64")
+        public long __pad2(int index) { return IOURingSQE.n__pad2(address(), index); }
+        /** @return the value of the {@code optval} field. */
+        @NativeType("__u64")
+        public long optval() { return IOURingSQE.noptval(address()); }
+        /** @return a {@link ByteBuffer} view of the {@link IOURingSQE#cmd} field. */
+        @NativeType("__u8[0]")
+        public ByteBuffer cmd() { return IOURingSQE.ncmd(address()); }
+        /** @return the value at the specified index of the {@link IOURingSQE#cmd} field. */
+        @NativeType("__u8")
+        public byte cmd(int index) { return IOURingSQE.ncmd(address(), index); }
 
         /** Sets the specified value to the {@link IOURingSQE#opcode} field. */
         public IOURingSQE.Buffer opcode(@NativeType("__u8") byte value) { IOURingSQE.nopcode(address(), value); return this; }
@@ -781,10 +1114,18 @@ public class IOURingSQE extends Struct implements NativeResource {
         public IOURingSQE.Buffer off(@NativeType("__u64") long value) { IOURingSQE.noff(address(), value); return this; }
         /** Sets the specified value to the {@code addr2} field. */
         public IOURingSQE.Buffer addr2(@NativeType("__u64") long value) { IOURingSQE.naddr2(address(), value); return this; }
+        /** Sets the specified value to the {@code cmd_op} field. */
+        public IOURingSQE.Buffer cmd_op(@NativeType("__u32") int value) { IOURingSQE.ncmd_op(address(), value); return this; }
+        /** Sets the specified value to the {@code __pad1} field. */
+        public IOURingSQE.Buffer __pad1(@NativeType("__u32") int value) { IOURingSQE.n__pad1(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#addr} field. */
         public IOURingSQE.Buffer addr(@NativeType("__u64") long value) { IOURingSQE.naddr(address(), value); return this; }
         /** Sets the specified value to the {@code splice_off_in} field. */
         public IOURingSQE.Buffer splice_off_in(@NativeType("__u64") long value) { IOURingSQE.nsplice_off_in(address(), value); return this; }
+        /** Sets the specified value to the {@code level} field. */
+        public IOURingSQE.Buffer level(@NativeType("__u32") int value) { IOURingSQE.nlevel(address(), value); return this; }
+        /** Sets the specified value to the {@code optname} field. */
+        public IOURingSQE.Buffer optname(@NativeType("__u32") int value) { IOURingSQE.noptname(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#len} field. */
         public IOURingSQE.Buffer len(@NativeType("__u32") int value) { IOURingSQE.nlen(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#rw_flags} field. */
@@ -819,6 +1160,18 @@ public class IOURingSQE extends Struct implements NativeResource {
         public IOURingSQE.Buffer unlink_flags(@NativeType("__u32") int value) { IOURingSQE.nunlink_flags(address(), value); return this; }
         /** Sets the specified value to the {@code hardlink_flags} field. */
         public IOURingSQE.Buffer hardlink_flags(@NativeType("__u32") int value) { IOURingSQE.nhardlink_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code xattr_flags} field. */
+        public IOURingSQE.Buffer xattr_flags(@NativeType("__u32") int value) { IOURingSQE.nxattr_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code msg_ring_flags} field. */
+        public IOURingSQE.Buffer msg_ring_flags(@NativeType("__u32") int value) { IOURingSQE.nmsg_ring_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code uring_cmd_flags} field. */
+        public IOURingSQE.Buffer uring_cmd_flags(@NativeType("__u32") int value) { IOURingSQE.nuring_cmd_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code waitid_flags} field. */
+        public IOURingSQE.Buffer waitid_flags(@NativeType("__u32") int value) { IOURingSQE.nwaitid_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code futex_flags} field. */
+        public IOURingSQE.Buffer futex_flags(@NativeType("__u32") int value) { IOURingSQE.nfutex_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code install_fd_flags} field. */
+        public IOURingSQE.Buffer install_fd_flags(@NativeType("__u32") int value) { IOURingSQE.ninstall_fd_flags(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#user_data} field. */
         public IOURingSQE.Buffer user_data(@NativeType("__u64") long value) { IOURingSQE.nuser_data(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#buf_index} field. */
@@ -831,6 +1184,26 @@ public class IOURingSQE extends Struct implements NativeResource {
         public IOURingSQE.Buffer splice_fd_in(@NativeType("__s32") int value) { IOURingSQE.nsplice_fd_in(address(), value); return this; }
         /** Sets the specified value to the {@code file_index} field. */
         public IOURingSQE.Buffer file_index(@NativeType("__u32") int value) { IOURingSQE.nfile_index(address(), value); return this; }
+        /** Sets the specified value to the {@code optlen} field. */
+        public IOURingSQE.Buffer optlen(@NativeType("__u32") int value) { IOURingSQE.noptlen(address(), value); return this; }
+        /** Sets the specified value to the {@code addr_len} field. */
+        public IOURingSQE.Buffer addr_len(@NativeType("__u16") short value) { IOURingSQE.naddr_len(address(), value); return this; }
+        /** Copies the specified {@link ShortBuffer} to the {@code __pad3} field. */
+        public IOURingSQE.Buffer __pad3(@NativeType("__u16[1]") ShortBuffer value) { IOURingSQE.n__pad3(address(), value); return this; }
+        /** Sets the specified value at the specified index of the {@code __pad3} field. */
+        public IOURingSQE.Buffer __pad3(int index, @NativeType("__u16") short value) { IOURingSQE.n__pad3(address(), index, value); return this; }
+        /** Sets the specified value to the {@code addr3} field. */
+        public IOURingSQE.Buffer addr3(@NativeType("__u64") long value) { IOURingSQE.naddr3(address(), value); return this; }
+        /** Copies the specified {@link LongBuffer} to the {@code __pad2} field. */
+        public IOURingSQE.Buffer __pad2(@NativeType("__u64[1]") LongBuffer value) { IOURingSQE.n__pad2(address(), value); return this; }
+        /** Sets the specified value at the specified index of the {@code __pad2} field. */
+        public IOURingSQE.Buffer __pad2(int index, @NativeType("__u64") long value) { IOURingSQE.n__pad2(address(), index, value); return this; }
+        /** Sets the specified value to the {@code optval} field. */
+        public IOURingSQE.Buffer optval(@NativeType("__u64") long value) { IOURingSQE.noptval(address(), value); return this; }
+        /** Copies the specified {@link ByteBuffer} to the {@link IOURingSQE#cmd} field. */
+        public IOURingSQE.Buffer cmd(@NativeType("__u8[0]") ByteBuffer value) { IOURingSQE.ncmd(address(), value); return this; }
+        /** Sets the specified value at the specified index of the {@link IOURingSQE#cmd} field. */
+        public IOURingSQE.Buffer cmd(int index, @NativeType("__u8") byte value) { IOURingSQE.ncmd(address(), index, value); return this; }
 
     }
 

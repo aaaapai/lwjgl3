@@ -79,7 +79,6 @@ val NV_external_memory_rdma = "NVExternalMemoryRdma".nativeClassVK("NV_external_
 ￿vkGetMemoryRemoteAddressNV(device, &amp;getMemoryRemoteAddressInfo, &amp;rdmaAddress);
 ￿// address returned in 'rdmaAddress' can be used by external devices to initiate RDMA transfers</code></pre>
 
-        <h5>VK_NV_external_memory_rdma</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_external_memory_rdma}</dd>
@@ -94,14 +93,11 @@ val NV_external_memory_rdma = "NVExternalMemoryRdma".nativeClassVK("NV_external_
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRExternalMemory VK_KHR_external_memory}</li>
-            </ul></dd>
+            <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Carsten Rohde <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_rdma]%20@crohde%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_rdma%20extension%3E%3E">crohde</a></li>
+                <li>Carsten Rohde <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_rdma]%20@crohde%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_rdma%20extension*">crohde</a></li>
             </ul></dd>
         </dl>
 
@@ -194,6 +190,6 @@ val NV_external_memory_rdma = "NVExternalMemoryRdma".nativeClassVK("NV_external_
 
         VkDevice("device", "the logical device that created the device memory being exported."),
         VkMemoryGetRemoteAddressInfoNV.const.p("pMemoryGetRemoteAddressInfo", "a pointer to a ##VkMemoryGetRemoteAddressInfoNV structure containing parameters of the export operation."),
-        Check(1)..VkRemoteAddressNV.p("pAddress", "will return the address representing the payload of the device memory object.")
+        Check(1)..VkRemoteAddressNV.p("pAddress", "a pointer to a {@code VkRemoteAddressNV} value in which an address representing the payload of the device memory object is returned.")
     )
 }

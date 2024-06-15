@@ -17,19 +17,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * External memory buffer descriptor.
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_EXTERNAL_MEMORY_BUFFER_DESC {
- *     unsigned long long {@link #offset};
- *     unsigned long long {@link #size};
- *     unsigned int {@link #flags};
+ *     unsigned long long offset;
+ *     unsigned long long size;
+ *     unsigned int flags;
  *     unsigned int reserved[16];
  * }</code></pre>
  */
-public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeResource {
+public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct<CUDA_EXTERNAL_MEMORY_BUFFER_DESC> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -61,6 +59,15 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
         RESERVED = layout.offsetof(3);
     }
 
+    protected CUDA_EXTERNAL_MEMORY_BUFFER_DESC(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected CUDA_EXTERNAL_MEMORY_BUFFER_DESC create(long address, @Nullable ByteBuffer container) {
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(address, container);
+    }
+
     /**
      * Creates a {@code CUDA_EXTERNAL_MEMORY_BUFFER_DESC} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -74,13 +81,13 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Offset into the memory object where the buffer's base is */
+    /** @return the value of the {@code offset} field. */
     @NativeType("unsigned long long")
     public long offset() { return noffset(address()); }
-    /** Size of the buffer */
+    /** @return the value of the {@code size} field. */
     @NativeType("unsigned long long")
     public long size() { return nsize(address()); }
-    /** Flags reserved for future use. Must be zero. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("unsigned int")
     public int flags() { return nflags(address()); }
     /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -90,11 +97,11 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
     @NativeType("unsigned int")
     public int reserved(int index) { return nreserved(address(), index); }
 
-    /** Sets the specified value to the {@link #offset} field. */
+    /** Sets the specified value to the {@code offset} field. */
     public CUDA_EXTERNAL_MEMORY_BUFFER_DESC offset(@NativeType("unsigned long long") long value) { noffset(address(), value); return this; }
-    /** Sets the specified value to the {@link #size} field. */
+    /** Sets the specified value to the {@code size} field. */
     public CUDA_EXTERNAL_MEMORY_BUFFER_DESC size(@NativeType("unsigned long long") long value) { nsize(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public CUDA_EXTERNAL_MEMORY_BUFFER_DESC flags(@NativeType("unsigned int") int value) { nflags(address(), value); return this; }
     /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
     public CUDA_EXTERNAL_MEMORY_BUFFER_DESC reserved(@NativeType("unsigned int[16]") IntBuffer value) { nreserved(address(), value); return this; }
@@ -132,29 +139,29 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_BUFFER_DESC} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC malloc() {
-        return wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, nmemAllocChecked(SIZEOF));
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_BUFFER_DESC} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC calloc() {
-        return wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, nmemCallocChecked(1, SIZEOF));
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_BUFFER_DESC} instance allocated with {@link BufferUtils}. */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, memAddress(container), container);
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_EXTERNAL_MEMORY_BUFFER_DESC} instance for the specified memory address. */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC create(long address) {
-        return wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, address);
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC createSafe(long address) {
-        return address == NULL ? null : wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, address);
+        return address == NULL ? null : new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(address, null);
     }
 
     /**
@@ -163,7 +170,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +179,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +189,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -192,13 +199,13 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -226,7 +233,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC malloc(MemoryStack stack) {
-        return wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -235,7 +242,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param stack the stack from which to allocate
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC calloc(MemoryStack stack) {
-        return wrap(CUDA_EXTERNAL_MEMORY_BUFFER_DESC.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new CUDA_EXTERNAL_MEMORY_BUFFER_DESC(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -245,7 +252,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +262,7 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
      * @param capacity the buffer capacity
      */
     public static CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -299,9 +306,9 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
         /**
          * Creates a new {@code CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#SIZEOF}, and its mark will be undefined.
+         * by {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -327,13 +334,13 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#offset} field. */
+        /** @return the value of the {@code offset} field. */
         @NativeType("unsigned long long")
         public long offset() { return CUDA_EXTERNAL_MEMORY_BUFFER_DESC.noffset(address()); }
-        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("unsigned long long")
         public long size() { return CUDA_EXTERNAL_MEMORY_BUFFER_DESC.nsize(address()); }
-        /** @return the value of the {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("unsigned int")
         public int flags() { return CUDA_EXTERNAL_MEMORY_BUFFER_DESC.nflags(address()); }
         /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -343,11 +350,11 @@ public class CUDA_EXTERNAL_MEMORY_BUFFER_DESC extends Struct implements NativeRe
         @NativeType("unsigned int")
         public int reserved(int index) { return CUDA_EXTERNAL_MEMORY_BUFFER_DESC.nreserved(address(), index); }
 
-        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#offset} field. */
+        /** Sets the specified value to the {@code offset} field. */
         public CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer offset(@NativeType("unsigned long long") long value) { CUDA_EXTERNAL_MEMORY_BUFFER_DESC.noffset(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#size} field. */
+        /** Sets the specified value to the {@code size} field. */
         public CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer size(@NativeType("unsigned long long") long value) { CUDA_EXTERNAL_MEMORY_BUFFER_DESC.nsize(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_EXTERNAL_MEMORY_BUFFER_DESC#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer flags(@NativeType("unsigned int") int value) { CUDA_EXTERNAL_MEMORY_BUFFER_DESC.nflags(address(), value); return this; }
         /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
         public CUDA_EXTERNAL_MEMORY_BUFFER_DESC.Buffer reserved(@NativeType("unsigned int[16]") IntBuffer value) { CUDA_EXTERNAL_MEMORY_BUFFER_DESC.nreserved(address(), value); return this; }

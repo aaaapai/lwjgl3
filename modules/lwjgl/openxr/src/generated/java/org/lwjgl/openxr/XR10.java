@@ -49,6 +49,7 @@ public class XR10 {
      * <tr><td>{@link #XR_SESSION_NOT_FOCUSED SESSION_NOT_FOCUSED}</td><td>The session is not in the focused state.</td></tr>
      * <tr><td>{@link #XR_FRAME_DISCARDED FRAME_DISCARDED}</td><td>A frame has been discarded from composition.</td></tr>
      * <tr><td>{@link FBRenderModel#XR_RENDER_MODEL_UNAVAILABLE_FB RENDER_MODEL_UNAVAILABLE_FB}</td><td>The model is unavailable. (Added by the {@link FBRenderModel XR_FB_render_model} extension)</td></tr>
+     * <tr><td>{@link MSFTSceneMarker#XR_SCENE_MARKER_DATA_NOT_STRING_MSFT SCENE_MARKER_DATA_NOT_STRING_MSFT}</td><td>Marker does not encode a string. (Added by the {@link MSFTSceneMarker XR_MSFT_scene_marker} extension)</td></tr>
      * </tbody>
      * </table>
      * 
@@ -69,8 +70,8 @@ public class XR10 {
      * <tr><td>{@link #XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT}</td><td>The supplied size was smaller than required.</td></tr>
      * <tr><td>{@link #XR_ERROR_HANDLE_INVALID ERROR_HANDLE_INVALID}</td><td>A supplied object handle was invalid.</td></tr>
      * <tr><td>{@link #XR_ERROR_INSTANCE_LOST ERROR_INSTANCE_LOST}</td><td>The {@code XrInstance} was lost or could not be found. It will need to be destroyed and optionally recreated.</td></tr>
-     * <tr><td>{@link #XR_ERROR_SESSION_RUNNING ERROR_SESSION_RUNNING}</td><td>The session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is already running</a>.</td></tr>
-     * <tr><td>{@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING}</td><td>The session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not yet running</a>.</td></tr>
+     * <tr><td>{@link #XR_ERROR_SESSION_RUNNING ERROR_SESSION_RUNNING}</td><td>The session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">is already running</a>.</td></tr>
+     * <tr><td>{@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING}</td><td>The session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not yet running</a>.</td></tr>
      * <tr><td>{@link #XR_ERROR_SESSION_LOST ERROR_SESSION_LOST}</td><td>The {@code XrSession} was lost. It will need to be destroyed and optionally recreated.</td></tr>
      * <tr><td>{@link #XR_ERROR_SYSTEM_INVALID ERROR_SYSTEM_INVALID}</td><td>The provided {@code XrSystemId} was invalid.</td></tr>
      * <tr><td>{@link #XR_ERROR_PATH_INVALID ERROR_PATH_INVALID}</td><td>The provided {@code XrPath} was not valid.</td></tr>
@@ -117,6 +118,10 @@ public class XR10 {
      * <tr><td>{@link MSFTSceneUnderstanding#XR_ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT ERROR_SCENE_COMPUTE_CONSISTENCY_MISMATCH_MSFT}</td><td>Scene compute consistency mismatch. (Added by the {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension)</td></tr>
      * <tr><td>{@link FBDisplayRefreshRate#XR_ERROR_DISPLAY_REFRESH_RATE_UNSUPPORTED_FB ERROR_DISPLAY_REFRESH_RATE_UNSUPPORTED_FB}</td><td>The display refresh rate is not supported by the platform. (Added by the {@link FBDisplayRefreshRate XR_FB_display_refresh_rate} extension)</td></tr>
      * <tr><td>{@link FBColorSpace#XR_ERROR_COLOR_SPACE_UNSUPPORTED_FB ERROR_COLOR_SPACE_UNSUPPORTED_FB}</td><td>The color space is not supported by the runtime. (Added by the {@link FBColorSpace XR_FB_color_space} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntity#XR_ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB ERROR_SPACE_COMPONENT_NOT_SUPPORTED_FB}</td><td>The component type is not supported for this space. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntity#XR_ERROR_SPACE_COMPONENT_NOT_ENABLED_FB ERROR_SPACE_COMPONENT_NOT_ENABLED_FB}</td><td>The required component is not enabled for this space. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntity#XR_ERROR_SPACE_COMPONENT_STATUS_PENDING_FB ERROR_SPACE_COMPONENT_STATUS_PENDING_FB}</td><td>A request to set the component’s status is currently pending. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntity#XR_ERROR_SPACE_COMPONENT_STATUS_ALREADY_SET_FB ERROR_SPACE_COMPONENT_STATUS_ALREADY_SET_FB}</td><td>The component is already set to the requested value. (Added by the {@link FBSpatialEntity XR_FB_spatial_entity} extension)</td></tr>
      * <tr><td>{@link FBPassthrough#XR_ERROR_UNEXPECTED_STATE_PASSTHROUGH_FB ERROR_UNEXPECTED_STATE_PASSTHROUGH_FB}</td><td>The object state is unexpected for the issued command. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
      * <tr><td>{@link FBPassthrough#XR_ERROR_FEATURE_ALREADY_CREATED_PASSTHROUGH_FB ERROR_FEATURE_ALREADY_CREATED_PASSTHROUGH_FB}</td><td>Trying to create an MR feature when one was already created and only one instance is allowed. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
      * <tr><td>{@link FBPassthrough#XR_ERROR_FEATURE_REQUIRED_PASSTHROUGH_FB ERROR_FEATURE_REQUIRED_PASSTHROUGH_FB}</td><td>Requested functionality requires a feature to be created first. (Added by the {@link FBPassthrough XR_FB_passthrough} extension)</td></tr>
@@ -126,14 +131,36 @@ public class XR10 {
      * <tr><td>{@link FBRenderModel#XR_ERROR_RENDER_MODEL_KEY_INVALID_FB ERROR_RENDER_MODEL_KEY_INVALID_FB}</td><td>The model key is invalid. (Added by the {@link FBRenderModel XR_FB_render_model} extension)</td></tr>
      * <tr><td>{@link VARJOMarkerTracking#XR_ERROR_MARKER_NOT_TRACKED_VARJO ERROR_MARKER_NOT_TRACKED_VARJO}</td><td>Marker tracking is disabled or the specified marker is not currently tracked. (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
      * <tr><td>{@link VARJOMarkerTracking#XR_ERROR_MARKER_ID_INVALID_VARJO ERROR_MARKER_ID_INVALID_VARJO}</td><td>The specified marker ID is not valid. (Added by the {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension)</td></tr>
+     * <tr><td>{@link MLMarkerUnderstanding#XR_ERROR_MARKER_DETECTOR_PERMISSION_DENIED_ML ERROR_MARKER_DETECTOR_PERMISSION_DENIED_ML}</td><td>The com.magicleap.permission.MARKER_TRACKING permission was denied. (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+     * <tr><td>{@link MLMarkerUnderstanding#XR_ERROR_MARKER_DETECTOR_LOCATE_FAILED_ML ERROR_MARKER_DETECTOR_LOCATE_FAILED_ML}</td><td>The specified marker could not be located spatially. (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+     * <tr><td>{@link MLMarkerUnderstanding#XR_ERROR_MARKER_DETECTOR_INVALID_DATA_QUERY_ML ERROR_MARKER_DETECTOR_INVALID_DATA_QUERY_ML}</td><td>The marker queried does not contain data of the requested type. (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+     * <tr><td>{@link MLMarkerUnderstanding#XR_ERROR_MARKER_DETECTOR_INVALID_CREATE_INFO_ML ERROR_MARKER_DETECTOR_INVALID_CREATE_INFO_ML}</td><td>{@code createInfo} contains mutually exclusive parameters, such as setting {@link MLMarkerUnderstanding#XR_MARKER_DETECTOR_CORNER_REFINE_METHOD_APRIL_TAG_ML MARKER_DETECTOR_CORNER_REFINE_METHOD_APRIL_TAG_ML} with {@link MLMarkerUnderstanding#XR_MARKER_TYPE_ARUCO_ML MARKER_TYPE_ARUCO_ML}. (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+     * <tr><td>{@link MLMarkerUnderstanding#XR_ERROR_MARKER_INVALID_ML ERROR_MARKER_INVALID_ML}</td><td>The marker id passed to the function was invalid. (Added by the {@link MLMarkerUnderstanding XR_ML_marker_understanding} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_INCOMPATIBLE_ML ERROR_LOCALIZATION_MAP_INCOMPATIBLE_ML}</td><td>The localization map being imported is not compatible with current OS or mode. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_UNAVAILABLE_ML ERROR_LOCALIZATION_MAP_UNAVAILABLE_ML}</td><td>The localization map requested is not available. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_FAIL_ML ERROR_LOCALIZATION_MAP_FAIL_ML}</td><td>The map localization service failed to fulfill the request, retry later. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_IMPORT_EXPORT_PERMISSION_DENIED_ML ERROR_LOCALIZATION_MAP_IMPORT_EXPORT_PERMISSION_DENIED_ML}</td><td>The com.magicleap.permission.SPACE_IMPORT_EXPORT permission was denied. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_PERMISSION_DENIED_ML ERROR_LOCALIZATION_MAP_PERMISSION_DENIED_ML}</td><td>The com.magicleap.permission.SPACE_MANAGER permission was denied. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_ALREADY_EXISTS_ML ERROR_LOCALIZATION_MAP_ALREADY_EXISTS_ML}</td><td>The map being imported already exists in the system. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
+     * <tr><td>{@link MLLocalizationMap#XR_ERROR_LOCALIZATION_MAP_CANNOT_EXPORT_CLOUD_MAP_ML ERROR_LOCALIZATION_MAP_CANNOT_EXPORT_CLOUD_MAP_ML}</td><td>The map localization service cannot export cloud based maps. (Added by the {@link MLLocalizationMap XR_ML_localization_map} extension)</td></tr>
      * <tr><td>{@link MSFTSpatialAnchorPersistence#XR_ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT ERROR_SPATIAL_ANCHOR_NAME_NOT_FOUND_MSFT}</td><td>A spatial anchor was not found associated with the spatial anchor name provided (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
      * <tr><td>{@link MSFTSpatialAnchorPersistence#XR_ERROR_SPATIAL_ANCHOR_NAME_INVALID_MSFT ERROR_SPATIAL_ANCHOR_NAME_INVALID_MSFT}</td><td>The spatial anchor name provided was not valid (Added by the {@link MSFTSpatialAnchorPersistence XR_MSFT_spatial_anchor_persistence} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntitySharing#XR_ERROR_SPACE_MAPPING_INSUFFICIENT_FB ERROR_SPACE_MAPPING_INSUFFICIENT_FB}</td><td>Anchor import from cloud or export from device failed. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntitySharing#XR_ERROR_SPACE_LOCALIZATION_FAILED_FB ERROR_SPACE_LOCALIZATION_FAILED_FB}</td><td>Anchors were downloaded from the cloud but failed to be imported/aligned on the device. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntitySharing#XR_ERROR_SPACE_NETWORK_TIMEOUT_FB ERROR_SPACE_NETWORK_TIMEOUT_FB}</td><td>Timeout occurred while waiting for network request to complete. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntitySharing#XR_ERROR_SPACE_NETWORK_REQUEST_FAILED_FB ERROR_SPACE_NETWORK_REQUEST_FAILED_FB}</td><td>The network request failed. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+     * <tr><td>{@link FBSpatialEntitySharing#XR_ERROR_SPACE_CLOUD_STORAGE_DISABLED_FB ERROR_SPACE_CLOUD_STORAGE_DISABLED_FB}</td><td>Cloud storage is required for this operation but is currently disabled. (Added by the {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension)</td></tr>
+     * <tr><td>{@link METAPassthroughColorLut#XR_ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META}</td><td>The provided data buffer did not match the required size. (Added by the {@link METAPassthroughColorLut XR_META_passthrough_color_lut} extension)</td></tr>
+     * <tr><td>{@link QCOMTrackingOptimizationSettings#XR_ERROR_HINT_ALREADY_SET_QCOM ERROR_HINT_ALREADY_SET_QCOM}</td><td>Tracking optimization hint is already set for the domain. (Added by the {@link QCOMTrackingOptimizationSettings XR_QCOM_tracking_optimization_settings} extension)</td></tr>
+     * <tr><td>{@link HTCAnchor#XR_ERROR_NOT_AN_ANCHOR_HTC ERROR_NOT_AN_ANCHOR_HTC}</td><td>The provided space is valid but not an anchor. (Added by the {@link HTCAnchor XR_HTC_anchor} extension)</td></tr>
+     * <tr><td>{@link EXTPlaneDetection#XR_ERROR_SPACE_NOT_LOCATABLE_EXT ERROR_SPACE_NOT_LOCATABLE_EXT}</td><td>The space passed to the function was not locatable. (Added by the {@link EXTPlaneDetection XR_EXT_plane_detection} extension)</td></tr>
+     * <tr><td>{@link EXTPlaneDetection#XR_ERROR_PLANE_DETECTION_PERMISSION_DENIED_EXT ERROR_PLANE_DETECTION_PERMISSION_DENIED_EXT}</td><td>The permission for this resource was not granted. (Added by the {@link EXTPlaneDetection XR_EXT_plane_detection} extension)</td></tr>
      * </tbody>
      * </table>
      * 
      * <h5>See Also</h5>
      * 
-     * <p>{@link #xrResultToString ResultToString}</p>
+     * <p>{@link XrEventDataSceneCaptureCompleteFB}, {@link XrEventDataSpaceEraseCompleteFB}, {@link XrEventDataSpaceListSaveCompleteFB}, {@link XrEventDataSpaceQueryCompleteFB}, {@link XrEventDataSpaceSaveCompleteFB}, {@link XrEventDataSpaceSetStatusCompleteFB}, {@link XrEventDataSpaceShareCompleteFB}, {@link XrEventDataSpatialAnchorCreateCompleteFB}, {@link #xrResultToString ResultToString}</p>
      */
     public static final int
         XR_SUCCESS                                   = 0,
@@ -197,13 +224,13 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Most structures containing {@code type} members have a value of {@code type} matching the type of the structure, as described more fully in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-types">Valid Usage for Structure Types</a>.</p>
+     * <p>Most structures containing {@code type} members have a value of {@code type} matching the type of the structure, as described more fully in <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-types">Valid Usage for Structure Types</a>.</p>
      * 
-     * <p>Note that all extension enums begin at the extension enum base of <code>1<sup>10</sup></code> (base 10). Each extension is assigned a block of 1000 enums, starting at the enum base and arranged by the extension’s index.</p>
+     * <p>Note that all extension enums begin at the extension enum base of <code>10^9</code> (base 10). Each extension is assigned a block of 1000 enums, starting at the enum base and arranged by the extension’s number.</p>
      * 
      * <h5>See Also</h5>
      * 
-     * <p>{@link XrActionCreateInfo}, {@link XrActionSetCreateInfo}, {@link XrActionSpaceCreateInfo}, {@link XrActionStateBoolean}, {@link XrActionStateFloat}, {@link XrActionStateGetInfo}, {@link XrActionStatePose}, {@link XrActionStateVector2f}, {@link XrActionsSyncInfo}, {@link XrApiLayerProperties}, {@link XrBaseInStructure}, {@link XrBaseOutStructure}, {@link XrBindingModificationBaseHeaderKHR}, {@link XrBindingModificationsKHR}, {@link XrBoundSourcesForActionEnumerateInfo}, {@link XrCompositionLayerAlphaBlendFB}, {@link XrCompositionLayerBaseHeader}, {@link XrCompositionLayerColorScaleBiasKHR}, {@link XrCompositionLayerCubeKHR}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerDepthInfoKHR}, {@link XrCompositionLayerDepthTestVARJO}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerImageLayoutFB}, {@link XrCompositionLayerPassthroughFB}, {@link XrCompositionLayerProjection}, {@link XrCompositionLayerProjectionView}, {@link XrCompositionLayerQuad}, {@link XrCompositionLayerReprojectionInfoMSFT}, {@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrCompositionLayerSecureContentFB}, {@link XrCompositionLayerSpaceWarpInfoFB}, {@link XrControllerModelKeyStateMSFT}, {@link XrControllerModelNodePropertiesMSFT}, {@link XrControllerModelNodeStateMSFT}, {@link XrControllerModelPropertiesMSFT}, {@link XrControllerModelStateMSFT}, {@link XrDebugUtilsLabelEXT}, {@link XrDebugUtilsMessengerCallbackDataEXT}, {@link XrDebugUtilsMessengerCreateInfoEXT}, {@link XrDebugUtilsObjectNameInfoEXT}, {@link XrDigitalLensControlALMALENCE}, {@link XrEventDataBaseHeader}, {@link XrEventDataBuffer}, {@link XrEventDataDisplayRefreshRateChangedFB}, {@link XrEventDataEventsLost}, {@link XrEventDataInstanceLossPending}, {@link XrEventDataInteractionProfileChanged}, {@link XrEventDataMainSessionVisibilityChangedEXTX}, {@link XrEventDataMarkerTrackingUpdateVARJO}, {@link XrEventDataPassthroughStateChangedFB}, {@link XrEventDataPerfSettingsEXT}, {@link XrEventDataReferenceSpaceChangePending}, {@link XrEventDataSessionStateChanged}, {@link XrEventDataVisibilityMaskChangedKHR}, {@link XrEventDataViveTrackerConnectedHTCX}, {@link XrExtensionProperties}, {@link XrEyeGazeSampleTimeEXT}, {@link XrFacialExpressionsHTC}, {@link XrFacialTrackerCreateInfoHTC}, {@link XrFoveatedViewConfigurationViewVARJO}, {@link XrFoveationLevelProfileCreateInfoFB}, {@link XrFoveationProfileCreateInfoFB}, {@link XrFrameBeginInfo}, {@link XrFrameEndInfo}, {@link XrFrameState}, {@link XrFrameWaitInfo}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrGraphicsBindingEGLMNDX}, {@link XrGraphicsBindingOpenGLWaylandKHR}, {@link XrGraphicsBindingOpenGLWin32KHR}, {@link XrGraphicsBindingOpenGLXcbKHR}, {@link XrGraphicsBindingOpenGLXlibKHR}, {@link XrGraphicsBindingVulkanKHR}, {@link XrGraphicsRequirementsOpenGLESKHR}, {@link XrGraphicsRequirementsOpenGLKHR}, {@link XrGraphicsRequirementsVulkanKHR}, {@link XrHandJointLocationsEXT}, {@link XrHandJointVelocitiesEXT}, {@link XrHandJointsLocateInfoEXT}, {@link XrHandJointsMotionRangeInfoEXT}, {@link XrHandMeshMSFT}, {@link XrHandMeshSpaceCreateInfoMSFT}, {@link XrHandMeshUpdateInfoMSFT}, {@link XrHandPoseTypeInfoMSFT}, {@link XrHandTrackerCreateInfoEXT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingCapsulesStateFB}, {@link XrHandTrackingMeshFB}, {@link XrHandTrackingScaleFB}, {@link XrHapticActionInfo}, {@link XrHapticBaseHeader}, {@link XrHapticVibration}, {@link XrHolographicWindowAttachmentMSFT}, {@link XrInputSourceLocalizedNameGetInfo}, {@link XrInstanceCreateInfo}, {@link XrInstanceProperties}, {@link XrInteractionProfileAnalogThresholdVALVE}, {@link XrInteractionProfileState}, {@link XrInteractionProfileSuggestedBinding}, {@link XrKeyboardSpaceCreateInfoFB}, {@link XrKeyboardTrackingQueryFB}, {@link XrLoaderInitInfoBaseHeaderKHR}, {@link XrMarkerSpaceCreateInfoVARJO}, {@link XrNewSceneComputeInfoMSFT}, {@link XrPassthroughColorMapMonoToMonoFB}, {@link XrPassthroughColorMapMonoToRgbaFB}, {@link XrPassthroughCreateInfoFB}, {@link XrPassthroughKeyboardHandsIntensityFB}, {@link XrPassthroughLayerCreateInfoFB}, {@link XrPassthroughStyleFB}, {@link XrReferenceSpaceCreateInfo}, {@link XrRenderModelBufferFB}, {@link XrRenderModelLoadInfoFB}, {@link XrRenderModelPathInfoFB}, {@link XrRenderModelPropertiesFB}, {@link XrSceneComponentLocationsMSFT}, {@link XrSceneComponentParentFilterInfoMSFT}, {@link XrSceneComponentsGetInfoMSFT}, {@link XrSceneComponentsLocateInfoMSFT}, {@link XrSceneComponentsMSFT}, {@link XrSceneCreateInfoMSFT}, {@link XrSceneDeserializeInfoMSFT}, {@link XrSceneMeshBuffersGetInfoMSFT}, {@link XrSceneMeshBuffersMSFT}, {@link XrSceneMeshIndicesUint16MSFT}, {@link XrSceneMeshIndicesUint32MSFT}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneMeshesMSFT}, {@link XrSceneObjectTypesFilterInfoMSFT}, {@link XrSceneObjectsMSFT}, {@link XrSceneObserverCreateInfoMSFT}, {@link XrScenePlaneAlignmentFilterInfoMSFT}, {@link XrScenePlanesMSFT}, {@link XrSecondaryViewConfigurationFrameEndInfoMSFT}, {@link XrSecondaryViewConfigurationFrameStateMSFT}, {@link XrSecondaryViewConfigurationLayerInfoMSFT}, {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT}, {@link XrSecondaryViewConfigurationStateMSFT}, {@link XrSecondaryViewConfigurationSwapchainCreateInfoMSFT}, {@link XrSerializedSceneFragmentDataGetInfoMSFT}, {@link XrSessionActionSetsAttachInfo}, {@link XrSessionBeginInfo}, {@link XrSessionCreateInfo}, {@link XrSessionCreateInfoOverlayEXTX}, {@link XrSpaceLocation}, {@link XrSpaceVelocity}, {@link XrSpatialAnchorCreateInfoMSFT}, {@link XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT}, {@link XrSpatialAnchorPersistenceInfoMSFT}, {@link XrSpatialAnchorSpaceCreateInfoMSFT}, {@link XrSpatialGraphNodeSpaceCreateInfoMSFT}, {@link XrSwapchainCreateInfo}, {@link XrSwapchainCreateInfoFoveationFB}, {@link XrSwapchainImageAcquireInfo}, {@link XrSwapchainImageBaseHeader}, {@link XrSwapchainImageFoveationVulkanFB}, {@link XrSwapchainImageOpenGLESKHR}, {@link XrSwapchainImageOpenGLKHR}, {@link XrSwapchainImageReleaseInfo}, {@link XrSwapchainImageVulkanKHR}, {@link XrSwapchainImageWaitInfo}, {@link XrSwapchainStateBaseHeaderFB}, {@link XrSwapchainStateFoveationFB}, {@link XrSwapchainStateSamplerOpenGLESFB}, {@link XrSwapchainStateSamplerVulkanFB}, {@link XrSystemColorSpacePropertiesFB}, {@link XrSystemEyeGazeInteractionPropertiesEXT}, {@link XrSystemFacialTrackingPropertiesHTC}, {@link XrSystemFoveatedRenderingPropertiesVARJO}, {@link XrSystemGetInfo}, {@link XrSystemHandTrackingMeshPropertiesMSFT}, {@link XrSystemHandTrackingPropertiesEXT}, {@link XrSystemKeyboardTrackingPropertiesFB}, {@link XrSystemMarkerTrackingPropertiesVARJO}, {@link XrSystemPassthroughPropertiesFB}, {@link XrSystemProperties}, {@link XrSystemRenderModelPropertiesFB}, {@link XrSystemSpaceWarpPropertiesFB}, {@link XrTriangleMeshCreateInfoFB}, {@link XrView}, {@link XrViewConfigurationDepthRangeEXT}, {@link XrViewConfigurationProperties}, {@link XrViewConfigurationView}, {@link XrViewConfigurationViewFovEPIC}, {@link XrViewLocateFoveatedRenderingVARJO}, {@link XrViewLocateInfo}, {@link XrViewState}, {@link XrVisibilityMaskKHR}, {@link XrVisualMeshComputeLodInfoMSFT}, {@link XrViveTrackerPathsHTCX}, {@link XrVulkanDeviceCreateInfoKHR}, {@link XrVulkanGraphicsDeviceGetInfoKHR}, {@link XrVulkanInstanceCreateInfoKHR}, {@link XrVulkanSwapchainFormatListCreateInfoKHR}, {@link #xrStructureTypeToString StructureTypeToString}</p>
+     * <p>{@link XrActionCreateInfo}, {@link XrActionSetCreateInfo}, {@link XrActionSpaceCreateInfo}, {@link XrActionStateBoolean}, {@link XrActionStateFloat}, {@link XrActionStateGetInfo}, {@link XrActionStatePose}, {@link XrActionStateVector2f}, {@link XrActionsSyncInfo}, {@link XrActiveActionSetPrioritiesEXT}, {@link XrApiLayerProperties}, {@link XrBaseInStructure}, {@link XrBaseOutStructure}, {@link XrBindingModificationBaseHeaderKHR}, {@link XrBindingModificationsKHR}, {@link XrBodyJointLocationsFB}, {@link XrBodyJointsLocateInfoFB}, {@link XrBodySkeletonFB}, {@link XrBodyTrackerCreateInfoFB}, {@link XrBoundSourcesForActionEnumerateInfo}, {@link XrBoundary2DFB}, {@link XrCompositionLayerAlphaBlendFB}, {@link XrCompositionLayerBaseHeader}, {@link XrCompositionLayerColorScaleBiasKHR}, {@link XrCompositionLayerCubeKHR}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerDepthInfoKHR}, {@link XrCompositionLayerDepthTestFB}, {@link XrCompositionLayerDepthTestVARJO}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerImageLayoutFB}, {@link XrCompositionLayerPassthroughFB}, {@link XrCompositionLayerPassthroughHTC}, {@link XrCompositionLayerProjection}, {@link XrCompositionLayerProjectionView}, {@link XrCompositionLayerQuad}, {@link XrCompositionLayerReprojectionInfoMSFT}, {@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrCompositionLayerSecureContentFB}, {@link XrCompositionLayerSettingsFB}, {@link XrCompositionLayerSpaceWarpInfoFB}, {@link XrControllerModelKeyStateMSFT}, {@link XrControllerModelNodePropertiesMSFT}, {@link XrControllerModelNodeStateMSFT}, {@link XrControllerModelPropertiesMSFT}, {@link XrControllerModelStateMSFT}, {@link XrCoordinateSpaceCreateInfoML}, {@link XrDebugUtilsLabelEXT}, {@link XrDebugUtilsMessengerCallbackDataEXT}, {@link XrDebugUtilsMessengerCreateInfoEXT}, {@link XrDebugUtilsObjectNameInfoEXT}, {@link XrDevicePcmSampleRateStateFB}, {@link XrDigitalLensControlALMALENCE}, {@link XrEventDataBaseHeader}, {@link XrEventDataBuffer}, {@link XrEventDataDisplayRefreshRateChangedFB}, {@link XrEventDataEventsLost}, {@link XrEventDataEyeCalibrationChangedML}, {@link XrEventDataHeadsetFitChangedML}, {@link XrEventDataInstanceLossPending}, {@link XrEventDataInteractionProfileChanged}, {@link XrEventDataLocalizationChangedML}, {@link XrEventDataMainSessionVisibilityChangedEXTX}, {@link XrEventDataMarkerTrackingUpdateVARJO}, {@link XrEventDataPassthroughStateChangedFB}, {@link XrEventDataPerfSettingsEXT}, {@link XrEventDataReferenceSpaceChangePending}, {@link XrEventDataSceneCaptureCompleteFB}, {@link XrEventDataSessionStateChanged}, {@link XrEventDataSpaceEraseCompleteFB}, {@link XrEventDataSpaceListSaveCompleteFB}, {@link XrEventDataSpaceQueryCompleteFB}, {@link XrEventDataSpaceQueryResultsAvailableFB}, {@link XrEventDataSpaceSaveCompleteFB}, {@link XrEventDataSpaceSetStatusCompleteFB}, {@link XrEventDataSpaceShareCompleteFB}, {@link XrEventDataSpatialAnchorCreateCompleteFB}, {@link XrEventDataVirtualKeyboardBackspaceMETA}, {@link XrEventDataVirtualKeyboardCommitTextMETA}, {@link XrEventDataVirtualKeyboardEnterMETA}, {@link XrEventDataVirtualKeyboardHiddenMETA}, {@link XrEventDataVirtualKeyboardShownMETA}, {@link XrEventDataVisibilityMaskChangedKHR}, {@link XrEventDataViveTrackerConnectedHTCX}, {@link XrExtensionProperties}, {@link XrExternalCameraOCULUS}, {@link XrEyeGazeSampleTimeEXT}, {@link XrEyeGazesFB}, {@link XrEyeGazesInfoFB}, {@link XrEyeTrackerCreateInfoFB}, {@link XrFaceExpressionInfoFB}, {@link XrFaceExpressionWeightsFB}, {@link XrFaceTrackerCreateInfoFB}, {@link XrFacialExpressionsHTC}, {@link XrFacialTrackerCreateInfoHTC}, {@link XrForceFeedbackCurlApplyLocationsMNDX}, {@link XrFoveatedViewConfigurationViewVARJO}, {@link XrFoveationApplyInfoHTC}, {@link XrFoveationCustomModeInfoHTC}, {@link XrFoveationDynamicModeInfoHTC}, {@link XrFoveationEyeTrackedProfileCreateInfoMETA}, {@link XrFoveationEyeTrackedStateMETA}, {@link XrFoveationLevelProfileCreateInfoFB}, {@link XrFoveationProfileCreateInfoFB}, {@link XrFrameBeginInfo}, {@link XrFrameEndInfo}, {@link XrFrameEndInfoML}, {@link XrFrameState}, {@link XrFrameWaitInfo}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrGlobalDimmerFrameEndInfoML}, {@link XrGraphicsBindingEGLMNDX}, {@link XrGraphicsBindingOpenGLWaylandKHR}, {@link XrGraphicsBindingOpenGLWin32KHR}, {@link XrGraphicsBindingOpenGLXcbKHR}, {@link XrGraphicsBindingOpenGLXlibKHR}, {@link XrGraphicsBindingVulkanKHR}, {@link XrGraphicsRequirementsOpenGLKHR}, {@link XrGraphicsRequirementsVulkanKHR}, {@link XrHandJointLocationsEXT}, {@link XrHandJointVelocitiesEXT}, {@link XrHandJointsLocateInfoEXT}, {@link XrHandJointsMotionRangeInfoEXT}, {@link XrHandMeshMSFT}, {@link XrHandMeshSpaceCreateInfoMSFT}, {@link XrHandMeshUpdateInfoMSFT}, {@link XrHandPoseTypeInfoMSFT}, {@link XrHandTrackerCreateInfoEXT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingCapsulesStateFB}, {@link XrHandTrackingDataSourceInfoEXT}, {@link XrHandTrackingDataSourceStateEXT}, {@link XrHandTrackingMeshFB}, {@link XrHandTrackingScaleFB}, {@link XrHapticActionInfo}, {@link XrHapticAmplitudeEnvelopeVibrationFB}, {@link XrHapticBaseHeader}, {@link XrHapticPcmVibrationFB}, {@link XrHapticVibration}, {@link XrHolographicWindowAttachmentMSFT}, {@link XrInputSourceLocalizedNameGetInfo}, {@link XrInstanceCreateInfo}, {@link XrInstanceProperties}, {@link XrInteractionProfileAnalogThresholdVALVE}, {@link XrInteractionProfileDpadBindingEXT}, {@link XrInteractionProfileState}, {@link XrInteractionProfileSuggestedBinding}, {@link XrKeyboardSpaceCreateInfoFB}, {@link XrKeyboardTrackingQueryFB}, {@link XrLoaderInitInfoBaseHeaderKHR}, {@link XrLocalDimmingFrameEndInfoMETA}, {@link XrLocalizationEnableEventsInfoML}, {@link XrLocalizationMapImportInfoML}, {@link XrLocalizationMapML}, {@link XrLocalizationMapQueryInfoBaseHeaderML}, {@link XrMapLocalizationRequestInfoML}, {@link XrMarkerDetectorAprilTagInfoML}, {@link XrMarkerDetectorArucoInfoML}, {@link XrMarkerDetectorCreateInfoML}, {@link XrMarkerDetectorCustomProfileInfoML}, {@link XrMarkerDetectorSizeInfoML}, {@link XrMarkerDetectorSnapshotInfoML}, {@link XrMarkerDetectorStateML}, {@link XrMarkerSpaceCreateInfoML}, {@link XrMarkerSpaceCreateInfoVARJO}, {@link XrNewSceneComputeInfoMSFT}, {@link XrPassthroughBrightnessContrastSaturationFB}, {@link XrPassthroughColorHTC}, {@link XrPassthroughColorLutCreateInfoMETA}, {@link XrPassthroughColorLutUpdateInfoMETA}, {@link XrPassthroughColorMapInterpolatedLutMETA}, {@link XrPassthroughColorMapLutMETA}, {@link XrPassthroughColorMapMonoToMonoFB}, {@link XrPassthroughColorMapMonoToRgbaFB}, {@link XrPassthroughCreateInfoFB}, {@link XrPassthroughCreateInfoHTC}, {@link XrPassthroughKeyboardHandsIntensityFB}, {@link XrPassthroughLayerCreateInfoFB}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPassthroughPreferencesMETA}, {@link XrPassthroughStyleFB}, {@link XrPerformanceMetricsCounterMETA}, {@link XrPerformanceMetricsStateMETA}, {@link XrPlaneDetectorBeginInfoEXT}, {@link XrPlaneDetectorCreateInfoEXT}, {@link XrPlaneDetectorGetInfoEXT}, {@link XrPlaneDetectorLocationEXT}, {@link XrPlaneDetectorLocationsEXT}, {@link XrPlaneDetectorPolygonBufferEXT}, {@link XrReferenceSpaceCreateInfo}, {@link XrRenderModelBufferFB}, {@link XrRenderModelCapabilitiesRequestFB}, {@link XrRenderModelLoadInfoFB}, {@link XrRenderModelPathInfoFB}, {@link XrRenderModelPropertiesFB}, {@link XrRoomLayoutFB}, {@link XrSceneCaptureRequestInfoFB}, {@link XrSceneComponentLocationsMSFT}, {@link XrSceneComponentParentFilterInfoMSFT}, {@link XrSceneComponentsGetInfoMSFT}, {@link XrSceneComponentsLocateInfoMSFT}, {@link XrSceneComponentsMSFT}, {@link XrSceneCreateInfoMSFT}, {@link XrSceneDeserializeInfoMSFT}, {@link XrSceneMarkerQRCodesMSFT}, {@link XrSceneMarkerTypeFilterMSFT}, {@link XrSceneMarkersMSFT}, {@link XrSceneMeshBuffersGetInfoMSFT}, {@link XrSceneMeshBuffersMSFT}, {@link XrSceneMeshIndicesUint16MSFT}, {@link XrSceneMeshIndicesUint32MSFT}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneMeshesMSFT}, {@link XrSceneObjectTypesFilterInfoMSFT}, {@link XrSceneObjectsMSFT}, {@link XrSceneObserverCreateInfoMSFT}, {@link XrScenePlaneAlignmentFilterInfoMSFT}, {@link XrScenePlanesMSFT}, {@link XrSecondaryViewConfigurationFrameEndInfoMSFT}, {@link XrSecondaryViewConfigurationFrameStateMSFT}, {@link XrSecondaryViewConfigurationLayerInfoMSFT}, {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT}, {@link XrSecondaryViewConfigurationStateMSFT}, {@link XrSecondaryViewConfigurationSwapchainCreateInfoMSFT}, {@link XrSemanticLabelsFB}, {@link XrSemanticLabelsSupportInfoFB}, {@link XrSerializedSceneFragmentDataGetInfoMSFT}, {@link XrSessionActionSetsAttachInfo}, {@link XrSessionBeginInfo}, {@link XrSessionCreateInfo}, {@link XrSessionCreateInfoOverlayEXTX}, {@link XrSpaceComponentFilterInfoFB}, {@link XrSpaceComponentStatusFB}, {@link XrSpaceComponentStatusSetInfoFB}, {@link XrSpaceContainerFB}, {@link XrSpaceEraseInfoFB}, {@link XrSpaceFilterInfoBaseHeaderFB}, {@link XrSpaceListSaveInfoFB}, {@link XrSpaceLocation}, {@link XrSpaceQueryInfoBaseHeaderFB}, {@link XrSpaceQueryInfoFB}, {@link XrSpaceQueryResultsFB}, {@link XrSpaceSaveInfoFB}, {@link XrSpaceShareInfoFB}, {@link XrSpaceStorageLocationFilterInfoFB}, {@link XrSpaceUserCreateInfoFB}, {@link XrSpaceUuidFilterInfoFB}, {@link XrSpaceVelocity}, {@link XrSpatialAnchorCreateInfoFB}, {@link XrSpatialAnchorCreateInfoHTC}, {@link XrSpatialAnchorCreateInfoMSFT}, {@link XrSpatialAnchorFromPersistedAnchorCreateInfoMSFT}, {@link XrSpatialAnchorPersistenceInfoMSFT}, {@link XrSpatialAnchorSpaceCreateInfoMSFT}, {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT}, {@link XrSpatialGraphNodeBindingPropertiesMSFT}, {@link XrSpatialGraphNodeSpaceCreateInfoMSFT}, {@link XrSpatialGraphStaticNodeBindingCreateInfoMSFT}, {@link XrSwapchainCreateInfo}, {@link XrSwapchainCreateInfoFoveationFB}, {@link XrSwapchainImageAcquireInfo}, {@link XrSwapchainImageBaseHeader}, {@link XrSwapchainImageFoveationVulkanFB}, {@link XrSwapchainImageOpenGLKHR}, {@link XrSwapchainImageReleaseInfo}, {@link XrSwapchainImageVulkanKHR}, {@link XrSwapchainImageWaitInfo}, {@link XrSwapchainStateBaseHeaderFB}, {@link XrSwapchainStateFoveationFB}, {@link XrSwapchainStateSamplerOpenGLESFB}, {@link XrSwapchainStateSamplerVulkanFB}, {@link XrSystemAnchorPropertiesHTC}, {@link XrSystemBodyTrackingPropertiesFB}, {@link XrSystemColorSpacePropertiesFB}, {@link XrSystemEyeGazeInteractionPropertiesEXT}, {@link XrSystemEyeTrackingPropertiesFB}, {@link XrSystemFaceTrackingPropertiesFB}, {@link XrSystemFacialTrackingPropertiesHTC}, {@link XrSystemForceFeedbackCurlPropertiesMNDX}, {@link XrSystemFoveatedRenderingPropertiesVARJO}, {@link XrSystemFoveationEyeTrackedPropertiesMETA}, {@link XrSystemGetInfo}, {@link XrSystemHandTrackingMeshPropertiesMSFT}, {@link XrSystemHandTrackingPropertiesEXT}, {@link XrSystemHeadsetIdPropertiesMETA}, {@link XrSystemKeyboardTrackingPropertiesFB}, {@link XrSystemMarkerTrackingPropertiesVARJO}, {@link XrSystemMarkerUnderstandingPropertiesML}, {@link XrSystemPassthroughColorLutPropertiesMETA}, {@link XrSystemPassthroughProperties2FB}, {@link XrSystemPassthroughPropertiesFB}, {@link XrSystemPlaneDetectionPropertiesEXT}, {@link XrSystemProperties}, {@link XrSystemRenderModelPropertiesFB}, {@link XrSystemSpaceWarpPropertiesFB}, {@link XrSystemSpatialEntityPropertiesFB}, {@link XrSystemVirtualKeyboardPropertiesMETA}, {@link XrTriangleMeshCreateInfoFB}, {@link XrUserCalibrationEnableEventsInfoML}, {@link XrView}, {@link XrViewConfigurationDepthRangeEXT}, {@link XrViewConfigurationProperties}, {@link XrViewConfigurationView}, {@link XrViewConfigurationViewFovEPIC}, {@link XrViewLocateFoveatedRenderingVARJO}, {@link XrViewLocateInfo}, {@link XrViewState}, {@link XrVirtualKeyboardAnimationStateMETA}, {@link XrVirtualKeyboardCreateInfoMETA}, {@link XrVirtualKeyboardInputInfoMETA}, {@link XrVirtualKeyboardLocationInfoMETA}, {@link XrVirtualKeyboardModelAnimationStatesMETA}, {@link XrVirtualKeyboardModelVisibilitySetInfoMETA}, {@link XrVirtualKeyboardSpaceCreateInfoMETA}, {@link XrVirtualKeyboardTextContextChangeInfoMETA}, {@link XrVirtualKeyboardTextureDataMETA}, {@link XrVisibilityMaskKHR}, {@link XrVisualMeshComputeLodInfoMSFT}, {@link XrViveTrackerPathsHTCX}, {@link XrVulkanDeviceCreateInfoKHR}, {@link XrVulkanGraphicsDeviceGetInfoKHR}, {@link XrVulkanInstanceCreateInfoKHR}, {@link XrVulkanSwapchainCreateInfoMETA}, {@link XrVulkanSwapchainFormatListCreateInfoKHR}, {@link #xrStructureTypeToString StructureTypeToString}</p>
      * 
      * <h5>Enum values:</h5>
      * 
@@ -379,14 +406,22 @@ public class XR10 {
         XR_ENVIRONMENT_BLEND_MODE_ALPHA_BLEND = 3;
 
     /**
-     * XrSpaceVelocityFlagBits
+     * XrSpaceVelocityFlagBits - Space velocity flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_SPACE_VELOCITY_LINEAR_VALID_BIT SPACE_VELOCITY_LINEAR_VALID_BIT}</li>
-     * <li>{@link #XR_SPACE_VELOCITY_ANGULAR_VALID_BIT SPACE_VELOCITY_ANGULAR_VALID_BIT}</li>
+     * <li>{@link #XR_SPACE_VELOCITY_LINEAR_VALID_BIT SPACE_VELOCITY_LINEAR_VALID_BIT} — Indicates that the {@code linearVelocity} member contains valid data. Applications <b>must</b> not read the {@code linearVelocity} field if this flag is unset.</li>
+     * <li>{@link #XR_SPACE_VELOCITY_ANGULAR_VALID_BIT SPACE_VELOCITY_ANGULAR_VALID_BIT} — Indicates that the {@code angularVelocity} member contains valid data. Applications <b>must</b> not read the {@code angularVelocity} field if this flag is unset.</li>
      * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link XrSpaceVelocity}</p>
      */
     public static final int
         XR_SPACE_VELOCITY_LINEAR_VALID_BIT  = 0x1,
@@ -439,16 +474,24 @@ public class XR10 {
         XR_REFERENCE_SPACE_TYPE_STAGE = 3;
 
     /**
-     * XrSpaceLocationFlagBits
+     * XrSpaceLocationFlagBits - Space location flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_SPACE_LOCATION_ORIENTATION_VALID_BIT SPACE_LOCATION_ORIENTATION_VALID_BIT}</li>
-     * <li>{@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT}</li>
-     * <li>{@link #XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT SPACE_LOCATION_ORIENTATION_TRACKED_BIT}</li>
-     * <li>{@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT}</li>
+     * <li>{@link #XR_SPACE_LOCATION_ORIENTATION_VALID_BIT SPACE_LOCATION_ORIENTATION_VALID_BIT} indicates that the {@code pose} field’s {@code orientation} field contains valid data. For a space location tracking a device with its own inertial tracking, {@link #XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT SPACE_LOCATION_ORIENTATION_TRACKED_BIT} <b>should</b> remain set when this bit is set. Applications <b>must</b> not read the {@code pose} field’s {@code orientation} if this flag is unset.</li>
+     * <li>{@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} indicates that the {@code pose} field’s {@code position} field contains valid data. When a space location loses tracking, runtimes <b>should</b> continue to provide valid but untracked {@code position} values that are inferred or last-known, so long as it’s still meaningful for the application to use that position, clearing {@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} until positional tracking is recovered. Applications <b>must</b> not read the {@code pose} field’s {@code position} if this flag is unset.</li>
+     * <li>{@link #XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT SPACE_LOCATION_ORIENTATION_TRACKED_BIT} indicates that the {@code pose} field’s {@code orientation} field represents an actively tracked orientation. For a space location tracking a device with its own inertial tracking, this bit <b>should</b> remain set when {@link #XR_SPACE_LOCATION_ORIENTATION_VALID_BIT SPACE_LOCATION_ORIENTATION_VALID_BIT} is set. For a space location tracking an object whose orientation is no longer known during tracking loss (e.g. an observed QR code), runtimes <b>should</b> continue to provide valid but untracked {@code orientation} values, so long as it’s still meaningful for the application to use that orientation.</li>
+     * <li>{@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} indicates that the {@code pose} field’s {@code position} field represents an actively tracked position. When a space location loses tracking, runtimes <b>should</b> continue to provide valid but untracked {@code position} values that are inferred or last-known, e.g. based on neck model updates, inertial dead reckoning, or a last-known position, so long as it’s still meaningful for the application to use that position.</li>
      * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link XrSpaceLocation}, {@link #xrLocateSpace LocateSpace}</p>
      */
     public static final int
         XR_SPACE_LOCATION_ORIENTATION_VALID_BIT   = 0x1,
@@ -457,33 +500,53 @@ public class XR10 {
         XR_SPACE_LOCATION_POSITION_TRACKED_BIT    = 0x8;
 
     /**
-     * XrSwapchainCreateFlagBits
+     * XrSwapchainCreateFlagBits - Swapchain creation flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_CREATE_STATIC_IMAGE_BIT SWAPCHAIN_CREATE_STATIC_IMAGE_BIT}</li>
+     * <li>{@link #XR_SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT} indicates that the swapchain’s images will be protected from CPU access, using a mechanism such as Vulkan protected memory.</li>
+     * <li>{@link #XR_SWAPCHAIN_CREATE_STATIC_IMAGE_BIT SWAPCHAIN_CREATE_STATIC_IMAGE_BIT} indicates that the application will acquire and release only one image to this swapchain over its entire lifetime. The runtime <b>must</b> allocate only one swapchain image.</li>
      * </ul>
+     * 
+     * <p>A runtime <b>may</b> implement any of these, but is not required to. A runtime <b>must</b> return {@link #XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateSwapchain CreateSwapchain} if an {@code XrSwapchainCreateFlags} bit is requested but not implemented.</p>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link XrSwapchainCreateInfo}</p>
      */
     public static final int
         XR_SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT = 0x1,
         XR_SWAPCHAIN_CREATE_STATIC_IMAGE_BIT      = 0x2;
 
     /**
-     * XrSwapchainUsageFlagBits
+     * XrSwapchainUsageFlagBits - Swapchain usage flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_UNORDERED_ACCESS_BIT SWAPCHAIN_USAGE_UNORDERED_ACCESS_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_TRANSFER_SRC_BIT SWAPCHAIN_USAGE_TRANSFER_SRC_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_TRANSFER_DST_BIT SWAPCHAIN_USAGE_TRANSFER_DST_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_SAMPLED_BIT SWAPCHAIN_USAGE_SAMPLED_BIT}</li>
-     * <li>{@link #XR_SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT}</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT} — Specifies that the image <b>may</b> be a color rendering target.</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT SWAPCHAIN_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT} — Specifies that the image <b>may</b> be a depth/stencil rendering target.</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_UNORDERED_ACCESS_BIT SWAPCHAIN_USAGE_UNORDERED_ACCESS_BIT} — Specifies that the image <b>may</b> be accessed out of order and that access <b>may</b> be via atomic operations.</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_TRANSFER_SRC_BIT SWAPCHAIN_USAGE_TRANSFER_SRC_BIT} — Specifies that the image <b>may</b> be used as the source of a transfer operation.</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_TRANSFER_DST_BIT SWAPCHAIN_USAGE_TRANSFER_DST_BIT} — Specifies that the image <b>may</b> be used as the destination of a transfer operation.</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_SAMPLED_BIT SWAPCHAIN_USAGE_SAMPLED_BIT} — Specifies that the image <b>may</b> be sampled by a shader.</li>
+     * <li>{@link #XR_SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT} — Specifies that the image <b>may</b> be reinterpreted as another image format.</li>
+     * <li>{@link MNDSwapchainUsageInputAttachmentBit#XR_SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_MND SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_MND} — Specifies that the image <b>may</b> be used as a input attachment. (Added by the {@link MNDSwapchainUsageInputAttachmentBit XR_MND_swapchain_usage_input_attachment_bit} extension)</li>
+     * <li>{@link KHRSwapchainUsageInputAttachmentBit#XR_SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_KHR SWAPCHAIN_USAGE_INPUT_ATTACHMENT_BIT_KHR} — Specifies that the image <b>may</b> be used as a input attachment. (Added by the {@link KHRSwapchainUsageInputAttachmentBit XR_KHR_swapchain_usage_input_attachment_bit} extension)</li>
      * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link XrSwapchainCreateInfo}, {@link #xrCreateSwapchain CreateSwapchain}</p>
      */
     public static final int
         XR_SWAPCHAIN_USAGE_COLOR_ATTACHMENT_BIT         = 0x1,
@@ -495,15 +558,23 @@ public class XR10 {
         XR_SWAPCHAIN_USAGE_MUTABLE_FORMAT_BIT           = 0x40;
 
     /**
-     * XrCompositionLayerFlagBits
+     * XrCompositionLayerFlagBits - Composition layer flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT}</li>
-     * <li>{@link #XR_COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT}</li>
-     * <li>{@link #XR_COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT}</li>
+     * <li>{@link #XR_COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT} — Enables chromatic aberration correction when not done by default. This flag has no effect on any known conformant runtime, and is planned for deprecation for OpenXR 1.1</li>
+     * <li>{@link #XR_COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT COMPOSITION_LAYER_BLEND_TEXTURE_SOURCE_ALPHA_BIT} — Enables the layer texture alpha channel.</li>
+     * <li>{@link #XR_COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT} — Indicates the texture color channels have not been premultiplied by the texture alpha channel.</li>
      * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link XrCompositionLayerProjection}, {@link XrCompositionLayerQuad}</p>
      */
     public static final int
         XR_COMPOSITION_LAYER_CORRECT_CHROMATIC_ABERRATION_BIT = 0x1,
@@ -511,16 +582,24 @@ public class XR10 {
         XR_COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT        = 0x4;
 
     /**
-     * XrViewStateFlagBits
+     * XrViewStateFlagBits - View state flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_VIEW_STATE_ORIENTATION_VALID_BIT VIEW_STATE_ORIENTATION_VALID_BIT}</li>
-     * <li>{@link #XR_VIEW_STATE_POSITION_VALID_BIT VIEW_STATE_POSITION_VALID_BIT}</li>
-     * <li>{@link #XR_VIEW_STATE_ORIENTATION_TRACKED_BIT VIEW_STATE_ORIENTATION_TRACKED_BIT}</li>
-     * <li>{@link #XR_VIEW_STATE_POSITION_TRACKED_BIT VIEW_STATE_POSITION_TRACKED_BIT}</li>
+     * <li>{@link #XR_VIEW_STATE_ORIENTATION_VALID_BIT VIEW_STATE_ORIENTATION_VALID_BIT} indicates whether all {@link XrView} orientations contain valid data. Applications <b>must</b> not read any of the {@link XrView} {@code pose} {@code orientation} fields if this flag is unset. {@link #XR_VIEW_STATE_ORIENTATION_TRACKED_BIT VIEW_STATE_ORIENTATION_TRACKED_BIT} <b>should</b> generally remain set when this bit is set for views on a tracked headset or handheld device.</li>
+     * <li>{@link #XR_VIEW_STATE_POSITION_VALID_BIT VIEW_STATE_POSITION_VALID_BIT} indicates whether all {@link XrView} positions contain valid data. Applications <b>must</b> not read any of the {@link XrView}{@code ::pose} {@code position} fields if this flag is unset. When a view loses tracking, runtimes <b>should</b> continue to provide valid but untracked view {@code position} values that are inferred or last-known, so long as it’s still meaningful for the application to render content using that position, clearing {@link #XR_VIEW_STATE_POSITION_TRACKED_BIT VIEW_STATE_POSITION_TRACKED_BIT} until tracking is recovered.</li>
+     * <li>{@link #XR_VIEW_STATE_ORIENTATION_TRACKED_BIT VIEW_STATE_ORIENTATION_TRACKED_BIT} indicates whether all {@link XrView} orientations represent an actively tracked orientation. This bit <b>should</b> generally remain set when {@link #XR_VIEW_STATE_ORIENTATION_VALID_BIT VIEW_STATE_ORIENTATION_VALID_BIT} is set for views on a tracked headset or handheld device.</li>
+     * <li>{@link #XR_VIEW_STATE_POSITION_TRACKED_BIT VIEW_STATE_POSITION_TRACKED_BIT} indicates whether all {@link XrView} positions represent an actively tracked position. When a view loses tracking, runtimes <b>should</b> continue to provide valid but untracked view {@code position} values that are inferred or last-known, e.g. based on neck model updates, inertial dead reckoning, or a last-known position, so long as it’s still meaningful for the application to render content using that position.</li>
      * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link XrView}, {@link XrViewState}, {@link #xrLocateViews LocateViews}</p>
      */
     public static final int
         XR_VIEW_STATE_ORIENTATION_VALID_BIT   = 0x1,
@@ -553,15 +632,23 @@ public class XR10 {
         XR_ACTION_TYPE_VIBRATION_OUTPUT = 100;
 
     /**
-     * XrInputSourceLocalizedNameFlagBits
+     * XrInputSourceLocalizedNameFlagBits - Input source localized name flags
      * 
-     * <h5>Enum values:</h5>
+     * <h5>Description</h5>
+     * 
+     * <p>The flag bits have the following meanings:</p>
+     * 
+     * <h5>Flag Descriptions</h5>
      * 
      * <ul>
-     * <li>{@link #XR_INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT}</li>
-     * <li>{@link #XR_INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT}</li>
-     * <li>{@link #XR_INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT}</li>
+     * <li>{@link #XR_INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT} indicates that the runtime <b>must</b> include the user path portion of the string in the result, if available. E.g. {@code Left Hand}.</li>
+     * <li>{@link #XR_INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT} indicates that the runtime <b>must</b> include the interaction profile portion of the string in the result, if available. E.g. {@code Vive Controller}.</li>
+     * <li>{@link #XR_INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT} indicates that the runtime <b>must</b> include the input component portion of the string in the result, if available. E.g. {@code Trigger}.</li>
      * </ul>
+     * 
+     * <h5>See Also</h5>
+     * 
+     * <p>{@link #xrGetInputSourceLocalizedName GetInputSourceLocalizedName}</p>
      */
     public static final int
         XR_INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT           = 0x1,
@@ -596,10 +683,10 @@ public class XR10 {
      * <ul>
      * <li>{@link #XR_SESSION_STATE_UNKNOWN SESSION_STATE_UNKNOWN}. An unknown state. The runtime <b>must</b> not return this value in an {@link XrEventDataSessionStateChanged} event.</li>
      * <li>{@link #XR_SESSION_STATE_IDLE SESSION_STATE_IDLE}. The initial state after calling {@link #xrCreateSession CreateSession} or returned to after calling {@link #xrEndSession EndSession}.</li>
-     * <li>{@link #XR_SESSION_STATE_READY SESSION_STATE_READY}. The application is ready to call {@link #xrBeginSession BeginSession} and <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">sync its frame loop with the runtime.</a></li>
+     * <li>{@link #XR_SESSION_STATE_READY SESSION_STATE_READY}. The application is ready to call {@link #xrBeginSession BeginSession} and <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">sync its frame loop with the runtime.</a></li>
      * <li>{@link #XR_SESSION_STATE_SYNCHRONIZED SESSION_STATE_SYNCHRONIZED}. The application has synced its frame loop with the runtime but is not visible to the user.</li>
-     * <li>{@link #XR_SESSION_STATE_VISIBLE SESSION_STATE_VISIBLE}. The application has <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synced its frame loop with the runtime</a> and is visible to the user but cannot receive XR input.</li>
-     * <li>{@link #XR_SESSION_STATE_FOCUSED SESSION_STATE_FOCUSED}. The application has <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synced its frame loop with the runtime</a>, is visible to the user and can receive XR input.</li>
+     * <li>{@link #XR_SESSION_STATE_VISIBLE SESSION_STATE_VISIBLE}. The application has <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synced its frame loop with the runtime</a> and is visible to the user but cannot receive XR input.</li>
+     * <li>{@link #XR_SESSION_STATE_FOCUSED SESSION_STATE_FOCUSED}. The application has <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synced its frame loop with the runtime</a>, is visible to the user and can receive XR input.</li>
      * <li>{@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING}. The application should exit its frame loop and call {@link #xrEndSession EndSession}.</li>
      * <li>{@link #XR_SESSION_STATE_LOSS_PENDING SESSION_STATE_LOSS_PENDING}. The session is in the process of being lost. The application should destroy the current session and can optionally recreate it.</li>
      * <li>{@link #XR_SESSION_STATE_EXITING SESSION_STATE_EXITING}. The application should end its XR experience and not automatically restart it.</li>
@@ -611,11 +698,11 @@ public class XR10 {
      * 
      * <p>Receiving the {@link #XR_SESSION_STATE_READY SESSION_STATE_READY} state indicates that the runtime desires the application to prepare rendering resources, begin its session and synchronize its frame loop with the runtime. The application does this by successfully calling {@link #xrBeginSession BeginSession} and then running its frame loop by calling {@link #xrWaitFrame WaitFrame}, {@link #xrBeginFrame BeginFrame} and {@link #xrEndFrame EndFrame} in a loop. If the runtime wishes to return the session to the {@link #XR_SESSION_STATE_IDLE SESSION_STATE_IDLE} state, it <b>must</b> wait until the application calls {@link #xrBeginSession BeginSession}. After returning from the {@link #xrBeginSession BeginSession} call, the runtime may then immediately transition forward through the {@link #XR_SESSION_STATE_SYNCHRONIZED SESSION_STATE_SYNCHRONIZED} state to the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state, to request that the application end this session. If the system supports a user engagement sensor and runtime is in {@link #XR_SESSION_STATE_IDLE SESSION_STATE_IDLE} state, the runtime <b>should</b> not transition to the {@link #XR_SESSION_STATE_READY SESSION_STATE_READY} state until the user starts engaging with the device.</p>
      * 
-     * <p>Receiving the {@link #XR_SESSION_STATE_SYNCHRONIZED SESSION_STATE_SYNCHRONIZED} state indicates that the application has <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synchronized its frame loop with the runtime</a>, but its frames are not visible to the user. The application <b>should</b> continue running its frame loop by calling {@link #xrWaitFrame WaitFrame}, {@link #xrBeginFrame BeginFrame} and {@link #xrEndFrame EndFrame}, although it should avoid heavy GPU work so that other visible applications can take CPU and GPU precedence. The application can save resources here by skipping rendering and not submitting any composition layers until {@link #xrWaitFrame WaitFrame} returns an {@link XrFrameState} with {@code shouldRender} set to true. A runtime <b>may</b> use this frame synchronization to facilitate seamless switching from a previous XR application to this application on a frame boundary.</p>
+     * <p>Receiving the {@link #XR_SESSION_STATE_SYNCHRONIZED SESSION_STATE_SYNCHRONIZED} state indicates that the application has <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synchronized its frame loop with the runtime</a>, but its frames are not visible to the user. The application <b>should</b> continue running its frame loop by calling {@link #xrWaitFrame WaitFrame}, {@link #xrBeginFrame BeginFrame} and {@link #xrEndFrame EndFrame}, although it should avoid heavy GPU work so that other visible applications can take CPU and GPU precedence. The application can save resources here by skipping rendering and not submitting any composition layers until {@link #xrWaitFrame WaitFrame} returns an {@link XrFrameState} with {@code shouldRender} set to true. A runtime <b>may</b> use this frame synchronization to facilitate seamless switching from a previous XR application to this application on a frame boundary.</p>
      * 
-     * <p>Receiving the {@link #XR_SESSION_STATE_VISIBLE SESSION_STATE_VISIBLE} state indicates that the application has <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synchronized its frame loop with the runtime</a>, and the session’s frames will be visible to the user, but the session is not eligible to receive XR input. An application may be visible but not have focus, for example when the runtime is composing a modal pop-up on top of the application’s rendered frames. The application <b>should</b> continue running its frame loop, rendering and submitting its composition layers, although it may wish to pause its experience, as users cannot interact with the application at this time. It is important for applications to continue rendering when visible, even when they do not have focus, so the user continues to see something reasonable underneath modal pop-ups. Runtimes <b>should</b> make input actions inactive while the application is unfocused, and applications should react to an inactive input action by skipping rendering of that action’s input avatar (depictions of hands or other tracked objects controlled by the user).</p>
+     * <p>Receiving the {@link #XR_SESSION_STATE_VISIBLE SESSION_STATE_VISIBLE} state indicates that the application has <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synchronized its frame loop with the runtime</a>, and the session’s frames will be visible to the user, but the session is not eligible to receive XR input. An application may be visible but not have focus, for example when the runtime is composing a modal pop-up on top of the application’s rendered frames. The application <b>should</b> continue running its frame loop, rendering and submitting its composition layers, although it may wish to pause its experience, as users cannot interact with the application at this time. It is important for applications to continue rendering when visible, even when they do not have focus, so the user continues to see something reasonable underneath modal pop-ups. Runtimes <b>should</b> make input actions inactive while the application is unfocused, and applications should react to an inactive input action by skipping rendering of that action’s input avatar (depictions of hands or other tracked objects controlled by the user).</p>
      * 
-     * <p>Receiving the {@link #XR_SESSION_STATE_FOCUSED SESSION_STATE_FOCUSED} state indicates that the application has <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synchronized its frame loop with the runtime</a>, the session’s frames will be visible to the user, and the session is eligible to receive XR input. The runtime <b>should</b> only give one session XR input focus at any given time. The application <b>should</b> be running its frame loop, rendering and submitting composition layers, including input avatars (depictions of hands or other tracked objects controlled by the user) for any input actions that are active. The runtime <b>should</b> avoid rendering its own input avatars when an application is focused, unless input from a given source is being captured by the runtime at the moment.</p>
+     * <p>Receiving the {@link #XR_SESSION_STATE_FOCUSED SESSION_STATE_FOCUSED} state indicates that the application has <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#sync_frame_loop">synchronized its frame loop with the runtime</a>, the session’s frames will be visible to the user, and the session is eligible to receive XR input. The runtime <b>should</b> only give one session XR input focus at any given time. The application <b>should</b> be running its frame loop, rendering and submitting composition layers, including input avatars (depictions of hands or other tracked objects controlled by the user) for any input actions that are active. The runtime <b>should</b> avoid rendering its own input avatars when an application is focused, unless input from a given source is being captured by the runtime at the moment.</p>
      * 
      * <p>Receiving the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state indicates that the runtime has determined that the application should halt its rendering loop. Applications <b>should</b> exit their rendering loop and call {@link #xrEndSession EndSession} when in this state. A possible reason for this would be to minimize contention between multiple applications. If the system supports a user engagement sensor and the session is running, the runtime <b>should</b> transition to the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state when the user stops engaging with the device.</p>
      * 
@@ -674,7 +761,7 @@ public class XR10 {
         XR_OBJECT_TYPE_ACTION     = 6;
 
     /** OpenXR current version number. */
-    public static final long XR_CURRENT_API_VERSION = XR_MAKE_VERSION(1, 0, 20);
+    public static final long XR_CURRENT_API_VERSION = XR_MAKE_VERSION(1, 0, 32);
 
     /** Compile-time symbols, ignore. */
     public static final int
@@ -940,7 +1027,7 @@ public class XR10 {
     /**
      * Unsafe version of: {@link #xrEnumerateApiLayerProperties EnumerateApiLayerProperties}
      *
-     * @param propertyCapacityInput the capacity of the properties array, or 0 to indicate a request to retrieve the required capacity.
+     * @param propertyCapacityInput the capacity of the {@code properties} array, or 0 to indicate a request to retrieve the required capacity.
      */
     public static int nxrEnumerateApiLayerProperties(int propertyCapacityInput, long propertyCountOutput, long properties) {
         long __functionAddress = XR.getGlobalCommands().xrEnumerateApiLayerProperties;
@@ -993,8 +1080,8 @@ public class XR10 {
      * 
      * <p>{@link XrApiLayerProperties}</p>
      *
-     * @param propertyCountOutput a pointer to the count of properties written, or a pointer to the required capacity in the case that propertyCapacityInput is 0.
-     * @param properties          a pointer to an array of {@link XrApiLayerProperties} structures, but <b>can</b> be {@code NULL} if propertyCapacityInput is 0.
+     * @param propertyCountOutput a pointer to the count of {@code properties} written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is insufficient.
+     * @param properties          a pointer to an array of {@link XrApiLayerProperties} structures, but <b>can</b> be {@code NULL} if {@code propertyCapacityInput} is 0.
      */
     @NativeType("XrResult")
     public static int xrEnumerateApiLayerProperties(@NativeType("uint32_t *") IntBuffer propertyCountOutput, @Nullable @NativeType("XrApiLayerProperties *") XrApiLayerProperties.Buffer properties) {
@@ -1009,7 +1096,7 @@ public class XR10 {
     /**
      * Unsafe version of: {@link #xrEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}
      *
-     * @param propertyCapacityInput the capacity of the properties array, or 0 to indicate a request to retrieve the required capacity.
+     * @param propertyCapacityInput the capacity of the {@code properties} array, or 0 to indicate a request to retrieve the required capacity.
      */
     public static int nxrEnumerateInstanceExtensionProperties(long layerName, int propertyCapacityInput, long propertyCountOutput, long properties) {
         long __functionAddress = XR.getGlobalCommands().xrEnumerateInstanceExtensionProperties;
@@ -1031,8 +1118,6 @@ public class XR10 {
      *     XrExtensionProperties*                      properties);</code></pre>
      * 
      * <h5>Description</h5>
-     * 
-     * <p>If {@code properties} is {@code NULL}, then the number of extensions properties available is returned in {@code propertyCountOutput}. Otherwise, {@code propertyCountInput} must point to a variable set by the user to the number of elements in the {@code properties} array. If {@code propertyCountInput} is less than the number of extension properties available, the contents of {@code properties} will be undefined. If {@code propertyCountInput} is smaller than the number of extensions available, the runtime <b>must</b> return the failure code {@link #XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT} and the contents of {@code properties} are undefined.</p>
      * 
      * <p>Because the list of available layers may change externally between calls to {@link #xrEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}, two calls <b>may</b> retrieve different results if a {@code layerName} is available in one call but not in another. The extensions supported by a layer may also change between two calls, e.g. if the layer implementation is replaced by a different version between those calls.</p>
      * 
@@ -1067,7 +1152,7 @@ public class XR10 {
      * <p>{@link XrExtensionProperties}</p>
      *
      * @param layerName           either {@code NULL} or a pointer to a string naming the API layer to retrieve extensions from, as returned by {@link #xrEnumerateApiLayerProperties EnumerateApiLayerProperties}.
-     * @param propertyCountOutput a pointer to the count of properties written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is 0.
+     * @param propertyCountOutput a pointer to the count of {@code properties} written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is insufficient.
      * @param properties          a pointer to an array of {@link XrExtensionProperties} structures, but <b>can</b> be {@code NULL} if {@code propertyCapacityInput} is 0.
      */
     @NativeType("XrResult")
@@ -1095,8 +1180,6 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code properties} is {@code NULL}, then the number of extensions properties available is returned in {@code propertyCountOutput}. Otherwise, {@code propertyCountInput} must point to a variable set by the user to the number of elements in the {@code properties} array. If {@code propertyCountInput} is less than the number of extension properties available, the contents of {@code properties} will be undefined. If {@code propertyCountInput} is smaller than the number of extensions available, the runtime <b>must</b> return the failure code {@link #XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT} and the contents of {@code properties} are undefined.</p>
-     * 
      * <p>Because the list of available layers may change externally between calls to {@link #xrEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}, two calls <b>may</b> retrieve different results if a {@code layerName} is available in one call but not in another. The extensions supported by a layer may also change between two calls, e.g. if the layer implementation is replaced by a different version between those calls.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -1130,7 +1213,7 @@ public class XR10 {
      * <p>{@link XrExtensionProperties}</p>
      *
      * @param layerName           either {@code NULL} or a pointer to a string naming the API layer to retrieve extensions from, as returned by {@link #xrEnumerateApiLayerProperties EnumerateApiLayerProperties}.
-     * @param propertyCountOutput a pointer to the count of properties written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is 0.
+     * @param propertyCountOutput a pointer to the count of {@code properties} written, or a pointer to the required capacity in the case that {@code propertyCapacityInput} is insufficient.
      * @param properties          a pointer to an array of {@link XrExtensionProperties} structures, but <b>can</b> be {@code NULL} if {@code propertyCapacityInput} is 0.
      */
     @NativeType("XrResult")
@@ -1577,7 +1660,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>To get an {@code XrSystemId}, an application specifies its desired <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#form_factor_description">form factor</a> to {@link #xrGetSystem GetSystem} and gets the runtime’s {@code XrSystemId} associated with that configuration.</p>
+     * <p>To get an {@code XrSystemId}, an application specifies its desired <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#form_factor_description">form factor</a> to {@link #xrGetSystem GetSystem} and gets the runtime’s {@code XrSystemId} associated with that configuration.</p>
      * 
      * <p>If the form factor is supported but temporarily unavailable, {@link #xrGetSystem GetSystem} <b>must</b> return {@link #XR_ERROR_FORM_FACTOR_UNAVAILABLE ERROR_FORM_FACTOR_UNAVAILABLE}. A runtime <b>may</b> return {@link #XR_SUCCESS SUCCESS} on a subsequent call for a form factor it previously returned {@link #XR_ERROR_FORM_FACTOR_UNAVAILABLE ERROR_FORM_FACTOR_UNAVAILABLE}. For example, connecting or warming up hardware might cause an unavailable form factor to become available.</p>
      * 
@@ -1751,7 +1834,7 @@ public class XR10 {
      * @param instance                        the instance from which {@code systemId} was retrieved.
      * @param systemId                        the {@code XrSystemId} whose environment blend modes will be enumerated.
      * @param viewConfigurationType           the {@code XrViewConfigurationType} to enumerate.
-     * @param environmentBlendModeCountOutput a pointer to the count of {@code environmentBlendModes} written, or a pointer to the required capacity in the case that {@code environmentBlendModeCapacityInput} is 0.
+     * @param environmentBlendModeCountOutput a pointer to the count of {@code environmentBlendModes} written, or a pointer to the required capacity in the case that {@code environmentBlendModeCapacityInput} is insufficient.
      * @param environmentBlendModes           a pointer to an array of {@code XrEnvironmentBlendMode} values, but <b>can</b> be {@code NULL} if {@code environmentBlendModeCapacityInput} is 0.
      */
     @NativeType("XrResult")
@@ -1823,7 +1906,7 @@ public class XR10 {
      * 
      * <p>{@link XrExtensionProperties}, {@link XrSessionCreateInfo}, {@link #xrBeginSession BeginSession}, {@link #xrDestroySession DestroySession}, {@link #xrEndSession EndSession}</p>
      *
-     * @param instance   the instance from which {@code systemId} was retrieved.
+     * @param instance   the instance from which {@link XrSessionCreateInfo}{@code ::systemId} was retrieved.
      * @param createInfo a pointer to an {@link XrSessionCreateInfo} structure containing information about how to create the session.
      * @param session    a pointer to a handle in which the created {@code XrSession} is returned.
      */
@@ -1898,7 +1981,7 @@ public class XR10 {
     /**
      * Unsafe version of: {@link #xrEnumerateReferenceSpaces EnumerateReferenceSpaces}
      *
-     * @param spaceCapacityInput the capacity of the spaces array, or 0 to indicate a request to retrieve the required capacity.
+     * @param spaceCapacityInput the capacity of the {@code spaces} array, or 0 to indicate a request to retrieve the required capacity.
      */
     public static int nxrEnumerateReferenceSpaces(XrSession session, int spaceCapacityInput, long spaceCountOutput, long spaces) {
         long __functionAddress = session.getCapabilities().xrEnumerateReferenceSpaces;
@@ -1953,7 +2036,7 @@ public class XR10 {
      * </dl>
      *
      * @param session          a handle to an {@code XrSession} previously created with {@link #xrCreateSession CreateSession}.
-     * @param spaceCountOutput a pointer to the count of spaces written, or a pointer to the required capacity in the case that {@code spaceCapacityInput} is 0.
+     * @param spaceCountOutput a pointer to the count of {@code spaces} written, or a pointer to the required capacity in the case that {@code spaceCapacityInput} is insufficient.
      * @param spaces           a pointer to an application-allocated array that will be filled with the enumerant of each supported reference space. It <b>can</b> be {@code NULL} if {@code spaceCapacityInput} is 0.
      */
     @NativeType("XrResult")
@@ -2058,7 +2141,7 @@ public class XR10 {
      * 
      * <p>The returned extents are expressed relative to the natural origin of the provided {@code XrReferenceSpaceType} and <b>must</b> not incorporate any origin offsets specified by the application during calls to {@link #xrCreateReferenceSpace CreateReferenceSpace}.</p>
      * 
-     * <p>The runtime <b>must</b> return {@link #XR_ERROR_REFERENCE_SPACE_UNSUPPORTED ERROR_REFERENCE_SPACE_UNSUPPORTED} if the {@code XrReferenceSpaceType} passed in {@code createInfo} is not supported by this {@code session}.</p>
+     * <p>The runtime <b>must</b> return {@link #XR_ERROR_REFERENCE_SPACE_UNSUPPORTED ERROR_REFERENCE_SPACE_UNSUPPORTED} if the {@code XrReferenceSpaceType} passed in {@code referenceSpaceType} is not supported by this {@code session}.</p>
      * 
      * <p>When a runtime will begin operating with updated space bounds, the runtime <b>must</b> queue a corresponding {@link XrEventDataReferenceSpaceChangePending} event.</p>
      * 
@@ -2140,7 +2223,7 @@ public class XR10 {
      * 
      * <p>Multiple {@code XrSpace} handles may exist simultaneously, up to some limit imposed by the runtime. The {@code XrSpace} handle must be eventually freed via the {@link #xrDestroySpace DestroySpace} function or by destroying the parent {@code XrAction} handle.</p>
      * 
-     * <p>The runtime <b>must</b> return {@link #XR_ERROR_ACTION_TYPE_MISMATCH ERROR_ACTION_TYPE_MISMATCH} if the action provided in {@code action} is not of type {@link #XR_ACTION_TYPE_POSE_INPUT ACTION_TYPE_POSE_INPUT}.</p>
+     * <p>The runtime <b>must</b> return {@link #XR_ERROR_ACTION_TYPE_MISMATCH ERROR_ACTION_TYPE_MISMATCH} if the action provided in {@link XrActionSpaceCreateInfo}{@code ::action} is not of type {@link #XR_ACTION_TYPE_POSE_INPUT ACTION_TYPE_POSE_INPUT}.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -2218,21 +2301,21 @@ public class XR10 {
      * 
      * <p>For a {@code time} in the future, the runtime <b>should</b> locate the spaces based on the runtime’s most up-to-date prediction of how the world will be at that future time.</p>
      * 
-     * <p>The minimum valid range of values for {@code time} are described in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#prediction-time-limits">prediction-time-limits</a>. For values of {@code time} outside this range, {@link #xrLocateSpace LocateSpace} <b>may</b> return a location with no position and {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} unset.</p>
+     * <p>The minimum valid range of values for {@code time} are described in <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#prediction-time-limits">prediction-time-limits</a>. For values of {@code time} outside this range, {@link #xrLocateSpace LocateSpace} <b>may</b> return a location with no position and {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} unset.</p>
      * 
      * <p>Some devices improve their understanding of the world as the device is used. The location returned by {@link #xrLocateSpace LocateSpace} for a given {@code space}, {@code baseSpace} and {@code time} <b>may</b> change over time, even for spaces that track static objects, as one or both spaces adjust their origins.</p>
      * 
-     * <p>During tracking loss of {@code space} relative to {@code baseSpace}, runtimes <b>should</b> continue to provide inferred or last-known {@code position} and {@code orientation} values. These inferred poses can, for example, be based on neck model updates, inertial dead reckoning, or a last-known position, so long as it is still reasonable for the application to use that pose. While a runtime is providing position data, it <b>must</b> continue to set {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} but it <b>can</b> clear {@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} to indicate that the position is inferred or last-known in this way.</p>
+     * <p>During tracking loss of {@code space} relative to {@code baseSpace}, runtimes <b>should</b> continue to provide inferred or last-known {@link XrPosef}{@code ::position} and {@link XrPosef}{@code ::orientation} values. These inferred poses can, for example, be based on neck model updates, inertial dead reckoning, or a last-known position, so long as it is still reasonable for the application to use that pose. While a runtime is providing position data, it <b>must</b> continue to set {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} but it <b>can</b> clear {@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} to indicate that the position is inferred or last-known in this way.</p>
      * 
      * <p>If the runtime has not yet observed even a last-known pose for how to locate {@code space} in {@code baseSpace} (e.g. one space is an action space bound to a motion controller that has not yet been detected, or the two spaces are in disconnected fragments of the runtime’s tracked volume), the runtime <b>should</b> return a location with no position and {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} unset.</p>
      * 
      * <p>The runtime <b>must</b> return a location with both {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} and {@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} set when locating {@code space} and {@code baseSpace} if both spaces were created relative to the same entity (e.g. two action spaces for the same action), even if the entity is currently untracked. The location in this case is the difference in the two spaces' application-specified transforms relative to that common entity.</p>
      * 
-     * <p>The runtime <b>should</b> return a location with {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} set and {@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} unset for spaces tracking two static entities in the world when their relative pose is known to the runtime. This enables applications to make use of the runtime’s latest knowledge of the world, even during tracking loss.</p>
+     * <p>During tracking loss, the runtime <b>should</b> return a location with {@link #XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} and {@link #XR_SPACE_LOCATION_ORIENTATION_VALID_BIT SPACE_LOCATION_ORIENTATION_VALID_BIT} set and {@link #XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} and {@link #XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT SPACE_LOCATION_ORIENTATION_TRACKED_BIT} unset for spaces tracking two static entities in the world when their relative pose is known to the runtime. This enables applications to continue to make use of the runtime’s latest knowledge of the world.</p>
      * 
-     * <p>If an {@link XrSpaceVelocity} structure is chained to the {@code next} pointer of {@link XrSpaceLocation} and the velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the linear velocity of the origin of space within the reference frame of {@code baseSpace} and set the {@link #XR_SPACE_VELOCITY_LINEAR_VALID_BIT SPACE_VELOCITY_LINEAR_VALID_BIT}. Similarly, if an {@link XrSpaceVelocity} structure is chained to the {@code next} pointer of {@link XrSpaceLocation} and the angular velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the angular velocity of the origin of space within the reference frame of {@code baseSpace} and set the {@link #XR_SPACE_VELOCITY_ANGULAR_VALID_BIT SPACE_VELOCITY_ANGULAR_VALID_BIT}.</p>
+     * <p>If an {@link XrSpaceVelocity} structure is chained to the {@link XrSpaceLocation}{@code ::next} pointer, and the velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the linear velocity of the origin of space within the reference frame of {@code baseSpace} and set the {@link #XR_SPACE_VELOCITY_LINEAR_VALID_BIT SPACE_VELOCITY_LINEAR_VALID_BIT}. Similarly, if an {@link XrSpaceVelocity} structure is chained to the {@link XrSpaceLocation}{@code ::next} pointer, and the angular velocity is observed or can be calculated by the runtime, the runtime <b>must</b> fill in the angular velocity of the origin of space within the reference frame of {@code baseSpace} and set the {@link #XR_SPACE_VELOCITY_ANGULAR_VALID_BIT SPACE_VELOCITY_ANGULAR_VALID_BIT}.</p>
      * 
-     * <p>The following example code shows how an application can get both the location and velocity of a space within a base space using the {@link #xrLocateSpace LocateSpace} function by chaining an {@link XrSpaceVelocity} to the next pointer of {@link XrSpaceLocation} and calling {@link #xrLocateSpace LocateSpace}.</p>
+     * <p>The following example code shows how an application can get both the location and velocity of a space within a base space using the {@link #xrLocateSpace LocateSpace} function by chaining an {@link XrSpaceVelocity} to the {@code next} pointer of {@link XrSpaceLocation} and calling {@link #xrLocateSpace LocateSpace}.</p>
      * 
      * <pre><code>
      * XrSpace space;      // previously initialized
@@ -2288,7 +2371,7 @@ public class XR10 {
     // --- [ xrDestroySpace ] ---
 
     /**
-     * Creates a space based on a pose action.
+     * Destroys an XrSpace.
      * 
      * <h5>C Specification</h5>
      * 
@@ -2341,11 +2424,7 @@ public class XR10 {
 
     // --- [ xrEnumerateViewConfigurations ] ---
 
-    /**
-     * Unsafe version of: {@link #xrEnumerateViewConfigurations EnumerateViewConfigurations}
-     *
-     * @param viewConfigurationsTypeCapacityInput the capacity of the {@code viewConfigurations} array, or 0 to indicate a request to retrieve the required capacity.
-     */
+    /** Unsafe version of: {@link #xrEnumerateViewConfigurations EnumerateViewConfigurations} */
     public static int nxrEnumerateViewConfigurations(XrInstance instance, long systemId, int viewConfigurationsTypeCapacityInput, long viewConfigurationsTypeCountOutput, long viewConfigurationsTypes) {
         long __functionAddress = instance.getCapabilities().xrEnumerateViewConfigurations;
         return callPJPPI(instance.address(), systemId, viewConfigurationsTypeCapacityInput, viewConfigurationsTypeCountOutput, viewConfigurationsTypes, __functionAddress);
@@ -2398,10 +2477,8 @@ public class XR10 {
      * </ul></dd>
      * </dl>
      *
-     * @param instance                          the instance from which {@code systemId} was retrieved.
-     * @param systemId                          the {@code XrSystemId} whose view configurations will be enumerated.
-     * @param viewConfigurationsTypeCountOutput a pointer to the count of {@code viewConfigurations} written, or a pointer to the required capacity in the case that {@code viewConfigurationsTypeCapacityInput} is 0.
-     * @param viewConfigurationsTypes           a pointer to an array of {@code XrViewConfigurationType} values, but <b>can</b> be {@code NULL} if {@code viewConfigurationsTypeCapacityInput} is 0.
+     * @param instance the instance from which {@code systemId} was retrieved.
+     * @param systemId the {@code XrSystemId} whose view configurations will be enumerated.
      */
     @NativeType("XrResult")
     public static int xrEnumerateViewConfigurations(XrInstance instance, @NativeType("XrSystemId") long systemId, @NativeType("uint32_t *") IntBuffer viewConfigurationsTypeCountOutput, @Nullable @NativeType("XrViewConfigurationType *") IntBuffer viewConfigurationsTypes) {
@@ -2587,6 +2664,8 @@ public class XR10 {
      * 
      * <p>{@link #xrEnumerateSwapchainFormats EnumerateSwapchainFormats} enumerates the texture formats supported by the current session. The type of formats returned are dependent on the graphics API specified in {@link #xrCreateSession CreateSession}. For example, if a DirectX graphics API was specified, then the enumerated formats correspond to the DXGI formats, such as {@code DXGI_FORMAT_R8G8B8A8_UNORM_SRGB}. Texture formats <b>should</b> be in order from highest to lowest runtime preference. The application <b>should</b> use the highest preference format that it supports for optimal performance and quality.</p>
      * 
+     * <p>With an OpenGL-based graphics API, the texture formats correspond to OpenGL internal formats.</p>
+     * 
      * <p>Runtimes <b>must</b> always return identical buffer contents from this enumeration for the lifetime of the session.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -2621,7 +2700,7 @@ public class XR10 {
      * <p>{@link #xrCreateSwapchain CreateSwapchain}</p>
      *
      * @param session           the session that enumerates the supported formats.
-     * @param formatCountOutput a pointer to the count of {@code uint64_t} formats written, or a pointer to the required capacity in the case that {@code formatCapacityInput} is 0.
+     * @param formatCountOutput a pointer to the count of {@code uint64_t} formats written, or a pointer to the required capacity in the case that {@code formatCapacityInput} is insufficient.
      * @param formats           a pointer to an array of {@code int64_t} format ids, but <b>can</b> be {@code NULL} if {@code formatCapacityInput} is 0. The format ids are specific to the specified graphics API.
      */
     @NativeType("XrResult")
@@ -2655,7 +2734,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Creates an {@code XrSwapchain} handle. The returned swapchain handle <b>may</b> be subsequently used in API calls. Multiple {@code XrSwapchain} handles may exist simultaneously, up to some limit imposed by the runtime. The {@code XrSwapchain} handle <b>must</b> be eventually freed via the {@link #xrDestroySwapchain DestroySwapchain} function. The runtime <b>must</b> return {@link #XR_ERROR_SWAPCHAIN_FORMAT_UNSUPPORTED ERROR_SWAPCHAIN_FORMAT_UNSUPPORTED} if the image format specified in the {@link XrSwapchainCreateInfo} is unsupported. The runtime <b>must</b> return {@link #XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} if any bit of the create flags specified in the {@link XrSwapchainCreateInfo} is unsupported.</p>
+     * <p>Creates an {@code XrSwapchain} handle. The returned swapchain handle <b>may</b> be subsequently used in API calls. Multiple {@code XrSwapchain} handles <b>may</b> exist simultaneously, up to some limit imposed by the runtime. The {@code XrSwapchain} handle <b>must</b> be eventually freed via the {@link #xrDestroySwapchain DestroySwapchain} function. The runtime <b>must</b> return {@link #XR_ERROR_SWAPCHAIN_FORMAT_UNSUPPORTED ERROR_SWAPCHAIN_FORMAT_UNSUPPORTED} if the image format specified in the {@link XrSwapchainCreateInfo} is unsupported. The runtime <b>must</b> return {@link #XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} if any bit of the create flags specified in the {@link XrSwapchainCreateInfo} is unsupported.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -2795,7 +2874,7 @@ public class XR10 {
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>Under a typical memory model, a runtime must treat the supplied pointer as an opaque blob beginning with {@link XrSwapchainImageBaseHeader}, until after it has verified the {@code type}.</p>
+     * <p>Under a typical memory model, a runtime <b>must</b> treat the supplied pointer as an opaque blob beginning with {@link XrSwapchainImageBaseHeader}, until after it has verified the {@link XrSwapchainImageBaseHeader}{@code ::type}.</p>
      * </div>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -2803,7 +2882,7 @@ public class XR10 {
      * <ul>
      * <li>{@code swapchain} <b>must</b> be a valid {@code XrSwapchain} handle</li>
      * <li>{@code imageCountOutput} <b>must</b> be a pointer to a {@code uint32_t} value</li>
-     * <li>If {@code imageCapacityInput} is not 0, {@code images} <b>must</b> be a pointer to an array of {@code imageCapacityInput} {@link XrSwapchainImageBaseHeader}-based structures. See also: {@link XrSwapchainImageOpenGLESKHR}, {@link XrSwapchainImageOpenGLKHR}, {@link XrSwapchainImageVulkanKHR}</li>
+     * <li>If {@code imageCapacityInput} is not 0, {@code images} <b>must</b> be a pointer to an array of {@code imageCapacityInput} {@link XrSwapchainImageBaseHeader}-based structures. See also: {@link XrSwapchainImageOpenGLKHR}, {@link XrSwapchainImageVulkanKHR}</li>
      * </ul>
      * 
      * <h5>Return Codes</h5>
@@ -2830,7 +2909,7 @@ public class XR10 {
      * <p>{@link XrSwapchainImageBaseHeader}, {@link #xrCreateSwapchain CreateSwapchain}</p>
      *
      * @param swapchain        the {@code XrSwapchain} to get images from.
-     * @param imageCountOutput a pointer to the count of {@code images} written, or a pointer to the required capacity in the case that {@code imageCapacityInput} is 0.
+     * @param imageCountOutput a pointer to the count of {@code images} written, or a pointer to the required capacity in the case that {@code imageCapacityInput} is insufficient.
      * @param images           a pointer to an array of graphics API-specific {@code XrSwapchainImage} structures, all of the same type, based on {@link XrSwapchainImageBaseHeader}. It <b>can</b> be {@code NULL} if {@code imageCapacityInput} is 0.
      */
     @NativeType("XrResult")
@@ -2865,6 +2944,8 @@ public class XR10 {
      * <h5>Description</h5>
      * 
      * <p>Acquires the image corresponding to the {@code index} position in the array returned by {@link #xrEnumerateSwapchainImages EnumerateSwapchainImages}. The runtime <b>must</b> return {@link #XR_ERROR_CALL_ORDER_INVALID ERROR_CALL_ORDER_INVALID} if the next available index has already been acquired and not yet released with {@link #xrReleaseSwapchainImage ReleaseSwapchainImage}. If the {@code swapchain} was created with the {@link #XR_SWAPCHAIN_CREATE_STATIC_IMAGE_BIT SWAPCHAIN_CREATE_STATIC_IMAGE_BIT} set in {@link XrSwapchainCreateInfo}{@code ::createFlags}, this function <b>must</b> not have been previously called for this swapchain. The runtime <b>must</b> return {@link #XR_ERROR_CALL_ORDER_INVALID ERROR_CALL_ORDER_INVALID} if a {@code swapchain} created with the {@link #XR_SWAPCHAIN_CREATE_STATIC_IMAGE_BIT SWAPCHAIN_CREATE_STATIC_IMAGE_BIT} set in {@link XrSwapchainCreateInfo}{@code ::createFlags} and this function has been successfully called previously for this swapchain.</p>
+     * 
+     * <p>This function only provides the index of the swapchain image, for example for use in recording command buffers. It does not wait for the image to be usable by the application. The application <b>must</b> call {@link #xrWaitSwapchainImage WaitSwapchainImage} for each "acquire" call before submitting graphics commands that write to the image.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -2931,9 +3012,9 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Before an application can begin writing to a swapchain image, it must first wait on the image to avoid writing to it before the compositor has finished reading from it. {@link #xrWaitSwapchainImage WaitSwapchainImage} will implicitly wait on the oldest acquired swapchain image which has not yet been successfully waited on. Once a swapchain image has been successfully waited on without timeout, the app <b>must</b> release before waiting on the next acquired swapchain image.</p>
+     * <p>Before an application begins writing to a swapchain image, it <b>must</b> first wait on the image, to avoid writing to it before the compositor has finished reading from it. {@link #xrWaitSwapchainImage WaitSwapchainImage} will implicitly wait on the oldest acquired swapchain image which has not yet been successfully waited on. Once a swapchain image has been successfully waited on without timeout, the app <b>must</b> release before waiting on the next acquired swapchain image.</p>
      * 
-     * <p>This function may block for longer than the timeout specified in {@link XrSwapchainImageWaitInfo} due to scheduling or contention.</p>
+     * <p>This function <b>may</b> block for longer than the timeout specified in {@link XrSwapchainImageWaitInfo} due to scheduling or contention.</p>
      * 
      * <p>If the timeout expires without the image becoming available for writing, {@link #XR_TIMEOUT_EXPIRED TIMEOUT_EXPIRED} <b>must</b> be returned. If {@link #xrWaitSwapchainImage WaitSwapchainImage} returns {@link #XR_TIMEOUT_EXPIRED TIMEOUT_EXPIRED}, the next call to {@link #xrWaitSwapchainImage WaitSwapchainImage} will wait on the same image index again until the function succeeds with {@link #XR_SUCCESS SUCCESS}. Note that this is not an error code; {@code XR_SUCCEEDED({@link #XR_TIMEOUT_EXPIRED TIMEOUT_EXPIRED})} is {@code true}.</p>
      * 
@@ -3068,15 +3149,15 @@ public class XR10 {
      * 
      * <p>When the application receives {@link XrEventDataSessionStateChanged} event with the {@link #XR_SESSION_STATE_READY SESSION_STATE_READY} state, the application <b>should</b> then call {@link #xrBeginSession BeginSession} to start rendering frames for display to the user.</p>
      * 
-     * <p>After this function successfully returns, the session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is considered to be running</a>. The application <b>should</b> then start its frame loop consisting of some sequence of {@link #xrWaitFrame WaitFrame}/{@link #xrBeginFrame BeginFrame}/{@link #xrEndFrame EndFrame} calls.</p>
+     * <p>After this function successfully returns, the session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">is considered to be running</a>. The application <b>should</b> then start its frame loop consisting of some sequence of {@link #xrWaitFrame WaitFrame}/{@link #xrBeginFrame BeginFrame}/{@link #xrEndFrame EndFrame} calls.</p>
      * 
-     * <p>If the session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is already running</a> when the application calls {@link #xrBeginSession BeginSession}, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_RUNNING ERROR_SESSION_RUNNING}. If the session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a> when the application calls {@link #xrBeginSession BeginSession}, but the session is not yet in the {@link #XR_SESSION_STATE_READY SESSION_STATE_READY} state, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_NOT_READY ERROR_SESSION_NOT_READY}.</p>
+     * <p>If the session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">is already running</a> when the application calls {@link #xrBeginSession BeginSession}, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_RUNNING ERROR_SESSION_RUNNING}. If the session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a> when the application calls {@link #xrBeginSession BeginSession}, but the session is not yet in the {@link #XR_SESSION_STATE_READY SESSION_STATE_READY} state, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_NOT_READY ERROR_SESSION_NOT_READY}.</p>
      * 
-     * <p>Note that a runtime <b>may</b> decide not to show the user any given frame from a session at any time, for example if the user has switched to a different application’s running session. The application should check whether {@link #xrWaitFrame WaitFrame} returns an {@link XrFrameState} with {@code shouldRender} set to true before rendering a given frame to determine whether that frame will be visible to the user.</p>
+     * <p>Note that a runtime <b>may</b> decide not to show the user any given frame from a session at any time, for example if the user has switched to a different application’s running session. The application should check whether {@link #xrWaitFrame WaitFrame} returns {@link XrFrameState}{@code ::shouldRender} set to true before rendering a given frame to determine whether that frame will be visible to the user.</p>
      * 
-     * <p>Runtime session frame state <b>must</b> start in a reset state when a session transitions to <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> so that no state is carried over from when the same session was previously running.</p>
+     * <p>Runtime session frame state <b>must</b> start in a reset state when a session transitions to <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> so that no state is carried over from when the same session was previously running. Frame state in this context includes {@link #xrWaitFrame WaitFrame}, {@link #xrBeginFrame BeginFrame}, and {@link #xrEndFrame EndFrame} call order enforcement.</p>
      * 
-     * <p>If {@code primaryViewConfigurationType} in {@code beginInfo} is not supported by the {@code XrSystemId} used to create the {@code session}, the runtime <b>must</b> return {@link #XR_ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED}.</p>
+     * <p>If {@link XrSessionBeginInfo}{@code ::primaryViewConfigurationType} in {@code beginInfo} is not supported by the {@code XrSystemId} used to create the {@code session}, the runtime <b>must</b> return {@link #XR_ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED}.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -3133,9 +3214,9 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>When the application receives {@link XrEventDataSessionStateChanged} event with the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state, the application should stop its frame loop and then call {@link #xrEndSession EndSession} to end the <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> session. This function signals to the runtime that the application will no longer call {@link #xrWaitFrame WaitFrame}, {@link #xrBeginFrame BeginFrame} or {@link #xrEndFrame EndFrame} from any thread allowing the runtime to safely transition the session to {@link #XR_SESSION_STATE_IDLE SESSION_STATE_IDLE}. The application <b>must</b> also avoid reading input state or sending haptic output after calling {@link #xrEndSession EndSession}.</p>
+     * <p>When the application receives {@link XrEventDataSessionStateChanged} event with the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state, the application should stop its frame loop and then call {@link #xrEndSession EndSession} to end the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> session. This function signals to the runtime that the application will no longer call {@link #xrWaitFrame WaitFrame}, {@link #xrBeginFrame BeginFrame} or {@link #xrEndFrame EndFrame} from any thread allowing the runtime to safely transition the session to {@link #XR_SESSION_STATE_IDLE SESSION_STATE_IDLE}. The application <b>must</b> also avoid reading input state or sending haptic output after calling {@link #xrEndSession EndSession}.</p>
      * 
-     * <p>If the session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a> when the application calls {@link #xrEndSession EndSession}, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING}. If the session <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is still running</a> when the application calls {@link #xrEndSession EndSession}, but the session is not yet in the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_NOT_STOPPING ERROR_SESSION_NOT_STOPPING}.</p>
+     * <p>If the session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a> when the application calls {@link #xrEndSession EndSession}, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING}. If the session <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">is still running</a> when the application calls {@link #xrEndSession EndSession}, but the session is not yet in the {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} state, the runtime <b>must</b> return error {@link #XR_ERROR_SESSION_NOT_STOPPING ERROR_SESSION_NOT_STOPPING}.</p>
      * 
      * <p>If the application wishes to exit a running session, the application can call {@link #xrRequestExitSession RequestExitSession} so that the session transitions from {@link #XR_SESSION_STATE_IDLE SESSION_STATE_IDLE} to {@link #XR_SESSION_STATE_EXITING SESSION_STATE_EXITING}.</p>
      * 
@@ -3169,7 +3250,7 @@ public class XR10 {
      * 
      * <p>{@link #xrBeginSession BeginSession}, {@link #xrCreateSession CreateSession}, {@link #xrDestroySession DestroySession}</p>
      *
-     * @param session a handle to a <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> {@code XrSession}.
+     * @param session a handle to a <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> {@code XrSession}.
      */
     @NativeType("XrResult")
     public static int xrEndSession(XrSession session) {
@@ -3184,7 +3265,7 @@ public class XR10 {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>When an application wishes to exit a <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> session, it <b>can</b> call {@link #xrRequestExitSession RequestExitSession}, requesting that the runtime transition through the various intermediate session states including {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} to {@link #XR_SESSION_STATE_EXITING SESSION_STATE_EXITING}.</p>
+     * <p>When an application wishes to exit a <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">running</a> session, it <b>can</b> call {@link #xrRequestExitSession RequestExitSession}, requesting that the runtime transition through the various intermediate session states including {@link #XR_SESSION_STATE_STOPPING SESSION_STATE_STOPPING} to {@link #XR_SESSION_STATE_EXITING SESSION_STATE_EXITING}.</p>
      * 
      * <p>On platforms where an application’s lifecycle is managed by the system, session state changes may be implicitly triggered by application lifecycle state changes. On such platforms, using platform-specific methods to alter application lifecycle state may be the preferred method of provoking session state changes. The behavior of {@link #xrRequestExitSession RequestExitSession} is not altered, however explicit session exit <b>may</b> not interact with the platform-specific application lifecycle.</p>
      * 
@@ -3196,7 +3277,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code session} <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a> when {@link #xrRequestExitSession RequestExitSession} is called, {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} <b>must</b> be returned.</p>
+     * <p>If {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a> when {@link #xrRequestExitSession RequestExitSession} is called, {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} <b>must</b> be returned.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -3258,7 +3339,9 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrWaitFrame WaitFrame} throttles the application frame loop in order to synchronize application frame submissions with the display. {@link #xrWaitFrame WaitFrame} returns a predicted display time for the next time that the runtime predicts a composited frame will be displayed. The runtime <b>may</b> affect this computation by changing the return values and throttling of {@link #xrWaitFrame WaitFrame} in response to feedback from frame submission and completion times in {@link #xrEndFrame EndFrame}. An application <b>must</b> eventually match each {@link #xrWaitFrame WaitFrame} call with one call to {@link #xrBeginFrame BeginFrame}. A subsequent {@link #xrWaitFrame WaitFrame} call <b>must</b> block until the previous frame has been begun with {@link #xrBeginFrame BeginFrame} and <b>must</b> unblock independently of the corresponding call to {@link #xrEndFrame EndFrame}. When less than one frame interval has passed since the previous return from {@link #xrWaitFrame WaitFrame}, the runtime <b>should</b> block until the beginning of the next frame interval. If more than one frame interval has passed since the last return from {@link #xrWaitFrame WaitFrame}, the runtime <b>may</b> return immediately or block until the beginning of the next frame interval.</p>
+     * <p>{@link #xrWaitFrame WaitFrame} throttles the application frame loop in order to synchronize application frame submissions with the display. {@link #xrWaitFrame WaitFrame} returns a predicted display time for the next time that the runtime predicts a composited frame will be displayed. The runtime <b>may</b> affect this computation by changing the return values and throttling of {@link #xrWaitFrame WaitFrame} in response to feedback from frame submission and completion times in {@link #xrEndFrame EndFrame}. A subsequent {@link #xrWaitFrame WaitFrame} call <b>must</b> block until the previous frame has been begun with {@link #xrBeginFrame BeginFrame} and <b>must</b> unblock independently of the corresponding call to {@link #xrEndFrame EndFrame}. Refer to {@link #xrBeginSession BeginSession} for details on how a transition to <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">session running</a> resets the frame function call order.</p>
+     * 
+     * <p>When less than one frame interval has passed since the previous return from {@link #xrWaitFrame WaitFrame}, the runtime <b>should</b> block until the beginning of the next frame interval. If more than one frame interval has passed since the last return from {@link #xrWaitFrame WaitFrame}, the runtime <b>may</b> return immediately or block until the beginning of the next frame interval.</p>
      * 
      * <p>In the case that an application has pipelined frame submissions, the application <b>should</b> compute the appropriate target display time using both the predicted display time and predicted display interval. The application <b>should</b> use the computed target display time when requesting space and view locations for rendering.</p>
      * 
@@ -3270,11 +3353,11 @@ public class XR10 {
      * 
      * <p>Calling {@link #xrWaitFrame WaitFrame} <b>must</b> be externally synchronized by the application, concurrent calls <b>may</b> result in undefined behavior.</p>
      * 
-     * <p>The runtime <b>must</b> return {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} if the {@code session} <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a>.</p>
+     * <p>The runtime <b>must</b> return {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} if the {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a>.</p>
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>The engine simulation <b>should</b> advance based on the display time. Every stage in the engine pipeline should use the exact same display time for one particular application-generated frame. An accurate and consistent display time across all stages and threads in the engine pipeline is important to avoid object motion judder. If the application has multiple pipeline stages, the application should pass its computed display time through its pipeline, as {@link #xrWaitFrame WaitFrame} must be called only once per frame.</p>
+     * <p>The engine simulation <b>should</b> advance based on the display time. Every stage in the engine pipeline <b>should</b> use the exact same display time for one particular application-generated frame. An accurate and consistent display time across all stages and threads in the engine pipeline is important to avoid object motion judder. If the application has multiple pipeline stages, the application <b>should</b> pass its computed display time through its pipeline, as {@link #xrWaitFrame WaitFrame} <b>must</b> be called only once per frame.</p>
      * </div>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -3349,17 +3432,21 @@ public class XR10 {
      * 
      * <p>Runtimes <b>must</b> not perform frame synchronization or throttling through the {@link #xrBeginFrame BeginFrame} function and <b>should</b> instead do so through {@link #xrWaitFrame WaitFrame}.</p>
      * 
-     * <p>The runtime <b>must</b> return the error code {@link #XR_ERROR_CALL_ORDER_INVALID ERROR_CALL_ORDER_INVALID} if there was no corresponding successful call to {@link #xrWaitFrame WaitFrame}.</p>
+     * <p>The runtime <b>must</b> return the error code {@link #XR_ERROR_CALL_ORDER_INVALID ERROR_CALL_ORDER_INVALID} if there was no corresponding successful call to {@link #xrWaitFrame WaitFrame}. The runtime <b>must</b> return the success code {@link #XR_FRAME_DISCARDED FRAME_DISCARDED} if a prior {@link #xrBeginFrame BeginFrame} has been called without an intervening call to {@link #xrEndFrame EndFrame}. Refer to {@link #xrBeginSession BeginSession} for details on how a transition to <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">session running</a> resets the frame function call order.</p>
      * 
-     * <p>The runtime <b>must</b> return the success code {@link #XR_FRAME_DISCARDED FRAME_DISCARDED} if a prior {@link #xrBeginFrame BeginFrame} has been called without an intervening call to {@link #xrEndFrame EndFrame}.</p>
-     * 
-     * <p>The runtime <b>must</b> return {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} if the {@code session} <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a>.</p>
+     * <p>The runtime <b>must</b> return {@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} if the {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a>.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
      * <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
      * <li>If {@code frameBeginInfo} is not {@code NULL}, {@code frameBeginInfo} <b>must</b> be a pointer to a valid {@link XrFrameBeginInfo} structure</li>
+     * </ul>
+     * 
+     * <h5>Thread Safety</h5>
+     * 
+     * <ul>
+     * <li>Access to the {@code session} parameter by any other {@link #xrBeginFrame BeginFrame} or {@link #xrEndFrame EndFrame} call <b>must</b> be externally synchronized</li>
      * </ul>
      * 
      * <h5>Return Codes</h5>
@@ -3421,10 +3508,10 @@ public class XR10 {
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
-     * <p>An accurate predicted display time is very important to avoid black pull-in by reprojection and to reduce motion judder in case the runtime does not implement a translational reprojection. Reprojection should never display images before the display refresh period they were predicted for, even if they are completed early, because this will cause motion judder just the same. In other words, the better the predicted display time, the less latency experienced by the user.</p>
+     * <p>An accurate predicted display time is very important to avoid black pull-in by reprojection and to reduce motion judder in case the runtime does not implement a translational reprojection. Reprojection <b>should</b> never display images before the display refresh period they were predicted for, even if they are completed early, because this will cause motion judder just the same. In other words, the better the predicted display time, the less latency experienced by the user.</p>
      * </div>
      * 
-     * <p>Every call to {@link #xrEndFrame EndFrame} <b>must</b> be preceded by a successful call to {@link #xrBeginFrame BeginFrame}. Failure to do so <b>must</b> result in {@link #XR_ERROR_CALL_ORDER_INVALID ERROR_CALL_ORDER_INVALID} being returned by {@link #xrEndFrame EndFrame}. {@link XrFrameEndInfo} <b>may</b> reference swapchains into which the application has rendered for this frame. From each {@code XrSwapchain} only one image index is implicitly referenced per frame, the one corresponding to the last call to {@link #xrReleaseSwapchainImage ReleaseSwapchainImage}. However, a specific swapchain (and by extension a specific swapchain image index) <b>may</b> be referenced in {@link XrFrameEndInfo} multiple times. This can be used for example to render a side by side image into a single swapchain image and referencing it twice with differing image rectangles in different layers.</p>
+     * <p>Every call to {@link #xrEndFrame EndFrame} <b>must</b> be preceded by a successful call to {@link #xrBeginFrame BeginFrame}. Failure to do so <b>must</b> result in {@link #XR_ERROR_CALL_ORDER_INVALID ERROR_CALL_ORDER_INVALID} being returned by {@link #xrEndFrame EndFrame}. Refer to {@link #xrBeginSession BeginSession} for details on how a transition to <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_running">session running</a> resets the frame function call order. {@link XrFrameEndInfo} <b>may</b> reference swapchains into which the application has rendered for this frame. From each {@code XrSwapchain} only one image index is implicitly referenced per frame, the one corresponding to the last call to {@link #xrReleaseSwapchainImage ReleaseSwapchainImage}. However, a specific swapchain (and by extension a specific swapchain image index) <b>may</b> be referenced in {@link XrFrameEndInfo} multiple times. This <b>can</b> be used for example to render a side by side image into a single swapchain image and referencing it twice with differing image rectangles in different layers.</p>
      * 
      * <p>If no layers are provided then the display <b>must</b> be cleared.</p>
      * 
@@ -3438,7 +3525,7 @@ public class XR10 {
      * 
      * <p>{@link #XR_ERROR_ENVIRONMENT_BLEND_MODE_UNSUPPORTED ERROR_ENVIRONMENT_BLEND_MODE_UNSUPPORTED} <b>must</b> be returned if {@link XrFrameEndInfo}::environmentBlendMode is not supported.</p>
      * 
-     * <p>{@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} <b>must</b> be returned if the {@code session} <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a>.</p>
+     * <p>{@link #XR_ERROR_SESSION_NOT_RUNNING ERROR_SESSION_NOT_RUNNING} <b>must</b> be returned if the {@code session} <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#session_not_running">is not running</a>.</p>
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
@@ -3450,6 +3537,12 @@ public class XR10 {
      * <ul>
      * <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
      * <li>{@code frameEndInfo} <b>must</b> be a pointer to a valid {@link XrFrameEndInfo} structure</li>
+     * </ul>
+     * 
+     * <h5>Thread Safety</h5>
+     * 
+     * <ul>
+     * <li>Access to the {@code session} parameter by any other {@link #xrBeginFrame BeginFrame} or {@link #xrEndFrame EndFrame} call <b>must</b> be externally synchronized</li>
      * </ul>
      * 
      * <h5>Return Codes</h5>
@@ -3525,7 +3618,9 @@ public class XR10 {
      * 
      * <p>The {@link #xrLocateViews LocateViews} function returns the view and projection info for a particular display time. This time is typically the target display time for a given frame. Repeatedly calling {@link #xrLocateViews LocateViews} with the same time <b>may</b> not necessarily return the same result. Instead the prediction gets increasingly accurate as the function is called closer to the given time for which a prediction is made. This allows an application to get the predicted views as late as possible in its pipeline to get the least amount of latency and prediction error.</p>
      * 
-     * <p>{@link #xrLocateViews LocateViews} returns an array of {@link XrView} elements, one for each view of the specified view configuration type, along with an {@link XrViewState} containing additional state data shared across all views. The eye each view corresponds to is statically defined in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#view_configuration_type">{@code XrViewConfigurationType}</a> in case the application wants to apply eye-specific rendering traits. The {@link XrViewState} and {@link XrView} member data may change on subsequent calls to {@link #xrLocateViews LocateViews}, and so applications <b>must</b> not assume it to be constant.</p>
+     * <p>{@link #xrLocateViews LocateViews} returns an array of {@link XrView} elements, one for each view of the specified view configuration type, along with an {@link XrViewState} containing additional state data shared across all views. The eye each view corresponds to is statically defined in {@code XrViewConfigurationType} in case the application wants to apply eye-specific rendering traits. The {@link XrViewState} and {@link XrView} member data <b>may</b> change on subsequent calls to {@link #xrLocateViews LocateViews}, and so applications <b>must</b> not assume it to be constant.</p>
+     * 
+     * <p>If an application gives a {@code viewLocateInfo} with a {@link XrViewLocateInfo}{@code ::viewConfigurationType} that was not passed in the session’s call to {@link #xrBeginSession BeginSession} via the {@link XrSessionBeginInfo}{@code ::primaryViewConfigurationType}, or enabled though an extension, then the runtime <b>must</b> return {@link #XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE}.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -3599,7 +3694,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrStringToPath StringToPath} retrieves the {@code XrPath} value for a well-formed path string. If such a value had not yet been assigned by the runtime to the provided path string in this {@code XrInstance}, one <b>must</b> be assigned at this point. All calls to this function with the same {@code XrInstance} and path string <b>must</b> retrieve the same {@code XrPath} value. Upon failure, {@link #xrStringToPath StringToPath} <b>must</b> return an appropriate {@code XrResult}, and <b>may</b> set the output parameter to {@link #XR_NULL_PATH NULL_PATH}. See <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#path-atom-type">Path Atom Type</a> for the conditions under which an error <b>may</b> be returned when this function is given a valid {@code XrInstance} and a well-formed path string.</p>
+     * <p>{@link #xrStringToPath StringToPath} retrieves the {@code XrPath} value for a well-formed path string. If such a value had not yet been assigned by the runtime to the provided path string in this {@code XrInstance}, one <b>must</b> be assigned at this point. All calls to this function with the same {@code XrInstance} and path string <b>must</b> retrieve the same {@code XrPath} value. Upon failure, {@link #xrStringToPath StringToPath} <b>must</b> return an appropriate {@code XrResult}, and <b>may</b> set the output parameter to {@link #XR_NULL_PATH NULL_PATH}. See <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#path-atom-type">Path Atom Type</a> for the conditions under which an error <b>may</b> be returned when this function is given a valid {@code XrInstance} and a well-formed path string.</p>
      * 
      * <p>If the runtime’s resources are exhausted and it cannot create the path, a return value of {@link #XR_ERROR_PATH_COUNT_EXCEEDED ERROR_PATH_COUNT_EXCEEDED} <b>must</b> be returned. If the application specifies a string that is not a well-formed path string, {@link #XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID} <b>must</b> be returned.</p>
      * 
@@ -3663,7 +3758,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrStringToPath StringToPath} retrieves the {@code XrPath} value for a well-formed path string. If such a value had not yet been assigned by the runtime to the provided path string in this {@code XrInstance}, one <b>must</b> be assigned at this point. All calls to this function with the same {@code XrInstance} and path string <b>must</b> retrieve the same {@code XrPath} value. Upon failure, {@link #xrStringToPath StringToPath} <b>must</b> return an appropriate {@code XrResult}, and <b>may</b> set the output parameter to {@link #XR_NULL_PATH NULL_PATH}. See <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#path-atom-type">Path Atom Type</a> for the conditions under which an error <b>may</b> be returned when this function is given a valid {@code XrInstance} and a well-formed path string.</p>
+     * <p>{@link #xrStringToPath StringToPath} retrieves the {@code XrPath} value for a well-formed path string. If such a value had not yet been assigned by the runtime to the provided path string in this {@code XrInstance}, one <b>must</b> be assigned at this point. All calls to this function with the same {@code XrInstance} and path string <b>must</b> retrieve the same {@code XrPath} value. Upon failure, {@link #xrStringToPath StringToPath} <b>must</b> return an appropriate {@code XrResult}, and <b>may</b> set the output parameter to {@link #XR_NULL_PATH NULL_PATH}. See <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#path-atom-type">Path Atom Type</a> for the conditions under which an error <b>may</b> be returned when this function is given a valid {@code XrInstance} and a well-formed path string.</p>
      * 
      * <p>If the runtime’s resources are exhausted and it cannot create the path, a return value of {@link #XR_ERROR_PATH_COUNT_EXCEEDED ERROR_PATH_COUNT_EXCEEDED} <b>must</b> be returned. If the application specifies a string that is not a well-formed path string, {@link #XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID} <b>must</b> be returned.</p>
      * 
@@ -3779,7 +3874,7 @@ public class XR10 {
      *
      * @param instance          an instance previously created.
      * @param path              the valid {@code XrPath} value to retrieve the path string for.
-     * @param bufferCountOutput a pointer to the count of characters written (including the terminating '\0'), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0.
+     * @param bufferCountOutput a pointer to the count of characters written to {@code buffer} (including the terminating '\0'), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient.
      * @param buffer            a pointer to an application-allocated buffer that will be filled with the semantic path string. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.
      */
     @NativeType("XrResult")
@@ -3879,7 +3974,7 @@ public class XR10 {
      * 
      * <p>Action set handles <b>can</b> be destroyed by calling {@link #xrDestroyActionSet DestroyActionSet}. When an action set handle is destroyed, all handles of actions in that action set are also destroyed.</p>
      * 
-     * <p>The implementation <b>must</b> not free underlying resources for the action set while there are other valid handles that refer to those resources. The implementation <b>may</b> release resources for an action set when all of the action spaces for actions in that action set have been destroyed. See <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#spaces-action-spaces-lifetime">Action Spaces Lifetime</a> for details.</p>
+     * <p>The implementation <b>must</b> not free underlying resources for the action set while there are other valid handles that refer to those resources. The implementation <b>may</b> release resources for an action set when all of the action spaces for actions in that action set have been destroyed. See <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#spaces-action-spaces-lifetime">Action Spaces Lifetime</a> for details.</p>
      * 
      * <p>Resources for all action sets in an instance <b>must</b> be freed when the instance containing those actions sets is destroyed.</p>
      * 
@@ -4014,7 +4109,7 @@ public class XR10 {
      * 
      * <p>Action handles <b>can</b> be destroyed by calling {@link #xrDestroyAction DestroyAction}. Handles for actions that are part of an action set are automatically destroyed when the action set’s handle is destroyed.</p>
      * 
-     * <p>The implementation <b>must</b> not destroy the underlying resources for an action when {@link #xrDestroyAction DestroyAction} is called. Those resources are still used to make <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#spaces-action-spaces-lifetime">action spaces locatable</a> and when processing action priority in {@link #xrSyncActions SyncActions}. Destroying the action handle removes the application’s access to these resources, but has no other change on actions.</p>
+     * <p>The implementation <b>must</b> not destroy the underlying resources for an action when {@link #xrDestroyAction DestroyAction} is called. Those resources are still used to make <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#spaces-action-spaces-lifetime">action spaces locatable</a> and when processing action priority in {@link #xrSyncActions SyncActions}. Destroying the action handle removes the application’s access to these resources, but has no other change on actions.</p>
      * 
      * <p>Resources for all actions in an instance <b>must</b> be freed when the instance containing those actions sets is destroyed.</p>
      * 
@@ -4086,7 +4181,7 @@ public class XR10 {
      * 
      * <p>If the application successfully calls {@link #xrSuggestInteractionProfileBindings SuggestInteractionProfileBindings} more than once for an interaction profile, the runtime <b>must</b> discard the previous suggested bindings and replace them with the new suggested bindings for that profile.</p>
      * 
-     * <p>If the interaction profile path does not follow the structure defined in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-interaction-profiles">Interaction Profiles</a> or suggested bindings contain paths that do not follow the format defined in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-input">Device input subpaths</a>, the runtime <b>must</b> return {@link #XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}. If the interaction profile or input source for any of the suggested bindings does not exist in the allowlist defined in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-interaction-profiles">Interaction Profile Paths</a>, the runtime <b>must</b> return {@link #XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}. A runtime <b>must</b> accept every valid binding in the allowlist though it is free to ignore any of them.</p>
+     * <p>If the interaction profile path does not follow the structure defined in <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#semantic-path-interaction-profiles">Interaction Profiles</a> or suggested bindings contain paths that do not follow the format defined in <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#semantic-path-input">Device input subpaths</a>, the runtime <b>must</b> return {@link #XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}. If the interaction profile or input source for any of the suggested bindings does not exist in the allowlist defined in <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#semantic-path-interaction-profiles">Interaction Profile Paths</a>, the runtime <b>must</b> return {@link #XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}. A runtime <b>must</b> accept every valid binding in the allowlist though it is free to ignore any of them.</p>
      * 
      * <p>If the action set for any action referenced in the {@code suggestedBindings} parameter has been included in a call to {@link #xrAttachSessionActionSets AttachSessionActionSets}, the implementation <b>must</b> return {@link #XR_ERROR_ACTIONSETS_ALREADY_ATTACHED ERROR_ACTIONSETS_ALREADY_ATTACHED}.</p>
      * 
@@ -4153,7 +4248,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrAttachSessionActionSets AttachSessionActionSets} attaches the {@code XrActionSet} handles in {@code attachInfo.actionSets} to the {@code session}. Action sets <b>must</b> be attached in order to be synchronized with {@link #xrSyncActions SyncActions}.</p>
+     * <p>{@link #xrAttachSessionActionSets AttachSessionActionSets} attaches the {@code XrActionSet} handles in {@link XrSessionActionSetsAttachInfo}{@code ::actionSets} to the {@code session}. Action sets <b>must</b> be attached in order to be synchronized with {@link #xrSyncActions SyncActions}.</p>
      * 
      * <p>When an action set is attached to a session, that action set becomes immutable. See {@link #xrCreateAction CreateAction} and {@link #xrSuggestInteractionProfileBindings SuggestInteractionProfileBindings} for details.</p>
      * 
@@ -4226,7 +4321,7 @@ public class XR10 {
      * 
      * <p>The runtime <b>must</b> return only interaction profiles for which the application has provided bindings with {@link #xrSuggestInteractionProfileBindings SuggestInteractionProfileBindings} or {@link #XR_NULL_PATH NULL_PATH}. The runtime <b>may</b> return interaction profiles that do not represent physically present hardware, for example if the runtime is using a known interaction profile to bind to hardware that the application is not aware of. The runtime <b>may</b> return the last-known interaction profile in the event that no controllers are active.</p>
      * 
-     * <p>If {@link #xrAttachSessionActionSets AttachSessionActionSets} has not yet been called for the {@code session}, the runtime <b>must</b> return {@link #XR_ERROR_ACTIONSET_NOT_ATTACHED ERROR_ACTIONSET_NOT_ATTACHED}. If {@code topLevelUserPath} is not one of the device input subpaths described in section <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-user">/user paths</a>, the runtime <b>must</b> return {@link #XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}.</p>
+     * <p>If {@link #xrAttachSessionActionSets AttachSessionActionSets} has not yet been called for the {@code session}, the runtime <b>must</b> return {@link #XR_ERROR_ACTIONSET_NOT_ATTACHED ERROR_ACTIONSET_NOT_ATTACHED}. If {@code topLevelUserPath} is not one of the device input subpaths described in section <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#semantic-path-user">/user paths</a>, the runtime <b>must</b> return {@link #XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
@@ -4563,7 +4658,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrSyncActions SyncActions} updates the current state of input actions. Repeated input action state queries between subsequent synchronization calls <b>must</b> return the same values. The {@code XrActionSet} structures referenced in the {@code syncInfo.activeActionSets} <b>must</b> have been previously attached to the session via {@link #xrAttachSessionActionSets AttachSessionActionSets}. If any action sets not attached to this session are passed to {@link #xrSyncActions SyncActions} it <b>must</b> return {@link #XR_ERROR_ACTIONSET_NOT_ATTACHED ERROR_ACTIONSET_NOT_ATTACHED}. Subsets of the bound action sets <b>can</b> be synchronized in order to control which actions are seen as active.</p>
+     * <p>{@link #xrSyncActions SyncActions} updates the current state of input actions. Repeated input action state queries between subsequent synchronization calls <b>must</b> return the same values. The {@code XrActionSet} structures referenced in the {@link XrActionsSyncInfo}{@code ::activeActionSets} <b>must</b> have been previously attached to the session via {@link #xrAttachSessionActionSets AttachSessionActionSets}. If any action sets not attached to this session are passed to {@link #xrSyncActions SyncActions} it <b>must</b> return {@link #XR_ERROR_ACTIONSET_NOT_ATTACHED ERROR_ACTIONSET_NOT_ATTACHED}. Subsets of the bound action sets <b>can</b> be synchronized in order to control which actions are seen as active.</p>
      * 
      * <p>If {@code session} is not focused, the runtime <b>must</b> return {@link #XR_SESSION_NOT_FOCUSED SESSION_NOT_FOCUSED}, and all action states in the session <b>must</b> be inactive.</p>
      * 
@@ -4646,6 +4741,11 @@ public class XR10 {
      * 
      * <p>As bindings for actions do not change between calls to {@link #xrSyncActions SyncActions}, {@link #xrEnumerateBoundSourcesForAction EnumerateBoundSourcesForAction} <b>must</b> enumerate the same set of bound sources, or absence of bound sources, for a given query (defined by the {@code enumerateInfo} parameter) between any two calls to {@link #xrSyncActions SyncActions}.</p>
      * 
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
+     * <p>The {@code XrPath} bound sources returned by the runtime are opaque values and <b>should</b> not be inspected or persisted. They are only intended for use in conjunction with {@link #xrGetInputSourceLocalizedName GetInputSourceLocalizedName}.</p>
+     * </div>
+     * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
@@ -4682,8 +4782,8 @@ public class XR10 {
      *
      * @param session           the {@code XrSession} being queried.
      * @param enumerateInfo     an {@link XrBoundSourcesForActionEnumerateInfo} providing the query information.
-     * @param sourceCountOutput a pointer to the count of sources, or a pointer to the required capacity in the case that {@code sourceCapacityInput} is 0.
-     * @param sources           a pointer to an application-allocated array that will be filled with the {@code XrPath} values for all sources. It <b>can</b> be {@code NULL} if {@code sourceCapacityInput} is 0.
+     * @param sourceCountOutput a pointer to the count of {@code sources}, or a pointer to the required capacity in the case that {@code sourceCapacityInput} is insufficient.
+     * @param sources           a pointer to an application-allocated array that will be filled with the {@code XrPath} values for all bound sources. It <b>can</b> be {@code NULL} if {@code sourceCapacityInput} is 0.
      */
     @NativeType("XrResult")
     public static int xrEnumerateBoundSourcesForAction(XrSession session, @NativeType("XrBoundSourcesForActionEnumerateInfo const *") XrBoundSourcesForActionEnumerateInfo enumerateInfo, @NativeType("uint32_t *") IntBuffer sourceCountOutput, @Nullable @NativeType("XrPath *") LongBuffer sources) {
@@ -4698,7 +4798,7 @@ public class XR10 {
     /**
      * Unsafe version of: {@link #xrGetInputSourceLocalizedName GetInputSourceLocalizedName}
      *
-     * @param bufferCapacityInput the capacity of the buffer, or 0 to indicate a request to retrieve the required capacity.
+     * @param bufferCapacityInput the capacity of the {@code buffer}, or 0 to indicate a request to retrieve the required capacity.
      */
     public static int nxrGetInputSourceLocalizedName(XrSession session, long getInfo, int bufferCapacityInput, long bufferCountOutput, long buffer) {
         long __functionAddress = session.getCapabilities().xrGetInputSourceLocalizedName;
@@ -4722,7 +4822,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>{@link #xrGetInputSourceLocalizedName GetInputSourceLocalizedName} returns a string for the input source in the current system locale.</p>
+     * <p>{@link #xrGetInputSourceLocalizedName GetInputSourceLocalizedName} returns a string for the bound source in the current system locale.</p>
      * 
      * <p>If {@link #xrAttachSessionActionSets AttachSessionActionSets} has not yet been called for the session, the runtime <b>must</b> return {@link #XR_ERROR_ACTIONSET_NOT_ATTACHED ERROR_ACTIONSET_NOT_ATTACHED}.</p>
      * 
@@ -4761,10 +4861,10 @@ public class XR10 {
      * 
      * <p>{@link XrInputSourceLocalizedNameGetInfo}</p>
      *
-     * @param session           a handle to the {@code XrSession} associated with the action that reported this source.
+     * @param session           a handle to the {@code XrSession} associated with the action that reported this bound source.
      * @param getInfo           an {@link XrInputSourceLocalizedNameGetInfo} providing the query information.
-     * @param bufferCountOutput a pointer to the count of name characters written (including the terminating {@code \0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is 0.
-     * @param buffer            a pointer to an application-allocated buffer that will be filled with the source name. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.
+     * @param bufferCountOutput a pointer to the count of name characters written to {@code buffer} (including the terminating {@code \0}), or a pointer to the required capacity in the case that {@code bufferCapacityInput} is insufficient.
+     * @param buffer            a pointer to an application-allocated buffer that will be filled with the bound source name. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.
      */
     @NativeType("XrResult")
     public static int xrGetInputSourceLocalizedName(XrSession session, @NativeType("XrInputSourceLocalizedNameGetInfo const *") XrInputSourceLocalizedNameGetInfo getInfo, @NativeType("uint32_t *") IntBuffer bufferCountOutput, @Nullable @NativeType("char *") ByteBuffer buffer) {
@@ -4800,7 +4900,7 @@ public class XR10 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Triggers a haptic event through the specified action of type {@link #XR_TYPE_HAPTIC_VIBRATION TYPE_HAPTIC_VIBRATION}. The runtime <b>should</b> deliver this request to the appropriate device, but exactly which device, if any, this event is sent to is up to the runtime to decide. If an appropriate device is unavailable the runtime <b>may</b> ignore this request for haptic feedback.</p>
+     * <p>Triggers a haptic event through the specified action of type {@link #XR_ACTION_TYPE_VIBRATION_OUTPUT ACTION_TYPE_VIBRATION_OUTPUT}. The runtime <b>should</b> deliver this request to the appropriate device, but exactly which device, if any, this event is sent to is up to the runtime to decide. If an appropriate device is unavailable the runtime <b>may</b> ignore this request for haptic feedback.</p>
      * 
      * <p>If {@code session} is not focused, the runtime <b>must</b> return {@link #XR_SESSION_NOT_FOCUSED SESSION_NOT_FOCUSED}, and not trigger a haptic event.</p>
      * 
@@ -4811,7 +4911,7 @@ public class XR10 {
      * <ul>
      * <li>{@code session} <b>must</b> be a valid {@code XrSession} handle</li>
      * <li>{@code hapticActionInfo} <b>must</b> be a pointer to a valid {@link XrHapticActionInfo} structure</li>
-     * <li>{@code hapticFeedback} <b>must</b> be a pointer to a valid {@link XrHapticBaseHeader}-based structure. See also: {@link XrHapticVibration}</li>
+     * <li>{@code hapticFeedback} <b>must</b> be a pointer to a valid {@link XrHapticBaseHeader}-based structure. See also: {@link XrHapticAmplitudeEnvelopeVibrationFB}, {@link XrHapticPcmVibrationFB}, {@link XrHapticVibration}</li>
      * </ul>
      * 
      * <h5>Return Codes</h5>

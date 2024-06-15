@@ -30,7 +30,7 @@ class ReturnValue private constructor(override val nativeType: NativeType) : Qua
     // --- [ Helper functions & properties ] ---
 
     internal val isSpecial
-        get() = hasUnsafe || nativeType.mapping === PrimitiveMapping.BOOLEAN4
+        get() = hasUnsafe || nativeType.mapping.isPseudoBoolean()
 
     internal val isVoid
         get() = nativeType.mapping === TypeMapping.VOID
@@ -39,14 +39,7 @@ class ReturnValue private constructor(override val nativeType: NativeType) : Qua
         get() = nativeType is StructType
 
     internal fun toNativeType(binding: APIBinding?) =
-        if (binding == null || isStructValue) {
-            nativeType.name
-        } else {
-            if (nativeType.mapping === PrimitiveMapping.POINTER || nativeType is PointerType<*>)
-                "uintptr_t"
-            else
-                nativeType.jniFunctionType
-        }
+        if (binding == null || isStructValue) nativeType.name else nativeType.abiType
 
 }
 
@@ -84,6 +77,7 @@ class Parameter(
     internal val isSpecial
         get() = hasUnsafe || when (nativeType.mapping) {
             PointerMapping.OPAQUE_POINTER -> (nativeType is WrappedPointerType || !has(nullable)) && this !== JNI_ENV
+            PrimitiveMapping.BOOLEAN2     -> true
             PrimitiveMapping.BOOLEAN4     -> true
             else                          -> false
         } || modifiers.any { it.value.isSpecial }
@@ -111,7 +105,7 @@ class Parameter(
         else if (nativeType.mapping === PrimitiveMapping.POINTER || nativeType is PointerType<*>)
             "uintptr_t"
         else
-            nativeType.jniFunctionType
+            nativeType.abiType
 
     override fun validate(modifier: ParameterModifier) = modifier.validate(this)
 

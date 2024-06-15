@@ -13,9 +13,8 @@ val EXT_hdr_metadata = "EXTHdrMetadata".nativeClassVK("EXT_hdr_metadata", type =
         """
         This extension defines two new structures and a function to assign SMPTE (the Society of Motion Picture and Television Engineers) 2086 metadata and CTA (Consumer Technology Association) 861.3 metadata to a swapchain. The metadata includes the color primaries, white point, and luminance range of the reference monitor, which all together define the color volume containing all the possible colors the reference monitor can produce. The reference monitor is the display where creative work is done and creative intent is established. To preserve such creative intent as much as possible and achieve consistent color reproduction on different viewing displays, it is useful for the display pipeline to know the color volume of the original reference monitor where content was created or tuned. This avoids performing unnecessary mapping of colors that are not displayable on the original reference monitor. The metadata also includes the {@code maxContentLightLevel} and {@code maxFrameAverageLightLevel} as defined by CTA 861.3.
 
-        While the general purpose of the metadata is to assist in the transformation between different color volumes of different displays and help achieve better color reproduction, it is not in the scope of this extension to define how exactly the metadata should be used in such a process. It is up to the implementation to determine how to make use of the metadata.
+        While the intended purpose of the metadata is to assist in the transformation between different color volumes of different displays and help achieve better color reproduction, it is not in the scope of this extension to define how exactly the metadata should be used in such a process. It is up to the implementation to determine how to make use of the metadata.
 
-        <h5>VK_EXT_hdr_metadata</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_hdr_metadata}</dd>
@@ -30,14 +29,11 @@ val EXT_hdr_metadata = "EXTHdrMetadata".nativeClassVK("EXT_hdr_metadata", type =
             <dd>2</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRSwapchain VK_KHR_swapchain}</li>
-            </ul></dd>
+            <dd>{@link KHRSwapchain VK_KHR_swapchain}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Courtney Goeltzenleuchter <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_hdr_metadata]%20@courtney-g%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_hdr_metadata%20extension%3E%3E">courtney-g</a></li>
+                <li>Courtney Goeltzenleuchter <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_hdr_metadata]%20@courtney-g%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_hdr_metadata%20extension*">courtney-g</a></li>
             </ul></dd>
         </dl>
 
@@ -98,7 +94,7 @@ val EXT_hdr_metadata = "EXTHdrMetadata".nativeClassVK("EXT_hdr_metadata", type =
             <li>{@code pSwapchains} <b>must</b> be a valid pointer to an array of {@code swapchainCount} valid {@code VkSwapchainKHR} handles</li>
             <li>{@code pMetadata} <b>must</b> be a valid pointer to an array of {@code swapchainCount} valid ##VkHdrMetadataEXT structures</li>
             <li>{@code swapchainCount} <b>must</b> be greater than 0</li>
-            <li>Both of {@code device}, and the elements of {@code pSwapchains} <b>must</b> have been created, allocated, or retrieved from the same {@code VkInstance}</li>
+            <li>Each element of {@code pSwapchains} <b>must</b> have been created, allocated, or retrieved from {@code device}</li>
         </ul>
 
         <h5>See Also</h5>

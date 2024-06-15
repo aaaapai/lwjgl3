@@ -11,9 +11,8 @@ import vulkan.*
 val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativeClassVK("KHR_pipeline_executable_properties", type = "device", postfix = "KHR") {
     documentation =
         """
-        When a pipeline is created, its state and shaders are compiled into zero or more device-specific executables, which are used when executing commands against that pipeline. This extension adds a mechanism to query properties and statistics about the different executables produced by the pipeline compilation process. This is intended to be used by debugging and performance tools to allow them to provide more detailed information to the user. Certain compile-time shader statistics provided through this extension may be useful to developers for debugging or performance analysis.
+        When a pipeline is created, its state and shaders are compiled into zero or more device-specific executables, which are used when executing commands against that pipeline. This extension adds a mechanism to query properties and statistics about the different executables produced by the pipeline compilation process. This is intended to be used by debugging and performance tools to allow them to provide more detailed information to the user. Certain compile time shader statistics provided through this extension may be useful to developers for debugging or performance analysis.
 
-        <h5>VK_KHR_pipeline_executable_properties</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_pipeline_executable_properties}</dd>
@@ -28,19 +27,16 @@ val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativ
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Jason Ekstrand <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_pipeline_executable_properties]%20@jekstrand%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_pipeline_executable_properties%20extension%3E%3E">jekstrand</a></li>
+                <li>Faith Ekstrand <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_pipeline_executable_properties]%20@gfxstrand%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_pipeline_executable_properties%20extension*">gfxstrand</a></li>
             </ul></dd>
         </dl>
 
@@ -54,7 +50,7 @@ val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativ
 
             <dt><b>Contributors</b></dt>
             <dd><ul>
-                <li>Jason Ekstrand, Intel</li>
+                <li>Faith Ekstrand, Intel</li>
                 <li>Ian Romanick, Intel</li>
                 <li>Kenneth Graunke, Intel</li>
                 <li>Baldur Karlsson, Valve</li>
@@ -142,8 +138,8 @@ val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativ
 
         <h5>Valid Usage</h5>
         <ul>
-            <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> <b>must</b> be enabled</li>
-            <li>{@code pipeline} member of {@code pPipelineInfo} <b>must</b> have been created with {@code device}</li>
+            <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
+            <li>The {@code pipeline} member of {@code pPipelineInfo} <b>must</b> have been created with {@code device}</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -185,7 +181,7 @@ val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativ
         Get compile time statistics associated with a pipeline executable.
 
         <h5>C Specification</h5>
-        Each pipeline executable <b>may</b> have a set of statistics associated with it that are generated by the pipeline compilation process. These statistics <b>may</b> include things such as instruction counts, amount of spilling (if any), maximum number of simultaneous threads, or anything else which <b>may</b> aid developers in evaluating the expected performance of a shader. To query the compile-time statistics associated with a pipeline executable, call:
+        Each pipeline executable <b>may</b> have a set of statistics associated with it that are generated by the pipeline compilation process. These statistics <b>may</b> include things such as instruction counts, amount of spilling (if any), maximum number of simultaneous threads, or anything else which <b>may</b> aid developers in evaluating the expected performance of a shader. To query the compile time statistics associated with a pipeline executable, call:
 
         <pre><code>
 ￿VkResult vkGetPipelineExecutableStatisticsKHR(
@@ -199,9 +195,9 @@ val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativ
 
         <h5>Valid Usage</h5>
         <ul>
-            <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> <b>must</b> be enabled</li>
-            <li>{@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@code device}</li>
-            <li>{@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with #PIPELINE_CREATE_CAPTURE_STATISTICS_BIT_KHR</li>
+            <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
+            <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@code device}</li>
+            <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with #PIPELINE_CREATE_CAPTURE_STATISTICS_BIT_KHR</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -259,9 +255,9 @@ val KHR_pipeline_executable_properties = "KHRPipelineExecutableProperties".nativ
 
         <h5>Valid Usage</h5>
         <ul>
-            <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> <b>must</b> be enabled</li>
-            <li>{@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@code device}</li>
-            <li>{@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with #PIPELINE_CREATE_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR</li>
+            <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-pipelineExecutableInfo">{@code pipelineExecutableInfo}</a> feature <b>must</b> be enabled</li>
+            <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with {@code device}</li>
+            <li>The {@code pipeline} member of {@code pExecutableInfo} <b>must</b> have been created with #PIPELINE_CREATE_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

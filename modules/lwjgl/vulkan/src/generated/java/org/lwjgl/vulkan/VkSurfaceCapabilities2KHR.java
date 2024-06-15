@@ -18,11 +18,21 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure describing capabilities of a surface.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and {@link VkPhysicalDeviceSurfaceInfo2KHR}{@code ::surface} in the {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR} call is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the values returned in {@code minImageCount}, {@code maxImageCount}, {@code currentExtent}, and {@code currentTransform} will not reflect that of any surface and will instead be as such:</p>
+ * 
+ * <ul>
+ * <li>{@code minImageCount} and {@code maxImageCount} will be <code>0xFFFFFFFF</code></li>
+ * <li>{@code currentExtent} will be <code>(0xFFFFFFFF, 0xFFFFFFFF)</code></li>
+ * <li>{@code currentTransform} will be {@link KHRSurface#VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR SURFACE_TRANSFORM_INHERIT_BIT_KHR}</li>
+ * </ul>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD}, {@link VkSharedPresentSurfaceCapabilitiesKHR}, {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT}, or {@link VkSurfaceProtectedCapabilitiesKHR}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD}, {@link VkLatencySurfaceCapabilitiesNV}, {@link VkSharedPresentSurfaceCapabilitiesKHR}, {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT}, {@link VkSurfaceCapabilitiesPresentBarrierNV}, {@link VkSurfacePresentModeCompatibilityEXT}, {@link VkSurfacePresentScalingCapabilitiesEXT}, or {@link VkSurfaceProtectedCapabilitiesKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * </ul>
  * 
@@ -39,7 +49,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkSurfaceCapabilitiesKHR VkSurfaceCapabilitiesKHR} {@link #surfaceCapabilities};
  * }</code></pre>
  */
-public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource {
+public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -68,6 +78,15 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
         SURFACECAPABILITIES = layout.offsetof(2);
     }
 
+    protected VkSurfaceCapabilities2KHR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkSurfaceCapabilities2KHR create(long address, @Nullable ByteBuffer container) {
+        return new VkSurfaceCapabilities2KHR(address, container);
+    }
+
     /**
      * Creates a {@code VkSurfaceCapabilities2KHR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -81,7 +100,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -98,10 +117,18 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
     public VkSurfaceCapabilities2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkDisplayNativeHdrSurfaceCapabilitiesAMD value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkLatencySurfaceCapabilitiesNV} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkLatencySurfaceCapabilitiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSharedPresentSurfaceCapabilitiesKHR} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkSharedPresentSurfaceCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkSurfaceCapabilitiesFullScreenExclusiveEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkSurfaceCapabilitiesPresentBarrierNV} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkSurfaceCapabilitiesPresentBarrierNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkSurfacePresentModeCompatibilityEXT} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkSurfacePresentModeCompatibilityEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkSurfacePresentScalingCapabilitiesEXT} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkSurfacePresentScalingCapabilitiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSurfaceProtectedCapabilitiesKHR} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkSurfaceProtectedCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
@@ -132,29 +159,29 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
 
     /** Returns a new {@code VkSurfaceCapabilities2KHR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkSurfaceCapabilities2KHR malloc() {
-        return wrap(VkSurfaceCapabilities2KHR.class, nmemAllocChecked(SIZEOF));
+        return new VkSurfaceCapabilities2KHR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkSurfaceCapabilities2KHR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkSurfaceCapabilities2KHR calloc() {
-        return wrap(VkSurfaceCapabilities2KHR.class, nmemCallocChecked(1, SIZEOF));
+        return new VkSurfaceCapabilities2KHR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkSurfaceCapabilities2KHR} instance allocated with {@link BufferUtils}. */
     public static VkSurfaceCapabilities2KHR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkSurfaceCapabilities2KHR.class, memAddress(container), container);
+        return new VkSurfaceCapabilities2KHR(memAddress(container), container);
     }
 
     /** Returns a new {@code VkSurfaceCapabilities2KHR} instance for the specified memory address. */
     public static VkSurfaceCapabilities2KHR create(long address) {
-        return wrap(VkSurfaceCapabilities2KHR.class, address);
+        return new VkSurfaceCapabilities2KHR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceCapabilities2KHR createSafe(long address) {
-        return address == NULL ? null : wrap(VkSurfaceCapabilities2KHR.class, address);
+        return address == NULL ? null : new VkSurfaceCapabilities2KHR(address, null);
     }
 
     /**
@@ -163,7 +190,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilities2KHR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -172,7 +199,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilities2KHR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -182,7 +209,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      */
     public static VkSurfaceCapabilities2KHR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -192,13 +219,13 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilities2KHR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkSurfaceCapabilities2KHR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -226,7 +253,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceCapabilities2KHR malloc(MemoryStack stack) {
-        return wrap(VkSurfaceCapabilities2KHR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkSurfaceCapabilities2KHR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -235,7 +262,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static VkSurfaceCapabilities2KHR calloc(MemoryStack stack) {
-        return wrap(VkSurfaceCapabilities2KHR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkSurfaceCapabilities2KHR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -245,7 +272,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilities2KHR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -255,7 +282,7 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static VkSurfaceCapabilities2KHR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -282,9 +309,9 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
         /**
          * Creates a new {@code VkSurfaceCapabilities2KHR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkSurfaceCapabilities2KHR#SIZEOF}, and its mark will be undefined.
+         * by {@link VkSurfaceCapabilities2KHR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -327,10 +354,18 @@ public class VkSurfaceCapabilities2KHR extends Struct implements NativeResource 
         public VkSurfaceCapabilities2KHR.Buffer pNext(@NativeType("void *") long value) { VkSurfaceCapabilities2KHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkDisplayNativeHdrSurfaceCapabilitiesAMD value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkLatencySurfaceCapabilitiesNV} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkLatencySurfaceCapabilitiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSharedPresentSurfaceCapabilitiesKHR} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSharedPresentSurfaceCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfaceCapabilitiesFullScreenExclusiveEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkSurfaceCapabilitiesPresentBarrierNV} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfaceCapabilitiesPresentBarrierNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkSurfacePresentModeCompatibilityEXT} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfacePresentModeCompatibilityEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkSurfacePresentScalingCapabilitiesEXT} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfacePresentScalingCapabilitiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSurfaceProtectedCapabilitiesKHR} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSurfaceProtectedCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 

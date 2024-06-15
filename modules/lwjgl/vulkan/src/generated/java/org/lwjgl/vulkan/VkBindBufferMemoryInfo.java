@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code buffer} <b>must</b> not already be backed by a memory object</li>
+ * <li>{@code buffer} <b>must</b> not have been bound to a memory object</li>
  * <li>{@code buffer} <b>must</b> not have been created with any sparse memory binding flags</li>
  * <li>{@code memoryOffset} <b>must</b> be less than the size of {@code memory}</li>
  * <li>{@code memory} <b>must</b> have been allocated using one of the memory types allowed in the {@code memoryTypeBits} member of the {@link VkMemoryRequirements} structure returned from a call to {@code vkGetBufferMemoryRequirements} with {@code buffer}</li>
@@ -32,9 +32,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If {@code buffer} was created with the {@link VK11#VK_BUFFER_CREATE_PROTECTED_BIT BUFFER_CREATE_PROTECTED_BIT} bit set, the buffer <b>must</b> be bound to a memory object allocated with a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
  * <li>If {@code buffer} was created with the {@link VK11#VK_BUFFER_CREATE_PROTECTED_BIT BUFFER_CREATE_PROTECTED_BIT} bit not set, the buffer <b>must</b> not be bound to a memory object allocated with a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
  * <li>If {@code buffer} was created with {@link VkDedicatedAllocationBufferCreateInfoNV}{@code ::dedicatedAllocation} equal to {@link VK10#VK_TRUE TRUE}, {@code memory} <b>must</b> have been allocated with {@link VkDedicatedAllocationMemoryAllocateInfoNV}{@code ::buffer} equal to a buffer handle created with identical creation parameters to {@code buffer} and {@code memoryOffset} <b>must</b> be zero</li>
+ * <li>If the {@link KHRDedicatedAllocation VK_KHR_dedicated_allocation} extension is not enabled, {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, and {@code buffer} was not created with {@link VkDedicatedAllocationBufferCreateInfoNV}{@code ::dedicatedAllocation} equal to {@link VK10#VK_TRUE TRUE}, {@code memory} <b>must</b> not have been allocated dedicated for a specific buffer or image</li>
  * <li>If the value of {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} used to allocate {@code memory} is not 0, it <b>must</b> include at least one of the handles set in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} when {@code buffer} was created</li>
- * <li>If {@code memory} was allocated by a memory import operation, the external handle type of the imported memory <b>must</b> also have been set in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} when {@code buffer} was created</li>
+ * <li>If {@code memory} was allocated by a memory import operation, that is not {@link VkImportAndroidHardwareBufferInfoANDROID} with a non-{@code NULL} {@code buffer} value, the external handle type of the imported memory <b>must</b> also have been set in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} when {@code buffer} was created</li>
+ * <li>If {@code memory} was allocated with the {@link VkImportAndroidHardwareBufferInfoANDROID} memory import operation with a non-{@code NULL} {@code buffer} value, {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID} <b>must</b> also have been set in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} when {@code buffer} was created</li>
  * <li>If the {@link VkPhysicalDeviceBufferDeviceAddressFeatures}{@code ::bufferDeviceAddress} feature is enabled and {@code buffer} was created with the {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT} bit set, {@code memory} <b>must</b> have been allocated with the {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT} bit set</li>
+ * <li>If the {@link VkPhysicalDeviceBufferDeviceAddressFeatures}{@code ::bufferDeviceAddressCaptureReplay} feature is enabled and {@code buffer} was created with the {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} bit set, {@code memory} <b>must</b> have been allocated with the {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} bit set</li>
+ * <li>If the {@code buffer} was created with the {@link EXTDescriptorBuffer#VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT} bit set, {@code memory} <b>must</b> have been allocated with the {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT} bit set</li>
+ * <li>If the {@code buffer} was created with the {@link EXTDescriptorBuffer#VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT} bit set, {@code memory} <b>must</b> have been allocated with the {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} bit set</li>
  * <li>If the {@code pNext} chain includes a {@link VkBindBufferMemoryDeviceGroupInfo} structure, all instances of {@code memory} specified by {@link VkBindBufferMemoryDeviceGroupInfo}{@code ::pDeviceIndices} <b>must</b> have been allocated</li>
  * </ul>
  * 
@@ -42,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkBindBufferMemoryDeviceGroupInfo}</li>
+ * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkBindBufferMemoryDeviceGroupInfo} or {@link VkBindMemoryStatusKHR}</li>
  * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
  * <li>{@code buffer} <b>must</b> be a valid {@code VkBuffer} handle</li>
  * <li>{@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
@@ -64,7 +69,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDeviceSize {@link #memoryOffset};
  * }</code></pre>
  */
-public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
+public class VkBindBufferMemoryInfo extends Struct<VkBindBufferMemoryInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -99,6 +104,15 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
         MEMORYOFFSET = layout.offsetof(4);
     }
 
+    protected VkBindBufferMemoryInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkBindBufferMemoryInfo create(long address, @Nullable ByteBuffer container) {
+        return new VkBindBufferMemoryInfo(address, container);
+    }
+
     /**
      * Creates a {@code VkBindBufferMemoryInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -112,7 +126,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of this structure. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
@@ -138,6 +152,8 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
     public VkBindBufferMemoryInfo pNext(VkBindBufferMemoryDeviceGroupInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkBindBufferMemoryDeviceGroupInfoKHR} value to the {@code pNext} chain. */
     public VkBindBufferMemoryInfo pNext(VkBindBufferMemoryDeviceGroupInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkBindMemoryStatusKHR} value to the {@code pNext} chain. */
+    public VkBindBufferMemoryInfo pNext(VkBindMemoryStatusKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@link #buffer} field. */
     public VkBindBufferMemoryInfo buffer(@NativeType("VkBuffer") long value) { nbuffer(address(), value); return this; }
     /** Sets the specified value to the {@link #memory} field. */
@@ -178,29 +194,29 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VkBindBufferMemoryInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkBindBufferMemoryInfo malloc() {
-        return wrap(VkBindBufferMemoryInfo.class, nmemAllocChecked(SIZEOF));
+        return new VkBindBufferMemoryInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkBindBufferMemoryInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkBindBufferMemoryInfo calloc() {
-        return wrap(VkBindBufferMemoryInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VkBindBufferMemoryInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkBindBufferMemoryInfo} instance allocated with {@link BufferUtils}. */
     public static VkBindBufferMemoryInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkBindBufferMemoryInfo.class, memAddress(container), container);
+        return new VkBindBufferMemoryInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VkBindBufferMemoryInfo} instance for the specified memory address. */
     public static VkBindBufferMemoryInfo create(long address) {
-        return wrap(VkBindBufferMemoryInfo.class, address);
+        return new VkBindBufferMemoryInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkBindBufferMemoryInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VkBindBufferMemoryInfo.class, address);
+        return address == NULL ? null : new VkBindBufferMemoryInfo(address, null);
     }
 
     /**
@@ -209,7 +225,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkBindBufferMemoryInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -218,7 +234,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkBindBufferMemoryInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -228,7 +244,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      */
     public static VkBindBufferMemoryInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -238,13 +254,13 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkBindBufferMemoryInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkBindBufferMemoryInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -272,7 +288,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkBindBufferMemoryInfo malloc(MemoryStack stack) {
-        return wrap(VkBindBufferMemoryInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkBindBufferMemoryInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -281,7 +297,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkBindBufferMemoryInfo calloc(MemoryStack stack) {
-        return wrap(VkBindBufferMemoryInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkBindBufferMemoryInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -291,7 +307,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkBindBufferMemoryInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -301,7 +317,7 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkBindBufferMemoryInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -338,9 +354,9 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkBindBufferMemoryInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkBindBufferMemoryInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VkBindBufferMemoryInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -392,6 +408,8 @@ public class VkBindBufferMemoryInfo extends Struct implements NativeResource {
         public VkBindBufferMemoryInfo.Buffer pNext(VkBindBufferMemoryDeviceGroupInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkBindBufferMemoryDeviceGroupInfoKHR} value to the {@code pNext} chain. */
         public VkBindBufferMemoryInfo.Buffer pNext(VkBindBufferMemoryDeviceGroupInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkBindMemoryStatusKHR} value to the {@code pNext} chain. */
+        public VkBindBufferMemoryInfo.Buffer pNext(VkBindMemoryStatusKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@link VkBindBufferMemoryInfo#buffer} field. */
         public VkBindBufferMemoryInfo.Buffer buffer(@NativeType("VkBuffer") long value) { VkBindBufferMemoryInfo.nbuffer(address(), value); return this; }
         /** Sets the specified value to the {@link VkBindBufferMemoryInfo#memory} field. */

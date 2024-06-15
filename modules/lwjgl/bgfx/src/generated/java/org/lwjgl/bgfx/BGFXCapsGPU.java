@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * }</code></pre>
  */
 @NativeType("struct bgfx_caps_gpu_t")
-public class BGFXCapsGPU extends Struct {
+public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -51,6 +51,15 @@ public class BGFXCapsGPU extends Struct {
         DEVICEID = layout.offsetof(1);
     }
 
+    protected BGFXCapsGPU(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected BGFXCapsGPU create(long address, @Nullable ByteBuffer container) {
+        return new BGFXCapsGPU(address, container);
+    }
+
     /**
      * Creates a {@code BGFXCapsGPU} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -64,7 +73,7 @@ public class BGFXCapsGPU extends Struct {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** vendor PCI id. One of:<br><table><tr><td>{@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE}</td><td>{@link BGFX#BGFX_PCI_ID_SOFTWARE_RASTERIZER PCI_ID_SOFTWARE_RASTERIZER}</td><td>{@link BGFX#BGFX_PCI_ID_AMD PCI_ID_AMD}</td><td>{@link BGFX#BGFX_PCI_ID_APPLE PCI_ID_APPLE}</td><td>{@link BGFX#BGFX_PCI_ID_INTEL PCI_ID_INTEL}</td></tr><tr><td>{@link BGFX#BGFX_PCI_ID_NVIDIA PCI_ID_NVIDIA}</td><td>{@link BGFX#BGFX_PCI_ID_MICROSOFT PCI_ID_MICROSOFT}</td></tr></table> */
+    /** vendor PCI id. One of:<br><table><tr><td>{@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE}</td><td>{@link BGFX#BGFX_PCI_ID_SOFTWARE_RASTERIZER PCI_ID_SOFTWARE_RASTERIZER}</td><td>{@link BGFX#BGFX_PCI_ID_AMD PCI_ID_AMD}</td><td>{@link BGFX#BGFX_PCI_ID_APPLE PCI_ID_APPLE}</td><td>{@link BGFX#BGFX_PCI_ID_INTEL PCI_ID_INTEL}</td></tr><tr><td>{@link BGFX#BGFX_PCI_ID_NVIDIA PCI_ID_NVIDIA}</td><td>{@link BGFX#BGFX_PCI_ID_MICROSOFT PCI_ID_MICROSOFT}</td><td>{@link BGFX#BGFX_PCI_ID_ARM PCI_ID_ARM}</td></tr></table> */
     @NativeType("uint16_t")
     public short vendorId() { return nvendorId(address()); }
     /** device id */
@@ -75,13 +84,13 @@ public class BGFXCapsGPU extends Struct {
 
     /** Returns a new {@code BGFXCapsGPU} instance for the specified memory address. */
     public static BGFXCapsGPU create(long address) {
-        return wrap(BGFXCapsGPU.class, address);
+        return new BGFXCapsGPU(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXCapsGPU createSafe(long address) {
-        return address == NULL ? null : wrap(BGFXCapsGPU.class, address);
+        return address == NULL ? null : new BGFXCapsGPU(address, null);
     }
 
     /**
@@ -91,13 +100,13 @@ public class BGFXCapsGPU extends Struct {
      * @param capacity the buffer capacity
      */
     public static BGFXCapsGPU.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXCapsGPU.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -117,9 +126,9 @@ public class BGFXCapsGPU extends Struct {
         /**
          * Creates a new {@code BGFXCapsGPU.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link BGFXCapsGPU#SIZEOF}, and its mark will be undefined.
+         * by {@link BGFXCapsGPU#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

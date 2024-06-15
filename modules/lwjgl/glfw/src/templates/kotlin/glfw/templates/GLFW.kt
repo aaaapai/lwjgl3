@@ -10,7 +10,7 @@ import glfw.*
 val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDING) {
     documentation =
         """
-        Native bindings to the ${url("http://www.glfw.org/docs/latest/", "GLFW")} library.
+        Native bindings to the ${url("https://www.glfw.org/docs/latest/", "GLFW")} library.
 
         GLFW is a free, Open Source, multi-platform library for opening a window, creating an OpenGL context and managing input. It is easy to integrate into
         existing applications and does not lay claim to the main loop.
@@ -19,7 +19,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         The major version number of the GLFW header.
-        
+
         This is incremented when the API is changed in non-compatible ways.
         """,
 
@@ -29,7 +29,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         The minor version number of the GLFW header.
-        
+
         This is incremented when features are added to the API but it remains backward-compatible.
         """,
 
@@ -39,7 +39,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         The revision number of the GLFW header.
-        
+
         This is incremented when a bug fix release is made that does not contain any API changes.
         """,
 
@@ -229,7 +229,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant("If this bit is set the Num Lock key is enabled and the #LOCK_KEY_MODS input mode is set.", "MOD_NUM_LOCK"..0x0020)
 
     IntConstant(
-        """Mouse buttons. See ${url("http://www.glfw.org/docs/latest/input.html\\#input_mouse_button", "mouse button input")} for how these are used.""",
+        """Mouse buttons. See ${url("https://www.glfw.org/docs/latest/input.html\\#input_mouse_button", "mouse button input")} for how these are used.""",
 
         "MOUSE_BUTTON_1".."0",
         "MOUSE_BUTTON_2".."1",
@@ -246,7 +246,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     )
 
     IntConstant(
-        """Joysticks. See ${url("http://www.glfw.org/docs/latest/input.html\\#joystick", "joystick input")} for how these are used.""",
+        """Joysticks. See ${url("https://www.glfw.org/docs/latest/input.html\\#joystick", "joystick input")} for how these are used.""",
 
         "JOYSTICK_1".."0",
         "JOYSTICK_2".."1",
@@ -268,7 +268,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     )
 
     IntConstant(
-        """Gamepad buttons. See ${url("http://www.glfw.org/docs/latest/input.html\\#gamepad", "gamepad")} for how these are used.""",
+        """Gamepad buttons. See ${url("https://www.glfw.org/docs/latest/input.html\\#gamepad", "gamepad")} for how these are used.""",
 
         "GAMEPAD_BUTTON_A".."0",
         "GAMEPAD_BUTTON_B".."1",
@@ -293,7 +293,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     )
 
     IntConstant(
-        """Gamepad axes. See ${url("http://www.glfw.org/docs/latest/input.html\\#gamepad", "gamepad")} for how these are used.""",
+        """Gamepad axes. See ${url("https://www.glfw.org/docs/latest/input.html\\#gamepad", "gamepad")} for how these are used.""",
 
         "GAMEPAD_AXIS_LEFT_X".."0",
         "GAMEPAD_AXIS_LEFT_Y".."1",
@@ -420,10 +420,10 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "FEATURE_UNAVAILABLE".enum(
             """
             The requested feature is not provided by the platform.
- 
+
             The requested feature is not provided by the platform, so GLFW is unable to implement it. The documentation for each function notes if it could
             emit this error.
- 
+
             Platform or platform version limitation. The error can be ignored unless the feature is critical to the application.
 
             A function call that emits this error has no effect other than the error and updating any existing out parameters.
@@ -445,9 +445,9 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             """
             Platform unavailable or no matching platform was found.
 
-            If emitted during initialization, no matching platform was found. If #PLATFORM is set to #ANY_PLATFORM, GLFW could not detect any of the platforms
-            supported by this library binary, except for the {@code Null} platform.  If set to a specific platform, it is either not supported by this library
-            binary or GLFW was not able to detect it.
+            If emitted during initialization, no matching platform was found. If the #PLATFORM init hint was set to #ANY_PLATFORM, GLFW could not detect any of
+            the platforms supported by this library binary, except for the {@code Null} platform.  If the init hint was set to a specific platform, it is
+            either not supported by this library binary or GLFW was not able to detect it.
 
             If emitted by a native access function, GLFW was initialized for a different platform than the function is for.
 
@@ -551,7 +551,17 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
             {@code GetWindowAttrib}: Indicates whether the window is transparent to mouse input.
             """,
-            0x0002000D)
+            0x0002000D),
+        "POSITION_X".enum(
+            "{@code WindowHint}: Initial position x-coordinate window hint.",
+            0x0002000E),
+        "POSITION_Y".enum(
+            "{@code WindowHint}: Initial position y-coordinate window hint.",
+            0x0002000F),
+        "SOFT_FULLSCREEN".enum(
+            "{@code WindowHint}: Soft fullscreen window hint.",
+            0x00020010
+        )
     ).javaDocLinks
 
     val InputModes = IntConstant(
@@ -561,7 +571,9 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "STICKY_KEYS"..0x00033002,
         "STICKY_MOUSE_BUTTONS"..0x00033003,
         "LOCK_KEY_MODS"..0x00033004,
-        "RAW_MOUSE_MOTION"..0x00033005
+        "RAW_MOUSE_MOTION"..0x00033005,
+        "UNLIMITED_MOUSE_BUTTONS"..0x00033006,
+        "IME"..0x00033007
     ).javaDocLinks
 
     IntConstant(
@@ -569,7 +581,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         "CURSOR_NORMAL"..0x00034001,
         "CURSOR_HIDDEN"..0x00034002,
-        "CURSOR_DISABLED"..0x00034003
+        "CURSOR_DISABLED"..0x00034003,
+        "CURSOR_CAPTURED"..0x00034004
     )
 
     IntConstant("The regular arrow cursor shape.", "ARROW_CURSOR"..0x00036001)
@@ -579,7 +592,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         The horizontal resize/move arrow shape.
-        
+
         This is usually a horizontal double-headed arrow.
         """,
 
@@ -602,8 +615,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         ${note(ul(
             "<b>macOS</b>: This shape is provided by a private system API and may fail with #CURSOR_UNAVAILABLE in the future.",
-            "<b>X11</b>: This shape is provided by a newer standard not supported by all cursor themes.",
-            "<b>Wayland</b>: This shape is provided by a newer standard not supported by all cursor themes."
+            "<b>Wayland</b>: This shape is provided by a newer standard not supported by all cursor themes.",
+            "<b>X11</b>: This shape is provided by a newer standard not supported by all cursor themes."
         ))}
         """,
 
@@ -617,8 +630,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         ${note(ul(
             "<b>macOS</b>: This shape is provided by a private system API and may fail with #CURSOR_UNAVAILABLE in the future.",
-            "<b>X11</b>: This shape is provided by a newer standard not supported by all cursor themes.",
-            "<b>Wayland</b>: This shape is provided by a newer standard not supported by all cursor themes."
+            "<b>Wayland</b>: This shape is provided by a newer standard not supported by all cursor themes.",
+            "<b>X11</b>: This shape is provided by a newer standard not supported by all cursor themes."
         ))}
         """,
 
@@ -638,10 +651,10 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         The operation-not-allowed shape.
 
         This is usually a circle with a diagonal line through it.
- 
+
         ${note(ul(
-            "<b>X11</b>: This shape is provided by a newer standard not supported by all cursor themes.",
-            "<b>Wayland</b>: This shape is provided by a newer standard not supported by all cursor themes."
+            "<b>Wayland</b>: This shape is provided by a newer standard not supported by all cursor themes.",
+            "<b>X11</b>: This shape is provided by a newer standard not supported by all cursor themes."
         ))}
         """,
 
@@ -661,7 +674,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         Joystick hat buttons init hint.
-        
+
         Specifies whether to also expose joystick hats as buttons, for compatibility with earlier versions of GLFW that did not have #GetJoystickHats().
         Possible values are #TRUE and #FALSE.
         """,
@@ -672,7 +685,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         ANGLE rendering backend init hint.
-        
+
         Specifies the platform type (rendering backend) to request when using OpenGL ES and EGL via ${url(
             "https://chromium.googlesource.com/angle/angle/", 
             "ANGLE")
@@ -685,15 +698,27 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     )
 
     IntConstant(
+        "",
+
+        "ANY_POSITION"..0x80000000.i
+    )
+
+    IntConstant(
         "Platform selection init hint.",
 
         "PLATFORM"..0x00050003
     )
 
     IntConstant(
+        "Preedit candidate init hint.",
+
+        "MANAGE_PREEDIT_CANDIDATE"..0x00050004
+    )
+
+    IntConstant(
         """
         macOS specific init hint.
-        
+
         Specifies whether to set the current directory to the application to the {@code Contents/Resources} subdirectory of the application's bundle, if
         present. Possible values are #TRUE` and #FALSE`. This is ignored on other platforms.
         """,
@@ -704,7 +729,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     IntConstant(
         """
         macOS specific init hint.
-        
+
         Specifies whether to create the menu bar and dock icon when GLFW is initialized. This applies whether the menu bar is created from a nib or manually by
         GLFW. Possible values are #TRUE and #FALSE. This is ignored on other platforms.
         """,
@@ -713,11 +738,21 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     )
 
     IntConstant(
-        """
-        X11 specific init hint.
-        """,
+        "X11 specific init hint.",
 
         "X11_XCB_VULKAN_SURFACE"..0x00052001
+    )
+
+    IntConstant(
+        "X11 specific init hint.",
+
+        "X11_ONTHESPOT"..0x00052002
+    )
+
+    IntConstant(
+        "Wayland specific init hint.",
+
+        "WAYLAND_LIBDECOR"..0x00053001
     )
 
     IntConstant(
@@ -894,19 +929,32 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             resolution of the framebuffer is changed independently of the window size.
             """,
             0x0002200C
+        ),
+        "SCALE_FRAMEBUFFER".enum(
+            """
+            Legacy name for compatibility.
+
+            This is an alias for the {@code GLFW_SCALE_FRAMEBUFFER} window hint for compatibility with earlier versions.
+            """,
+            0x0002200D
         )
     ).javaDocLinks
 
     IntConstant(
-        "Specifies whether to use full resolution framebuffers on Retina displays. This is ignored on other platforms.",
+        """
+        Specifies whether to use full resolution framebuffers on Retina displays.
+
+        This is ignored on other platforms.
+        """,
 
         "COCOA_RETINA_FRAMEBUFFER"..0x00023001
     )
 
     IntConstant(
         """
-        Specifies the UTF-8 encoded name to use for autosaving the window frame, or if empty disables frame autosaving for the window. This is ignored on other
-        platforms. This is set with #WindowHintString().
+        Specifies the UTF-8 encoded name to use for autosaving the window frame, or if empty disables frame autosaving for the window.
+
+        This is ignored on other platforms.
         """,
 
         "COCOA_FRAME_NAME"..0x00023002
@@ -916,6 +964,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         """
         Specifies whether to enable Automatic Graphics Switching, i.e. to allow the system to choose the integrated GPU for the OpenGL context and move it
         between GPUs if necessary or whether to force it to always run on the discrete GPU. This only affects systems with both integrated and discrete GPUs.
+
         This is ignored on other platforms.
         """,
 
@@ -923,7 +972,11 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     )
 
     IntConstant(
-        "The desired ASCII encoded class and instance parts of the ICCCM {@code WM_CLASS} window property. These are set with #WindowHintString().",
+        """
+        The desired ASCII encoded class and instance parts of the ICCCM {@code WM_CLASS} window property.
+
+        These are ignored on other platforms.
+        """,
 
         "X11_CLASS_NAME"..0x00024001,
         "X11_INSTANCE_NAME"..0x00024002
@@ -937,6 +990,24 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         """,
 
         "WIN32_KEYBOARD_MENU"..0x00025001
+    )
+
+    IntConstant(
+        """
+        Win32 specific [window hint](@ref GLFW_WIN32_SHOWDEFAULT_hint).
+        """,
+
+        "WIN32_SHOWDEFAULT"..0x00025002
+    )
+
+    IntConstant(
+        """
+        Allows specification of the Wayland {@code app_id}.
+
+        This is ignored on other platforms.
+        """,
+
+        "WAYLAND_APP_ID"..0x00026001
     )
 
     val ClientAPIValues = IntConstant(
@@ -991,6 +1062,13 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "ANGLE_PLATFORM_TYPE_METAL"..0x00037008
     )
 
+    IntConstant(
+        "Values for the #WAYLAND_LIBDECOR hint.",
+
+        "WAYLAND_PREFER_LIBDECOR"..0x00038001,
+        "WAYLAND_DISABLE_LIBDECOR"..0x00038002
+    )
+
     Code(
         javaInit = statement("$t${t}EventLoop.check();")
     )..intb(
@@ -1002,7 +1080,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         If this function fails, it calls #Terminate() before returning. If it succeeds, you should call #Terminate() before the application exits.
 
         Additional calls to this function after successful initialization but before termination will return #TRUE immediately.
-        
+
         The #PLATFORM init hint controls which platforms are considered during initialization. This also depends on which platforms the library was compiled to
         support.
 
@@ -1019,6 +1097,11 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             #COCOA_MENUBAR init hint.
             """,
             """
+            <b>Wayland</b>, <b>X11</b>: If the library was compiled with support for both Wayland and X11, and the #PLATFORM init hint is set to #ANY_PLATFORM,
+            the {@code XDG_SESSION_TYPE} environment variable affects which platform is picked. If the environment variable is not set, or is set to something
+            other than {@code wayland} or {@code x11}, the regular detection mechanism will be used instead.
+            """,
+            """
             <b>x11</b>: This function will set the {@code LC_CTYPE} category of the application locale according to the current environment if that category is
             still "C". This is because the "C" locale breaks Unicode text input.
             """
@@ -1028,7 +1111,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         returnDoc =
         """
         #TRUE if successful, or #FALSE if an error occurred.
-        
+
         Possible errors include #PLATFORM_UNAVAILABLE and #PLATFORM_ERROR.
         """,
         since = "version 1.0"
@@ -1038,13 +1121,13 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "Terminate",
         """
         Terminates the GLFW library.
-        
+
         This function destroys all remaining windows and cursors, restores any modified gamma ramps and frees any other allocated resources. Once this function
         is called, you must again call #Init() successfully before you will be able to use most GLFW functions.
 
         If GLFW has been successfully initialized, this function should be called before the application exits. If initialization fails, there is no need to
         call this function, as it is called by #Init() before it returns failure.
-        
+
         This function has no effect if GLFW is not initialized.
 
         ${note(ul(
@@ -1091,9 +1174,12 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         To use the default allocator, call this function with a #NULL argument.
 
-        If you specify an allocator struct, every member must be a valid function pointer. If any member is #NULL, this function emits #INVALID_VALUE and the
-        init allocator is unchanged.
-        
+        If you specify an allocator struct, every member must be a valid function pointer. If any member is #NULL, this function will emit #INVALID_VALUE and
+        the init allocator will be unchanged.
+
+        The functions in the allocator must fulfil a number of requirements. See the documentation for ##GLFWAllocateCallback, ##GLFWReallocateCallback and
+        ##GLFWDeallocateCallback for details.
+
         ${note(ul(
             "Possible errors include #INVALID_VALUE.",
             "The specified allocator is copied before this function returns.",
@@ -1134,7 +1220,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         <b>Do not use the version string</b> to parse the GLFW library version. The #GetVersion() function already provides the version of the library binary
         in numerical format.
-        
+
         <b>Do not use the version string</b> to parse what platforms are supported. The #PlatformSupported() function lets you query platform support.
 
         ${note(ul(
@@ -1215,7 +1301,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         returnDoc =
         """
         the currently selected platform, or zero if an error occurred.
-        
+
         Possible errors include #NOT_INITIALIZED.
         """,
         since = "version 3.4"
@@ -1227,9 +1313,9 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         Returns whether the library includes support for the specified platform.
 
         This function returns whether the library was compiled with support for the specified platform.
- 
+
         This function may be called before #Init().
-        
+
         This function may be called from any thread.
         """,
 
@@ -1238,7 +1324,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         returnDoc =
         """
         #TRUE if the platform is supported, or #FALSE otherwise.
-        
+
         Possible errors include #INVALID_ENUM.
         """,
         since = "version 3.4"
@@ -1354,6 +1440,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         The content scale may depend on both the monitor resolution and pixel density and on user settings. It may be very different from the raw DPI
         calculated from the physical size and current resolution.
 
+        <b>Wayland</b>: Fractional scaling information is not yet available for monitors, so this function only returns integer content scales.
+
         This function must only be called from the main thread.
         """,
 
@@ -1437,7 +1525,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "GetVideoModes",
         """
         Returns an array of all video modes supported by the specified monitor.
-        
+
         The returned array is sorted in ascending order, first by color bit depth (the sum of all channel depths), then by resolution area (the product of
         width and height), then resolution width and finally by refresh rate.
 
@@ -1619,7 +1707,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             tr(td("#OPENGL_FORWARD_COMPAT"), td("#FALSE"), td("#TRUE or #FALSE")),
             tr(td("#OPENGL_DEBUG_CONTEXT"), td("#FALSE"), td("#TRUE or #FALSE")),
             tr(td("#OPENGL_PROFILE"), td("#OPENGL_ANY_PROFILE"), td(OpenGLProfileValues)),
-            
+
             tr(td("#WIN32_KEYBOARD_MENU"), td("#FALSE"), td("#TRUE or #FALSE")),
 
             tr(td("#COCOA_RETINA_FRAMEBUFFER"), td("#TRUE"), td("#TRUE or #FALSE")),
@@ -1663,13 +1751,14 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
             tr(td("#COCOA_FRAME_NAME"), td("\"\""), td("A UTF-8 encoded frame autosave name")),
             tr(td("#X11_CLASS_NAME"), td("\"\""), td("An ASCII encoded {@code WM_CLASS} class name")),
-            tr(td("#X11_INSTANCE_NAME"), td("\"\""), td("An ASCII encoded {@code WM_CLASS} instance name"))
+            tr(td("#X11_INSTANCE_NAME"), td("\"\""), td("An ASCII encoded {@code WM_CLASS} instance name")),
+            tr(td("#WAYLAND_APP_ID"), td("\"\""), td("An ASCII encoded Wayland {@code app_id} name"))
         )}
 
         This function must only be called from the main thread.
         """,
 
-        int("hint", "the window hint to set", "#COCOA_FRAME_NAME #X11_CLASS_NAME #X11_INSTANCE_NAME"),
+        int("hint", "the window hint to set", "#COCOA_FRAME_NAME #X11_CLASS_NAME #X11_INSTANCE_NAME #WAYLAND_APP_ID"),
         charUTF8.const.p("value", "the new value of the window hint. The specified string is copied before this function returns."),
 
         since = "version 3.3"
@@ -1682,7 +1771,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         specified with window hints.
 
         Successful creation does not change which context is current. Before you can use the newly created context, you need to make it current. For information
-        about the {@code share} parameter, see ${url("http://www.glfw.org/docs/latest/context.html\\#context_sharing", "context sharing")}.
+        about the {@code share} parameter, see ${url("https://www.glfw.org/docs/latest/context.html\\#context_sharing", "context sharing")}.
 
         The created window, framebuffer and context may differ from what you requested, as not all parameters and hints are hard constraints. This includes the
         size of the window, especially for full screen windows. To query the actual attributes of the created window, framebuffer and context, use queries like
@@ -1690,26 +1779,25 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         To create a full screen window, you need to specify the monitor the window will cover. If no monitor is specified, the window will be windowed mode.
         Unless you have a way for the user to choose a specific monitor, it is recommended that you pick the primary monitor. For more information on how to
-        query connected monitors, see ${url("http://www.glfw.org/docs/latest/monitor.html\\#monitor_monitors", "monitors")}.
+        query connected monitors, see ${url("https://www.glfw.org/docs/latest/monitor.html\\#monitor_monitors", "monitors")}.
 
         For full screen windows, the specified size becomes the resolution of the window's <i>desired video mode</i>. As long as a full screen window is not
         iconified, the supported video mode most closely matching the desired video mode is set for the specified monitor. For more information about full
         screen windows, including the creation of so called <i>windowed full screen</i> or <i>borderless full screen</i> windows, see
-        ${url("http://www.glfw.org/docs/latest/window.html\\#window_windowed_full_screen", "full screen")}.
+        ${url("https://www.glfw.org/docs/latest/window.html\\#window_windowed_full_screen", "full screen")}.
 
         Once you have created the window, you can switch it between windowed and full screen mode with #SetWindowMonitor(). If the window has an OpenGL or
         OpenGL ES context, it will be unaffected.
 
-        By default, newly created windows use the placement recommended by the window system. To create the window at a specific position, make it initially
-        invisible using the #VISIBLE window hint, set its ${url("http://www.glfw.org/docs/latest/window.html\\#window_pos", "position")} and then
-        ${url("http://www.glfw.org/docs/latest/window.html\\#window_hide", "show")} it.
+        By default, newly created windows use the placement recommended by the window system. To create the window at a specific position, set the #POSITION_X
+        and #POSITION_Y window hints before creation. To restore the default behavior, set either or both hints back to #ANY_POSITION.
 
         As long as at least one full screen window is not iconified, the screensaver is prohibited from starting.
 
         Window systems put limits on window sizes. Very large or very small window dimensions may be overridden by the window system on creation. Check the
-        actual ${url("http://www.glfw.org/docs/latest/window.html\\#window_size", "size")} after creation.
+        actual ${url("https://www.glfw.org/docs/latest/window.html\\#window_size", "size")} after creation.
 
-        The ${url("http://www.glfw.org/docs/latest/window.html\\#buffer_swap", "swap interval")} is not set during window creation and the initial value may vary
+        The ${url("https://www.glfw.org/docs/latest/window.html\\#buffer_swap", "swap interval")} is not set during window creation and the initial value may vary
         depending on driver settings and defaults.
 
         ${note(ul(
@@ -1731,9 +1819,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             Developer Library.
             """,
             """
-            <b>macOS</b>: On macOS 10.10 and later the window frame will not be rendered at full resolution on Retina displays unless the
-            #COCOA_RETINA_FRAMEBUFFER hint is #TRUE and the {@code NSHighResolutionCapable} key is enabled in the application bundle's {@code Info.plist}. For
-            more information, see ${url(
+            <b>macOS</b>: The window frame will not be rendered at full resolution on Retina displays unless the #COCOA_RETINA_FRAMEBUFFER hint is #TRUE and
+            the {@code NSHighResolutionCapable} key is enabled in the application bundle's {@code Info.plist}. For more information, see ${url(
                 "https://developer.apple.com/library/content/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Explained/Explained.html",
                 "High Resolution Guidelines for macOS")
             } in the Mac Developer Library.
@@ -1741,6 +1828,12 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             """
             <b>macOS</b>: When activating frame autosaving with #COCOA_FRAME_NAME, the specified window size and position may be overridden by previously saved
             values.
+            """,
+            """
+            <b>Wayland</b>: GLFW uses ${url("https://gitlab.freedesktop.org/libdecor/libdecor", "libdecor")} where available to create its window decorations.
+            This in turn uses server-side XDG decorations where available and provides high quality client-side decorations on compositors like GNOME. If both
+            XDG decorations and libdecor are unavailable, GLFW falls back to a very simple set of window decorations that only support moving, resizing and the
+            window manager's right-click menu.
             """,
             "<b>X11</b>: Some window managers will not respect the placement of initially hidden windows.",
             """
@@ -1751,15 +1844,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             <b>X11</b>: The class part of the {@code WM_CLASS} window property will by default be set to the window title passed to this function. The instance
             part will use the contents of the {@code RESOURCE_NAME} environment variable, if present and not empty, or fall back to the window title. Set the
             #X11_CLASS_NAME and #X11_INSTANCE_NAME window hints to override this.
-            """,
             """
-            <b>Wayland</b>: Compositors should implement the xdg-decoration protocol for GLFW to decorate the window properly. If this protocol isn't
-            supported, or if the compositor prefers client-side decorations, a very simple fallback frame will be drawn using the {@code wp_viewporter}
-            protocol. A compositor can still emit close, maximize or fullscreen events, using for instance a keybind mechanism. If neither of these protocols
-            is supported, the window won't be decorated.
-            """,
-            "<b>Wayland</b>: A full screen window will not attempt to change the mode, no matter what the requested size or refresh rate.",
-            "<b>Wayland</b>: Screensaver inhibition requires the idle-inhibit protocol to be implemented in the user's compositor."
         ))}
         """,
 
@@ -1818,6 +1903,28 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         intb("value", "the new value"),
 
         since = "version 3.0"
+    )
+
+    charUTF8.const.p(
+        "GetWindowTitle",
+        """
+        Returns the title of the specified window.
+
+        This function returns the window title, encoded as UTF-8, of the specified window. This is the title set previously by #CreateWindow() or
+        #SetWindowTitle().
+
+        The returned title is currently a copy of the title last set by #CreateWindow() or #SetWindowTitle(). It does not include any additional text which may
+        be appended by the platform or another program.
+
+        The returned string is allocated and freed by GLFW. You should not free it yourself. It is valid until the next call to #GetWindowTitle() or
+        #SetWindowTitle(), or until the library is terminated.
+
+        This function must only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window to query"),
+        returnDoc = "the UTF-8 encoded window title, or #NULL if an error occurred",
+        since = "version 3.4"
     )
 
     void(
@@ -2003,11 +2110,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         The window manager may put limits on what sizes are allowed. GLFW cannot and should not override these limits.
 
-        Notes:
-        ${ul(
-            "This function must only be called from the main thread.",
-            "<b>Wayland</b>: A full screen window will not attempt to change the mode, no matter what the requested size."
-        )}
+        This function must only be called from the main thread.
         """,
 
         GLFWwindow.p("window", "the window to resize"),
@@ -2039,7 +2142,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "GetWindowFrameSize",
         """
         Retrieves the size, in screen coordinates, of each edge of the frame of the specified window. This size includes the title bar, if the window has one.
-        The size of the frame may vary depending on the ${url("http://www.glfw.org/docs/latest/window.html\\#window-hints_wnd", "window-related hints")} used to
+        The size of the frame may vary depending on the ${url("https://www.glfw.org/docs/latest/window.html\\#window-hints_wnd", "window-related hints")} used to
         create it.
 
         Because this function retrieves the size of each window frame edge and not the offset along a particular coordinate axis, the retrieved values will
@@ -2132,7 +2235,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         """
         Iconifies (minimizes) the specified window if it was previously restored. If the window is already iconified, this function does nothing.
 
-        If the specified window is a full screen window, the original monitor resolution is restored until the window is restored.
+        If the specified window is a full screen window, GLFW restores the original video mode of the monitor. The window's desired video mode is set again
+        when the window is restored.
 
         Notes:
         ${ul(
@@ -2151,7 +2255,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         """
         Restores the specified window if it was previously iconified (minimized) or maximized. If the window is already restored, this function does nothing.
 
-        If the specified window is a full screen window, the resolution chosen for the window is restored on the selected monitor.
+        If the specified window is an iconified full screen window, its desired video mode is set again for its monitor when the window is restored.
 
         This function must only be called from the main thread.
         """,
@@ -2229,7 +2333,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         Notes:
         ${ul(
             "This function must only be called from the main thread.",
-            "<b>Wayland</b>: It is not possible for an application to set the input focus. This function will emit #FEATURE_UNAVAILABLE."
+            "<b>Wayland</b>: The compositor will likely ignore focus requests unless another window created by the same application already has input focus."
         )}
         """,
 
@@ -2294,8 +2398,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         Notes:
         ${ul(
             "This function must only be called from the main thread.",
-            "<b>Wayland</b>: The desired window position is ignored, as there is no way for an application to set this property.",
-            "<b>Wayland</b>: Setting the window to full screen will not attempt to change the mode, no matter what the requested size or refresh rate."
+            "<b>Wayland</b>: The desired window position is ignored, as there is no way for an application to set this property."
         )}
         """,
 
@@ -2321,12 +2424,14 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         Zero is a valid value for many window and context related attributes so you cannot use a return value of zero as an indication of errors. However, this
         function should not fail as long as it is passed valid arguments and the library has been initialized.
+
+        <b>Wayland</b>: The Wayland protocol provides no way to check whether a window is iconfied, so #ICONIFIED always returns #FALSE.
         """,
 
         GLFWwindow.p("window", "the window to query"),
         int(
             "attrib",
-            "the <a href=\"http://www.glfw.org/docs/latest/window.html\\#window_attribs\">window attribute</a> whose value to return",
+            "the <a href=\"https://www.glfw.org/docs/latest/window.html\\#window_attribs\">window attribute</a> whose value to return",
             "${WindowHints.replace("#AUTO_ICONIFY ", "")} ${ClientAPIHints.replace("GLFW#(CONTEXT_RELEASE_BEHAVIOR|CONTEXT_NO_ERROR) ", "")}"
         ),
 
@@ -2353,6 +2458,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             Some of these attributes are ignored for windowed mode windows. The new value will take effect if the window is later made full screen.
 
             Calling #GetWindowAttrib() will always return the latest value, even if that value is ignored by the current mode of the window.
+
+            <b>Wayland</b>: The #FLOATING window attribute is not supported. Setting this will emit #FEATURE_UNAVAILABLE.
             """,
             "#DECORATED #RESIZABLE #FLOATING #AUTO_ICONIFY #FOCUS_ON_SHOW #MOUSE_PASSTHROUGH"
         ),
@@ -2391,7 +2498,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
     val CallbackReturnDoc =
         """
         the previously set callback, or #NULL if no callback was set or the library had not been
-        ${url("http://www.glfw.org/docs/latest/intro.html\\#intro_init", "initialized")}
+        ${url("https://www.glfw.org/docs/latest/intro.html\\#intro_init", "initialized")}
         """
 
     val CALLBACK_WINDOW = GLFWwindow.p("window", "the window whose callback to set")
@@ -2561,7 +2668,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         input callbacks associated with those events to be called.
 
         On some platforms, a window move, resize or menu operation will cause event processing to block. This is due to how event processing is designed on
-        those platforms. You can use the ${url("http://www.glfw.org/docs/latest/window.html\\#window_refresh", "window refresh callback")} to redraw the
+        those platforms. You can use the ${url("https://www.glfw.org/docs/latest/window.html\\#window_refresh", "window refresh callback")} to redraw the
         contents of your window when necessary during such operations.
 
         On some platforms, certain events are sent directly to the application without going through the event queue, causing callbacks to be called outside of
@@ -2590,7 +2697,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         callbacks.
 
         On some platforms, a window move, resize or menu operation will cause event processing to block. This is due to how event processing is designed on
-        those platforms. You can use the ${url("http://www.glfw.org/docs/latest/window.html\\#window_refresh", "window refresh callback")} to redraw the
+        those platforms. You can use the ${url("https://www.glfw.org/docs/latest/window.html\\#window_refresh", "window refresh callback")} to redraw the
         contents of your window when necessary during such operations.
 
         On some platforms, certain callbacks may be called outside of a call to one of the event processing functions.
@@ -2675,7 +2782,8 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             """
             #CURSOR_DISABLED hides and grabs the cursor, providing virtual and unlimited cursor movement. This is useful for implementing for example 3D camera
             controls.
-            """
+            """,
+            "#CURSOR_CAPTURED makes the cursor visible and confines it to the content area of the window."
         )}
 
         If the {@code mode} is #STICKY_KEYS, the value must be either #TRUE to enable sticky keys, or #FALSE to disable it. If sticky keys are enabled, a key
@@ -2694,11 +2802,16 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         or #FALSE to disable it. If raw motion is not supported, attempting to set this will emit #FEATURE_UNAVAILABLE. Call #RawMouseMotionSupported() to
         check for support.
 
+        If the mode is #UNLIMITED_MOUSE_BUTTONS, the value must be either #TRUE to disable the mouse button limit when calling the mouse button callback, or
+        #FALSE to limit the mouse buttons sent to the callback to the mouse button token values up to #MOUSE_BUTTON_LAST.
+
+        If the mode is #IME, the value must be either #TRUE to turn on IME, or #FALSE to turn off it.
+
         This function must only be called from the main thread.
         """,
 
         GLFWwindow.p("window", "the window whose input mode to set"),
-        int("mode", "the input mode to set", "#CURSOR #STICKY_KEYS #STICKY_MOUSE_BUTTONS"),
+        int("mode", "the input mode to set", "#CURSOR #STICKY_KEYS #STICKY_MOUSE_BUTTONS #LOCK_KEY_MODS #RAW_MOUSE_MOTION #UNLIMITED_MOUSE_BUTTONS #IME"),
         int("value", "the new value of the specified input mode"),
 
         since = "GFLW 3.0"
@@ -2768,7 +2881,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         language and should be localized along with other user interface text.
 
         The contents of the returned string may change when a keyboard layout change event is received.
- 
+
         The returned string is allocated and freed by GLFW. You should not free it yourself. It is valid until the library is terminated.
 
         This function must only be called from the main thread.
@@ -2788,22 +2901,23 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         This function returns the platform dependent scancode of the specified key. This is intended for platform specific default keybindings.
 
-        If the key is #KEY_UNKNOWN or does not exist on the keyboard this method will return {@code -1}.
+        If the specified key token corresponds to a physical key not supported on the current platform then this method will return {@code -1}. Calling this
+        function with anything other than a key token will return {@code -1} and generate an #INVALID_ENUM error.
 
         This function may be called from any thread.
         """,
 
-        int("key", "the key to query, or #KEY_UNKNOWN"),
+        int("key", "any key token"),
 
-        returnDoc = "the platform dependent scancode for the key, or {@code -1} if an errror occurred",
+        returnDoc = "the platform-specific scancode for the key, or {@code -1} if the key is not supported on the current platform or an error occurred",
         since = "version 3.3"
     )
 
     int(
         "GetKey",
         """
-        Returns the last state reported for the specified key to the specified window. The returned state is one of #PRESS or #RELEASE. The higher-level action
-        #REPEAT is only reported to the key callback.
+        Returns the last state reported for the specified key to the specified window. The returned state is one of #PRESS or #RELEASE. The action #REPEAT is
+        only reported to the key callback.
 
         If the #STICKY_KEYS input mode is enabled, this function returns #PRESS the first time you call it for a key that was pressed, even if that
         key has already been released.
@@ -2813,7 +2927,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
 
         The modifier key bit masks are not key tokens and cannot be used with this function.
 
-        <b>Do not use this function</b> to implement ${url("http://www.glfw.org/docs/latest/input.html\\#input_char", "text input")}.
+        <b>Do not use this function</b> to implement ${url("https://www.glfw.org/docs/latest/input.html\\#input_char", "text input")}.
 
         ${note(ul(
             "This function must only be called from the main thread.",
@@ -2837,11 +2951,13 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         If the #STICKY_MOUSE_BUTTONS input mode is enabled, this function returns #PRESS the first time you call it for a mouse button that was pressed, even
         if that mouse button has already been released.
 
+        The #UNLIMITED_MOUSE_BUTTONS input mode does not effect the limit on buttons which can be polled with this function.
+
         This function must only be called from the main thread.
         """,
 
         GLFWwindow.p("window", "the desired window"),
-        int("button", "the desired mouse button"),
+        int("button", "the desired mouse button token"),
 
         returnDoc = "one of #PRESS or #RELEASE",
         since = "version 1.0"
@@ -2884,7 +3000,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         Notes:
         ${ul(
             "This function must only be called from the main thread.",
-            "<b>Wayland</b>: This function will only work when the cursor mode is #CURSOR_DISABLED, otherwise it will do nothing."
+            "<b>Wayland</b>: This function will only work when the cursor mode is #CURSOR_DISABLED, otherwise it will emit #FEATURE_UNAVAILABLE."
         )}
         """,
 
@@ -2942,14 +3058,14 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
             tr(td("#RESIZE_ALL_CURSOR"), td("Yes"), td("Yes"), td("Yes"), td("Yes")),
             tr(td("#NOT_ALLOWED_CURSOR"), td("Yes"), td("Yes"), td("Maybe<sup>2</sup>"), td("Maybe<sup>2</sup>"))
         )}
-        
+
         ${note(
             ol(
                 "This uses a private system API and may fail in the future.",
                 "This uses a newer standard that not all cursor themes support."
             )
         )}
- 
+
         If the requested shape is not available, this function emits a #CURSOR_UNAVAILABLE error and returns #NULL.
 
         This function must only be called from the main thread.
@@ -2992,7 +3108,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         "SetCursor",
         """
         Sets the cursor image to be used when the cursor is over the content area of the specified window. The set cursor will only be visible when the
-        ${url("http://www.glfw.org/docs/latest/input.html\\#cursor_mode", "cursor mode")} of the window is #CURSOR_NORMAL.
+        ${url("https://www.glfw.org/docs/latest/input.html\\#cursor_mode", "cursor mode")} of the window is #CURSOR_NORMAL.
 
         On some platforms, the set cursor may not be visible unless the window also has input focus.
 
@@ -3005,6 +3121,87 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         since = "version 3.1"
     )
 
+    void(
+        "GetPreeditCursorRectangle",
+        """
+        Retrieves the area of the preedit text cursor.
+
+        This area is used to decide the position of the candidate window. The cursor position is relative to the window.
+
+        This function may only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window to set the preedit text cursor for"),
+        Check(1)..nullable..int.p("x", "the preedit text cursor x position (relative position from window coordinates)"),
+        Check(1)..nullable..int.p("y", "the preedit text cursor y position (relative position from window coordinates)"),
+        Check(1)..nullable..int.p("w", "the preedit text cursor width"),
+        Check(1)..nullable..int.p("h", "the preedit text cursor height"),
+
+        since = "version 3.X",
+    )
+
+    void(
+        "SetPreeditCursorRectangle",
+        """
+        Sets the area of the preedit text cursor.
+
+        This area is used to decide the position of the candidate window. The cursor position is relative to the window.
+
+        This function may only be called from the main thread.
+        """,
+
+        GLFWwindow.p("window", "the window to set the text cursor for"),
+        int("x", "the preedit text cursor x position (relative position from window coordinates)"),
+        int("y", "the preedit text cursor y position (relative position from window coordinates)"),
+        int("w", "the preedit text cursor width"),
+        int("h", "the preedit text cursor height"),
+
+        since = "version 3.X",
+    )
+
+    void(
+        "ResetPreeditText",
+        """
+        Resets IME's preedit text.
+
+        This function may only be called from the main thread.
+
+        ${note(ul(
+            "<b>X11</b>: Since over-the-spot style is used by default, you don't need to use this function.",
+            "<b>Wayland</b>: This function is currently not supported."
+        ))}
+        """,
+
+        GLFWwindow.p("window", "the window"),
+
+        since = "version 3.X",
+    )
+
+    unsigned_int.p(
+        "GetPreeditCandidate",
+        """
+        Returns the text and the text-count of the preedit candidate.
+
+        By default, the IME manages the preedit candidates, so there is no need to use this function. See #SetPreeditCandidateCallback() and
+        #MANAGE_PREEDIT_CANDIDATE hint for details.
+
+        This function may only be called from the main thread.
+
+        ${note(ul(
+            "<b>macOS</b>: This function is currently not supported.",
+            "<b>X11</b>: This function is currently not supported.",
+            "<b>Wayland</b>: This function is currently not supported."
+        ))}
+        """,
+
+        GLFWwindow.p("window", "the window"),
+        int("index", "the index of the candidate"),
+        AutoSizeResult..Check(1)..int.p("textCount", "the text-count of the candidate"),
+
+        returnDoc = "the text of the candidate as Unicode code points",
+        since = "version 3.X",
+    )
+
     GLFWkeyfun(
         "SetKeyCallback",
         """
@@ -3013,9 +3210,9 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         The key functions deal with physical keys, with layout independent key tokens named after their values in the standard US keyboard layout. If you want
         to input text, use #SetCharCallback() instead.
 
-        When a window loses input focus, it will generate synthetic key release events for all pressed keys. You can tell these events from user-generated
-        events by the fact that the synthetic ones are generated after the focus loss event has been processed, i.e. after the window focus callback has been
-        called.
+        When a window loses input focus, it will generate synthetic key release events for all pressed keys with associated key tokens. You can tell these
+        events from user-generated events by the fact that the synthetic ones are generated after the focus loss event has been processed, i.e. after the
+        window focus callback has been called.
 
         The scancode of a key is specific to that platform or sometimes even to that machine. Scancodes are intended to allow users to bind keys that don't have
         a GLFW key token. Such keys have {@code key} set to #KEY_UNKNOWN, their state is not saved and so it cannot be queried with #GetKey().
@@ -3077,14 +3274,85 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         since = "version 3.1"
     )
 
+    GLFWpreeditfun(
+        "SetPreeditCallback",
+        """
+        Sets the preedit callback of the specified window, which is called when an IME is processing text before committed.
+
+        Callback receives relative position of input cursor inside preedit text and attributed text blocks. This callback is used for on-the-spot text editing
+        with IME.
+
+        This function must only be called from the main thread.
+
+        ${note(ul(
+            "<b>X11</b>: Since over-the-spot style is used by default, you don't need to use this function."
+        ))}
+        """,
+
+        GLFWwindow.p("window", "the window whose callback to set"),
+        nullable..GLFWpreeditfun("cbfun", "the new callback or #NULL to remove the currently set callback"),
+
+        returnDoc = "the previously set callback, or #NULL if no callback was set or an error occurred",
+        since = "version 3.X"
+    )
+
+    GLFWimestatusfun(
+        "SetIMEStatusCallback",
+        """
+        Sets the IME status change callback of the specified window, which is called when an IME is switched on and off.
+
+        This function must only be called from the main thread.
+
+        ${note(ul(
+            "<b>X11</b>: Doesn't support this function. The callback is not called.",
+            "<b>Wayland</b>: Doesn't support this function. The callback is not called."
+        ))}
+        """,
+
+        GLFWwindow.p("window", "the window whose callback to set"),
+        nullable..GLFWimestatusfun("cbfun", "the new callback or #NULL to remove the currently set callback"),
+
+        returnDoc = "the previously set callback, or #NULL if no callback was set or an error occurred",
+        since = "version 3.X"
+    )
+
+    GLFWpreeditcandidatefun(
+        "SetPreeditCandidateCallback",
+        """
+        Sets the preedit candidate change callback of the specified window, which is called when the candidates are updated and can be used to display them by
+        the application side.
+
+        By default, this callback is not called because the IME displays the candidates and there is nothing to do on the application side. Only when the
+        application side needs to use this to manage the displaying of IME candidates, you can set #MANAGE_PREEDIT_CANDIDATE init hint and stop the IME from
+        managing it.
+
+        This function must only be called from the main thread.
+
+        ${note(ul(
+            "<b>macOS</b>: Doesn't support this function. The callback is not called.",
+            "<b>X11</b>: Doesn't support this function. The callback is not called.",
+            "<b>Wayland</b>: Doesn't support this function. The callback is not called."
+        ))}
+        """,
+
+        GLFWwindow.p("window", "the window whose callback to set"),
+        nullable..GLFWpreeditcandidatefun("cbfun", "the new callback or #NULL to remove the currently set callback"),
+
+        returnDoc = "the previously set callback, or #NULL if no callback was set or an error occurred",
+        since = "version 3.X"
+    )
+
     GLFWmousebuttonfun(
         "SetMouseButtonCallback",
         """
         Sets the mouse button callback of the specified window, which is called when a mouse button is pressed or released.
 
-        When a window loses input focus, it will generate synthetic mouse button release events for all pressed mouse buttons. You can tell these events from
-        user-generated events by the fact that the synthetic ones are generated after the focus loss event has been processed, i.e. after the window focus
-        callback has been called.
+        When a window loses input focus, it will generate synthetic mouse button release events for all pressed mouse buttons with associated button tokens.
+        You can tell these events from user-generated events by the fact that the synthetic ones are generated after the focus loss event has been processed,
+        i.e. after the window focus callback has been called.
+
+        The reported {@code button} value can be higher than #MOUSE_BUTTON_LAST if the button does not have an associated button token and the
+        #UNLIMITED_MOUSE_BUTTONS input mode is set.
 
         This function must only be called from the main thread.
         """,
@@ -3152,11 +3420,7 @@ val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDI
         Because the path array and its strings may have been generated specifically for that event, they are not guaranteed to be valid after the callback has
         returned. If you wish to use them after the callback returns, you need to make a deep copy.
 
-        Notes:
-        ${ul(
-            "This function must only be called from the main thread.",
-            "<b>Wayland</b>: File drop is currently unimplemented."
-        )}
+        This function must only be called from the main thread.
         """,
 
         GLFWwindow.p("window", "the window whose callback to set"),
@@ -3408,7 +3672,7 @@ if (hats[2] & GLFW_HAT_RIGHT)
         a single gamepad mapping or many mappings separated by newlines. The parser supports the full format of the {@code gamecontrollerdb.txt} source file
         including empty lines and comments.
 
-        See ${url("http://www.glfw.org/docs/latest/input.html\\#gamepad_mapping", "gamepad_mapping")} for a description of the format.
+        See ${url("https://www.glfw.org/docs/latest/input.html\\#gamepad_mapping", "gamepad_mapping")} for a description of the format.
 
         If there is already a gamepad mapping for a given GUID in the internal list, it will be replaced by the one passed to this function. If the library is
         terminated and re-initialized the internal list will revert to the built-in default.
@@ -3472,10 +3736,10 @@ if (hats[2] & GLFW_HAT_RIGHT)
 
         The specified string is copied before this function returns.
 
-        Notes:
-        ${ul(
-            "This function must only be called from the main thread."
-        )}
+        <b>Win32</b>: The clipboard on Windows has a single global lock for reading and writing. GLFW tries to acquire it a few times, which is almost always
+        enough. If it cannot acquire the lock then this function emits #PLATFORM_ERROR and returns. It is safe to try this multiple times.
+
+        This function must only be called from the main thread.
         """,
 
         nullable..GLFWwindow.p("window", "deprecated, any valid window or #NULL."),
@@ -3489,6 +3753,9 @@ if (hats[2] & GLFW_HAT_RIGHT)
         """
         Returns the contents of the system clipboard, if it contains or is convertible to a UTF-8 encoded string. If the clipboard is empty or if its contents
         cannot be converted, #NULL is returned and a #FORMAT_UNAVAILABLE error is generated.
+
+        <b>Win32</b>: The clipboard on Windows has a single global lock for reading and writing. GLFW tries to acquire it a few times, which is almost always
+        enough. If it cannot acquire the lock then this function emits #PLATFORM_ERROR and returns. It is safe to try this multiple times.
 
         The returned string is allocated and freed by GLFW. You should not free it yourself. It is valid until the next call to #GetClipboardString() or
         #SetClipboardString(), or until the library is terminated.
@@ -3571,17 +3838,23 @@ if (hats[2] & GLFW_HAT_RIGHT)
     void(
         "MakeContextCurrent",
         """
-        Makes the OpenGL or OpenGL ES context of the specified window current on the calling thread. A context must only be made current on a single thread at
-        a time and each thread can have only a single current context at a time.
+        Makes the OpenGL or OpenGL ES context of the specified window current on the calling thread. It can also detach the current context from the calling
+        thread without making a new one current by passing in #NULL.
 
-        When moving a context between threads, you must make it non-current on the old thread before making it current on the new one.
+        A context must only be made current on a single thread at a time and each thread can have only a single current context at a time. Making a context
+        current detaches any previously current context on the calling thread.
+
+        When moving a context between threads, you must detach it (make it non-current) on the old thread before making it current on the new one.
 
         By default, making a context non-current implicitly forces a pipeline flush. On machines that support
         ${url("https://www.khronos.org/registry/OpenGL/extensions/KHR/KHR_context_flush_control.txt", "GL_KHR_context_flush_control")}, you can control whether
         a context performs this flush by setting the #CONTEXT_RELEASE_BEHAVIOR
-        ${url("http://www.glfw.org/docs/latest/window.html\\#window_hints_ctx", "window hint")}.
+        ${url("https://www.glfw.org/docs/latest/window.html\\#window_hints_ctx", "window hint")}.
 
         The specified window must have an OpenGL or OpenGL ES context. Specifying a window without a context will generate a #NO_WINDOW_CONTEXT error.
+
+        If the previously current context was created via a different context creation API than the one passed to this function, GLFW will still detach the
+        previous one from its API before making the new one current.
 
         This function may be called from any thread.
         """,
@@ -3661,7 +3934,7 @@ if (hats[2] & GLFW_HAT_RIGHT)
     intb(
         "ExtensionSupported",
         """
-        Returns whether the specified ${url("http://www.glfw.org/docs/latest/context.html\\#context_glext", "API extension")} is supported by the current
+        Returns whether the specified ${url("https://www.glfw.org/docs/latest/context.html\\#context_glext", "API extension")} is supported by the current
         OpenGL or OpenGL ES context. It searches both for client API extension and context creation API extensions.
 
         A context must be current on the calling thread. Calling this function without a current context will cause a #NO_CURRENT_CONTEXT error.
@@ -3686,7 +3959,7 @@ if (hats[2] & GLFW_HAT_RIGHT)
         "GetProcAddress",
         """
         Returns the address of the specified OpenGL or OpenGL ES ${url(
-            "http://www.glfw.org/docs/latest/context.html\\#context_glext",
+            "https://www.glfw.org/docs/latest/context.html\\#context_glext",
             "core or extension function")
         }, if it is supported by the current context.
 

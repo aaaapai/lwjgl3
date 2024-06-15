@@ -23,13 +23,17 @@ import static org.lwjgl.openxr.EXTUUIUD.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The structure is composed of 16 octets, with the size and order of the fields defined in <a target="_blank" href="https://www.rfc-editor.org/rfc/rfc4122.html#section-4.1.2">RFC 4122 section 4.1.2</a>.</p>
+ * <p>The structure is composed of 16 octets, with the size and order of the fields defined in <a href="https://www.rfc-editor.org/rfc/rfc4122.html#section-4.1.2">RFC 4122 section 4.1.2</a>.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>The {@link EXTUUIUD XR_EXT_uuid} extension <b>must</b> be enabled prior to using {@link XrUuidEXT}</li>
+ * <li>The {@link FBSpatialEntity XR_FB_spatial_entity} extension <b>must</b> be enabled prior to using {@link XrUuidEXT}</li>
  * </ul>
+ * 
+ * <h5>See Also</h5>
+ * 
+ * <p>{@link XrEventDataSpaceEraseCompleteFB}, {@link XrEventDataSpaceSaveCompleteFB}, {@link XrEventDataSpaceSetStatusCompleteFB}, {@link XrEventDataSpatialAnchorCreateCompleteFB}, {@link XrLocalizationMapML}, {@link XrMapLocalizationRequestInfoML}, {@link XrRoomLayoutFB}, {@link XrSpaceContainerFB}, {@link XrSpaceQueryResultFB}, {@link XrSpaceUuidFilterInfoFB}, {@link XrSystemHeadsetIdPropertiesMETA}, {@link MLLocalizationMap#xrCreateExportedLocalizationMapML CreateExportedLocalizationMapML}, {@link FBSpatialEntity#xrGetSpaceUuidFB GetSpaceUuidFB}, {@link MLLocalizationMap#xrImportLocalizationMapML ImportLocalizationMapML}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -38,7 +42,7 @@ import static org.lwjgl.openxr.EXTUUIUD.*;
  *     uint8_t {@link #data}[XR_UUID_SIZE_EXT];
  * }</code></pre>
  */
-public class XrUuidEXT extends Struct implements NativeResource {
+public class XrUuidEXT extends Struct<XrUuidEXT> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -59,6 +63,15 @@ public class XrUuidEXT extends Struct implements NativeResource {
         ALIGNOF = layout.getAlignment();
 
         DATA = layout.offsetof(0);
+    }
+
+    protected XrUuidEXT(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected XrUuidEXT create(long address, @Nullable ByteBuffer container) {
+        return new XrUuidEXT(address, container);
     }
 
     /**
@@ -102,29 +115,29 @@ public class XrUuidEXT extends Struct implements NativeResource {
 
     /** Returns a new {@code XrUuidEXT} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static XrUuidEXT malloc() {
-        return wrap(XrUuidEXT.class, nmemAllocChecked(SIZEOF));
+        return new XrUuidEXT(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code XrUuidEXT} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static XrUuidEXT calloc() {
-        return wrap(XrUuidEXT.class, nmemCallocChecked(1, SIZEOF));
+        return new XrUuidEXT(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code XrUuidEXT} instance allocated with {@link BufferUtils}. */
     public static XrUuidEXT create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(XrUuidEXT.class, memAddress(container), container);
+        return new XrUuidEXT(memAddress(container), container);
     }
 
     /** Returns a new {@code XrUuidEXT} instance for the specified memory address. */
     public static XrUuidEXT create(long address) {
-        return wrap(XrUuidEXT.class, address);
+        return new XrUuidEXT(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrUuidEXT createSafe(long address) {
-        return address == NULL ? null : wrap(XrUuidEXT.class, address);
+        return address == NULL ? null : new XrUuidEXT(address, null);
     }
 
     /**
@@ -133,7 +146,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrUuidEXT.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -142,7 +155,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrUuidEXT.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -152,7 +165,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      */
     public static XrUuidEXT.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -162,13 +175,13 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrUuidEXT.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static XrUuidEXT.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -177,7 +190,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrUuidEXT malloc(MemoryStack stack) {
-        return wrap(XrUuidEXT.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new XrUuidEXT(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -186,7 +199,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static XrUuidEXT calloc(MemoryStack stack) {
-        return wrap(XrUuidEXT.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new XrUuidEXT(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -196,7 +209,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrUuidEXT.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -206,7 +219,7 @@ public class XrUuidEXT extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static XrUuidEXT.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -238,9 +251,9 @@ public class XrUuidEXT extends Struct implements NativeResource {
         /**
          * Creates a new {@code XrUuidEXT.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link XrUuidEXT#SIZEOF}, and its mark will be undefined.
+         * by {@link XrUuidEXT#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

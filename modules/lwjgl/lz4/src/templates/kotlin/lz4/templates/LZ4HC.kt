@@ -16,7 +16,7 @@ ENABLE_WARNINGS()""")
 
     documentation =
         """
-        Native bindings to the high-compression API of ${url("http://lz4.github.io/lz4/", "LZ4")}.
+        Native bindings to the high-compression API of ${url("https://lz4.org/", "LZ4")}.
 
         <h3>Streaming Compression - Bufferless synchronous API</h3>
 
@@ -67,8 +67,7 @@ ENABLE_WARNINGS()""")
     IntConstant("", "HASHTABLESIZE".."(1 << LZ4HC_HASH_LOG)")
     IntConstant("", "HASH_MASK".."(LZ4HC_HASHTABLESIZE - 1)")
 
-    IntConstant("", "LZ4_STREAMHCSIZE".."262200").noPrefix()
-    IntConstant("", "LZ4_STREAMHCSIZE_VOIDP".."(LZ4_STREAMHCSIZE / Pointer.POINTER_SIZE)").noPrefix()
+    IntConstant("", "LZ4_STREAMHC_MINSIZE".."262200").noPrefix()
 
     int(
         "compress_HC",

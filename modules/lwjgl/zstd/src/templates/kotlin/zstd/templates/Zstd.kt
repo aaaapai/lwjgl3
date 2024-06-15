@@ -16,7 +16,7 @@ ENABLE_WARNINGS()""")
 
     documentation =
         """
-        Native bindings to ${url("http://facebook.github.io/zstd/", "Zstandard")} (zstd), a fast lossless compression algorithm, targeting real-time
+        Native bindings to ${url("https://facebook.github.io/zstd/", "Zstandard")} (zstd), a fast lossless compression algorithm, targeting real-time
         compression scenarios at zlib-level and better compression ratios.
 
         <h3>Introduction</h3>
@@ -50,14 +50,14 @@ ENABLE_WARNINGS()""")
         A {@code ZSTD_CStream} object is required to track streaming operation.
 
         Use #createCStream() and #freeCStream() to create/release resources. {@code ZSTD_CStream} objects can be reused multiple times on consecutive
-        compression operations. It is recommended to re-use {@code ZSTD_CStream} since it will play nicer with system's memory, by re-using already allocated
+        compression operations. It is recommended to reuse {@code ZSTD_CStream} since it will play nicer with system's memory, by re-using already allocated
         memory.
 
         For parallel execution, use one separate {@code ZSTD_CStream}.
 
         Since v1.3.0, {@code ZSTD_CStream} and {@code ZSTD_CCtx} are the same thing.
 
-        Parameters are sticky: when starting a new compression on the same context, it will re-use the same sticky parameters as previous compression session.
+        Parameters are sticky: when starting a new compression on the same context, it will reuse the same sticky parameters as previous compression session.
         When in doubt, it's recommended to fully initialize the context before usage. Use #CCtx_reset() to reset the context and #CCtx_setParameter(),
         #CCtx_setPledgedSrcSize(), or #CCtx_loadDictionary() and friends to set more specific parameters, the pledged source size, or load a dictionary.
 
@@ -91,7 +91,7 @@ ENABLE_WARNINGS()""")
 
         A {@code ZSTD_DStream} object is required to track streaming operations.
 
-        Use #createDStream() and #freeDStream() to create/release resources. {@code ZSTD_DStream} objects can be re-used multiple times.
+        Use #createDStream() and #freeDStream() to create/release resources. {@code ZSTD_DStream} objects can be reused multiple times.
 
         Use #DCtx_reset() and #DCtx_refDDict() to start a new decompression operation. Alternatively, use advanced API to set specific properties.
 
@@ -109,7 +109,7 @@ ENABLE_WARNINGS()""")
 
         "VERSION_MAJOR".."1",
         "VERSION_MINOR".."5",
-        "VERSION_RELEASE".."2"
+        "VERSION_RELEASE".."6"
     )
 
     IntConstant("Version number.", "VERSION_NUMBER".."(ZSTD_VERSION_MAJOR *100*100 + ZSTD_VERSION_MINOR *100 + ZSTD_VERSION_RELEASE)")
@@ -230,6 +230,17 @@ ENABLE_WARNINGS()""")
             compression. Special: value 0 means "use default strategy".
             """
         ),
+        "c_targetCBlockSize".enum(
+            """
+            Attempts to fit compressed block size into approximately {@code targetCBlockSize}.
+
+            Bound by #TARGETCBLOCKSIZE_MIN and #TARGETCBLOCKSIZE_MAX. Note that it's not a guarantee, just a convergence target (default:0). No target when
+            {@code targetCBlockSize == 0}.
+
+            This is helpful in low bandwidth streaming environments to improve end-to-end latency, when a client can make use of partial documents (a prominent
+            example being Chrome).
+            """
+        ),
         "c_enableLongDistanceMatching".enum(
             """
             Enable long distance matching. This parameter is designed to improve compression ratio for large inputs, by finding large matches at long distance.
@@ -317,8 +328,8 @@ ENABLE_WARNINGS()""")
         "c_experimentalParam3".enum("", "1000"),
         "c_experimentalParam4".enum,
         "c_experimentalParam5".enum,
-        "c_experimentalParam6".enum,
-        "c_experimentalParam7".enum,
+        //"c_experimentalParam6".enum,
+        "c_experimentalParam7".enum("", "1004"),
         "c_experimentalParam8".enum,
         "c_experimentalParam9".enum,
         "c_experimentalParam10".enum,
@@ -326,7 +337,11 @@ ENABLE_WARNINGS()""")
         "c_experimentalParam12".enum,
         "c_experimentalParam13".enum,
         "c_experimentalParam14".enum,
-        "c_experimentalParam15".enum
+        "c_experimentalParam15".enum,
+        "c_experimentalParam16".enum,
+        "c_experimentalParam17".enum,
+        "c_experimentalParam18".enum,
+        "c_experimentalParam19".enum
     ).javaDocLinks
 
     val resetDirectives = EnumConstant(
@@ -373,7 +388,9 @@ ENABLE_WARNINGS()""")
         ),
         "d_experimentalParam2".enum,
         "d_experimentalParam3".enum,
-        "d_experimentalParam4".enum
+        "d_experimentalParam4".enum,
+        "d_experimentalParam5".enum,
+        "d_experimentalParam6".enum
     ).javaDocLinks
 
     val endDirectives = EnumConstant(
@@ -405,7 +422,7 @@ ENABLE_WARNINGS()""")
         """
         Compresses {@code src} content as a single zstd compressed frame into already allocated {@code dst}.
 
-        Hint: compression runs faster if {@code dstCapacity} &ge; #compressBound(){@code (srcSize)}
+        Providing {@code dstCapacity} &ge; #compressBound(){@code (srcSize)} guarantees that zstd will have enough space to successfully compress the data.
         """,
 
         void.p("dst", ""),
@@ -539,7 +556,7 @@ ENABLE_WARNINGS()""")
         """
         Creates a compression context.
 
-        When compressing many times, it is recommended to allocate a context just once, and re-use it for each successive compression operation. This will make
+        When compressing many times, it is recommended to allocate a context just once, and reuse it for each successive compression operation. This will make
         workload friendlier for system's memory. Use one context per thread for parallel execution in multi-threaded environments.
         """,
         void()
@@ -557,7 +574,7 @@ ENABLE_WARNINGS()""")
         """
         Same as #compress(), using an explicit {@code ZSTD_CCtx}.
 
-        Important: in order to behave similarly to {@code ZSTD_compress()}, this function compresses at requested compression level, <b>ignoring any other
+        Important: in order to mirror #compress() behavior, this function compresses at the requested compression level, <b>ignoring any other advanced
         parameter</b>. If any advanced parameter was set using the advanced API, they will all be reset. Only {@code compressionLevel} remains.
         """,
 
@@ -574,7 +591,7 @@ ENABLE_WARNINGS()""")
         """
         Creates a decompression context.
 
-        When decompressing many times, it is recommended to allocate a context only once, and re-use it for each successive compression operation. This will
+        When decompressing many times, it is recommended to allocate a context only once, and reuse it for each successive compression operation. This will
         make workload friendlier for system's memory. Use one context per thread for parallel execution.
         """,
         void()
@@ -673,9 +690,9 @@ ENABLE_WARNINGS()""")
             compress next frame. Resetting session never fails.
             """,
             """
-            The parameters: changes all parameters back to "default". This removes any reference to any dictionary too. Parameters can only be changed between
-            2 sessions (i.e. no compression is currently ongoing) otherwise the reset fails, and function returns an error value (which can be tested using
-            #isError())
+            The parameters: changes all parameters back to "default". This also removes any reference to any dictionary or external sequence producer.
+            Parameters can only be changed between 2 sessions (i.e. no compression is currently ongoing) otherwise the reset fails, and function returns an
+            error value (which can betested using #isError()).
             """,
             "Both: similar to resetting the session, followed by resetting parameters."
         )}
@@ -688,13 +705,16 @@ ENABLE_WARNINGS()""")
     size_t(
         "compress2",
         """
-        Behaves the same as #compressCCtx(), but compression parameters are set using the advanced API.
+        Behaves the same as #compressCCtx(), but compression parameters are set using the advanced API. (note that this entry point doesn't even expose a
+        compression level parameter).
 
         {@code ZSTD_compress2()} always starts a new frame. Should cctx hold data from a previously unfinished frame, everything about it is forgotten.
 
         - Compression parameters are pushed into {@code CCtx} before starting compression, using {@code ZSTD_CCtx_set*()}
-        - The function is always blocking, returns when compression is completed. Hint: compression runs faster if {@code dstCapacity} &ge;
-        {@code ZSTD_compressBound(srcSize)}.
+        - The function is always blocking, returns when compression is completed.
+
+        Providing {@code dstCapacity} &ge; #compressBound(){@code (srcSize)} guarantees that zstd will have enough space to successfully compress the data,
+        though it is possible it fails for other reasons.
         """,
 
         ZSTD_CCtx.p("cctx", ""),
@@ -764,7 +784,7 @@ ENABLE_WARNINGS()""")
 
         Use {@code ZSTD_createCStream()} and #freeCStream() to create/release resources.
 
-        {@code ZSTD_CStream} objects can be reused multiple times on consecutive compression operations. It is recommended to re-use {@code ZSTD_CStream} in
+        {@code ZSTD_CStream} objects can be reused multiple times on consecutive compression operations. It is recommended to reuse {@code ZSTD_CStream} in
         situations where many streaming operations will be achieved consecutively, since it will play nicer with system's memory, by re-using already allocated
         memory. Use one separate {@code ZSTD_CStream} per thread for parallel execution.
         """,
@@ -798,6 +818,11 @@ ENABLE_WARNINGS()""")
             """
             Exception: if the first call requests a #e_end directive and provides enough {@code dstCapacity}, the function delegates to #compress2() which is
             always blocking.
+            """,
+            """
+            If an operation ends with an error, it may leave {@code cctx} in an undefined state. Therefore, it's UB to invoke {@code ZSTD_compressStream2()}
+            of {@code ZSTD_compressStream()} on such a state. In order to be re-employed after an error, a state must be reset, which can be done explicitly
+            (#CCtx_reset()), or is sometimes implied by methods starting a new compression job (#compressCCtx()).
             """
         )}
         """,
@@ -823,7 +848,7 @@ ENABLE_WARNINGS()""")
         "CStreamInSize",
         """
         Returns the recommended size for input buffer.
-        
+
         These buffer sizes are softly recommended. They are not required: {@code ZSTD_compressStream*()} happily accepts any buffer size, for both input and
         output. Respecting the recommended size just makes it a bit easier for {@code ZSTD_compressStream*()}, reducing the amount of memory shuffling and
         buffering, resulting in minor performance savings.
@@ -847,7 +872,7 @@ ENABLE_WARNINGS()""")
         """
         A {@code ZSTD_DStream} object is required to track streaming operations.
 
-        Use {@code ZSTD_createDStream()} and #freeDStream() to create/release resources. {@code ZSTD_DStream} objects can be re-used multiple times.
+        Use {@code ZSTD_createDStream()} and #freeDStream() to create/release resources. {@code ZSTD_DStream} objects can be reused multiple times.
         """,
         void()
     )
@@ -869,6 +894,10 @@ ENABLE_WARNINGS()""")
         decoder has flushed everything it could. But if {@code output.pos == output.size}, there might be some data left within internal buffers. In which
         case, call {@code ZSTD_decompressStream()} again to flush whatever remains in the buffer. With no additional input provided, amount of data flushed is
         necessarily &le; #BLOCKSIZE_MAX.
+
+        Note: when an operation returns with an error code, the {@code zds} state may be left in undefined state. It's UB to invoke
+        {@code ZSTD_decompressStream()} on such a state. In order to reuse such a state, it must be first reset, which can be done explicitly (#DCtx_reset()),
+        or is implied for operations starting some new decompression job (#decompressDCtx(), #decompress_usingDict()).
         """,
 
         ZSTD_DStream.p("zds", ""),
@@ -1076,7 +1105,7 @@ ENABLE_WARNINGS()""")
         ${ul(
             "The frame does not require a dictionary to be decoded (most common case).",
             """
-            The frame was built with {@code dictID} intentionally removed. Whatever dictionary is necessary is a hidden information.
+            The frame was built with {@code dictID} intentionally removed. Whatever dictionary is necessary is a hidden piece of information.
 
             Note: this use case also happens when using a non-conformant dictionary.
             """,
@@ -1095,8 +1124,8 @@ ENABLE_WARNINGS()""")
 
         Special: Loading a #NULL (or 0-size) dictionary invalidates previous dictionary, meaning "return to no-dictionary mode".
 
-        Note 1: Dictionary is sticky, it will be used for all future compressed frames. To return to "no-dictionary" situation, load a #NULL dictionary (or
-        reset parameters).
+        Note 1: Dictionary is sticky, it will be used for all future compressed frames, until parameters are reset, a new dictionary is loaded, or the
+        dictionary is explicitly invalidated by loading a #NULL dictionary.
 
         Note 2: Loading a dictionary involves building tables. It's also a CPU consuming operation, with non-negligible impact on latency. Tables are dependent
         on compression parameters, and for this reason, compression parameters can no longer be changed after loading a dictionary.
@@ -1105,6 +1134,9 @@ ENABLE_WARNINGS()""")
         case, dictionary buffer must outlive its users.
 
         Note 4: Use #CCtx_loadDictionary_advanced() to precisely select how dictionary content must be interpreted.
+
+        Note 5 : This method does not benefit from LDM (long distance mode). If you want to employ LDM on some large dictionary content, prefer employing
+        #CCtx_refPrefix().
         """,
 
         ZSTD_CCtx.p("cctx", ""),
@@ -1117,7 +1149,7 @@ ENABLE_WARNINGS()""")
     size_t(
         "CCtx_refCDict",
         """
-        References a prepared dictionary, to be used for all next compressed frames.
+        References a prepared dictionary, to be used for all future compressed frames.
 
         Note that compression parameters are enforced from within {@code CDict}, and supercede any compression parameter previously set within {@code CCtx}.
         The parameters ignored are labelled as "superseded-by-cdict" in the {@code ZSTD_cParameter} enum docs. The ignored parameters will be used again if the
@@ -1145,6 +1177,8 @@ ENABLE_WARNINGS()""")
         Compressing with a prefix is similar in outcome as performing a diff and compressing it, but performs much faster, especially during decompression
         (compression speed is tunable with compression level).
 
+        This method is compatible with LDM (long distance mode).
+
         Special: Adding any prefix (including #NULL) invalidates any previous prefix or dictionary
 
         Note 1: Prefix buffer is referenced. It <b>must</b> outlive compression. Its content must remain unmodified during compression.
@@ -1169,8 +1203,8 @@ ENABLE_WARNINGS()""")
     size_t(
         "DCtx_loadDictionary",
         """
-        Create an internal {@code DDict} from {@code dict} buffer, to be used to decompress next frames. The dictionary remains valid for all future frames,
-        until explicitly invalidated.
+        Create an internal {@code DDict} from {@code dict} buffer, to be used to decompress all future frames. The dictionary remains valid for all future
+        frames, until explicitly invalidated, or a new dictionary is loaded.
 
         Special: Adding a #NULL (or 0-size) dictionary invalidates any previous dictionary, meaning "return to no-dictionary mode".
 
@@ -1195,15 +1229,13 @@ ENABLE_WARNINGS()""")
         """
         References a prepared dictionary, to be used to decompress next frames. The dictionary remains active for decompression of future frames using same
         {@code DCtx}.
-        
+
         If called with {@code ZSTD_d_refMultipleDDicts} enabled, repeated calls of this function  will store the {@code DDict} references in a table, and the
         {@code DDict} used for decompression will be determined at decompression time, as per the {@code dict ID} in the frame. The memory for the table is
         allocated on the first call to {@code refDDict}, and can be freed with #freeDCtx().
 
-        Note 1: Currently, only one dictionary can be managed. Referencing a new dictionary effectively "discards" any previous one. Special: referencing a
-        #NULL {@code DDict} means "return to no-dictionary mode".
-
-        Note 2: {@code DDict} is just referenced, its lifetime must outlive its usage from {@code DCtx}.
+        If called with #d_refMultipleDDicts disabled (the default), only one dictionary will be managed, and referencing a dictionary effectively "discards"
+        any previous one.
         """,
 
         ZSTD_DCtx.p("dctx", ""),

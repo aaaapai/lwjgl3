@@ -18,16 +18,14 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure specifying an image copy operation.
  * 
- * <h5>Description</h5>
- * 
- * <p>For {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D} images, copies are performed slice by slice starting with the {@code z} member of the {@code srcOffset} or {@code dstOffset}, and copying {@code depth} slices. For images with multiple layers, copies are performed layer by layer starting with the {@code baseArrayLayer} member of the {@code srcSubresource} or {@code dstSubresource} and copying {@code layerCount} layers. Image data <b>can</b> be copied between images with different image types. If one image is {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D} and the other image is {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D} with multiple layers, then each slice is copied to or from a different layer.</p>
- * 
- * <p>Copies involving a <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">multi-planar image format</a> specify the region to be copied in terms of the <em>plane</em> to be copied, not the coordinates of the multi-planar image. This means that copies accessing the R/B planes of “{@code _422}” format images <b>must</b> fit the copied region within half the {@code width} of the parent image, and that copies accessing the R/B planes of “{@code _420}” format images <b>must</b> fit the copied region within half the {@code width} and {@code height} of the parent image.</p>
- * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The number of slices of the {@code extent} (for 3D) or layers of the {@code srcSubresource} (for non-3D) <b>must</b> match the number of slices of the {@code extent} (for 3D) or layers of the {@code dstSubresource} (for non-3D)</li>
+ * <li>If the {@link KHRSamplerYcbcrConversion VK_KHR_sampler_ycbcr_conversion} extension is not enabled, and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, the {@code aspectMask} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> match</li>
+ * <li>If the {@link KHRMaintenance1 VK_KHR_maintenance1} extension is not enabled, and {@link VkPhysicalDeviceProperties}{@code ::apiVersion} is less than Vulkan 1.1, the {@code layerCount} member of {@code srcSubresource} and {@code dstSubresource} <b>must</b> match</li>
+ * <li>{@code extent.width} <b>must</b> not be 0</li>
+ * <li>{@code extent.height} <b>must</b> not be 0</li>
+ * <li>{@code extent.depth} <b>must</b> not be 0</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -52,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkExtent3D VkExtent3D} {@link #extent};
  * }</code></pre>
  */
-public class VkImageCopy extends Struct implements NativeResource {
+public class VkImageCopy extends Struct<VkImageCopy> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,6 +83,15 @@ public class VkImageCopy extends Struct implements NativeResource {
         DSTSUBRESOURCE = layout.offsetof(2);
         DSTOFFSET = layout.offsetof(3);
         EXTENT = layout.offsetof(4);
+    }
+
+    protected VkImageCopy(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VkImageCopy create(long address, @Nullable ByteBuffer container) {
+        return new VkImageCopy(address, container);
     }
 
     /**
@@ -165,29 +172,29 @@ public class VkImageCopy extends Struct implements NativeResource {
 
     /** Returns a new {@code VkImageCopy} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VkImageCopy malloc() {
-        return wrap(VkImageCopy.class, nmemAllocChecked(SIZEOF));
+        return new VkImageCopy(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VkImageCopy} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VkImageCopy calloc() {
-        return wrap(VkImageCopy.class, nmemCallocChecked(1, SIZEOF));
+        return new VkImageCopy(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VkImageCopy} instance allocated with {@link BufferUtils}. */
     public static VkImageCopy create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VkImageCopy.class, memAddress(container), container);
+        return new VkImageCopy(memAddress(container), container);
     }
 
     /** Returns a new {@code VkImageCopy} instance for the specified memory address. */
     public static VkImageCopy create(long address) {
-        return wrap(VkImageCopy.class, address);
+        return new VkImageCopy(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageCopy createSafe(long address) {
-        return address == NULL ? null : wrap(VkImageCopy.class, address);
+        return address == NULL ? null : new VkImageCopy(address, null);
     }
 
     /**
@@ -196,7 +203,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageCopy.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -205,7 +212,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageCopy.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -215,7 +222,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      */
     public static VkImageCopy.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -225,13 +232,13 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageCopy.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VkImageCopy.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -259,7 +266,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkImageCopy malloc(MemoryStack stack) {
-        return wrap(VkImageCopy.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VkImageCopy(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -268,7 +275,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VkImageCopy calloc(MemoryStack stack) {
-        return wrap(VkImageCopy.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VkImageCopy(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -278,7 +285,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageCopy.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -288,7 +295,7 @@ public class VkImageCopy extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VkImageCopy.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -325,9 +332,9 @@ public class VkImageCopy extends Struct implements NativeResource {
         /**
          * Creates a new {@code VkImageCopy.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VkImageCopy#SIZEOF}, and its mark will be undefined.
+         * by {@link VkImageCopy#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

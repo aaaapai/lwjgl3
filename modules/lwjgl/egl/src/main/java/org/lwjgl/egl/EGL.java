@@ -55,6 +55,7 @@ public final class EGL {
     public static void create() {
         SharedLibrary EGL;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "libEGL.so.1");
                 break;
@@ -96,7 +97,7 @@ public final class EGL {
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && Checks.DEBUG_FUNCTIONS) {
-                            apiLog("Failed to locate address for EGL function " + memASCII(functionName));
+                            apiLogMissing("EGL", functionName);
                         }
                     }
 
@@ -242,13 +243,13 @@ public final class EGL {
             {0, 1, 2, 3, 4, 5} // 10, 11, 12, 13, 14, 15
         };
 
-        for (int major = 1; major <= min(MAJOR, versions.length); major++) {
-            for (int minor : versions[major - 1]) {
-                if (major == MAJOR && MINOR < minor) {
+        for (int M = 1; M <= min(MAJOR, versions.length); M++) {
+            for (int m : versions[M - 1]) {
+                if (M == MAJOR && MINOR < m) {
                     break;
                 }
 
-                supportedExtensions.add(String.format("EGL%d%d%s", major, minor, ""));
+                supportedExtensions.add("EGL" + M + m);
             }
         }
     }

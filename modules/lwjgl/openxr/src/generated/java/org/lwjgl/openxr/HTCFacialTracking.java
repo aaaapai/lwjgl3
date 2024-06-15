@@ -13,11 +13,15 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The HTC_facial_tracking extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
+ * 
+ * <p>This extension allows an application to track and integrate users' eye and lip movements, empowering developers to read intention and model facial expressions.</p>
+ */
 public class HTCFacialTracking {
 
     /** The extension specification version. */
-    public static final int XR_HTC_facial_tracking_SPEC_VERSION = 1;
+    public static final int XR_HTC_facial_tracking_SPEC_VERSION = 2;
 
     /** The extension name. */
     public static final String XR_HTC_FACIAL_TRACKING_EXTENSION_NAME = "XR_HTC_facial_tracking";
@@ -218,7 +222,7 @@ public class HTCFacialTracking {
      * 
      * <p>An application <b>can</b> create an {@code XrFacialTrackerHTC} handle using {@link #xrCreateFacialTrackerHTC CreateFacialTrackerHTC}.</p>
      * 
-     * <p>If the system does not support eye tracking or lip tracking, runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateFacialTrackerHTC CreateFacialTrackerHTC} according to the corresponding case. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@code supportEyeFacialTracking} or {@code supportLipFacialTracking} in {@link XrSystemFacialTrackingPropertiesHTC} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>may</b> avoid creating a facial tracker.</p>
+     * <p>If the system does not support eye tracking or lip tracking, runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateFacialTrackerHTC CreateFacialTrackerHTC} according to the corresponding case. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@link XrSystemFacialTrackingPropertiesHTC}{@code ::supportEyeFacialTracking} or {@link XrSystemFacialTrackingPropertiesHTC}{@code ::supportLipFacialTracking} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>may</b> avoid creating a facial tracker.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

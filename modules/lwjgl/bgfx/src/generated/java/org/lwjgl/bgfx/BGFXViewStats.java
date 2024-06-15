@@ -26,10 +26,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     int64_t {@link #cpuTimeEnd};
  *     int64_t {@link #gpuTimeBegin};
  *     int64_t {@link #gpuTimeEnd};
+ *     uint32_t {@link #gpuFrameNum};
  * }</code></pre>
  */
 @NativeType("struct bgfx_view_stats_t")
-public class BGFXViewStats extends Struct {
+public class BGFXViewStats extends Struct<BGFXViewStats> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -44,7 +45,8 @@ public class BGFXViewStats extends Struct {
         CPUTIMEBEGIN,
         CPUTIMEEND,
         GPUTIMEBEGIN,
-        GPUTIMEEND;
+        GPUTIMEEND,
+        GPUFRAMENUM;
 
     static {
         Layout layout = __struct(
@@ -53,7 +55,8 @@ public class BGFXViewStats extends Struct {
             __member(8),
             __member(8),
             __member(8),
-            __member(8)
+            __member(8),
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
@@ -65,6 +68,16 @@ public class BGFXViewStats extends Struct {
         CPUTIMEEND = layout.offsetof(3);
         GPUTIMEBEGIN = layout.offsetof(4);
         GPUTIMEEND = layout.offsetof(5);
+        GPUFRAMENUM = layout.offsetof(6);
+    }
+
+    protected BGFXViewStats(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected BGFXViewStats create(long address, @Nullable ByteBuffer container) {
+        return new BGFXViewStats(address, container);
     }
 
     /**
@@ -101,18 +114,21 @@ public class BGFXViewStats extends Struct {
     /** GPU end time */
     @NativeType("int64_t")
     public long gpuTimeEnd() { return ngpuTimeEnd(address()); }
+    /** frame which generated {@code gpuTimeBegin}, {@code gpuTimeEnd} */
+    @NativeType("uint32_t")
+    public int gpuFrameNum() { return ngpuFrameNum(address()); }
 
     // -----------------------------------
 
     /** Returns a new {@code BGFXViewStats} instance for the specified memory address. */
     public static BGFXViewStats create(long address) {
-        return wrap(BGFXViewStats.class, address);
+        return new BGFXViewStats(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXViewStats createSafe(long address) {
-        return address == NULL ? null : wrap(BGFXViewStats.class, address);
+        return address == NULL ? null : new BGFXViewStats(address, null);
     }
 
     /**
@@ -122,13 +138,13 @@ public class BGFXViewStats extends Struct {
      * @param capacity the buffer capacity
      */
     public static BGFXViewStats.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static BGFXViewStats.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -147,6 +163,8 @@ public class BGFXViewStats extends Struct {
     public static long ngpuTimeBegin(long struct) { return UNSAFE.getLong(null, struct + BGFXViewStats.GPUTIMEBEGIN); }
     /** Unsafe version of {@link #gpuTimeEnd}. */
     public static long ngpuTimeEnd(long struct) { return UNSAFE.getLong(null, struct + BGFXViewStats.GPUTIMEEND); }
+    /** Unsafe version of {@link #gpuFrameNum}. */
+    public static int ngpuFrameNum(long struct) { return UNSAFE.getInt(null, struct + BGFXViewStats.GPUFRAMENUM); }
 
     // -----------------------------------
 
@@ -158,9 +176,9 @@ public class BGFXViewStats extends Struct {
         /**
          * Creates a new {@code BGFXViewStats.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link BGFXViewStats#SIZEOF}, and its mark will be undefined.
+         * by {@link BGFXViewStats#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -207,6 +225,9 @@ public class BGFXViewStats extends Struct {
         /** @return the value of the {@link BGFXViewStats#gpuTimeEnd} field. */
         @NativeType("int64_t")
         public long gpuTimeEnd() { return BGFXViewStats.ngpuTimeEnd(address()); }
+        /** @return the value of the {@link BGFXViewStats#gpuFrameNum} field. */
+        @NativeType("uint32_t")
+        public int gpuFrameNum() { return BGFXViewStats.ngpuFrameNum(address()); }
 
     }
 

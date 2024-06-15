@@ -271,7 +271,7 @@ public class VROverlay {
     /**
      * Returns a string that corresponds with the specified overlay error. The string will be the name of the error enum value for all valid error codes.
      *
-     * @param error one of:<br><table><tr><td>{@link VR#EVROverlayError_VROverlayError_None}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_UnknownOverlay}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidHandle}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_PermissionDenied}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_OverlayLimitExceeded}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_WrongVisibilityType}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_KeyTooLong}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_NameTooLong}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_KeyInUse}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_WrongTransformType}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidTrackedDevice}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidParameter}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_ThumbnailCantBeDestroyed}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_ArrayTooSmall}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_RequestFailed}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidTexture}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_UnableToLoadFile}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_KeyboardAlreadyInUse}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_NoNeighbor}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TooManyMaskPrimitives}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_BadMaskPrimitive}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TextureAlreadyLocked}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TextureLockCapacityReached}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TextureNotLocked}</td></tr></table>
+     * @param error one of:<br><table><tr><td>{@link VR#EVROverlayError_VROverlayError_None}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_UnknownOverlay}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidHandle}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_PermissionDenied}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_OverlayLimitExceeded}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_WrongVisibilityType}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_KeyTooLong}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_NameTooLong}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_KeyInUse}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_WrongTransformType}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidTrackedDevice}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidParameter}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_ThumbnailCantBeDestroyed}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_ArrayTooSmall}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_RequestFailed}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_InvalidTexture}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_UnableToLoadFile}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_KeyboardAlreadyInUse}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_NoNeighbor}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TooManyMaskPrimitives}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_BadMaskPrimitive}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TextureAlreadyLocked}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TextureLockCapacityReached}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TextureNotLocked}</td></tr><tr><td>{@link VR#EVROverlayError_VROverlayError_TimedOut}</td></tr></table>
      */
     @Nullable
     @NativeType("char const *")
@@ -312,7 +312,7 @@ public class VROverlay {
     /**
      * Specify flag setting for a given overlay.
      *
-     * @param eOverlayFlag one of:<br><table><tr><td>{@link VR#VROverlayFlags_NoDashboardTab}</td><td>{@link VR#VROverlayFlags_SendVRDiscreteScrollEvents}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRTouchpadEvents}</td><td>{@link VR#VROverlayFlags_ShowTouchPadScrollWheel}</td></tr><tr><td>{@link VR#VROverlayFlags_TransferOwnershipToInternalProcess}</td><td>{@link VR#VROverlayFlags_SideBySide_Parallel}</td></tr><tr><td>{@link VR#VROverlayFlags_SideBySide_Crossed}</td><td>{@link VR#VROverlayFlags_Panorama}</td></tr><tr><td>{@link VR#VROverlayFlags_StereoPanorama}</td><td>{@link VR#VROverlayFlags_SortWithNonSceneOverlays}</td></tr><tr><td>{@link VR#VROverlayFlags_VisibleInDashboard}</td><td>{@link VR#VROverlayFlags_MakeOverlaysInteractiveIfVisible}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRSmoothScrollEvents}</td><td>{@link VR#VROverlayFlags_ProtectedContent}</td></tr><tr><td>{@link VR#VROverlayFlags_HideLaserIntersection}</td><td>{@link VR#VROverlayFlags_WantsModalBehavior}</td></tr><tr><td>{@link VR#VROverlayFlags_IsPremultiplied}</td></tr></table>
+     * @param eOverlayFlag one of:<br><table><tr><td>{@link VR#VROverlayFlags_NoDashboardTab}</td><td>{@link VR#VROverlayFlags_SendVRDiscreteScrollEvents}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRTouchpadEvents}</td><td>{@link VR#VROverlayFlags_ShowTouchPadScrollWheel}</td></tr><tr><td>{@link VR#VROverlayFlags_TransferOwnershipToInternalProcess}</td><td>{@link VR#VROverlayFlags_SideBySide_Parallel}</td></tr><tr><td>{@link VR#VROverlayFlags_SideBySide_Crossed}</td><td>{@link VR#VROverlayFlags_Panorama}</td></tr><tr><td>{@link VR#VROverlayFlags_StereoPanorama}</td><td>{@link VR#VROverlayFlags_SortWithNonSceneOverlays}</td></tr><tr><td>{@link VR#VROverlayFlags_VisibleInDashboard}</td><td>{@link VR#VROverlayFlags_MakeOverlaysInteractiveIfVisible}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRSmoothScrollEvents}</td><td>{@link VR#VROverlayFlags_ProtectedContent}</td></tr><tr><td>{@link VR#VROverlayFlags_HideLaserIntersection}</td><td>{@link VR#VROverlayFlags_WantsModalBehavior}</td></tr><tr><td>{@link VR#VROverlayFlags_IsPremultiplied}</td><td>{@link VR#VROverlayFlags_IgnoreTextureAlpha}</td></tr><tr><td>{@link VR#VROverlayFlags_EnableControlBar}</td><td>{@link VR#VROverlayFlags_EnableControlBarKeyboard}</td></tr><tr><td>{@link VR#VROverlayFlags_EnableControlBarClose}</td><td>{@link VR#VROverlayFlags_Reserved}</td></tr><tr><td>{@link VR#VROverlayFlags_EnableClickStabilization}</td><td>{@link VR#VROverlayFlags_MultiCursor}</td></tr></table>
      */
     @NativeType("EVROverlayError")
     public static int VROverlay_SetOverlayFlag(@NativeType("VROverlayHandle_t") long ulOverlayHandle, @NativeType("VROverlayFlags") int eOverlayFlag, @NativeType("bool") boolean bEnabled) {
@@ -337,7 +337,7 @@ public class VROverlay {
     /**
      * Gets flag setting for a given overlay.
      *
-     * @param eOverlayFlag one of:<br><table><tr><td>{@link VR#VROverlayFlags_NoDashboardTab}</td><td>{@link VR#VROverlayFlags_SendVRDiscreteScrollEvents}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRTouchpadEvents}</td><td>{@link VR#VROverlayFlags_ShowTouchPadScrollWheel}</td></tr><tr><td>{@link VR#VROverlayFlags_TransferOwnershipToInternalProcess}</td><td>{@link VR#VROverlayFlags_SideBySide_Parallel}</td></tr><tr><td>{@link VR#VROverlayFlags_SideBySide_Crossed}</td><td>{@link VR#VROverlayFlags_Panorama}</td></tr><tr><td>{@link VR#VROverlayFlags_StereoPanorama}</td><td>{@link VR#VROverlayFlags_SortWithNonSceneOverlays}</td></tr><tr><td>{@link VR#VROverlayFlags_VisibleInDashboard}</td><td>{@link VR#VROverlayFlags_MakeOverlaysInteractiveIfVisible}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRSmoothScrollEvents}</td><td>{@link VR#VROverlayFlags_ProtectedContent}</td></tr><tr><td>{@link VR#VROverlayFlags_HideLaserIntersection}</td><td>{@link VR#VROverlayFlags_WantsModalBehavior}</td></tr><tr><td>{@link VR#VROverlayFlags_IsPremultiplied}</td></tr></table>
+     * @param eOverlayFlag one of:<br><table><tr><td>{@link VR#VROverlayFlags_NoDashboardTab}</td><td>{@link VR#VROverlayFlags_SendVRDiscreteScrollEvents}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRTouchpadEvents}</td><td>{@link VR#VROverlayFlags_ShowTouchPadScrollWheel}</td></tr><tr><td>{@link VR#VROverlayFlags_TransferOwnershipToInternalProcess}</td><td>{@link VR#VROverlayFlags_SideBySide_Parallel}</td></tr><tr><td>{@link VR#VROverlayFlags_SideBySide_Crossed}</td><td>{@link VR#VROverlayFlags_Panorama}</td></tr><tr><td>{@link VR#VROverlayFlags_StereoPanorama}</td><td>{@link VR#VROverlayFlags_SortWithNonSceneOverlays}</td></tr><tr><td>{@link VR#VROverlayFlags_VisibleInDashboard}</td><td>{@link VR#VROverlayFlags_MakeOverlaysInteractiveIfVisible}</td></tr><tr><td>{@link VR#VROverlayFlags_SendVRSmoothScrollEvents}</td><td>{@link VR#VROverlayFlags_ProtectedContent}</td></tr><tr><td>{@link VR#VROverlayFlags_HideLaserIntersection}</td><td>{@link VR#VROverlayFlags_WantsModalBehavior}</td></tr><tr><td>{@link VR#VROverlayFlags_IsPremultiplied}</td><td>{@link VR#VROverlayFlags_IgnoreTextureAlpha}</td></tr><tr><td>{@link VR#VROverlayFlags_EnableControlBar}</td><td>{@link VR#VROverlayFlags_EnableControlBarKeyboard}</td></tr><tr><td>{@link VR#VROverlayFlags_EnableControlBarClose}</td><td>{@link VR#VROverlayFlags_Reserved}</td></tr><tr><td>{@link VR#VROverlayFlags_EnableClickStabilization}</td><td>{@link VR#VROverlayFlags_MultiCursor}</td></tr></table>
      */
     @NativeType("EVROverlayError")
     public static int VROverlay_GetOverlayFlag(@NativeType("VROverlayHandle_t") long ulOverlayHandle, @NativeType("VROverlayFlags") int eOverlayFlag, @NativeType("bool *") ByteBuffer pbEnabled) {
@@ -482,6 +482,9 @@ public class VROverlay {
      * <p>Within a category overlays are rendered lowest sort order to highest sort order. Overlays with the same sort order are rendered back to front base on
      * distance from the HMD.</p>
      * 
+     * <p>Subview overlays are always drawn immediately on top of their parent overlay, and the sort order is only relative to their peer subviews for that
+     * overlay.</p>
+     * 
      * <p>Sort order defaults to 0.</p>
      */
     @NativeType("EVROverlayError")
@@ -580,6 +583,35 @@ public class VROverlay {
             check(pfCurvature, 1);
         }
         return nVROverlay_GetOverlayCurvature(ulOverlayHandle, memAddress(pfCurvature));
+    }
+
+    // --- [ VROverlay_SetOverlayPreCurvePitch ] ---
+
+    @NativeType("EVROverlayError")
+    public static int VROverlay_SetOverlayPreCurvePitch(@NativeType("VROverlayHandle_t") long ulOverlayHandle, float fRadians) {
+        long __functionAddress = OpenVR.VROverlay.SetOverlayPreCurvePitch;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return callJI(ulOverlayHandle, fRadians, __functionAddress);
+    }
+
+    // --- [ VROverlay_GetOverlayPreCurvePitch ] ---
+
+    public static int nVROverlay_GetOverlayPreCurvePitch(long ulOverlayHandle, long pfRadians) {
+        long __functionAddress = OpenVR.VROverlay.GetOverlayPreCurvePitch;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return callJPI(ulOverlayHandle, pfRadians, __functionAddress);
+    }
+
+    @NativeType("EVROverlayError")
+    public static int VROverlay_GetOverlayPreCurvePitch(@NativeType("VROverlayHandle_t") long ulOverlayHandle, @NativeType("float *") FloatBuffer pfRadians) {
+        if (CHECKS) {
+            check(pfRadians, 1);
+        }
+        return nVROverlay_GetOverlayPreCurvePitch(ulOverlayHandle, memAddress(pfRadians));
     }
 
     // --- [ VROverlay_SetOverlayTextureColorSpace ] ---
@@ -810,39 +842,6 @@ public class VROverlay {
         return nVROverlay_GetOverlayTransformTrackedDeviceComponent(ulOverlayHandle, memAddress(punDeviceIndex), memAddress(pchComponentName), pchComponentName.remaining());
     }
 
-    // --- [ VROverlay_GetOverlayTransformOverlayRelative ] ---
-
-    public static int nVROverlay_GetOverlayTransformOverlayRelative(long ulOverlayHandle, long ulOverlayHandleParent, long pmatParentOverlayToOverlayTransform) {
-        long __functionAddress = OpenVR.VROverlay.GetOverlayTransformOverlayRelative;
-        if (CHECKS) {
-            check(__functionAddress);
-        }
-        return callJPPI(ulOverlayHandle, ulOverlayHandleParent, pmatParentOverlayToOverlayTransform, __functionAddress);
-    }
-
-    @NativeType("EVROverlayError")
-    public static int VROverlay_GetOverlayTransformOverlayRelative(@NativeType("VROverlayHandle_t") long ulOverlayHandle, @NativeType("VROverlayHandle_t *") LongBuffer ulOverlayHandleParent, @NativeType("HmdMatrix34_t *") HmdMatrix34 pmatParentOverlayToOverlayTransform) {
-        if (CHECKS) {
-            check(ulOverlayHandleParent, 1);
-        }
-        return nVROverlay_GetOverlayTransformOverlayRelative(ulOverlayHandle, memAddress(ulOverlayHandleParent), pmatParentOverlayToOverlayTransform.address());
-    }
-
-    // --- [ VROverlay_SetOverlayTransformOverlayRelative ] ---
-
-    public static int nVROverlay_SetOverlayTransformOverlayRelative(long ulOverlayHandle, long ulOverlayHandleParent, long pmatParentOverlayToOverlayTransform) {
-        long __functionAddress = OpenVR.VROverlay.SetOverlayTransformOverlayRelative;
-        if (CHECKS) {
-            check(__functionAddress);
-        }
-        return callJJPI(ulOverlayHandle, ulOverlayHandleParent, pmatParentOverlayToOverlayTransform, __functionAddress);
-    }
-
-    @NativeType("EVROverlayError")
-    public static int VROverlay_SetOverlayTransformOverlayRelative(@NativeType("VROverlayHandle_t") long ulOverlayHandle, @NativeType("VROverlayHandle_t") long ulOverlayHandleParent, @NativeType("HmdMatrix34_t *") HmdMatrix34 pmatParentOverlayToOverlayTransform) {
-        return nVROverlay_SetOverlayTransformOverlayRelative(ulOverlayHandle, ulOverlayHandleParent, pmatParentOverlayToOverlayTransform.address());
-    }
-
     // --- [ VROverlay_SetOverlayTransformCursor ] ---
 
     /** Unsafe version of: {@link #VROverlay_SetOverlayTransformCursor SetOverlayTransformCursor} */
@@ -900,7 +899,7 @@ public class VROverlay {
 
     // --- [ VROverlay_ShowOverlay ] ---
 
-    /** Shows the VR overlay. For dashboard overlays, only the Dashboard Manager is allowed to call this. */
+    /** Shows the VR overlay. Not applicable for Dashboard Overlays. */
     @NativeType("EVROverlayError")
     public static int VROverlay_ShowOverlay(@NativeType("VROverlayHandle_t") long ulOverlayHandle) {
         long __functionAddress = OpenVR.VROverlay.ShowOverlay;
@@ -912,7 +911,7 @@ public class VROverlay {
 
     // --- [ VROverlay_HideOverlay ] ---
 
-    /** Hides the VR overlay. For dashboard overlays, only the Dashboard Manager is allowed to call this. */
+    /** Hides the VR overlay. Not applicable for Dashboard Overlays. */
     @NativeType("EVROverlayError")
     public static int VROverlay_HideOverlay(@NativeType("VROverlayHandle_t") long ulOverlayHandle) {
         long __functionAddress = OpenVR.VROverlay.HideOverlay;
@@ -924,7 +923,11 @@ public class VROverlay {
 
     // --- [ VROverlay_IsOverlayVisible ] ---
 
-    /** Returns true if the overlay is visible. */
+    /**
+     * Returns true if the overlay is currently visible, applicable for all overlay types except Dashboard Thumbnail overlays.
+     * 
+     * <p>{@code VREvent_OverlayShown} and {@code VREvent_OverlayHidden} reflect changes to this value.</p>
+     */
     @NativeType("bool")
     public static boolean VROverlay_IsOverlayVisible(@NativeType("VROverlayHandle_t") long ulOverlayHandle) {
         long __functionAddress = OpenVR.VROverlay.IsOverlayVisible;
@@ -957,6 +960,17 @@ public class VROverlay {
     @NativeType("EVROverlayError")
     public static int VROverlay_GetTransformForOverlayCoordinates(@NativeType("VROverlayHandle_t") long ulOverlayHandle, @NativeType("ETrackingUniverseOrigin") int eTrackingOrigin, @NativeType("HmdVector2_t") HmdVector2 coordinatesInOverlay, @NativeType("HmdMatrix34_t *") HmdMatrix34 pmatTransform) {
         return nVROverlay_GetTransformForOverlayCoordinates(ulOverlayHandle, eTrackingOrigin, coordinatesInOverlay.address(), pmatTransform.address());
+    }
+
+    // --- [ VROverlay_WaitFrameSync ] ---
+
+    @NativeType("EVROverlayError")
+    public static int VROverlay_WaitFrameSync(@NativeType("uint32_t") int nTimeoutMs) {
+        long __functionAddress = OpenVR.VROverlay.WaitFrameSync;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return callI(nTimeoutMs, __functionAddress);
     }
 
     // --- [ VROverlay_PollNextOverlayEvent ] ---
@@ -1470,7 +1484,7 @@ public class VROverlay {
 
     // --- [ VROverlay_GetPrimaryDashboardDevice ] ---
 
-    /** Returns the tracked device that has the laser pointer in the dashboard. */
+    /** Returns the tracked device index that has the laser pointer in the dashboard, or the last one that was used. */
     @NativeType("TrackedDeviceIndex_t")
     public static int VROverlay_GetPrimaryDashboardDevice() {
         long __functionAddress = OpenVR.VROverlay.GetPrimaryDashboardDevice;

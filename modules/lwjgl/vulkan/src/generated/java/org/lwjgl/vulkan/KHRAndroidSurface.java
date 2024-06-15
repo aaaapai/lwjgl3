@@ -18,7 +18,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * The {@code VK_KHR_android_surface} extension is an instance extension. It provides a mechanism to create a {@code VkSurfaceKHR} object (defined by the {@link KHRSurface VK_KHR_surface} extension) that refers to an {@code ANativeWindow}, Android’s native surface type. The {@code ANativeWindow} represents the producer endpoint of any buffer queue, regardless of consumer endpoint. Common consumer endpoints for {@code ANativeWindows} are the system window compositor, video encoders, and application-specific compositors importing the images through a {@code SurfaceTexture}.
  * 
- * <h5>VK_KHR_android_surface</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -30,13 +29,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>6</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires support for Vulkan 1.0</li>
- * <li>Requires {@link KHRSurface VK_KHR_surface} to be enabled</li>
- * </ul></dd>
+ * <dd>{@link KHRSurface VK_KHR_surface}</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Jesse Hall <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_android_surface]%20@critsec%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_android_surface%20extension*">critsec</a></li>
+ * <li>Jesse Hall <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_android_surface]%20@critsec%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_android_surface%20extension*">critsec</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -50,7 +46,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Patrick Doane, Blizzard</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * <li>Ian Elliott, LunarG</li>
  * <li>Courtney Goeltzenleuchter, LunarG</li>
  * <li>Jesse Hall, Google</li>
@@ -87,8 +83,7 @@ public class KHRAndroidSurface {
 
     /** Unsafe version of: {@link #vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR} */
     public static int nvkCreateAndroidSurfaceKHR(VkInstance instance, long pCreateInfo, long pAllocator, long pSurface) {
-        long __functionAddress = VK10.vkGetInstanceProcAddr(instance, "vkCreateAndroidSurfaceKHR");
-        //instance.getCapabilities().vkCreateAndroidSurfaceKHR;
+        long __functionAddress = instance.getCapabilities().vkCreateAndroidSurfaceKHR;
         if (CHECKS) {
             check(__functionAddress);
         }
@@ -152,7 +147,7 @@ public class KHRAndroidSurface {
      *
      * @param instance    the instance to associate the surface with.
      * @param pCreateInfo a pointer to a {@link VkAndroidSurfaceCreateInfoKHR} structure containing parameters affecting the creation of the surface object.
-     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a target="_blank" href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      * @param pSurface    a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.
      */
     @NativeType("VkResult")
@@ -166,13 +161,11 @@ public class KHRAndroidSurface {
     /** Array version of: {@link #vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR} */
     @NativeType("VkResult")
     public static int vkCreateAndroidSurfaceKHR(VkInstance instance, @NativeType("VkAndroidSurfaceCreateInfoKHR const *") VkAndroidSurfaceCreateInfoKHR pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
-        long __functionAddress = VK10.vkGetInstanceProcAddr(instance, "vkCreateAndroidSurfaceKHR");
-        //instance.getCapabilities().vkCreateAndroidSurfaceKHR;
+        long __functionAddress = instance.getCapabilities().vkCreateAndroidSurfaceKHR;
         if (CHECKS) {
             check(__functionAddress);
             check(pSurface, 1);
         }
         return callPPPPI(instance.address(), pCreateInfo.address(), memAddressSafe(pAllocator), pSurface, __functionAddress);
     }
-
 }

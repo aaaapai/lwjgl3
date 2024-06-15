@@ -15,7 +15,11 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** The MSFT_composition_layer_reprojection extension. */
+/**
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_composition_layer_reprojection">XR_MSFT_composition_layer_reprojection</a> extension.
+ * 
+ * <p>This extension enables an application to provide additional reprojection information for a projection composition layer to help the runtime produce better hologram stability and visual quality.</p>
+ */
 public class MSFTCompositionLayerReprojection {
 
     /** The extension specification version. */
@@ -53,9 +57,9 @@ public class MSFTCompositionLayerReprojection {
      * <li>{@link #XR_REPROJECTION_MODE_ORIENTATION_ONLY_MSFT REPROJECTION_MODE_ORIENTATION_ONLY_MSFT} indicates the layer should be stabilized only for changes to orientation, ignoring positional changes. This mode works better for body-locked content that should follow the user as they walk around, such as 360-degree video.</li>
      * </ul>
      * 
-     * <p>When the application passes {@link #XR_REPROJECTION_MODE_DEPTH_MSFT REPROJECTION_MODE_DEPTH_MSFT} or {@link #XR_REPROJECTION_MODE_PLANAR_FROM_DEPTH_MSFT REPROJECTION_MODE_PLANAR_FROM_DEPTH_MSFT} mode, it <b>should</b> also provide the depth buffer for the corresponding layer using {@link XrCompositionLayerDepthInfoKHR} in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#XR_KHR_composition_layer_depth">XR_KHR_composition_layer_depth</a> extension. However, if the application does not submit this depth buffer, the runtime <b>must</b> apply a runtime defined fallback reprojection mode, and <b>must</b> not fail the {@link XR10#xrEndFrame EndFrame} function because of this missing depth.</p>
+     * <p>When the application passes {@link #XR_REPROJECTION_MODE_DEPTH_MSFT REPROJECTION_MODE_DEPTH_MSFT} or {@link #XR_REPROJECTION_MODE_PLANAR_FROM_DEPTH_MSFT REPROJECTION_MODE_PLANAR_FROM_DEPTH_MSFT} mode, it <b>should</b> also provide the depth buffer for the corresponding layer using {@link XrCompositionLayerDepthInfoKHR} in {@link KHRCompositionLayerDepth XR_KHR_composition_layer_depth} extension. However, if the application does not submit this depth buffer, the runtime <b>must</b> apply a runtime defined fallback reprojection mode, and <b>must</b> not fail the {@link XR10#xrEndFrame EndFrame} function because of this missing depth.</p>
      * 
-     * <p>When the application passes {@link #XR_REPROJECTION_MODE_PLANAR_MANUAL_MSFT REPROJECTION_MODE_PLANAR_MANUAL_MSFT} or {@link #XR_REPROJECTION_MODE_ORIENTATION_ONLY_MSFT REPROJECTION_MODE_ORIENTATION_ONLY_MSFT} mode, it <b>should</b> avoid providing a depth buffer for the corresponding layer using {@link XrCompositionLayerDepthInfoKHR} in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#XR_KHR_composition_layer_depth">XR_KHR_composition_layer_depth</a> extension. However, if the application does submit this depth buffer, the runtime <b>must</b> not fail the {@link XR10#xrEndFrame EndFrame} function because of this unused depth data.</p>
+     * <p>When the application passes {@link #XR_REPROJECTION_MODE_PLANAR_MANUAL_MSFT REPROJECTION_MODE_PLANAR_MANUAL_MSFT} or {@link #XR_REPROJECTION_MODE_ORIENTATION_ONLY_MSFT REPROJECTION_MODE_ORIENTATION_ONLY_MSFT} mode, it <b>should</b> avoid providing a depth buffer for the corresponding layer using {@link XrCompositionLayerDepthInfoKHR} in {@link KHRCompositionLayerDepth XR_KHR_composition_layer_depth} extension. However, if the application does submit this depth buffer, the runtime <b>must</b> not fail the {@link XR10#xrEndFrame EndFrame} function because of this unused depth data.</p>
      * 
      * <h5>See Also</h5>
      * 
@@ -139,7 +143,7 @@ public class MSFTCompositionLayerReprojection {
      * @param instance              the instance from which {@code systemId} was retrieved.
      * @param systemId              the {@code XrSystemId} whose reprojection modes will be enumerated.
      * @param viewConfigurationType the {@code XrViewConfigurationType} to enumerate.
-     * @param modeCountOutput       a pointer to the count of the array, or a pointer to the required capacity in the case that {@code modeCapacityInput} is 0.
+     * @param modeCountOutput       a pointer to the count of the array, or a pointer to the required capacity in the case that {@code modeCapacityInput} is insufficient.
      * @param modes                 a pointer to an application-allocated array that will be filled with the {@code XrReprojectionModeMSFT} values that are supported by the runtime. It <b>can</b> be {@code NULL} if {@code modeCapacityInput} is 0.
      */
     @NativeType("XrResult")

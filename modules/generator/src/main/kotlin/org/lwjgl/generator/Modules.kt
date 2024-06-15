@@ -38,10 +38,16 @@ enum class Module(
         "org.lwjgl.system.linux",
         "Contains bindings to native APIs specific to the Linux operating system."
     ),
+    CORE_FREEBSD(
+        "core.freebsd",
+        "org.lwjgl.system.freebsd",
+        "Contains bindings to native APIs specific to the FreeBSD operating system."
+    ),
     CORE_LINUX_LIBURING(
         "core.linux.liburing",
         "org.lwjgl.system.linux.liburing",
-        "Contains bindings to liburing." // TODO:
+        "Contains bindings to liburing.", // TODO:
+        arrayOverloads = false
     ),
     CORE_MACOS(
         "core.macos",
@@ -59,7 +65,7 @@ enum class Module(
         "assimp",
         "org.lwjgl.assimp",
         """
-        Contains bindings to the ${url("http://www.assimp.org/", "Assimp")} library, a library to import and export various 3d-model-formats including
+        Contains bindings to the ${url("https://www.assimp.org/", "Assimp")} library, a library to import and export various 3d-model-formats including
         scene-post-processing to generate missing render data.
 
         Assimp aims to provide a full asset conversion pipeline for use in game engines / realtime rendering systems of any kind, but it is not limited to this
@@ -118,14 +124,47 @@ enum class Module(
         """,
         CallingConvention.STDCALL
     ),
+    FMOD(
+        "fmod",
+        "org.lwjgl.fmod",
+        """
+        Contains bindings to the ${url("https://www.fmod.com", "FMOD")}, an end-to-end solution for adding sound and music to any game.
+
+        The FMOD license does not permit redistribution, so LWJGL does not include the FMOD native libraries. They must be downloaded and deployed separately.
+        The {@code SharedLibraryLoader} enables many options and it can be as simple as putting the libraries on the classpath. LWJGL by default will look for
+        these shared libraries:
+        ${ul(
+            "fmod",
+            "fmodstudio",
+            "fsbank"
+        )}
+
+        but these can be overridden with an absolute/relative path or simple name, using the corresponding {@link org.lwjgl.system.Configuration Configuration}
+        options. For example, setting {@link org.lwjgl.system.Configuration\#FMOD_LIBRARY_NAME FMOD_LIBRARY_NAME} to "fmodL" will load the logging version of
+        the FMOD core library.
+        """,
+        CallingConvention.STDCALL,
+        arrayOverloads = false
+    ),
+    FREETYPE(
+        "freetype",
+        "org.lwjgl.util.freetype",
+        """
+        Contains bindings to the ${url("https://freetype.org/", "FreeType")}, a freely available software library to render fonts.
+
+        It is written in C, designed to be small, efficient, highly customizable, and portable while capable of producing high-quality output (glyph images) of
+        most vector and bitmap font formats.
+        """,
+        arrayOverloads = false
+    ),
     GLFW(
         "glfw",
         "org.lwjgl.glfw",
         """
-        Contains bindings to the ${url("http://www.glfw.org/", "GLFW")} library.
+        Contains bindings to the ${url("https://www.glfw.org/", "GLFW")} library.
 
-        GLFW comes with extensive documentation, which you can read online ${url("http://www.glfw.org/docs/latest/", "here")}. The
-        ${url("http://www.glfw.org/faq.html", "Frequently Asked Questions")} are also useful.
+        GLFW comes with extensive documentation, which you can read online ${url("https://www.glfw.org/docs/latest/", "here")}. The
+        ${url("https://www.glfw.org/faq.html", "Frequently Asked Questions")} are also useful.
 
         <h3>Using GLFW on macOS</h3> 
 
@@ -138,6 +177,36 @@ enum class Module(
         The other window toolkit must be initialized (e.g. with AWT's {@code Toolkit.getDefaultToolkit()}) before #Init() is called.
         """
     ),
+    HARFBUZZ(
+        "harfbuzz",
+        "org.lwjgl.util.harfbuzz",
+        """
+        Contains bindings to the ${url("https://harfbuzz.github.io/", "HarfBuzz")}, a text shaping library.
+
+        Using the HarfBuzz library allows programs to convert a sequence of Unicode input into properly formatted and positioned glyph output — for any writing
+        system and language.
+        """,
+        arrayOverloads = false
+    ),
+    HWLOC(
+        "hwloc",
+        "org.lwjgl.util.hwloc",
+        """
+        Contains bindings to the ${url("https://www.open-mpi.org/projects/hwloc/", "hwloc")}, a portable abstraction (across OS, versions, architectures, ...)
+        of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.
+
+        It also gathers various system attributes such as cache and memory information as well as the locality of I/O devices such as network interfaces,
+        InfiniBand HCAs or GPUs.
+
+        hwloc primarily aims at helping applications with gathering information about increasingly complex parallel computing platforms so as to exploit them
+        accordingly and efficiently. For instance, two tasks that tightly cooperate should probably be placed onto cores sharing a cache. However, two
+        independent memory-intensive tasks should better be spread out onto different sockets so as to maximize their memory throughput.
+
+        hwloc may also help many applications just by providing a portable CPU and memory binding API and a reliable way to find out how many cores and/or
+        hardware threads are available.
+        """,
+        arrayOverloads = false
+    ),
     JAWT(
         "jawt",
         "org.lwjgl.system.jawt",
@@ -148,28 +217,42 @@ enum class Module(
         "jemalloc",
         "org.lwjgl.system.jemalloc",
         """
-        Contains bindings to the ${url("http://jemalloc.net/", "jemalloc")} library. jemalloc is a general purpose malloc implementation that emphasizes
+        Contains bindings to the ${url("https://jemalloc.net/", "jemalloc")} library. jemalloc is a general purpose malloc implementation that emphasizes
         fragmentation avoidance and scalable concurrency support.
 
-        The jemalloc documentation can be found ${url("http://jemalloc.net/jemalloc.3.html", "here")}. The jemalloc
+        The jemalloc documentation can be found ${url("https://jemalloc.net/jemalloc.3.html", "here")}. The jemalloc
         ${url("https://github.com/jemalloc/jemalloc/wiki", "wiki")} also contains useful information.
 
         The jemalloc shared library that comes with LWJGL is configured with:
         ${ul(
             "--with-jemalloc-prefix=je_",
-            "--enable-lazy-lock (Linux)",
+            "--enable-lazy-lock=no (FreeBSD)",
             "--disable-stats",
             "--disable-fill",
             "--disable-cxx",
-            "--disable-initial-exec-tls (Linux &amp; macOS)",
+            "--disable-initial-exec-tls (FreeBSD, Linux &amp; macOS)",
             "--disable-zone-allocator (macOS)"
         )}
 
         The shared library may be replaced with a custom build that has more features enabled.
 
         Dynamic configuration (for enabled features) is also possible, using either the {@code MALLOC_CONF} environment variable or the
-        ${url("http://jemalloc.net/jemalloc.3.html\\#mallctl_namespace", "MALLCTL NAMESPACE")} and the {@code mallctl*} functions.
+        ${url("https://jemalloc.net/jemalloc.3.html\\#mallctl_namespace", "MALLCTL NAMESPACE")} and the {@code mallctl*} functions.
         """
+    ),
+    KTX(
+        "ktx",
+        "org.lwjgl.util.ktx",
+        """
+        Contains bindings to the ${url("https://www.khronos.org/ktx/", "KTX (Khronos Texture)")}, a lightweight container for textures for OpenGL®, Vulkan® and
+        other GPU APIs.
+
+        The LWJGL bindings support the KTX encoding functionality, but its presence is optional. Applications may choose to deploy the read-only version of the
+        KTX library ({@code ktx_read}) and the bindings will work. The {@link org.lwjgl.system.Configuration\#KTX_LIBRARY_NAME KTX_LIBRARY_NAME} option can be
+        used to change the loaded library.
+        """,
+        CallingConvention.STDCALL,
+        arrayOverloads = false
     ),
     LIBDIVIDE(
         "libdivide",
@@ -308,7 +391,7 @@ enum class Module(
         "lz4",
         "org.lwjgl.util.lz4",
         """
-        Contains bindings to ${url("http://lz4.github.io/lz4/", "LZ4")}, a lossless compression algorithm, providing compression speed &gt; 500 MB/s per core,
+        Contains bindings to ${url("https://lz4.org/", "LZ4")}, a lossless compression algorithm, providing compression speed &gt; 500 MB/s per core,
         scalable with multi-cores CPU. It features an extremely fast decoder, with speed in multiple GB/s per core, typically reaching RAM speed limits on
         multi-core systems.
         """,
@@ -342,10 +425,14 @@ enum class Module(
         "nfd",
         "org.lwjgl.util.nfd",
         """
-        Contains bindings to ${url("https://github.com/mlabbe/nativefiledialog", "Native File Dialog")}, a tiny, neat C library that portably invokes native
-        file open and save dialogs. Write dialog code once and have it popup native dialogs on all supported platforms.
+        Contains bindings to ${url("https://github.com/btzy/nativefiledialog-extended", "Native File Dialog Extended")}, a small C library that portably
+        invokes native file open, folder select and file save dialogs. Write dialog code once and have it pop up native dialogs on all supported platforms.
         """,
-        library = JNILibrary.create("LibNFD", setupAllocator = true)
+        library = JNILibrary.create(
+            "LibNFD",
+            libraryName = "(Platform.get() == Platform.FREEBSD || Platform.get() == Platform.LINUX) && Configuration.NFD_LINUX_PORTAL.get(false) ? \"lwjgl_nfd_portal\" : \"lwjgl_nfd\"",
+            setupAllocator = true
+        )
     ),
     NUKLEAR(
         "nuklear",
@@ -383,15 +470,15 @@ enum class Module(
         "openal",
         "org.lwjgl.openal",
         """
-        Contains bindings to the ${url("http://www.openal.org/", "OpenAL")} cross-platform 3D audio API.
+        Contains bindings to the ${url("https://www.openal.org/", "OpenAL")} cross-platform 3D audio API.
 
-        LWJGL comes with a software OpenAL implementation, ${url("http://www.openal-soft.org/", "OpenAL Soft")}.
+        LWJGL comes with a software OpenAL implementation, ${url("https://www.openal-soft.org/", "OpenAL Soft")}.
 
         OpenAL Soft can be dynamically configured with ${url("https://github.com/kcat/openal-soft/blob/master/docs/env-vars.txt", "environment variables")}. A
         very useful option for debugging is {@code ALSOFT_LOGLEVEL}; it can be set to values 0 through 4, with higher values producing more information.
 
         In addition to standard OpenAL features, OpenAL Soft supports ${url("https://en.wikipedia.org/wiki/Head-related_transfer_function", "HRTF")},
-        ${url("https://en.wikipedia.org/wiki/Ambisonics", "Ambisonics")} and ${url("http://www.codemasters.com/research/3D_sound_for_3D_games.pdf", "3D7.1")}.
+        ${url("https://en.wikipedia.org/wiki/Ambisonics", "Ambisonics")} and ${url("https://www.codemasters.com/research/3D_sound_for_3D_games.pdf", "3D7.1")}.
         Documentation for these features is available in the OpenAL Soft ${url("https://github.com/kcat/openal-soft/tree/master/docs", "repository")}.
         """
     ),
@@ -591,7 +678,7 @@ enum class Module(
 
         tinyexr is a small, single header-only library to load and save OpenEXR(.exr) images.
         """,
-        library = JNILibrary.simple(),
+        library = JNILibrary.create("LibTinyEXR", setupAllocator = true, cpp = true),
         arrayOverloads = false
     ),
     TINYFD(
@@ -622,7 +709,7 @@ enum class Module(
         "vma",
         "org.lwjgl.util.vma",
         """
-        Contains bindings to ${url("https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator", "Vulkan")}, an easy to integrate Vulkan memory
+        Contains bindings to ${url("https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator", "VMA")}, an easy to integrate Vulkan memory
         allocation library.
 
         <h4>Problem</h4>
@@ -757,7 +844,7 @@ float h = layout.dimensions(YGDimensionHeight);""")}
         "zstd",
         "org.lwjgl.util.zstd",
         """
-        Contains bindings to ${url("http://facebook.github.io/zstd/", "Zstandard")} (zstd), a fast lossless compression algorithm, targeting real-time
+        Contains bindings to ${url("https://facebook.github.io/zstd/", "Zstandard")} (zstd), a fast lossless compression algorithm, targeting real-time
         compression scenarios at zlib-level and better compression ratios.
 
         Zstandard is a real-time compression algorithm, providing high compression ratios. It offers a very wide range of compression / speed trade-off, while
@@ -785,8 +872,8 @@ float h = layout.dimensions(YGDimensionHeight);""")}
     val enabled
         get() = key.startsWith("core") || System.getProperty("binding.$key", "false")!!.toBoolean()
 
-    internal val path = if (name.startsWith("CORE_")) "core" else name.lowercase()
-    internal val java = if (name.startsWith("CORE_")) "org.lwjgl" else "org.lwjgl.${name.lowercase()}"
+    val path = if (name.startsWith("CORE_")) "core" else name.lowercase()
+    val java = if (name.startsWith("CORE_")) "org.lwjgl" else "org.lwjgl.${name.lowercase()}"
 
     internal val packageKotlin
         get() = name.let {
@@ -806,8 +893,14 @@ float h = layout.dimensions(YGDimensionHeight);""")}
 internal interface JNILibrary {
     companion object {
         fun simple(expression: String? = null): JNILibrary = JNILibrarySimple(expression)
-        fun create(className: String, custom: Boolean = false, setupAllocator: Boolean = false, cpp: Boolean = false): JNILibrary =
-            JNILibraryWithInit(className, custom, setupAllocator, cpp)
+        fun create(
+            className: String,
+            libraryName: String? = null,
+            custom: Boolean = false,
+            setupAllocator: Boolean = false,
+            cpp: Boolean = false
+        ): JNILibrary =
+            JNILibraryWithInit(className, libraryName, custom, setupAllocator, cpp)
     }
 
     fun expression(module: Module): String
@@ -824,9 +917,10 @@ private class JNILibrarySimple(private val expression: String?) : JNILibrary {
 
 private class JNILibraryWithInit constructor(
     private val className: String,
-    private val custom: Boolean = false,
-    private val setupAllocator: Boolean = false,
-    private val cpp: Boolean = false
+    private val libraryName: String?,
+    private val custom: Boolean,
+    private val setupAllocator: Boolean,
+    private val cpp: Boolean
 ) : JNILibrary {
 
     override fun expression(module: Module) = "$className.initialize();"
@@ -855,7 +949,7 @@ private class JNILibraryWithInit constructor(
                     """${access.modifier}final class $className {
 
     static {
-        String libName = Platform.mapLibraryNameBundled("lwjgl_${module.key}");
+        String libName = Platform.mapLibraryNameBundled(${libraryName ?: "\"lwjgl_${module.key}\""});
         Library.loadSystem(System::load, System::loadLibrary, $className.class, "${module.java}", libName);${if (setupAllocator) """
 
         MemoryAllocator allocator = getAllocator(Configuration.DEBUG_MEMORY_ALLOCATOR_INTERNAL.get(true));

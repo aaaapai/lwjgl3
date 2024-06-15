@@ -33,12 +33,15 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     char {@link #fillRule};
  *     unsigned char {@link #flags};
  *     float {@link #bounds}[4];
+ *     char {@link #fillGradient}[64];
+ *     char {@link #strokeGradient}[64];
+ *     float {@link #xform}[6];
  *     {@link NSVGPath NSVGpath} * {@link #paths};
  *     {@link NSVGShape NSVGshape} * {@link #next};
  * }</code></pre>
  */
 @NativeType("struct NSVGshape")
-public class NSVGShape extends Struct {
+public class NSVGShape extends Struct<NSVGShape> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -62,6 +65,9 @@ public class NSVGShape extends Struct {
         FILLRULE,
         FLAGS,
         BOUNDS,
+        FILLGRADIENT,
+        STROKEGRADIENT,
+        XFORM,
         PATHS,
         NEXT;
 
@@ -81,6 +87,9 @@ public class NSVGShape extends Struct {
             __member(1),
             __member(1),
             __array(4, 4),
+            __array(1, 64),
+            __array(1, 64),
+            __array(4, 6),
             __member(POINTER_SIZE),
             __member(POINTER_SIZE)
         );
@@ -102,8 +111,20 @@ public class NSVGShape extends Struct {
         FILLRULE = layout.offsetof(11);
         FLAGS = layout.offsetof(12);
         BOUNDS = layout.offsetof(13);
-        PATHS = layout.offsetof(14);
-        NEXT = layout.offsetof(15);
+        FILLGRADIENT = layout.offsetof(14);
+        STROKEGRADIENT = layout.offsetof(15);
+        XFORM = layout.offsetof(16);
+        PATHS = layout.offsetof(17);
+        NEXT = layout.offsetof(18);
+    }
+
+    protected NSVGShape(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected NSVGShape create(long address, @Nullable ByteBuffer container) {
+        return new NSVGShape(address, container);
     }
 
     /**
@@ -164,6 +185,23 @@ public class NSVGShape extends Struct {
     public FloatBuffer bounds() { return nbounds(address()); }
     /** tight bounding box of the shape {@code [minx,miny,maxx,maxy]} */
     public float bounds(int index) { return nbounds(address(), index); }
+    /** optional 'id' of fill gradient */
+    @NativeType("char[64]")
+    public ByteBuffer fillGradient() { return nfillGradient(address()); }
+    /** optional 'id' of fill gradient */
+    @NativeType("char[64]")
+    public String fillGradientString() { return nfillGradientString(address()); }
+    /** optional 'id' of stroke gradient */
+    @NativeType("char[64]")
+    public ByteBuffer strokeGradient() { return nstrokeGradient(address()); }
+    /** optional 'id' of stroke gradient */
+    @NativeType("char[64]")
+    public String strokeGradientString() { return nstrokeGradientString(address()); }
+    /** root transformation for fill/stroke gradient */
+    @NativeType("float[6]")
+    public FloatBuffer xform() { return nxform(address()); }
+    /** root transformation for fill/stroke gradient */
+    public float xform(int index) { return nxform(address(), index); }
     /** linked list of paths in the image */
     @NativeType("NSVGpath *")
     public NSVGPath paths() { return npaths(address()); }
@@ -175,13 +213,13 @@ public class NSVGShape extends Struct {
 
     /** Returns a new {@code NSVGShape} instance for the specified memory address. */
     public static NSVGShape create(long address) {
-        return wrap(NSVGShape.class, address);
+        return new NSVGShape(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGShape createSafe(long address) {
-        return address == NULL ? null : wrap(NSVGShape.class, address);
+        return address == NULL ? null : new NSVGShape(address, null);
     }
 
     /**
@@ -191,13 +229,13 @@ public class NSVGShape extends Struct {
      * @param capacity the buffer capacity
      */
     public static NSVGShape.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NSVGShape.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -240,6 +278,20 @@ public class NSVGShape extends Struct {
     public static float nbounds(long struct, int index) {
         return UNSAFE.getFloat(null, struct + NSVGShape.BOUNDS + check(index, 4) * 4);
     }
+    /** Unsafe version of {@link #fillGradient}. */
+    public static ByteBuffer nfillGradient(long struct) { return memByteBuffer(struct + NSVGShape.FILLGRADIENT, 64); }
+    /** Unsafe version of {@link #fillGradientString}. */
+    public static String nfillGradientString(long struct) { return memASCII(struct + NSVGShape.FILLGRADIENT); }
+    /** Unsafe version of {@link #strokeGradient}. */
+    public static ByteBuffer nstrokeGradient(long struct) { return memByteBuffer(struct + NSVGShape.STROKEGRADIENT, 64); }
+    /** Unsafe version of {@link #strokeGradientString}. */
+    public static String nstrokeGradientString(long struct) { return memASCII(struct + NSVGShape.STROKEGRADIENT); }
+    /** Unsafe version of {@link #xform}. */
+    public static FloatBuffer nxform(long struct) { return memFloatBuffer(struct + NSVGShape.XFORM, 6); }
+    /** Unsafe version of {@link #xform(int) xform}. */
+    public static float nxform(long struct, int index) {
+        return UNSAFE.getFloat(null, struct + NSVGShape.XFORM + check(index, 6) * 4);
+    }
     /** Unsafe version of {@link #paths}. */
     public static NSVGPath npaths(long struct) { return NSVGPath.create(memGetAddress(struct + NSVGShape.PATHS)); }
     /** Unsafe version of {@link #next}. */
@@ -255,9 +307,9 @@ public class NSVGShape extends Struct {
         /**
          * Creates a new {@code NSVGShape.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NSVGShape#SIZEOF}, and its mark will be undefined.
+         * by {@link NSVGShape#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -328,6 +380,23 @@ public class NSVGShape extends Struct {
         public FloatBuffer bounds() { return NSVGShape.nbounds(address()); }
         /** @return the value at the specified index of the {@link NSVGShape#bounds} field. */
         public float bounds(int index) { return NSVGShape.nbounds(address(), index); }
+        /** @return a {@link ByteBuffer} view of the {@link NSVGShape#fillGradient} field. */
+        @NativeType("char[64]")
+        public ByteBuffer fillGradient() { return NSVGShape.nfillGradient(address()); }
+        /** @return the null-terminated string stored in the {@link NSVGShape#fillGradient} field. */
+        @NativeType("char[64]")
+        public String fillGradientString() { return NSVGShape.nfillGradientString(address()); }
+        /** @return a {@link ByteBuffer} view of the {@link NSVGShape#strokeGradient} field. */
+        @NativeType("char[64]")
+        public ByteBuffer strokeGradient() { return NSVGShape.nstrokeGradient(address()); }
+        /** @return the null-terminated string stored in the {@link NSVGShape#strokeGradient} field. */
+        @NativeType("char[64]")
+        public String strokeGradientString() { return NSVGShape.nstrokeGradientString(address()); }
+        /** @return a {@link FloatBuffer} view of the {@link NSVGShape#xform} field. */
+        @NativeType("float[6]")
+        public FloatBuffer xform() { return NSVGShape.nxform(address()); }
+        /** @return the value at the specified index of the {@link NSVGShape#xform} field. */
+        public float xform(int index) { return NSVGShape.nxform(address(), index); }
         /** @return a {@link NSVGPath} view of the struct pointed to by the {@link NSVGShape#paths} field. */
         @NativeType("NSVGpath *")
         public NSVGPath paths() { return NSVGShape.npaths(address()); }

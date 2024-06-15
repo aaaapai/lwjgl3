@@ -80,6 +80,7 @@ public final class GLES {
     public static void create() {
         SharedLibrary GLES;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 GLES = Library.loadNative(GLES.class, "org.lwjgl.opengles", Configuration.OPENGLES_LIBRARY_NAME, "libGLESv2.so.2");
                 break;
@@ -149,7 +150,7 @@ public final class GLES {
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && DEBUG_FUNCTIONS) {
-                            apiLog("Failed to locate address for GLES function " + memASCII(functionName));
+                            apiLogMissing("GLES", functionName);
                         }
                     }
 
@@ -327,7 +328,7 @@ public final class GLES {
             }
 
             for (int m = 0; m <= maxMinor; m++) {
-                supportedExtensions.add(String.format("GLES%d%d", M, m));
+                supportedExtensions.add("GLES" + M + m);
             }
         }
 

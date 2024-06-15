@@ -10,8 +10,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>It documents cubic filtering of other image view types. It adds new structures that <b>can</b> be added to the {@code pNext} chain of {@link VkPhysicalDeviceImageFormatInfo2} and {@link VkImageFormatProperties2} that <b>can</b> be used to determine which image types and which image view types support cubic filtering.</p>
  * 
- * <h5>VK_EXT_filter_cubic</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_filter_cubic}</dd>
@@ -21,13 +19,9 @@ package org.lwjgl.vulkan;
  * <dd>171</dd>
  * <dt><b>Revision</b></dt>
  * <dd>3</dd>
- * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Bill Licea-Kane <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_filter_cubic]%20@wwlk%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_filter_cubic%20extension%3E%3E">wwlk</a></li>
+ * <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_filter_cubic]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_filter_cubic%20extension*">mnetsch</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -43,7 +37,7 @@ package org.lwjgl.vulkan;
  * <li>Daniel Koch, NVIDIA</li>
  * <li>Donald Scorgie, Imagination Technologies</li>
  * <li>Graeme Leese, Broadcom</li>
- * <li>Jan-Herald Fredericksen, ARM</li>
+ * <li>Jan-Harald Fredriksen, ARM</li>
  * <li>Jeff Leger, Qualcomm Technologies, Inc.</li>
  * <li>Tobias Hector, AMD</li>
  * <li>Tom Olson, ARM</li>
@@ -60,7 +54,7 @@ public final class EXTFilterCubic {
     public static final String VK_EXT_FILTER_CUBIC_EXTENSION_NAME = "VK_EXT_filter_cubic";
 
     /** Extends {@code VkFilter}. */
-    public static final int VK_FILTER_CUBIC_EXT = 1000170000;
+    public static final int VK_FILTER_CUBIC_EXT = 1000015000;
 
     /** Extends {@code VkFormatFeatureFlagBits}. */
     public static final int VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT = 0x2000;

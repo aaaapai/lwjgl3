@@ -19,7 +19,7 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Native bindings to the <a target="_blank" href="https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_separate_shader_objects.gles.txt">EXT_separate_shader_objects</a> extension.
+ * Native bindings to the <a href="https://www.khronos.org/registry/OpenGL/extensions/EXT/EXT_separate_shader_objects.gles.txt">EXT_separate_shader_objects</a> extension.
  * 
  * <p>This extension is a subset of ARB_separate_shader_objects appropriate for OpenGL ES, and also tacks on ARB_explicit_attrib_location functionality.</p>
  * 
@@ -92,12 +92,12 @@ public class EXTSeparateShaderObjects {
     public static native int nglCreateShaderProgramvEXT(int type, int count, long strings);
 
     @NativeType("GLuint")
-    public static int glCreateShaderProgramvEXT(@NativeType("GLenum") int type, @NativeType("GLchar const **") PointerBuffer strings) {
+    public static int glCreateShaderProgramvEXT(@NativeType("GLenum") int type, @NativeType("GLchar const * const *") PointerBuffer strings) {
         return nglCreateShaderProgramvEXT(type, strings.remaining(), memAddress(strings));
     }
 
     @NativeType("GLuint")
-    public static int glCreateShaderProgramvEXT(@NativeType("GLenum") int type, @NativeType("GLchar const **") CharSequence... strings) {
+    public static int glCreateShaderProgramvEXT(@NativeType("GLenum") int type, @NativeType("GLchar const * const *") CharSequence... strings) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             long stringsAddress = org.lwjgl.system.APIUtil.apiArray(stack, MemoryUtil::memUTF8, strings);
@@ -110,7 +110,7 @@ public class EXTSeparateShaderObjects {
     }
 
     @NativeType("GLuint")
-    public static int glCreateShaderProgramvEXT(@NativeType("GLenum") int type, @NativeType("GLchar const **") CharSequence string) {
+    public static int glCreateShaderProgramvEXT(@NativeType("GLenum") int type, @NativeType("GLchar const * const *") CharSequence string) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             long stringsAddress = org.lwjgl.system.APIUtil.apiArray(stack, MemoryUtil::memUTF8, string);

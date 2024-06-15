@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct nk_draw_vertex_layout_element")
-public class NkDrawVertexLayoutElement extends Struct implements NativeResource {
+public class NkDrawVertexLayoutElement extends Struct<NkDrawVertexLayoutElement> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -55,6 +55,15 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
         OFFSET = layout.offsetof(2);
     }
 
+    protected NkDrawVertexLayoutElement(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected NkDrawVertexLayoutElement create(long address, @Nullable ByteBuffer container) {
+        return new NkDrawVertexLayoutElement(address, container);
+    }
+
     /**
      * Creates a {@code NkDrawVertexLayoutElement} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -71,7 +80,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
     /** the vertex attribute. One of:<br><table><tr><td>{@link Nuklear#NK_VERTEX_POSITION VERTEX_POSITION}</td><td>{@link Nuklear#NK_VERTEX_COLOR VERTEX_COLOR}</td><td>{@link Nuklear#NK_VERTEX_TEXCOORD VERTEX_TEXCOORD}</td><td>{@link Nuklear#NK_VERTEX_ATTRIBUTE_COUNT VERTEX_ATTRIBUTE_COUNT}</td></tr></table> */
     @NativeType("enum nk_draw_vertex_layout_attribute")
     public int attribute() { return nattribute(address()); }
-    /** the vertex attribute format. One of:<br><table><tr><td>{@link Nuklear#NK_FORMAT_SCHAR FORMAT_SCHAR}</td><td>{@link Nuklear#NK_FORMAT_SSHORT FORMAT_SSHORT}</td><td>{@link Nuklear#NK_FORMAT_SINT FORMAT_SINT}</td><td>{@link Nuklear#NK_FORMAT_UCHAR FORMAT_UCHAR}</td><td>{@link Nuklear#NK_FORMAT_USHORT FORMAT_USHORT}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_UINT FORMAT_UINT}</td><td>{@link Nuklear#NK_FORMAT_FLOAT FORMAT_FLOAT}</td><td>{@link Nuklear#NK_FORMAT_DOUBLE FORMAT_DOUBLE}</td><td>{@link Nuklear#NK_FORMAT_R8G8B8 FORMAT_R8G8B8}</td><td>{@link Nuklear#NK_FORMAT_R16G15B16 FORMAT_R16G15B16}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_R32G32B32 FORMAT_R32G32B32}</td><td>{@link Nuklear#NK_FORMAT_R8G8B8A8 FORMAT_R8G8B8A8}</td><td>{@link Nuklear#NK_FORMAT_B8G8R8A8 FORMAT_B8G8R8A8}</td><td>{@link Nuklear#NK_FORMAT_R16G15B16A16 FORMAT_R16G15B16A16}</td><td>{@link Nuklear#NK_FORMAT_R32G32B32A32 FORMAT_R32G32B32A32}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_R32G32B32A32_FLOAT FORMAT_R32G32B32A32_FLOAT}</td><td>{@link Nuklear#NK_FORMAT_R32G32B32A32_DOUBLE FORMAT_R32G32B32A32_DOUBLE}</td><td>{@link Nuklear#NK_FORMAT_RGB32 FORMAT_RGB32}</td><td>{@link Nuklear#NK_FORMAT_RGBA32 FORMAT_RGBA32}</td></tr></table> */
+    /** the vertex attribute format. One of:<br><table><tr><td>{@link Nuklear#NK_FORMAT_SCHAR FORMAT_SCHAR}</td><td>{@link Nuklear#NK_FORMAT_SSHORT FORMAT_SSHORT}</td><td>{@link Nuklear#NK_FORMAT_SINT FORMAT_SINT}</td><td>{@link Nuklear#NK_FORMAT_UCHAR FORMAT_UCHAR}</td><td>{@link Nuklear#NK_FORMAT_USHORT FORMAT_USHORT}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_UINT FORMAT_UINT}</td><td>{@link Nuklear#NK_FORMAT_FLOAT FORMAT_FLOAT}</td><td>{@link Nuklear#NK_FORMAT_DOUBLE FORMAT_DOUBLE}</td><td>{@link Nuklear#NK_FORMAT_COLOR_BEGIN FORMAT_COLOR_BEGIN}</td><td>{@link Nuklear#NK_FORMAT_R8G8B8 FORMAT_R8G8B8}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_R16G15B16 FORMAT_R16G15B16}</td><td>{@link Nuklear#NK_FORMAT_R32G32B32 FORMAT_R32G32B32}</td><td>{@link Nuklear#NK_FORMAT_R8G8B8A8 FORMAT_R8G8B8A8}</td><td>{@link Nuklear#NK_FORMAT_B8G8R8A8 FORMAT_B8G8R8A8}</td><td>{@link Nuklear#NK_FORMAT_R16G15B16A16 FORMAT_R16G15B16A16}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_R32G32B32A32 FORMAT_R32G32B32A32}</td><td>{@link Nuklear#NK_FORMAT_R32G32B32A32_FLOAT FORMAT_R32G32B32A32_FLOAT}</td><td>{@link Nuklear#NK_FORMAT_R32G32B32A32_DOUBLE FORMAT_R32G32B32A32_DOUBLE}</td><td>{@link Nuklear#NK_FORMAT_RGB32 FORMAT_RGB32}</td><td>{@link Nuklear#NK_FORMAT_RGBA32 FORMAT_RGBA32}</td></tr><tr><td>{@link Nuklear#NK_FORMAT_COLOR_END FORMAT_COLOR_END}</td></tr></table> */
     @NativeType("enum nk_draw_vertex_layout_format")
     public int format() { return nformat(address()); }
     /** the vertex attribute offset */
@@ -114,29 +123,29 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
 
     /** Returns a new {@code NkDrawVertexLayoutElement} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static NkDrawVertexLayoutElement malloc() {
-        return wrap(NkDrawVertexLayoutElement.class, nmemAllocChecked(SIZEOF));
+        return new NkDrawVertexLayoutElement(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code NkDrawVertexLayoutElement} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static NkDrawVertexLayoutElement calloc() {
-        return wrap(NkDrawVertexLayoutElement.class, nmemCallocChecked(1, SIZEOF));
+        return new NkDrawVertexLayoutElement(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code NkDrawVertexLayoutElement} instance allocated with {@link BufferUtils}. */
     public static NkDrawVertexLayoutElement create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(NkDrawVertexLayoutElement.class, memAddress(container), container);
+        return new NkDrawVertexLayoutElement(memAddress(container), container);
     }
 
     /** Returns a new {@code NkDrawVertexLayoutElement} instance for the specified memory address. */
     public static NkDrawVertexLayoutElement create(long address) {
-        return wrap(NkDrawVertexLayoutElement.class, address);
+        return new NkDrawVertexLayoutElement(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkDrawVertexLayoutElement createSafe(long address) {
-        return address == NULL ? null : wrap(NkDrawVertexLayoutElement.class, address);
+        return address == NULL ? null : new NkDrawVertexLayoutElement(address, null);
     }
 
     /**
@@ -145,7 +154,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static NkDrawVertexLayoutElement.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -154,7 +163,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static NkDrawVertexLayoutElement.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -164,7 +173,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      */
     public static NkDrawVertexLayoutElement.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -174,13 +183,13 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static NkDrawVertexLayoutElement.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static NkDrawVertexLayoutElement.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -208,7 +217,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static NkDrawVertexLayoutElement malloc(MemoryStack stack) {
-        return wrap(NkDrawVertexLayoutElement.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new NkDrawVertexLayoutElement(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -217,7 +226,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param stack the stack from which to allocate
      */
     public static NkDrawVertexLayoutElement calloc(MemoryStack stack) {
-        return wrap(NkDrawVertexLayoutElement.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new NkDrawVertexLayoutElement(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -227,7 +236,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static NkDrawVertexLayoutElement.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -237,7 +246,7 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
      * @param capacity the buffer capacity
      */
     public static NkDrawVertexLayoutElement.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -266,9 +275,9 @@ public class NkDrawVertexLayoutElement extends Struct implements NativeResource 
         /**
          * Creates a new {@code NkDrawVertexLayoutElement.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link NkDrawVertexLayoutElement#SIZEOF}, and its mark will be undefined.
+         * by {@link NkDrawVertexLayoutElement#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

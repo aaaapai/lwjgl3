@@ -26,11 +26,14 @@ import static org.lwjgl.system.MemoryStack.*;
  *     unsigned int flags;
  *     int ring_fd;
  *     unsigned int features;
- *     unsigned int pad[3];
+ *     int enter_ring_fd;
+ *     __u8 int_flags;
+ *     __u8 pad[3];
+ *     unsigned pad2;
  * }</code></pre>
  */
 @NativeType("struct io_uring")
-public class IOURing extends Struct implements NativeResource {
+public class IOURing extends Struct<IOURing> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -45,7 +48,10 @@ public class IOURing extends Struct implements NativeResource {
         FLAGS,
         RING_FD,
         FEATURES,
-        PAD;
+        ENTER_RING_FD,
+        INT_FLAGS,
+        PAD,
+        PAD2;
 
     static {
         Layout layout = __struct(
@@ -54,7 +60,10 @@ public class IOURing extends Struct implements NativeResource {
             __member(4),
             __member(4),
             __member(4),
-            __array(4, 3)
+            __member(4),
+            __member(1),
+            __array(1, 3),
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
@@ -65,7 +74,19 @@ public class IOURing extends Struct implements NativeResource {
         FLAGS = layout.offsetof(2);
         RING_FD = layout.offsetof(3);
         FEATURES = layout.offsetof(4);
-        PAD = layout.offsetof(5);
+        ENTER_RING_FD = layout.offsetof(5);
+        INT_FLAGS = layout.offsetof(6);
+        PAD = layout.offsetof(7);
+        PAD2 = layout.offsetof(8);
+    }
+
+    protected IOURing(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected IOURing create(long address, @Nullable ByteBuffer container) {
+        return new IOURing(address, container);
     }
 
     /**
@@ -95,6 +116,11 @@ public class IOURing extends Struct implements NativeResource {
     /** @return the value of the {@code features} field. */
     @NativeType("unsigned int")
     public int features() { return nfeatures(address()); }
+    /** @return the value of the {@code enter_ring_fd} field. */
+    public int enter_ring_fd() { return nenter_ring_fd(address()); }
+    /** @return the value of the {@code int_flags} field. */
+    @NativeType("__u8")
+    public byte int_flags() { return nint_flags(address()); }
 
     /** Copies the specified {@link IOURingSQ} to the {@code sq} field. */
     public IOURing sq(@NativeType("struct io_uring_sq") IOURingSQ value) { nsq(address(), value); return this; }
@@ -110,6 +136,10 @@ public class IOURing extends Struct implements NativeResource {
     public IOURing ring_fd(int value) { nring_fd(address(), value); return this; }
     /** Sets the specified value to the {@code features} field. */
     public IOURing features(@NativeType("unsigned int") int value) { nfeatures(address(), value); return this; }
+    /** Sets the specified value to the {@code enter_ring_fd} field. */
+    public IOURing enter_ring_fd(int value) { nenter_ring_fd(address(), value); return this; }
+    /** Sets the specified value to the {@code int_flags} field. */
+    public IOURing int_flags(@NativeType("__u8") byte value) { nint_flags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURing set(
@@ -117,13 +147,17 @@ public class IOURing extends Struct implements NativeResource {
         IOURingCQ cq,
         int flags,
         int ring_fd,
-        int features
+        int features,
+        int enter_ring_fd,
+        byte int_flags
     ) {
         sq(sq);
         cq(cq);
         flags(flags);
         ring_fd(ring_fd);
         features(features);
+        enter_ring_fd(enter_ring_fd);
+        int_flags(int_flags);
 
         return this;
     }
@@ -144,29 +178,29 @@ public class IOURing extends Struct implements NativeResource {
 
     /** Returns a new {@code IOURing} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static IOURing malloc() {
-        return wrap(IOURing.class, nmemAllocChecked(SIZEOF));
+        return new IOURing(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code IOURing} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static IOURing calloc() {
-        return wrap(IOURing.class, nmemCallocChecked(1, SIZEOF));
+        return new IOURing(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code IOURing} instance allocated with {@link BufferUtils}. */
     public static IOURing create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(IOURing.class, memAddress(container), container);
+        return new IOURing(memAddress(container), container);
     }
 
     /** Returns a new {@code IOURing} instance for the specified memory address. */
     public static IOURing create(long address) {
-        return wrap(IOURing.class, address);
+        return new IOURing(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURing createSafe(long address) {
-        return address == NULL ? null : wrap(IOURing.class, address);
+        return address == NULL ? null : new IOURing(address, null);
     }
 
     /**
@@ -175,7 +209,7 @@ public class IOURing extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURing.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -184,7 +218,7 @@ public class IOURing extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURing.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -194,7 +228,7 @@ public class IOURing extends Struct implements NativeResource {
      */
     public static IOURing.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -204,13 +238,13 @@ public class IOURing extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURing.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static IOURing.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     /**
@@ -219,7 +253,7 @@ public class IOURing extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURing malloc(MemoryStack stack) {
-        return wrap(IOURing.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new IOURing(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -228,7 +262,7 @@ public class IOURing extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static IOURing calloc(MemoryStack stack) {
-        return wrap(IOURing.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new IOURing(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -238,7 +272,7 @@ public class IOURing extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURing.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -248,7 +282,7 @@ public class IOURing extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static IOURing.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -263,10 +297,15 @@ public class IOURing extends Struct implements NativeResource {
     public static int nring_fd(long struct) { return UNSAFE.getInt(null, struct + IOURing.RING_FD); }
     /** Unsafe version of {@link #features}. */
     public static int nfeatures(long struct) { return UNSAFE.getInt(null, struct + IOURing.FEATURES); }
-    public static IntBuffer npad(long struct) { return memIntBuffer(struct + IOURing.PAD, 3); }
-    public static int npad(long struct, int index) {
-        return UNSAFE.getInt(null, struct + IOURing.PAD + check(index, 3) * 4);
+    /** Unsafe version of {@link #enter_ring_fd}. */
+    public static int nenter_ring_fd(long struct) { return UNSAFE.getInt(null, struct + IOURing.ENTER_RING_FD); }
+    /** Unsafe version of {@link #int_flags}. */
+    public static byte nint_flags(long struct) { return UNSAFE.getByte(null, struct + IOURing.INT_FLAGS); }
+    public static ByteBuffer npad(long struct) { return memByteBuffer(struct + IOURing.PAD, 3); }
+    public static byte npad(long struct, int index) {
+        return UNSAFE.getByte(null, struct + IOURing.PAD + check(index, 3) * 1);
     }
+    public static int npad2(long struct) { return UNSAFE.getInt(null, struct + IOURing.PAD2); }
 
     /** Unsafe version of {@link #sq(IOURingSQ) sq}. */
     public static void nsq(long struct, IOURingSQ value) { memCopy(value.address(), struct + IOURing.SQ, IOURingSQ.SIZEOF); }
@@ -278,13 +317,18 @@ public class IOURing extends Struct implements NativeResource {
     public static void nring_fd(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.RING_FD, value); }
     /** Unsafe version of {@link #features(int) features}. */
     public static void nfeatures(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.FEATURES, value); }
-    public static void npad(long struct, IntBuffer value) {
+    /** Unsafe version of {@link #enter_ring_fd(int) enter_ring_fd}. */
+    public static void nenter_ring_fd(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.ENTER_RING_FD, value); }
+    /** Unsafe version of {@link #int_flags(byte) int_flags}. */
+    public static void nint_flags(long struct, byte value) { UNSAFE.putByte(null, struct + IOURing.INT_FLAGS, value); }
+    public static void npad(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
-        memCopy(memAddress(value), struct + IOURing.PAD, value.remaining() * 4);
+        memCopy(memAddress(value), struct + IOURing.PAD, value.remaining() * 1);
     }
-    public static void npad(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + IOURing.PAD + check(index, 3) * 4, value);
+    public static void npad(long struct, int index, byte value) {
+        UNSAFE.putByte(null, struct + IOURing.PAD + check(index, 3) * 1, value);
     }
+    public static void npad2(long struct, int value) { UNSAFE.putInt(null, struct + IOURing.PAD2, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -306,9 +350,9 @@ public class IOURing extends Struct implements NativeResource {
         /**
          * Creates a new {@code IOURing.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link IOURing#SIZEOF}, and its mark will be undefined.
+         * by {@link IOURing#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -348,6 +392,11 @@ public class IOURing extends Struct implements NativeResource {
         /** @return the value of the {@code features} field. */
         @NativeType("unsigned int")
         public int features() { return IOURing.nfeatures(address()); }
+        /** @return the value of the {@code enter_ring_fd} field. */
+        public int enter_ring_fd() { return IOURing.nenter_ring_fd(address()); }
+        /** @return the value of the {@code int_flags} field. */
+        @NativeType("__u8")
+        public byte int_flags() { return IOURing.nint_flags(address()); }
 
         /** Copies the specified {@link IOURingSQ} to the {@code sq} field. */
         public IOURing.Buffer sq(@NativeType("struct io_uring_sq") IOURingSQ value) { IOURing.nsq(address(), value); return this; }
@@ -363,6 +412,10 @@ public class IOURing extends Struct implements NativeResource {
         public IOURing.Buffer ring_fd(int value) { IOURing.nring_fd(address(), value); return this; }
         /** Sets the specified value to the {@code features} field. */
         public IOURing.Buffer features(@NativeType("unsigned int") int value) { IOURing.nfeatures(address(), value); return this; }
+        /** Sets the specified value to the {@code enter_ring_fd} field. */
+        public IOURing.Buffer enter_ring_fd(int value) { IOURing.nenter_ring_fd(address(), value); return this; }
+        /** Sets the specified value to the {@code int_flags} field. */
+        public IOURing.Buffer int_flags(@NativeType("__u8") byte value) { IOURing.nint_flags(address(), value); return this; }
 
     }
 

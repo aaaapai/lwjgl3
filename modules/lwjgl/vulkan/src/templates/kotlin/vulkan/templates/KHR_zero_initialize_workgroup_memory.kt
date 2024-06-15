@@ -16,7 +16,6 @@ val KHR_zero_initialize_workgroup_memory = "KHRZeroInitializeWorkgroupMemory".na
         <h5>Promotion to Vulkan 1.3</h5>
         Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_zero_initialize_workgroup_memory</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_zero_initialize_workgroup_memory}</dd>
@@ -31,19 +30,16 @@ val KHR_zero_initialize_workgroup_memory = "KHRZeroInitializeWorkgroupMemory".na
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Alan Baker <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_zero_initialize_workgroup_memory]%20@alan-baker%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_zero_initialize_workgroup_memory%20extension%3E%3E">alan-baker</a></li>
+                <li>Alan Baker <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_zero_initialize_workgroup_memory]%20@alan-baker%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_zero_initialize_workgroup_memory%20extension*">alan-baker</a></li>
             </ul></dd>
         </dl>
 
@@ -52,11 +48,6 @@ val KHR_zero_initialize_workgroup_memory = "KHRZeroInitializeWorkgroupMemory".na
             <dt><b>Last Modified Date</b></dt>
             <dd>2020-11-18</dd>
 
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-            </ul></dd>
-
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
 
@@ -64,7 +55,7 @@ val KHR_zero_initialize_workgroup_memory = "KHRZeroInitializeWorkgroupMemory".na
             <dd><ul>
                 <li>Alan Baker, Google</li>
                 <li>Jeff Bolz, Nvidia</li>
-                <li>Jason Ekstrand, Intel</li>
+                <li>Faith Ekstrand, Intel</li>
             </ul></dd>
         </dl>
         """

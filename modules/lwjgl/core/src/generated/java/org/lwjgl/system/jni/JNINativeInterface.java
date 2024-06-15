@@ -43,7 +43,8 @@ public class JNINativeInterface {
         JNI_VERSION_1_8 = 0x10008,
         JNI_VERSION_9   = 0x90000,
         JNI_VERSION_10  = 0xA0000,
-    	JNI_VERSION_19  = 0x130000,
+        JNI_VERSION_19  = 0x130000,
+        JNI_VERSION_20  = 0x140000,
         JNI_VERSION_21  = 0x150000;
 
     /**
@@ -1131,5 +1132,10 @@ public class JNINativeInterface {
      */
     @NativeType("jobjectRefType")
     public static native int GetObjectRefType(@NativeType("jobject") Object obj);
+
+    // --- [ noop ] ---
+
+    /** No-op JNI function for benchmarking. */
+    public static native void noop();
 
 }

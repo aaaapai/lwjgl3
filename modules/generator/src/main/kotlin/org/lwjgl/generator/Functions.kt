@@ -257,23 +257,23 @@ class Func(
 
     private fun Parameter.asNativeMethodArgument(mode: GenerationMode) = when {
         nativeType.dereference is StructType || nativeType is WrappedPointerType
-                                                         ->
+                                            ->
             if (has(nullable))
                 "memAddressSafe($name)"
             else if (nativeType is WrappedPointerType && hasUnsafeMethod && nativeClass.binding!!.apiCapabilities === APICapabilities.PARAM_CAPABILITIES)
                 name
             else
                 "$name.$ADDRESS"
-        nativeType.isPointerData                         ->
+        nativeType.isPointerData             ->
             if (nativeType is ArrayType<*>)
                 name
             else if (!isAutoSizeResultOut && (has(nullable) || (has(optional) && mode === NORMAL)))
                 "memAddressSafe($name)"
             else
                 "memAddress($name)"
-        nativeType.mapping === PrimitiveMapping.BOOLEAN4 -> "$name ? 1 : 0"
-        has<MapToInt>()                                  -> if (nativeType.mapping === PrimitiveMapping.BYTE) "(byte)$name" else "(short)$name"
-        else                                             -> name
+        nativeType.mapping.isPseudoBoolean() -> "$name ? 1 : 0"
+        has<MapToInt>()                      -> if (nativeType.mapping === PrimitiveMapping.BYTE) "(byte)$name" else "(short)$name"
+        else                                 -> name
     }
 
     private val Parameter.isFunctionProvider
@@ -283,9 +283,9 @@ class Func(
     private fun validate() {
         returns.nativeType.let {
             if (it is StructType)
-                it.definition.hasUsageOutput()
+                it.definition.setUsageOutput()
             else if (it is PointerType<*> && it.elementType is StructType)
-                it.elementType.definition.hasUsageResultPointer()
+                it.elementType.definition.setUsageResultPointer()
         }
 
         var returnCount = 0
@@ -294,9 +294,9 @@ class Func(
             it.nativeType.dereference.let { type ->
                 if (type is StructType) {
                     if (it.isInput)
-                        type.definition.hasUsageInput()
+                        type.definition.setUsageInput()
                     else
-                        type.definition.hasUsageOutput()
+                        type.definition.setUsageOutput()
                 }
             }
 
@@ -314,7 +314,7 @@ class Func(
 
             if (it.has<AutoSize>()) {
                 val autoSize = it.get<AutoSize>()
-                val nullableReference = paramMap[autoSize.reference]?.has(nullable) ?: false
+                val nullableReference = paramMap[autoSize.reference]?.has(nullable) == true
                 (sequenceOf(autoSize.reference) + autoSize.dependent.asSequence()).forEach { reference ->
                     if (autoSizeReferences.contains(reference))
                         it.error("An AutoSize reference already exists for: $reference")
@@ -838,7 +838,12 @@ class Func(
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
                     returns.nativeType is PointerType<*>                   -> "pointer"
                     else                                                   -> returns.nativeType.nativeMethodType
-                }}(0);
+                }}(${when (returns.nativeType.mapping) {
+                    PrimitiveMapping.BOOLEAN,
+                    PrimitiveMapping.BYTE  -> "(byte)"
+                    PrimitiveMapping.SHORT -> "(short)"
+                    else                   -> ""
+                }}0);
             """
             } else ""}long arguments = stack.nmalloc(POINTER_SIZE, POINTER_SIZE * ${parameters.size});
             ${parameters.asSequence()
@@ -869,7 +874,7 @@ class Func(
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "Byte"
                     returns.nativeType is PointerType<*>                   -> "Address"
                     else                                                   -> returns.nativeType.nativeMethodType.upperCaseFirst
-                }}(__result);"""
+                }}(__result)${if (returns.nativeType.mapping.isBoolean()) " != 0" else ""};"""
             } else ""}
         } finally {
             stack.setPointer(stackPointer);
@@ -905,7 +910,7 @@ class Func(
 
     private fun PrintWriter.printDocumentation(parameterFilter: (Parameter) -> Boolean) {
         val doc = documentation(parameterFilter)
-        val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) ?: false
+        val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) == true
         if (!custom && doc.isNotEmpty())
             println(doc)
     }
@@ -1041,7 +1046,7 @@ class Func(
                             expression.indexOf('(').run {
                                 if (this == -1) false else expression.substring(0, this).run {
                                     nativeClass.functions
-                                        .singleOrNull { it.nativeName == this }?.let { it.returns.nativeType.mapping !== PrimitiveMapping.INT } ?: false
+                                        .singleOrNull { it.nativeName == this }?.let { it.returns.nativeType.mapping !== PrimitiveMapping.INT } == true
                                 }
                             }
 
@@ -1200,7 +1205,7 @@ class Func(
             }
             print(")")
         }
-        if (returns.nativeType.mapping == PrimitiveMapping.BOOLEAN4)
+        if (returns.nativeType.mapping.isPseudoBoolean())
             print(" != 0")
         println(";")
     }
@@ -1269,7 +1274,6 @@ class Func(
         }
 
         // Apply any CharSequenceTransforms. These can be combined with any of the other transformations.
-        @Suppress("ReplaceSizeCheckWithIsNotEmpty")
         if (parameters.count {
             if (!it.isInput || it.nativeType !is CharSequenceType)
                 false
@@ -1498,7 +1502,6 @@ class Func(
         }
 
         // Apply any SingleValue transformations.
-        @Suppress("ReplaceSizeCheckWithIsNotEmpty")
         if (parameters.count {
             if (!it.has<SingleValue>() || it.has<MultiType>()) {
                 false
@@ -1572,7 +1575,7 @@ class Func(
         if (!constantMacro) {
             if (description != null) {
                 val doc = nativeClass.processDocumentation("$description $javaDocLink").toJavaDoc()
-                val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) ?: false
+                val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) == true
                 if (!custom && doc.isNotEmpty())
                     println(doc)
             } else {
@@ -1606,7 +1609,8 @@ class Func(
                 if (
                     it != null && param.nativeType.isReference && param.has(nullable) &&
                     transforms[param] !is SingleValueTransform &&
-                    transforms[param] !is SingleValueStructTransform
+                    transforms[param] !is SingleValueStructTransform &&
+                    transforms[param] !is RawPointerTransform
                 ) {
                     "@Nullable $it"
                 } else {
@@ -2052,7 +2056,7 @@ class Func(
                     }
                 } else if (!returns.isVoid) {
                     print(if (code.nativeAfterCall != null) "$RESULT = " else "return ")
-                    if (returns.jniFunctionType != returns.nativeType.name)
+                    if (returns.jniFunctionType != returns.toNativeType(nativeClass.binding))
                         print("(${returns.jniFunctionType})")
                     if (returns.nativeType is PointerType<*> && nativeClass.binding == null)
                         print("(uintptr_t)")

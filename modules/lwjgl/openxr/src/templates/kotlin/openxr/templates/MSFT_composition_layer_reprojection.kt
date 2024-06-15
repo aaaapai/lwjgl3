@@ -11,7 +11,9 @@ import openxr.*
 val MSFT_composition_layer_reprojection = "MSFTCompositionLayerReprojection".nativeClassXR("MSFT_composition_layer_reprojection", type = "instance", postfix = "MSFT") {
     documentation =
         """
-        The $templateName extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_MSFT_composition_layer_reprojection">XR_MSFT_composition_layer_reprojection</a> extension.
+
+        This extension enables an application to provide additional reprojection information for a projection composition layer to help the runtime produce better hologram stability and visual quality.
         """
 
     IntConstant(
@@ -51,9 +53,9 @@ val MSFT_composition_layer_reprojection = "MSFTCompositionLayerReprojection".nat
             <li>#REPROJECTION_MODE_ORIENTATION_ONLY_MSFT indicates the layer should be stabilized only for changes to orientation, ignoring positional changes. This mode works better for body-locked content that should follow the user as they walk around, such as 360-degree video.</li>
         </ul>
 
-        When the application passes #REPROJECTION_MODE_DEPTH_MSFT or #REPROJECTION_MODE_PLANAR_FROM_DEPTH_MSFT mode, it <b>should</b> also provide the depth buffer for the corresponding layer using ##XrCompositionLayerDepthInfoKHR in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#XR_KHR_composition_layer_depth">XR_KHR_composition_layer_depth</a> extension. However, if the application does not submit this depth buffer, the runtime <b>must</b> apply a runtime defined fallback reprojection mode, and <b>must</b> not fail the #EndFrame() function because of this missing depth.
+        When the application passes #REPROJECTION_MODE_DEPTH_MSFT or #REPROJECTION_MODE_PLANAR_FROM_DEPTH_MSFT mode, it <b>should</b> also provide the depth buffer for the corresponding layer using ##XrCompositionLayerDepthInfoKHR in {@link KHRCompositionLayerDepth XR_KHR_composition_layer_depth} extension. However, if the application does not submit this depth buffer, the runtime <b>must</b> apply a runtime defined fallback reprojection mode, and <b>must</b> not fail the #EndFrame() function because of this missing depth.
 
-        When the application passes #REPROJECTION_MODE_PLANAR_MANUAL_MSFT or #REPROJECTION_MODE_ORIENTATION_ONLY_MSFT mode, it <b>should</b> avoid providing a depth buffer for the corresponding layer using ##XrCompositionLayerDepthInfoKHR in <a target="_blank" href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html\#XR_KHR_composition_layer_depth">XR_KHR_composition_layer_depth</a> extension. However, if the application does submit this depth buffer, the runtime <b>must</b> not fail the #EndFrame() function because of this unused depth data.
+        When the application passes #REPROJECTION_MODE_PLANAR_MANUAL_MSFT or #REPROJECTION_MODE_ORIENTATION_ONLY_MSFT mode, it <b>should</b> avoid providing a depth buffer for the corresponding layer using ##XrCompositionLayerDepthInfoKHR in {@link KHRCompositionLayerDepth XR_KHR_composition_layer_depth} extension. However, if the application does submit this depth buffer, the runtime <b>must</b> not fail the #EndFrame() function because of this unused depth data.
 
         <h5>See Also</h5>
         ##XrCompositionLayerReprojectionInfoMSFT, #EnumerateReprojectionModesMSFT()
@@ -120,7 +122,7 @@ val MSFT_composition_layer_reprojection = "MSFTCompositionLayerReprojection".nat
         XrSystemId("systemId", "the {@code XrSystemId} whose reprojection modes will be enumerated."),
         XrViewConfigurationType("viewConfigurationType", "the {@code XrViewConfigurationType} to enumerate."),
         AutoSize("modes")..uint32_t("modeCapacityInput", "the capacity of the array, or 0 to indicate a request to retrieve the required capacity."),
-        Check(1)..uint32_t.p("modeCountOutput", "a pointer to the count of the array, or a pointer to the required capacity in the case that {@code modeCapacityInput} is 0."),
+        Check(1)..uint32_t.p("modeCountOutput", "a pointer to the count of the array, or a pointer to the required capacity in the case that {@code modeCapacityInput} is insufficient."),
         nullable..XrReprojectionModeMSFT.p("modes", "a pointer to an application-allocated array that will be filled with the {@code XrReprojectionModeMSFT} values that are supported by the runtime. It <b>can</b> be {@code NULL} if {@code modeCapacityInput} is 0.")
     )
 }

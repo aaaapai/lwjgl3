@@ -17,8 +17,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>When {@link #VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT} or {@link #VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT} is used, applications must provide a {@link VkSamplerCustomBorderColorCreateInfoEXT} in the {@code pNext} chain for {@link VkSamplerCreateInfo}.</p>
  * 
- * <h5>VK_EXT_custom_border_color</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_custom_border_color}</dd>
@@ -29,17 +27,15 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>12</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * </ul></dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Special Uses</b></dt>
  * <dd><ul>
- * <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
- * <li><a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Liam Middlebrook <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_custom_border_color]%20@liam-middlebrook%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_custom_border_color%20extension%3E%3E">liam-middlebrook</a></li>
+ * <li>Liam Middlebrook <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_custom_border_color]%20@liam-middlebrook%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_custom_border_color%20extension*">liam-middlebrook</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -58,7 +54,7 @@ package org.lwjgl.vulkan;
  * <li>Liam Middlebrook, NVIDIA</li>
  * <li>Jeff Bolz, NVIDIA</li>
  * <li>Tobias Hector, AMD</li>
- * <li>Jason Ekstrand, Intel</li>
+ * <li>Faith Ekstrand, Intel</li>
  * <li>Spencer Fricke, Samsung Electronics</li>
  * <li>Graeme Leese, Broadcom</li>
  * <li>Jesse Hall, Google</li>

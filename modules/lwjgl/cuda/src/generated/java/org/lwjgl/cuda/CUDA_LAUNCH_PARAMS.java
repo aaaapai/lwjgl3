@@ -17,25 +17,23 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Kernel launch parameters.
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_LAUNCH_PARAMS {
- *     CUfunction {@link #function};
- *     unsigned int {@link #gridDimX};
- *     unsigned int {@link #gridDimY};
- *     unsigned int {@link #gridDimZ};
- *     unsigned int {@link #blockDimX};
- *     unsigned int {@link #blockDimY};
- *     unsigned int {@link #blockDimZ};
- *     unsigned int {@link #sharedMemBytes};
- *     CUstream {@link #hStream};
- *     void ** {@link #kernelParams};
+ *     CUfunction function;
+ *     unsigned int gridDimX;
+ *     unsigned int gridDimY;
+ *     unsigned int gridDimZ;
+ *     unsigned int blockDimX;
+ *     unsigned int blockDimY;
+ *     unsigned int blockDimZ;
+ *     unsigned int sharedMemBytes;
+ *     CUstream hStream;
+ *     void ** kernelParams;
  * }</code></pre>
  */
-public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
+public class CUDA_LAUNCH_PARAMS extends Struct<CUDA_LAUNCH_PARAMS> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -85,6 +83,15 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
         KERNELPARAMS = layout.offsetof(9);
     }
 
+    protected CUDA_LAUNCH_PARAMS(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected CUDA_LAUNCH_PARAMS create(long address, @Nullable ByteBuffer container) {
+        return new CUDA_LAUNCH_PARAMS(address, container);
+    }
+
     /**
      * Creates a {@code CUDA_LAUNCH_PARAMS} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -98,61 +105,61 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Kernel to launch */
+    /** @return the value of the {@code function} field. */
     @NativeType("CUfunction")
     public long function() { return nfunction(address()); }
-    /** Width of grid in blocks */
+    /** @return the value of the {@code gridDimX} field. */
     @NativeType("unsigned int")
     public int gridDimX() { return ngridDimX(address()); }
-    /** Height of grid in blocks */
+    /** @return the value of the {@code gridDimY} field. */
     @NativeType("unsigned int")
     public int gridDimY() { return ngridDimY(address()); }
-    /** Depth of grid in blocks */
+    /** @return the value of the {@code gridDimZ} field. */
     @NativeType("unsigned int")
     public int gridDimZ() { return ngridDimZ(address()); }
-    /** X dimension of each thread block */
+    /** @return the value of the {@code blockDimX} field. */
     @NativeType("unsigned int")
     public int blockDimX() { return nblockDimX(address()); }
-    /** Y dimension of each thread block */
+    /** @return the value of the {@code blockDimY} field. */
     @NativeType("unsigned int")
     public int blockDimY() { return nblockDimY(address()); }
-    /** Z dimension of each thread block */
+    /** @return the value of the {@code blockDimZ} field. */
     @NativeType("unsigned int")
     public int blockDimZ() { return nblockDimZ(address()); }
-    /** Dynamic shared-memory size per thread block in bytes */
+    /** @return the value of the {@code sharedMemBytes} field. */
     @NativeType("unsigned int")
     public int sharedMemBytes() { return nsharedMemBytes(address()); }
-    /** Stream identifier */
+    /** @return the value of the {@code hStream} field. */
     @NativeType("CUstream")
     public long hStream() { return nhStream(address()); }
     /**
-     * @param capacity the number of elements in the returned buffer
+     * @return a {@link PointerBuffer} view of the data pointed to by the {@code kernelParams} field.
      *
-     * @return Array of pointers to kernel parameters
+     * @param capacity the number of elements in the returned buffer
      */
     @Nullable
     @NativeType("void **")
     public PointerBuffer kernelParams(int capacity) { return nkernelParams(address(), capacity); }
 
-    /** Sets the specified value to the {@link #function} field. */
+    /** Sets the specified value to the {@code function} field. */
     public CUDA_LAUNCH_PARAMS function(@NativeType("CUfunction") long value) { nfunction(address(), value); return this; }
-    /** Sets the specified value to the {@link #gridDimX} field. */
+    /** Sets the specified value to the {@code gridDimX} field. */
     public CUDA_LAUNCH_PARAMS gridDimX(@NativeType("unsigned int") int value) { ngridDimX(address(), value); return this; }
-    /** Sets the specified value to the {@link #gridDimY} field. */
+    /** Sets the specified value to the {@code gridDimY} field. */
     public CUDA_LAUNCH_PARAMS gridDimY(@NativeType("unsigned int") int value) { ngridDimY(address(), value); return this; }
-    /** Sets the specified value to the {@link #gridDimZ} field. */
+    /** Sets the specified value to the {@code gridDimZ} field. */
     public CUDA_LAUNCH_PARAMS gridDimZ(@NativeType("unsigned int") int value) { ngridDimZ(address(), value); return this; }
-    /** Sets the specified value to the {@link #blockDimX} field. */
+    /** Sets the specified value to the {@code blockDimX} field. */
     public CUDA_LAUNCH_PARAMS blockDimX(@NativeType("unsigned int") int value) { nblockDimX(address(), value); return this; }
-    /** Sets the specified value to the {@link #blockDimY} field. */
+    /** Sets the specified value to the {@code blockDimY} field. */
     public CUDA_LAUNCH_PARAMS blockDimY(@NativeType("unsigned int") int value) { nblockDimY(address(), value); return this; }
-    /** Sets the specified value to the {@link #blockDimZ} field. */
+    /** Sets the specified value to the {@code blockDimZ} field. */
     public CUDA_LAUNCH_PARAMS blockDimZ(@NativeType("unsigned int") int value) { nblockDimZ(address(), value); return this; }
-    /** Sets the specified value to the {@link #sharedMemBytes} field. */
+    /** Sets the specified value to the {@code sharedMemBytes} field. */
     public CUDA_LAUNCH_PARAMS sharedMemBytes(@NativeType("unsigned int") int value) { nsharedMemBytes(address(), value); return this; }
-    /** Sets the specified value to the {@link #hStream} field. */
+    /** Sets the specified value to the {@code hStream} field. */
     public CUDA_LAUNCH_PARAMS hStream(@NativeType("CUstream") long value) { nhStream(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #kernelParams} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code kernelParams} field. */
     public CUDA_LAUNCH_PARAMS kernelParams(@Nullable @NativeType("void **") PointerBuffer value) { nkernelParams(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -198,29 +205,29 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
 
     /** Returns a new {@code CUDA_LAUNCH_PARAMS} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_LAUNCH_PARAMS malloc() {
-        return wrap(CUDA_LAUNCH_PARAMS.class, nmemAllocChecked(SIZEOF));
+        return new CUDA_LAUNCH_PARAMS(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code CUDA_LAUNCH_PARAMS} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_LAUNCH_PARAMS calloc() {
-        return wrap(CUDA_LAUNCH_PARAMS.class, nmemCallocChecked(1, SIZEOF));
+        return new CUDA_LAUNCH_PARAMS(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code CUDA_LAUNCH_PARAMS} instance allocated with {@link BufferUtils}. */
     public static CUDA_LAUNCH_PARAMS create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(CUDA_LAUNCH_PARAMS.class, memAddress(container), container);
+        return new CUDA_LAUNCH_PARAMS(memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_LAUNCH_PARAMS} instance for the specified memory address. */
     public static CUDA_LAUNCH_PARAMS create(long address) {
-        return wrap(CUDA_LAUNCH_PARAMS.class, address);
+        return new CUDA_LAUNCH_PARAMS(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_LAUNCH_PARAMS createSafe(long address) {
-        return address == NULL ? null : wrap(CUDA_LAUNCH_PARAMS.class, address);
+        return address == NULL ? null : new CUDA_LAUNCH_PARAMS(address, null);
     }
 
     /**
@@ -229,7 +236,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_LAUNCH_PARAMS.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -238,7 +245,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_LAUNCH_PARAMS.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -248,7 +255,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      */
     public static CUDA_LAUNCH_PARAMS.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -258,13 +265,13 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_LAUNCH_PARAMS.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_LAUNCH_PARAMS.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -292,7 +299,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CUDA_LAUNCH_PARAMS malloc(MemoryStack stack) {
-        return wrap(CUDA_LAUNCH_PARAMS.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new CUDA_LAUNCH_PARAMS(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -301,7 +308,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CUDA_LAUNCH_PARAMS calloc(MemoryStack stack) {
-        return wrap(CUDA_LAUNCH_PARAMS.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new CUDA_LAUNCH_PARAMS(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -311,7 +318,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_LAUNCH_PARAMS.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -321,7 +328,7 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_LAUNCH_PARAMS.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -387,9 +394,9 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
         /**
          * Creates a new {@code CUDA_LAUNCH_PARAMS.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_LAUNCH_PARAMS#SIZEOF}, and its mark will be undefined.
+         * by {@link CUDA_LAUNCH_PARAMS#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -415,35 +422,35 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#function} field. */
+        /** @return the value of the {@code function} field. */
         @NativeType("CUfunction")
         public long function() { return CUDA_LAUNCH_PARAMS.nfunction(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#gridDimX} field. */
+        /** @return the value of the {@code gridDimX} field. */
         @NativeType("unsigned int")
         public int gridDimX() { return CUDA_LAUNCH_PARAMS.ngridDimX(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#gridDimY} field. */
+        /** @return the value of the {@code gridDimY} field. */
         @NativeType("unsigned int")
         public int gridDimY() { return CUDA_LAUNCH_PARAMS.ngridDimY(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#gridDimZ} field. */
+        /** @return the value of the {@code gridDimZ} field. */
         @NativeType("unsigned int")
         public int gridDimZ() { return CUDA_LAUNCH_PARAMS.ngridDimZ(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#blockDimX} field. */
+        /** @return the value of the {@code blockDimX} field. */
         @NativeType("unsigned int")
         public int blockDimX() { return CUDA_LAUNCH_PARAMS.nblockDimX(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#blockDimY} field. */
+        /** @return the value of the {@code blockDimY} field. */
         @NativeType("unsigned int")
         public int blockDimY() { return CUDA_LAUNCH_PARAMS.nblockDimY(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#blockDimZ} field. */
+        /** @return the value of the {@code blockDimZ} field. */
         @NativeType("unsigned int")
         public int blockDimZ() { return CUDA_LAUNCH_PARAMS.nblockDimZ(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#sharedMemBytes} field. */
+        /** @return the value of the {@code sharedMemBytes} field. */
         @NativeType("unsigned int")
         public int sharedMemBytes() { return CUDA_LAUNCH_PARAMS.nsharedMemBytes(address()); }
-        /** @return the value of the {@link CUDA_LAUNCH_PARAMS#hStream} field. */
+        /** @return the value of the {@code hStream} field. */
         @NativeType("CUstream")
         public long hStream() { return CUDA_LAUNCH_PARAMS.nhStream(address()); }
         /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@link CUDA_LAUNCH_PARAMS#kernelParams} field.
+         * @return a {@link PointerBuffer} view of the data pointed to by the {@code kernelParams} field.
          *
          * @param capacity the number of elements in the returned buffer
          */
@@ -451,25 +458,25 @@ public class CUDA_LAUNCH_PARAMS extends Struct implements NativeResource {
         @NativeType("void **")
         public PointerBuffer kernelParams(int capacity) { return CUDA_LAUNCH_PARAMS.nkernelParams(address(), capacity); }
 
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#function} field. */
+        /** Sets the specified value to the {@code function} field. */
         public CUDA_LAUNCH_PARAMS.Buffer function(@NativeType("CUfunction") long value) { CUDA_LAUNCH_PARAMS.nfunction(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#gridDimX} field. */
+        /** Sets the specified value to the {@code gridDimX} field. */
         public CUDA_LAUNCH_PARAMS.Buffer gridDimX(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.ngridDimX(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#gridDimY} field. */
+        /** Sets the specified value to the {@code gridDimY} field. */
         public CUDA_LAUNCH_PARAMS.Buffer gridDimY(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.ngridDimY(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#gridDimZ} field. */
+        /** Sets the specified value to the {@code gridDimZ} field. */
         public CUDA_LAUNCH_PARAMS.Buffer gridDimZ(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.ngridDimZ(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#blockDimX} field. */
+        /** Sets the specified value to the {@code blockDimX} field. */
         public CUDA_LAUNCH_PARAMS.Buffer blockDimX(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.nblockDimX(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#blockDimY} field. */
+        /** Sets the specified value to the {@code blockDimY} field. */
         public CUDA_LAUNCH_PARAMS.Buffer blockDimY(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.nblockDimY(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#blockDimZ} field. */
+        /** Sets the specified value to the {@code blockDimZ} field. */
         public CUDA_LAUNCH_PARAMS.Buffer blockDimZ(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.nblockDimZ(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#sharedMemBytes} field. */
+        /** Sets the specified value to the {@code sharedMemBytes} field. */
         public CUDA_LAUNCH_PARAMS.Buffer sharedMemBytes(@NativeType("unsigned int") int value) { CUDA_LAUNCH_PARAMS.nsharedMemBytes(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_LAUNCH_PARAMS#hStream} field. */
+        /** Sets the specified value to the {@code hStream} field. */
         public CUDA_LAUNCH_PARAMS.Buffer hStream(@NativeType("CUstream") long value) { CUDA_LAUNCH_PARAMS.nhStream(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link CUDA_LAUNCH_PARAMS#kernelParams} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code kernelParams} field. */
         public CUDA_LAUNCH_PARAMS.Buffer kernelParams(@Nullable @NativeType("void **") PointerBuffer value) { CUDA_LAUNCH_PARAMS.nkernelParams(address(), value); return this; }
 
     }

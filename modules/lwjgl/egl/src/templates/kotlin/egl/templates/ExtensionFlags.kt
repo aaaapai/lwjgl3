@@ -53,6 +53,36 @@ val EXT_client_extensions = EXT_FLAG.nativeClassEGL("EXT_client_extensions", pos
         """
 }
 
+val EXT_explicit_device = EXT_FLAG.nativeClassEGL("EXT_explicit_device", postfix = EXT) {
+    documentation =
+        """
+        When true, the $registryLink extension is supported.
+
+        A system may support rendering with multiple devices for the same windowing system. In that case, an EGL implementation must select a default device
+        based on the native display.
+
+        This extension allows an application to explicitly request a device to use for rendering instead of the implementation's default.
+
+        This differs from ${EXT_platform_device.link} in that {@code EGL_EXT_platform_device} uses an {@code EGLDeviceEXT} instead of a native display. Thus,
+        {@code EGL_EXT_platform_device} allows offscreen rendering to a pbuffer or FBO, but it does not require or use a windowing system, and thus does not
+        allow pixmap or window surfaces.
+
+        Using {@code EGL_EXT_explicit_device} with {@code EGL_MESA_platform_surfaceless} is functionally identical to {@code EGL_EXT_platform_device}.
+        """
+}
+
+val EXT_query_reset_notification_strategy = EXT_FLAG.nativeClassEGL("EXT_query_reset_notification_strategy", postfix = EXT) {
+    documentation =
+        """
+        When true, the $registryLink extension is supported.
+
+        This extension complements {@code EXT_create_context_robustness} and enables an application or framework to retrieve an existing context's reset
+        notification strategy in order to create a compatible shared context.
+
+        Requires ${EGL14.core} and ${EXT_create_context_robustness.link}.
+        """
+}
+
 val KHR_client_get_all_proc_addresses = EXT_FLAG.nativeClassEGL("KHR_client_get_all_proc_addresses", postfix = KHR) {
     documentation =
         """

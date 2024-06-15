@@ -19,7 +19,6 @@ val EXT_queue_family_foreign = "EXTQueueFamilyForeign".nativeClassVK("EXT_queue_
             <li>Applications should expect transitions to/from #QUEUE_FAMILY_FOREIGN_EXT to be more expensive than transitions to/from #QUEUE_FAMILY_EXTERNAL_KHR.</li>
         </ul>
 
-        <h5>VK_EXT_queue_family_foreign</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_queue_family_foreign}</dd>
@@ -34,14 +33,11 @@ val EXT_queue_family_foreign = "EXTQueueFamilyForeign".nativeClassVK("EXT_queue_
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-                <li>Requires {@link KHRExternalMemory VK_KHR_external_memory}</li>
-            </ul></dd>
+            <dd>{@link KHRExternalMemory VK_KHR_external_memory} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Chad Versace <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_queue_family_foreign]%20@chadversary%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_queue_family_foreign%20extension%3E%3E">chadversary</a></li>
+                <li>Lina Versace <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_queue_family_foreign]%20@versalinyaa%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_queue_family_foreign%20extension*">versalinyaa</a></li>
             </ul></dd>
         </dl>
 
@@ -55,9 +51,9 @@ val EXT_queue_family_foreign = "EXTQueueFamilyForeign".nativeClassVK("EXT_queue_
 
             <dt><b>Contributors</b></dt>
             <dd><ul>
-                <li>Chad Versace, Google</li>
+                <li>Lina Versace, Google</li>
                 <li>James Jones, NVIDIA</li>
-                <li>Jason Ekstrand, Intel</li>
+                <li>Faith Ekstrand, Intel</li>
                 <li>Jesse Hall, Google</li>
                 <li>Daniel Rakos, AMD</li>
                 <li>Ray Smith, ARM</li>

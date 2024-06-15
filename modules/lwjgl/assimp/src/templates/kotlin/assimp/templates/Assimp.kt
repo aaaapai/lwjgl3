@@ -10,7 +10,7 @@ import org.lwjgl.generator.*
 val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant = "ai", binding = ASSIMP_BINDING) {
     documentation =
         """
-        Contains bindings to the ${url("http://www.assimp.org/", "Assimp")} library.
+        Contains bindings to the ${url("https://www.assimp.org/", "Assimp")} library.
 
         <h3>General Features</h3>
         ${ul(
@@ -153,7 +153,8 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         Enables time measurements.
 
         If enabled, measures the time needed for each part of the loading process (i.e. IO time, importing, postprocessing, ..) and dumps these timings to the
-        DefaultLogger. See the ${url("http://assimp.org/lib_html/perf.html", "Performance Page")} for more information on this topic.
+        DefaultLogger. See the ${url("https://assimp-docs.readthedocs.io/en/latest/usage/use_the_lib.html\\#performance", "Performance Page")} for more
+        information on this topic.
 
         Property type: bool. Default value: false.
         """,
@@ -166,7 +167,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         Global setting to disable generation of skeleton dummy meshes
 
         Skeleton dummy meshes are generated as a visualization aid in cases which the input data contains no geometry, but only animation data.
-        
+
         Property data type: bool. Default value: false
         """,
 
@@ -207,7 +208,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         Source UV channel for tangent space computation.
 
         The specified channel must exist or an error will be raised.
-        
+
         Property type: integer. Default value: 0
         """,
 
@@ -220,7 +221,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
         Sometimes referred to as 'crease angle'. This applies to the #Process_GenSmoothNormals step. The angle is specified in degrees, so 180 is PI. The
         default value is 175 degrees (all vertex normals are smoothed). The maximum value is 175, too.
-        
+
         Property type: float.
 
         Warning: setting this option may cause a severe loss of performance. The performance is unaffected if the #AI_CONFIG_FAVOUR_SPEED flag is set but the
@@ -253,7 +254,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
         This option might be useful if you are using some magic material names to pass additional semantics through the content pipeline. This ensures they
         won't be optimized away, but a general optimization is still performed for materials not contained in the list.
-        
+
         Property type: String. Default value: n/a
 
         ${note("Linefeeds, tabs or carriage returns are treated as whitespace. Material names are case sensitive.")}
@@ -289,7 +290,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Configures the #Process_PreTransformVertices step to use a users defined matrix as the scene root node transformation before transforming vertices.
-        
+
         Property type: bool. Default value: false.
         """,
 
@@ -299,12 +300,24 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Configures the #Process_PreTransformVertices step to use a users defined matrix as the scene root node transformation before transforming vertices.
-        This property corresponds to the 'a1' component of the transformation matrix.
+        This property corresponds to the {@code a1} component of the transformation matrix.
 
         Property type: aiMatrix4x4.
         """,
 
         "AI_CONFIG_PP_PTV_ROOT_TRANSFORMATION".."PP_PTV_ROOT_TRANSFORMATION"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Set epsilon to check the identity of the matrix 4x4.
+
+        This is used by {@code aiMatrix4x4t<TReal>::IsIdentity(const TReal epsilon)}. The default value is 10e-3f for backward compatibility of legacy code.
+
+        Property type: Float.
+        """,
+
+        "AI_CONFIG_CHECK_IDENTITY_MATRIX_EPSILON".."CHECK_IDENTITY_MATRIX_EPSILON"
     ).noPrefix()
 
     StringConstant(
@@ -397,7 +410,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         Lower the deboning threshold in order to remove more bones.
 
         This is used by the #Process_Debone PostProcess-Step.
-        
+
         Property type: float.
 
          ${note("The default value is #AI_DEBONE_THRESHOLD")}
@@ -453,7 +466,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
         This is a bitwise combination of the {@code aiPrimitiveType} flags. Specifying all of them is illegal, of course. A typical use would be to exclude
         all line and point meshes from the import.
-        
+
         This is an integer property, its default value is 0.
         """,
 
@@ -463,11 +476,11 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Input parameter to the #Process_FindInvalidData step: Specifies the floating-point accuracy for animation values.
-        
+
         The step checks for animation tracks where all frame values are absolutely equal and removes them. This tweakable controls the epsilon for
         floating-point comparisons - two keys are considered equal if the invariant {@code abs(n0-n1)>epsilon} holds true for all vector respectively
         quaternion components.
-        
+
         The default value is 0.f - comparisons are exact then.
         """,
 
@@ -544,7 +557,6 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
         "AI_CONFIG_IMPORT_FBX_READ_ALL_MATERIALS".."IMPORT_FBX_READ_ALL_MATERIALS"
     ).noPrefix()
-
 
     StringConstant(
         """
@@ -673,6 +685,18 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
     StringConstant(
         """
+        Will enable the skeleton struct to store bone data.
+
+        This will decouple the bone coupling to the mesh. This feature is experimental.
+
+        Property type: bool. The default value is false (0)
+        """,
+
+        "AI_CONFIG_FBX_USE_SKELETON_BONE_CONTAINER".."AI_CONFIG_FBX_USE_SKELETON_BONE_CONTAINER"
+    ).noPrefix()
+
+    StringConstant(
+        """
         Set the vertex animation keyframe to be imported.
 
         ASSIMP does not support vertex keyframes (only bone animation is supported). The library reads only one frame of models with vertex animations. By
@@ -751,7 +775,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Set whether the MDL (HL1) importer will read animation events.
-        
+
         This property requires #AI_CONFIG_IMPORT_MDL_HL1_READ_ANIMATIONS to be set to true.
 
         Property type: bool. Default value: true.
@@ -763,7 +787,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Set whether the MDL (HL1) importer will read blend controllers.
-        
+
         This property requires #AI_CONFIG_IMPORT_MDL_HL1_READ_ANIMATIONS to be set to true.
 
         Property type: bool. Default value: true.
@@ -775,7 +799,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Set whether the MDL (HL1) importer will read sequence transition graph.
-        
+
         This property requires #AI_CONFIG_IMPORT_MDL_HL1_READ_ANIMATIONS to be set to true.
 
         Property type: bool. Default value: true.
@@ -858,7 +882,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Configures the UNREAL 3D loader to separate faces with different surface flags (e.g. two-sided vs. single-sided).
-        
+
         Property type: bool. Default value: true.
         """,
 
@@ -896,7 +920,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
         These models usually consist of 3 files, lower.md3, upper.md3 and head.md3. If this property is set to true, Assimp will try to load and * combine all
         three files if one of them is loaded.
-        
+
         Property type: bool. Default value: true.
         """,
 
@@ -919,7 +943,7 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
     StringConstant(
         """
         Specify if to try load Quake 3 shader files.
-        
+
         This also controls  original surface name handling: when disabled it will be used unchanged.
 
         Property type: bool. Default value: true.
@@ -1131,6 +1155,18 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
 
     StringConstant(
         """
+        Specifies whether the Collada loader will ignore the provided unit size.
+
+        If this property is set to true, the unit size provided in the file header will be ignored and the file will be loaded without scaling the assets.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_IMPORT_COLLADA_IGNORE_UNIT_SIZE".."IMPORT_COLLADA_IGNORE_UNIT_SIZE"
+    ).noPrefix()
+
+    StringConstant(
+        """
         Specifies whether the Collada loader should use Collada names.
 
         If this property is set to true, the Collada names will be used as the node and mesh names. The default is to use the id tag (resp. sid tag, if no id
@@ -1166,6 +1202,47 @@ val Assimp = "Assimp".nativeClass(Module.ASSIMP, prefix = "ai", prefixConstant =
         """,
 
         "AI_CONFIG_EXPORT_POINT_CLOUDS".."EXPORT_POINT_CLOUDS"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Specifies whether to use the deprecated {@code KHR_materials_pbrSpecularGlossiness} extension.
+
+        When this flag is undefined any material with specularity will use the new {@code KHR_materials_specular} extension. Enabling this flag will revert to
+        the deprecated extension. Note that exporting {@code KHR_materials_pbrSpecularGlossiness} with extensions other than {@code KHR_materials_unlit} is
+        unsupported, including the basic {@code pbrMetallicRoughness} spec.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_USE_GLTF_PBR_SPECULAR_GLOSSINESS".."USE_GLTF_PBR_SPECULAR_GLOSSINESS"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Specifies whether to apply a limit on the number of four bones per vertex in skinning
+
+        When this flag is not defined, all bone weights and indices are limited to a maximum of four bones for each vertex (attributes {@code JOINT_0} and
+        {@code WEIGHT_0} only). By enabling this flag, the number of bones per vertex is unlimited. In both cases, indices and bone weights are sorted by
+        weight in descending order. In the case of the limit of up to four bones, a maximum of the four largest values are exported. Weights are not
+        normalized.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_EXPORT_GLTF_UNLIMITED_SKINNING_BONES_PER_VERTEX".."USE_UNLIMITED_BONES_PER VERTEX"
+    ).noPrefix()
+
+    StringConstant(
+        """
+        Specifies whether to write the value referenced to opacity in {@code TransparencyFactor} of each material. 
+
+        When this flag is not defined, the {@code TransparencyFactor} value of each meterial is 1.0. By enabling this flag, the value is {@code 1.0 - opacity}.
+
+        Property type: Bool. Default value: false.
+        """,
+
+        "AI_CONFIG_EXPORT_FBX_TRANSPARENCY_FACTOR_REFER_TO_OPACITY".."EXPORT_FBX_TRANSPARENCY_FACTOR_REFER_TO_OPACITY VERTEX"
     ).noPrefix()
 
     StringConstant(
@@ -2694,15 +2771,15 @@ aiAttachLogStream(&c);""")}
         "TextureType_SHEEN".enum(
             """
             Generally used to simulate textiles that are covered in a layer of microfibers eg velvet.
-            
+
             ${url("https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_sheen", "KHR_materials_sheen")})
             """,
             "19"
         ),
         "TextureType_CLEARCOAT".enum(
             """
-            Simulates a layer of 'polish' or 'laquer' layered on top of a PBR substrate.
-            
+            Simulates a layer of 'polish' or 'lacquer' layered on top of a PBR substrate.
+
             ${url("https://autodesk.github.io/standard-surface/\\#closures/coating", "coating")},
             ${url("https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_clearcoat", "KHR_materials_clearcoat")}
             """,
@@ -2711,7 +2788,7 @@ aiAttachLogStream(&c);""")}
         "TextureType_TRANSMISSION".enum(
             """
             Simulates transmission through the surface.
- 
+
             May include further information such as wall thickness.
             """,
             "21"
@@ -2728,7 +2805,7 @@ aiAttachLogStream(&c);""")}
     EnumConstant(
         """
         Defines all shading models supported by the library. ({@code aiShadingMode})
-        
+
         Property: #AI_MATKEY_SHADING_MODEL
 
         The list of shading modes has been taken from Blender. See Blender documentation for more information. The API does not distinguish between "specular"
@@ -2869,6 +2946,7 @@ aiAttachLogStream(&c);""")}
         "AI_MATKEY_USE_EMISSIVE_MAP".."\$mat.useEmissiveMap",
         "AI_MATKEY_EMISSIVE_INTENSITY".."\$mat.emissiveIntensity",
         "AI_MATKEY_USE_AO_MAP".."\$mat.useAOMap",
+        "AI_MATKEY_OBJ_ILLUM".."\$mat.illum",
 
         "_AI_MATKEY_TEXTURE_BASE".."\$tex.file",
         "_AI_MATKEY_UVWSRC_BASE".."\$tex.uvwsrc",
@@ -2906,9 +2984,7 @@ aiAttachLogStream(&c);""")}
         "TextureTypeToString",
         "Get a string for a given {@code aiTextureType}.",
 
-        aiTextureType("in", ""),
-
-        noPrefix = true
+        aiTextureType("in", "")
     )
 
     val GetMaterialProperty = aiReturn(
@@ -3120,9 +3196,9 @@ aiAttachLogStream(&c);""")}
 
             NGON encoding is a special encoding that tells whether 2 or more consecutive triangles should be considered as a triangle fan. This is identified
             by looking at the first vertex index. 2 consecutive triangles with the same 1st vertex index are part of the same NGON.
-     
+
             At the moment, only quads (concave or convex) are supported, meaning that polygons are 'seen' as triangles, as usual after a triangulation pass.
-     
+
             To get an NGON encoded mesh, please use the #Process_Triangulate post process.
             """,
             0x10
@@ -3132,6 +3208,7 @@ aiAttachLogStream(&c);""")}
     EnumConstant(
         "Enumerates the methods of mesh morphing supported by Assimp. ({@code enum aiMorphingMethod})",
 
+        "MorphingMethod_UNKNOWN".enum("Morphing method to be determined.", "0x0"),
         "MorphingMethod_VERTEX_BLEND".enum("Interpolation between morph targets.", "0x1"),
         "MorphingMethod_MORPH_NORMALIZED".enum("Normalized morphing between morph targets.", "0x2"),
         "MorphingMethod_MORPH_RELATIVE".enum("Relative morphing between morph targets.", "0x3")
@@ -3150,13 +3227,15 @@ aiAttachLogStream(&c);""")}
         "AI_AISTRING".enum,
         "AI_AIVECTOR3D".enum,
         "AI_AIMETADATA".enum,
+        "AI_INT64".enum,
+        "AI_UINT32".enum,
         "AI_META_MAX".enum
     ).noPrefix()
 
     StringConstant(
         """
         Scene metadata holding the name of the importer which loaded the source asset.
-        
+
         This is always present if the scene was created from an imported asset.
         """,
 
@@ -3217,7 +3296,8 @@ aiAttachLogStream(&c);""")}
 
             After this step is run, each mesh contains unique vertices, so a vertex may be used by multiple faces. You usually want to use this post processing
             step. If your application deals with indexed geometry, this step is compulsory or you'll just waste rendering time. <b>If this flag is not
-            specified</b>, no vertices are referenced by more than one face and <b>no index buffer is required</b> for rendering.
+            specified</b>, no vertices are referenced by more than one face and <b>no index buffer is required</b> for rendering. Unless the importer (like
+            ply) had to split vertices. Then you need one regardless.
             """,
             0x2
         ),
@@ -3318,7 +3398,7 @@ aiAttachLogStream(&c);""")}
             If the resulting scene can be reduced to a single mesh, with a single material, no lights, and no cameras, then the output scene will contain only
             a root node (with no children) that references the single mesh. Otherwise, the output scene will be reduced to a root node with a single level of
             child nodes, each one referencing one mesh, and each mesh referencing one material. 
-    
+
             In either case, for rendering, you can simply render all meshes in order - you don't need to pay attention to local transformations and the node
             hierarchy. Animations are removed during this step.
 

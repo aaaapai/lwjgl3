@@ -34,7 +34,7 @@ import org.lwjgl.vulkan.*;
  *     void * {@link #pMemoryAllocateNext};
  * }</code></pre>
  */
-public class VmaPoolCreateInfo extends Struct implements NativeResource {
+public class VmaPoolCreateInfo extends Struct<VmaPoolCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -78,6 +78,15 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
         PMEMORYALLOCATENEXT = layout.offsetof(7);
     }
 
+    protected VmaPoolCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VmaPoolCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VmaPoolCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VmaPoolCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -94,7 +103,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
     /** Vulkan memory type index to allocate this pool from */
     @NativeType("uint32_t")
     public int memoryTypeIndex() { return nmemoryTypeIndex(address()); }
-    /** Use combination of {@code VmaPoolCreateFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT}</td><td>{@link Vma#VMA_POOL_CREATE_LINEAR_ALGORITHM_BIT POOL_CREATE_LINEAR_ALGORITHM_BIT}</td></tr><tr><td>{@link Vma#VMA_POOL_CREATE_BUDDY_ALGORITHM_BIT POOL_CREATE_BUDDY_ALGORITHM_BIT}</td><td>{@link Vma#VMA_POOL_CREATE_TLSF_ALGORITHM_BIT POOL_CREATE_TLSF_ALGORITHM_BIT}</td></tr><tr><td>{@link Vma#VMA_POOL_CREATE_ALGORITHM_MASK POOL_CREATE_ALGORITHM_MASK}</td></tr></table> */
+    /** Use combination of {@code VmaPoolCreateFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT POOL_CREATE_IGNORE_BUFFER_IMAGE_GRANULARITY_BIT}</td><td>{@link Vma#VMA_POOL_CREATE_LINEAR_ALGORITHM_BIT POOL_CREATE_LINEAR_ALGORITHM_BIT}</td></tr><tr><td>{@link Vma#VMA_POOL_CREATE_ALGORITHM_MASK POOL_CREATE_ALGORITHM_MASK}</td></tr></table> */
     @NativeType("VmaPoolCreateFlags")
     public int flags() { return nflags(address()); }
     /**
@@ -176,6 +185,10 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
     public VmaPoolCreateInfo pMemoryAllocateNext(VkExportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkExportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkExportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+    /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+    public VmaPoolCreateInfo pMemoryAllocateNext(VkExportMetalObjectCreateInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+    /** Prepends the specified {@link VkImportAndroidHardwareBufferInfoANDROID} value to the {@code pMemoryAllocateNext} chain. */
+    public VmaPoolCreateInfo pMemoryAllocateNext(VkImportAndroidHardwareBufferInfoANDROID value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkImportMemoryFdInfoKHR} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMemoryFdInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkImportMemoryHostPointerInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
@@ -184,6 +197,8 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
     public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkImportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+    /** Prepends the specified {@link VkImportMetalBufferInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+    public VmaPoolCreateInfo pMemoryAllocateNext(VkImportMetalBufferInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkMemoryAllocateFlagsInfo} value to the {@code pMemoryAllocateNext} chain. */
     public VmaPoolCreateInfo pMemoryAllocateNext(VkMemoryAllocateFlagsInfo value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
     /** Prepends the specified {@link VkMemoryAllocateFlagsInfoKHR} value to the {@code pMemoryAllocateNext} chain. */
@@ -238,29 +253,29 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VmaPoolCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VmaPoolCreateInfo malloc() {
-        return wrap(VmaPoolCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VmaPoolCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VmaPoolCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VmaPoolCreateInfo calloc() {
-        return wrap(VmaPoolCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VmaPoolCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VmaPoolCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VmaPoolCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VmaPoolCreateInfo.class, memAddress(container), container);
+        return new VmaPoolCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VmaPoolCreateInfo} instance for the specified memory address. */
     public static VmaPoolCreateInfo create(long address) {
-        return wrap(VmaPoolCreateInfo.class, address);
+        return new VmaPoolCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaPoolCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VmaPoolCreateInfo.class, address);
+        return address == NULL ? null : new VmaPoolCreateInfo(address, null);
     }
 
     /**
@@ -269,7 +284,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaPoolCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -278,7 +293,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaPoolCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -288,7 +303,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      */
     public static VmaPoolCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -298,13 +313,13 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaPoolCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaPoolCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -332,7 +347,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VmaPoolCreateInfo malloc(MemoryStack stack) {
-        return wrap(VmaPoolCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VmaPoolCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -341,7 +356,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VmaPoolCreateInfo calloc(MemoryStack stack) {
-        return wrap(VmaPoolCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VmaPoolCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -351,7 +366,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaPoolCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -361,7 +376,7 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaPoolCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -410,9 +425,9 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VmaPoolCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VmaPoolCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VmaPoolCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -490,6 +505,10 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkExportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkExportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkExportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+        /** Prepends the specified {@link VkExportMetalObjectCreateInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+        public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkExportMetalObjectCreateInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+        /** Prepends the specified {@link VkImportAndroidHardwareBufferInfoANDROID} value to the {@code pMemoryAllocateNext} chain. */
+        public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportAndroidHardwareBufferInfoANDROID value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkImportMemoryFdInfoKHR} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMemoryFdInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkImportMemoryHostPointerInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
@@ -498,6 +517,8 @@ public class VmaPoolCreateInfo extends Struct implements NativeResource {
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMemoryWin32HandleInfoKHR value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkImportMemoryWin32HandleInfoNV} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMemoryWin32HandleInfoNV value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
+        /** Prepends the specified {@link VkImportMetalBufferInfoEXT} value to the {@code pMemoryAllocateNext} chain. */
+        public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkImportMetalBufferInfoEXT value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkMemoryAllocateFlagsInfo} value to the {@code pMemoryAllocateNext} chain. */
         public VmaPoolCreateInfo.Buffer pMemoryAllocateNext(VkMemoryAllocateFlagsInfo value) { return this.pMemoryAllocateNext(value.pNext(this.pMemoryAllocateNext()).address()); }
         /** Prepends the specified {@link VkMemoryAllocateFlagsInfoKHR} value to the {@code pMemoryAllocateNext} chain. */

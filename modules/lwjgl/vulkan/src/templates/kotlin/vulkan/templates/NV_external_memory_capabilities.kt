@@ -13,7 +13,6 @@ val NV_external_memory_capabilities = "NVExternalMemoryCapabilities".nativeClass
         """
         Applications may wish to import memory from the Direct 3D API, or export memory to other Vulkan instances. This extension provides a set of capability queries that allow applications determine what types of win32 memory handles an implementation supports for a given set of use cases.
 
-        <h5>VK_NV_external_memory_capabilities</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_external_memory_capabilities}</dd>
@@ -27,24 +26,19 @@ val NV_external_memory_capabilities = "NVExternalMemoryCapabilities".nativeClass
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li>
                     <em>Deprecated</em> by {@link KHRExternalMemoryCapabilities VK_KHR_external_memory_capabilities} extension
                     <ul>
-                        <li>Which in turn was <em>promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
+                        <li>Which in turn was <em>promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1-promotions">Vulkan 1.1</a></li>
                     </ul>
                 </li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>James Jones <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_capabilities]%20@cubanismo%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_capabilities%20extension%3E%3E">cubanismo</a></li>
+                <li>James Jones <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NV_external_memory_capabilities]%20@cubanismo%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NV_external_memory_capabilities%20extension*">cubanismo</a></li>
             </ul></dd>
         </dl>
 
@@ -142,6 +136,11 @@ val NV_external_memory_capabilities = "NVExternalMemoryCapabilities".nativeClass
 
         <h5>Description</h5>
         If {@code externalHandleType} is 0, {@code pExternalImageFormatProperties→imageFormatProperties} will return the same values as a call to #GetPhysicalDeviceImageFormatProperties(), and the other members of {@code pExternalImageFormatProperties} will all be 0. Otherwise, they are filled in as described for ##VkExternalImageFormatPropertiesNV.
+
+        <h5>Valid Usage</h5>
+        <ul>
+            <li>{@code externalHandleType} <b>must</b> not have more than one bit set</li>
+        </ul>
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

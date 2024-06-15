@@ -33,6 +33,8 @@ val JNINativeInterface = "JNINativeInterface".nativeClass(Module.CORE_JNI, prefi
         "VERSION_1_8"..0x00010008,
         "VERSION_9"..0x00090000,
         "VERSION_10"..0x000A0000,
+        "VERSION_19"..0x00130000,
+        "VERSION_20"..0x00140000,
         "VERSION_21"..0x00150000
     )
 
@@ -356,5 +358,12 @@ val JNINativeInterface = "JNINativeInterface".nativeClass(Module.CORE_JNI, prefi
 
         JNI_ENV,
         jobject("obj", "a local, global or weak global reference")
+    )
+
+    Code(nativeCall = "")..void(
+        "noop",
+        "No-op JNI function for benchmarking.",
+
+        void()
     )
 }

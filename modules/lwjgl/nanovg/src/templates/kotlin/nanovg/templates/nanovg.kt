@@ -108,7 +108,7 @@ val nanovg = "NanoVG".nativeClass(Module.NANOVG, prefix = "NVG") {
 const char* txt = "Text me up.";
 nvgTextBounds(vg, x,y, txt, NULL, bounds);
 nvgBeginPath(vg);
-nvgRoundedRect(vg, bounds[0],bounds[1], bounds[2]-bounds[0], bounds[3]-bounds[1]);
+nvgRect(vg, bounds[0],bounds[1], bounds[2]-bounds[0], bounds[3]-bounds[1]);
 nvgFill(vg);""")}
 
         Note: currently only solid color fill is supported for text.
@@ -1040,7 +1040,7 @@ nvgFill(vg);""")}
         charASCII.const.p("name", "the font name"),
         unsigned_char.p("data", "the font data"),
         AutoSize("data")..int("ndata", "the font data size, in bytes"),
-        int("freeData", "1 if the font data should be freed automatically, 0 otherwise"),
+        intb("freeData", "1 if the font data should be freed automatically, 0 otherwise"),
 
         returnDoc = "a handle to the font"
     )
@@ -1057,7 +1057,7 @@ nvgFill(vg);""")}
         charASCII.const.p("name", "the font name"),
         unsigned_char.p("data", "the font data"),
         AutoSize("data")..int("ndata", "the font data size, in bytes"),
-        int("freeData", "1 if the font data should be freed automatically, 0 otherwise"),
+        intb("freeData", "1 if the font data should be freed automatically, 0 otherwise"),
         int("fontIndex", "specifies which font face to load from a .ttf/.ttc file"),
 
         returnDoc = "a handle to the font"

@@ -16,19 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Array descriptor.
- * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct CUDA_ARRAY_DESCRIPTOR {
- *     size_t {@link #Width};
- *     size_t {@link #Height};
- *     CUarray_format {@link #Format};
- *     unsigned int {@link #NumChannels};
+ *     size_t Width;
+ *     size_t Height;
+ *     CUarray_format Format;
+ *     unsigned int NumChannels;
  * }</code></pre>
  */
-public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
+public class CUDA_ARRAY_DESCRIPTOR extends Struct<CUDA_ARRAY_DESCRIPTOR> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -60,6 +58,15 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
         NUMCHANNELS = layout.offsetof(3);
     }
 
+    protected CUDA_ARRAY_DESCRIPTOR(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected CUDA_ARRAY_DESCRIPTOR create(long address, @Nullable ByteBuffer container) {
+        return new CUDA_ARRAY_DESCRIPTOR(address, container);
+    }
+
     /**
      * Creates a {@code CUDA_ARRAY_DESCRIPTOR} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -73,26 +80,26 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Width of array */
+    /** @return the value of the {@code Width} field. */
     @NativeType("size_t")
     public long Width() { return nWidth(address()); }
-    /** Height of array */
+    /** @return the value of the {@code Height} field. */
     @NativeType("size_t")
     public long Height() { return nHeight(address()); }
-    /** Array format */
+    /** @return the value of the {@code Format} field. */
     @NativeType("CUarray_format")
     public int Format() { return nFormat(address()); }
-    /** Channels per array element */
+    /** @return the value of the {@code NumChannels} field. */
     @NativeType("unsigned int")
     public int NumChannels() { return nNumChannels(address()); }
 
-    /** Sets the specified value to the {@link #Width} field. */
+    /** Sets the specified value to the {@code Width} field. */
     public CUDA_ARRAY_DESCRIPTOR Width(@NativeType("size_t") long value) { nWidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #Height} field. */
+    /** Sets the specified value to the {@code Height} field. */
     public CUDA_ARRAY_DESCRIPTOR Height(@NativeType("size_t") long value) { nHeight(address(), value); return this; }
-    /** Sets the specified value to the {@link #Format} field. */
+    /** Sets the specified value to the {@code Format} field. */
     public CUDA_ARRAY_DESCRIPTOR Format(@NativeType("CUarray_format") int value) { nFormat(address(), value); return this; }
-    /** Sets the specified value to the {@link #NumChannels} field. */
+    /** Sets the specified value to the {@code NumChannels} field. */
     public CUDA_ARRAY_DESCRIPTOR NumChannels(@NativeType("unsigned int") int value) { nNumChannels(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -126,29 +133,29 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
 
     /** Returns a new {@code CUDA_ARRAY_DESCRIPTOR} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static CUDA_ARRAY_DESCRIPTOR malloc() {
-        return wrap(CUDA_ARRAY_DESCRIPTOR.class, nmemAllocChecked(SIZEOF));
+        return new CUDA_ARRAY_DESCRIPTOR(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code CUDA_ARRAY_DESCRIPTOR} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static CUDA_ARRAY_DESCRIPTOR calloc() {
-        return wrap(CUDA_ARRAY_DESCRIPTOR.class, nmemCallocChecked(1, SIZEOF));
+        return new CUDA_ARRAY_DESCRIPTOR(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code CUDA_ARRAY_DESCRIPTOR} instance allocated with {@link BufferUtils}. */
     public static CUDA_ARRAY_DESCRIPTOR create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(CUDA_ARRAY_DESCRIPTOR.class, memAddress(container), container);
+        return new CUDA_ARRAY_DESCRIPTOR(memAddress(container), container);
     }
 
     /** Returns a new {@code CUDA_ARRAY_DESCRIPTOR} instance for the specified memory address. */
     public static CUDA_ARRAY_DESCRIPTOR create(long address) {
-        return wrap(CUDA_ARRAY_DESCRIPTOR.class, address);
+        return new CUDA_ARRAY_DESCRIPTOR(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_ARRAY_DESCRIPTOR createSafe(long address) {
-        return address == NULL ? null : wrap(CUDA_ARRAY_DESCRIPTOR.class, address);
+        return address == NULL ? null : new CUDA_ARRAY_DESCRIPTOR(address, null);
     }
 
     /**
@@ -157,7 +164,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_ARRAY_DESCRIPTOR.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -166,7 +173,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_ARRAY_DESCRIPTOR.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -176,7 +183,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      */
     public static CUDA_ARRAY_DESCRIPTOR.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -186,13 +193,13 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_ARRAY_DESCRIPTOR.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static CUDA_ARRAY_DESCRIPTOR.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -220,7 +227,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CUDA_ARRAY_DESCRIPTOR malloc(MemoryStack stack) {
-        return wrap(CUDA_ARRAY_DESCRIPTOR.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new CUDA_ARRAY_DESCRIPTOR(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -229,7 +236,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static CUDA_ARRAY_DESCRIPTOR calloc(MemoryStack stack) {
-        return wrap(CUDA_ARRAY_DESCRIPTOR.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new CUDA_ARRAY_DESCRIPTOR(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -239,7 +246,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_ARRAY_DESCRIPTOR.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -249,7 +256,7 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static CUDA_ARRAY_DESCRIPTOR.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -282,9 +289,9 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
         /**
          * Creates a new {@code CUDA_ARRAY_DESCRIPTOR.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link CUDA_ARRAY_DESCRIPTOR#SIZEOF}, and its mark will be undefined.
+         * by {@link CUDA_ARRAY_DESCRIPTOR#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -310,26 +317,26 @@ public class CUDA_ARRAY_DESCRIPTOR extends Struct implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CUDA_ARRAY_DESCRIPTOR#Width} field. */
+        /** @return the value of the {@code Width} field. */
         @NativeType("size_t")
         public long Width() { return CUDA_ARRAY_DESCRIPTOR.nWidth(address()); }
-        /** @return the value of the {@link CUDA_ARRAY_DESCRIPTOR#Height} field. */
+        /** @return the value of the {@code Height} field. */
         @NativeType("size_t")
         public long Height() { return CUDA_ARRAY_DESCRIPTOR.nHeight(address()); }
-        /** @return the value of the {@link CUDA_ARRAY_DESCRIPTOR#Format} field. */
+        /** @return the value of the {@code Format} field. */
         @NativeType("CUarray_format")
         public int Format() { return CUDA_ARRAY_DESCRIPTOR.nFormat(address()); }
-        /** @return the value of the {@link CUDA_ARRAY_DESCRIPTOR#NumChannels} field. */
+        /** @return the value of the {@code NumChannels} field. */
         @NativeType("unsigned int")
         public int NumChannels() { return CUDA_ARRAY_DESCRIPTOR.nNumChannels(address()); }
 
-        /** Sets the specified value to the {@link CUDA_ARRAY_DESCRIPTOR#Width} field. */
+        /** Sets the specified value to the {@code Width} field. */
         public CUDA_ARRAY_DESCRIPTOR.Buffer Width(@NativeType("size_t") long value) { CUDA_ARRAY_DESCRIPTOR.nWidth(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_ARRAY_DESCRIPTOR#Height} field. */
+        /** Sets the specified value to the {@code Height} field. */
         public CUDA_ARRAY_DESCRIPTOR.Buffer Height(@NativeType("size_t") long value) { CUDA_ARRAY_DESCRIPTOR.nHeight(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_ARRAY_DESCRIPTOR#Format} field. */
+        /** Sets the specified value to the {@code Format} field. */
         public CUDA_ARRAY_DESCRIPTOR.Buffer Format(@NativeType("CUarray_format") int value) { CUDA_ARRAY_DESCRIPTOR.nFormat(address(), value); return this; }
-        /** Sets the specified value to the {@link CUDA_ARRAY_DESCRIPTOR#NumChannels} field. */
+        /** Sets the specified value to the {@code NumChannels} field. */
         public CUDA_ARRAY_DESCRIPTOR.Buffer NumChannels(@NativeType("unsigned int") int value) { CUDA_ARRAY_DESCRIPTOR.nNumChannels(address(), value); return this; }
 
     }

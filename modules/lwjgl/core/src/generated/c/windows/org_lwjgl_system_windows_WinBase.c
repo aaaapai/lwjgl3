@@ -8,6 +8,15 @@
 
 EXTERN_C_ENTER
 
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_windows_WinBase_nLocalFree(JNIEnv *__env, jclass clazz, jlong hMemAddress) {
+    HLOCAL hMem = (HLOCAL)(uintptr_t)hMemAddress;
+    jlong __result;
+    UNUSED_PARAMS(__env, clazz)
+    __result = (jlong)(uintptr_t)LocalFree(hMem);
+    saveLastError();
+    return __result;
+}
+
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_WinBase_GetLastError(JNIEnv *__env, jclass clazz) {
     UNUSED_PARAMS(__env, clazz)
     return (jint)GetLastError();
@@ -16,7 +25,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_WinBase_GetLastError(JNIEnv
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_windows_WinBase_getLastError(JNIEnv *__env, jclass clazz) {
     UNUSED_PARAMS(__env, clazz)
     EnvData *envData = (EnvData *)(*__env)->reserved2;
-    return envData == NULL ? 0 : envData->LastError;
+    return envData == (*__env)->reserved0 ? 0 : envData->LastError;
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_system_windows_WinBase_nGetModuleHandle(JNIEnv *__env, jclass clazz, jlong moduleNameAddress) {

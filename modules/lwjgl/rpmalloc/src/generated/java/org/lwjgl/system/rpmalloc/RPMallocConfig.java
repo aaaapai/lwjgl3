@@ -12,6 +12,7 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
+import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -37,11 +38,12 @@ import static org.lwjgl.system.MemoryStack.*;
  *     size_t {@link #span_size};
  *     size_t {@link #span_map_count};
  *     int {@link #enable_huge_pages};
- *     char[4];
+ *     char const * {@link #page_name};
+ *     char const * {@link #huge_page_name};
  * }</code></pre>
  */
 @NativeType("struct rpmalloc_config_t")
-public class RPMallocConfig extends Struct implements NativeResource {
+public class RPMallocConfig extends Struct<RPMallocConfig> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -58,7 +60,9 @@ public class RPMallocConfig extends Struct implements NativeResource {
         PAGE_SIZE,
         SPAN_SIZE,
         SPAN_MAP_COUNT,
-        ENABLE_HUGE_PAGES;
+        ENABLE_HUGE_PAGES,
+        PAGE_NAME,
+        HUGE_PAGE_NAME;
 
     static {
         Layout layout = __struct(
@@ -70,7 +74,8 @@ public class RPMallocConfig extends Struct implements NativeResource {
             __member(POINTER_SIZE),
             __member(POINTER_SIZE),
             __member(4),
-            __padding(4, true)
+            __member(POINTER_SIZE),
+            __member(POINTER_SIZE)
         );
 
         SIZEOF = layout.getSize();
@@ -84,6 +89,17 @@ public class RPMallocConfig extends Struct implements NativeResource {
         SPAN_SIZE = layout.offsetof(5);
         SPAN_MAP_COUNT = layout.offsetof(6);
         ENABLE_HUGE_PAGES = layout.offsetof(7);
+        PAGE_NAME = layout.offsetof(8);
+        HUGE_PAGE_NAME = layout.offsetof(9);
+    }
+
+    protected RPMallocConfig(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected RPMallocConfig create(long address, @Nullable ByteBuffer container) {
+        return new RPMallocConfig(address, container);
     }
 
     /**
@@ -155,6 +171,22 @@ public class RPMallocConfig extends Struct implements NativeResource {
      */
     @NativeType("int")
     public boolean enable_huge_pages() { return nenable_huge_pages(address()) != 0; }
+    /** allocated pages name for systems supporting it to be able to distinguish among anonymous regions */
+    @Nullable
+    @NativeType("char const *")
+    public ByteBuffer page_name() { return npage_name(address()); }
+    /** allocated pages name for systems supporting it to be able to distinguish among anonymous regions */
+    @Nullable
+    @NativeType("char const *")
+    public String page_nameString() { return npage_nameString(address()); }
+    /** huge allocated pages name for systems supporting it to be able to distinguish among anonymous regions */
+    @Nullable
+    @NativeType("char const *")
+    public ByteBuffer huge_page_name() { return nhuge_page_name(address()); }
+    /** huge allocated pages name for systems supporting it to be able to distinguish among anonymous regions */
+    @Nullable
+    @NativeType("char const *")
+    public String huge_page_nameString() { return nhuge_page_nameString(address()); }
 
     /** Sets the specified value to the {@link #memory_map} field. */
     public RPMallocConfig memory_map(@Nullable @NativeType("void * (*) (size_t, size_t *)") RPMemoryMapCallbackI value) { nmemory_map(address(), value); return this; }
@@ -172,17 +204,23 @@ public class RPMallocConfig extends Struct implements NativeResource {
     public RPMallocConfig span_map_count(@NativeType("size_t") long value) { nspan_map_count(address(), value); return this; }
     /** Sets the specified value to the {@link #enable_huge_pages} field. */
     public RPMallocConfig enable_huge_pages(@NativeType("int") boolean value) { nenable_huge_pages(address(), value ? 1 : 0); return this; }
+    /** Sets the address of the specified encoded string to the {@link #page_name} field. */
+    public RPMallocConfig page_name(@Nullable @NativeType("char const *") ByteBuffer value) { npage_name(address(), value); return this; }
+    /** Sets the address of the specified encoded string to the {@link #huge_page_name} field. */
+    public RPMallocConfig huge_page_name(@Nullable @NativeType("char const *") ByteBuffer value) { nhuge_page_name(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public RPMallocConfig set(
-        RPMemoryMapCallbackI memory_map,
-        RPMemoryUnmapCallbackI memory_unmap,
-        RPErrorCallbackI error_callback,
-        RPMapFailCallbackI map_fail_callback,
+        @Nullable RPMemoryMapCallbackI memory_map,
+        @Nullable RPMemoryUnmapCallbackI memory_unmap,
+        @Nullable RPErrorCallbackI error_callback,
+        @Nullable RPMapFailCallbackI map_fail_callback,
         long page_size,
         long span_size,
         long span_map_count,
-        boolean enable_huge_pages
+        boolean enable_huge_pages,
+        @Nullable ByteBuffer page_name,
+        @Nullable ByteBuffer huge_page_name
     ) {
         memory_map(memory_map);
         memory_unmap(memory_unmap);
@@ -192,6 +230,8 @@ public class RPMallocConfig extends Struct implements NativeResource {
         span_size(span_size);
         span_map_count(span_map_count);
         enable_huge_pages(enable_huge_pages);
+        page_name(page_name);
+        huge_page_name(huge_page_name);
 
         return this;
     }
@@ -212,29 +252,29 @@ public class RPMallocConfig extends Struct implements NativeResource {
 
     /** Returns a new {@code RPMallocConfig} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static RPMallocConfig malloc() {
-        return wrap(RPMallocConfig.class, nmemAllocChecked(SIZEOF));
+        return new RPMallocConfig(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code RPMallocConfig} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static RPMallocConfig calloc() {
-        return wrap(RPMallocConfig.class, nmemCallocChecked(1, SIZEOF));
+        return new RPMallocConfig(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code RPMallocConfig} instance allocated with {@link BufferUtils}. */
     public static RPMallocConfig create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(RPMallocConfig.class, memAddress(container), container);
+        return new RPMallocConfig(memAddress(container), container);
     }
 
     /** Returns a new {@code RPMallocConfig} instance for the specified memory address. */
     public static RPMallocConfig create(long address) {
-        return wrap(RPMallocConfig.class, address);
+        return new RPMallocConfig(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static RPMallocConfig createSafe(long address) {
-        return address == NULL ? null : wrap(RPMallocConfig.class, address);
+        return address == NULL ? null : new RPMallocConfig(address, null);
     }
 
     // -----------------------------------
@@ -255,7 +295,7 @@ public class RPMallocConfig extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static RPMallocConfig malloc(MemoryStack stack) {
-        return wrap(RPMallocConfig.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new RPMallocConfig(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -264,7 +304,7 @@ public class RPMallocConfig extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static RPMallocConfig calloc(MemoryStack stack) {
-        return wrap(RPMallocConfig.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new RPMallocConfig(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     // -----------------------------------
@@ -285,6 +325,14 @@ public class RPMallocConfig extends Struct implements NativeResource {
     public static long nspan_map_count(long struct) { return memGetAddress(struct + RPMallocConfig.SPAN_MAP_COUNT); }
     /** Unsafe version of {@link #enable_huge_pages}. */
     public static int nenable_huge_pages(long struct) { return UNSAFE.getInt(null, struct + RPMallocConfig.ENABLE_HUGE_PAGES); }
+    /** Unsafe version of {@link #page_name}. */
+    @Nullable public static ByteBuffer npage_name(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + RPMallocConfig.PAGE_NAME)); }
+    /** Unsafe version of {@link #page_nameString}. */
+    @Nullable public static String npage_nameString(long struct) { return memASCIISafe(memGetAddress(struct + RPMallocConfig.PAGE_NAME)); }
+    /** Unsafe version of {@link #huge_page_name}. */
+    @Nullable public static ByteBuffer nhuge_page_name(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + RPMallocConfig.HUGE_PAGE_NAME)); }
+    /** Unsafe version of {@link #huge_page_nameString}. */
+    @Nullable public static String nhuge_page_nameString(long struct) { return memASCIISafe(memGetAddress(struct + RPMallocConfig.HUGE_PAGE_NAME)); }
 
     /** Unsafe version of {@link #memory_map(RPMemoryMapCallbackI) memory_map}. */
     public static void nmemory_map(long struct, @Nullable RPMemoryMapCallbackI value) { memPutAddress(struct + RPMallocConfig.MEMORY_MAP, memAddressSafe(value)); }
@@ -302,5 +350,15 @@ public class RPMallocConfig extends Struct implements NativeResource {
     public static void nspan_map_count(long struct, long value) { memPutAddress(struct + RPMallocConfig.SPAN_MAP_COUNT, value); }
     /** Unsafe version of {@link #enable_huge_pages(boolean) enable_huge_pages}. */
     public static void nenable_huge_pages(long struct, int value) { UNSAFE.putInt(null, struct + RPMallocConfig.ENABLE_HUGE_PAGES, value); }
+    /** Unsafe version of {@link #page_name(ByteBuffer) page_name}. */
+    public static void npage_name(long struct, @Nullable ByteBuffer value) {
+        if (CHECKS) { checkNT1Safe(value); }
+        memPutAddress(struct + RPMallocConfig.PAGE_NAME, memAddressSafe(value));
+    }
+    /** Unsafe version of {@link #huge_page_name(ByteBuffer) huge_page_name}. */
+    public static void nhuge_page_name(long struct, @Nullable ByteBuffer value) {
+        if (CHECKS) { checkNT1Safe(value); }
+        memPutAddress(struct + RPMallocConfig.HUGE_PAGE_NAME, memAddressSafe(value));
+    }
 
 }

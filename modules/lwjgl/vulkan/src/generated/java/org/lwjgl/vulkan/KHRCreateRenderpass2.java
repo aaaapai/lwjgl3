@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <li>Elements of {@link VkRenderPassMultiviewCreateInfo}{@code ::pViewMasks} are now specified in {@link VkSubpassDescription2KHR}{@code ::viewMask}.</li>
  * <li>Elements of {@link VkRenderPassMultiviewCreateInfo}{@code ::pViewOffsets} are now specified in {@link VkSubpassDependency2KHR}{@code ::viewOffset}.</li>
  * <li>{@link VkRenderPassMultiviewCreateInfo}{@code ::correlationMaskCount} and {@link VkRenderPassMultiviewCreateInfo}{@code ::pCorrelationMasks} are directly specified in {@link VkRenderPassCreateInfo2KHR}.</li>
- * <li>{@link VkInputAttachmentAspectReference}{@code ::aspectMask} is now specified in the relevant input attachment description in {@link VkAttachmentDescription2KHR}{@code ::aspectMask}</li>
+ * <li>{@link VkInputAttachmentAspectReference}{@code ::aspectMask} is now specified in the relevant input attachment reference in {@link VkAttachmentReference2KHR}{@code ::aspectMask}</li>
  * </ul>
  * 
  * <p>The details of these mappings are explained fully in the new structures.</p>
@@ -32,8 +32,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <h5>Promotion to Vulkan 1.2</h5>
  * 
  * <p>All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
- * 
- * <h5>VK_KHR_create_renderpass2</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -45,18 +43,14 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
+ * <dd>{@link KHRMultiview VK_KHR_multiview} and {@link KHRMaintenance2 VK_KHR_maintenance2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
- * <li>Requires Vulkan 1.0</li>
- * <li>Requires {@link KHRMultiview VK_KHR_multiview}</li>
- * <li>Requires {@link KHRMaintenance2 VK_KHR_maintenance2}</li>
- * </ul></dd>
- * <dt><b>Deprecation state</b></dt>
- * <dd><ul>
- * <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2-promotions">Vulkan 1.2</a></li>
+ * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.2-promotions">Vulkan 1.2</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Tobias Hector <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_create_renderpass2]%20@tobias%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_create_renderpass2%20extension%3E%3E">tobias</a></li>
+ * <li>Tobias Hector <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_create_renderpass2]%20@tobias%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_create_renderpass2%20extension*">tobias</a></li>
  * </ul></dd>
  * </dl>
  * 
@@ -65,10 +59,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
  * <dd>2018-02-07</dd>
- * <dt><b>Interactions and External Dependencies</b></dt>
- * <dd><ul>
- * <li>Promoted to Vulkan 1.2 Core</li>
- * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
  * <li>Tobias Hector</li>
@@ -129,7 +119,7 @@ public class KHRCreateRenderpass2 {
      *
      * @param device      the logical device that creates the render pass.
      * @param pCreateInfo a pointer to a {@link VkRenderPassCreateInfo2} structure describing the parameters of the render pass.
-     * @param pAllocator  controls host memory allocation as described in the <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pRenderPass a pointer to a {@code VkRenderPass} handle in which the resulting render pass object is returned.
      */
     @NativeType("VkResult")
@@ -199,7 +189,7 @@ public class KHRCreateRenderpass2 {
      * See {@link VK12#vkCmdEndRenderPass2 CmdEndRenderPass2}.
      *
      * @param commandBuffer   the command buffer in which to end the current render pass instance.
-     * @param pSubpassEndInfo a pointer to a {@link VkSubpassEndInfo} structure containing information about how the previous subpass will be ended.
+     * @param pSubpassEndInfo a pointer to a {@link VkSubpassEndInfo} structure containing information about how the last subpass will be ended.
      */
     public static void vkCmdEndRenderPass2KHR(VkCommandBuffer commandBuffer, @NativeType("VkSubpassEndInfo const *") VkSubpassEndInfo pSubpassEndInfo) {
         nvkCmdEndRenderPass2KHR(commandBuffer, pSubpassEndInfo.address());

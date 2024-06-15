@@ -21,7 +21,6 @@ val EXT_private_data = "EXTPrivateData".nativeClassVK("EXT_private_data", type =
             <li>In progress</li>
         </ul>
 
-        <h5>VK_EXT_private_data</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_private_data}</dd>
@@ -36,18 +35,16 @@ val EXT_private_data = "EXTPrivateData".nativeClassVK("EXT_private_data", type =
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a target="_blank" href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Matthew Rusch <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_private_data]%20@mattruschnv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_private_data%20extension%3E%3E">mattruschnv</a></li>
+                <li>Matthew Rusch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_private_data]%20@mattruschnv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_private_data%20extension*">mattruschnv</a></li>
             </ul></dd>
         </dl>
 
@@ -55,11 +52,6 @@ val EXT_private_data = "EXTPrivateData".nativeClassVK("EXT_private_data", type =
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2020-03-25</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-            </ul></dd>
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>
@@ -106,7 +98,7 @@ val EXT_private_data = "EXTPrivateData".nativeClassVK("EXT_private_data", type =
 
         VkDevice("device", "the logical device associated with the creation of the object(s) holding the private data slot."),
         VkPrivateDataSlotCreateInfo.const.p("pCreateInfo", "a pointer to a ##VkPrivateDataSlotCreateInfo"),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter."),
         Check(1)..VkPrivateDataSlot.p("pPrivateDataSlot", "a pointer to a {@code VkPrivateDataSlot} handle in which the resulting private data slot is returned")
     )
 
@@ -116,7 +108,7 @@ val EXT_private_data = "EXTPrivateData".nativeClassVK("EXT_private_data", type =
 
         VkDevice("device", "the logical device associated with the creation of the object(s) holding the private data slot."),
         VkPrivateDataSlot("privateDataSlot", "the private data slot to destroy."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a target=\"_blank\" href=\"https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "controls host memory allocation as described in the <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a> chapter.")
     )
 
     VkResult(

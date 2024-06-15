@@ -122,7 +122,7 @@ val GL32C = "GL32C".nativeClassGL("GL32C") {
         GLenum("mode", "the kind of primitives to render", PRIMITIVE_TYPES),
         GLsizei.const.p("count", "an array of the elements counts"),
         GLenum("type", "the type of the values in {@code indices}", "#UNSIGNED_BYTE #UNSIGNED_SHORT #UNSIGNED_INT"),
-        void.const.p.p("indices", "a pointer to the location where the indices are stored"),
+        void.const.p.const.p("indices", "a pointer to the location where the indices are stored"),
         AutoSize("count", "indices", "basevertex")..GLsizei("drawcount", "the size of the {@code count} array"),
         GLint.p("basevertex", "a pointer to the location where the base vertices are stored")
     )
@@ -424,7 +424,7 @@ val GL32C = "GL32C".nativeClassGL("GL32C") {
     LongConstant(
         "Accepted in the {@code timeout} parameter of WaitSync.",
 
-        "TIMEOUT_IGNORED".."0xFFFFFFFFFFFFFFFFL" // TODO: http://youtrack.jetbrains.com/issue/KT-2780
+        "TIMEOUT_IGNORED".."0xFFFFFFFFFFFFFFFFL" // TODO: https://youtrack.jetbrains.com/issue/KT-2780
     )
 
     IntConstant(

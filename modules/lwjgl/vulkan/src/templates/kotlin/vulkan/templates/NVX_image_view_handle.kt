@@ -13,7 +13,6 @@ val NVX_image_view_handle = "NVXImageViewHandle".nativeClassVK("NVX_image_view_h
         """
         This extension allows applications to query an opaque handle from an image view for use as a sampled image or storage image. This provides no direct functionality itself.
 
-        <h5>VK_NVX_image_view_handle</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NVX_image_view_handle}</dd>
@@ -27,14 +26,9 @@ val NVX_image_view_handle = "NVXImageViewHandle".nativeClassVK("NVX_image_view_h
             <dt><b>Revision</b></dt>
             <dd>2</dd>
 
-            <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><ul>
-                <li>Requires Vulkan 1.0</li>
-            </ul></dd>
-
             <dt><b>Contact</b></dt>
             <dd><ul>
-                <li>Eric Werness <a target="_blank" href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NVX_image_view_handle]%20@ewerness-nv%250A%3C%3CHere%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NVX_image_view_handle%20extension%3E%3E">ewerness-nv</a></li>
+                <li>Eric Werness <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_NVX_image_view_handle]%20@ewerness-nv%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_NVX_image_view_handle%20extension*">ewerness-nv</a></li>
             </ul></dd>
         </dl>
 
@@ -130,7 +124,6 @@ val NVX_image_view_handle = "NVXImageViewHandle".nativeClassVK("NVX_image_view_h
             <dt>On failure, this command returns</dt>
             <dd><ul>
                 <li>#ERROR_OUT_OF_HOST_MEMORY</li>
-                <li>#ERROR_UNKNOWN</li>
             </ul></dd>
         </dl>
 

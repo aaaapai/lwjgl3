@@ -16,6 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
+ * Parameters of new {@code VmaAllocation}.
+ * 
+ * <p>To be used with functions like {@link Vma#vmaCreateBuffer CreateBuffer}, {@link Vma#vmaCreateImage CreateImage}, and many others.</p>
+ * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
@@ -30,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float {@link #priority};
  * }</code></pre>
  */
-public class VmaAllocationCreateInfo extends Struct implements NativeResource {
+public class VmaAllocationCreateInfo extends Struct<VmaAllocationCreateInfo> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -74,6 +78,15 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
         PRIORITY = layout.offsetof(7);
     }
 
+    protected VmaAllocationCreateInfo(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected VmaAllocationCreateInfo create(long address, @Nullable ByteBuffer container) {
+        return new VmaAllocationCreateInfo(address, container);
+    }
+
     /**
      * Creates a {@code VmaAllocationCreateInfo} instance at the current position of the specified {@link ByteBuffer} container. Changes to the buffer's content will be
      * visible to the struct instance and vice versa.
@@ -87,7 +100,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** use {@code VmaAllocationCreateFlagBits} enum. One or more of:<br><table><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT ALLOCATION_CREATE_DEDICATED_MEMORY_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_NEVER_ALLOCATE_BIT ALLOCATION_CREATE_NEVER_ALLOCATE_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_MAPPED_BIT ALLOCATION_CREATE_MAPPED_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_RESERVED_1_BIT ALLOCATION_CREATE_RESERVED_1_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_RESERVED_2_BIT ALLOCATION_CREATE_RESERVED_2_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_UPPER_ADDRESS_BIT ALLOCATION_CREATE_UPPER_ADDRESS_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_DONT_BIND_BIT ALLOCATION_CREATE_DONT_BIND_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_WITHIN_BUDGET_BIT ALLOCATION_CREATE_WITHIN_BUDGET_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_CAN_ALIAS_BIT ALLOCATION_CREATE_CAN_ALIAS_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_HOST_ACCESS_ALLOW_TRANSFER_INSTEAD_BIT ALLOCATION_CREATE_HOST_ACCESS_ALLOW_TRANSFER_INSTEAD_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_BEST_FIT_BIT ALLOCATION_CREATE_STRATEGY_BEST_FIT_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MASK ALLOCATION_CREATE_STRATEGY_MASK}</td></tr></table> */
+    /** use {@code VmaAllocationCreateFlagBits} enum. One or more of:<br><table><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT ALLOCATION_CREATE_DEDICATED_MEMORY_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_NEVER_ALLOCATE_BIT ALLOCATION_CREATE_NEVER_ALLOCATE_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_MAPPED_BIT ALLOCATION_CREATE_MAPPED_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_UPPER_ADDRESS_BIT ALLOCATION_CREATE_UPPER_ADDRESS_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_DONT_BIND_BIT ALLOCATION_CREATE_DONT_BIND_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_WITHIN_BUDGET_BIT ALLOCATION_CREATE_WITHIN_BUDGET_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_CAN_ALIAS_BIT ALLOCATION_CREATE_CAN_ALIAS_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_HOST_ACCESS_ALLOW_TRANSFER_INSTEAD_BIT ALLOCATION_CREATE_HOST_ACCESS_ALLOW_TRANSFER_INSTEAD_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MIN_OFFSET_BIT ALLOCATION_CREATE_STRATEGY_MIN_OFFSET_BIT}</td></tr><tr><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_BEST_FIT_BIT ALLOCATION_CREATE_STRATEGY_BEST_FIT_BIT}</td><td>{@link Vma#VMA_ALLOCATION_CREATE_STRATEGY_MASK ALLOCATION_CREATE_STRATEGY_MASK}</td></tr></table> */
     @NativeType("VmaAllocationCreateFlags")
     public int flags() { return nflags(address()); }
     /**
@@ -201,29 +214,29 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
 
     /** Returns a new {@code VmaAllocationCreateInfo} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static VmaAllocationCreateInfo malloc() {
-        return wrap(VmaAllocationCreateInfo.class, nmemAllocChecked(SIZEOF));
+        return new VmaAllocationCreateInfo(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code VmaAllocationCreateInfo} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static VmaAllocationCreateInfo calloc() {
-        return wrap(VmaAllocationCreateInfo.class, nmemCallocChecked(1, SIZEOF));
+        return new VmaAllocationCreateInfo(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code VmaAllocationCreateInfo} instance allocated with {@link BufferUtils}. */
     public static VmaAllocationCreateInfo create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(VmaAllocationCreateInfo.class, memAddress(container), container);
+        return new VmaAllocationCreateInfo(memAddress(container), container);
     }
 
     /** Returns a new {@code VmaAllocationCreateInfo} instance for the specified memory address. */
     public static VmaAllocationCreateInfo create(long address) {
-        return wrap(VmaAllocationCreateInfo.class, address);
+        return new VmaAllocationCreateInfo(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaAllocationCreateInfo createSafe(long address) {
-        return address == NULL ? null : wrap(VmaAllocationCreateInfo.class, address);
+        return address == NULL ? null : new VmaAllocationCreateInfo(address, null);
     }
 
     /**
@@ -232,7 +245,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaAllocationCreateInfo.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -241,7 +254,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaAllocationCreateInfo.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -251,7 +264,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      */
     public static VmaAllocationCreateInfo.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -261,13 +274,13 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaAllocationCreateInfo.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static VmaAllocationCreateInfo.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -295,7 +308,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VmaAllocationCreateInfo malloc(MemoryStack stack) {
-        return wrap(VmaAllocationCreateInfo.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new VmaAllocationCreateInfo(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -304,7 +317,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static VmaAllocationCreateInfo calloc(MemoryStack stack) {
-        return wrap(VmaAllocationCreateInfo.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new VmaAllocationCreateInfo(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -314,7 +327,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaAllocationCreateInfo.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -324,7 +337,7 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static VmaAllocationCreateInfo.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -373,9 +386,9 @@ public class VmaAllocationCreateInfo extends Struct implements NativeResource {
         /**
          * Creates a new {@code VmaAllocationCreateInfo.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link VmaAllocationCreateInfo#SIZEOF}, and its mark will be undefined.
+         * by {@link VmaAllocationCreateInfo#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */

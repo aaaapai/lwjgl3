@@ -12,7 +12,6 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
@@ -22,11 +21,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct LZ4F_decompressOptions_t {
  *     unsigned {@link #stableDst};
- *     unsigned {@link #reserved}[3];
+ *     unsigned {@link #skipChecksums};
+ *     unsigned {@link #reserved1};
+ *     unsigned {@link #reserved0};
  * }</code></pre>
  */
 @NativeType("struct LZ4F_decompressOptions_t")
-public class LZ4FDecompressOptions extends Struct implements NativeResource {
+public class LZ4FDecompressOptions extends Struct<LZ4FDecompressOptions> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -37,19 +38,34 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
     /** The struct member offsets. */
     public static final int
         STABLEDST,
-        RESERVED;
+        SKIPCHECKSUMS,
+        RESERVED1,
+        RESERVED0;
 
     static {
         Layout layout = __struct(
             __member(4),
-            __array(4, 3)
+            __member(4),
+            __member(4),
+            __member(4)
         );
 
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
         STABLEDST = layout.offsetof(0);
-        RESERVED = layout.offsetof(1);
+        SKIPCHECKSUMS = layout.offsetof(1);
+        RESERVED1 = layout.offsetof(2);
+        RESERVED0 = layout.offsetof(3);
+    }
+
+    protected LZ4FDecompressOptions(long address, @Nullable ByteBuffer container) {
+        super(address, container);
+    }
+
+    @Override
+    protected LZ4FDecompressOptions create(long address, @Nullable ByteBuffer container) {
+        return new LZ4FDecompressOptions(address, container);
     }
 
     /**
@@ -65,30 +81,47 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** pledges that last 64KB decompressed data will remain available unmodified. This optimization skips storage operations in tmp buffers. */
+    /**
+     * pledges that last 64KB decompressed data will remain available unmodified between invocations.
+     * 
+     * <p>This optimization skips storage operations in tmp buffers.</p>
+     */
     @NativeType("unsigned")
     public int stableDst() { return nstableDst(address()); }
-    /** must be set to zero for forward compatibility */
-    @NativeType("unsigned[3]")
-    public IntBuffer reserved() { return nreserved(address()); }
+    /**
+     * disable checksum calculation and verification, even when one is present in frame, to save CPU time.
+     * 
+     * <p>Setting this option to 1 once disables all checksums for the rest of the frame.</p>
+     */
+    @NativeType("unsigned")
+    public int skipChecksums() { return nskipChecksums(address()); }
     /** must be set to zero for forward compatibility */
     @NativeType("unsigned")
-    public int reserved(int index) { return nreserved(address(), index); }
+    public int reserved1() { return nreserved1(address()); }
+    /** idem */
+    @NativeType("unsigned")
+    public int reserved0() { return nreserved0(address()); }
 
     /** Sets the specified value to the {@link #stableDst} field. */
     public LZ4FDecompressOptions stableDst(@NativeType("unsigned") int value) { nstableDst(address(), value); return this; }
-    /** Copies the specified {@link IntBuffer} to the {@link #reserved} field. */
-    public LZ4FDecompressOptions reserved(@NativeType("unsigned[3]") IntBuffer value) { nreserved(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #reserved} field. */
-    public LZ4FDecompressOptions reserved(int index, @NativeType("unsigned") int value) { nreserved(address(), index, value); return this; }
+    /** Sets the specified value to the {@link #skipChecksums} field. */
+    public LZ4FDecompressOptions skipChecksums(@NativeType("unsigned") int value) { nskipChecksums(address(), value); return this; }
+    /** Sets the specified value to the {@link #reserved1} field. */
+    public LZ4FDecompressOptions reserved1(@NativeType("unsigned") int value) { nreserved1(address(), value); return this; }
+    /** Sets the specified value to the {@link #reserved0} field. */
+    public LZ4FDecompressOptions reserved0(@NativeType("unsigned") int value) { nreserved0(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public LZ4FDecompressOptions set(
         int stableDst,
-        IntBuffer reserved
+        int skipChecksums,
+        int reserved1,
+        int reserved0
     ) {
         stableDst(stableDst);
-        reserved(reserved);
+        skipChecksums(skipChecksums);
+        reserved1(reserved1);
+        reserved0(reserved0);
 
         return this;
     }
@@ -109,29 +142,29 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
 
     /** Returns a new {@code LZ4FDecompressOptions} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
     public static LZ4FDecompressOptions malloc() {
-        return wrap(LZ4FDecompressOptions.class, nmemAllocChecked(SIZEOF));
+        return new LZ4FDecompressOptions(nmemAllocChecked(SIZEOF), null);
     }
 
     /** Returns a new {@code LZ4FDecompressOptions} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
     public static LZ4FDecompressOptions calloc() {
-        return wrap(LZ4FDecompressOptions.class, nmemCallocChecked(1, SIZEOF));
+        return new LZ4FDecompressOptions(nmemCallocChecked(1, SIZEOF), null);
     }
 
     /** Returns a new {@code LZ4FDecompressOptions} instance allocated with {@link BufferUtils}. */
     public static LZ4FDecompressOptions create() {
         ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return wrap(LZ4FDecompressOptions.class, memAddress(container), container);
+        return new LZ4FDecompressOptions(memAddress(container), container);
     }
 
     /** Returns a new {@code LZ4FDecompressOptions} instance for the specified memory address. */
     public static LZ4FDecompressOptions create(long address) {
-        return wrap(LZ4FDecompressOptions.class, address);
+        return new LZ4FDecompressOptions(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4FDecompressOptions createSafe(long address) {
-        return address == NULL ? null : wrap(LZ4FDecompressOptions.class, address);
+        return address == NULL ? null : new LZ4FDecompressOptions(address, null);
     }
 
     /**
@@ -140,7 +173,7 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static LZ4FDecompressOptions.Buffer malloc(int capacity) {
-        return wrap(Buffer.class, nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
     }
 
     /**
@@ -149,7 +182,7 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static LZ4FDecompressOptions.Buffer calloc(int capacity) {
-        return wrap(Buffer.class, nmemCallocChecked(capacity, SIZEOF), capacity);
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
     }
 
     /**
@@ -159,7 +192,7 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      */
     public static LZ4FDecompressOptions.Buffer create(int capacity) {
         ByteBuffer container = __create(capacity, SIZEOF);
-        return wrap(Buffer.class, memAddress(container), capacity, container);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -169,13 +202,13 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static LZ4FDecompressOptions.Buffer create(long address, int capacity) {
-        return wrap(Buffer.class, address, capacity);
+        return new Buffer(address, capacity);
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
     public static LZ4FDecompressOptions.Buffer createSafe(long address, int capacity) {
-        return address == NULL ? null : wrap(Buffer.class, address, capacity);
+        return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
@@ -203,7 +236,7 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static LZ4FDecompressOptions malloc(MemoryStack stack) {
-        return wrap(LZ4FDecompressOptions.class, stack.nmalloc(ALIGNOF, SIZEOF));
+        return new LZ4FDecompressOptions(stack.nmalloc(ALIGNOF, SIZEOF), null);
     }
 
     /**
@@ -212,7 +245,7 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param stack the stack from which to allocate
      */
     public static LZ4FDecompressOptions calloc(MemoryStack stack) {
-        return wrap(LZ4FDecompressOptions.class, stack.ncalloc(ALIGNOF, 1, SIZEOF));
+        return new LZ4FDecompressOptions(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
     }
 
     /**
@@ -222,7 +255,7 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static LZ4FDecompressOptions.Buffer malloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
     }
 
     /**
@@ -232,31 +265,28 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
      * @param capacity the buffer capacity
      */
     public static LZ4FDecompressOptions.Buffer calloc(int capacity, MemoryStack stack) {
-        return wrap(Buffer.class, stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #stableDst}. */
     public static int nstableDst(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.STABLEDST); }
-    /** Unsafe version of {@link #reserved}. */
-    public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + LZ4FDecompressOptions.RESERVED, 3); }
-    /** Unsafe version of {@link #reserved(int) reserved}. */
-    public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.RESERVED + check(index, 3) * 4);
-    }
+    /** Unsafe version of {@link #skipChecksums}. */
+    public static int nskipChecksums(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.SKIPCHECKSUMS); }
+    /** Unsafe version of {@link #reserved1}. */
+    public static int nreserved1(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.RESERVED1); }
+    /** Unsafe version of {@link #reserved0}. */
+    public static int nreserved0(long struct) { return UNSAFE.getInt(null, struct + LZ4FDecompressOptions.RESERVED0); }
 
     /** Unsafe version of {@link #stableDst(int) stableDst}. */
     public static void nstableDst(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.STABLEDST, value); }
-    /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
-    public static void nreserved(long struct, IntBuffer value) {
-        if (CHECKS) { checkGT(value, 3); }
-        memCopy(memAddress(value), struct + LZ4FDecompressOptions.RESERVED, value.remaining() * 4);
-    }
-    /** Unsafe version of {@link #reserved(int, int) reserved}. */
-    public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + LZ4FDecompressOptions.RESERVED + check(index, 3) * 4, value);
-    }
+    /** Unsafe version of {@link #skipChecksums(int) skipChecksums}. */
+    public static void nskipChecksums(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.SKIPCHECKSUMS, value); }
+    /** Unsafe version of {@link #reserved1(int) reserved1}. */
+    public static void nreserved1(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.RESERVED1, value); }
+    /** Unsafe version of {@link #reserved0(int) reserved0}. */
+    public static void nreserved0(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FDecompressOptions.RESERVED0, value); }
 
     // -----------------------------------
 
@@ -268,9 +298,9 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
         /**
          * Creates a new {@code LZ4FDecompressOptions.Buffer} instance backed by the specified container.
          *
-         * Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
+         * <p>Changes to the container's content will be visible to the struct buffer instance and vice versa. The two buffers' position, limit, and mark values
          * will be independent. The new buffer's position will be zero, its capacity and its limit will be the number of bytes remaining in this buffer divided
-         * by {@link LZ4FDecompressOptions#SIZEOF}, and its mark will be undefined.
+         * by {@link LZ4FDecompressOptions#SIZEOF}, and its mark will be undefined.</p>
          *
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
@@ -299,19 +329,24 @@ public class LZ4FDecompressOptions extends Struct implements NativeResource {
         /** @return the value of the {@link LZ4FDecompressOptions#stableDst} field. */
         @NativeType("unsigned")
         public int stableDst() { return LZ4FDecompressOptions.nstableDst(address()); }
-        /** @return a {@link IntBuffer} view of the {@link LZ4FDecompressOptions#reserved} field. */
-        @NativeType("unsigned[3]")
-        public IntBuffer reserved() { return LZ4FDecompressOptions.nreserved(address()); }
-        /** @return the value at the specified index of the {@link LZ4FDecompressOptions#reserved} field. */
+        /** @return the value of the {@link LZ4FDecompressOptions#skipChecksums} field. */
         @NativeType("unsigned")
-        public int reserved(int index) { return LZ4FDecompressOptions.nreserved(address(), index); }
+        public int skipChecksums() { return LZ4FDecompressOptions.nskipChecksums(address()); }
+        /** @return the value of the {@link LZ4FDecompressOptions#reserved1} field. */
+        @NativeType("unsigned")
+        public int reserved1() { return LZ4FDecompressOptions.nreserved1(address()); }
+        /** @return the value of the {@link LZ4FDecompressOptions#reserved0} field. */
+        @NativeType("unsigned")
+        public int reserved0() { return LZ4FDecompressOptions.nreserved0(address()); }
 
         /** Sets the specified value to the {@link LZ4FDecompressOptions#stableDst} field. */
         public LZ4FDecompressOptions.Buffer stableDst(@NativeType("unsigned") int value) { LZ4FDecompressOptions.nstableDst(address(), value); return this; }
-        /** Copies the specified {@link IntBuffer} to the {@link LZ4FDecompressOptions#reserved} field. */
-        public LZ4FDecompressOptions.Buffer reserved(@NativeType("unsigned[3]") IntBuffer value) { LZ4FDecompressOptions.nreserved(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link LZ4FDecompressOptions#reserved} field. */
-        public LZ4FDecompressOptions.Buffer reserved(int index, @NativeType("unsigned") int value) { LZ4FDecompressOptions.nreserved(address(), index, value); return this; }
+        /** Sets the specified value to the {@link LZ4FDecompressOptions#skipChecksums} field. */
+        public LZ4FDecompressOptions.Buffer skipChecksums(@NativeType("unsigned") int value) { LZ4FDecompressOptions.nskipChecksums(address(), value); return this; }
+        /** Sets the specified value to the {@link LZ4FDecompressOptions#reserved1} field. */
+        public LZ4FDecompressOptions.Buffer reserved1(@NativeType("unsigned") int value) { LZ4FDecompressOptions.nreserved1(address(), value); return this; }
+        /** Sets the specified value to the {@link LZ4FDecompressOptions#reserved0} field. */
+        public LZ4FDecompressOptions.Buffer reserved0(@NativeType("unsigned") int value) { LZ4FDecompressOptions.nreserved0(address(), value); return this; }
 
     }
 
