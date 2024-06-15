@@ -93,6 +93,9 @@ public final class GL {
         // intentionally empty to trigger static initializer
     }
 
+    private static native long getGraphicsBufferAddr();
+    private static native int[] getNativeWidthHeight();
+
     /** Loads the OpenGL native library, using the default library name. */
     public static void create() {
         SharedLibrary GL;
@@ -102,7 +105,12 @@ public final class GL {
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
                 break;
             case MACOSX:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL");
+                // Configuration does not get updated if the value changes, so we have to update it here
+                Configuration.OPENGL_LIBRARY_NAME.set(System.getProperty("org.lwjgl.opengl.libname"));
+                String override = Configuration.OPENGL_LIBRARY_NAME.get();
+                GL = override != null
+                    ? Library.loadNative(GL.class, "org.lwjgl.opengl", override)
+                    : MacOSXLibrary.getWithIdentifier("com.apple.opengl");
                 break;
             case WINDOWS:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "opengl32");
@@ -284,6 +292,38 @@ public final class GL {
         }
     }
 
+    private static void fixPojavGLContestPro() throws Exception {
+        System.out.println("[LWJGL] Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit");
+        long currentContext;
+        Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+        currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+    }
+
+    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
+    private static void fixPojavGLContext() throws Exception {
+        String renderer = System.getProperty("org.lwjgl.opengl.libname");
+        if (Platform.get() == Platform.LINUX && renderer.startsWith("libOSMesa")) {
+            if (System.getenv("POJAV_EXP_FRAME_BUFFER") != null && System.getenv("POJAV_EXP_SETUP") != null) {
+                System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
+                if (System.getenv("POJAV_ZINK_CRASH_HANDLE") != null || System.getenv("DCLAT_FRAMEBUFFER") != null) {
+                    System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
+                    long currentContext;
+                    int[] dims = getNativeWidthHeight();
+                    currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
+                    callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
+                } else {
+                    System.out.println("[LWJGL] Frame buffers are not used");
+                    fixPojavGLContestPro();
+                }
+            } else {
+                fixPojavGLContestPro();
+            }
+        } else {
+            fixPojavGLContestPro();
+        }
+    }
+
     /**
      * Creates a new {@link GLCapabilities} instance for the OpenGL context that is current in the current thread.
      *
@@ -348,6 +388,14 @@ public final class GL {
         FunctionProvider functionProvider = GL.functionProvider;
         if (functionProvider == null) {
             throw new IllegalStateException("OpenGL library has not been loaded.");
+        }
+
+        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_BETA_RENDERER") != null) {
+            try {
+                fixPojavGLContext();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // We don't have a current ContextCapabilities when this method is called

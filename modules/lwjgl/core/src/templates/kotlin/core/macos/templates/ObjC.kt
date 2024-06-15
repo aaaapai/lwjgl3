@@ -12,7 +12,7 @@ val objc_runtime = "ObjCRuntime".nativeClass(
     nativeSubPath = "macos",
     binding = simpleBinding(Module.CORE_MACOS, "objc")
 ) {
-    nativeImport("<objc/objc-runtime.h>")
+    nativeImport("<objc/runtime.h>")
 
     documentation =
         """

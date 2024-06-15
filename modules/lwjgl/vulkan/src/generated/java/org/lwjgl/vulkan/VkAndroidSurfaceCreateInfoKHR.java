@@ -216,7 +216,7 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
      */
     public static VkAndroidSurfaceCreateInfoKHR.Buffer create(long address, int capacity) {
         return new Buffer(address, capacity);
-    }
+   }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     @Nullable
