@@ -18,6 +18,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * The {@code VK_KHR_android_surface} extension is an instance extension. It provides a mechanism to create a {@code VkSurfaceKHR} object (defined by the {@link KHRSurface VK_KHR_surface} extension) that refers to an {@code ANativeWindow}, Android’s native surface type. The {@code ANativeWindow} represents the producer endpoint of any buffer queue, regardless of consumer endpoint. Common consumer endpoints for {@code ANativeWindows} are the system window compositor, video encoders, and application-specific compositors importing the images through a {@code SurfaceTexture}.
  * 
+ * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_KHR_android_surface}</dd>
@@ -167,5 +168,4 @@ public class KHRAndroidSurface {
         }
         return callPPPPI(instance.address(), pCreateInfo.address(), memAddressSafe(pAllocator), pSurface, __functionAddress);
     }
-
 }
