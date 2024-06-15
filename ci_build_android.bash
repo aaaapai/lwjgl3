@@ -27,11 +27,13 @@ mkdir -p $LWJGL_NATIVE
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
   if [ ! -d libffi ]; then
-    git clone --depth 1 https://github.com/LWJGL-CI/libffi
+    git clone --depth 1 https://github.com/LWJGL-CI/libffi ${PWD}/libffi
   fi
   cd libffi
 
   # Build libffi
+  ./autogen.sh
+  ./configure
   bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
   make -j4
   cd ..
