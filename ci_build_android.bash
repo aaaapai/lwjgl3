@@ -49,6 +49,10 @@ wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
 wget -nc "https://nightly.link/aaaapai/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 
+# HACK: Skip compiling and running the generator to save time and keep LWJGLX functions
+mkdir -p bin/classes/{generator,templates/META-INF}
+touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generated-touch.txt
+
 # Build LWJGL 3
 ant -version
 yes | ant -Dplatform.linux=true \
@@ -87,7 +91,7 @@ yes | ant -Dplatform.linux=true \
   -Dbuild.type=nightly/3.4.0 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  compile-templates compile compile-native debug
+  compile compile-native debug
 
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
