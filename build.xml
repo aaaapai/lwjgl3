@@ -148,15 +148,13 @@
         <echo message="Compiling Kotlin generator..." level="info" taskname="Generator" unless:set="generator-uptodate"/>
         <mkdir dir="${bin.generator}"/>
         <kotlinc moduleName="generator" output="${bin.generator}" printVersion="true" unless:set="generator-uptodate">
-            <compilerarg line="-language-version 2.0"/>
-            <compilerarg line="-api-version 2.0"/>
             <compilerarg value="-progressive"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
             <compilerarg value="-Xlambdas=indy"/>
             <compilerarg value="-Xreport-perf"/>
             <compilerarg value="-Xbackend-threads=${backend-threads}" if:set="backend-threads"/>
-            <compilerarg line="-jvm-target 1.8"/>
+            <compilerarg line="-jvm-target 17"/>
 
             <src path="${src.generator}/kotlin"/>
         </kotlinc>
@@ -216,15 +214,13 @@
                 <pathelement location="${bin.generator}"/>
             </classpath>
 
-            <compilerarg line="-language-version 2.0"/>
-            <compilerarg line="-api-version 2.0"/>
             <compilerarg value="-progressive"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
             <compilerarg value="-Xlambdas=indy"/>
             <compilerarg value="-Xreport-perf"/>
             <compilerarg value="-Xbackend-threads=${backend-threads}" if:set="backend-threads"/>
-            <compilerarg line="-jvm-target 1.8"/>
+            <compilerarg line="-jvm-target 17"/>
 
             <src path="${module.templatepath}"/>
 
@@ -596,9 +592,10 @@
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/16" if:set="core.java16"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib.jar"/>
+                <pathelement path="${kotlinc}/lib/kotlin-stdlib-jdk7.jar"/>
             </classpath>
 
-            <compilerarg line="-jvm-target 1.8"/>
+            <compilerarg line="-jvm-target 17"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
             <compilerarg value="-Xreport-perf"/>
@@ -625,6 +622,7 @@
                 <pathelement path="${bin.extract}"/>
                 <pathelement path="${test.resources}"/>
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib.jar"/>
+                <pathelement path="${kotlinc}/lib/kotlin-stdlib-jdk7.jar"/>
                 <pathelement path="${lib}/native"/>
             </classpath>
 
@@ -1393,7 +1391,6 @@
                 notree="true"
                 public="true"
                 failonerror="true"
-                verbose="true"
                 unless:set="javadoc.skip"
             >
                 <doctitle><![CDATA[<h1>LWJGL - @{title}</h1>]]></doctitle>
@@ -1527,6 +1524,8 @@
             <jvmarg value="-Dmodule.name.list=${module.list}"/>
             <jvmarg value="-Dmodule.version=${module.version}"/>
         </java>
+
+        <parallel threadcount="4" failonany="true">
 
         <!-- CORE -->
         <sequential>
@@ -1980,5 +1979,7 @@
 
         <!-- zstd -->
         <release-module name="zstd" native-library="lwjgl_zstd" title="zstd" if:true="${binding.zstd}"/>
+
+        </parallel>
     </target>
 </project>
