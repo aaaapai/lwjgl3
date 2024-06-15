@@ -2,7 +2,8 @@
 set -e
 #wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
 #unzip android-ndk-r26d-linux.zip >> /dev/null
-export ANDROID=1 LWJGL_BUILD_OFFLINE=1
+export ANDROID=1
+export LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
