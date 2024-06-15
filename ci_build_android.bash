@@ -86,7 +86,7 @@ yes | ant -Dplatform.linux=true \
   -Dbuild.type=nightly/3.4.0 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  compile compile-templates compile-native debug
+  compile-templates compile compile-native debug
 
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
