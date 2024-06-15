@@ -12,6 +12,9 @@
     _Pragma("GCC diagnostic ignored \"-Wunused-parameter\"")
     _Pragma("GCC diagnostic ignored \"-Wunused-but-set-variable\"")
     _Pragma("GCC diagnostic ignored \"-Wsign-compare\"")
+    _Pragma("GCC diagnostic ignored \"-Wno-gnu-statement-expression\"")
+    _Pragma("GCC diagnostic ignored \"-Wno-int-conversion\"")
+    _Pragma("GCC diagnostic ignored \"-Wno-int-conversion\"")
 #else
     _Pragma("GCC diagnostic ignored \"-Wall\"") \
     _Pragma("GCC diagnostic ignored \"-Wextra\"")
