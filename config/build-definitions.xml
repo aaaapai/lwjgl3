@@ -129,7 +129,7 @@ This script is included in /build.xml and /config/update-dependencies.xml.
         Offline build flag. This is useful when working offline, or when custom binary dependencies
         are used (so they are not overridden). Set to one of true/on/yes to enable.
     -->
-    <condition property="build.offline" value="${env.LWJGL_BUILD_OFFLINE}" else="false">
+    <condition property="build.offline" value="${env.LWJGL_BUILD_OFFLINE}" else="true">
         <isset property="env.LWJGL_BUILD_OFFLINE"/>
     </condition>
 
