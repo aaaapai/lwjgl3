@@ -6,18 +6,21 @@
     <import file="../build-definitions.xml"/>
 
 <!--
-    <property name="gcc.prefix" value="aarch64-linux-gnu-" if:set="build.arch.arm64"/>
-    <property name="gcc.prefix" value="arm-linux-gnueabihf-" if:set="build.arch.arm32"/>
+    <condition property="linux.triplet" value="arm-linux-gnueabihf"><isset property="build.arch.arm32"/></condition>
+    <condition property="linux.triplet" value="aarch64-linux-gnu"><isset property="build.arch.arm64"/></condition>
+    <condition property="linux.triplet" value="powerpc64le-linux-gnu"><isset property="build.arch.ppc64le"/></condition>
+    <condition property="linux.triplet" value="riscv64-linux-gnu"><isset property="build.arch.riscv64"/></condition>
+    <condition property="linux.triplet" value="x86_64-linux-gnu"><isset property="build.arch.x64|x86"/></condition>
 
-    <condition property="gcc.prefix" value="${gcc.prefix}" else="">
-        <isset property="gcc.prefix"/>
+    <condition property="gcc.prefix" value="" else="${linux.triplet}-">
+        <isset property="build.arch.x64|x86"/>
     </condition>
     <condition property="gcc.suffix" value="-${gcc.version}" else="">
         <isset property="gcc.version"/>
     </condition>
 -->
 
-    <property name="ndk.abi" value="21"/>
+    <property name="ndk.abi" value="24"/>
     <property name="ndk.home" value="${env.ANDROID_NDK_HOME}"/>
     <property name="ndk.bin" value="${ndk.home}/toolchains/llvm/prebuilt/linux-x86_64/bin"/>
 
@@ -36,7 +39,6 @@
         <attribute name="lang" default="c"/>
         <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
         <attribute name="gpp.exec" default="${gcc.prefix}clang++"/>
-        <attribute name="lto" default="-flto"/>
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="relative" default="true"/>
@@ -48,11 +50,13 @@
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}"><equals arg1="@{lang}" arg2="c"/></condition>
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${gcc}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
-                <arg line="-c" unless:set="cpp"/>
+                <arg line="-c -std=gnu11" unless:set="cpp"/>
                 <arg line="-c -std=gnu++2a" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
-                <arg line="-DANDROID -pipe -integrated-as -fno-plt -Ofast -flto -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce @{lto} -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
+                <arg line="-mcpu=powerpc64le" if:set="build.arch.ppc64le"/>
+                <arg line="-march=rv64g" if:set="build.arch.riscv64"/>
+                <arg line="-O3 -flto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
                 <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
                 <arg line="-D_FILE_OFFSET_BITS=64"/>
 
@@ -74,6 +78,7 @@
 
     <macrodef name="build">
         <attribute name="module"/>
+        <attribute name="suffix" default=""/>
         <attribute name="linker" default="gcc"/>
         <attribute name="lang" default="c"/>
         <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
@@ -93,12 +98,12 @@
             <property name="src.generated" location="${module.lwjgl}/@{module}/src/generated/c" relative="true"/>
 
             <local name="name"/>
-            <condition property="name" value="lwjgl" else="lwjgl_@{module}">
+            <condition property="name" value="lwjgl" else="lwjgl_@{module}@{suffix}">
                 <equals arg1="@{module}" arg2="core"/>
             </condition>
 
             <local name="dest"/>
-            <property name="dest" value="${bin.native}/@{module}"/>
+            <property name="dest" value="${bin.native}/@{module}@{suffix}"/>
 
             <beforeCompile/>
             <compile lang="@{lang}" gcc.exec="@{gcc.exec}" gpp.exec="@{gpp.exec}" flags="@{flags}" simple="@{simple}">
@@ -125,24 +130,11 @@
             <property name="version.script" location="config/${platform}/version.script"/>
 
             <local name="gcc"/>
-            <property name="gcc" value="@{gcc.exec}"/>
-<!--
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}">
                 <and>
                     <equals arg1="@{lang}" arg2="c"/>
                     <equals arg1="@{linker}" arg2="gcc"/>
                 </and>
-            </condition>
--->
-
-            <local name="force-cpp-static-linking"/>
-            <condition property="force-cpp-static-linking" value="true">
-                <not>
-                    <and>
-                        <equals arg1="@{lang}" arg2="c"/>
-                        <equals arg1="@{linker}" arg2="gcc"/>
-                    </and>
-                </not>
             </condition>
 
             <echo message="Linking ${name}" taskname="${gcc}" unless:set="lib-uptodate"/>
@@ -154,9 +146,8 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
-                <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
-                <arg line="-DANDROID -pipe -integrated-as -fno-plt -Ofast -flto -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-O3 -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
@@ -186,7 +177,7 @@
             <arg line="-o pipefail -c"/>
             <arg value="${gcc.prefix}clang --version | grep ^.*clang"/>
         </exec>
-        <echo message='${gcc.prefix}clang --version: "${gcc.version.string}"' taskname="Compiler"/>
+        <echo message='${gcc.prefix}gcc${gcc.suffix} --version: "${gcc.version.string}"' taskname="Compiler"/>
 
         <parallel threadsPerProcessor="2">
 
@@ -204,7 +195,9 @@
                 <arg value="-I${src.main.rel}/libffi"/>
                 <arg value="-I${src.main.rel}/libffi/aarch64" if:set="build.arch.arm64"/>
                 <arg value="-I${src.main.rel}/libffi/arm" if:set="build.arch.arm32"/>
-                <arg value="-I${src.main.rel}/libffi/x86" unless:set="build.arch.arm"/>
+                <arg value="-I${src.main.rel}/libffi/ppc64le" if:set="build.arch.ppc64le"/>
+                <arg value="-I${src.main.rel}/libffi/riscv64" if:set="build.arch.riscv64"/>
+                <arg value="-I${src.main.rel}/libffi/x86" if:set="build.arch.x64|x86"/>
                 <arg value="-DX86_64" if:set="build.arch.x64"/> <!-- for libffi/x86/ffitarget.h -->
                 <arg value="-I${src.main.rel}/${platform}/liburing"/>
                 <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
@@ -260,14 +253,14 @@
         <!-- Meow -->
         <sequential if:true="${binding.meow}">
             <local name="meow.flags"/>
-            <condition property="meow.flags" value="-march=armv8-a+crypto" else="-maes -msse4.2">
-                <isset property="build.arch.arm"/>
-            </condition>
+            <condition property="meow.flags" value="-march=armv8-a+crypto"><isset property="build.arch.arm"/></condition>
+            <condition property="meow.flags" value="-maes -msse4.2"><isset property="build.arch.x64|x86"/></condition>
+
             <build module="meow" simple="true" flags="-Werror -Wfatal-errors ${meow.flags}"/>
         </sequential>
 
         <!-- meshoptimizer -->
-        <build module="meshoptimizer" simple="true" linker="g++" if:true="${binding.meshoptimizer}">
+        <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
             <beforeCompile>
                 <compile lang="c++" flags="-DMESHOPTIMIZER_NO_WRAPPERS">
                     <arg value="-I${src.main.rel}"/>
@@ -287,19 +280,20 @@
         </build>
 
         <!-- NativeFileDialog -->
-        <build module="nfd" simple="true" if:true="${binding.nfd}">
+        <build module="nfd" simple="true" linker="g++" if:true="${binding.nfd}">
             <beforeCompile>
-                <local name="linux.triplet"/>
-                <condition property="linux.triplet" value="x86_64-linux-gnu"><not><isset property="build.arch.arm"/></not></condition>
-                <condition property="linux.triplet" value="arm-linux-gnueabihf"><isset property="build.arch.arm32"/></condition>
-                <condition property="linux.triplet" value="aarch64-linux-gnu"><isset property="build.arch.arm64"/></condition>
-
-                <compile>
-                    <arg line="-I/usr/include/gtk-3.0 -I/usr/include/glib-2.0 -I/usr/lib/${linux.triplet}/glib-2.0/include -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/atk-1.0"/>
-                    <arg value="-I${src.main.rel}"/>
+                <compile lang="c++">
+                    <arg value="-I/usr/include/gtk-3.0"/>
+                    <arg value="-I/usr/include/glib-2.0"/>
+                    <arg value="-I/usr/include/pango-1.0"/>
+                    <arg value="-I/usr/include/harfbuzz"/>
+                    <arg value="-I/usr/include/cairo"/>
+                    <arg value="-I/usr/include/gdk-pixbuf-2.0"/>
+                    <arg value="-I/usr/include/atk-1.0"/>
+                    <arg value="-I/usr/lib64/glib-2.0/include"/>
+                    <arg value="-I/usr/lib/${linux.triplet}/glib-2.0/include"/>
                     <arg value="-I${src.main.rel}/include"/>
-                    <fileset dir="." includes="${src.main}/nfd_common.c"/>
-                    <fileset dir="." includes="${src.main}/nfd_gtk.c"/>
+                    <fileset dir="." includes="${src.main}/nfd_gtk.cpp"/>
                 </compile>
             </beforeCompile>
             <source>
@@ -310,6 +304,21 @@
                 <arg value="-lgobject-2.0"/>
                 <arg value="-lgtk-3"/>
                 <arg value="-lgdk-3"/>
+            </link>
+        </build>
+        <build module="nfd" suffix="_portal" simple="true" linker="g++" if:true="${binding.nfd}">
+            <beforeCompile>
+                <compile lang="c++">
+                    <arg line="-I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -I/usr/lib/${linux.triplet}/dbus-1.0/include"/>
+                    <arg value="-I${src.main.rel}/include"/>
+                    <fileset dir="." includes="${src.main}/nfd_portal.cpp"/>
+                </compile>
+            </beforeCompile>
+            <source>
+                <arg value="-I${src.main.rel}/include"/>
+            </source>
+            <link>
+                <arg value="-ldbus-1"/>
             </link>
         </build>
 
@@ -345,10 +354,12 @@
         <build module="remotery" if:true="${binding.remotery}">
             <source>
                 <arg value="-I${src.main.rel}"/>
+                <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
                 <fileset dir="." includes="${src.generated}/*.c" excludes="**/*Metal.c"/>
             </source>
             <link>
-                <arg value="-landroid -ldl"/>
+                <arg value="-ldl"/>
+                <arg value="-lm"/>
                 <arg value="-l:libGL.so.1" unless:set="gcc.libpath.opengl"/>
                 <arg line="-L ${gcc.libpath.opengl} -l:libGL.so.1" if:set="gcc.libpath.opengl"/>
             </link>
@@ -381,6 +392,7 @@
                 <compile lang="c++">
                     <arg value="-I${src.main.rel}"/>
                     <fileset dir="." includes="${src.main}/*.cc"/>
+                    <fileset dir="." includes="${src.generated}/*.cpp"/>
                 </compile>
                 <compile>
                     <arg value="-I${src.main.rel}"/>
@@ -436,8 +448,8 @@
                 <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
                 <fileset dir="." includes="${src.generated}/*.cpp"/>
             </source>
-            <link if:set="build.arch.arm">
-                <arg value="-latomic"/>
+            <link>
+                <arg value="-latomic" if:set="build.arch.arm"/>
             </link>
         </build>
 
@@ -462,7 +474,7 @@
                     <fileset dir="." includes="${src.main}/common/*.c"/>
                     <fileset dir="." includes="${src.main}/compress/*.c"/>
                     <fileset dir="." includes="${src.main}/decompress/*.c"/>
-                    <fileset dir="." includes="${src.main}/decompress/*.S" unless:set="build.arch.arm"/>
+                    <fileset dir="." includes="${src.main}/decompress/*.S" if:set="build.arch.x64|x86"/>
                     <fileset dir="." includes="${src.main}/dictBuilder/*.c"/>
                     <fileset dir="." includes="${module.lwjgl}/xxhash/src/main/c/xxhash.c"/>
                 </compile>
@@ -485,9 +497,14 @@
             <parallel threadsPerProcessor="4" failonany="true">
 
             <update-dependency module="assimp" artifact="libassimp.so"/>
+            <update-dependency module="assimp" artifact="libdraco.so"/>
             <update-dependency module="bgfx" artifact="libbgfx.so"/>
-            <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
+            <update-dependency module="freetype" artifact="libfreetype.so"/>
             <update-dependency module="glfw" artifact="libglfw.so"/>
+            <update-dependency module="harfbuzz" artifact="libharfbuzz.so"/>
+            <update-dependency module="hwloc" artifact="libhwloc.so"/>
+            <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
+            <update-dependency module="ktx" artifact="libktx.so"/>
             <update-dependency module="openal" artifact="libopenal.so"/>
             <update-dependency module="openvr" artifact="libopenvr_api.so"/>
             <update-dependency module="openxr" artifact="libopenxr_loader.so"/>
