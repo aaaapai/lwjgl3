@@ -32,7 +32,7 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   cd libffi
 
   # Build libffi
-  source scl_source enable devtoolset-11 || true
+  sudo apt-get install -yq m4 make automake libtool texinfo
   ./autogen.sh
   ./configure
   bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
