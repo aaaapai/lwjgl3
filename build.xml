@@ -156,7 +156,7 @@
             <compilerarg value="-Xlambdas=indy"/>
             <compilerarg value="-Xreport-perf"/>
             <compilerarg value="-Xbackend-threads=${backend-threads}" if:set="backend-threads"/>
-            <compilerarg line="-jvm-target 17"/>
+            <compilerarg line="-jvm-target 1.8"/>
 
             <src path="${src.generator}/kotlin"/>
         </kotlinc>
@@ -224,7 +224,7 @@
             <compilerarg value="-Xlambdas=indy"/>
             <compilerarg value="-Xreport-perf"/>
             <compilerarg value="-Xbackend-threads=${backend-threads}" if:set="backend-threads"/>
-            <compilerarg line="-jvm-target 17"/>
+            <compilerarg line="-jvm-target 1.8"/>
 
             <src path="${module.templatepath}"/>
 
@@ -598,7 +598,7 @@
                 <pathelement path="${kotlinc}/lib/kotlin-stdlib.jar"/>
             </classpath>
 
-            <compilerarg line="-jvm-target 17"/>
+            <compilerarg line="-jvm-target 1.8"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
             <compilerarg value="-Xreport-perf"/>
