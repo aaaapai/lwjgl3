@@ -83,7 +83,7 @@
         <attribute name="lang" default="c"/>
         <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
         <attribute name="gpp.exec" default="${gcc.prefix}clang++"/>
-        <attribute name="flags" default="-Wno-nullability-completeness"/>
+        <attribute name="flags" default="-Wno-nullability-completeness -Wno-gnu-statement-expression -Wno-int-conversion -Wno-error=implicit-function-declaration"/>
         <attribute name="simple" default="false"/>
         <element name="beforeCompile" optional="true"/>
         <element name="source" optional="true"/>
