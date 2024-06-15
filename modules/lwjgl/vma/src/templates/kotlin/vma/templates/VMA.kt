@@ -12,7 +12,7 @@ val VMA = "Vma".nativeClass(Module.VMA, "Vma", prefix = "VMA") {
     nativeDirective(
         """#include "lwjgl_malloc.h"
 DISABLE_WARNINGS()
-#if LWJGL_MACOS
+#ifdef __clang__
     _Pragma("GCC diagnostic ignored \"-Wnullability-completeness\"")
 #endif
 #define VMA_IMPLEMENTATION
@@ -771,7 +771,7 @@ poolCreateInfo.memoryTypeIndex = memTypeIndex;
             across multiple pools increases the amount of wasted (allocated but unbound) memory.
             """,
             """
-            You must manually choose specific memory type to be used by a custom pool (set as {@codeVmaPoolCreateInfo::memoryTypeIndex}). When using default
+            You must manually choose specific memory type to be used by a custom pool (set as {@code VmaPoolCreateInfo::memoryTypeIndex}). When using default
             pools, best memory type for each of your allocations can be selected automatically using a carefully design algorithm that works across all kinds
             of GPUs.
             """,
@@ -800,7 +800,7 @@ poolCreateInfo.memoryTypeIndex = memTypeIndex;
             """,
             """
             If you want to choose a custom size for the default memory block, you can set it globally instead using 
-            {@codeVmaAllocatorCreateInfo::preferredLargeHeapBlockSize}.
+            {@code VmaAllocatorCreateInfo::preferredLargeHeapBlockSize}.
             """,
             """
             If you want to select specific memory type for your allocation, you can set {@code VmaAllocationCreateInfo::memoryTypeBits} to
