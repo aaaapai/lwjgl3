@@ -2,7 +2,6 @@
 set -e
 #wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
 #unzip android-ndk-r26d-linux.zip >> /dev/null
-export LIBFFI_VERSION=3.4.6
 export ANDROID=1 LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
 
@@ -28,9 +27,7 @@ mkdir -p $LWJGL_NATIVE
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
   if [ ! -d libffi ]; then
-    wget https://github.com/libffi/libffi/releases/download/v$LIBFFI_VERSION/libffi-$LIBFFI_VERSION.tar.gz
-    tar xvf libffi-$LIBFFI_VERSION.tar.gz
-    mv libffi-$LIBFFI_VERSION libffi
+    git clone --depth 1 https://github.com/LWJGL-CI/libffi
   fi
   cd libffi
 
@@ -85,7 +82,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.1 \
+  -Dbuild.type=nightly/3.4.0 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
