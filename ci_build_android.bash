@@ -54,6 +54,7 @@ ant -version
 yes | ant -Dplatform.linux=true \
   -Dplatform.freebsd=false \
   -Dbinding.lwjglx=true \
+  -Dbinding.glfw=true \
   -Dplatform.windows=false \
   -Dplatform.macos=false \
   -Dbinding.jemalloc=false \
