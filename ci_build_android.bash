@@ -53,6 +53,7 @@ unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 ant -version
 yes | ant -Dplatform.linux=true \
   -Dplatform.freebsd=false \
+  -Dbinding.lwjglx=true \
   -Dplatform.windows=false \
   -Dplatform.macos=false \
   -Dbinding.jemalloc=false \
@@ -61,7 +62,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=true \
-  -Dbinding.jawt=false \
+  -Dbinding.jawt=true \
   -Dbinding.libdivide=false \
   -Dbinding.lmdb=false \
   -Dbinding.lz4=false \
@@ -70,6 +71,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.nfd=false \
   -Dbinding.nuklear=false \
   -Dbinding.odbc=false \
+  -Dbinding.opengl=true \
   -Dbinding.opencl=false \
   -Dbinding.openvr=false \
   -Dbinding.openxr=false \
