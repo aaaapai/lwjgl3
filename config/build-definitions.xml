@@ -364,7 +364,7 @@ This script is included in /build.xml and /config/update-dependencies.xml.
         <attribute name="sources" default="true"/>
 
         <sequential>
-            <get-quiet name="@{name}" url="https://repo.maven.apache.org/maven2/@{group}/@{artifact}/@{version}/@{artifact}-@{version}@{classifier}.jar" dest="${lib}/java@{subfolder}/@{artifact}.jar" skipexisting="false"/>
+            <get-quiet name="@{name}" url="https://repo.maven.apache.org/maven2/@{group}/@{artifact}/@{version}/@{artifact}-@{version}@{classifier}.jar" dest="${lib}/java@{subfolder}/@{artifact}.jar" skipexisting="true"/>
             <get-quiet name="@{name}" url="https://repo.maven.apache.org/maven2/@{group}/@{artifact}/@{version}/@{artifact}-@{version}-sources.jar" dest="${lib}/java@{subfolder}/@{artifact}-sources.jar" skipexisting="false" if:true="@{sources}"/>
         </sequential>
     </macrodef>
