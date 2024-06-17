@@ -10,8 +10,8 @@ module org.lwjgl.lwjglx {
     requires static org.lwjgl.opengl;
 
     exports org.lwjgl;
-    //exports org.lwjgl.input;
-    //exports org.lwjgl.openal;
-    //exports org.lwjgl.opengl;
-    //exports org.lwjgl.util;
+    exports org.lwjgl.input;
+    exports org.lwjgl.openal;
+    exports org.lwjgl.opengl;
+    exports org.lwjgl.util;
 }
