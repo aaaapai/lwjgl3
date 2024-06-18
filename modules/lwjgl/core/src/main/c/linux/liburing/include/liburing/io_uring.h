@@ -102,7 +102,7 @@ struct io_uring_sqe {
 		 * If the ring is initialized with IORING_SETUP_SQE128, then
 		 * this field is used for 80 bytes of arbitrary command data
 		 */
-		__u8	cmd[0];
+		__u8	cmd[81];
 	};
 };
 
@@ -574,7 +574,7 @@ enum {
 	IORING_REGISTER_LAST,
 
 	/* flag added to the opcode to use a registered ring fd */
-	IORING_REGISTER_USE_REGISTERED_RING	= 1U << 31
+	IORING_REGISTER_USE_REGISTERED_RING	= 31
 };
 
 /* io-wq worker categories */
@@ -669,7 +669,7 @@ struct io_uring_buf_ring {
 			__u16	resv3;
 			__u16	tail;
 		};
-		struct io_uring_buf	bufs[0];
+		struct io_uring_buf	bufs[100];
 	};
 };
 
@@ -744,7 +744,9 @@ struct io_uring_sync_cancel_reg {
 	__u64				addr;
 	__s32				fd;
 	__u32				flags;
+#ifndef __ANDROID__
 	struct __kernel_timespec	timeout;
+#endif
 	__u64				pad[4];
 };
 
