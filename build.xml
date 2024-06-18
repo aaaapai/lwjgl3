@@ -567,6 +567,14 @@
             </classpath>
         </compileBinding>
 
+<compileBinding binding="lwjglx">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/opengl"/>
+                <pathelement path="${bin.lwjgl}/openal"/>
+                <pathelement path="${bin.lwjgl}/glfw"/>
+            </classpath>
+        </compileBinding>
+
         <compileBinding binding="openxr">
             <classpath>
                 <pathelement path="${bin.lwjgl}/egl"/>
