@@ -49,12 +49,14 @@ wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
 wget -nc "https://nightly.link/aaaapai/shaderc/workflows/android/main/libshaderc-$NDK_ABI.zip"
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 
+# HACK: Skip compiling and running the generator to save time and keep LWJGLX functions
+mkdir -p bin/classes/{generator,templates/META-INF}
+touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generated-touch.txt
+
 # Build LWJGL 3
 ant -version
 yes | ant -Dplatform.linux=true \
   -Dplatform.freebsd=false \
-  -Dbinding.lwjglx=true \
-  -Dbinding.glfw=true \
   -Dplatform.windows=false \
   -Dplatform.macos=false \
   -Dbinding.jemalloc=false \
@@ -63,7 +65,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=true \
-  -Dbinding.jawt=true \
+  -Dbinding.jawt=false \
   -Dbinding.libdivide=false \
   -Dbinding.lmdb=false \
   -Dbinding.lz4=false \
@@ -72,7 +74,6 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.nfd=false \
   -Dbinding.nuklear=false \
   -Dbinding.odbc=false \
-  -Dbinding.opengl=true \
   -Dbinding.opencl=false \
   -Dbinding.openvr=false \
   -Dbinding.openxr=false \
@@ -87,10 +88,11 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
+  -Dbinding.nanovg=false \
   -Dbuild.type=nightly/3.4.0 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  compile-templates compile compile-native debug
+  compile compile-native release
 
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
