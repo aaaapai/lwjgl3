@@ -170,8 +170,8 @@ This script is included in /build.xml and /config/update-dependencies.xml.
     <condition property="jdk24">                             <matches string="${java.version}" pattern="^24${java.version.regex}$"/>     </condition>
     <condition property="jdk23"><or><isset property="jdk24"/><matches string="${java.version}" pattern="^23${java.version.regex}$"/></or></condition>
     <condition property="jdk22"><or><isset property="jdk23"/><matches string="${java.version}" pattern="^22${java.version.regex}$"/></or></condition>
-    <condition property="${JAVA_HOME_21_${runner.arch}}"><or><isset property="jdk22"/><matches string="${java.version}" pattern="^21${java.version.regex}$"/></or></condition>
-    <condition property="jdk20"><or><isset property="${JAVA_HOME_21_${runner.arch}}"/><matches string="${java.version}" pattern="^20${java.version.regex}$"/></or></condition>
+    <condition property="jdk21"><or><isset property="jdk22"/><matches string="${java.version}" pattern="^21${java.version.regex}$"/></or></condition>
+    <condition property="jdk20"><or><isset property="jdk21"/><matches string="${java.version}" pattern="^20${java.version.regex}$"/></or></condition>
     <condition property="jdk19"><or><isset property="jdk20"/><matches string="${java.version}" pattern="^19${java.version.regex}$"/></or></condition>
     <condition property="jdk18"><or><isset property="jdk19"/><matches string="${java.version}" pattern="^18${java.version.regex}$"/></or></condition>
     <condition property="jdk17"><or><isset property="jdk18"/><matches string="${java.version}" pattern="^17${java.version.regex}$"/></or></condition>
