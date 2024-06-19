@@ -16,9 +16,15 @@ jobs:
       with:
           fetch-depth: 3
 
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4.2.1
+      with:
+         distribution: temurin
+         java-version: 8
+
     - name: Build for Android ${{matrix.arch}}
       run: |
-        export JAVA_HOME=$JAVA_HOME_21_${{runner.arch}}
+        export JAVA8_HOME=$JAVA_HOME_8_${{runner.arch}}
         export LWJGL_BUILD_ARCH=${{matrix.arch}}
         bash ci_build_android.bash
 
