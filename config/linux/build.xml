@@ -192,9 +192,10 @@
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic">
+        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression-from-macro-expansion">
             <beforeCompile>
                 <compile>
+                    
                     <arg value="-I${src.main.rel}/${platform}/liburing"/>
                     <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
                     <arg value="-DCONFIG_HAVE_MEMFD_CREATE"/>

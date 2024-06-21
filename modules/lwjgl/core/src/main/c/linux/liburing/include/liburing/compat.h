@@ -17,12 +17,12 @@ struct __kernel_timespec {
 	int64_t		tv_sec;
 	long long	tv_nsec;
 };
-#endif
 
 struct open_how {
 	uint64_t	flags;
 	uint64_t	mode;
 	uint64_t	resolve;
 };
+#endif
 
 #endif

@@ -857,7 +857,7 @@
             <include name="org/lwjgl/demo/util/freetype/**" if:true="${binding.freetype}"/>
             <include name="org/lwjgl/demo/util/harfbuzz/**" if:true="${binding.harfbuzz}"/>
             <include name="org/lwjgl/demo/util/hwloc/**" if:true="${binding.hwloc}"/>
-            <include name="org/lwjgl/demo/util/ktx/**" if:true="${binding.ktx}"/>
+            
             <include name="org/lwjgl/demo/util/lmdb/**" if:true="${binding.lmdb}"/>
             <include name="org/lwjgl/demo/util/lz4/**" if:true="${binding.lz4}"/>
             <include name="org/lwjgl/demo/util/meow/**" if:true="${binding.meow}"/>
@@ -1644,19 +1644,6 @@
 
         <!-- jemalloc -->
         <release-module name="jemalloc" native-library="jemalloc" title="jemalloc" if:true="${binding.jemalloc}"/>
-
-        <!-- KTX -->
-        <release-module name="ktx" title="KTX" if:true="${binding.ktx}">
-            <natives>
-                <get-release platform="linux" arch="x64" file="libktx.so"/>
-                <get-release platform="linux" arch="arm64" file="libktx.so"/>
-                <get-release platform="linux" arch="arm32" file="libktx.so"/>
-                <get-release platform="macos" arch="x64" file="libktx.dylib"/>
-                <get-release platform="macos" arch="arm64" file="libktx.dylib"/>
-                <get-release platform="windows" arch="x64" file="ktx.dll"/>
-                <get-release platform="windows" arch="arm64" file="ktx.dll"/>
-            </natives>
-        </release-module>
 
         <!-- libdivide -->
         <release-module name="libdivide" native-library="lwjgl_libdivide" title="libdivide" if:true="${binding.libdivide}"/>
