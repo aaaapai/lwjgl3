@@ -29,6 +29,13 @@ import static org.lwjgl.system.windows.GDI32.*;
 import static org.lwjgl.system.windows.User32.*;
 import static org.lwjgl.system.windows.WindowsUtil.*;
 
+public static int callJPI(long param0,
+ long param1,
+ int param2,
+ int param3,
+ int param4,
+ long __functionAddress)
+
 /**
  * This class must be used before any OpenGL function is called. It has the following responsibilities:
  * <ul>
@@ -300,8 +307,6 @@ public final class GL {
         currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
         glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
     }
-
-    import static org.lwjgl.system.JNI.*;
 
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
