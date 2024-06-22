@@ -303,7 +303,6 @@ public final class GL {
 
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
-        public static native int callJPI(long param0, long param1, int param2, int param3, int param4, long __functionAddress);
         String renderer = System.getProperty("org.lwjgl.opengl.libname");
         if (Platform.get() == Platform.LINUX && renderer.startsWith("libOSMesa")) {
             if (System.getenv("POJAV_EXP_FRAME_BUFFER") != null && System.getenv("POJAV_EXP_SETUP") != null) {
