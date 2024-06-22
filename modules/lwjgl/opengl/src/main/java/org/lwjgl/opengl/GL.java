@@ -34,7 +34,7 @@ public static int callJPI(long param0,
  int param2,
  int param3,
  int param4,
- long __functionAddress)
+ long __functionAddress);
 
 /**
  * This class must be used before any OpenGL function is called. It has the following responsibilities:
