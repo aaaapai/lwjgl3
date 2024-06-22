@@ -29,6 +29,14 @@ import static org.lwjgl.system.windows.GDI32.*;
 import static org.lwjgl.system.windows.User32.*;
 import static org.lwjgl.system.windows.WindowsUtil.*;
 
+public static native int callJPI(long param0, long param1, long __functionAddress);
+public static native int callJPI(long param0, int param1, long param2, long __functionAddress);
+public static native int callJPI(long param0, long param1, int param2, long __functionAddress);
+public static native int callJPI(long param0, int param1, long param2, int param3, long __functionAddress);
+public static native int callJPI(long param0, long param1, int param2, int param3, long __functionAddress);
+public static native int callJPI(long param0, int param1, int param2, long param3, int param4, long __functionAddress);
+public static native int callJPI(long param0, long param1, int param2, int param3, int param4, long __functionAddress);
+
 /**
  * This class must be used before any OpenGL function is called. It has the following responsibilities:
  * <ul>
