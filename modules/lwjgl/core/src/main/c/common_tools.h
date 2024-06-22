@@ -4,14 +4,17 @@
  */
 #pragma once
 
-#ifdef LWJGL_WINDOWS
-    #include "WindowsConfig.h"
+#ifdef LWJGL_FREEBSD
+    #include "FreeBSDConfig.h"
 #endif
 #ifdef LWJGL_LINUX
     #include "LinuxConfig.h"
 #endif
 #ifdef LWJGL_MACOS
     #include "macOSConfig.h"
+#endif
+#ifdef LWJGL_WINDOWS
+    #include "WindowsConfig.h"
 #endif
 
 DISABLE_WARNINGS()
@@ -72,7 +75,9 @@ extern JNIEnv* getEnv(jboolean* async);
             envData = (EnvData *)(uintptr_t)(*__env)->CallStaticLongMethod(__env, TLU, (*__env)->GetStaticMethodID(__env, TLU, "setupEnvData", "()J")); \
         } \
         envData->LastError = LastError;
+#endif
 
+#if defined(LWJGL_WINDOWS) && !defined(__clang__)
     #define VA_LIST_CAST &(va_list)
 #else
     #define VA_LIST_CAST (va_list *)

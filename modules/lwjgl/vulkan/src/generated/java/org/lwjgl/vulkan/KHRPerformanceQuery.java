@@ -210,7 +210,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *   1,
  *   sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
  *   recordedCounters,
- *   sizeof(VkPerformanceCounterResultKHR),
+ *   sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
  *   NULL);
  * 
  * // recordedCounters is filled with our counters, we will look at one for posterity
@@ -234,8 +234,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     // use recordCounters[0].float64 to get at the counter result!
  *     break;
  * }</code></pre>
- * 
- * <h5>VK_KHR_performance_query</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>

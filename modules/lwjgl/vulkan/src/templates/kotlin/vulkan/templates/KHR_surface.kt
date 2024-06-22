@@ -17,10 +17,9 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
 
         <h5>Examples</h5>
         <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-        The example code for the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a>).
+        The example code for the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a>).
         </div>
 
-        <h5>VK_KHR_surface</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_surface}</dd>
@@ -158,7 +157,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         </div>
 
         <h5>See Also</h5>
-        ##VkSurfacePresentModeCompatibilityEXT, ##VkSurfacePresentModeEXT, ##VkSwapchainCreateInfoKHR, ##VkSwapchainPresentModeInfoEXT, ##VkSwapchainPresentModesCreateInfoEXT, #GetPhysicalDeviceSurfacePresentModes2EXT(), #GetPhysicalDeviceSurfacePresentModesKHR()
+        ##VkLatencySurfaceCapabilitiesNV, ##VkSurfacePresentModeCompatibilityEXT, ##VkSurfacePresentModeEXT, ##VkSwapchainCreateInfoKHR, ##VkSwapchainPresentModeInfoEXT, ##VkSwapchainPresentModesCreateInfoEXT, #GetPhysicalDeviceSurfacePresentModes2EXT(), #GetPhysicalDeviceSurfacePresentModesKHR()
         """,
 
         "PRESENT_MODE_IMMEDIATE_KHR".."0",
@@ -442,7 +441,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         <h5>Valid Usage</h5>
         <ul>
             <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>If {@code surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If {@code surface} is not #NULL_HANDLE, {@code surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -503,7 +502,7 @@ val KHR_surface = "KHRSurface".nativeClassVK("KHR_surface", type = "instance", p
         <h5>Valid Usage</h5>
         <ul>
             <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>If {@code surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If {@code surface} is not #NULL_HANDLE, {@code surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

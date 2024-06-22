@@ -204,7 +204,7 @@ val KHR_performance_query = "KHRPerformanceQuery".nativeClassVK("KHR_performance
 ￿  1,
 ￿  sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
 ￿  recordedCounters,
-￿  sizeof(VkPerformanceCounterResultKHR),
+￿  sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
 ￿  NULL);
 ￿
 ￿// recordedCounters is filled with our counters, we will look at one for posterity
@@ -229,7 +229,6 @@ val KHR_performance_query = "KHRPerformanceQuery".nativeClassVK("KHR_performance
 ￿    break;
 ￿}</code></pre>
 
-        <h5>VK_KHR_performance_query</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_performance_query}</dd>

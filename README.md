@@ -101,9 +101,12 @@ class for more options.
 LWJGL 3 requires Java 8 or later to build and run and currently supports the
 following platforms/architectures:
 
+- FreeBSD x64
 - Linux x64
 - Linux arm64 (ARMv8/AArch64)
 - Linux arm32 (ARMv7/armhf)
+- Linux ppc64le
+- Linux riscv64
 - macOS x64
 - macOS arm64
 - Windows x64

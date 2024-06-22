@@ -13,7 +13,6 @@ val KHR_get_surface_capabilities2 = "KHRGetSurfaceCapabilities2".nativeClassVK("
         """
         This extension provides new queries for device surface capabilities that can be easily extended by other extensions, without introducing any further queries. This extension can be considered the {@link KHRSurface VK_KHR_surface} equivalent of the {@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} extension.
 
-        <h5>VK_KHR_get_surface_capabilities2</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_get_surface_capabilities2}</dd>
@@ -93,7 +92,7 @@ val KHR_get_surface_capabilities2 = "KHRGetSurfaceCapabilities2".nativeClassVK("
         <h5>Valid Usage</h5>
         <ul>
             <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code pSurfaceInfo→surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>If {@code pSurfaceInfo→surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If {@code pSurfaceInfo→surface} is not #NULL_HANDLE, {@code pSurfaceInfo→surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <ul>
@@ -158,7 +157,7 @@ val KHR_get_surface_capabilities2 = "KHRGetSurfaceCapabilities2".nativeClassVK("
         <h5>Valid Usage</h5>
         <ul>
             <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code pSurfaceInfo→surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-            <li>If {@code pSurfaceInfo→surface} is not #NULL_HANDLE, it <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
+            <li>If {@code pSurfaceInfo→surface} is not #NULL_HANDLE, {@code pSurfaceInfo→surface} <b>must</b> be supported by {@code physicalDevice}, as reported by #GetPhysicalDeviceSurfaceSupportKHR() or an equivalent platform-specific mechanism</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>

@@ -68,8 +68,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     vkDestroyDebugReportCallbackEXT(instance, cb2);
  *     vkDestroyDebugReportCallbackEXT(instance, cb3);</code></pre>
  * 
- * <h5>VK_EXT_debug_report</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_debug_report}</dd>
@@ -79,7 +77,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>12</dd>
  * <dt><b>Revision</b></dt>
  * <dd>10</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_1</li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Deprecated</em> by {@link EXTDebugUtils VK_EXT_debug_utils} extension</li>
  * </ul></dd>
@@ -456,7 +458,7 @@ public class EXTDebugReport {
      * @param location     an application defined value.
      * @param messageCode  an application defined value.
      * @param pLayerPrefix the abbreviation of the component making this event/message.
-     * @param pMessage     a null-terminated string detailing the trigger conditions.
+     * @param pMessage     a null-terminated UTF-8 string detailing the trigger conditions.
      */
     public static void vkDebugReportMessageEXT(VkInstance instance, @NativeType("VkDebugReportFlagsEXT") int flags, @NativeType("VkDebugReportObjectTypeEXT") int objectType, @NativeType("uint64_t") long object, @NativeType("size_t") long location, @NativeType("int32_t") int messageCode, @NativeType("char const *") ByteBuffer pLayerPrefix, @NativeType("char const *") ByteBuffer pMessage) {
         if (CHECKS) {
@@ -513,7 +515,7 @@ public class EXTDebugReport {
      * @param location     an application defined value.
      * @param messageCode  an application defined value.
      * @param pLayerPrefix the abbreviation of the component making this event/message.
-     * @param pMessage     a null-terminated string detailing the trigger conditions.
+     * @param pMessage     a null-terminated UTF-8 string detailing the trigger conditions.
      */
     public static void vkDebugReportMessageEXT(VkInstance instance, @NativeType("VkDebugReportFlagsEXT") int flags, @NativeType("VkDebugReportObjectTypeEXT") int objectType, @NativeType("uint64_t") long object, @NativeType("size_t") long location, @NativeType("int32_t") int messageCode, @NativeType("char const *") CharSequence pLayerPrefix, @NativeType("char const *") CharSequence pMessage) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
