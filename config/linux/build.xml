@@ -130,11 +130,24 @@
             <property name="version.script" location="config/${platform}/version.script"/>
 
             <local name="gcc"/>
+            <property name="gcc" value="@{gcc.exec}"/>
+<!--
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}">
                 <and>
                     <equals arg1="@{lang}" arg2="c"/>
                     <equals arg1="@{linker}" arg2="gcc"/>
                 </and>
+            </condition>
+-->
+
+            <local name="force-cpp-static-linking"/>
+            <condition property="force-cpp-static-linking" value="true">
+                <not>
+                    <and>
+                        <equals arg1="@{lang}" arg2="c"/>
+                        <equals arg1="@{linker}" arg2="gcc"/>
+                    </and>
+                </not>
             </condition>
 
             <echo message="Linking ${name}" taskname="${gcc}" unless:set="lib-uptodate"/>
@@ -146,6 +159,7 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
+                <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
                 <arg line="-O3 -flto=auto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
@@ -177,14 +191,15 @@
             <arg line="-o pipefail -c"/>
             <arg value="${gcc.prefix}clang --version | grep ^.*clang"/>
         </exec>
-        <echo message='${gcc.prefix}gcc${gcc.suffix} --version: "${gcc.version.string}"' taskname="Compiler"/>
+        <echo message='${gcc.prefix}clang --version: "${gcc.version.string}"' taskname="Compiler"/>
 
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic">
+        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression-from-macro-expansion">
             <beforeCompile>
                 <compile>
+                    
                     <arg value="-I${src.main.rel}/${platform}/liburing"/>
                     <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
                     <arg value="-DCONFIG_HAVE_MEMFD_CREATE"/>

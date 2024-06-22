@@ -2,8 +2,7 @@
 set -e
 #wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
 #unzip android-ndk-r26d-linux.zip >> /dev/null
-export ANDROID=1
-export LWJGL_BUILD_OFFLINE=1
+export ANDROID=1 LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
@@ -22,6 +21,7 @@ fi
 
 export TARGET=$NDK_TARGET-linux-android$NDK_SUFFIX
 export PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
+
 LWJGL_NATIVE=bin/libs/native/linux/$LWJGL_BUILD_ARCH/org/lwjgl
 mkdir -p $LWJGL_NATIVE
 
@@ -56,20 +56,14 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 # Build LWJGL 3
 ant -version
 yes | ant -Dplatform.linux=true \
-  -Dbinding.opengl=true \
-  -Dbinding.openal=true \
-  -Dbinding.glfw=true \
-  -Dplatform.freebsd=false \
-  -Dplatform.windows=false \
-  -Dplatform.macos=false \
-  -Dbinding.jemalloc=false \
-  -Dbinding.llvm=false \
   -Dbinding.assimp=false \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
-  -Dbinding.egl=true \
+  -Dbinding.egl=false \
   -Dbinding.jawt=false \
+  -Dbinding.jemalloc=false \
   -Dbinding.libdivide=false \
+  -Dbinding.llvm=false \
   -Dbinding.lmdb=false \
   -Dbinding.lz4=false \
   -Dbinding.meow=false \
@@ -91,7 +85,6 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbinding.nanovg=false \
   -Dbuild.type=nightly/3.3.4 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \

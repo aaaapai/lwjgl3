@@ -14,12 +14,11 @@
     _Pragma("GCC diagnostic ignored \"-Wsign-compare\"")
     _Pragma("GCC diagnostic ignored \"-Wno-gnu-statement-expression\"")
     _Pragma("GCC diagnostic ignored \"-Wno-int-conversion\"")
-    _Pragma("GCC diagnostic ignored \"-Wno-int-conversion\"")
 #else
     _Pragma("GCC diagnostic ignored \"-Wall\"") \
-    _Pragma("GCC diagnostic ignored \"-Wextra\"")
-#endif
+    _Pragma("GCC diagnostic ignored \"-Wextra\"") \
     _Pragma("GCC diagnostic ignored \"-Wpedantic\"")
+#endif
 
 #define ENABLE_WARNINGS() \
     _Pragma("GCC diagnostic pop")
