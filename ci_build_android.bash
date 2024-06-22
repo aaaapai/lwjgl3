@@ -56,14 +56,15 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 # Build LWJGL 3
 ant -version
 yes | ant -Dplatform.linux=true \
+  -Dbinding.lwjglx=false \
   -Dbinding.assimp=false \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
-  -Dbinding.egl=false \
+  -Dbinding.egl=true \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=false \
   -Dbinding.libdivide=false \
-  -Dbinding.llvm=false \
+  -Dbinding.llvm=true \
   -Dbinding.lmdb=false \
   -Dbinding.lz4=false \
   -Dbinding.meow=false \
