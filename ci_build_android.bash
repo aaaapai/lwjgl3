@@ -57,6 +57,7 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 ant -version
 yes | ant -Dplatform.linux=true \
   -Dbinding.lwjglx=false \
+  -Dbinding.ktx=false \
   -Dbinding.hwloc=false \
   -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
