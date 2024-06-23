@@ -70,7 +70,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=false \
   -Dbinding.libdivide=false \
-  -Dbinding.llvm=false \
+  -Dbinding.llvm=true \
   -Dbinding.lmdb=false \
   -Dbinding.lz4=false \
   -Dbinding.meow=false \
@@ -95,7 +95,7 @@ yes | ant -Dplatform.linux=true \
   -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  compile compile-native release
+  compile-templates compile compile-native release
 
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
