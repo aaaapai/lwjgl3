@@ -61,7 +61,6 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.hwloc=false \
   -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
-  -Dbinding.libdivide=false \
   -Dbinding.lwjglx=false \
   -Dbinding.assimp=false \
   -Dbinding.bgfx=false \
