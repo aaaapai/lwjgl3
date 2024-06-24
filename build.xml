@@ -462,6 +462,7 @@
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/9" if:set="jdk9"/>
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/10" if:set="jdk10"/>
         <mkdir dir="${bin.lwjgl}/core/META-INF/versions/16" if:set="jdk16"/>
+        <copy file ="${bin.lwjgl}/core/META-INF/versions/9/module-info.class" todir="${bin.lwjgl}/core" if:set="jdk9"/>
         <delete file="${bin.lwjgl}/core/META-INF/versions/9/module-info.class" quiet="true" if:set="jdk9"/>
         <lwjgl.javac9 destdir="${bin.lwjgl}/core/META-INF/versions/9" taskname="javac: Core - Java 9" if:set="jdk9">
             <classpath>
