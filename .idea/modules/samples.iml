@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_22_PREVIEW">
     <output url="file://$MODULE_DIR$/../../bin/classes/samples" />
     <output-test url="file://$MODULE_DIR$/../../bin/classes/samples" />
     <exclude-output />
@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../modules/samples/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../modules/samples/src/test/resources" type="java-test-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="TestNG" level="project" />
     <orderEntry type="library" scope="TEST" name="JOML" level="project" />
@@ -24,6 +24,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="lwjgl.core" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.core22" />
     <orderEntry type="module" module-name="lwjgl.assimp" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.bgfx" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.cuda" scope="TEST" />
