@@ -15069,12 +15069,6 @@ public class LLVMCore {
         return memByteBufferSafe(__result, (int)length);
     }
 
-    @Nullable
-    @NativeType("char const *")
-    public static ByteBuffer LLVMGetBufferStart(@NativeType("LLVMMemoryBufferRef") long MemBuf, long length) {
-        long __result = nLLVMGetBufferStart(MemBuf);
-        return memByteBufferSafe(__result, (int)length);    }
-
     // --- [ LLVMGetBufferSize ] ---
 
     @NativeType("size_t")
