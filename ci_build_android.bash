@@ -102,4 +102,4 @@ find $LWJGL_NATIVE -name 'liblwjgl*.so' -exec cp {} bin/out/ \;
 cp $LWJGL_NATIVE/shaderc/libshaderc.so bin/out/
 
 # Cleanup unused output jar files
-find bin/RELEASE \( -name '*-sources.jar' \) -delete
+find bin/RELEASE \( -name '*-natives-*' -o -name '*-sources.jar' \) -delete
