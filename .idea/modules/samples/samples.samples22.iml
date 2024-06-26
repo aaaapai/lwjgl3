@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../bin/classes/samples" />
-    <output-test url="file://$MODULE_DIR$/../../bin/classes/samples" />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_22_PREVIEW">
+    <output url="file://$MODULE_DIR$/../../../bin/classes/samples/META-INF/22" />
+    <output-test url="file://$MODULE_DIR$/../../../bin/classes/samples/META-INF/22" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../modules/samples">
-      <sourceFolder url="file://$MODULE_DIR$/../../modules/samples/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../modules/samples/src/test/resources" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../../modules/samples">
+      <sourceFolder url="file://$MODULE_DIR$/../../../modules/samples/src/test/java22" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../modules/samples/src/test/resources" type="java-test-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="TestNG" level="project" />
     <orderEntry type="library" scope="TEST" name="JOML" level="project" />
@@ -17,13 +17,17 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../bin/libs/native" />
+          <root url="file://$MODULE_DIR$/../../../bin/libs/native" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="lwjgl.core" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.core9" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.core10" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.core16" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.core22" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.assimp" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.bgfx" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.cuda" scope="TEST" />
