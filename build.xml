@@ -478,6 +478,17 @@
             <include name="**"/>
         </lwjgl.javac21>
 
+        <mkdir dir="${bin.lwjgl}/core/META-INF/versions/24" if:set="jdk24"/>
+        <lwjgl.javac24 destdir="${bin.lwjgl}/core/META-INF/versions/24" taskname="javac: Core - Java 24" if:set="jdk24">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core"/>
+            </classpath>
+            <src>
+                <pathelement path="${module.lwjgl}/core24/src/main/java"/>
+            </src>
+            <include name="**"/>
+        </lwjgl.javac24>
+
         <parallel threadsPerProcessor="1">
             <compileBinding binding="assimp"/>
             <compileBinding binding="bgfx"/>
@@ -577,6 +588,7 @@
         <mkdir dir="${bin.extract}"/>
         <kotlinc moduleName="extract" output="${bin.extract}" printVersion="true" unless:set="extract-uptodate">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/21" if:set="core.java21"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
@@ -604,6 +616,7 @@
     <target name="extract" description="Runs the LWJGL Template Extraction tool" depends="compile-native, -compile-extract">
         <java classname="org.lwjgl.extract.MainKt" fork="true" spawn="true" taskname="LWJGL Template Extraction Tool">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/21" if:set="core.java21"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
@@ -802,8 +815,15 @@
         </condition>
 
         <mkdir dir="${bin.samples}"/>
-        <lwjgl.javac srcdir="modules/samples/src/test/java" destdir="${bin.samples}" taskname="javac: Samples">
+        <javac sourcepath="" destdir="${bin.samples}" debug="yes" encoding="UTF-8" taskname="javac: Samples">
+            <compilerarg line="-proc:full" if:set="jdk24"/>
+            <compilerarg line="--release 24 --enable-preview" if:set="jdk24"/>
+
+            <src path="modules/samples/src/test/java"/>
+            <src path="modules/samples/src/test/java24" if:set="jdk24"/>
+
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="jdk24"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.test}"/>
                 <pathelement path="${lib}/java/jsr305.jar"/>
@@ -840,7 +860,8 @@
             <include name="org/lwjgl/demo/stb/**" if:set="test.stb"/>
 
             <include name="org/lwjgl/demo/system/jawt/**" if:set="test.jawt"/>
-            <include name="org/lwjgl/demo/system/linux/liburing/**"/>
+            <include name="org/lwjgl/demo/system/linux/**"/>
+            <include name="org/lwjgl/demo/system/windows/**"/>
 
             <include name="org/lwjgl/demo/util/*.java"/>
             <include name="org/lwjgl/demo/util/freetype/**" if:true="${binding.freetype}"/>
@@ -868,12 +889,13 @@
             <include name="org/lwjgl/jmh/**"/>
             <exclude name="org/lwjgl/jmh/Hashing*" unless:true="${test.hashing}"/>
             <exclude name="org/lwjgl/jmh/VarHandle*" unless:set="jdk11"/>
-        </lwjgl.javac>
+        </javac>
     </target>
 
     <target name="tests" description="Runs the LWJGL test suite" depends="compile-tests, compile-native">
         <testng haltonfailure="true" outputDir="${bin.test.html}" taskname="Tests">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/21" if:set="core.java21"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
@@ -914,6 +936,7 @@
 
         <java classname="${class}" fork="true" failonerror="${failonerror}" spawn="${spawn}" taskname="Demo">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/21" if:set="core.java21"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
@@ -930,6 +953,7 @@
             </classpath>
 
             <jvmarg value="-server"/>
+            <jvmarg line="--enable-preview --enable-native-access=ALL-UNNAMED" if:set="core.java24"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
             <!--<jvmarg value="-Xcheck:jni"/>-->
 
@@ -1536,6 +1560,9 @@
                 </copy>
                 <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/21" if:set="jdk21">
                     <fileset dir="${module.lwjgl}/core21/src/main/java" includes="**"/>
+                </copy>
+                <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/24" if:set="jdk24">
+                    <fileset dir="${module.lwjgl}/core24/src/main/java" includes="**"/>
                 </copy>
                 <copy todir="${bin.lwjgl}/core/META-INF/native-image/org.lwjgl/lwjgl">
                     <fileset dir="config/native-image/META-INF/native-image" includes="**" excludes="resource-config.json"/>
