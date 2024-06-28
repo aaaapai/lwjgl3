@@ -95,6 +95,47 @@ yes | ant -Dplatform.linux=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile-templates compile compile-native release
 
+ant -version
+yes | ant -Dplatform.linux=true \
+  -Dbinding.ktx=false \
+  -Dbinding.hwloc=false \
+  -Dbinding.fmod=false \
+  -Dbinding.harfbuzz=false \
+  -Dbinding.lwjglx=true \
+  -Dbinding.assimp=false \
+  -Dbinding.bgfx=false \
+  -Dbinding.cuda=false \
+  -Dbinding.egl=true \
+  -Dbinding.jawt=false \
+  -Dbinding.jemalloc=true \
+  -Dbinding.libdivide=false \
+  -Dbinding.llvm=false \
+  -Dbinding.lmdb=false \
+  -Dbinding.lz4=false \
+  -Dbinding.meow=false \
+  -Dbinding.meshoptimizer=false \
+  -Dbinding.nfd=false \
+  -Dbinding.nuklear=false \
+  -Dbinding.odbc=false \
+  -Dbinding.opencl=false \
+  -Dbinding.openvr=false \
+  -Dbinding.openxr=false \
+  -Dbinding.opus=false \
+  -Dbinding.par=false \
+  -Dbinding.remotery=false \
+  -Dbinding.rpmalloc=false \
+  -Dbinding.spvc=false \
+  -Dbinding.sse=false \
+  -Dbinding.tinyexr=false \
+  -Dbinding.tootle=false \
+  -Dbinding.xxhash=false \
+  -Dbinding.yoga=false \
+  -Dbinding.zstd=false \
+  -Dbuild.type=nightly \
+  -Djavadoc.skip=true \
+  -Dnashorn.args="--no-deprecation-warning" \
+  compile-templates compile compile-native release
+
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
 find $LWJGL_NATIVE -name 'liblwjgl*.so' -exec cp {} bin/out/ \;
