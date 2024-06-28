@@ -56,7 +56,6 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 # Build LWJGL 3
 ant -version
 yes | ant -Dplatform.linux=true \
-  -Dbinding.lwjglx=false \
   -Dbinding.ktx=false \
   -Dbinding.hwloc=false \
   -Dbinding.fmod=false \
