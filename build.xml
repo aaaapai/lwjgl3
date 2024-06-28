@@ -517,7 +517,6 @@
             <compileBinding binding="libdivide"/>
             <compileBinding binding="llvm"/>
             <compileBinding binding="lmdb"/>
-            <compileBinding binding="lwjglx"/>
             <compileBinding binding="lz4"/>
             <compileBinding binding="meow"/>
             <compileBinding binding="meshoptimizer"/>
@@ -544,6 +543,7 @@
             <compileBinding binding="xxhash"/>
             <compileBinding binding="yoga"/>
             <compileBinding binding="zstd"/>
+            <compileBinding binding="lwjglx"/>
         </parallel>
 
         <parallel threadsPerProcessor="1">
@@ -570,22 +570,6 @@
             <exclude name="org/lwjgl/glfw/GLFWNativeNSGL.java" unless:true="${binding.opengl}"/>
             <exclude name="org/lwjgl/glfw/GLFWNativeWGL.java" unless:true="${binding.opengl}"/>
             <exclude name="org/lwjgl/glfw/GLFWVulkan.java" unless:true="${binding.vulkan}"/>
-        </compileBinding>
-
-        <compileBinding binding="lwjglx">
-            <classpath>
-                <pathelement path="${bin.lwjgl}/glfw"/>
-                <pathelement path="${bin.lwjgl}/openal"/>
-                <pathelement path="${bin.lwjgl}/opengl"/>
-            </classpath>
-        </compileBinding>
-
-<compileBinding binding="lwjglx">
-            <classpath>
-                <pathelement path="${bin.lwjgl}/opengl"/>
-                <pathelement path="${bin.lwjgl}/openal"/>
-                <pathelement path="${bin.lwjgl}/glfw"/>
-            </classpath>
         </compileBinding>
 
         <compileBinding binding="openxr">
@@ -1740,9 +1724,6 @@
         <!-- LMDB -->
         <release-module name="lmdb" native-library="lwjgl_lmdb" title="LMDB" if:true="${binding.lmdb}"/>
 
-        <!-- LWJGLX -->
-        <release-module name="lwjglx" title="LWJGLX" if:true="${binding.lwjglx}"/>
-
         <!-- lz4 -->
         <release-module name="lz4" native-library="lwjgl_lz4" title="lz4" if:true="${binding.lz4}"/>
 
@@ -1992,5 +1973,8 @@
 
         <!-- zstd -->
         <release-module name="zstd" native-library="lwjgl_zstd" title="zstd" if:true="${binding.zstd}"/>
+
+        <!-- LWJGLX -->
+        <release-module name="lwjglx" title="LWJGLX" if:true="${binding.lwjglx}"/>
     </target>
 </project>
