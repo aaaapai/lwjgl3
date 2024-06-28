@@ -93,7 +93,7 @@ yes | ant -Dplatform.linux=true \
   -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  compile-templates compile release
+  compile-templates compile compile-native release
 
 ant -version
 yes | ant -Dplatform.linux=true \
@@ -145,7 +145,7 @@ yes | ant -Dplatform.linux=true \
   -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  compile-templates compile release
+  compile release
 
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
