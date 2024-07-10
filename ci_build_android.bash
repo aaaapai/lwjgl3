@@ -59,6 +59,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
+  -Dbinding.harfbuzz=false \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=false \
   -Dbinding.libdivide=false \
