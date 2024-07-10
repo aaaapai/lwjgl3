@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.4.4
+export LIBFFI_VERSION=3.4.6
 export LWJGL_BUILD_OFFLINE=1
 export LWJGL_BUILD_ARCH=arm64
 
@@ -79,7 +79,7 @@ yes | ant -Dplatform.macos=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.1 \
+  -Dbuild.type=release/3.3.3 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
