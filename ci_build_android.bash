@@ -12,8 +12,8 @@ elif [ "$LWJGL_BUILD_ARCH" == "arm32" ]; then
 elif [ "$LWJGL_BUILD_ARCH" == "x86" ]; then
   export NDK_ABI=x86 NDK_TARGET=i686
   # Workaround: LWJGL 3 lacks of x86 Linux libraries
-  mkdir -p bin/libs/native/linux/x86/org/lwjgl/glfw
-  touch bin/libs/native/linux/x86/org/lwjgl/glfw/libglfw.so
+  mkdir -p bin/libs/native/linux/x86/org/lwjgl/{freetype,glfw}
+  touch bin/libs/native/linux/x86/org/lwjgl/{freetype/libfreetype.so,glfw/libglfw.so}
 elif [ "$LWJGL_BUILD_ARCH" == "x64" ]; then
   export NDK_ABI=x86_64 NDK_TARGET=x86_64
 fi
@@ -59,9 +59,12 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
+  -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
+  -Dbinding.hwloc=false \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=false \
+  -Dbinding.ktx=false \
   -Dbinding.libdivide=false \
   -Dbinding.llvm=false \
   -Dbinding.lmdb=false \
