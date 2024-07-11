@@ -5,7 +5,7 @@
  */
 #include "common_tools.h"
 DISABLE_WARNINGS()
-#include "jawt_md.h"
+#include "jawt_md_1.h"
 ENABLE_WARNINGS()
 #ifndef APIENTRY
     #define APIENTRY
