@@ -1,3 +1,36 @@
+LWJGL 3.3.3 modified for PojavLauncher Android and iOS.
+This branch also integrates [lwjglx](https://github.com/grum/lwjglx), allowing Minecraft 1.12.2 and older to run on this LWJGL version.
+
+![Build lwjgl3](https://github.com/PojavLauncherTeam/lwjgl3/workflows/Build%20lwjgl3/badge.svg)
+
+### Building
+
+Output: `bin/RELEASE` (Java); `bin/out` (natives)
+
+#### Android
+
+Dependencies:
+
+- ant
+
+Your default `java` version should be java 8.
+
+```bash
+export ANDROID_NDK_HOME=/path/to/ndk-bundle
+
+# Valid archs: arm64, arm32, x64, x86. Only set one at a time
+export LWJGL_BUILD_ARCH=arm64
+export JAVA8_HOME=/path/to/java8
+
+bash ci_build_android.bash
+```
+
+#### iOS
+
+Just run `bash ci_build_ios.bash` on macOS
+
+---
+
 [![Maven Central](https://img.shields.io/maven-central/v/org.lwjgl/lwjgl.svg?label=maven%20central)](https://search.maven.org/search?q=g:org.lwjgl)
 [![API Javadoc](https://img.shields.io/badge/API-docs-blue.svg)](https://javadoc.lwjgl.org/)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg?colorB=lightgray)](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md)
@@ -24,7 +57,7 @@ LWJGL is open source software and freely available at no charge.
 Useful links:
 
 - [Wiki](https://github.com/LWJGL/lwjgl3-wiki/wiki)
-- [Release Notes](https://github.com/LWJGL/lwjgl3/tree/master/doc/notes)  
+- [Release Notes](https://github.com/LWJGL/lwjgl3/tree/master/doc/notes)
 - [JavaDoc](https://javadoc.lwjgl.org)
 - [Blog](https://blog.lwjgl.org)
 
@@ -52,10 +85,10 @@ developing.
 LWJGL can also be downloaded as a simple set of JAR files. Each module
 consists of the following files:
 
-* lwjgl-&lt;module&gt;.jar
-* lwjgl-&lt;module&gt;-sources.jar
-* lwjgl-&lt;module&gt;-javadoc.jar
-* lwjgl-&lt;module&gt;-natives-&lt;platform&gt;.jar (for some bindings)
+- lwjgl-&lt;module&gt;.jar
+- lwjgl-&lt;module&gt;-sources.jar
+- lwjgl-&lt;module&gt;-javadoc.jar
+- lwjgl-&lt;module&gt;-natives-&lt;platform&gt;.jar (for some bindings)
 
 To compile and run an LWJGL application, the base and natives JAR files of
 the core module and each binding used should be added to the classpath. LWJGL
@@ -110,7 +143,7 @@ improve the chances of a quick and useful response.
 #### Khronos APIs
 
 | Library                                               | Description                                                                                                                                                                                                    |
-|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [EGL](https://www.khronos.org/egl)                    | An interface between Khronos rendering APIs such as OpenGL ES or OpenVG and the underlying native platform window system.                                                                                      |
 | [KTX (Khronos Texture)](https://www.khronos.org/ktx/) | A lightweight container for textures for OpenGL®, Vulkan® and other GPU APIs.                                                                                                                                  |
 | [OpenCL](https://www.khronos.org/opencl/)             | An open, royalty-free standard for cross-platform, parallel programming of diverse processors found in personal computers, servers, mobile devices and embedded platforms.                                     |
@@ -122,7 +155,7 @@ improve the chances of a quick and useful response.
 #### Display and Input
 
 | Library                                                                                     | Description                                                                                                                                                                                                                                |
-|---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [GLFW](https://www.glfw.org/)                                                               | Create multiple windows, handle user input (keyboard, mouse, gaming peripherals) and manage contexts. Also features multi-monitor support, clipboard access, file drag-n-drop, and [much more](http://www.glfw.org/docs/latest/news.html). |
 | [JAWT](http://docs.oracle.com/javase/8/docs/technotes/guides/awt/AWT_Native_Interface.html) | The AWT native interface.                                                                                                                                                                                                                  |
 | [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended)            | A small C library that portably invokes native file open, folder select and file save dialogs.                                                                                                                                             |
@@ -131,7 +164,7 @@ improve the chances of a quick and useful response.
 #### Audio
 
 | Library                                 | Description                                                                                                            |
-|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | [FMOD](https://www.fmod.com)            | An end-to-end solution for adding sound and music to any game.                                                         |
 | [OpenAL](https://www.openal.org/)       | A cross-platform 3D audio API appropriate for use with gaming applications and many other types of audio applications. |
 | [OpenAL Soft](https://openal-soft.org/) | An LGPL-licensed, cross-platform, software implementation of the OpenAL 3D audio API.                                  |
@@ -140,7 +173,7 @@ improve the chances of a quick and useful response.
 #### Graphics
 
 | Library                                                                                      | Description                                                                                                                                                                   |
-|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Assimp](https://www.assimp.org/)                                                            | A portable Open Source library to import various well-known 3D model formats in a uniform manner.                                                                             |
 | [bgfx](https://bkaradzic.github.io/bgfx/)                                                    | Cross-platform, graphics API agnostic, “Bring Your Own Engine/Framework” style rendering library, licensed under permissive BSD-2 clause open source license.                 |
 | [FreeType](https://freetype.org/)                                                            | A freely available software library to render fonts.                                                                                                                          |
@@ -162,14 +195,14 @@ improve the chances of a quick and useful response.
 #### AR/VR
 
 | Library                                               | Description                                                                                                                                                                |
-|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [LibOVR](https://developer.oculus.com/documentation/) | The API of the Oculus SDK.                                                                                                                                                 |
 | [OpenVR](https://github.com/ValveSoftware/openvr)     | An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting. |
 
 #### [stb](https://github.com/nothings/stb) - single-file public domain libraries for C/C++
 
 | Library          | Description                                                                     |
-|------------------|---------------------------------------------------------------------------------|
+| ---------------- | ------------------------------------------------------------------------------- |
 | stb_easy_font    | Quick-and-dirty easy-to-deploy bitmap font for printing frame rate, etc.        |
 | stb_image        | Image loading/decoding from file/memory: JPG, PNG, TGA, BMP, PSD, GIF, HDR, PIC |
 | stb_image_resize | Resize images larger/smaller with good quality.                                 |
@@ -182,7 +215,7 @@ improve the chances of a quick and useful response.
 #### Other
 
 | Library                                                                                     | Description                                                                                                                                                                                              |
-|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [CUDA](https://developer.nvidia.com/cuda-zone/)                                             | A parallel computing platform and programming model developed by NVIDIA for general computing on GPUs.                                                                                                   |
 | [hwloc](https://www.open-mpi.org/projects/hwloc/)                                           | A portable abstraction of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.                                 |
 | [jemalloc](https://jemalloc.net/)                                                           | A general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.                                                                                        |

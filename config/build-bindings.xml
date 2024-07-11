@@ -81,6 +81,7 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.xxhash" value="true"/>
     <property name="binding.yoga" value="true"/>
     <property name="binding.zstd" value="true"/>
+    <property name="binding.lwjglx" value="true"/>
 
     <!-- TODO: automate -->
     <property name="java-only.binding.cuda" value="true"/>
@@ -89,6 +90,7 @@ This script is included in /config/build-definitions.xml.
     <property name="java-only.binding.jawt" value="true"/>
     <property name="java-only.binding.odbc" value="true"/>
     <property name="java-only.binding.opencl" value="true"/>
+    <property name="java-only.binding.lwjglx" value="true"/>
 
     <!-- Set the path to the Oculus SDK to enable. -->
     <!-- TODO: add headers in here -->
@@ -152,6 +154,7 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.xxhash}"><local name="module"/><property name="module" value="xxhash"/><body/></sequential>
                 <sequential if:true="${binding.yoga}"><local name="module"/><property name="module" value="yoga"/><body/></sequential>
                 <sequential if:true="${binding.zstd}"><local name="module"/><property name="module" value="zstd"/><body/></sequential>
+                <sequential if:true="${binding.lwjglx}"><local name="module"/><property name="module" value="lwjglx"/><body/></sequential>
             </parallel>
         </sequential>
     </macrodef>
