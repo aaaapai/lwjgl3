@@ -92,6 +92,12 @@ yes | ant -Dplatform.macos=true \
 rm -rf bin/out; mkdir bin/out
 find $LWJGL_NATIVE -name 'liblwjgl*.dylib' -exec cp {} bin/out/ \;
 cp $LWJGL_NATIVE/shaderc/libshaderc.dylib bin/out/
+vtool -arch arm64 -set-build-version 2 14.0 16.0 -replace -output bin/out/libfreetype.dylib $LWJGL_NATIVE/freetype/libfreetype.dylib
+install_name_tool \
+  -change /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation \
+  -change /System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics /System/Library/Frameworks/CoreGraphics.framework/CoreGraphics \
+  -change /System/Library/Frameworks/CoreText.framework/Versions/A/CoreText /System/Library/Frameworks/CoreText.framework/CoreText \
+  bin/out/libfreetype.dylib
 
 # Cleanup unused output jar files
 find bin/RELEASE \( -name '*-natives-*' -o -name '*-sources.jar' \) -delete
