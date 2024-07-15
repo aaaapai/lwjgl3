@@ -13,8 +13,8 @@ elif [ "$LWJGL_BUILD_ARCH" == "arm32" ]; then
 elif [ "$LWJGL_BUILD_ARCH" == "x86" ]; then
   export NDK_ABI=x86 NDK_TARGET=i686
   # Workaround: LWJGL 3 lacks of x86 Linux libraries
-  mkdir -p bin/libs/native/linux/x86/org/lwjgl/glfw
-  touch bin/libs/native/linux/x86/org/lwjgl/glfw/libglfw.so
+  mkdir -p bin/libs/native/linux/x86/org/lwjgl/{freetype,glfw}
+  touch bin/libs/native/linux/x86/org/lwjgl/{freetype/libfreetype.so,glfw/libglfw.so}
 elif [ "$LWJGL_BUILD_ARCH" == "x64" ]; then
   export NDK_ABI=x86_64 NDK_TARGET=x86_64
 fi
@@ -43,6 +43,38 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   cp libffi/$NDK_TARGET-linux-android$NDK_SUFFIX/.libs/libffi.a $LWJGL_NATIVE/
 fi
 
+if [ "$SKIP_FREETYPE" != "1" ]; then
+  #!/bin/bash
+  export BUILD_FREETYPE_VERSION=2.13.2
+  wget https://downloads.sourceforge.net/project/freetype/freetype2/$BUILD_FREETYPE_VERSION/freetype-$BUILD_FREETYPE_VERSION.tar.gz
+  tar xf freetype-$BUILD_FREETYPE_VERSION.tar.gz
+  rm  freetype-$BUILD_FREETYPE_VERSION.tar.gz
+  cd freetype-$BUILD_FREETYPE_VERSION
+
+  export CC=$NDK_TARGET-linux-android${NDK_SUFFIX}21-clang
+
+  ./configure \
+    --host=$TARGET \
+    --prefix=`pwd`/build_android-$LWJGL_BUILD_ARCH \
+    --without-zlib \
+    --with-brotli=no \
+    --with-bzip2=no \
+    --with-png=no \
+    --with-harfbuzz=no \
+    --enable-static=no \
+    --enable-shared=yes 
+
+  make -j4
+  make install
+  llvm-strip ./build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so
+  
+  cd ..
+  cp   freetype-$BUILD_FREETYPE_VERSION/build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so $LWJGL_NATIVE/
+  rm -rf freetype-$BUILD_FREETYPE_VERSION
+  unset BUILD_FREETYPE_VERSION
+  unset CC
+fi
+
 # Download libraries
 POJAV_NATIVES="https://github.com/aaaapai/PojavLauncher-Beta-Zink/raw/exp_v3/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
@@ -67,7 +99,6 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.egl=true \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=true \
-  -Dbinding.libdivide=false \
   -Dbinding.llvm=false \
   -Dbinding.lmdb=false \
   -Dbinding.lz4=false \
@@ -99,6 +130,9 @@ yes | ant -Dplatform.linux=true \
 rm -rf bin/out; mkdir bin/out
 find $LWJGL_NATIVE -name 'liblwjgl*.so' -exec cp {} bin/out/ \;
 cp $LWJGL_NATIVE/shaderc/libshaderc.so bin/out/
+if [ -e "$LWJGL_NATIVE/libfreetype.so" ]; then
+  cp $LWJGL_NATIVE/libfreetype.so bin/out/
+fi
 
 # Cleanup unused output jar files
 find bin/RELEASE \( -name '*-natives-*' -o -name '*-sources.jar' \) -delete

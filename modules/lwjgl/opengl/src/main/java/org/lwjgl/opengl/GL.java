@@ -292,7 +292,6 @@ public final class GL {
         }
     }
 
-    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContestPro() throws Exception {
         System.out.println("[LWJGL] Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit");
         long currentContext;
