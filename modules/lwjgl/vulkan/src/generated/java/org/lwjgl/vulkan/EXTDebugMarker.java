@@ -44,7 +44,7 @@ import static org.lwjgl.system.JNI.*;
  * 
  * <p><b>Example 2</b></p>
  * 
- * <p>Annotating regions of a workload with naming information so that offline analysis tools can display a more usable visualisation of the commands submitted.</p>
+ * <p>Annotating regions of a workload with naming information so that offline analysis tools can display a more usable visualization of the commands submitted.</p>
  * 
  * <pre><code>
  *     extern VkDevice device;
@@ -105,8 +105,6 @@ import static org.lwjgl.system.JNI.*;
  *     // End the house annotation started above
  *     pfnCmdDebugMarkerEndEXT(commandBuffer);</code></pre>
  * 
- * <h5>VK_EXT_debug_marker</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_debug_marker}</dd>
@@ -118,7 +116,7 @@ import static org.lwjgl.system.JNI.*;
  * <dd>4</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link EXTDebugReport VK_EXT_debug_report}</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to {@link EXTDebugUtils VK_EXT_debug_utils} extension</li>
  * </ul></dd>

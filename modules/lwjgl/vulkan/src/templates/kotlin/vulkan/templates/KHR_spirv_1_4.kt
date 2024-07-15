@@ -20,7 +20,6 @@ val KHR_spirv_1_4 = "KHRSpirv14".nativeClassVK("KHR_spirv_1_4", type = "device",
         <h5>Promotion to Vulkan 1.2</h5>
         All functionality in this extension is included in core Vulkan 1.2, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
 
-        <h5>VK_KHR_spirv_1_4</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_spirv_1_4}</dd>
@@ -37,7 +36,7 @@ val KHR_spirv_1_4 = "KHRSpirv14".nativeClassVK("KHR_spirv_1_4", type = "device",
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRShaderFloatControls VK_KHR_shader_float_controls}</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>Deprecation State</b></dt>
             <dd><ul>
                 <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.2-promotions">Vulkan 1.2</a></li>
             </ul></dd>
@@ -59,7 +58,6 @@ val KHR_spirv_1_4 = "KHRSpirv14".nativeClassVK("KHR_spirv_1_4", type = "device",
             <dt><b>Interactions and External Dependencies</b></dt>
             <dd><ul>
                 <li>Requires SPIR-V 1.4.</li>
-                <li>Promoted to Vulkan 1.2 Core</li>
             </ul></dd>
 
             <dt><b>Contributors</b></dt>

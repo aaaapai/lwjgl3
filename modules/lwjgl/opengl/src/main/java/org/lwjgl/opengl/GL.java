@@ -100,6 +100,7 @@ public final class GL {
     public static void create() {
         SharedLibrary GL;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
                 break;
@@ -138,6 +139,7 @@ public final class GL {
                     long GetProcAddress = NULL;
 
                     switch (Platform.get()) {
+                        case FREEBSD:
                         case LINUX:
                             GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
                             if (GetProcAddress == NULL) {
@@ -388,7 +390,7 @@ public final class GL {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
+        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_BETA_RENDERER") != null) {
             try {
                 fixPojavGLContext();
             } catch (Exception e) {

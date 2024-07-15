@@ -55,8 +55,9 @@ public final class EGL {
     public static void create() {
         SharedLibrary EGL;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
-                EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "libEGL.so.1");
+                EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "libEGL.so");
                 break;
             case MACOSX:
                 EGL = Library.loadNative(EGL.class, "org.lwjgl.egl", Configuration.EGL_LIBRARY_NAME, "EGL");

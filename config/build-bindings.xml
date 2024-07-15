@@ -34,11 +34,10 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.libdivide" value="true"/>
     <property name="binding.llvm" value="true"/>
     <property name="binding.lmdb" value="true"/>
-    <property name="binding.lwjglx" value="true"/>
     <property name="binding.lz4" value="true"/>
     <condition property="binding.meow" value="true" else="false">
         <or>
-            <not><isset property="build.arch.arm"/></not>
+            <isset property="build.arch.x64|x86"/>
             <isset property="build.arch.arm64"/>
         </or>
     </condition>
@@ -51,7 +50,15 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.opencl" value="true"/>
     <property name="binding.opengl" value="true"/>
     <property name="binding.opengles" value="true"/>
-    <condition property="binding.openvr" value="false" else="true"><isset property="build.arch.arm"/></condition>
+    <condition property="binding.openvr" value="true" else="false">
+        <or>
+            <isset property="build.arch.x64|x86"/>
+            <and>
+                <isset property="platform.linux"/>
+                <isset property="build.arch.arm64"/>
+            </and>
+        </or>
+    </condition>
     <property name="binding.openxr" value="true"/>
     <property name="binding.opus" value="true"/>
     <property name="binding.par" value="true"/>
@@ -64,25 +71,26 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.rpmalloc" value="true"/>
     <property name="binding.shaderc" value="true"/>
     <property name="binding.spvc" value="true"/>
-    <condition property="binding.sse" value="false" else="true"><isset property="build.arch.arm"/></condition>
+    <condition property="binding.sse" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
     <property name="binding.stb" value="true"/>
     <property name="binding.tinyexr" value="true"/>
     <property name="binding.tinyfd" value="true"/>
-    <condition property="binding.tootle" value="false" else="true"><isset property="build.arch.arm"/></condition>
+    <condition property="binding.tootle" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
     <property name="binding.vulkan" value="true"/>
     <condition property="binding.vma" value="true" else="false"><istrue value="${binding.vulkan}"/></condition>
     <property name="binding.xxhash" value="true"/>
     <property name="binding.yoga" value="true"/>
     <property name="binding.zstd" value="true"/>
+    <property name="binding.lwjglx" value="true"/>
 
     <!-- TODO: automate -->
     <property name="java-only.binding.cuda" value="true"/>
     <property name="java-only.binding.egl" value="true"/>
     <property name="java-only.binding.fmod" value="true"/>
     <property name="java-only.binding.jawt" value="true"/>
-    <property name="java-only.binding.lwjglx" value="true"/>
     <property name="java-only.binding.odbc" value="true"/>
     <property name="java-only.binding.opencl" value="true"/>
+    <property name="java-only.binding.lwjglx" value="true"/>
 
     <!-- Set the path to the Oculus SDK to enable. -->
     <!-- TODO: add headers in here -->
@@ -91,7 +99,7 @@ This script is included in /config/build-definitions.xml.
         <and>
             <isset property="OCULUS_SDK_PATH"/>
             <available file="${OCULUS_SDK_PATH}/LibOVR/Include/OVR_CAPI.h"/>
-            <not><isset property="build.arch.arm"/></not>
+            <isset property="build.arch.x64|x86"/>
         </and>
     </condition>
 
@@ -116,7 +124,6 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.libdivide}"><local name="module"/><property name="module" value="libdivide"/><body/></sequential>
                 <sequential if:true="${binding.llvm}"><local name="module"/><property name="module" value="llvm"/><body/></sequential>
                 <sequential if:true="${binding.lmdb}"><local name="module"/><property name="module" value="lmdb"/><body/></sequential>
-                <sequential if:true="${binding.lwjglx}"><local name="module"/><property name="module" value="lwjglx"/><body/></sequential>
                 <sequential if:true="${binding.lz4}"><local name="module"/><property name="module" value="lz4"/><body/></sequential>
                 <sequential if:true="${binding.meow}"><local name="module"/><property name="module" value="meow"/><body/></sequential>
                 <sequential if:true="${binding.meshoptimizer}"><local name="module"/><property name="module" value="meshoptimizer"/><body/></sequential>
@@ -147,6 +154,7 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.xxhash}"><local name="module"/><property name="module" value="xxhash"/><body/></sequential>
                 <sequential if:true="${binding.yoga}"><local name="module"/><property name="module" value="yoga"/><body/></sequential>
                 <sequential if:true="${binding.zstd}"><local name="module"/><property name="module" value="zstd"/><body/></sequential>
+                <sequential if:true="${binding.lwjglx}"><local name="module"/><property name="module" value="lwjglx"/><body/></sequential>
             </parallel>
         </sequential>
     </macrodef>
