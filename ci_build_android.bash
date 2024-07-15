@@ -42,39 +42,6 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   # Copy libffi
   cp libffi/$NDK_TARGET-linux-android$NDK_SUFFIX/.libs/libffi.a $LWJGL_NATIVE/
 fi
-
-if [ "$SKIP_FREETYPE" != "1" ]; then
-  #!/bin/bash
-  export BUILD_FREETYPE_VERSION=2.13.2
-  wget https://downloads.sourceforge.net/project/freetype/freetype2/$BUILD_FREETYPE_VERSION/freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  tar xf freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  rm  freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  cd freetype-$BUILD_FREETYPE_VERSION
-
-  export CC=$NDK_TARGET-linux-android${NDK_SUFFIX}21-clang
-
-  ./configure \
-    --host=$TARGET \
-    --prefix=`pwd`/build_android-$LWJGL_BUILD_ARCH \
-    --without-zlib \
-    --with-brotli=no \
-    --with-bzip2=no \
-    --with-png=no \
-    --with-harfbuzz=no \
-    --enable-static=no \
-    --enable-shared=yes 
-
-  make -j4
-  make install
-  llvm-strip ./build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so
-  
-  cd ..
-  cp   freetype-$BUILD_FREETYPE_VERSION/build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so $LWJGL_NATIVE/
-  rm -rf freetype-$BUILD_FREETYPE_VERSION
-  unset BUILD_FREETYPE_VERSION
-  unset CC
-fi
-
 # Download libraries
 POJAV_NATIVES="https://github.com/aaaapai/PojavLauncher-Beta-Zink/raw/exp_v3/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
@@ -82,8 +49,8 @@ wget -nc "https://nightly.link/aaaapai/shaderc/workflows/android/main/libshaderc
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
 
 # HACK: Skip compiling and running the generator to save time and keep LWJGLX functions
-mkdir -p bin/classes/{generator,templates/META-INF}
-touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generated-touch.txt
+mkdir -p bin/classes/{generator}
+touch bin/classes/{generator}/touch.txt bin/classes/generator/generated-touch.txt
 
 # Build LWJGL 3
 ant -version
