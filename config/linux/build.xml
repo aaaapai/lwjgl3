@@ -50,13 +50,13 @@
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}"><equals arg1="@{lang}" arg2="c"/></condition>
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${gcc}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
-                <arg line="-c -std=gnu11" unless:set="cpp"/>
+                <arg line="-c -std=gnu17" unless:set="cpp"/>
                 <arg line="-c -std=gnu++2a" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
                 <arg line="-mcpu=powerpc64le" if:set="build.arch.ppc64le"/>
                 <arg line="-march=rv64g" if:set="build.arch.riscv64"/>
-                <arg line="-O3 -flto=auto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
+                <arg line="-O3 -flto=auto -fwhole-program-vtables -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
                 <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
                 <arg line="-D_FILE_OFFSET_BITS=64"/>
 
@@ -159,9 +159,9 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
-                <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
+                <arg line="-ldl -landroid -l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
-                <arg line="-O3 -flto=auto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-O3 -flto=auto -fwhole-program-vtables -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
@@ -196,7 +196,7 @@
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression">
+        <build module="core" flags="-O3 -flto=auto -fwhole-program-vtables -Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression">
             <beforeCompile>
                 <compile>
                     
@@ -232,7 +232,7 @@
                 <fileset dir="${lib.native}/org/lwjgl">
                     <include name="libffi.a"/>
                 </fileset>
-                <arg value="-ldl"/>
+                <arg value="-ldl -landroid"/>
             </link>
         </build>
 
@@ -350,6 +350,9 @@
                 <arg value="-I${src.main.rel}"/>
                 <fileset dir="." includes="${src.generated}/*" excludes="${src.generated}/org_lwjgl_opengl_WGL.c"/>
             </source>
+            <link>
+                <arg value="-ldl -landroid"/>
+            </link>
         </build>
 
         <!-- OpenGL ES -->
@@ -397,7 +400,7 @@
                 <fileset dir="." includes="${src.generated}/*.c"/>
             </source>
             <link>
-                <arg value="-lm"/>
+                <arg value="-ldl -lc -lm -landroid"/>
             </link>
         </build>
 
