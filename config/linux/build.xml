@@ -159,7 +159,7 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
-                <arg line="-ldl -landroid -l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
+                <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
                 <arg line="-O3 -flto=auto -fwhole-program-vtables -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
@@ -232,7 +232,7 @@
                 <fileset dir="${lib.native}/org/lwjgl">
                     <include name="libffi.a"/>
                 </fileset>
-                <arg value="-ldl -landroid"/>
+                <arg value="-ldl"/>
             </link>
         </build>
 
@@ -350,9 +350,6 @@
                 <arg value="-I${src.main.rel}"/>
                 <fileset dir="." includes="${src.generated}/*" excludes="${src.generated}/org_lwjgl_opengl_WGL.c"/>
             </source>
-            <link>
-                <arg value="-ldl -landroid"/>
-            </link>
         </build>
 
         <!-- OpenGL ES -->
@@ -400,7 +397,7 @@
                 <fileset dir="." includes="${src.generated}/*.c"/>
             </source>
             <link>
-                <arg value="-ldl -lc -lm -landroid"/>
+                <arg value="-lm"/>
             </link>
         </build>
 
