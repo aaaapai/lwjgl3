@@ -19,7 +19,7 @@ static inline JNIEnv* getThreadEnv(void) {
 
 static inline JNIEnv* attachCurrentThreadAsDaemon(void) {
     JNIEnv *env;
-    (*jvm)->AttachCurrentThreadAsDaemon(jvm, (JNIEnv **)&env, NULL);
+    (*jvm)->AttachCurrentThreadAsDaemon(jvm, (void **)&env, NULL);
     if (env == NULL) {
         fprintf(stderr, "[LWJGL] Failed to attach native thread to the JVM.");
         fflush(stderr);
