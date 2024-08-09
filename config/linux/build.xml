@@ -192,7 +192,7 @@
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -W4 -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression">
+        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression">
             <beforeCompile>
                 <compile>
                     
