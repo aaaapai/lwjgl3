@@ -13,7 +13,7 @@ JavaVM *jvm;
 
 static inline JNIEnv* getThreadEnv(void) {
     JNIEnv *env;
-    (*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_8);
+    (*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_6);
     return env;
 }
 
@@ -201,7 +201,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
     jvm = vm;
 
     tlsInit();
-    return JNI_VERSION_1_8;
+    return JNI_VERSION_1_6;
 }
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
