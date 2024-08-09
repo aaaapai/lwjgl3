@@ -25,6 +25,7 @@ jobs:
       run: |
         export JAVA_HOME=jdk22
         export JAVA8_HOME=$JAVA_HOME_8_${{runner.arch}}
+        export ANDROID_NDK_HOME=/usr/local/lib/android/sdk/ndk/26.3.11579264
         export LWJGL_BUILD_ARCH=${{matrix.arch}}
         bash ci_build_android.bash
 
