@@ -42,7 +42,7 @@ final class SharedLibraryLoader {
 
     private static HashSet<Path> extractPaths = new HashSet<>(4);
 
-    private static boolean checkedJDK8195129;
+    private static boolean checkedLoad;
 
     private SharedLibraryLoader() {
     }
@@ -79,7 +79,7 @@ final class SharedLibraryLoader {
                     // * load lwjgl.dll - already extracted and in classpath (SLL not used)
                     // * load library with loadNative - extracted to a directory with unicode characters
                     // * then another with loadSystem - this will hit LoadLibraryA in the JVM, need an ANSI-safe directory.
-                    if (Platform.get() != Platform.WINDOWS || checkedJDK8195129) {
+                    if (checkedLoad) {
                         extractPath = parent;
                     }
                     initExtractPath(parent);
@@ -302,10 +302,18 @@ final class SharedLibraryLoader {
             Files.write(testFile, new byte[0]);
             Files.delete(testFile);
 
-            if (load != null && Platform.get() == Platform.WINDOWS) {
-                workaroundJDK8195129(file, resource, load);
+            if (load != null) {
+                // We have write access, the JVM has locked the file, but System.load can still fail. There are at least two known cases:
+                //
+                // 1. On Windows, when the path contains unicode characters. See JDK-8195129 for details.
+                // 2. When the target directory is mounted on a volume protected by `noexec`. This is common practice on Linux for the /tmp directory.
+                //
+                // Test for this here and try other paths if it fails.
+                try (FileChannel ignored = extract(file, resource)) {
+                    load.accept(file.toAbsolutePath().toString());
+                }
+                checkedLoad = true;
             }
-
             return true;
         } catch (Throwable ignored) {
             if (file == testFile) {
@@ -334,27 +342,4 @@ final class SharedLibraryLoader {
         } catch (IOException ignored) {
         }
     }
-
-    private static void workaroundJDK8195129(Path file, URL resource, @Nonnull Consumer<String> load) throws Throwable {
-        String filepath = file.toAbsolutePath().toString();
-        if (filepath.endsWith(".dll")) {
-            boolean mustCheck = false;
-            for (int i = 0; i < filepath.length(); i++) {
-                if (0x80 <= filepath.charAt(i)) {
-                    mustCheck = true;
-                }
-            }
-            if (mustCheck) {
-                // We have full access, the JVM has locked the file, but System.load can still fail if
-                // the path contains unicode characters, due to JDK-8195129. Test for this here and
-                // try other paths if it fails.
-                try (FileChannel ignored = extract(file, resource)) {
-                    load.accept(file.toAbsolutePath().toString());
-                }
-            }
-            checkedJDK8195129 = true;
-        }
-    }
-
-
 }
