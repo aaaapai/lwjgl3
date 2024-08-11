@@ -101,7 +101,7 @@ public final class GL {
         SharedLibrary GL;
         switch (Platform.get()) {
             case LINUX:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGL.so.1", "libGL.so");
                 break;
             case MACOSX:
                 // Configuration does not get updated if the value changes, so we have to update it here
@@ -163,7 +163,7 @@ public final class GL {
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && DEBUG_FUNCTIONS) {
-                            apiLogMissing("GL", functionName);
+                            apiLog("Failed to locate address for GL function " + memASCII(functionName));
                         }
                     }
 
@@ -290,7 +290,9 @@ public final class GL {
         }
     }
 
-    private static void fixPojavGLContestPro() throws Exception {
+    private static void IsUseBuffer(boolean buffer) throws Exception {
+        if (!buffer) System.out.println("[LWJGL] Frame buffers are not used");
+
         System.out.println("[LWJGL] Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit");
         long currentContext;
         Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
@@ -301,25 +303,28 @@ public final class GL {
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() throws Exception {
         String renderer = System.getProperty("org.lwjgl.opengl.libname");
-        if (Platform.get() == Platform.LINUX && renderer.startsWith("libOSMesa")) {
-            if (System.getenv("POJAV_EXP_FRAME_BUFFER") != null && System.getenv("POJAV_EXP_SETUP") != null) {
-                System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
-                if (System.getenv("POJAV_ZINK_CRASH_HANDLE") != null || System.getenv("DCLAT_FRAMEBUFFER") != null) {
-                    System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
-                    long currentContext;
-                    int[] dims = getNativeWidthHeight();
-                    currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
-                    callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
-                } else {
-                    System.out.println("[LWJGL] Frame buffers are not used");
-                    fixPojavGLContestPro();
-                }
-            } else {
-                fixPojavGLContestPro();
-            }
-        } else {
-            fixPojavGLContestPro();
-        }
+
+        if (Platform.get() == Platform.LINUX
+           && renderer.startsWith("libOSMesa")
+           && System.getenv("POJAV_SPARE_FRAME_BUFFER") != null
+           && System.getenv("POJAV_EXP_SETUP") != null)
+        {
+
+            System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
+
+            if (System.getenv("POJAV_SPARE_BRIDGE") != null || System.getenv("DCLAT_FRAMEBUFFER") != null)
+            {
+
+                System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
+                long currentContext;
+                int[] dims = getNativeWidthHeight();
+                currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
+                callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
+
+            } else IsUseBuffer(false);
+
+        } else IsUseBuffer(true);
+
     }
 
     /**
@@ -388,7 +393,7 @@ public final class GL {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
+        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_BETA_RENDERER") != null) {
             try {
                 fixPojavGLContext();
             } catch (Exception e) {
@@ -464,7 +469,7 @@ public final class GL {
             }
 
             for (int m = M == 1 ? 1 : 0; m <= maxMinor; m++) {
-                supportedExtensions.add("OpenGL" + M + m);
+                supportedExtensions.add(String.format("OpenGL%d%d", M, m));
             }
         }
 
