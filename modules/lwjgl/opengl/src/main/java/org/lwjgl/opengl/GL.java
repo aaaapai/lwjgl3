@@ -101,7 +101,7 @@ public final class GL {
         SharedLibrary GL;
         switch (Platform.get()) {
             case LINUX:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGL.so.1", "libGL.so");
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
                 break;
             case MACOSX:
                 // Configuration does not get updated if the value changes, so we have to update it here
@@ -163,7 +163,7 @@ public final class GL {
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && DEBUG_FUNCTIONS) {
-                            apiLog("Failed to locate address for GL function " + memASCII(functionName));
+                            apiLogMissing("GL", functionName);
                         }
                     }
 
@@ -469,7 +469,7 @@ public final class GL {
             }
 
             for (int m = M == 1 ? 1 : 0; m <= maxMinor; m++) {
-                supportedExtensions.add(String.format("OpenGL%d%d", M, m));
+                supportedExtensions.add("OpenGL" + M + m);
             }
         }
 
