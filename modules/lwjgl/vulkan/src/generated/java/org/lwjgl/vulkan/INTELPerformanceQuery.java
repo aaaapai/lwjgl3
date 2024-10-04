@@ -14,11 +14,11 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * This extension allows an application to capture performance data to be interpreted by a external application or library.
+ * This extension allows an application to capture performance data to be interpreted by an external application or library.
  * 
  * <p>Such a library is available at : <a href="https://github.com/intel/metrics-discovery">https://github.com/intel/metrics-discovery</a></p>
  * 
- * <p>Performance analysis tools such as <a href="https://software.intel.com/content/www/us/en/develop/tools/graphics-performance-analyzers.html">Graphics Performance Analyzers</a> make use of this extension and the metrics-discovery library to present the data in a human readable way.</p>
+ * <p>Performance analysis tools such as <a href="https://www.intel.com/content/www/us/en/developer/tools/graphics-performance-analyzers/overview.html">Graphics Performance Analyzers</a> make use of this extension and the metrics-discovery library to present the data in a human readable way.</p>
  * 
  * <h5>Example Code</h5>
  * 
@@ -153,8 +153,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * // The data can then be passed back to metrics-discovery from which
  * // human readable values can be queried.</code></pre>
- * 
- * <h5>VK_INTEL_performance_query</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -423,6 +421,10 @@ public class INTELPerformanceQuery {
      *     VkCommandBuffer                             commandBuffer,
      *     const VkPerformanceMarkerInfoINTEL*         pMarkerInfo);</code></pre>
      * 
+     * <h5>Description</h5>
+     * 
+     * <p>The last marker set onto a command buffer before the end of a query will be part of the query result.</p>
+     * 
      * <h5>Valid Usage (Implicit)</h5>
      * 
      * <ul>
@@ -534,6 +536,9 @@ public class INTELPerformanceQuery {
      * <h5>See Also</h5>
      * 
      * <p>{@link VkPerformanceStreamMarkerInfoINTEL}</p>
+     *
+     * @param commandBuffer a {@code VkCommandBuffer} into which a stream marker is added.
+     * @param pMarkerInfo   a pointer to a {@link VkPerformanceStreamMarkerInfoINTEL} structure describing the marker to insert.
      */
     @NativeType("VkResult")
     public static int vkCmdSetPerformanceStreamMarkerINTEL(VkCommandBuffer commandBuffer, @NativeType("VkPerformanceStreamMarkerInfoINTEL const *") VkPerformanceStreamMarkerInfoINTEL pMarkerInfo) {

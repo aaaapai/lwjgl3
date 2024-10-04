@@ -671,6 +671,8 @@ val nk_style_item = struct(Module.NUKLEAR, "NkStyleItem", nativeName = "struct n
 val nk_style_text = struct(Module.NUKLEAR, "NkStyleText", nativeName = "struct nk_style_text") {
     nk_color("color", "")
     nk_vec2("padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 }
 
 val nk_draw_begin = Module.NUKLEAR.callback {
@@ -707,6 +709,7 @@ val nk_style_button = struct(Module.NUKLEAR, "NkStyleButton", nativeName = "stru
     nk_style_item("hover", "")
     nk_style_item("active", "")
     nk_color("border_color", "")
+    float("color_factor_background", "")
 
     /* text */
     nk_color("text_background", "")
@@ -714,6 +717,7 @@ val nk_style_button = struct(Module.NUKLEAR, "NkStyleButton", nativeName = "stru
     nk_color("text_hover", "")
     nk_color("text_active", "")
     nk_flags("text_alignment", "")
+    float("color_factor_text", "")
 
     /* properties */
     float("border", "")
@@ -721,6 +725,7 @@ val nk_style_button = struct(Module.NUKLEAR, "NkStyleButton", nativeName = "stru
     nk_vec2("padding", "")
     nk_vec2("image_padding", "")
     nk_vec2("touch_padding", "")
+    float("disabled_factor", "")
 
     /* optional user callbacks */
     nk_handle("userdata", "")
@@ -751,6 +756,8 @@ val nk_style_toggle = struct(Module.NUKLEAR, "NkStyleToggle", nativeName = "stru
     nk_vec2("touch_padding", "")
     float("spacing", "")
     float("border", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     /* optional user callbacks */
     nk_handle("userdata", "")
@@ -786,6 +793,8 @@ val nk_style_selectable = struct(Module.NUKLEAR, "NkStyleSelectable", nativeName
     nk_vec2("padding", "")
     nk_vec2("touch_padding", "")
     nk_vec2("image_padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     /* optional user callbacks */
     nk_handle("userdata", "")
@@ -818,6 +827,8 @@ val nk_style_slider = struct(Module.NUKLEAR, "NkStyleSlider", nativeName = "stru
     nk_vec2("padding", "")
     nk_vec2("spacing", "")
     nk_vec2("cursor_size", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     /* optional buttons */
     int("show_buttons", "")
@@ -825,6 +836,39 @@ val nk_style_slider = struct(Module.NUKLEAR, "NkStyleSlider", nativeName = "stru
     nk_style_button("dec_button", "")
     nk_symbol_type("inc_symbol", "").links("SYMBOL_\\w+")
     nk_symbol_type("dec_symbol", "see {@code inc_symbol}")
+
+    /* optional user callbacks */
+    nk_handle("userdata", "")
+    nullable..nk_draw_begin("draw_begin", "")
+    nullable..nk_draw_end("draw_end", "")
+}
+
+val nk_style_knob = struct(Module.NUKLEAR, "NkStyleKnob", nativeName = "struct nk_style_knob") {
+    /* background */
+    nk_style_item("normal", "")
+    nk_style_item("hover", "")
+    nk_style_item("active", "")
+    nk_color("border_color", "")
+
+    /* knob */
+    nk_color("knob_normal", "")
+    nk_color("knob_hover", "")
+    nk_color("knob_active", "")
+    nk_color("knob_border_color", "")
+
+    /* cursor */
+    nk_color("cursor_normal", "")
+    nk_color("cursor_hover", "")
+    nk_color("cursor_active", "")
+
+    /* properties */
+    float("border", "")
+    float("knob_border", "")
+    nk_vec2("padding", "")
+    nk_vec2("spacing", "")
+    float("cursor_width", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     /* optional user callbacks */
     nk_handle("userdata", "")
@@ -851,6 +895,8 @@ val nk_style_progress = struct(Module.NUKLEAR, "NkStyleProgress", nativeName = "
     float("cursor_border", "")
     float("cursor_rounding", "")
     nk_vec2("padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     /* optional user callbacks */
     nk_handle("userdata", "")
@@ -877,6 +923,8 @@ val nk_style_scrollbar = struct(Module.NUKLEAR, "NkStyleScrollbar", nativeName =
     float("border_cursor", "")
     float("rounding_cursor", "")
     nk_vec2("padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     /* optional buttons */
     int("show_buttons", "")
@@ -923,6 +971,8 @@ val nk_style_edit = struct(Module.NUKLEAR, "NkStyleEdit", nativeName = "struct n
     nk_vec2("scrollbar_size", "")
     nk_vec2("padding", "")
     float("row_padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 }
 
 val nk_style_property = struct(Module.NUKLEAR, "NkStyleProperty", nativeName = "struct nk_style_property") {
@@ -945,6 +995,8 @@ val nk_style_property = struct(Module.NUKLEAR, "NkStyleProperty", nativeName = "
     float("border", "")
     float("rounding", "")
     nk_vec2("padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 
     nk_style_edit("edit", "")
     nk_style_button("inc_button", "")
@@ -967,6 +1019,9 @@ val nk_style_chart = struct(Module.NUKLEAR, "NkStyleChart", nativeName = "struct
     float("border", "")
     float("rounding", "")
     nk_vec2("padding", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
+    nk_bool("show_markers", "")
 }
 
 val nk_style_combo = struct(Module.NUKLEAR, "NkStyleCombo", nativeName = "struct nk_style_combo") {
@@ -998,6 +1053,8 @@ val nk_style_combo = struct(Module.NUKLEAR, "NkStyleCombo", nativeName = "struct
     nk_vec2("content_padding", "")
     nk_vec2("button_padding", "")
     nk_vec2("spacing", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 }
 
 val nk_style_tab = struct(Module.NUKLEAR, "NkStyleTab", nativeName = "struct nk_style_tab") {
@@ -1020,6 +1077,8 @@ val nk_style_tab = struct(Module.NUKLEAR, "NkStyleTab", nativeName = "struct nk_
     float("indent", "")
     nk_vec2("padding", "")
     nk_vec2("spacing", "")
+    float("color_factor", "")
+    float("disabled_factor", "")
 }
 
 val nk_style_window_header = struct(Module.NUKLEAR, "NkStyleWindowHeader", nativeName = "struct nk_style_window_header") {
@@ -1101,6 +1160,7 @@ val nk_style = struct(Module.NUKLEAR, "NkStyle", nativeName = "struct nk_style")
     nk_style_toggle("checkbox", "")
     nk_style_selectable("selectable", "")
     nk_style_slider("slider", "")
+    nk_style_knob("knob", "")
     nk_style_progress("progress", "")
     nk_style_property("property", "")
     nk_style_edit("edit", "")
@@ -1124,6 +1184,7 @@ val nk_chart_slot = struct(Module.NUKLEAR, "NkChartSlot", nativeName = "struct n
     int("count", "")
     nk_vec2("last", "")
     int("index", "")
+    nk_bool("show_markers", "")
 }
 
 val nk_chart = struct(Module.NUKLEAR, "NkChart", nativeName = "struct nk_chart", mutable = false) {
@@ -1258,6 +1319,7 @@ val nk_window = struct(Module.NUKLEAR, "NkWindow", nativeName = "struct nk_windo
     nk_popup_state("popup", "")
     nk_edit_state("edit", "")
     unsigned_int("scrolled", "")
+    nk_bool("widgets_disabled", "")
 
     "struct nk_table".opaque.p("tables", "") // TODO: private API?
     unsigned_int("table_count", "")

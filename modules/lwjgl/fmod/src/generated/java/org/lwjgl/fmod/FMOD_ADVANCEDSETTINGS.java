@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int maxVorbisCodecs;
  *     int maxAT9Codecs;
  *     int maxFADPCMCodecs;
- *     int maxPCMCodecs;
+ *     int maxOpusCodecs;
  *     int ASIONumChannels;
  *     char ** ASIOChannelList;
  *     FMOD_SPEAKER * ASIOSpeakerList;
@@ -42,7 +42,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     FMOD_DSP_RESAMPLER resamplerMethod;
  *     unsigned int randomSeed;
  *     int maxConvolutionThreads;
- *     int maxOpusCodecs;
+ *     int maxSpatialObjects;
  * }</code></pre>
  */
 public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> implements NativeResource {
@@ -62,7 +62,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         MAXVORBISCODECS,
         MAXAT9CODECS,
         MAXFADPCMCODECS,
-        MAXPCMCODECS,
+        MAXOPUSCODECS,
         ASIONUMCHANNELS,
         ASIOCHANNELLIST,
         ASIOSPEAKERLIST,
@@ -76,7 +76,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         RESAMPLERMETHOD,
         RANDOMSEED,
         MAXCONVOLUTIONTHREADS,
-        MAXOPUSCODECS;
+        MAXSPATIALOBJECTS;
 
     static {
         Layout layout = __struct(
@@ -114,7 +114,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         MAXVORBISCODECS = layout.offsetof(4);
         MAXAT9CODECS = layout.offsetof(5);
         MAXFADPCMCODECS = layout.offsetof(6);
-        MAXPCMCODECS = layout.offsetof(7);
+        MAXOPUSCODECS = layout.offsetof(7);
         ASIONUMCHANNELS = layout.offsetof(8);
         ASIOCHANNELLIST = layout.offsetof(9);
         ASIOSPEAKERLIST = layout.offsetof(10);
@@ -128,7 +128,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         RESAMPLERMETHOD = layout.offsetof(18);
         RANDOMSEED = layout.offsetof(19);
         MAXCONVOLUTIONTHREADS = layout.offsetof(20);
-        MAXOPUSCODECS = layout.offsetof(21);
+        MAXSPATIALOBJECTS = layout.offsetof(21);
     }
 
     protected FMOD_ADVANCEDSETTINGS(long address, @Nullable ByteBuffer container) {
@@ -167,8 +167,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public int maxAT9Codecs() { return nmaxAT9Codecs(address()); }
     /** @return the value of the {@code maxFADPCMCodecs} field. */
     public int maxFADPCMCodecs() { return nmaxFADPCMCodecs(address()); }
-    /** @return the value of the {@code maxPCMCodecs} field. */
-    public int maxPCMCodecs() { return nmaxPCMCodecs(address()); }
+    /** @return the value of the {@code maxOpusCodecs} field. */
+    public int maxOpusCodecs() { return nmaxOpusCodecs(address()); }
     /** @return the value of the {@code ASIONumChannels} field. */
     public int ASIONumChannels() { return nASIONumChannels(address()); }
     /** @return a {@link PointerBuffer} view of the data pointed to by the {@code ASIOChannelList} field. */
@@ -202,8 +202,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public int randomSeed() { return nrandomSeed(address()); }
     /** @return the value of the {@code maxConvolutionThreads} field. */
     public int maxConvolutionThreads() { return nmaxConvolutionThreads(address()); }
-    /** @return the value of the {@code maxOpusCodecs} field. */
-    public int maxOpusCodecs() { return nmaxOpusCodecs(address()); }
+    /** @return the value of the {@code maxSpatialObjects} field. */
+    public int maxSpatialObjects() { return nmaxSpatialObjects(address()); }
 
     /** Sets the specified value to the {@code cbSize} field. */
     public FMOD_ADVANCEDSETTINGS cbSize(int value) { ncbSize(address(), value); return this; }
@@ -219,8 +219,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public FMOD_ADVANCEDSETTINGS maxAT9Codecs(int value) { nmaxAT9Codecs(address(), value); return this; }
     /** Sets the specified value to the {@code maxFADPCMCodecs} field. */
     public FMOD_ADVANCEDSETTINGS maxFADPCMCodecs(int value) { nmaxFADPCMCodecs(address(), value); return this; }
-    /** Sets the specified value to the {@code maxPCMCodecs} field. */
-    public FMOD_ADVANCEDSETTINGS maxPCMCodecs(int value) { nmaxPCMCodecs(address(), value); return this; }
+    /** Sets the specified value to the {@code maxOpusCodecs} field. */
+    public FMOD_ADVANCEDSETTINGS maxOpusCodecs(int value) { nmaxOpusCodecs(address(), value); return this; }
     /** Sets the specified value to the {@code ASIONumChannels} field. */
     public FMOD_ADVANCEDSETTINGS ASIONumChannels(int value) { nASIONumChannels(address(), value); return this; }
     /** Sets the address of the specified {@link PointerBuffer} to the {@code ASIOChannelList} field. */
@@ -247,8 +247,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public FMOD_ADVANCEDSETTINGS randomSeed(@NativeType("unsigned int") int value) { nrandomSeed(address(), value); return this; }
     /** Sets the specified value to the {@code maxConvolutionThreads} field. */
     public FMOD_ADVANCEDSETTINGS maxConvolutionThreads(int value) { nmaxConvolutionThreads(address(), value); return this; }
-    /** Sets the specified value to the {@code maxOpusCodecs} field. */
-    public FMOD_ADVANCEDSETTINGS maxOpusCodecs(int value) { nmaxOpusCodecs(address(), value); return this; }
+    /** Sets the specified value to the {@code maxSpatialObjects} field. */
+    public FMOD_ADVANCEDSETTINGS maxSpatialObjects(int value) { nmaxSpatialObjects(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public FMOD_ADVANCEDSETTINGS set(
@@ -259,7 +259,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         int maxVorbisCodecs,
         int maxAT9Codecs,
         int maxFADPCMCodecs,
-        int maxPCMCodecs,
+        int maxOpusCodecs,
         int ASIONumChannels,
         PointerBuffer ASIOChannelList,
         IntBuffer ASIOSpeakerList,
@@ -273,7 +273,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         int resamplerMethod,
         int randomSeed,
         int maxConvolutionThreads,
-        int maxOpusCodecs
+        int maxSpatialObjects
     ) {
         cbSize(cbSize);
         maxMPEGCodecs(maxMPEGCodecs);
@@ -282,7 +282,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         maxVorbisCodecs(maxVorbisCodecs);
         maxAT9Codecs(maxAT9Codecs);
         maxFADPCMCodecs(maxFADPCMCodecs);
-        maxPCMCodecs(maxPCMCodecs);
+        maxOpusCodecs(maxOpusCodecs);
         ASIONumChannels(ASIONumChannels);
         ASIOChannelList(ASIOChannelList);
         ASIOSpeakerList(ASIOSpeakerList);
@@ -296,7 +296,7 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         resamplerMethod(resamplerMethod);
         randomSeed(randomSeed);
         maxConvolutionThreads(maxConvolutionThreads);
-        maxOpusCodecs(maxOpusCodecs);
+        maxSpatialObjects(maxSpatialObjects);
 
         return this;
     }
@@ -440,8 +440,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public static int nmaxAT9Codecs(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXAT9CODECS); }
     /** Unsafe version of {@link #maxFADPCMCodecs}. */
     public static int nmaxFADPCMCodecs(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXFADPCMCODECS); }
-    /** Unsafe version of {@link #maxPCMCodecs}. */
-    public static int nmaxPCMCodecs(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXPCMCODECS); }
+    /** Unsafe version of {@link #maxOpusCodecs}. */
+    public static int nmaxOpusCodecs(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXOPUSCODECS); }
     /** Unsafe version of {@link #ASIONumChannels}. */
     public static int nASIONumChannels(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.ASIONUMCHANNELS); }
     /** Unsafe version of {@link #ASIOChannelList() ASIOChannelList}. */
@@ -468,8 +468,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public static int nrandomSeed(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.RANDOMSEED); }
     /** Unsafe version of {@link #maxConvolutionThreads}. */
     public static int nmaxConvolutionThreads(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXCONVOLUTIONTHREADS); }
-    /** Unsafe version of {@link #maxOpusCodecs}. */
-    public static int nmaxOpusCodecs(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXOPUSCODECS); }
+    /** Unsafe version of {@link #maxSpatialObjects}. */
+    public static int nmaxSpatialObjects(long struct) { return UNSAFE.getInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXSPATIALOBJECTS); }
 
     /** Unsafe version of {@link #cbSize(int) cbSize}. */
     public static void ncbSize(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.CBSIZE, value); }
@@ -485,8 +485,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public static void nmaxAT9Codecs(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXAT9CODECS, value); }
     /** Unsafe version of {@link #maxFADPCMCodecs(int) maxFADPCMCodecs}. */
     public static void nmaxFADPCMCodecs(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXFADPCMCODECS, value); }
-    /** Unsafe version of {@link #maxPCMCodecs(int) maxPCMCodecs}. */
-    public static void nmaxPCMCodecs(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXPCMCODECS, value); }
+    /** Unsafe version of {@link #maxOpusCodecs(int) maxOpusCodecs}. */
+    public static void nmaxOpusCodecs(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXOPUSCODECS, value); }
     /** Sets the specified value to the {@code ASIONumChannels} field of the specified {@code struct}. */
     public static void nASIONumChannels(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.ASIONUMCHANNELS, value); }
     /** Unsafe version of {@link #ASIOChannelList(PointerBuffer) ASIOChannelList}. */
@@ -513,8 +513,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
     public static void nrandomSeed(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.RANDOMSEED, value); }
     /** Unsafe version of {@link #maxConvolutionThreads(int) maxConvolutionThreads}. */
     public static void nmaxConvolutionThreads(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXCONVOLUTIONTHREADS, value); }
-    /** Unsafe version of {@link #maxOpusCodecs(int) maxOpusCodecs}. */
-    public static void nmaxOpusCodecs(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXOPUSCODECS, value); }
+    /** Unsafe version of {@link #maxSpatialObjects(int) maxSpatialObjects}. */
+    public static void nmaxSpatialObjects(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_ADVANCEDSETTINGS.MAXSPATIALOBJECTS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -578,8 +578,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         public int maxAT9Codecs() { return FMOD_ADVANCEDSETTINGS.nmaxAT9Codecs(address()); }
         /** @return the value of the {@code maxFADPCMCodecs} field. */
         public int maxFADPCMCodecs() { return FMOD_ADVANCEDSETTINGS.nmaxFADPCMCodecs(address()); }
-        /** @return the value of the {@code maxPCMCodecs} field. */
-        public int maxPCMCodecs() { return FMOD_ADVANCEDSETTINGS.nmaxPCMCodecs(address()); }
+        /** @return the value of the {@code maxOpusCodecs} field. */
+        public int maxOpusCodecs() { return FMOD_ADVANCEDSETTINGS.nmaxOpusCodecs(address()); }
         /** @return the value of the {@code ASIONumChannels} field. */
         public int ASIONumChannels() { return FMOD_ADVANCEDSETTINGS.nASIONumChannels(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@code ASIOChannelList} field. */
@@ -613,8 +613,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         public int randomSeed() { return FMOD_ADVANCEDSETTINGS.nrandomSeed(address()); }
         /** @return the value of the {@code maxConvolutionThreads} field. */
         public int maxConvolutionThreads() { return FMOD_ADVANCEDSETTINGS.nmaxConvolutionThreads(address()); }
-        /** @return the value of the {@code maxOpusCodecs} field. */
-        public int maxOpusCodecs() { return FMOD_ADVANCEDSETTINGS.nmaxOpusCodecs(address()); }
+        /** @return the value of the {@code maxSpatialObjects} field. */
+        public int maxSpatialObjects() { return FMOD_ADVANCEDSETTINGS.nmaxSpatialObjects(address()); }
 
         /** Sets the specified value to the {@code cbSize} field. */
         public FMOD_ADVANCEDSETTINGS.Buffer cbSize(int value) { FMOD_ADVANCEDSETTINGS.ncbSize(address(), value); return this; }
@@ -630,8 +630,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         public FMOD_ADVANCEDSETTINGS.Buffer maxAT9Codecs(int value) { FMOD_ADVANCEDSETTINGS.nmaxAT9Codecs(address(), value); return this; }
         /** Sets the specified value to the {@code maxFADPCMCodecs} field. */
         public FMOD_ADVANCEDSETTINGS.Buffer maxFADPCMCodecs(int value) { FMOD_ADVANCEDSETTINGS.nmaxFADPCMCodecs(address(), value); return this; }
-        /** Sets the specified value to the {@code maxPCMCodecs} field. */
-        public FMOD_ADVANCEDSETTINGS.Buffer maxPCMCodecs(int value) { FMOD_ADVANCEDSETTINGS.nmaxPCMCodecs(address(), value); return this; }
+        /** Sets the specified value to the {@code maxOpusCodecs} field. */
+        public FMOD_ADVANCEDSETTINGS.Buffer maxOpusCodecs(int value) { FMOD_ADVANCEDSETTINGS.nmaxOpusCodecs(address(), value); return this; }
         /** Sets the specified value to the {@code ASIONumChannels} field. */
         public FMOD_ADVANCEDSETTINGS.Buffer ASIONumChannels(int value) { FMOD_ADVANCEDSETTINGS.nASIONumChannels(address(), value); return this; }
         /** Sets the address of the specified {@link PointerBuffer} to the {@code ASIOChannelList} field. */
@@ -658,8 +658,8 @@ public class FMOD_ADVANCEDSETTINGS extends Struct<FMOD_ADVANCEDSETTINGS> impleme
         public FMOD_ADVANCEDSETTINGS.Buffer randomSeed(@NativeType("unsigned int") int value) { FMOD_ADVANCEDSETTINGS.nrandomSeed(address(), value); return this; }
         /** Sets the specified value to the {@code maxConvolutionThreads} field. */
         public FMOD_ADVANCEDSETTINGS.Buffer maxConvolutionThreads(int value) { FMOD_ADVANCEDSETTINGS.nmaxConvolutionThreads(address(), value); return this; }
-        /** Sets the specified value to the {@code maxOpusCodecs} field. */
-        public FMOD_ADVANCEDSETTINGS.Buffer maxOpusCodecs(int value) { FMOD_ADVANCEDSETTINGS.nmaxOpusCodecs(address(), value); return this; }
+        /** Sets the specified value to the {@code maxSpatialObjects} field. */
+        public FMOD_ADVANCEDSETTINGS.Buffer maxSpatialObjects(int value) { FMOD_ADVANCEDSETTINGS.nmaxSpatialObjects(address(), value); return this; }
 
     }
 

@@ -448,6 +448,7 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         "OBJ_TYPE_MIN".enum("", "0"),
         "OBJ_MACHINE".enum("", "0"),
         "OBJ_PACKAGE".enum,
+        "OBJ_DIE".enum,
         "OBJ_CORE".enum,
         "OBJ_PU".enum,
         "OBJ_L1CACHE".enum,
@@ -460,12 +461,11 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         "OBJ_L3ICACHE".enum,
         "OBJ_GROUP".enum,
         "OBJ_NUMANODE".enum,
+        "OBJ_MEMCACHE".enum,
         "OBJ_BRIDGE".enum,
         "OBJ_PCI_DEVICE".enum,
         "OBJ_OS_DEVICE".enum,
         "OBJ_MISC".enum,
-        "OBJ_MEMCACHE".enum,
-        "OBJ_DIE".enum,
         "OBJ_TYPE_MAX".enum
     )
 
@@ -536,7 +536,8 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         "MEMBIND_FIRSTTOUCH".enum,
         "MEMBIND_BIND".enum,
         "MEMBIND_INTERLEAVE".enum,
-        "MEMBIND_NEXTTOUCH".enum,
+        "MEMBIND_WEIGHTED_INTERLEAVE".enum("", "5"),
+        "MEMBIND_NEXTTOUCH".enum("", "4"),
         "MEMBIND_MIXED".enum("", "-1")
     )
 
@@ -1029,6 +1030,15 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
     )
 
     int(
+        "obj_set_subtype",
+        "",
+
+        hwloc_topology_t("topology", ""),
+        hwloc_obj_t("obj", ""),
+        nullable..charASCII.const.p("subtype", "")
+    )
+
+    int(
         "set_cpubind",
         "",
 
@@ -1410,6 +1420,14 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         "",
 
         hwloc_topology_t("topology", "")
+    )
+
+    int(
+        "topology_free_group_object",
+        "",
+
+        hwloc_topology_t("topology", ""),
+        hwloc_obj_t("group", "")
     )
 
     hwloc_obj_t(
@@ -2177,10 +2195,36 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
 
         hwloc_topology_t("topology", ""),
         hwloc_memattr_id_t("attribute", ""),
-        hwloc_obj_t("target", ""),
+        hwloc_obj_t("target_node", ""),
         unsigned_long("flags", ""),
         Check(1)..hwloc_location.p("best_initiator", ""),
         Check(1)..nullable..hwloc_uint64_t.p("value", "")
+    )
+
+    int(
+        "memattr_get_targets",
+        "",
+
+        hwloc_topology_t("topology", ""),
+        hwloc_memattr_id_t("attribute", ""),
+        nullable..hwloc_location.p("initiator", ""),
+        unsigned_long("flags", ""),
+        AutoSize("targets", "values")..Check(1)..unsigned_int.p("nr", ""),
+        hwloc_obj_t.p("targets", ""),
+        nullable..hwloc_uint64_t.p("values", "")
+    )
+
+    int(
+        "memattr_get_initiators",
+        "",
+
+        hwloc_topology_t("topology", ""),
+        hwloc_memattr_id_t("attribute", ""),
+        hwloc_obj_t("target_node", ""),
+        unsigned_long("flags", ""),
+        AutoSize("initiators", "values")..Check(1)..unsigned_int.p("nr", ""),
+        hwloc_location.p("initiators", ""),
+        nullable..hwloc_uint64_t.p("values", "")
     )
 
     int(
@@ -2221,32 +2265,6 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         nullable..hwloc_location.p("initiator", ""),
         unsigned_long("flags", ""),
         hwloc_uint64_t("value", "")
-    )
-
-    int(
-        "memattr_get_targets",
-        "",
-
-        hwloc_topology_t("topology", ""),
-        hwloc_memattr_id_t("attribute", ""),
-        nullable..hwloc_location.p("initiator", ""),
-        unsigned_long("flags", ""),
-        AutoSize("targets", "values")..Check(1)..unsigned_int.p("nr", ""),
-        hwloc_obj_t.p("targets", ""),
-        nullable..hwloc_uint64_t.p("values", "")
-    )
-
-    int(
-        "memattr_get_initiators",
-        "",
-
-        hwloc_topology_t("topology", ""),
-        hwloc_memattr_id_t("attribute", ""),
-        hwloc_obj_t("target_node", ""),
-        unsigned_long("flags", ""),
-        AutoSize("initiators", "values")..Check(1)..unsigned_int.p("nr", ""),
-        hwloc_location.p("initiators", ""),
-        nullable..hwloc_uint64_t.p("values", "")
     )
 
     // cpukinds.h
@@ -2392,8 +2410,9 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
 
         "DISTANCES_KIND_FROM_OS".enumLong("", "1L<<0"),
         "DISTANCES_KIND_FROM_USER".enumLong("", "1L<<1"),
-        "DISTANCES_KIND_MEANS_LATENCY".enumLong("", "1L<<2"),
-        "DISTANCES_KIND_MEANS_BANDWIDTH".enumLong("", "1L<<3"),
+        "DISTANCES_KIND_VALUE_LATENCY".enumLong("", "1L<<2"),
+        "DISTANCES_KIND_VALUE_BANDWIDTH".enumLong("", "1L<<3"),
+        "DISTANCES_KIND_VALUE_HOPS".enumLong("", "1L<<5"),
         "DISTANCES_KIND_HETEROGENEOUS_TYPES".enumLong("", "1L<<4")
     )
 

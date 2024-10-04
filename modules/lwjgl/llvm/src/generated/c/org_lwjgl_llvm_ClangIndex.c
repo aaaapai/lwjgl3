@@ -70,6 +70,7 @@ typedef CXType (*clang_getTypedefDeclUnderlyingTypePROC) (CXCursor);
 typedef CXType (*clang_getEnumDeclIntegerTypePROC) (CXCursor);
 typedef jlong (*clang_getEnumConstantDeclValuePROC) (CXCursor);
 typedef jlong (*clang_getEnumConstantDeclUnsignedValuePROC) (CXCursor);
+typedef jint (*clang_Cursor_isBitFieldPROC) (CXCursor);
 typedef jint (*clang_getFieldDeclBitWidthPROC) (CXCursor);
 typedef jint (*clang_Cursor_getNumArgumentsPROC) (CXCursor);
 typedef CXCursor (*clang_Cursor_getArgumentPROC) (CXCursor, jint);
@@ -129,9 +130,10 @@ typedef jint (*clang_Cursor_isInlineNamespacePROC) (CXCursor);
 typedef jint (*clang_Type_getNumTemplateArgumentsPROC) (CXType);
 typedef CXType (*clang_Type_getTemplateArgumentAsTypePROC) (CXType, jint);
 typedef jint (*clang_Type_getCXXRefQualifierPROC) (CXType);
-typedef jint (*clang_Cursor_isBitFieldPROC) (CXCursor);
 typedef jint (*clang_isVirtualBasePROC) (CXCursor);
 typedef jint (*clang_getCXXAccessSpecifierPROC) (CXCursor);
+typedef jint (*clang_Cursor_getBinaryOpcodePROC) (CXCursor);
+typedef CXString (*clang_Cursor_getBinaryOpcodeStrPROC) (jint);
 typedef jint (*clang_Cursor_getStorageClassPROC) (CXCursor);
 typedef jint (*clang_getNumOverloadedDeclsPROC) (CXCursor);
 typedef CXCursor (*clang_getOverloadedDeclPROC) (CXCursor, jint);
@@ -184,6 +186,7 @@ typedef jint (*clang_CXXMethod_isStaticPROC) (CXCursor);
 typedef jint (*clang_CXXMethod_isVirtualPROC) (CXCursor);
 typedef jint (*clang_CXXMethod_isCopyAssignmentOperatorPROC) (CXCursor);
 typedef jint (*clang_CXXMethod_isMoveAssignmentOperatorPROC) (CXCursor);
+typedef jint (*clang_CXXMethod_isExplicitPROC) (CXCursor);
 typedef jint (*clang_CXXRecord_isAbstractPROC) (CXCursor);
 typedef jint (*clang_EnumDecl_isScopedPROC) (CXCursor);
 typedef jint (*clang_CXXMethod_isConstPROC) (CXCursor);
@@ -213,6 +216,10 @@ typedef jint (*clang_findIncludesInFilePROC) (uintptr_t, uintptr_t, CXCursorAndR
 typedef void (*clang_indexLoc_getFileLocationPROC) (CXIdxLoc, uintptr_t, uintptr_t, uintptr_t, uintptr_t, uintptr_t);
 typedef CXSourceLocation (*clang_indexLoc_getCXSourceLocationPROC) (CXIdxLoc);
 typedef jint (*clang_Type_visitFieldsPROC) (CXType, uintptr_t, uintptr_t);
+typedef CXString (*clang_getBinaryOperatorKindSpellingPROC) (jint);
+typedef jint (*clang_getCursorBinaryOperatorKindPROC) (CXCursor);
+typedef CXString (*clang_getUnaryOperatorKindSpellingPROC) (jint);
+typedef jint (*clang_getCursorUnaryOperatorKindPROC) (CXCursor);
 
 EXTERN_C_ENTER
 
@@ -694,6 +701,13 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getEnumConstantDe
     return clang_getEnumConstantDeclUnsignedValue(*C);
 }
 
+JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Cursor_1isBitField(JNIEnv *__env, jclass clazz, jlong CAddress, jlong __functionAddress) {
+    clang_Cursor_isBitFieldPROC clang_Cursor_isBitField = (clang_Cursor_isBitFieldPROC)(uintptr_t)__functionAddress;
+    CXCursor *C = (CXCursor *)(uintptr_t)CAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return clang_Cursor_isBitField(*C);
+}
+
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getFieldDeclBitWidth(JNIEnv *__env, jclass clazz, jlong CAddress, jlong __functionAddress) {
     clang_getFieldDeclBitWidthPROC clang_getFieldDeclBitWidth = (clang_getFieldDeclBitWidthPROC)(uintptr_t)__functionAddress;
     CXCursor *C = (CXCursor *)(uintptr_t)CAddress;
@@ -1108,13 +1122,6 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Type_1getCXXRefQua
     return clang_Type_getCXXRefQualifier(*T);
 }
 
-JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Cursor_1isBitField(JNIEnv *__env, jclass clazz, jlong CAddress, jlong __functionAddress) {
-    clang_Cursor_isBitFieldPROC clang_Cursor_isBitField = (clang_Cursor_isBitFieldPROC)(uintptr_t)__functionAddress;
-    CXCursor *C = (CXCursor *)(uintptr_t)CAddress;
-    UNUSED_PARAMS(__env, clazz)
-    return clang_Cursor_isBitField(*C);
-}
-
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1isVirtualBase(JNIEnv *__env, jclass clazz, jlong cursorAddress, jlong __functionAddress) {
     clang_isVirtualBasePROC clang_isVirtualBase = (clang_isVirtualBasePROC)(uintptr_t)__functionAddress;
     CXCursor *cursor = (CXCursor *)(uintptr_t)cursorAddress;
@@ -1127,6 +1134,19 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getCXXAccessSpecif
     CXCursor *cursor = (CXCursor *)(uintptr_t)cursorAddress;
     UNUSED_PARAMS(__env, clazz)
     return clang_getCXXAccessSpecifier(*cursor);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Cursor_1getBinaryOpcode(JNIEnv *__env, jclass clazz, jlong cursorAddress, jlong __functionAddress) {
+    clang_Cursor_getBinaryOpcodePROC clang_Cursor_getBinaryOpcode = (clang_Cursor_getBinaryOpcodePROC)(uintptr_t)__functionAddress;
+    CXCursor *cursor = (CXCursor *)(uintptr_t)cursorAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return clang_Cursor_getBinaryOpcode(*cursor);
+}
+
+JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Cursor_1getBinaryOpcodeStr(JNIEnv *__env, jclass clazz, jint Op, jlong __functionAddress, jlong __result) {
+    clang_Cursor_getBinaryOpcodeStrPROC clang_Cursor_getBinaryOpcodeStr = (clang_Cursor_getBinaryOpcodeStrPROC)(uintptr_t)__functionAddress;
+    UNUSED_PARAMS(__env, clazz)
+    *((CXString*)(uintptr_t)__result) = clang_Cursor_getBinaryOpcodeStr(Op);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Cursor_1getStorageClass(JNIEnv *__env, jclass clazz, jlong cursorAddress, jlong __functionAddress) {
@@ -1503,6 +1523,13 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1CXXMethod_1isMoveA
     return clang_CXXMethod_isMoveAssignmentOperator(*C);
 }
 
+JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1CXXMethod_1isExplicit(JNIEnv *__env, jclass clazz, jlong CAddress, jlong __functionAddress) {
+    clang_CXXMethod_isExplicitPROC clang_CXXMethod_isExplicit = (clang_CXXMethod_isExplicitPROC)(uintptr_t)__functionAddress;
+    CXCursor *C = (CXCursor *)(uintptr_t)CAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return clang_CXXMethod_isExplicit(*C);
+}
+
 JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1CXXRecord_1isAbstract(JNIEnv *__env, jclass clazz, jlong CAddress, jlong __functionAddress) {
     clang_CXXRecord_isAbstractPROC clang_CXXRecord_isAbstract = (clang_CXXRecord_isAbstractPROC)(uintptr_t)__functionAddress;
     CXCursor *C = (CXCursor *)(uintptr_t)CAddress;
@@ -1728,6 +1755,32 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1Type_1visitFields(
     uintptr_t client_data = (uintptr_t)client_dataAddress;
     UNUSED_PARAMS(__env, clazz)
     return clang_Type_visitFields(*T, visitor, client_data);
+}
+
+JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getBinaryOperatorKindSpelling(JNIEnv *__env, jclass clazz, jint kind, jlong __functionAddress, jlong __result) {
+    clang_getBinaryOperatorKindSpellingPROC clang_getBinaryOperatorKindSpelling = (clang_getBinaryOperatorKindSpellingPROC)(uintptr_t)__functionAddress;
+    UNUSED_PARAMS(__env, clazz)
+    *((CXString*)(uintptr_t)__result) = clang_getBinaryOperatorKindSpelling(kind);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getCursorBinaryOperatorKind(JNIEnv *__env, jclass clazz, jlong cursorAddress, jlong __functionAddress) {
+    clang_getCursorBinaryOperatorKindPROC clang_getCursorBinaryOperatorKind = (clang_getCursorBinaryOperatorKindPROC)(uintptr_t)__functionAddress;
+    CXCursor *cursor = (CXCursor *)(uintptr_t)cursorAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return clang_getCursorBinaryOperatorKind(*cursor);
+}
+
+JNIEXPORT void JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getUnaryOperatorKindSpelling(JNIEnv *__env, jclass clazz, jint kind, jlong __functionAddress, jlong __result) {
+    clang_getUnaryOperatorKindSpellingPROC clang_getUnaryOperatorKindSpelling = (clang_getUnaryOperatorKindSpellingPROC)(uintptr_t)__functionAddress;
+    UNUSED_PARAMS(__env, clazz)
+    *((CXString*)(uintptr_t)__result) = clang_getUnaryOperatorKindSpelling(kind);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_llvm_ClangIndex_nclang_1getCursorUnaryOperatorKind(JNIEnv *__env, jclass clazz, jlong cursorAddress, jlong __functionAddress) {
+    clang_getCursorUnaryOperatorKindPROC clang_getCursorUnaryOperatorKind = (clang_getCursorUnaryOperatorKindPROC)(uintptr_t)__functionAddress;
+    CXCursor *cursor = (CXCursor *)(uintptr_t)cursorAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return clang_getCursorUnaryOperatorKind(*cursor);
 }
 
 EXTERN_C_EXIT

@@ -40,7 +40,7 @@ val hwloc_type_filter_e = "enum hwloc_type_filter_e".enumType
 
 val hwloc_uint64_t = typedef(uint64_t, "hwloc_uint64_t")
 
-val hwloc_obj_osdev_type_t = typedef(unsigned_long, "hwloc_obj_osdev_type_t")
+val hwloc_obj_osdev_types_t = typedef(unsigned_long, "hwloc_obj_osdev_types_t")
 
 val hwloc_info_s = struct(Module.HWLOC, "hwloc_info_s", nativeName = "struct hwloc_info_s", mutable = false) {
     charASCII.p("name", "")
@@ -107,7 +107,7 @@ val hwloc_obj_attr_u = union(Module.HWLOC, "hwloc_obj_attr_u", nativeName = "str
         unsigned("depth", "")
     }("bridge", "")
     struct(Module.HWLOC, "hwloc_osdev_attr_s", mutable = false) {
-        hwloc_obj_osdev_type_t("type", "")
+        hwloc_obj_osdev_types_t("types", "")
     }("osdev", "")
 }
 
@@ -178,15 +178,16 @@ val hwloc_topology_membind_support = struct(Module.HWLOC, "hwloc_topology_membin
     unsigned_charb("get_proc_membind", "")
     unsigned_charb("set_thisthread_membind", "")
     unsigned_charb("get_thisthread_membind", "")
+    unsigned_charb("alloc_membind", "")
     unsigned_charb("set_area_membind", "")
     unsigned_charb("get_area_membind", "")
-    unsigned_charb("alloc_membind", "")
+    unsigned_charb("get_area_memlocation", "")
     unsigned_charb("firsttouch_membind", "")
     unsigned_charb("bind_membind", "")
     unsigned_charb("interleave_membind", "")
+    unsigned_charb("weighted_interleave_membind", "")
     unsigned_charb("nexttouch_membind", "")
     unsigned_charb("migrate_membind", "")
-    unsigned_charb("get_area_memlocation", "")
 }
 
 val hwloc_topology_misc_support = struct(Module.HWLOC, "hwloc_topology_misc_support", nativeName = "struct hwloc_topology_misc_support", mutable = false) {

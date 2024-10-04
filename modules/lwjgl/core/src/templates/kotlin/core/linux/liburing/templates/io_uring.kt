@@ -501,7 +501,13 @@ if (flags & IORING_SQ_NEED_WAKEUP)
             Available since 6.1.
             """,
             "1 << 13"
-        )
+        ),
+        "SETUP_NO_MMAP".enum("Application provides ring memory", "1 << 14"),
+        "SETUP_REGISTERED_FD_ONLY".enum(
+            "Register the ring fd in itself for use with #REGISTER_USE_REGISTERED_RING; return a registered fd index rather than an fd.",
+            "1 << 15"
+        ),
+        "SETUP_NO_SQARRAY".enum("Removes indirection through the SQ index array.", "1 << 16")
     )
 
     EnumConstantByte(
@@ -960,7 +966,7 @@ if (flags & IORING_SQ_NEED_WAKEUP)
         "OP_SEND_ZC".enumByte(
             """
             Issue the zerocopy equivalent of a {@code send(2)} system call.
-            
+
             Similar to #OP_SEND, but tries to avoid making intermediate copies of data. Zerocopy execution is not guaranteed and it may fall back to copying.
 
             The {@code flags} field of the first {@code "struct io_uring_cqe"} may likely contain #CQE_F_MORE, which means that there will be a second
@@ -979,6 +985,15 @@ if (flags & IORING_SQ_NEED_WAKEUP)
             """
         ),
         "OP_SENDMSG_ZC".enumByte,
+        "OP_READ_MULTISHOT".enumByte,
+        "OP_WAITID".enumByte,
+        "OP_FUTEX_WAIT".enumByte,
+        "OP_FUTEX_WAKE".enumByte,
+        "OP_FUTEX_WAITV".enumByte,
+        "OP_FIXED_FD_INSTALL".enumByte,
+        "OP_FTRUNCATE".enumByte,
+        "OP_BIND".enumByte,
+        "OP_LISTEN".enumByte,
         "OP_LAST".enumByte
     )
 
@@ -1073,14 +1088,14 @@ if (flags & IORING_SQ_NEED_WAKEUP)
         "RECVSEND_POLL_FIRST".enum(
             """
             If set, io_uring will assume the socket is currently empty and attempting to receive data will be unsuccessful.
-            
+
             For this case, io_uring will arm internal poll and trigger a receive of the data when the socket has data to be read. This initial receive attempt
             can be wasteful for the case where the socket is expected to be empty, setting this flag will bypass the initial receive attempt and go straight to
             arming poll. If poll does indicate that data is ready to be received, the operation will proceed.
 
             Can be used with the CQE #CQE_F_SOCK_NONEMPTY flag, which io_uring will set on CQEs after a {@code recv(2)} or {@code recvmsg(2)} operation. If
             set, the socket still had data to be read after the operation completed.
-            
+
             Both these flags are available since 5.19.
             """,
             "1 << 0"
@@ -1094,7 +1109,24 @@ if (flags & IORING_SQ_NEED_WAKEUP)
             "1 << 1"
         ),
         "RECVSEND_FIXED_BUF".enum("Use registered buffers, the index is stored in the {@code buf_index} field.", "1 << 2"),
-        "SEND_ZC_REPORT_USAGE".enum("", "1 << 3")
+        "SEND_ZC_REPORT_USAGE".enum(
+            """
+            If set, {@code SEND[MSG]_ZC} should report the zerocopy usage in {@code cqe.res} for the #CQE_F_NOTIF cqe.
+
+            0 is reported if zerocopy was actually possible. #NOTIF_USAGE_ZC_COPIED if data was copied (at least partially).
+            """,
+            "1 << 3"
+        ),
+        "RECVSEND_BUNDLE".enum(
+            """
+            Used with #IOSQE_BUFFER_SELECT.
+
+            If set, send wil grab as many buffers from the buffer group ID given and send them all. The completion result will be the number of buffers send,
+            with the starting buffer ID in {@code cqe->flags} as per usual for provided buffer usage. The buffers will be contigious from the starting buffer
+            ID.
+            """,
+            "1 << 4"
+        )
     )
 
     IntConstant("", "NOTIF_USAGE_ZC_COPIED".."1 << 31")
@@ -1102,7 +1134,9 @@ if (flags & IORING_SQ_NEED_WAKEUP)
     EnumConstant(
         "Accept flags stored in {@code sqe->ioprio}",
 
-        "ACCEPT_MULTISHOT".enum("", "1 << 0")
+        "ACCEPT_MULTISHOT".enum("", "1 << 0"),
+        "ACCEPT_DONTWAIT".enum("", "1 << 1"),
+        "ACCEPT_POLL_FIRST".enum("", "1 << 2")
     )
 
     EnumConstant(
@@ -1117,6 +1151,18 @@ if (flags & IORING_SQ_NEED_WAKEUP)
 
         "MSG_RING_CQE_SKIP".enum("Don't post a CQE to the target ring. Not applicable for #MSG_DATA, obviously.", "1 << 0"),
         "MSG_RING_FLAGS_PASS".enum("", "1 << 1")
+    )
+
+    EnumConstant(
+        "#OP_FIXED_FD_INSTALL flags ({@code sqe->install_fd_flags})",
+
+        "FIXED_FD_NO_CLOEXEC".enum("Don't mark the fd as {@code O_CLOEXEC}.", "1 << 0")
+    )
+
+    EnumConstant(
+        "#OP_NOP flags ({@code sqe->nop_flags})",
+
+        "NOP_INJECT_RESULT".enum("Inject result from {@code sqe->result}.", "1 << 0")
     )
 
     EnumConstant(
@@ -1356,7 +1402,8 @@ int io_uring_enter(unsigned int fd, unsigned int to_submit,
             """,
             "1 << 12"
         ),
-        "FEAT_REG_REG_RING".enum("", "1 << 13")
+        "FEAT_REG_REG_RING".enum("", "1 << 13"),
+        "FEAT_RECVSEND_BUNDLE".enum("", "1 << 14")
     )
 
     EnumConstant(
@@ -1676,6 +1723,9 @@ int io_uring_enter(unsigned int fd, unsigned int to_submit,
         "UNREGISTER_PBUF_RING".enum("unregister ring based provide buffer group"),
         "REGISTER_SYNC_CANCEL".enum("sync cancelation API"),
         "REGISTER_FILE_ALLOC_RANGE".enum("register a range of fixed file slots for automatic slot allocation"),
+        "REGISTER_PBUF_STATUS".enum("return status information for a buffer group"),
+        "REGISTER_NAPI".enum("set busy poll settings"),
+        "UNREGISTER_NAPI".enum("clear busy poll settings"),
 
         "REGISTER_LAST".enum,
 
@@ -1722,6 +1772,15 @@ int io_uring_enter(unsigned int fd, unsigned int to_submit,
         "RESTRICTION_SQE_FLAGS_REQUIRED".enum("Require sqe flags (these flags must be set on each submission)"),
         "RESTRICTION_LAST".enum("Require sqe flags (these flags must be set on each submission)")
     )
+
+    EnumConstant(
+        "Argument for #OP_URING_CMD when file is a socket.",
+
+        "SOCKET_URING_OP_SIOCINQ".enum("", "0"),
+        "SOCKET_URING_OP_SIOCOUTQ".enum,
+        "SOCKET_URING_OP_GETSOCKOPT".enum,
+        "SOCKET_URING_OP_SETSOCKOPT".enum,
+    ).noPrefix()
 
     SaveErrno..NativeName("__sys_io_uring_setup")..int(
         "setup",

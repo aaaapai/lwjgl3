@@ -18,11 +18,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * This extension adds support for using cooperative matrix types in SPIR-V. Cooperative matrix types are medium-sized matrices that are primarily supported in compute shaders, where the storage for the matrix is spread across all invocations in some scope (usually a subgroup) and those invocations cooperate to efficiently perform matrix multiplies.
  * 
- * <p>Cooperative matrix types are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">{@code SPV_KHR_cooperative_matrix}</a> SPIR-V extension and can be used with the <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/khr/GL_KHR_cooperative_matrix.txt">{@code GL_KHR_cooperative_matrix}</a> GLSL extension.</p>
+ * <p>Cooperative matrix types are defined by the <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">{@code SPV_KHR_cooperative_matrix}</a> SPIR-V extension and can be used with the <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/khr/GLSL_KHR_cooperative_matrix.txt">{@code GLSL_KHR_cooperative_matrix}</a> GLSL extension.</p>
  * 
  * <p>This extension includes support for enumerating the matrix types and dimensions that are supported by the implementation.</p>
- * 
- * <h5>VK_KHR_cooperative_matrix</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -34,11 +32,17 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">SPV_KHR_cooperative_matrix</a></li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Kevin Petit <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_cooperative_matrix]%20@kpet%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_cooperative_matrix%20extension*">kpet</a></li>
  * </ul></dd>
+ * <dt><b>Extension Proposal</b></dt>
+ * <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_KHR_cooperative_matrix.adoc">VK_KHR_cooperative_matrix</a></dd>
  * </dl>
  * 
  * <h5>Other Extension Metadata</h5>
@@ -48,8 +52,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2023-05-03</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_cooperative_matrix.html">{@code SPV_KHR_cooperative_matrix}</a></li>
- * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/khr/GL_KHR_cooperative_matrix.txt">{@code GL_KHR_cooperative_matrix}</a></li>
+ * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/khr/GLSL_KHR_cooperative_matrix.txt">{@code GLSL_KHR_cooperative_matrix}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
@@ -94,14 +97,14 @@ public class KHRCooperativeMatrix {
      * <li>{@link #VK_COMPONENT_TYPE_FLOAT16_KHR COMPONENT_TYPE_FLOAT16_KHR} corresponds to SPIR-V {@code OpTypeFloat} 16.</li>
      * <li>{@link #VK_COMPONENT_TYPE_FLOAT32_KHR COMPONENT_TYPE_FLOAT32_KHR} corresponds to SPIR-V {@code OpTypeFloat} 32.</li>
      * <li>{@link #VK_COMPONENT_TYPE_FLOAT64_KHR COMPONENT_TYPE_FLOAT64_KHR} corresponds to SPIR-V {@code OpTypeFloat} 64.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT8_KHR COMPONENT_TYPE_SINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT16_KHR COMPONENT_TYPE_SINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT32_KHR COMPONENT_TYPE_SINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_SINT64_KHR COMPONENT_TYPE_SINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 1.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT8_KHR COMPONENT_TYPE_UINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT16_KHR COMPONENT_TYPE_UINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT32_KHR COMPONENT_TYPE_UINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 0.</li>
-     * <li>{@link #VK_COMPONENT_TYPE_UINT64_KHR COMPONENT_TYPE_UINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 0.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT8_KHR COMPONENT_TYPE_SINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT16_KHR COMPONENT_TYPE_SINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT32_KHR COMPONENT_TYPE_SINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_SINT64_KHR COMPONENT_TYPE_SINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT8_KHR COMPONENT_TYPE_UINT8_KHR} corresponds to SPIR-V {@code OpTypeInt} 8 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT16_KHR COMPONENT_TYPE_UINT16_KHR} corresponds to SPIR-V {@code OpTypeInt} 16 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT32_KHR COMPONENT_TYPE_UINT32_KHR} corresponds to SPIR-V {@code OpTypeInt} 32 0/1.</li>
+     * <li>{@link #VK_COMPONENT_TYPE_UINT64_KHR COMPONENT_TYPE_UINT64_KHR} corresponds to SPIR-V {@code OpTypeInt} 64 0/1.</li>
      * </ul>
      * 
      * <h5>See Also</h5>
@@ -179,7 +182,7 @@ public class KHRCooperativeMatrix {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pProperties} is {@code NULL}, then the number of cooperative matrix properties available is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If {@code pPropertyCount} is less than the number of cooperative matrix properties available, at most {@code pPropertyCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available cooperative matrix properties were returned.</p>
+     * <p>If {@code pProperties} is {@code NULL}, then the number of cooperative matrix properties available is returned in {@code pPropertyCount}. Otherwise, {@code pPropertyCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of structures actually written to {@code pProperties}. If {@code pPropertyCount} is less than the number of cooperative matrix properties available, at most {@code pPropertyCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available cooperative matrix properties were returned.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

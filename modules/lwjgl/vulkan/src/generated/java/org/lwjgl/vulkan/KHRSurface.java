@@ -24,10 +24,8 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The example code for the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a>).</p>
+ * <p>The example code for the {@code VK_KHR_surface} and {@link KHRSwapchain VK_KHR_swapchain} extensions was removed from the appendix after revision 1.0.29. This WSI example code was ported to the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a>).</p>
  * </div>
- * 
- * <h5>VK_KHR_surface</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -142,7 +140,7 @@ public class KHRSurface {
      * 
      * <p>The supported {@code VkImageUsageFlagBits} of the presentable images of a swapchain created for a surface <b>may</b> differ depending on the presentation mode, and can be determined as per the table below:</p>
      * 
-     * <h6>Presentable image usage queries</h6>
+     * <h6>Presentable Image Usage Queries</h6>
      * 
      * <table class="lwjgl">
      * <thead><tr><th>Presentation mode</th><th>Image usage flags</th></tr></thead>
@@ -163,7 +161,7 @@ public class KHRSurface {
      * 
      * <h5>See Also</h5>
      * 
-     * <p>{@link VkSurfacePresentModeCompatibilityEXT}, {@link VkSurfacePresentModeEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkSwapchainPresentModeInfoEXT}, {@link VkSwapchainPresentModesCreateInfoEXT}, {@link EXTFullScreenExclusive#vkGetPhysicalDeviceSurfacePresentModes2EXT GetPhysicalDeviceSurfacePresentModes2EXT}, {@link #vkGetPhysicalDeviceSurfacePresentModesKHR GetPhysicalDeviceSurfacePresentModesKHR}</p>
+     * <p>{@link VkLatencySurfaceCapabilitiesNV}, {@link VkSurfacePresentModeCompatibilityEXT}, {@link VkSurfacePresentModeEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkSwapchainPresentModeInfoEXT}, {@link VkSwapchainPresentModesCreateInfoEXT}, {@link EXTFullScreenExclusive#vkGetPhysicalDeviceSurfacePresentModes2EXT GetPhysicalDeviceSurfacePresentModes2EXT}, {@link #vkGetPhysicalDeviceSurfacePresentModesKHR GetPhysicalDeviceSurfacePresentModesKHR}</p>
      */
     public static final int
         VK_PRESENT_MODE_IMMEDIATE_KHR    = 0,
@@ -177,20 +175,19 @@ public class KHRSurface {
      * <h5>Description</h5>
      * 
      * <ul>
-     * <li>{@link #VK_COLOR_SPACE_SRGB_NONLINEAR_KHR COLOR_SPACE_SRGB_NONLINEAR_KHR} specifies support for the sRGB color space.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT} specifies support for the Display-P3 color space to be displayed using an sRGB-like EOTF (defined below).</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT} specifies support for the extended sRGB color space to be displayed using a linear EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT} specifies support for the extended sRGB color space to be displayed using an sRGB EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT COLOR_SPACE_DISPLAY_P3_LINEAR_EXT} specifies support for the Display-P3 color space to be displayed using a linear EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DCI_P3_NONLINEAR_EXT COLOR_SPACE_DCI_P3_NONLINEAR_EXT} specifies support for the DCI-P3 color space to be displayed using the DCI-P3 EOTF. Note that values in such an image are interpreted as XYZ encoded color data by the presentation engine.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_BT709_LINEAR_EXT COLOR_SPACE_BT709_LINEAR_EXT} specifies support for the BT709 color space to be displayed using a linear EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_BT709_NONLINEAR_EXT COLOR_SPACE_BT709_NONLINEAR_EXT} specifies support for the BT709 color space to be displayed using the SMPTE 170M EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_BT2020_LINEAR_EXT COLOR_SPACE_BT2020_LINEAR_EXT} specifies support for the BT2020 color space to be displayed using a linear EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_HDR10_ST2084_EXT COLOR_SPACE_HDR10_ST2084_EXT} specifies support for the HDR10 (BT2020 color) space to be displayed using the SMPTE ST2084 Perceptual Quantizer (PQ) EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DOLBYVISION_EXT COLOR_SPACE_DOLBYVISION_EXT} specifies support for the Dolby Vision (BT2020 color space), proprietary encoding, to be displayed using the SMPTE ST2084 EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_HDR10_HLG_EXT COLOR_SPACE_HDR10_HLG_EXT} specifies support for the HDR10 (BT2020 color space) to be displayed using the Hybrid Log Gamma (HLG) EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT COLOR_SPACE_ADOBERGB_LINEAR_EXT} specifies support for the AdobeRGB color space to be displayed using a linear EOTF.</li>
-     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_ADOBERGB_NONLINEAR_EXT COLOR_SPACE_ADOBERGB_NONLINEAR_EXT} specifies support for the AdobeRGB color space to be displayed using the Gamma 2.2 EOTF.</li>
+     * <li>{@link #VK_COLOR_SPACE_SRGB_NONLINEAR_KHR COLOR_SPACE_SRGB_NONLINEAR_KHR} specifies support for the images in sRGB color space, encoded according to the sRGB specification.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT} specifies support for the images in Display-P3 color space, encoded using a Display-P3 transfer function.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT} specifies support for the images in extended sRGB color space, encoded using a linear transfer function.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT} specifies support for the images in extended sRGB color space, encoded according to the scRGB specification.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT COLOR_SPACE_DISPLAY_P3_LINEAR_EXT} specifies support for the images in Display-P3 color space, encoded using a linear transfer function.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_DCI_P3_NONLINEAR_EXT COLOR_SPACE_DCI_P3_NONLINEAR_EXT} specifies support for the images in DCI-P3 color space, encoded according to the DCI-P3 specification. Note that values in such an image are interpreted as XYZ encoded color data by the presentation engine.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_BT709_LINEAR_EXT COLOR_SPACE_BT709_LINEAR_EXT} specifies support for the images in BT709 color space, encoded using a linear transfer function.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_BT709_NONLINEAR_EXT COLOR_SPACE_BT709_NONLINEAR_EXT} specifies support for the images in BT709 color space, encoded according to the BT709 specification.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_BT2020_LINEAR_EXT COLOR_SPACE_BT2020_LINEAR_EXT} specifies support for the images in BT2020 color space, encoded using a linear transfer function.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_HDR10_ST2084_EXT COLOR_SPACE_HDR10_ST2084_EXT} specifies support for the images in HDR10 (BT2020) color space, encoded according to SMPTE ST2084 Perceptual Quantizer (PQ) specification.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_HDR10_HLG_EXT COLOR_SPACE_HDR10_HLG_EXT} specifies support for the images in HDR10 (BT2020) color space, encoded according to the Hybrid Log Gamma (HLG) specification.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT COLOR_SPACE_ADOBERGB_LINEAR_EXT} specifies support for images in Adobe RGB color space, encoded using a linear transfer function.</li>
+     * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_ADOBERGB_NONLINEAR_EXT COLOR_SPACE_ADOBERGB_NONLINEAR_EXT} specifies support for the images in Adobe RGB color space, encoded according to the Adobe RGB specification (approximately Gamma 2.2).</li>
      * <li>{@link EXTSwapchainColorspace#VK_COLOR_SPACE_PASS_THROUGH_EXT COLOR_SPACE_PASS_THROUGH_EXT} specifies that color components are used “as is”. This is intended to allow applications to supply data for color spaces not described here.</li>
      * <li>{@link AMDDisplayNativeHdr#VK_COLOR_SPACE_DISPLAY_NATIVE_AMD COLOR_SPACE_DISPLAY_NATIVE_AMD} specifies support for the display’s native color space. This matches the color space expectations of AMD’s FreeSync2 standard, for displays supporting it.</li>
      * </ul>
@@ -207,10 +204,17 @@ public class KHRSurface {
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
      * 
+     * <p>In older versions of the {@link EXTSwapchainColorspace VK_EXT_swapchain_colorspace} extension, {@link EXTSwapchainColorspace#VK_COLOR_SPACE_DOLBYVISION_EXT COLOR_SPACE_DOLBYVISION_EXT} was exposed. The intent was to indicate the presentation engine shall decode an image using the SMPTE ST 2084 Perceptual Quantizer (PQ) EOTF, and then apply a proprietary OOTF to process the image. However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby Vision metadata to be used by a proprietary OOTF. This enum is deprecated but is maintained for backwards compatibility.</p>
+     * </div>
+     * 
+     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+     * 
      * <p>For a traditional “{@code Linear}” or non-gamma transfer function color space use {@link EXTSwapchainColorspace#VK_COLOR_SPACE_PASS_THROUGH_EXT COLOR_SPACE_PASS_THROUGH_EXT}.</p>
      * </div>
      * 
-     * <p>The color components of non-linear color space swapchain images <b>must</b> have had the appropriate transfer function applied. The color space selected for the swapchain image will not affect the processing of data written into the image by the implementation. Vulkan requires that all implementations support the sRGB transfer function by use of an SRGB pixel format. Other transfer functions, such as SMPTE 170M or SMPTE2084, <b>can</b> be performed by the application shader. This extension defines enums for {@code VkColorSpaceKHR} that correspond to the following color spaces:</p>
+     * <p>The presentation engine interprets the pixel values of the R, G, and B components as having been encoded using an appropriate transfer function. Applications <b>should</b> ensure that the appropriate transfer function has been applied. <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-output-format-conversion">Textures Output Format Conversion</a> requires that all implementations implicitly apply the sRGB EOTF<sup>-1</sup> on R, G, and B components when shaders write to an sRGB pixel format image, which is useful for sRGB color spaces. For sRGB color spaces with other pixel formats, or other non-linear color spaces, applications <b>can</b> apply the transfer function explicitly in a shader. The A channel is always interpreted as linearly encoded.</p>
+     * 
+     * <p>This extension defines enums for {@code VkColorSpaceKHR} that correspond to the following color spaces:</p>
      * 
      * <h6>Color Spaces and Attributes</h6>
      * 
@@ -219,13 +223,12 @@ public class KHRSurface {
      * <tbody>
      * <tr><td>DCI-P3</td><td>1.000, 0.000</td><td>0.000, 1.000</td><td>0.000, 0.000</td><td>0.3333, 0.3333</td><td>DCI P3</td></tr>
      * <tr><td>Display-P3</td><td>0.680, 0.320</td><td>0.265, 0.690</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>Display-P3</td></tr>
-     * <tr><td>BT709</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>ITU (SMPTE 170M)</td></tr>
+     * <tr><td>BT709</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>BT709</td></tr>
      * <tr><td>sRGB</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>sRGB</td></tr>
-     * <tr><td>extended sRGB</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>extended sRGB</td></tr>
+     * <tr><td>extended sRGB</td><td>0.640, 0.330</td><td>0.300, 0.600</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>scRGB</td></tr>
      * <tr><td>HDR10_ST2084</td><td>0.708, 0.292</td><td>0.170, 0.797</td><td>0.131, 0.046</td><td>0.3127, 0.3290 (D65)</td><td>ST2084 PQ</td></tr>
-     * <tr><td>DOLBYVISION</td><td>0.708, 0.292</td><td>0.170, 0.797</td><td>0.131, 0.046</td><td>0.3127, 0.3290 (D65)</td><td>ST2084 PQ</td></tr>
      * <tr><td>HDR10_HLG</td><td>0.708, 0.292</td><td>0.170, 0.797</td><td>0.131, 0.046</td><td>0.3127, 0.3290 (D65)</td><td>HLG</td></tr>
-     * <tr><td>AdobeRGB</td><td>0.640, 0.330</td><td>0.210, 0.710</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>AdobeRGB</td></tr>
+     * <tr><td>Adobe RGB</td><td>0.640, 0.330</td><td>0.210, 0.710</td><td>0.150, 0.060</td><td>0.3127, 0.3290 (D65)</td><td>Adobe RGB</td></tr>
      * </tbody>
      * </table>
      * 
@@ -516,7 +519,7 @@ public class KHRSurface {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pSurfaceFormats} is {@code NULL}, then the number of format pairs supported for the given {@code surface} is returned in {@code pSurfaceFormatCount}. Otherwise, {@code pSurfaceFormatCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pSurfaceFormats} array, and on return the variable is overwritten with the number of structures actually written to {@code pSurfaceFormats}. If the value of {@code pSurfaceFormatCount} is less than the number of format pairs supported, at most {@code pSurfaceFormatCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available format pairs were returned.</p>
+     * <p>If {@code pSurfaceFormats} is {@code NULL}, then the number of format pairs supported for the given {@code surface} is returned in {@code pSurfaceFormatCount}. Otherwise, {@code pSurfaceFormatCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pSurfaceFormats} array, and on return the variable is overwritten with the number of structures actually written to {@code pSurfaceFormats}. If the value of {@code pSurfaceFormatCount} is less than the number of format pairs supported, at most {@code pSurfaceFormatCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available format pairs were returned.</p>
      * 
      * <p>The number of format pairs supported <b>must</b> be greater than or equal to 1. {@code pSurfaceFormats} <b>must</b> not contain an entry whose value for {@code format} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}.</p>
      * 
@@ -528,7 +531,7 @@ public class KHRSurface {
      * 
      * <ul>
      * <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-     * <li>If {@code surface} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be supported by {@code physicalDevice}, as reported by {@link #vkGetPhysicalDeviceSurfaceSupportKHR GetPhysicalDeviceSurfaceSupportKHR} or an equivalent platform-specific mechanism</li>
+     * <li>If {@code surface} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code surface} <b>must</b> be supported by {@code physicalDevice}, as reported by {@link #vkGetPhysicalDeviceSurfaceSupportKHR GetPhysicalDeviceSurfaceSupportKHR} or an equivalent platform-specific mechanism</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -606,7 +609,7 @@ public class KHRSurface {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pPresentModes} is {@code NULL}, then the number of presentation modes supported for the given {@code surface} is returned in {@code pPresentModeCount}. Otherwise, {@code pPresentModeCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code pPresentModeCount} is less than the number of presentation modes supported, at most {@code pPresentModeCount} values will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available modes were returned.</p>
+     * <p>If {@code pPresentModes} is {@code NULL}, then the number of presentation modes supported for the given {@code surface} is returned in {@code pPresentModeCount}. Otherwise, {@code pPresentModeCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pPresentModes} array, and on return the variable is overwritten with the number of values actually written to {@code pPresentModes}. If the value of {@code pPresentModeCount} is less than the number of presentation modes supported, at most {@code pPresentModeCount} values will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available modes were returned.</p>
      * 
      * <p>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and {@code surface} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the values returned in {@code pPresentModes} will only indicate support for {@link #VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR}, {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR}, and {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR}. To query support for any other present mode, a valid handle <b>must</b> be provided in {@code surface}.</p>
      * 
@@ -614,7 +617,7 @@ public class KHRSurface {
      * 
      * <ul>
      * <li>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is not enabled, {@code surface} <b>must</b> be a valid {@code VkSurfaceKHR} handle</li>
-     * <li>If {@code surface} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be supported by {@code physicalDevice}, as reported by {@link #vkGetPhysicalDeviceSurfaceSupportKHR GetPhysicalDeviceSurfaceSupportKHR} or an equivalent platform-specific mechanism</li>
+     * <li>If {@code surface} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code surface} <b>must</b> be supported by {@code physicalDevice}, as reported by {@link #vkGetPhysicalDeviceSurfaceSupportKHR GetPhysicalDeviceSurfaceSupportKHR} or an equivalent platform-specific mechanism</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>

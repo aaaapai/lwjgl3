@@ -37,7 +37,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * </ul>
  * </li>
  * <li>Queue family ownership transfer parameters are simplified in some cases.</li>
- * <li>Where two synchronization commands need to be matched up (queue transfer operations, events), the dependency information specified in each place must now match completely for consistency.</li>
  * <li>Extensions with commands or functions with a {@code VkPipelineStageFlags} or {@code VkPipelineStageFlagBits} parameter have had those APIs replaced with equivalents using {@code VkPipelineStageFlags2KHR}.</li>
  * <li>The new event and barrier interfaces are now more extensible for future changes.</li>
  * <li>Relevant pipeline stage masks can now be specified as empty with the new {@link #VK_PIPELINE_STAGE_NONE_KHR PIPELINE_STAGE_NONE_KHR} and {@link #VK_PIPELINE_STAGE_2_NONE_KHR PIPELINE_STAGE_2_NONE_KHR} values.</li>
@@ -46,13 +45,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <h5>Promotion to Vulkan 1.3</h5>
  * 
- * <p>Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
+ * <p>Functionality in this extension is included in core Vulkan 1.3, with the KHR suffix omitted. The original type, enum, and command names are still available as aliases of the core functionality.</p>
  * 
  * <h5>Examples</h5>
  * 
  * <p>See <a href="https://github.com/KhronosGroup/Vulkan-Docs/wiki/Synchronization-Examples">https://github.com/KhronosGroup/Vulkan-Docs/wiki/Synchronization-Examples</a></p>
- * 
- * <h5>VK_KHR_synchronization2</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -65,7 +62,25 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
  * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_AMD_buffer_marker</li>
+ * <li>Interacts with VK_EXT_blend_operation_advanced</li>
+ * <li>Interacts with VK_EXT_conditional_rendering</li>
+ * <li>Interacts with VK_EXT_device_generated_commands</li>
+ * <li>Interacts with VK_EXT_fragment_density_map</li>
+ * <li>Interacts with VK_EXT_mesh_shader</li>
+ * <li>Interacts with VK_EXT_transform_feedback</li>
+ * <li>Interacts with VK_KHR_acceleration_structure</li>
+ * <li>Interacts with VK_KHR_fragment_shading_rate</li>
+ * <li>Interacts with VK_KHR_ray_tracing_pipeline</li>
+ * <li>Interacts with VK_NV_device_diagnostic_checkpoints</li>
+ * <li>Interacts with VK_NV_device_generated_commands</li>
+ * <li>Interacts with VK_NV_mesh_shader</li>
+ * <li>Interacts with VK_NV_ray_tracing</li>
+ * <li>Interacts with VK_NV_shading_rate_image</li>
+ * </ul></dd>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.3-promotions">Vulkan 1.3</a></li>
  * </ul></dd>
@@ -82,7 +97,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2020-12-03</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>Promoted to Vulkan 1.3 Core</li>
  * <li>Interacts with {@link KHRCreateRenderpass2 VK_KHR_create_renderpass2}</li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>
@@ -306,6 +320,23 @@ public class KHRSynchronization2 {
     public static final long
         VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_NV  = 0x20000L,
         VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_NV = 0x40000L;
+
+    /** Extends {@code VkPipelineStageFlagBits2}. */
+    public static final long VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT = 0x20000L;
+
+    /**
+     * Extends {@code VkAccessFlagBits2}.
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT}</li>
+     * <li>{@link #VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT}</li>
+     * </ul>
+     */
+    public static final long
+        VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT  = 0x20000L,
+        VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT = 0x40000L;
 
     /** Extends {@code VkPipelineStageFlagBits2}. */
     public static final long VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 0x400000L;
@@ -686,7 +717,7 @@ public class KHRSynchronization2 {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pCheckpointData} is {@code NULL}, then the number of checkpoint markers available is returned in {@code pCheckpointDataCount}. Otherwise, {@code pCheckpointDataCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pCheckpointData} array, and on return the variable is overwritten with the number of structures actually written to {@code pCheckpointData}.</p>
+     * <p>If {@code pCheckpointData} is {@code NULL}, then the number of checkpoint markers available is returned in {@code pCheckpointDataCount}. Otherwise, {@code pCheckpointDataCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pCheckpointData} array, and on return the variable is overwritten with the number of structures actually written to {@code pCheckpointData}.</p>
      * 
      * <p>If {@code pCheckpointDataCount} is less than the number of checkpoint markers available, at most {@code pCheckpointDataCount} structures will be written.</p>
      * 

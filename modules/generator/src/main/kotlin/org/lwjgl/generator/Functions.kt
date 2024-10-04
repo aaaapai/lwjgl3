@@ -257,23 +257,23 @@ class Func(
 
     private fun Parameter.asNativeMethodArgument(mode: GenerationMode) = when {
         nativeType.dereference is StructType || nativeType is WrappedPointerType
-                                                         ->
+                                            ->
             if (has(nullable))
                 "memAddressSafe($name)"
             else if (nativeType is WrappedPointerType && hasUnsafeMethod && nativeClass.binding!!.apiCapabilities === APICapabilities.PARAM_CAPABILITIES)
                 name
             else
                 "$name.$ADDRESS"
-        nativeType.isPointerData                         ->
+        nativeType.isPointerData             ->
             if (nativeType is ArrayType<*>)
                 name
             else if (!isAutoSizeResultOut && (has(nullable) || (has(optional) && mode === NORMAL)))
                 "memAddressSafe($name)"
             else
                 "memAddress($name)"
-        nativeType.mapping === PrimitiveMapping.BOOLEAN4 -> "$name ? 1 : 0"
-        has<MapToInt>()                                  -> if (nativeType.mapping === PrimitiveMapping.BYTE) "(byte)$name" else "(short)$name"
-        else                                             -> name
+        nativeType.mapping.isPseudoBoolean() -> "$name ? 1 : 0"
+        has<MapToInt>()                      -> if (nativeType.mapping === PrimitiveMapping.BYTE) "(byte)$name" else "(short)$name"
+        else                                 -> name
     }
 
     private val Parameter.isFunctionProvider
@@ -314,7 +314,7 @@ class Func(
 
             if (it.has<AutoSize>()) {
                 val autoSize = it.get<AutoSize>()
-                val nullableReference = paramMap[autoSize.reference]?.has(nullable) ?: false
+                val nullableReference = paramMap[autoSize.reference]?.has(nullable) == true
                 (sequenceOf(autoSize.reference) + autoSize.dependent.asSequence()).forEach { reference ->
                     if (autoSizeReferences.contains(reference))
                         it.error("An AutoSize reference already exists for: $reference")
@@ -835,8 +835,9 @@ class Func(
             println("""$t${t}MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             ${if (hasReturnStatement) { """long __result = stack.n${when {
-                    returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
                     returns.nativeType is PointerType<*>                   -> "pointer"
+                    returns.nativeType.mapping == PrimitiveMapping.POINTER -> "pointer"
+                    returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
                     else                                                   -> returns.nativeType.nativeMethodType
                 }}(${when (returns.nativeType.mapping) {
                     PrimitiveMapping.BOOLEAN,
@@ -858,8 +859,9 @@ class Func(
                             it.name
                         } else {
                             "stack.n${when {
-                                it.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
                                 it.nativeType is PointerType<*>                   -> "pointer"
+                                it.nativeType.mapping == PrimitiveMapping.POINTER -> "pointer"
+                                it.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
                                 else                                              -> it.nativeType.nativeMethodType
                             }}(${it.name})"
                         }
@@ -874,7 +876,7 @@ class Func(
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "Byte"
                     returns.nativeType is PointerType<*>                   -> "Address"
                     else                                                   -> returns.nativeType.nativeMethodType.upperCaseFirst
-                }}(__result)${if (returns.nativeType.mapping == PrimitiveMapping.BOOLEAN || returns.nativeType.mapping == PrimitiveMapping.BOOLEAN4) " != 0" else ""};"""
+                }}(__result)${if (returns.nativeType.mapping.isBoolean()) " != 0" else ""};"""
             } else ""}
         } finally {
             stack.setPointer(stackPointer);
@@ -910,7 +912,7 @@ class Func(
 
     private fun PrintWriter.printDocumentation(parameterFilter: (Parameter) -> Boolean) {
         val doc = documentation(parameterFilter)
-        val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) ?: false
+        val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) == true
         if (!custom && doc.isNotEmpty())
             println(doc)
     }
@@ -1046,7 +1048,7 @@ class Func(
                             expression.indexOf('(').run {
                                 if (this == -1) false else expression.substring(0, this).run {
                                     nativeClass.functions
-                                        .singleOrNull { it.nativeName == this }?.let { it.returns.nativeType.mapping !== PrimitiveMapping.INT } ?: false
+                                        .singleOrNull { it.nativeName == this }?.let { it.returns.nativeType.mapping !== PrimitiveMapping.INT } == true
                                 }
                             }
 
@@ -1205,7 +1207,7 @@ class Func(
             }
             print(")")
         }
-        if (returns.nativeType.mapping == PrimitiveMapping.BOOLEAN4)
+        if (returns.nativeType.mapping.isPseudoBoolean())
             print(" != 0")
         println(";")
     }
@@ -1274,7 +1276,6 @@ class Func(
         }
 
         // Apply any CharSequenceTransforms. These can be combined with any of the other transformations.
-        @Suppress("ReplaceSizeCheckWithIsNotEmpty")
         if (parameters.count {
             if (!it.isInput || it.nativeType !is CharSequenceType)
                 false
@@ -1503,7 +1504,6 @@ class Func(
         }
 
         // Apply any SingleValue transformations.
-        @Suppress("ReplaceSizeCheckWithIsNotEmpty")
         if (parameters.count {
             if (!it.has<SingleValue>() || it.has<MultiType>()) {
                 false
@@ -1577,7 +1577,7 @@ class Func(
         if (!constantMacro) {
             if (description != null) {
                 val doc = nativeClass.processDocumentation("$description $javaDocLink").toJavaDoc()
-                val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) ?: false
+                val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) == true
                 if (!custom && doc.isNotEmpty())
                     println(doc)
             } else {
@@ -1957,10 +1957,7 @@ class Func(
             getNativeParams(withExplicitFunctionAddress = false)
                 .filter { it.nativeType.castAddressToPointer }
                 .forEach {
-                    val variableType = if (it.nativeType === va_list)
-                        "va_list *"
-                    else
-                        it.toNativeType(nativeClass.binding, pointerMode = true)
+                    val variableType = it.toNativeType(nativeClass.binding, pointerMode = true)
 
                     print(t)
                     if (it.nativeType is FunctionType && variableType.contains("(*)")) {
@@ -1973,12 +1970,7 @@ class Func(
                         print(it.name)
                     }
                     println(
-                        " = ${if (it.nativeType === va_list) {
-                            "VA_LIST_CAST"
-                        } else {
-                            "($variableType)"
-                        }
-                        }${if (variableType != "uintptr_t") "(uintptr_t)" else ""}${it.name}$POINTER_POSTFIX;"
+                        " = (${variableType})${if (variableType != "uintptr_t") "(uintptr_t)" else ""}${it.name}$POINTER_POSTFIX;"
                     )
                 }
         }
@@ -2071,16 +2063,20 @@ class Func(
                 if (!has<Macro> { !function }) print('(')
                 printList(getNativeParams(withExplicitFunctionAddress = false, withJNIEnv = true)) { param ->
                     param.nativeType.let {
-                        if (it is StructType || it === va_list)
-                            "*${param.name}"
-                        else if (!it.castAddressToPointer) {
+                        val name = param.name
+                        if (it is StructType) {
+                            "*${name}"
+                        } else if (it.castAddressToPointer) {
+                            name
+                        } else if (it === va_list) {
+                            "VA_LIST_CAST(${name})"
+                        } else {
                             val nativeType = param.toNativeType(nativeClass.binding)
                             if (nativeType != it.jniFunctionType && "j$nativeType" != it.jniFunctionType)
-                                "($nativeType)${param.name}" // Avoid implicit cast warnings
+                                "($nativeType)${name}" // Avoid implicit cast warnings
                             else
-                                param.name
-                        } else
-                            param.name
+                                name
+                        }
                     }
                 }
                 if (!has<Macro> { !function }) print(')')

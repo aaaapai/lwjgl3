@@ -70,12 +70,11 @@ final class SharedLibraryLoader {
                     extractedFile = getExtractPath(filename, resource, load);
 
                     Path parent = extractedFile.getParent();
-                    // Do not store unless the test for JDK-8195129 has passed.
-                    // This means that in the worst case org.lwjgl.librarypath
-                    // will contain multiple directories. (Windows only)
-                    // -----------------
-                    // Example scenario:
-                    // -----------------
+                    // Do not store unless System::load has been tested for this path. (see JDK-8195129, /tmp mounted with noexec)
+                    // This means that in the worst case org.lwjgl.librarypath will contain multiple directories.
+                    //
+                    // Example scenario on Windows:
+                    // ----------------------------
                     // * load lwjgl.dll - already extracted and in classpath (SLL not used)
                     // * load library with loadNative - extracted to a directory with unicode characters
                     // * then another with loadSystem - this will hit LoadLibraryA in the JVM, need an ANSI-safe directory.
@@ -192,8 +191,8 @@ final class SharedLibraryLoader {
     /**
      * Extracts a native library resource if it does not already exist or the CRC does not match.
      *
-     * @param resource the resource to extract
      * @param file     the extracted file
+     * @param resource the resource to extract
      *
      * @return a {@link FileChannel} that has locked the resource
      *
@@ -276,7 +275,10 @@ final class SharedLibraryLoader {
     /**
      * Returns true if the parent directories of the file can be created and the file can be written.
      *
-     * @param file the file to test
+     * @param root     the root directory
+     * @param file     the file to test
+     * @param resource the resource to extract
+     * @param load     should call {@code System::load} in the context of the appropriate ClassLoader
      *
      * @return true if the file is writable
      */
@@ -342,4 +344,5 @@ final class SharedLibraryLoader {
         } catch (IOException ignored) {
         }
     }
+
 }

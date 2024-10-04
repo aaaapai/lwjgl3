@@ -15,7 +15,6 @@ val EXT_validation_cache = "EXTValidationCache".nativeClassVK("EXT_validation_ca
 
         The new struct ##VkShaderModuleValidationCacheCreateInfoEXT can be included in the {@code pNext} chain at #CreateShaderModule() time. It contains a {@code VkValidationCacheEXT} to use when validating the {@code VkShaderModule}.
 
-        <h5>VK_EXT_validation_cache</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_validation_cache}</dd>
@@ -268,7 +267,7 @@ val EXT_validation_cache = "EXTValidationCache".nativeClassVK("EXT_validation_ca
 ￿    void*                                       pData);</code></pre>
 
         <h5>Description</h5>
-        If {@code pData} is {@code NULL}, then the maximum size of the data that <b>can</b> be retrieved from the validation cache, in bytes, is returned in {@code pDataSize}. Otherwise, {@code pDataSize} <b>must</b> point to a variable set by the user to the size of the buffer, in bytes, pointed to by {@code pData}, and on return the variable is overwritten with the amount of data actually written to {@code pData}. If {@code pDataSize} is less than the maximum size that <b>can</b> be retrieved by the validation cache, at most {@code pDataSize} bytes will be written to {@code pData}, and {@code vkGetValidationCacheDataEXT} will return #INCOMPLETE instead of #SUCCESS, to indicate that not all of the validation cache was returned.
+        If {@code pData} is {@code NULL}, then the maximum size of the data that <b>can</b> be retrieved from the validation cache, in bytes, is returned in {@code pDataSize}. Otherwise, {@code pDataSize} <b>must</b> point to a variable set by the application to the size of the buffer, in bytes, pointed to by {@code pData}, and on return the variable is overwritten with the amount of data actually written to {@code pData}. If {@code pDataSize} is less than the maximum size that <b>can</b> be retrieved by the validation cache, at most {@code pDataSize} bytes will be written to {@code pData}, and {@code vkGetValidationCacheDataEXT} will return #INCOMPLETE instead of #SUCCESS, to indicate that not all of the validation cache was returned.
 
         Any data written to {@code pData} is valid and <b>can</b> be provided as the {@code pInitialData} member of the ##VkValidationCacheCreateInfoEXT structure passed to {@code vkCreateValidationCacheEXT}.
 
@@ -276,7 +275,7 @@ val EXT_validation_cache = "EXTValidationCache".nativeClassVK("EXT_validation_ca
 
         Applications <b>can</b> store the data retrieved from the validation cache, and use these data, possibly in a future run of the application, to populate new validation cache objects. The results of validation, however, <b>may</b> depend on the vendor ID, device ID, driver version, and other details of the device. To enable applications to detect when previously retrieved data is incompatible with the device, the initial bytes written to {@code pData} <b>must</b> be a header consisting of the following members:
 
-        <h6>Layout for validation cache header version #VALIDATION_CACHE_HEADER_VERSION_ONE_EXT</h6>
+        <h6>Layout for Validation Cache Header Version #VALIDATION_CACHE_HEADER_VERSION_ONE_EXT</h6>
         <table class="lwjgl">
             <thead><tr><th>Offset</th><th>Size</th><th>Meaning</th></tr></thead>
             <tbody>
