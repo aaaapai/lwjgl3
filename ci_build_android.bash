@@ -90,6 +90,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
+  -Dbinding.ktx=false \
   -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
   -Dbinding.hwloc=false \
@@ -119,7 +120,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.3 \
+  -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
