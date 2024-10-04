@@ -316,7 +316,6 @@ final class SharedLibraryLoader {
                 }
                 checkedLoad = true;
             }
-
             return true;
         } catch (Throwable ignored) {
             if (file == testFile) {
