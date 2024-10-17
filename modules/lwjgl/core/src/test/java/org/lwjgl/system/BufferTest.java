@@ -57,8 +57,10 @@ public class BufferTest {
             assertEquals(buffer.get(buffer.limit() - 1), (short)0xBEEF);
 
             memFree(buffer);
+        } catch (IllegalStateException e) {
+            throw new SkipException("Large buffer allocation failed (FFM backend)"); // FFM backend
         } catch (OutOfMemoryError e) {
-            throw new SkipException("Large buffer allocation failed."); // 32-bit JVM
+            throw new SkipException("Large buffer allocation failed (32-bit JVM)"); // 32-bit JVM
         }
     }
 

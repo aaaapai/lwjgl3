@@ -495,9 +495,11 @@
         <lwjgl.javac24 destdir="${bin.lwjgl}/core/META-INF/versions/24" taskname="javac: Core - Java 24" if:set="jdk24">
             <classpath>
                 <pathelement path="${bin.lwjgl}/core"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
             </classpath>
             <src>
                 <pathelement path="${module.lwjgl}/core24/src/main/java"/>
+                <pathelement path="${module.lwjgl}/core24/src/generated/java/"/>
             </src>
             <include name="**"/>
         </lwjgl.javac24>
