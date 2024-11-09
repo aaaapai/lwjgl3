@@ -1296,6 +1296,43 @@
                     <jvmarg value="-Dmodule.name.release=${module}"/>
                     <jvmarg value="-Dmodule.version=${module.version}"/>
                 </java>
+              
+                <!-- Create native jar files -->
+                <parallel threadsPerProcessor="1" failonany="true">
+                    <natives-jar name="@{name}" title="@{title}" platform="freebsd" path="freebsd/x64" type="so">
+                        <freebsd-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux" path="linux/x64" type="so">
+                        <linux-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-arm64" path="linux/arm64" type="so">
+                        <linux-arm64-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-arm32" path="linux/arm32" type="so">
+                        <linux-arm32-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-ppc64le" path="linux/ppc64le" type="so">
+                        <linux-ppc64le-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="linux-riscv64" path="linux/riscv64" type="so">
+                        <linux-riscv64-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="macos" path="macos/x64" type="dylib">
+                        <macos-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="macos-arm64" path="macos/arm64" type="dylib">
+                        <macos-arm64-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="windows" path="windows/x64" type="dll">
+                        <windows-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="windows-x86" path="windows/x86" type="dll">
+                        <windows-x86-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="windows-arm64" path="windows/arm64" type="dll">
+                        <windows-arm64-content/>
+                    </natives-jar>
+                 </parallel>
             </sequential>
         </sequential>
     </macrodef>
