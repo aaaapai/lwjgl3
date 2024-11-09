@@ -1332,22 +1332,6 @@
                 <mkdir dir="${release}/${module}"/>
             </quiet>
 
-            <!-- Bundle natives -->
-            <release-natives name="@{name}" title="@{title}" native-library="@{native-library}" unless:set="java-only.binding.@{name}">
-                <content><natives/></content>
-                <freebsd-content><freebsd/></freebsd-content>
-                <linux-content><linux/></linux-content>
-                <linux-arm64-content><linux-arm64/></linux-arm64-content>
-                <linux-arm32-content><linux-arm32/></linux-arm32-content>
-                <linux-ppc64le-content><linux-ppc64le/></linux-ppc64le-content>
-                <linux-riscv64-content><linux-riscv64/></linux-riscv64-content>
-                <macos-content><macos/></macos-content>
-                <macos-arm64-content><macos-arm64/></macos-arm64-content>
-                <windows-content><windows/></windows-content>
-                <windows-x86-content><windows-x86/></windows-x86-content>
-                <windows-arm64-content><windows-arm64/></windows-arm64-content>
-            </release-natives>
-
             <!-- Bundle classes -->
             <lwjgl-jar destfile="${release}/${module}/${module}.jar" title="@{title}">
                 <fileset dir="${release}/${module}" includes="META-INF/**/*.sha1" unless:set="java-only.binding.@{name}"/>
