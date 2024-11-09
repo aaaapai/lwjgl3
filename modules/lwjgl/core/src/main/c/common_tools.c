@@ -10,7 +10,6 @@
 #include <errno.h>
 
 JavaVM *jvm;
-void *RESERVED_NULL;
 
 static inline JNIEnv* getThreadEnv(void) {
     JNIEnv *env;
@@ -106,10 +105,13 @@ static inline void linkEnvData(EnvData* data, JNIEnv *env) {
     }
 
     EnvData* tlsCreateEnvDataWithCopy(JNIEnv *env) {
-        EnvData* data = createEnvData(0, env);
-        linkEnvData(data, env);
+        EnvData* data = (EnvData*)TlsGetValue(envTLS);
+        if (data == NULL) {
+            data = createEnvData(0, env);
+            TlsSetValue(envTLS, (LPVOID)data);
+        }
 
-        TlsSetValue(envTLS, (LPVOID)data);
+        linkEnvData(data, env);
 
         return data;
     }
@@ -203,19 +205,19 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     tlsInit();
 
-    JNIEnv* env = getThreadEnv();
-    RESERVED_NULL = (*env)->reserved3;
-    if ((*env)->reserved0 != RESERVED_NULL) {
-        fprintf(stderr, "[LWJGL] Unsupported JVM detected, this may result in a crash. Please inform LWJGL developers.");
-        fflush(stderr);
-    }
-
     return JNI_VERSION_1_8;
 }
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
     UNUSED_PARAMS(vm, reserved);
     tlsDestroy();
+}
+
+// Intentionally empty functions for benchmarking purposes
+JNIEXPORT void JNICALL org_lwjgl_system_noop(void) {}
+JNIEXPORT void JNICALL org_lwjgl_system_noop_params(void *param0, void *param1, int param2) {
+    UNUSED_PARAMS(param0, param1);
+    UNUSED_PARAM(param2);
 }
 
 EXTERN_C_EXIT
