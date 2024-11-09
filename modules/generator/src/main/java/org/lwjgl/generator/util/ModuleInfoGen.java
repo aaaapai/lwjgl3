@@ -152,7 +152,7 @@ public final class ModuleInfoGen implements AutoCloseable {
                 Path target = source.resolveSibling(METAINF);
 
                 Files.createDirectories(target);
-                Files.move(
+                Files.copy(
                     source,
                     target.resolve(source.getFileName()),
                     StandardCopyOption.REPLACE_EXISTING

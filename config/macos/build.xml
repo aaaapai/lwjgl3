@@ -5,17 +5,18 @@
 <project name="native-macos" basedir="../.." xmlns:if="ant:if" xmlns:unless="ant:unless">
     <import file="../build-definitions.xml"/>
 
-    <!-- Find the macOS SDK root. -->
+    <!-- Find the iOS SDK root. -->
     <exec executable="xcrun" outputproperty="sdkroot" failonerror="true">
-        <arg line="--show-sdk-path --sdk macosx"/>
+        <arg line="--show-sdk-path --sdk iphoneos"/>
     </exec>
 
-    <condition property="macosx-version-min" value="11.0" else="10.11">
+<!--
+    <condition property="macosx-version-min" value="11.0" else="10.9">
         <isset property="build.arch.arm"/>
     </condition>
-    <condition property="macosx-version-min-vma" value="11.0" else="10.13">
-        <isset property="build.arch.arm"/>
-    </condition>
+-->
+    <property name="ios-version-min" value="14.0"/>
+    <property name="build.arch.arm" value="true"/>
 
     <property name="module.lwjgl.rel" value="../../../../${module.lwjgl}"/>
 
@@ -61,7 +62,7 @@
         <attribute name="module"/>
         <attribute name="linker" default="clang"/>
         <attribute name="lang" default="c"/>
-        <attribute name="flags" default="-Werror -Wfatal-errors"/>
+        <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="macos" default="${macosx-version-min}"/>
         <element name="beforeCompile" optional="true"/>
@@ -143,7 +144,7 @@
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic">
+        <build module="core" flags="-Wall -Wextra -pedantic">
             <source>
                 <arg value="-I${src.main.rel}/libffi"/>
                 <arg value="-I${src.main.rel}/libffi/aarch64" if:set="build.arch.arm64"/>

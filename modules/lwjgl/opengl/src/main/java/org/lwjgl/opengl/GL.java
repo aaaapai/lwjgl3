@@ -101,7 +101,12 @@ public final class GL {
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
                 break;
             case MACOSX:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL");
+                // Configuration does not get updated if the value changes, so we have to update it here
+                Configuration.OPENGL_LIBRARY_NAME.set(System.getProperty("org.lwjgl.opengl.libname"));
+                String override = Configuration.OPENGL_LIBRARY_NAME.get();
+                GL = override != null
+                    ? Library.loadNative(GL.class, "org.lwjgl.opengl", override)
+                    : MacOSXLibrary.getWithIdentifier("com.apple.opengl");
                 break;
             case WINDOWS:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "opengl32");
@@ -281,6 +286,15 @@ public final class GL {
         }
     }
 
+    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
+    private static void fixPojavGLContext() throws Exception {
+        long currentContext;
+        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
+        Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+        currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+    }
+
     /**
      * Creates a new {@link GLCapabilities} instance for the OpenGL context that is current in the current thread.
      *
@@ -345,6 +359,14 @@ public final class GL {
         FunctionProvider functionProvider = GL.functionProvider;
         if (functionProvider == null) {
             throw new IllegalStateException("OpenGL library has not been loaded.");
+        }
+
+        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
+            try {
+                fixPojavGLContext();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // We don't have a current ContextCapabilities when this method is called
