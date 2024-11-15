@@ -312,7 +312,7 @@ public final class GL {
 
             System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
 
-            if (System.getenv("POJAV_SPARE_BRIDGE") != null || System.getenv("DCLAT_FRAMEBUFFER") != null)
+            if (!"default".equals(System.getenv("POJAV_CONFIG_BRIDGE")) || System.getenv("DCLAT_FRAMEBUFFER") != null)
             {
 
                 System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
