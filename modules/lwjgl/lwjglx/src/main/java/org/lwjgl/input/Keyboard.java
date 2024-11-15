@@ -580,4 +580,11 @@ public class Keyboard {
             repeat = false;
         }
     }
+
+    public static void populateKeyLookupTables() {
+        for (int key = 0; key <= 255; key++) {
+            getKeyName(key);
+        }
+
+    }
 }
