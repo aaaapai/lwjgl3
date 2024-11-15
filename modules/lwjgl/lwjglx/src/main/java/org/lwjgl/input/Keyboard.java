@@ -584,7 +584,7 @@ public class Keyboard {
     public static void populateKeyLookupTables() {
         for (int key = 0; key <= 255; key++) {
             getKeyName(key);
-        }
+    }
 
     }
 }
