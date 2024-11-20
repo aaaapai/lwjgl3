@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderSubgroupRotate}. */
-    public static int nshaderSubgroupRotate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATE); }
+    public static int nshaderSubgroupRotate(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATE); }
     /** Unsafe version of {@link #shaderSubgroupRotateClustered}. */
-    public static int nshaderSubgroupRotateClustered(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATECLUSTERED); }
+    public static int nshaderSubgroupRotateClustered(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATECLUSTERED); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #shaderSubgroupRotate(boolean) shaderSubgroupRotate}. */
-    public static void nshaderSubgroupRotate(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATE, value); }
+    public static void nshaderSubgroupRotate(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATE, value); }
     /** Unsafe version of {@link #shaderSubgroupRotateClustered(boolean) shaderSubgroupRotateClustered}. */
-    public static void nshaderSubgroupRotateClustered(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATECLUSTERED, value); }
+    public static void nshaderSubgroupRotateClustered(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR.SHADERSUBGROUPROTATECLUSTERED, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

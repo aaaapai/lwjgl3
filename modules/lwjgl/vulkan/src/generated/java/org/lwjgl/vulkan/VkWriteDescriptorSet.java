@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>All consecutive bindings updated via a single {@link VkWriteDescriptorSet} structure, except those with a {@code descriptorCount} of zero, <b>must</b> all either use immutable samplers or <b>must</b> all not use immutable samplers</li>
  * <li>{@code descriptorType} <b>must</b> match the type of {@code dstBinding} within {@code dstSet}</li>
  * <li>{@code dstSet} <b>must</b> be a valid {@code VkDescriptorSet} handle</li>
- * <li>The sum of {@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code dstBinding}, and all applicable consecutive bindings, as described by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive binding updates</a></li>
+ * <li>The sum of {@code dstArrayElement} and {@code descriptorCount} <b>must</b> be less than or equal to the number of array elements in the descriptor set binding specified by {@code dstBinding}, and all applicable <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-updates-consecutive">consecutive bindings</a></li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code dstArrayElement} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code descriptorType} is {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}, {@code descriptorCount} <b>must</b> be an integer multiple of 4</li>
  * <li>If {@code descriptorType} is {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER} or {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}, each element of {@code pTexelBufferView} <b>must</b> be either a valid {@code VkBufferView} handle or {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
@@ -210,7 +210,7 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
      * <li>the number of elements in {@code pBufferInfo}</li>
      * <li>the number of elements in {@code pTexelBufferView}</li>
      * <li>a value matching the {@code dataSize} member of a {@link VkWriteDescriptorSetInlineUniformBlock} structure in the {@code pNext} chain</li>
-     * <li>a value matching the {@code accelerationStructureCount} of a {@link VkWriteDescriptorSetAccelerationStructureKHR} structure in the {@code pNext} chain</li>
+     * <li>a value matching the {@code accelerationStructureCount} of a {@link VkWriteDescriptorSetAccelerationStructureKHR} or {@link VkWriteDescriptorSetAccelerationStructureNV} structure in the {@code pNext} chain</li>
      * </ul>
      */
     @NativeType("uint32_t")
@@ -219,17 +219,14 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     @NativeType("VkDescriptorType")
     public int descriptorType() { return ndescriptorType(address()); }
     /** a pointer to an array of {@link VkDescriptorImageInfo} structures or is ignored, as described below. */
-    @Nullable
     @NativeType("VkDescriptorImageInfo const *")
-    public VkDescriptorImageInfo.Buffer pImageInfo() { return npImageInfo(address()); }
+    public VkDescriptorImageInfo.@Nullable Buffer pImageInfo() { return npImageInfo(address()); }
     /** a pointer to an array of {@link VkDescriptorBufferInfo} structures or is ignored, as described below. */
-    @Nullable
     @NativeType("VkDescriptorBufferInfo const *")
-    public VkDescriptorBufferInfo.Buffer pBufferInfo() { return npBufferInfo(address()); }
+    public VkDescriptorBufferInfo.@Nullable Buffer pBufferInfo() { return npBufferInfo(address()); }
     /** a pointer to an array of {@code VkBufferView} handles as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-buffer-views">Buffer Views</a> section or is ignored, as described below. */
-    @Nullable
     @NativeType("VkBufferView const *")
-    public LongBuffer pTexelBufferView() { return npTexelBufferView(address()); }
+    public @Nullable LongBuffer pTexelBufferView() { return npTexelBufferView(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkWriteDescriptorSet sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -256,9 +253,9 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     /** Sets the specified value to the {@link #descriptorType} field. */
     public VkWriteDescriptorSet descriptorType(@NativeType("VkDescriptorType") int value) { ndescriptorType(address(), value); return this; }
     /** Sets the address of the specified {@link VkDescriptorImageInfo.Buffer} to the {@link #pImageInfo} field. */
-    public VkWriteDescriptorSet pImageInfo(@Nullable @NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.Buffer value) { npImageInfo(address(), value); return this; }
+    public VkWriteDescriptorSet pImageInfo(@NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.@Nullable Buffer value) { npImageInfo(address(), value); return this; }
     /** Sets the address of the specified {@link VkDescriptorBufferInfo.Buffer} to the {@link #pBufferInfo} field. */
-    public VkWriteDescriptorSet pBufferInfo(@Nullable @NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.Buffer value) { npBufferInfo(address(), value); return this; }
+    public VkWriteDescriptorSet pBufferInfo(@NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.@Nullable Buffer value) { npBufferInfo(address(), value); return this; }
     /** Sets the address of the specified {@link LongBuffer} to the {@link #pTexelBufferView} field. */
     public VkWriteDescriptorSet pTexelBufferView(@Nullable @NativeType("VkBufferView const *") LongBuffer value) { npTexelBufferView(address(), value); return this; }
 
@@ -271,8 +268,8 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         int dstArrayElement,
         int descriptorCount,
         int descriptorType,
-        @Nullable VkDescriptorImageInfo.Buffer pImageInfo,
-        @Nullable VkDescriptorBufferInfo.Buffer pBufferInfo,
+        VkDescriptorImageInfo.@Nullable Buffer pImageInfo,
+        VkDescriptorBufferInfo.@Nullable Buffer pBufferInfo,
         @Nullable LongBuffer pTexelBufferView
     ) {
         sType(sType);
@@ -325,8 +322,7 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSet createSafe(long address) {
+    public static @Nullable VkWriteDescriptorSet createSafe(long address) {
         return address == NULL ? null : new VkWriteDescriptorSet(address, null);
     }
 
@@ -369,8 +365,7 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteDescriptorSet.Buffer createSafe(long address, int capacity) {
+    public static VkWriteDescriptorSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -434,44 +429,44 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWriteDescriptorSet.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWriteDescriptorSet.PNEXT); }
     /** Unsafe version of {@link #dstSet}. */
-    public static long ndstSet(long struct) { return UNSAFE.getLong(null, struct + VkWriteDescriptorSet.DSTSET); }
+    public static long ndstSet(long struct) { return memGetLong(struct + VkWriteDescriptorSet.DSTSET); }
     /** Unsafe version of {@link #dstBinding}. */
-    public static int ndstBinding(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DSTBINDING); }
+    public static int ndstBinding(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DSTBINDING); }
     /** Unsafe version of {@link #dstArrayElement}. */
-    public static int ndstArrayElement(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DSTARRAYELEMENT); }
+    public static int ndstArrayElement(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DSTARRAYELEMENT); }
     /** Unsafe version of {@link #descriptorCount}. */
-    public static int ndescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DESCRIPTORCOUNT); }
+    public static int ndescriptorCount(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DESCRIPTORCOUNT); }
     /** Unsafe version of {@link #descriptorType}. */
-    public static int ndescriptorType(long struct) { return UNSAFE.getInt(null, struct + VkWriteDescriptorSet.DESCRIPTORTYPE); }
+    public static int ndescriptorType(long struct) { return memGetInt(struct + VkWriteDescriptorSet.DESCRIPTORTYPE); }
     /** Unsafe version of {@link #pImageInfo}. */
-    @Nullable public static VkDescriptorImageInfo.Buffer npImageInfo(long struct) { return VkDescriptorImageInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PIMAGEINFO), ndescriptorCount(struct)); }
+    public static VkDescriptorImageInfo.@Nullable Buffer npImageInfo(long struct) { return VkDescriptorImageInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PIMAGEINFO), ndescriptorCount(struct)); }
     /** Unsafe version of {@link #pBufferInfo}. */
-    @Nullable public static VkDescriptorBufferInfo.Buffer npBufferInfo(long struct) { return VkDescriptorBufferInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PBUFFERINFO), ndescriptorCount(struct)); }
+    public static VkDescriptorBufferInfo.@Nullable Buffer npBufferInfo(long struct) { return VkDescriptorBufferInfo.createSafe(memGetAddress(struct + VkWriteDescriptorSet.PBUFFERINFO), ndescriptorCount(struct)); }
     /** Unsafe version of {@link #pTexelBufferView() pTexelBufferView}. */
-    @Nullable public static LongBuffer npTexelBufferView(long struct) { return memLongBufferSafe(memGetAddress(struct + VkWriteDescriptorSet.PTEXELBUFFERVIEW), ndescriptorCount(struct)); }
+    public static @Nullable LongBuffer npTexelBufferView(long struct) { return memLongBufferSafe(memGetAddress(struct + VkWriteDescriptorSet.PTEXELBUFFERVIEW), ndescriptorCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWriteDescriptorSet.PNEXT, value); }
     /** Unsafe version of {@link #dstSet(long) dstSet}. */
-    public static void ndstSet(long struct, long value) { UNSAFE.putLong(null, struct + VkWriteDescriptorSet.DSTSET, value); }
+    public static void ndstSet(long struct, long value) { memPutLong(struct + VkWriteDescriptorSet.DSTSET, value); }
     /** Unsafe version of {@link #dstBinding(int) dstBinding}. */
-    public static void ndstBinding(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DSTBINDING, value); }
+    public static void ndstBinding(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DSTBINDING, value); }
     /** Unsafe version of {@link #dstArrayElement(int) dstArrayElement}. */
-    public static void ndstArrayElement(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DSTARRAYELEMENT, value); }
+    public static void ndstArrayElement(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DSTARRAYELEMENT, value); }
     /** Sets the specified value to the {@code descriptorCount} field of the specified {@code struct}. */
-    public static void ndescriptorCount(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DESCRIPTORCOUNT, value); }
+    public static void ndescriptorCount(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DESCRIPTORCOUNT, value); }
     /** Unsafe version of {@link #descriptorType(int) descriptorType}. */
-    public static void ndescriptorType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteDescriptorSet.DESCRIPTORTYPE, value); }
+    public static void ndescriptorType(long struct, int value) { memPutInt(struct + VkWriteDescriptorSet.DESCRIPTORTYPE, value); }
     /** Unsafe version of {@link #pImageInfo(VkDescriptorImageInfo.Buffer) pImageInfo}. */
-    public static void npImageInfo(long struct, @Nullable VkDescriptorImageInfo.Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PIMAGEINFO, memAddressSafe(value)); }
+    public static void npImageInfo(long struct, VkDescriptorImageInfo.@Nullable Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PIMAGEINFO, memAddressSafe(value)); }
     /** Unsafe version of {@link #pBufferInfo(VkDescriptorBufferInfo.Buffer) pBufferInfo}. */
-    public static void npBufferInfo(long struct, @Nullable VkDescriptorBufferInfo.Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PBUFFERINFO, memAddressSafe(value)); }
+    public static void npBufferInfo(long struct, VkDescriptorBufferInfo.@Nullable Buffer value) { memPutAddress(struct + VkWriteDescriptorSet.PBUFFERINFO, memAddressSafe(value)); }
     /** Unsafe version of {@link #pTexelBufferView(LongBuffer) pTexelBufferView}. */
     public static void npTexelBufferView(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkWriteDescriptorSet.PTEXELBUFFERVIEW, memAddressSafe(value)); }
 
@@ -509,6 +504,11 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkWriteDescriptorSet getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -535,17 +535,14 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         @NativeType("VkDescriptorType")
         public int descriptorType() { return VkWriteDescriptorSet.ndescriptorType(address()); }
         /** @return a {@link VkDescriptorImageInfo.Buffer} view of the struct array pointed to by the {@link VkWriteDescriptorSet#pImageInfo} field. */
-        @Nullable
         @NativeType("VkDescriptorImageInfo const *")
-        public VkDescriptorImageInfo.Buffer pImageInfo() { return VkWriteDescriptorSet.npImageInfo(address()); }
+        public VkDescriptorImageInfo.@Nullable Buffer pImageInfo() { return VkWriteDescriptorSet.npImageInfo(address()); }
         /** @return a {@link VkDescriptorBufferInfo.Buffer} view of the struct array pointed to by the {@link VkWriteDescriptorSet#pBufferInfo} field. */
-        @Nullable
         @NativeType("VkDescriptorBufferInfo const *")
-        public VkDescriptorBufferInfo.Buffer pBufferInfo() { return VkWriteDescriptorSet.npBufferInfo(address()); }
+        public VkDescriptorBufferInfo.@Nullable Buffer pBufferInfo() { return VkWriteDescriptorSet.npBufferInfo(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkWriteDescriptorSet#pTexelBufferView} field. */
-        @Nullable
         @NativeType("VkBufferView const *")
-        public LongBuffer pTexelBufferView() { return VkWriteDescriptorSet.npTexelBufferView(address()); }
+        public @Nullable LongBuffer pTexelBufferView() { return VkWriteDescriptorSet.npTexelBufferView(address()); }
 
         /** Sets the specified value to the {@link VkWriteDescriptorSet#sType} field. */
         public VkWriteDescriptorSet.Buffer sType(@NativeType("VkStructureType") int value) { VkWriteDescriptorSet.nsType(address(), value); return this; }
@@ -572,9 +569,9 @@ public class VkWriteDescriptorSet extends Struct<VkWriteDescriptorSet> implement
         /** Sets the specified value to the {@link VkWriteDescriptorSet#descriptorType} field. */
         public VkWriteDescriptorSet.Buffer descriptorType(@NativeType("VkDescriptorType") int value) { VkWriteDescriptorSet.ndescriptorType(address(), value); return this; }
         /** Sets the address of the specified {@link VkDescriptorImageInfo.Buffer} to the {@link VkWriteDescriptorSet#pImageInfo} field. */
-        public VkWriteDescriptorSet.Buffer pImageInfo(@Nullable @NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.Buffer value) { VkWriteDescriptorSet.npImageInfo(address(), value); return this; }
+        public VkWriteDescriptorSet.Buffer pImageInfo(@NativeType("VkDescriptorImageInfo const *") VkDescriptorImageInfo.@Nullable Buffer value) { VkWriteDescriptorSet.npImageInfo(address(), value); return this; }
         /** Sets the address of the specified {@link VkDescriptorBufferInfo.Buffer} to the {@link VkWriteDescriptorSet#pBufferInfo} field. */
-        public VkWriteDescriptorSet.Buffer pBufferInfo(@Nullable @NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.Buffer value) { VkWriteDescriptorSet.npBufferInfo(address(), value); return this; }
+        public VkWriteDescriptorSet.Buffer pBufferInfo(@NativeType("VkDescriptorBufferInfo const *") VkDescriptorBufferInfo.@Nullable Buffer value) { VkWriteDescriptorSet.npBufferInfo(address(), value); return this; }
         /** Sets the address of the specified {@link LongBuffer} to the {@link VkWriteDescriptorSet#pTexelBufferView} field. */
         public VkWriteDescriptorSet.Buffer pTexelBufferView(@Nullable @NativeType("VkBufferView const *") LongBuffer value) { VkWriteDescriptorSet.npTexelBufferView(address(), value); return this; }
 

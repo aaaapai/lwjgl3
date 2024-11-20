@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -157,8 +157,7 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFutureCompletionBaseHeaderEXT createSafe(long address) {
+    public static @Nullable XrFutureCompletionBaseHeaderEXT createSafe(long address) {
         return address == NULL ? null : new XrFutureCompletionBaseHeaderEXT(address, null);
     }
 
@@ -241,8 +240,7 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFutureCompletionBaseHeaderEXT.Buffer createSafe(long address, int capacity) {
+    public static XrFutureCompletionBaseHeaderEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -327,18 +325,18 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFutureCompletionBaseHeaderEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFutureCompletionBaseHeaderEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFutureCompletionBaseHeaderEXT.NEXT); }
     /** Unsafe version of {@link #futureResult}. */
-    public static int nfutureResult(long struct) { return UNSAFE.getInt(null, struct + XrFutureCompletionBaseHeaderEXT.FUTURERESULT); }
+    public static int nfutureResult(long struct) { return memGetInt(struct + XrFutureCompletionBaseHeaderEXT.FUTURERESULT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFutureCompletionBaseHeaderEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFutureCompletionBaseHeaderEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFutureCompletionBaseHeaderEXT.NEXT, value); }
     /** Unsafe version of {@link #futureResult(int) futureResult}. */
-    public static void nfutureResult(long struct, int value) { UNSAFE.putInt(null, struct + XrFutureCompletionBaseHeaderEXT.FUTURERESULT, value); }
+    public static void nfutureResult(long struct, int value) { memPutInt(struct + XrFutureCompletionBaseHeaderEXT.FUTURERESULT, value); }
 
     // -----------------------------------
 
@@ -371,6 +369,11 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

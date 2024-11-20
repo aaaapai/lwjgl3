@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -183,8 +183,7 @@ public class VkFenceGetFdInfoKHR extends Struct<VkFenceGetFdInfoKHR> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFenceGetFdInfoKHR createSafe(long address) {
+    public static @Nullable VkFenceGetFdInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkFenceGetFdInfoKHR(address, null);
     }
 
@@ -227,8 +226,7 @@ public class VkFenceGetFdInfoKHR extends Struct<VkFenceGetFdInfoKHR> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFenceGetFdInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkFenceGetFdInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,22 +290,22 @@ public class VkFenceGetFdInfoKHR extends Struct<VkFenceGetFdInfoKHR> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkFenceGetFdInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkFenceGetFdInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkFenceGetFdInfoKHR.PNEXT); }
     /** Unsafe version of {@link #fence}. */
-    public static long nfence(long struct) { return UNSAFE.getLong(null, struct + VkFenceGetFdInfoKHR.FENCE); }
+    public static long nfence(long struct) { return memGetLong(struct + VkFenceGetFdInfoKHR.FENCE); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkFenceGetFdInfoKHR.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkFenceGetFdInfoKHR.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkFenceGetFdInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkFenceGetFdInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkFenceGetFdInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #fence(long) fence}. */
-    public static void nfence(long struct, long value) { UNSAFE.putLong(null, struct + VkFenceGetFdInfoKHR.FENCE, value); }
+    public static void nfence(long struct, long value) { memPutLong(struct + VkFenceGetFdInfoKHR.FENCE, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkFenceGetFdInfoKHR.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkFenceGetFdInfoKHR.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -340,6 +338,11 @@ public class VkFenceGetFdInfoKHR extends Struct<VkFenceGetFdInfoKHR> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

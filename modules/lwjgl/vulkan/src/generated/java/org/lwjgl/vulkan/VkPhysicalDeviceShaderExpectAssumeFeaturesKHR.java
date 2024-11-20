@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceShaderExpectAssumeFeaturesKHR extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderExpectAssumeFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderExpectAssumeFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderExpectAssumeFeaturesKHR(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceShaderExpectAssumeFeaturesKHR extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceShaderExpectAssumeFeaturesKHR extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderExpectAssume}. */
-    public static int nshaderExpectAssume(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.SHADEREXPECTASSUME); }
+    public static int nshaderExpectAssume(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.SHADEREXPECTASSUME); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #shaderExpectAssume(boolean) shaderExpectAssume}. */
-    public static void nshaderExpectAssume(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.SHADEREXPECTASSUME, value); }
+    public static void nshaderExpectAssume(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderExpectAssumeFeaturesKHR.SHADEREXPECTASSUME, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceShaderExpectAssumeFeaturesKHR extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

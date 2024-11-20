@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -217,8 +217,7 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeRateControlLayerInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeRateControlLayerInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeRateControlLayerInfoKHR(address, null);
     }
 
@@ -261,8 +260,7 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeRateControlLayerInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeRateControlLayerInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,30 +305,30 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeRateControlLayerInfoKHR.PNEXT); }
     /** Unsafe version of {@link #averageBitrate}. */
-    public static long naverageBitrate(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE); }
+    public static long naverageBitrate(long struct) { return memGetLong(struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE); }
     /** Unsafe version of {@link #maxBitrate}. */
-    public static long nmaxBitrate(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE); }
+    public static long nmaxBitrate(long struct) { return memGetLong(struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE); }
     /** Unsafe version of {@link #frameRateNumerator}. */
-    public static int nframeRateNumerator(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR); }
+    public static int nframeRateNumerator(long struct) { return memGetInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR); }
     /** Unsafe version of {@link #frameRateDenominator}. */
-    public static int nframeRateDenominator(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR); }
+    public static int nframeRateDenominator(long struct) { return memGetInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlLayerInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeRateControlLayerInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #averageBitrate(long) averageBitrate}. */
-    public static void naverageBitrate(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE, value); }
+    public static void naverageBitrate(long struct, long value) { memPutLong(struct + VkVideoEncodeRateControlLayerInfoKHR.AVERAGEBITRATE, value); }
     /** Unsafe version of {@link #maxBitrate(long) maxBitrate}. */
-    public static void nmaxBitrate(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE, value); }
+    public static void nmaxBitrate(long struct, long value) { memPutLong(struct + VkVideoEncodeRateControlLayerInfoKHR.MAXBITRATE, value); }
     /** Unsafe version of {@link #frameRateNumerator(int) frameRateNumerator}. */
-    public static void nframeRateNumerator(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR, value); }
+    public static void nframeRateNumerator(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATENUMERATOR, value); }
     /** Unsafe version of {@link #frameRateDenominator(int) frameRateDenominator}. */
-    public static void nframeRateDenominator(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR, value); }
+    public static void nframeRateDenominator(long struct, int value) { memPutInt(struct + VkVideoEncodeRateControlLayerInfoKHR.FRAMERATEDENOMINATOR, value); }
 
     // -----------------------------------
 
@@ -363,6 +361,11 @@ public class VkVideoEncodeRateControlLayerInfoKHR extends Struct<VkVideoEncodeRa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

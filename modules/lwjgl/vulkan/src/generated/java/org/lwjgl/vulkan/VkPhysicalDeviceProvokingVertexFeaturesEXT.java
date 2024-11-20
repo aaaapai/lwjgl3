@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceProvokingVertexFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceProvokingVertexFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceProvokingVertexFeaturesEXT(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceProvokingVertexFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceProvokingVertexFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #provokingVertexLast}. */
-    public static int nprovokingVertexLast(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST); }
+    public static int nprovokingVertexLast(long struct) { return memGetInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST); }
     /** Unsafe version of {@link #transformFeedbackPreservesProvokingVertex}. */
-    public static int ntransformFeedbackPreservesProvokingVertex(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX); }
+    public static int ntransformFeedbackPreservesProvokingVertex(long struct) { return memGetInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #provokingVertexLast(boolean) provokingVertexLast}. */
-    public static void nprovokingVertexLast(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST, value); }
+    public static void nprovokingVertexLast(long struct, int value) { memPutInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.PROVOKINGVERTEXLAST, value); }
     /** Unsafe version of {@link #transformFeedbackPreservesProvokingVertex(boolean) transformFeedbackPreservesProvokingVertex}. */
-    public static void ntransformFeedbackPreservesProvokingVertex(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX, value); }
+    public static void ntransformFeedbackPreservesProvokingVertex(long struct, int value) { memPutInt(struct + VkPhysicalDeviceProvokingVertexFeaturesEXT.TRANSFORMFEEDBACKPRESERVESPROVOKINGVERTEX, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class VkPhysicalDeviceProvokingVertexFeaturesEXT extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV extends Stru
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV extends Stru
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV extends Stru
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.PNEXT); }
     /** Unsafe version of {@link #extendedSparseAddressSpaceSize}. */
-    public static long nextendedSparseAddressSpaceSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.EXTENDEDSPARSEADDRESSSPACESIZE); }
+    public static long nextendedSparseAddressSpaceSize(long struct) { return memGetLong(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.EXTENDEDSPARSEADDRESSSPACESIZE); }
     /** Unsafe version of {@link #extendedSparseImageUsageFlags}. */
-    public static int nextendedSparseImageUsageFlags(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.EXTENDEDSPARSEIMAGEUSAGEFLAGS); }
+    public static int nextendedSparseImageUsageFlags(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.EXTENDEDSPARSEIMAGEUSAGEFLAGS); }
     /** Unsafe version of {@link #extendedSparseBufferUsageFlags}. */
-    public static int nextendedSparseBufferUsageFlags(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.EXTENDEDSPARSEBUFFERUSAGEFLAGS); }
+    public static int nextendedSparseBufferUsageFlags(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.EXTENDEDSPARSEBUFFERUSAGEFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.PNEXT, value); }
 
@@ -302,6 +300,11 @@ public class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV extends Stru
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

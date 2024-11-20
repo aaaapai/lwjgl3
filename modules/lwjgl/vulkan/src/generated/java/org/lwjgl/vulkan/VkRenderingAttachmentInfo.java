@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -309,8 +309,7 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingAttachmentInfo createSafe(long address) {
+    public static @Nullable VkRenderingAttachmentInfo createSafe(long address) {
         return address == NULL ? null : new VkRenderingAttachmentInfo(address, null);
     }
 
@@ -353,8 +352,7 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingAttachmentInfo.Buffer createSafe(long address, int capacity) {
+    public static VkRenderingAttachmentInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -399,44 +397,44 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderingAttachmentInfo.PNEXT); }
     /** Unsafe version of {@link #imageView}. */
-    public static long nimageView(long struct) { return UNSAFE.getLong(null, struct + VkRenderingAttachmentInfo.IMAGEVIEW); }
+    public static long nimageView(long struct) { return memGetLong(struct + VkRenderingAttachmentInfo.IMAGEVIEW); }
     /** Unsafe version of {@link #imageLayout}. */
-    public static int nimageLayout(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.IMAGELAYOUT); }
+    public static int nimageLayout(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.IMAGELAYOUT); }
     /** Unsafe version of {@link #resolveMode}. */
-    public static int nresolveMode(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.RESOLVEMODE); }
+    public static int nresolveMode(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.RESOLVEMODE); }
     /** Unsafe version of {@link #resolveImageView}. */
-    public static long nresolveImageView(long struct) { return UNSAFE.getLong(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW); }
+    public static long nresolveImageView(long struct) { return memGetLong(struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW); }
     /** Unsafe version of {@link #resolveImageLayout}. */
-    public static int nresolveImageLayout(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT); }
+    public static int nresolveImageLayout(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT); }
     /** Unsafe version of {@link #loadOp}. */
-    public static int nloadOp(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.LOADOP); }
+    public static int nloadOp(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.LOADOP); }
     /** Unsafe version of {@link #storeOp}. */
-    public static int nstoreOp(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentInfo.STOREOP); }
+    public static int nstoreOp(long struct) { return memGetInt(struct + VkRenderingAttachmentInfo.STOREOP); }
     /** Unsafe version of {@link #clearValue}. */
     public static VkClearValue nclearValue(long struct) { return VkClearValue.create(struct + VkRenderingAttachmentInfo.CLEARVALUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderingAttachmentInfo.PNEXT, value); }
     /** Unsafe version of {@link #imageView(long) imageView}. */
-    public static void nimageView(long struct, long value) { UNSAFE.putLong(null, struct + VkRenderingAttachmentInfo.IMAGEVIEW, value); }
+    public static void nimageView(long struct, long value) { memPutLong(struct + VkRenderingAttachmentInfo.IMAGEVIEW, value); }
     /** Unsafe version of {@link #imageLayout(int) imageLayout}. */
-    public static void nimageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.IMAGELAYOUT, value); }
+    public static void nimageLayout(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.IMAGELAYOUT, value); }
     /** Unsafe version of {@link #resolveMode(int) resolveMode}. */
-    public static void nresolveMode(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.RESOLVEMODE, value); }
+    public static void nresolveMode(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.RESOLVEMODE, value); }
     /** Unsafe version of {@link #resolveImageView(long) resolveImageView}. */
-    public static void nresolveImageView(long struct, long value) { UNSAFE.putLong(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW, value); }
+    public static void nresolveImageView(long struct, long value) { memPutLong(struct + VkRenderingAttachmentInfo.RESOLVEIMAGEVIEW, value); }
     /** Unsafe version of {@link #resolveImageLayout(int) resolveImageLayout}. */
-    public static void nresolveImageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT, value); }
+    public static void nresolveImageLayout(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.RESOLVEIMAGELAYOUT, value); }
     /** Unsafe version of {@link #loadOp(int) loadOp}. */
-    public static void nloadOp(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.LOADOP, value); }
+    public static void nloadOp(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.LOADOP, value); }
     /** Unsafe version of {@link #storeOp(int) storeOp}. */
-    public static void nstoreOp(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentInfo.STOREOP, value); }
+    public static void nstoreOp(long struct, int value) { memPutInt(struct + VkRenderingAttachmentInfo.STOREOP, value); }
     /** Unsafe version of {@link #clearValue(VkClearValue) clearValue}. */
     public static void nclearValue(long struct, VkClearValue value) { memCopy(value.address(), struct + VkRenderingAttachmentInfo.CLEARVALUE, VkClearValue.SIZEOF); }
 
@@ -471,6 +469,11 @@ public class VkRenderingAttachmentInfo extends Struct<VkRenderingAttachmentInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

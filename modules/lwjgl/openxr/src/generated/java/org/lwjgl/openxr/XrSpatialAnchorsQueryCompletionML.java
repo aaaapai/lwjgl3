@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -144,9 +144,8 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
     @NativeType("uint32_t")
     public int uuidCountOutput() { return nuuidCountOutput(address()); }
     /** an array of {@link XrUuidEXT}. */
-    @Nullable
     @NativeType("XrUuidEXT *")
-    public XrUuidEXT.Buffer uuids() { return nuuids(address()); }
+    public XrUuidEXT.@Nullable Buffer uuids() { return nuuids(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrSpatialAnchorsQueryCompletionML type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -161,7 +160,7 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
     /** Sets the specified value to the {@link #uuidCountOutput} field. */
     public XrSpatialAnchorsQueryCompletionML uuidCountOutput(@NativeType("uint32_t") int value) { nuuidCountOutput(address(), value); return this; }
     /** Sets the address of the specified {@link XrUuidEXT.Buffer} to the {@link #uuids} field. */
-    public XrSpatialAnchorsQueryCompletionML uuids(@Nullable @NativeType("XrUuidEXT *") XrUuidEXT.Buffer value) { nuuids(address(), value); return this; }
+    public XrSpatialAnchorsQueryCompletionML uuids(@NativeType("XrUuidEXT *") XrUuidEXT.@Nullable Buffer value) { nuuids(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSpatialAnchorsQueryCompletionML set(
@@ -170,7 +169,7 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
         int futureResult,
         int uuidCapacityInput,
         int uuidCountOutput,
-        @Nullable XrUuidEXT.Buffer uuids
+        XrUuidEXT.@Nullable Buffer uuids
     ) {
         type(type);
         next(next);
@@ -218,8 +217,7 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsQueryCompletionML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorsQueryCompletionML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorsQueryCompletionML(address, null);
     }
 
@@ -267,8 +265,7 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsQueryCompletionML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorsQueryCompletionML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -318,30 +315,30 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsQueryCompletionML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorsQueryCompletionML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorsQueryCompletionML.NEXT); }
     /** Unsafe version of {@link #futureResult}. */
-    public static int nfutureResult(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsQueryCompletionML.FUTURERESULT); }
+    public static int nfutureResult(long struct) { return memGetInt(struct + XrSpatialAnchorsQueryCompletionML.FUTURERESULT); }
     /** Unsafe version of {@link #uuidCapacityInput}. */
-    public static int nuuidCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsQueryCompletionML.UUIDCAPACITYINPUT); }
+    public static int nuuidCapacityInput(long struct) { return memGetInt(struct + XrSpatialAnchorsQueryCompletionML.UUIDCAPACITYINPUT); }
     /** Unsafe version of {@link #uuidCountOutput}. */
-    public static int nuuidCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsQueryCompletionML.UUIDCOUNTOUTPUT); }
+    public static int nuuidCountOutput(long struct) { return memGetInt(struct + XrSpatialAnchorsQueryCompletionML.UUIDCOUNTOUTPUT); }
     /** Unsafe version of {@link #uuids}. */
-    @Nullable public static XrUuidEXT.Buffer nuuids(long struct) { return XrUuidEXT.createSafe(memGetAddress(struct + XrSpatialAnchorsQueryCompletionML.UUIDS), nuuidCapacityInput(struct)); }
+    public static XrUuidEXT.@Nullable Buffer nuuids(long struct) { return XrUuidEXT.createSafe(memGetAddress(struct + XrSpatialAnchorsQueryCompletionML.UUIDS), nuuidCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsQueryCompletionML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorsQueryCompletionML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorsQueryCompletionML.NEXT, value); }
     /** Unsafe version of {@link #futureResult(int) futureResult}. */
-    public static void nfutureResult(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsQueryCompletionML.FUTURERESULT, value); }
+    public static void nfutureResult(long struct, int value) { memPutInt(struct + XrSpatialAnchorsQueryCompletionML.FUTURERESULT, value); }
     /** Sets the specified value to the {@code uuidCapacityInput} field of the specified {@code struct}. */
-    public static void nuuidCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsQueryCompletionML.UUIDCAPACITYINPUT, value); }
+    public static void nuuidCapacityInput(long struct, int value) { memPutInt(struct + XrSpatialAnchorsQueryCompletionML.UUIDCAPACITYINPUT, value); }
     /** Unsafe version of {@link #uuidCountOutput(int) uuidCountOutput}. */
-    public static void nuuidCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsQueryCompletionML.UUIDCOUNTOUTPUT, value); }
+    public static void nuuidCountOutput(long struct, int value) { memPutInt(struct + XrSpatialAnchorsQueryCompletionML.UUIDCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #uuids(XrUuidEXT.Buffer) uuids}. */
-    public static void nuuids(long struct, @Nullable XrUuidEXT.Buffer value) { memPutAddress(struct + XrSpatialAnchorsQueryCompletionML.UUIDS, memAddressSafe(value)); if (value != null) { nuuidCapacityInput(struct, value.remaining()); } }
+    public static void nuuids(long struct, XrUuidEXT.@Nullable Buffer value) { memPutAddress(struct + XrSpatialAnchorsQueryCompletionML.UUIDS, memAddressSafe(value)); if (value != null) { nuuidCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -377,6 +374,11 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpatialAnchorsQueryCompletionML getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -397,9 +399,8 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
         @NativeType("uint32_t")
         public int uuidCountOutput() { return XrSpatialAnchorsQueryCompletionML.nuuidCountOutput(address()); }
         /** @return a {@link XrUuidEXT.Buffer} view of the struct array pointed to by the {@link XrSpatialAnchorsQueryCompletionML#uuids} field. */
-        @Nullable
         @NativeType("XrUuidEXT *")
-        public XrUuidEXT.Buffer uuids() { return XrSpatialAnchorsQueryCompletionML.nuuids(address()); }
+        public XrUuidEXT.@Nullable Buffer uuids() { return XrSpatialAnchorsQueryCompletionML.nuuids(address()); }
 
         /** Sets the specified value to the {@link XrSpatialAnchorsQueryCompletionML#type} field. */
         public XrSpatialAnchorsQueryCompletionML.Buffer type(@NativeType("XrStructureType") int value) { XrSpatialAnchorsQueryCompletionML.ntype(address(), value); return this; }
@@ -414,7 +415,7 @@ public class XrSpatialAnchorsQueryCompletionML extends Struct<XrSpatialAnchorsQu
         /** Sets the specified value to the {@link XrSpatialAnchorsQueryCompletionML#uuidCountOutput} field. */
         public XrSpatialAnchorsQueryCompletionML.Buffer uuidCountOutput(@NativeType("uint32_t") int value) { XrSpatialAnchorsQueryCompletionML.nuuidCountOutput(address(), value); return this; }
         /** Sets the address of the specified {@link XrUuidEXT.Buffer} to the {@link XrSpatialAnchorsQueryCompletionML#uuids} field. */
-        public XrSpatialAnchorsQueryCompletionML.Buffer uuids(@Nullable @NativeType("XrUuidEXT *") XrUuidEXT.Buffer value) { XrSpatialAnchorsQueryCompletionML.nuuids(address(), value); return this; }
+        public XrSpatialAnchorsQueryCompletionML.Buffer uuids(@NativeType("XrUuidEXT *") XrUuidEXT.@Nullable Buffer value) { XrSpatialAnchorsQueryCompletionML.nuuids(address(), value); return this; }
 
     }
 

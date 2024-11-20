@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -161,24 +161,20 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link NkUserFont} view of the struct pointed to by the {@code font} field. */
-    @Nullable
     @NativeType("struct nk_user_font *")
-    public NkUserFont font() { return nfont(address()); }
+    public @Nullable NkUserFont font() { return nfont(address()); }
     /** @return a {@link PointerBuffer} view of the {@code cursors} field. */
     @NativeType("struct nk_cursor *[NK_CURSOR_COUNT]")
     public PointerBuffer cursors() { return ncursors(address()); }
     /** @return a {@link NkCursor} view of the pointer at the specified index of the {@code cursors} field. */
-    @Nullable
     @NativeType("struct nk_cursor *")
-    public NkCursor cursors(int index) { return ncursors(address(), index); }
+    public @Nullable NkCursor cursors(int index) { return ncursors(address(), index); }
     /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_active} field. */
-    @Nullable
     @NativeType("struct nk_cursor *")
-    public NkCursor cursor_active() { return ncursor_active(address()); }
+    public @Nullable NkCursor cursor_active() { return ncursor_active(address()); }
     /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_last} field. */
-    @Nullable
     @NativeType("struct nk_cursor *")
-    public NkCursor cursor_last() { return ncursor_last(address()); }
+    public @Nullable NkCursor cursor_last() { return ncursor_last(address()); }
     /** @return the value of the {@code cursor_visible} field. */
     @NativeType("int")
     public boolean cursor_visible() { return ncursor_visible(address()) != 0; }
@@ -244,7 +240,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     /** Copies the address of the specified {@link NkCursor} at the specified index of the {@code cursors} field. */
     public NkStyle cursors(int index, @Nullable @NativeType("struct nk_cursor *") NkCursor value) { ncursors(address(), index, value); return this; }
     /** Passes the element at {@code index} of the {@code cursors} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public NkStyle cursors(int index, java.util.function.Consumer<NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
+    public NkStyle cursors(int index, java.util.function.Consumer<@Nullable NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
     /** Sets the address of the specified {@link NkCursor} to the {@code cursor_active} field. */
     public NkStyle cursor_active(@Nullable @NativeType("struct nk_cursor *") NkCursor value) { ncursor_active(address(), value); return this; }
     /** Sets the address of the specified {@link NkCursor} to the {@code cursor_last} field. */
@@ -413,8 +409,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyle createSafe(long address) {
+    public static @Nullable NkStyle createSafe(long address) {
         return address == NULL ? null : new NkStyle(address, null);
     }
 
@@ -457,8 +452,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyle.Buffer createSafe(long address, int capacity) {
+    public static NkStyle.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -522,19 +516,19 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #font}. */
-    @Nullable public static NkUserFont nfont(long struct) { return NkUserFont.createSafe(memGetAddress(struct + NkStyle.FONT)); }
+    public static @Nullable NkUserFont nfont(long struct) { return NkUserFont.createSafe(memGetAddress(struct + NkStyle.FONT)); }
     /** Unsafe version of {@link #cursors}. */
     public static PointerBuffer ncursors(long struct) { return memPointerBuffer(struct + NkStyle.CURSORS, NK_CURSOR_COUNT); }
     /** Unsafe version of {@link #cursors(int) cursors}. */
-    @Nullable public static NkCursor ncursors(long struct, int index) {
+    public static @Nullable NkCursor ncursors(long struct, int index) {
         return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSORS + check(index, NK_CURSOR_COUNT) * POINTER_SIZE));
     }
     /** Unsafe version of {@link #cursor_active}. */
-    @Nullable public static NkCursor ncursor_active(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_ACTIVE)); }
+    public static @Nullable NkCursor ncursor_active(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_ACTIVE)); }
     /** Unsafe version of {@link #cursor_last}. */
-    @Nullable public static NkCursor ncursor_last(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_LAST)); }
+    public static @Nullable NkCursor ncursor_last(long struct) { return NkCursor.createSafe(memGetAddress(struct + NkStyle.CURSOR_LAST)); }
     /** Unsafe version of {@link #cursor_visible}. */
-    public static int ncursor_visible(long struct) { return UNSAFE.getInt(null, struct + NkStyle.CURSOR_VISIBLE); }
+    public static int ncursor_visible(long struct) { return memGetInt(struct + NkStyle.CURSOR_VISIBLE); }
     /** Unsafe version of {@link #text}. */
     public static NkStyleText ntext(long struct) { return NkStyleText.create(struct + NkStyle.TEXT); }
     /** Unsafe version of {@link #button}. */
@@ -588,7 +582,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
     /** Unsafe version of {@link #cursor_last(NkCursor) cursor_last}. */
     public static void ncursor_last(long struct, @Nullable NkCursor value) { memPutAddress(struct + NkStyle.CURSOR_LAST, memAddressSafe(value)); }
     /** Unsafe version of {@link #cursor_visible(boolean) cursor_visible}. */
-    public static void ncursor_visible(long struct, int value) { UNSAFE.putInt(null, struct + NkStyle.CURSOR_VISIBLE, value); }
+    public static void ncursor_visible(long struct, int value) { memPutInt(struct + NkStyle.CURSOR_VISIBLE, value); }
     /** Unsafe version of {@link #text(NkStyleText) text}. */
     public static void ntext(long struct, NkStyleText value) { memCopy(value.address(), struct + NkStyle.TEXT, NkStyleText.SIZEOF); }
     /** Unsafe version of {@link #button(NkStyleButton) button}. */
@@ -660,29 +654,30 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkStyle getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link NkUserFont} view of the struct pointed to by the {@code font} field. */
-        @Nullable
         @NativeType("struct nk_user_font *")
-        public NkUserFont font() { return NkStyle.nfont(address()); }
+        public @Nullable NkUserFont font() { return NkStyle.nfont(address()); }
         /** @return a {@link PointerBuffer} view of the {@code cursors} field. */
         @NativeType("struct nk_cursor *[NK_CURSOR_COUNT]")
         public PointerBuffer cursors() { return NkStyle.ncursors(address()); }
         /** @return a {@link NkCursor} view of the pointer at the specified index of the {@code cursors} field. */
-        @Nullable
         @NativeType("struct nk_cursor *")
-        public NkCursor cursors(int index) { return NkStyle.ncursors(address(), index); }
+        public @Nullable NkCursor cursors(int index) { return NkStyle.ncursors(address(), index); }
         /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_active} field. */
-        @Nullable
         @NativeType("struct nk_cursor *")
-        public NkCursor cursor_active() { return NkStyle.ncursor_active(address()); }
+        public @Nullable NkCursor cursor_active() { return NkStyle.ncursor_active(address()); }
         /** @return a {@link NkCursor} view of the struct pointed to by the {@code cursor_last} field. */
-        @Nullable
         @NativeType("struct nk_cursor *")
-        public NkCursor cursor_last() { return NkStyle.ncursor_last(address()); }
+        public @Nullable NkCursor cursor_last() { return NkStyle.ncursor_last(address()); }
         /** @return the value of the {@code cursor_visible} field. */
         @NativeType("int")
         public boolean cursor_visible() { return NkStyle.ncursor_visible(address()) != 0; }
@@ -748,7 +743,7 @@ public class NkStyle extends Struct<NkStyle> implements NativeResource {
         /** Copies the address of the specified {@link NkCursor} at the specified index of the {@code cursors} field. */
         public NkStyle.Buffer cursors(int index, @Nullable @NativeType("struct nk_cursor *") NkCursor value) { NkStyle.ncursors(address(), index, value); return this; }
         /** Passes the element at {@code index} of the {@code cursors} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public NkStyle.Buffer cursors(int index, java.util.function.Consumer<NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
+        public NkStyle.Buffer cursors(int index, java.util.function.Consumer<@Nullable NkCursor> consumer) { consumer.accept(cursors(index)); return this; }
         /** Sets the address of the specified {@link NkCursor} to the {@code cursor_active} field. */
         public NkStyle.Buffer cursor_active(@Nullable @NativeType("struct nk_cursor *") NkCursor value) { NkStyle.ncursor_active(address(), value); return this; }
         /** Sets the address of the specified {@link NkCursor} to the {@code cursor_last} field. */

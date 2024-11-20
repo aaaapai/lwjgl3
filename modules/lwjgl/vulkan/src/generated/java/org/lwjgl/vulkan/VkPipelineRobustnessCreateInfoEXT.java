@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -242,8 +242,7 @@ public class VkPipelineRobustnessCreateInfoEXT extends Struct<VkPipelineRobustne
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRobustnessCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineRobustnessCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineRobustnessCreateInfoEXT(address, null);
     }
 
@@ -286,8 +285,7 @@ public class VkPipelineRobustnessCreateInfoEXT extends Struct<VkPipelineRobustne
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRobustnessCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRobustnessCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -332,30 +330,30 @@ public class VkPipelineRobustnessCreateInfoEXT extends Struct<VkPipelineRobustne
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRobustnessCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRobustnessCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRobustnessCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #storageBuffers}. */
-    public static int nstorageBuffers(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRobustnessCreateInfoEXT.STORAGEBUFFERS); }
+    public static int nstorageBuffers(long struct) { return memGetInt(struct + VkPipelineRobustnessCreateInfoEXT.STORAGEBUFFERS); }
     /** Unsafe version of {@link #uniformBuffers}. */
-    public static int nuniformBuffers(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRobustnessCreateInfoEXT.UNIFORMBUFFERS); }
+    public static int nuniformBuffers(long struct) { return memGetInt(struct + VkPipelineRobustnessCreateInfoEXT.UNIFORMBUFFERS); }
     /** Unsafe version of {@link #vertexInputs}. */
-    public static int nvertexInputs(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRobustnessCreateInfoEXT.VERTEXINPUTS); }
+    public static int nvertexInputs(long struct) { return memGetInt(struct + VkPipelineRobustnessCreateInfoEXT.VERTEXINPUTS); }
     /** Unsafe version of {@link #images}. */
-    public static int nimages(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRobustnessCreateInfoEXT.IMAGES); }
+    public static int nimages(long struct) { return memGetInt(struct + VkPipelineRobustnessCreateInfoEXT.IMAGES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRobustnessCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRobustnessCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRobustnessCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #storageBuffers(int) storageBuffers}. */
-    public static void nstorageBuffers(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRobustnessCreateInfoEXT.STORAGEBUFFERS, value); }
+    public static void nstorageBuffers(long struct, int value) { memPutInt(struct + VkPipelineRobustnessCreateInfoEXT.STORAGEBUFFERS, value); }
     /** Unsafe version of {@link #uniformBuffers(int) uniformBuffers}. */
-    public static void nuniformBuffers(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRobustnessCreateInfoEXT.UNIFORMBUFFERS, value); }
+    public static void nuniformBuffers(long struct, int value) { memPutInt(struct + VkPipelineRobustnessCreateInfoEXT.UNIFORMBUFFERS, value); }
     /** Unsafe version of {@link #vertexInputs(int) vertexInputs}. */
-    public static void nvertexInputs(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRobustnessCreateInfoEXT.VERTEXINPUTS, value); }
+    public static void nvertexInputs(long struct, int value) { memPutInt(struct + VkPipelineRobustnessCreateInfoEXT.VERTEXINPUTS, value); }
     /** Unsafe version of {@link #images(int) images}. */
-    public static void nimages(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRobustnessCreateInfoEXT.IMAGES, value); }
+    public static void nimages(long struct, int value) { memPutInt(struct + VkPipelineRobustnessCreateInfoEXT.IMAGES, value); }
 
     // -----------------------------------
 
@@ -388,6 +386,11 @@ public class VkPipelineRobustnessCreateInfoEXT extends Struct<VkPipelineRobustne
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

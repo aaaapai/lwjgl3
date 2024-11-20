@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -236,8 +236,7 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolCreateInfo createSafe(long address) {
+    public static @Nullable VkQueryPoolCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolCreateInfo(address, null);
     }
 
@@ -280,8 +279,7 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -345,30 +343,30 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryPoolCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.FLAGS); }
     /** Unsafe version of {@link #queryType}. */
-    public static int nqueryType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.QUERYTYPE); }
+    public static int nqueryType(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.QUERYTYPE); }
     /** Unsafe version of {@link #queryCount}. */
-    public static int nqueryCount(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.QUERYCOUNT); }
+    public static int nqueryCount(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.QUERYCOUNT); }
     /** Unsafe version of {@link #pipelineStatistics}. */
-    public static int npipelineStatistics(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS); }
+    public static int npipelineStatistics(long struct) { return memGetInt(struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryPoolCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #queryType(int) queryType}. */
-    public static void nqueryType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.QUERYTYPE, value); }
+    public static void nqueryType(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.QUERYTYPE, value); }
     /** Unsafe version of {@link #queryCount(int) queryCount}. */
-    public static void nqueryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.QUERYCOUNT, value); }
+    public static void nqueryCount(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.QUERYCOUNT, value); }
     /** Unsafe version of {@link #pipelineStatistics(int) pipelineStatistics}. */
-    public static void npipelineStatistics(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS, value); }
+    public static void npipelineStatistics(long struct, int value) { memPutInt(struct + VkQueryPoolCreateInfo.PIPELINESTATISTICS, value); }
 
     // -----------------------------------
 
@@ -401,6 +399,11 @@ public class VkQueryPoolCreateInfo extends Struct<VkQueryPoolCreateInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageAlignmentControlCreateInfoMESA createSafe(long address) {
+    public static @Nullable VkImageAlignmentControlCreateInfoMESA createSafe(long address) {
         return address == NULL ? null : new VkImageAlignmentControlCreateInfoMESA(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageAlignmentControlCreateInfoMESA.Buffer createSafe(long address, int capacity) {
+    public static VkImageAlignmentControlCreateInfoMESA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageAlignmentControlCreateInfoMESA.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageAlignmentControlCreateInfoMESA.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageAlignmentControlCreateInfoMESA.PNEXT); }
     /** Unsafe version of {@link #maximumRequestedAlignment}. */
-    public static int nmaximumRequestedAlignment(long struct) { return UNSAFE.getInt(null, struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT); }
+    public static int nmaximumRequestedAlignment(long struct) { return memGetInt(struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageAlignmentControlCreateInfoMESA.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageAlignmentControlCreateInfoMESA.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageAlignmentControlCreateInfoMESA.PNEXT, value); }
     /** Unsafe version of {@link #maximumRequestedAlignment(int) maximumRequestedAlignment}. */
-    public static void nmaximumRequestedAlignment(long struct, int value) { UNSAFE.putInt(null, struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT, value); }
+    public static void nmaximumRequestedAlignment(long struct, int value) { memPutInt(struct + VkImageAlignmentControlCreateInfoMESA.MAXIMUMREQUESTEDALIGNMENT, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class VkImageAlignmentControlCreateInfoMESA extends Struct<VkImageAlignme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

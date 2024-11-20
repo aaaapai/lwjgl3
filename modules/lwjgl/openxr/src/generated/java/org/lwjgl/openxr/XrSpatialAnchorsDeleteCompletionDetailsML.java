@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrSpatialAnchorsDeleteCompletionDetailsML extends Struct<XrSpatialA
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsDeleteCompletionDetailsML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorsDeleteCompletionDetailsML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorsDeleteCompletionDetailsML(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrSpatialAnchorsDeleteCompletionDetailsML extends Struct<XrSpatialA
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsDeleteCompletionDetailsML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorsDeleteCompletionDetailsML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class XrSpatialAnchorsDeleteCompletionDetailsML extends Struct<XrSpatialA
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsDeleteCompletionDetailsML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorsDeleteCompletionDetailsML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorsDeleteCompletionDetailsML.NEXT); }
     /** Unsafe version of {@link #resultCount}. */
-    public static int nresultCount(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsDeleteCompletionDetailsML.RESULTCOUNT); }
+    public static int nresultCount(long struct) { return memGetInt(struct + XrSpatialAnchorsDeleteCompletionDetailsML.RESULTCOUNT); }
     /** Unsafe version of {@link #results}. */
     public static XrSpatialAnchorCompletionResultML.Buffer nresults(long struct) { return XrSpatialAnchorCompletionResultML.create(memGetAddress(struct + XrSpatialAnchorsDeleteCompletionDetailsML.RESULTS), nresultCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsDeleteCompletionDetailsML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorsDeleteCompletionDetailsML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorsDeleteCompletionDetailsML.NEXT, value); }
     /** Sets the specified value to the {@code resultCount} field of the specified {@code struct}. */
-    public static void nresultCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsDeleteCompletionDetailsML.RESULTCOUNT, value); }
+    public static void nresultCount(long struct, int value) { memPutInt(struct + XrSpatialAnchorsDeleteCompletionDetailsML.RESULTCOUNT, value); }
     /** Unsafe version of {@link #results(XrSpatialAnchorCompletionResultML.Buffer) results}. */
     public static void nresults(long struct, XrSpatialAnchorCompletionResultML.Buffer value) { memPutAddress(struct + XrSpatialAnchorsDeleteCompletionDetailsML.RESULTS, value.address()); nresultCount(struct, value.remaining()); }
 
@@ -315,6 +313,11 @@ public class XrSpatialAnchorsDeleteCompletionDetailsML extends Struct<XrSpatialA
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

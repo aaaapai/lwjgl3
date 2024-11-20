@@ -37,6 +37,10 @@ fun templateCustomization() {
             .replace(this["pCode"])
     }
 
+    VkLayerSettingEXT.definition.apply {
+        this["valueCount"].clearModifiers()
+    }
+
     VK10.apply {
         IntConstant(
             """
@@ -51,7 +55,7 @@ fun templateCustomization() {
 
         IntConstant(
             "The Vulkan registry version used to generate the LWJGL bindings.",
-            "HEADER_VERSION".."296"
+            "HEADER_VERSION".."301"
         )
 
         LongConstant(

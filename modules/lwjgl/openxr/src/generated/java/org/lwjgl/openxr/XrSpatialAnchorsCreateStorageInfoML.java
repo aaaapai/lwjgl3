@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class XrSpatialAnchorsCreateStorageInfoML extends Struct<XrSpatialAnchors
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsCreateStorageInfoML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorsCreateStorageInfoML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorsCreateStorageInfoML(address, null);
     }
 
@@ -198,8 +197,7 @@ public class XrSpatialAnchorsCreateStorageInfoML extends Struct<XrSpatialAnchors
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsCreateStorageInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorsCreateStorageInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,12 +242,12 @@ public class XrSpatialAnchorsCreateStorageInfoML extends Struct<XrSpatialAnchors
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsCreateStorageInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorsCreateStorageInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorsCreateStorageInfoML.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsCreateStorageInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorsCreateStorageInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorsCreateStorageInfoML.NEXT, value); }
 
@@ -284,6 +282,11 @@ public class XrSpatialAnchorsCreateStorageInfoML extends Struct<XrSpatialAnchors
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

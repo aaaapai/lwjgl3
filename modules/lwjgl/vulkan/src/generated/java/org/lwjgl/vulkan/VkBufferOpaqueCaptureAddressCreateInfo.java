@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferOpaqueCaptureAddressCreateInfo createSafe(long address) {
+    public static @Nullable VkBufferOpaqueCaptureAddressCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkBufferOpaqueCaptureAddressCreateInfo(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferOpaqueCaptureAddressCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBufferOpaqueCaptureAddressCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,18 +257,18 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferOpaqueCaptureAddressCreateInfo.PNEXT); }
     /** Unsafe version of {@link #opaqueCaptureAddress}. */
-    public static long nopaqueCaptureAddress(long struct) { return UNSAFE.getLong(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS); }
+    public static long nopaqueCaptureAddress(long struct) { return memGetLong(struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferOpaqueCaptureAddressCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferOpaqueCaptureAddressCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #opaqueCaptureAddress(long) opaqueCaptureAddress}. */
-    public static void nopaqueCaptureAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS, value); }
+    public static void nopaqueCaptureAddress(long struct, long value) { memPutLong(struct + VkBufferOpaqueCaptureAddressCreateInfo.OPAQUECAPTUREADDRESS, value); }
 
     // -----------------------------------
 
@@ -303,6 +301,11 @@ public class VkBufferOpaqueCaptureAddressCreateInfo extends Struct<VkBufferOpaqu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -33,12 +33,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the {@code indirectCommandsLayout} uses a token of {@link EXTDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT}, then the {@code indirectExecutionSet}’s push constant layout <b>must</b> contain the {@code updateRange} specified in {@link VkIndirectCommandsPushConstantTokenEXT}</li>
  * <li>{@code maxSequenceCount} <b>must</b> be less or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT}{@code ::maxIndirectSequenceCount} and {@link VkGeneratedCommandsMemoryRequirementsInfoEXT}{@code ::maxSequencesCount} that was used to determine the {@code preprocessSize}</li>
  * <li>If {@code sequenceCountAddress} is not {@code NULL}, the value contained in the address <b>must</b> be less or equal to {@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT}{@code ::maxIndirectSequenceCount} and {@link VkGeneratedCommandsMemoryRequirementsInfoEXT}{@code ::maxSequencesCount} that was used to determine the {@code preprocessSize}</li>
+ * <li>{@code maxSequenceCount} <b>must</b> not be zero</li>
  * <li>The underlying buffer for {@code preprocessAddress} <b>must</b> have the {@link EXTDeviceGeneratedCommands#VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT} bit set in its usage flag</li>
  * <li>If the underlying buffer for {@code preprocessAddress} is non-sparse then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
  * <li>If the {@code indirectCommandsLayout} contains a {@link EXTDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT} token, then the descriptor and push constant layout info provided either by {@code pipelineLayout} or through a {@link VkPipelineLayoutCreateInfo} in {@code pNext} of the {@link VkIndirectCommandsLayoutCreateInfoEXT} used to create {@code indirectCommandsLayout} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-compatibility">compatible</a> with the descriptor and push constant layout info used by {@code indirectExecutionSet}</li>
  * <li>If {@code indirectCommandsLayout} was created with a token sequence that contained the {@link EXTDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT} token, the shader stages used to create the initial shader state of {@code indirectExecutionSet} <b>must</b> equal the {@link VkIndirectCommandsExecutionSetTokenEXT}{@code ::shaderStages} used to create {@code indirectCommandsLayout}</li>
  * <li>{@code preprocessSize} <b>must</b> be greater than or equal to the memory requirement’s size returned by {@link EXTDeviceGeneratedCommands#vkGetGeneratedCommandsMemoryRequirementsEXT GetGeneratedCommandsMemoryRequirementsEXT} using the matching inputs ({@code indirectCommandsLayout}, …​) as within this structure</li>
- * <li>The underlying buffer for {@code sequenceCountAddress} <b>must</b> have the {@link EXTDeviceGeneratedCommands#VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT} bit set in its usage flag</li>
+ * <li>The underlying buffer for {@code sequenceCountAddress} <b>must</b> have the {@link KHRMaintenance5#VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT_KHR BUFFER_USAGE_2_INDIRECT_BUFFER_BIT_KHR} bit set in its usage flag</li>
  * <li>If {@code sequenceCountAddress} is not {@code NULL}, {@code sequenceCountAddress} <b>must</b> be aligned to 4</li>
  * <li>{@code indirectAddress} <b>must</b> be aligned to 4</li>
  * <li>If the underlying buffer for {@code sequenceCountAddress} is non-sparse then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
@@ -47,6 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>When not ignored, <code>maxDrawCount × maxSequenceCount</code> <b>must</b> be less than <code>2^24</code></li>
  * <li>If {@code indirectCommandsLayout} was created using a {@link EXTDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT} token and shader objects are not bound then the currently bound graphics pipeline <b>must</b> have been created with {@link VK13#VK_DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE} in {@code pDynamicStates}</li>
  * <li>If the token sequence of the passed {@code indirectCommandsLayout} contains a {@link EXTDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT} token, the {@code indirectExecutionSet} <b>must</b> not be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
+ * <li>If the token sequence of the passed {@code indirectCommandsLayout} does not contains a {@link EXTDeviceGeneratedCommands#VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT} token, the {@code indirectExecutionSet} <b>must</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If {@code indirectExecutionSet} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, a {@link VkGeneratedCommandsPipelineInfoEXT} or {@link VkGeneratedCommandsShaderInfoEXT} <b>must</b> be included in the {@code pNext} chain</li>
  * </ul>
  * 
@@ -296,8 +298,7 @@ public class VkGeneratedCommandsInfoEXT extends Struct<VkGeneratedCommandsInfoEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsInfoEXT createSafe(long address) {
+    public static @Nullable VkGeneratedCommandsInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkGeneratedCommandsInfoEXT(address, null);
     }
 
@@ -340,8 +341,7 @@ public class VkGeneratedCommandsInfoEXT extends Struct<VkGeneratedCommandsInfoEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkGeneratedCommandsInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -386,54 +386,54 @@ public class VkGeneratedCommandsInfoEXT extends Struct<VkGeneratedCommandsInfoEX
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkGeneratedCommandsInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkGeneratedCommandsInfoEXT.PNEXT); }
     /** Unsafe version of {@link #shaderStages}. */
-    public static int nshaderStages(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsInfoEXT.SHADERSTAGES); }
+    public static int nshaderStages(long struct) { return memGetInt(struct + VkGeneratedCommandsInfoEXT.SHADERSTAGES); }
     /** Unsafe version of {@link #indirectExecutionSet}. */
-    public static long nindirectExecutionSet(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTEXECUTIONSET); }
+    public static long nindirectExecutionSet(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTEXECUTIONSET); }
     /** Unsafe version of {@link #indirectCommandsLayout}. */
-    public static long nindirectCommandsLayout(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTCOMMANDSLAYOUT); }
+    public static long nindirectCommandsLayout(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTCOMMANDSLAYOUT); }
     /** Unsafe version of {@link #indirectAddress}. */
-    public static long nindirectAddress(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESS); }
+    public static long nindirectAddress(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESS); }
     /** Unsafe version of {@link #indirectAddressSize}. */
-    public static long nindirectAddressSize(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESSSIZE); }
+    public static long nindirectAddressSize(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESSSIZE); }
     /** Unsafe version of {@link #preprocessAddress}. */
-    public static long npreprocessAddress(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.PREPROCESSADDRESS); }
+    public static long npreprocessAddress(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.PREPROCESSADDRESS); }
     /** Unsafe version of {@link #preprocessSize}. */
-    public static long npreprocessSize(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.PREPROCESSSIZE); }
+    public static long npreprocessSize(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.PREPROCESSSIZE); }
     /** Unsafe version of {@link #maxSequenceCount}. */
-    public static int nmaxSequenceCount(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsInfoEXT.MAXSEQUENCECOUNT); }
+    public static int nmaxSequenceCount(long struct) { return memGetInt(struct + VkGeneratedCommandsInfoEXT.MAXSEQUENCECOUNT); }
     /** Unsafe version of {@link #sequenceCountAddress}. */
-    public static long nsequenceCountAddress(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsInfoEXT.SEQUENCECOUNTADDRESS); }
+    public static long nsequenceCountAddress(long struct) { return memGetLong(struct + VkGeneratedCommandsInfoEXT.SEQUENCECOUNTADDRESS); }
     /** Unsafe version of {@link #maxDrawCount}. */
-    public static int nmaxDrawCount(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsInfoEXT.MAXDRAWCOUNT); }
+    public static int nmaxDrawCount(long struct) { return memGetInt(struct + VkGeneratedCommandsInfoEXT.MAXDRAWCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkGeneratedCommandsInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkGeneratedCommandsInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #shaderStages(int) shaderStages}. */
-    public static void nshaderStages(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsInfoEXT.SHADERSTAGES, value); }
+    public static void nshaderStages(long struct, int value) { memPutInt(struct + VkGeneratedCommandsInfoEXT.SHADERSTAGES, value); }
     /** Unsafe version of {@link #indirectExecutionSet(long) indirectExecutionSet}. */
-    public static void nindirectExecutionSet(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTEXECUTIONSET, value); }
+    public static void nindirectExecutionSet(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTEXECUTIONSET, value); }
     /** Unsafe version of {@link #indirectCommandsLayout(long) indirectCommandsLayout}. */
-    public static void nindirectCommandsLayout(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTCOMMANDSLAYOUT, value); }
+    public static void nindirectCommandsLayout(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTCOMMANDSLAYOUT, value); }
     /** Unsafe version of {@link #indirectAddress(long) indirectAddress}. */
-    public static void nindirectAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESS, value); }
+    public static void nindirectAddress(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESS, value); }
     /** Unsafe version of {@link #indirectAddressSize(long) indirectAddressSize}. */
-    public static void nindirectAddressSize(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESSSIZE, value); }
+    public static void nindirectAddressSize(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.INDIRECTADDRESSSIZE, value); }
     /** Unsafe version of {@link #preprocessAddress(long) preprocessAddress}. */
-    public static void npreprocessAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.PREPROCESSADDRESS, value); }
+    public static void npreprocessAddress(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.PREPROCESSADDRESS, value); }
     /** Unsafe version of {@link #preprocessSize(long) preprocessSize}. */
-    public static void npreprocessSize(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.PREPROCESSSIZE, value); }
+    public static void npreprocessSize(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.PREPROCESSSIZE, value); }
     /** Unsafe version of {@link #maxSequenceCount(int) maxSequenceCount}. */
-    public static void nmaxSequenceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsInfoEXT.MAXSEQUENCECOUNT, value); }
+    public static void nmaxSequenceCount(long struct, int value) { memPutInt(struct + VkGeneratedCommandsInfoEXT.MAXSEQUENCECOUNT, value); }
     /** Unsafe version of {@link #sequenceCountAddress(long) sequenceCountAddress}. */
-    public static void nsequenceCountAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsInfoEXT.SEQUENCECOUNTADDRESS, value); }
+    public static void nsequenceCountAddress(long struct, long value) { memPutLong(struct + VkGeneratedCommandsInfoEXT.SEQUENCECOUNTADDRESS, value); }
     /** Unsafe version of {@link #maxDrawCount(int) maxDrawCount}. */
-    public static void nmaxDrawCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsInfoEXT.MAXDRAWCOUNT, value); }
+    public static void nmaxDrawCount(long struct, int value) { memPutInt(struct + VkGeneratedCommandsInfoEXT.MAXDRAWCOUNT, value); }
 
     // -----------------------------------
 
@@ -466,6 +466,11 @@ public class VkGeneratedCommandsInfoEXT extends Struct<VkGeneratedCommandsInfoEX
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

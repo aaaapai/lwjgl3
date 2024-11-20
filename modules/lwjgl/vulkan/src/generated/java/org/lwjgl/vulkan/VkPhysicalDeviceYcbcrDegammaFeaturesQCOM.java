@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceYcbcrDegammaFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceYcbcrDegammaFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceYcbcrDegammaFeaturesQCOM(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #ycbcrDegamma}. */
-    public static int nycbcrDegamma(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA); }
+    public static int nycbcrDegamma(long struct) { return memGetInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #ycbcrDegamma(boolean) ycbcrDegamma}. */
-    public static void nycbcrDegamma(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA, value); }
+    public static void nycbcrDegamma(long struct, int value) { memPutInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

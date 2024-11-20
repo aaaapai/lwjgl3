@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #meshAndTaskShaderDerivatives}. */
-    public static int nmeshAndTaskShaderDerivatives(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.MESHANDTASKSHADERDERIVATIVES); }
+    public static int nmeshAndTaskShaderDerivatives(long struct) { return memGetInt(struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.MESHANDTASKSHADERDERIVATIVES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.PNEXT, value); }
 
@@ -284,6 +282,11 @@ public class VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

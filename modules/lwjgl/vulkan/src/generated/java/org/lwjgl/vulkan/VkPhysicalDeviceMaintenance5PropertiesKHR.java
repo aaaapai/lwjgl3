@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -187,8 +187,7 @@ public class VkPhysicalDeviceMaintenance5PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance5PropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance5PropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance5PropertiesKHR(address, null);
     }
 
@@ -231,8 +230,7 @@ public class VkPhysicalDeviceMaintenance5PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance5PropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance5PropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,24 +275,24 @@ public class VkPhysicalDeviceMaintenance5PropertiesKHR extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #earlyFragmentMultisampleCoverageAfterSampleCounting}. */
-    public static int nearlyFragmentMultisampleCoverageAfterSampleCounting(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.EARLYFRAGMENTMULTISAMPLECOVERAGEAFTERSAMPLECOUNTING); }
+    public static int nearlyFragmentMultisampleCoverageAfterSampleCounting(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.EARLYFRAGMENTMULTISAMPLECOVERAGEAFTERSAMPLECOUNTING); }
     /** Unsafe version of {@link #earlyFragmentSampleMaskTestBeforeSampleCounting}. */
-    public static int nearlyFragmentSampleMaskTestBeforeSampleCounting(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.EARLYFRAGMENTSAMPLEMASKTESTBEFORESAMPLECOUNTING); }
+    public static int nearlyFragmentSampleMaskTestBeforeSampleCounting(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.EARLYFRAGMENTSAMPLEMASKTESTBEFORESAMPLECOUNTING); }
     /** Unsafe version of {@link #depthStencilSwizzleOneSupport}. */
-    public static int ndepthStencilSwizzleOneSupport(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.DEPTHSTENCILSWIZZLEONESUPPORT); }
+    public static int ndepthStencilSwizzleOneSupport(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.DEPTHSTENCILSWIZZLEONESUPPORT); }
     /** Unsafe version of {@link #polygonModePointSize}. */
-    public static int npolygonModePointSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.POLYGONMODEPOINTSIZE); }
+    public static int npolygonModePointSize(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.POLYGONMODEPOINTSIZE); }
     /** Unsafe version of {@link #nonStrictSinglePixelWideLinesUseParallelogram}. */
-    public static int nnonStrictSinglePixelWideLinesUseParallelogram(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.NONSTRICTSINGLEPIXELWIDELINESUSEPARALLELOGRAM); }
+    public static int nnonStrictSinglePixelWideLinesUseParallelogram(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.NONSTRICTSINGLEPIXELWIDELINESUSEPARALLELOGRAM); }
     /** Unsafe version of {@link #nonStrictWideLinesUseParallelogram}. */
-    public static int nnonStrictWideLinesUseParallelogram(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.NONSTRICTWIDELINESUSEPARALLELOGRAM); }
+    public static int nnonStrictWideLinesUseParallelogram(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.NONSTRICTWIDELINESUSEPARALLELOGRAM); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance5PropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance5PropertiesKHR.PNEXT, value); }
 
@@ -329,6 +327,11 @@ public class VkPhysicalDeviceMaintenance5PropertiesKHR extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

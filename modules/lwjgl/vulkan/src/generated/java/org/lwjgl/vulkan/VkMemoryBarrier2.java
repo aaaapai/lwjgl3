@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -319,8 +319,7 @@ public class VkMemoryBarrier2 extends Struct<VkMemoryBarrier2> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryBarrier2 createSafe(long address) {
+    public static @Nullable VkMemoryBarrier2 createSafe(long address) {
         return address == NULL ? null : new VkMemoryBarrier2(address, null);
     }
 
@@ -363,8 +362,7 @@ public class VkMemoryBarrier2 extends Struct<VkMemoryBarrier2> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryBarrier2.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryBarrier2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -409,30 +407,30 @@ public class VkMemoryBarrier2 extends Struct<VkMemoryBarrier2> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryBarrier2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryBarrier2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryBarrier2.PNEXT); }
     /** Unsafe version of {@link #srcStageMask}. */
-    public static long nsrcStageMask(long struct) { return UNSAFE.getLong(null, struct + VkMemoryBarrier2.SRCSTAGEMASK); }
+    public static long nsrcStageMask(long struct) { return memGetLong(struct + VkMemoryBarrier2.SRCSTAGEMASK); }
     /** Unsafe version of {@link #srcAccessMask}. */
-    public static long nsrcAccessMask(long struct) { return UNSAFE.getLong(null, struct + VkMemoryBarrier2.SRCACCESSMASK); }
+    public static long nsrcAccessMask(long struct) { return memGetLong(struct + VkMemoryBarrier2.SRCACCESSMASK); }
     /** Unsafe version of {@link #dstStageMask}. */
-    public static long ndstStageMask(long struct) { return UNSAFE.getLong(null, struct + VkMemoryBarrier2.DSTSTAGEMASK); }
+    public static long ndstStageMask(long struct) { return memGetLong(struct + VkMemoryBarrier2.DSTSTAGEMASK); }
     /** Unsafe version of {@link #dstAccessMask}. */
-    public static long ndstAccessMask(long struct) { return UNSAFE.getLong(null, struct + VkMemoryBarrier2.DSTACCESSMASK); }
+    public static long ndstAccessMask(long struct) { return memGetLong(struct + VkMemoryBarrier2.DSTACCESSMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryBarrier2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryBarrier2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryBarrier2.PNEXT, value); }
     /** Unsafe version of {@link #srcStageMask(long) srcStageMask}. */
-    public static void nsrcStageMask(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryBarrier2.SRCSTAGEMASK, value); }
+    public static void nsrcStageMask(long struct, long value) { memPutLong(struct + VkMemoryBarrier2.SRCSTAGEMASK, value); }
     /** Unsafe version of {@link #srcAccessMask(long) srcAccessMask}. */
-    public static void nsrcAccessMask(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryBarrier2.SRCACCESSMASK, value); }
+    public static void nsrcAccessMask(long struct, long value) { memPutLong(struct + VkMemoryBarrier2.SRCACCESSMASK, value); }
     /** Unsafe version of {@link #dstStageMask(long) dstStageMask}. */
-    public static void ndstStageMask(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryBarrier2.DSTSTAGEMASK, value); }
+    public static void ndstStageMask(long struct, long value) { memPutLong(struct + VkMemoryBarrier2.DSTSTAGEMASK, value); }
     /** Unsafe version of {@link #dstAccessMask(long) dstAccessMask}. */
-    public static void ndstAccessMask(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryBarrier2.DSTACCESSMASK, value); }
+    public static void ndstAccessMask(long struct, long value) { memPutLong(struct + VkMemoryBarrier2.DSTACCESSMASK, value); }
 
     // -----------------------------------
 
@@ -465,6 +463,11 @@ public class VkMemoryBarrier2 extends Struct<VkMemoryBarrier2> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

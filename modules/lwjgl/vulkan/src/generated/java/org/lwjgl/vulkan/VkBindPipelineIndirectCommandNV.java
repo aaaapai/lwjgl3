@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -122,8 +122,7 @@ public class VkBindPipelineIndirectCommandNV extends Struct<VkBindPipelineIndire
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindPipelineIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkBindPipelineIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkBindPipelineIndirectCommandNV(address, null);
     }
 
@@ -166,8 +165,7 @@ public class VkBindPipelineIndirectCommandNV extends Struct<VkBindPipelineIndire
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindPipelineIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkBindPipelineIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -212,10 +210,10 @@ public class VkBindPipelineIndirectCommandNV extends Struct<VkBindPipelineIndire
     // -----------------------------------
 
     /** Unsafe version of {@link #pipelineAddress}. */
-    public static long npipelineAddress(long struct) { return UNSAFE.getLong(null, struct + VkBindPipelineIndirectCommandNV.PIPELINEADDRESS); }
+    public static long npipelineAddress(long struct) { return memGetLong(struct + VkBindPipelineIndirectCommandNV.PIPELINEADDRESS); }
 
     /** Unsafe version of {@link #pipelineAddress(long) pipelineAddress}. */
-    public static void npipelineAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkBindPipelineIndirectCommandNV.PIPELINEADDRESS, value); }
+    public static void npipelineAddress(long struct, long value) { memPutLong(struct + VkBindPipelineIndirectCommandNV.PIPELINEADDRESS, value); }
 
     // -----------------------------------
 
@@ -248,6 +246,11 @@ public class VkBindPipelineIndirectCommandNV extends Struct<VkBindPipelineIndire
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

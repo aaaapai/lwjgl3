@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -201,8 +201,7 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance7PropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance7PropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance7PropertiesKHR(address, null);
     }
 
@@ -245,8 +244,7 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance7PropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance7PropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,28 +289,28 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #robustFragmentShadingRateAttachmentAccess}. */
-    public static int nrobustFragmentShadingRateAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.ROBUSTFRAGMENTSHADINGRATEATTACHMENTACCESS); }
+    public static int nrobustFragmentShadingRateAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.ROBUSTFRAGMENTSHADINGRATEATTACHMENTACCESS); }
     /** Unsafe version of {@link #separateDepthStencilAttachmentAccess}. */
-    public static int nseparateDepthStencilAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.SEPARATEDEPTHSTENCILATTACHMENTACCESS); }
+    public static int nseparateDepthStencilAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.SEPARATEDEPTHSTENCILATTACHMENTACCESS); }
     /** Unsafe version of {@link #maxDescriptorSetTotalUniformBuffersDynamic}. */
-    public static int nmaxDescriptorSetTotalUniformBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALUNIFORMBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetTotalUniformBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALUNIFORMBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetTotalStorageBuffersDynamic}. */
-    public static int nmaxDescriptorSetTotalStorageBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALSTORAGEBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetTotalStorageBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALSTORAGEBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetTotalBuffersDynamic}. */
-    public static int nmaxDescriptorSetTotalBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetTotalBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETTOTALBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALUNIFORMBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALUNIFORMBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALSTORAGEBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALSTORAGEBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindTotalBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindTotalBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindTotalBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.MAXDESCRIPTORSETUPDATEAFTERBINDTOTALBUFFERSDYNAMIC); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance7PropertiesKHR.PNEXT, value); }
 
@@ -347,6 +345,11 @@ public class VkPhysicalDeviceMaintenance7PropertiesKHR extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

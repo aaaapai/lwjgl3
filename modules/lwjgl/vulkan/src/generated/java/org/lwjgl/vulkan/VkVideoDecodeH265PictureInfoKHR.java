@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -215,8 +215,7 @@ public class VkVideoDecodeH265PictureInfoKHR extends Struct<VkVideoDecodeH265Pic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH265PictureInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH265PictureInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH265PictureInfoKHR(address, null);
     }
 
@@ -259,8 +258,7 @@ public class VkVideoDecodeH265PictureInfoKHR extends Struct<VkVideoDecodeH265Pic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH265PictureInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH265PictureInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -305,24 +303,24 @@ public class VkVideoDecodeH265PictureInfoKHR extends Struct<VkVideoDecodeH265Pic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH265PictureInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH265PictureInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH265PictureInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdPictureInfo}. */
     public static StdVideoDecodeH265PictureInfo npStdPictureInfo(long struct) { return StdVideoDecodeH265PictureInfo.create(memGetAddress(struct + VkVideoDecodeH265PictureInfoKHR.PSTDPICTUREINFO)); }
     /** Unsafe version of {@link #sliceSegmentCount}. */
-    public static int nsliceSegmentCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH265PictureInfoKHR.SLICESEGMENTCOUNT); }
+    public static int nsliceSegmentCount(long struct) { return memGetInt(struct + VkVideoDecodeH265PictureInfoKHR.SLICESEGMENTCOUNT); }
     /** Unsafe version of {@link #pSliceSegmentOffsets() pSliceSegmentOffsets}. */
     public static IntBuffer npSliceSegmentOffsets(long struct) { return memIntBuffer(memGetAddress(struct + VkVideoDecodeH265PictureInfoKHR.PSLICESEGMENTOFFSETS), nsliceSegmentCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH265PictureInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH265PictureInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH265PictureInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdPictureInfo(StdVideoDecodeH265PictureInfo) pStdPictureInfo}. */
     public static void npStdPictureInfo(long struct, StdVideoDecodeH265PictureInfo value) { memPutAddress(struct + VkVideoDecodeH265PictureInfoKHR.PSTDPICTUREINFO, value.address()); }
     /** Sets the specified value to the {@code sliceSegmentCount} field of the specified {@code struct}. */
-    public static void nsliceSegmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH265PictureInfoKHR.SLICESEGMENTCOUNT, value); }
+    public static void nsliceSegmentCount(long struct, int value) { memPutInt(struct + VkVideoDecodeH265PictureInfoKHR.SLICESEGMENTCOUNT, value); }
     /** Unsafe version of {@link #pSliceSegmentOffsets(IntBuffer) pSliceSegmentOffsets}. */
     public static void npSliceSegmentOffsets(long struct, IntBuffer value) { memPutAddress(struct + VkVideoDecodeH265PictureInfoKHR.PSLICESEGMENTOFFSETS, memAddress(value)); nsliceSegmentCount(struct, value.remaining()); }
 
@@ -367,6 +365,11 @@ public class VkVideoDecodeH265PictureInfoKHR extends Struct<VkVideoDecodeH265Pic
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

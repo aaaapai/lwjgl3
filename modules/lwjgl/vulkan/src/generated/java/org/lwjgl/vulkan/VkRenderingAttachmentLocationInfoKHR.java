@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -43,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicRenderingLocalRead">{@code dynamicRenderingLocalRead}</a> feature is not enabled, and {@code pColorAttachmentLocations} is not {@code NULL}, each element <b>must</b> be set to the value of its index within the array</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-dynamicRenderingLocalRead">{@code dynamicRenderingLocalRead}</a> feature is not enabled, and {@code pColorAttachmentLocations} is not {@code NULL}, each element <b>must</b> be the value of its index within the array</li>
  * <li>Elements of {@code pColorAttachmentLocations} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> each be unique</li>
  * <li>{@code colorAttachmentCount} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxColorAttachments">{@code maxColorAttachments}</a></li>
  * <li>Each element of {@code pColorAttachmentLocations} <b>must</b> be less than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxColorAttachments">{@code maxColorAttachments}</a></li>
@@ -133,9 +133,8 @@ public class VkRenderingAttachmentLocationInfoKHR extends Struct<VkRenderingAtta
     @NativeType("uint32_t")
     public int colorAttachmentCount() { return ncolorAttachmentCount(address()); }
     /** a pointer to an array of {@code colorAttachmentCount} {@code uint32_t} values defining remapped locations for color attachments. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pColorAttachmentLocations() { return npColorAttachmentLocations(address()); }
+    public @Nullable IntBuffer pColorAttachmentLocations() { return npColorAttachmentLocations(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkRenderingAttachmentLocationInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -199,8 +198,7 @@ public class VkRenderingAttachmentLocationInfoKHR extends Struct<VkRenderingAtta
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingAttachmentLocationInfoKHR createSafe(long address) {
+    public static @Nullable VkRenderingAttachmentLocationInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRenderingAttachmentLocationInfoKHR(address, null);
     }
 
@@ -243,8 +241,7 @@ public class VkRenderingAttachmentLocationInfoKHR extends Struct<VkRenderingAtta
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingAttachmentLocationInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRenderingAttachmentLocationInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,20 +286,20 @@ public class VkRenderingAttachmentLocationInfoKHR extends Struct<VkRenderingAtta
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentLocationInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderingAttachmentLocationInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderingAttachmentLocationInfoKHR.PNEXT); }
     /** Unsafe version of {@link #colorAttachmentCount}. */
-    public static int ncolorAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkRenderingAttachmentLocationInfoKHR.COLORATTACHMENTCOUNT); }
+    public static int ncolorAttachmentCount(long struct) { return memGetInt(struct + VkRenderingAttachmentLocationInfoKHR.COLORATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorAttachmentLocations() pColorAttachmentLocations}. */
-    @Nullable public static IntBuffer npColorAttachmentLocations(long struct) { return memIntBufferSafe(memGetAddress(struct + VkRenderingAttachmentLocationInfoKHR.PCOLORATTACHMENTLOCATIONS), ncolorAttachmentCount(struct)); }
+    public static @Nullable IntBuffer npColorAttachmentLocations(long struct) { return memIntBufferSafe(memGetAddress(struct + VkRenderingAttachmentLocationInfoKHR.PCOLORATTACHMENTLOCATIONS), ncolorAttachmentCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentLocationInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderingAttachmentLocationInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderingAttachmentLocationInfoKHR.PNEXT, value); }
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
-    public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingAttachmentLocationInfoKHR.COLORATTACHMENTCOUNT, value); }
+    public static void ncolorAttachmentCount(long struct, int value) { memPutInt(struct + VkRenderingAttachmentLocationInfoKHR.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachmentLocations(IntBuffer) pColorAttachmentLocations}. */
     public static void npColorAttachmentLocations(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkRenderingAttachmentLocationInfoKHR.PCOLORATTACHMENTLOCATIONS, memAddressSafe(value)); if (value != null) { ncolorAttachmentCount(struct, value.remaining()); } }
 
@@ -340,6 +337,11 @@ public class VkRenderingAttachmentLocationInfoKHR extends Struct<VkRenderingAtta
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderingAttachmentLocationInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -354,9 +356,8 @@ public class VkRenderingAttachmentLocationInfoKHR extends Struct<VkRenderingAtta
         @NativeType("uint32_t")
         public int colorAttachmentCount() { return VkRenderingAttachmentLocationInfoKHR.ncolorAttachmentCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkRenderingAttachmentLocationInfoKHR#pColorAttachmentLocations} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pColorAttachmentLocations() { return VkRenderingAttachmentLocationInfoKHR.npColorAttachmentLocations(address()); }
+        public @Nullable IntBuffer pColorAttachmentLocations() { return VkRenderingAttachmentLocationInfoKHR.npColorAttachmentLocations(address()); }
 
         /** Sets the specified value to the {@link VkRenderingAttachmentLocationInfoKHR#sType} field. */
         public VkRenderingAttachmentLocationInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkRenderingAttachmentLocationInfoKHR.nsType(address(), value); return this; }

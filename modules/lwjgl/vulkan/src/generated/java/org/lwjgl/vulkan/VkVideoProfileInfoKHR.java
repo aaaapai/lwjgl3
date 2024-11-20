@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -237,8 +237,7 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoProfileInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoProfileInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoProfileInfoKHR(address, null);
     }
 
@@ -281,8 +280,7 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoProfileInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoProfileInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -327,30 +325,30 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoProfileInfoKHR.PNEXT); }
     /** Unsafe version of {@link #videoCodecOperation}. */
-    public static int nvideoCodecOperation(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION); }
+    public static int nvideoCodecOperation(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION); }
     /** Unsafe version of {@link #chromaSubsampling}. */
-    public static int nchromaSubsampling(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING); }
+    public static int nchromaSubsampling(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING); }
     /** Unsafe version of {@link #lumaBitDepth}. */
-    public static int nlumaBitDepth(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.LUMABITDEPTH); }
+    public static int nlumaBitDepth(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.LUMABITDEPTH); }
     /** Unsafe version of {@link #chromaBitDepth}. */
-    public static int nchromaBitDepth(long struct) { return UNSAFE.getInt(null, struct + VkVideoProfileInfoKHR.CHROMABITDEPTH); }
+    public static int nchromaBitDepth(long struct) { return memGetInt(struct + VkVideoProfileInfoKHR.CHROMABITDEPTH); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoProfileInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #videoCodecOperation(int) videoCodecOperation}. */
-    public static void nvideoCodecOperation(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION, value); }
+    public static void nvideoCodecOperation(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.VIDEOCODECOPERATION, value); }
     /** Unsafe version of {@link #chromaSubsampling(int) chromaSubsampling}. */
-    public static void nchromaSubsampling(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING, value); }
+    public static void nchromaSubsampling(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.CHROMASUBSAMPLING, value); }
     /** Unsafe version of {@link #lumaBitDepth(int) lumaBitDepth}. */
-    public static void nlumaBitDepth(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.LUMABITDEPTH, value); }
+    public static void nlumaBitDepth(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.LUMABITDEPTH, value); }
     /** Unsafe version of {@link #chromaBitDepth(int) chromaBitDepth}. */
-    public static void nchromaBitDepth(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoProfileInfoKHR.CHROMABITDEPTH, value); }
+    public static void nchromaBitDepth(long struct, int value) { memPutInt(struct + VkVideoProfileInfoKHR.CHROMABITDEPTH, value); }
 
     // -----------------------------------
 
@@ -383,6 +381,11 @@ public class VkVideoProfileInfoKHR extends Struct<VkVideoProfileInfoKHR> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

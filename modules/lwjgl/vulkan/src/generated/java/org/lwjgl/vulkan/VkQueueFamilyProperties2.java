@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyProperties2 createSafe(long address) {
+    public static @Nullable VkQueueFamilyProperties2 createSafe(long address) {
         return address == NULL ? null : new VkQueueFamilyProperties2(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyProperties2.Buffer createSafe(long address, int capacity) {
+    public static VkQueueFamilyProperties2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,14 +272,14 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyProperties2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueueFamilyProperties2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueueFamilyProperties2.PNEXT); }
     /** Unsafe version of {@link #queueFamilyProperties}. */
     public static VkQueueFamilyProperties nqueueFamilyProperties(long struct) { return VkQueueFamilyProperties.create(struct + VkQueueFamilyProperties2.QUEUEFAMILYPROPERTIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueueFamilyProperties2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueueFamilyProperties2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueueFamilyProperties2.PNEXT, value); }
 
@@ -316,6 +314,11 @@ public class VkQueueFamilyProperties2 extends Struct<VkQueueFamilyProperties2> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

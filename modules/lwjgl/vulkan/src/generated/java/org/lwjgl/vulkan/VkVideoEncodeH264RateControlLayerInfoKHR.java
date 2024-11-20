@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,17 +146,17 @@ public class VkVideoEncodeH264RateControlLayerInfoKHR extends Struct<VkVideoEnco
     /** indicates whether the QP values determined by rate control will be clamped to the lower bounds on the QP values specified in {@code minQp}. */
     @NativeType("VkBool32")
     public boolean useMinQp() { return nuseMinQp(address()) != 0; }
-    /** specifies the lower bounds on the QP values, for each picture type, that the implementation’s rate control algorithm will use when {@code useMinQp} is set to {@link VK10#VK_TRUE TRUE}. */
+    /** specifies the lower bounds on the QP values, for each picture type, that the implementation’s rate control algorithm will use when {@code useMinQp} is {@link VK10#VK_TRUE TRUE}. */
     public VkVideoEncodeH264QpKHR minQp() { return nminQp(address()); }
     /** indicates whether the QP values determined by rate control will be clamped to the upper bounds on the QP values specified in {@code maxQp}. */
     @NativeType("VkBool32")
     public boolean useMaxQp() { return nuseMaxQp(address()) != 0; }
-    /** specifies the upper bounds on the QP values, for each picture type, that the implementation’s rate control algorithm will use when {@code useMaxQp} is set to {@link VK10#VK_TRUE TRUE}. */
+    /** specifies the upper bounds on the QP values, for each picture type, that the implementation’s rate control algorithm will use when {@code useMaxQp} is {@link VK10#VK_TRUE TRUE}. */
     public VkVideoEncodeH264QpKHR maxQp() { return nmaxQp(address()); }
     /** indicates whether the implementation’s rate control algorithm <b>should</b> use the values specified in {@code maxFrameSize} as the upper bounds on the encoded frame size for each picture type. */
     @NativeType("VkBool32")
     public boolean useMaxFrameSize() { return nuseMaxFrameSize(address()) != 0; }
-    /** specifies the upper bounds on the encoded frame size, for each picture type, when {@code useMaxFrameSize} is set to {@link VK10#VK_TRUE TRUE}. */
+    /** specifies the upper bounds on the encoded frame size, for each picture type, when {@code useMaxFrameSize} is {@link VK10#VK_TRUE TRUE}. */
     public VkVideoEncodeH264FrameSizeKHR maxFrameSize() { return nmaxFrameSize(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
@@ -243,8 +243,7 @@ public class VkVideoEncodeH264RateControlLayerInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264RateControlLayerInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264RateControlLayerInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264RateControlLayerInfoKHR(address, null);
     }
 
@@ -287,8 +286,7 @@ public class VkVideoEncodeH264RateControlLayerInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264RateControlLayerInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264RateControlLayerInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -333,36 +331,36 @@ public class VkVideoEncodeH264RateControlLayerInfoKHR extends Struct<VkVideoEnco
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264RateControlLayerInfoKHR.PNEXT); }
     /** Unsafe version of {@link #useMinQp}. */
-    public static int nuseMinQp(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMINQP); }
+    public static int nuseMinQp(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMINQP); }
     /** Unsafe version of {@link #minQp}. */
     public static VkVideoEncodeH264QpKHR nminQp(long struct) { return VkVideoEncodeH264QpKHR.create(struct + VkVideoEncodeH264RateControlLayerInfoKHR.MINQP); }
     /** Unsafe version of {@link #useMaxQp}. */
-    public static int nuseMaxQp(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXQP); }
+    public static int nuseMaxQp(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXQP); }
     /** Unsafe version of {@link #maxQp}. */
     public static VkVideoEncodeH264QpKHR nmaxQp(long struct) { return VkVideoEncodeH264QpKHR.create(struct + VkVideoEncodeH264RateControlLayerInfoKHR.MAXQP); }
     /** Unsafe version of {@link #useMaxFrameSize}. */
-    public static int nuseMaxFrameSize(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXFRAMESIZE); }
+    public static int nuseMaxFrameSize(long struct) { return memGetInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXFRAMESIZE); }
     /** Unsafe version of {@link #maxFrameSize}. */
     public static VkVideoEncodeH264FrameSizeKHR nmaxFrameSize(long struct) { return VkVideoEncodeH264FrameSizeKHR.create(struct + VkVideoEncodeH264RateControlLayerInfoKHR.MAXFRAMESIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264RateControlLayerInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #useMinQp(boolean) useMinQp}. */
-    public static void nuseMinQp(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMINQP, value); }
+    public static void nuseMinQp(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMINQP, value); }
     /** Unsafe version of {@link #minQp(VkVideoEncodeH264QpKHR) minQp}. */
     public static void nminQp(long struct, VkVideoEncodeH264QpKHR value) { memCopy(value.address(), struct + VkVideoEncodeH264RateControlLayerInfoKHR.MINQP, VkVideoEncodeH264QpKHR.SIZEOF); }
     /** Unsafe version of {@link #useMaxQp(boolean) useMaxQp}. */
-    public static void nuseMaxQp(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXQP, value); }
+    public static void nuseMaxQp(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXQP, value); }
     /** Unsafe version of {@link #maxQp(VkVideoEncodeH264QpKHR) maxQp}. */
     public static void nmaxQp(long struct, VkVideoEncodeH264QpKHR value) { memCopy(value.address(), struct + VkVideoEncodeH264RateControlLayerInfoKHR.MAXQP, VkVideoEncodeH264QpKHR.SIZEOF); }
     /** Unsafe version of {@link #useMaxFrameSize(boolean) useMaxFrameSize}. */
-    public static void nuseMaxFrameSize(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXFRAMESIZE, value); }
+    public static void nuseMaxFrameSize(long struct, int value) { memPutInt(struct + VkVideoEncodeH264RateControlLayerInfoKHR.USEMAXFRAMESIZE, value); }
     /** Unsafe version of {@link #maxFrameSize(VkVideoEncodeH264FrameSizeKHR) maxFrameSize}. */
     public static void nmaxFrameSize(long struct, VkVideoEncodeH264FrameSizeKHR value) { memCopy(value.address(), struct + VkVideoEncodeH264RateControlLayerInfoKHR.MAXFRAMESIZE, VkVideoEncodeH264FrameSizeKHR.SIZEOF); }
 
@@ -397,6 +395,11 @@ public class VkVideoEncodeH264RateControlLayerInfoKHR extends Struct<VkVideoEnco
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

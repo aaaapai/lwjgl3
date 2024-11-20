@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkVideoEncodeH265NaluSliceSegmentInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265NaluSliceSegmentInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH265NaluSliceSegmentInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH265NaluSliceSegmentInfoKHR(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkVideoEncodeH265NaluSliceSegmentInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265NaluSliceSegmentInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH265NaluSliceSegmentInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,20 +277,20 @@ public class VkVideoEncodeH265NaluSliceSegmentInfoKHR extends Struct<VkVideoEnco
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.PNEXT); }
     /** Unsafe version of {@link #constantQp}. */
-    public static int nconstantQp(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.CONSTANTQP); }
+    public static int nconstantQp(long struct) { return memGetInt(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.CONSTANTQP); }
     /** Unsafe version of {@link #pStdSliceSegmentHeader}. */
     public static StdVideoEncodeH265SliceSegmentHeader npStdSliceSegmentHeader(long struct) { return StdVideoEncodeH265SliceSegmentHeader.create(memGetAddress(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.PSTDSLICESEGMENTHEADER)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #constantQp(int) constantQp}. */
-    public static void nconstantQp(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.CONSTANTQP, value); }
+    public static void nconstantQp(long struct, int value) { memPutInt(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.CONSTANTQP, value); }
     /** Unsafe version of {@link #pStdSliceSegmentHeader(StdVideoEncodeH265SliceSegmentHeader) pStdSliceSegmentHeader}. */
     public static void npStdSliceSegmentHeader(long struct, StdVideoEncodeH265SliceSegmentHeader value) { memPutAddress(struct + VkVideoEncodeH265NaluSliceSegmentInfoKHR.PSTDSLICESEGMENTHEADER, value.address()); }
 
@@ -338,6 +336,11 @@ public class VkVideoEncodeH265NaluSliceSegmentInfoKHR extends Struct<VkVideoEnco
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

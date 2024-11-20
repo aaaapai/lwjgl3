@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -188,8 +188,7 @@ public class XrSpatialAnchorsCreateInfoFromUuidsML extends Struct<XrSpatialAncho
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsCreateInfoFromUuidsML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorsCreateInfoFromUuidsML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorsCreateInfoFromUuidsML(address, null);
     }
 
@@ -237,8 +236,7 @@ public class XrSpatialAnchorsCreateInfoFromUuidsML extends Struct<XrSpatialAncho
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsCreateInfoFromUuidsML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorsCreateInfoFromUuidsML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,24 +286,24 @@ public class XrSpatialAnchorsCreateInfoFromUuidsML extends Struct<XrSpatialAncho
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsCreateInfoFromUuidsML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorsCreateInfoFromUuidsML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorsCreateInfoFromUuidsML.NEXT); }
     /** Unsafe version of {@link #storage}. */
     public static long nstorage(long struct) { return memGetAddress(struct + XrSpatialAnchorsCreateInfoFromUuidsML.STORAGE); }
     /** Unsafe version of {@link #uuidCount}. */
-    public static int nuuidCount(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsCreateInfoFromUuidsML.UUIDCOUNT); }
+    public static int nuuidCount(long struct) { return memGetInt(struct + XrSpatialAnchorsCreateInfoFromUuidsML.UUIDCOUNT); }
     /** Unsafe version of {@link #uuids}. */
     public static XrUuidEXT.Buffer nuuids(long struct) { return XrUuidEXT.create(memGetAddress(struct + XrSpatialAnchorsCreateInfoFromUuidsML.UUIDS), nuuidCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsCreateInfoFromUuidsML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorsCreateInfoFromUuidsML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorsCreateInfoFromUuidsML.NEXT, value); }
     /** Unsafe version of {@link #storage(XrSpatialAnchorsStorageML) storage}. */
     public static void nstorage(long struct, XrSpatialAnchorsStorageML value) { memPutAddress(struct + XrSpatialAnchorsCreateInfoFromUuidsML.STORAGE, value.address()); }
     /** Sets the specified value to the {@code uuidCount} field of the specified {@code struct}. */
-    public static void nuuidCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsCreateInfoFromUuidsML.UUIDCOUNT, value); }
+    public static void nuuidCount(long struct, int value) { memPutInt(struct + XrSpatialAnchorsCreateInfoFromUuidsML.UUIDCOUNT, value); }
     /** Unsafe version of {@link #uuids(XrUuidEXT.Buffer) uuids}. */
     public static void nuuids(long struct, XrUuidEXT.Buffer value) { memPutAddress(struct + XrSpatialAnchorsCreateInfoFromUuidsML.UUIDS, value.address()); nuuidCount(struct, value.remaining()); }
 
@@ -350,6 +348,11 @@ public class XrSpatialAnchorsCreateInfoFromUuidsML extends Struct<XrSpatialAncho
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -194,8 +194,7 @@ public class VkDescriptorAddressInfoEXT extends Struct<VkDescriptorAddressInfoEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorAddressInfoEXT createSafe(long address) {
+    public static @Nullable VkDescriptorAddressInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDescriptorAddressInfoEXT(address, null);
     }
 
@@ -238,8 +237,7 @@ public class VkDescriptorAddressInfoEXT extends Struct<VkDescriptorAddressInfoEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorAddressInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorAddressInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,26 +282,26 @@ public class VkDescriptorAddressInfoEXT extends Struct<VkDescriptorAddressInfoEX
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorAddressInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorAddressInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorAddressInfoEXT.PNEXT); }
     /** Unsafe version of {@link #address$}. */
-    public static long naddress$(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorAddressInfoEXT.ADDRESS); }
+    public static long naddress$(long struct) { return memGetLong(struct + VkDescriptorAddressInfoEXT.ADDRESS); }
     /** Unsafe version of {@link #range}. */
-    public static long nrange(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorAddressInfoEXT.RANGE); }
+    public static long nrange(long struct) { return memGetLong(struct + VkDescriptorAddressInfoEXT.RANGE); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorAddressInfoEXT.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkDescriptorAddressInfoEXT.FORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorAddressInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorAddressInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorAddressInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #address$(long) address$}. */
-    public static void naddress$(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorAddressInfoEXT.ADDRESS, value); }
+    public static void naddress$(long struct, long value) { memPutLong(struct + VkDescriptorAddressInfoEXT.ADDRESS, value); }
     /** Unsafe version of {@link #range(long) range}. */
-    public static void nrange(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorAddressInfoEXT.RANGE, value); }
+    public static void nrange(long struct, long value) { memPutLong(struct + VkDescriptorAddressInfoEXT.RANGE, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorAddressInfoEXT.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + VkDescriptorAddressInfoEXT.FORMAT, value); }
 
     // -----------------------------------
 
@@ -336,6 +334,11 @@ public class VkDescriptorAddressInfoEXT extends Struct<VkDescriptorAddressInfoEX
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

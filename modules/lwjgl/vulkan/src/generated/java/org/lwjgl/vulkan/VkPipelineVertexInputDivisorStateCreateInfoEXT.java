@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -113,8 +113,7 @@ public class VkPipelineVertexInputDivisorStateCreateInfoEXT extends VkPipelineVe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineVertexInputDivisorStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineVertexInputDivisorStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineVertexInputDivisorStateCreateInfoEXT(address, null);
     }
 
@@ -157,8 +156,7 @@ public class VkPipelineVertexInputDivisorStateCreateInfoEXT extends VkPipelineVe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineVertexInputDivisorStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineVertexInputDivisorStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,6 +248,11 @@ public class VkPipelineVertexInputDivisorStateCreateInfoEXT extends VkPipelineVe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

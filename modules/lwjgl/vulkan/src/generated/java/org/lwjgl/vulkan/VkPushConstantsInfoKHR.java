@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -222,8 +222,7 @@ public class VkPushConstantsInfoKHR extends Struct<VkPushConstantsInfoKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPushConstantsInfoKHR createSafe(long address) {
+    public static @Nullable VkPushConstantsInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPushConstantsInfoKHR(address, null);
     }
 
@@ -266,8 +265,7 @@ public class VkPushConstantsInfoKHR extends Struct<VkPushConstantsInfoKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPushConstantsInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPushConstantsInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -312,32 +310,32 @@ public class VkPushConstantsInfoKHR extends Struct<VkPushConstantsInfoKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantsInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPushConstantsInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPushConstantsInfoKHR.PNEXT); }
     /** Unsafe version of {@link #layout}. */
-    public static long nlayout(long struct) { return UNSAFE.getLong(null, struct + VkPushConstantsInfoKHR.LAYOUT); }
+    public static long nlayout(long struct) { return memGetLong(struct + VkPushConstantsInfoKHR.LAYOUT); }
     /** Unsafe version of {@link #stageFlags}. */
-    public static int nstageFlags(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantsInfoKHR.STAGEFLAGS); }
+    public static int nstageFlags(long struct) { return memGetInt(struct + VkPushConstantsInfoKHR.STAGEFLAGS); }
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantsInfoKHR.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + VkPushConstantsInfoKHR.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + VkPushConstantsInfoKHR.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + VkPushConstantsInfoKHR.SIZE); }
     /** Unsafe version of {@link #pValues() pValues}. */
     public static ByteBuffer npValues(long struct) { return memByteBuffer(memGetAddress(struct + VkPushConstantsInfoKHR.PVALUES), nsize(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantsInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPushConstantsInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPushConstantsInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #layout(long) layout}. */
-    public static void nlayout(long struct, long value) { UNSAFE.putLong(null, struct + VkPushConstantsInfoKHR.LAYOUT, value); }
+    public static void nlayout(long struct, long value) { memPutLong(struct + VkPushConstantsInfoKHR.LAYOUT, value); }
     /** Unsafe version of {@link #stageFlags(int) stageFlags}. */
-    public static void nstageFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantsInfoKHR.STAGEFLAGS, value); }
+    public static void nstageFlags(long struct, int value) { memPutInt(struct + VkPushConstantsInfoKHR.STAGEFLAGS, value); }
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantsInfoKHR.OFFSET, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + VkPushConstantsInfoKHR.OFFSET, value); }
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + VkPushConstantsInfoKHR.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + VkPushConstantsInfoKHR.SIZE, value); }
     /** Unsafe version of {@link #pValues(ByteBuffer) pValues}. */
     public static void npValues(long struct, ByteBuffer value) { memPutAddress(struct + VkPushConstantsInfoKHR.PVALUES, memAddress(value)); nsize(struct, value.remaining()); }
 
@@ -381,6 +379,11 @@ public class VkPushConstantsInfoKHR extends Struct<VkPushConstantsInfoKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

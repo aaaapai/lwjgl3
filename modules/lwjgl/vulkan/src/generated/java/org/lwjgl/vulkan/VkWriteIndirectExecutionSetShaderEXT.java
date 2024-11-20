@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -181,8 +181,7 @@ public class VkWriteIndirectExecutionSetShaderEXT extends Struct<VkWriteIndirect
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteIndirectExecutionSetShaderEXT createSafe(long address) {
+    public static @Nullable VkWriteIndirectExecutionSetShaderEXT createSafe(long address) {
         return address == NULL ? null : new VkWriteIndirectExecutionSetShaderEXT(address, null);
     }
 
@@ -225,8 +224,7 @@ public class VkWriteIndirectExecutionSetShaderEXT extends Struct<VkWriteIndirect
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteIndirectExecutionSetShaderEXT.Buffer createSafe(long address, int capacity) {
+    public static VkWriteIndirectExecutionSetShaderEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,22 +269,22 @@ public class VkWriteIndirectExecutionSetShaderEXT extends Struct<VkWriteIndirect
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWriteIndirectExecutionSetShaderEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWriteIndirectExecutionSetShaderEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWriteIndirectExecutionSetShaderEXT.PNEXT); }
     /** Unsafe version of {@link #index}. */
-    public static int nindex(long struct) { return UNSAFE.getInt(null, struct + VkWriteIndirectExecutionSetShaderEXT.INDEX); }
+    public static int nindex(long struct) { return memGetInt(struct + VkWriteIndirectExecutionSetShaderEXT.INDEX); }
     /** Unsafe version of {@link #shader}. */
-    public static long nshader(long struct) { return UNSAFE.getLong(null, struct + VkWriteIndirectExecutionSetShaderEXT.SHADER); }
+    public static long nshader(long struct) { return memGetLong(struct + VkWriteIndirectExecutionSetShaderEXT.SHADER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteIndirectExecutionSetShaderEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWriteIndirectExecutionSetShaderEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWriteIndirectExecutionSetShaderEXT.PNEXT, value); }
     /** Unsafe version of {@link #index(int) index}. */
-    public static void nindex(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteIndirectExecutionSetShaderEXT.INDEX, value); }
+    public static void nindex(long struct, int value) { memPutInt(struct + VkWriteIndirectExecutionSetShaderEXT.INDEX, value); }
     /** Unsafe version of {@link #shader(long) shader}. */
-    public static void nshader(long struct, long value) { UNSAFE.putLong(null, struct + VkWriteIndirectExecutionSetShaderEXT.SHADER, value); }
+    public static void nshader(long struct, long value) { memPutLong(struct + VkWriteIndirectExecutionSetShaderEXT.SHADER, value); }
 
     // -----------------------------------
 
@@ -319,6 +317,11 @@ public class VkWriteIndirectExecutionSetShaderEXT extends Struct<VkWriteIndirect
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

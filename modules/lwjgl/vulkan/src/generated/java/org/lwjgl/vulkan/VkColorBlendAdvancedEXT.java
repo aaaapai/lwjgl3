@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -185,8 +185,7 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkColorBlendAdvancedEXT createSafe(long address) {
+    public static @Nullable VkColorBlendAdvancedEXT createSafe(long address) {
         return address == NULL ? null : new VkColorBlendAdvancedEXT(address, null);
     }
 
@@ -229,8 +228,7 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkColorBlendAdvancedEXT.Buffer createSafe(long address, int capacity) {
+    public static VkColorBlendAdvancedEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +273,26 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #advancedBlendOp}. */
-    public static int nadvancedBlendOp(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP); }
+    public static int nadvancedBlendOp(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP); }
     /** Unsafe version of {@link #srcPremultiplied}. */
-    public static int nsrcPremultiplied(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED); }
+    public static int nsrcPremultiplied(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED); }
     /** Unsafe version of {@link #dstPremultiplied}. */
-    public static int ndstPremultiplied(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED); }
+    public static int ndstPremultiplied(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED); }
     /** Unsafe version of {@link #blendOverlap}. */
-    public static int nblendOverlap(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.BLENDOVERLAP); }
+    public static int nblendOverlap(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.BLENDOVERLAP); }
     /** Unsafe version of {@link #clampResults}. */
-    public static int nclampResults(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.CLAMPRESULTS); }
+    public static int nclampResults(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.CLAMPRESULTS); }
 
     /** Unsafe version of {@link #advancedBlendOp(int) advancedBlendOp}. */
-    public static void nadvancedBlendOp(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP, value); }
+    public static void nadvancedBlendOp(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP, value); }
     /** Unsafe version of {@link #srcPremultiplied(boolean) srcPremultiplied}. */
-    public static void nsrcPremultiplied(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED, value); }
+    public static void nsrcPremultiplied(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED, value); }
     /** Unsafe version of {@link #dstPremultiplied(boolean) dstPremultiplied}. */
-    public static void ndstPremultiplied(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED, value); }
+    public static void ndstPremultiplied(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED, value); }
     /** Unsafe version of {@link #blendOverlap(int) blendOverlap}. */
-    public static void nblendOverlap(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.BLENDOVERLAP, value); }
+    public static void nblendOverlap(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.BLENDOVERLAP, value); }
     /** Unsafe version of {@link #clampResults(boolean) clampResults}. */
-    public static void nclampResults(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.CLAMPRESULTS, value); }
+    public static void nclampResults(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.CLAMPRESULTS, value); }
 
     // -----------------------------------
 
@@ -327,6 +325,11 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

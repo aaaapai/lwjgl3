@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkImageFormatProperties extends Struct<VkImageFormatProperties> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageFormatProperties createSafe(long address) {
+    public static @Nullable VkImageFormatProperties createSafe(long address) {
         return address == NULL ? null : new VkImageFormatProperties(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkImageFormatProperties extends Struct<VkImageFormatProperties> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageFormatProperties.Buffer createSafe(long address, int capacity) {
+    public static VkImageFormatProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,13 +271,13 @@ public class VkImageFormatProperties extends Struct<VkImageFormatProperties> imp
     /** Unsafe version of {@link #maxExtent}. */
     public static VkExtent3D nmaxExtent(long struct) { return VkExtent3D.create(struct + VkImageFormatProperties.MAXEXTENT); }
     /** Unsafe version of {@link #maxMipLevels}. */
-    public static int nmaxMipLevels(long struct) { return UNSAFE.getInt(null, struct + VkImageFormatProperties.MAXMIPLEVELS); }
+    public static int nmaxMipLevels(long struct) { return memGetInt(struct + VkImageFormatProperties.MAXMIPLEVELS); }
     /** Unsafe version of {@link #maxArrayLayers}. */
-    public static int nmaxArrayLayers(long struct) { return UNSAFE.getInt(null, struct + VkImageFormatProperties.MAXARRAYLAYERS); }
+    public static int nmaxArrayLayers(long struct) { return memGetInt(struct + VkImageFormatProperties.MAXARRAYLAYERS); }
     /** Unsafe version of {@link #sampleCounts}. */
-    public static int nsampleCounts(long struct) { return UNSAFE.getInt(null, struct + VkImageFormatProperties.SAMPLECOUNTS); }
+    public static int nsampleCounts(long struct) { return memGetInt(struct + VkImageFormatProperties.SAMPLECOUNTS); }
     /** Unsafe version of {@link #maxResourceSize}. */
-    public static long nmaxResourceSize(long struct) { return UNSAFE.getLong(null, struct + VkImageFormatProperties.MAXRESOURCESIZE); }
+    public static long nmaxResourceSize(long struct) { return memGetLong(struct + VkImageFormatProperties.MAXRESOURCESIZE); }
 
     // -----------------------------------
 
@@ -312,6 +310,11 @@ public class VkImageFormatProperties extends Struct<VkImageFormatProperties> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

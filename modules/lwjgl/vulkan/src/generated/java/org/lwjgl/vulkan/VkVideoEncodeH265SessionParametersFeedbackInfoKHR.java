@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends Struct<Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265SessionParametersFeedbackInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH265SessionParametersFeedbackInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH265SessionParametersFeedbackInfoKHR(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends Struct<Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH265SessionParametersFeedbackInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH265SessionParametersFeedbackInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends Struct<Vk
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.PNEXT); }
     /** Unsafe version of {@link #hasStdVPSOverrides}. */
-    public static int nhasStdVPSOverrides(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.HASSTDVPSOVERRIDES); }
+    public static int nhasStdVPSOverrides(long struct) { return memGetInt(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.HASSTDVPSOVERRIDES); }
     /** Unsafe version of {@link #hasStdSPSOverrides}. */
-    public static int nhasStdSPSOverrides(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.HASSTDSPSOVERRIDES); }
+    public static int nhasStdSPSOverrides(long struct) { return memGetInt(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.HASSTDSPSOVERRIDES); }
     /** Unsafe version of {@link #hasStdPPSOverrides}. */
-    public static int nhasStdPPSOverrides(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.HASSTDPPSOVERRIDES); }
+    public static int nhasStdPPSOverrides(long struct) { return memGetInt(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.HASSTDPPSOVERRIDES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH265SessionParametersFeedbackInfoKHR.PNEXT, value); }
 
@@ -298,6 +296,11 @@ public class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends Struct<Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

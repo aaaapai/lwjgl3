@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkDevicePipelineBinaryInternalCacheControlKHR extends Struct<VkDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDevicePipelineBinaryInternalCacheControlKHR createSafe(long address) {
+    public static @Nullable VkDevicePipelineBinaryInternalCacheControlKHR createSafe(long address) {
         return address == NULL ? null : new VkDevicePipelineBinaryInternalCacheControlKHR(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkDevicePipelineBinaryInternalCacheControlKHR extends Struct<VkDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDevicePipelineBinaryInternalCacheControlKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDevicePipelineBinaryInternalCacheControlKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class VkDevicePipelineBinaryInternalCacheControlKHR extends Struct<VkDevi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDevicePipelineBinaryInternalCacheControlKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDevicePipelineBinaryInternalCacheControlKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDevicePipelineBinaryInternalCacheControlKHR.PNEXT); }
     /** Unsafe version of {@link #disableInternalCache}. */
-    public static int ndisableInternalCache(long struct) { return UNSAFE.getInt(null, struct + VkDevicePipelineBinaryInternalCacheControlKHR.DISABLEINTERNALCACHE); }
+    public static int ndisableInternalCache(long struct) { return memGetInt(struct + VkDevicePipelineBinaryInternalCacheControlKHR.DISABLEINTERNALCACHE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDevicePipelineBinaryInternalCacheControlKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDevicePipelineBinaryInternalCacheControlKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDevicePipelineBinaryInternalCacheControlKHR.PNEXT, value); }
     /** Unsafe version of {@link #disableInternalCache(boolean) disableInternalCache}. */
-    public static void ndisableInternalCache(long struct, int value) { UNSAFE.putInt(null, struct + VkDevicePipelineBinaryInternalCacheControlKHR.DISABLEINTERNALCACHE, value); }
+    public static void ndisableInternalCache(long struct, int value) { memPutInt(struct + VkDevicePipelineBinaryInternalCacheControlKHR.DISABLEINTERNALCACHE, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class VkDevicePipelineBinaryInternalCacheControlKHR extends Struct<VkDevi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

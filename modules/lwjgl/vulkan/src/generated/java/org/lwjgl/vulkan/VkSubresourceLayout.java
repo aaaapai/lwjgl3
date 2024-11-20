@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -194,8 +194,7 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubresourceLayout createSafe(long address) {
+    public static @Nullable VkSubresourceLayout createSafe(long address) {
         return address == NULL ? null : new VkSubresourceLayout(address, null);
     }
 
@@ -238,8 +237,7 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubresourceLayout.Buffer createSafe(long address, int capacity) {
+    public static VkSubresourceLayout.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,26 +301,26 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkSubresourceLayout.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkSubresourceLayout.SIZE); }
     /** Unsafe version of {@link #rowPitch}. */
-    public static long nrowPitch(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.ROWPITCH); }
+    public static long nrowPitch(long struct) { return memGetLong(struct + VkSubresourceLayout.ROWPITCH); }
     /** Unsafe version of {@link #arrayPitch}. */
-    public static long narrayPitch(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.ARRAYPITCH); }
+    public static long narrayPitch(long struct) { return memGetLong(struct + VkSubresourceLayout.ARRAYPITCH); }
     /** Unsafe version of {@link #depthPitch}. */
-    public static long ndepthPitch(long struct) { return UNSAFE.getLong(null, struct + VkSubresourceLayout.DEPTHPITCH); }
+    public static long ndepthPitch(long struct) { return memGetLong(struct + VkSubresourceLayout.DEPTHPITCH); }
 
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkSubresourceLayout.OFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkSubresourceLayout.SIZE, value); }
     /** Unsafe version of {@link #rowPitch(long) rowPitch}. */
-    public static void nrowPitch(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.ROWPITCH, value); }
+    public static void nrowPitch(long struct, long value) { memPutLong(struct + VkSubresourceLayout.ROWPITCH, value); }
     /** Unsafe version of {@link #arrayPitch(long) arrayPitch}. */
-    public static void narrayPitch(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.ARRAYPITCH, value); }
+    public static void narrayPitch(long struct, long value) { memPutLong(struct + VkSubresourceLayout.ARRAYPITCH, value); }
     /** Unsafe version of {@link #depthPitch(long) depthPitch}. */
-    public static void ndepthPitch(long struct, long value) { UNSAFE.putLong(null, struct + VkSubresourceLayout.DEPTHPITCH, value); }
+    public static void ndepthPitch(long struct, long value) { memPutLong(struct + VkSubresourceLayout.DEPTHPITCH, value); }
 
     // -----------------------------------
 
@@ -355,6 +353,11 @@ public class VkSubresourceLayout extends Struct<VkSubresourceLayout> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

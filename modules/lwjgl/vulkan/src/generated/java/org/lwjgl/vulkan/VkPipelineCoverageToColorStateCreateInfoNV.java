@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCoverageToColorStateCreateInfoNV createSafe(long address) {
+    public static @Nullable VkPipelineCoverageToColorStateCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkPipelineCoverageToColorStateCreateInfoNV(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCoverageToColorStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCoverageToColorStateCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,26 +296,26 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineCoverageToColorStateCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.FLAGS); }
     /** Unsafe version of {@link #coverageToColorEnable}. */
-    public static int ncoverageToColorEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORENABLE); }
+    public static int ncoverageToColorEnable(long struct) { return memGetInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORENABLE); }
     /** Unsafe version of {@link #coverageToColorLocation}. */
-    public static int ncoverageToColorLocation(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORLOCATION); }
+    public static int ncoverageToColorLocation(long struct) { return memGetInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORLOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineCoverageToColorStateCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.FLAGS, value); }
     /** Unsafe version of {@link #coverageToColorEnable(boolean) coverageToColorEnable}. */
-    public static void ncoverageToColorEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORENABLE, value); }
+    public static void ncoverageToColorEnable(long struct, int value) { memPutInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORENABLE, value); }
     /** Unsafe version of {@link #coverageToColorLocation(int) coverageToColorLocation}. */
-    public static void ncoverageToColorLocation(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORLOCATION, value); }
+    public static void ncoverageToColorLocation(long struct, int value) { memPutInt(struct + VkPipelineCoverageToColorStateCreateInfoNV.COVERAGETOCOLORLOCATION, value); }
 
     // -----------------------------------
 
@@ -350,6 +348,11 @@ public class VkPipelineCoverageToColorStateCreateInfoNV extends Struct<VkPipelin
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

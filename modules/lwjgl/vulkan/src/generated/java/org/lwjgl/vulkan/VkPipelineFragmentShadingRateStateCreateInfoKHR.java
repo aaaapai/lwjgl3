@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class VkPipelineFragmentShadingRateStateCreateInfoKHR extends Struct<VkPi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineFragmentShadingRateStateCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkPipelineFragmentShadingRateStateCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineFragmentShadingRateStateCreateInfoKHR(address, null);
     }
 
@@ -224,8 +223,7 @@ public class VkPipelineFragmentShadingRateStateCreateInfoKHR extends Struct<VkPi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineFragmentShadingRateStateCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineFragmentShadingRateStateCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,7 +268,7 @@ public class VkPipelineFragmentShadingRateStateCreateInfoKHR extends Struct<VkPi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #fragmentSize}. */
@@ -279,11 +277,11 @@ public class VkPipelineFragmentShadingRateStateCreateInfoKHR extends Struct<VkPi
     public static IntBuffer ncombinerOps(long struct) { return memIntBuffer(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.COMBINEROPS, 2); }
     /** Unsafe version of {@link #combinerOps(int) combinerOps}. */
     public static int ncombinerOps(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.COMBINEROPS + check(index, 2) * 4);
+        return memGetInt(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.COMBINEROPS + check(index, 2) * 4);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #fragmentSize(VkExtent2D) fragmentSize}. */
@@ -295,7 +293,7 @@ public class VkPipelineFragmentShadingRateStateCreateInfoKHR extends Struct<VkPi
     }
     /** Unsafe version of {@link #combinerOps(int, int) combinerOps}. */
     public static void ncombinerOps(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.COMBINEROPS + check(index, 2) * 4, value);
+        memPutInt(struct + VkPipelineFragmentShadingRateStateCreateInfoKHR.COMBINEROPS + check(index, 2) * 4, value);
     }
 
     // -----------------------------------
@@ -329,6 +327,11 @@ public class VkPipelineFragmentShadingRateStateCreateInfoKHR extends Struct<VkPi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

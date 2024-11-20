@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class VkAccelerationStructureGeometryInstancesDataKHR extends Struct<VkAc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryInstancesDataKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureGeometryInstancesDataKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureGeometryInstancesDataKHR(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkAccelerationStructureGeometryInstancesDataKHR extends Struct<VkAc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryInstancesDataKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureGeometryInstancesDataKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,20 +257,20 @@ public class VkAccelerationStructureGeometryInstancesDataKHR extends Struct<VkAc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureGeometryInstancesDataKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureGeometryInstancesDataKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureGeometryInstancesDataKHR.PNEXT); }
     /** Unsafe version of {@link #arrayOfPointers}. */
-    public static int narrayOfPointers(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureGeometryInstancesDataKHR.ARRAYOFPOINTERS); }
+    public static int narrayOfPointers(long struct) { return memGetInt(struct + VkAccelerationStructureGeometryInstancesDataKHR.ARRAYOFPOINTERS); }
     /** Unsafe version of {@link #data}. */
     public static VkDeviceOrHostAddressConstKHR ndata(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkAccelerationStructureGeometryInstancesDataKHR.DATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureGeometryInstancesDataKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureGeometryInstancesDataKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureGeometryInstancesDataKHR.PNEXT, value); }
     /** Unsafe version of {@link #arrayOfPointers(boolean) arrayOfPointers}. */
-    public static void narrayOfPointers(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureGeometryInstancesDataKHR.ARRAYOFPOINTERS, value); }
+    public static void narrayOfPointers(long struct, int value) { memPutInt(struct + VkAccelerationStructureGeometryInstancesDataKHR.ARRAYOFPOINTERS, value); }
     /** Unsafe version of {@link #data(VkDeviceOrHostAddressConstKHR) data}. */
     public static void ndata(long struct, VkDeviceOrHostAddressConstKHR value) { memCopy(value.address(), struct + VkAccelerationStructureGeometryInstancesDataKHR.DATA, VkDeviceOrHostAddressConstKHR.SIZEOF); }
 
@@ -307,6 +305,11 @@ public class VkAccelerationStructureGeometryInstancesDataKHR extends Struct<VkAc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

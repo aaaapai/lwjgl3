@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class XrWorldMeshBufferRecommendedSizeInfoML extends Struct<XrWorldMeshBu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrWorldMeshBufferRecommendedSizeInfoML createSafe(long address) {
+    public static @Nullable XrWorldMeshBufferRecommendedSizeInfoML createSafe(long address) {
         return address == NULL ? null : new XrWorldMeshBufferRecommendedSizeInfoML(address, null);
     }
 
@@ -206,8 +205,7 @@ public class XrWorldMeshBufferRecommendedSizeInfoML extends Struct<XrWorldMeshBu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrWorldMeshBufferRecommendedSizeInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrWorldMeshBufferRecommendedSizeInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +250,18 @@ public class XrWorldMeshBufferRecommendedSizeInfoML extends Struct<XrWorldMeshBu
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrWorldMeshBufferRecommendedSizeInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrWorldMeshBufferRecommendedSizeInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrWorldMeshBufferRecommendedSizeInfoML.NEXT); }
     /** Unsafe version of {@link #maxBlockCount}. */
-    public static int nmaxBlockCount(long struct) { return UNSAFE.getInt(null, struct + XrWorldMeshBufferRecommendedSizeInfoML.MAXBLOCKCOUNT); }
+    public static int nmaxBlockCount(long struct) { return memGetInt(struct + XrWorldMeshBufferRecommendedSizeInfoML.MAXBLOCKCOUNT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrWorldMeshBufferRecommendedSizeInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrWorldMeshBufferRecommendedSizeInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrWorldMeshBufferRecommendedSizeInfoML.NEXT, value); }
     /** Unsafe version of {@link #maxBlockCount(int) maxBlockCount}. */
-    public static void nmaxBlockCount(long struct, int value) { UNSAFE.putInt(null, struct + XrWorldMeshBufferRecommendedSizeInfoML.MAXBLOCKCOUNT, value); }
+    public static void nmaxBlockCount(long struct, int value) { memPutInt(struct + XrWorldMeshBufferRecommendedSizeInfoML.MAXBLOCKCOUNT, value); }
 
     // -----------------------------------
 
@@ -296,6 +294,11 @@ public class XrWorldMeshBufferRecommendedSizeInfoML extends Struct<XrWorldMeshBu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

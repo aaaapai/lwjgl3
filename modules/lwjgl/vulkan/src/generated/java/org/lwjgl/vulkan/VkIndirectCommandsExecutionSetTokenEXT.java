@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class VkIndirectCommandsExecutionSetTokenEXT extends Struct<VkIndirectCom
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsExecutionSetTokenEXT createSafe(long address) {
+    public static @Nullable VkIndirectCommandsExecutionSetTokenEXT createSafe(long address) {
         return address == NULL ? null : new VkIndirectCommandsExecutionSetTokenEXT(address, null);
     }
 
@@ -195,8 +194,7 @@ public class VkIndirectCommandsExecutionSetTokenEXT extends Struct<VkIndirectCom
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsExecutionSetTokenEXT.Buffer createSafe(long address, int capacity) {
+    public static VkIndirectCommandsExecutionSetTokenEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class VkIndirectCommandsExecutionSetTokenEXT extends Struct<VkIndirectCom
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsExecutionSetTokenEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkIndirectCommandsExecutionSetTokenEXT.TYPE); }
     /** Unsafe version of {@link #shaderStages}. */
-    public static int nshaderStages(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsExecutionSetTokenEXT.SHADERSTAGES); }
+    public static int nshaderStages(long struct) { return memGetInt(struct + VkIndirectCommandsExecutionSetTokenEXT.SHADERSTAGES); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsExecutionSetTokenEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkIndirectCommandsExecutionSetTokenEXT.TYPE, value); }
     /** Unsafe version of {@link #shaderStages(int) shaderStages}. */
-    public static void nshaderStages(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsExecutionSetTokenEXT.SHADERSTAGES, value); }
+    public static void nshaderStages(long struct, int value) { memPutInt(struct + VkIndirectCommandsExecutionSetTokenEXT.SHADERSTAGES, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class VkIndirectCommandsExecutionSetTokenEXT extends Struct<VkIndirectCom
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

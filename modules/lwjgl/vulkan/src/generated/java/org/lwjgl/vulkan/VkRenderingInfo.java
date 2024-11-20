@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>If there is an instance of {@link VkDeviceGroupRenderPassBeginInfo} included in the {@code pNext} chain and its {@code deviceRenderAreaCount} member is not 0, then {@code renderArea} is ignored, and the render area is defined per-device by that structure.</p>
  * 
- * <p>If multiview is enabled, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature is enabled, and there is an instance of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} included in the {@code pNext} chain with {@code perViewRenderAreaCount} not equal to 0, then the elements of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}{@code ::pPerViewRenderAreas} override {@code renderArea} and define a render area for each view. In this case, {@code renderArea} <b>must</b> be set to an area at least as large as the union of all the per-view render areas.</p>
+ * <p>If multiview is enabled, and the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview-per-view-render-areas">{@code multiviewPerViewRenderAreas}</a> feature is enabled, and there is an instance of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM} included in the {@code pNext} chain with {@code perViewRenderAreaCount} not equal to 0, then the elements of {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}{@code ::pPerViewRenderAreas} override {@code renderArea} and define a render area for each view. In this case, {@code renderArea} <b>must</b> be an area at least as large as the union of all the per-view render areas.</p>
  * 
  * <p>Each element of the {@code pColorAttachments} array corresponds to an output location in the shader, i.e. if the shader declares an output variable decorated with a {@code Location} value of <b>X</b>, then it uses the attachment provided in {@code pColorAttachments}[<b>X</b>]. If the {@code imageView} member of any element of {@code pColorAttachments} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and {@code resolveMode} is not {@link ANDROIDExternalFormatResolve#VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID}, writes to the corresponding location by a fragment are discarded.</p>
  * 
@@ -255,17 +255,14 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
     @NativeType("uint32_t")
     public int colorAttachmentCount() { return ncolorAttachmentCount(address()); }
     /** a pointer to an array of {@code colorAttachmentCount} {@link VkRenderingAttachmentInfo} structures describing any color attachments used. */
-    @Nullable
     @NativeType("VkRenderingAttachmentInfo const *")
-    public VkRenderingAttachmentInfo.Buffer pColorAttachments() { return npColorAttachments(address()); }
+    public VkRenderingAttachmentInfo.@Nullable Buffer pColorAttachments() { return npColorAttachments(address()); }
     /** a pointer to a {@link VkRenderingAttachmentInfo} structure describing a depth attachment. */
-    @Nullable
     @NativeType("VkRenderingAttachmentInfo const *")
-    public VkRenderingAttachmentInfo pDepthAttachment() { return npDepthAttachment(address()); }
+    public @Nullable VkRenderingAttachmentInfo pDepthAttachment() { return npDepthAttachment(address()); }
     /** a pointer to a {@link VkRenderingAttachmentInfo} structure describing a stencil attachment. */
-    @Nullable
     @NativeType("VkRenderingAttachmentInfo const *")
-    public VkRenderingAttachmentInfo pStencilAttachment() { return npStencilAttachment(address()); }
+    public @Nullable VkRenderingAttachmentInfo pStencilAttachment() { return npStencilAttachment(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkRenderingInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -300,7 +297,7 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
     /** Sets the specified value to the {@link #viewMask} field. */
     public VkRenderingInfo viewMask(@NativeType("uint32_t") int value) { nviewMask(address(), value); return this; }
     /** Sets the address of the specified {@link VkRenderingAttachmentInfo.Buffer} to the {@link #pColorAttachments} field. */
-    public VkRenderingInfo pColorAttachments(@Nullable @NativeType("VkRenderingAttachmentInfo const *") VkRenderingAttachmentInfo.Buffer value) { npColorAttachments(address(), value); return this; }
+    public VkRenderingInfo pColorAttachments(@NativeType("VkRenderingAttachmentInfo const *") VkRenderingAttachmentInfo.@Nullable Buffer value) { npColorAttachments(address(), value); return this; }
     /** Sets the address of the specified {@link VkRenderingAttachmentInfo} to the {@link #pDepthAttachment} field. */
     public VkRenderingInfo pDepthAttachment(@Nullable @NativeType("VkRenderingAttachmentInfo const *") VkRenderingAttachmentInfo value) { npDepthAttachment(address(), value); return this; }
     /** Sets the address of the specified {@link VkRenderingAttachmentInfo} to the {@link #pStencilAttachment} field. */
@@ -314,7 +311,7 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
         VkRect2D renderArea,
         int layerCount,
         int viewMask,
-        @Nullable VkRenderingAttachmentInfo.Buffer pColorAttachments,
+        VkRenderingAttachmentInfo.@Nullable Buffer pColorAttachments,
         @Nullable VkRenderingAttachmentInfo pDepthAttachment,
         @Nullable VkRenderingAttachmentInfo pStencilAttachment
     ) {
@@ -367,8 +364,7 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingInfo createSafe(long address) {
+    public static @Nullable VkRenderingInfo createSafe(long address) {
         return address == NULL ? null : new VkRenderingInfo(address, null);
     }
 
@@ -411,8 +407,7 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingInfo.Buffer createSafe(long address, int capacity) {
+    public static VkRenderingInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -457,42 +452,42 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderingInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderingInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderingInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkRenderingInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkRenderingInfo.FLAGS); }
     /** Unsafe version of {@link #renderArea}. */
     public static VkRect2D nrenderArea(long struct) { return VkRect2D.create(struct + VkRenderingInfo.RENDERAREA); }
     /** Unsafe version of {@link #layerCount}. */
-    public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + VkRenderingInfo.LAYERCOUNT); }
+    public static int nlayerCount(long struct) { return memGetInt(struct + VkRenderingInfo.LAYERCOUNT); }
     /** Unsafe version of {@link #viewMask}. */
-    public static int nviewMask(long struct) { return UNSAFE.getInt(null, struct + VkRenderingInfo.VIEWMASK); }
+    public static int nviewMask(long struct) { return memGetInt(struct + VkRenderingInfo.VIEWMASK); }
     /** Unsafe version of {@link #colorAttachmentCount}. */
-    public static int ncolorAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkRenderingInfo.COLORATTACHMENTCOUNT); }
+    public static int ncolorAttachmentCount(long struct) { return memGetInt(struct + VkRenderingInfo.COLORATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorAttachments}. */
-    @Nullable public static VkRenderingAttachmentInfo.Buffer npColorAttachments(long struct) { return VkRenderingAttachmentInfo.createSafe(memGetAddress(struct + VkRenderingInfo.PCOLORATTACHMENTS), ncolorAttachmentCount(struct)); }
+    public static VkRenderingAttachmentInfo.@Nullable Buffer npColorAttachments(long struct) { return VkRenderingAttachmentInfo.createSafe(memGetAddress(struct + VkRenderingInfo.PCOLORATTACHMENTS), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #pDepthAttachment}. */
-    @Nullable public static VkRenderingAttachmentInfo npDepthAttachment(long struct) { return VkRenderingAttachmentInfo.createSafe(memGetAddress(struct + VkRenderingInfo.PDEPTHATTACHMENT)); }
+    public static @Nullable VkRenderingAttachmentInfo npDepthAttachment(long struct) { return VkRenderingAttachmentInfo.createSafe(memGetAddress(struct + VkRenderingInfo.PDEPTHATTACHMENT)); }
     /** Unsafe version of {@link #pStencilAttachment}. */
-    @Nullable public static VkRenderingAttachmentInfo npStencilAttachment(long struct) { return VkRenderingAttachmentInfo.createSafe(memGetAddress(struct + VkRenderingInfo.PSTENCILATTACHMENT)); }
+    public static @Nullable VkRenderingAttachmentInfo npStencilAttachment(long struct) { return VkRenderingAttachmentInfo.createSafe(memGetAddress(struct + VkRenderingInfo.PSTENCILATTACHMENT)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderingInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderingInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkRenderingInfo.FLAGS, value); }
     /** Unsafe version of {@link #renderArea(VkRect2D) renderArea}. */
     public static void nrenderArea(long struct, VkRect2D value) { memCopy(value.address(), struct + VkRenderingInfo.RENDERAREA, VkRect2D.SIZEOF); }
     /** Unsafe version of {@link #layerCount(int) layerCount}. */
-    public static void nlayerCount(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingInfo.LAYERCOUNT, value); }
+    public static void nlayerCount(long struct, int value) { memPutInt(struct + VkRenderingInfo.LAYERCOUNT, value); }
     /** Unsafe version of {@link #viewMask(int) viewMask}. */
-    public static void nviewMask(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingInfo.VIEWMASK, value); }
+    public static void nviewMask(long struct, int value) { memPutInt(struct + VkRenderingInfo.VIEWMASK, value); }
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
-    public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingInfo.COLORATTACHMENTCOUNT, value); }
+    public static void ncolorAttachmentCount(long struct, int value) { memPutInt(struct + VkRenderingInfo.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachments(VkRenderingAttachmentInfo.Buffer) pColorAttachments}. */
-    public static void npColorAttachments(long struct, @Nullable VkRenderingAttachmentInfo.Buffer value) { memPutAddress(struct + VkRenderingInfo.PCOLORATTACHMENTS, memAddressSafe(value)); ncolorAttachmentCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npColorAttachments(long struct, VkRenderingAttachmentInfo.@Nullable Buffer value) { memPutAddress(struct + VkRenderingInfo.PCOLORATTACHMENTS, memAddressSafe(value)); ncolorAttachmentCount(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #pDepthAttachment(VkRenderingAttachmentInfo) pDepthAttachment}. */
     public static void npDepthAttachment(long struct, @Nullable VkRenderingAttachmentInfo value) { memPutAddress(struct + VkRenderingInfo.PDEPTHATTACHMENT, memAddressSafe(value)); }
     /** Unsafe version of {@link #pStencilAttachment(VkRenderingAttachmentInfo) pStencilAttachment}. */
@@ -543,6 +538,11 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderingInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -568,17 +568,14 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
         @NativeType("uint32_t")
         public int colorAttachmentCount() { return VkRenderingInfo.ncolorAttachmentCount(address()); }
         /** @return a {@link VkRenderingAttachmentInfo.Buffer} view of the struct array pointed to by the {@link VkRenderingInfo#pColorAttachments} field. */
-        @Nullable
         @NativeType("VkRenderingAttachmentInfo const *")
-        public VkRenderingAttachmentInfo.Buffer pColorAttachments() { return VkRenderingInfo.npColorAttachments(address()); }
+        public VkRenderingAttachmentInfo.@Nullable Buffer pColorAttachments() { return VkRenderingInfo.npColorAttachments(address()); }
         /** @return a {@link VkRenderingAttachmentInfo} view of the struct pointed to by the {@link VkRenderingInfo#pDepthAttachment} field. */
-        @Nullable
         @NativeType("VkRenderingAttachmentInfo const *")
-        public VkRenderingAttachmentInfo pDepthAttachment() { return VkRenderingInfo.npDepthAttachment(address()); }
+        public @Nullable VkRenderingAttachmentInfo pDepthAttachment() { return VkRenderingInfo.npDepthAttachment(address()); }
         /** @return a {@link VkRenderingAttachmentInfo} view of the struct pointed to by the {@link VkRenderingInfo#pStencilAttachment} field. */
-        @Nullable
         @NativeType("VkRenderingAttachmentInfo const *")
-        public VkRenderingAttachmentInfo pStencilAttachment() { return VkRenderingInfo.npStencilAttachment(address()); }
+        public @Nullable VkRenderingAttachmentInfo pStencilAttachment() { return VkRenderingInfo.npStencilAttachment(address()); }
 
         /** Sets the specified value to the {@link VkRenderingInfo#sType} field. */
         public VkRenderingInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkRenderingInfo.nsType(address(), value); return this; }
@@ -613,7 +610,7 @@ public class VkRenderingInfo extends Struct<VkRenderingInfo> implements NativeRe
         /** Sets the specified value to the {@link VkRenderingInfo#viewMask} field. */
         public VkRenderingInfo.Buffer viewMask(@NativeType("uint32_t") int value) { VkRenderingInfo.nviewMask(address(), value); return this; }
         /** Sets the address of the specified {@link VkRenderingAttachmentInfo.Buffer} to the {@link VkRenderingInfo#pColorAttachments} field. */
-        public VkRenderingInfo.Buffer pColorAttachments(@Nullable @NativeType("VkRenderingAttachmentInfo const *") VkRenderingAttachmentInfo.Buffer value) { VkRenderingInfo.npColorAttachments(address(), value); return this; }
+        public VkRenderingInfo.Buffer pColorAttachments(@NativeType("VkRenderingAttachmentInfo const *") VkRenderingAttachmentInfo.@Nullable Buffer value) { VkRenderingInfo.npColorAttachments(address(), value); return this; }
         /** Sets the address of the specified {@link VkRenderingAttachmentInfo} to the {@link VkRenderingInfo#pDepthAttachment} field. */
         public VkRenderingInfo.Buffer pDepthAttachment(@Nullable @NativeType("VkRenderingAttachmentInfo const *") VkRenderingAttachmentInfo value) { VkRenderingInfo.npDepthAttachment(address(), value); return this; }
         /** Sets the address of the specified {@link VkRenderingAttachmentInfo} to the {@link VkRenderingInfo#pStencilAttachment} field. */

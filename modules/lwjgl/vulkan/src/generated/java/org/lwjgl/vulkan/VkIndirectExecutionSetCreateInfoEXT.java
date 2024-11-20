@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class VkIndirectExecutionSetCreateInfoEXT extends Struct<VkIndirectExecut
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectExecutionSetCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkIndirectExecutionSetCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkIndirectExecutionSetCreateInfoEXT(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkIndirectExecutionSetCreateInfoEXT extends Struct<VkIndirectExecut
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectExecutionSetCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkIndirectExecutionSetCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,20 +265,20 @@ public class VkIndirectExecutionSetCreateInfoEXT extends Struct<VkIndirectExecut
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkIndirectExecutionSetCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkIndirectExecutionSetCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkIndirectExecutionSetCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkIndirectExecutionSetCreateInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkIndirectExecutionSetCreateInfoEXT.TYPE); }
     /** Unsafe version of {@link #info}. */
     public static VkIndirectExecutionSetInfoEXT ninfo(long struct) { return VkIndirectExecutionSetInfoEXT.create(struct + VkIndirectExecutionSetCreateInfoEXT.INFO); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectExecutionSetCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkIndirectExecutionSetCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkIndirectExecutionSetCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectExecutionSetCreateInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkIndirectExecutionSetCreateInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #info(VkIndirectExecutionSetInfoEXT) info}. */
     public static void ninfo(long struct, VkIndirectExecutionSetInfoEXT value) { memCopy(value.address(), struct + VkIndirectExecutionSetCreateInfoEXT.INFO, VkIndirectExecutionSetInfoEXT.SIZEOF); }
 
@@ -315,6 +313,11 @@ public class VkIndirectExecutionSetCreateInfoEXT extends Struct<VkIndirectExecut
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

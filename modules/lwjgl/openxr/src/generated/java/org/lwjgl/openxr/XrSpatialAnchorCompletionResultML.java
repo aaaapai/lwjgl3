@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class XrSpatialAnchorCompletionResultML extends Struct<XrSpatialAnchorCom
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorCompletionResultML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorCompletionResultML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorCompletionResultML(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrSpatialAnchorCompletionResultML extends Struct<XrSpatialAnchorCom
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorCompletionResultML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorCompletionResultML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,12 +258,12 @@ public class XrSpatialAnchorCompletionResultML extends Struct<XrSpatialAnchorCom
     /** Unsafe version of {@link #uuid}. */
     public static XrUuidEXT nuuid(long struct) { return XrUuidEXT.create(struct + XrSpatialAnchorCompletionResultML.UUID); }
     /** Unsafe version of {@link #result}. */
-    public static int nresult(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorCompletionResultML.RESULT); }
+    public static int nresult(long struct) { return memGetInt(struct + XrSpatialAnchorCompletionResultML.RESULT); }
 
     /** Unsafe version of {@link #uuid(XrUuidEXT) uuid}. */
     public static void nuuid(long struct, XrUuidEXT value) { memCopy(value.address(), struct + XrSpatialAnchorCompletionResultML.UUID, XrUuidEXT.SIZEOF); }
     /** Unsafe version of {@link #result(int) result}. */
-    public static void nresult(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorCompletionResultML.RESULT, value); }
+    public static void nresult(long struct, int value) { memPutInt(struct + XrSpatialAnchorCompletionResultML.RESULT, value); }
 
     // -----------------------------------
 
@@ -298,6 +296,11 @@ public class XrSpatialAnchorCompletionResultML extends Struct<XrSpatialAnchorCom
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

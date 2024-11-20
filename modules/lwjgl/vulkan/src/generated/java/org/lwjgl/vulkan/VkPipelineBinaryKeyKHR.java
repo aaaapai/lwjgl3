@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -186,8 +186,7 @@ public class VkPipelineBinaryKeyKHR extends Struct<VkPipelineBinaryKeyKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineBinaryKeyKHR createSafe(long address) {
+    public static @Nullable VkPipelineBinaryKeyKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineBinaryKeyKHR(address, null);
     }
 
@@ -230,8 +229,7 @@ public class VkPipelineBinaryKeyKHR extends Struct<VkPipelineBinaryKeyKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineBinaryKeyKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineBinaryKeyKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,24 +274,24 @@ public class VkPipelineBinaryKeyKHR extends Struct<VkPipelineBinaryKeyKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineBinaryKeyKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineBinaryKeyKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineBinaryKeyKHR.PNEXT); }
     /** Unsafe version of {@link #keySize}. */
-    public static int nkeySize(long struct) { return UNSAFE.getInt(null, struct + VkPipelineBinaryKeyKHR.KEYSIZE); }
+    public static int nkeySize(long struct) { return memGetInt(struct + VkPipelineBinaryKeyKHR.KEYSIZE); }
     /** Unsafe version of {@link #key}. */
     public static ByteBuffer nkey(long struct) { return memByteBuffer(struct + VkPipelineBinaryKeyKHR.KEY, VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR); }
     /** Unsafe version of {@link #key(int) key}. */
     public static byte nkey(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkPipelineBinaryKeyKHR.KEY + check(index, VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR) * 1);
+        return memGetByte(struct + VkPipelineBinaryKeyKHR.KEY + check(index, VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR) * 1);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineBinaryKeyKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineBinaryKeyKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineBinaryKeyKHR.PNEXT, value); }
     /** Unsafe version of {@link #keySize(int) keySize}. */
-    public static void nkeySize(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineBinaryKeyKHR.KEYSIZE, value); }
+    public static void nkeySize(long struct, int value) { memPutInt(struct + VkPipelineBinaryKeyKHR.KEYSIZE, value); }
     /** Unsafe version of {@link #key(ByteBuffer) key}. */
     public static void nkey(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR); }
@@ -301,7 +299,7 @@ public class VkPipelineBinaryKeyKHR extends Struct<VkPipelineBinaryKeyKHR> imple
     }
     /** Unsafe version of {@link #key(int, byte) key}. */
     public static void nkey(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + VkPipelineBinaryKeyKHR.KEY + check(index, VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR) * 1, value);
+        memPutByte(struct + VkPipelineBinaryKeyKHR.KEY + check(index, VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR) * 1, value);
     }
 
     // -----------------------------------
@@ -335,6 +333,11 @@ public class VkPipelineBinaryKeyKHR extends Struct<VkPipelineBinaryKeyKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

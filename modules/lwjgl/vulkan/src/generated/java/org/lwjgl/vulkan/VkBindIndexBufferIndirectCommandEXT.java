@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkBindIndexBufferIndirectCommandEXT extends Struct<VkBindIndexBuffe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindIndexBufferIndirectCommandEXT createSafe(long address) {
+    public static @Nullable VkBindIndexBufferIndirectCommandEXT createSafe(long address) {
         return address == NULL ? null : new VkBindIndexBufferIndirectCommandEXT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkBindIndexBufferIndirectCommandEXT extends Struct<VkBindIndexBuffe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindIndexBufferIndirectCommandEXT.Buffer createSafe(long address, int capacity) {
+    public static VkBindIndexBufferIndirectCommandEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class VkBindIndexBufferIndirectCommandEXT extends Struct<VkBindIndexBuffe
     // -----------------------------------
 
     /** Unsafe version of {@link #bufferAddress}. */
-    public static long nbufferAddress(long struct) { return UNSAFE.getLong(null, struct + VkBindIndexBufferIndirectCommandEXT.BUFFERADDRESS); }
+    public static long nbufferAddress(long struct) { return memGetLong(struct + VkBindIndexBufferIndirectCommandEXT.BUFFERADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + VkBindIndexBufferIndirectCommandEXT.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + VkBindIndexBufferIndirectCommandEXT.SIZE); }
     /** Unsafe version of {@link #indexType}. */
-    public static int nindexType(long struct) { return UNSAFE.getInt(null, struct + VkBindIndexBufferIndirectCommandEXT.INDEXTYPE); }
+    public static int nindexType(long struct) { return memGetInt(struct + VkBindIndexBufferIndirectCommandEXT.INDEXTYPE); }
 
     /** Unsafe version of {@link #bufferAddress(long) bufferAddress}. */
-    public static void nbufferAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkBindIndexBufferIndirectCommandEXT.BUFFERADDRESS, value); }
+    public static void nbufferAddress(long struct, long value) { memPutLong(struct + VkBindIndexBufferIndirectCommandEXT.BUFFERADDRESS, value); }
     /** Unsafe version of {@link #size(int) size}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + VkBindIndexBufferIndirectCommandEXT.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + VkBindIndexBufferIndirectCommandEXT.SIZE, value); }
     /** Unsafe version of {@link #indexType(int) indexType}. */
-    public static void nindexType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindIndexBufferIndirectCommandEXT.INDEXTYPE, value); }
+    public static void nindexType(long struct, int value) { memPutInt(struct + VkBindIndexBufferIndirectCommandEXT.INDEXTYPE, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class VkBindIndexBufferIndirectCommandEXT extends Struct<VkBindIndexBuffe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

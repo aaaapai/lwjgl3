@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDevicePipelineProtectedAccessFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePipelineProtectedAccessFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePipelineProtectedAccessFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePipelineProtectedAccessFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDevicePipelineProtectedAccessFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDevicePipelineProtectedAccessFeaturesEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #pipelineProtectedAccess}. */
-    public static int npipelineProtectedAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.PIPELINEPROTECTEDACCESS); }
+    public static int npipelineProtectedAccess(long struct) { return memGetInt(struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.PIPELINEPROTECTEDACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #pipelineProtectedAccess(boolean) pipelineProtectedAccess}. */
-    public static void npipelineProtectedAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.PIPELINEPROTECTEDACCESS, value); }
+    public static void npipelineProtectedAccess(long struct, int value) { memPutInt(struct + VkPhysicalDevicePipelineProtectedAccessFeaturesEXT.PIPELINEPROTECTEDACCESS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDevicePipelineProtectedAccessFeaturesEXT extends Struct<V
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -154,8 +154,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyProperties createSafe(long address) {
+    public static @Nullable VkQueueFamilyProperties createSafe(long address) {
         return address == NULL ? null : new VkQueueFamilyProperties(address, null);
     }
 
@@ -198,8 +197,7 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyProperties.Buffer createSafe(long address, int capacity) {
+    public static VkQueueFamilyProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,11 +261,11 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #queueFlags}. */
-    public static int nqueueFlags(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyProperties.QUEUEFLAGS); }
+    public static int nqueueFlags(long struct) { return memGetInt(struct + VkQueueFamilyProperties.QUEUEFLAGS); }
     /** Unsafe version of {@link #queueCount}. */
-    public static int nqueueCount(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyProperties.QUEUECOUNT); }
+    public static int nqueueCount(long struct) { return memGetInt(struct + VkQueueFamilyProperties.QUEUECOUNT); }
     /** Unsafe version of {@link #timestampValidBits}. */
-    public static int ntimestampValidBits(long struct) { return UNSAFE.getInt(null, struct + VkQueueFamilyProperties.TIMESTAMPVALIDBITS); }
+    public static int ntimestampValidBits(long struct) { return memGetInt(struct + VkQueueFamilyProperties.TIMESTAMPVALIDBITS); }
     /** Unsafe version of {@link #minImageTransferGranularity}. */
     public static VkExtent3D nminImageTransferGranularity(long struct) { return VkExtent3D.create(struct + VkQueueFamilyProperties.MINIMAGETRANSFERGRANULARITY); }
 
@@ -302,6 +300,11 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

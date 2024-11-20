@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR}</li>
+ * <li>{@code sType} <b>must</b> be {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR}</li>
  * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageView} <b>must</b> be a valid {@code VkImageView} handle</li>
  * <li>{@code imageLayout} <b>must</b> be a valid {@code VkImageLayout} value</li>
  * </ul>
@@ -134,8 +134,8 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRe
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkRenderingFragmentShadingRateAttachmentInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR} value to the {@link #sType} field. */
-    public VkRenderingFragmentShadingRateAttachmentInfoKHR sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR); }
+    /** Sets the {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR} value to the {@link #sType} field. */
+    public VkRenderingFragmentShadingRateAttachmentInfoKHR sType$Default() { return sType(KHRFragmentShadingRate.VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkRenderingFragmentShadingRateAttachmentInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@link #imageView} field. */
@@ -200,8 +200,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingFragmentShadingRateAttachmentInfoKHR createSafe(long address) {
+    public static @Nullable VkRenderingFragmentShadingRateAttachmentInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRenderingFragmentShadingRateAttachmentInfoKHR(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRenderingFragmentShadingRateAttachmentInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,24 +288,24 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.PNEXT); }
     /** Unsafe version of {@link #imageView}. */
-    public static long nimageView(long struct) { return UNSAFE.getLong(null, struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGEVIEW); }
+    public static long nimageView(long struct) { return memGetLong(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGEVIEW); }
     /** Unsafe version of {@link #imageLayout}. */
-    public static int nimageLayout(long struct) { return UNSAFE.getInt(null, struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGELAYOUT); }
+    public static int nimageLayout(long struct) { return memGetInt(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGELAYOUT); }
     /** Unsafe version of {@link #shadingRateAttachmentTexelSize}. */
     public static VkExtent2D nshadingRateAttachmentTexelSize(long struct) { return VkExtent2D.create(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.SHADINGRATEATTACHMENTTEXELSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #imageView(long) imageView}. */
-    public static void nimageView(long struct, long value) { UNSAFE.putLong(null, struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGEVIEW, value); }
+    public static void nimageView(long struct, long value) { memPutLong(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGEVIEW, value); }
     /** Unsafe version of {@link #imageLayout(int) imageLayout}. */
-    public static void nimageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGELAYOUT, value); }
+    public static void nimageLayout(long struct, int value) { memPutInt(struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.IMAGELAYOUT, value); }
     /** Unsafe version of {@link #shadingRateAttachmentTexelSize(VkExtent2D) shadingRateAttachmentTexelSize}. */
     public static void nshadingRateAttachmentTexelSize(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkRenderingFragmentShadingRateAttachmentInfoKHR.SHADINGRATEATTACHMENTTEXELSIZE, VkExtent2D.SIZEOF); }
 
@@ -345,6 +343,11 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderingFragmentShadingRateAttachmentInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -366,8 +369,8 @@ public class VkRenderingFragmentShadingRateAttachmentInfoKHR extends Struct<VkRe
 
         /** Sets the specified value to the {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#sType} field. */
         public VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkRenderingFragmentShadingRateAttachmentInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRDynamicRendering#VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR} value to the {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#sType} field. */
-        public VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer sType$Default() { return sType(KHRDynamicRendering.VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR); }
+        /** Sets the {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR} value to the {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#sType} field. */
+        public VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer sType$Default() { return sType(KHRFragmentShadingRate.VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR); }
         /** Sets the specified value to the {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#pNext} field. */
         public VkRenderingFragmentShadingRateAttachmentInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkRenderingFragmentShadingRateAttachmentInfoKHR.npNext(address(), value); return this; }
         /** Sets the specified value to the {@link VkRenderingFragmentShadingRateAttachmentInfoKHR#imageView} field. */

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyCommandTransformInfoQCOM createSafe(long address) {
+    public static @Nullable VkCopyCommandTransformInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkCopyCommandTransformInfoQCOM(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyCommandTransformInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkCopyCommandTransformInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCopyCommandTransformInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCopyCommandTransformInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCopyCommandTransformInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #transform}. */
-    public static int ntransform(long struct) { return UNSAFE.getInt(null, struct + VkCopyCommandTransformInfoQCOM.TRANSFORM); }
+    public static int ntransform(long struct) { return memGetInt(struct + VkCopyCommandTransformInfoQCOM.TRANSFORM); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyCommandTransformInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCopyCommandTransformInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCopyCommandTransformInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #transform(int) transform}. */
-    public static void ntransform(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyCommandTransformInfoQCOM.TRANSFORM, value); }
+    public static void ntransform(long struct, int value) { memPutInt(struct + VkCopyCommandTransformInfoQCOM.TRANSFORM, value); }
 
     // -----------------------------------
 
@@ -300,6 +298,11 @@ public class VkCopyCommandTransformInfoQCOM extends Struct<VkCopyCommandTransfor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,16 +129,14 @@ public class VkPipelineBinaryCreateInfoKHR extends Struct<VkPipelineBinaryCreate
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** {@code NULL} or a pointer to a {@link VkPipelineBinaryKeysAndDataKHR} structure that contains keys and data to create the pipeline binaries from. */
-    @Nullable
     @NativeType("VkPipelineBinaryKeysAndDataKHR const *")
-    public VkPipelineBinaryKeysAndDataKHR pKeysAndDataInfo() { return npKeysAndDataInfo(address()); }
+    public @Nullable VkPipelineBinaryKeysAndDataKHR pKeysAndDataInfo() { return npKeysAndDataInfo(address()); }
     /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a {@code VkPipeline} that contains data to create the pipeline binaries from. */
     @NativeType("VkPipeline")
     public long pipeline() { return npipeline(address()); }
     /** {@code NULL} or a pointer to a {@link VkPipelineCreateInfoKHR} structure with the pipeline creation info. This is used to probe the implementation’s internal cache for pipeline binaries. */
-    @Nullable
     @NativeType("VkPipelineCreateInfoKHR const *")
-    public VkPipelineCreateInfoKHR pPipelineCreateInfo() { return npPipelineCreateInfo(address()); }
+    public @Nullable VkPipelineCreateInfoKHR pPipelineCreateInfo() { return npPipelineCreateInfo(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineBinaryCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -206,8 +204,7 @@ public class VkPipelineBinaryCreateInfoKHR extends Struct<VkPipelineBinaryCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineBinaryCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkPipelineBinaryCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineBinaryCreateInfoKHR(address, null);
     }
 
@@ -250,8 +247,7 @@ public class VkPipelineBinaryCreateInfoKHR extends Struct<VkPipelineBinaryCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineBinaryCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineBinaryCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,24 +292,24 @@ public class VkPipelineBinaryCreateInfoKHR extends Struct<VkPipelineBinaryCreate
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineBinaryCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineBinaryCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineBinaryCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pKeysAndDataInfo}. */
-    @Nullable public static VkPipelineBinaryKeysAndDataKHR npKeysAndDataInfo(long struct) { return VkPipelineBinaryKeysAndDataKHR.createSafe(memGetAddress(struct + VkPipelineBinaryCreateInfoKHR.PKEYSANDDATAINFO)); }
+    public static @Nullable VkPipelineBinaryKeysAndDataKHR npKeysAndDataInfo(long struct) { return VkPipelineBinaryKeysAndDataKHR.createSafe(memGetAddress(struct + VkPipelineBinaryCreateInfoKHR.PKEYSANDDATAINFO)); }
     /** Unsafe version of {@link #pipeline}. */
-    public static long npipeline(long struct) { return UNSAFE.getLong(null, struct + VkPipelineBinaryCreateInfoKHR.PIPELINE); }
+    public static long npipeline(long struct) { return memGetLong(struct + VkPipelineBinaryCreateInfoKHR.PIPELINE); }
     /** Unsafe version of {@link #pPipelineCreateInfo}. */
-    @Nullable public static VkPipelineCreateInfoKHR npPipelineCreateInfo(long struct) { return VkPipelineCreateInfoKHR.createSafe(memGetAddress(struct + VkPipelineBinaryCreateInfoKHR.PPIPELINECREATEINFO)); }
+    public static @Nullable VkPipelineCreateInfoKHR npPipelineCreateInfo(long struct) { return VkPipelineCreateInfoKHR.createSafe(memGetAddress(struct + VkPipelineBinaryCreateInfoKHR.PPIPELINECREATEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineBinaryCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineBinaryCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineBinaryCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pKeysAndDataInfo(VkPipelineBinaryKeysAndDataKHR) pKeysAndDataInfo}. */
     public static void npKeysAndDataInfo(long struct, @Nullable VkPipelineBinaryKeysAndDataKHR value) { memPutAddress(struct + VkPipelineBinaryCreateInfoKHR.PKEYSANDDATAINFO, memAddressSafe(value)); }
     /** Unsafe version of {@link #pipeline(long) pipeline}. */
-    public static void npipeline(long struct, long value) { UNSAFE.putLong(null, struct + VkPipelineBinaryCreateInfoKHR.PIPELINE, value); }
+    public static void npipeline(long struct, long value) { memPutLong(struct + VkPipelineBinaryCreateInfoKHR.PIPELINE, value); }
     /** Unsafe version of {@link #pPipelineCreateInfo(VkPipelineCreateInfoKHR) pPipelineCreateInfo}. */
     public static void npPipelineCreateInfo(long struct, @Nullable VkPipelineCreateInfoKHR value) { memPutAddress(struct + VkPipelineBinaryCreateInfoKHR.PPIPELINECREATEINFO, memAddressSafe(value)); }
 
@@ -363,6 +359,11 @@ public class VkPipelineBinaryCreateInfoKHR extends Struct<VkPipelineBinaryCreate
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineBinaryCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -374,16 +375,14 @@ public class VkPipelineBinaryCreateInfoKHR extends Struct<VkPipelineBinaryCreate
         @NativeType("void const *")
         public long pNext() { return VkPipelineBinaryCreateInfoKHR.npNext(address()); }
         /** @return a {@link VkPipelineBinaryKeysAndDataKHR} view of the struct pointed to by the {@link VkPipelineBinaryCreateInfoKHR#pKeysAndDataInfo} field. */
-        @Nullable
         @NativeType("VkPipelineBinaryKeysAndDataKHR const *")
-        public VkPipelineBinaryKeysAndDataKHR pKeysAndDataInfo() { return VkPipelineBinaryCreateInfoKHR.npKeysAndDataInfo(address()); }
+        public @Nullable VkPipelineBinaryKeysAndDataKHR pKeysAndDataInfo() { return VkPipelineBinaryCreateInfoKHR.npKeysAndDataInfo(address()); }
         /** @return the value of the {@link VkPipelineBinaryCreateInfoKHR#pipeline} field. */
         @NativeType("VkPipeline")
         public long pipeline() { return VkPipelineBinaryCreateInfoKHR.npipeline(address()); }
         /** @return a {@link VkPipelineCreateInfoKHR} view of the struct pointed to by the {@link VkPipelineBinaryCreateInfoKHR#pPipelineCreateInfo} field. */
-        @Nullable
         @NativeType("VkPipelineCreateInfoKHR const *")
-        public VkPipelineCreateInfoKHR pPipelineCreateInfo() { return VkPipelineBinaryCreateInfoKHR.npPipelineCreateInfo(address()); }
+        public @Nullable VkPipelineCreateInfoKHR pPipelineCreateInfo() { return VkPipelineBinaryCreateInfoKHR.npPipelineCreateInfo(address()); }
 
         /** Sets the specified value to the {@link VkPipelineBinaryCreateInfoKHR#sType} field. */
         public VkPipelineBinaryCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineBinaryCreateInfoKHR.nsType(address(), value); return this; }

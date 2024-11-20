@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -240,8 +240,7 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemProperties createSafe(long address) {
+    public static @Nullable XrSystemProperties createSafe(long address) {
         return address == NULL ? null : new XrSystemProperties(address, null);
     }
 
@@ -284,8 +283,7 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemProperties.Buffer createSafe(long address, int capacity) {
+    public static XrSystemProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -330,13 +328,13 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemProperties.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemProperties.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemProperties.NEXT); }
     /** Unsafe version of {@link #systemId}. */
-    public static long nsystemId(long struct) { return UNSAFE.getLong(null, struct + XrSystemProperties.SYSTEMID); }
+    public static long nsystemId(long struct) { return memGetLong(struct + XrSystemProperties.SYSTEMID); }
     /** Unsafe version of {@link #vendorId}. */
-    public static int nvendorId(long struct) { return UNSAFE.getInt(null, struct + XrSystemProperties.VENDORID); }
+    public static int nvendorId(long struct) { return memGetInt(struct + XrSystemProperties.VENDORID); }
     /** Unsafe version of {@link #systemName}. */
     public static ByteBuffer nsystemName(long struct) { return memByteBuffer(struct + XrSystemProperties.SYSTEMNAME, XR_MAX_SYSTEM_NAME_SIZE); }
     /** Unsafe version of {@link #systemNameString}. */
@@ -347,7 +345,7 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public static XrSystemTrackingProperties ntrackingProperties(long struct) { return XrSystemTrackingProperties.create(struct + XrSystemProperties.TRACKINGPROPERTIES); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemProperties.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemProperties.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemProperties.NEXT, value); }
 
@@ -382,6 +380,11 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

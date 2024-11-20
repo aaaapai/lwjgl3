@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -214,8 +214,7 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSubmitInfo createSafe(long address) {
+    public static @Nullable VkSemaphoreSubmitInfo createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreSubmitInfo(address, null);
     }
 
@@ -258,8 +257,7 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSubmitInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreSubmitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,30 +302,30 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreSubmitInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSemaphoreSubmitInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSemaphoreSubmitInfo.PNEXT); }
     /** Unsafe version of {@link #semaphore}. */
-    public static long nsemaphore(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSubmitInfo.SEMAPHORE); }
+    public static long nsemaphore(long struct) { return memGetLong(struct + VkSemaphoreSubmitInfo.SEMAPHORE); }
     /** Unsafe version of {@link #value}. */
-    public static long nvalue(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSubmitInfo.VALUE); }
+    public static long nvalue(long struct) { return memGetLong(struct + VkSemaphoreSubmitInfo.VALUE); }
     /** Unsafe version of {@link #stageMask}. */
-    public static long nstageMask(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSubmitInfo.STAGEMASK); }
+    public static long nstageMask(long struct) { return memGetLong(struct + VkSemaphoreSubmitInfo.STAGEMASK); }
     /** Unsafe version of {@link #deviceIndex}. */
-    public static int ndeviceIndex(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreSubmitInfo.DEVICEINDEX); }
+    public static int ndeviceIndex(long struct) { return memGetInt(struct + VkSemaphoreSubmitInfo.DEVICEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreSubmitInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSemaphoreSubmitInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSemaphoreSubmitInfo.PNEXT, value); }
     /** Unsafe version of {@link #semaphore(long) semaphore}. */
-    public static void nsemaphore(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSubmitInfo.SEMAPHORE, value); }
+    public static void nsemaphore(long struct, long value) { memPutLong(struct + VkSemaphoreSubmitInfo.SEMAPHORE, value); }
     /** Unsafe version of {@link #value(long) value}. */
-    public static void nvalue(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSubmitInfo.VALUE, value); }
+    public static void nvalue(long struct, long value) { memPutLong(struct + VkSemaphoreSubmitInfo.VALUE, value); }
     /** Unsafe version of {@link #stageMask(long) stageMask}. */
-    public static void nstageMask(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSubmitInfo.STAGEMASK, value); }
+    public static void nstageMask(long struct, long value) { memPutLong(struct + VkSemaphoreSubmitInfo.STAGEMASK, value); }
     /** Unsafe version of {@link #deviceIndex(int) deviceIndex}. */
-    public static void ndeviceIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreSubmitInfo.DEVICEINDEX, value); }
+    public static void ndeviceIndex(long struct, int value) { memPutInt(struct + VkSemaphoreSubmitInfo.DEVICEINDEX, value); }
 
     // -----------------------------------
 
@@ -360,6 +358,11 @@ public class VkSemaphoreSubmitInfo extends Struct<VkSemaphoreSubmitInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

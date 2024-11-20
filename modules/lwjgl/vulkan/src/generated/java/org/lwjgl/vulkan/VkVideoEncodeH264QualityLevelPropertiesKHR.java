@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -207,8 +207,7 @@ public class VkVideoEncodeH264QualityLevelPropertiesKHR extends Struct<VkVideoEn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264QualityLevelPropertiesKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264QualityLevelPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264QualityLevelPropertiesKHR(address, null);
     }
 
@@ -251,8 +250,7 @@ public class VkVideoEncodeH264QualityLevelPropertiesKHR extends Struct<VkVideoEn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264QualityLevelPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264QualityLevelPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -297,30 +295,30 @@ public class VkVideoEncodeH264QualityLevelPropertiesKHR extends Struct<VkVideoEn
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #preferredRateControlFlags}. */
-    public static int npreferredRateControlFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDRATECONTROLFLAGS); }
+    public static int npreferredRateControlFlags(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDRATECONTROLFLAGS); }
     /** Unsafe version of {@link #preferredGopFrameCount}. */
-    public static int npreferredGopFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDGOPFRAMECOUNT); }
+    public static int npreferredGopFrameCount(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDGOPFRAMECOUNT); }
     /** Unsafe version of {@link #preferredIdrPeriod}. */
-    public static int npreferredIdrPeriod(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDIDRPERIOD); }
+    public static int npreferredIdrPeriod(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDIDRPERIOD); }
     /** Unsafe version of {@link #preferredConsecutiveBFrameCount}. */
-    public static int npreferredConsecutiveBFrameCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDCONSECUTIVEBFRAMECOUNT); }
+    public static int npreferredConsecutiveBFrameCount(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDCONSECUTIVEBFRAMECOUNT); }
     /** Unsafe version of {@link #preferredTemporalLayerCount}. */
-    public static int npreferredTemporalLayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDTEMPORALLAYERCOUNT); }
+    public static int npreferredTemporalLayerCount(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDTEMPORALLAYERCOUNT); }
     /** Unsafe version of {@link #preferredConstantQp}. */
     public static VkVideoEncodeH264QpKHR npreferredConstantQp(long struct) { return VkVideoEncodeH264QpKHR.create(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDCONSTANTQP); }
     /** Unsafe version of {@link #preferredMaxL0ReferenceCount}. */
-    public static int npreferredMaxL0ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDMAXL0REFERENCECOUNT); }
+    public static int npreferredMaxL0ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDMAXL0REFERENCECOUNT); }
     /** Unsafe version of {@link #preferredMaxL1ReferenceCount}. */
-    public static int npreferredMaxL1ReferenceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDMAXL1REFERENCECOUNT); }
+    public static int npreferredMaxL1ReferenceCount(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDMAXL1REFERENCECOUNT); }
     /** Unsafe version of {@link #preferredStdEntropyCodingModeFlag}. */
-    public static int npreferredStdEntropyCodingModeFlag(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDSTDENTROPYCODINGMODEFLAG); }
+    public static int npreferredStdEntropyCodingModeFlag(long struct) { return memGetInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PREFERREDSTDENTROPYCODINGMODEFLAG); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264QualityLevelPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264QualityLevelPropertiesKHR.PNEXT, value); }
 
@@ -355,6 +353,11 @@ public class VkVideoEncodeH264QualityLevelPropertiesKHR extends Struct<VkVideoEn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

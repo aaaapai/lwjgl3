@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearAttachment createSafe(long address) {
+    public static @Nullable VkClearAttachment createSafe(long address) {
         return address == NULL ? null : new VkClearAttachment(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearAttachment.Buffer createSafe(long address, int capacity) {
+    public static VkClearAttachment.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,16 +271,16 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #aspectMask}. */
-    public static int naspectMask(long struct) { return UNSAFE.getInt(null, struct + VkClearAttachment.ASPECTMASK); }
+    public static int naspectMask(long struct) { return memGetInt(struct + VkClearAttachment.ASPECTMASK); }
     /** Unsafe version of {@link #colorAttachment}. */
-    public static int ncolorAttachment(long struct) { return UNSAFE.getInt(null, struct + VkClearAttachment.COLORATTACHMENT); }
+    public static int ncolorAttachment(long struct) { return memGetInt(struct + VkClearAttachment.COLORATTACHMENT); }
     /** Unsafe version of {@link #clearValue}. */
     public static VkClearValue nclearValue(long struct) { return VkClearValue.create(struct + VkClearAttachment.CLEARVALUE); }
 
     /** Unsafe version of {@link #aspectMask(int) aspectMask}. */
-    public static void naspectMask(long struct, int value) { UNSAFE.putInt(null, struct + VkClearAttachment.ASPECTMASK, value); }
+    public static void naspectMask(long struct, int value) { memPutInt(struct + VkClearAttachment.ASPECTMASK, value); }
     /** Unsafe version of {@link #colorAttachment(int) colorAttachment}. */
-    public static void ncolorAttachment(long struct, int value) { UNSAFE.putInt(null, struct + VkClearAttachment.COLORATTACHMENT, value); }
+    public static void ncolorAttachment(long struct, int value) { memPutInt(struct + VkClearAttachment.COLORATTACHMENT, value); }
     /** Unsafe version of {@link #clearValue(VkClearValue) clearValue}. */
     public static void nclearValue(long struct, VkClearValue value) { memCopy(value.address(), struct + VkClearAttachment.CLEARVALUE, VkClearValue.SIZEOF); }
 
@@ -317,6 +315,11 @@ public class VkClearAttachment extends Struct<VkClearAttachment> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

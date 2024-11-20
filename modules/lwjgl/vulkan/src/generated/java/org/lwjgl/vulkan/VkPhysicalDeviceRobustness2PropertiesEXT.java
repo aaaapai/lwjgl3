@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkPhysicalDeviceRobustness2PropertiesEXT extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRobustness2PropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRobustness2PropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRobustness2PropertiesEXT(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkPhysicalDeviceRobustness2PropertiesEXT extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRobustness2PropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRobustness2PropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,16 +247,16 @@ public class VkPhysicalDeviceRobustness2PropertiesEXT extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRobustness2PropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRobustness2PropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRobustness2PropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #robustStorageBufferAccessSizeAlignment}. */
-    public static long nrobustStorageBufferAccessSizeAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceRobustness2PropertiesEXT.ROBUSTSTORAGEBUFFERACCESSSIZEALIGNMENT); }
+    public static long nrobustStorageBufferAccessSizeAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceRobustness2PropertiesEXT.ROBUSTSTORAGEBUFFERACCESSSIZEALIGNMENT); }
     /** Unsafe version of {@link #robustUniformBufferAccessSizeAlignment}. */
-    public static long nrobustUniformBufferAccessSizeAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceRobustness2PropertiesEXT.ROBUSTUNIFORMBUFFERACCESSSIZEALIGNMENT); }
+    public static long nrobustUniformBufferAccessSizeAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceRobustness2PropertiesEXT.ROBUSTUNIFORMBUFFERACCESSSIZEALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRobustness2PropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRobustness2PropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRobustness2PropertiesEXT.PNEXT, value); }
 
@@ -293,6 +291,11 @@ public class VkPhysicalDeviceRobustness2PropertiesEXT extends Struct<VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

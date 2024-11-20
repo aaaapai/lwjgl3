@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -277,8 +277,7 @@ public class VkIndirectCommandsLayoutCreateInfoEXT extends Struct<VkIndirectComm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsLayoutCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkIndirectCommandsLayoutCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkIndirectCommandsLayoutCreateInfoEXT(address, null);
     }
 
@@ -321,8 +320,7 @@ public class VkIndirectCommandsLayoutCreateInfoEXT extends Struct<VkIndirectComm
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsLayoutCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkIndirectCommandsLayoutCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -367,36 +365,36 @@ public class VkIndirectCommandsLayoutCreateInfoEXT extends Struct<VkIndirectComm
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkIndirectCommandsLayoutCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.FLAGS); }
     /** Unsafe version of {@link #shaderStages}. */
-    public static int nshaderStages(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.SHADERSTAGES); }
+    public static int nshaderStages(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.SHADERSTAGES); }
     /** Unsafe version of {@link #indirectStride}. */
-    public static int nindirectStride(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.INDIRECTSTRIDE); }
+    public static int nindirectStride(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.INDIRECTSTRIDE); }
     /** Unsafe version of {@link #pipelineLayout}. */
-    public static long npipelineLayout(long struct) { return UNSAFE.getLong(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.PIPELINELAYOUT); }
+    public static long npipelineLayout(long struct) { return memGetLong(struct + VkIndirectCommandsLayoutCreateInfoEXT.PIPELINELAYOUT); }
     /** Unsafe version of {@link #tokenCount}. */
-    public static int ntokenCount(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.TOKENCOUNT); }
+    public static int ntokenCount(long struct) { return memGetInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.TOKENCOUNT); }
     /** Unsafe version of {@link #pTokens}. */
     public static VkIndirectCommandsLayoutTokenEXT.Buffer npTokens(long struct) { return VkIndirectCommandsLayoutTokenEXT.create(memGetAddress(struct + VkIndirectCommandsLayoutCreateInfoEXT.PTOKENS), ntokenCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkIndirectCommandsLayoutCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #shaderStages(int) shaderStages}. */
-    public static void nshaderStages(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.SHADERSTAGES, value); }
+    public static void nshaderStages(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.SHADERSTAGES, value); }
     /** Unsafe version of {@link #indirectStride(int) indirectStride}. */
-    public static void nindirectStride(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.INDIRECTSTRIDE, value); }
+    public static void nindirectStride(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.INDIRECTSTRIDE, value); }
     /** Unsafe version of {@link #pipelineLayout(long) pipelineLayout}. */
-    public static void npipelineLayout(long struct, long value) { UNSAFE.putLong(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.PIPELINELAYOUT, value); }
+    public static void npipelineLayout(long struct, long value) { memPutLong(struct + VkIndirectCommandsLayoutCreateInfoEXT.PIPELINELAYOUT, value); }
     /** Sets the specified value to the {@code tokenCount} field of the specified {@code struct}. */
-    public static void ntokenCount(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsLayoutCreateInfoEXT.TOKENCOUNT, value); }
+    public static void ntokenCount(long struct, int value) { memPutInt(struct + VkIndirectCommandsLayoutCreateInfoEXT.TOKENCOUNT, value); }
     /** Unsafe version of {@link #pTokens(VkIndirectCommandsLayoutTokenEXT.Buffer) pTokens}. */
     public static void npTokens(long struct, VkIndirectCommandsLayoutTokenEXT.Buffer value) { memPutAddress(struct + VkIndirectCommandsLayoutCreateInfoEXT.PTOKENS, value.address()); ntokenCount(struct, value.remaining()); }
 
@@ -440,6 +438,11 @@ public class VkIndirectCommandsLayoutCreateInfoEXT extends Struct<VkIndirectComm
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -189,8 +189,7 @@ public class VkDescriptorBufferBindingInfoEXT extends Struct<VkDescriptorBufferB
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferBindingInfoEXT createSafe(long address) {
+    public static @Nullable VkDescriptorBufferBindingInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDescriptorBufferBindingInfoEXT(address, null);
     }
 
@@ -233,8 +232,7 @@ public class VkDescriptorBufferBindingInfoEXT extends Struct<VkDescriptorBufferB
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferBindingInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorBufferBindingInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,22 +277,22 @@ public class VkDescriptorBufferBindingInfoEXT extends Struct<VkDescriptorBufferB
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorBufferBindingInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorBufferBindingInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorBufferBindingInfoEXT.PNEXT); }
     /** Unsafe version of {@link #address$}. */
-    public static long naddress$(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferBindingInfoEXT.ADDRESS); }
+    public static long naddress$(long struct) { return memGetLong(struct + VkDescriptorBufferBindingInfoEXT.ADDRESS); }
     /** Unsafe version of {@link #usage}. */
-    public static int nusage(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorBufferBindingInfoEXT.USAGE); }
+    public static int nusage(long struct) { return memGetInt(struct + VkDescriptorBufferBindingInfoEXT.USAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorBufferBindingInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorBufferBindingInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorBufferBindingInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #address$(long) address$}. */
-    public static void naddress$(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferBindingInfoEXT.ADDRESS, value); }
+    public static void naddress$(long struct, long value) { memPutLong(struct + VkDescriptorBufferBindingInfoEXT.ADDRESS, value); }
     /** Unsafe version of {@link #usage(int) usage}. */
-    public static void nusage(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorBufferBindingInfoEXT.USAGE, value); }
+    public static void nusage(long struct, int value) { memPutInt(struct + VkDescriptorBufferBindingInfoEXT.USAGE, value); }
 
     // -----------------------------------
 
@@ -327,6 +325,11 @@ public class VkDescriptorBufferBindingInfoEXT extends Struct<VkDescriptorBufferB
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

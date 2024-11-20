@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -166,8 +166,7 @@ public class VkPhysicalDeviceMaintenance6PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance6PropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance6PropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance6PropertiesKHR(address, null);
     }
 
@@ -210,8 +209,7 @@ public class VkPhysicalDeviceMaintenance6PropertiesKHR extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance6PropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance6PropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +254,18 @@ public class VkPhysicalDeviceMaintenance6PropertiesKHR extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance6PropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #blockTexelViewCompatibleMultipleLayers}. */
-    public static int nblockTexelViewCompatibleMultipleLayers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance6PropertiesKHR.BLOCKTEXELVIEWCOMPATIBLEMULTIPLELAYERS); }
+    public static int nblockTexelViewCompatibleMultipleLayers(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.BLOCKTEXELVIEWCOMPATIBLEMULTIPLELAYERS); }
     /** Unsafe version of {@link #maxCombinedImageSamplerDescriptorCount}. */
-    public static int nmaxCombinedImageSamplerDescriptorCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance6PropertiesKHR.MAXCOMBINEDIMAGESAMPLERDESCRIPTORCOUNT); }
+    public static int nmaxCombinedImageSamplerDescriptorCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.MAXCOMBINEDIMAGESAMPLERDESCRIPTORCOUNT); }
     /** Unsafe version of {@link #fragmentShadingRateClampCombinerInputs}. */
-    public static int nfragmentShadingRateClampCombinerInputs(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance6PropertiesKHR.FRAGMENTSHADINGRATECLAMPCOMBINERINPUTS); }
+    public static int nfragmentShadingRateClampCombinerInputs(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.FRAGMENTSHADINGRATECLAMPCOMBINERINPUTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance6PropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance6PropertiesKHR.PNEXT, value); }
 
@@ -302,6 +300,11 @@ public class VkPhysicalDeviceMaintenance6PropertiesKHR extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

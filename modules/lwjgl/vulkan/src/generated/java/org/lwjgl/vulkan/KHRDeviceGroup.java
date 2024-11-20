@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -492,7 +492,7 @@ public class KHRDeviceGroup {
      * @param pRects         either {@code NULL} or a pointer to an array of {@link VkRect2D} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") IntBuffer pRectCount, @Nullable @NativeType("VkRect2D *") VkRect2D.Buffer pRects) {
+    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") IntBuffer pRectCount, @NativeType("VkRect2D *") VkRect2D.@Nullable Buffer pRects) {
         if (CHECKS) {
             check(pRectCount, 1);
             checkSafe(pRects, pRectCount.get(pRectCount.position()));
@@ -569,7 +569,7 @@ public class KHRDeviceGroup {
      *
      * @param device       the device associated with {@code swapchain}.
      * @param pAcquireInfo a pointer to a {@link VkAcquireNextImageInfoKHR} structure containing parameters of the acquire.
-     * @param pImageIndex  a pointer to a {@code uint32_t} that is set to the index of the next image to use.
+     * @param pImageIndex  a pointer to a {@code uint32_t} value specifying the index of the next image to use.
      */
     @NativeType("VkResult")
     public static int vkAcquireNextImage2KHR(VkDevice device, @NativeType("VkAcquireNextImageInfoKHR const *") VkAcquireNextImageInfoKHR pAcquireInfo, @NativeType("uint32_t *") IntBuffer pImageIndex) {
@@ -602,7 +602,7 @@ public class KHRDeviceGroup {
 
     /** Array version of: {@link #vkGetPhysicalDevicePresentRectanglesKHR GetPhysicalDevicePresentRectanglesKHR} */
     @NativeType("VkResult")
-    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") int[] pRectCount, @Nullable @NativeType("VkRect2D *") VkRect2D.Buffer pRects) {
+    public static int vkGetPhysicalDevicePresentRectanglesKHR(VkPhysicalDevice physicalDevice, @NativeType("VkSurfaceKHR") long surface, @NativeType("uint32_t *") int[] pRectCount, @NativeType("VkRect2D *") VkRect2D.@Nullable Buffer pRects) {
         long __functionAddress = physicalDevice.getCapabilities().vkGetPhysicalDevicePresentRectanglesKHR;
         if (CHECKS) {
             check(__functionAddress);

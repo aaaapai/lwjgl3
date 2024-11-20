@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -193,8 +193,7 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264GopRemainingFrameInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeH264GopRemainingFrameInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeH264GopRemainingFrameInfoKHR(address, null);
     }
 
@@ -237,8 +236,7 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeH264GopRemainingFrameInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeH264GopRemainingFrameInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,30 +281,30 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.PNEXT); }
     /** Unsafe version of {@link #useGopRemainingFrames}. */
-    public static int nuseGopRemainingFrames(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES); }
+    public static int nuseGopRemainingFrames(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES); }
     /** Unsafe version of {@link #gopRemainingI}. */
-    public static int ngopRemainingI(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI); }
+    public static int ngopRemainingI(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI); }
     /** Unsafe version of {@link #gopRemainingP}. */
-    public static int ngopRemainingP(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP); }
+    public static int ngopRemainingP(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP); }
     /** Unsafe version of {@link #gopRemainingB}. */
-    public static int ngopRemainingB(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB); }
+    public static int ngopRemainingB(long struct) { return memGetInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #useGopRemainingFrames(boolean) useGopRemainingFrames}. */
-    public static void nuseGopRemainingFrames(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES, value); }
+    public static void nuseGopRemainingFrames(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.USEGOPREMAININGFRAMES, value); }
     /** Unsafe version of {@link #gopRemainingI(int) gopRemainingI}. */
-    public static void ngopRemainingI(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI, value); }
+    public static void ngopRemainingI(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGI, value); }
     /** Unsafe version of {@link #gopRemainingP(int) gopRemainingP}. */
-    public static void ngopRemainingP(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP, value); }
+    public static void ngopRemainingP(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGP, value); }
     /** Unsafe version of {@link #gopRemainingB(int) gopRemainingB}. */
-    public static void ngopRemainingB(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB, value); }
+    public static void ngopRemainingB(long struct, int value) { memPutInt(struct + VkVideoEncodeH264GopRemainingFrameInfoKHR.GOPREMAININGB, value); }
 
     // -----------------------------------
 
@@ -339,6 +337,11 @@ public class VkVideoEncodeH264GopRemainingFrameInfoKHR extends Struct<VkVideoEnc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

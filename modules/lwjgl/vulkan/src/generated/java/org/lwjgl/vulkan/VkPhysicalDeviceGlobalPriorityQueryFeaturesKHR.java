@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #globalPriorityQuery}. */
-    public static int nglobalPriorityQuery(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.GLOBALPRIORITYQUERY); }
+    public static int nglobalPriorityQuery(long struct) { return memGetInt(struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.GLOBALPRIORITYQUERY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #globalPriorityQuery(boolean) globalPriorityQuery}. */
-    public static void nglobalPriorityQuery(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.GLOBALPRIORITYQUERY, value); }
+    public static void nglobalPriorityQuery(long struct, int value) { memPutInt(struct + VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.GLOBALPRIORITYQUERY, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -169,8 +169,7 @@ public class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR(address, null);
     }
 
@@ -213,8 +212,7 @@ public class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,22 +257,22 @@ public class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #computeDerivativeGroupQuads}. */
-    public static int ncomputeDerivativeGroupQuads(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPQUADS); }
+    public static int ncomputeDerivativeGroupQuads(long struct) { return memGetInt(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPQUADS); }
     /** Unsafe version of {@link #computeDerivativeGroupLinear}. */
-    public static int ncomputeDerivativeGroupLinear(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPLINEAR); }
+    public static int ncomputeDerivativeGroupLinear(long struct) { return memGetInt(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPLINEAR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #computeDerivativeGroupQuads(boolean) computeDerivativeGroupQuads}. */
-    public static void ncomputeDerivativeGroupQuads(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPQUADS, value); }
+    public static void ncomputeDerivativeGroupQuads(long struct, int value) { memPutInt(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPQUADS, value); }
     /** Unsafe version of {@link #computeDerivativeGroupLinear(boolean) computeDerivativeGroupLinear}. */
-    public static void ncomputeDerivativeGroupLinear(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPLINEAR, value); }
+    public static void ncomputeDerivativeGroupLinear(long struct, int value) { memPutInt(struct + VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.COMPUTEDERIVATIVEGROUPLINEAR, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends Struct<
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

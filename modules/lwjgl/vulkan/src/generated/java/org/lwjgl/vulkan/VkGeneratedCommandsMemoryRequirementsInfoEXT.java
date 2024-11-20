@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -53,7 +53,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <pre><code>
  * struct VkGeneratedCommandsMemoryRequirementsInfoEXT {
  *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
+ *     void const * {@link #pNext};
  *     VkIndirectExecutionSetEXT {@link #indirectExecutionSet};
  *     VkIndirectCommandsLayoutEXT {@link #indirectCommandsLayout};
  *     uint32_t {@link #maxSequenceCount};
@@ -124,7 +124,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
     /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void *")
+    @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** the indirect execution set to be used for binding shaders. */
     @NativeType("VkIndirectExecutionSetEXT")
@@ -144,7 +144,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
     /** Sets the {@link EXTDeviceGeneratedCommands#VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT} value to the {@link #sType} field. */
     public VkGeneratedCommandsMemoryRequirementsInfoEXT sType$Default() { return sType(EXTDeviceGeneratedCommands.VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
-    public VkGeneratedCommandsMemoryRequirementsInfoEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
+    public VkGeneratedCommandsMemoryRequirementsInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkGeneratedCommandsPipelineInfoEXT} value to the {@code pNext} chain. */
     public VkGeneratedCommandsMemoryRequirementsInfoEXT pNext(VkGeneratedCommandsPipelineInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkGeneratedCommandsShaderInfoEXT} value to the {@code pNext} chain. */
@@ -213,8 +213,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsMemoryRequirementsInfoEXT createSafe(long address) {
+    public static @Nullable VkGeneratedCommandsMemoryRequirementsInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkGeneratedCommandsMemoryRequirementsInfoEXT(address, null);
     }
 
@@ -257,8 +256,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsMemoryRequirementsInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkGeneratedCommandsMemoryRequirementsInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,30 +301,30 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.PNEXT); }
     /** Unsafe version of {@link #indirectExecutionSet}. */
-    public static long nindirectExecutionSet(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTEXECUTIONSET); }
+    public static long nindirectExecutionSet(long struct) { return memGetLong(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTEXECUTIONSET); }
     /** Unsafe version of {@link #indirectCommandsLayout}. */
-    public static long nindirectCommandsLayout(long struct) { return UNSAFE.getLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTCOMMANDSLAYOUT); }
+    public static long nindirectCommandsLayout(long struct) { return memGetLong(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTCOMMANDSLAYOUT); }
     /** Unsafe version of {@link #maxSequenceCount}. */
-    public static int nmaxSequenceCount(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXSEQUENCECOUNT); }
+    public static int nmaxSequenceCount(long struct) { return memGetInt(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXSEQUENCECOUNT); }
     /** Unsafe version of {@link #maxDrawCount}. */
-    public static int nmaxDrawCount(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXDRAWCOUNT); }
+    public static int nmaxDrawCount(long struct) { return memGetInt(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXDRAWCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #indirectExecutionSet(long) indirectExecutionSet}. */
-    public static void nindirectExecutionSet(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTEXECUTIONSET, value); }
+    public static void nindirectExecutionSet(long struct, long value) { memPutLong(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTEXECUTIONSET, value); }
     /** Unsafe version of {@link #indirectCommandsLayout(long) indirectCommandsLayout}. */
-    public static void nindirectCommandsLayout(long struct, long value) { UNSAFE.putLong(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTCOMMANDSLAYOUT, value); }
+    public static void nindirectCommandsLayout(long struct, long value) { memPutLong(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.INDIRECTCOMMANDSLAYOUT, value); }
     /** Unsafe version of {@link #maxSequenceCount(int) maxSequenceCount}. */
-    public static void nmaxSequenceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXSEQUENCECOUNT, value); }
+    public static void nmaxSequenceCount(long struct, int value) { memPutInt(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXSEQUENCECOUNT, value); }
     /** Unsafe version of {@link #maxDrawCount(int) maxDrawCount}. */
-    public static void nmaxDrawCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXDRAWCOUNT, value); }
+    public static void nmaxDrawCount(long struct, int value) { memPutInt(struct + VkGeneratedCommandsMemoryRequirementsInfoEXT.MAXDRAWCOUNT, value); }
 
     // -----------------------------------
 
@@ -362,6 +360,11 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkGeneratedCommandsMemoryRequirementsInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -370,7 +373,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
         @NativeType("VkStructureType")
         public int sType() { return VkGeneratedCommandsMemoryRequirementsInfoEXT.nsType(address()); }
         /** @return the value of the {@link VkGeneratedCommandsMemoryRequirementsInfoEXT#pNext} field. */
-        @NativeType("void *")
+        @NativeType("void const *")
         public long pNext() { return VkGeneratedCommandsMemoryRequirementsInfoEXT.npNext(address()); }
         /** @return the value of the {@link VkGeneratedCommandsMemoryRequirementsInfoEXT#indirectExecutionSet} field. */
         @NativeType("VkIndirectExecutionSetEXT")
@@ -390,7 +393,7 @@ public class VkGeneratedCommandsMemoryRequirementsInfoEXT extends Struct<VkGener
         /** Sets the {@link EXTDeviceGeneratedCommands#VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT} value to the {@link VkGeneratedCommandsMemoryRequirementsInfoEXT#sType} field. */
         public VkGeneratedCommandsMemoryRequirementsInfoEXT.Buffer sType$Default() { return sType(EXTDeviceGeneratedCommands.VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT); }
         /** Sets the specified value to the {@link VkGeneratedCommandsMemoryRequirementsInfoEXT#pNext} field. */
-        public VkGeneratedCommandsMemoryRequirementsInfoEXT.Buffer pNext(@NativeType("void *") long value) { VkGeneratedCommandsMemoryRequirementsInfoEXT.npNext(address(), value); return this; }
+        public VkGeneratedCommandsMemoryRequirementsInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkGeneratedCommandsMemoryRequirementsInfoEXT.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkGeneratedCommandsPipelineInfoEXT} value to the {@code pNext} chain. */
         public VkGeneratedCommandsMemoryRequirementsInfoEXT.Buffer pNext(VkGeneratedCommandsPipelineInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkGeneratedCommandsShaderInfoEXT} value to the {@code pNext} chain. */

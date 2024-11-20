@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -162,8 +162,7 @@ public class VkBindMemoryStatusKHR extends Struct<VkBindMemoryStatusKHR> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindMemoryStatusKHR createSafe(long address) {
+    public static @Nullable VkBindMemoryStatusKHR createSafe(long address) {
         return address == NULL ? null : new VkBindMemoryStatusKHR(address, null);
     }
 
@@ -206,8 +205,7 @@ public class VkBindMemoryStatusKHR extends Struct<VkBindMemoryStatusKHR> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindMemoryStatusKHR.Buffer createSafe(long address, int capacity) {
+    public static VkBindMemoryStatusKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,14 +250,14 @@ public class VkBindMemoryStatusKHR extends Struct<VkBindMemoryStatusKHR> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindMemoryStatusKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindMemoryStatusKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindMemoryStatusKHR.PNEXT); }
     /** Unsafe version of {@link #pResult(int) pResult}. */
     public static IntBuffer npResult(long struct, int capacity) { return memIntBuffer(memGetAddress(struct + VkBindMemoryStatusKHR.PRESULT), capacity); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindMemoryStatusKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindMemoryStatusKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindMemoryStatusKHR.PNEXT, value); }
     /** Unsafe version of {@link #pResult(IntBuffer) pResult}. */
@@ -305,6 +303,11 @@ public class VkBindMemoryStatusKHR extends Struct<VkBindMemoryStatusKHR> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

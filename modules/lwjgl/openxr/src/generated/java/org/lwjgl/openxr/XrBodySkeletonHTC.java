@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class XrBodySkeletonHTC extends Struct<XrBodySkeletonHTC> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodySkeletonHTC createSafe(long address) {
+    public static @Nullable XrBodySkeletonHTC createSafe(long address) {
         return address == NULL ? null : new XrBodySkeletonHTC(address, null);
     }
 
@@ -222,8 +221,7 @@ public class XrBodySkeletonHTC extends Struct<XrBodySkeletonHTC> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodySkeletonHTC.Buffer createSafe(long address, int capacity) {
+    public static XrBodySkeletonHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,20 +266,20 @@ public class XrBodySkeletonHTC extends Struct<XrBodySkeletonHTC> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBodySkeletonHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBodySkeletonHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrBodySkeletonHTC.NEXT); }
     /** Unsafe version of {@link #jointCount}. */
-    public static int njointCount(long struct) { return UNSAFE.getInt(null, struct + XrBodySkeletonHTC.JOINTCOUNT); }
+    public static int njointCount(long struct) { return memGetInt(struct + XrBodySkeletonHTC.JOINTCOUNT); }
     /** Unsafe version of {@link #joints}. */
     public static XrBodySkeletonJointHTC.Buffer njoints(long struct) { return XrBodySkeletonJointHTC.create(memGetAddress(struct + XrBodySkeletonHTC.JOINTS), njointCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBodySkeletonHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBodySkeletonHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrBodySkeletonHTC.NEXT, value); }
     /** Sets the specified value to the {@code jointCount} field of the specified {@code struct}. */
-    public static void njointCount(long struct, int value) { UNSAFE.putInt(null, struct + XrBodySkeletonHTC.JOINTCOUNT, value); }
+    public static void njointCount(long struct, int value) { memPutInt(struct + XrBodySkeletonHTC.JOINTCOUNT, value); }
     /** Unsafe version of {@link #joints(XrBodySkeletonJointHTC.Buffer) joints}. */
     public static void njoints(long struct, XrBodySkeletonJointHTC.Buffer value) { memPutAddress(struct + XrBodySkeletonHTC.JOINTS, value.address()); njointCount(struct, value.remaining()); }
 
@@ -325,6 +323,11 @@ public class XrBodySkeletonHTC extends Struct<XrBodySkeletonHTC> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

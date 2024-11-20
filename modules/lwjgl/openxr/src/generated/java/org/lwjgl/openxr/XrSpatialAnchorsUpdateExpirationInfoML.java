@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -179,8 +179,7 @@ public class XrSpatialAnchorsUpdateExpirationInfoML extends Struct<XrSpatialAnch
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsUpdateExpirationInfoML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorsUpdateExpirationInfoML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorsUpdateExpirationInfoML(address, null);
     }
 
@@ -223,8 +222,7 @@ public class XrSpatialAnchorsUpdateExpirationInfoML extends Struct<XrSpatialAnch
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsUpdateExpirationInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorsUpdateExpirationInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +267,26 @@ public class XrSpatialAnchorsUpdateExpirationInfoML extends Struct<XrSpatialAnch
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsUpdateExpirationInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorsUpdateExpirationInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorsUpdateExpirationInfoML.NEXT); }
     /** Unsafe version of {@link #uuidCount}. */
-    public static int nuuidCount(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsUpdateExpirationInfoML.UUIDCOUNT); }
+    public static int nuuidCount(long struct) { return memGetInt(struct + XrSpatialAnchorsUpdateExpirationInfoML.UUIDCOUNT); }
     /** Unsafe version of {@link #uuids}. */
     public static XrUuidEXT.Buffer nuuids(long struct) { return XrUuidEXT.create(memGetAddress(struct + XrSpatialAnchorsUpdateExpirationInfoML.UUIDS), nuuidCount(struct)); }
     /** Unsafe version of {@link #expiration}. */
-    public static long nexpiration(long struct) { return UNSAFE.getLong(null, struct + XrSpatialAnchorsUpdateExpirationInfoML.EXPIRATION); }
+    public static long nexpiration(long struct) { return memGetLong(struct + XrSpatialAnchorsUpdateExpirationInfoML.EXPIRATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsUpdateExpirationInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorsUpdateExpirationInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorsUpdateExpirationInfoML.NEXT, value); }
     /** Sets the specified value to the {@code uuidCount} field of the specified {@code struct}. */
-    public static void nuuidCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsUpdateExpirationInfoML.UUIDCOUNT, value); }
+    public static void nuuidCount(long struct, int value) { memPutInt(struct + XrSpatialAnchorsUpdateExpirationInfoML.UUIDCOUNT, value); }
     /** Unsafe version of {@link #uuids(XrUuidEXT.Buffer) uuids}. */
     public static void nuuids(long struct, XrUuidEXT.Buffer value) { memPutAddress(struct + XrSpatialAnchorsUpdateExpirationInfoML.UUIDS, value.address()); nuuidCount(struct, value.remaining()); }
     /** Unsafe version of {@link #expiration(long) expiration}. */
-    public static void nexpiration(long struct, long value) { UNSAFE.putLong(null, struct + XrSpatialAnchorsUpdateExpirationInfoML.EXPIRATION, value); }
+    public static void nexpiration(long struct, long value) { memPutLong(struct + XrSpatialAnchorsUpdateExpirationInfoML.EXPIRATION, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -330,6 +328,11 @@ public class XrSpatialAnchorsUpdateExpirationInfoML extends Struct<XrSpatialAnch
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

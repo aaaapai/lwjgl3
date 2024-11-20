@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -197,6 +197,8 @@ public class HarfBuzz {
             draw_close_path                               = apiGetFunctionAddress(HARFBUZZ, "hb_draw_close_path"),
             face_count                                    = apiGetFunctionAddress(HARFBUZZ, "hb_face_count"),
             face_create                                   = apiGetFunctionAddress(HARFBUZZ, "hb_face_create"),
+            face_create_or_fail                           = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_or_fail"),
+            face_create_from_file_or_fail                 = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_from_file_or_fail"),
             face_create_for_tables                        = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_for_tables"),
             face_get_empty                                = apiGetFunctionAddress(HARFBUZZ, "hb_face_get_empty"),
             face_reference                                = apiGetFunctionAddress(HARFBUZZ, "hb_face_reference"),
@@ -316,6 +318,7 @@ public class HarfBuzz {
             ft_face_create                                = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create"),
             ft_face_create_cached                         = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_cached"),
             ft_face_create_referenced                     = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_referenced"),
+            ft_face_create_from_file_or_fail              = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_from_file_or_fail"),
             ft_font_create                                = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_create"),
             ft_font_create_referenced                     = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_create_referenced"),
             ft_font_get_face                              = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_get_face"),
@@ -1505,11 +1508,11 @@ public class HarfBuzz {
 
     public static final int HB_VERSION_MAJOR = 10;
 
-    public static final int HB_VERSION_MINOR = 0;
+    public static final int HB_VERSION_MINOR = 1;
 
-    public static final int HB_VERSION_MICRO = 1;
+    public static final int HB_VERSION_MICRO = 0;
 
-    public static final String HB_VERSION_STRING = "10.0.1";
+    public static final String HB_VERSION_STRING = "10.1.0";
 
     protected HarfBuzz() {
         throw new UnsupportedOperationException();
@@ -1592,9 +1595,8 @@ public class HarfBuzz {
         return invokeP(direction, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String hb_direction_to_string(@NativeType("hb_direction_t") int direction) {
+    public static @Nullable String hb_direction_to_string(@NativeType("hb_direction_t") int direction) {
         long __result = nhb_direction_to_string(direction);
         return memASCIISafe(__result);
     }
@@ -1633,9 +1635,8 @@ public class HarfBuzz {
         return invokePP(language, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String hb_language_to_string(@NativeType("hb_language_t") long language) {
+    public static @Nullable String hb_language_to_string(@NativeType("hb_language_t") long language) {
         long __result = nhb_language_to_string(language);
         return memASCIISafe(__result);
     }
@@ -1819,7 +1820,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_blob_t *")
-    public static long hb_blob_create(@NativeType("char const *") ByteBuffer data, @NativeType("hb_memory_mode_t") int mode, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static long hb_blob_create(@NativeType("char const *") ByteBuffer data, @NativeType("hb_memory_mode_t") int mode, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         return nhb_blob_create(memAddress(data), data.remaining(), mode, user_data, memAddressSafe(destroy));
     }
 
@@ -1831,7 +1832,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_blob_t *")
-    public static long hb_blob_create_or_fail(@NativeType("char const *") ByteBuffer data, @NativeType("hb_memory_mode_t") int mode, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static long hb_blob_create_or_fail(@NativeType("char const *") ByteBuffer data, @NativeType("hb_memory_mode_t") int mode, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         return nhb_blob_create_or_fail(memAddress(data), data.remaining(), mode, user_data, memAddressSafe(destroy));
     }
 
@@ -1957,7 +1958,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_blob_set_user_data(@NativeType("hb_blob_t *") long blob, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_blob_set_user_data(@NativeType("hb_blob_t *") long blob, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_blob_set_user_data(blob, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -2018,9 +2019,8 @@ public class HarfBuzz {
         return invokePPP(blob, length, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static ByteBuffer hb_blob_get_data(@NativeType("hb_blob_t *") long blob) {
+    public static @Nullable ByteBuffer hb_blob_get_data(@NativeType("hb_blob_t *") long blob) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer length = stack.callocInt(1);
         try {
@@ -2041,9 +2041,8 @@ public class HarfBuzz {
         return invokePPP(blob, length, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char *")
-    public static ByteBuffer hb_blob_get_data_writable(@NativeType("hb_blob_t *") long blob) {
+    public static @Nullable ByteBuffer hb_blob_get_data_writable(@NativeType("hb_blob_t *") long blob) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer length = stack.callocInt(1);
         try {
@@ -2158,7 +2157,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_buffer_set_user_data(@NativeType("hb_buffer_t *") long buffer, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_buffer_set_user_data(@NativeType("hb_buffer_t *") long buffer, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_buffer_set_user_data(buffer, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -2678,9 +2677,8 @@ public class HarfBuzz {
     }
 
     /** Getting glyphs out of the buffer */
-    @Nullable
     @NativeType("hb_glyph_info_t *")
-    public static hb_glyph_info_t.Buffer hb_buffer_get_glyph_infos(@NativeType("hb_buffer_t *") long buffer) {
+    public static hb_glyph_info_t.@Nullable Buffer hb_buffer_get_glyph_infos(@NativeType("hb_buffer_t *") long buffer) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer length = stack.callocInt(1);
         try {
@@ -2701,9 +2699,8 @@ public class HarfBuzz {
         return invokePPP(buffer, length, __functionAddress);
     }
 
-    @Nullable
     @NativeType("hb_glyph_position_t *")
-    public static hb_glyph_position_t.Buffer hb_buffer_get_glyph_positions(@NativeType("hb_buffer_t *") long buffer) {
+    public static hb_glyph_position_t.@Nullable Buffer hb_buffer_get_glyph_positions(@NativeType("hb_buffer_t *") long buffer) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer length = stack.callocInt(1);
         try {
@@ -2766,9 +2763,8 @@ public class HarfBuzz {
         return invokeP(format, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String hb_buffer_serialize_format_to_string(@NativeType("hb_buffer_serialize_format_t") int format) {
+    public static @Nullable String hb_buffer_serialize_format_to_string(@NativeType("hb_buffer_serialize_format_t") int format) {
         long __result = nhb_buffer_serialize_format_to_string(format);
         return memASCIISafe(__result);
     }
@@ -2780,16 +2776,14 @@ public class HarfBuzz {
         return invokeP(__functionAddress);
     }
 
-    @Nullable
     @NativeType("char const **")
-    public static PointerBuffer hb_buffer_serialize_list_formats() {
+    public static @Nullable PointerBuffer hb_buffer_serialize_list_formats() {
         long __result = nhb_buffer_serialize_list_formats();
         return memPointerBufferSafe(__result, buffer_serialize_list_formats_COUNT);
     }
 
-    @Nullable
     @NativeType("char const **")
-    public static PointerBuffer hb_buffer_serialize_list_formats(long length) {
+    public static @Nullable PointerBuffer hb_buffer_serialize_list_formats(long length) {
         long __result = nhb_buffer_serialize_list_formats();
         return memPointerBufferSafe(__result, (int)length);
     }
@@ -2805,7 +2799,7 @@ public class HarfBuzz {
     }
 
     @NativeType("unsigned int")
-    public static int hb_buffer_serialize_glyphs(@NativeType("hb_buffer_t *") long buffer, @NativeType("unsigned int") int start, @NativeType("unsigned int") int end, @NativeType("char *") ByteBuffer buf, @Nullable @NativeType("unsigned int *") IntBuffer buf_consumed, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_serialize_format_t") int format, @NativeType("hb_buffer_serialize_flags_t") int flags) {
+    public static int hb_buffer_serialize_glyphs(@NativeType("hb_buffer_t *") long buffer, @NativeType("unsigned int") int start, @NativeType("unsigned int") int end, @NativeType("char *") ByteBuffer buf, @NativeType("unsigned int *") @Nullable IntBuffer buf_consumed, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_serialize_format_t") int format, @NativeType("hb_buffer_serialize_flags_t") int flags) {
         if (CHECKS) {
             checkSafe(buf_consumed, 1);
         }
@@ -2823,7 +2817,7 @@ public class HarfBuzz {
     }
 
     @NativeType("unsigned int")
-    public static int hb_buffer_serialize_unicode(@NativeType("hb_buffer_t *") long buffer, @NativeType("unsigned int") int start, @NativeType("unsigned int") int end, @NativeType("char *") ByteBuffer buf, @Nullable @NativeType("unsigned int *") IntBuffer buf_consumed, @NativeType("hb_buffer_serialize_format_t") int format, @NativeType("hb_buffer_serialize_flags_t") int flags) {
+    public static int hb_buffer_serialize_unicode(@NativeType("hb_buffer_t *") long buffer, @NativeType("unsigned int") int start, @NativeType("unsigned int") int end, @NativeType("char *") ByteBuffer buf, @NativeType("unsigned int *") @Nullable IntBuffer buf_consumed, @NativeType("hb_buffer_serialize_format_t") int format, @NativeType("hb_buffer_serialize_flags_t") int flags) {
         if (CHECKS) {
             checkSafe(buf_consumed, 1);
         }
@@ -2841,7 +2835,7 @@ public class HarfBuzz {
     }
 
     @NativeType("unsigned int")
-    public static int hb_buffer_serialize(@NativeType("hb_buffer_t *") long buffer, @NativeType("unsigned int") int start, @NativeType("unsigned int") int end, @NativeType("char *") ByteBuffer buf, @Nullable @NativeType("unsigned int *") IntBuffer buf_consumed, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_serialize_format_t") int format, @NativeType("hb_buffer_serialize_flags_t") int flags) {
+    public static int hb_buffer_serialize(@NativeType("hb_buffer_t *") long buffer, @NativeType("unsigned int") int start, @NativeType("unsigned int") int end, @NativeType("char *") ByteBuffer buf, @NativeType("unsigned int *") @Nullable IntBuffer buf_consumed, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_serialize_format_t") int format, @NativeType("hb_buffer_serialize_flags_t") int flags) {
         if (CHECKS) {
             checkSafe(buf_consumed, 1);
         }
@@ -2859,7 +2853,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_buffer_deserialize_glyphs(@NativeType("hb_buffer_t *") long buffer, @NativeType("char const *") ByteBuffer buf, @Nullable @NativeType("char const **") PointerBuffer end_ptr, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_serialize_format_t") int format) {
+    public static boolean hb_buffer_deserialize_glyphs(@NativeType("hb_buffer_t *") long buffer, @NativeType("char const *") ByteBuffer buf, @NativeType("char const **") @Nullable PointerBuffer end_ptr, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_serialize_format_t") int format) {
         if (CHECKS) {
             checkSafe(end_ptr, 1);
         }
@@ -2877,7 +2871,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_buffer_deserialize_unicode(@NativeType("hb_buffer_t *") long buffer, @NativeType("char const *") ByteBuffer buf, @Nullable @NativeType("char const **") PointerBuffer end_ptr, @NativeType("hb_buffer_serialize_format_t") int format) {
+    public static boolean hb_buffer_deserialize_unicode(@NativeType("hb_buffer_t *") long buffer, @NativeType("char const *") ByteBuffer buf, @NativeType("char const **") @Nullable PointerBuffer end_ptr, @NativeType("hb_buffer_serialize_format_t") int format) {
         if (CHECKS) {
             checkSafe(end_ptr, 1);
         }
@@ -2907,7 +2901,7 @@ public class HarfBuzz {
         invokePPPPV(buffer, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_buffer_set_message_func(@NativeType("hb_buffer_t *") long buffer, @NativeType("hb_buffer_message_func_t") hb_buffer_message_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_buffer_set_message_func(@NativeType("hb_buffer_t *") long buffer, @NativeType("hb_buffer_message_func_t") hb_buffer_message_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_buffer_set_message_func(buffer, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -2930,7 +2924,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_draw_funcs_set_move_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_move_to_func_t") hb_draw_move_to_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_draw_funcs_set_move_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_move_to_func_t") hb_draw_move_to_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_draw_funcs_set_move_to_func(dfuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -2953,7 +2947,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_draw_funcs_set_line_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_line_to_func_t") hb_draw_line_to_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_draw_funcs_set_line_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_line_to_func_t") hb_draw_line_to_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_draw_funcs_set_line_to_func(dfuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -2976,7 +2970,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_draw_funcs_set_quadratic_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_quadratic_to_func_t") hb_draw_quadratic_to_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_draw_funcs_set_quadratic_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_quadratic_to_func_t") hb_draw_quadratic_to_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_draw_funcs_set_quadratic_to_func(dfuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -2999,7 +2993,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_draw_funcs_set_cubic_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_cubic_to_func_t") hb_draw_cubic_to_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_draw_funcs_set_cubic_to_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_cubic_to_func_t") hb_draw_cubic_to_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_draw_funcs_set_cubic_to_func(dfuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3022,7 +3016,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_draw_funcs_set_close_path_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_close_path_func_t") hb_draw_close_path_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_draw_funcs_set_close_path_func(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_draw_close_path_func_t") hb_draw_close_path_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_draw_funcs_set_close_path_func(dfuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3074,7 +3068,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_draw_funcs_set_user_data(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_draw_funcs_set_user_data(@NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_draw_funcs_set_user_data(dfuncs, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -3206,6 +3200,44 @@ public class HarfBuzz {
         return invokePP(blob, index, __functionAddress);
     }
 
+    // --- [ hb_face_create_or_fail ] ---
+
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_or_fail(@NativeType("hb_blob_t *") long blob, @NativeType("unsigned int") int index) {
+        long __functionAddress = Functions.face_create_or_fail;
+        if (CHECKS) {
+            check(blob);
+        }
+        return invokePP(blob, index, __functionAddress);
+    }
+
+    // --- [ hb_face_create_from_file_or_fail ] ---
+
+    public static long nhb_face_create_from_file_or_fail(long file_name, int index) {
+        long __functionAddress = Functions.face_create_from_file_or_fail;
+        return invokePP(file_name, index, __functionAddress);
+    }
+
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_from_file_or_fail(@NativeType("char const *") ByteBuffer file_name, @NativeType("unsigned int") int index) {
+        if (CHECKS) {
+            checkNT1(file_name);
+        }
+        return nhb_face_create_from_file_or_fail(memAddress(file_name), index);
+    }
+
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_from_file_or_fail(@NativeType("char const *") CharSequence file_name, @NativeType("unsigned int") int index) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(file_name, true);
+            long file_nameEncoded = stack.getPointerAddress();
+            return nhb_face_create_from_file_or_fail(file_nameEncoded, index);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ hb_face_create_for_tables ] ---
 
     public static long nhb_face_create_for_tables(long reference_table_func, long user_data, long destroy) {
@@ -3214,7 +3246,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_face_t *")
-    public static long hb_face_create_for_tables(@NativeType("hb_reference_table_func_t") hb_reference_table_func_tI reference_table_func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static long hb_face_create_for_tables(@NativeType("hb_reference_table_func_t") hb_reference_table_func_tI reference_table_func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         return nhb_face_create_for_tables(reference_table_func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3258,7 +3290,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_face_set_user_data(@NativeType("hb_face_t *") long face, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_face_set_user_data(@NativeType("hb_face_t *") long face, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_face_set_user_data(face, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -3393,7 +3425,7 @@ public class HarfBuzz {
         invokePPPPV(face, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_face_set_get_table_tags_func(@NativeType("hb_face_t *") long face, @NativeType("hb_get_table_tags_func_t") hb_get_table_tags_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_face_set_get_table_tags_func(@NativeType("hb_face_t *") long face, @NativeType("hb_get_table_tags_func_t") hb_get_table_tags_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_face_set_get_table_tags_func(face, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3546,7 +3578,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_font_funcs_set_user_data(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_font_funcs_set_user_data(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_font_funcs_set_user_data(ffuncs, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -3606,7 +3638,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_font_h_extents_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_font_h_extents_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_font_h_extents_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_font_h_extents_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_font_h_extents_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3630,7 +3662,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_font_v_extents_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_font_v_extents_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_font_v_extents_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_font_v_extents_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_font_v_extents_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3653,7 +3685,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_nominal_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_nominal_glyph_func_t") hb_font_get_nominal_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_nominal_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_nominal_glyph_func_t") hb_font_get_nominal_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_nominal_glyph_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3676,7 +3708,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_nominal_glyphs_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_nominal_glyphs_func_t") hb_font_get_nominal_glyphs_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_nominal_glyphs_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_nominal_glyphs_func_t") hb_font_get_nominal_glyphs_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_nominal_glyphs_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3699,7 +3731,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_variation_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_variation_glyph_func_t") hb_font_get_variation_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_variation_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_variation_glyph_func_t") hb_font_get_variation_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_variation_glyph_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3723,7 +3755,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_h_advance_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_advance_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_h_advance_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_advance_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_h_advance_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3747,7 +3779,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_v_advance_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_advance_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_v_advance_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_advance_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_v_advance_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3771,7 +3803,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_h_advances_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_advances_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_h_advances_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_advances_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_h_advances_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3795,7 +3827,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_v_advances_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_advances_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_v_advances_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_advances_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_v_advances_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3819,7 +3851,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_h_origin_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_origin_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_h_origin_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_origin_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_h_origin_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3843,7 +3875,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_v_origin_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_origin_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_v_origin_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_origin_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_v_origin_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3867,7 +3899,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_h_kerning_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_kerning_func_t") long func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_h_kerning_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_kerning_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_h_kerning_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
@@ -3890,7 +3922,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_extents_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_extents_func_t") hb_font_get_glyph_extents_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_extents_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_extents_func_t") hb_font_get_glyph_extents_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_extents_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3913,7 +3945,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_contour_point_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_contour_point_func_t") hb_font_get_glyph_contour_point_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_contour_point_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_contour_point_func_t") hb_font_get_glyph_contour_point_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_contour_point_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3936,7 +3968,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_name_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_name_func_t") hb_font_get_glyph_name_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_name_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_name_func_t") hb_font_get_glyph_name_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_name_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3959,7 +3991,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_glyph_from_name_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_from_name_func_t") hb_font_get_glyph_from_name_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_glyph_from_name_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_from_name_func_t") hb_font_get_glyph_from_name_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_glyph_from_name_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -3982,7 +4014,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_draw_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_draw_glyph_func_t") hb_font_draw_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_draw_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_draw_glyph_func_t") hb_font_draw_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_draw_glyph_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -4005,7 +4037,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_font_funcs_set_paint_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_paint_glyph_func_t") hb_font_paint_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_funcs_set_paint_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_paint_glyph_func_t") hb_font_paint_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_paint_glyph_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -4598,7 +4630,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_font_set_user_data(@NativeType("hb_font_t *") long font, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_font_set_user_data(@NativeType("hb_font_t *") long font, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_font_set_user_data(font, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -4711,7 +4743,7 @@ public class HarfBuzz {
         invokePPPPV(font, klass, font_data, destroy, __functionAddress);
     }
 
-    public static void hb_font_set_funcs(@NativeType("hb_font_t *") long font, @NativeType("hb_font_funcs_t *") long klass, @NativeType("void *") long font_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_set_funcs(@NativeType("hb_font_t *") long font, @NativeType("hb_font_funcs_t *") long klass, @NativeType("void *") long font_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_set_funcs(font, klass, font_data, memAddressSafe(destroy));
     }
 
@@ -4727,7 +4759,7 @@ public class HarfBuzz {
     }
 
     /** Be <b>very</b> careful with this function! */
-    public static void hb_font_set_funcs_data(@NativeType("hb_font_t *") long font, @NativeType("void *") long font_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_font_set_funcs_data(@NativeType("hb_font_t *") long font, @NativeType("void *") long font_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_set_funcs_data(font, font_data, memAddressSafe(destroy));
     }
 
@@ -4833,7 +4865,7 @@ public class HarfBuzz {
         invokePPPPV(font, x_embolden, y_embolden, in_place, __functionAddress);
     }
 
-    public static void hb_font_get_synthetic_bold(@NativeType("hb_font_t *") long font, @Nullable @NativeType("float *") FloatBuffer x_embolden, @Nullable @NativeType("float *") FloatBuffer y_embolden, @Nullable @NativeType("hb_bool_t *") IntBuffer in_place) {
+    public static void hb_font_get_synthetic_bold(@NativeType("hb_font_t *") long font, @NativeType("float *") @Nullable FloatBuffer x_embolden, @NativeType("float *") @Nullable FloatBuffer y_embolden, @NativeType("hb_bool_t *") @Nullable IntBuffer in_place) {
         if (CHECKS) {
             checkSafe(x_embolden, 1);
             checkSafe(y_embolden, 1);
@@ -4910,9 +4942,8 @@ public class HarfBuzz {
         return invokePPP(font, length, __functionAddress);
     }
 
-    @Nullable
     @NativeType("float const *")
-    public static FloatBuffer hb_font_get_var_coords_design(@NativeType("hb_font_t *") long font) {
+    public static @Nullable FloatBuffer hb_font_get_var_coords_design(@NativeType("hb_font_t *") long font) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer length = stack.callocInt(1);
         try {
@@ -4947,9 +4978,8 @@ public class HarfBuzz {
         return invokePPP(font, length, __functionAddress);
     }
 
-    @Nullable
     @NativeType("int const *")
-    public static IntBuffer hb_font_get_var_coords_normalized(@NativeType("hb_font_t *") long font) {
+    public static @Nullable IntBuffer hb_font_get_var_coords_normalized(@NativeType("hb_font_t *") long font) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer length = stack.callocInt(1);
         try {
@@ -4993,7 +5023,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_face_t *")
-    public static long hb_ft_face_create(@NativeType("FT_Face") long ft_face, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static long hb_ft_face_create(@NativeType("FT_Face") long ft_face, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         return nhb_ft_face_create(ft_face, memAddressSafe(destroy));
     }
 
@@ -5021,6 +5051,36 @@ public class HarfBuzz {
         return invokePP(ft_face, __functionAddress);
     }
 
+    // --- [ hb_ft_face_create_from_file_or_fail ] ---
+
+    public static long nhb_ft_face_create_from_file_or_fail(long file_name, int index) {
+        long __functionAddress = Functions.ft_face_create_from_file_or_fail;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return invokePP(file_name, index, __functionAddress);
+    }
+
+    @NativeType("hb_face_t *")
+    public static long hb_ft_face_create_from_file_or_fail(@NativeType("char const *") ByteBuffer file_name, @NativeType("unsigned int") int index) {
+        if (CHECKS) {
+            checkNT1(file_name);
+        }
+        return nhb_ft_face_create_from_file_or_fail(memAddress(file_name), index);
+    }
+
+    @NativeType("hb_face_t *")
+    public static long hb_ft_face_create_from_file_or_fail(@NativeType("char const *") CharSequence file_name, @NativeType("unsigned int") int index) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(file_name, true);
+            long file_nameEncoded = stack.getPointerAddress();
+            return nhb_ft_face_create_from_file_or_fail(file_nameEncoded, index);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ hb_ft_font_create ] ---
 
     public static long nhb_ft_font_create(long ft_face, long destroy) {
@@ -5033,8 +5093,8 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_font_t *")
-    public static long hb_ft_font_create(@NativeType("FT_Face") long ft_face, @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
-        return nhb_ft_font_create(ft_face, destroy.address());
+    public static long hb_ft_font_create(@NativeType("FT_Face") long ft_face, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
+        return nhb_ft_font_create(ft_face, memAddressSafe(destroy));
     }
 
     // --- [ hb_ft_font_create_referenced ] ---
@@ -5188,7 +5248,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_map_set_user_data(@NativeType("hb_map_t *") long map, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_map_set_user_data(@NativeType("hb_map_t *") long map, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_map_set_user_data(map, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -5428,7 +5488,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_paint_funcs_set_user_data(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_paint_funcs_set_user_data(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_paint_funcs_set_user_data(funcs, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -5505,7 +5565,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_push_transform_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_transform_func_t") hb_paint_push_transform_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_push_transform_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_transform_func_t") hb_paint_push_transform_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_push_transform_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5519,7 +5579,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_pop_transform_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_pop_transform_func_t") hb_paint_pop_transform_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_pop_transform_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_pop_transform_func_t") hb_paint_pop_transform_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_pop_transform_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5533,7 +5593,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_color_glyph_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_color_glyph_func_t") hb_paint_color_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_color_glyph_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_color_glyph_func_t") hb_paint_color_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_color_glyph_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5547,7 +5607,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_push_clip_glyph_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_clip_glyph_func_t") hb_paint_push_clip_glyph_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_push_clip_glyph_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_clip_glyph_func_t") hb_paint_push_clip_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_push_clip_glyph_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5561,7 +5621,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_push_clip_rectangle_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_clip_rectangle_func_t") hb_paint_push_clip_rectangle_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_push_clip_rectangle_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_clip_rectangle_func_t") hb_paint_push_clip_rectangle_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_push_clip_rectangle_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5575,7 +5635,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_pop_clip_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_pop_clip_func_t") hb_paint_pop_clip_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_pop_clip_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_pop_clip_func_t") hb_paint_pop_clip_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_pop_clip_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5589,7 +5649,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_color_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_color_func_t") hb_paint_color_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_color_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_color_func_t") hb_paint_color_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_color_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5603,7 +5663,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_image_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_image_func_t") hb_paint_image_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_image_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_image_func_t") hb_paint_image_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_image_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5617,7 +5677,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_linear_gradient_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_linear_gradient_func_t") hb_paint_linear_gradient_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_linear_gradient_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_linear_gradient_func_t") hb_paint_linear_gradient_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_linear_gradient_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5631,7 +5691,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_radial_gradient_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_radial_gradient_func_t") hb_paint_radial_gradient_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_radial_gradient_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_radial_gradient_func_t") hb_paint_radial_gradient_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_radial_gradient_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5645,7 +5705,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_sweep_gradient_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_sweep_gradient_func_t") hb_paint_sweep_gradient_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_sweep_gradient_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_sweep_gradient_func_t") hb_paint_sweep_gradient_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_sweep_gradient_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5659,7 +5719,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_push_group_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_group_func_t") hb_paint_push_group_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_push_group_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_push_group_func_t") hb_paint_push_group_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_push_group_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5673,7 +5733,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_pop_group_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_pop_group_func_t") hb_paint_pop_group_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_pop_group_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_pop_group_func_t") hb_paint_pop_group_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_pop_group_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5687,7 +5747,7 @@ public class HarfBuzz {
         invokePPPPV(funcs, func, user_data, destroy, __functionAddress);
     }
 
-    public static void hb_paint_funcs_set_custom_palette_color_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_custom_palette_color_func_t") hb_paint_custom_palette_color_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_paint_funcs_set_custom_palette_color_func(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("hb_paint_custom_palette_color_func_t") hb_paint_custom_palette_color_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_paint_funcs_set_custom_palette_color_func(funcs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -5906,7 +5966,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_set_set_user_data(@NativeType("hb_set_t *") long set, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_set_set_user_data(@NativeType("hb_set_t *") long set, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_set_set_user_data(set, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -6290,7 +6350,7 @@ public class HarfBuzz {
         invokePPPV(font, buffer, features, num_features, __functionAddress);
     }
 
-    public static void hb_shape(@NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer features) {
+    public static void hb_shape(@NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer features) {
         nhb_shape(font, buffer, memAddressSafe(features), remainingSafe(features));
     }
 
@@ -6306,7 +6366,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_shape_full(@NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer features, @Nullable @NativeType("char const * const *") PointerBuffer shaper_list) {
+    public static boolean hb_shape_full(@NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer features, @NativeType("char const * const *") @Nullable PointerBuffer shaper_list) {
         if (CHECKS) {
             checkNTSafe(shaper_list);
         }
@@ -6325,7 +6385,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_shape_justify(@NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer features, @Nullable @NativeType("char const * const *") PointerBuffer shaper_list, float min_target_advance, float max_target_advance, @NativeType("float *") FloatBuffer advance, @NativeType("hb_tag_t *") IntBuffer var_tag, @NativeType("float *") FloatBuffer var_value) {
+    public static boolean hb_shape_justify(@NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer features, @NativeType("char const * const *") @Nullable PointerBuffer shaper_list, float min_target_advance, float max_target_advance, @NativeType("float *") FloatBuffer advance, @NativeType("hb_tag_t *") IntBuffer var_tag, @NativeType("float *") FloatBuffer var_value) {
         if (CHECKS) {
             checkNTSafe(shaper_list);
             check(advance, 1);
@@ -6342,16 +6402,14 @@ public class HarfBuzz {
         return invokeP(__functionAddress);
     }
 
-    @Nullable
     @NativeType("char const **")
-    public static PointerBuffer hb_shape_list_shapers() {
+    public static @Nullable PointerBuffer hb_shape_list_shapers() {
         long __result = nhb_shape_list_shapers();
         return memPointerBufferSafe(__result, shape_list_shapers_COUNT);
     }
 
-    @Nullable
     @NativeType("char const **")
-    public static PointerBuffer hb_shape_list_shapers(long length) {
+    public static @Nullable PointerBuffer hb_shape_list_shapers(long length) {
         long __result = nhb_shape_list_shapers();
         return memPointerBufferSafe(__result, (int)length);
     }
@@ -6364,7 +6422,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_shape_plan_t *")
-    public static long hb_shape_plan_create(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer user_features, @Nullable @NativeType("char const * const *") PointerBuffer shaper_list) {
+    public static long hb_shape_plan_create(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer user_features, @NativeType("char const * const *") @Nullable PointerBuffer shaper_list) {
         if (CHECKS) {
             checkNTSafe(shaper_list);
         }
@@ -6379,7 +6437,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_shape_plan_t *")
-    public static long hb_shape_plan_create_cached(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer user_features, @Nullable @NativeType("char const * const *") PointerBuffer shaper_list) {
+    public static long hb_shape_plan_create_cached(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer user_features, @NativeType("char const * const *") @Nullable PointerBuffer shaper_list) {
         if (CHECKS) {
             checkNTSafe(shaper_list);
         }
@@ -6394,7 +6452,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_shape_plan_t *")
-    public static long hb_shape_plan_create2(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer user_features, @Nullable @NativeType("int const *") IntBuffer coords, @Nullable @NativeType("char const * const *") PointerBuffer shaper_list) {
+    public static long hb_shape_plan_create2(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer user_features, @NativeType("int const *") @Nullable IntBuffer coords, @NativeType("char const * const *") @Nullable PointerBuffer shaper_list) {
         if (CHECKS) {
             checkNTSafe(shaper_list);
         }
@@ -6409,7 +6467,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_shape_plan_t *")
-    public static long hb_shape_plan_create_cached2(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer user_features, @Nullable @NativeType("int const *") IntBuffer coords, @Nullable @NativeType("char const * const *") PointerBuffer shaper_list) {
+    public static long hb_shape_plan_create_cached2(@NativeType("hb_face_t *") long face, @NativeType("hb_segment_properties_t const *") hb_segment_properties_t props, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer user_features, @NativeType("int const *") @Nullable IntBuffer coords, @NativeType("char const * const *") @Nullable PointerBuffer shaper_list) {
         if (CHECKS) {
             checkNTSafe(shaper_list);
         }
@@ -6456,7 +6514,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_shape_plan_set_user_data(@NativeType("hb_shape_plan_t *") long shape_plan, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_shape_plan_set_user_data(@NativeType("hb_shape_plan_t *") long shape_plan, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_shape_plan_set_user_data(shape_plan, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -6488,7 +6546,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_shape_plan_execute(@NativeType("hb_shape_plan_t *") long shape_plan, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @Nullable @NativeType("hb_feature_t const *") hb_feature_t.Buffer features) {
+    public static boolean hb_shape_plan_execute(@NativeType("hb_shape_plan_t *") long shape_plan, @NativeType("hb_font_t *") long font, @NativeType("hb_buffer_t *") long buffer, @NativeType("hb_feature_t const *") hb_feature_t.@Nullable Buffer features) {
         return nhb_shape_plan_execute(shape_plan, font, buffer, memAddressSafe(features), remainingSafe(features)) != 0;
     }
 
@@ -6502,9 +6560,8 @@ public class HarfBuzz {
         return invokePP(shape_plan, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String hb_shape_plan_get_shaper(@NativeType("hb_shape_plan_t *") long shape_plan) {
+    public static @Nullable String hb_shape_plan_get_shaper(@NativeType("hb_shape_plan_t *") long shape_plan) {
         long __result = nhb_shape_plan_get_shaper(shape_plan);
         return memASCIISafe(__result);
     }
@@ -6579,7 +6636,7 @@ public class HarfBuzz {
     }
 
     @NativeType("hb_bool_t")
-    public static boolean hb_unicode_funcs_set_user_data(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
+    public static boolean hb_unicode_funcs_set_user_data(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_user_data_key_t *") hb_user_data_key_t key, @NativeType("void *") long data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy, @NativeType("hb_bool_t") boolean replace) {
         return nhb_unicode_funcs_set_user_data(ufuncs, key.address(), data, memAddressSafe(destroy), replace ? 1 : 0) != 0;
     }
 
@@ -6649,7 +6706,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_unicode_funcs_set_combining_class_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_combining_class_func_t") hb_unicode_combining_class_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_unicode_funcs_set_combining_class_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_combining_class_func_t") hb_unicode_combining_class_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_unicode_funcs_set_combining_class_func(ufuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -6672,7 +6729,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_unicode_funcs_set_general_category_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_general_category_func_t") hb_unicode_general_category_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_unicode_funcs_set_general_category_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_general_category_func_t") hb_unicode_general_category_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_unicode_funcs_set_general_category_func(ufuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -6695,7 +6752,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_unicode_funcs_set_mirroring_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_mirroring_func_t") hb_unicode_mirroring_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_unicode_funcs_set_mirroring_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_mirroring_func_t") hb_unicode_mirroring_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_unicode_funcs_set_mirroring_func(ufuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -6718,7 +6775,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_unicode_funcs_set_script_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_script_func_t") hb_unicode_script_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_unicode_funcs_set_script_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_script_func_t") hb_unicode_script_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_unicode_funcs_set_script_func(ufuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -6741,7 +6798,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_unicode_funcs_set_compose_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_compose_func_t") hb_unicode_compose_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_unicode_funcs_set_compose_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_compose_func_t") hb_unicode_compose_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_unicode_funcs_set_compose_func(ufuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -6764,7 +6821,7 @@ public class HarfBuzz {
      * @param user_data data to pass to {@code func}
      * @param destroy   the function to call when {@code user_data} is not needed anymore
      */
-    public static void hb_unicode_funcs_set_decompose_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_decompose_func_t") hb_unicode_decompose_func_tI func, @NativeType("void *") long user_data, @Nullable @NativeType("hb_destroy_func_t") hb_destroy_func_tI destroy) {
+    public static void hb_unicode_funcs_set_decompose_func(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_unicode_decompose_func_t") hb_unicode_decompose_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_unicode_funcs_set_decompose_func(ufuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
@@ -6904,9 +6961,8 @@ public class HarfBuzz {
         return invokeP(__functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String hb_version_string() {
+    public static @Nullable String hb_version_string() {
         long __result = nhb_version_string();
         return memASCIISafe(__result);
     }
@@ -6981,7 +7037,7 @@ public class HarfBuzz {
         buffer_serialize_list_formats_COUNT = count;
     }
 
-    public static final hb_draw_state_t HB_DRAW_STATE_DEFAULT = hb_draw_state_t.create().set(false, 0.f, 0.f, 0.f, 0.f);
+    public static final hb_draw_state_t HB_DRAW_STATE_DEFAULT = hb_draw_state_t.create();
 
     private static final int shape_list_shapers_COUNT;
     static {

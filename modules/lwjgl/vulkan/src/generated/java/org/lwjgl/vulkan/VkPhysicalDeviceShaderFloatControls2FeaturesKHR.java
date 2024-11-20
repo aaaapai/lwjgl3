@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceShaderFloatControls2FeaturesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderFloatControls2FeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderFloatControls2FeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderFloatControls2FeaturesKHR(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceShaderFloatControls2FeaturesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderFloatControls2FeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderFloatControls2FeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceShaderFloatControls2FeaturesKHR extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderFloatControls2}. */
-    public static int nshaderFloatControls2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.SHADERFLOATCONTROLS2); }
+    public static int nshaderFloatControls2(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.SHADERFLOATCONTROLS2); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #shaderFloatControls2(boolean) shaderFloatControls2}. */
-    public static void nshaderFloatControls2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.SHADERFLOATCONTROLS2, value); }
+    public static void nshaderFloatControls2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderFloatControls2FeaturesKHR.SHADERFLOATCONTROLS2, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceShaderFloatControls2FeaturesKHR extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -180,8 +180,7 @@ public class VkPhysicalDeviceSamplerFilterMinmaxProperties extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSamplerFilterMinmaxProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSamplerFilterMinmaxProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSamplerFilterMinmaxProperties(address, null);
     }
 
@@ -224,8 +223,7 @@ public class VkPhysicalDeviceSamplerFilterMinmaxProperties extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSamplerFilterMinmaxProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSamplerFilterMinmaxProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,16 +268,16 @@ public class VkPhysicalDeviceSamplerFilterMinmaxProperties extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.PNEXT); }
     /** Unsafe version of {@link #filterMinmaxSingleComponentFormats}. */
-    public static int nfilterMinmaxSingleComponentFormats(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.FILTERMINMAXSINGLECOMPONENTFORMATS); }
+    public static int nfilterMinmaxSingleComponentFormats(long struct) { return memGetInt(struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.FILTERMINMAXSINGLECOMPONENTFORMATS); }
     /** Unsafe version of {@link #filterMinmaxImageComponentMapping}. */
-    public static int nfilterMinmaxImageComponentMapping(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.FILTERMINMAXIMAGECOMPONENTMAPPING); }
+    public static int nfilterMinmaxImageComponentMapping(long struct) { return memGetInt(struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.FILTERMINMAXIMAGECOMPONENTMAPPING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSamplerFilterMinmaxProperties.PNEXT, value); }
 
@@ -314,6 +312,11 @@ public class VkPhysicalDeviceSamplerFilterMinmaxProperties extends Struct<VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

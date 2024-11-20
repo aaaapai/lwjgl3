@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceExtendedDynamicState3PropertiesEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedDynamicState3PropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExtendedDynamicState3PropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExtendedDynamicState3PropertiesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceExtendedDynamicState3PropertiesEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceExtendedDynamicState3PropertiesEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #dynamicPrimitiveTopologyUnrestricted}. */
-    public static int ndynamicPrimitiveTopologyUnrestricted(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.DYNAMICPRIMITIVETOPOLOGYUNRESTRICTED); }
+    public static int ndynamicPrimitiveTopologyUnrestricted(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.DYNAMICPRIMITIVETOPOLOGYUNRESTRICTED); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.PNEXT, value); }
     /** Unsafe version of {@link #dynamicPrimitiveTopologyUnrestricted(boolean) dynamicPrimitiveTopologyUnrestricted}. */
-    public static void ndynamicPrimitiveTopologyUnrestricted(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.DYNAMICPRIMITIVETOPOLOGYUNRESTRICTED, value); }
+    public static void ndynamicPrimitiveTopologyUnrestricted(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3PropertiesEXT.DYNAMICPRIMITIVETOPOLOGYUNRESTRICTED, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceExtendedDynamicState3PropertiesEXT extends Struct<V
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLegacyDitheringFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceLegacyDitheringFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceLegacyDitheringFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLegacyDitheringFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceLegacyDitheringFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #legacyDithering}. */
-    public static int nlegacyDithering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING); }
+    public static int nlegacyDithering(long struct) { return memGetInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #legacyDithering(boolean) legacyDithering}. */
-    public static void nlegacyDithering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING, value); }
+    public static void nlegacyDithering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

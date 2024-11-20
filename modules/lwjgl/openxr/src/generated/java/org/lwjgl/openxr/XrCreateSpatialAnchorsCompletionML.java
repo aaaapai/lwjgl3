@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,9 +135,8 @@ public class XrCreateSpatialAnchorsCompletionML extends Struct<XrCreateSpatialAn
     @NativeType("uint32_t")
     public int spaceCount() { return nspaceCount(address()); }
     /** an array of {@code XrSpace} values to populate with the results of the anchor creation. If creation failed, the {@code XrSpace} values <b>must</b> be set to {@link XR10#XR_NULL_HANDLE NULL_HANDLE}. */
-    @Nullable
     @NativeType("XrSpace *")
-    public PointerBuffer spaces() { return nspaces(address()); }
+    public @Nullable PointerBuffer spaces() { return nspaces(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrCreateSpatialAnchorsCompletionML type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -205,8 +204,7 @@ public class XrCreateSpatialAnchorsCompletionML extends Struct<XrCreateSpatialAn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCreateSpatialAnchorsCompletionML createSafe(long address) {
+    public static @Nullable XrCreateSpatialAnchorsCompletionML createSafe(long address) {
         return address == NULL ? null : new XrCreateSpatialAnchorsCompletionML(address, null);
     }
 
@@ -254,8 +252,7 @@ public class XrCreateSpatialAnchorsCompletionML extends Struct<XrCreateSpatialAn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCreateSpatialAnchorsCompletionML.Buffer createSafe(long address, int capacity) {
+    public static XrCreateSpatialAnchorsCompletionML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -305,24 +302,24 @@ public class XrCreateSpatialAnchorsCompletionML extends Struct<XrCreateSpatialAn
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCreateSpatialAnchorsCompletionML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCreateSpatialAnchorsCompletionML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCreateSpatialAnchorsCompletionML.NEXT); }
     /** Unsafe version of {@link #futureResult}. */
-    public static int nfutureResult(long struct) { return UNSAFE.getInt(null, struct + XrCreateSpatialAnchorsCompletionML.FUTURERESULT); }
+    public static int nfutureResult(long struct) { return memGetInt(struct + XrCreateSpatialAnchorsCompletionML.FUTURERESULT); }
     /** Unsafe version of {@link #spaceCount}. */
-    public static int nspaceCount(long struct) { return UNSAFE.getInt(null, struct + XrCreateSpatialAnchorsCompletionML.SPACECOUNT); }
+    public static int nspaceCount(long struct) { return memGetInt(struct + XrCreateSpatialAnchorsCompletionML.SPACECOUNT); }
     /** Unsafe version of {@link #spaces() spaces}. */
-    @Nullable public static PointerBuffer nspaces(long struct) { return memPointerBufferSafe(memGetAddress(struct + XrCreateSpatialAnchorsCompletionML.SPACES), nspaceCount(struct)); }
+    public static @Nullable PointerBuffer nspaces(long struct) { return memPointerBufferSafe(memGetAddress(struct + XrCreateSpatialAnchorsCompletionML.SPACES), nspaceCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCreateSpatialAnchorsCompletionML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCreateSpatialAnchorsCompletionML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCreateSpatialAnchorsCompletionML.NEXT, value); }
     /** Unsafe version of {@link #futureResult(int) futureResult}. */
-    public static void nfutureResult(long struct, int value) { UNSAFE.putInt(null, struct + XrCreateSpatialAnchorsCompletionML.FUTURERESULT, value); }
+    public static void nfutureResult(long struct, int value) { memPutInt(struct + XrCreateSpatialAnchorsCompletionML.FUTURERESULT, value); }
     /** Sets the specified value to the {@code spaceCount} field of the specified {@code struct}. */
-    public static void nspaceCount(long struct, int value) { UNSAFE.putInt(null, struct + XrCreateSpatialAnchorsCompletionML.SPACECOUNT, value); }
+    public static void nspaceCount(long struct, int value) { memPutInt(struct + XrCreateSpatialAnchorsCompletionML.SPACECOUNT, value); }
     /** Unsafe version of {@link #spaces(PointerBuffer) spaces}. */
     public static void nspaces(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + XrCreateSpatialAnchorsCompletionML.SPACES, memAddressSafe(value)); if (value != null) { nspaceCount(struct, value.remaining()); } }
 
@@ -360,6 +357,11 @@ public class XrCreateSpatialAnchorsCompletionML extends Struct<XrCreateSpatialAn
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrCreateSpatialAnchorsCompletionML getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -377,9 +379,8 @@ public class XrCreateSpatialAnchorsCompletionML extends Struct<XrCreateSpatialAn
         @NativeType("uint32_t")
         public int spaceCount() { return XrCreateSpatialAnchorsCompletionML.nspaceCount(address()); }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@link XrCreateSpatialAnchorsCompletionML#spaces} field. */
-        @Nullable
         @NativeType("XrSpace *")
-        public PointerBuffer spaces() { return XrCreateSpatialAnchorsCompletionML.nspaces(address()); }
+        public @Nullable PointerBuffer spaces() { return XrCreateSpatialAnchorsCompletionML.nspaces(address()); }
 
         /** Sets the specified value to the {@link XrCreateSpatialAnchorsCompletionML#type} field. */
         public XrCreateSpatialAnchorsCompletionML.Buffer type(@NativeType("XrStructureType") int value) { XrCreateSpatialAnchorsCompletionML.ntype(address(), value); return this; }

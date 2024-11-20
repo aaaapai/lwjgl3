@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderImageFootprintFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderImageFootprintFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderImageFootprintFeaturesNV(address, null);
     }
 
@@ -202,8 +201,7 @@ public class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderImageFootprintFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderImageFootprintFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +265,18 @@ public class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #imageFootprint}. */
-    public static int nimageFootprint(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.IMAGEFOOTPRINT); }
+    public static int nimageFootprint(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.IMAGEFOOTPRINT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #imageFootprint(boolean) imageFootprint}. */
-    public static void nimageFootprint(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.IMAGEFOOTPRINT, value); }
+    public static void nimageFootprint(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderImageFootprintFeaturesNV.IMAGEFOOTPRINT, value); }
 
     // -----------------------------------
 
@@ -311,6 +309,11 @@ public class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends Struct<VkPhy
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,8 +135,7 @@ public class FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE extends Struct<FMOD_DSP_PARAMET
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE(address, null);
     }
 
@@ -179,8 +178,7 @@ public class FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE extends Struct<FMOD_DSP_PARAMET
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,16 +223,16 @@ public class FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE extends Struct<FMOD_DSP_PARAMET
     // -----------------------------------
 
     /** Unsafe version of {@link #numchannels}. */
-    public static int nnumchannels(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.NUMCHANNELS); }
+    public static int nnumchannels(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.NUMCHANNELS); }
     /** Unsafe version of {@link #rms}. */
     public static FloatBuffer nrms(long struct) { return memFloatBuffer(struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.RMS, 32); }
     /** Unsafe version of {@link #rms(int) rms}. */
     public static float nrms(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.RMS + check(index, 32) * 4);
+        return memGetFloat(struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.RMS + check(index, 32) * 4);
     }
 
     /** Unsafe version of {@link #numchannels(int) numchannels}. */
-    public static void nnumchannels(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.NUMCHANNELS, value); }
+    public static void nnumchannels(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.NUMCHANNELS, value); }
     /** Unsafe version of {@link #rms(FloatBuffer) rms}. */
     public static void nrms(long struct, FloatBuffer value) {
         if (CHECKS) { checkGT(value, 32); }
@@ -242,7 +240,7 @@ public class FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE extends Struct<FMOD_DSP_PARAMET
     }
     /** Unsafe version of {@link #rms(int, float) rms}. */
     public static void nrms(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.RMS + check(index, 32) * 4, value);
+        memPutFloat(struct + FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE.RMS + check(index, 32) * 4, value);
     }
 
     // -----------------------------------
@@ -276,6 +274,11 @@ public class FMOD_DSP_PARAMETER_DYNAMIC_RESPONSE extends Struct<FMOD_DSP_PARAMET
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

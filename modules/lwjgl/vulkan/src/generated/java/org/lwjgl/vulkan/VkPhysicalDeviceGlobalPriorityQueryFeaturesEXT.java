@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -111,8 +111,7 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT extends VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT(address, null);
     }
 
@@ -155,8 +154,7 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT extends VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,6 +227,11 @@ public class VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT extends VkPhysicalDe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

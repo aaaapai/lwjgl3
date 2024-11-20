@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,8 +146,7 @@ public class AIQuatKey extends Struct<AIQuatKey> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIQuatKey createSafe(long address) {
+    public static @Nullable AIQuatKey createSafe(long address) {
         return address == NULL ? null : new AIQuatKey(address, null);
     }
 
@@ -190,8 +189,7 @@ public class AIQuatKey extends Struct<AIQuatKey> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIQuatKey.Buffer createSafe(long address, int capacity) {
+    public static AIQuatKey.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class AIQuatKey extends Struct<AIQuatKey> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #mTime}. */
-    public static double nmTime(long struct) { return UNSAFE.getDouble(null, struct + AIQuatKey.MTIME); }
+    public static double nmTime(long struct) { return memGetDouble(struct + AIQuatKey.MTIME); }
     /** Unsafe version of {@link #mValue}. */
     public static AIQuaternion nmValue(long struct) { return AIQuaternion.create(struct + AIQuatKey.MVALUE); }
     /** Unsafe version of {@link #mInterpolation}. */
-    public static int nmInterpolation(long struct) { return UNSAFE.getInt(null, struct + AIQuatKey.MINTERPOLATION); }
+    public static int nmInterpolation(long struct) { return memGetInt(struct + AIQuatKey.MINTERPOLATION); }
 
     /** Unsafe version of {@link #mTime(double) mTime}. */
-    public static void nmTime(long struct, double value) { UNSAFE.putDouble(null, struct + AIQuatKey.MTIME, value); }
+    public static void nmTime(long struct, double value) { memPutDouble(struct + AIQuatKey.MTIME, value); }
     /** Unsafe version of {@link #mValue(AIQuaternion) mValue}. */
     public static void nmValue(long struct, AIQuaternion value) { memCopy(value.address(), struct + AIQuatKey.MVALUE, AIQuaternion.SIZEOF); }
     /** Unsafe version of {@link #mInterpolation(int) mInterpolation}. */
-    public static void nmInterpolation(long struct, int value) { UNSAFE.putInt(null, struct + AIQuatKey.MINTERPOLATION, value); }
+    public static void nmInterpolation(long struct, int value) { memPutInt(struct + AIQuatKey.MINTERPOLATION, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class AIQuatKey extends Struct<AIQuatKey> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

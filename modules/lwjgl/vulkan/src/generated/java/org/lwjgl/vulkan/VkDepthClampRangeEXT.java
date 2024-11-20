@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -143,8 +143,7 @@ public class VkDepthClampRangeEXT extends Struct<VkDepthClampRangeEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthClampRangeEXT createSafe(long address) {
+    public static @Nullable VkDepthClampRangeEXT createSafe(long address) {
         return address == NULL ? null : new VkDepthClampRangeEXT(address, null);
     }
 
@@ -187,8 +186,7 @@ public class VkDepthClampRangeEXT extends Struct<VkDepthClampRangeEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthClampRangeEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDepthClampRangeEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,14 +231,14 @@ public class VkDepthClampRangeEXT extends Struct<VkDepthClampRangeEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #minDepthClamp}. */
-    public static float nminDepthClamp(long struct) { return UNSAFE.getFloat(null, struct + VkDepthClampRangeEXT.MINDEPTHCLAMP); }
+    public static float nminDepthClamp(long struct) { return memGetFloat(struct + VkDepthClampRangeEXT.MINDEPTHCLAMP); }
     /** Unsafe version of {@link #maxDepthClamp}. */
-    public static float nmaxDepthClamp(long struct) { return UNSAFE.getFloat(null, struct + VkDepthClampRangeEXT.MAXDEPTHCLAMP); }
+    public static float nmaxDepthClamp(long struct) { return memGetFloat(struct + VkDepthClampRangeEXT.MAXDEPTHCLAMP); }
 
     /** Unsafe version of {@link #minDepthClamp(float) minDepthClamp}. */
-    public static void nminDepthClamp(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthClampRangeEXT.MINDEPTHCLAMP, value); }
+    public static void nminDepthClamp(long struct, float value) { memPutFloat(struct + VkDepthClampRangeEXT.MINDEPTHCLAMP, value); }
     /** Unsafe version of {@link #maxDepthClamp(float) maxDepthClamp}. */
-    public static void nmaxDepthClamp(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthClampRangeEXT.MAXDEPTHCLAMP, value); }
+    public static void nmaxDepthClamp(long struct, float value) { memPutFloat(struct + VkDepthClampRangeEXT.MAXDEPTHCLAMP, value); }
 
     // -----------------------------------
 
@@ -273,6 +271,11 @@ public class VkDepthClampRangeEXT extends Struct<VkDepthClampRangeEXT> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

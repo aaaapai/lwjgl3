@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -187,8 +187,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct<XrHapticAmplitu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHapticAmplitudeEnvelopeVibrationFB createSafe(long address) {
+    public static @Nullable XrHapticAmplitudeEnvelopeVibrationFB createSafe(long address) {
         return address == NULL ? null : new XrHapticAmplitudeEnvelopeVibrationFB(address, null);
     }
 
@@ -236,8 +235,7 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct<XrHapticAmplitu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHapticAmplitudeEnvelopeVibrationFB.Buffer createSafe(long address, int capacity) {
+    public static XrHapticAmplitudeEnvelopeVibrationFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,24 +285,24 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct<XrHapticAmplitu
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHapticAmplitudeEnvelopeVibrationFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHapticAmplitudeEnvelopeVibrationFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHapticAmplitudeEnvelopeVibrationFB.NEXT); }
     /** Unsafe version of {@link #duration}. */
-    public static long nduration(long struct) { return UNSAFE.getLong(null, struct + XrHapticAmplitudeEnvelopeVibrationFB.DURATION); }
+    public static long nduration(long struct) { return memGetLong(struct + XrHapticAmplitudeEnvelopeVibrationFB.DURATION); }
     /** Unsafe version of {@link #amplitudeCount}. */
-    public static int namplitudeCount(long struct) { return UNSAFE.getInt(null, struct + XrHapticAmplitudeEnvelopeVibrationFB.AMPLITUDECOUNT); }
+    public static int namplitudeCount(long struct) { return memGetInt(struct + XrHapticAmplitudeEnvelopeVibrationFB.AMPLITUDECOUNT); }
     /** Unsafe version of {@link #amplitudes() amplitudes}. */
     public static FloatBuffer namplitudes(long struct) { return memFloatBuffer(memGetAddress(struct + XrHapticAmplitudeEnvelopeVibrationFB.AMPLITUDES), namplitudeCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHapticAmplitudeEnvelopeVibrationFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHapticAmplitudeEnvelopeVibrationFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHapticAmplitudeEnvelopeVibrationFB.NEXT, value); }
     /** Unsafe version of {@link #duration(long) duration}. */
-    public static void nduration(long struct, long value) { UNSAFE.putLong(null, struct + XrHapticAmplitudeEnvelopeVibrationFB.DURATION, value); }
+    public static void nduration(long struct, long value) { memPutLong(struct + XrHapticAmplitudeEnvelopeVibrationFB.DURATION, value); }
     /** Sets the specified value to the {@code amplitudeCount} field of the specified {@code struct}. */
-    public static void namplitudeCount(long struct, int value) { UNSAFE.putInt(null, struct + XrHapticAmplitudeEnvelopeVibrationFB.AMPLITUDECOUNT, value); }
+    public static void namplitudeCount(long struct, int value) { memPutInt(struct + XrHapticAmplitudeEnvelopeVibrationFB.AMPLITUDECOUNT, value); }
     /** Unsafe version of {@link #amplitudes(FloatBuffer) amplitudes}. */
     public static void namplitudes(long struct, FloatBuffer value) { memPutAddress(struct + XrHapticAmplitudeEnvelopeVibrationFB.AMPLITUDES, memAddress(value)); namplitudeCount(struct, value.remaining()); }
 
@@ -348,6 +346,11 @@ public class XrHapticAmplitudeEnvelopeVibrationFB extends Struct<XrHapticAmplitu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

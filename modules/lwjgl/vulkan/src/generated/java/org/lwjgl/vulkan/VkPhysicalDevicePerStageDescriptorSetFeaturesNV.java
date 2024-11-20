@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -167,8 +167,7 @@ public class VkPhysicalDevicePerStageDescriptorSetFeaturesNV extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePerStageDescriptorSetFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePerStageDescriptorSetFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePerStageDescriptorSetFeaturesNV(address, null);
     }
 
@@ -211,8 +210,7 @@ public class VkPhysicalDevicePerStageDescriptorSetFeaturesNV extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePerStageDescriptorSetFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePerStageDescriptorSetFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class VkPhysicalDevicePerStageDescriptorSetFeaturesNV extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #perStageDescriptorSet}. */
-    public static int nperStageDescriptorSet(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.PERSTAGEDESCRIPTORSET); }
+    public static int nperStageDescriptorSet(long struct) { return memGetInt(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.PERSTAGEDESCRIPTORSET); }
     /** Unsafe version of {@link #dynamicPipelineLayout}. */
-    public static int ndynamicPipelineLayout(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.DYNAMICPIPELINELAYOUT); }
+    public static int ndynamicPipelineLayout(long struct) { return memGetInt(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.DYNAMICPIPELINELAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #perStageDescriptorSet(boolean) perStageDescriptorSet}. */
-    public static void nperStageDescriptorSet(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.PERSTAGEDESCRIPTORSET, value); }
+    public static void nperStageDescriptorSet(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.PERSTAGEDESCRIPTORSET, value); }
     /** Unsafe version of {@link #dynamicPipelineLayout(boolean) dynamicPipelineLayout}. */
-    public static void ndynamicPipelineLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.DYNAMICPIPELINELAYOUT, value); }
+    public static void ndynamicPipelineLayout(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerStageDescriptorSetFeaturesNV.DYNAMICPIPELINELAYOUT, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class VkPhysicalDevicePerStageDescriptorSetFeaturesNV extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -172,8 +172,7 @@ public class VkAntiLagPresentationInfoAMD extends Struct<VkAntiLagPresentationIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAntiLagPresentationInfoAMD createSafe(long address) {
+    public static @Nullable VkAntiLagPresentationInfoAMD createSafe(long address) {
         return address == NULL ? null : new VkAntiLagPresentationInfoAMD(address, null);
     }
 
@@ -216,8 +215,7 @@ public class VkAntiLagPresentationInfoAMD extends Struct<VkAntiLagPresentationIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAntiLagPresentationInfoAMD.Buffer createSafe(long address, int capacity) {
+    public static VkAntiLagPresentationInfoAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,22 +260,22 @@ public class VkAntiLagPresentationInfoAMD extends Struct<VkAntiLagPresentationIn
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAntiLagPresentationInfoAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAntiLagPresentationInfoAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAntiLagPresentationInfoAMD.PNEXT); }
     /** Unsafe version of {@link #stage}. */
-    public static int nstage(long struct) { return UNSAFE.getInt(null, struct + VkAntiLagPresentationInfoAMD.STAGE); }
+    public static int nstage(long struct) { return memGetInt(struct + VkAntiLagPresentationInfoAMD.STAGE); }
     /** Unsafe version of {@link #frameIndex}. */
-    public static long nframeIndex(long struct) { return UNSAFE.getLong(null, struct + VkAntiLagPresentationInfoAMD.FRAMEINDEX); }
+    public static long nframeIndex(long struct) { return memGetLong(struct + VkAntiLagPresentationInfoAMD.FRAMEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAntiLagPresentationInfoAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAntiLagPresentationInfoAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAntiLagPresentationInfoAMD.PNEXT, value); }
     /** Unsafe version of {@link #stage(int) stage}. */
-    public static void nstage(long struct, int value) { UNSAFE.putInt(null, struct + VkAntiLagPresentationInfoAMD.STAGE, value); }
+    public static void nstage(long struct, int value) { memPutInt(struct + VkAntiLagPresentationInfoAMD.STAGE, value); }
     /** Unsafe version of {@link #frameIndex(long) frameIndex}. */
-    public static void nframeIndex(long struct, long value) { UNSAFE.putLong(null, struct + VkAntiLagPresentationInfoAMD.FRAMEINDEX, value); }
+    public static void nframeIndex(long struct, long value) { memPutLong(struct + VkAntiLagPresentationInfoAMD.FRAMEINDEX, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class VkAntiLagPresentationInfoAMD extends Struct<VkAntiLagPresentationIn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

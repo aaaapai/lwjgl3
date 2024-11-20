@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -182,8 +182,7 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceImageMemoryRequirements createSafe(long address) {
+    public static @Nullable VkDeviceImageMemoryRequirements createSafe(long address) {
         return address == NULL ? null : new VkDeviceImageMemoryRequirements(address, null);
     }
 
@@ -226,8 +225,7 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceImageMemoryRequirements.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceImageMemoryRequirements.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,22 +270,22 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceImageMemoryRequirements.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceImageMemoryRequirements.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceImageMemoryRequirements.PNEXT); }
     /** Unsafe version of {@link #pCreateInfo}. */
     public static VkImageCreateInfo npCreateInfo(long struct) { return VkImageCreateInfo.create(memGetAddress(struct + VkDeviceImageMemoryRequirements.PCREATEINFO)); }
     /** Unsafe version of {@link #planeAspect}. */
-    public static int nplaneAspect(long struct) { return UNSAFE.getInt(null, struct + VkDeviceImageMemoryRequirements.PLANEASPECT); }
+    public static int nplaneAspect(long struct) { return memGetInt(struct + VkDeviceImageMemoryRequirements.PLANEASPECT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceImageMemoryRequirements.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceImageMemoryRequirements.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceImageMemoryRequirements.PNEXT, value); }
     /** Unsafe version of {@link #pCreateInfo(VkImageCreateInfo) pCreateInfo}. */
     public static void npCreateInfo(long struct, VkImageCreateInfo value) { memPutAddress(struct + VkDeviceImageMemoryRequirements.PCREATEINFO, value.address()); }
     /** Unsafe version of {@link #planeAspect(int) planeAspect}. */
-    public static void nplaneAspect(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceImageMemoryRequirements.PLANEASPECT, value); }
+    public static void nplaneAspect(long struct, int value) { memPutInt(struct + VkDeviceImageMemoryRequirements.PLANEASPECT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -329,6 +327,11 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

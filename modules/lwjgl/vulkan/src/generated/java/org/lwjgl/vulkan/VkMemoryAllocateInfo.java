@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -279,8 +279,7 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateInfo createSafe(long address) {
+    public static @Nullable VkMemoryAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkMemoryAllocateInfo(address, null);
     }
 
@@ -323,8 +322,7 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -388,22 +386,22 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #allocationSize}. */
-    public static long nallocationSize(long struct) { return UNSAFE.getLong(null, struct + VkMemoryAllocateInfo.ALLOCATIONSIZE); }
+    public static long nallocationSize(long struct) { return memGetLong(struct + VkMemoryAllocateInfo.ALLOCATIONSIZE); }
     /** Unsafe version of {@link #memoryTypeIndex}. */
-    public static int nmemoryTypeIndex(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX); }
+    public static int nmemoryTypeIndex(long struct) { return memGetInt(struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryAllocateInfo.PNEXT, value); }
     /** Unsafe version of {@link #allocationSize(long) allocationSize}. */
-    public static void nallocationSize(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryAllocateInfo.ALLOCATIONSIZE, value); }
+    public static void nallocationSize(long struct, long value) { memPutLong(struct + VkMemoryAllocateInfo.ALLOCATIONSIZE, value); }
     /** Unsafe version of {@link #memoryTypeIndex(int) memoryTypeIndex}. */
-    public static void nmemoryTypeIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX, value); }
+    public static void nmemoryTypeIndex(long struct, int value) { memPutInt(struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX, value); }
 
     // -----------------------------------
 
@@ -436,6 +434,11 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

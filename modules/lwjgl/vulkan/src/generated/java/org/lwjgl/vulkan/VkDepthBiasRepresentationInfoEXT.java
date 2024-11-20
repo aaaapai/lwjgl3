@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -172,8 +172,7 @@ public class VkDepthBiasRepresentationInfoEXT extends Struct<VkDepthBiasRepresen
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthBiasRepresentationInfoEXT createSafe(long address) {
+    public static @Nullable VkDepthBiasRepresentationInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDepthBiasRepresentationInfoEXT(address, null);
     }
 
@@ -216,8 +215,7 @@ public class VkDepthBiasRepresentationInfoEXT extends Struct<VkDepthBiasRepresen
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthBiasRepresentationInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDepthBiasRepresentationInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,22 +260,22 @@ public class VkDepthBiasRepresentationInfoEXT extends Struct<VkDepthBiasRepresen
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDepthBiasRepresentationInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDepthBiasRepresentationInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDepthBiasRepresentationInfoEXT.PNEXT); }
     /** Unsafe version of {@link #depthBiasRepresentation}. */
-    public static int ndepthBiasRepresentation(long struct) { return UNSAFE.getInt(null, struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASREPRESENTATION); }
+    public static int ndepthBiasRepresentation(long struct) { return memGetInt(struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASREPRESENTATION); }
     /** Unsafe version of {@link #depthBiasExact}. */
-    public static int ndepthBiasExact(long struct) { return UNSAFE.getInt(null, struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASEXACT); }
+    public static int ndepthBiasExact(long struct) { return memGetInt(struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASEXACT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDepthBiasRepresentationInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDepthBiasRepresentationInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDepthBiasRepresentationInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #depthBiasRepresentation(int) depthBiasRepresentation}. */
-    public static void ndepthBiasRepresentation(long struct, int value) { UNSAFE.putInt(null, struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASREPRESENTATION, value); }
+    public static void ndepthBiasRepresentation(long struct, int value) { memPutInt(struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASREPRESENTATION, value); }
     /** Unsafe version of {@link #depthBiasExact(boolean) depthBiasExact}. */
-    public static void ndepthBiasExact(long struct, int value) { UNSAFE.putInt(null, struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASEXACT, value); }
+    public static void ndepthBiasExact(long struct, int value) { memPutInt(struct + VkDepthBiasRepresentationInfoEXT.DEPTHBIASEXACT, value); }
 
     // -----------------------------------
 
@@ -310,6 +308,11 @@ public class VkDepthBiasRepresentationInfoEXT extends Struct<VkDepthBiasRepresen
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

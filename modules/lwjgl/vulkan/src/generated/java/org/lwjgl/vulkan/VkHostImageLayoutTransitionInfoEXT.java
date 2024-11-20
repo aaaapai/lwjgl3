@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -236,8 +236,7 @@ public class VkHostImageLayoutTransitionInfoEXT extends Struct<VkHostImageLayout
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHostImageLayoutTransitionInfoEXT createSafe(long address) {
+    public static @Nullable VkHostImageLayoutTransitionInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkHostImageLayoutTransitionInfoEXT(address, null);
     }
 
@@ -280,8 +279,7 @@ public class VkHostImageLayoutTransitionInfoEXT extends Struct<VkHostImageLayout
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHostImageLayoutTransitionInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkHostImageLayoutTransitionInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -326,28 +324,28 @@ public class VkHostImageLayoutTransitionInfoEXT extends Struct<VkHostImageLayout
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkHostImageLayoutTransitionInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkHostImageLayoutTransitionInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkHostImageLayoutTransitionInfoEXT.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkHostImageLayoutTransitionInfoEXT.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkHostImageLayoutTransitionInfoEXT.IMAGE); }
     /** Unsafe version of {@link #oldLayout}. */
-    public static int noldLayout(long struct) { return UNSAFE.getInt(null, struct + VkHostImageLayoutTransitionInfoEXT.OLDLAYOUT); }
+    public static int noldLayout(long struct) { return memGetInt(struct + VkHostImageLayoutTransitionInfoEXT.OLDLAYOUT); }
     /** Unsafe version of {@link #newLayout}. */
-    public static int nnewLayout(long struct) { return UNSAFE.getInt(null, struct + VkHostImageLayoutTransitionInfoEXT.NEWLAYOUT); }
+    public static int nnewLayout(long struct) { return memGetInt(struct + VkHostImageLayoutTransitionInfoEXT.NEWLAYOUT); }
     /** Unsafe version of {@link #subresourceRange}. */
     public static VkImageSubresourceRange nsubresourceRange(long struct) { return VkImageSubresourceRange.create(struct + VkHostImageLayoutTransitionInfoEXT.SUBRESOURCERANGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkHostImageLayoutTransitionInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkHostImageLayoutTransitionInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkHostImageLayoutTransitionInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkHostImageLayoutTransitionInfoEXT.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkHostImageLayoutTransitionInfoEXT.IMAGE, value); }
     /** Unsafe version of {@link #oldLayout(int) oldLayout}. */
-    public static void noldLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkHostImageLayoutTransitionInfoEXT.OLDLAYOUT, value); }
+    public static void noldLayout(long struct, int value) { memPutInt(struct + VkHostImageLayoutTransitionInfoEXT.OLDLAYOUT, value); }
     /** Unsafe version of {@link #newLayout(int) newLayout}. */
-    public static void nnewLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkHostImageLayoutTransitionInfoEXT.NEWLAYOUT, value); }
+    public static void nnewLayout(long struct, int value) { memPutInt(struct + VkHostImageLayoutTransitionInfoEXT.NEWLAYOUT, value); }
     /** Unsafe version of {@link #subresourceRange(VkImageSubresourceRange) subresourceRange}. */
     public static void nsubresourceRange(long struct, VkImageSubresourceRange value) { memCopy(value.address(), struct + VkHostImageLayoutTransitionInfoEXT.SUBRESOURCERANGE, VkImageSubresourceRange.SIZEOF); }
 
@@ -382,6 +380,11 @@ public class VkHostImageLayoutTransitionInfoEXT extends Struct<VkHostImageLayout
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

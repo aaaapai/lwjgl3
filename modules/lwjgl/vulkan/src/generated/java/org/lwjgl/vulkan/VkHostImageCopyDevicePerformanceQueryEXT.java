@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -178,8 +178,7 @@ public class VkHostImageCopyDevicePerformanceQueryEXT extends Struct<VkHostImage
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHostImageCopyDevicePerformanceQueryEXT createSafe(long address) {
+    public static @Nullable VkHostImageCopyDevicePerformanceQueryEXT createSafe(long address) {
         return address == NULL ? null : new VkHostImageCopyDevicePerformanceQueryEXT(address, null);
     }
 
@@ -222,8 +221,7 @@ public class VkHostImageCopyDevicePerformanceQueryEXT extends Struct<VkHostImage
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHostImageCopyDevicePerformanceQueryEXT.Buffer createSafe(long address, int capacity) {
+    public static VkHostImageCopyDevicePerformanceQueryEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,16 +266,16 @@ public class VkHostImageCopyDevicePerformanceQueryEXT extends Struct<VkHostImage
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkHostImageCopyDevicePerformanceQueryEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkHostImageCopyDevicePerformanceQueryEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkHostImageCopyDevicePerformanceQueryEXT.PNEXT); }
     /** Unsafe version of {@link #optimalDeviceAccess}. */
-    public static int noptimalDeviceAccess(long struct) { return UNSAFE.getInt(null, struct + VkHostImageCopyDevicePerformanceQueryEXT.OPTIMALDEVICEACCESS); }
+    public static int noptimalDeviceAccess(long struct) { return memGetInt(struct + VkHostImageCopyDevicePerformanceQueryEXT.OPTIMALDEVICEACCESS); }
     /** Unsafe version of {@link #identicalMemoryLayout}. */
-    public static int nidenticalMemoryLayout(long struct) { return UNSAFE.getInt(null, struct + VkHostImageCopyDevicePerformanceQueryEXT.IDENTICALMEMORYLAYOUT); }
+    public static int nidenticalMemoryLayout(long struct) { return memGetInt(struct + VkHostImageCopyDevicePerformanceQueryEXT.IDENTICALMEMORYLAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkHostImageCopyDevicePerformanceQueryEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkHostImageCopyDevicePerformanceQueryEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkHostImageCopyDevicePerformanceQueryEXT.PNEXT, value); }
 
@@ -312,6 +310,11 @@ public class VkHostImageCopyDevicePerformanceQueryEXT extends Struct<VkHostImage
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

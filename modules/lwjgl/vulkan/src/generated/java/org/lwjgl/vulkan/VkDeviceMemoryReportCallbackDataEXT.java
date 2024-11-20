@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -212,8 +212,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceMemoryReportCallbackDataEXT createSafe(long address) {
+    public static @Nullable VkDeviceMemoryReportCallbackDataEXT createSafe(long address) {
         return address == NULL ? null : new VkDeviceMemoryReportCallbackDataEXT(address, null);
     }
 
@@ -256,8 +255,7 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceMemoryReportCallbackDataEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceMemoryReportCallbackDataEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -302,26 +300,26 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryReportCallbackDataEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceMemoryReportCallbackDataEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceMemoryReportCallbackDataEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryReportCallbackDataEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDeviceMemoryReportCallbackDataEXT.FLAGS); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryReportCallbackDataEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkDeviceMemoryReportCallbackDataEXT.TYPE); }
     /** Unsafe version of {@link #memoryObjectId}. */
-    public static long nmemoryObjectId(long struct) { return UNSAFE.getLong(null, struct + VkDeviceMemoryReportCallbackDataEXT.MEMORYOBJECTID); }
+    public static long nmemoryObjectId(long struct) { return memGetLong(struct + VkDeviceMemoryReportCallbackDataEXT.MEMORYOBJECTID); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkDeviceMemoryReportCallbackDataEXT.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkDeviceMemoryReportCallbackDataEXT.SIZE); }
     /** Unsafe version of {@link #objectType}. */
-    public static int nobjectType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryReportCallbackDataEXT.OBJECTTYPE); }
+    public static int nobjectType(long struct) { return memGetInt(struct + VkDeviceMemoryReportCallbackDataEXT.OBJECTTYPE); }
     /** Unsafe version of {@link #objectHandle}. */
-    public static long nobjectHandle(long struct) { return UNSAFE.getLong(null, struct + VkDeviceMemoryReportCallbackDataEXT.OBJECTHANDLE); }
+    public static long nobjectHandle(long struct) { return memGetLong(struct + VkDeviceMemoryReportCallbackDataEXT.OBJECTHANDLE); }
     /** Unsafe version of {@link #heapIndex}. */
-    public static int nheapIndex(long struct) { return UNSAFE.getInt(null, struct + VkDeviceMemoryReportCallbackDataEXT.HEAPINDEX); }
+    public static int nheapIndex(long struct) { return memGetInt(struct + VkDeviceMemoryReportCallbackDataEXT.HEAPINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceMemoryReportCallbackDataEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceMemoryReportCallbackDataEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceMemoryReportCallbackDataEXT.PNEXT, value); }
 
@@ -356,6 +354,11 @@ public class VkDeviceMemoryReportCallbackDataEXT extends Struct<VkDeviceMemoryRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

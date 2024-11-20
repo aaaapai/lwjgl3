@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -165,8 +165,7 @@ public class VkReleaseCapturedPipelineDataInfoKHR extends Struct<VkReleaseCaptur
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkReleaseCapturedPipelineDataInfoKHR createSafe(long address) {
+    public static @Nullable VkReleaseCapturedPipelineDataInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkReleaseCapturedPipelineDataInfoKHR(address, null);
     }
 
@@ -209,8 +208,7 @@ public class VkReleaseCapturedPipelineDataInfoKHR extends Struct<VkReleaseCaptur
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkReleaseCapturedPipelineDataInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkReleaseCapturedPipelineDataInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +253,18 @@ public class VkReleaseCapturedPipelineDataInfoKHR extends Struct<VkReleaseCaptur
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkReleaseCapturedPipelineDataInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkReleaseCapturedPipelineDataInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkReleaseCapturedPipelineDataInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pipeline}. */
-    public static long npipeline(long struct) { return UNSAFE.getLong(null, struct + VkReleaseCapturedPipelineDataInfoKHR.PIPELINE); }
+    public static long npipeline(long struct) { return memGetLong(struct + VkReleaseCapturedPipelineDataInfoKHR.PIPELINE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkReleaseCapturedPipelineDataInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkReleaseCapturedPipelineDataInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkReleaseCapturedPipelineDataInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pipeline(long) pipeline}. */
-    public static void npipeline(long struct, long value) { UNSAFE.putLong(null, struct + VkReleaseCapturedPipelineDataInfoKHR.PIPELINE, value); }
+    public static void npipeline(long struct, long value) { memPutLong(struct + VkReleaseCapturedPipelineDataInfoKHR.PIPELINE, value); }
 
     // -----------------------------------
 
@@ -299,6 +297,11 @@ public class VkReleaseCapturedPipelineDataInfoKHR extends Struct<VkReleaseCaptur
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

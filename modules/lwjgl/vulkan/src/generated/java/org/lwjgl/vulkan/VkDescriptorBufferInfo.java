@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -177,8 +177,7 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferInfo createSafe(long address) {
+    public static @Nullable VkDescriptorBufferInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorBufferInfo(address, null);
     }
 
@@ -221,8 +220,7 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorBufferInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorBufferInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,18 +284,18 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferInfo.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkDescriptorBufferInfo.BUFFER); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferInfo.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkDescriptorBufferInfo.OFFSET); }
     /** Unsafe version of {@link #range}. */
-    public static long nrange(long struct) { return UNSAFE.getLong(null, struct + VkDescriptorBufferInfo.RANGE); }
+    public static long nrange(long struct) { return memGetLong(struct + VkDescriptorBufferInfo.RANGE); }
 
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferInfo.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkDescriptorBufferInfo.BUFFER, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferInfo.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkDescriptorBufferInfo.OFFSET, value); }
     /** Unsafe version of {@link #range(long) range}. */
-    public static void nrange(long struct, long value) { UNSAFE.putLong(null, struct + VkDescriptorBufferInfo.RANGE, value); }
+    public static void nrange(long struct, long value) { memPutLong(struct + VkDescriptorBufferInfo.RANGE, value); }
 
     // -----------------------------------
 
@@ -330,6 +328,11 @@ public class VkDescriptorBufferInfo extends Struct<VkDescriptorBufferInfo> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

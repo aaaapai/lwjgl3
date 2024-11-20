@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -168,8 +168,7 @@ public class VkGeneratedCommandsShaderInfoEXT extends Struct<VkGeneratedCommands
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsShaderInfoEXT createSafe(long address) {
+    public static @Nullable VkGeneratedCommandsShaderInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkGeneratedCommandsShaderInfoEXT(address, null);
     }
 
@@ -212,8 +211,7 @@ public class VkGeneratedCommandsShaderInfoEXT extends Struct<VkGeneratedCommands
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkGeneratedCommandsShaderInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkGeneratedCommandsShaderInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class VkGeneratedCommandsShaderInfoEXT extends Struct<VkGeneratedCommands
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsShaderInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkGeneratedCommandsShaderInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkGeneratedCommandsShaderInfoEXT.PNEXT); }
     /** Unsafe version of {@link #shaderCount}. */
-    public static int nshaderCount(long struct) { return UNSAFE.getInt(null, struct + VkGeneratedCommandsShaderInfoEXT.SHADERCOUNT); }
+    public static int nshaderCount(long struct) { return memGetInt(struct + VkGeneratedCommandsShaderInfoEXT.SHADERCOUNT); }
     /** Unsafe version of {@link #pShaders() pShaders}. */
     public static LongBuffer npShaders(long struct) { return memLongBuffer(memGetAddress(struct + VkGeneratedCommandsShaderInfoEXT.PSHADERS), nshaderCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsShaderInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkGeneratedCommandsShaderInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkGeneratedCommandsShaderInfoEXT.PNEXT, value); }
     /** Sets the specified value to the {@code shaderCount} field of the specified {@code struct}. */
-    public static void nshaderCount(long struct, int value) { UNSAFE.putInt(null, struct + VkGeneratedCommandsShaderInfoEXT.SHADERCOUNT, value); }
+    public static void nshaderCount(long struct, int value) { memPutInt(struct + VkGeneratedCommandsShaderInfoEXT.SHADERCOUNT, value); }
     /** Unsafe version of {@link #pShaders(LongBuffer) pShaders}. */
     public static void npShaders(long struct, LongBuffer value) { memPutAddress(struct + VkGeneratedCommandsShaderInfoEXT.PSHADERS, memAddress(value)); nshaderCount(struct, value.remaining()); }
 
@@ -315,6 +313,11 @@ public class VkGeneratedCommandsShaderInfoEXT extends Struct<VkGeneratedCommands
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

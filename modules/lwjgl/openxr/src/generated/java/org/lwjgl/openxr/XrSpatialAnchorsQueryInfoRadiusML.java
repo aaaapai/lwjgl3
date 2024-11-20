@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -193,8 +193,7 @@ public class XrSpatialAnchorsQueryInfoRadiusML extends Struct<XrSpatialAnchorsQu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsQueryInfoRadiusML createSafe(long address) {
+    public static @Nullable XrSpatialAnchorsQueryInfoRadiusML createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorsQueryInfoRadiusML(address, null);
     }
 
@@ -242,8 +241,7 @@ public class XrSpatialAnchorsQueryInfoRadiusML extends Struct<XrSpatialAnchorsQu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorsQueryInfoRadiusML.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorsQueryInfoRadiusML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,7 +291,7 @@ public class XrSpatialAnchorsQueryInfoRadiusML extends Struct<XrSpatialAnchorsQu
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorsQueryInfoRadiusML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorsQueryInfoRadiusML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorsQueryInfoRadiusML.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
@@ -301,12 +299,12 @@ public class XrSpatialAnchorsQueryInfoRadiusML extends Struct<XrSpatialAnchorsQu
     /** Unsafe version of {@link #center}. */
     public static XrVector3f ncenter(long struct) { return XrVector3f.create(struct + XrSpatialAnchorsQueryInfoRadiusML.CENTER); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrSpatialAnchorsQueryInfoRadiusML.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrSpatialAnchorsQueryInfoRadiusML.TIME); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrSpatialAnchorsQueryInfoRadiusML.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrSpatialAnchorsQueryInfoRadiusML.RADIUS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorsQueryInfoRadiusML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorsQueryInfoRadiusML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorsQueryInfoRadiusML.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
@@ -314,9 +312,9 @@ public class XrSpatialAnchorsQueryInfoRadiusML extends Struct<XrSpatialAnchorsQu
     /** Unsafe version of {@link #center(XrVector3f) center}. */
     public static void ncenter(long struct, XrVector3f value) { memCopy(value.address(), struct + XrSpatialAnchorsQueryInfoRadiusML.CENTER, XrVector3f.SIZEOF); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrSpatialAnchorsQueryInfoRadiusML.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrSpatialAnchorsQueryInfoRadiusML.TIME, value); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrSpatialAnchorsQueryInfoRadiusML.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrSpatialAnchorsQueryInfoRadiusML.RADIUS, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -358,6 +356,11 @@ public class XrSpatialAnchorsQueryInfoRadiusML extends Struct<XrSpatialAnchorsQu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -164,8 +164,7 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewASTCDecodeModeEXT createSafe(long address) {
+    public static @Nullable VkImageViewASTCDecodeModeEXT createSafe(long address) {
         return address == NULL ? null : new VkImageViewASTCDecodeModeEXT(address, null);
     }
 
@@ -208,8 +207,7 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewASTCDecodeModeEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewASTCDecodeModeEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,18 +271,18 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewASTCDecodeModeEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewASTCDecodeModeEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewASTCDecodeModeEXT.PNEXT); }
     /** Unsafe version of {@link #decodeMode}. */
-    public static int ndecodeMode(long struct) { return UNSAFE.getInt(null, struct + VkImageViewASTCDecodeModeEXT.DECODEMODE); }
+    public static int ndecodeMode(long struct) { return memGetInt(struct + VkImageViewASTCDecodeModeEXT.DECODEMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewASTCDecodeModeEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewASTCDecodeModeEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewASTCDecodeModeEXT.PNEXT, value); }
     /** Unsafe version of {@link #decodeMode(int) decodeMode}. */
-    public static void ndecodeMode(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewASTCDecodeModeEXT.DECODEMODE, value); }
+    public static void ndecodeMode(long struct, int value) { memPutInt(struct + VkImageViewASTCDecodeModeEXT.DECODEMODE, value); }
 
     // -----------------------------------
 
@@ -317,6 +315,11 @@ public class VkImageViewASTCDecodeModeEXT extends Struct<VkImageViewASTCDecodeMo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

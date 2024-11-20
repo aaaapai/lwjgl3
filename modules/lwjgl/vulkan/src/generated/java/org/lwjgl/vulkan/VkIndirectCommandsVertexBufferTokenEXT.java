@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>{@code vertexBindingUnit} <b>must</b> be less than the total number of vertex input bindings in use by the current graphics state.</li>
+ * <li>{@code vertexBindingUnit} <b>must</b> be less than the total number of vertex input bindings in use by the current graphics state</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -123,8 +123,7 @@ public class VkIndirectCommandsVertexBufferTokenEXT extends Struct<VkIndirectCom
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsVertexBufferTokenEXT createSafe(long address) {
+    public static @Nullable VkIndirectCommandsVertexBufferTokenEXT createSafe(long address) {
         return address == NULL ? null : new VkIndirectCommandsVertexBufferTokenEXT(address, null);
     }
 
@@ -167,8 +166,7 @@ public class VkIndirectCommandsVertexBufferTokenEXT extends Struct<VkIndirectCom
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkIndirectCommandsVertexBufferTokenEXT.Buffer createSafe(long address, int capacity) {
+    public static VkIndirectCommandsVertexBufferTokenEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,10 +211,10 @@ public class VkIndirectCommandsVertexBufferTokenEXT extends Struct<VkIndirectCom
     // -----------------------------------
 
     /** Unsafe version of {@link #vertexBindingUnit}. */
-    public static int nvertexBindingUnit(long struct) { return UNSAFE.getInt(null, struct + VkIndirectCommandsVertexBufferTokenEXT.VERTEXBINDINGUNIT); }
+    public static int nvertexBindingUnit(long struct) { return memGetInt(struct + VkIndirectCommandsVertexBufferTokenEXT.VERTEXBINDINGUNIT); }
 
     /** Unsafe version of {@link #vertexBindingUnit(int) vertexBindingUnit}. */
-    public static void nvertexBindingUnit(long struct, int value) { UNSAFE.putInt(null, struct + VkIndirectCommandsVertexBufferTokenEXT.VERTEXBINDINGUNIT, value); }
+    public static void nvertexBindingUnit(long struct, int value) { memPutInt(struct + VkIndirectCommandsVertexBufferTokenEXT.VERTEXBINDINGUNIT, value); }
 
     // -----------------------------------
 
@@ -249,6 +247,11 @@ public class VkIndirectCommandsVertexBufferTokenEXT extends Struct<VkIndirectCom
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -202,13 +202,11 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
     @NativeType("nk_handle")
     public NkHandle userdata() { return nuserdata(address()); }
     /** @return the value of the {@code draw_begin} field. */
-    @Nullable
     @NativeType("nk_draw_begin")
-    public NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
+    public @Nullable NkDrawBeginCallback draw_begin() { return ndraw_begin(address()); }
     /** @return the value of the {@code draw_end} field. */
-    @Nullable
     @NativeType("nk_draw_end")
-    public NkDrawEndCallback draw_end() { return ndraw_end(address()); }
+    public @Nullable NkDrawEndCallback draw_end() { return ndraw_end(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
     public NkStyleKnob normal(@NativeType("struct nk_style_item") NkStyleItem value) { nnormal(address(), value); return this; }
@@ -366,8 +364,7 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleKnob createSafe(long address) {
+    public static @Nullable NkStyleKnob createSafe(long address) {
         return address == NULL ? null : new NkStyleKnob(address, null);
     }
 
@@ -410,8 +407,7 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleKnob.Buffer createSafe(long address, int capacity) {
+    public static NkStyleKnob.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -478,25 +474,25 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
     /** Unsafe version of {@link #cursor_active}. */
     public static NkColor ncursor_active(long struct) { return NkColor.create(struct + NkStyleKnob.CURSOR_ACTIVE); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleKnob.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkStyleKnob.BORDER); }
     /** Unsafe version of {@link #knob_border}. */
-    public static float nknob_border(long struct) { return UNSAFE.getFloat(null, struct + NkStyleKnob.KNOB_BORDER); }
+    public static float nknob_border(long struct) { return memGetFloat(struct + NkStyleKnob.KNOB_BORDER); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleKnob.PADDING); }
     /** Unsafe version of {@link #spacing}. */
     public static NkVec2 nspacing(long struct) { return NkVec2.create(struct + NkStyleKnob.SPACING); }
     /** Unsafe version of {@link #cursor_width}. */
-    public static float ncursor_width(long struct) { return UNSAFE.getFloat(null, struct + NkStyleKnob.CURSOR_WIDTH); }
+    public static float ncursor_width(long struct) { return memGetFloat(struct + NkStyleKnob.CURSOR_WIDTH); }
     /** Unsafe version of {@link #color_factor}. */
-    public static float ncolor_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleKnob.COLOR_FACTOR); }
+    public static float ncolor_factor(long struct) { return memGetFloat(struct + NkStyleKnob.COLOR_FACTOR); }
     /** Unsafe version of {@link #disabled_factor}. */
-    public static float ndisabled_factor(long struct) { return UNSAFE.getFloat(null, struct + NkStyleKnob.DISABLED_FACTOR); }
+    public static float ndisabled_factor(long struct) { return memGetFloat(struct + NkStyleKnob.DISABLED_FACTOR); }
     /** Unsafe version of {@link #userdata}. */
     public static NkHandle nuserdata(long struct) { return NkHandle.create(struct + NkStyleKnob.USERDATA); }
     /** Unsafe version of {@link #draw_begin}. */
-    @Nullable public static NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleKnob.DRAW_BEGIN)); }
+    public static @Nullable NkDrawBeginCallback ndraw_begin(long struct) { return NkDrawBeginCallback.createSafe(memGetAddress(struct + NkStyleKnob.DRAW_BEGIN)); }
     /** Unsafe version of {@link #draw_end}. */
-    @Nullable public static NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleKnob.DRAW_END)); }
+    public static @Nullable NkDrawEndCallback ndraw_end(long struct) { return NkDrawEndCallback.createSafe(memGetAddress(struct + NkStyleKnob.DRAW_END)); }
 
     /** Unsafe version of {@link #normal(NkStyleItem) normal}. */
     public static void nnormal(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleKnob.NORMAL, NkStyleItem.SIZEOF); }
@@ -521,19 +517,19 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
     /** Unsafe version of {@link #cursor_active(NkColor) cursor_active}. */
     public static void ncursor_active(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleKnob.CURSOR_ACTIVE, NkColor.SIZEOF); }
     /** Unsafe version of {@link #border(float) border}. */
-    public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleKnob.BORDER, value); }
+    public static void nborder(long struct, float value) { memPutFloat(struct + NkStyleKnob.BORDER, value); }
     /** Unsafe version of {@link #knob_border(float) knob_border}. */
-    public static void nknob_border(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleKnob.KNOB_BORDER, value); }
+    public static void nknob_border(long struct, float value) { memPutFloat(struct + NkStyleKnob.KNOB_BORDER, value); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleKnob.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #spacing(NkVec2) spacing}. */
     public static void nspacing(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleKnob.SPACING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #cursor_width(float) cursor_width}. */
-    public static void ncursor_width(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleKnob.CURSOR_WIDTH, value); }
+    public static void ncursor_width(long struct, float value) { memPutFloat(struct + NkStyleKnob.CURSOR_WIDTH, value); }
     /** Unsafe version of {@link #color_factor(float) color_factor}. */
-    public static void ncolor_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleKnob.COLOR_FACTOR, value); }
+    public static void ncolor_factor(long struct, float value) { memPutFloat(struct + NkStyleKnob.COLOR_FACTOR, value); }
     /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
-    public static void ndisabled_factor(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleKnob.DISABLED_FACTOR, value); }
+    public static void ndisabled_factor(long struct, float value) { memPutFloat(struct + NkStyleKnob.DISABLED_FACTOR, value); }
     /** Unsafe version of {@link #userdata(NkHandle) userdata}. */
     public static void nuserdata(long struct, NkHandle value) { memCopy(value.address(), struct + NkStyleKnob.USERDATA, NkHandle.SIZEOF); }
     /** Unsafe version of {@link #draw_begin(NkDrawBeginCallbackI) draw_begin}. */
@@ -572,6 +568,11 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -632,13 +633,11 @@ public class NkStyleKnob extends Struct<NkStyleKnob> implements NativeResource {
         @NativeType("nk_handle")
         public NkHandle userdata() { return NkStyleKnob.nuserdata(address()); }
         /** @return the value of the {@code draw_begin} field. */
-        @Nullable
         @NativeType("nk_draw_begin")
-        public NkDrawBeginCallback draw_begin() { return NkStyleKnob.ndraw_begin(address()); }
+        public @Nullable NkDrawBeginCallback draw_begin() { return NkStyleKnob.ndraw_begin(address()); }
         /** @return the value of the {@code draw_end} field. */
-        @Nullable
         @NativeType("nk_draw_end")
-        public NkDrawEndCallback draw_end() { return NkStyleKnob.ndraw_end(address()); }
+        public @Nullable NkDrawEndCallback draw_end() { return NkStyleKnob.ndraw_end(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
         public NkStyleKnob.Buffer normal(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleKnob.nnormal(address(), value); return this; }

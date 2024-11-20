@@ -393,7 +393,7 @@
             </classpath>
 
             <jvmarg line="${generator.bindings}"/>
-            <jvmarg line="-Dfile.encoding=UTF8 -Dline.separator=&#10;"/>
+            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -Dline.separator=&#10;"/>
 
             <arg value="${module.lwjgl}"/>
         </java>
@@ -414,7 +414,7 @@
             <lwjgl.javac destdir="${bin.lwjgl}/@{binding}" taskname="javac: @{binding}" if:true="${binding.@{binding}}">
                 <classpath>
                     <pathelement path="${bin.lwjgl}/core"/>
-                    <pathelement path="${lib}/java/jsr305.jar"/>
+                    <pathelement path="${lib}/java/jspecify.jar"/>
                 </classpath>
 
                 <src>
@@ -429,13 +429,37 @@
     </macrodef>
 
     <target name="compile" description="Compiles the Java source code" depends="generate">
+        <!--
+        The @NullMarked annotation includes MODULE as a @Target, which is not compatible
+        with JDK 8 and produces a warning multiple times when building the LWJGL modules.
+
+        Compile a copy here without the module target and update jspecify.jar with it.
+        -->
+        <lwjgl.javac
+            destdir="bin/classes/ant"
+
+            srcdir="modules/ant/src/main/java"
+            includes="org/jspecify/annotations/**"
+
+            taskname="javac: compile @NullMarked"
+        />
+        <jar
+            destfile="${lib}/java/jspecify.jar"
+            update="true"
+
+            basedir="bin/classes/ant"
+            includes="org/jspecify/annotations/NullMarked.class"
+
+            taskname="jar: update JSpecify"
+        />
+
         <mkdir dir="${bin.lwjgl}/core"/>
 
         <!-- cleanup in case there was an earlier "release" failure -->
         <delete dir="${module.lwjgl}/core/src/generated/java/META-INF" quiet="true"/>
 
         <lwjgl.javac destdir="${bin.lwjgl}/core" taskname="javac: core">
-            <classpath><pathelement path="${lib}/java/jsr305.jar"/></classpath>
+            <classpath><pathelement path="${lib}/java/jspecify.jar"/></classpath>
             <src>
                 <pathelement path="${module.lwjgl}/core/src/main/java/"/>
                 <pathelement path="${module.lwjgl}/core/src/generated/java/"/>
@@ -448,7 +472,7 @@
         <lwjgl.javac11 destdir="${bin.lwjgl}/core/META-INF/versions/11" taskname="javac: Core - Java 11" if:set="jdk11">
             <classpath>
                 <pathelement path="${bin.lwjgl}/core"/>
-                <pathelement path="${lib}/java/jsr305.jar"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
             </classpath>
             <src>
                 <pathelement path="${module.lwjgl}/core11/src/main/java"/>
@@ -629,6 +653,7 @@
                 <pathelement path="${lib}/native"/>
             </classpath>
 
+            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
             <jvmarg line="${jvmargs}" if:set="jvmargs"/>
             <arg line="${args}" if:set="args"/>
         </java>
@@ -650,7 +675,7 @@
                 <classpath>
                     <pathelement path="${bin.lwjgl}/core"/>
                     <pathelement path="${bin.lwjgl}/${module}"/>
-                    <pathelement path="${lib}/java/jsr305.jar"/>
+                    <pathelement path="${lib}/java/jspecify.jar"/>
                     <pathelement path="${lib}/java/testng.jar"/>
                 </classpath>
             </lwjgl.javac>
@@ -828,7 +853,7 @@
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="jdk24"/>
                 <pathelement path="${module.classpath}"/>
                 <pathelement path="${bin.test}"/>
-                <pathelement path="${lib}/java/jsr305.jar"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
                 <pathelement path="${lib}/java/jmh-core.jar"/>
                 <pathelement path="${lib}/java/jmh-generator-annprocess.jar"/>
                 <pathelement path="${lib}/java/joml.jar"/>
@@ -913,6 +938,7 @@
             <!--<jvmarg value="-Xcheck:jni"/>--> <!-- SIMD fails with this (see -XX:+RestoreMXCSROnJNICall) -->
             <jvmarg value="-server"/>
             <jvmarg value="-ea"/>
+            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
             <jvmarg value="-Dorg.lwjgl.util.Debug=true"/>
             <jvmarg value="-Dorg.lwjgl.util.DebugAllocator=true"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
@@ -955,7 +981,7 @@
             </classpath>
 
             <jvmarg value="-server"/>
-            <jvmarg line="--enable-preview --enable-native-access=ALL-UNNAMED" if:set="core.java24"/>
+            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
             <!--<jvmarg value="-Xcheck:jni"/>-->
 
@@ -982,6 +1008,7 @@
                 <pathelement path="${bin.lwjgl}/core"/>
                 <pathelement path="${lib}/native"/>
             </classpath>
+            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
         </java>
     </target>
 
@@ -1030,7 +1057,7 @@
             <bottom><![CDATA[<i>Copyright LWJGL. All Rights Reserved. <a href="https://www.lwjgl.org/license">License terms</a>.</i>]]></bottom>
 
             <classpath>
-                <pathelement path="${lib}/java/jsr305.jar"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
             </classpath>
 
             <arg value="-XDignore.symbol.file"/> <!-- Suppresses internal API (e.g. Unsafe) usage warnings -->
@@ -1040,13 +1067,15 @@
             <arg line="-Xmaxerrs 1000 -Xmaxwarns 1000"/>
             <arg line="-notimestamp"/>
             <arg value="-html5" if:set="jdk11"/>
-            <arg line="-J-Dfile.encoding=UTF8 -J-Dline.separator=&#10;"/>
+            <arg line="-J-Dfile.encoding=UTF-8 -J-Dstdout.encoding=UTF-8 -J-Dstderr.encoding=UTF-8 -J-Dline.separator=&#10;"/>
             <arg line="--add-exports jdk.javadoc/com.sun.tools.doclets=ALL-UNNAMED" if:set="jdk11"/>
         </javadoc>
         <get-quiet name="favicon" url="https://www.lwjgl.org/favicon.ico" dest="${bin.javadoc}"/>
 
         <java classname="org.lwjgl.system.JavadocPostProcess" failonerror="true">
             <classpath path="${bin.generator}"/>
+
+            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
 
             <arg value="${bin.javadoc}"/>
         </java>
@@ -1406,7 +1435,7 @@
 
                 <classpath>
                     <pathelement path="${module.classpath}"/>
-                    <pathelement path="${lib}/java/jsr305.jar"/>
+                    <pathelement path="${lib}/java/jspecify.jar"/>
                 </classpath>
 
                 <fileset dir="${module.lwjgl}/@{name}/src/main/java/org/lwjgl" includes="**" if:set="hasMain.javadoc"/>
@@ -1418,13 +1447,15 @@
                 <arg line="-Xmaxerrs 1000 -Xmaxwarns 1000"/>
                 <arg line="-notimestamp"/>
                 <arg value="-html5" if:set="jdk11"/>
-                <arg line="-J-Dfile.encoding=UTF8 -J-Dline.separator=&#10;"/>
+                <arg line="-J-Dfile.encoding=UTF-8 -J-Dstdout.encoding=UTF-8 -J-Dstderr.encoding=UTF-8 -J-Dline.separator=&#10;"/>
                 <arg line="--add-exports jdk.javadoc/com.sun.tools.doclets=ALL-UNNAMED" if:set="jdk11"/>
             </javadoc>
             <get-quiet name="favicon" url="https://www.lwjgl.org/favicon.ico" dest="${release}/${module}/javadoc" unless:set="javadoc.skip"/>
 
             <java classname="org.lwjgl.system.JavadocPostProcess" failonerror="true" unless:set="javadoc.skip">
                 <classpath path="${bin.generator}"/>
+
+                <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
 
                 <arg value="${release}/${module}/javadoc"/>
             </java>

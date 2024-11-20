@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -175,8 +175,7 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryAcquireUnmodifiedEXT createSafe(long address) {
+    public static @Nullable VkExternalMemoryAcquireUnmodifiedEXT createSafe(long address) {
         return address == NULL ? null : new VkExternalMemoryAcquireUnmodifiedEXT(address, null);
     }
 
@@ -219,8 +218,7 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryAcquireUnmodifiedEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExternalMemoryAcquireUnmodifiedEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +263,18 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalMemoryAcquireUnmodifiedEXT.PNEXT); }
     /** Unsafe version of {@link #acquireUnmodifiedMemory}. */
-    public static int nacquireUnmodifiedMemory(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY); }
+    public static int nacquireUnmodifiedMemory(long struct) { return memGetInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalMemoryAcquireUnmodifiedEXT.PNEXT, value); }
     /** Unsafe version of {@link #acquireUnmodifiedMemory(boolean) acquireUnmodifiedMemory}. */
-    public static void nacquireUnmodifiedMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY, value); }
+    public static void nacquireUnmodifiedMemory(long struct, int value) { memPutInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY, value); }
 
     // -----------------------------------
 
@@ -309,6 +307,11 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

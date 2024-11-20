@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -234,8 +234,7 @@ public class VkBufferViewCreateInfo extends Struct<VkBufferViewCreateInfo> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferViewCreateInfo createSafe(long address) {
+    public static @Nullable VkBufferViewCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkBufferViewCreateInfo(address, null);
     }
 
@@ -278,8 +277,7 @@ public class VkBufferViewCreateInfo extends Struct<VkBufferViewCreateInfo> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferViewCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkBufferViewCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -343,34 +341,34 @@ public class VkBufferViewCreateInfo extends Struct<VkBufferViewCreateInfo> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferViewCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferViewCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferViewCreateInfo.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkBufferViewCreateInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkBufferViewCreateInfo.FLAGS); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkBufferViewCreateInfo.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkBufferViewCreateInfo.BUFFER); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkBufferViewCreateInfo.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkBufferViewCreateInfo.FORMAT); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferViewCreateInfo.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkBufferViewCreateInfo.OFFSET); }
     /** Unsafe version of {@link #range}. */
-    public static long nrange(long struct) { return UNSAFE.getLong(null, struct + VkBufferViewCreateInfo.RANGE); }
+    public static long nrange(long struct) { return memGetLong(struct + VkBufferViewCreateInfo.RANGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferViewCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferViewCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferViewCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferViewCreateInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkBufferViewCreateInfo.FLAGS, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferViewCreateInfo.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkBufferViewCreateInfo.BUFFER, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferViewCreateInfo.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + VkBufferViewCreateInfo.FORMAT, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferViewCreateInfo.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkBufferViewCreateInfo.OFFSET, value); }
     /** Unsafe version of {@link #range(long) range}. */
-    public static void nrange(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferViewCreateInfo.RANGE, value); }
+    public static void nrange(long struct, long value) { memPutLong(struct + VkBufferViewCreateInfo.RANGE, value); }
 
     // -----------------------------------
 
@@ -403,6 +401,11 @@ public class VkBufferViewCreateInfo extends Struct<VkBufferViewCreateInfo> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -185,8 +185,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct<VkPhysicalDeviceMu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiviewFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMultiviewFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMultiviewFeatures(address, null);
     }
 
@@ -229,8 +228,7 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct<VkPhysicalDeviceMu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiviewFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMultiviewFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,26 +292,26 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct<VkPhysicalDeviceMu
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMultiviewFeatures.PNEXT); }
     /** Unsafe version of {@link #multiview}. */
-    public static int nmultiview(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEW); }
+    public static int nmultiview(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEW); }
     /** Unsafe version of {@link #multiviewGeometryShader}. */
-    public static int nmultiviewGeometryShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWGEOMETRYSHADER); }
+    public static int nmultiviewGeometryShader(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWGEOMETRYSHADER); }
     /** Unsafe version of {@link #multiviewTessellationShader}. */
-    public static int nmultiviewTessellationShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWTESSELLATIONSHADER); }
+    public static int nmultiviewTessellationShader(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWTESSELLATIONSHADER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMultiviewFeatures.PNEXT, value); }
     /** Unsafe version of {@link #multiview(boolean) multiview}. */
-    public static void nmultiview(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEW, value); }
+    public static void nmultiview(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEW, value); }
     /** Unsafe version of {@link #multiviewGeometryShader(boolean) multiviewGeometryShader}. */
-    public static void nmultiviewGeometryShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWGEOMETRYSHADER, value); }
+    public static void nmultiviewGeometryShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWGEOMETRYSHADER, value); }
     /** Unsafe version of {@link #multiviewTessellationShader(boolean) multiviewTessellationShader}. */
-    public static void nmultiviewTessellationShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWTESSELLATIONSHADER, value); }
+    public static void nmultiviewTessellationShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiviewFeatures.MULTIVIEWTESSELLATIONSHADER, value); }
 
     // -----------------------------------
 
@@ -346,6 +344,11 @@ public class VkPhysicalDeviceMultiviewFeatures extends Struct<VkPhysicalDeviceMu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

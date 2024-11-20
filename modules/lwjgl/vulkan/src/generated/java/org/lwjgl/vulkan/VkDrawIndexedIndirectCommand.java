@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -186,8 +186,7 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndexedIndirectCommand createSafe(long address) {
+    public static @Nullable VkDrawIndexedIndirectCommand createSafe(long address) {
         return address == NULL ? null : new VkDrawIndexedIndirectCommand(address, null);
     }
 
@@ -230,8 +229,7 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndexedIndirectCommand.Buffer createSafe(long address, int capacity) {
+    public static VkDrawIndexedIndirectCommand.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,26 +293,26 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
     // -----------------------------------
 
     /** Unsafe version of {@link #indexCount}. */
-    public static int nindexCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.INDEXCOUNT); }
+    public static int nindexCount(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.INDEXCOUNT); }
     /** Unsafe version of {@link #instanceCount}. */
-    public static int ninstanceCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT); }
+    public static int ninstanceCount(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT); }
     /** Unsafe version of {@link #firstIndex}. */
-    public static int nfirstIndex(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINDEX); }
+    public static int nfirstIndex(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.FIRSTINDEX); }
     /** Unsafe version of {@link #vertexOffset}. */
-    public static int nvertexOffset(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET); }
+    public static int nvertexOffset(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET); }
     /** Unsafe version of {@link #firstInstance}. */
-    public static int nfirstInstance(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE); }
+    public static int nfirstInstance(long struct) { return memGetInt(struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE); }
 
     /** Unsafe version of {@link #indexCount(int) indexCount}. */
-    public static void nindexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.INDEXCOUNT, value); }
+    public static void nindexCount(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.INDEXCOUNT, value); }
     /** Unsafe version of {@link #instanceCount(int) instanceCount}. */
-    public static void ninstanceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT, value); }
+    public static void ninstanceCount(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.INSTANCECOUNT, value); }
     /** Unsafe version of {@link #firstIndex(int) firstIndex}. */
-    public static void nfirstIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINDEX, value); }
+    public static void nfirstIndex(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.FIRSTINDEX, value); }
     /** Unsafe version of {@link #vertexOffset(int) vertexOffset}. */
-    public static void nvertexOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET, value); }
+    public static void nvertexOffset(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.VERTEXOFFSET, value); }
     /** Unsafe version of {@link #firstInstance(int) firstInstance}. */
-    public static void nfirstInstance(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE, value); }
+    public static void nfirstInstance(long struct, int value) { memPutInt(struct + VkDrawIndexedIndirectCommand.FIRSTINSTANCE, value); }
 
     // -----------------------------------
 
@@ -347,6 +345,11 @@ public class VkDrawIndexedIndirectCommand extends Struct<VkDrawIndexedIndirectCo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

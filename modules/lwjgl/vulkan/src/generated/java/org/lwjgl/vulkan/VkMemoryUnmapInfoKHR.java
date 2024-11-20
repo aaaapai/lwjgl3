@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,8 +184,7 @@ public class VkMemoryUnmapInfoKHR extends Struct<VkMemoryUnmapInfoKHR> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryUnmapInfoKHR createSafe(long address) {
+    public static @Nullable VkMemoryUnmapInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryUnmapInfoKHR(address, null);
     }
 
@@ -228,8 +227,7 @@ public class VkMemoryUnmapInfoKHR extends Struct<VkMemoryUnmapInfoKHR> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryUnmapInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryUnmapInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,22 +272,22 @@ public class VkMemoryUnmapInfoKHR extends Struct<VkMemoryUnmapInfoKHR> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryUnmapInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryUnmapInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryUnmapInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMemoryUnmapInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMemoryUnmapInfoKHR.FLAGS); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkMemoryUnmapInfoKHR.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkMemoryUnmapInfoKHR.MEMORY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryUnmapInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryUnmapInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryUnmapInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryUnmapInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkMemoryUnmapInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryUnmapInfoKHR.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkMemoryUnmapInfoKHR.MEMORY, value); }
 
     // -----------------------------------
 
@@ -322,6 +320,11 @@ public class VkMemoryUnmapInfoKHR extends Struct<VkMemoryUnmapInfoKHR> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

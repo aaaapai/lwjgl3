@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -231,8 +231,7 @@ public class VkPipelineColorBlendAttachmentState extends Struct<VkPipelineColorB
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineColorBlendAttachmentState createSafe(long address) {
+    public static @Nullable VkPipelineColorBlendAttachmentState createSafe(long address) {
         return address == NULL ? null : new VkPipelineColorBlendAttachmentState(address, null);
     }
 
@@ -275,8 +274,7 @@ public class VkPipelineColorBlendAttachmentState extends Struct<VkPipelineColorB
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineColorBlendAttachmentState.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineColorBlendAttachmentState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -340,38 +338,38 @@ public class VkPipelineColorBlendAttachmentState extends Struct<VkPipelineColorB
     // -----------------------------------
 
     /** Unsafe version of {@link #blendEnable}. */
-    public static int nblendEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.BLENDENABLE); }
+    public static int nblendEnable(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.BLENDENABLE); }
     /** Unsafe version of {@link #srcColorBlendFactor}. */
-    public static int nsrcColorBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.SRCCOLORBLENDFACTOR); }
+    public static int nsrcColorBlendFactor(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.SRCCOLORBLENDFACTOR); }
     /** Unsafe version of {@link #dstColorBlendFactor}. */
-    public static int ndstColorBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.DSTCOLORBLENDFACTOR); }
+    public static int ndstColorBlendFactor(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.DSTCOLORBLENDFACTOR); }
     /** Unsafe version of {@link #colorBlendOp}. */
-    public static int ncolorBlendOp(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.COLORBLENDOP); }
+    public static int ncolorBlendOp(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.COLORBLENDOP); }
     /** Unsafe version of {@link #srcAlphaBlendFactor}. */
-    public static int nsrcAlphaBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.SRCALPHABLENDFACTOR); }
+    public static int nsrcAlphaBlendFactor(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.SRCALPHABLENDFACTOR); }
     /** Unsafe version of {@link #dstAlphaBlendFactor}. */
-    public static int ndstAlphaBlendFactor(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.DSTALPHABLENDFACTOR); }
+    public static int ndstAlphaBlendFactor(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.DSTALPHABLENDFACTOR); }
     /** Unsafe version of {@link #alphaBlendOp}. */
-    public static int nalphaBlendOp(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.ALPHABLENDOP); }
+    public static int nalphaBlendOp(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.ALPHABLENDOP); }
     /** Unsafe version of {@link #colorWriteMask}. */
-    public static int ncolorWriteMask(long struct) { return UNSAFE.getInt(null, struct + VkPipelineColorBlendAttachmentState.COLORWRITEMASK); }
+    public static int ncolorWriteMask(long struct) { return memGetInt(struct + VkPipelineColorBlendAttachmentState.COLORWRITEMASK); }
 
     /** Unsafe version of {@link #blendEnable(boolean) blendEnable}. */
-    public static void nblendEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.BLENDENABLE, value); }
+    public static void nblendEnable(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.BLENDENABLE, value); }
     /** Unsafe version of {@link #srcColorBlendFactor(int) srcColorBlendFactor}. */
-    public static void nsrcColorBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.SRCCOLORBLENDFACTOR, value); }
+    public static void nsrcColorBlendFactor(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.SRCCOLORBLENDFACTOR, value); }
     /** Unsafe version of {@link #dstColorBlendFactor(int) dstColorBlendFactor}. */
-    public static void ndstColorBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.DSTCOLORBLENDFACTOR, value); }
+    public static void ndstColorBlendFactor(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.DSTCOLORBLENDFACTOR, value); }
     /** Unsafe version of {@link #colorBlendOp(int) colorBlendOp}. */
-    public static void ncolorBlendOp(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.COLORBLENDOP, value); }
+    public static void ncolorBlendOp(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.COLORBLENDOP, value); }
     /** Unsafe version of {@link #srcAlphaBlendFactor(int) srcAlphaBlendFactor}. */
-    public static void nsrcAlphaBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.SRCALPHABLENDFACTOR, value); }
+    public static void nsrcAlphaBlendFactor(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.SRCALPHABLENDFACTOR, value); }
     /** Unsafe version of {@link #dstAlphaBlendFactor(int) dstAlphaBlendFactor}. */
-    public static void ndstAlphaBlendFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.DSTALPHABLENDFACTOR, value); }
+    public static void ndstAlphaBlendFactor(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.DSTALPHABLENDFACTOR, value); }
     /** Unsafe version of {@link #alphaBlendOp(int) alphaBlendOp}. */
-    public static void nalphaBlendOp(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.ALPHABLENDOP, value); }
+    public static void nalphaBlendOp(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.ALPHABLENDOP, value); }
     /** Unsafe version of {@link #colorWriteMask(int) colorWriteMask}. */
-    public static void ncolorWriteMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineColorBlendAttachmentState.COLORWRITEMASK, value); }
+    public static void ncolorWriteMask(long struct, int value) { memPutInt(struct + VkPipelineColorBlendAttachmentState.COLORWRITEMASK, value); }
 
     // -----------------------------------
 
@@ -404,6 +402,11 @@ public class VkPipelineColorBlendAttachmentState extends Struct<VkPipelineColorB
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

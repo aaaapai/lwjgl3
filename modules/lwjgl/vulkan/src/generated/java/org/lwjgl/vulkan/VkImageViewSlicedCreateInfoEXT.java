@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -184,8 +184,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSlicedCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkImageViewSlicedCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImageViewSlicedCreateInfoEXT(address, null);
     }
 
@@ -228,8 +227,7 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSlicedCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewSlicedCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,22 +272,22 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSlicedCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewSlicedCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewSlicedCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #sliceOffset}. */
-    public static int nsliceOffset(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET); }
+    public static int nsliceOffset(long struct) { return memGetInt(struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET); }
     /** Unsafe version of {@link #sliceCount}. */
-    public static int nsliceCount(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT); }
+    public static int nsliceCount(long struct) { return memGetInt(struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSlicedCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewSlicedCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewSlicedCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #sliceOffset(int) sliceOffset}. */
-    public static void nsliceOffset(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET, value); }
+    public static void nsliceOffset(long struct, int value) { memPutInt(struct + VkImageViewSlicedCreateInfoEXT.SLICEOFFSET, value); }
     /** Unsafe version of {@link #sliceCount(int) sliceCount}. */
-    public static void nsliceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT, value); }
+    public static void nsliceCount(long struct, int value) { memPutInt(struct + VkImageViewSlicedCreateInfoEXT.SLICECOUNT, value); }
 
     // -----------------------------------
 
@@ -322,6 +320,11 @@ public class VkImageViewSlicedCreateInfoEXT extends Struct<VkImageViewSlicedCrea
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

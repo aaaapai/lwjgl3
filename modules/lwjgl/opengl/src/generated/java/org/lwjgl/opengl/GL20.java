@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -543,7 +543,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glShaderSource">Reference Page</a>
      */
-    public static void glShaderSource(@NativeType("GLuint") int shader, @NativeType("GLchar const * const *") PointerBuffer strings, @Nullable @NativeType("GLint const *") IntBuffer length) {
+    public static void glShaderSource(@NativeType("GLuint") int shader, @NativeType("GLchar const * const *") PointerBuffer strings, @NativeType("GLint const *") @Nullable IntBuffer length) {
         GL20C.glShaderSource(shader, strings, length);
     }
 
@@ -1098,7 +1098,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetShaderInfoLog">Reference Page</a>
      */
-    public static void glGetShaderInfoLog(@NativeType("GLuint") int shader, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLchar *") ByteBuffer infoLog) {
+    public static void glGetShaderInfoLog(@NativeType("GLuint") int shader, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLchar *") ByteBuffer infoLog) {
         GL20C.glGetShaderInfoLog(shader, length, infoLog);
     }
 
@@ -1147,7 +1147,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetProgramInfoLog">Reference Page</a>
      */
-    public static void glGetProgramInfoLog(@NativeType("GLuint") int program, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLchar *") ByteBuffer infoLog) {
+    public static void glGetProgramInfoLog(@NativeType("GLuint") int program, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLchar *") ByteBuffer infoLog) {
         GL20C.glGetProgramInfoLog(program, length, infoLog);
     }
 
@@ -1196,7 +1196,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetAttachedShaders">Reference Page</a>
      */
-    public static void glGetAttachedShaders(@NativeType("GLuint") int program, @Nullable @NativeType("GLsizei *") IntBuffer count, @NativeType("GLuint *") IntBuffer shaders) {
+    public static void glGetAttachedShaders(@NativeType("GLuint") int program, @NativeType("GLsizei *") @Nullable IntBuffer count, @NativeType("GLuint *") IntBuffer shaders) {
         GL20C.glGetAttachedShaders(program, count, shaders);
     }
 
@@ -1256,7 +1256,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveUniform">Reference Page</a>
      */
-    public static void glGetActiveUniform(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLint *") IntBuffer size, @NativeType("GLenum *") IntBuffer type, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveUniform(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLint *") IntBuffer size, @NativeType("GLenum *") IntBuffer type, @NativeType("GLchar *") ByteBuffer name) {
         GL20C.glGetActiveUniform(program, index, length, size, type, name);
     }
 
@@ -1377,7 +1377,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetShaderSource">Reference Page</a>
      */
-    public static void glGetShaderSource(@NativeType("GLuint") int shader, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLchar *") ByteBuffer source) {
+    public static void glGetShaderSource(@NativeType("GLuint") int shader, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLchar *") ByteBuffer source) {
         GL20C.glGetShaderSource(shader, length, source);
     }
 
@@ -2226,7 +2226,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveAttrib">Reference Page</a>
      */
-    public static void glGetActiveAttrib(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") IntBuffer length, @NativeType("GLint *") IntBuffer size, @NativeType("GLenum *") IntBuffer type, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveAttrib(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @NativeType("GLsizei *") @Nullable IntBuffer length, @NativeType("GLint *") IntBuffer size, @NativeType("GLenum *") IntBuffer type, @NativeType("GLchar *") ByteBuffer name) {
         GL20C.glGetActiveAttrib(program, index, length, size, type, name);
     }
 
@@ -2498,7 +2498,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glShaderSource">Reference Page</a>
      */
-    public static void glShaderSource(@NativeType("GLuint") int shader, @NativeType("GLchar const * const *") PointerBuffer strings, @Nullable @NativeType("GLint const *") int[] length) {
+    public static void glShaderSource(@NativeType("GLuint") int shader, @NativeType("GLchar const * const *") PointerBuffer strings, @NativeType("GLint const *") int @Nullable [] length) {
         GL20C.glShaderSource(shader, strings, length);
     }
 
@@ -2624,7 +2624,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetShaderInfoLog">Reference Page</a>
      */
-    public static void glGetShaderInfoLog(@NativeType("GLuint") int shader, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLchar *") ByteBuffer infoLog) {
+    public static void glGetShaderInfoLog(@NativeType("GLuint") int shader, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLchar *") ByteBuffer infoLog) {
         GL20C.glGetShaderInfoLog(shader, length, infoLog);
     }
 
@@ -2633,7 +2633,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetProgramInfoLog">Reference Page</a>
      */
-    public static void glGetProgramInfoLog(@NativeType("GLuint") int program, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLchar *") ByteBuffer infoLog) {
+    public static void glGetProgramInfoLog(@NativeType("GLuint") int program, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLchar *") ByteBuffer infoLog) {
         GL20C.glGetProgramInfoLog(program, length, infoLog);
     }
 
@@ -2642,7 +2642,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetAttachedShaders">Reference Page</a>
      */
-    public static void glGetAttachedShaders(@NativeType("GLuint") int program, @Nullable @NativeType("GLsizei *") int[] count, @NativeType("GLuint *") int[] shaders) {
+    public static void glGetAttachedShaders(@NativeType("GLuint") int program, @NativeType("GLsizei *") int @Nullable [] count, @NativeType("GLuint *") int[] shaders) {
         GL20C.glGetAttachedShaders(program, count, shaders);
     }
 
@@ -2651,7 +2651,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveUniform">Reference Page</a>
      */
-    public static void glGetActiveUniform(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLint *") int[] size, @NativeType("GLenum *") int[] type, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveUniform(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLint *") int[] size, @NativeType("GLenum *") int[] type, @NativeType("GLchar *") ByteBuffer name) {
         GL20C.glGetActiveUniform(program, index, length, size, type, name);
     }
 
@@ -2678,7 +2678,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetShaderSource">Reference Page</a>
      */
-    public static void glGetShaderSource(@NativeType("GLuint") int shader, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLchar *") ByteBuffer source) {
+    public static void glGetShaderSource(@NativeType("GLuint") int shader, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLchar *") ByteBuffer source) {
         GL20C.glGetShaderSource(shader, length, source);
     }
 
@@ -2858,7 +2858,7 @@ public class GL20 extends GL15 {
      * 
      * @see <a href="https://docs.gl/gl4/glGetActiveAttrib">Reference Page</a>
      */
-    public static void glGetActiveAttrib(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @Nullable @NativeType("GLsizei *") int[] length, @NativeType("GLint *") int[] size, @NativeType("GLenum *") int[] type, @NativeType("GLchar *") ByteBuffer name) {
+    public static void glGetActiveAttrib(@NativeType("GLuint") int program, @NativeType("GLuint") int index, @NativeType("GLsizei *") int @Nullable [] length, @NativeType("GLint *") int[] size, @NativeType("GLenum *") int[] type, @NativeType("GLchar *") ByteBuffer name) {
         GL20C.glGetActiveAttrib(program, index, length, size, type, name);
     }
 

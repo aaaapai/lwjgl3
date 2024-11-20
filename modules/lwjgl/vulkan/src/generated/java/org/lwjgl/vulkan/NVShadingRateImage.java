@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -240,7 +240,7 @@ public class NVShadingRateImage {
      * </table>
      *
      * @param commandBuffer the command buffer into which the command will be recorded.
-     * @param imageView     an image view handle specifying the shading rate image. {@code imageView} <b>may</b> be set to {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, which is equivalent to specifying a view of an image filled with zero values.
+     * @param imageView     an image view handle specifying the shading rate image. {@code imageView} <b>may</b> be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, which is equivalent to specifying a view of an image filled with zero values.
      * @param imageLayout   the layout that the image subresources accessible from {@code imageView} will be in when the shading rate image is accessed.
      */
     public static void vkCmdBindShadingRateImageNV(VkCommandBuffer commandBuffer, @NativeType("VkImageView") long imageView, @NativeType("VkImageLayout") int imageLayout) {
@@ -407,7 +407,7 @@ public class NVShadingRateImage {
      * @param sampleOrderType     specifies the mechanism used to order coverage samples in fragments larger than one pixel.
      * @param pCustomSampleOrders a pointer to an array of {@link VkCoarseSampleOrderCustomNV} structures, each structure specifying the coverage sample order for a single combination of fragment area and coverage sample count.
      */
-    public static void vkCmdSetCoarseSampleOrderNV(VkCommandBuffer commandBuffer, @NativeType("VkCoarseSampleOrderTypeNV") int sampleOrderType, @Nullable @NativeType("VkCoarseSampleOrderCustomNV const *") VkCoarseSampleOrderCustomNV.Buffer pCustomSampleOrders) {
+    public static void vkCmdSetCoarseSampleOrderNV(VkCommandBuffer commandBuffer, @NativeType("VkCoarseSampleOrderTypeNV") int sampleOrderType, @NativeType("VkCoarseSampleOrderCustomNV const *") VkCoarseSampleOrderCustomNV.@Nullable Buffer pCustomSampleOrders) {
         nvkCmdSetCoarseSampleOrderNV(commandBuffer, sampleOrderType, remainingSafe(pCustomSampleOrders), memAddressSafe(pCustomSampleOrders));
     }
 

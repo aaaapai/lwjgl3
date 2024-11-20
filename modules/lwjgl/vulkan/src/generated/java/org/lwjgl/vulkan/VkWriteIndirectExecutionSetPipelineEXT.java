@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>{@code index} <b>must</b> be less than the value of {@link VkIndirectExecutionSetPipelineInfoEXT}{@code ::maxPipelineCount} used to create the set</li>
  * <li>{@code pipeline} <b>must</b> have been created with {@link EXTDeviceGeneratedCommands#VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT}</li>
- * <li>The descriptor layout info used to create {@code pipeline} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-compatibility">compatible</a> with the descriptor layout info used to create the indirect execution set</li>
  * <li>{@code index} <b>must</b> not be referenced by submitted command buffers</li>
  * <li>The shader stages contained in {@code pipeline} <b>must</b> be supported by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-supportedIndirectCommandsShaderStagesPipelineBinding">{@link VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT}{@code ::supportedIndirectCommandsShaderStagesPipelineBinding}</a></li>
  * </ul>
@@ -178,8 +177,7 @@ public class VkWriteIndirectExecutionSetPipelineEXT extends Struct<VkWriteIndire
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteIndirectExecutionSetPipelineEXT createSafe(long address) {
+    public static @Nullable VkWriteIndirectExecutionSetPipelineEXT createSafe(long address) {
         return address == NULL ? null : new VkWriteIndirectExecutionSetPipelineEXT(address, null);
     }
 
@@ -222,8 +220,7 @@ public class VkWriteIndirectExecutionSetPipelineEXT extends Struct<VkWriteIndire
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkWriteIndirectExecutionSetPipelineEXT.Buffer createSafe(long address, int capacity) {
+    public static VkWriteIndirectExecutionSetPipelineEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,22 +265,22 @@ public class VkWriteIndirectExecutionSetPipelineEXT extends Struct<VkWriteIndire
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkWriteIndirectExecutionSetPipelineEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkWriteIndirectExecutionSetPipelineEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkWriteIndirectExecutionSetPipelineEXT.PNEXT); }
     /** Unsafe version of {@link #index}. */
-    public static int nindex(long struct) { return UNSAFE.getInt(null, struct + VkWriteIndirectExecutionSetPipelineEXT.INDEX); }
+    public static int nindex(long struct) { return memGetInt(struct + VkWriteIndirectExecutionSetPipelineEXT.INDEX); }
     /** Unsafe version of {@link #pipeline}. */
-    public static long npipeline(long struct) { return UNSAFE.getLong(null, struct + VkWriteIndirectExecutionSetPipelineEXT.PIPELINE); }
+    public static long npipeline(long struct) { return memGetLong(struct + VkWriteIndirectExecutionSetPipelineEXT.PIPELINE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteIndirectExecutionSetPipelineEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkWriteIndirectExecutionSetPipelineEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkWriteIndirectExecutionSetPipelineEXT.PNEXT, value); }
     /** Unsafe version of {@link #index(int) index}. */
-    public static void nindex(long struct, int value) { UNSAFE.putInt(null, struct + VkWriteIndirectExecutionSetPipelineEXT.INDEX, value); }
+    public static void nindex(long struct, int value) { memPutInt(struct + VkWriteIndirectExecutionSetPipelineEXT.INDEX, value); }
     /** Unsafe version of {@link #pipeline(long) pipeline}. */
-    public static void npipeline(long struct, long value) { UNSAFE.putLong(null, struct + VkWriteIndirectExecutionSetPipelineEXT.PIPELINE, value); }
+    public static void npipeline(long struct, long value) { memPutLong(struct + VkWriteIndirectExecutionSetPipelineEXT.PIPELINE, value); }
 
     // -----------------------------------
 
@@ -316,6 +313,11 @@ public class VkWriteIndirectExecutionSetPipelineEXT extends Struct<VkWriteIndire
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

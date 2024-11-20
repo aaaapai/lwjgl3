@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -220,8 +220,7 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewport createSafe(long address) {
+    public static @Nullable VkViewport createSafe(long address) {
         return address == NULL ? null : new VkViewport(address, null);
     }
 
@@ -264,8 +263,7 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewport.Buffer createSafe(long address, int capacity) {
+    public static VkViewport.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -329,30 +327,30 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VkViewport.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VkViewport.Y); }
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + VkViewport.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + VkViewport.HEIGHT); }
     /** Unsafe version of {@link #minDepth}. */
-    public static float nminDepth(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.MINDEPTH); }
+    public static float nminDepth(long struct) { return memGetFloat(struct + VkViewport.MINDEPTH); }
     /** Unsafe version of {@link #maxDepth}. */
-    public static float nmaxDepth(long struct) { return UNSAFE.getFloat(null, struct + VkViewport.MAXDEPTH); }
+    public static float nmaxDepth(long struct) { return memGetFloat(struct + VkViewport.MAXDEPTH); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + VkViewport.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + VkViewport.Y, value); }
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + VkViewport.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + VkViewport.HEIGHT, value); }
     /** Unsafe version of {@link #minDepth(float) minDepth}. */
-    public static void nminDepth(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.MINDEPTH, value); }
+    public static void nminDepth(long struct, float value) { memPutFloat(struct + VkViewport.MINDEPTH, value); }
     /** Unsafe version of {@link #maxDepth(float) maxDepth}. */
-    public static void nmaxDepth(long struct, float value) { UNSAFE.putFloat(null, struct + VkViewport.MAXDEPTH, value); }
+    public static void nmaxDepth(long struct, float value) { memPutFloat(struct + VkViewport.MAXDEPTH, value); }
 
     // -----------------------------------
 
@@ -385,6 +383,11 @@ public class VkViewport extends Struct<VkViewport> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

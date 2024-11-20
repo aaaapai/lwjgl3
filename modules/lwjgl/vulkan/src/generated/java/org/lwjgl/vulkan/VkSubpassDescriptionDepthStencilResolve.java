@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -135,9 +135,8 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
     @NativeType("VkResolveModeFlagBits")
     public int stencilResolveMode() { return nstencilResolveMode(address()); }
     /** {@code NULL} or a pointer to a {@link VkAttachmentReference2} structure defining the depth/stencil resolve attachment for this subpass and its layout. */
-    @Nullable
     @NativeType("VkAttachmentReference2 const *")
-    public VkAttachmentReference2 pDepthStencilResolveAttachment() { return npDepthStencilResolveAttachment(address()); }
+    public @Nullable VkAttachmentReference2 pDepthStencilResolveAttachment() { return npDepthStencilResolveAttachment(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkSubpassDescriptionDepthStencilResolve sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -205,8 +204,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDescriptionDepthStencilResolve createSafe(long address) {
+    public static @Nullable VkSubpassDescriptionDepthStencilResolve createSafe(long address) {
         return address == NULL ? null : new VkSubpassDescriptionDepthStencilResolve(address, null);
     }
 
@@ -249,8 +247,7 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDescriptionDepthStencilResolve.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassDescriptionDepthStencilResolve.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,24 +292,24 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescriptionDepthStencilResolve.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassDescriptionDepthStencilResolve.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassDescriptionDepthStencilResolve.PNEXT); }
     /** Unsafe version of {@link #depthResolveMode}. */
-    public static int ndepthResolveMode(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescriptionDepthStencilResolve.DEPTHRESOLVEMODE); }
+    public static int ndepthResolveMode(long struct) { return memGetInt(struct + VkSubpassDescriptionDepthStencilResolve.DEPTHRESOLVEMODE); }
     /** Unsafe version of {@link #stencilResolveMode}. */
-    public static int nstencilResolveMode(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescriptionDepthStencilResolve.STENCILRESOLVEMODE); }
+    public static int nstencilResolveMode(long struct) { return memGetInt(struct + VkSubpassDescriptionDepthStencilResolve.STENCILRESOLVEMODE); }
     /** Unsafe version of {@link #pDepthStencilResolveAttachment}. */
-    @Nullable public static VkAttachmentReference2 npDepthStencilResolveAttachment(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescriptionDepthStencilResolve.PDEPTHSTENCILRESOLVEATTACHMENT)); }
+    public static @Nullable VkAttachmentReference2 npDepthStencilResolveAttachment(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescriptionDepthStencilResolve.PDEPTHSTENCILRESOLVEATTACHMENT)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescriptionDepthStencilResolve.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassDescriptionDepthStencilResolve.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassDescriptionDepthStencilResolve.PNEXT, value); }
     /** Unsafe version of {@link #depthResolveMode(int) depthResolveMode}. */
-    public static void ndepthResolveMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescriptionDepthStencilResolve.DEPTHRESOLVEMODE, value); }
+    public static void ndepthResolveMode(long struct, int value) { memPutInt(struct + VkSubpassDescriptionDepthStencilResolve.DEPTHRESOLVEMODE, value); }
     /** Unsafe version of {@link #stencilResolveMode(int) stencilResolveMode}. */
-    public static void nstencilResolveMode(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescriptionDepthStencilResolve.STENCILRESOLVEMODE, value); }
+    public static void nstencilResolveMode(long struct, int value) { memPutInt(struct + VkSubpassDescriptionDepthStencilResolve.STENCILRESOLVEMODE, value); }
     /** Unsafe version of {@link #pDepthStencilResolveAttachment(VkAttachmentReference2) pDepthStencilResolveAttachment}. */
     public static void npDepthStencilResolveAttachment(long struct, @Nullable VkAttachmentReference2 value) { memPutAddress(struct + VkSubpassDescriptionDepthStencilResolve.PDEPTHSTENCILRESOLVEATTACHMENT, memAddressSafe(value)); }
 
@@ -350,6 +347,11 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSubpassDescriptionDepthStencilResolve getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -367,9 +369,8 @@ public class VkSubpassDescriptionDepthStencilResolve extends Struct<VkSubpassDes
         @NativeType("VkResolveModeFlagBits")
         public int stencilResolveMode() { return VkSubpassDescriptionDepthStencilResolve.nstencilResolveMode(address()); }
         /** @return a {@link VkAttachmentReference2} view of the struct pointed to by the {@link VkSubpassDescriptionDepthStencilResolve#pDepthStencilResolveAttachment} field. */
-        @Nullable
         @NativeType("VkAttachmentReference2 const *")
-        public VkAttachmentReference2 pDepthStencilResolveAttachment() { return VkSubpassDescriptionDepthStencilResolve.npDepthStencilResolveAttachment(address()); }
+        public @Nullable VkAttachmentReference2 pDepthStencilResolveAttachment() { return VkSubpassDescriptionDepthStencilResolve.npDepthStencilResolveAttachment(address()); }
 
         /** Sets the specified value to the {@link VkSubpassDescriptionDepthStencilResolve#sType} field. */
         public VkSubpassDescriptionDepthStencilResolve.Buffer sType(@NativeType("VkStructureType") int value) { VkSubpassDescriptionDepthStencilResolve.nsType(address(), value); return this; }

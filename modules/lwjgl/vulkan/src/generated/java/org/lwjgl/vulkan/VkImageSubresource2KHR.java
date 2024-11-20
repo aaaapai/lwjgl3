@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,8 +159,7 @@ public class VkImageSubresource2KHR extends Struct<VkImageSubresource2KHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSubresource2KHR createSafe(long address) {
+    public static @Nullable VkImageSubresource2KHR createSafe(long address) {
         return address == NULL ? null : new VkImageSubresource2KHR(address, null);
     }
 
@@ -203,8 +202,7 @@ public class VkImageSubresource2KHR extends Struct<VkImageSubresource2KHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSubresource2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkImageSubresource2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,14 +247,14 @@ public class VkImageSubresource2KHR extends Struct<VkImageSubresource2KHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageSubresource2KHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageSubresource2KHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageSubresource2KHR.PNEXT); }
     /** Unsafe version of {@link #imageSubresource}. */
     public static VkImageSubresource nimageSubresource(long struct) { return VkImageSubresource.create(struct + VkImageSubresource2KHR.IMAGESUBRESOURCE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageSubresource2KHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageSubresource2KHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageSubresource2KHR.PNEXT, value); }
     /** Unsafe version of {@link #imageSubresource(VkImageSubresource) imageSubresource}. */
@@ -293,6 +291,11 @@ public class VkImageSubresource2KHR extends Struct<VkImageSubresource2KHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

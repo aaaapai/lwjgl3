@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -200,8 +200,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264DpbSlotInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH264DpbSlotInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH264DpbSlotInfoKHR(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264DpbSlotInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH264DpbSlotInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,14 +288,14 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH264DpbSlotInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdReferenceInfo}. */
     public static StdVideoDecodeH264ReferenceInfo npStdReferenceInfo(long struct) { return StdVideoDecodeH264ReferenceInfo.create(memGetAddress(struct + VkVideoDecodeH264DpbSlotInfoKHR.PSTDREFERENCEINFO)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH264DpbSlotInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH264DpbSlotInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdReferenceInfo(StdVideoDecodeH264ReferenceInfo) pStdReferenceInfo}. */
@@ -343,6 +341,11 @@ public class VkVideoDecodeH264DpbSlotInfoKHR extends Struct<VkVideoDecodeH264Dpb
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -215,8 +215,7 @@ public class XrBodyJointLocationsHTC extends Struct<XrBodyJointLocationsHTC> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationsHTC createSafe(long address) {
+    public static @Nullable XrBodyJointLocationsHTC createSafe(long address) {
         return address == NULL ? null : new XrBodyJointLocationsHTC(address, null);
     }
 
@@ -259,8 +258,7 @@ public class XrBodyJointLocationsHTC extends Struct<XrBodyJointLocationsHTC> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationsHTC.Buffer createSafe(long address, int capacity) {
+    public static XrBodyJointLocationsHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -305,34 +303,34 @@ public class XrBodyJointLocationsHTC extends Struct<XrBodyJointLocationsHTC> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBodyJointLocationsHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrBodyJointLocationsHTC.NEXT); }
     /** Unsafe version of {@link #combinedLocationFlags}. */
-    public static long ncombinedLocationFlags(long struct) { return UNSAFE.getLong(null, struct + XrBodyJointLocationsHTC.COMBINEDLOCATIONFLAGS); }
+    public static long ncombinedLocationFlags(long struct) { return memGetLong(struct + XrBodyJointLocationsHTC.COMBINEDLOCATIONFLAGS); }
     /** Unsafe version of {@link #confidenceLevel}. */
-    public static int nconfidenceLevel(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsHTC.CONFIDENCELEVEL); }
+    public static int nconfidenceLevel(long struct) { return memGetInt(struct + XrBodyJointLocationsHTC.CONFIDENCELEVEL); }
     /** Unsafe version of {@link #jointLocationCount}. */
-    public static int njointLocationCount(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsHTC.JOINTLOCATIONCOUNT); }
+    public static int njointLocationCount(long struct) { return memGetInt(struct + XrBodyJointLocationsHTC.JOINTLOCATIONCOUNT); }
     /** Unsafe version of {@link #jointLocations}. */
     public static XrBodyJointLocationHTC.Buffer njointLocations(long struct) { return XrBodyJointLocationHTC.create(memGetAddress(struct + XrBodyJointLocationsHTC.JOINTLOCATIONS), njointLocationCount(struct)); }
     /** Unsafe version of {@link #skeletonGenerationId}. */
-    public static int nskeletonGenerationId(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsHTC.SKELETONGENERATIONID); }
+    public static int nskeletonGenerationId(long struct) { return memGetInt(struct + XrBodyJointLocationsHTC.SKELETONGENERATIONID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBodyJointLocationsHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrBodyJointLocationsHTC.NEXT, value); }
     /** Unsafe version of {@link #combinedLocationFlags(long) combinedLocationFlags}. */
-    public static void ncombinedLocationFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrBodyJointLocationsHTC.COMBINEDLOCATIONFLAGS, value); }
+    public static void ncombinedLocationFlags(long struct, long value) { memPutLong(struct + XrBodyJointLocationsHTC.COMBINEDLOCATIONFLAGS, value); }
     /** Unsafe version of {@link #confidenceLevel(int) confidenceLevel}. */
-    public static void nconfidenceLevel(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsHTC.CONFIDENCELEVEL, value); }
+    public static void nconfidenceLevel(long struct, int value) { memPutInt(struct + XrBodyJointLocationsHTC.CONFIDENCELEVEL, value); }
     /** Sets the specified value to the {@code jointLocationCount} field of the specified {@code struct}. */
-    public static void njointLocationCount(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsHTC.JOINTLOCATIONCOUNT, value); }
+    public static void njointLocationCount(long struct, int value) { memPutInt(struct + XrBodyJointLocationsHTC.JOINTLOCATIONCOUNT, value); }
     /** Unsafe version of {@link #jointLocations(XrBodyJointLocationHTC.Buffer) jointLocations}. */
     public static void njointLocations(long struct, XrBodyJointLocationHTC.Buffer value) { memPutAddress(struct + XrBodyJointLocationsHTC.JOINTLOCATIONS, value.address()); njointLocationCount(struct, value.remaining()); }
     /** Unsafe version of {@link #skeletonGenerationId(int) skeletonGenerationId}. */
-    public static void nskeletonGenerationId(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsHTC.SKELETONGENERATIONID, value); }
+    public static void nskeletonGenerationId(long struct, int value) { memPutInt(struct + XrBodyJointLocationsHTC.SKELETONGENERATIONID, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -374,6 +372,11 @@ public class XrBodyJointLocationsHTC extends Struct<XrBodyJointLocationsHTC> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

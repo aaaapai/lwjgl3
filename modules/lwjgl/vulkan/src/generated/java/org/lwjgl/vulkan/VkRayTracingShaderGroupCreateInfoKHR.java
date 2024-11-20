@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -230,8 +230,7 @@ public class VkRayTracingShaderGroupCreateInfoKHR extends Struct<VkRayTracingSha
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingShaderGroupCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkRayTracingShaderGroupCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRayTracingShaderGroupCreateInfoKHR(address, null);
     }
 
@@ -274,8 +273,7 @@ public class VkRayTracingShaderGroupCreateInfoKHR extends Struct<VkRayTracingSha
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingShaderGroupCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRayTracingShaderGroupCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -320,36 +318,36 @@ public class VkRayTracingShaderGroupCreateInfoKHR extends Struct<VkRayTracingSha
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRayTracingShaderGroupCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoKHR.TYPE); }
     /** Unsafe version of {@link #generalShader}. */
-    public static int ngeneralShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.GENERALSHADER); }
+    public static int ngeneralShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoKHR.GENERALSHADER); }
     /** Unsafe version of {@link #closestHitShader}. */
-    public static int nclosestHitShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.CLOSESTHITSHADER); }
+    public static int nclosestHitShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoKHR.CLOSESTHITSHADER); }
     /** Unsafe version of {@link #anyHitShader}. */
-    public static int nanyHitShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.ANYHITSHADER); }
+    public static int nanyHitShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoKHR.ANYHITSHADER); }
     /** Unsafe version of {@link #intersectionShader}. */
-    public static int nintersectionShader(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.INTERSECTIONSHADER); }
+    public static int nintersectionShader(long struct) { return memGetInt(struct + VkRayTracingShaderGroupCreateInfoKHR.INTERSECTIONSHADER); }
     /** Unsafe version of {@link #pShaderGroupCaptureReplayHandle}. */
     public static long npShaderGroupCaptureReplayHandle(long struct) { return memGetAddress(struct + VkRayTracingShaderGroupCreateInfoKHR.PSHADERGROUPCAPTUREREPLAYHANDLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRayTracingShaderGroupCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #generalShader(int) generalShader}. */
-    public static void ngeneralShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.GENERALSHADER, value); }
+    public static void ngeneralShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoKHR.GENERALSHADER, value); }
     /** Unsafe version of {@link #closestHitShader(int) closestHitShader}. */
-    public static void nclosestHitShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.CLOSESTHITSHADER, value); }
+    public static void nclosestHitShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoKHR.CLOSESTHITSHADER, value); }
     /** Unsafe version of {@link #anyHitShader(int) anyHitShader}. */
-    public static void nanyHitShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.ANYHITSHADER, value); }
+    public static void nanyHitShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoKHR.ANYHITSHADER, value); }
     /** Unsafe version of {@link #intersectionShader(int) intersectionShader}. */
-    public static void nintersectionShader(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingShaderGroupCreateInfoKHR.INTERSECTIONSHADER, value); }
+    public static void nintersectionShader(long struct, int value) { memPutInt(struct + VkRayTracingShaderGroupCreateInfoKHR.INTERSECTIONSHADER, value); }
     /** Unsafe version of {@link #pShaderGroupCaptureReplayHandle(long) pShaderGroupCaptureReplayHandle}. */
     public static void npShaderGroupCaptureReplayHandle(long struct, long value) { memPutAddress(struct + VkRayTracingShaderGroupCreateInfoKHR.PSHADERGROUPCAPTUREREPLAYHANDLE, value); }
 
@@ -384,6 +382,11 @@ public class VkRayTracingShaderGroupCreateInfoKHR extends Struct<VkRayTracingSha
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceLinearColorAttachmentFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceLinearColorAttachmentFeaturesNV(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceLinearColorAttachmentFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #linearColorAttachment}. */
-    public static int nlinearColorAttachment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.LINEARCOLORATTACHMENT); }
+    public static int nlinearColorAttachment(long struct) { return memGetInt(struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.LINEARCOLORATTACHMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #linearColorAttachment(boolean) linearColorAttachment}. */
-    public static void nlinearColorAttachment(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.LINEARCOLORATTACHMENT, value); }
+    public static void nlinearColorAttachment(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLinearColorAttachmentFeaturesNV.LINEARCOLORATTACHMENT, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends Struct<VkPh
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

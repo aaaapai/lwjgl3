@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -187,8 +187,7 @@ public class VkVideoFormatPropertiesKHR extends Struct<VkVideoFormatPropertiesKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoFormatPropertiesKHR createSafe(long address) {
+    public static @Nullable VkVideoFormatPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoFormatPropertiesKHR(address, null);
     }
 
@@ -231,8 +230,7 @@ public class VkVideoFormatPropertiesKHR extends Struct<VkVideoFormatPropertiesKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoFormatPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoFormatPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,24 +275,24 @@ public class VkVideoFormatPropertiesKHR extends Struct<VkVideoFormatPropertiesKH
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoFormatPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoFormatPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoFormatPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkVideoFormatPropertiesKHR.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkVideoFormatPropertiesKHR.FORMAT); }
     /** Unsafe version of {@link #componentMapping}. */
     public static VkComponentMapping ncomponentMapping(long struct) { return VkComponentMapping.create(struct + VkVideoFormatPropertiesKHR.COMPONENTMAPPING); }
     /** Unsafe version of {@link #imageCreateFlags}. */
-    public static int nimageCreateFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoFormatPropertiesKHR.IMAGECREATEFLAGS); }
+    public static int nimageCreateFlags(long struct) { return memGetInt(struct + VkVideoFormatPropertiesKHR.IMAGECREATEFLAGS); }
     /** Unsafe version of {@link #imageType}. */
-    public static int nimageType(long struct) { return UNSAFE.getInt(null, struct + VkVideoFormatPropertiesKHR.IMAGETYPE); }
+    public static int nimageType(long struct) { return memGetInt(struct + VkVideoFormatPropertiesKHR.IMAGETYPE); }
     /** Unsafe version of {@link #imageTiling}. */
-    public static int nimageTiling(long struct) { return UNSAFE.getInt(null, struct + VkVideoFormatPropertiesKHR.IMAGETILING); }
+    public static int nimageTiling(long struct) { return memGetInt(struct + VkVideoFormatPropertiesKHR.IMAGETILING); }
     /** Unsafe version of {@link #imageUsageFlags}. */
-    public static int nimageUsageFlags(long struct) { return UNSAFE.getInt(null, struct + VkVideoFormatPropertiesKHR.IMAGEUSAGEFLAGS); }
+    public static int nimageUsageFlags(long struct) { return memGetInt(struct + VkVideoFormatPropertiesKHR.IMAGEUSAGEFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoFormatPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoFormatPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoFormatPropertiesKHR.PNEXT, value); }
 
@@ -329,6 +327,11 @@ public class VkVideoFormatPropertiesKHR extends Struct<VkVideoFormatPropertiesKH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

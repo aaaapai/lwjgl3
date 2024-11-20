@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -158,8 +158,7 @@ public class XrSystemNotificationsSetInfoML extends Struct<XrSystemNotifications
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemNotificationsSetInfoML createSafe(long address) {
+    public static @Nullable XrSystemNotificationsSetInfoML createSafe(long address) {
         return address == NULL ? null : new XrSystemNotificationsSetInfoML(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrSystemNotificationsSetInfoML extends Struct<XrSystemNotifications
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemNotificationsSetInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrSystemNotificationsSetInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class XrSystemNotificationsSetInfoML extends Struct<XrSystemNotifications
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemNotificationsSetInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemNotificationsSetInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemNotificationsSetInfoML.NEXT); }
     /** Unsafe version of {@link #suppressNotifications}. */
-    public static int nsuppressNotifications(long struct) { return UNSAFE.getInt(null, struct + XrSystemNotificationsSetInfoML.SUPPRESSNOTIFICATIONS); }
+    public static int nsuppressNotifications(long struct) { return memGetInt(struct + XrSystemNotificationsSetInfoML.SUPPRESSNOTIFICATIONS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemNotificationsSetInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemNotificationsSetInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemNotificationsSetInfoML.NEXT, value); }
     /** Unsafe version of {@link #suppressNotifications(boolean) suppressNotifications}. */
-    public static void nsuppressNotifications(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemNotificationsSetInfoML.SUPPRESSNOTIFICATIONS, value); }
+    public static void nsuppressNotifications(long struct, int value) { memPutInt(struct + XrSystemNotificationsSetInfoML.SUPPRESSNOTIFICATIONS, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class XrSystemNotificationsSetInfoML extends Struct<XrSystemNotifications
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -181,8 +181,8 @@ class NativeClass internal constructor(
     nativeSubPath: String,
     val templateName: String = className,
     val prefix: String,
-    internal val prefixMethod: String,
-    internal val prefixConstant: String,
+    val prefixMethod: String,
+    val prefixConstant: String,
     val prefixTemplate: String,
     val postfix: String,
     val binding: APIBinding?,
@@ -426,7 +426,7 @@ class NativeClass internal constructor(
                     param.nativeType.isReference && param.has(nullable)
                 } || it.has<MapPointer>()
             }) {
-                println("import javax.annotation.*;\n")
+                println("import org.jspecify.annotations.*;\n")
             }
 
             val hasBuffers = functions.any { it.returns.nativeType.isPointerData || it.hasParam { param -> param.nativeType.isPointerData } }
@@ -811,7 +811,7 @@ class NativeClass internal constructor(
             parameters
         }
         val overload = name.indexOf('@').let { if (it == -1) name else name.substring(0, it) }
-        val func = Func(
+        return addFunction(name, Func(
             returns = returns,
             simpleName = if (noPrefix || (overload[0].isJavaIdentifierStart() && !JAVA_KEYWORDS.contains(overload))) overload else "$prefixMethod$overload",
             name = if (noPrefix) overload else "$prefixMethod$overload",
@@ -827,8 +827,10 @@ class NativeClass internal constructor(
             },
             nativeClass = this@NativeClass,
             parameters = params
-        )
+        ))
+    }
 
+    fun addFunction(name: String, func: Func): Func {
         require(_functions.put(name, func) == null) {
             "The $name function is already defined in ${this@NativeClass.className}."
         }

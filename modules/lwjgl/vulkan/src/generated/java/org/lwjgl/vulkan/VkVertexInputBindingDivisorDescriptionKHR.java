@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -151,8 +151,7 @@ public class VkVertexInputBindingDivisorDescriptionKHR extends Struct<VkVertexIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDivisorDescriptionKHR createSafe(long address) {
+    public static @Nullable VkVertexInputBindingDivisorDescriptionKHR createSafe(long address) {
         return address == NULL ? null : new VkVertexInputBindingDivisorDescriptionKHR(address, null);
     }
 
@@ -195,8 +194,7 @@ public class VkVertexInputBindingDivisorDescriptionKHR extends Struct<VkVertexIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVertexInputBindingDivisorDescriptionKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVertexInputBindingDivisorDescriptionKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +239,14 @@ public class VkVertexInputBindingDivisorDescriptionKHR extends Struct<VkVertexIn
     // -----------------------------------
 
     /** Unsafe version of {@link #binding}. */
-    public static int nbinding(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDivisorDescriptionKHR.BINDING); }
+    public static int nbinding(long struct) { return memGetInt(struct + VkVertexInputBindingDivisorDescriptionKHR.BINDING); }
     /** Unsafe version of {@link #divisor}. */
-    public static int ndivisor(long struct) { return UNSAFE.getInt(null, struct + VkVertexInputBindingDivisorDescriptionKHR.DIVISOR); }
+    public static int ndivisor(long struct) { return memGetInt(struct + VkVertexInputBindingDivisorDescriptionKHR.DIVISOR); }
 
     /** Unsafe version of {@link #binding(int) binding}. */
-    public static void nbinding(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDivisorDescriptionKHR.BINDING, value); }
+    public static void nbinding(long struct, int value) { memPutInt(struct + VkVertexInputBindingDivisorDescriptionKHR.BINDING, value); }
     /** Unsafe version of {@link #divisor(int) divisor}. */
-    public static void ndivisor(long struct, int value) { UNSAFE.putInt(null, struct + VkVertexInputBindingDivisorDescriptionKHR.DIVISOR, value); }
+    public static void ndivisor(long struct, int value) { memPutInt(struct + VkVertexInputBindingDivisorDescriptionKHR.DIVISOR, value); }
 
     // -----------------------------------
 
@@ -281,6 +279,11 @@ public class VkVertexInputBindingDivisorDescriptionKHR extends Struct<VkVertexIn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

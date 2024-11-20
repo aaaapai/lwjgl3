@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -170,8 +170,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassBeginInfo createSafe(long address) {
+    public static @Nullable VkSubpassBeginInfo createSafe(long address) {
         return address == NULL ? null : new VkSubpassBeginInfo(address, null);
     }
 
@@ -214,8 +213,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassBeginInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassBeginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,18 +258,18 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassBeginInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassBeginInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassBeginInfo.PNEXT); }
     /** Unsafe version of {@link #contents}. */
-    public static int ncontents(long struct) { return UNSAFE.getInt(null, struct + VkSubpassBeginInfo.CONTENTS); }
+    public static int ncontents(long struct) { return memGetInt(struct + VkSubpassBeginInfo.CONTENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassBeginInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassBeginInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassBeginInfo.PNEXT, value); }
     /** Unsafe version of {@link #contents(int) contents}. */
-    public static void ncontents(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassBeginInfo.CONTENTS, value); }
+    public static void ncontents(long struct, int value) { memPutInt(struct + VkSubpassBeginInfo.CONTENTS, value); }
 
     // -----------------------------------
 
@@ -304,6 +302,11 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -227,8 +227,7 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoCapabilitiesKHR(address, null);
     }
 
@@ -271,8 +270,7 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -317,15 +315,15 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.FLAGS); }
     /** Unsafe version of {@link #minBitstreamBufferOffsetAlignment}. */
-    public static long nminBitstreamBufferOffsetAlignment(long struct) { return UNSAFE.getLong(null, struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFEROFFSETALIGNMENT); }
+    public static long nminBitstreamBufferOffsetAlignment(long struct) { return memGetLong(struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFEROFFSETALIGNMENT); }
     /** Unsafe version of {@link #minBitstreamBufferSizeAlignment}. */
-    public static long nminBitstreamBufferSizeAlignment(long struct) { return UNSAFE.getLong(null, struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFERSIZEALIGNMENT); }
+    public static long nminBitstreamBufferSizeAlignment(long struct) { return memGetLong(struct + VkVideoCapabilitiesKHR.MINBITSTREAMBUFFERSIZEALIGNMENT); }
     /** Unsafe version of {@link #pictureAccessGranularity}. */
     public static VkExtent2D npictureAccessGranularity(long struct) { return VkExtent2D.create(struct + VkVideoCapabilitiesKHR.PICTUREACCESSGRANULARITY); }
     /** Unsafe version of {@link #minCodedExtent}. */
@@ -333,14 +331,14 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
     /** Unsafe version of {@link #maxCodedExtent}. */
     public static VkExtent2D nmaxCodedExtent(long struct) { return VkExtent2D.create(struct + VkVideoCapabilitiesKHR.MAXCODEDEXTENT); }
     /** Unsafe version of {@link #maxDpbSlots}. */
-    public static int nmaxDpbSlots(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.MAXDPBSLOTS); }
+    public static int nmaxDpbSlots(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.MAXDPBSLOTS); }
     /** Unsafe version of {@link #maxActiveReferencePictures}. */
-    public static int nmaxActiveReferencePictures(long struct) { return UNSAFE.getInt(null, struct + VkVideoCapabilitiesKHR.MAXACTIVEREFERENCEPICTURES); }
+    public static int nmaxActiveReferencePictures(long struct) { return memGetInt(struct + VkVideoCapabilitiesKHR.MAXACTIVEREFERENCEPICTURES); }
     /** Unsafe version of {@link #stdHeaderVersion}. */
     public static VkExtensionProperties nstdHeaderVersion(long struct) { return VkExtensionProperties.create(struct + VkVideoCapabilitiesKHR.STDHEADERVERSION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoCapabilitiesKHR.PNEXT, value); }
 
@@ -375,6 +373,11 @@ public class VkVideoCapabilitiesKHR extends Struct<VkVideoCapabilitiesKHR> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
