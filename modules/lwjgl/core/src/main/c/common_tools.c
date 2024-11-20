@@ -13,7 +13,7 @@ JavaVM *jvm;
 
 static inline JNIEnv* getThreadEnv(void) {
     JNIEnv *env;
-    (*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_6);
+    (*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_8);
     return env;
 }
 
@@ -205,12 +205,19 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     tlsInit();
 
-    return JNI_VERSION_1_6;
+    return JNI_VERSION_1_8;
 }
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
     UNUSED_PARAMS(vm, reserved);
     tlsDestroy();
+}
+
+// Intentionally empty functions for benchmarking purposes
+JNIEXPORT void JNICALL org_lwjgl_system_noop(void) {}
+JNIEXPORT void JNICALL org_lwjgl_system_noop_params(void *param0, void *param1, int param2) {
+    UNUSED_PARAMS(param0, param1);
+    UNUSED_PARAM(param2);
 }
 
 EXTERN_C_EXIT

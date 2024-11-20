@@ -34,6 +34,7 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.libdivide" value="true"/>
     <property name="binding.llvm" value="true"/>
     <property name="binding.lmdb" value="true"/>
+    <property name="binding.lwjglx" value="true"/>
     <property name="binding.lz4" value="true"/>
     <condition property="binding.meow" value="true" else="false">
         <or>
@@ -88,6 +89,7 @@ This script is included in /config/build-definitions.xml.
     <property name="java-only.binding.egl" value="true"/>
     <property name="java-only.binding.fmod" value="true"/>
     <property name="java-only.binding.jawt" value="true"/>
+    <property name="java-only.binding.lwjglx" value="true"/>
     <property name="java-only.binding.odbc" value="true"/>
     <property name="java-only.binding.opencl" value="true"/>
 
@@ -123,6 +125,7 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.libdivide}"><local name="module"/><property name="module" value="libdivide"/><body/></sequential>
                 <sequential if:true="${binding.llvm}"><local name="module"/><property name="module" value="llvm"/><body/></sequential>
                 <sequential if:true="${binding.lmdb}"><local name="module"/><property name="module" value="lmdb"/><body/></sequential>
+                <sequential if:true="${binding.lwjglx}"><local name="module"/><property name="module" value="lwjglx"/><body/></sequential>
                 <sequential if:true="${binding.lz4}"><local name="module"/><property name="module" value="lz4"/><body/></sequential>
                 <sequential if:true="${binding.meow}"><local name="module"/><property name="module" value="meow"/><body/></sequential>
                 <sequential if:true="${binding.meshoptimizer}"><local name="module"/><property name="module" value="meshoptimizer"/><body/></sequential>
