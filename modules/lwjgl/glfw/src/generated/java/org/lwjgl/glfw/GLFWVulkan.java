@@ -118,19 +118,18 @@ public class GLFWVulkan {
      *
      * @since version 3.2
      */
+    @Nullable
     @NativeType("char const **")
-    public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        IntBuffer count = stack.callocInt(1);
-        try {
-            long __result = nglfwGetRequiredInstanceExtensions(memAddress(count));
-            return memPointerBufferSafe(__result, count.get(0));
-        } finally {
-            stack.setPointer(stackPointer);
+    public static PointerBuffer glfwGetRequiredInstanceExtensions() {
+        MemoryStack stack = MemoryStack.stackPush();
+        String platformSurface;
+        if (Platform.get() == Platform.MACOSX) {
+            platformSurface = "VK_EXT_metal_surface";
+        } else {
+            platformSurface = "VK_KHR_android_surface";
         }
         return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
-
     /**
      * Returns the address of the specified Vulkan core or extension function for the specified instance. If instance is set to {@code NULL} it can return any
      * function exported from the Vulkan loader, including at least the following functions:
@@ -198,15 +197,8 @@ public class GLFWVulkan {
      * @since version 3.2
      */
     @NativeType("GLFWvkproc")
-    public static long glfwGetInstanceProcAddress(@NativeType("VkInstance") @Nullable VkInstance instance, @NativeType("char const *") CharSequence procname) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        try {
-            stack.nASCII(procname, true);
-            long procnameEncoded = stack.getPointerAddress();
-            return nglfwGetInstanceProcAddress(memAddressSafe(instance), procnameEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+    public static long glfwGetInstanceProcAddress(@Nullable VkInstance instance, @NativeType("char const *") CharSequence procname) {
+        return VK10.vkGetInstanceProcAddr(instance, procname);
     }
 
     // --- [ glfwGetPhysicalDevicePresentationSupport ] ---
