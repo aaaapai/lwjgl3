@@ -17,19 +17,6 @@ package org.lwjgl;
 
 import org.lwjgl.system.Pointer;
 
-/**
- * A common interface for classes that wrap pointer addresses.
- */
-public interface PointerWrapper extends Pointer {
-
-    long getPointer();
-
-    @Override
-    default long address() {
-        return getPointer();
-    }
-}
-
 public interface PointerWrapper {
 
 	long getPointer();
