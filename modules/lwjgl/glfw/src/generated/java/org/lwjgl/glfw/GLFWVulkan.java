@@ -26,17 +26,6 @@ import org.lwjgl.vulkan.*;
 /** Native bindings to the GLFW library's Vulkan functions. */
 public class GLFWVulkan {
 
-    /** Contains the function pointers loaded from {@code GLFW.getLibrary()}. */
-    public static final class Functions {
-
-        private Functions() {}
-
-        /** Function address. */
-        public static final long
-            CreateWindowSurface                  = apiGetFunctionAddress(GLFW.getLibrary(), "glfwCreateWindowSurface");
-
-    }
-     
      /** PojavLauncher: stub or wrap all functions to equivalent Vulkan functions */
 
     static {
@@ -317,13 +306,12 @@ public class GLFWVulkan {
 
     /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
     @NativeType("VkResult")
-    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
-        long __functionAddress = Functions.CreateWindowSurface;
-        if (CHECKS) {
-            check(window);
-            check(surface, 1);
-        }
-        return invokePPPPI(instance.address(), window, memAddressSafe(allocator), surface, __functionAddress);
+    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+        MemoryStack stack = stackGet();
+        LongBuffer pSurface = stack.mallocLong(1);
+        int result = glfwCreateWindowSurface(instance, window, allocator, pSurface);
+        surface[0] = pSurface.get(0);
+        return result;
     }
 
     /**
