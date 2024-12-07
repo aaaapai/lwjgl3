@@ -26,6 +26,17 @@ import org.lwjgl.vulkan.*;
 /** Native bindings to the GLFW library's Vulkan functions. */
 public class GLFWVulkan {
 
+    /** Contains the function pointers loaded from {@code GLFW.getLibrary()}. */
+    public static final class Functions {
+
+        private Functions() {}
+
+        /** Function address. */
+        public static final long
+            CreateWindowSurface                  = apiGetFunctionAddress(GLFW.getLibrary(), "glfwCreateWindowSurface");
+
+    }
+     
      /** PojavLauncher: stub or wrap all functions to equivalent Vulkan functions */
 
     static {
