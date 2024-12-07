@@ -19,8 +19,6 @@ import org.lwjgl.system.Pointer;
 
 /**
  * A common interface for classes that wrap pointer addresses.
- *
- * @author Spasi
  */
 public interface PointerWrapper extends Pointer {
 
@@ -30,8 +28,8 @@ public interface PointerWrapper extends Pointer {
     default long address() {
         return getPointer();
     }
-} * @author Spasi
- */
+}
+
 public interface PointerWrapper {
 
 	long getPointer();
