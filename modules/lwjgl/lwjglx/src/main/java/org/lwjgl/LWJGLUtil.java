@@ -259,11 +259,7 @@ public class LWJGLUtil {
     private static final int PLATFORM;
 
     static {
-        switch (Platform.get()) {
-            case WINDOWS -> PLATFORM = PLATFORM_WINDOWS;
-            case LINUX -> PLATFORM = PLATFORM_LINUX;
-            case MACOSX -> PLATFORM = PLATFORM_MACOSX;
-            default -> throw new LinkageError("Unknown platform: " + Platform.get());
+            PLATFORM = PLATFORM_LINUX;
         }
     }
 
