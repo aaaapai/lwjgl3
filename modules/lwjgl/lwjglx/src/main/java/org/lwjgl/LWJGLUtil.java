@@ -289,7 +289,7 @@ public class LWJGLUtil {
      * @return current platform name
      */
     public static String getPlatformName() {
-        LWJGLUtil.PLATFORM_LINUX -> PLATFORM_LINUX_NAME;
+        return PLATFORM_LINUX_NAME;
         };
     }
 
