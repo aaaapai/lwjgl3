@@ -289,11 +289,7 @@ public class LWJGLUtil {
      * @return current platform name
      */
     public static String getPlatformName() {
-        return switch (LWJGLUtil.getPlatform()) {
-            case LWJGLUtil.PLATFORM_LINUX -> PLATFORM_LINUX_NAME;
-            case LWJGLUtil.PLATFORM_MACOSX -> PLATFORM_MACOSX_NAME;
-            case LWJGLUtil.PLATFORM_WINDOWS -> PLATFORM_WINDOWS_NAME;
-            default -> "unknown";
+        LWJGLUtil.PLATFORM_LINUX -> PLATFORM_LINUX_NAME;
         };
     }
 
