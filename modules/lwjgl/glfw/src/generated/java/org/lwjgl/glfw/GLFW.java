@@ -4,7 +4,7 @@
  */
 package org.lwjgl.glfw;
 
-import android.util.*;
+import static android.util.ArrayMap.*;
 
 import java.lang.reflect.*;
 import java.nio.*;
