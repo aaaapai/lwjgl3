@@ -132,8 +132,8 @@
         <echo message="Compiling Kotlin generator..." level="info" taskname="Generator" unless:set="generator-uptodate"/>
         <mkdir dir="${bin.generator}"/>
         <kotlinc moduleName="generator" output="${bin.generator}" printVersion="true" unless:set="generator-uptodate">
-            <compilerarg line="-language-version 2.0"/>
-            <compilerarg line="-api-version 2.0"/>
+            <compilerarg line="-language-version 2.1"/>
+            <compilerarg line="-api-version 2.1"/>
             <compilerarg value="-progressive"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
@@ -200,8 +200,8 @@
                 <pathelement location="${bin.generator}"/>
             </classpath>
 
-            <compilerarg line="-language-version 2.0"/>
-            <compilerarg line="-api-version 2.0"/>
+            <compilerarg line="-language-version 2.1"/>
+            <compilerarg line="-api-version 2.1"/>
             <compilerarg value="-progressive"/>
             <compilerarg value="-Xno-call-assertions"/>
             <compilerarg value="-Xno-param-assertions"/>
@@ -516,7 +516,6 @@
         <parallel threadsPerProcessor="1">
             <compileBinding binding="assimp"/>
             <compileBinding binding="bgfx"/>
-            <compileBinding binding="cuda"/>
             <compileBinding binding="egl"/>
             <compileBinding binding="fmod"/>
             <compileBinding binding="freetype"/>
@@ -524,11 +523,9 @@
             <compileBinding binding="hwloc"/>
             <compileBinding binding="jawt"/>
             <compileBinding binding="jemalloc"/>
-            <compileBinding binding="libdivide"/>
             <compileBinding binding="llvm"/>
             <compileBinding binding="lmdb"/>
             <compileBinding binding="lz4"/>
-            <compileBinding binding="meow"/>
             <compileBinding binding="meshoptimizer"/>
             <compileBinding binding="msdfgen"/>
             <compileBinding binding="nanovg"/>
@@ -538,18 +535,15 @@
             <compileBinding binding="openal"/>
             <compileBinding binding="opencl"/>
             <compileBinding binding="opengles"/>
-            <compileBinding binding="openvr"/>
             <compileBinding binding="opus"/>
             <compileBinding binding="par"/>
             <compileBinding binding="remotery"/>
             <compileBinding binding="rpmalloc"/>
             <compileBinding binding="shaderc"/>
             <compileBinding binding="spvc"/>
-            <compileBinding binding="sse"/>
             <compileBinding binding="stb"/>
             <compileBinding binding="tinyexr"/>
             <compileBinding binding="tinyfd"/>
-            <compileBinding binding="tootle"/>
             <compileBinding binding="vulkan"/>
             <compileBinding binding="xxhash"/>
             <compileBinding binding="yoga"/>
@@ -560,11 +554,12 @@
             <compileBinding binding="opengl">
                 <classpath><pathelement path="${bin.lwjgl}/opencl"/></classpath>
             </compileBinding>
-            <compileBinding binding="ovr">
-                <classpath><pathelement path="${bin.lwjgl}/vulkan"/></classpath>
-            </compileBinding>
             <compileBinding binding="vma">
                 <classpath><pathelement path="${bin.lwjgl}/vulkan"/></classpath>
+            </compileBinding>
+            <compileBinding binding="sdl">
+                <classpath><pathelement path="${bin.lwjgl}/vulkan"/></classpath>
+                <exclude name="org/lwjgl/sdl/SDL_vulkan.java" unless:true="${binding.vulkan}"/>
             </compileBinding>
         </parallel>
 
@@ -807,12 +802,15 @@
             </and>
         </condition>
 
-        <local name="test.tootle"/>
-        <condition property="test.tootle">
+        <local name="test.meshoptimizer"/>
+        <condition property="test.meshoptimizer">
             <and>
                 <istrue value="${binding.assimp}"/>
+                <istrue value="${binding.meshoptimizer}"/>
+                <istrue value="${binding.nfd}"/>
+                <istrue value="${binding.opengl}"/>
                 <istrue value="${binding.par}"/>
-                <istrue value="${binding.tootle}"/>
+                <istrue value="${binding.stb}"/>
             </and>
         </condition>
 
@@ -830,14 +828,6 @@
                 <istrue value="${test.glfw}"/>
                 <istrue value="${binding.stb}"/>
                 <istrue value="${binding.yoga}"/>
-            </and>
-        </condition>
-
-        <local name="test.hashing"/>
-        <condition property="test.hashing">
-            <and>
-                <istrue value="${binding.xxhash}"/>
-                <istrue value="${binding.meow}"/>
             </and>
         </condition>
 
@@ -863,7 +853,6 @@
             <!-- Demos -->
             <include name="org/lwjgl/demo/assimp/**" if:true="${binding.assimp}"/>
             <include name="org/lwjgl/demo/bgfx/**" if:set="test.bgfx"/>
-            <include name="org/lwjgl/demo/cuda/**" if:true="${binding.cuda}"/>
             <include name="org/lwjgl/demo/egl/**" if:set="test.egl"/>
             <include name="org/lwjgl/demo/fmod/**" if:true="${binding.fmod}"/>
             <include name="org/lwjgl/demo/glfw/**" if:set="test.glfw"/>
@@ -881,9 +870,8 @@
 
             <include name="org/lwjgl/demo/opengl/**" if:true="${binding.opengl}"/>
 
-            <include name="org/lwjgl/demo/openvr/**" if:true="${binding.openvr}"/>
             <include name="org/lwjgl/demo/openxr/**" if:set="test.openxr"/>
-            <include name="org/lwjgl/demo/ovr/**" if:true="${binding.ovr}"/>
+            <include name="org/lwjgl/demo/sdl/**" if:true="${binding.sdl}"/>
             <include name="org/lwjgl/demo/stb/**" if:set="test.stb"/>
 
             <include name="org/lwjgl/demo/system/jawt/**" if:set="test.jawt"/>
@@ -897,15 +885,14 @@
             
             <include name="org/lwjgl/demo/util/lmdb/**" if:true="${binding.lmdb}"/>
             <include name="org/lwjgl/demo/util/lz4/**" if:true="${binding.lz4}"/>
-            <include name="org/lwjgl/demo/util/meow/**" if:true="${binding.meow}"/>
             <include name="org/lwjgl/demo/util/meshoptimizer/**" if:true="${binding.meshoptimizer}"/>
+            <exclude name="org/lwjgl/demo/util/meshoptimizer/MeshOptimizerDemo.java" unless:set="test.meshoptimizer"/>
             <include name="org/lwjgl/demo/util/msdfgen/**" if:set="test.msdfgen"/>
             <include name="org/lwjgl/demo/util/nfd/**" if:set="test.nfd"/>
             <include name="org/lwjgl/demo/util/par/**" if:set="test.par"/>
             <include name="org/lwjgl/demo/util/remotery/**" if:true="${binding.remotery}"/>
             <include name="org/lwjgl/demo/util/tinyexr/**" if:set="test.tinyexr"/>
             <include name="org/lwjgl/demo/util/tinyfd/**" if:set="test.tinyfd"/>
-            <include name="org/lwjgl/demo/util/tootle/**" if:set="test.tootle"/>
             <include name="org/lwjgl/demo/util/xxhash/**" if:true="${binding.xxhash}"/>
             <include name="org/lwjgl/demo/util/yoga/**" if:set="test.yoga"/>
             <include name="org/lwjgl/demo/util/zstd/**" if:true="${binding.zstd}"/>
@@ -914,7 +901,7 @@
 
             <!-- Benchmarks -->
             <include name="org/lwjgl/jmh/**"/>
-            <exclude name="org/lwjgl/jmh/Hashing*" unless:true="${test.hashing}"/>
+            <exclude name="org/lwjgl/jmh/Hashing*" unless:true="${binding.xxhash}"/>
             <exclude name="org/lwjgl/jmh/VarHandle*" unless:set="jdk11"/>
         </javac>
     </target>
@@ -935,7 +922,7 @@
                 <pathelement path="${lib}/native"/>
             </classpath>
 
-            <!--<jvmarg value="-Xcheck:jni"/>--> <!-- SIMD fails with this (see -XX:+RestoreMXCSROnJNICall) -->
+            <jvmarg value="-Xcheck:jni" if:set="jdk21"/>
             <jvmarg value="-server"/>
             <jvmarg value="-ea"/>
             <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
@@ -1071,14 +1058,6 @@
             <arg line="--add-exports jdk.javadoc/com.sun.tools.doclets=ALL-UNNAMED" if:set="jdk11"/>
         </javadoc>
         <get-quiet name="favicon" url="https://www.lwjgl.org/favicon.ico" dest="${bin.javadoc}"/>
-
-        <java classname="org.lwjgl.system.JavadocPostProcess" failonerror="true">
-            <classpath path="${bin.generator}"/>
-
-            <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
-
-            <arg value="${bin.javadoc}"/>
-        </java>
     </target>
 
     <target name="upload-native" description="Uploads native build artifacts to build.lwjgl.org" depends="compile-native,-check-AWS-credentials">
@@ -1452,13 +1431,6 @@
             </javadoc>
             <get-quiet name="favicon" url="https://www.lwjgl.org/favicon.ico" dest="${release}/${module}/javadoc" unless:set="javadoc.skip"/>
 
-            <java classname="org.lwjgl.system.JavadocPostProcess" failonerror="true" unless:set="javadoc.skip">
-                <classpath path="${bin.generator}"/>
-
-                <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
-
-                <arg value="${release}/${module}/javadoc"/>
-            </java>
             <zip destfile="${release}/${module}/${module}-javadoc.jar" basedir="${release}/${module}/javadoc" includes="**" level="9" unless:set="javadoc.skip"/>
             <delete dir="${release}/${module}/javadoc" unless:set="javadoc.skip"/>
 
@@ -1675,9 +1647,6 @@
             </natives>
         </release-module>
 
-        <!-- CUDA -->
-        <release-module name="cuda" title="CUDA" if:true="${binding.cuda}"/>
-
         <!-- EGL -->
         <release-module name="egl" title="EGL" if:true="${binding.egl}"/>
 
@@ -1760,9 +1729,6 @@
             </natives>
         </release-module>
 
-        <!-- libdivide -->
-        <release-module name="libdivide" native-library="lwjgl_libdivide" title="libdivide" if:true="${binding.libdivide}"/>
-
         <!-- LLVM -->
         <release-module name="llvm" native-library="lwjgl_llvm" title="LLVM/Clang" if:true="${binding.llvm}"/>
 
@@ -1774,23 +1740,6 @@
 
         <!-- lz4 -->
         <release-module name="lz4" native-library="lwjgl_lz4" title="lz4" if:true="${binding.lz4}"/>
-
-        <!-- Meow hash -->
-        <release-module name="meow" title="Meow hash" if:true="${binding.meow}">
-            <natives>
-                <get-release platform="freebsd" arch="x64" file="liblwjgl_meow.so"/>
-
-                <get-release platform="linux" arch="x64" file="liblwjgl_meow.so"/>
-                <get-release platform="linux" arch="arm64" file="liblwjgl_meow.so"/>
-
-                <get-release platform="macos" arch="x64" file="liblwjgl_meow.dylib"/>
-                <get-release platform="macos" arch="arm64" file="liblwjgl_meow.dylib"/>
-
-                <get-release platform="windows" arch="x64" file="lwjgl_meow.dll"/>
-                <get-release platform="windows" arch="x86" file="lwjgl_meow.dll"/>
-                <get-release platform="windows" arch="arm64" file="lwjgl_meow.dll"/>
-            </natives>
-        </release-module>
 
         <!-- meshoptimizer -->
         <release-module name="meshoptimizer" native-library="lwjgl_meshoptimizer" title="meshoptimizer" if:true="${binding.meshoptimizer}"/>
@@ -1867,31 +1816,6 @@
         <!-- OpenGL ES -->
         <release-module name="opengles" native-library="lwjgl_opengles" title="OpenGL ES" if:true="${binding.opengles}"/>
 
-        <!-- OpenVR -->
-        <release-module name="openvr" title="OpenVR" if:true="${binding.openvr}">
-            <natives>
-                <get-release platform="linux" arch="x64" file="liblwjgl_openvr.so"/>
-                <get-release platform="linux" arch="x64" file="libopenvr_api.so"/>
-                <get-release platform="linux" arch="x64" file="libopenvr_api.so.git"/>
-
-                <get-release platform="linux" arch="arm64" file="liblwjgl_openvr.so"/>
-                <get-release platform="linux" arch="arm64" file="libopenvr_api.so"/>
-                <get-release platform="linux" arch="arm64" file="libopenvr_api.so.git"/>
-
-                <get-release platform="macos" arch="x64" file="liblwjgl_openvr.dylib"/>
-                <get-release platform="macos" arch="x64" file="libopenvr_api.dylib"/>
-                <get-release platform="macos" arch="x64" file="libopenvr_api.dylib.git"/>
-
-                <get-release platform="windows" arch="x64" file="lwjgl_openvr.dll"/>
-                <get-release platform="windows" arch="x64" file="openvr_api.dll"/>
-                <get-release platform="windows" arch="x64" file="openvr_api.dll.git"/>
-
-                <get-release platform="windows" arch="x86" file="lwjgl_openvr.dll"/>
-                <get-release platform="windows" arch="x86" file="openvr_api.dll"/>
-                <get-release platform="windows" arch="x86" file="openvr_api.dll.git"/>
-            </natives>
-        </release-module>
-
         <!-- OpenXR -->
         <release-module name="openxr" title="OpenXR" if:true="${binding.openxr}">
             <natives>
@@ -1927,14 +1851,6 @@
         <!-- Opus -->
         <release-module name="opus" native-library="opus" title="Opus" if:true="${binding.opus}"/>
 
-        <!-- LibOVR -->
-        <release-module name="ovr" title="LibOVR" if:true="${binding.ovr}">
-            <natives>
-                <get-release platform="windows" arch="x64" file="lwjgl_ovr.dll"/>
-                <get-release platform="windows" arch="x86" file="lwjgl_ovr.dll"/>
-            </natives>
-        </release-module>
-
         <!-- Par -->
         <release-module name="par" native-library="lwjgl_par" title="par" if:true="${binding.par}"/>
 
@@ -1960,25 +1876,14 @@
         <!-- rpmalloc -->
         <release-module name="rpmalloc" native-library="lwjgl_rpmalloc" title="rpmalloc" if:true="${binding.rpmalloc}"/>
 
+        <!-- SDL -->
+        <release-module name="sdl" native-library="SDL3" title="SDL" if:true="${binding.sdl}"/>
+
         <!-- shaderc -->
         <release-module name="shaderc" native-library="shaderc" title="Shaderc" if:true="${binding.shaderc}"/>
 
         <!-- SPIRV-Cross -->
         <release-module name="spvc" native-library="spirv-cross" title="SPIRV-Cross" if:true="${binding.spvc}"/>
-
-        <!-- SSE -->
-        <release-module name="sse" title="SSE" if:true="${binding.sse}">
-            <natives>
-                <get-release platform="freebsd" arch="x64" file="liblwjgl_sse.so"/>
-
-                <get-release platform="linux" arch="x64" file="liblwjgl_sse.so"/>
-
-                <get-release platform="macos" arch="x64" file="liblwjgl_sse.dylib"/>
-
-                <get-release platform="windows" arch="x64" file="lwjgl_sse.dll"/>
-                <get-release platform="windows" arch="x86" file="lwjgl_sse.dll"/>
-            </natives>
-        </release-module>
 
         <!-- stb -->
         <release-module name="stb" native-library="lwjgl_stb" title="stb" if:true="${binding.stb}"/>
@@ -1988,20 +1893,6 @@
 
         <!-- tiny file dialogs -->
         <release-module name="tinyfd" native-library="lwjgl_tinyfd" title="tiny file dialogs" if:true="${binding.tinyfd}"/>
-
-        <!-- AMD Tootle -->
-        <release-module name="tootle" title="tootle" if:true="${binding.tootle}">
-            <natives>
-                <get-release platform="freebsd" arch="x64" file="liblwjgl_tootle.so"/>
-
-                <get-release platform="linux" arch="x64" file="liblwjgl_tootle.so"/>
-
-                <get-release platform="macos" arch="x64" file="liblwjgl_tootle.dylib"/>
-
-                <get-release platform="windows" arch="x64" file="lwjgl_tootle.dll"/>
-                <get-release platform="windows" arch="x86" file="lwjgl_tootle.dll"/>
-            </natives>
-        </release-module>
 
         <!-- Vulkan Memory Allocator -->
         <release-module name="vma" native-library="lwjgl_vma" title="vma" if:true="${binding.vma}"/>

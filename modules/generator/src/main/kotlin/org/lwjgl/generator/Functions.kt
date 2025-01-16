@@ -36,9 +36,9 @@ const val FUNCTION_ADDRESS = "__functionAddress"
 internal const val JNIENV = "__env"
 
 /** Special parameter that generates an explicit function address parameter. */
-val EXPLICIT_FUNCTION_ADDRESS = Parameter(opaque_p, FUNCTION_ADDRESS, "the function address")
+val EXPLICIT_FUNCTION_ADDRESS = Parameter(opaque_p, FUNCTION_ADDRESS)
 /** Special parameter that will accept the JNI function's JNIEnv* parameter. Hidden in Java code. */
-val JNI_ENV = Parameter("JNIEnv".opaque.p, JNIENV, "the JNI environment struct")
+val JNI_ENV = Parameter("JNIEnv".opaque.p, JNIENV)
 
 private val TRY_FINALLY_RESULT_REFERENCE = """(?<=^|\W)$RESULT(?=\W|$)""".toRegex()
 private val TRY_FINALLY_ALIGN = "^(\\s+)".toRegex(RegexOption.MULTILINE)
@@ -54,7 +54,6 @@ class Func(
     val returns: ReturnValue,
     val simpleName: String,
     val name: String,
-    val documentation: ((Parameter) -> Boolean) -> String,
     val nativeClass: NativeClass,
     vararg val parameters: Parameter
 ) : ModifierTarget<FunctionModifier>() {
@@ -66,6 +65,12 @@ class Func(
             paramMap[param.name] = param
 
         validate()
+    }
+
+    private var ifDirective: String? = null
+    /** Can be used to guard the native stub generation with a preprocessor directive. */
+    fun ifDirective(ifDirective: String?) {
+        this.ifDirective = ifDirective
     }
 
     private val hasNativeParams = getNativeParams().any()
@@ -136,9 +141,6 @@ class Func(
             name) + postfix
     }
 
-    val javaDocLink
-        get() = "#${this.simpleName}()"
-
     private val hasFunctionAddressParam: Boolean by lazy(LazyThreadSafetyMode.NONE) {
         nativeClass.binding != null && (nativeClass.binding.apiCapabilities !== APICapabilities.JNI_CAPABILITIES || hasParam { it.nativeType is ArrayType<*> })
     }
@@ -195,7 +197,7 @@ class Func(
 
     private fun ReturnValue.nativeMethodType(nullable: Boolean): String =
         if (this.isStructValue) "void" else this.nativeType.nativeMethodType.let {
-            if (nullable) it.nullable else it
+            if (nullable && !this.nativeType.mapping.nativeMethodType.isPrimitive) it.nullable else it
         }
 
     private val ReturnValue.jniFunctionType
@@ -299,6 +301,8 @@ class Func(
                         type.definition.setUsageInput()
                     else
                         type.definition.setUsageOutput()
+                } else if (type is PointerType<*> && type.elementType is StructType) {
+                    type.elementType.definition.setUsageResultPointer()
                 }
             }
 
@@ -610,6 +614,15 @@ class Func(
         println("$t$t}")
     }
 
+    private fun PrintWriter.printDocumentation() {
+        println(parameters.filter { it !== JNI_ENV && !CaptureCallState.matches(it) }.let { params ->
+            "{@code ${returns.nativeType.name} $name(${
+                if (params.isEmpty()) "void" else params.asSequence()
+                    .joinToString(", ") { "${it.toNativeType(null)} ${it.name}" }
+            })}".toJavaDoc()
+        })
+    }
+
     /** This is where we start generating java code. */
     internal fun generateMethods(writer: PrintWriter) {
         val hasReuse = has<Reuse>()
@@ -632,7 +645,7 @@ class Func(
 
         if (constantMacro && !has(private)) {
             writer.println()
-            writer.printDocumentation { true }
+            writer.printDocumentation()
             writer.println("$t${accessModifier}static final ${if (returns.nativeType is CharSequenceType) "String" else returns.javaMethodType} $name = $name(${
                 if (returns.nativeType !is StructType) "" else "${returns.nativeType.javaMethodType}.create()"
             });")
@@ -643,46 +656,12 @@ class Func(
 
     private fun <T> PrintWriter.printList(items: Sequence<T>, itemPrint: (item: T) -> String?) = print(items.map(itemPrint).filterNotNull().joinToString(", "))
 
-    private fun PrintWriter.printUnsafeJavadoc(private: Boolean, verbose: Boolean = false) {
-        if (private)
-            return
-
-        val javadoc = documentation { it !== JNI_ENV }
-        if (javadoc.isEmpty()) {
-            if (verbose)
-                nativeClass.binding?.printCustomJavadoc(this, this@Func, javadoc)
-            return
-        }
-
-        if (verbose) {
-            if (nativeClass.binding?.printCustomJavadoc(this, this@Func, javadoc) != true)
-                println(javadoc)
-        } else if (hasParam { it.nativeType is ArrayType<*> } && !has<OffHeapOnly>()) {
-            println(nativeClass.processDocumentation("Array version of: ${nativeClass.className}#n$name()").toJavaDoc())
-        } else {
-            getNativeParams().filter {
-                it.documentation != null &&
-                (
-                    it.has<AutoSize>() ||
-                    it.has<AutoType>() ||
-                    (it.isAutoSizeResultOut && hideAutoSizeResultParam)
-                    // TODO: more?
-                )
-            }.let { hiddenParameters ->
-                val documentation = nativeClass.processDocumentation("Unsafe version of: $javaDocLink")
-                println(if (hiddenParameters.any())
-                    nativeClass.toJavaDoc(documentation, hiddenParameters, returns.nativeType, "", null, "")
-                else
-                    documentation.toJavaDoc()
-                )
-            }
-        }
-    }
-
     private fun PrintWriter.generateNativeMethod(constantMacro: Boolean, nativeOnly: Boolean, hasReuse: Boolean) {
         println()
 
-        printUnsafeJavadoc(constantMacro, nativeOnly)
+        if (!constantMacro) {
+            printDocumentation()
+        }
 
         val retType = returns.nativeMethodType(nullable = returns.nativeType is JObjectType && returnsNull)
 
@@ -741,7 +720,10 @@ class Func(
         }
         println()
 
-        printUnsafeJavadoc(constantMacro)
+        if (!constantMacro) {
+            printDocumentation()
+        }
+
         print("$t${if (constantMacro) "private " else accessModifier}static ${returns.nativeMethodType(nullable = returns.nativeType is JObjectType && returnsNull)} n$name(")
         printList(getNativeParams()) {
             if (it.isFunctionProvider)
@@ -829,7 +811,7 @@ class Func(
             // TODO: This implementation has not been tested with too many different signatures and probably contains bugs.
             println("""$t${t}MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
-            ${if (hasReturnStatement) { """long __result = stack.n${when {
+            ${if (hasReturnStatement) { """long $RESULT = stack.n${when {
                     returns.nativeType is PointerType<*>                   -> "pointer"
                     returns.nativeType.mapping == PrimitiveMapping.POINTER -> "pointer"
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "byte"
@@ -864,14 +846,14 @@ class Func(
                 }
             }
 
-            nffi_call(${name}CIF.address(), $FUNCTION_ADDRESS, ${if (returns.isVoid) "NULL" else "__result"}, arguments);${if (hasReturnStatement) {
+            nffi_call(${name}CIF.address(), $FUNCTION_ADDRESS, ${if (returns.isVoid) "NULL" else RESULT}, arguments);${if (hasReturnStatement) {
                 """
 
             return memGet${when {
                     returns.nativeType.mapping == PrimitiveMapping.BOOLEAN -> "Byte"
                     returns.nativeType is PointerType<*>                   -> "Address"
                     else                                                   -> returns.nativeType.nativeMethodType.upperCaseFirst
-                }}(__result)${if (returns.nativeType.mapping.isBoolean()) " != 0" else ""};"""
+                }}($RESULT)${if (returns.nativeType.mapping.isBoolean()) " != 0" else ""};"""
             } else ""}
         } finally {
             stack.setPointer(stackPointer);
@@ -905,23 +887,13 @@ class Func(
         println("$t}")
     }
 
-    private fun PrintWriter.printDocumentation(parameterFilter: (Parameter) -> Boolean) {
-        val doc = documentation(parameterFilter)
-        val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) == true
-        if (!custom && doc.isNotEmpty())
-            println(doc)
-    }
-
     private fun PrintWriter.generateJavaMethod(constantMacro: Boolean, hasReuse: Boolean) {
         println()
 
         // JavaDoc
 
         if (!constantMacro) {
-            val hideAutoSizeResult = parameters.count { it.isAutoSizeResultOut } == 1
-            printDocumentation {
-                !(hideAutoSizeResult && it.isAutoSizeResultOut)
-            }
+            printDocumentation()
         }
 
         // Method signature
@@ -1142,7 +1114,10 @@ class Func(
         printParams: PrintWriter.() -> Unit
     ) {
         val returnsObject = returns.nativeType is WrappedPointerType
-        val returnType = if (returnsObject) returns.nativeType.className else returns.nativeMethodType(nullable = false)
+        val returnType = if (returnsObject || returns.nativeType.mapping == PrimitiveMapping.BOOLEAN4)
+            returns.javaMethodType
+        else
+            returns.nativeMethodType(nullable = false)
 
         if (hasFinally)
             print(t)
@@ -1566,26 +1541,12 @@ class Func(
     private fun PrintWriter.generateAlternativeMethodSignature(
         name: String,
         transforms: Map<QualifiedType, Transform>,
-        description: String? = null,
         constantMacro: Boolean
     ): String {
         // JavaDoc
+
         if (!constantMacro) {
-            if (description != null) {
-                val doc = nativeClass.processDocumentation("$description $javaDocLink").toJavaDoc()
-                val custom = nativeClass.binding?.printCustomJavadoc(this, this@Func, doc) == true
-                if (!custom && doc.isNotEmpty())
-                    println(doc)
-            } else {
-                val hideAutoSizeResult = parameters.count { it.isAutoSizeResultOut } == 1
-                printDocumentation { param ->
-                    !(hideAutoSizeResult && param.isAutoSizeResultOut) && transforms[param].let {
-                        @Suppress("UNCHECKED_CAST")
-                        (it == null || (it as FunctionTransform<Parameter>).transformDeclaration(param, param.name)
-                            .let { declaration -> declaration != null && declaration.endsWith(param.name) })
-                    }
-                }
-            }
+            printDocumentation()
         }
 
         // Method signature
@@ -1640,15 +1601,11 @@ class Func(
         return retType
     }
 
-    private fun PrintWriter.generateAlternativeMethod(
-        name: String,
-        transforms: Map<QualifiedType, Transform>,
-        description: String? = null
-    ) {
+    private fun PrintWriter.generateAlternativeMethod(name: String, transforms: Map<QualifiedType, Transform>) {
         println()
 
         val macro = has<Macro>()
-        val retType = generateAlternativeMethodSignature(name, transforms, description, macro && get<Macro>().constant)
+        val retType = generateAlternativeMethodSignature(name, transforms, macro && get<Macro>().constant)
 
         if (has<Reuse>()) {
             print("$t$t")
@@ -1828,14 +1785,10 @@ class Func(
         println("$t}")
     }
 
-    private fun PrintWriter.generateAlternativeMethodDelegate(
-        name: String,
-        transforms: Map<QualifiedType, Transform>,
-        description: String? = null
-    ) {
+    private fun PrintWriter.generateAlternativeMethodDelegate(name: String, transforms: Map<QualifiedType, Transform>) {
         println()
 
-        generateAlternativeMethodSignature(name, transforms, description, has<Macro> { constant })
+        generateAlternativeMethodSignature(name, transforms, has<Macro> { constant })
 
         // Call the native method
         print("$t$t")
@@ -1885,6 +1838,9 @@ class Func(
     }
 
     private fun PrintWriter.generateFunctionImpl(hasArrays: Boolean, hasCritical: Boolean, critical: Boolean) {
+        if (ifDirective != null) {
+            println("#if${ifDirective}")
+        }
         val params = ArrayList<String>(4 + parameters.size)
         if (!critical)
             params.add("JNIEnv *$JNIENV, jclass clazz")
@@ -2084,6 +2040,9 @@ class Func(
         }
 
         println("}")
+        if (ifDirective != null) {
+            println("#endif")
+        }
     }
 
     private fun workaroundJDK8167409(ignoreArrayType: Boolean = false): Boolean = parameters.size.let {

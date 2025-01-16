@@ -11,6 +11,9 @@ plugins {
 }
 
 val lwjglVersion: String by project
+val signingKeyId: String by project
+val signingKey: String by project
+val signingPassword: String by project
 val sonatypeUsername: String by project
 val sonatypePassword: String by project
 
@@ -27,25 +30,19 @@ enum class BuildType {
 
 data class Deployment(
     val type: BuildType,
-    val repo: URI,
-    val user: String? = null,
-    val password: String? = null
+    val repo: URI
 )
 
 val deployment = when {
     hasProperty("release") -> Deployment(
         type = BuildType.RELEASE,
-        repo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"),
-        user = sonatypeUsername,
-        password = sonatypePassword
+        repo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
     )
     hasProperty("snapshot") -> {
         version = "$version-SNAPSHOT"
         Deployment(
             type = BuildType.SNAPSHOT,
-            repo = uri("https://oss.sonatype.org/content/repositories/snapshots/"),
-            user = sonatypeUsername,
-            password = sonatypePassword
+            repo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
         )
     }
     else -> {
@@ -96,10 +93,6 @@ enum class Artifacts(
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
-    CUDA(
-        "lwjgl-cuda", "LWJGL - CUDA bindings",
-        "A parallel computing platform and programming model developed by NVIDIA for general computing on GPUs."
-    ),
     EGL(
         "lwjgl-egl", "LWJGL - EGL bindings",
         "An interface between Khronos rendering APIs such as OpenGL ES or OpenVG and the underlying native platform window system."
@@ -145,11 +138,6 @@ enum class Artifacts(
         Platforms.MACOS, Platforms.MACOS_ARM64,
         Platforms.WINDOWS, Platforms.WINDOWS_ARM64
     ),
-    LIBDIVIDE(
-        "lwjgl-libdivide", "LWJGL - libdivide bindings",
-        "A library that replaces expensive integer divides with comparatively cheap multiplication and bitshifts.",
-        *Platforms.ALL
-    ),
     LLVM(
         "lwjgl-llvm", "LWJGL - LLVM/Clang bindings",
         "A collection of modular and reusable compiler and toolchain technologies.",
@@ -164,14 +152,6 @@ enum class Artifacts(
         "lwjgl-lz4", "LWJGL - LZ4 bindings",
         "A lossless data compression algorithm that is focused on compression and decompression speed.",
         *Platforms.ALL
-    ),
-    MEOW(
-        "lwjgl-meow", "LWJGL - Meow hash bindings",
-        "An extremely fast non-cryptographic hash.",
-        Platforms.FREEBSD,
-        Platforms.LINUX, Platforms.LINUX_ARM64,
-        Platforms.MACOS, Platforms.MACOS_ARM64,
-        Platforms.WINDOWS, Platforms.WINDOWS_X86, Platforms.WINDOWS_ARM64
     ),
     MESHOPTIMIZER(
         "lwjgl-meshoptimizer", "LWJGL - meshoptimizer bindings",
@@ -221,11 +201,6 @@ enum class Artifacts(
         "A royalty-free, cross-platform API for full-function 2D and 3D graphics on embedded systems - including consoles, phones, appliances and vehicles.",
         *Platforms.ALL
     ),
-    OPENVR(
-        "lwjgl-openvr", "LWJGL - OpenVR bindings",
-        "An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting.",
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
-    ),
     OPENXR(
         "lwjgl-openxr", "LWJGL - OpenXR bindings",
         "A royalty-free, open standard that provides high-performance access to Augmented Reality (AR) and Virtual Reality (VR)—collectively known as XR—platforms and devices.",
@@ -237,11 +212,6 @@ enum class Artifacts(
         "lwjgl-opus", "LWJGL - Opus bindings",
         "A totally open, royalty-free, highly versatile audio codec.",
         *Platforms.ALL
-    ),
-    OVR(
-        "lwjgl-ovr", "LWJGL - OVR bindings",
-        "The API of the Oculus SDK.",
-        Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     PAR(
         "lwjgl-par", "LWJGL - par_shapes bindings",
@@ -261,6 +231,11 @@ enum class Artifacts(
         "A public domain cross platform lock free thread caching 16-byte aligned memory allocator implemented in C.",
         *Platforms.ALL
     ),
+    SDL(
+        "lwjgl-sdl", "LWJGL - SDL bindings",
+        "Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware.",
+        *Platforms.ALL
+    ),
     SHADERC(
         "lwjgl-shaderc", "LWJGL - Shaderc bindings",
         "A collection of libraries for shader compilation.",
@@ -270,11 +245,6 @@ enum class Artifacts(
         "lwjgl-spvc", "LWJGL - SPIRV-Cross bindings",
         "A library for performing reflection on SPIR-V and disassembling SPIR-V back to high level languages.",
         *Platforms.ALL
-    ),
-    SSE(
-        "lwjgl-sse", "LWJGL - SSE bindings",
-        "Simple SSE intrinsics.",
-        Platforms.FREEBSD, Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     STB(
         "lwjgl-stb", "LWJGL - stb bindings",
@@ -290,11 +260,6 @@ enum class Artifacts(
         "lwjgl-tinyfd", "LWJGL - Tiny File Dialogs bindings",
         "Provides basic modal dialogs.",
         *Platforms.ALL
-    ),
-    TOOTLE(
-        "lwjgl-tootle", "LWJGL - AMD Tootle bindings",
-        "A 3D triangle mesh optimization library that improves on existing mesh preprocessing techniques.",
-        Platforms.FREEBSD, Platforms.LINUX, Platforms.MACOS, Platforms.WINDOWS, Platforms.WINDOWS_X86
     ),
     VMA(
         "lwjgl-vma", "LWJGL - Vulkan Memory Allocator bindings",
@@ -345,8 +310,8 @@ publishing {
 
             if (deployment.type !== BuildType.LOCAL) {
                 credentials {
-                    username = deployment.user
-                    password = deployment.password
+                    username = sonatypeUsername
+                    password = sonatypePassword
                 }
             }
         }
@@ -490,7 +455,11 @@ publishing {
 }
 
 signing {
-    isRequired = deployment.type === BuildType.RELEASE
+    useInMemoryPgpKeys(
+        signingKeyId,
+        signingKey,
+        signingPassword
+    )
     sign(publishing.publications)
 }
 

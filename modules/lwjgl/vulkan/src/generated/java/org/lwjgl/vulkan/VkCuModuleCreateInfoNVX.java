@@ -17,29 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Stub description of VkCuModuleCreateInfoNVX.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVXBinaryImport#VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>If {@code dataSize} is not 0, {@code pData} <b>must</b> be a valid pointer to an array of {@code dataSize} bytes</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link NVXBinaryImport#vkCreateCuModuleNVX CreateCuModuleNVX}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkCuModuleCreateInfoNVX {
  *     VkStructureType sType;
  *     void const * pNext;
  *     size_t dataSize;
  *     void const * pData;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> implements NativeResource {
 
@@ -114,6 +98,8 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
     public VkCuModuleCreateInfoNVX sType$Default() { return sType(NVXBinaryImport.VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkCuModuleCreateInfoNVX pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkCuModuleTexturingModeCreateInfoNVX} value to the {@code pNext} chain. */
+    public VkCuModuleCreateInfoNVX pNext(VkCuModuleTexturingModeCreateInfoNVX value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the address of the specified {@link ByteBuffer} to the {@code pData} field. */
     public VkCuModuleCreateInfoNVX pData(@Nullable @NativeType("void const *") ByteBuffer value) { npData(address(), value); return this; }
 
@@ -344,6 +330,8 @@ public class VkCuModuleCreateInfoNVX extends Struct<VkCuModuleCreateInfoNVX> imp
         public VkCuModuleCreateInfoNVX.Buffer sType$Default() { return sType(NVXBinaryImport.VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkCuModuleCreateInfoNVX.Buffer pNext(@NativeType("void const *") long value) { VkCuModuleCreateInfoNVX.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkCuModuleTexturingModeCreateInfoNVX} value to the {@code pNext} chain. */
+        public VkCuModuleCreateInfoNVX.Buffer pNext(VkCuModuleTexturingModeCreateInfoNVX value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the address of the specified {@link ByteBuffer} to the {@code pData} field. */
         public VkCuModuleCreateInfoNVX.Buffer pData(@Nullable @NativeType("void const *") ByteBuffer value) { VkCuModuleCreateInfoNVX.npData(address(), value); return this; }
 

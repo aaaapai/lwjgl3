@@ -172,9 +172,6 @@
             </link>
         </build>
 
-        <!-- LIBDIVIDE -->
-        <build_simple module="libdivide"/>
-
         <!-- LLVM -->
         <build_simple module="llvm"/>
 
@@ -199,15 +196,6 @@
                 </compile>
             </beforeCompile>
         </build>
-
-        <!-- Meow -->
-        <sequential if:true="${binding.meow}">
-            <local name="meow.flags"/>
-            <condition property="meow.flags" value="" else="-maes">
-                <isset property="build.arch.arm"/>
-            </condition>
-            <build module="meow" simple="true" flags="-Werror -Wfatal-errors ${meow.flags}"/>
-        </sequential>
 
         <!-- meshoptimizer -->
         <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
@@ -262,9 +250,6 @@
         <!-- OpenGL ES -->
         <build_simple module="opengles"/>
 
-        <!-- OpenVR -->
-        <build_simple module="openvr"/>
-
         <!-- Par -->
         <build_simple module="par"/>
 
@@ -280,9 +265,6 @@
 
         <!-- rpmalloc -->
         <build_simple module="rpmalloc"/>
-
-        <!-- SSE -->
-        <build_simple module="sse"/>
 
         <!-- stb -->
         <build_simple module="stb"/>
@@ -310,36 +292,6 @@
                     <fileset dir="." includes="${src.main}/*.c"/>
                 </compile>
             </beforeCompile>
-        </build>
-
-        <!-- AMD Tootle -->
-        <build module="tootle" lang="c++" if:true="${binding.tootle}">
-            <beforeCompile>
-                <compile flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
-                </compile>
-                <compile lang="c++" flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <arg value="-I${src.main.rel}/include"/>
-                    <arg value="-I${src.main.rel}/RayTracer"/>
-                    <arg value="-I${src.main.rel}/RayTracer/JRT"/>
-                    <arg value="-I${src.main.rel}/RayTracer/Math"/>
-                    <fileset dir=".">
-                        <include name="${src.main}/*.cpp"/>
-                        <exclude name="${src.main}/d3d*.cpp"/>
-                        <exclude name="${src.main}/gdi*.cpp"/>
-                    </fileset>
-                    <fileset dir="." includes="${src.main}/RayTracer/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/JRT/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/Math/*.cpp"/>
-                </compile>
-            </beforeCompile>
-            <source>
-                <arg value="-D_LINUX"/>
-                <arg value="-I${src.main.rel}/include"/>
-                <fileset dir="." includes="${src.generated}/*.cpp"/>
-            </source>
         </build>
 
         <!-- Vulkan Memory Allocator -->
@@ -404,8 +356,8 @@
             <update-dependency module="jemalloc" artifact="libjemalloc.dylib"/>
             <update-dependency module="ktx" artifact="libktx.dylib"/>
             <update-dependency module="openal" artifact="libopenal.dylib"/>
-            <update-dependency module="openvr" artifact="libopenvr_api.dylib"/>
             <update-dependency module="opus" artifact="libopus.dylib"/>
+            <update-dependency module="sdl" artifact="libSDL3.dylib"/>
             <update-dependency module="shaderc" artifact="libshaderc.dylib"/>
             <update-dependency module="spvc" artifact="libspirv-cross.dylib"/>
 

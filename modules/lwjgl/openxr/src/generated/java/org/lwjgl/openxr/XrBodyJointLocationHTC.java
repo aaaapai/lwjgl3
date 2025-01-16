@@ -9,36 +9,20 @@ import org.jspecify.annotations.*;
 
 import java.nio.*;
 
+import org.lwjgl.*;
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the location and location flag of a body joint.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrBodyJointLocationHTC} structure describes the position, orientation, and location flag of a body joint. It is populated by the runtime during a call to {@link HTCBodyTracking#xrLocateBodyJointsHTC LocateBodyJointsHTC}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCBodyTracking XR_HTC_body_tracking} extension <b>must</b> be enabled prior to using {@link XrBodyJointLocationHTC}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrBodyJointLocationsHTC}, {@link XrPosef}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrBodyJointLocationHTC {
- *     XrSpaceLocationFlags {@link #locationFlags};
- *     {@link XrPosef XrPosef} {@link #pose};
- * }</code></pre>
+ *     XrSpaceLocationFlags locationFlags;
+ *     {@link XrPosef XrPosef} pose;
+ * }}</pre>
  */
-public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> {
+public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,13 +70,29 @@ public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitfield, with bit masks defined in {@code XrSpaceLocationFlagBits}, to indicate which members contain valid data. For those bits that are not set, reading the relevant fields in this structure and its nested structures <b>must</b> be defined, but the values are unspecified and not meaningful. */
+    /** @return the value of the {@code locationFlags} field. */
     @NativeType("XrSpaceLocationFlags")
     public long locationFlags() { return nlocationFlags(address()); }
-    /** an {@link XrPosef} describing the position and orientation of the origin of a body joint within the reference frame of the corresponding {@link XrBodyJointsLocateInfoHTC}{@code ::baseSpace}. */
+    /** @return a {@link XrPosef} view of the {@code pose} field. */
     public XrPosef pose() { return npose(address()); }
 
     // -----------------------------------
+
+    /** Returns a new {@code XrBodyJointLocationHTC} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
+    public static XrBodyJointLocationHTC malloc() {
+        return new XrBodyJointLocationHTC(nmemAllocChecked(SIZEOF), null);
+    }
+
+    /** Returns a new {@code XrBodyJointLocationHTC} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
+    public static XrBodyJointLocationHTC calloc() {
+        return new XrBodyJointLocationHTC(nmemCallocChecked(1, SIZEOF), null);
+    }
+
+    /** Returns a new {@code XrBodyJointLocationHTC} instance allocated with {@link BufferUtils}. */
+    public static XrBodyJointLocationHTC create() {
+        ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
+        return new XrBodyJointLocationHTC(memAddress(container), container);
+    }
 
     /** Returns a new {@code XrBodyJointLocationHTC} instance for the specified memory address. */
     public static XrBodyJointLocationHTC create(long address) {
@@ -102,6 +102,34 @@ public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> {
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     public static @Nullable XrBodyJointLocationHTC createSafe(long address) {
         return address == NULL ? null : new XrBodyJointLocationHTC(address, null);
+    }
+
+    /**
+     * Returns a new {@link XrBodyJointLocationHTC.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static XrBodyJointLocationHTC.Buffer malloc(int capacity) {
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+    }
+
+    /**
+     * Returns a new {@link XrBodyJointLocationHTC.Buffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static XrBodyJointLocationHTC.Buffer calloc(int capacity) {
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+    }
+
+    /**
+     * Returns a new {@link XrBodyJointLocationHTC.Buffer} instance allocated with {@link BufferUtils}.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static XrBodyJointLocationHTC.Buffer create(int capacity) {
+        ByteBuffer container = __create(capacity, SIZEOF);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -119,6 +147,44 @@ public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
+    /**
+     * Returns a new {@code XrBodyJointLocationHTC} instance allocated on the specified {@link MemoryStack}.
+     *
+     * @param stack the stack from which to allocate
+     */
+    public static XrBodyJointLocationHTC malloc(MemoryStack stack) {
+        return new XrBodyJointLocationHTC(stack.nmalloc(ALIGNOF, SIZEOF), null);
+    }
+
+    /**
+     * Returns a new {@code XrBodyJointLocationHTC} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
+     *
+     * @param stack the stack from which to allocate
+     */
+    public static XrBodyJointLocationHTC calloc(MemoryStack stack) {
+        return new XrBodyJointLocationHTC(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+    }
+
+    /**
+     * Returns a new {@link XrBodyJointLocationHTC.Buffer} instance allocated on the specified {@link MemoryStack}.
+     *
+     * @param stack    the stack from which to allocate
+     * @param capacity the buffer capacity
+     */
+    public static XrBodyJointLocationHTC.Buffer malloc(int capacity, MemoryStack stack) {
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+    }
+
+    /**
+     * Returns a new {@link XrBodyJointLocationHTC.Buffer} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
+     *
+     * @param stack    the stack from which to allocate
+     * @param capacity the buffer capacity
+     */
+    public static XrBodyJointLocationHTC.Buffer calloc(int capacity, MemoryStack stack) {
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
+    }
+
     // -----------------------------------
 
     /** Unsafe version of {@link #locationFlags}. */
@@ -129,7 +195,7 @@ public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> {
     // -----------------------------------
 
     /** An array of {@link XrBodyJointLocationHTC} structs. */
-    public static class Buffer extends StructBuffer<XrBodyJointLocationHTC, Buffer> {
+    public static class Buffer extends StructBuffer<XrBodyJointLocationHTC, Buffer> implements NativeResource {
 
         private static final XrBodyJointLocationHTC ELEMENT_FACTORY = XrBodyJointLocationHTC.create(-1L);
 
@@ -169,10 +235,10 @@ public class XrBodyJointLocationHTC extends Struct<XrBodyJointLocationHTC> {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrBodyJointLocationHTC#locationFlags} field. */
+        /** @return the value of the {@code locationFlags} field. */
         @NativeType("XrSpaceLocationFlags")
         public long locationFlags() { return XrBodyJointLocationHTC.nlocationFlags(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrBodyJointLocationHTC#pose} field. */
+        /** @return a {@link XrPosef} view of the {@code pose} field. */
         public XrPosef pose() { return XrBodyJointLocationHTC.npose(address()); }
 
     }

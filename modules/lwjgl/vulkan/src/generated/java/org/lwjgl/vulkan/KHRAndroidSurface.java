@@ -68,13 +68,10 @@ import static org.lwjgl.system.MemoryUtil.*;
  */
 public class KHRAndroidSurface {
 
-    /** The extension specification version. */
     public static final int VK_KHR_ANDROID_SURFACE_SPEC_VERSION = 6;
 
-    /** The extension name. */
     public static final String VK_KHR_ANDROID_SURFACE_EXTENSION_NAME = "VK_KHR_android_surface";
 
-    /** Extends {@code VkStructureType}. */
     public static final int VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR = 1000008000;
 
     protected KHRAndroidSurface() {
@@ -83,7 +80,7 @@ public class KHRAndroidSurface {
 
     // --- [ vkCreateAndroidSurfaceKHR ] ---
 
-    /** Unsafe version of: {@link #vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR} */
+    /** {@code VkResult vkCreateAndroidSurfaceKHR(VkInstance instance, VkAndroidSurfaceCreateInfoKHR const * pCreateInfo, VkAllocationCallbacks const * pAllocator, VkSurfaceKHR * pSurface)} */
     public static int nvkCreateAndroidSurfaceKHR(VkInstance instance, long pCreateInfo, long pAllocator, long pSurface) {
         long __functionAddress = instance.getCapabilities().vkCreateAndroidSurfaceKHR;
         if (CHECKS) {
@@ -92,66 +89,7 @@ public class KHRAndroidSurface {
         return callPPPPI(instance.address(), pCreateInfo, pAllocator, pSurface, __functionAddress);
     }
 
-    /**
-     * Create a {@code VkSurfaceKHR} object for an Android native window.
-     * 
-     * <h5>C Specification</h5>
-     * 
-     * <p>To create a {@code VkSurfaceKHR} object for an Android native window, call:</p>
-     * 
-     * <pre><code>
-     * VkResult vkCreateAndroidSurfaceKHR(
-     *     VkInstance                                  instance,
-     *     const VkAndroidSurfaceCreateInfoKHR*        pCreateInfo,
-     *     const VkAllocationCallbacks*                pAllocator,
-     *     VkSurfaceKHR*                               pSurface);</code></pre>
-     * 
-     * <h5>Description</h5>
-     * 
-     * <p>During the lifetime of a surface created using a particular {@code ANativeWindow} handle any attempts to create another surface for the same {@code ANativeWindow} and any attempts to connect to the same {@code ANativeWindow} through other platform mechanisms will fail.</p>
-     * 
-     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-     * 
-     * <p>In particular, only one {@code VkSurfaceKHR} <b>can</b> exist at a time for a given window. Similarly, a native window <b>cannot</b> be used by both a {@code VkSurfaceKHR} and {@code EGLSurface} simultaneously.</p>
-     * </div>
-     * 
-     * <p>If successful, {@code vkCreateAndroidSurfaceKHR} increments the {@code ANativeWindow}’s reference count, and {@code vkDestroySurfaceKHR} will decrement it.</p>
-     * 
-     * <p>On Android, when a swapchain’s {@code imageExtent} does not match the surface’s {@code currentExtent}, the presentable images will be scaled to the surface’s dimensions during presentation. {@code minImageExtent} is <code>(1,1)</code>, and {@code maxImageExtent} is the maximum image size supported by the consumer. For the system compositor, {@code currentExtent} is the window size (i.e. the consumer’s preferred size).</p>
-     * 
-     * <h5>Valid Usage (Implicit)</h5>
-     * 
-     * <ul>
-     * <li>{@code instance} <b>must</b> be a valid {@code VkInstance} handle</li>
-     * <li>{@code pCreateInfo} <b>must</b> be a valid pointer to a valid {@link VkAndroidSurfaceCreateInfoKHR} structure</li>
-     * <li>If {@code pAllocator} is not {@code NULL}, {@code pAllocator} <b>must</b> be a valid pointer to a valid {@link VkAllocationCallbacks} structure</li>
-     * <li>{@code pSurface} <b>must</b> be a valid pointer to a {@code VkSurfaceKHR} handle</li>
-     * </ul>
-     * 
-     * <h5>Return Codes</h5>
-     * 
-     * <dl>
-     * <dt>On success, this command returns</dt>
-     * <dd><ul>
-     * <li>{@link VK10#VK_SUCCESS SUCCESS}</li>
-     * </ul></dd>
-     * <dt>On failure, this command returns</dt>
-     * <dd><ul>
-     * <li>{@link VK10#VK_ERROR_OUT_OF_HOST_MEMORY ERROR_OUT_OF_HOST_MEMORY}</li>
-     * <li>{@link VK10#VK_ERROR_OUT_OF_DEVICE_MEMORY ERROR_OUT_OF_DEVICE_MEMORY}</li>
-     * <li>{@link KHRSurface#VK_ERROR_NATIVE_WINDOW_IN_USE_KHR ERROR_NATIVE_WINDOW_IN_USE_KHR}</li>
-     * </ul></dd>
-     * </dl>
-     * 
-     * <h5>See Also</h5>
-     * 
-     * <p>{@link VkAllocationCallbacks}, {@link VkAndroidSurfaceCreateInfoKHR}</p>
-     *
-     * @param instance    the instance to associate the surface with.
-     * @param pCreateInfo a pointer to a {@link VkAndroidSurfaceCreateInfoKHR} structure containing parameters affecting the creation of the surface object.
-     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
-     * @param pSurface    a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.
-     */
+    /** {@code VkResult vkCreateAndroidSurfaceKHR(VkInstance instance, VkAndroidSurfaceCreateInfoKHR const * pCreateInfo, VkAllocationCallbacks const * pAllocator, VkSurfaceKHR * pSurface)} */
     @NativeType("VkResult")
     public static int vkCreateAndroidSurfaceKHR(VkInstance instance, @NativeType("VkAndroidSurfaceCreateInfoKHR const *") VkAndroidSurfaceCreateInfoKHR pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
         if (CHECKS) {
@@ -160,7 +98,7 @@ public class KHRAndroidSurface {
         return nvkCreateAndroidSurfaceKHR(instance, pCreateInfo.address(), memAddressSafe(pAllocator), memAddress(pSurface));
     }
 
-    /** Array version of: {@link #vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR} */
+    /** {@code VkResult vkCreateAndroidSurfaceKHR(VkInstance instance, VkAndroidSurfaceCreateInfoKHR const * pCreateInfo, VkAllocationCallbacks const * pAllocator, VkSurfaceKHR * pSurface)} */
     @NativeType("VkResult")
     public static int vkCreateAndroidSurfaceKHR(VkInstance instance, @NativeType("VkAndroidSurfaceCreateInfoKHR const *") VkAndroidSurfaceCreateInfoKHR pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
         long __functionAddress = instance.getCapabilities().vkCreateAndroidSurfaceKHR;

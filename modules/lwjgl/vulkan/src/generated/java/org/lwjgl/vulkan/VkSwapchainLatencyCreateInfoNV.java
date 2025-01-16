@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify that a swapchain will use low latency mode.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVLowLatency2#VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSwapchainLatencyCreateInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
+ *     VkStructureType sType;
+ *     void const * pNext;
  *     VkBool32 latencyModeEnable;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkSwapchainLatencyCreateInfoNV extends Struct<VkSwapchainLatencyCreateInfoNV> implements NativeResource {
 
@@ -84,21 +74,21 @@ public class VkSwapchainLatencyCreateInfoNV extends Struct<VkSwapchainLatencyCre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** @return the value of the {@code latencyModeEnable} field. */
     @NativeType("VkBool32")
     public boolean latencyModeEnable() { return nlatencyModeEnable(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSwapchainLatencyCreateInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVLowLatency2#VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVLowLatency2#VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV} value to the {@code sType} field. */
     public VkSwapchainLatencyCreateInfoNV sType$Default() { return sType(NVLowLatency2.VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSwapchainLatencyCreateInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Sets the specified value to the {@code latencyModeEnable} field. */
     public VkSwapchainLatencyCreateInfoNV latencyModeEnable(@NativeType("VkBool32") boolean value) { nlatencyModeEnable(address(), value ? 1 : 0); return this; }
@@ -296,21 +286,21 @@ public class VkSwapchainLatencyCreateInfoNV extends Struct<VkSwapchainLatencyCre
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSwapchainLatencyCreateInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSwapchainLatencyCreateInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkSwapchainLatencyCreateInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkSwapchainLatencyCreateInfoNV.npNext(address()); }
         /** @return the value of the {@code latencyModeEnable} field. */
         @NativeType("VkBool32")
         public boolean latencyModeEnable() { return VkSwapchainLatencyCreateInfoNV.nlatencyModeEnable(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkSwapchainLatencyCreateInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSwapchainLatencyCreateInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkSwapchainLatencyCreateInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVLowLatency2#VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV} value to the {@link VkSwapchainLatencyCreateInfoNV#sType} field. */
+        /** Sets the {@link NVLowLatency2#VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV} value to the {@code sType} field. */
         public VkSwapchainLatencyCreateInfoNV.Buffer sType$Default() { return sType(NVLowLatency2.VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV); }
-        /** Sets the specified value to the {@link VkSwapchainLatencyCreateInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSwapchainLatencyCreateInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkSwapchainLatencyCreateInfoNV.npNext(address(), value); return this; }
         /** Sets the specified value to the {@code latencyModeEnable} field. */
         public VkSwapchainLatencyCreateInfoNV.Buffer latencyModeEnable(@NativeType("VkBool32") boolean value) { VkSwapchainLatencyCreateInfoNV.nlatencyModeEnable(address(), value ? 1 : 0); return this; }
