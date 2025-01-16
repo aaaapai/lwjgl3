@@ -618,6 +618,14 @@ public class GL40C extends GL33C {
     // --- [ glPatchParameteri ] ---
 
     /** {@code void glPatchParameteri(GLenum pname, GLint value)} */
+    /**
+     * Specifies the integer value of the specified parameter for patch primitives.
+     *
+     * @param pname the name of the parameter to set. Must be:<br><table><tr><td>{@link #GL_PATCH_VERTICES PATCH_VERTICES}</td></tr></table>
+     * @param value the new value for the parameter given by {@code pname}
+     * 
+     * @see <a href="https://docs.gl/gl4/glPatchParameter">Reference Page</a>
+     */
     public static native void glPatchParameteri(@NativeType("GLenum") int pname, @NativeType("GLint") int value);
 
     // --- [ glPatchParameterfv ] ---

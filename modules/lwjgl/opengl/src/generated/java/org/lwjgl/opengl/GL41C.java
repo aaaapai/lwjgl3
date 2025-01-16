@@ -161,6 +161,15 @@ public class GL41C extends GL40C {
     // --- [ glProgramParameteri ] ---
 
     /** {@code void glProgramParameteri(GLuint program, GLenum pname, GLint value)} */
+    /**
+     * Specifies the integer value of a program object parameter.
+     *
+     * @param program the name of a program object whose parameter to modify
+     * @param pname   the name of the parameter to modify. One of:<br><table><tr><td>{@link #GL_PROGRAM_BINARY_RETRIEVABLE_HINT PROGRAM_BINARY_RETRIEVABLE_HINT}</td><td>{@link #GL_PROGRAM_SEPARABLE PROGRAM_SEPARABLE}</td></tr></table>
+     * @param value   the new value of the parameter specified by {@code pname} for {@code program}
+     * 
+     * @see <a href="https://docs.gl/gl4/glProgramParameter">Reference Page</a>
+     */
     public static native void glProgramParameteri(@NativeType("GLuint") int program, @NativeType("GLenum") int pname, @NativeType("GLint") int value);
 
     // --- [ glUseProgramStages ] ---

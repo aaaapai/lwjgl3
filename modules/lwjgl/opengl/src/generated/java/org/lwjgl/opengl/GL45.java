@@ -533,6 +533,15 @@ public class GL45 extends GL44 {
     // --- [ glNamedFramebufferParameteri ] ---
 
     /** {@code void glNamedFramebufferParameteri(GLuint framebuffer, GLenum pname, GLint param)} */
+    /**
+     * DSA version of {@link GL43C#glFramebufferParameteri FramebufferParameteri}.
+     *
+     * @param framebuffer the framebuffer name
+     * @param pname       a token indicating the parameter to be modified. One of:<br><table><tr><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_WIDTH FRAMEBUFFER_DEFAULT_WIDTH}</td><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_HEIGHT FRAMEBUFFER_DEFAULT_HEIGHT}</td></tr><tr><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_LAYERS FRAMEBUFFER_DEFAULT_LAYERS}</td><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_SAMPLES FRAMEBUFFER_DEFAULT_SAMPLES}</td></tr><tr><td>{@link GL43#GL_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS}</td></tr></table>
+     * @param param       the new value for the parameter named {@code pname}
+     * 
+     * @see <a href="https://docs.gl/gl4/glFramebufferParameter">Reference Page</a>
+     */
     public static void glNamedFramebufferParameteri(@NativeType("GLuint") int framebuffer, @NativeType("GLenum") int pname, @NativeType("GLint") int param) {
         GL45C.glNamedFramebufferParameteri(framebuffer, pname, param);
     }
@@ -1013,6 +1022,15 @@ public class GL45 extends GL44 {
     // --- [ glTextureParameterf ] ---
 
     /** {@code void glTextureParameterf(GLuint texture, GLenum pname, GLfloat param)} */
+    /**
+     * DSA version of {@link GL11C#glTexParameterf TexParameterf}.
+     *
+     * @param texture the texture name
+     * @param pname   the parameter to set
+     * @param param   the parameter value
+     * 
+     * @see <a href="https://docs.gl/gl4/glTextureParameter">Reference Page</a>
+     */
     public static void glTextureParameterf(@NativeType("GLuint") int texture, @NativeType("GLenum") int pname, @NativeType("GLfloat") float param) {
         GL45C.glTextureParameterf(texture, pname, param);
     }
@@ -1032,6 +1050,15 @@ public class GL45 extends GL44 {
     // --- [ glTextureParameteri ] ---
 
     /** {@code void glTextureParameteri(GLuint texture, GLenum pname, GLint param)} */
+    /**
+     * DSA version of {@link GL11C#glTexParameteri TexParameteri}.
+     *
+     * @param texture the texture name
+     * @param pname   the parameter to set. One of:<br><table><tr><td>{@link GL12#GL_TEXTURE_BASE_LEVEL TEXTURE_BASE_LEVEL}</td><td>{@link GL11#GL_TEXTURE_BORDER_COLOR TEXTURE_BORDER_COLOR}</td><td>{@link GL14#GL_TEXTURE_COMPARE_MODE TEXTURE_COMPARE_MODE}</td><td>{@link GL14#GL_TEXTURE_COMPARE_FUNC TEXTURE_COMPARE_FUNC}</td></tr><tr><td>{@link GL14#GL_TEXTURE_LOD_BIAS TEXTURE_LOD_BIAS}</td><td>{@link GL11#GL_TEXTURE_MAG_FILTER TEXTURE_MAG_FILTER}</td><td>{@link GL12#GL_TEXTURE_MAX_LEVEL TEXTURE_MAX_LEVEL}</td><td>{@link GL12#GL_TEXTURE_MAX_LOD TEXTURE_MAX_LOD}</td></tr><tr><td>{@link GL11#GL_TEXTURE_MIN_FILTER TEXTURE_MIN_FILTER}</td><td>{@link GL12#GL_TEXTURE_MIN_LOD TEXTURE_MIN_LOD}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_R TEXTURE_SWIZZLE_R}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_G TEXTURE_SWIZZLE_G}</td></tr><tr><td>{@link GL33#GL_TEXTURE_SWIZZLE_B TEXTURE_SWIZZLE_B}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_A TEXTURE_SWIZZLE_A}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_RGBA TEXTURE_SWIZZLE_RGBA}</td><td>{@link GL11#GL_TEXTURE_WRAP_S TEXTURE_WRAP_S}</td></tr><tr><td>{@link GL11#GL_TEXTURE_WRAP_T TEXTURE_WRAP_T}</td><td>{@link GL12#GL_TEXTURE_WRAP_R TEXTURE_WRAP_R}</td><td>{@link GL14#GL_DEPTH_TEXTURE_MODE DEPTH_TEXTURE_MODE}</td><td>{@link GL14#GL_GENERATE_MIPMAP GENERATE_MIPMAP}</td></tr></table>
+     * @param param   the parameter value
+     * 
+     * @see <a href="https://docs.gl/gl4/glTexParameter">Reference Page</a>
+     */
     public static void glTextureParameteri(@NativeType("GLuint") int texture, @NativeType("GLenum") int pname, @NativeType("GLint") int param) {
         GL45C.glTextureParameteri(texture, pname, param);
     }

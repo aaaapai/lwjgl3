@@ -110,11 +110,27 @@ public class GL14C extends GL13C {
     // --- [ glPointParameterf ] ---
 
     /** {@code void glPointParameterf(GLenum pname, GLfloat param)} */
+    /**
+     * Sets the float value of a pointer parameter.
+     *
+     * @param pname the parameter to set. Must be:<br><table><tr><td>{@link #GL_POINT_FADE_THRESHOLD_SIZE POINT_FADE_THRESHOLD_SIZE}</td></tr></table>
+     * @param param the parameter value
+     * 
+     * @see <a href="https://docs.gl/gl4/glPointParameter">Reference Page</a>
+     */
     public static native void glPointParameterf(@NativeType("GLenum") int pname, @NativeType("GLfloat") float param);
 
     // --- [ glPointParameteri ] ---
 
     /** {@code void glPointParameteri(GLenum pname, GLint param)} */
+    /**
+     * Integer version of {@link #glPointParameterf PointParameterf}.
+     *
+     * @param pname the parameter to set. Must be:<br><table><tr><td>{@link #GL_POINT_FADE_THRESHOLD_SIZE POINT_FADE_THRESHOLD_SIZE}</td></tr></table>
+     * @param param the parameter value
+     * 
+     * @see <a href="https://docs.gl/gl4/glPointParameter">Reference Page</a>
+     */
     public static native void glPointParameteri(@NativeType("GLenum") int pname, @NativeType("GLint") int param);
 
     // --- [ glPointParameterfv ] ---

@@ -19,6 +19,228 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class GL11 {
+// -- Begin LWJGL2 Bridge --
+    public static void glColorPointer(int size, boolean unsigned, int stride, java.nio.ByteBuffer pointer) {
+        glColorPointer(size, unsigned ? GL11.GL_UNSIGNED_BYTE : GL11.GL_BYTE, stride, pointer);
+    }
+    
+    public static void glColorPointer(int size, int stride, FloatBuffer pointer) {
+        glColorPointer(size, GL11.GL_FLOAT, stride, pointer);
+    }
+    
+    public static void glFog(int p1, java.nio.FloatBuffer p2) {
+        glFogfv(p1, p2);
+    }
+
+    public static void glFog(int p1, java.nio.IntBuffer p2) {
+        glFogiv(p1, p2);
+    }
+
+    public static void glGetBoolean(int p1, java.nio.ByteBuffer p2) {
+        glGetBooleanv(p1, p2);
+    }
+
+    public static void glGetDouble(int p1, java.nio.DoubleBuffer p2) {
+        glGetDoublev(p1, p2);
+    }
+
+    public static void glGetFloat(int p1, FloatBuffer p2) {
+        glGetFloatv(p1, p2);
+    }
+
+    public static void glGetInteger(int p1, IntBuffer p2) {
+        glGetIntegerv(p1, p2);
+    }
+
+    public static void glGetLight(int p1, int p2, FloatBuffer p3) {
+        glGetLightfv(p1, p2, p3);
+    }
+
+    public static void glGetLight(int p1, int p2, IntBuffer p3) {
+        glGetLightiv(p1, p2, p3);
+    }
+
+    public static void glGetMap(int p1, int p2, DoubleBuffer p3) {
+        glGetMapdv(p1, p2, p3);
+    }
+
+    public static void glGetMap(int p1, int p2, FloatBuffer p3) {
+        glGetMapfv(p1, p2, p3);
+    }
+
+    public static void glGetMap(int p1, int p2, IntBuffer p3) {
+        glGetMapiv(p1, p2, p3);
+    }
+
+    public static void glGetMaterial(int p1, int p2, FloatBuffer p3) {
+        glGetMaterialfv(p1, p2, p3);
+    }
+
+    public static void glGetMaterial(int p1, int p2, IntBuffer p3) {
+        glGetMaterialiv(p1, p2, p3);
+    }
+
+    public static void glGetPixelMap(int p1, FloatBuffer p2) {
+        glGetPixelMapfv(p1, p2);
+    }
+
+    public static void glGetPixelMapu(int p1, IntBuffer p2) {
+        glGetPixelMapuiv(p1, p2);
+    }
+
+    public static void glGetPixelMapu(int p1, ShortBuffer p2) {
+        glGetPixelMapusv(p1, p2);
+    }
+
+    public static void glGetTexEnv(int p1, int p2, FloatBuffer p3) {
+        glGetTexEnvfv(p1, p2, p3);
+    }
+
+    public static void glGetTexEnv(int p1, int p2, IntBuffer p3) {
+        glGetTexEnviv(p1, p2, p3);
+    }
+
+    public static void glGetTexGen(int p1, int p2, DoubleBuffer p3) {
+        glGetTexGendv(p1, p2, p3);
+    }
+
+    public static void glGetTexGen(int p1, int p2, FloatBuffer p3) {
+        glGetTexGenfv(p1, p2, p3);
+    }
+
+    public static void glGetTexGen(int p1, int p2, IntBuffer p3) {
+        glGetTexGeniv(p1, p2, p3);
+    }
+
+    public static void glGetTexLevelParameter(int target, int level, int pname, FloatBuffer params) {
+        glGetTexLevelParameterfv(target, level, pname, params);
+    }
+
+    public static void glGetTexLevelParameter(int target, int level, int pname, IntBuffer params) {
+        glGetTexLevelParameteriv(target, level, pname, params);
+    }
+
+    public static void glGetTexParameter(int target, int pname, FloatBuffer params) {
+        glGetTexParameterfv(target, pname, params);
+    }
+
+    public static void glGetTexParameter(int target, int pname, IntBuffer params) {
+        glGetTexParameteriv(target, pname, params);
+    }
+
+    public static void glLight(int light, int pname, FloatBuffer params) {
+        glLightfv(light, pname, params);
+    }
+
+    public static void glLight(int light, int pname, IntBuffer params) {
+        glLightiv(light, pname, params);
+    }
+
+    public static void glLightModel(int pname, FloatBuffer params) {
+        glLightModelfv(pname, params);
+    }
+
+    public static void glLightModel(int pname, IntBuffer params) {
+        glLightModeliv(pname, params);
+    }
+    
+    public static void glLoadMatrix(DoubleBuffer m) {
+        glLoadMatrixd(m);
+    }
+    
+    public static void glLoadMatrix(FloatBuffer m) {
+        glLoadMatrixf(m);
+    }
+    
+    public static void glMaterial(int p1, int p2, java.nio.FloatBuffer p3) {
+        glMaterialfv(p1, p2, p3);
+    }
+
+    public static void glMaterial(int p1, int p2, java.nio.IntBuffer p3) {
+        glMaterialiv(p1, p2, p3);
+    }
+    
+    public static void glMultMatrix(java.nio.DoubleBuffer p1) {
+        glMultMatrixd(p1);
+    }
+
+    public static void glMultMatrix(java.nio.FloatBuffer p1) {
+        glMultMatrixf(p1);
+    }
+
+    public static void glNormalPointer(int stride, ByteBuffer pointer) {
+        glNormalPointer(GL11.GL_BYTE, stride, pointer);
+    }
+    
+    public static void glNormalPointer(int stride, FloatBuffer pointer) {
+        glNormalPointer(GL11.GL_FLOAT, stride, pointer);
+    }
+    
+    public static void glNormalPointer(int stride, IntBuffer pointer) {
+        glNormalPointer(GL11.GL_INT, stride, pointer);
+    }
+    
+    public static void glNormalPointer(int stride, ShortBuffer pointer) {
+        glNormalPointer(GL11.GL_SHORT, stride, pointer);
+    }
+    
+    public static void glPixelMap(int p1, java.nio.FloatBuffer p2) {
+        glPixelMapfv(p1, p2);
+    }
+
+    public static void glPixelMapu(int p1, java.nio.IntBuffer p2) {
+        glPixelMapuiv(p1, p2);
+    }
+
+    public static void glPixelMapu(int p1, java.nio.ShortBuffer p2) {
+        glPixelMapusv(p1, p2);
+    }
+    
+    // todo texcoordptr bytebuffer
+    public static void glTexCoordPointer(int size, int stride, FloatBuffer pointer) {
+        glTexCoordPointer(size, GL11.GL_FLOAT, stride, pointer);
+    }
+    
+    public static void glTexCoordPointer(int size, int stride, IntBuffer pointer) {
+        glTexCoordPointer(size, GL11.GL_INT, stride, pointer);
+    }
+    
+    public static void glTexCoordPointer(int size, int stride, ShortBuffer pointer) {
+        glTexCoordPointer(size, GL11.GL_SHORT, stride, pointer);
+    }
+    
+    public static void glTexEnv(int p1, int p2, java.nio.FloatBuffer p3) {
+        glTexEnvfv(p1, p2, p3);
+    }
+
+    public static void glTexEnv(int p1, int p2, java.nio.IntBuffer p3) {
+        glTexEnviv(p1, p2, p3);
+    }
+
+    public static void glTexGen(int p1, int p2, java.nio.DoubleBuffer p3) {
+        glTexGendv(p1, p2, p3);
+    }
+
+    public static void glTexGen(int p1, int p2, java.nio.FloatBuffer p3) {
+        glTexGenfv(p1, p2, p3);
+    }
+
+    public static void glTexGen(int p1, int p2, java.nio.IntBuffer p3) {
+        glTexGeniv(p1, p2, p3);
+    }
+
+    public static void glVertexPointer(int size, int stride, FloatBuffer pointer) {
+        glVertexPointer(size, GL11.GL_FLOAT, stride, pointer);
+    }
+    
+    public static void glVertexPointer(int size, int stride, IntBuffer pointer) {
+        glVertexPointer(size, GL11.GL_INT, stride, pointer);
+    }
+    
+    public static void glVertexPointer(int size, int stride, ShortBuffer pointer) {
+        glVertexPointer(size, GL11.GL_SHORT, stride, pointer);
+    }
+// -- End LWJGL2 Bridge --
 
     static { GL.initialize(); }
 
@@ -3796,6 +4018,15 @@ public class GL11 {
     // --- [ glTexParameteri ] ---
 
     /** {@code void glTexParameteri(GLenum target, GLenum pname, GLint param)} */
+    /**
+     * Sets the integer value of a texture parameter, which controls how the texel array is treated when specified or changed, and when applied to a fragment.
+     *
+     * @param target the texture target. One of:<br><table><tr><td>{@link GL11C#GL_TEXTURE_1D TEXTURE_1D}</td><td>{@link GL11C#GL_TEXTURE_2D TEXTURE_2D}</td><td>{@link GL12#GL_TEXTURE_3D TEXTURE_3D}</td><td>{@link GL30#GL_TEXTURE_1D_ARRAY TEXTURE_1D_ARRAY}</td></tr><tr><td>{@link GL30#GL_TEXTURE_2D_ARRAY TEXTURE_2D_ARRAY}</td><td>{@link GL31#GL_TEXTURE_RECTANGLE TEXTURE_RECTANGLE}</td><td>{@link GL13#GL_TEXTURE_CUBE_MAP TEXTURE_CUBE_MAP}</td><td>{@link GL40#GL_TEXTURE_CUBE_MAP_ARRAY TEXTURE_CUBE_MAP_ARRAY}</td></tr><tr><td>{@link GL32#GL_TEXTURE_2D_MULTISAMPLE TEXTURE_2D_MULTISAMPLE}</td><td>{@link GL32#GL_TEXTURE_2D_MULTISAMPLE_ARRAY TEXTURE_2D_MULTISAMPLE_ARRAY}</td></tr></table>
+     * @param pname  the parameter to set. One of:<br><table><tr><td>{@link GL12#GL_TEXTURE_BASE_LEVEL TEXTURE_BASE_LEVEL}</td><td>{@link GL11C#GL_TEXTURE_BORDER_COLOR TEXTURE_BORDER_COLOR}</td><td>{@link GL14#GL_TEXTURE_COMPARE_MODE TEXTURE_COMPARE_MODE}</td><td>{@link GL14#GL_TEXTURE_COMPARE_FUNC TEXTURE_COMPARE_FUNC}</td></tr><tr><td>{@link GL14#GL_TEXTURE_LOD_BIAS TEXTURE_LOD_BIAS}</td><td>{@link GL11C#GL_TEXTURE_MAG_FILTER TEXTURE_MAG_FILTER}</td><td>{@link GL12#GL_TEXTURE_MAX_LEVEL TEXTURE_MAX_LEVEL}</td><td>{@link GL12#GL_TEXTURE_MAX_LOD TEXTURE_MAX_LOD}</td></tr><tr><td>{@link GL11C#GL_TEXTURE_MIN_FILTER TEXTURE_MIN_FILTER}</td><td>{@link GL12#GL_TEXTURE_MIN_LOD TEXTURE_MIN_LOD}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_R TEXTURE_SWIZZLE_R}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_G TEXTURE_SWIZZLE_G}</td></tr><tr><td>{@link GL33#GL_TEXTURE_SWIZZLE_B TEXTURE_SWIZZLE_B}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_A TEXTURE_SWIZZLE_A}</td><td>{@link GL33#GL_TEXTURE_SWIZZLE_RGBA TEXTURE_SWIZZLE_RGBA}</td><td>{@link GL11C#GL_TEXTURE_WRAP_S TEXTURE_WRAP_S}</td></tr><tr><td>{@link GL11C#GL_TEXTURE_WRAP_T TEXTURE_WRAP_T}</td><td>{@link GL12#GL_TEXTURE_WRAP_R TEXTURE_WRAP_R}</td><td>{@link GL14#GL_DEPTH_TEXTURE_MODE DEPTH_TEXTURE_MODE}</td><td>{@link GL14#GL_GENERATE_MIPMAP GENERATE_MIPMAP}</td></tr></table>
+     * @param param  the parameter value
+     * 
+     * @see <a href="https://docs.gl/gl4/glTexParameter">Reference Page</a>
+     */
     public static void glTexParameteri(@NativeType("GLenum") int target, @NativeType("GLenum") int pname, @NativeType("GLint") int param) {
         GL11C.glTexParameteri(target, pname, param);
     }
@@ -3815,6 +4046,15 @@ public class GL11 {
     // --- [ glTexParameterf ] ---
 
     /** {@code void glTexParameterf(GLenum target, GLenum pname, GLfloat param)} */
+    /**
+     * Float version of {@link #glTexParameteri TexParameteri}.
+     *
+     * @param target the texture target
+     * @param pname  the parameter to set
+     * @param param  the parameter value
+     * 
+     * @see <a href="https://docs.gl/gl4/glTexParameter">Reference Page</a>
+     */
     public static void glTexParameterf(@NativeType("GLenum") int target, @NativeType("GLenum") int pname, @NativeType("GLfloat") float param) {
         GL11C.glTexParameterf(target, pname, param);
     }
