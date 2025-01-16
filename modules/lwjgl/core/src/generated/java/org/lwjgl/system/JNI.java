@@ -1725,5 +1725,6 @@ public final class JNI {
     public static native void callPPPPPPPV(int param0, int param1, int param2, long param3, int param4, long param5, int @Nullable [] param6, int @Nullable [] param7, int @Nullable [] param8, int @Nullable [] param9, long @Nullable [] param10, long __functionAddress);
     public static native boolean callPPZ(int param0, int @Nullable [] param1, long param2, long __functionAddress);
     public static native boolean callPPPPZ(int param0, int param1, int param2, float param3, float @Nullable [] param4, float @Nullable [] param5, float @Nullable [] param6, float @Nullable [] param7, long __functionAddress);
+    public static native int callJPI(long param0, long param1, int param2, int param3, int param4, long __functionAddress);
 
 }
