@@ -19,7 +19,7 @@ jobs:
     - name: Set up JDK24
       uses: actions/setup-java@main
       with:
-        java-version: 24-ea
+        java-version: 23
         distribution: graalvm
      
     - name: Build for Android ${{matrix.arch}}
