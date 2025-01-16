@@ -16,7 +16,7 @@ jobs:
       with:
           fetch-depth: 0
 
-    - name: Set up JDK24
+    - name: Set up JDK23
       uses: actions/setup-java@main
       with:
         java-version: 23
