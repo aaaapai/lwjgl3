@@ -1530,6 +1530,7 @@
                 </copy>
                 <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/17" if:set="jdk17">
                     <fileset dir="${module.lwjgl}/core17/src/main/java" includes="**"/>
+                </copy>
                 <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/24" if:set="jdk24">
                     <fileset dir="${module.lwjgl}/core24/src/main/java" includes="**"/>
                 </copy>
