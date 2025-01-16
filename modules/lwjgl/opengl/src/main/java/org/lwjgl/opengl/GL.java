@@ -435,7 +435,7 @@ public final class GL {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_BETA_RENDERER") != null) {
+        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
             try {
                 fixPojavGLContext();
             } catch (Exception e) {
