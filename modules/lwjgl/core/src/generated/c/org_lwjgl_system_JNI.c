@@ -8322,5 +8322,9 @@ JNIEXPORT jboolean JNICALL Java_org_lwjgl_system_JNI_callPPPPZ__IIIF_3F_3F_3F_3F
     if (param4 != NULL) { (*__env)->ReleaseFloatArrayElements(__env, param4, paramArray4, 0); }
     return __result;
 }
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_JNI_callJPI__JJIIIJ(JNIEnv *__env, jclass clazz, jlong param0, jlong param1, jint param2, jint param3, jint param4, jlong __functionAddress) {
+    UNUSED_PARAMS(__env, clazz)
+    return ((jint (APIENTRY *) (jlong, uintptr_t, jint, jint, jint))(uintptr_t)__functionAddress)(param0, (uintptr_t)param1, param2, param3, param4);
+}
 
 EXTERN_C_EXIT
