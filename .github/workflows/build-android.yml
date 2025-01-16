@@ -14,16 +14,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@main
       with:
-          fetch-depth: 3
+          fetch-depth: 0
 
-    - name: Download JDK
-      run: |
-          mkdir jdk23
-          curl https://download.oracle.com/graalvm/23/latest/graalvm-jdk-23_linux-x64_bin.tar.gz | tar xz -C jdk23 --strip-components 1
-          
+    - name: Set up JDK24
+      uses: actions/setup-java@main
+      with:
+        java-version: 24-ea
+        distribution: graalvm
+     
     - name: Build for Android ${{matrix.arch}}
       run: |
-        export JAVA_HOME=jdk23
         export JAVA8_HOME=$JAVA_HOME_8_${{runner.arch}}
         export LWJGL_BUILD_ARCH=${{matrix.arch}}
         bash ci_build_android.bash
