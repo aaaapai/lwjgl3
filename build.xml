@@ -1066,6 +1066,62 @@
         <get-quiet name="favicon" url="https://www.lwjgl.org/favicon.ico" dest="${bin.javadoc}"/>
     </target>
 
+    <target name="javadoc24" description="Generates the LWJGL JavaDoc">
+        <delete dir="${bin.javadoc}"/>
+
+        <path id="javadoc.sources">
+            <!--<pathelement path="${module.javadocsourcepath}"/>-->
+            <pathelement path="modules/samples/src/test/java24"/>
+        </path>
+
+        <javadoc
+            destdir="${bin.javadoc}"
+            sourcepathref="javadoc.sources"
+            source="21"
+            excludepackagenames="org.lwjgl.jmh"
+            windowtitle="LWJGL ${build.version}"
+            encoding="UTF-8"
+            docencoding="UTF-8"
+            charset="UTF-8"
+            useexternalfile="true"
+            nohelp="true"
+            notree="true"
+            public="true"
+            Splitindex="true"
+            failonerror="true"
+            verbose="true"
+        >
+            <doctitle><![CDATA[<h1>Lightweight Java Game Library</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright LWJGL. All Rights Reserved. <a href="https://www.lwjgl.org/license">License terms</a>.</i>]]></bottom>
+
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
+                <pathelement path="${module.classpath}"/>
+                <pathelement path="${bin.test}"/>
+                <pathelement path="${bin.samples}"/>
+                <pathelement path="${test.resources}"/>
+                <pathelement path="${lib}/java/testng.jar"/>
+                <pathelement path="${lib}/java/joml.jar"/>
+                <pathelement path="${lib}/java/jmh-core.jar"/>
+                <pathelement path="${lib}/java/commons-math3.jar"/>
+                <pathelement path="${lib}/java/jopt-simple.jar"/>
+                <pathelement path="${lib}/native"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
+            </classpath>
+
+            <arg value="-XDignore.symbol.file"/> <!-- Suppresses internal API (e.g. Unsafe) usage warnings -->
+
+            <arg line="-Xmaxerrs 1000 -Xmaxwarns 1000"/>
+            <arg line="-notimestamp"/>
+            <arg value="-html5" />
+            <arg line="-J-Dfile.encoding=UTF-8 -J-Dstdout.encoding=UTF-8 -J-Dstderr.encoding=UTF-8 -J-Dline.separator=&#10;"/>
+            <arg line="--add-exports jdk.javadoc/com.sun.tools.doclets=ALL-UNNAMED"/>
+        </javadoc>
+        <get-quiet name="favicon" url="https://www.lwjgl.org/favicon.ico" dest="${bin.javadoc}"/>
+    </target>
+
     <target name="upload-native" description="Uploads native build artifacts to build.lwjgl.org" depends="compile-native,-check-AWS-credentials">
         <local name="revision"/>
         <property name="revision" value="liblwjgl.so.git" if:set="platform.freebsd"/>

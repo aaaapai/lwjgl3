@@ -1007,9 +1007,8 @@ public class GLFW {
         return invokePPPP(width, height, title, monitor, share, __functionAddress);
     }
 
-    /** {@code GLFWwindow * glfwCreateWindow(int width, int height, char const * title, GLFWmonitor * monitor, GLFWwindow * share)} */
-    @NativeType("GLFWwindow *")
-    public static long glfwCreateWindow(int width, int height, @NativeType("char const *") ByteBuffer title, @NativeType("GLFWmonitor *") long monitor, @NativeType("GLFWwindow *") long share) {
+    @NativeType("GLFWwindow * glfwCreateWindow(int width, int height, char const * title, GLFWmonitor * monitor, GLFWwindow * share)")
+    public static long glfwCreateWindow(int width, int height, ByteBuffer title, long monitor, long share) {
         if (CHECKS) {
             checkNT1(title);
         }

@@ -52,6 +52,8 @@ public final class FFMDemo {
     public static void main(String[] ignored) {
         var callbackArena = Arena.ofConfined();
 
+        //callbackArena.allocate(234, 34);
+
         glfw.SetErrorCallback(callbackArena, (error_code, description) -> {
             System.err.format("GLFW Error %d: %s%n", error_code, description);
 
@@ -107,6 +109,10 @@ public final class FFMDemo {
         if (window == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
+
+        //var gr = GLFW.gammaramp().get(MemorySegment.NULL, 0);
+        //var foo = new MyGLFWTypes.gammaramp().red()
+
 
         /*
         var mapper = glfw.vidmode();

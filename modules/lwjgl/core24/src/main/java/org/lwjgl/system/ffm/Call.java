@@ -90,7 +90,7 @@ abstract class Call {
 
     protected static void printDebug(Method method, Parameter[] parameters, FunctionDescriptor descriptor) {
         apiLog("\t-> J: " + method.getReturnType() + ' ' + method.getName() + '(' + Stream.of(parameters).map(it -> it.getType().getSimpleName()).collect(Collectors.joining(", ")) + ')');
-        var signature = method.getAnnotation(FFMSignature.class);
+        var signature = method.getAnnotation(FFMDefinition.class);
         if (signature != null) {
             apiLog("\t-> S: " + signature.value());
         }
