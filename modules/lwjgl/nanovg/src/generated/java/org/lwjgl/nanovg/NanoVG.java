@@ -1861,4 +1861,15 @@ public class NanoVG {
         nnvgTextMetrics(ctx, ascender, descender, lineh);
     }
 
+    public static int nvgCreateFontMem(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") ByteBuffer name, @NativeType("unsigned char *") ByteBuffer data, int freeData) {
+        return nvgCreateFontMem(ctx, name, data, freeData == 0 ? false : true);
+    }
+
+    public static int nvgCreateFontMemAtIndex(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") ByteBuffer name, @NativeType("unsigned char *") ByteBuffer data, int freeData, int fontIndex) {
+        return nvgCreateFontMemAtIndex(ctx, name, data, freeData == 0 ? false : true, fontIndex);
+    }
+
+    public static int nvgCreateFontMemAtIndex(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") CharSequence name, @NativeType("unsigned char *") ByteBuffer data, int freeData, int fontIndex) {
+        return nvgCreateFontMemAtIndex(ctx, name, data, freeData == 0 ? false : true, fontIndex);
+    }
 }
