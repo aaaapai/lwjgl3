@@ -738,7 +738,7 @@ public class Display {
     }
 
     public static boolean isCreated() {
-        return true;
+        return displayCreated;
     }
 
     public static boolean isActive() {
