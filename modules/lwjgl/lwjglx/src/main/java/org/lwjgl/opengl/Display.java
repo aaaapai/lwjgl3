@@ -419,8 +419,6 @@ public class Display {
         glfwShowWindow(Window.handle);
 
         if(parent != null) parent.setSize(displayWidth, displayHeight);
-        Mouse.create();
-        Keyboard.create();
 
         // glfwSetWindowIcon(Window.handle, icons);
         display_impl = new DisplayImplementation() {
@@ -734,7 +732,8 @@ public class Display {
 
 
         displayCreated = true;
-
+        Mouse.create();
+        Keyboard.create();
     }
 
     public static boolean isCreated() {
