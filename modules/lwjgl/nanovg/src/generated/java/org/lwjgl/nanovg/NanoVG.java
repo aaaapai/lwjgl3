@@ -1948,6 +1948,9 @@ public class NanoVG {
         }
         return nnvgCreateFontMem(ctx, memAddress(name), memAddress(data), data.remaining(), freeData ? 1 : 0);
     }
+    public static int nvgCreateFontMem(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") ByteBuffer name, @NativeType("unsigned char *") ByteBuffer data, int freeData) {
+        return nvgCreateFontMem(ctx, name, data, freeData == 0 ? false : true);
+    }
 
     /**
      * Creates font by loading it from the specified memory chunk.
@@ -1973,6 +1976,9 @@ public class NanoVG {
         } finally {
             stack.setPointer(stackPointer);
         }
+    }
+    public static int nvgCreateFontMem(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") CharSequence name, @NativeType("unsigned char *") ByteBuffer data, int freeData) {
+        return nvgCreateFontMem(ctx, name, data, freeData == 0 ? false : true);
     }
 
     // --- [ nvgCreateFontMemAtIndex ] ---
@@ -2004,6 +2010,9 @@ public class NanoVG {
         }
         return nnvgCreateFontMemAtIndex(ctx, memAddress(name), memAddress(data), data.remaining(), freeData ? 1 : 0, fontIndex);
     }
+    public static int nvgCreateFontMemAtIndex(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") ByteBuffer name, @NativeType("unsigned char *") ByteBuffer data, int freeData, int fontIndex) {
+        return nvgCreateFontMemAtIndex(ctx, name, data, freeData == 0 ? false : true, fontIndex);
+    }
 
     /**
      * Creates font by loading it from the specified memory chunk.
@@ -2030,6 +2039,9 @@ public class NanoVG {
         } finally {
             stack.setPointer(stackPointer);
         }
+    }
+    public static int nvgCreateFontMemAtIndex(@NativeType("NVGcontext *") long ctx, @NativeType("char const *") CharSequence name, @NativeType("unsigned char *") ByteBuffer data, int freeData, int fontIndex) {
+        return nvgCreateFontMemAtIndex(ctx, name, data, freeData == 0 ? false : true, fontIndex);
     }
 
     // --- [ nvgFindFont ] ---
