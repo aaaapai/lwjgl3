@@ -301,21 +301,21 @@ public final class GL {
     }
 
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
-    private static void fixPojavGLContext() throws Exception {
-        String renderer = System.getProperty("org.lwjgl.opengl.libname");
+    private static void fixGLContext() throws Exception {
+        String libName = System.getProperty("org.lwjgl.opengl.libname");
 
         if (Platform.get() == Platform.LINUX
-           && renderer.startsWith("libOSMesa")
-           && System.getenv("POJAV_SPARE_FRAME_BUFFER") != null
-           && System.getenv("POJAV_EXP_SETUP") != null)
+           && libName.startsWith("libOSMesa")
+           && System.getenv("GL_WORKAROUND_FRAMEBUFFER") != null
+           && System.getenv("ALLOW_GL_EXP") != null)
         {
 
-            System.out.println("[LWJGL] You turned on the experimental settings and tried to use the frame buffer");
+            System.out.println("[LWJGL] Experimental settings found, tried to workaround framebuffer");
 
-            if (!"default".equals(System.getenv("POJAV_CONFIG_BRIDGE")) || System.getenv("DCLAT_FRAMEBUFFER") != null)
+            if (!"default".equals(System.getenv("BRIDGE_CONFIG")) || System.getenv("DCLAT_FRAMEBUFFER") != null)
             {
 
-                System.out.println("[LWJGL] Repair GL Context for Mesa renderer, use frame buffer");
+                System.out.println("[LWJGL] Repair GL Context for Mesa renderer, workaround frame buffer");
                 long currentContext;
                 int[] dims = getNativeWidthHeight();
                 currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
@@ -393,9 +393,9 @@ public final class GL {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_BETA_RENDERER") != null) {
+        if (Platform.get() == Platform.LINUX && System.getenv("RENDERER_TAG") != null) {
             try {
-                fixPojavGLContext();
+                fixGLContext();
             } catch (Exception e) {
                 e.printStackTrace();
             }
