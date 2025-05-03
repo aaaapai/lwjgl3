@@ -585,5 +585,6 @@ public class Keyboard {
         for (int key = 0; key <= 255; key++) {
             getKeyName(key);
     }
+}
 
 }
