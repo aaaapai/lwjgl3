@@ -127,15 +127,6 @@ public class GLFWVulkan {
     // --- [ glfwCreateWindowSurface ] ---
 
     /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
-    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        //long __functionAddress = Functions.CreateWindowSurface;
-        //if (CHECKS) {
-        //    check(window);
-        //}
-        //return invokePPPPI(instance, window, allocator, surface, __functionAddress);
-    }
-
-    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
     /**
      * Creates a Vulkan surface for the specified window.
      * 
@@ -200,6 +191,15 @@ public class GLFWVulkan {
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
+/** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
+    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
+        long __functionAddress = glfwCreateWindowSurface;
+        //if (CHECKS) {
+        //    check(window);
+        //}
+        return invokePPPPI(instance, window, allocator, surface, __functionAddress);
+    }
+     
     /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
         MemoryStack stack = stackGet();
