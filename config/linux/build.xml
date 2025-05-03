@@ -4,11 +4,6 @@
   -->
 <project name="native-linux" basedir="../.." xmlns:if="ant:if" xmlns:unless="ant:unless">
     <import file="../build-definitions.xml"/>
-    </condition>
-    <condition property="gcc.suffix" value="-${gcc.version}" else="">
-        <isset property="gcc.version"/>
-    </condition>
--->
 
     <property name="ndk.abi" value="21"/>
     <property name="ndk.home" value="${env.ANDROID_NDK_HOME}"/>
