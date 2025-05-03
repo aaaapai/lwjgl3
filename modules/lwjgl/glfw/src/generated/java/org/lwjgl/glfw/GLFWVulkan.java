@@ -96,9 +96,9 @@ public class GLFWVulkan {
     }
 
      /** {@code char const ** glfwGetRequiredInstanceExtensions(uint32_t * count)} */
-    public static long nglfwGetRequiredInstanceExtensions(long count) {
-        long __functionAddress = glfwGetRequiredInstanceExtensions;
-        return invokePP(count, __functionAddress);
+    public static long nglfwGetRequiredInstanceExtensions() {
+        long __functionAddress = glfwGetRequiredInstanceExtensions();
+        return invokeP(__functionAddress);
     }
      
     /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
@@ -193,7 +193,7 @@ public class GLFWVulkan {
 
 /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        long __functionAddress = glfwCreateWindowSurface;
+        long __functionAddress = glfwCreateWindowSurface(instance, window, allocator, surface);
         //if (CHECKS) {
         //    check(window);
         //}
