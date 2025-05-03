@@ -27,11 +27,9 @@
     <macrodef name="compile">
         <attribute name="dest" default="${dest}"/>
         <attribute name="lang" default="c"/>
-        <attribute name="gcc.exec" default="${gcc.prefix}gcc${gcc.suffix}"/>
-        <attribute name="gpp.exec" default="${gcc.prefix}g++${gcc.suffix}"/>
         <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
         <attribute name="gpp.exec" default="${gcc.prefix}clang++"/>
-        <attribute name="lto" default="-flto"/>
+        <attribute name="lto" default="-flto=auto -fno-emulated-tls"/>
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="relative" default="true"/>
@@ -49,7 +47,8 @@
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
                 <arg line="-mcpu=powerpc64le" if:set="build.arch.ppc64le"/>
                 <arg line="-march=rv64g" if:set="build.arch.riscv64"/>
-                <arg line="-O3 -flto=auto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
+                <arg line="-march=armv8-a+simd" if:set="build.arch.arm64"/>
+                <arg line="-O3 -flto=auto -fPIC @{flags} -DPIC @{flags} -pthread -pipe -integrated-as -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce -mllvm -polly-invariant-load-hoisting -flto=thin -mllvm -polly-run-inliner -mllvm -polly-run-dce -mllvm -polly-parallel -mllvm -polly-scheduling=dynamic -flto=thin -fno-emulated-tls -fwhole-program-vtables -fdata-sections -ffunction-sections -fmerge-all-constants -mllvm -polly-detect-keep-going -mllvm -polly-ast-use-context -fvisibility=hidden -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
                 <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
                 <arg line="-D_FILE_OFFSET_BITS=64"/>
 
@@ -154,7 +153,7 @@
 
                 <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
-                <arg line="-O3 -flto=auto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-O3 -flto=auto -pthread -fPIC -DPIC -pipe -integrated-as -mllvm -polly -mllvm -polly-vectorizer=stripmine -mllvm -polly-invariant-load-hoisting -mllvm -polly-run-inliner -mllvm -polly-run-dce -mllvm -polly-invariant-load-hoisting -flto=thin -mllvm -polly-run-inliner -mllvm -polly-run-dce -mllvm -polly-parallel -mllvm -polly-scheduling=dynamic -flto=thin -Wl,-plugin-opt=-emulated-tls=0 -fwhole-program-vtables -fdata-sections -ffunction-sections -fmerge-all-constants -mllvm -polly-detect-keep-going -mllvm -polly-ast-use-context -fvisibility=hidden -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
