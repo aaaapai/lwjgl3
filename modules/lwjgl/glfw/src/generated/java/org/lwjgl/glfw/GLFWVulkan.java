@@ -95,11 +95,6 @@ public class GLFWVulkan {
         return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
-     /** {@code char const ** glfwGetRequiredInstanceExtensions(uint32_t * count)} */
-    public static long nglfwGetRequiredInstanceExtensions() {
-        long __functionAddress = glfwGetRequiredInstanceExtensions();
-        return invokeP(__functionAddress);
-    }
      
     /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
     @NativeType("GLFWvkproc")
@@ -189,15 +184,6 @@ public class GLFWVulkan {
             return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
         }
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
-    }
-
-/** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
-    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        long __functionAddress = glfwCreateWindowSurface(instance, window, allocator, surface);
-        //if (CHECKS) {
-        //    check(window);
-        //}
-        return invokePPPPI(instance, window, allocator, surface, __functionAddress);
     }
      
     /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
