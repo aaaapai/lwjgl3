@@ -55,11 +55,6 @@ public class GLFWVulkan {
 
     // --- [ glfwGetRequiredInstanceExtensions ] ---
 
-    /** {@code char const ** glfwGetRequiredInstanceExtensions(uint32_t * count)} */
-    public static long nglfwGetRequiredInstanceExtensions(long count) {
-        //long __functionAddress = Functions.GetRequiredInstanceExtensions;
-        //return invokePP(count, __functionAddress);
-    }
 
     // --- [ glfwGetInstanceProcAddress ] ---
     /**
@@ -100,6 +95,12 @@ public class GLFWVulkan {
         return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
+     /** {@code char const ** glfwGetRequiredInstanceExtensions(uint32_t * count)} */
+    public static long nglfwGetRequiredInstanceExtensions(long count) {
+        long __functionAddress = glfwGetRequiredInstanceExtensions;
+        return invokePP(count, __functionAddress);
+    }
+     
     /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
     @NativeType("GLFWvkproc")
     public static long glfwGetInstanceProcAddress(@NativeType("VkInstance") @Nullable VkInstance instance, @NativeType("char const *") ByteBuffer procname) {
