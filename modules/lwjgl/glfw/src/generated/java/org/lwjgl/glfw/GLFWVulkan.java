@@ -88,7 +88,8 @@ public class GLFWVulkan {
      */
     @NativeType("char const **")
     public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        MemoryStack stack = stackGet();
+        int stackPointer = stack.getPointer();
         IntBuffer count = stack.callocInt(1);
         String platformSurface;
         if (Platform.get() == Platform.MACOSX) {
@@ -96,7 +97,7 @@ public class GLFWVulkan {
         } else {
             platformSurface = "VK_KHR_android_surface";
         }
-        return stack.setPointer(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
+        return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
     /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
