@@ -5,25 +5,13 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * An application-defined function that processes messages sent to a window.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * LRESULT (*{@link #invoke}) (
- *     HWND hwnd,
- *     UINT uMsg,
- *     WPARAM wParam,
- *     LPARAM lParam
- * )</code></pre>
- */
+/** Callback function: {@link #invoke WNDPROC} */
 public abstract class WindowProc extends Callback implements WindowProcI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class WindowProc extends Callback implements WindowProcI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static WindowProc createSafe(long functionPointer) {
+    public static @Nullable WindowProc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

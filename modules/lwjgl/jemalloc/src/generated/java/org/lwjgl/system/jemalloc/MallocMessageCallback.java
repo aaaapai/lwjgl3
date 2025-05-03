@@ -5,23 +5,13 @@
  */
 package org.lwjgl.system.jemalloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link JEmalloc#je_malloc_usable_size malloc_usable_size} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *cbopaque,
- *     char const *s
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class MallocMessageCallback extends Callback implements MallocMessageCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class MallocMessageCallback extends Callback implements MallocMe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static MallocMessageCallback createSafe(long functionPointer) {
+    public static @Nullable MallocMessageCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

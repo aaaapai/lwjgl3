@@ -48,7 +48,8 @@ public class HelloMeshOptimizer {
 
         IntBuffer remap = memAllocInt(mesh.npoints());
 
-        int uniqueVertices = (int)meshopt_generateVertexRemapMulti(remap, indexBuffer, indexBuffer.remaining(), streams);
+        int uniqueVertices = (int)meshopt_generateVertexRemapMulti(remap, indexBuffer, mesh.npoints(), streams);
+
         remap(vertexBuffer, indexBuffer, normalBuffer, remap);
 
         if (uniqueVertices < remap.remaining()) {
@@ -68,7 +69,7 @@ public class HelloMeshOptimizer {
 
         memPutInt(mesh.address() + ParShapesMesh.NPOINTS, uniqueVertices);
 
-        System.out.println("AFTER:");
+        System.out.println("\nAFTER:");
         System.out.println("------");
         printStats(mesh);
 
@@ -76,21 +77,34 @@ public class HelloMeshOptimizer {
     }
 
     private static void remap(FloatBuffer vertexBuffer, IntBuffer indexBuffer, FloatBuffer normalBuffer, IntBuffer remap) {
-        meshopt_remapIndexBuffer(indexBuffer, indexBuffer, remap);
-        meshopt_remapVertexBuffer(memByteBuffer(vertexBuffer), memByteBuffer(vertexBuffer), 3 * Float.BYTES, remap);
-        meshopt_remapVertexBuffer(memByteBuffer(normalBuffer), memByteBuffer(normalBuffer), 3 * Float.BYTES, remap);
+        meshopt_remapIndexBuffer(indexBuffer, indexBuffer, indexBuffer.remaining(), remap);
+        meshopt_remapVertexBuffer(memByteBuffer(vertexBuffer), memByteBuffer(vertexBuffer), remap.remaining(), 3 * Float.BYTES, remap);
+        meshopt_remapVertexBuffer(memByteBuffer(normalBuffer), memByteBuffer(normalBuffer), remap.remaining(), 3 * Float.BYTES, remap);
     }
 
     private static void printStats(ParShapesMesh mesh) {
         try (MemoryStack stack = stackPush()) {
-            MeshoptVertexCacheStatistics stats = meshopt_analyzeVertexCache(
+            MeshoptVertexCacheStatistics vcache = meshopt_analyzeVertexCache(
                 mesh.triangles(mesh.ntriangles() * 3),
                 mesh.npoints(),
-                16, 0, 0,
+                32, 32, 32, // NVIDIA
+                //14, 64, 128, // AMD
+                //128, 0, 0, // INTEL
                 MeshoptVertexCacheStatistics.malloc(stack)
             );
-            System.out.println("ACMR: " + stats.acmr());
-            System.out.println("ATVR: " + stats.atvr());
+            System.out.println("ACMR: " + vcache.acmr());
+            System.out.println("ATVR: " + vcache.atvr());
+
+            MeshoptOverdrawStatistics overdraw = meshopt_analyzeOverdraw(
+                mesh.triangles(mesh.ntriangles() * 3),
+                mesh.points(mesh.npoints() * 3),
+                mesh.npoints(),
+                3 * Float.BYTES,
+                MeshoptOverdrawStatistics.malloc(stack)
+            );
+            System.out.println("Overdraw: " + overdraw.overdraw());
+            System.out.println("Pixels covered: " + overdraw.pixels_covered());
+            System.out.println("Pixels shaded: " + overdraw.pixels_shaded());
         }
     }
 

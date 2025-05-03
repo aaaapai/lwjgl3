@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the parameters of a newly created acceleration structure object.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVRayTracingMotionBlur#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAccelerationStructureMotionInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #maxInstances};
- *     VkAccelerationStructureMotionInfoFlagsNV {@link #flags};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t maxInstances;
+ *     VkAccelerationStructureMotionInfoFlagsNV flags;
+ * }}</pre>
  */
 public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationStructureMotionInfoNV> implements NativeResource {
 
@@ -89,28 +78,28 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the maximum number of instances that <b>may</b> be used in the motion top-level acceleration structure. */
+    /** @return the value of the {@code maxInstances} field. */
     @NativeType("uint32_t")
     public int maxInstances() { return nmaxInstances(address()); }
-    /** 0 and reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkAccelerationStructureMotionInfoFlagsNV")
     public int flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkAccelerationStructureMotionInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVRayTracingMotionBlur#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVRayTracingMotionBlur#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV} value to the {@code sType} field. */
     public VkAccelerationStructureMotionInfoNV sType$Default() { return sType(NVRayTracingMotionBlur.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkAccelerationStructureMotionInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxInstances} field. */
+    /** Sets the specified value to the {@code maxInstances} field. */
     public VkAccelerationStructureMotionInfoNV maxInstances(@NativeType("uint32_t") int value) { nmaxInstances(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkAccelerationStructureMotionInfoNV flags(@NativeType("VkAccelerationStructureMotionInfoFlagsNV") int value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -164,8 +153,7 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMotionInfoNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureMotionInfoNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureMotionInfoNV(address, null);
     }
 
@@ -208,8 +196,7 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMotionInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureMotionInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,22 +241,22 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureMotionInfoNV.PNEXT); }
     /** Unsafe version of {@link #maxInstances}. */
-    public static int nmaxInstances(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES); }
+    public static int nmaxInstances(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMotionInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAccelerationStructureMotionInfoNV.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureMotionInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #maxInstances(int) maxInstances}. */
-    public static void nmaxInstances(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES, value); }
+    public static void nmaxInstances(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInfoNV.MAXINSTANCES, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMotionInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAccelerationStructureMotionInfoNV.FLAGS, value); }
 
     // -----------------------------------
 
@@ -305,32 +292,37 @@ public class VkAccelerationStructureMotionInfoNV extends Struct<VkAccelerationSt
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAccelerationStructureMotionInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAccelerationStructureMotionInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkAccelerationStructureMotionInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkAccelerationStructureMotionInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkAccelerationStructureMotionInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkAccelerationStructureMotionInfoNV#maxInstances} field. */
+        /** @return the value of the {@code maxInstances} field. */
         @NativeType("uint32_t")
         public int maxInstances() { return VkAccelerationStructureMotionInfoNV.nmaxInstances(address()); }
-        /** @return the value of the {@link VkAccelerationStructureMotionInfoNV#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkAccelerationStructureMotionInfoFlagsNV")
         public int flags() { return VkAccelerationStructureMotionInfoNV.nflags(address()); }
 
-        /** Sets the specified value to the {@link VkAccelerationStructureMotionInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkAccelerationStructureMotionInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkAccelerationStructureMotionInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVRayTracingMotionBlur#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV} value to the {@link VkAccelerationStructureMotionInfoNV#sType} field. */
+        /** Sets the {@link NVRayTracingMotionBlur#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV} value to the {@code sType} field. */
         public VkAccelerationStructureMotionInfoNV.Buffer sType$Default() { return sType(NVRayTracingMotionBlur.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV); }
-        /** Sets the specified value to the {@link VkAccelerationStructureMotionInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkAccelerationStructureMotionInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureMotionInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAccelerationStructureMotionInfoNV#maxInstances} field. */
+        /** Sets the specified value to the {@code maxInstances} field. */
         public VkAccelerationStructureMotionInfoNV.Buffer maxInstances(@NativeType("uint32_t") int value) { VkAccelerationStructureMotionInfoNV.nmaxInstances(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAccelerationStructureMotionInfoNV#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkAccelerationStructureMotionInfoNV.Buffer flags(@NativeType("VkAccelerationStructureMotionInfoFlagsNV") int value) { VkAccelerationStructureMotionInfoNV.nflags(address(), value); return this; }
 
     }

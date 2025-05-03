@@ -5,24 +5,13 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CL11#clSetEventCallback SetEventCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     cl_event event,
- *     cl_int event_command_exec_status,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CLEventCallback extends Callback implements CLEventCallbackI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class CLEventCallback extends Callback implements CLEventCallbac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CLEventCallback createSafe(long functionPointer) {
+    public static @Nullable CLEventCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

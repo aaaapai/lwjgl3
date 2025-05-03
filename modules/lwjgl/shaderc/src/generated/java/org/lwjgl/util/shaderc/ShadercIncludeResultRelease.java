@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.shaderc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link Shaderc#shaderc_compile_options_set_include_callbacks compile_options_set_include_callbacks} function.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user_data,
- *     shaderc_include_result *include_result
- * )</code></pre>
- */
+/** Callback function: {@link #invoke shaderc_include_result_release_fn} */
 public abstract class ShadercIncludeResultRelease extends Callback implements ShadercIncludeResultReleaseI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class ShadercIncludeResultRelease extends Callback implements Sh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static ShadercIncludeResultRelease createSafe(long functionPointer) {
+    public static @Nullable ShadercIncludeResultRelease createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

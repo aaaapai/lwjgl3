@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Plane polygon vertex buffer.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTPlaneDetection XR_EXT_plane_detection} extension <b>must</b> be enabled prior to using {@link XrPlaneDetectorPolygonBufferEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code vertexCapacityInput} is not 0, {@code vertices} <b>must</b> be a pointer to an array of {@code vertexCapacityInput} {@link XrVector2f} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrVector2f}, {@link EXTPlaneDetection#xrGetPlanePolygonBufferEXT GetPlanePolygonBufferEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPlaneDetectorPolygonBufferEXT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #vertexCapacityInput};
- *     uint32_t {@link #vertexCountOutput};
- *     {@link XrVector2f XrVector2f} * {@link #vertices};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t vertexCapacityInput;
+ *     uint32_t vertexCountOutput;
+ *     {@link XrVector2f XrVector2f} * vertices;
+ * }}</pre>
  */
 public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolygonBufferEXT> implements NativeResource {
 
@@ -99,35 +82,34 @@ public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolyg
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the capacity of the array, or 0 to indicate a request to retrieve the required capacity. */
+    /** @return the value of the {@code vertexCapacityInput} field. */
     @NativeType("uint32_t")
     public int vertexCapacityInput() { return nvertexCapacityInput(address()); }
-    /** the count of {@code vertices} written, or the required capacity in the case that {@code vertexCapacityInput} is insufficient. */
+    /** @return the value of the {@code vertexCountOutput} field. */
     @NativeType("uint32_t")
     public int vertexCountOutput() { return nvertexCountOutput(address()); }
-    /** an array of {@link XrVector2f} that <b>must</b> be filled by the runtime with the positions of the polygon vertices relative to the plane’s pose. */
-    @Nullable
+    /** @return a {@link XrVector2f.Buffer} view of the struct array pointed to by the {@code vertices} field. */
     @NativeType("XrVector2f *")
-    public XrVector2f.Buffer vertices() { return nvertices(address()); }
+    public XrVector2f.@Nullable Buffer vertices() { return nvertices(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrPlaneDetectorPolygonBufferEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT} value to the {@code type} field. */
     public XrPlaneDetectorPolygonBufferEXT type$Default() { return type(EXTPlaneDetection.XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrPlaneDetectorPolygonBufferEXT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #vertexCapacityInput} field. */
+    /** Sets the specified value to the {@code vertexCapacityInput} field. */
     public XrPlaneDetectorPolygonBufferEXT vertexCapacityInput(@NativeType("uint32_t") int value) { nvertexCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #vertexCountOutput} field. */
+    /** Sets the specified value to the {@code vertexCountOutput} field. */
     public XrPlaneDetectorPolygonBufferEXT vertexCountOutput(@NativeType("uint32_t") int value) { nvertexCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@link #vertices} field. */
-    public XrPlaneDetectorPolygonBufferEXT vertices(@Nullable @NativeType("XrVector2f *") XrVector2f.Buffer value) { nvertices(address(), value); return this; }
+    /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@code vertices} field. */
+    public XrPlaneDetectorPolygonBufferEXT vertices(@NativeType("XrVector2f *") XrVector2f.@Nullable Buffer value) { nvertices(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrPlaneDetectorPolygonBufferEXT set(
@@ -135,7 +117,7 @@ public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolyg
         long next,
         int vertexCapacityInput,
         int vertexCountOutput,
-        @Nullable XrVector2f.Buffer vertices
+        XrVector2f.@Nullable Buffer vertices
     ) {
         type(type);
         next(next);
@@ -182,8 +164,7 @@ public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolyg
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPlaneDetectorPolygonBufferEXT createSafe(long address) {
+    public static @Nullable XrPlaneDetectorPolygonBufferEXT createSafe(long address) {
         return address == NULL ? null : new XrPlaneDetectorPolygonBufferEXT(address, null);
     }
 
@@ -226,8 +207,7 @@ public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolyg
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPlaneDetectorPolygonBufferEXT.Buffer createSafe(long address, int capacity) {
+    public static XrPlaneDetectorPolygonBufferEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +252,26 @@ public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolyg
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorPolygonBufferEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPlaneDetectorPolygonBufferEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPlaneDetectorPolygonBufferEXT.NEXT); }
     /** Unsafe version of {@link #vertexCapacityInput}. */
-    public static int nvertexCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCAPACITYINPUT); }
+    public static int nvertexCapacityInput(long struct) { return memGetInt(struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCAPACITYINPUT); }
     /** Unsafe version of {@link #vertexCountOutput}. */
-    public static int nvertexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCOUNTOUTPUT); }
+    public static int nvertexCountOutput(long struct) { return memGetInt(struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #vertices}. */
-    @Nullable public static XrVector2f.Buffer nvertices(long struct) { return XrVector2f.createSafe(memGetAddress(struct + XrPlaneDetectorPolygonBufferEXT.VERTICES), nvertexCapacityInput(struct)); }
+    public static XrVector2f.@Nullable Buffer nvertices(long struct) { return XrVector2f.createSafe(memGetAddress(struct + XrPlaneDetectorPolygonBufferEXT.VERTICES), nvertexCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorPolygonBufferEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPlaneDetectorPolygonBufferEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPlaneDetectorPolygonBufferEXT.NEXT, value); }
     /** Sets the specified value to the {@code vertexCapacityInput} field of the specified {@code struct}. */
-    public static void nvertexCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCAPACITYINPUT, value); }
+    public static void nvertexCapacityInput(long struct, int value) { memPutInt(struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCAPACITYINPUT, value); }
     /** Unsafe version of {@link #vertexCountOutput(int) vertexCountOutput}. */
-    public static void nvertexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCOUNTOUTPUT, value); }
+    public static void nvertexCountOutput(long struct, int value) { memPutInt(struct + XrPlaneDetectorPolygonBufferEXT.VERTEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #vertices(XrVector2f.Buffer) vertices}. */
-    public static void nvertices(long struct, @Nullable XrVector2f.Buffer value) { memPutAddress(struct + XrPlaneDetectorPolygonBufferEXT.VERTICES, memAddressSafe(value)); if (value != null) { nvertexCapacityInput(struct, value.remaining()); } }
+    public static void nvertices(long struct, XrVector2f.@Nullable Buffer value) { memPutAddress(struct + XrPlaneDetectorPolygonBufferEXT.VERTICES, memAddressSafe(value)); if (value != null) { nvertexCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -327,39 +307,43 @@ public class XrPlaneDetectorPolygonBufferEXT extends Struct<XrPlaneDetectorPolyg
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPlaneDetectorPolygonBufferEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrPlaneDetectorPolygonBufferEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrPlaneDetectorPolygonBufferEXT.ntype(address()); }
-        /** @return the value of the {@link XrPlaneDetectorPolygonBufferEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrPlaneDetectorPolygonBufferEXT.nnext(address()); }
-        /** @return the value of the {@link XrPlaneDetectorPolygonBufferEXT#vertexCapacityInput} field. */
+        /** @return the value of the {@code vertexCapacityInput} field. */
         @NativeType("uint32_t")
         public int vertexCapacityInput() { return XrPlaneDetectorPolygonBufferEXT.nvertexCapacityInput(address()); }
-        /** @return the value of the {@link XrPlaneDetectorPolygonBufferEXT#vertexCountOutput} field. */
+        /** @return the value of the {@code vertexCountOutput} field. */
         @NativeType("uint32_t")
         public int vertexCountOutput() { return XrPlaneDetectorPolygonBufferEXT.nvertexCountOutput(address()); }
-        /** @return a {@link XrVector2f.Buffer} view of the struct array pointed to by the {@link XrPlaneDetectorPolygonBufferEXT#vertices} field. */
-        @Nullable
+        /** @return a {@link XrVector2f.Buffer} view of the struct array pointed to by the {@code vertices} field. */
         @NativeType("XrVector2f *")
-        public XrVector2f.Buffer vertices() { return XrPlaneDetectorPolygonBufferEXT.nvertices(address()); }
+        public XrVector2f.@Nullable Buffer vertices() { return XrPlaneDetectorPolygonBufferEXT.nvertices(address()); }
 
-        /** Sets the specified value to the {@link XrPlaneDetectorPolygonBufferEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrPlaneDetectorPolygonBufferEXT.Buffer type(@NativeType("XrStructureType") int value) { XrPlaneDetectorPolygonBufferEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT} value to the {@link XrPlaneDetectorPolygonBufferEXT#type} field. */
+        /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT} value to the {@code type} field. */
         public XrPlaneDetectorPolygonBufferEXT.Buffer type$Default() { return type(EXTPlaneDetection.XR_TYPE_PLANE_DETECTOR_POLYGON_BUFFER_EXT); }
-        /** Sets the specified value to the {@link XrPlaneDetectorPolygonBufferEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrPlaneDetectorPolygonBufferEXT.Buffer next(@NativeType("void *") long value) { XrPlaneDetectorPolygonBufferEXT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPlaneDetectorPolygonBufferEXT#vertexCapacityInput} field. */
+        /** Sets the specified value to the {@code vertexCapacityInput} field. */
         public XrPlaneDetectorPolygonBufferEXT.Buffer vertexCapacityInput(@NativeType("uint32_t") int value) { XrPlaneDetectorPolygonBufferEXT.nvertexCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPlaneDetectorPolygonBufferEXT#vertexCountOutput} field. */
+        /** Sets the specified value to the {@code vertexCountOutput} field. */
         public XrPlaneDetectorPolygonBufferEXT.Buffer vertexCountOutput(@NativeType("uint32_t") int value) { XrPlaneDetectorPolygonBufferEXT.nvertexCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@link XrPlaneDetectorPolygonBufferEXT#vertices} field. */
-        public XrPlaneDetectorPolygonBufferEXT.Buffer vertices(@Nullable @NativeType("XrVector2f *") XrVector2f.Buffer value) { XrPlaneDetectorPolygonBufferEXT.nvertices(address(), value); return this; }
+        /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@code vertices} field. */
+        public XrPlaneDetectorPolygonBufferEXT.Buffer vertices(@NativeType("XrVector2f *") XrVector2f.@Nullable Buffer value) { XrPlaneDetectorPolygonBufferEXT.nvertices(address(), value); return this; }
 
     }
 

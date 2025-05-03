@@ -5,22 +5,13 @@
  */
 package org.lwjgl.util.yoga;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * YGNodeRef (*{@link #invoke}) (
- *     YGNodeRef oldNode,
- *     YGNodeRef owner,
- *     int childIndex
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGCloneNodeFunc} */
 public abstract class YGCloneNodeFunc extends Callback implements YGCloneNodeFuncI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class YGCloneNodeFunc extends Callback implements YGCloneNodeFun
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static YGCloneNodeFunc createSafe(long functionPointer) {
+    public static @Nullable YGCloneNodeFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

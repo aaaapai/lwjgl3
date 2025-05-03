@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether rasterization order attachment access can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTRasterizationOrderAttachmentAccess#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #rasterizationOrderColorAttachmentAccess};
- *     VkBool32 {@link #rasterizationOrderDepthAttachmentAccess};
- *     VkBool32 {@link #rasterizationOrderStencilAttachmentAccess};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 rasterizationOrderColorAttachmentAccess;
+ *     VkBool32 rasterizationOrderDepthAttachmentAccess;
+ *     VkBool32 rasterizationOrderStencilAttachmentAccess;
+ * }}</pre>
  */
 public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT extends Struct<VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that rasterization order access to color and input attachments is supported by the implementation. */
+    /** @return the value of the {@code rasterizationOrderColorAttachmentAccess} field. */
     @NativeType("VkBool32")
     public boolean rasterizationOrderColorAttachmentAccess() { return nrasterizationOrderColorAttachmentAccess(address()) != 0; }
-    /** indicates that rasterization order access to the depth aspect of depth/stencil and input attachments is supported by the implementation. */
+    /** @return the value of the {@code rasterizationOrderDepthAttachmentAccess} field. */
     @NativeType("VkBool32")
     public boolean rasterizationOrderDepthAttachmentAccess() { return nrasterizationOrderDepthAttachmentAccess(address()) != 0; }
-    /** indicates that rasterization order access to the stencil aspect of depth/stencil and input attachments is supported by the implementation. */
+    /** @return the value of the {@code rasterizationOrderStencilAttachmentAccess} field. */
     @NativeType("VkBool32")
     public boolean rasterizationOrderStencilAttachmentAccess() { return nrasterizationOrderStencilAttachmentAccess(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTRasterizationOrderAttachmentAccess#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTRasterizationOrderAttachmentAccess#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT sType$Default() { return sType(EXTRasterizationOrderAttachmentAccess.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #rasterizationOrderColorAttachmentAccess} field. */
+    /** Sets the specified value to the {@code rasterizationOrderColorAttachmentAccess} field. */
     public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT rasterizationOrderColorAttachmentAccess(@NativeType("VkBool32") boolean value) { nrasterizationOrderColorAttachmentAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #rasterizationOrderDepthAttachmentAccess} field. */
+    /** Sets the specified value to the {@code rasterizationOrderDepthAttachmentAccess} field. */
     public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT rasterizationOrderDepthAttachmentAccess(@NativeType("VkBool32") boolean value) { nrasterizationOrderDepthAttachmentAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #rasterizationOrderStencilAttachmentAccess} field. */
+    /** Sets the specified value to the {@code rasterizationOrderStencilAttachmentAccess} field. */
     public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT rasterizationOrderStencilAttachmentAccess(@NativeType("VkBool32") boolean value) { nrasterizationOrderStencilAttachmentAccess(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +252,26 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #rasterizationOrderColorAttachmentAccess}. */
-    public static int nrasterizationOrderColorAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS); }
+    public static int nrasterizationOrderColorAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS); }
     /** Unsafe version of {@link #rasterizationOrderDepthAttachmentAccess}. */
-    public static int nrasterizationOrderDepthAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS); }
+    public static int nrasterizationOrderDepthAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS); }
     /** Unsafe version of {@link #rasterizationOrderStencilAttachmentAccess}. */
-    public static int nrasterizationOrderStencilAttachmentAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS); }
+    public static int nrasterizationOrderStencilAttachmentAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #rasterizationOrderColorAttachmentAccess(boolean) rasterizationOrderColorAttachmentAccess}. */
-    public static void nrasterizationOrderColorAttachmentAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS, value); }
+    public static void nrasterizationOrderColorAttachmentAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERCOLORATTACHMENTACCESS, value); }
     /** Unsafe version of {@link #rasterizationOrderDepthAttachmentAccess(boolean) rasterizationOrderDepthAttachmentAccess}. */
-    public static void nrasterizationOrderDepthAttachmentAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS, value); }
+    public static void nrasterizationOrderDepthAttachmentAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERDEPTHATTACHMENTACCESS, value); }
     /** Unsafe version of {@link #rasterizationOrderStencilAttachmentAccess(boolean) rasterizationOrderStencilAttachmentAccess}. */
-    public static void nrasterizationOrderStencilAttachmentAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS, value); }
+    public static void nrasterizationOrderStencilAttachmentAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.RASTERIZATIONORDERSTENCILATTACHMENTACCESS, value); }
 
     // -----------------------------------
 
@@ -323,37 +307,42 @@ public class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT exten
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#rasterizationOrderColorAttachmentAccess} field. */
+        /** @return the value of the {@code rasterizationOrderColorAttachmentAccess} field. */
         @NativeType("VkBool32")
         public boolean rasterizationOrderColorAttachmentAccess() { return VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nrasterizationOrderColorAttachmentAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#rasterizationOrderDepthAttachmentAccess} field. */
+        /** @return the value of the {@code rasterizationOrderDepthAttachmentAccess} field. */
         @NativeType("VkBool32")
         public boolean rasterizationOrderDepthAttachmentAccess() { return VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nrasterizationOrderDepthAttachmentAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#rasterizationOrderStencilAttachmentAccess} field. */
+        /** @return the value of the {@code rasterizationOrderStencilAttachmentAccess} field. */
         @NativeType("VkBool32")
         public boolean rasterizationOrderStencilAttachmentAccess() { return VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nrasterizationOrderStencilAttachmentAccess(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTRasterizationOrderAttachmentAccess#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT} value to the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTRasterizationOrderAttachmentAccess#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer sType$Default() { return sType(EXTRasterizationOrderAttachmentAccess.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#rasterizationOrderColorAttachmentAccess} field. */
+        /** Sets the specified value to the {@code rasterizationOrderColorAttachmentAccess} field. */
         public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer rasterizationOrderColorAttachmentAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nrasterizationOrderColorAttachmentAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#rasterizationOrderDepthAttachmentAccess} field. */
+        /** Sets the specified value to the {@code rasterizationOrderDepthAttachmentAccess} field. */
         public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer rasterizationOrderDepthAttachmentAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nrasterizationOrderDepthAttachmentAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT#rasterizationOrderStencilAttachmentAccess} field. */
+        /** Sets the specified value to the {@code rasterizationOrderStencilAttachmentAccess} field. */
         public VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.Buffer rasterizationOrderStencilAttachmentAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.nrasterizationOrderStencilAttachmentAccess(address(), value ? 1 : 0); return this; }
 
     }

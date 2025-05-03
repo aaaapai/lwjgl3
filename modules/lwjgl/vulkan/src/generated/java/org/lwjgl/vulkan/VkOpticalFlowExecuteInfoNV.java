@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,37 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a optical flow vector calculation.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code regionCount} <b>must</b> be 0 if {@link NVOpticalFlow#VK_OPTICAL_FLOW_SESSION_CREATE_ALLOW_REGIONS_BIT_NV OPTICAL_FLOW_SESSION_CREATE_ALLOW_REGIONS_BIT_NV} was not set for {@code VkOpticalFlowSessionNV} on which this command is operating</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkOpticalFlowExecuteFlagBitsNV} values</li>
- * <li>If {@code regionCount} is not 0, {@code pRegions} <b>must</b> be a valid pointer to an array of {@code regionCount} {@link VkRect2D} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRect2D}, {@link NVOpticalFlow#vkCmdOpticalFlowExecuteNV CmdOpticalFlowExecuteNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkOpticalFlowExecuteInfoNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkOpticalFlowExecuteFlagsNV {@link #flags};
- *     uint32_t {@link #regionCount};
- *     {@link VkRect2D VkRect2D} const * {@link #pRegions};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkOpticalFlowExecuteFlagsNV flags;
+ *     uint32_t regionCount;
+ *     {@link VkRect2D VkRect2D} const * pRegions;
+ * }}</pre>
  */
 public class VkOpticalFlowExecuteInfoNV extends Struct<VkOpticalFlowExecuteInfoNV> implements NativeResource {
 
@@ -106,40 +83,39 @@ public class VkOpticalFlowExecuteInfoNV extends Struct<VkOpticalFlowExecuteInfoN
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** are the {@code VkOpticalFlowExecuteFlagsNV} used for this command. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkOpticalFlowExecuteFlagsNV")
     public int flags() { return nflags(address()); }
-    /** the number of regions of interest specified in {@code pRegions}. */
+    /** @return the value of the {@code regionCount} field. */
     @NativeType("uint32_t")
     public int regionCount() { return nregionCount(address()); }
-    /** a pointer to {@code regionCount} {@link VkRect2D} regions of interest. */
-    @Nullable
+    /** @return a {@link VkRect2D.Buffer} view of the struct array pointed to by the {@code pRegions} field. */
     @NativeType("VkRect2D const *")
-    public VkRect2D.Buffer pRegions() { return npRegions(address()); }
+    public VkRect2D.@Nullable Buffer pRegions() { return npRegions(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkOpticalFlowExecuteInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV} value to the {@code sType} field. */
     public VkOpticalFlowExecuteInfoNV sType$Default() { return sType(NVOpticalFlow.VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkOpticalFlowExecuteInfoNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkOpticalFlowExecuteInfoNV flags(@NativeType("VkOpticalFlowExecuteFlagsNV") int value) { nflags(address(), value); return this; }
-    /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@link #pRegions} field. */
-    public VkOpticalFlowExecuteInfoNV pRegions(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { npRegions(address(), value); return this; }
+    /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@code pRegions} field. */
+    public VkOpticalFlowExecuteInfoNV pRegions(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { npRegions(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkOpticalFlowExecuteInfoNV set(
         int sType,
         long pNext,
         int flags,
-        @Nullable VkRect2D.Buffer pRegions
+        VkRect2D.@Nullable Buffer pRegions
     ) {
         sType(sType);
         pNext(pNext);
@@ -185,8 +161,7 @@ public class VkOpticalFlowExecuteInfoNV extends Struct<VkOpticalFlowExecuteInfoN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpticalFlowExecuteInfoNV createSafe(long address) {
+    public static @Nullable VkOpticalFlowExecuteInfoNV createSafe(long address) {
         return address == NULL ? null : new VkOpticalFlowExecuteInfoNV(address, null);
     }
 
@@ -229,8 +204,7 @@ public class VkOpticalFlowExecuteInfoNV extends Struct<VkOpticalFlowExecuteInfoN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpticalFlowExecuteInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkOpticalFlowExecuteInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +249,26 @@ public class VkOpticalFlowExecuteInfoNV extends Struct<VkOpticalFlowExecuteInfoN
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowExecuteInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkOpticalFlowExecuteInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkOpticalFlowExecuteInfoNV.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowExecuteInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkOpticalFlowExecuteInfoNV.FLAGS); }
     /** Unsafe version of {@link #regionCount}. */
-    public static int nregionCount(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowExecuteInfoNV.REGIONCOUNT); }
+    public static int nregionCount(long struct) { return memGetInt(struct + VkOpticalFlowExecuteInfoNV.REGIONCOUNT); }
     /** Unsafe version of {@link #pRegions}. */
-    @Nullable public static VkRect2D.Buffer npRegions(long struct) { return VkRect2D.createSafe(memGetAddress(struct + VkOpticalFlowExecuteInfoNV.PREGIONS), nregionCount(struct)); }
+    public static VkRect2D.@Nullable Buffer npRegions(long struct) { return VkRect2D.createSafe(memGetAddress(struct + VkOpticalFlowExecuteInfoNV.PREGIONS), nregionCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowExecuteInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkOpticalFlowExecuteInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkOpticalFlowExecuteInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowExecuteInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkOpticalFlowExecuteInfoNV.FLAGS, value); }
     /** Sets the specified value to the {@code regionCount} field of the specified {@code struct}. */
-    public static void nregionCount(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowExecuteInfoNV.REGIONCOUNT, value); }
+    public static void nregionCount(long struct, int value) { memPutInt(struct + VkOpticalFlowExecuteInfoNV.REGIONCOUNT, value); }
     /** Unsafe version of {@link #pRegions(VkRect2D.Buffer) pRegions}. */
-    public static void npRegions(long struct, @Nullable VkRect2D.Buffer value) { memPutAddress(struct + VkOpticalFlowExecuteInfoNV.PREGIONS, memAddressSafe(value)); nregionCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npRegions(long struct, VkRect2D.@Nullable Buffer value) { memPutAddress(struct + VkOpticalFlowExecuteInfoNV.PREGIONS, memAddressSafe(value)); nregionCount(struct, value == null ? 0 : value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -341,37 +315,41 @@ public class VkOpticalFlowExecuteInfoNV extends Struct<VkOpticalFlowExecuteInfoN
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkOpticalFlowExecuteInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkOpticalFlowExecuteInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkOpticalFlowExecuteInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkOpticalFlowExecuteInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkOpticalFlowExecuteInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkOpticalFlowExecuteInfoNV#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkOpticalFlowExecuteFlagsNV")
         public int flags() { return VkOpticalFlowExecuteInfoNV.nflags(address()); }
-        /** @return the value of the {@link VkOpticalFlowExecuteInfoNV#regionCount} field. */
+        /** @return the value of the {@code regionCount} field. */
         @NativeType("uint32_t")
         public int regionCount() { return VkOpticalFlowExecuteInfoNV.nregionCount(address()); }
-        /** @return a {@link VkRect2D.Buffer} view of the struct array pointed to by the {@link VkOpticalFlowExecuteInfoNV#pRegions} field. */
-        @Nullable
+        /** @return a {@link VkRect2D.Buffer} view of the struct array pointed to by the {@code pRegions} field. */
         @NativeType("VkRect2D const *")
-        public VkRect2D.Buffer pRegions() { return VkOpticalFlowExecuteInfoNV.npRegions(address()); }
+        public VkRect2D.@Nullable Buffer pRegions() { return VkOpticalFlowExecuteInfoNV.npRegions(address()); }
 
-        /** Sets the specified value to the {@link VkOpticalFlowExecuteInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkOpticalFlowExecuteInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkOpticalFlowExecuteInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV} value to the {@link VkOpticalFlowExecuteInfoNV#sType} field. */
+        /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV} value to the {@code sType} field. */
         public VkOpticalFlowExecuteInfoNV.Buffer sType$Default() { return sType(NVOpticalFlow.VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV); }
-        /** Sets the specified value to the {@link VkOpticalFlowExecuteInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkOpticalFlowExecuteInfoNV.Buffer pNext(@NativeType("void *") long value) { VkOpticalFlowExecuteInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkOpticalFlowExecuteInfoNV#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkOpticalFlowExecuteInfoNV.Buffer flags(@NativeType("VkOpticalFlowExecuteFlagsNV") int value) { VkOpticalFlowExecuteInfoNV.nflags(address(), value); return this; }
-        /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@link VkOpticalFlowExecuteInfoNV#pRegions} field. */
-        public VkOpticalFlowExecuteInfoNV.Buffer pRegions(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { VkOpticalFlowExecuteInfoNV.npRegions(address(), value); return this; }
+        /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@code pRegions} field. */
+        public VkOpticalFlowExecuteInfoNV.Buffer pRegions(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { VkOpticalFlowExecuteInfoNV.npRegions(address(), value); return this; }
 
     }
 

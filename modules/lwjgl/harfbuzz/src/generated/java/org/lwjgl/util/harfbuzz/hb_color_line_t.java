@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,9 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_color_line_t {
  *     void * data;
  *     {@link hb_color_line_get_color_stops_func_tI hb_color_line_get_color_stops_func_t} get_color_stops;
@@ -35,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * reserved6;
  *     void * reserved7;
  *     void * reserved8;
- * }</code></pre>
+ * }}</pre>
  */
 public class hb_color_line_t extends Struct<hb_color_line_t> implements NativeResource {
 
@@ -199,8 +197,7 @@ public class hb_color_line_t extends Struct<hb_color_line_t> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_color_line_t createSafe(long address) {
+    public static @Nullable hb_color_line_t createSafe(long address) {
         return address == NULL ? null : new hb_color_line_t(address, null);
     }
 
@@ -243,8 +240,7 @@ public class hb_color_line_t extends Struct<hb_color_line_t> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_color_line_t.Buffer createSafe(long address, int capacity) {
+    public static hb_color_line_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -370,6 +366,11 @@ public class hb_color_line_t extends Struct<hb_color_line_t> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,16 +19,12 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.util.freetype.FreeType.*;
 
 /**
- * A structure to model the axes and space of a Multiple Masters font.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Multi_Master {
  *     FT_UInt num_axis;
  *     FT_UInt num_designs;
  *     {@link FT_MM_Axis FT_MM_Axis} axis[T1_MAX_MM_AXIS];
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Multi_Master extends Struct<FT_Multi_Master> implements NativeResource {
 
@@ -117,8 +113,7 @@ public class FT_Multi_Master extends Struct<FT_Multi_Master> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Multi_Master createSafe(long address) {
+    public static @Nullable FT_Multi_Master createSafe(long address) {
         return address == NULL ? null : new FT_Multi_Master(address, null);
     }
 
@@ -161,8 +156,7 @@ public class FT_Multi_Master extends Struct<FT_Multi_Master> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Multi_Master.Buffer createSafe(long address, int capacity) {
+    public static FT_Multi_Master.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -207,9 +201,9 @@ public class FT_Multi_Master extends Struct<FT_Multi_Master> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #num_axis}. */
-    public static int nnum_axis(long struct) { return UNSAFE.getInt(null, struct + FT_Multi_Master.NUM_AXIS); }
+    public static int nnum_axis(long struct) { return memGetInt(struct + FT_Multi_Master.NUM_AXIS); }
     /** Unsafe version of {@link #num_designs}. */
-    public static int nnum_designs(long struct) { return UNSAFE.getInt(null, struct + FT_Multi_Master.NUM_DESIGNS); }
+    public static int nnum_designs(long struct) { return memGetInt(struct + FT_Multi_Master.NUM_DESIGNS); }
     /** Unsafe version of {@link #axis}. */
     public static FT_MM_Axis.Buffer naxis(long struct) { return FT_MM_Axis.create(struct + FT_Multi_Master.AXIS, T1_MAX_MM_AXIS); }
     /** Unsafe version of {@link #axis(int) axis}. */
@@ -248,6 +242,11 @@ public class FT_Multi_Master extends Struct<FT_Multi_Master> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

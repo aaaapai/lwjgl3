@@ -5,23 +5,13 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * size_t (*{@link #invoke}) (
- *     struct aiFile *pFile,
- *     char const *pBuffer,
- *     size_t memB,
- *     size_t count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke aiFileWriteProc} */
 public abstract class AIFileWriteProc extends Callback implements AIFileWriteProcI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class AIFileWriteProc extends Callback implements AIFileWritePro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static AIFileWriteProc createSafe(long functionPointer) {
+    public static @Nullable AIFileWriteProc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the results of code-completion.
- * 
- * <p>This data structure contains the results of code completion, as produced by {@link ClangIndex#clang_codeCompleteAt codeCompleteAt}. Its contents must be freed by
- * {@link ClangIndex#clang_disposeCodeCompleteResults disposeCodeCompleteResults}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXCodeCompleteResults {
- *     {@link CXCompletionResult CXCompletionResult} * {@link #Results};
- *     unsigned {@link #NumResults};
- * }</code></pre>
+ *     {@link CXCompletionResult CXCompletionResult} * Results;
+ *     unsigned NumResults;
+ * }}</pre>
  */
 public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> implements NativeResource {
 
@@ -77,10 +70,10 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the code-completion results */
+    /** @return a {@link CXCompletionResult.Buffer} view of the struct array pointed to by the {@code Results} field. */
     @NativeType("CXCompletionResult *")
     public CXCompletionResult.Buffer Results() { return nResults(address()); }
-    /** the number of code-completion results stored in the {@code Results} array */
+    /** @return the value of the {@code NumResults} field. */
     @NativeType("unsigned")
     public int NumResults() { return nNumResults(address()); }
 
@@ -108,8 +101,7 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCodeCompleteResults createSafe(long address) {
+    public static @Nullable CXCodeCompleteResults createSafe(long address) {
         return address == NULL ? null : new CXCodeCompleteResults(address, null);
     }
 
@@ -152,8 +144,7 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCodeCompleteResults.Buffer createSafe(long address, int capacity) {
+    public static CXCodeCompleteResults.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -219,7 +210,7 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
     /** Unsafe version of {@link #Results}. */
     public static CXCompletionResult.Buffer nResults(long struct) { return CXCompletionResult.create(memGetAddress(struct + CXCodeCompleteResults.RESULTS), nNumResults(struct)); }
     /** Unsafe version of {@link #NumResults}. */
-    public static int nNumResults(long struct) { return UNSAFE.getInt(null, struct + CXCodeCompleteResults.NUMRESULTS); }
+    public static int nNumResults(long struct) { return memGetInt(struct + CXCodeCompleteResults.NUMRESULTS); }
 
     // -----------------------------------
 
@@ -255,14 +246,19 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CXCodeCompleteResults getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link CXCompletionResult.Buffer} view of the struct array pointed to by the {@link CXCodeCompleteResults#Results} field. */
+        /** @return a {@link CXCompletionResult.Buffer} view of the struct array pointed to by the {@code Results} field. */
         @NativeType("CXCompletionResult *")
         public CXCompletionResult.Buffer Results() { return CXCodeCompleteResults.nResults(address()); }
-        /** @return the value of the {@link CXCodeCompleteResults#NumResults} field. */
+        /** @return the value of the {@code NumResults} field. */
         @NativeType("unsigned")
         public int NumResults() { return CXCodeCompleteResults.nNumResults(address()); }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing fragment shader interlock features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTFragmentShaderInterlock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #fragmentShaderSampleInterlock};
- *     VkBool32 {@link #fragmentShaderPixelInterlock};
- *     VkBool32 {@link #fragmentShaderShadingRateInterlock};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 fragmentShaderSampleInterlock;
+ *     VkBool32 fragmentShaderPixelInterlock;
+ *     VkBool32 fragmentShaderShadingRateInterlock;
+ * }}</pre>
  */
 public class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends Struct<VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends Struct<V
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the {@code FragmentShaderSampleInterlockEXT} SPIR-V capability. */
+    /** @return the value of the {@code fragmentShaderSampleInterlock} field. */
     @NativeType("VkBool32")
     public boolean fragmentShaderSampleInterlock() { return nfragmentShaderSampleInterlock(address()) != 0; }
-    /** indicates that the implementation supports the {@code FragmentShaderPixelInterlockEXT} SPIR-V capability. */
+    /** @return the value of the {@code fragmentShaderPixelInterlock} field. */
     @NativeType("VkBool32")
     public boolean fragmentShaderPixelInterlock() { return nfragmentShaderPixelInterlock(address()) != 0; }
-    /** indicates that the implementation supports the {@code FragmentShaderShadingRateInterlockEXT} SPIR-V capability. */
+    /** @return the value of the {@code fragmentShaderShadingRateInterlock} field. */
     @NativeType("VkBool32")
     public boolean fragmentShaderShadingRateInterlock() { return nfragmentShaderShadingRateInterlock(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTFragmentShaderInterlock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTFragmentShaderInterlock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT sType$Default() { return sType(EXTFragmentShaderInterlock.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #fragmentShaderSampleInterlock} field. */
+    /** Sets the specified value to the {@code fragmentShaderSampleInterlock} field. */
     public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT fragmentShaderSampleInterlock(@NativeType("VkBool32") boolean value) { nfragmentShaderSampleInterlock(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #fragmentShaderPixelInterlock} field. */
+    /** Sets the specified value to the {@code fragmentShaderPixelInterlock} field. */
     public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT fragmentShaderPixelInterlock(@NativeType("VkBool32") boolean value) { nfragmentShaderPixelInterlock(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #fragmentShaderShadingRateInterlock} field. */
+    /** Sets the specified value to the {@code fragmentShaderShadingRateInterlock} field. */
     public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT fragmentShaderShadingRateInterlock(@NativeType("VkBool32") boolean value) { nfragmentShaderShadingRateInterlock(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,26 +271,26 @@ public class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #fragmentShaderSampleInterlock}. */
-    public static int nfragmentShaderSampleInterlock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSAMPLEINTERLOCK); }
+    public static int nfragmentShaderSampleInterlock(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSAMPLEINTERLOCK); }
     /** Unsafe version of {@link #fragmentShaderPixelInterlock}. */
-    public static int nfragmentShaderPixelInterlock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERPIXELINTERLOCK); }
+    public static int nfragmentShaderPixelInterlock(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERPIXELINTERLOCK); }
     /** Unsafe version of {@link #fragmentShaderShadingRateInterlock}. */
-    public static int nfragmentShaderShadingRateInterlock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSHADINGRATEINTERLOCK); }
+    public static int nfragmentShaderShadingRateInterlock(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSHADINGRATEINTERLOCK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #fragmentShaderSampleInterlock(boolean) fragmentShaderSampleInterlock}. */
-    public static void nfragmentShaderSampleInterlock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSAMPLEINTERLOCK, value); }
+    public static void nfragmentShaderSampleInterlock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSAMPLEINTERLOCK, value); }
     /** Unsafe version of {@link #fragmentShaderPixelInterlock(boolean) fragmentShaderPixelInterlock}. */
-    public static void nfragmentShaderPixelInterlock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERPIXELINTERLOCK, value); }
+    public static void nfragmentShaderPixelInterlock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERPIXELINTERLOCK, value); }
     /** Unsafe version of {@link #fragmentShaderShadingRateInterlock(boolean) fragmentShaderShadingRateInterlock}. */
-    public static void nfragmentShaderShadingRateInterlock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSHADINGRATEINTERLOCK, value); }
+    public static void nfragmentShaderShadingRateInterlock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.FRAGMENTSHADERSHADINGRATEINTERLOCK, value); }
 
     // -----------------------------------
 
@@ -342,37 +326,42 @@ public class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends Struct<V
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#fragmentShaderSampleInterlock} field. */
+        /** @return the value of the {@code fragmentShaderSampleInterlock} field. */
         @NativeType("VkBool32")
         public boolean fragmentShaderSampleInterlock() { return VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nfragmentShaderSampleInterlock(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#fragmentShaderPixelInterlock} field. */
+        /** @return the value of the {@code fragmentShaderPixelInterlock} field. */
         @NativeType("VkBool32")
         public boolean fragmentShaderPixelInterlock() { return VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nfragmentShaderPixelInterlock(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#fragmentShaderShadingRateInterlock} field. */
+        /** @return the value of the {@code fragmentShaderShadingRateInterlock} field. */
         @NativeType("VkBool32")
         public boolean fragmentShaderShadingRateInterlock() { return VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nfragmentShaderShadingRateInterlock(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTFragmentShaderInterlock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT} value to the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTFragmentShaderInterlock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer sType$Default() { return sType(EXTFragmentShaderInterlock.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#fragmentShaderSampleInterlock} field. */
+        /** Sets the specified value to the {@code fragmentShaderSampleInterlock} field. */
         public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer fragmentShaderSampleInterlock(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nfragmentShaderSampleInterlock(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#fragmentShaderPixelInterlock} field. */
+        /** Sets the specified value to the {@code fragmentShaderPixelInterlock} field. */
         public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer fragmentShaderPixelInterlock(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nfragmentShaderPixelInterlock(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT#fragmentShaderShadingRateInterlock} field. */
+        /** Sets the specified value to the {@code fragmentShaderShadingRateInterlock} field. */
         public VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.Buffer fragmentShaderShadingRateInterlock(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.nfragmentShaderShadingRateInterlock(address(), value ? 1 : 0); return this; }
 
     }

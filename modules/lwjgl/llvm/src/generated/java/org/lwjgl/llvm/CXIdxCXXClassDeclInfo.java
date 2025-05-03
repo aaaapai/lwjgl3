@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,14 +15,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXIdxCXXClassDeclInfo {
  *     {@link CXIdxDeclInfo CXIdxDeclInfo} const * declInfo;
  *     {@link CXIdxBaseClassInfo CXIdxBaseClassInfo} const * const * bases;
  *     unsigned numBases;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXIdxCXXClassDeclInfo extends Struct<CXIdxCXXClassDeclInfo> {
 
@@ -93,8 +91,7 @@ public class CXIdxCXXClassDeclInfo extends Struct<CXIdxCXXClassDeclInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxCXXClassDeclInfo createSafe(long address) {
+    public static @Nullable CXIdxCXXClassDeclInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxCXXClassDeclInfo(address, null);
     }
 
@@ -109,8 +106,7 @@ public class CXIdxCXXClassDeclInfo extends Struct<CXIdxCXXClassDeclInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxCXXClassDeclInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxCXXClassDeclInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -121,7 +117,7 @@ public class CXIdxCXXClassDeclInfo extends Struct<CXIdxCXXClassDeclInfo> {
     /** Unsafe version of {@link #bases() bases}. */
     public static PointerBuffer nbases(long struct) { return memPointerBuffer(memGetAddress(struct + CXIdxCXXClassDeclInfo.BASES), nnumBases(struct)); }
     /** Unsafe version of {@link #numBases}. */
-    public static int nnumBases(long struct) { return UNSAFE.getInt(null, struct + CXIdxCXXClassDeclInfo.NUMBASES); }
+    public static int nnumBases(long struct) { return memGetInt(struct + CXIdxCXXClassDeclInfo.NUMBASES); }
 
     // -----------------------------------
 
@@ -154,6 +150,11 @@ public class CXIdxCXXClassDeclInfo extends Struct<CXIdxCXXClassDeclInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

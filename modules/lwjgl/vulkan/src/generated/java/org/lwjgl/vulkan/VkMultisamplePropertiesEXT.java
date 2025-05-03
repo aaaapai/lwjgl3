@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure returning information about sample count specific additional multisampling capabilities.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTSampleLocations#VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}, {@link EXTSampleLocations#vkGetPhysicalDeviceMultisamplePropertiesEXT GetPhysicalDeviceMultisamplePropertiesEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMultisamplePropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkExtent2D VkExtent2D} {@link #maxSampleLocationGridSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkExtent2D VkExtent2D} maxSampleLocationGridSize;
+ * }}</pre>
  */
 public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEXT> implements NativeResource {
 
@@ -89,20 +74,20 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum size of the pixel grid in which sample locations <b>can</b> vary. */
+    /** @return a {@link VkExtent2D} view of the {@code maxSampleLocationGridSize} field. */
     public VkExtent2D maxSampleLocationGridSize() { return nmaxSampleLocationGridSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMultisamplePropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkMultisamplePropertiesEXT sType$Default() { return sType(EXTSampleLocations.VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMultisamplePropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +137,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultisamplePropertiesEXT createSafe(long address) {
+    public static @Nullable VkMultisamplePropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkMultisamplePropertiesEXT(address, null);
     }
 
@@ -196,8 +180,7 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultisamplePropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMultisamplePropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +244,14 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMultisamplePropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMultisamplePropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMultisamplePropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxSampleLocationGridSize}. */
     public static VkExtent2D nmaxSampleLocationGridSize(long struct) { return VkExtent2D.create(struct + VkMultisamplePropertiesEXT.MAXSAMPLELOCATIONGRIDSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMultisamplePropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMultisamplePropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMultisamplePropertiesEXT.PNEXT, value); }
 
@@ -306,24 +289,29 @@ public class VkMultisamplePropertiesEXT extends Struct<VkMultisamplePropertiesEX
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMultisamplePropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMultisamplePropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMultisamplePropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkMultisamplePropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkMultisamplePropertiesEXT.npNext(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkMultisamplePropertiesEXT#maxSampleLocationGridSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code maxSampleLocationGridSize} field. */
         public VkExtent2D maxSampleLocationGridSize() { return VkMultisamplePropertiesEXT.nmaxSampleLocationGridSize(address()); }
 
-        /** Sets the specified value to the {@link VkMultisamplePropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMultisamplePropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkMultisamplePropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT} value to the {@link VkMultisamplePropertiesEXT#sType} field. */
+        /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkMultisamplePropertiesEXT.Buffer sType$Default() { return sType(EXTSampleLocations.VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkMultisamplePropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMultisamplePropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkMultisamplePropertiesEXT.npNext(address(), value); return this; }
 
     }

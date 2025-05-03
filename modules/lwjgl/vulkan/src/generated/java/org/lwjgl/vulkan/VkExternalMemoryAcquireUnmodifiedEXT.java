@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,45 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying that external memory has remained unmodified since releasing ownership.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the application releases ownership of the subresource range to one of the special queue families reserved for external memory ownership transfers with a memory barrier structure, and later re-acquires ownership from the same queue family with a memory barrier structure, and if no range of {@code VkDeviceMemory} bound to the resource was modified at any time between the <em>release operation</em> and the <em>acquire operation</em>, then the application <b>should</b> add a {@link VkExternalMemoryAcquireUnmodifiedEXT} structure to the {@code pNext} chain of the <em>acquire operation</em>'s memory barrier structure because this <b>may</b> reduce the performance penalty.</p>
- * 
- * <p>This struct is ignored if {@code acquireUnmodifiedMemory} is {@link VK10#VK_FALSE FALSE}. In particular, {@link VK10#VK_FALSE FALSE} does <em>not</em> specify that memory was modified.</p>
- * 
- * <p>This struct is ignored if the memory barrier’s {@code srcQueueFamilyIndex} is not a special queue family reserved for external memory ownership transfers.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>The method by which the application determines whether memory was modified between the <em>release operation</em> and <em>acquire operation</em> is outside the scope of Vulkan.</p>
- * 
- * <p>For any Vulkan operation that accesses a resource, the application <b>must</b> not assume the implementation accesses the resource’s memory as read-only, even for <em>apparently</em> read-only operations such as transfer commands and shader reads.</p>
- * 
- * <p>The validity of {@link VkExternalMemoryAcquireUnmodifiedEXT}{@code ::acquireUnmodifiedMemory} is independent of memory ranges outside the ranges of {@code VkDeviceMemory} bound to the resource. In particular, it is independent of any implementation-private memory associated with the resource.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code acquireUnmodifiedMemory} is {@link VK10#VK_TRUE TRUE}, and the memory barrier’s {@code srcQueueFamilyIndex} is a special queue family reserved for external memory ownership transfers (as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-queue-transfers">Queue Family Ownership Transfer</a>), then each range of {@code VkDeviceMemory} bound to the resource <b>must</b> have remained unmodified during all time since the resource’s most recent release of ownership to the queue family.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTExternalMemoryAcquireUnmodified#VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExternalMemoryAcquireUnmodifiedEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBool32 {@link #acquireUnmodifiedMemory};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBool32 acquireUnmodifiedMemory;
+ * }}</pre>
  */
 public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemoryAcquireUnmodifiedEXT> implements NativeResource {
 
@@ -107,23 +74,23 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** specifies, if {@link VK10#VK_TRUE TRUE}, that no range of {@code VkDeviceMemory} bound to the resource of the memory barrier’s subresource range was modified at any time since the resource’s most recent release of ownership to the queue family specified by the memory barrier’s {@code srcQueueFamilyIndex}. If {@link VK10#VK_FALSE FALSE}, it specifies nothing. */
+    /** @return the value of the {@code acquireUnmodifiedMemory} field. */
     @NativeType("VkBool32")
     public boolean acquireUnmodifiedMemory() { return nacquireUnmodifiedMemory(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkExternalMemoryAcquireUnmodifiedEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTExternalMemoryAcquireUnmodified#VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTExternalMemoryAcquireUnmodified#VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT} value to the {@code sType} field. */
     public VkExternalMemoryAcquireUnmodifiedEXT sType$Default() { return sType(EXTExternalMemoryAcquireUnmodified.VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkExternalMemoryAcquireUnmodifiedEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #acquireUnmodifiedMemory} field. */
+    /** Sets the specified value to the {@code acquireUnmodifiedMemory} field. */
     public VkExternalMemoryAcquireUnmodifiedEXT acquireUnmodifiedMemory(@NativeType("VkBool32") boolean value) { nacquireUnmodifiedMemory(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +142,7 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryAcquireUnmodifiedEXT createSafe(long address) {
+    public static @Nullable VkExternalMemoryAcquireUnmodifiedEXT createSafe(long address) {
         return address == NULL ? null : new VkExternalMemoryAcquireUnmodifiedEXT(address, null);
     }
 
@@ -219,8 +185,7 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalMemoryAcquireUnmodifiedEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExternalMemoryAcquireUnmodifiedEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +230,18 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalMemoryAcquireUnmodifiedEXT.PNEXT); }
     /** Unsafe version of {@link #acquireUnmodifiedMemory}. */
-    public static int nacquireUnmodifiedMemory(long struct) { return UNSAFE.getInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY); }
+    public static int nacquireUnmodifiedMemory(long struct) { return memGetInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalMemoryAcquireUnmodifiedEXT.PNEXT, value); }
     /** Unsafe version of {@link #acquireUnmodifiedMemory(boolean) acquireUnmodifiedMemory}. */
-    public static void nacquireUnmodifiedMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY, value); }
+    public static void nacquireUnmodifiedMemory(long struct, int value) { memPutInt(struct + VkExternalMemoryAcquireUnmodifiedEXT.ACQUIREUNMODIFIEDMEMORY, value); }
 
     // -----------------------------------
 
@@ -312,27 +277,32 @@ public class VkExternalMemoryAcquireUnmodifiedEXT extends Struct<VkExternalMemor
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExternalMemoryAcquireUnmodifiedEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExternalMemoryAcquireUnmodifiedEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkExternalMemoryAcquireUnmodifiedEXT.nsType(address()); }
-        /** @return the value of the {@link VkExternalMemoryAcquireUnmodifiedEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkExternalMemoryAcquireUnmodifiedEXT.npNext(address()); }
-        /** @return the value of the {@link VkExternalMemoryAcquireUnmodifiedEXT#acquireUnmodifiedMemory} field. */
+        /** @return the value of the {@code acquireUnmodifiedMemory} field. */
         @NativeType("VkBool32")
         public boolean acquireUnmodifiedMemory() { return VkExternalMemoryAcquireUnmodifiedEXT.nacquireUnmodifiedMemory(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkExternalMemoryAcquireUnmodifiedEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkExternalMemoryAcquireUnmodifiedEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkExternalMemoryAcquireUnmodifiedEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTExternalMemoryAcquireUnmodified#VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT} value to the {@link VkExternalMemoryAcquireUnmodifiedEXT#sType} field. */
+        /** Sets the {@link EXTExternalMemoryAcquireUnmodified#VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT} value to the {@code sType} field. */
         public VkExternalMemoryAcquireUnmodifiedEXT.Buffer sType$Default() { return sType(EXTExternalMemoryAcquireUnmodified.VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT); }
-        /** Sets the specified value to the {@link VkExternalMemoryAcquireUnmodifiedEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkExternalMemoryAcquireUnmodifiedEXT.Buffer pNext(@NativeType("void const *") long value) { VkExternalMemoryAcquireUnmodifiedEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExternalMemoryAcquireUnmodifiedEXT#acquireUnmodifiedMemory} field. */
+        /** Sets the specified value to the {@code acquireUnmodifiedMemory} field. */
         public VkExternalMemoryAcquireUnmodifiedEXT.Buffer acquireUnmodifiedMemory(@NativeType("VkBool32") boolean value) { VkExternalMemoryAcquireUnmodifiedEXT.nacquireUnmodifiedMemory(address(), value ? 1 : 0); return this; }
 
     }

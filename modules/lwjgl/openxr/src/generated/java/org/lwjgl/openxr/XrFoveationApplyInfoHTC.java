@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,50 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Information for foveation applying.
- * 
- * <h5>Description</h5>
- * 
- * <p>The application <b>should</b> set the following configurations in {@link XrFoveationApplyInfoHTC}:</p>
- * 
- * <ul>
- * <li>The foveation mode to be applied.</li>
- * <li>The specified {@link XrSwapchainSubImage} to the corresponding view.</li>
- * </ul>
- * 
- * <p>The {@code faceCount} of {@code XrSwapchain} in {@link XrSwapchainSubImage} <b>must</b> be 1 since this extension does not support cubemaps.</p>
- * 
- * <p>If {@code mode} is {@link HTCFoveation#XR_FOVEATION_MODE_DYNAMIC_HTC FOVEATION_MODE_DYNAMIC_HTC}, the {@code next} chain for this structure <b>must</b> include {@link XrFoveationDynamicModeInfoHTC} structure.</p>
- * 
- * <p>If {@code mode} is {@link HTCFoveation#XR_FOVEATION_MODE_CUSTOM_HTC FOVEATION_MODE_CUSTOM_HTC}, the {@code next} chain for this structure <b>must</b> include {@link XrFoveationCustomModeInfoHTC} structure.</p>
- * 
- * <p>The order of {@code subImages} <b>must</b> be the same order as in {@link XrCompositionLayerProjectionView} when submitted in {@link XR10#xrEndFrame EndFrame}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCFoveation XR_HTC_foveation} extension <b>must</b> be enabled prior to using {@link XrFoveationApplyInfoHTC}</li>
- * <li>{@code type} <b>must</b> be {@link HTCFoveation#XR_TYPE_FOVEATION_APPLY_INFO_HTC TYPE_FOVEATION_APPLY_INFO_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrFoveationCustomModeInfoHTC}, {@link XrFoveationDynamicModeInfoHTC}</li>
- * <li>{@code mode} <b>must</b> be a valid {@code XrFoveationModeHTC} value</li>
- * <li>{@code subImages} <b>must</b> be a pointer to an array of {@code subImageCount} {@link XrSwapchainSubImage} structures</li>
- * <li>The {@code subImageCount} parameter <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSwapchainSubImage}, {@link HTCFoveation#xrApplyFoveationHTC ApplyFoveationHTC}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFoveationApplyInfoHTC {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrFoveationModeHTC {@link #mode};
- *     uint32_t {@link #subImageCount};
- *     {@link XrSwapchainSubImage XrSwapchainSubImage} * {@link #subImages};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrFoveationModeHTC mode;
+ *     uint32_t subImageCount;
+ *     {@link XrSwapchainSubImage XrSwapchainSubImage} * subImages;
+ * }}</pre>
  */
 public class XrFoveationApplyInfoHTC extends Struct<XrFoveationApplyInfoHTC> implements NativeResource {
 
@@ -119,35 +83,35 @@ public class XrFoveationApplyInfoHTC extends Struct<XrFoveationApplyInfoHTC> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrFoveationModeHTC} enum describing the foveation mode. */
+    /** @return the value of the {@code mode} field. */
     @NativeType("XrFoveationModeHTC")
     public int mode() { return nmode(address()); }
-    /** the count of {@code subImages} in the {@code subImages} array. This <b>must</b> be equal to the number of view poses returned by {@link XR10#xrLocateViews LocateViews}. */
+    /** @return the value of the {@code subImageCount} field. */
     @NativeType("uint32_t")
     public int subImageCount() { return nsubImageCount(address()); }
-    /** an array of {@link XrSwapchainSubImage} to apply foveated rendering. */
+    /** @return a {@link XrSwapchainSubImage.Buffer} view of the struct array pointed to by the {@code subImages} field. */
     @NativeType("XrSwapchainSubImage *")
     public XrSwapchainSubImage.Buffer subImages() { return nsubImages(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrFoveationApplyInfoHTC type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link HTCFoveation#XR_TYPE_FOVEATION_APPLY_INFO_HTC TYPE_FOVEATION_APPLY_INFO_HTC} value to the {@link #type} field. */
+    /** Sets the {@link HTCFoveation#XR_TYPE_FOVEATION_APPLY_INFO_HTC TYPE_FOVEATION_APPLY_INFO_HTC} value to the {@code type} field. */
     public XrFoveationApplyInfoHTC type$Default() { return type(HTCFoveation.XR_TYPE_FOVEATION_APPLY_INFO_HTC); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrFoveationApplyInfoHTC next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrFoveationCustomModeInfoHTC} value to the {@code next} chain. */
     public XrFoveationApplyInfoHTC next(XrFoveationCustomModeInfoHTC value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrFoveationDynamicModeInfoHTC} value to the {@code next} chain. */
     public XrFoveationApplyInfoHTC next(XrFoveationDynamicModeInfoHTC value) { return this.next(value.next(this.next()).address()); }
-    /** Sets the specified value to the {@link #mode} field. */
+    /** Sets the specified value to the {@code mode} field. */
     public XrFoveationApplyInfoHTC mode(@NativeType("XrFoveationModeHTC") int value) { nmode(address(), value); return this; }
-    /** Sets the address of the specified {@link XrSwapchainSubImage.Buffer} to the {@link #subImages} field. */
+    /** Sets the address of the specified {@link XrSwapchainSubImage.Buffer} to the {@code subImages} field. */
     public XrFoveationApplyInfoHTC subImages(@NativeType("XrSwapchainSubImage *") XrSwapchainSubImage.Buffer value) { nsubImages(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -201,8 +165,7 @@ public class XrFoveationApplyInfoHTC extends Struct<XrFoveationApplyInfoHTC> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationApplyInfoHTC createSafe(long address) {
+    public static @Nullable XrFoveationApplyInfoHTC createSafe(long address) {
         return address == NULL ? null : new XrFoveationApplyInfoHTC(address, null);
     }
 
@@ -245,8 +208,7 @@ public class XrFoveationApplyInfoHTC extends Struct<XrFoveationApplyInfoHTC> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFoveationApplyInfoHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFoveationApplyInfoHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,24 +253,24 @@ public class XrFoveationApplyInfoHTC extends Struct<XrFoveationApplyInfoHTC> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFoveationApplyInfoHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFoveationApplyInfoHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFoveationApplyInfoHTC.NEXT); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + XrFoveationApplyInfoHTC.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + XrFoveationApplyInfoHTC.MODE); }
     /** Unsafe version of {@link #subImageCount}. */
-    public static int nsubImageCount(long struct) { return UNSAFE.getInt(null, struct + XrFoveationApplyInfoHTC.SUBIMAGECOUNT); }
+    public static int nsubImageCount(long struct) { return memGetInt(struct + XrFoveationApplyInfoHTC.SUBIMAGECOUNT); }
     /** Unsafe version of {@link #subImages}. */
     public static XrSwapchainSubImage.Buffer nsubImages(long struct) { return XrSwapchainSubImage.create(memGetAddress(struct + XrFoveationApplyInfoHTC.SUBIMAGES), nsubImageCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationApplyInfoHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFoveationApplyInfoHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFoveationApplyInfoHTC.NEXT, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationApplyInfoHTC.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + XrFoveationApplyInfoHTC.MODE, value); }
     /** Sets the specified value to the {@code subImageCount} field of the specified {@code struct}. */
-    public static void nsubImageCount(long struct, int value) { UNSAFE.putInt(null, struct + XrFoveationApplyInfoHTC.SUBIMAGECOUNT, value); }
+    public static void nsubImageCount(long struct, int value) { memPutInt(struct + XrFoveationApplyInfoHTC.SUBIMAGECOUNT, value); }
     /** Unsafe version of {@link #subImages(XrSwapchainSubImage.Buffer) subImages}. */
     public static void nsubImages(long struct, XrSwapchainSubImage.Buffer value) { memPutAddress(struct + XrFoveationApplyInfoHTC.SUBIMAGES, value.address()); nsubImageCount(struct, value.remaining()); }
 
@@ -358,39 +320,44 @@ public class XrFoveationApplyInfoHTC extends Struct<XrFoveationApplyInfoHTC> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrFoveationApplyInfoHTC getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFoveationApplyInfoHTC#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrFoveationApplyInfoHTC.ntype(address()); }
-        /** @return the value of the {@link XrFoveationApplyInfoHTC#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrFoveationApplyInfoHTC.nnext(address()); }
-        /** @return the value of the {@link XrFoveationApplyInfoHTC#mode} field. */
+        /** @return the value of the {@code mode} field. */
         @NativeType("XrFoveationModeHTC")
         public int mode() { return XrFoveationApplyInfoHTC.nmode(address()); }
-        /** @return the value of the {@link XrFoveationApplyInfoHTC#subImageCount} field. */
+        /** @return the value of the {@code subImageCount} field. */
         @NativeType("uint32_t")
         public int subImageCount() { return XrFoveationApplyInfoHTC.nsubImageCount(address()); }
-        /** @return a {@link XrSwapchainSubImage.Buffer} view of the struct array pointed to by the {@link XrFoveationApplyInfoHTC#subImages} field. */
+        /** @return a {@link XrSwapchainSubImage.Buffer} view of the struct array pointed to by the {@code subImages} field. */
         @NativeType("XrSwapchainSubImage *")
         public XrSwapchainSubImage.Buffer subImages() { return XrFoveationApplyInfoHTC.nsubImages(address()); }
 
-        /** Sets the specified value to the {@link XrFoveationApplyInfoHTC#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrFoveationApplyInfoHTC.Buffer type(@NativeType("XrStructureType") int value) { XrFoveationApplyInfoHTC.ntype(address(), value); return this; }
-        /** Sets the {@link HTCFoveation#XR_TYPE_FOVEATION_APPLY_INFO_HTC TYPE_FOVEATION_APPLY_INFO_HTC} value to the {@link XrFoveationApplyInfoHTC#type} field. */
+        /** Sets the {@link HTCFoveation#XR_TYPE_FOVEATION_APPLY_INFO_HTC TYPE_FOVEATION_APPLY_INFO_HTC} value to the {@code type} field. */
         public XrFoveationApplyInfoHTC.Buffer type$Default() { return type(HTCFoveation.XR_TYPE_FOVEATION_APPLY_INFO_HTC); }
-        /** Sets the specified value to the {@link XrFoveationApplyInfoHTC#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrFoveationApplyInfoHTC.Buffer next(@NativeType("void const *") long value) { XrFoveationApplyInfoHTC.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrFoveationCustomModeInfoHTC} value to the {@code next} chain. */
         public XrFoveationApplyInfoHTC.Buffer next(XrFoveationCustomModeInfoHTC value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrFoveationDynamicModeInfoHTC} value to the {@code next} chain. */
         public XrFoveationApplyInfoHTC.Buffer next(XrFoveationDynamicModeInfoHTC value) { return this.next(value.next(this.next()).address()); }
-        /** Sets the specified value to the {@link XrFoveationApplyInfoHTC#mode} field. */
+        /** Sets the specified value to the {@code mode} field. */
         public XrFoveationApplyInfoHTC.Buffer mode(@NativeType("XrFoveationModeHTC") int value) { XrFoveationApplyInfoHTC.nmode(address(), value); return this; }
-        /** Sets the address of the specified {@link XrSwapchainSubImage.Buffer} to the {@link XrFoveationApplyInfoHTC#subImages} field. */
+        /** Sets the address of the specified {@link XrSwapchainSubImage.Buffer} to the {@code subImages} field. */
         public XrFoveationApplyInfoHTC.Buffer subImages(@NativeType("XrSwapchainSubImage *") XrSwapchainSubImage.Buffer value) { XrFoveationApplyInfoHTC.nsubImages(address(), value); return this; }
 
     }

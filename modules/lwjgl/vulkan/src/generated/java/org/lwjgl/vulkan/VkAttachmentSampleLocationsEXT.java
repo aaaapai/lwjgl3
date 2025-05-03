@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the sample locations state to use in the initial layout transition of attachments.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the image referenced by the framebuffer attachment at index {@code attachmentIndex} was not created with {@link EXTSampleLocations#VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT} then the values specified in {@code sampleLocationsInfo} are ignored.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code attachmentIndex} <b>must</b> be less than the {@code attachmentCount} specified in {@link VkRenderPassCreateInfo} the render pass specified by {@link VkRenderPassBeginInfo}{@code ::renderPass} was created with</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sampleLocationsInfo} <b>must</b> be a valid {@link VkSampleLocationsInfoEXT} structure</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRenderPassSampleLocationsBeginInfoEXT}, {@link VkSampleLocationsInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAttachmentSampleLocationsEXT {
- *     uint32_t {@link #attachmentIndex};
- *     {@link VkSampleLocationsInfoEXT VkSampleLocationsInfoEXT} {@link #sampleLocationsInfo};
- * }</code></pre>
+ *     uint32_t attachmentIndex;
+ *     {@link VkSampleLocationsInfoEXT VkSampleLocationsInfoEXT} sampleLocationsInfo;
+ * }}</pre>
  */
 public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLocationsEXT> implements NativeResource {
 
@@ -94,17 +70,17 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the index of the attachment for which the sample locations state is provided. */
+    /** @return the value of the {@code attachmentIndex} field. */
     @NativeType("uint32_t")
     public int attachmentIndex() { return nattachmentIndex(address()); }
-    /** the sample locations state to use for the layout transition of the given attachment from the initial layout of the attachment to the image layout specified for the attachment in the first subpass using it. */
+    /** @return a {@link VkSampleLocationsInfoEXT} view of the {@code sampleLocationsInfo} field. */
     public VkSampleLocationsInfoEXT sampleLocationsInfo() { return nsampleLocationsInfo(address()); }
 
-    /** Sets the specified value to the {@link #attachmentIndex} field. */
+    /** Sets the specified value to the {@code attachmentIndex} field. */
     public VkAttachmentSampleLocationsEXT attachmentIndex(@NativeType("uint32_t") int value) { nattachmentIndex(address(), value); return this; }
-    /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@link #sampleLocationsInfo} field. */
+    /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@code sampleLocationsInfo} field. */
     public VkAttachmentSampleLocationsEXT sampleLocationsInfo(VkSampleLocationsInfoEXT value) { nsampleLocationsInfo(address(), value); return this; }
-    /** Passes the {@link #sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkAttachmentSampleLocationsEXT sampleLocationsInfo(java.util.function.Consumer<VkSampleLocationsInfoEXT> consumer) { consumer.accept(sampleLocationsInfo()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -154,8 +130,7 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleLocationsEXT createSafe(long address) {
+    public static @Nullable VkAttachmentSampleLocationsEXT createSafe(long address) {
         return address == NULL ? null : new VkAttachmentSampleLocationsEXT(address, null);
     }
 
@@ -198,8 +173,7 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentSampleLocationsEXT.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentSampleLocationsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,12 +237,12 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
     // -----------------------------------
 
     /** Unsafe version of {@link #attachmentIndex}. */
-    public static int nattachmentIndex(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX); }
+    public static int nattachmentIndex(long struct) { return memGetInt(struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX); }
     /** Unsafe version of {@link #sampleLocationsInfo}. */
     public static VkSampleLocationsInfoEXT nsampleLocationsInfo(long struct) { return VkSampleLocationsInfoEXT.create(struct + VkAttachmentSampleLocationsEXT.SAMPLELOCATIONSINFO); }
 
     /** Unsafe version of {@link #attachmentIndex(int) attachmentIndex}. */
-    public static void nattachmentIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX, value); }
+    public static void nattachmentIndex(long struct, int value) { memPutInt(struct + VkAttachmentSampleLocationsEXT.ATTACHMENTINDEX, value); }
     /** Unsafe version of {@link #sampleLocationsInfo(VkSampleLocationsInfoEXT) sampleLocationsInfo}. */
     public static void nsampleLocationsInfo(long struct, VkSampleLocationsInfoEXT value) { memCopy(value.address(), struct + VkAttachmentSampleLocationsEXT.SAMPLELOCATIONSINFO, VkSampleLocationsInfoEXT.SIZEOF); }
 
@@ -315,21 +289,26 @@ public class VkAttachmentSampleLocationsEXT extends Struct<VkAttachmentSampleLoc
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAttachmentSampleLocationsEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAttachmentSampleLocationsEXT#attachmentIndex} field. */
+        /** @return the value of the {@code attachmentIndex} field. */
         @NativeType("uint32_t")
         public int attachmentIndex() { return VkAttachmentSampleLocationsEXT.nattachmentIndex(address()); }
-        /** @return a {@link VkSampleLocationsInfoEXT} view of the {@link VkAttachmentSampleLocationsEXT#sampleLocationsInfo} field. */
+        /** @return a {@link VkSampleLocationsInfoEXT} view of the {@code sampleLocationsInfo} field. */
         public VkSampleLocationsInfoEXT sampleLocationsInfo() { return VkAttachmentSampleLocationsEXT.nsampleLocationsInfo(address()); }
 
-        /** Sets the specified value to the {@link VkAttachmentSampleLocationsEXT#attachmentIndex} field. */
+        /** Sets the specified value to the {@code attachmentIndex} field. */
         public VkAttachmentSampleLocationsEXT.Buffer attachmentIndex(@NativeType("uint32_t") int value) { VkAttachmentSampleLocationsEXT.nattachmentIndex(address(), value); return this; }
-        /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@link VkAttachmentSampleLocationsEXT#sampleLocationsInfo} field. */
+        /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@code sampleLocationsInfo} field. */
         public VkAttachmentSampleLocationsEXT.Buffer sampleLocationsInfo(VkSampleLocationsInfoEXT value) { VkAttachmentSampleLocationsEXT.nsampleLocationsInfo(address(), value); return this; }
-        /** Passes the {@link VkAttachmentSampleLocationsEXT#sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkAttachmentSampleLocationsEXT.Buffer sampleLocationsInfo(java.util.function.Consumer<VkSampleLocationsInfoEXT> consumer) { consumer.accept(sampleLocationsInfo()); return this; }
 
     }

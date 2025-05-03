@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XSelectionClearEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     Atom selection;
  *     Time time;
- * }</code></pre>
+ * }}</pre>
  */
 public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implements NativeResource {
 
@@ -95,16 +93,16 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return the value of the {@code selection} field. */
@@ -116,13 +114,13 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
 
     /** Sets the specified value to the {@code type} field. */
     public XSelectionClearEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XSelectionClearEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XSelectionClearEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XSelectionClearEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XSelectionClearEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Sets the specified value to the {@code selection} field. */
     public XSelectionClearEvent selection(@NativeType("Atom") long value) { nselection(address(), value); return this; }
@@ -186,8 +184,7 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionClearEvent createSafe(long address) {
+    public static @Nullable XSelectionClearEvent createSafe(long address) {
         return address == NULL ? null : new XSelectionClearEvent(address, null);
     }
 
@@ -230,8 +227,7 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionClearEvent.Buffer createSafe(long address, int capacity) {
+    public static XSelectionClearEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,11 +291,11 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XSelectionClearEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XSelectionClearEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XSelectionClearEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XSelectionClearEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XSelectionClearEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XSelectionClearEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -310,11 +306,11 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
     public static long ntime(long struct) { return memGetCLong(struct + XSelectionClearEvent.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionClearEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XSelectionClearEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XSelectionClearEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionClearEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XSelectionClearEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XSelectionClearEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -367,22 +363,27 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XSelectionClearEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XSelectionClearEvent.ntype(address()); }
-        /** @return the value of the {@link XSelectionClearEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XSelectionClearEvent.nserial(address()); }
-        /** @return the value of the {@link XSelectionClearEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XSelectionClearEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XSelectionClearEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XSelectionClearEvent.ndisplay(address()); }
-        /** @return the value of the {@link XSelectionClearEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XSelectionClearEvent.nwindow(address()); }
         /** @return the value of the {@code selection} field. */
@@ -394,13 +395,13 @@ public class XSelectionClearEvent extends Struct<XSelectionClearEvent> implement
 
         /** Sets the specified value to the {@code type} field. */
         public XSelectionClearEvent.Buffer type(int value) { XSelectionClearEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionClearEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XSelectionClearEvent.Buffer serial(@NativeType("unsigned long") long value) { XSelectionClearEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionClearEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XSelectionClearEvent.Buffer send_event(@NativeType("Bool") boolean value) { XSelectionClearEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XSelectionClearEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XSelectionClearEvent.Buffer display(@NativeType("Display *") long value) { XSelectionClearEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionClearEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XSelectionClearEvent.Buffer window(@NativeType("Window") long value) { XSelectionClearEvent.nwindow(address(), value); return this; }
         /** Sets the specified value to the {@code selection} field. */
         public XSelectionClearEvent.Buffer selection(@NativeType("Atom") long value) { XSelectionClearEvent.nselection(address(), value); return this; }

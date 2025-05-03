@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,11 +15,9 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_row_layout {
- *     enum nk_panel_row_layout_type {@link #type};
+ *     enum nk_panel_row_layout_type type;
  *     int index;
  *     float height;
  *     float min_height;
@@ -32,7 +30,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     {@link NkRect struct nk_rect} item;
  *     int tree_depth;
  *     float templates[16];
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_row_layout")
 public class NkRowLayout extends Struct<NkRowLayout> {
@@ -116,7 +114,7 @@ public class NkRowLayout extends Struct<NkRowLayout> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** one of:<br><table><tr><td>{@link Nuklear#NK_LAYOUT_DYNAMIC_FIXED LAYOUT_DYNAMIC_FIXED}</td><td>{@link Nuklear#NK_LAYOUT_DYNAMIC_ROW LAYOUT_DYNAMIC_ROW}</td><td>{@link Nuklear#NK_LAYOUT_DYNAMIC_FREE LAYOUT_DYNAMIC_FREE}</td><td>{@link Nuklear#NK_LAYOUT_DYNAMIC LAYOUT_DYNAMIC}</td></tr><tr><td>{@link Nuklear#NK_LAYOUT_STATIC_FIXED LAYOUT_STATIC_FIXED}</td><td>{@link Nuklear#NK_LAYOUT_STATIC_ROW LAYOUT_STATIC_ROW}</td><td>{@link Nuklear#NK_LAYOUT_STATIC_FREE LAYOUT_STATIC_FREE}</td><td>{@link Nuklear#NK_LAYOUT_STATIC LAYOUT_STATIC}</td></tr><tr><td>{@link Nuklear#NK_LAYOUT_TEMPLATE LAYOUT_TEMPLATE}</td><td>{@link Nuklear#NK_LAYOUT_COUNT LAYOUT_COUNT}</td></tr></table> */
+    /** @return the value of the {@code type} field. */
     @NativeType("enum nk_panel_row_layout_type")
     public int type() { return ntype(address()); }
     /** @return the value of the {@code index} field. */
@@ -127,11 +125,7 @@ public class NkRowLayout extends Struct<NkRowLayout> {
     public float min_height() { return nmin_height(address()); }
     /** @return the value of the {@code columns} field. */
     public int columns() { return ncolumns(address()); }
-    /**
-     * @return a {@link FloatBuffer} view of the data pointed to by the {@code ratio} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link FloatBuffer} view of the data pointed to by the {@code ratio} field. */
     @NativeType("float const *")
     public FloatBuffer ratio(int capacity) { return nratio(address(), capacity); }
     /** @return the value of the {@code item_width} field. */
@@ -161,8 +155,7 @@ public class NkRowLayout extends Struct<NkRowLayout> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkRowLayout createSafe(long address) {
+    public static @Nullable NkRowLayout createSafe(long address) {
         return address == NULL ? null : new NkRowLayout(address, null);
     }
 
@@ -177,42 +170,41 @@ public class NkRowLayout extends Struct<NkRowLayout> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkRowLayout.Buffer createSafe(long address, int capacity) {
+    public static NkRowLayout.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkRowLayout.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkRowLayout.TYPE); }
     /** Unsafe version of {@link #index}. */
-    public static int nindex(long struct) { return UNSAFE.getInt(null, struct + NkRowLayout.INDEX); }
+    public static int nindex(long struct) { return memGetInt(struct + NkRowLayout.INDEX); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + NkRowLayout.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + NkRowLayout.HEIGHT); }
     /** Unsafe version of {@link #min_height}. */
-    public static float nmin_height(long struct) { return UNSAFE.getFloat(null, struct + NkRowLayout.MIN_HEIGHT); }
+    public static float nmin_height(long struct) { return memGetFloat(struct + NkRowLayout.MIN_HEIGHT); }
     /** Unsafe version of {@link #columns}. */
-    public static int ncolumns(long struct) { return UNSAFE.getInt(null, struct + NkRowLayout.COLUMNS); }
+    public static int ncolumns(long struct) { return memGetInt(struct + NkRowLayout.COLUMNS); }
     /** Unsafe version of {@link #ratio(int) ratio}. */
     public static FloatBuffer nratio(long struct, int capacity) { return memFloatBuffer(memGetAddress(struct + NkRowLayout.RATIO), capacity); }
     /** Unsafe version of {@link #item_width}. */
-    public static float nitem_width(long struct) { return UNSAFE.getFloat(null, struct + NkRowLayout.ITEM_WIDTH); }
+    public static float nitem_width(long struct) { return memGetFloat(struct + NkRowLayout.ITEM_WIDTH); }
     /** Unsafe version of {@link #item_height}. */
-    public static float nitem_height(long struct) { return UNSAFE.getFloat(null, struct + NkRowLayout.ITEM_HEIGHT); }
+    public static float nitem_height(long struct) { return memGetFloat(struct + NkRowLayout.ITEM_HEIGHT); }
     /** Unsafe version of {@link #item_offset}. */
-    public static float nitem_offset(long struct) { return UNSAFE.getFloat(null, struct + NkRowLayout.ITEM_OFFSET); }
+    public static float nitem_offset(long struct) { return memGetFloat(struct + NkRowLayout.ITEM_OFFSET); }
     /** Unsafe version of {@link #filled}. */
-    public static float nfilled(long struct) { return UNSAFE.getFloat(null, struct + NkRowLayout.FILLED); }
+    public static float nfilled(long struct) { return memGetFloat(struct + NkRowLayout.FILLED); }
     /** Unsafe version of {@link #item}. */
     public static NkRect nitem(long struct) { return NkRect.create(struct + NkRowLayout.ITEM); }
     /** Unsafe version of {@link #tree_depth}. */
-    public static int ntree_depth(long struct) { return UNSAFE.getInt(null, struct + NkRowLayout.TREE_DEPTH); }
+    public static int ntree_depth(long struct) { return memGetInt(struct + NkRowLayout.TREE_DEPTH); }
     /** Unsafe version of {@link #templates}. */
     public static FloatBuffer ntemplates(long struct) { return memFloatBuffer(struct + NkRowLayout.TEMPLATES, 16); }
     /** Unsafe version of {@link #templates(int) templates}. */
     public static float ntemplates(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + NkRowLayout.TEMPLATES + check(index, 16) * 4);
+        return memGetFloat(struct + NkRowLayout.TEMPLATES + check(index, 16) * 4);
     }
 
     // -----------------------------------
@@ -249,11 +241,16 @@ public class NkRowLayout extends Struct<NkRowLayout> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkRowLayout getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NkRowLayout#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("enum nk_panel_row_layout_type")
         public int type() { return NkRowLayout.ntype(address()); }
         /** @return the value of the {@code index} field. */
@@ -264,11 +261,7 @@ public class NkRowLayout extends Struct<NkRowLayout> {
         public float min_height() { return NkRowLayout.nmin_height(address()); }
         /** @return the value of the {@code columns} field. */
         public int columns() { return NkRowLayout.ncolumns(address()); }
-        /**
-         * @return a {@link FloatBuffer} view of the data pointed to by the {@code ratio} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link FloatBuffer} view of the data pointed to by the {@code ratio} field. */
         @NativeType("float const *")
         public FloatBuffer ratio(int capacity) { return NkRowLayout.nratio(address(), capacity); }
         /** @return the value of the {@code item_width} field. */

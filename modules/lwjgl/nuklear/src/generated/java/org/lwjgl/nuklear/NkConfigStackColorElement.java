@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,13 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_config_stack_color_element {
  *     {@link NkColor struct nk_color} * pValues;
  *     {@link NkColor struct nk_color} old_value;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_config_stack_color_element")
 class NkConfigStackColorElement extends Struct<NkConfigStackColorElement> {
@@ -86,8 +84,7 @@ class NkConfigStackColorElement extends Struct<NkConfigStackColorElement> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackColorElement createSafe(long address) {
+    public static @Nullable NkConfigStackColorElement createSafe(long address) {
         return address == NULL ? null : new NkConfigStackColorElement(address, null);
     }
 
@@ -102,8 +99,7 @@ class NkConfigStackColorElement extends Struct<NkConfigStackColorElement> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackColorElement.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackColorElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -145,6 +141,11 @@ class NkConfigStackColorElement extends Struct<NkConfigStackColorElement> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

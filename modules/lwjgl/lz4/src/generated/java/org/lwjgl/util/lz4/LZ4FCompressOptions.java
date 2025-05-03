@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct LZ4F_compressOptions_t {
- *     unsigned {@link #stableSrc};
+ *     unsigned stableSrc;
  *     unsigned reserved[3];
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct LZ4F_compressOptions_t")
 public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements NativeResource {
@@ -74,7 +72,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@code 1 == src} content will remain present on future calls to {@code LZ4F_compress()}; skip copying {@code src} content within {@code tmp} buffer */
+    /** @return the value of the {@code stableSrc} field. */
     @NativeType("unsigned")
     public int stableSrc() { return nstableSrc(address()); }
     /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -84,7 +82,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     @NativeType("unsigned")
     public int reserved(int index) { return nreserved(address(), index); }
 
-    /** Sets the specified value to the {@link #stableSrc} field. */
+    /** Sets the specified value to the {@code stableSrc} field. */
     public LZ4FCompressOptions stableSrc(@NativeType("unsigned") int value) { nstableSrc(address(), value); return this; }
     /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
     public LZ4FCompressOptions reserved(@NativeType("unsigned[3]") IntBuffer value) { nreserved(address(), value); return this; }
@@ -138,8 +136,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FCompressOptions createSafe(long address) {
+    public static @Nullable LZ4FCompressOptions createSafe(long address) {
         return address == NULL ? null : new LZ4FCompressOptions(address, null);
     }
 
@@ -182,8 +179,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FCompressOptions.Buffer createSafe(long address, int capacity) {
+    public static LZ4FCompressOptions.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,16 +243,16 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #stableSrc}. */
-    public static int nstableSrc(long struct) { return UNSAFE.getInt(null, struct + LZ4FCompressOptions.STABLESRC); }
+    public static int nstableSrc(long struct) { return memGetInt(struct + LZ4FCompressOptions.STABLESRC); }
     /** Unsafe version of {@link #reserved}. */
     public static IntBuffer nreserved(long struct) { return memIntBuffer(struct + LZ4FCompressOptions.RESERVED, 3); }
     /** Unsafe version of {@link #reserved(int) reserved}. */
     public static int nreserved(long struct, int index) {
-        return UNSAFE.getInt(null, struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4);
+        return memGetInt(struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4);
     }
 
     /** Unsafe version of {@link #stableSrc(int) stableSrc}. */
-    public static void nstableSrc(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FCompressOptions.STABLESRC, value); }
+    public static void nstableSrc(long struct, int value) { memPutInt(struct + LZ4FCompressOptions.STABLESRC, value); }
     /** Unsafe version of {@link #reserved(IntBuffer) reserved}. */
     public static void nreserved(long struct, IntBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
@@ -264,7 +260,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     }
     /** Unsafe version of {@link #reserved(int, int) reserved}. */
     public static void nreserved(long struct, int index, int value) {
-        UNSAFE.putInt(null, struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4, value);
+        memPutInt(struct + LZ4FCompressOptions.RESERVED + check(index, 3) * 4, value);
     }
 
     // -----------------------------------
@@ -301,11 +297,16 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected LZ4FCompressOptions getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link LZ4FCompressOptions#stableSrc} field. */
+        /** @return the value of the {@code stableSrc} field. */
         @NativeType("unsigned")
         public int stableSrc() { return LZ4FCompressOptions.nstableSrc(address()); }
         /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -315,7 +316,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
         @NativeType("unsigned")
         public int reserved(int index) { return LZ4FCompressOptions.nreserved(address(), index); }
 
-        /** Sets the specified value to the {@link LZ4FCompressOptions#stableSrc} field. */
+        /** Sets the specified value to the {@code stableSrc} field. */
         public LZ4FCompressOptions.Buffer stableSrc(@NativeType("unsigned") int value) { LZ4FCompressOptions.nstableSrc(address(), value); return this; }
         /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
         public LZ4FCompressOptions.Buffer reserved(@NativeType("unsigned[3]") IntBuffer value) { LZ4FCompressOptions.nreserved(address(), value); return this; }

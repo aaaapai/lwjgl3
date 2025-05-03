@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing subgroup support for an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceSubgroupProperties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>If {@code supportedOperations} includes <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-subgroup-quad">{@link VK11#VK_SUBGROUP_FEATURE_QUAD_BIT SUBGROUP_FEATURE_QUAD_BIT}</a>, or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderSubgroupUniformControlFlow">{@code shaderSubgroupUniformControlFlow}</a> is enabled, {@code subgroupSize} <b>must</b> be greater than or equal to 4.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceSubgroupProperties {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #subgroupSize};
- *     VkShaderStageFlags {@link #supportedStages};
- *     VkSubgroupFeatureFlags {@link #supportedOperations};
- *     VkBool32 {@link #quadOperationsInAllStages};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t subgroupSize;
+ *     VkShaderStageFlags supportedStages;
+ *     VkSubgroupFeatureFlags supportedOperations;
+ *     VkBool32 quadOperationsInAllStages;
+ * }}</pre>
  */
 public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceSubgroupProperties> implements NativeResource {
 
@@ -102,30 +86,30 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the default number of invocations in each subgroup. {@code subgroupSize} is at least 1 if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code subgroupSize} is a power-of-two. */
+    /** @return the value of the {@code subgroupSize} field. */
     @NativeType("uint32_t")
     public int subgroupSize() { return nsubgroupSize(address()); }
-    /** a bitfield of {@code VkShaderStageFlagBits} describing the shader stages that <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> are supported in. {@code supportedStages} will have the {@link VK10#VK_SHADER_STAGE_COMPUTE_BIT SHADER_STAGE_COMPUTE_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
+    /** @return the value of the {@code supportedStages} field. */
     @NativeType("VkShaderStageFlags")
     public int supportedStages() { return nsupportedStages(address()); }
-    /** a bitmask of {@code VkSubgroupFeatureFlagBits} specifying the sets of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-group-operations">group operations</a> with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-scope-subgroup">subgroup scope</a> supported on this device. {@code supportedOperations} will have the {@link VK11#VK_SUBGROUP_FEATURE_BASIC_BIT SUBGROUP_FEATURE_BASIC_BIT} bit set if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. */
+    /** @return the value of the {@code supportedOperations} field. */
     @NativeType("VkSubgroupFeatureFlags")
     public int supportedOperations() { return nsupportedOperations(address()); }
-    /** a boolean specifying whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-quad-operations">quad group operations</a> are available in all stages, or are restricted to fragment and compute stages. */
+    /** @return the value of the {@code quadOperationsInAllStages} field. */
     @NativeType("VkBool32")
     public boolean quadOperationsInAllStages() { return nquadOperationsInAllStages(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceSubgroupProperties sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES} value to the {@code sType} field. */
     public VkPhysicalDeviceSubgroupProperties sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceSubgroupProperties pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +159,7 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSubgroupProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSubgroupProperties(address, null);
     }
 
@@ -219,8 +202,7 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSubgroupProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSubgroupProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,20 +266,20 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSubgroupProperties.PNEXT); }
     /** Unsafe version of {@link #subgroupSize}. */
-    public static int nsubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.SUBGROUPSIZE); }
+    public static int nsubgroupSize(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.SUBGROUPSIZE); }
     /** Unsafe version of {@link #supportedStages}. */
-    public static int nsupportedStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDSTAGES); }
+    public static int nsupportedStages(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDSTAGES); }
     /** Unsafe version of {@link #supportedOperations}. */
-    public static int nsupportedOperations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDOPERATIONS); }
+    public static int nsupportedOperations(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.SUPPORTEDOPERATIONS); }
     /** Unsafe version of {@link #quadOperationsInAllStages}. */
-    public static int nquadOperationsInAllStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSubgroupProperties.QUADOPERATIONSINALLSTAGES); }
+    public static int nquadOperationsInAllStages(long struct) { return memGetInt(struct + VkPhysicalDeviceSubgroupProperties.QUADOPERATIONSINALLSTAGES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSubgroupProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSubgroupProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSubgroupProperties.PNEXT, value); }
 
@@ -335,34 +317,39 @@ public class VkPhysicalDeviceSubgroupProperties extends Struct<VkPhysicalDeviceS
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceSubgroupProperties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceSubgroupProperties#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceSubgroupProperties.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSubgroupProperties#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceSubgroupProperties.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSubgroupProperties#subgroupSize} field. */
+        /** @return the value of the {@code subgroupSize} field. */
         @NativeType("uint32_t")
         public int subgroupSize() { return VkPhysicalDeviceSubgroupProperties.nsubgroupSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSubgroupProperties#supportedStages} field. */
+        /** @return the value of the {@code supportedStages} field. */
         @NativeType("VkShaderStageFlags")
         public int supportedStages() { return VkPhysicalDeviceSubgroupProperties.nsupportedStages(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSubgroupProperties#supportedOperations} field. */
+        /** @return the value of the {@code supportedOperations} field. */
         @NativeType("VkSubgroupFeatureFlags")
         public int supportedOperations() { return VkPhysicalDeviceSubgroupProperties.nsupportedOperations(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSubgroupProperties#quadOperationsInAllStages} field. */
+        /** @return the value of the {@code quadOperationsInAllStages} field. */
         @NativeType("VkBool32")
         public boolean quadOperationsInAllStages() { return VkPhysicalDeviceSubgroupProperties.nquadOperationsInAllStages(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceSubgroupProperties#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceSubgroupProperties.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceSubgroupProperties.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES} value to the {@link VkPhysicalDeviceSubgroupProperties#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES} value to the {@code sType} field. */
         public VkPhysicalDeviceSubgroupProperties.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceSubgroupProperties#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceSubgroupProperties.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceSubgroupProperties.npNext(address(), value); return this; }
 
     }

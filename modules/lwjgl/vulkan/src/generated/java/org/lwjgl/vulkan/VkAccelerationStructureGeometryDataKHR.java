@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Union specifying acceleration structure geometry data.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAccelerationStructureGeometryAabbsDataKHR}, {@link VkAccelerationStructureGeometryInstancesDataKHR}, {@link VkAccelerationStructureGeometryKHR}, {@link VkAccelerationStructureGeometryTrianglesDataKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union VkAccelerationStructureGeometryDataKHR {
- *     {@link VkAccelerationStructureGeometryTrianglesDataKHR VkAccelerationStructureGeometryTrianglesDataKHR} {@link #triangles};
- *     {@link VkAccelerationStructureGeometryAabbsDataKHR VkAccelerationStructureGeometryAabbsDataKHR} {@link #aabbs};
- *     {@link VkAccelerationStructureGeometryInstancesDataKHR VkAccelerationStructureGeometryInstancesDataKHR} {@link #instances};
- * }</code></pre>
+ *     {@link VkAccelerationStructureGeometryTrianglesDataKHR VkAccelerationStructureGeometryTrianglesDataKHR} triangles;
+ *     {@link VkAccelerationStructureGeometryAabbsDataKHR VkAccelerationStructureGeometryAabbsDataKHR} aabbs;
+ *     {@link VkAccelerationStructureGeometryInstancesDataKHR VkAccelerationStructureGeometryInstancesDataKHR} instances;
+ * }}</pre>
  */
 public class VkAccelerationStructureGeometryDataKHR extends Struct<VkAccelerationStructureGeometryDataKHR> implements NativeResource {
 
@@ -82,24 +74,24 @@ public class VkAccelerationStructureGeometryDataKHR extends Struct<VkAcceleratio
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@link VkAccelerationStructureGeometryTrianglesDataKHR} structure. */
+    /** @return a {@link VkAccelerationStructureGeometryTrianglesDataKHR} view of the {@code triangles} field. */
     public VkAccelerationStructureGeometryTrianglesDataKHR triangles() { return ntriangles(address()); }
-    /** a {@link VkAccelerationStructureGeometryAabbsDataKHR} structure. */
+    /** @return a {@link VkAccelerationStructureGeometryAabbsDataKHR} view of the {@code aabbs} field. */
     public VkAccelerationStructureGeometryAabbsDataKHR aabbs() { return naabbs(address()); }
-    /** a {@link VkAccelerationStructureGeometryInstancesDataKHR} structure. */
+    /** @return a {@link VkAccelerationStructureGeometryInstancesDataKHR} view of the {@code instances} field. */
     public VkAccelerationStructureGeometryInstancesDataKHR instances() { return ninstances(address()); }
 
-    /** Copies the specified {@link VkAccelerationStructureGeometryTrianglesDataKHR} to the {@link #triangles} field. */
+    /** Copies the specified {@link VkAccelerationStructureGeometryTrianglesDataKHR} to the {@code triangles} field. */
     public VkAccelerationStructureGeometryDataKHR triangles(VkAccelerationStructureGeometryTrianglesDataKHR value) { ntriangles(address(), value); return this; }
-    /** Passes the {@link #triangles} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code triangles} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkAccelerationStructureGeometryDataKHR triangles(java.util.function.Consumer<VkAccelerationStructureGeometryTrianglesDataKHR> consumer) { consumer.accept(triangles()); return this; }
-    /** Copies the specified {@link VkAccelerationStructureGeometryAabbsDataKHR} to the {@link #aabbs} field. */
+    /** Copies the specified {@link VkAccelerationStructureGeometryAabbsDataKHR} to the {@code aabbs} field. */
     public VkAccelerationStructureGeometryDataKHR aabbs(VkAccelerationStructureGeometryAabbsDataKHR value) { naabbs(address(), value); return this; }
-    /** Passes the {@link #aabbs} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code aabbs} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkAccelerationStructureGeometryDataKHR aabbs(java.util.function.Consumer<VkAccelerationStructureGeometryAabbsDataKHR> consumer) { consumer.accept(aabbs()); return this; }
-    /** Copies the specified {@link VkAccelerationStructureGeometryInstancesDataKHR} to the {@link #instances} field. */
+    /** Copies the specified {@link VkAccelerationStructureGeometryInstancesDataKHR} to the {@code instances} field. */
     public VkAccelerationStructureGeometryDataKHR instances(VkAccelerationStructureGeometryInstancesDataKHR value) { ninstances(address(), value); return this; }
-    /** Passes the {@link #instances} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code instances} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkAccelerationStructureGeometryDataKHR instances(java.util.function.Consumer<VkAccelerationStructureGeometryInstancesDataKHR> consumer) { consumer.accept(instances()); return this; }
 
     /**
@@ -138,8 +130,7 @@ public class VkAccelerationStructureGeometryDataKHR extends Struct<VkAcceleratio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryDataKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureGeometryDataKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureGeometryDataKHR(address, null);
     }
 
@@ -182,8 +173,7 @@ public class VkAccelerationStructureGeometryDataKHR extends Struct<VkAcceleratio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryDataKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureGeometryDataKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,28 +265,33 @@ public class VkAccelerationStructureGeometryDataKHR extends Struct<VkAcceleratio
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAccelerationStructureGeometryDataKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkAccelerationStructureGeometryTrianglesDataKHR} view of the {@link VkAccelerationStructureGeometryDataKHR#triangles} field. */
+        /** @return a {@link VkAccelerationStructureGeometryTrianglesDataKHR} view of the {@code triangles} field. */
         public VkAccelerationStructureGeometryTrianglesDataKHR triangles() { return VkAccelerationStructureGeometryDataKHR.ntriangles(address()); }
-        /** @return a {@link VkAccelerationStructureGeometryAabbsDataKHR} view of the {@link VkAccelerationStructureGeometryDataKHR#aabbs} field. */
+        /** @return a {@link VkAccelerationStructureGeometryAabbsDataKHR} view of the {@code aabbs} field. */
         public VkAccelerationStructureGeometryAabbsDataKHR aabbs() { return VkAccelerationStructureGeometryDataKHR.naabbs(address()); }
-        /** @return a {@link VkAccelerationStructureGeometryInstancesDataKHR} view of the {@link VkAccelerationStructureGeometryDataKHR#instances} field. */
+        /** @return a {@link VkAccelerationStructureGeometryInstancesDataKHR} view of the {@code instances} field. */
         public VkAccelerationStructureGeometryInstancesDataKHR instances() { return VkAccelerationStructureGeometryDataKHR.ninstances(address()); }
 
-        /** Copies the specified {@link VkAccelerationStructureGeometryTrianglesDataKHR} to the {@link VkAccelerationStructureGeometryDataKHR#triangles} field. */
+        /** Copies the specified {@link VkAccelerationStructureGeometryTrianglesDataKHR} to the {@code triangles} field. */
         public VkAccelerationStructureGeometryDataKHR.Buffer triangles(VkAccelerationStructureGeometryTrianglesDataKHR value) { VkAccelerationStructureGeometryDataKHR.ntriangles(address(), value); return this; }
-        /** Passes the {@link VkAccelerationStructureGeometryDataKHR#triangles} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code triangles} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkAccelerationStructureGeometryDataKHR.Buffer triangles(java.util.function.Consumer<VkAccelerationStructureGeometryTrianglesDataKHR> consumer) { consumer.accept(triangles()); return this; }
-        /** Copies the specified {@link VkAccelerationStructureGeometryAabbsDataKHR} to the {@link VkAccelerationStructureGeometryDataKHR#aabbs} field. */
+        /** Copies the specified {@link VkAccelerationStructureGeometryAabbsDataKHR} to the {@code aabbs} field. */
         public VkAccelerationStructureGeometryDataKHR.Buffer aabbs(VkAccelerationStructureGeometryAabbsDataKHR value) { VkAccelerationStructureGeometryDataKHR.naabbs(address(), value); return this; }
-        /** Passes the {@link VkAccelerationStructureGeometryDataKHR#aabbs} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code aabbs} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkAccelerationStructureGeometryDataKHR.Buffer aabbs(java.util.function.Consumer<VkAccelerationStructureGeometryAabbsDataKHR> consumer) { consumer.accept(aabbs()); return this; }
-        /** Copies the specified {@link VkAccelerationStructureGeometryInstancesDataKHR} to the {@link VkAccelerationStructureGeometryDataKHR#instances} field. */
+        /** Copies the specified {@link VkAccelerationStructureGeometryInstancesDataKHR} to the {@code instances} field. */
         public VkAccelerationStructureGeometryDataKHR.Buffer instances(VkAccelerationStructureGeometryInstancesDataKHR value) { VkAccelerationStructureGeometryDataKHR.ninstances(address(), value); return this; }
-        /** Passes the {@link VkAccelerationStructureGeometryDataKHR#instances} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code instances} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkAccelerationStructureGeometryDataKHR.Buffer instances(java.util.function.Consumer<VkAccelerationStructureGeometryInstancesDataKHR> consumer) { consumer.accept(instances()); return this; }
 
     }

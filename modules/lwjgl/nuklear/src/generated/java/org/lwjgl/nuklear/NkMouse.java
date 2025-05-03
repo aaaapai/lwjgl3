@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,9 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.nuklear.Nuklear.NK_BUTTON_MAX;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_mouse {
  *     {@link NkMouseButton struct nk_mouse_button} buttons[NK_BUTTON_MAX];
  *     {@link NkVec2 struct nk_vec2} pos;
@@ -30,7 +28,7 @@ import static org.lwjgl.nuklear.Nuklear.NK_BUTTON_MAX;
  *     bool grab;
  *     bool grabbed;
  *     bool ungrab;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_mouse")
 public class NkMouse extends Struct<NkMouse> {
@@ -141,8 +139,7 @@ public class NkMouse extends Struct<NkMouse> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkMouse createSafe(long address) {
+    public static @Nullable NkMouse createSafe(long address) {
         return address == NULL ? null : new NkMouse(address, null);
     }
 
@@ -157,8 +154,7 @@ public class NkMouse extends Struct<NkMouse> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkMouse.Buffer createSafe(long address, int capacity) {
+    public static NkMouse.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -181,11 +177,11 @@ public class NkMouse extends Struct<NkMouse> {
     /** Unsafe version of {@link #scroll_delta}. */
     public static NkVec2 nscroll_delta(long struct) { return NkVec2.create(struct + NkMouse.SCROLL_DELTA); }
     /** Unsafe version of {@link #grab}. */
-    public static boolean ngrab(long struct) { return UNSAFE.getByte(null, struct + NkMouse.GRAB) != 0; }
+    public static boolean ngrab(long struct) { return memGetByte(struct + NkMouse.GRAB) != 0; }
     /** Unsafe version of {@link #grabbed}. */
-    public static boolean ngrabbed(long struct) { return UNSAFE.getByte(null, struct + NkMouse.GRABBED) != 0; }
+    public static boolean ngrabbed(long struct) { return memGetByte(struct + NkMouse.GRABBED) != 0; }
     /** Unsafe version of {@link #ungrab}. */
-    public static boolean nungrab(long struct) { return UNSAFE.getByte(null, struct + NkMouse.UNGRAB) != 0; }
+    public static boolean nungrab(long struct) { return memGetByte(struct + NkMouse.UNGRAB) != 0; }
 
     // -----------------------------------
 
@@ -218,6 +214,11 @@ public class NkMouse extends Struct<NkMouse> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

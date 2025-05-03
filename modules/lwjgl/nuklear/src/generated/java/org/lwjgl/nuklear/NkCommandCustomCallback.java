@@ -5,25 +5,13 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *canvas,
- *     short x,
- *     short y,
- *     unsigned short w,
- *     unsigned short h,
- *     nk_handle callback_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_command_custom_callback} */
 public abstract class NkCommandCustomCallback extends Callback implements NkCommandCustomCallbackI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class NkCommandCustomCallback extends Callback implements NkComm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static NkCommandCustomCallback createSafe(long functionPointer) {
+    public static @Nullable NkCommandCustomCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

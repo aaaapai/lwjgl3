@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Current aiming gesture state for the hand.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBHandTrackingAim XR_FB_hand_tracking_aim} extension <b>must</b> be enabled prior to using {@link XrHandTrackingAimStateFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBHandTrackingAim#XR_TYPE_HAND_TRACKING_AIM_STATE_FB TYPE_HAND_TRACKING_AIM_STATE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrPosef}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrHandTrackingAimStateFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrHandTrackingAimFlagsFB {@link #status};
- *     {@link XrPosef XrPosef} {@link #aimPose};
- *     float {@link #pinchStrengthIndex};
- *     float {@link #pinchStrengthMiddle};
- *     float {@link #pinchStrengthRing};
- *     float {@link #pinchStrengthLittle};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrHandTrackingAimFlagsFB status;
+ *     {@link XrPosef XrPosef} aimPose;
+ *     float pinchStrengthIndex;
+ *     float pinchStrengthMiddle;
+ *     float pinchStrengthRing;
+ *     float pinchStrengthLittle;
+ * }}</pre>
  */
 public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> implements NativeResource {
 
@@ -110,31 +94,31 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a bitmask of {@code XrHandTrackingAimFlagBitsFB} describing the availability and state of other signals. */
+    /** @return the value of the {@code status} field. */
     @NativeType("XrHandTrackingAimFlagsFB")
     public long status() { return nstatus(address()); }
-    /** a system-determined "aim" pose, similar in intent and convention to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#aim-pose">aim poses</a> used with the action system, based on hand data. */
+    /** @return a {@link XrPosef} view of the {@code aimPose} field. */
     public XrPosef aimPose() { return naimPose(address()); }
-    /** the current pinching strength for the index finger of this hand. Range is 0.0 to 1.0, with 1.0 meaning index and thumb are fully touching. */
+    /** @return the value of the {@code pinchStrengthIndex} field. */
     public float pinchStrengthIndex() { return npinchStrengthIndex(address()); }
-    /** the current pinching strength for the middle finger of this hand. Range is 0.0 to 1.0, with 1.0 meaning middle and thumb are fully touching. */
+    /** @return the value of the {@code pinchStrengthMiddle} field. */
     public float pinchStrengthMiddle() { return npinchStrengthMiddle(address()); }
-    /** the current pinching strength for the ring finger of this hand. Range is 0.0 to 1.0, with 1.0 meaning ring and thumb are fully touching. */
+    /** @return the value of the {@code pinchStrengthRing} field. */
     public float pinchStrengthRing() { return npinchStrengthRing(address()); }
-    /** the current pinching strength for the little finger of this hand. Range is 0.0 to 1.0, with 1.0 meaning little and thumb are fully touching. */
+    /** @return the value of the {@code pinchStrengthLittle} field. */
     public float pinchStrengthLittle() { return npinchStrengthLittle(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrHandTrackingAimStateFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBHandTrackingAim#XR_TYPE_HAND_TRACKING_AIM_STATE_FB TYPE_HAND_TRACKING_AIM_STATE_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBHandTrackingAim#XR_TYPE_HAND_TRACKING_AIM_STATE_FB TYPE_HAND_TRACKING_AIM_STATE_FB} value to the {@code type} field. */
     public XrHandTrackingAimStateFB type$Default() { return type(FBHandTrackingAim.XR_TYPE_HAND_TRACKING_AIM_STATE_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrHandTrackingAimStateFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -184,8 +168,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingAimStateFB createSafe(long address) {
+    public static @Nullable XrHandTrackingAimStateFB createSafe(long address) {
         return address == NULL ? null : new XrHandTrackingAimStateFB(address, null);
     }
 
@@ -228,8 +211,7 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingAimStateFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackingAimStateFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,24 +256,24 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingAimStateFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackingAimStateFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingAimStateFB.NEXT); }
     /** Unsafe version of {@link #status}. */
-    public static long nstatus(long struct) { return UNSAFE.getLong(null, struct + XrHandTrackingAimStateFB.STATUS); }
+    public static long nstatus(long struct) { return memGetLong(struct + XrHandTrackingAimStateFB.STATUS); }
     /** Unsafe version of {@link #aimPose}. */
     public static XrPosef naimPose(long struct) { return XrPosef.create(struct + XrHandTrackingAimStateFB.AIMPOSE); }
     /** Unsafe version of {@link #pinchStrengthIndex}. */
-    public static float npinchStrengthIndex(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHINDEX); }
+    public static float npinchStrengthIndex(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHINDEX); }
     /** Unsafe version of {@link #pinchStrengthMiddle}. */
-    public static float npinchStrengthMiddle(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHMIDDLE); }
+    public static float npinchStrengthMiddle(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHMIDDLE); }
     /** Unsafe version of {@link #pinchStrengthRing}. */
-    public static float npinchStrengthRing(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHRING); }
+    public static float npinchStrengthRing(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHRING); }
     /** Unsafe version of {@link #pinchStrengthLittle}. */
-    public static float npinchStrengthLittle(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingAimStateFB.PINCHSTRENGTHLITTLE); }
+    public static float npinchStrengthLittle(long struct) { return memGetFloat(struct + XrHandTrackingAimStateFB.PINCHSTRENGTHLITTLE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingAimStateFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackingAimStateFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingAimStateFB.NEXT, value); }
 
@@ -329,35 +311,40 @@ public class XrHandTrackingAimStateFB extends Struct<XrHandTrackingAimStateFB> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrHandTrackingAimStateFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrHandTrackingAimStateFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrHandTrackingAimStateFB.ntype(address()); }
-        /** @return the value of the {@link XrHandTrackingAimStateFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrHandTrackingAimStateFB.nnext(address()); }
-        /** @return the value of the {@link XrHandTrackingAimStateFB#status} field. */
+        /** @return the value of the {@code status} field. */
         @NativeType("XrHandTrackingAimFlagsFB")
         public long status() { return XrHandTrackingAimStateFB.nstatus(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrHandTrackingAimStateFB#aimPose} field. */
+        /** @return a {@link XrPosef} view of the {@code aimPose} field. */
         public XrPosef aimPose() { return XrHandTrackingAimStateFB.naimPose(address()); }
-        /** @return the value of the {@link XrHandTrackingAimStateFB#pinchStrengthIndex} field. */
+        /** @return the value of the {@code pinchStrengthIndex} field. */
         public float pinchStrengthIndex() { return XrHandTrackingAimStateFB.npinchStrengthIndex(address()); }
-        /** @return the value of the {@link XrHandTrackingAimStateFB#pinchStrengthMiddle} field. */
+        /** @return the value of the {@code pinchStrengthMiddle} field. */
         public float pinchStrengthMiddle() { return XrHandTrackingAimStateFB.npinchStrengthMiddle(address()); }
-        /** @return the value of the {@link XrHandTrackingAimStateFB#pinchStrengthRing} field. */
+        /** @return the value of the {@code pinchStrengthRing} field. */
         public float pinchStrengthRing() { return XrHandTrackingAimStateFB.npinchStrengthRing(address()); }
-        /** @return the value of the {@link XrHandTrackingAimStateFB#pinchStrengthLittle} field. */
+        /** @return the value of the {@code pinchStrengthLittle} field. */
         public float pinchStrengthLittle() { return XrHandTrackingAimStateFB.npinchStrengthLittle(address()); }
 
-        /** Sets the specified value to the {@link XrHandTrackingAimStateFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrHandTrackingAimStateFB.Buffer type(@NativeType("XrStructureType") int value) { XrHandTrackingAimStateFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBHandTrackingAim#XR_TYPE_HAND_TRACKING_AIM_STATE_FB TYPE_HAND_TRACKING_AIM_STATE_FB} value to the {@link XrHandTrackingAimStateFB#type} field. */
+        /** Sets the {@link FBHandTrackingAim#XR_TYPE_HAND_TRACKING_AIM_STATE_FB TYPE_HAND_TRACKING_AIM_STATE_FB} value to the {@code type} field. */
         public XrHandTrackingAimStateFB.Buffer type$Default() { return type(FBHandTrackingAim.XR_TYPE_HAND_TRACKING_AIM_STATE_FB); }
-        /** Sets the specified value to the {@link XrHandTrackingAimStateFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrHandTrackingAimStateFB.Buffer next(@NativeType("void *") long value) { XrHandTrackingAimStateFB.nnext(address(), value); return this; }
 
     }

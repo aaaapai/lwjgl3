@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,33 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Keyboard hidden event.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrEventDataVirtualKeyboardHiddenMETA} event <b>must</b> be sent when the keyboard render model is hidden by the runtime (via animation). The application <b>should</b> update its state accordingly (e.g. update UI, resume simulation, etc).</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAVirtualKeyboard XR_META_virtual_keyboard} extension <b>must</b> be enabled prior to using {@link XrEventDataVirtualKeyboardHiddenMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code keyboard} <b>must</b> be a valid {@code XrVirtualKeyboardMETA} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataVirtualKeyboardHiddenMETA {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrVirtualKeyboardMETA {@link #keyboard};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrVirtualKeyboardMETA keyboard;
+ * }}</pre>
  */
 public class XrEventDataVirtualKeyboardHiddenMETA extends Struct<XrEventDataVirtualKeyboardHiddenMETA> implements NativeResource {
 
@@ -96,23 +75,23 @@ public class XrEventDataVirtualKeyboardHiddenMETA extends Struct<XrEventDataVirt
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrVirtualKeyboardMETA} this event belongs to. */
+    /** @return the value of the {@code keyboard} field. */
     @NativeType("XrVirtualKeyboardMETA")
     public long keyboard() { return nkeyboard(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataVirtualKeyboardHiddenMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META} value to the {@link #type} field. */
+    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META} value to the {@code type} field. */
     public XrEventDataVirtualKeyboardHiddenMETA type$Default() { return type(METAVirtualKeyboard.XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataVirtualKeyboardHiddenMETA next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #keyboard} field. */
+    /** Sets the specified value to the {@code keyboard} field. */
     public XrEventDataVirtualKeyboardHiddenMETA keyboard(XrVirtualKeyboardMETA value) { nkeyboard(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -164,8 +143,7 @@ public class XrEventDataVirtualKeyboardHiddenMETA extends Struct<XrEventDataVirt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataVirtualKeyboardHiddenMETA createSafe(long address) {
+    public static @Nullable XrEventDataVirtualKeyboardHiddenMETA createSafe(long address) {
         return address == NULL ? null : new XrEventDataVirtualKeyboardHiddenMETA(address, null);
     }
 
@@ -208,8 +186,7 @@ public class XrEventDataVirtualKeyboardHiddenMETA extends Struct<XrEventDataVirt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataVirtualKeyboardHiddenMETA.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataVirtualKeyboardHiddenMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,14 +231,14 @@ public class XrEventDataVirtualKeyboardHiddenMETA extends Struct<XrEventDataVirt
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataVirtualKeyboardHiddenMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataVirtualKeyboardHiddenMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataVirtualKeyboardHiddenMETA.NEXT); }
     /** Unsafe version of {@link #keyboard}. */
     public static long nkeyboard(long struct) { return memGetAddress(struct + XrEventDataVirtualKeyboardHiddenMETA.KEYBOARD); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataVirtualKeyboardHiddenMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataVirtualKeyboardHiddenMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataVirtualKeyboardHiddenMETA.NEXT, value); }
     /** Unsafe version of {@link #keyboard(XrVirtualKeyboardMETA) keyboard}. */
@@ -310,27 +287,32 @@ public class XrEventDataVirtualKeyboardHiddenMETA extends Struct<XrEventDataVirt
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataVirtualKeyboardHiddenMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataVirtualKeyboardHiddenMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataVirtualKeyboardHiddenMETA.ntype(address()); }
-        /** @return the value of the {@link XrEventDataVirtualKeyboardHiddenMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataVirtualKeyboardHiddenMETA.nnext(address()); }
-        /** @return the value of the {@link XrEventDataVirtualKeyboardHiddenMETA#keyboard} field. */
+        /** @return the value of the {@code keyboard} field. */
         @NativeType("XrVirtualKeyboardMETA")
         public long keyboard() { return XrEventDataVirtualKeyboardHiddenMETA.nkeyboard(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataVirtualKeyboardHiddenMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataVirtualKeyboardHiddenMETA.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataVirtualKeyboardHiddenMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META} value to the {@link XrEventDataVirtualKeyboardHiddenMETA#type} field. */
+        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META} value to the {@code type} field. */
         public XrEventDataVirtualKeyboardHiddenMETA.Buffer type$Default() { return type(METAVirtualKeyboard.XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_HIDDEN_META); }
-        /** Sets the specified value to the {@link XrEventDataVirtualKeyboardHiddenMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataVirtualKeyboardHiddenMETA.Buffer next(@NativeType("void const *") long value) { XrEventDataVirtualKeyboardHiddenMETA.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataVirtualKeyboardHiddenMETA#keyboard} field. */
+        /** Sets the specified value to the {@code keyboard} field. */
         public XrEventDataVirtualKeyboardHiddenMETA.Buffer keyboard(XrVirtualKeyboardMETA value) { XrEventDataVirtualKeyboardHiddenMETA.nkeyboard(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a clear rectangle.
- * 
- * <h5>Description</h5>
- * 
- * <p>The layers <code>[baseArrayLayer, baseArrayLayer + layerCount)</code> counting from the base layer of the attachment image view are cleared.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRect2D}, {@link VK10#vkCmdClearAttachments CmdClearAttachments}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkClearRect {
- *     {@link VkRect2D VkRect2D} {@link #rect};
- *     uint32_t {@link #baseArrayLayer};
- *     uint32_t {@link #layerCount};
- * }</code></pre>
+ *     {@link VkRect2D VkRect2D} rect;
+ *     uint32_t baseArrayLayer;
+ *     uint32_t layerCount;
+ * }}</pre>
  */
 public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
 
@@ -86,22 +74,22 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the two-dimensional region to be cleared. */
+    /** @return a {@link VkRect2D} view of the {@code rect} field. */
     public VkRect2D rect() { return nrect(address()); }
-    /** the first layer to be cleared. */
+    /** @return the value of the {@code baseArrayLayer} field. */
     @NativeType("uint32_t")
     public int baseArrayLayer() { return nbaseArrayLayer(address()); }
-    /** the number of layers to clear. */
+    /** @return the value of the {@code layerCount} field. */
     @NativeType("uint32_t")
     public int layerCount() { return nlayerCount(address()); }
 
-    /** Copies the specified {@link VkRect2D} to the {@link #rect} field. */
+    /** Copies the specified {@link VkRect2D} to the {@code rect} field. */
     public VkClearRect rect(VkRect2D value) { nrect(address(), value); return this; }
-    /** Passes the {@link #rect} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code rect} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkClearRect rect(java.util.function.Consumer<VkRect2D> consumer) { consumer.accept(rect()); return this; }
-    /** Sets the specified value to the {@link #baseArrayLayer} field. */
+    /** Sets the specified value to the {@code baseArrayLayer} field. */
     public VkClearRect baseArrayLayer(@NativeType("uint32_t") int value) { nbaseArrayLayer(address(), value); return this; }
-    /** Sets the specified value to the {@link #layerCount} field. */
+    /** Sets the specified value to the {@code layerCount} field. */
     public VkClearRect layerCount(@NativeType("uint32_t") int value) { nlayerCount(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -153,8 +141,7 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearRect createSafe(long address) {
+    public static @Nullable VkClearRect createSafe(long address) {
         return address == NULL ? null : new VkClearRect(address, null);
     }
 
@@ -197,8 +184,7 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkClearRect.Buffer createSafe(long address, int capacity) {
+    public static VkClearRect.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,16 +250,16 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
     /** Unsafe version of {@link #rect}. */
     public static VkRect2D nrect(long struct) { return VkRect2D.create(struct + VkClearRect.RECT); }
     /** Unsafe version of {@link #baseArrayLayer}. */
-    public static int nbaseArrayLayer(long struct) { return UNSAFE.getInt(null, struct + VkClearRect.BASEARRAYLAYER); }
+    public static int nbaseArrayLayer(long struct) { return memGetInt(struct + VkClearRect.BASEARRAYLAYER); }
     /** Unsafe version of {@link #layerCount}. */
-    public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + VkClearRect.LAYERCOUNT); }
+    public static int nlayerCount(long struct) { return memGetInt(struct + VkClearRect.LAYERCOUNT); }
 
     /** Unsafe version of {@link #rect(VkRect2D) rect}. */
     public static void nrect(long struct, VkRect2D value) { memCopy(value.address(), struct + VkClearRect.RECT, VkRect2D.SIZEOF); }
     /** Unsafe version of {@link #baseArrayLayer(int) baseArrayLayer}. */
-    public static void nbaseArrayLayer(long struct, int value) { UNSAFE.putInt(null, struct + VkClearRect.BASEARRAYLAYER, value); }
+    public static void nbaseArrayLayer(long struct, int value) { memPutInt(struct + VkClearRect.BASEARRAYLAYER, value); }
     /** Unsafe version of {@link #layerCount(int) layerCount}. */
-    public static void nlayerCount(long struct, int value) { UNSAFE.putInt(null, struct + VkClearRect.LAYERCOUNT, value); }
+    public static void nlayerCount(long struct, int value) { memPutInt(struct + VkClearRect.LAYERCOUNT, value); }
 
     // -----------------------------------
 
@@ -309,26 +295,31 @@ public class VkClearRect extends Struct<VkClearRect> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkClearRect getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkRect2D} view of the {@link VkClearRect#rect} field. */
+        /** @return a {@link VkRect2D} view of the {@code rect} field. */
         public VkRect2D rect() { return VkClearRect.nrect(address()); }
-        /** @return the value of the {@link VkClearRect#baseArrayLayer} field. */
+        /** @return the value of the {@code baseArrayLayer} field. */
         @NativeType("uint32_t")
         public int baseArrayLayer() { return VkClearRect.nbaseArrayLayer(address()); }
-        /** @return the value of the {@link VkClearRect#layerCount} field. */
+        /** @return the value of the {@code layerCount} field. */
         @NativeType("uint32_t")
         public int layerCount() { return VkClearRect.nlayerCount(address()); }
 
-        /** Copies the specified {@link VkRect2D} to the {@link VkClearRect#rect} field. */
+        /** Copies the specified {@link VkRect2D} to the {@code rect} field. */
         public VkClearRect.Buffer rect(VkRect2D value) { VkClearRect.nrect(address(), value); return this; }
-        /** Passes the {@link VkClearRect#rect} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code rect} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkClearRect.Buffer rect(java.util.function.Consumer<VkRect2D> consumer) { consumer.accept(rect()); return this; }
-        /** Sets the specified value to the {@link VkClearRect#baseArrayLayer} field. */
+        /** Sets the specified value to the {@code baseArrayLayer} field. */
         public VkClearRect.Buffer baseArrayLayer(@NativeType("uint32_t") int value) { VkClearRect.nbaseArrayLayer(address(), value); return this; }
-        /** Sets the specified value to the {@link VkClearRect#layerCount} field. */
+        /** Sets the specified value to the {@code layerCount} field. */
         public VkClearRect.Buffer layerCount(@NativeType("uint32_t") int value) { VkClearRect.nlayerCount(address(), value); return this; }
 
     }

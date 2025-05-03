@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,32 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A skeleton represents the bone hierarchy of an animation.
- * 
- * <p>Skeleton animations can be described as a tree of bones:</p>
- * 
- * <pre><code>
- *    root
- *      |
- *    node1
- *    /   \
- * node3  node4</code></pre>
- * 
- * <p>If you want to calculate the transformation of node three you need to compute the transformation hierarchy for the transformation chain of node3:</p>
- * 
- * <pre><code>
- * root-&gt;node1-&gt;node3</code></pre>
- * 
- * <p>Each node is represented as a skeleton instance.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiSkeleton {
- *     {@link AIString struct aiString} {@link #mName};
- *     unsigned int {@link #mNumBones};
- *     {@link AISkeletonBone struct aiSkeletonBone} ** {@link #mBones};
- * }</code></pre>
+ *     {@link AIString struct aiString} mName;
+ *     unsigned int mNumBones;
+ *     {@link AISkeletonBone struct aiSkeletonBone} ** mBones;
+ * }}</pre>
  */
 @NativeType("struct aiSkeleton")
 public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
@@ -96,21 +76,21 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the name of the skeleton instance */
+    /** @return a {@link AIString} view of the {@code mName} field. */
     @NativeType("struct aiString")
     public AIString mName() { return nmName(address()); }
-    /** the number of bones in the skeleton */
+    /** @return the value of the {@code mNumBones} field. */
     @NativeType("unsigned int")
     public int mNumBones() { return nmNumBones(address()); }
-    /** the bone instance in the skeleton */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code mBones} field. */
     @NativeType("struct aiSkeletonBone **")
     public PointerBuffer mBones() { return nmBones(address()); }
 
-    /** Copies the specified {@link AIString} to the {@link #mName} field. */
+    /** Copies the specified {@link AIString} to the {@code mName} field. */
     public AISkeleton mName(@NativeType("struct aiString") AIString value) { nmName(address(), value); return this; }
-    /** Passes the {@link #mName} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code mName} field to the specified {@link java.util.function.Consumer Consumer}. */
     public AISkeleton mName(java.util.function.Consumer<AIString> consumer) { consumer.accept(mName()); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #mBones} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code mBones} field. */
     public AISkeleton mBones(@NativeType("struct aiSkeletonBone **") PointerBuffer value) { nmBones(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -160,8 +140,7 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AISkeleton createSafe(long address) {
+    public static @Nullable AISkeleton createSafe(long address) {
         return address == NULL ? null : new AISkeleton(address, null);
     }
 
@@ -204,8 +183,7 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AISkeleton.Buffer createSafe(long address, int capacity) {
+    public static AISkeleton.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,14 +230,14 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
     /** Unsafe version of {@link #mName}. */
     public static AIString nmName(long struct) { return AIString.create(struct + AISkeleton.MNAME); }
     /** Unsafe version of {@link #mNumBones}. */
-    public static int nmNumBones(long struct) { return UNSAFE.getInt(null, struct + AISkeleton.MNUMBONES); }
+    public static int nmNumBones(long struct) { return memGetInt(struct + AISkeleton.MNUMBONES); }
     /** Unsafe version of {@link #mBones() mBones}. */
     public static PointerBuffer nmBones(long struct) { return memPointerBuffer(memGetAddress(struct + AISkeleton.MBONES), nmNumBones(struct)); }
 
     /** Unsafe version of {@link #mName(AIString) mName}. */
     public static void nmName(long struct, AIString value) { memCopy(value.address(), struct + AISkeleton.MNAME, AIString.SIZEOF); }
     /** Sets the specified value to the {@code mNumBones} field of the specified {@code struct}. */
-    public static void nmNumBones(long struct, int value) { UNSAFE.putInt(null, struct + AISkeleton.MNUMBONES, value); }
+    public static void nmNumBones(long struct, int value) { memPutInt(struct + AISkeleton.MNUMBONES, value); }
     /** Unsafe version of {@link #mBones(PointerBuffer) mBones}. */
     public static void nmBones(long struct, PointerBuffer value) { memPutAddress(struct + AISkeleton.MBONES, memAddress(value)); nmNumBones(struct, value.remaining()); }
 
@@ -306,25 +284,30 @@ public class AISkeleton extends Struct<AISkeleton> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AISkeleton getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link AIString} view of the {@link AISkeleton#mName} field. */
+        /** @return a {@link AIString} view of the {@code mName} field. */
         @NativeType("struct aiString")
         public AIString mName() { return AISkeleton.nmName(address()); }
-        /** @return the value of the {@link AISkeleton#mNumBones} field. */
+        /** @return the value of the {@code mNumBones} field. */
         @NativeType("unsigned int")
         public int mNumBones() { return AISkeleton.nmNumBones(address()); }
-        /** @return a {@link PointerBuffer} view of the data pointed to by the {@link AISkeleton#mBones} field. */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code mBones} field. */
         @NativeType("struct aiSkeletonBone **")
         public PointerBuffer mBones() { return AISkeleton.nmBones(address()); }
 
-        /** Copies the specified {@link AIString} to the {@link AISkeleton#mName} field. */
+        /** Copies the specified {@link AIString} to the {@code mName} field. */
         public AISkeleton.Buffer mName(@NativeType("struct aiString") AIString value) { AISkeleton.nmName(address(), value); return this; }
-        /** Passes the {@link AISkeleton#mName} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code mName} field to the specified {@link java.util.function.Consumer Consumer}. */
         public AISkeleton.Buffer mName(java.util.function.Consumer<AIString> consumer) { consumer.accept(mName()); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link AISkeleton#mBones} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code mBones} field. */
         public AISkeleton.Buffer mBones(@NativeType("struct aiSkeletonBone **") PointerBuffer value) { AISkeleton.nmBones(address(), value); return this; }
 
     }

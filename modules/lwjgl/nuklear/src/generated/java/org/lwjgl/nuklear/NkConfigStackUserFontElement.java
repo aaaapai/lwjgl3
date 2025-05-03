@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,13 +15,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_config_stack_user_font_element {
  *     {@link NkUserFont struct nk_user_font} ** pValues;
  *     {@link NkUserFont struct nk_user_font} * old_value;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_config_stack_user_font_element")
 class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> {
@@ -72,11 +70,7 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field. */
     @NativeType("struct nk_user_font **")
     public PointerBuffer pValues(int capacity) { return npValues(address(), capacity); }
     /** @return a {@link NkUserFont} view of the struct pointed to by the {@code old_value} field. */
@@ -91,8 +85,7 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackUserFontElement createSafe(long address) {
+    public static @Nullable NkConfigStackUserFontElement createSafe(long address) {
         return address == NULL ? null : new NkConfigStackUserFontElement(address, null);
     }
 
@@ -107,8 +100,7 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackUserFontElement.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackUserFontElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -153,15 +145,16 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkConfigStackUserFontElement getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field. */
         @NativeType("struct nk_user_font **")
         public PointerBuffer pValues(int capacity) { return NkConfigStackUserFontElement.npValues(address(), capacity); }
         /** @return a {@link NkUserFont} view of the struct pointed to by the {@code old_value} field. */

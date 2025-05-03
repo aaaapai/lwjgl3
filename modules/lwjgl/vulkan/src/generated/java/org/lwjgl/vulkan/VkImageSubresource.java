@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying an image subresource.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code aspectMask} <b>must</b> be a valid combination of {@code VkImageAspectFlagBits} values</li>
- * <li>{@code aspectMask} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkImageSubresource2KHR}, {@link VkSparseImageMemoryBind}, {@link VK10#vkGetImageSubresourceLayout GetImageSubresourceLayout}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkImageSubresource {
- *     VkImageAspectFlags {@link #aspectMask};
- *     uint32_t {@link #mipLevel};
- *     uint32_t {@link #arrayLayer};
- * }</code></pre>
+ *     VkImageAspectFlags aspectMask;
+ *     uint32_t mipLevel;
+ *     uint32_t arrayLayer;
+ * }}</pre>
  */
 public class VkImageSubresource extends Struct<VkImageSubresource> implements NativeResource {
 
@@ -89,21 +74,21 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkImageAspectFlags} value selecting the image <em>aspect</em>. */
+    /** @return the value of the {@code aspectMask} field. */
     @NativeType("VkImageAspectFlags")
     public int aspectMask() { return naspectMask(address()); }
-    /** selects the mipmap level. */
+    /** @return the value of the {@code mipLevel} field. */
     @NativeType("uint32_t")
     public int mipLevel() { return nmipLevel(address()); }
-    /** selects the array layer. */
+    /** @return the value of the {@code arrayLayer} field. */
     @NativeType("uint32_t")
     public int arrayLayer() { return narrayLayer(address()); }
 
-    /** Sets the specified value to the {@link #aspectMask} field. */
+    /** Sets the specified value to the {@code aspectMask} field. */
     public VkImageSubresource aspectMask(@NativeType("VkImageAspectFlags") int value) { naspectMask(address(), value); return this; }
-    /** Sets the specified value to the {@link #mipLevel} field. */
+    /** Sets the specified value to the {@code mipLevel} field. */
     public VkImageSubresource mipLevel(@NativeType("uint32_t") int value) { nmipLevel(address(), value); return this; }
-    /** Sets the specified value to the {@link #arrayLayer} field. */
+    /** Sets the specified value to the {@code arrayLayer} field. */
     public VkImageSubresource arrayLayer(@NativeType("uint32_t") int value) { narrayLayer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -155,8 +140,7 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSubresource createSafe(long address) {
+    public static @Nullable VkImageSubresource createSafe(long address) {
         return address == NULL ? null : new VkImageSubresource(address, null);
     }
 
@@ -199,8 +183,7 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageSubresource.Buffer createSafe(long address, int capacity) {
+    public static VkImageSubresource.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,18 +247,18 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #aspectMask}. */
-    public static int naspectMask(long struct) { return UNSAFE.getInt(null, struct + VkImageSubresource.ASPECTMASK); }
+    public static int naspectMask(long struct) { return memGetInt(struct + VkImageSubresource.ASPECTMASK); }
     /** Unsafe version of {@link #mipLevel}. */
-    public static int nmipLevel(long struct) { return UNSAFE.getInt(null, struct + VkImageSubresource.MIPLEVEL); }
+    public static int nmipLevel(long struct) { return memGetInt(struct + VkImageSubresource.MIPLEVEL); }
     /** Unsafe version of {@link #arrayLayer}. */
-    public static int narrayLayer(long struct) { return UNSAFE.getInt(null, struct + VkImageSubresource.ARRAYLAYER); }
+    public static int narrayLayer(long struct) { return memGetInt(struct + VkImageSubresource.ARRAYLAYER); }
 
     /** Unsafe version of {@link #aspectMask(int) aspectMask}. */
-    public static void naspectMask(long struct, int value) { UNSAFE.putInt(null, struct + VkImageSubresource.ASPECTMASK, value); }
+    public static void naspectMask(long struct, int value) { memPutInt(struct + VkImageSubresource.ASPECTMASK, value); }
     /** Unsafe version of {@link #mipLevel(int) mipLevel}. */
-    public static void nmipLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkImageSubresource.MIPLEVEL, value); }
+    public static void nmipLevel(long struct, int value) { memPutInt(struct + VkImageSubresource.MIPLEVEL, value); }
     /** Unsafe version of {@link #arrayLayer(int) arrayLayer}. */
-    public static void narrayLayer(long struct, int value) { UNSAFE.putInt(null, struct + VkImageSubresource.ARRAYLAYER, value); }
+    public static void narrayLayer(long struct, int value) { memPutInt(struct + VkImageSubresource.ARRAYLAYER, value); }
 
     // -----------------------------------
 
@@ -311,25 +294,30 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImageSubresource getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkImageSubresource#aspectMask} field. */
+        /** @return the value of the {@code aspectMask} field. */
         @NativeType("VkImageAspectFlags")
         public int aspectMask() { return VkImageSubresource.naspectMask(address()); }
-        /** @return the value of the {@link VkImageSubresource#mipLevel} field. */
+        /** @return the value of the {@code mipLevel} field. */
         @NativeType("uint32_t")
         public int mipLevel() { return VkImageSubresource.nmipLevel(address()); }
-        /** @return the value of the {@link VkImageSubresource#arrayLayer} field. */
+        /** @return the value of the {@code arrayLayer} field. */
         @NativeType("uint32_t")
         public int arrayLayer() { return VkImageSubresource.narrayLayer(address()); }
 
-        /** Sets the specified value to the {@link VkImageSubresource#aspectMask} field. */
+        /** Sets the specified value to the {@code aspectMask} field. */
         public VkImageSubresource.Buffer aspectMask(@NativeType("VkImageAspectFlags") int value) { VkImageSubresource.naspectMask(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImageSubresource#mipLevel} field. */
+        /** Sets the specified value to the {@code mipLevel} field. */
         public VkImageSubresource.Buffer mipLevel(@NativeType("uint32_t") int value) { VkImageSubresource.nmipLevel(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImageSubresource#arrayLayer} field. */
+        /** Sets the specified value to the {@code arrayLayer} field. */
         public VkImageSubresource.Buffer arrayLayer(@NativeType("uint32_t") int value) { VkImageSubresource.narrayLayer(address(), value); return this; }
 
     }

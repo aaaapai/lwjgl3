@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,9 +19,7 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH265.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoH265HrdParameters {
  *     {@link StdVideoH265HrdFlags StdVideoH265HrdFlags} flags;
  *     uint8_t tick_divisor_minus2;
@@ -36,9 +34,9 @@ import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH265.*;
  *     uint8_t cpb_cnt_minus1[STD_VIDEO_H265_SUBLAYERS_LIST_SIZE];
  *     uint16_t elemental_duration_in_tc_minus1[STD_VIDEO_H265_SUBLAYERS_LIST_SIZE];
  *     uint16_t reserved[3];
- *     {@link StdVideoH265SubLayerHrdParameters StdVideoH265SubLayerHrdParameters} const * {@link #pSubLayerHrdParametersNal};
- *     {@link StdVideoH265SubLayerHrdParameters StdVideoH265SubLayerHrdParameters} const * {@link #pSubLayerHrdParametersVcl};
- * }</code></pre>
+ *     {@link StdVideoH265SubLayerHrdParameters StdVideoH265SubLayerHrdParameters} const * pSubLayerHrdParametersNal;
+ *     {@link StdVideoH265SubLayerHrdParameters StdVideoH265SubLayerHrdParameters} const * pSubLayerHrdParametersVcl;
+ * }}</pre>
  */
 public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters> implements NativeResource {
 
@@ -168,10 +166,10 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     /** @return the value at the specified index of the {@code elemental_duration_in_tc_minus1} field. */
     @NativeType("uint16_t")
     public short elemental_duration_in_tc_minus1(int index) { return nelemental_duration_in_tc_minus1(address(), index); }
-    /** NAL per layer {@code ptr} to {@code sub_layer_hrd_parameters} */
+    /** @return a {@link StdVideoH265SubLayerHrdParameters} view of the struct pointed to by the {@code pSubLayerHrdParametersNal} field. */
     @NativeType("StdVideoH265SubLayerHrdParameters const *")
     public StdVideoH265SubLayerHrdParameters pSubLayerHrdParametersNal() { return npSubLayerHrdParametersNal(address()); }
-    /** VCL per layer {@code ptr} to {@code sub_layer_hrd_parameters} */
+    /** @return a {@link StdVideoH265SubLayerHrdParameters} view of the struct pointed to by the {@code pSubLayerHrdParametersVcl} field. */
     @NativeType("StdVideoH265SubLayerHrdParameters const *")
     public StdVideoH265SubLayerHrdParameters pSubLayerHrdParametersVcl() { return npSubLayerHrdParametersVcl(address()); }
 
@@ -205,9 +203,9 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     public StdVideoH265HrdParameters elemental_duration_in_tc_minus1(@NativeType("uint16_t[STD_VIDEO_H265_SUBLAYERS_LIST_SIZE]") ShortBuffer value) { nelemental_duration_in_tc_minus1(address(), value); return this; }
     /** Sets the specified value at the specified index of the {@code elemental_duration_in_tc_minus1} field. */
     public StdVideoH265HrdParameters elemental_duration_in_tc_minus1(int index, @NativeType("uint16_t") short value) { nelemental_duration_in_tc_minus1(address(), index, value); return this; }
-    /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@link #pSubLayerHrdParametersNal} field. */
+    /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@code pSubLayerHrdParametersNal} field. */
     public StdVideoH265HrdParameters pSubLayerHrdParametersNal(@NativeType("StdVideoH265SubLayerHrdParameters const *") StdVideoH265SubLayerHrdParameters value) { npSubLayerHrdParametersNal(address(), value); return this; }
-    /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@link #pSubLayerHrdParametersVcl} field. */
+    /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@code pSubLayerHrdParametersVcl} field. */
     public StdVideoH265HrdParameters pSubLayerHrdParametersVcl(@NativeType("StdVideoH265SubLayerHrdParameters const *") StdVideoH265SubLayerHrdParameters value) { npSubLayerHrdParametersVcl(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -281,8 +279,7 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265HrdParameters createSafe(long address) {
+    public static @Nullable StdVideoH265HrdParameters createSafe(long address) {
         return address == NULL ? null : new StdVideoH265HrdParameters(address, null);
     }
 
@@ -325,8 +322,7 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265HrdParameters.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265HrdParameters.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -373,38 +369,38 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     /** Unsafe version of {@link #flags}. */
     public static StdVideoH265HrdFlags nflags(long struct) { return StdVideoH265HrdFlags.create(struct + StdVideoH265HrdParameters.FLAGS); }
     /** Unsafe version of {@link #tick_divisor_minus2}. */
-    public static byte ntick_divisor_minus2(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.TICK_DIVISOR_MINUS2); }
+    public static byte ntick_divisor_minus2(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.TICK_DIVISOR_MINUS2); }
     /** Unsafe version of {@link #du_cpb_removal_delay_increment_length_minus1}. */
-    public static byte ndu_cpb_removal_delay_increment_length_minus1(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.DU_CPB_REMOVAL_DELAY_INCREMENT_LENGTH_MINUS1); }
+    public static byte ndu_cpb_removal_delay_increment_length_minus1(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.DU_CPB_REMOVAL_DELAY_INCREMENT_LENGTH_MINUS1); }
     /** Unsafe version of {@link #dpb_output_delay_du_length_minus1}. */
-    public static byte ndpb_output_delay_du_length_minus1(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_DU_LENGTH_MINUS1); }
+    public static byte ndpb_output_delay_du_length_minus1(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_DU_LENGTH_MINUS1); }
     /** Unsafe version of {@link #bit_rate_scale}. */
-    public static byte nbit_rate_scale(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.BIT_RATE_SCALE); }
+    public static byte nbit_rate_scale(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.BIT_RATE_SCALE); }
     /** Unsafe version of {@link #cpb_size_scale}. */
-    public static byte ncpb_size_scale(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.CPB_SIZE_SCALE); }
+    public static byte ncpb_size_scale(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.CPB_SIZE_SCALE); }
     /** Unsafe version of {@link #cpb_size_du_scale}. */
-    public static byte ncpb_size_du_scale(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.CPB_SIZE_DU_SCALE); }
+    public static byte ncpb_size_du_scale(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.CPB_SIZE_DU_SCALE); }
     /** Unsafe version of {@link #initial_cpb_removal_delay_length_minus1}. */
-    public static byte ninitial_cpb_removal_delay_length_minus1(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.INITIAL_CPB_REMOVAL_DELAY_LENGTH_MINUS1); }
+    public static byte ninitial_cpb_removal_delay_length_minus1(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.INITIAL_CPB_REMOVAL_DELAY_LENGTH_MINUS1); }
     /** Unsafe version of {@link #au_cpb_removal_delay_length_minus1}. */
-    public static byte nau_cpb_removal_delay_length_minus1(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.AU_CPB_REMOVAL_DELAY_LENGTH_MINUS1); }
+    public static byte nau_cpb_removal_delay_length_minus1(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.AU_CPB_REMOVAL_DELAY_LENGTH_MINUS1); }
     /** Unsafe version of {@link #dpb_output_delay_length_minus1}. */
-    public static byte ndpb_output_delay_length_minus1(long struct) { return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_LENGTH_MINUS1); }
+    public static byte ndpb_output_delay_length_minus1(long struct) { return memGetByte(struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_LENGTH_MINUS1); }
     /** Unsafe version of {@link #cpb_cnt_minus1}. */
     public static ByteBuffer ncpb_cnt_minus1(long struct) { return memByteBuffer(struct + StdVideoH265HrdParameters.CPB_CNT_MINUS1, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE); }
     /** Unsafe version of {@link #cpb_cnt_minus1(int) cpb_cnt_minus1}. */
     public static byte ncpb_cnt_minus1(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoH265HrdParameters.CPB_CNT_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 1);
+        return memGetByte(struct + StdVideoH265HrdParameters.CPB_CNT_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 1);
     }
     /** Unsafe version of {@link #elemental_duration_in_tc_minus1}. */
     public static ShortBuffer nelemental_duration_in_tc_minus1(long struct) { return memShortBuffer(struct + StdVideoH265HrdParameters.ELEMENTAL_DURATION_IN_TC_MINUS1, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE); }
     /** Unsafe version of {@link #elemental_duration_in_tc_minus1(int) elemental_duration_in_tc_minus1}. */
     public static short nelemental_duration_in_tc_minus1(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoH265HrdParameters.ELEMENTAL_DURATION_IN_TC_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 2);
+        return memGetShort(struct + StdVideoH265HrdParameters.ELEMENTAL_DURATION_IN_TC_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 2);
     }
     public static ShortBuffer nreserved(long struct) { return memShortBuffer(struct + StdVideoH265HrdParameters.RESERVED, 3); }
     public static short nreserved(long struct, int index) {
-        return UNSAFE.getShort(null, struct + StdVideoH265HrdParameters.RESERVED + check(index, 3) * 2);
+        return memGetShort(struct + StdVideoH265HrdParameters.RESERVED + check(index, 3) * 2);
     }
     /** Unsafe version of {@link #pSubLayerHrdParametersNal}. */
     public static StdVideoH265SubLayerHrdParameters npSubLayerHrdParametersNal(long struct) { return StdVideoH265SubLayerHrdParameters.create(memGetAddress(struct + StdVideoH265HrdParameters.PSUBLAYERHRDPARAMETERSNAL)); }
@@ -414,23 +410,23 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     /** Unsafe version of {@link #flags(StdVideoH265HrdFlags) flags}. */
     public static void nflags(long struct, StdVideoH265HrdFlags value) { memCopy(value.address(), struct + StdVideoH265HrdParameters.FLAGS, StdVideoH265HrdFlags.SIZEOF); }
     /** Unsafe version of {@link #tick_divisor_minus2(byte) tick_divisor_minus2}. */
-    public static void ntick_divisor_minus2(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.TICK_DIVISOR_MINUS2, value); }
+    public static void ntick_divisor_minus2(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.TICK_DIVISOR_MINUS2, value); }
     /** Unsafe version of {@link #du_cpb_removal_delay_increment_length_minus1(byte) du_cpb_removal_delay_increment_length_minus1}. */
-    public static void ndu_cpb_removal_delay_increment_length_minus1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.DU_CPB_REMOVAL_DELAY_INCREMENT_LENGTH_MINUS1, value); }
+    public static void ndu_cpb_removal_delay_increment_length_minus1(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.DU_CPB_REMOVAL_DELAY_INCREMENT_LENGTH_MINUS1, value); }
     /** Unsafe version of {@link #dpb_output_delay_du_length_minus1(byte) dpb_output_delay_du_length_minus1}. */
-    public static void ndpb_output_delay_du_length_minus1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_DU_LENGTH_MINUS1, value); }
+    public static void ndpb_output_delay_du_length_minus1(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_DU_LENGTH_MINUS1, value); }
     /** Unsafe version of {@link #bit_rate_scale(byte) bit_rate_scale}. */
-    public static void nbit_rate_scale(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.BIT_RATE_SCALE, value); }
+    public static void nbit_rate_scale(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.BIT_RATE_SCALE, value); }
     /** Unsafe version of {@link #cpb_size_scale(byte) cpb_size_scale}. */
-    public static void ncpb_size_scale(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.CPB_SIZE_SCALE, value); }
+    public static void ncpb_size_scale(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.CPB_SIZE_SCALE, value); }
     /** Unsafe version of {@link #cpb_size_du_scale(byte) cpb_size_du_scale}. */
-    public static void ncpb_size_du_scale(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.CPB_SIZE_DU_SCALE, value); }
+    public static void ncpb_size_du_scale(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.CPB_SIZE_DU_SCALE, value); }
     /** Unsafe version of {@link #initial_cpb_removal_delay_length_minus1(byte) initial_cpb_removal_delay_length_minus1}. */
-    public static void ninitial_cpb_removal_delay_length_minus1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.INITIAL_CPB_REMOVAL_DELAY_LENGTH_MINUS1, value); }
+    public static void ninitial_cpb_removal_delay_length_minus1(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.INITIAL_CPB_REMOVAL_DELAY_LENGTH_MINUS1, value); }
     /** Unsafe version of {@link #au_cpb_removal_delay_length_minus1(byte) au_cpb_removal_delay_length_minus1}. */
-    public static void nau_cpb_removal_delay_length_minus1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.AU_CPB_REMOVAL_DELAY_LENGTH_MINUS1, value); }
+    public static void nau_cpb_removal_delay_length_minus1(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.AU_CPB_REMOVAL_DELAY_LENGTH_MINUS1, value); }
     /** Unsafe version of {@link #dpb_output_delay_length_minus1(byte) dpb_output_delay_length_minus1}. */
-    public static void ndpb_output_delay_length_minus1(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_LENGTH_MINUS1, value); }
+    public static void ndpb_output_delay_length_minus1(long struct, byte value) { memPutByte(struct + StdVideoH265HrdParameters.DPB_OUTPUT_DELAY_LENGTH_MINUS1, value); }
     /** Unsafe version of {@link #cpb_cnt_minus1(ByteBuffer) cpb_cnt_minus1}. */
     public static void ncpb_cnt_minus1(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE); }
@@ -438,7 +434,7 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     }
     /** Unsafe version of {@link #cpb_cnt_minus1(int, byte) cpb_cnt_minus1}. */
     public static void ncpb_cnt_minus1(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoH265HrdParameters.CPB_CNT_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 1, value);
+        memPutByte(struct + StdVideoH265HrdParameters.CPB_CNT_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 1, value);
     }
     /** Unsafe version of {@link #elemental_duration_in_tc_minus1(ShortBuffer) elemental_duration_in_tc_minus1}. */
     public static void nelemental_duration_in_tc_minus1(long struct, ShortBuffer value) {
@@ -447,14 +443,14 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
     }
     /** Unsafe version of {@link #elemental_duration_in_tc_minus1(int, short) elemental_duration_in_tc_minus1}. */
     public static void nelemental_duration_in_tc_minus1(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoH265HrdParameters.ELEMENTAL_DURATION_IN_TC_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 2, value);
+        memPutShort(struct + StdVideoH265HrdParameters.ELEMENTAL_DURATION_IN_TC_MINUS1 + check(index, STD_VIDEO_H265_SUBLAYERS_LIST_SIZE) * 2, value);
     }
     public static void nreserved(long struct, ShortBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + StdVideoH265HrdParameters.RESERVED, value.remaining() * 2);
     }
     public static void nreserved(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + StdVideoH265HrdParameters.RESERVED + check(index, 3) * 2, value);
+        memPutShort(struct + StdVideoH265HrdParameters.RESERVED + check(index, 3) * 2, value);
     }
     /** Unsafe version of {@link #pSubLayerHrdParametersNal(StdVideoH265SubLayerHrdParameters) pSubLayerHrdParametersNal}. */
     public static void npSubLayerHrdParametersNal(long struct, StdVideoH265SubLayerHrdParameters value) { memPutAddress(struct + StdVideoH265HrdParameters.PSUBLAYERHRDPARAMETERSNAL, value.address()); }
@@ -505,6 +501,11 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected StdVideoH265HrdParameters getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -550,10 +551,10 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
         /** @return the value at the specified index of the {@code elemental_duration_in_tc_minus1} field. */
         @NativeType("uint16_t")
         public short elemental_duration_in_tc_minus1(int index) { return StdVideoH265HrdParameters.nelemental_duration_in_tc_minus1(address(), index); }
-        /** @return a {@link StdVideoH265SubLayerHrdParameters} view of the struct pointed to by the {@link StdVideoH265HrdParameters#pSubLayerHrdParametersNal} field. */
+        /** @return a {@link StdVideoH265SubLayerHrdParameters} view of the struct pointed to by the {@code pSubLayerHrdParametersNal} field. */
         @NativeType("StdVideoH265SubLayerHrdParameters const *")
         public StdVideoH265SubLayerHrdParameters pSubLayerHrdParametersNal() { return StdVideoH265HrdParameters.npSubLayerHrdParametersNal(address()); }
-        /** @return a {@link StdVideoH265SubLayerHrdParameters} view of the struct pointed to by the {@link StdVideoH265HrdParameters#pSubLayerHrdParametersVcl} field. */
+        /** @return a {@link StdVideoH265SubLayerHrdParameters} view of the struct pointed to by the {@code pSubLayerHrdParametersVcl} field. */
         @NativeType("StdVideoH265SubLayerHrdParameters const *")
         public StdVideoH265SubLayerHrdParameters pSubLayerHrdParametersVcl() { return StdVideoH265HrdParameters.npSubLayerHrdParametersVcl(address()); }
 
@@ -587,9 +588,9 @@ public class StdVideoH265HrdParameters extends Struct<StdVideoH265HrdParameters>
         public StdVideoH265HrdParameters.Buffer elemental_duration_in_tc_minus1(@NativeType("uint16_t[STD_VIDEO_H265_SUBLAYERS_LIST_SIZE]") ShortBuffer value) { StdVideoH265HrdParameters.nelemental_duration_in_tc_minus1(address(), value); return this; }
         /** Sets the specified value at the specified index of the {@code elemental_duration_in_tc_minus1} field. */
         public StdVideoH265HrdParameters.Buffer elemental_duration_in_tc_minus1(int index, @NativeType("uint16_t") short value) { StdVideoH265HrdParameters.nelemental_duration_in_tc_minus1(address(), index, value); return this; }
-        /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@link StdVideoH265HrdParameters#pSubLayerHrdParametersNal} field. */
+        /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@code pSubLayerHrdParametersNal} field. */
         public StdVideoH265HrdParameters.Buffer pSubLayerHrdParametersNal(@NativeType("StdVideoH265SubLayerHrdParameters const *") StdVideoH265SubLayerHrdParameters value) { StdVideoH265HrdParameters.npSubLayerHrdParametersNal(address(), value); return this; }
-        /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@link StdVideoH265HrdParameters#pSubLayerHrdParametersVcl} field. */
+        /** Sets the address of the specified {@link StdVideoH265SubLayerHrdParameters} to the {@code pSubLayerHrdParametersVcl} field. */
         public StdVideoH265HrdParameters.Buffer pSubLayerHrdParametersVcl(@NativeType("StdVideoH265SubLayerHrdParameters const *") StdVideoH265SubLayerHrdParameters value) { StdVideoH265HrdParameters.npSubLayerHrdParametersVcl(address(), value); return this; }
 
     }

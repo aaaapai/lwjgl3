@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoH264PpsFlags {
  *     uint32_t transform_8x8_mode_flag : 1;
  *     uint32_t redundant_pic_cnt_present_flag : 1;
@@ -28,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t bottom_field_pic_order_in_frame_present_flag : 1;
  *     uint32_t entropy_coding_mode_flag : 1;
  *     uint32_t pic_scaling_matrix_present_flag : 1;
- * }</code></pre>
+ * }}</pre>
  */
 public class StdVideoH264PpsFlags extends Struct<StdVideoH264PpsFlags> implements NativeResource {
 
@@ -176,8 +174,7 @@ public class StdVideoH264PpsFlags extends Struct<StdVideoH264PpsFlags> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH264PpsFlags createSafe(long address) {
+    public static @Nullable StdVideoH264PpsFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoH264PpsFlags(address, null);
     }
 
@@ -220,8 +217,7 @@ public class StdVideoH264PpsFlags extends Struct<StdVideoH264PpsFlags> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH264PpsFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH264PpsFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,7 +261,7 @@ public class StdVideoH264PpsFlags extends Struct<StdVideoH264PpsFlags> implement
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoH264PpsFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoH264PpsFlags.BITFIELD0); }
     /** Unsafe version of {@link #transform_8x8_mode_flag}. */
     public static int ntransform_8x8_mode_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #redundant_pic_cnt_present_flag}. */
@@ -283,7 +279,7 @@ public class StdVideoH264PpsFlags extends Struct<StdVideoH264PpsFlags> implement
     /** Unsafe version of {@link #pic_scaling_matrix_present_flag}. */
     public static int npic_scaling_matrix_present_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_80) >>> 7; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH264PpsFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoH264PpsFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #transform_8x8_mode_flag(boolean) transform_8x8_mode_flag}. */
     public static void ntransform_8x8_mode_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #redundant_pic_cnt_present_flag(boolean) redundant_pic_cnt_present_flag}. */
@@ -332,6 +328,11 @@ public class StdVideoH264PpsFlags extends Struct<StdVideoH264PpsFlags> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

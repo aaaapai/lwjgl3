@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,9 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FMOD_DSP_PARAMETER_DESC {
  *     FMOD_DSP_PARAMETER_TYPE type;
  *     char name[16];
@@ -31,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *         {@link FMOD_DSP_PARAMETER_DESC_BOOL FMOD_DSP_PARAMETER_DESC_BOOL} booldesc;
  *         {@link FMOD_DSP_PARAMETER_DESC_DATA FMOD_DSP_PARAMETER_DESC_DATA} datadesc;
  *     };
- * }</code></pre>
+ * }}</pre>
  */
 public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> implements NativeResource {
 
@@ -196,8 +194,7 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DESC createSafe(long address) {
+    public static @Nullable FMOD_DSP_PARAMETER_DESC createSafe(long address) {
         return address == NULL ? null : new FMOD_DSP_PARAMETER_DESC(address, null);
     }
 
@@ -240,8 +237,7 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_PARAMETER_DESC.Buffer createSafe(long address, int capacity) {
+    public static FMOD_DSP_PARAMETER_DESC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,18 +282,18 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + FMOD_DSP_PARAMETER_DESC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + FMOD_DSP_PARAMETER_DESC.TYPE); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBuffer(struct + FMOD_DSP_PARAMETER_DESC.NAME, 16); }
     /** Unsafe version of {@link #name(int) name}. */
     public static byte nname(long struct, int index) {
-        return UNSAFE.getByte(null, struct + FMOD_DSP_PARAMETER_DESC.NAME + check(index, 16) * 1);
+        return memGetByte(struct + FMOD_DSP_PARAMETER_DESC.NAME + check(index, 16) * 1);
     }
     /** Unsafe version of {@link #label}. */
     public static ByteBuffer nlabel(long struct) { return memByteBuffer(struct + FMOD_DSP_PARAMETER_DESC.LABEL, 16); }
     /** Unsafe version of {@link #label(int) label}. */
     public static byte nlabel(long struct, int index) {
-        return UNSAFE.getByte(null, struct + FMOD_DSP_PARAMETER_DESC.LABEL + check(index, 16) * 1);
+        return memGetByte(struct + FMOD_DSP_PARAMETER_DESC.LABEL + check(index, 16) * 1);
     }
     /** Unsafe version of {@link #description}. */
     public static ByteBuffer ndescription(long struct) { return memByteBufferNT1(memGetAddress(struct + FMOD_DSP_PARAMETER_DESC.DESCRIPTION)); }
@@ -313,7 +309,7 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
     public static FMOD_DSP_PARAMETER_DESC_DATA ndatadesc(long struct) { return FMOD_DSP_PARAMETER_DESC_DATA.create(struct + FMOD_DSP_PARAMETER_DESC.DATADESC); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_DSP_PARAMETER_DESC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + FMOD_DSP_PARAMETER_DESC.TYPE, value); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 16); }
@@ -321,7 +317,7 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
     }
     /** Unsafe version of {@link #name(int, byte) name}. */
     public static void nname(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + FMOD_DSP_PARAMETER_DESC.NAME + check(index, 16) * 1, value);
+        memPutByte(struct + FMOD_DSP_PARAMETER_DESC.NAME + check(index, 16) * 1, value);
     }
     /** Unsafe version of {@link #label(ByteBuffer) label}. */
     public static void nlabel(long struct, ByteBuffer value) {
@@ -330,7 +326,7 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
     }
     /** Unsafe version of {@link #label(int, byte) label}. */
     public static void nlabel(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + FMOD_DSP_PARAMETER_DESC.LABEL + check(index, 16) * 1, value);
+        memPutByte(struct + FMOD_DSP_PARAMETER_DESC.LABEL + check(index, 16) * 1, value);
     }
     /** Unsafe version of {@link #description(ByteBuffer) description}. */
     public static void ndescription(long struct, ByteBuffer value) {
@@ -386,6 +382,11 @@ public class FMOD_DSP_PARAMETER_DESC extends Struct<FMOD_DSP_PARAMETER_DESC> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

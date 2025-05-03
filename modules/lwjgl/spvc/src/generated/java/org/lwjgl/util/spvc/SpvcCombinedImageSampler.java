@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_combined_image_sampler {
- *     spvc_variable_id {@link #combined_id};
- *     spvc_variable_id {@link #image_id};
- *     spvc_variable_id {@link #sampler_id};
- * }</code></pre>
+ *     spvc_variable_id combined_id;
+ *     spvc_variable_id image_id;
+ *     spvc_variable_id sampler_id;
+ * }}</pre>
  */
 @NativeType("struct spvc_combined_image_sampler")
 public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> implements NativeResource {
@@ -77,21 +75,21 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the ID of the {@code sampler2D} variable */
+    /** @return the value of the {@code combined_id} field. */
     @NativeType("spvc_variable_id")
     public int combined_id() { return ncombined_id(address()); }
-    /** the ID of the {@code texture2D} variable */
+    /** @return the value of the {@code image_id} field. */
     @NativeType("spvc_variable_id")
     public int image_id() { return nimage_id(address()); }
-    /** the ID of the {@code sampler} variable */
+    /** @return the value of the {@code sampler_id} field. */
     @NativeType("spvc_variable_id")
     public int sampler_id() { return nsampler_id(address()); }
 
-    /** Sets the specified value to the {@link #combined_id} field. */
+    /** Sets the specified value to the {@code combined_id} field. */
     public SpvcCombinedImageSampler combined_id(@NativeType("spvc_variable_id") int value) { ncombined_id(address(), value); return this; }
-    /** Sets the specified value to the {@link #image_id} field. */
+    /** Sets the specified value to the {@code image_id} field. */
     public SpvcCombinedImageSampler image_id(@NativeType("spvc_variable_id") int value) { nimage_id(address(), value); return this; }
-    /** Sets the specified value to the {@link #sampler_id} field. */
+    /** Sets the specified value to the {@code sampler_id} field. */
     public SpvcCombinedImageSampler sampler_id(@NativeType("spvc_variable_id") int value) { nsampler_id(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -143,8 +141,7 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcCombinedImageSampler createSafe(long address) {
+    public static @Nullable SpvcCombinedImageSampler createSafe(long address) {
         return address == NULL ? null : new SpvcCombinedImageSampler(address, null);
     }
 
@@ -187,8 +184,7 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcCombinedImageSampler.Buffer createSafe(long address, int capacity) {
+    public static SpvcCombinedImageSampler.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,18 +229,18 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
     // -----------------------------------
 
     /** Unsafe version of {@link #combined_id}. */
-    public static int ncombined_id(long struct) { return UNSAFE.getInt(null, struct + SpvcCombinedImageSampler.COMBINED_ID); }
+    public static int ncombined_id(long struct) { return memGetInt(struct + SpvcCombinedImageSampler.COMBINED_ID); }
     /** Unsafe version of {@link #image_id}. */
-    public static int nimage_id(long struct) { return UNSAFE.getInt(null, struct + SpvcCombinedImageSampler.IMAGE_ID); }
+    public static int nimage_id(long struct) { return memGetInt(struct + SpvcCombinedImageSampler.IMAGE_ID); }
     /** Unsafe version of {@link #sampler_id}. */
-    public static int nsampler_id(long struct) { return UNSAFE.getInt(null, struct + SpvcCombinedImageSampler.SAMPLER_ID); }
+    public static int nsampler_id(long struct) { return memGetInt(struct + SpvcCombinedImageSampler.SAMPLER_ID); }
 
     /** Unsafe version of {@link #combined_id(int) combined_id}. */
-    public static void ncombined_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcCombinedImageSampler.COMBINED_ID, value); }
+    public static void ncombined_id(long struct, int value) { memPutInt(struct + SpvcCombinedImageSampler.COMBINED_ID, value); }
     /** Unsafe version of {@link #image_id(int) image_id}. */
-    public static void nimage_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcCombinedImageSampler.IMAGE_ID, value); }
+    public static void nimage_id(long struct, int value) { memPutInt(struct + SpvcCombinedImageSampler.IMAGE_ID, value); }
     /** Unsafe version of {@link #sampler_id(int) sampler_id}. */
-    public static void nsampler_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcCombinedImageSampler.SAMPLER_ID, value); }
+    public static void nsampler_id(long struct, int value) { memPutInt(struct + SpvcCombinedImageSampler.SAMPLER_ID, value); }
 
     // -----------------------------------
 
@@ -280,25 +276,30 @@ public class SpvcCombinedImageSampler extends Struct<SpvcCombinedImageSampler> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected SpvcCombinedImageSampler getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link SpvcCombinedImageSampler#combined_id} field. */
+        /** @return the value of the {@code combined_id} field. */
         @NativeType("spvc_variable_id")
         public int combined_id() { return SpvcCombinedImageSampler.ncombined_id(address()); }
-        /** @return the value of the {@link SpvcCombinedImageSampler#image_id} field. */
+        /** @return the value of the {@code image_id} field. */
         @NativeType("spvc_variable_id")
         public int image_id() { return SpvcCombinedImageSampler.nimage_id(address()); }
-        /** @return the value of the {@link SpvcCombinedImageSampler#sampler_id} field. */
+        /** @return the value of the {@code sampler_id} field. */
         @NativeType("spvc_variable_id")
         public int sampler_id() { return SpvcCombinedImageSampler.nsampler_id(address()); }
 
-        /** Sets the specified value to the {@link SpvcCombinedImageSampler#combined_id} field. */
+        /** Sets the specified value to the {@code combined_id} field. */
         public SpvcCombinedImageSampler.Buffer combined_id(@NativeType("spvc_variable_id") int value) { SpvcCombinedImageSampler.ncombined_id(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcCombinedImageSampler#image_id} field. */
+        /** Sets the specified value to the {@code image_id} field. */
         public SpvcCombinedImageSampler.Buffer image_id(@NativeType("spvc_variable_id") int value) { SpvcCombinedImageSampler.nimage_id(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcCombinedImageSampler#sampler_id} field. */
+        /** Sets the specified value to the {@code sampler_id} field. */
         public SpvcCombinedImageSampler.Buffer sampler_id(@NativeType("spvc_variable_id") int value) { SpvcCombinedImageSampler.nsampler_id(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Camera intrintics state.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link OCULUSExternalCamera XR_OCULUS_external_camera} extension <b>must</b> be enabled prior to using {@link XrExternalCameraIntrinsicsOCULUS}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrExtent2Di}, {@link XrExternalCameraOCULUS}, {@link XrFovf}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrExternalCameraIntrinsicsOCULUS {
- *     XrTime {@link #lastChangeTime};
- *     {@link XrFovf XrFovf} {@link #fov};
- *     float {@link #virtualNearPlaneDistance};
- *     float {@link #virtualFarPlaneDistance};
- *     {@link XrExtent2Di XrExtent2Di} {@link #imageSensorPixelResolution};
- * }</code></pre>
+ *     XrTime lastChangeTime;
+ *     {@link XrFovf XrFovf} fov;
+ *     float virtualNearPlaneDistance;
+ *     float virtualFarPlaneDistance;
+ *     {@link XrExtent2Di XrExtent2Di} imageSensorPixelResolution;
+ * }}</pre>
  */
 public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraIntrinsicsOCULUS> implements NativeResource {
 
@@ -96,31 +82,31 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrTime} when this camera’s intrinsics last changed. */
+    /** @return the value of the {@code lastChangeTime} field. */
     @NativeType("XrTime")
     public long lastChangeTime() { return nlastChangeTime(address()); }
-    /** the {@link XrFovf} for this camera’s viewport. */
+    /** @return a {@link XrFovf} view of the {@code fov} field. */
     public XrFovf fov() { return nfov(address()); }
-    /** the near plane distance of the virtual camera used to match the external camera */
+    /** @return the value of the {@code virtualNearPlaneDistance} field. */
     public float virtualNearPlaneDistance() { return nvirtualNearPlaneDistance(address()); }
-    /** the far plane distance of the virtual camera used to match the external camera */
+    /** @return the value of the {@code virtualFarPlaneDistance} field. */
     public float virtualFarPlaneDistance() { return nvirtualFarPlaneDistance(address()); }
-    /** the {@link XrExtent2Di} specifying the camera’s resolution (in pixels). */
+    /** @return a {@link XrExtent2Di} view of the {@code imageSensorPixelResolution} field. */
     public XrExtent2Di imageSensorPixelResolution() { return nimageSensorPixelResolution(address()); }
 
-    /** Sets the specified value to the {@link #lastChangeTime} field. */
+    /** Sets the specified value to the {@code lastChangeTime} field. */
     public XrExternalCameraIntrinsicsOCULUS lastChangeTime(@NativeType("XrTime") long value) { nlastChangeTime(address(), value); return this; }
-    /** Copies the specified {@link XrFovf} to the {@link #fov} field. */
+    /** Copies the specified {@link XrFovf} to the {@code fov} field. */
     public XrExternalCameraIntrinsicsOCULUS fov(XrFovf value) { nfov(address(), value); return this; }
-    /** Passes the {@link #fov} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code fov} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrExternalCameraIntrinsicsOCULUS fov(java.util.function.Consumer<XrFovf> consumer) { consumer.accept(fov()); return this; }
-    /** Sets the specified value to the {@link #virtualNearPlaneDistance} field. */
+    /** Sets the specified value to the {@code virtualNearPlaneDistance} field. */
     public XrExternalCameraIntrinsicsOCULUS virtualNearPlaneDistance(float value) { nvirtualNearPlaneDistance(address(), value); return this; }
-    /** Sets the specified value to the {@link #virtualFarPlaneDistance} field. */
+    /** Sets the specified value to the {@code virtualFarPlaneDistance} field. */
     public XrExternalCameraIntrinsicsOCULUS virtualFarPlaneDistance(float value) { nvirtualFarPlaneDistance(address(), value); return this; }
-    /** Copies the specified {@link XrExtent2Di} to the {@link #imageSensorPixelResolution} field. */
+    /** Copies the specified {@link XrExtent2Di} to the {@code imageSensorPixelResolution} field. */
     public XrExternalCameraIntrinsicsOCULUS imageSensorPixelResolution(XrExtent2Di value) { nimageSensorPixelResolution(address(), value); return this; }
-    /** Passes the {@link #imageSensorPixelResolution} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code imageSensorPixelResolution} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrExternalCameraIntrinsicsOCULUS imageSensorPixelResolution(java.util.function.Consumer<XrExtent2Di> consumer) { consumer.accept(imageSensorPixelResolution()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -176,8 +162,7 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraIntrinsicsOCULUS createSafe(long address) {
+    public static @Nullable XrExternalCameraIntrinsicsOCULUS createSafe(long address) {
         return address == NULL ? null : new XrExternalCameraIntrinsicsOCULUS(address, null);
     }
 
@@ -220,8 +205,7 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraIntrinsicsOCULUS.Buffer createSafe(long address, int capacity) {
+    public static XrExternalCameraIntrinsicsOCULUS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,24 +250,24 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
     // -----------------------------------
 
     /** Unsafe version of {@link #lastChangeTime}. */
-    public static long nlastChangeTime(long struct) { return UNSAFE.getLong(null, struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME); }
+    public static long nlastChangeTime(long struct) { return memGetLong(struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME); }
     /** Unsafe version of {@link #fov}. */
     public static XrFovf nfov(long struct) { return XrFovf.create(struct + XrExternalCameraIntrinsicsOCULUS.FOV); }
     /** Unsafe version of {@link #virtualNearPlaneDistance}. */
-    public static float nvirtualNearPlaneDistance(long struct) { return UNSAFE.getFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE); }
+    public static float nvirtualNearPlaneDistance(long struct) { return memGetFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE); }
     /** Unsafe version of {@link #virtualFarPlaneDistance}. */
-    public static float nvirtualFarPlaneDistance(long struct) { return UNSAFE.getFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE); }
+    public static float nvirtualFarPlaneDistance(long struct) { return memGetFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE); }
     /** Unsafe version of {@link #imageSensorPixelResolution}. */
     public static XrExtent2Di nimageSensorPixelResolution(long struct) { return XrExtent2Di.create(struct + XrExternalCameraIntrinsicsOCULUS.IMAGESENSORPIXELRESOLUTION); }
 
     /** Unsafe version of {@link #lastChangeTime(long) lastChangeTime}. */
-    public static void nlastChangeTime(long struct, long value) { UNSAFE.putLong(null, struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME, value); }
+    public static void nlastChangeTime(long struct, long value) { memPutLong(struct + XrExternalCameraIntrinsicsOCULUS.LASTCHANGETIME, value); }
     /** Unsafe version of {@link #fov(XrFovf) fov}. */
     public static void nfov(long struct, XrFovf value) { memCopy(value.address(), struct + XrExternalCameraIntrinsicsOCULUS.FOV, XrFovf.SIZEOF); }
     /** Unsafe version of {@link #virtualNearPlaneDistance(float) virtualNearPlaneDistance}. */
-    public static void nvirtualNearPlaneDistance(long struct, float value) { UNSAFE.putFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE, value); }
+    public static void nvirtualNearPlaneDistance(long struct, float value) { memPutFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALNEARPLANEDISTANCE, value); }
     /** Unsafe version of {@link #virtualFarPlaneDistance(float) virtualFarPlaneDistance}. */
-    public static void nvirtualFarPlaneDistance(long struct, float value) { UNSAFE.putFloat(null, struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE, value); }
+    public static void nvirtualFarPlaneDistance(long struct, float value) { memPutFloat(struct + XrExternalCameraIntrinsicsOCULUS.VIRTUALFARPLANEDISTANCE, value); }
     /** Unsafe version of {@link #imageSensorPixelResolution(XrExtent2Di) imageSensorPixelResolution}. */
     public static void nimageSensorPixelResolution(long struct, XrExtent2Di value) { memCopy(value.address(), struct + XrExternalCameraIntrinsicsOCULUS.IMAGESENSORPIXELRESOLUTION, XrExtent2Di.SIZEOF); }
 
@@ -321,35 +305,40 @@ public class XrExternalCameraIntrinsicsOCULUS extends Struct<XrExternalCameraInt
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrExternalCameraIntrinsicsOCULUS getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrExternalCameraIntrinsicsOCULUS#lastChangeTime} field. */
+        /** @return the value of the {@code lastChangeTime} field. */
         @NativeType("XrTime")
         public long lastChangeTime() { return XrExternalCameraIntrinsicsOCULUS.nlastChangeTime(address()); }
-        /** @return a {@link XrFovf} view of the {@link XrExternalCameraIntrinsicsOCULUS#fov} field. */
+        /** @return a {@link XrFovf} view of the {@code fov} field. */
         public XrFovf fov() { return XrExternalCameraIntrinsicsOCULUS.nfov(address()); }
-        /** @return the value of the {@link XrExternalCameraIntrinsicsOCULUS#virtualNearPlaneDistance} field. */
+        /** @return the value of the {@code virtualNearPlaneDistance} field. */
         public float virtualNearPlaneDistance() { return XrExternalCameraIntrinsicsOCULUS.nvirtualNearPlaneDistance(address()); }
-        /** @return the value of the {@link XrExternalCameraIntrinsicsOCULUS#virtualFarPlaneDistance} field. */
+        /** @return the value of the {@code virtualFarPlaneDistance} field. */
         public float virtualFarPlaneDistance() { return XrExternalCameraIntrinsicsOCULUS.nvirtualFarPlaneDistance(address()); }
-        /** @return a {@link XrExtent2Di} view of the {@link XrExternalCameraIntrinsicsOCULUS#imageSensorPixelResolution} field. */
+        /** @return a {@link XrExtent2Di} view of the {@code imageSensorPixelResolution} field. */
         public XrExtent2Di imageSensorPixelResolution() { return XrExternalCameraIntrinsicsOCULUS.nimageSensorPixelResolution(address()); }
 
-        /** Sets the specified value to the {@link XrExternalCameraIntrinsicsOCULUS#lastChangeTime} field. */
+        /** Sets the specified value to the {@code lastChangeTime} field. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer lastChangeTime(@NativeType("XrTime") long value) { XrExternalCameraIntrinsicsOCULUS.nlastChangeTime(address(), value); return this; }
-        /** Copies the specified {@link XrFovf} to the {@link XrExternalCameraIntrinsicsOCULUS#fov} field. */
+        /** Copies the specified {@link XrFovf} to the {@code fov} field. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer fov(XrFovf value) { XrExternalCameraIntrinsicsOCULUS.nfov(address(), value); return this; }
-        /** Passes the {@link XrExternalCameraIntrinsicsOCULUS#fov} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code fov} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer fov(java.util.function.Consumer<XrFovf> consumer) { consumer.accept(fov()); return this; }
-        /** Sets the specified value to the {@link XrExternalCameraIntrinsicsOCULUS#virtualNearPlaneDistance} field. */
+        /** Sets the specified value to the {@code virtualNearPlaneDistance} field. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer virtualNearPlaneDistance(float value) { XrExternalCameraIntrinsicsOCULUS.nvirtualNearPlaneDistance(address(), value); return this; }
-        /** Sets the specified value to the {@link XrExternalCameraIntrinsicsOCULUS#virtualFarPlaneDistance} field. */
+        /** Sets the specified value to the {@code virtualFarPlaneDistance} field. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer virtualFarPlaneDistance(float value) { XrExternalCameraIntrinsicsOCULUS.nvirtualFarPlaneDistance(address(), value); return this; }
-        /** Copies the specified {@link XrExtent2Di} to the {@link XrExternalCameraIntrinsicsOCULUS#imageSensorPixelResolution} field. */
+        /** Copies the specified {@link XrExtent2Di} to the {@code imageSensorPixelResolution} field. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer imageSensorPixelResolution(XrExtent2Di value) { XrExternalCameraIntrinsicsOCULUS.nimageSensorPixelResolution(address(), value); return this; }
-        /** Passes the {@link XrExternalCameraIntrinsicsOCULUS#imageSensorPixelResolution} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code imageSensorPixelResolution} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrExternalCameraIntrinsicsOCULUS.Buffer imageSensorPixelResolution(java.util.function.Consumer<XrExtent2Di> consumer) { consumer.accept(imageSensorPixelResolution()); return this; }
 
     }

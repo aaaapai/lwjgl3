@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying an image view for descriptor capture.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code imageView} <b>must</b> have been created with {@link EXTDescriptorBuffer#VK_IMAGE_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT IMAGE_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT} set in {@link VkImageViewCreateInfo}{@code ::flags}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code imageView} <b>must</b> be a valid {@code VkImageView} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTDescriptorBuffer#vkGetImageViewOpaqueCaptureDescriptorDataEXT GetImageViewOpaqueCaptureDescriptorDataEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkImageViewCaptureDescriptorDataInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkImageView {@link #imageView};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkImageView imageView;
+ * }}</pre>
  */
 public class VkImageViewCaptureDescriptorDataInfoEXT extends Struct<VkImageViewCaptureDescriptorDataInfoEXT> implements NativeResource {
 
@@ -96,23 +74,23 @@ public class VkImageViewCaptureDescriptorDataInfoEXT extends Struct<VkImageViewC
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the {@code VkImageView} handle of the image view to get opaque capture data for. */
+    /** @return the value of the {@code imageView} field. */
     @NativeType("VkImageView")
     public long imageView() { return nimageView(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkImageViewCaptureDescriptorDataInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@code sType} field. */
     public VkImageViewCaptureDescriptorDataInfoEXT sType$Default() { return sType(EXTDescriptorBuffer.VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkImageViewCaptureDescriptorDataInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #imageView} field. */
+    /** Sets the specified value to the {@code imageView} field. */
     public VkImageViewCaptureDescriptorDataInfoEXT imageView(@NativeType("VkImageView") long value) { nimageView(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -164,8 +142,7 @@ public class VkImageViewCaptureDescriptorDataInfoEXT extends Struct<VkImageViewC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewCaptureDescriptorDataInfoEXT createSafe(long address) {
+    public static @Nullable VkImageViewCaptureDescriptorDataInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImageViewCaptureDescriptorDataInfoEXT(address, null);
     }
 
@@ -208,8 +185,7 @@ public class VkImageViewCaptureDescriptorDataInfoEXT extends Struct<VkImageViewC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewCaptureDescriptorDataInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewCaptureDescriptorDataInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,18 +230,18 @@ public class VkImageViewCaptureDescriptorDataInfoEXT extends Struct<VkImageViewC
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewCaptureDescriptorDataInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewCaptureDescriptorDataInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewCaptureDescriptorDataInfoEXT.PNEXT); }
     /** Unsafe version of {@link #imageView}. */
-    public static long nimageView(long struct) { return UNSAFE.getLong(null, struct + VkImageViewCaptureDescriptorDataInfoEXT.IMAGEVIEW); }
+    public static long nimageView(long struct) { return memGetLong(struct + VkImageViewCaptureDescriptorDataInfoEXT.IMAGEVIEW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewCaptureDescriptorDataInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewCaptureDescriptorDataInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewCaptureDescriptorDataInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #imageView(long) imageView}. */
-    public static void nimageView(long struct, long value) { UNSAFE.putLong(null, struct + VkImageViewCaptureDescriptorDataInfoEXT.IMAGEVIEW, value); }
+    public static void nimageView(long struct, long value) { memPutLong(struct + VkImageViewCaptureDescriptorDataInfoEXT.IMAGEVIEW, value); }
 
     // -----------------------------------
 
@@ -301,27 +277,32 @@ public class VkImageViewCaptureDescriptorDataInfoEXT extends Struct<VkImageViewC
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImageViewCaptureDescriptorDataInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkImageViewCaptureDescriptorDataInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkImageViewCaptureDescriptorDataInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkImageViewCaptureDescriptorDataInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkImageViewCaptureDescriptorDataInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkImageViewCaptureDescriptorDataInfoEXT#imageView} field. */
+        /** @return the value of the {@code imageView} field. */
         @NativeType("VkImageView")
         public long imageView() { return VkImageViewCaptureDescriptorDataInfoEXT.nimageView(address()); }
 
-        /** Sets the specified value to the {@link VkImageViewCaptureDescriptorDataInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkImageViewCaptureDescriptorDataInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkImageViewCaptureDescriptorDataInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@link VkImageViewCaptureDescriptorDataInfoEXT#sType} field. */
+        /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@code sType} field. */
         public VkImageViewCaptureDescriptorDataInfoEXT.Buffer sType$Default() { return sType(EXTDescriptorBuffer.VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT); }
-        /** Sets the specified value to the {@link VkImageViewCaptureDescriptorDataInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkImageViewCaptureDescriptorDataInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkImageViewCaptureDescriptorDataInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImageViewCaptureDescriptorDataInfoEXT#imageView} field. */
+        /** Sets the specified value to the {@code imageView} field. */
         public VkImageViewCaptureDescriptorDataInfoEXT.Buffer imageView(@NativeType("VkImageView") long value) { VkImageViewCaptureDescriptorDataInfoEXT.nimageView(address(), value); return this; }
 
     }

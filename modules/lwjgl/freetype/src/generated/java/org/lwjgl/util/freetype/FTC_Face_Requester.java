@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FTC_FaceID face_id,
- *     FT_Library library,
- *     FT_Pointer req_data,
- *     FT_Face *aface
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FTC_Face_Requester} */
 public abstract class FTC_Face_Requester extends Callback implements FTC_Face_RequesterI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class FTC_Face_Requester extends Callback implements FTC_Face_Re
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FTC_Face_Requester createSafe(long functionPointer) {
+    public static @Nullable FTC_Face_Requester createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

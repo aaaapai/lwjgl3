@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,15 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The {@code DATA_BLOB} structure contains an arbitrary array of bytes.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct DATA_BLOB {
- *     DWORD {@link #cbData};
- *     BYTE * {@link #pbData};
- * }</code></pre>
+ *     DWORD cbData;
+ *     BYTE * pbData;
+ * }}</pre>
  */
 public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
 
@@ -75,14 +71,14 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the count, in bytes, of data */
+    /** @return the value of the {@code cbData} field. */
     @NativeType("DWORD")
     public int cbData() { return ncbData(address()); }
-    /** a pointer to the data buffer */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pbData} field. */
     @NativeType("BYTE *")
     public ByteBuffer pbData() { return npbData(address()); }
 
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #pbData} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code pbData} field. */
     public DATA_BLOB pbData(@NativeType("BYTE *") ByteBuffer value) { npbData(address(), value); return this; }
 
     /**
@@ -121,8 +117,7 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DATA_BLOB createSafe(long address) {
+    public static @Nullable DATA_BLOB createSafe(long address) {
         return address == NULL ? null : new DATA_BLOB(address, null);
     }
 
@@ -165,8 +160,7 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DATA_BLOB.Buffer createSafe(long address, int capacity) {
+    public static DATA_BLOB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,12 +205,12 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #cbData}. */
-    public static int ncbData(long struct) { return UNSAFE.getInt(null, struct + DATA_BLOB.CBDATA); }
+    public static int ncbData(long struct) { return memGetInt(struct + DATA_BLOB.CBDATA); }
     /** Unsafe version of {@link #pbData() pbData}. */
     public static ByteBuffer npbData(long struct) { return memByteBuffer(memGetAddress(struct + DATA_BLOB.PBDATA), ncbData(struct)); }
 
     /** Sets the specified value to the {@code cbData} field of the specified {@code struct}. */
-    public static void ncbData(long struct, int value) { UNSAFE.putInt(null, struct + DATA_BLOB.CBDATA, value); }
+    public static void ncbData(long struct, int value) { memPutInt(struct + DATA_BLOB.CBDATA, value); }
     /** Unsafe version of {@link #pbData(ByteBuffer) pbData}. */
     public static void npbData(long struct, ByteBuffer value) { memPutAddress(struct + DATA_BLOB.PBDATA, memAddress(value)); ncbData(struct, value.remaining()); }
 
@@ -263,18 +257,23 @@ public class DATA_BLOB extends Struct<DATA_BLOB> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected DATA_BLOB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link DATA_BLOB#cbData} field. */
+        /** @return the value of the {@code cbData} field. */
         @NativeType("DWORD")
         public int cbData() { return DATA_BLOB.ncbData(address()); }
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link DATA_BLOB#pbData} field. */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pbData} field. */
         @NativeType("BYTE *")
         public ByteBuffer pbData() { return DATA_BLOB.npbData(address()); }
 
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link DATA_BLOB#pbData} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code pbData} field. */
         public DATA_BLOB.Buffer pbData(@NativeType("BYTE *") ByteBuffer value) { DATA_BLOB.npbData(address(), value); return this; }
 
     }

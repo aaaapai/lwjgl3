@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,80 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created pipeline line rasterization state.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code stippledLineEnable} is {@link VK10#VK_FALSE FALSE}, the values of {@code lineStippleFactor} and {@code lineStipplePattern} are ignored.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-rectangularLines">{@code rectangularLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT LINE_RASTERIZATION_MODE_BRESENHAM_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bresenhamLines">{@code bresenhamLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-smoothLines">{@code smoothLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledRectangularLines">{@code stippledRectangularLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT LINE_RASTERIZATION_MODE_BRESENHAM_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledBresenhamLines">{@code stippledBresenhamLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledSmoothLines">{@code stippledSmoothLines}</a> feature <b>must</b> be enabled</li>
- * <li>If {@code stippledLineEnable} is {@link VK10#VK_TRUE TRUE} and {@code lineRasterizationMode} is {@link EXTLineRasterization#VK_LINE_RASTERIZATION_MODE_DEFAULT_EXT LINE_RASTERIZATION_MODE_DEFAULT_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-stippledRectangularLines">{@code stippledRectangularLines}</a> feature <b>must</b> be enabled and {@link VkPhysicalDeviceLimits}{@code ::strictLines} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTLineRasterization#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT}</li>
- * <li>{@code lineRasterizationMode} <b>must</b> be a valid {@code VkLineRasterizationModeEXT} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineRasterizationLineStateCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkLineRasterizationModeEXT {@link #lineRasterizationMode};
- *     VkBool32 {@link #stippledLineEnable};
- *     uint32_t {@link #lineStippleFactor};
- *     uint16_t {@link #lineStipplePattern};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkLineRasterizationMode lineRasterizationMode;
+ *     VkBool32 stippledLineEnable;
+ *     uint32_t lineStippleFactor;
+ *     uint16_t lineStipplePattern;
+ * }}</pre>
  */
-public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipelineRasterizationLineStateCreateInfoEXT> implements NativeResource {
-
-    /** The struct size in bytes. */
-    public static final int SIZEOF;
-
-    /** The struct alignment in bytes. */
-    public static final int ALIGNOF;
-
-    /** The struct member offsets. */
-    public static final int
-        STYPE,
-        PNEXT,
-        LINERASTERIZATIONMODE,
-        STIPPLEDLINEENABLE,
-        LINESTIPPLEFACTOR,
-        LINESTIPPLEPATTERN;
-
-    static {
-        Layout layout = __struct(
-            __member(4),
-            __member(POINTER_SIZE),
-            __member(4),
-            __member(4),
-            __member(4),
-            __member(2)
-        );
-
-        SIZEOF = layout.getSize();
-        ALIGNOF = layout.getAlignment();
-
-        STYPE = layout.offsetof(0);
-        PNEXT = layout.offsetof(1);
-        LINERASTERIZATIONMODE = layout.offsetof(2);
-        STIPPLEDLINEENABLE = layout.offsetof(3);
-        LINESTIPPLEFACTOR = layout.offsetof(4);
-        LINESTIPPLEPATTERN = layout.offsetof(5);
-    }
+public class VkPipelineRasterizationLineStateCreateInfoEXT extends VkPipelineRasterizationLineStateCreateInfo {
 
     protected VkPipelineRasterizationLineStateCreateInfoEXT(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -107,47 +44,33 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipe
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public VkPipelineRasterizationLineStateCreateInfoEXT(ByteBuffer container) {
-        super(memAddress(container), __checkContainer(container, SIZEOF));
+        super(container);
     }
 
+    /** Sets the specified value to the {@code sType} field. */
     @Override
-    public int sizeof() { return SIZEOF; }
-
-    /** a {@code VkStructureType} value identifying this structure. */
-    @NativeType("VkStructureType")
-    public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void const *")
-    public long pNext() { return npNext(address()); }
-    /** a {@code VkLineRasterizationModeEXT} value selecting the style of line rasterization. */
-    @NativeType("VkLineRasterizationModeEXT")
-    public int lineRasterizationMode() { return nlineRasterizationMode(address()); }
-    /** enables <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-lines-stipple">stippled line rasterization</a>. */
-    @NativeType("VkBool32")
-    public boolean stippledLineEnable() { return nstippledLineEnable(address()) != 0; }
-    /** the repeat factor used in stippled line rasterization. */
-    @NativeType("uint32_t")
-    public int lineStippleFactor() { return nlineStippleFactor(address()); }
-    /** the bit pattern used in stippled line rasterization. */
-    @NativeType("uint16_t")
-    public short lineStipplePattern() { return nlineStipplePattern(address()); }
-
-    /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineRasterizationLineStateCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTLineRasterization#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT} value to the {@link #sType} field. */
-    public VkPipelineRasterizationLineStateCreateInfoEXT sType$Default() { return sType(EXTLineRasterization.VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the {@link VK14#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO} value to the {@code sType} field. */
+    @Override
+    public VkPipelineRasterizationLineStateCreateInfoEXT sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO); }
+    /** Sets the specified value to the {@code pNext} field. */
+    @Override
     public VkPipelineRasterizationLineStateCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #lineRasterizationMode} field. */
-    public VkPipelineRasterizationLineStateCreateInfoEXT lineRasterizationMode(@NativeType("VkLineRasterizationModeEXT") int value) { nlineRasterizationMode(address(), value); return this; }
-    /** Sets the specified value to the {@link #stippledLineEnable} field. */
+    /** Sets the specified value to the {@code lineRasterizationMode} field. */
+    @Override
+    public VkPipelineRasterizationLineStateCreateInfoEXT lineRasterizationMode(@NativeType("VkLineRasterizationMode") int value) { nlineRasterizationMode(address(), value); return this; }
+    /** Sets the specified value to the {@code stippledLineEnable} field. */
+    @Override
     public VkPipelineRasterizationLineStateCreateInfoEXT stippledLineEnable(@NativeType("VkBool32") boolean value) { nstippledLineEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #lineStippleFactor} field. */
+    /** Sets the specified value to the {@code lineStippleFactor} field. */
+    @Override
     public VkPipelineRasterizationLineStateCreateInfoEXT lineStippleFactor(@NativeType("uint32_t") int value) { nlineStippleFactor(address(), value); return this; }
-    /** Sets the specified value to the {@link #lineStipplePattern} field. */
+    /** Sets the specified value to the {@code lineStipplePattern} field. */
+    @Override
     public VkPipelineRasterizationLineStateCreateInfoEXT lineStipplePattern(@NativeType("uint16_t") short value) { nlineStipplePattern(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
+    @Override
     public VkPipelineRasterizationLineStateCreateInfoEXT set(
         int sType,
         long pNext,
@@ -202,8 +125,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationLineStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineRasterizationLineStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineRasterizationLineStateCreateInfoEXT(address, null);
     }
 
@@ -246,8 +168,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationLineStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRasterizationLineStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -310,36 +231,8 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipe
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.STYPE); }
-    /** Unsafe version of {@link #pNext}. */
-    public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRasterizationLineStateCreateInfoEXT.PNEXT); }
-    /** Unsafe version of {@link #lineRasterizationMode}. */
-    public static int nlineRasterizationMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.LINERASTERIZATIONMODE); }
-    /** Unsafe version of {@link #stippledLineEnable}. */
-    public static int nstippledLineEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.STIPPLEDLINEENABLE); }
-    /** Unsafe version of {@link #lineStippleFactor}. */
-    public static int nlineStippleFactor(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.LINESTIPPLEFACTOR); }
-    /** Unsafe version of {@link #lineStipplePattern}. */
-    public static short nlineStipplePattern(long struct) { return UNSAFE.getShort(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.LINESTIPPLEPATTERN); }
-
-    /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.STYPE, value); }
-    /** Unsafe version of {@link #pNext(long) pNext}. */
-    public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRasterizationLineStateCreateInfoEXT.PNEXT, value); }
-    /** Unsafe version of {@link #lineRasterizationMode(int) lineRasterizationMode}. */
-    public static void nlineRasterizationMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.LINERASTERIZATIONMODE, value); }
-    /** Unsafe version of {@link #stippledLineEnable(boolean) stippledLineEnable}. */
-    public static void nstippledLineEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.STIPPLEDLINEENABLE, value); }
-    /** Unsafe version of {@link #lineStippleFactor(int) lineStippleFactor}. */
-    public static void nlineStippleFactor(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.LINESTIPPLEFACTOR, value); }
-    /** Unsafe version of {@link #lineStipplePattern(short) lineStipplePattern}. */
-    public static void nlineStipplePattern(long struct, short value) { UNSAFE.putShort(null, struct + VkPipelineRasterizationLineStateCreateInfoEXT.LINESTIPPLEPATTERN, value); }
-
-    // -----------------------------------
-
     /** An array of {@link VkPipelineRasterizationLineStateCreateInfoEXT} structs. */
-    public static class Buffer extends StructBuffer<VkPipelineRasterizationLineStateCreateInfoEXT, Buffer> implements NativeResource {
+    public static class Buffer extends VkPipelineRasterizationLineStateCreateInfo.Buffer {
 
         private static final VkPipelineRasterizationLineStateCreateInfoEXT ELEMENT_FACTORY = VkPipelineRasterizationLineStateCreateInfoEXT.create(-1L);
 
@@ -353,7 +246,7 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipe
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container, container.remaining() / SIZEOF);
+            super(container);
         }
 
         public Buffer(long address, int cap) {
@@ -370,42 +263,35 @@ public class VkPipelineRasterizationLineStateCreateInfoEXT extends Struct<VkPipe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineRasterizationLineStateCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineRasterizationLineStateCreateInfoEXT#sType} field. */
-        @NativeType("VkStructureType")
-        public int sType() { return VkPipelineRasterizationLineStateCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkPipelineRasterizationLineStateCreateInfoEXT#pNext} field. */
-        @NativeType("void const *")
-        public long pNext() { return VkPipelineRasterizationLineStateCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkPipelineRasterizationLineStateCreateInfoEXT#lineRasterizationMode} field. */
-        @NativeType("VkLineRasterizationModeEXT")
-        public int lineRasterizationMode() { return VkPipelineRasterizationLineStateCreateInfoEXT.nlineRasterizationMode(address()); }
-        /** @return the value of the {@link VkPipelineRasterizationLineStateCreateInfoEXT#stippledLineEnable} field. */
-        @NativeType("VkBool32")
-        public boolean stippledLineEnable() { return VkPipelineRasterizationLineStateCreateInfoEXT.nstippledLineEnable(address()) != 0; }
-        /** @return the value of the {@link VkPipelineRasterizationLineStateCreateInfoEXT#lineStippleFactor} field. */
-        @NativeType("uint32_t")
-        public int lineStippleFactor() { return VkPipelineRasterizationLineStateCreateInfoEXT.nlineStippleFactor(address()); }
-        /** @return the value of the {@link VkPipelineRasterizationLineStateCreateInfoEXT#lineStipplePattern} field. */
-        @NativeType("uint16_t")
-        public short lineStipplePattern() { return VkPipelineRasterizationLineStateCreateInfoEXT.nlineStipplePattern(address()); }
-
-        /** Sets the specified value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
+        @Override
         public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineRasterizationLineStateCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTLineRasterization#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT} value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#sType} field. */
-        public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer sType$Default() { return sType(EXTLineRasterization.VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#pNext} field. */
+        /** Sets the {@link VK14#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO} value to the {@code sType} field. */
+        @Override
+        public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO); }
+        /** Sets the specified value to the {@code pNext} field. */
+        @Override
         public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkPipelineRasterizationLineStateCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#lineRasterizationMode} field. */
-        public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer lineRasterizationMode(@NativeType("VkLineRasterizationModeEXT") int value) { VkPipelineRasterizationLineStateCreateInfoEXT.nlineRasterizationMode(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#stippledLineEnable} field. */
+        /** Sets the specified value to the {@code lineRasterizationMode} field. */
+        @Override
+        public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer lineRasterizationMode(@NativeType("VkLineRasterizationMode") int value) { VkPipelineRasterizationLineStateCreateInfoEXT.nlineRasterizationMode(address(), value); return this; }
+        /** Sets the specified value to the {@code stippledLineEnable} field. */
+        @Override
         public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer stippledLineEnable(@NativeType("VkBool32") boolean value) { VkPipelineRasterizationLineStateCreateInfoEXT.nstippledLineEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#lineStippleFactor} field. */
+        /** Sets the specified value to the {@code lineStippleFactor} field. */
+        @Override
         public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer lineStippleFactor(@NativeType("uint32_t") int value) { VkPipelineRasterizationLineStateCreateInfoEXT.nlineStippleFactor(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRasterizationLineStateCreateInfoEXT#lineStipplePattern} field. */
+        /** Sets the specified value to the {@code lineStipplePattern} field. */
+        @Override
         public VkPipelineRasterizationLineStateCreateInfoEXT.Buffer lineStipplePattern(@NativeType("uint16_t") short value) { VkPipelineRasterizationLineStateCreateInfoEXT.nlineStipplePattern(address(), value); return this; }
 
     }

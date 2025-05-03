@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains message information from a thread's message queue.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct MSG {
- *     HWND {@link #hwnd};
- *     UINT {@link #message};
- *     WPARAM {@link #wParam};
- *     LPARAM {@link #lParam};
- *     DWORD {@link #time};
- *     {@link POINT POINT} {@link #pt};
- * }</code></pre>
+ *     HWND hwnd;
+ *     UINT message;
+ *     WPARAM wParam;
+ *     LPARAM lParam;
+ *     DWORD time;
+ *     {@link POINT POINT} pt;
+ * }}</pre>
  */
 public class MSG extends Struct<MSG> implements NativeResource {
 
@@ -90,37 +86,37 @@ public class MSG extends Struct<MSG> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a handle to the window whose window procedure receives the message. This member is {@code NULL} when the message is a thread message. */
+    /** @return the value of the {@code hwnd} field. */
     @NativeType("HWND")
     public long hwnd() { return nhwnd(address()); }
-    /** the message identifier. Applications can only use the low word; the high word is reserved by the system. */
+    /** @return the value of the {@code message} field. */
     @NativeType("UINT")
     public int message() { return nmessage(address()); }
-    /** additional information about the message. The exact meaning depends on the value of the message member. */
+    /** @return the value of the {@code wParam} field. */
     @NativeType("WPARAM")
     public long wParam() { return nwParam(address()); }
-    /** additional information about the message. The exact meaning depends on the value of the message member. */
+    /** @return the value of the {@code lParam} field. */
     @NativeType("LPARAM")
     public long lParam() { return nlParam(address()); }
-    /** the time at which the message was posted */
+    /** @return the value of the {@code time} field. */
     @NativeType("DWORD")
     public int time() { return ntime(address()); }
-    /** the cursor position, in screen coordinates, when the message was posted. */
+    /** @return a {@link POINT} view of the {@code pt} field. */
     public POINT pt() { return npt(address()); }
 
-    /** Sets the specified value to the {@link #hwnd} field. */
+    /** Sets the specified value to the {@code hwnd} field. */
     public MSG hwnd(@NativeType("HWND") long value) { nhwnd(address(), value); return this; }
-    /** Sets the specified value to the {@link #message} field. */
+    /** Sets the specified value to the {@code message} field. */
     public MSG message(@NativeType("UINT") int value) { nmessage(address(), value); return this; }
-    /** Sets the specified value to the {@link #wParam} field. */
+    /** Sets the specified value to the {@code wParam} field. */
     public MSG wParam(@NativeType("WPARAM") long value) { nwParam(address(), value); return this; }
-    /** Sets the specified value to the {@link #lParam} field. */
+    /** Sets the specified value to the {@code lParam} field. */
     public MSG lParam(@NativeType("LPARAM") long value) { nlParam(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public MSG time(@NativeType("DWORD") int value) { ntime(address(), value); return this; }
-    /** Copies the specified {@link POINT} to the {@link #pt} field. */
+    /** Copies the specified {@link POINT} to the {@code pt} field. */
     public MSG pt(POINT value) { npt(address(), value); return this; }
-    /** Passes the {@link #pt} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code pt} field to the specified {@link java.util.function.Consumer Consumer}. */
     public MSG pt(java.util.function.Consumer<POINT> consumer) { consumer.accept(pt()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +174,7 @@ public class MSG extends Struct<MSG> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSG createSafe(long address) {
+    public static @Nullable MSG createSafe(long address) {
         return address == NULL ? null : new MSG(address, null);
     }
 
@@ -222,8 +217,7 @@ public class MSG extends Struct<MSG> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MSG.Buffer createSafe(long address, int capacity) {
+    public static MSG.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,26 +283,26 @@ public class MSG extends Struct<MSG> implements NativeResource {
     /** Unsafe version of {@link #hwnd}. */
     public static long nhwnd(long struct) { return memGetAddress(struct + MSG.HWND); }
     /** Unsafe version of {@link #message}. */
-    public static int nmessage(long struct) { return UNSAFE.getInt(null, struct + MSG.MESSAGE); }
+    public static int nmessage(long struct) { return memGetInt(struct + MSG.MESSAGE); }
     /** Unsafe version of {@link #wParam}. */
     public static long nwParam(long struct) { return memGetAddress(struct + MSG.WPARAM); }
     /** Unsafe version of {@link #lParam}. */
     public static long nlParam(long struct) { return memGetAddress(struct + MSG.LPARAM); }
     /** Unsafe version of {@link #time}. */
-    public static int ntime(long struct) { return UNSAFE.getInt(null, struct + MSG.TIME); }
+    public static int ntime(long struct) { return memGetInt(struct + MSG.TIME); }
     /** Unsafe version of {@link #pt}. */
     public static POINT npt(long struct) { return POINT.create(struct + MSG.PT); }
 
     /** Unsafe version of {@link #hwnd(long) hwnd}. */
     public static void nhwnd(long struct, long value) { memPutAddress(struct + MSG.HWND, value); }
     /** Unsafe version of {@link #message(int) message}. */
-    public static void nmessage(long struct, int value) { UNSAFE.putInt(null, struct + MSG.MESSAGE, value); }
+    public static void nmessage(long struct, int value) { memPutInt(struct + MSG.MESSAGE, value); }
     /** Unsafe version of {@link #wParam(long) wParam}. */
     public static void nwParam(long struct, long value) { memPutAddress(struct + MSG.WPARAM, value); }
     /** Unsafe version of {@link #lParam(long) lParam}. */
     public static void nlParam(long struct, long value) { memPutAddress(struct + MSG.LPARAM, value); }
     /** Unsafe version of {@link #time(int) time}. */
-    public static void ntime(long struct, int value) { UNSAFE.putInt(null, struct + MSG.TIME, value); }
+    public static void ntime(long struct, int value) { memPutInt(struct + MSG.TIME, value); }
     /** Unsafe version of {@link #pt(POINT) pt}. */
     public static void npt(long struct, POINT value) { memCopy(value.address(), struct + MSG.PT, POINT.SIZEOF); }
 
@@ -346,41 +340,46 @@ public class MSG extends Struct<MSG> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MSG getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link MSG#hwnd} field. */
+        /** @return the value of the {@code hwnd} field. */
         @NativeType("HWND")
         public long hwnd() { return MSG.nhwnd(address()); }
-        /** @return the value of the {@link MSG#message} field. */
+        /** @return the value of the {@code message} field. */
         @NativeType("UINT")
         public int message() { return MSG.nmessage(address()); }
-        /** @return the value of the {@link MSG#wParam} field. */
+        /** @return the value of the {@code wParam} field. */
         @NativeType("WPARAM")
         public long wParam() { return MSG.nwParam(address()); }
-        /** @return the value of the {@link MSG#lParam} field. */
+        /** @return the value of the {@code lParam} field. */
         @NativeType("LPARAM")
         public long lParam() { return MSG.nlParam(address()); }
-        /** @return the value of the {@link MSG#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("DWORD")
         public int time() { return MSG.ntime(address()); }
-        /** @return a {@link POINT} view of the {@link MSG#pt} field. */
+        /** @return a {@link POINT} view of the {@code pt} field. */
         public POINT pt() { return MSG.npt(address()); }
 
-        /** Sets the specified value to the {@link MSG#hwnd} field. */
+        /** Sets the specified value to the {@code hwnd} field. */
         public MSG.Buffer hwnd(@NativeType("HWND") long value) { MSG.nhwnd(address(), value); return this; }
-        /** Sets the specified value to the {@link MSG#message} field. */
+        /** Sets the specified value to the {@code message} field. */
         public MSG.Buffer message(@NativeType("UINT") int value) { MSG.nmessage(address(), value); return this; }
-        /** Sets the specified value to the {@link MSG#wParam} field. */
+        /** Sets the specified value to the {@code wParam} field. */
         public MSG.Buffer wParam(@NativeType("WPARAM") long value) { MSG.nwParam(address(), value); return this; }
-        /** Sets the specified value to the {@link MSG#lParam} field. */
+        /** Sets the specified value to the {@code lParam} field. */
         public MSG.Buffer lParam(@NativeType("LPARAM") long value) { MSG.nlParam(address(), value); return this; }
-        /** Sets the specified value to the {@link MSG#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public MSG.Buffer time(@NativeType("DWORD") int value) { MSG.ntime(address(), value); return this; }
-        /** Copies the specified {@link POINT} to the {@link MSG#pt} field. */
+        /** Copies the specified {@link POINT} to the {@code pt} field. */
         public MSG.Buffer pt(POINT value) { MSG.npt(address(), value); return this; }
-        /** Passes the {@link MSG#pt} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code pt} field to the specified {@link java.util.function.Consumer Consumer}. */
         public MSG.Buffer pt(java.util.function.Consumer<POINT> consumer) { consumer.accept(pt()); return this; }
 
     }

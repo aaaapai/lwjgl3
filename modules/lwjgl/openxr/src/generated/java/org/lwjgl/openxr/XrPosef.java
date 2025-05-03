@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Location and orientation in a space.
- * 
- * <h5>Description</h5>
- * 
- * <p>A runtime <b>must</b> return {@link XR10#XR_ERROR_POSE_INVALID ERROR_POSE_INVALID} if the {@code orientation} norm deviates by more than 1% from unit length.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrActionSpaceCreateInfo}, {@link XrBodyJointLocationFB}, {@link XrBodySkeletonJointFB}, {@link XrCompositionLayerCylinderKHR}, {@link XrCompositionLayerEquirect2KHR}, {@link XrCompositionLayerEquirectKHR}, {@link XrCompositionLayerProjectionView}, {@link XrCompositionLayerQuad}, {@link XrCompositionLayerSpaceWarpInfoFB}, {@link XrControllerModelNodeStateMSFT}, {@link XrCoordinateSpaceCreateInfoML}, {@link XrEventDataReferenceSpaceChangePending}, {@link XrExternalCameraExtrinsicsOCULUS}, {@link XrEyeGazeFB}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandJointLocationEXT}, {@link XrHandMeshSpaceCreateInfoMSFT}, {@link XrHandTrackingAimStateFB}, {@link XrHandTrackingMeshFB}, {@link XrMarkerSpaceCreateInfoVARJO}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPlaneDetectorBeginInfoEXT}, {@link XrPlaneDetectorLocationEXT}, {@link XrQuaternionf}, {@link XrReferenceSpaceCreateInfo}, {@link XrSceneComponentLocationMSFT}, {@link XrSceneFrustumBoundMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSpaceLocation}, {@link XrSpatialAnchorCreateInfoFB}, {@link XrSpatialAnchorCreateInfoMSFT}, {@link XrSpatialAnchorSpaceCreateInfoMSFT}, {@link XrSpatialGraphNodeBindingPropertiesMSFT}, {@link XrSpatialGraphNodeSpaceCreateInfoMSFT}, {@link XrSpatialGraphStaticNodeBindingCreateInfoMSFT}, {@link XrVector2f}, {@link XrVector3f}, {@link XrVector4f}, {@link XrView}, {@link XrVirtualKeyboardInputInfoMETA}, {@link XrVirtualKeyboardLocationInfoMETA}, {@link XrVirtualKeyboardSpaceCreateInfoMETA}, {@link METAVirtualKeyboard#xrSendVirtualKeyboardInputMETA SendVirtualKeyboardInputMETA}, {@link EXTConformanceAutomation#xrSetInputDeviceLocationEXT SetInputDeviceLocationEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPosef {
- *     {@link XrQuaternionf XrQuaternionf} {@link #orientation};
- *     {@link XrVector3f XrVector3f} {@link #position$ position};
- * }</code></pre>
+ *     {@link XrQuaternionf XrQuaternionf} orientation;
+ *     {@link XrVector3f XrVector3f} position;
+ * }}</pre>
  */
 public class XrPosef extends Struct<XrPosef> implements NativeResource {
 
@@ -82,18 +70,18 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an {@link XrQuaternionf} representing the orientation within a space. */
+    /** @return a {@link XrQuaternionf} view of the {@code orientation} field. */
     public XrQuaternionf orientation() { return norientation(address()); }
-    /** an {@link XrVector3f} representing position within a space. */
+    /** @return a {@link XrVector3f} view of the {@code position} field. */
     public XrVector3f position$() { return nposition$(address()); }
 
-    /** Copies the specified {@link XrQuaternionf} to the {@link #orientation} field. */
+    /** Copies the specified {@link XrQuaternionf} to the {@code orientation} field. */
     public XrPosef orientation(XrQuaternionf value) { norientation(address(), value); return this; }
-    /** Passes the {@link #orientation} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code orientation} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrPosef orientation(java.util.function.Consumer<XrQuaternionf> consumer) { consumer.accept(orientation()); return this; }
-    /** Copies the specified {@link XrVector3f} to the {@link #position$} field. */
+    /** Copies the specified {@link XrVector3f} to the {@code position} field. */
     public XrPosef position$(XrVector3f value) { nposition$(address(), value); return this; }
-    /** Passes the {@link #position$} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code position} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrPosef position$(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(position$()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -143,8 +131,7 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPosef createSafe(long address) {
+    public static @Nullable XrPosef createSafe(long address) {
         return address == NULL ? null : new XrPosef(address, null);
     }
 
@@ -187,8 +174,7 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPosef.Buffer createSafe(long address, int capacity) {
+    public static XrPosef.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +262,27 @@ public class XrPosef extends Struct<XrPosef> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPosef getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link XrQuaternionf} view of the {@link XrPosef#orientation} field. */
+        /** @return a {@link XrQuaternionf} view of the {@code orientation} field. */
         public XrQuaternionf orientation() { return XrPosef.norientation(address()); }
-        /** @return a {@link XrVector3f} view of the {@link XrPosef#position$} field. */
+        /** @return a {@link XrVector3f} view of the {@code position} field. */
         public XrVector3f position$() { return XrPosef.nposition$(address()); }
 
-        /** Copies the specified {@link XrQuaternionf} to the {@link XrPosef#orientation} field. */
+        /** Copies the specified {@link XrQuaternionf} to the {@code orientation} field. */
         public XrPosef.Buffer orientation(XrQuaternionf value) { XrPosef.norientation(address(), value); return this; }
-        /** Passes the {@link XrPosef#orientation} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code orientation} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrPosef.Buffer orientation(java.util.function.Consumer<XrQuaternionf> consumer) { consumer.accept(orientation()); return this; }
-        /** Copies the specified {@link XrVector3f} to the {@link XrPosef#position$} field. */
+        /** Copies the specified {@link XrVector3f} to the {@code position} field. */
         public XrPosef.Buffer position$(XrVector3f value) { XrPosef.nposition$(address(), value); return this; }
-        /** Passes the {@link XrPosef#position$} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code position} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrPosef.Buffer position$(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(position$()); return this; }
 
     }

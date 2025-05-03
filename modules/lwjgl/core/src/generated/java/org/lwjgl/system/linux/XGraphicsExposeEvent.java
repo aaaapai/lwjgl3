@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,23 +17,21 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XGraphicsExposeEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Drawable drawable;
  *     int x;
  *     int y;
  *     int width;
  *     int height;
- *     int {@link #count};
- *     int {@link #major_code};
- *     int {@link #minor_code};
- * }</code></pre>
+ *     int count;
+ *     int major_code;
+ *     int minor_code;
+ * }}</pre>
  */
 public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implements NativeResource {
 
@@ -115,13 +113,13 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code drawable} field. */
@@ -135,20 +133,20 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
     public int width() { return nwidth(address()); }
     /** @return the value of the {@code height} field. */
     public int height() { return nheight(address()); }
-    /** if non-zero, at least this many more */
+    /** @return the value of the {@code count} field. */
     public int count() { return ncount(address()); }
-    /** core is {@code CopyArea} or {@code CopyPlane} */
+    /** @return the value of the {@code major_code} field. */
     public int major_code() { return nmajor_code(address()); }
-    /** not defined in the core */
+    /** @return the value of the {@code minor_code} field. */
     public int minor_code() { return nminor_code(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XGraphicsExposeEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XGraphicsExposeEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XGraphicsExposeEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XGraphicsExposeEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code drawable} field. */
     public XGraphicsExposeEvent drawable(@NativeType("Drawable") long value) { ndrawable(address(), value); return this; }
@@ -160,11 +158,11 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
     public XGraphicsExposeEvent width(int value) { nwidth(address(), value); return this; }
     /** Sets the specified value to the {@code height} field. */
     public XGraphicsExposeEvent height(int value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #count} field. */
+    /** Sets the specified value to the {@code count} field. */
     public XGraphicsExposeEvent count(int value) { ncount(address(), value); return this; }
-    /** Sets the specified value to the {@link #major_code} field. */
+    /** Sets the specified value to the {@code major_code} field. */
     public XGraphicsExposeEvent major_code(int value) { nmajor_code(address(), value); return this; }
-    /** Sets the specified value to the {@link #minor_code} field. */
+    /** Sets the specified value to the {@code minor_code} field. */
     public XGraphicsExposeEvent minor_code(int value) { nminor_code(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -234,8 +232,7 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XGraphicsExposeEvent createSafe(long address) {
+    public static @Nullable XGraphicsExposeEvent createSafe(long address) {
         return address == NULL ? null : new XGraphicsExposeEvent(address, null);
     }
 
@@ -278,8 +275,7 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XGraphicsExposeEvent.Buffer createSafe(long address, int capacity) {
+    public static XGraphicsExposeEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -343,54 +339,54 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XGraphicsExposeEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XGraphicsExposeEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XGraphicsExposeEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XGraphicsExposeEvent.DISPLAY); }
     /** Unsafe version of {@link #drawable}. */
     public static long ndrawable(long struct) { return memGetCLong(struct + XGraphicsExposeEvent.DRAWABLE); }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.X); }
+    public static int nx(long struct) { return memGetInt(struct + XGraphicsExposeEvent.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XGraphicsExposeEvent.Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XGraphicsExposeEvent.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XGraphicsExposeEvent.HEIGHT); }
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + XGraphicsExposeEvent.COUNT); }
     /** Unsafe version of {@link #major_code}. */
-    public static int nmajor_code(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.MAJOR_CODE); }
+    public static int nmajor_code(long struct) { return memGetInt(struct + XGraphicsExposeEvent.MAJOR_CODE); }
     /** Unsafe version of {@link #minor_code}. */
-    public static int nminor_code(long struct) { return UNSAFE.getInt(null, struct + XGraphicsExposeEvent.MINOR_CODE); }
+    public static int nminor_code(long struct) { return memGetInt(struct + XGraphicsExposeEvent.MINOR_CODE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XGraphicsExposeEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XGraphicsExposeEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #drawable(long) drawable}. */
     public static void ndrawable(long struct, long value) { memPutCLong(struct + XGraphicsExposeEvent.DRAWABLE, value); }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.HEIGHT, value); }
     /** Unsafe version of {@link #count(int) count}. */
-    public static void ncount(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.COUNT, value); }
+    public static void ncount(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.COUNT, value); }
     /** Unsafe version of {@link #major_code(int) major_code}. */
-    public static void nmajor_code(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.MAJOR_CODE, value); }
+    public static void nmajor_code(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.MAJOR_CODE, value); }
     /** Unsafe version of {@link #minor_code(int) minor_code}. */
-    public static void nminor_code(long struct, int value) { UNSAFE.putInt(null, struct + XGraphicsExposeEvent.MINOR_CODE, value); }
+    public static void nminor_code(long struct, int value) { memPutInt(struct + XGraphicsExposeEvent.MINOR_CODE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -435,19 +431,24 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XGraphicsExposeEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XGraphicsExposeEvent.ntype(address()); }
-        /** @return the value of the {@link XGraphicsExposeEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XGraphicsExposeEvent.nserial(address()); }
-        /** @return the value of the {@link XGraphicsExposeEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XGraphicsExposeEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XGraphicsExposeEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XGraphicsExposeEvent.ndisplay(address()); }
         /** @return the value of the {@code drawable} field. */
@@ -461,20 +462,20 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
         public int width() { return XGraphicsExposeEvent.nwidth(address()); }
         /** @return the value of the {@code height} field. */
         public int height() { return XGraphicsExposeEvent.nheight(address()); }
-        /** @return the value of the {@link XGraphicsExposeEvent#count} field. */
+        /** @return the value of the {@code count} field. */
         public int count() { return XGraphicsExposeEvent.ncount(address()); }
-        /** @return the value of the {@link XGraphicsExposeEvent#major_code} field. */
+        /** @return the value of the {@code major_code} field. */
         public int major_code() { return XGraphicsExposeEvent.nmajor_code(address()); }
-        /** @return the value of the {@link XGraphicsExposeEvent#minor_code} field. */
+        /** @return the value of the {@code minor_code} field. */
         public int minor_code() { return XGraphicsExposeEvent.nminor_code(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XGraphicsExposeEvent.Buffer type(int value) { XGraphicsExposeEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XGraphicsExposeEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XGraphicsExposeEvent.Buffer serial(@NativeType("unsigned long") long value) { XGraphicsExposeEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XGraphicsExposeEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XGraphicsExposeEvent.Buffer send_event(@NativeType("Bool") boolean value) { XGraphicsExposeEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XGraphicsExposeEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XGraphicsExposeEvent.Buffer display(@NativeType("Display *") long value) { XGraphicsExposeEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code drawable} field. */
         public XGraphicsExposeEvent.Buffer drawable(@NativeType("Drawable") long value) { XGraphicsExposeEvent.ndrawable(address(), value); return this; }
@@ -486,11 +487,11 @@ public class XGraphicsExposeEvent extends Struct<XGraphicsExposeEvent> implement
         public XGraphicsExposeEvent.Buffer width(int value) { XGraphicsExposeEvent.nwidth(address(), value); return this; }
         /** Sets the specified value to the {@code height} field. */
         public XGraphicsExposeEvent.Buffer height(int value) { XGraphicsExposeEvent.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@link XGraphicsExposeEvent#count} field. */
+        /** Sets the specified value to the {@code count} field. */
         public XGraphicsExposeEvent.Buffer count(int value) { XGraphicsExposeEvent.ncount(address(), value); return this; }
-        /** Sets the specified value to the {@link XGraphicsExposeEvent#major_code} field. */
+        /** Sets the specified value to the {@code major_code} field. */
         public XGraphicsExposeEvent.Buffer major_code(int value) { XGraphicsExposeEvent.nmajor_code(address(), value); return this; }
-        /** Sets the specified value to the {@link XGraphicsExposeEvent#minor_code} field. */
+        /** Sets the specified value to the {@code minor_code} field. */
         public XGraphicsExposeEvent.Buffer minor_code(int value) { XGraphicsExposeEvent.nminor_code(address(), value); return this; }
 
     }

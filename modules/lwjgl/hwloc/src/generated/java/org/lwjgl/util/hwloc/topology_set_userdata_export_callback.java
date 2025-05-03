@@ -5,24 +5,13 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link HWLoc#hwloc_topology_set_userdata_export_callback topology_set_userdata_export_callback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *reserved,
- *     hwloc_topology_t topology,
- *     hwloc_obj_t obj
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class topology_set_userdata_export_callback extends Callback implements topology_set_userdata_export_callbackI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class topology_set_userdata_export_callback extends Callback imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static topology_set_userdata_export_callback createSafe(long functionPointer) {
+    public static @Nullable topology_set_userdata_export_callback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

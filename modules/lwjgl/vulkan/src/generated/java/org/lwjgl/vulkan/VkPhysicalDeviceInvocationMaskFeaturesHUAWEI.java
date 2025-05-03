@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing invocation mask features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link HUAWEIInvocationMask#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #invocationMask};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 invocationMask;
+ * }}</pre>
  */
 public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysicalDeviceInvocationMaskFeaturesHUAWEI> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the use of an invocation mask image to optimize the ray dispatch. */
+    /** @return the value of the {@code invocationMask} field. */
     @NativeType("VkBool32")
     public boolean invocationMask() { return ninvocationMask(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link HUAWEIInvocationMask#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI} value to the {@link #sType} field. */
+    /** Sets the {@link HUAWEIInvocationMask#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI} value to the {@code sType} field. */
     public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI sType$Default() { return sType(HUAWEIInvocationMask.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #invocationMask} field. */
+    /** Sets the specified value to the {@code invocationMask} field. */
     public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI invocationMask(@NativeType("VkBool32") boolean value) { ninvocationMask(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceInvocationMaskFeaturesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceInvocationMaskFeaturesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceInvocationMaskFeaturesHUAWEI(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #invocationMask}. */
-    public static int ninvocationMask(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK); }
+    public static int ninvocationMask(long struct) { return memGetInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.PNEXT, value); }
     /** Unsafe version of {@link #invocationMask(boolean) invocationMask}. */
-    public static void ninvocationMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK, value); }
+    public static void ninvocationMask(long struct, int value) { memPutInt(struct + VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.INVOCATIONMASK, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceInvocationMaskFeaturesHUAWEI getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#invocationMask} field. */
+        /** @return the value of the {@code invocationMask} field. */
         @NativeType("VkBool32")
         public boolean invocationMask() { return VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.ninvocationMask(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.nsType(address(), value); return this; }
-        /** Sets the {@link HUAWEIInvocationMask#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI} value to the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#sType} field. */
+        /** Sets the {@link HUAWEIInvocationMask#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI} value to the {@code sType} field. */
         public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.Buffer sType$Default() { return sType(HUAWEIInvocationMask.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceInvocationMaskFeaturesHUAWEI#invocationMask} field. */
+        /** Sets the specified value to the {@code invocationMask} field. */
         public VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.Buffer invocationMask(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.ninvocationMask(address(), value ? 1 : 0); return this; }
 
     }

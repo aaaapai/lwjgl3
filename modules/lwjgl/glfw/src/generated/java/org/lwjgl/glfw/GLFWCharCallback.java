@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,19 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetCharCallback SetCharCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     unsigned int codepoint
- * )</code></pre>
- *
- * @since version 2.4
- */
+/** Callback function: {@link #invoke GLFWcharfun} */
 public abstract class GLFWCharCallback extends Callback implements GLFWCharCallbackI {
 
     /**
@@ -41,8 +29,7 @@ public abstract class GLFWCharCallback extends Callback implements GLFWCharCallb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWCharCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWCharCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

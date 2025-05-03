@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceHostQueryResetFeatures}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceHostQueryResetFeaturesEXT {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 hostQueryReset;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceHostQueryResetFeaturesEXT extends VkPhysicalDeviceHostQueryResetFeatures {
 
@@ -111,8 +107,7 @@ public class VkPhysicalDeviceHostQueryResetFeaturesEXT extends VkPhysicalDeviceH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceHostQueryResetFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceHostQueryResetFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceHostQueryResetFeaturesEXT(address, null);
     }
 
@@ -155,8 +150,7 @@ public class VkPhysicalDeviceHostQueryResetFeaturesEXT extends VkPhysicalDeviceH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceHostQueryResetFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceHostQueryResetFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +242,11 @@ public class VkPhysicalDeviceHostQueryResetFeaturesEXT extends VkPhysicalDeviceH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

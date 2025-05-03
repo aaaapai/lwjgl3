@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,37 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Provides additional context of a spatial entity representing a room.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure is used by the {@link FBScene#xrGetSpaceRoomLayoutFB GetSpaceRoomLayoutFB} function to provide the application with the {@link XrUuidEXT} handles representing the various surfaces of a room.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBScene XR_FB_scene} extension <b>must</b> be enabled prior to using {@link XrRoomLayoutFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBScene#XR_TYPE_ROOM_LAYOUT_FB TYPE_ROOM_LAYOUT_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code wallUuidCapacityInput} is not 0, {@code wallUuids} <b>must</b> be a pointer to an array of {@code wallUuidCapacityInput} {@link XrUuidEXT} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrUuidEXT}, {@link FBScene#xrGetSpaceRoomLayoutFB GetSpaceRoomLayoutFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrRoomLayoutFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     {@link XrUuidEXT XrUuidEXT} {@link #floorUuid};
- *     {@link XrUuidEXT XrUuidEXT} {@link #ceilingUuid};
- *     uint32_t {@link #wallUuidCapacityInput};
- *     uint32_t {@link #wallUuidCountOutput};
- *     {@link XrUuidEXT XrUuidEXT} * {@link #wallUuids};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     {@link XrUuidEXT XrUuidEXT} floorUuid;
+ *     {@link XrUuidEXT XrUuidEXT} ceilingUuid;
+ *     uint32_t wallUuidCapacityInput;
+ *     uint32_t wallUuidCountOutput;
+ *     {@link XrUuidEXT XrUuidEXT} * wallUuids;
+ * }}</pre>
  */
 public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeResource {
 
@@ -111,47 +90,46 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the UUID of the spatial entity representing the room floor */
+    /** @return a {@link XrUuidEXT} view of the {@code floorUuid} field. */
     public XrUuidEXT floorUuid() { return nfloorUuid(address()); }
-    /** the UUID of the spatial entity representing the room ceiling */
+    /** @return a {@link XrUuidEXT} view of the {@code ceilingUuid} field. */
     public XrUuidEXT ceilingUuid() { return nceilingUuid(address()); }
-    /** the capacity of the {@code wallUuids} array, in number of UUIDs, or 0 to indicate a request to retrieve the required capacity. */
+    /** @return the value of the {@code wallUuidCapacityInput} field. */
     @NativeType("uint32_t")
     public int wallUuidCapacityInput() { return nwallUuidCapacityInput(address()); }
-    /** the count of {@link XrUuidEXT} handles written, or the required capacity in the case that {@code wallUuidCapacityInput} is insufficient. */
+    /** @return the value of the {@code wallUuidCountOutput} field. */
     @NativeType("uint32_t")
     public int wallUuidCountOutput() { return nwallUuidCountOutput(address()); }
-    /** a pointer to an array of {@link XrUuidEXT} handles, but can be {@code NULL} if {@code wallUuidCapacityInput} is 0. */
-    @Nullable
+    /** @return a {@link XrUuidEXT.Buffer} view of the struct array pointed to by the {@code wallUuids} field. */
     @NativeType("XrUuidEXT *")
-    public XrUuidEXT.Buffer wallUuids() { return nwallUuids(address()); }
+    public XrUuidEXT.@Nullable Buffer wallUuids() { return nwallUuids(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrRoomLayoutFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBScene#XR_TYPE_ROOM_LAYOUT_FB TYPE_ROOM_LAYOUT_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBScene#XR_TYPE_ROOM_LAYOUT_FB TYPE_ROOM_LAYOUT_FB} value to the {@code type} field. */
     public XrRoomLayoutFB type$Default() { return type(FBScene.XR_TYPE_ROOM_LAYOUT_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrRoomLayoutFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Copies the specified {@link XrUuidEXT} to the {@link #floorUuid} field. */
+    /** Copies the specified {@link XrUuidEXT} to the {@code floorUuid} field. */
     public XrRoomLayoutFB floorUuid(XrUuidEXT value) { nfloorUuid(address(), value); return this; }
-    /** Passes the {@link #floorUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code floorUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrRoomLayoutFB floorUuid(java.util.function.Consumer<XrUuidEXT> consumer) { consumer.accept(floorUuid()); return this; }
-    /** Copies the specified {@link XrUuidEXT} to the {@link #ceilingUuid} field. */
+    /** Copies the specified {@link XrUuidEXT} to the {@code ceilingUuid} field. */
     public XrRoomLayoutFB ceilingUuid(XrUuidEXT value) { nceilingUuid(address(), value); return this; }
-    /** Passes the {@link #ceilingUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code ceilingUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrRoomLayoutFB ceilingUuid(java.util.function.Consumer<XrUuidEXT> consumer) { consumer.accept(ceilingUuid()); return this; }
-    /** Sets the specified value to the {@link #wallUuidCapacityInput} field. */
+    /** Sets the specified value to the {@code wallUuidCapacityInput} field. */
     public XrRoomLayoutFB wallUuidCapacityInput(@NativeType("uint32_t") int value) { nwallUuidCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #wallUuidCountOutput} field. */
+    /** Sets the specified value to the {@code wallUuidCountOutput} field. */
     public XrRoomLayoutFB wallUuidCountOutput(@NativeType("uint32_t") int value) { nwallUuidCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link XrUuidEXT.Buffer} to the {@link #wallUuids} field. */
-    public XrRoomLayoutFB wallUuids(@Nullable @NativeType("XrUuidEXT *") XrUuidEXT.Buffer value) { nwallUuids(address(), value); return this; }
+    /** Sets the address of the specified {@link XrUuidEXT.Buffer} to the {@code wallUuids} field. */
+    public XrRoomLayoutFB wallUuids(@NativeType("XrUuidEXT *") XrUuidEXT.@Nullable Buffer value) { nwallUuids(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrRoomLayoutFB set(
@@ -161,7 +139,7 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
         XrUuidEXT ceilingUuid,
         int wallUuidCapacityInput,
         int wallUuidCountOutput,
-        @Nullable XrUuidEXT.Buffer wallUuids
+        XrUuidEXT.@Nullable Buffer wallUuids
     ) {
         type(type);
         next(next);
@@ -210,8 +188,7 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRoomLayoutFB createSafe(long address) {
+    public static @Nullable XrRoomLayoutFB createSafe(long address) {
         return address == NULL ? null : new XrRoomLayoutFB(address, null);
     }
 
@@ -254,8 +231,7 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRoomLayoutFB.Buffer createSafe(long address, int capacity) {
+    public static XrRoomLayoutFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -300,7 +276,7 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRoomLayoutFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRoomLayoutFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRoomLayoutFB.NEXT); }
     /** Unsafe version of {@link #floorUuid}. */
@@ -308,14 +284,14 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
     /** Unsafe version of {@link #ceilingUuid}. */
     public static XrUuidEXT nceilingUuid(long struct) { return XrUuidEXT.create(struct + XrRoomLayoutFB.CEILINGUUID); }
     /** Unsafe version of {@link #wallUuidCapacityInput}. */
-    public static int nwallUuidCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrRoomLayoutFB.WALLUUIDCAPACITYINPUT); }
+    public static int nwallUuidCapacityInput(long struct) { return memGetInt(struct + XrRoomLayoutFB.WALLUUIDCAPACITYINPUT); }
     /** Unsafe version of {@link #wallUuidCountOutput}. */
-    public static int nwallUuidCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrRoomLayoutFB.WALLUUIDCOUNTOUTPUT); }
+    public static int nwallUuidCountOutput(long struct) { return memGetInt(struct + XrRoomLayoutFB.WALLUUIDCOUNTOUTPUT); }
     /** Unsafe version of {@link #wallUuids}. */
-    @Nullable public static XrUuidEXT.Buffer nwallUuids(long struct) { return XrUuidEXT.createSafe(memGetAddress(struct + XrRoomLayoutFB.WALLUUIDS), nwallUuidCapacityInput(struct)); }
+    public static XrUuidEXT.@Nullable Buffer nwallUuids(long struct) { return XrUuidEXT.createSafe(memGetAddress(struct + XrRoomLayoutFB.WALLUUIDS), nwallUuidCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRoomLayoutFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRoomLayoutFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRoomLayoutFB.NEXT, value); }
     /** Unsafe version of {@link #floorUuid(XrUuidEXT) floorUuid}. */
@@ -323,11 +299,11 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
     /** Unsafe version of {@link #ceilingUuid(XrUuidEXT) ceilingUuid}. */
     public static void nceilingUuid(long struct, XrUuidEXT value) { memCopy(value.address(), struct + XrRoomLayoutFB.CEILINGUUID, XrUuidEXT.SIZEOF); }
     /** Sets the specified value to the {@code wallUuidCapacityInput} field of the specified {@code struct}. */
-    public static void nwallUuidCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrRoomLayoutFB.WALLUUIDCAPACITYINPUT, value); }
+    public static void nwallUuidCapacityInput(long struct, int value) { memPutInt(struct + XrRoomLayoutFB.WALLUUIDCAPACITYINPUT, value); }
     /** Unsafe version of {@link #wallUuidCountOutput(int) wallUuidCountOutput}. */
-    public static void nwallUuidCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrRoomLayoutFB.WALLUUIDCOUNTOUTPUT, value); }
+    public static void nwallUuidCountOutput(long struct, int value) { memPutInt(struct + XrRoomLayoutFB.WALLUUIDCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #wallUuids(XrUuidEXT.Buffer) wallUuids}. */
-    public static void nwallUuids(long struct, @Nullable XrUuidEXT.Buffer value) { memPutAddress(struct + XrRoomLayoutFB.WALLUUIDS, memAddressSafe(value)); if (value != null) { nwallUuidCapacityInput(struct, value.remaining()); } }
+    public static void nwallUuids(long struct, XrUuidEXT.@Nullable Buffer value) { memPutAddress(struct + XrRoomLayoutFB.WALLUUIDS, memAddressSafe(value)); if (value != null) { nwallUuidCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -363,51 +339,55 @@ public class XrRoomLayoutFB extends Struct<XrRoomLayoutFB> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrRoomLayoutFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrRoomLayoutFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrRoomLayoutFB.ntype(address()); }
-        /** @return the value of the {@link XrRoomLayoutFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrRoomLayoutFB.nnext(address()); }
-        /** @return a {@link XrUuidEXT} view of the {@link XrRoomLayoutFB#floorUuid} field. */
+        /** @return a {@link XrUuidEXT} view of the {@code floorUuid} field. */
         public XrUuidEXT floorUuid() { return XrRoomLayoutFB.nfloorUuid(address()); }
-        /** @return a {@link XrUuidEXT} view of the {@link XrRoomLayoutFB#ceilingUuid} field. */
+        /** @return a {@link XrUuidEXT} view of the {@code ceilingUuid} field. */
         public XrUuidEXT ceilingUuid() { return XrRoomLayoutFB.nceilingUuid(address()); }
-        /** @return the value of the {@link XrRoomLayoutFB#wallUuidCapacityInput} field. */
+        /** @return the value of the {@code wallUuidCapacityInput} field. */
         @NativeType("uint32_t")
         public int wallUuidCapacityInput() { return XrRoomLayoutFB.nwallUuidCapacityInput(address()); }
-        /** @return the value of the {@link XrRoomLayoutFB#wallUuidCountOutput} field. */
+        /** @return the value of the {@code wallUuidCountOutput} field. */
         @NativeType("uint32_t")
         public int wallUuidCountOutput() { return XrRoomLayoutFB.nwallUuidCountOutput(address()); }
-        /** @return a {@link XrUuidEXT.Buffer} view of the struct array pointed to by the {@link XrRoomLayoutFB#wallUuids} field. */
-        @Nullable
+        /** @return a {@link XrUuidEXT.Buffer} view of the struct array pointed to by the {@code wallUuids} field. */
         @NativeType("XrUuidEXT *")
-        public XrUuidEXT.Buffer wallUuids() { return XrRoomLayoutFB.nwallUuids(address()); }
+        public XrUuidEXT.@Nullable Buffer wallUuids() { return XrRoomLayoutFB.nwallUuids(address()); }
 
-        /** Sets the specified value to the {@link XrRoomLayoutFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrRoomLayoutFB.Buffer type(@NativeType("XrStructureType") int value) { XrRoomLayoutFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBScene#XR_TYPE_ROOM_LAYOUT_FB TYPE_ROOM_LAYOUT_FB} value to the {@link XrRoomLayoutFB#type} field. */
+        /** Sets the {@link FBScene#XR_TYPE_ROOM_LAYOUT_FB TYPE_ROOM_LAYOUT_FB} value to the {@code type} field. */
         public XrRoomLayoutFB.Buffer type$Default() { return type(FBScene.XR_TYPE_ROOM_LAYOUT_FB); }
-        /** Sets the specified value to the {@link XrRoomLayoutFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrRoomLayoutFB.Buffer next(@NativeType("void const *") long value) { XrRoomLayoutFB.nnext(address(), value); return this; }
-        /** Copies the specified {@link XrUuidEXT} to the {@link XrRoomLayoutFB#floorUuid} field. */
+        /** Copies the specified {@link XrUuidEXT} to the {@code floorUuid} field. */
         public XrRoomLayoutFB.Buffer floorUuid(XrUuidEXT value) { XrRoomLayoutFB.nfloorUuid(address(), value); return this; }
-        /** Passes the {@link XrRoomLayoutFB#floorUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code floorUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrRoomLayoutFB.Buffer floorUuid(java.util.function.Consumer<XrUuidEXT> consumer) { consumer.accept(floorUuid()); return this; }
-        /** Copies the specified {@link XrUuidEXT} to the {@link XrRoomLayoutFB#ceilingUuid} field. */
+        /** Copies the specified {@link XrUuidEXT} to the {@code ceilingUuid} field. */
         public XrRoomLayoutFB.Buffer ceilingUuid(XrUuidEXT value) { XrRoomLayoutFB.nceilingUuid(address(), value); return this; }
-        /** Passes the {@link XrRoomLayoutFB#ceilingUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code ceilingUuid} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrRoomLayoutFB.Buffer ceilingUuid(java.util.function.Consumer<XrUuidEXT> consumer) { consumer.accept(ceilingUuid()); return this; }
-        /** Sets the specified value to the {@link XrRoomLayoutFB#wallUuidCapacityInput} field. */
+        /** Sets the specified value to the {@code wallUuidCapacityInput} field. */
         public XrRoomLayoutFB.Buffer wallUuidCapacityInput(@NativeType("uint32_t") int value) { XrRoomLayoutFB.nwallUuidCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrRoomLayoutFB#wallUuidCountOutput} field. */
+        /** Sets the specified value to the {@code wallUuidCountOutput} field. */
         public XrRoomLayoutFB.Buffer wallUuidCountOutput(@NativeType("uint32_t") int value) { XrRoomLayoutFB.nwallUuidCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link XrUuidEXT.Buffer} to the {@link XrRoomLayoutFB#wallUuids} field. */
-        public XrRoomLayoutFB.Buffer wallUuids(@Nullable @NativeType("XrUuidEXT *") XrUuidEXT.Buffer value) { XrRoomLayoutFB.nwallUuids(address(), value); return this; }
+        /** Sets the address of the specified {@link XrUuidEXT.Buffer} to the {@code wallUuids} field. */
+        public XrRoomLayoutFB.Buffer wallUuids(@NativeType("XrUuidEXT *") XrUuidEXT.@Nullable Buffer value) { XrRoomLayoutFB.nwallUuids(address(), value); return this; }
 
     }
 

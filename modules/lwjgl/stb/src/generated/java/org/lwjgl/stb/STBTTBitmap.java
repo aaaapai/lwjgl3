@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Bitmap data.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stbtt__bitmap {
- *     int {@link #w};
- *     int {@link #h};
- *     int {@link #stride};
- *     unsigned char * {@link #pixels};
- * }</code></pre>
+ *     int w;
+ *     int h;
+ *     int stride;
+ *     unsigned char * pixels;
+ * }}</pre>
  */
 @NativeType("struct stbtt__bitmap")
 public class STBTTBitmap extends Struct<STBTTBitmap> implements NativeResource {
@@ -84,27 +80,23 @@ public class STBTTBitmap extends Struct<STBTTBitmap> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the bitmap width */
+    /** @return the value of the {@code w} field. */
     public int w() { return nw(address()); }
-    /** the bitmap height */
+    /** @return the value of the {@code h} field. */
     public int h() { return nh(address()); }
-    /** the row stride, in bytes */
+    /** @return the value of the {@code stride} field. */
     public int stride() { return nstride(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return the bitmap data
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field. */
     @NativeType("unsigned char *")
     public ByteBuffer pixels(int capacity) { return npixels(address(), capacity); }
 
-    /** Sets the specified value to the {@link #w} field. */
+    /** Sets the specified value to the {@code w} field. */
     public STBTTBitmap w(int value) { nw(address(), value); return this; }
-    /** Sets the specified value to the {@link #h} field. */
+    /** Sets the specified value to the {@code h} field. */
     public STBTTBitmap h(int value) { nh(address(), value); return this; }
-    /** Sets the specified value to the {@link #stride} field. */
+    /** Sets the specified value to the {@code stride} field. */
     public STBTTBitmap stride(int value) { nstride(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #pixels} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code pixels} field. */
     public STBTTBitmap pixels(@NativeType("unsigned char *") ByteBuffer value) { npixels(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +150,7 @@ public class STBTTBitmap extends Struct<STBTTBitmap> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTBitmap createSafe(long address) {
+    public static @Nullable STBTTBitmap createSafe(long address) {
         return address == NULL ? null : new STBTTBitmap(address, null);
     }
 
@@ -202,8 +193,7 @@ public class STBTTBitmap extends Struct<STBTTBitmap> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTBitmap.Buffer createSafe(long address, int capacity) {
+    public static STBTTBitmap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,20 +257,20 @@ public class STBTTBitmap extends Struct<STBTTBitmap> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #w}. */
-    public static int nw(long struct) { return UNSAFE.getInt(null, struct + STBTTBitmap.W); }
+    public static int nw(long struct) { return memGetInt(struct + STBTTBitmap.W); }
     /** Unsafe version of {@link #h}. */
-    public static int nh(long struct) { return UNSAFE.getInt(null, struct + STBTTBitmap.H); }
+    public static int nh(long struct) { return memGetInt(struct + STBTTBitmap.H); }
     /** Unsafe version of {@link #stride}. */
-    public static int nstride(long struct) { return UNSAFE.getInt(null, struct + STBTTBitmap.STRIDE); }
+    public static int nstride(long struct) { return memGetInt(struct + STBTTBitmap.STRIDE); }
     /** Unsafe version of {@link #pixels(int) pixels}. */
     public static ByteBuffer npixels(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + STBTTBitmap.PIXELS), capacity); }
 
     /** Unsafe version of {@link #w(int) w}. */
-    public static void nw(long struct, int value) { UNSAFE.putInt(null, struct + STBTTBitmap.W, value); }
+    public static void nw(long struct, int value) { memPutInt(struct + STBTTBitmap.W, value); }
     /** Unsafe version of {@link #h(int) h}. */
-    public static void nh(long struct, int value) { UNSAFE.putInt(null, struct + STBTTBitmap.H, value); }
+    public static void nh(long struct, int value) { memPutInt(struct + STBTTBitmap.H, value); }
     /** Unsafe version of {@link #stride(int) stride}. */
-    public static void nstride(long struct, int value) { UNSAFE.putInt(null, struct + STBTTBitmap.STRIDE, value); }
+    public static void nstride(long struct, int value) { memPutInt(struct + STBTTBitmap.STRIDE, value); }
     /** Unsafe version of {@link #pixels(ByteBuffer) pixels}. */
     public static void npixels(long struct, ByteBuffer value) { memPutAddress(struct + STBTTBitmap.PIXELS, memAddress(value)); }
 
@@ -327,31 +317,32 @@ public class STBTTBitmap extends Struct<STBTTBitmap> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected STBTTBitmap getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link STBTTBitmap#w} field. */
+        /** @return the value of the {@code w} field. */
         public int w() { return STBTTBitmap.nw(address()); }
-        /** @return the value of the {@link STBTTBitmap#h} field. */
+        /** @return the value of the {@code h} field. */
         public int h() { return STBTTBitmap.nh(address()); }
-        /** @return the value of the {@link STBTTBitmap#stride} field. */
+        /** @return the value of the {@code stride} field. */
         public int stride() { return STBTTBitmap.nstride(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@link STBTTBitmap#pixels} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field. */
         @NativeType("unsigned char *")
         public ByteBuffer pixels(int capacity) { return STBTTBitmap.npixels(address(), capacity); }
 
-        /** Sets the specified value to the {@link STBTTBitmap#w} field. */
+        /** Sets the specified value to the {@code w} field. */
         public STBTTBitmap.Buffer w(int value) { STBTTBitmap.nw(address(), value); return this; }
-        /** Sets the specified value to the {@link STBTTBitmap#h} field. */
+        /** Sets the specified value to the {@code h} field. */
         public STBTTBitmap.Buffer h(int value) { STBTTBitmap.nh(address(), value); return this; }
-        /** Sets the specified value to the {@link STBTTBitmap#stride} field. */
+        /** Sets the specified value to the {@code stride} field. */
         public STBTTBitmap.Buffer stride(int value) { STBTTBitmap.nstride(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link STBTTBitmap#pixels} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code pixels} field. */
         public STBTTBitmap.Buffer pixels(@NativeType("unsigned char *") ByteBuffer value) { STBTTBitmap.npixels(address(), value); return this; }
 
     }

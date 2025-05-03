@@ -5,25 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMOrc#LLVMOrcExecutionSessionLookup OrcExecutionSessionLookup} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     LLVMErrorRef Err,
- *     LLVMOrcCSymbolMapPairs Result,
- *     size_t NumPairs,
- *     void *Ctx
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcExecutionSessionLookupHandleResultFunction} */
 public abstract class LLVMOrcExecutionSessionLookupHandleResultFunction extends Callback implements LLVMOrcExecutionSessionLookupHandleResultFunctionI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class LLVMOrcExecutionSessionLookupHandleResultFunction extends 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcExecutionSessionLookupHandleResultFunction createSafe(long functionPointer) {
+    public static @Nullable LLVMOrcExecutionSessionLookupHandleResultFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

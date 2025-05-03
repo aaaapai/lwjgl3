@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Argument for {@code IORING_(UN)REGISTER_PBUF_RING}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct io_uring_buf_reg {
  *     __u64 ring_addr;
  *     __u32 ring_entries;
  *     __u16 bgid;
  *     __u16 flags;
  *     __u64 resv[3];
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct io_uring_buf_reg")
 public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResource {
@@ -100,12 +96,6 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
     /** @return the value of the {@code flags} field. */
     @NativeType("__u16")
     public short flags() { return nflags(address()); }
-    /** @return a {@link LongBuffer} view of the {@code resv} field. */
-    @NativeType("__u64[3]")
-    public LongBuffer resv() { return nresv(address()); }
-    /** @return the value at the specified index of the {@code resv} field. */
-    @NativeType("__u64")
-    public long resv(int index) { return nresv(address(), index); }
 
     /** Sets the specified value to the {@code ring_addr} field. */
     public IOURingBufReg ring_addr(@NativeType("__u64") long value) { nring_addr(address(), value); return this; }
@@ -115,24 +105,18 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
     public IOURingBufReg bgid(@NativeType("__u16") short value) { nbgid(address(), value); return this; }
     /** Sets the specified value to the {@code flags} field. */
     public IOURingBufReg flags(@NativeType("__u16") short value) { nflags(address(), value); return this; }
-    /** Copies the specified {@link LongBuffer} to the {@code resv} field. */
-    public IOURingBufReg resv(@NativeType("__u64[3]") LongBuffer value) { nresv(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@code resv} field. */
-    public IOURingBufReg resv(int index, @NativeType("__u64") long value) { nresv(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingBufReg set(
         long ring_addr,
         int ring_entries,
         short bgid,
-        short flags,
-        LongBuffer resv
+        short flags
     ) {
         ring_addr(ring_addr);
         ring_entries(ring_entries);
         bgid(bgid);
         flags(flags);
-        resv(resv);
 
         return this;
     }
@@ -173,8 +157,7 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBufReg createSafe(long address) {
+    public static @Nullable IOURingBufReg createSafe(long address) {
         return address == NULL ? null : new IOURingBufReg(address, null);
     }
 
@@ -217,8 +200,7 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBufReg.Buffer createSafe(long address, int capacity) {
+    public static IOURingBufReg.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,36 +245,32 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #ring_addr}. */
-    public static long nring_addr(long struct) { return UNSAFE.getLong(null, struct + IOURingBufReg.RING_ADDR); }
+    public static long nring_addr(long struct) { return memGetLong(struct + IOURingBufReg.RING_ADDR); }
     /** Unsafe version of {@link #ring_entries}. */
-    public static int nring_entries(long struct) { return UNSAFE.getInt(null, struct + IOURingBufReg.RING_ENTRIES); }
+    public static int nring_entries(long struct) { return memGetInt(struct + IOURingBufReg.RING_ENTRIES); }
     /** Unsafe version of {@link #bgid}. */
-    public static short nbgid(long struct) { return UNSAFE.getShort(null, struct + IOURingBufReg.BGID); }
+    public static short nbgid(long struct) { return memGetShort(struct + IOURingBufReg.BGID); }
     /** Unsafe version of {@link #flags}. */
-    public static short nflags(long struct) { return UNSAFE.getShort(null, struct + IOURingBufReg.FLAGS); }
-    /** Unsafe version of {@link #resv}. */
+    public static short nflags(long struct) { return memGetShort(struct + IOURingBufReg.FLAGS); }
     public static LongBuffer nresv(long struct) { return memLongBuffer(struct + IOURingBufReg.RESV, 3); }
-    /** Unsafe version of {@link #resv(int) resv}. */
     public static long nresv(long struct, int index) {
-        return UNSAFE.getLong(null, struct + IOURingBufReg.RESV + check(index, 3) * 8);
+        return memGetLong(struct + IOURingBufReg.RESV + check(index, 3) * 8);
     }
 
     /** Unsafe version of {@link #ring_addr(long) ring_addr}. */
-    public static void nring_addr(long struct, long value) { UNSAFE.putLong(null, struct + IOURingBufReg.RING_ADDR, value); }
+    public static void nring_addr(long struct, long value) { memPutLong(struct + IOURingBufReg.RING_ADDR, value); }
     /** Unsafe version of {@link #ring_entries(int) ring_entries}. */
-    public static void nring_entries(long struct, int value) { UNSAFE.putInt(null, struct + IOURingBufReg.RING_ENTRIES, value); }
+    public static void nring_entries(long struct, int value) { memPutInt(struct + IOURingBufReg.RING_ENTRIES, value); }
     /** Unsafe version of {@link #bgid(short) bgid}. */
-    public static void nbgid(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBufReg.BGID, value); }
+    public static void nbgid(long struct, short value) { memPutShort(struct + IOURingBufReg.BGID, value); }
     /** Unsafe version of {@link #flags(short) flags}. */
-    public static void nflags(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBufReg.FLAGS, value); }
-    /** Unsafe version of {@link #resv(LongBuffer) resv}. */
+    public static void nflags(long struct, short value) { memPutShort(struct + IOURingBufReg.FLAGS, value); }
     public static void nresv(long struct, LongBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + IOURingBufReg.RESV, value.remaining() * 8);
     }
-    /** Unsafe version of {@link #resv(int, long) resv}. */
     public static void nresv(long struct, int index, long value) {
-        UNSAFE.putLong(null, struct + IOURingBufReg.RESV + check(index, 3) * 8, value);
+        memPutLong(struct + IOURingBufReg.RESV + check(index, 3) * 8, value);
     }
 
     // -----------------------------------
@@ -329,6 +307,11 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected IOURingBufReg getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -345,12 +328,6 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
         /** @return the value of the {@code flags} field. */
         @NativeType("__u16")
         public short flags() { return IOURingBufReg.nflags(address()); }
-        /** @return a {@link LongBuffer} view of the {@code resv} field. */
-        @NativeType("__u64[3]")
-        public LongBuffer resv() { return IOURingBufReg.nresv(address()); }
-        /** @return the value at the specified index of the {@code resv} field. */
-        @NativeType("__u64")
-        public long resv(int index) { return IOURingBufReg.nresv(address(), index); }
 
         /** Sets the specified value to the {@code ring_addr} field. */
         public IOURingBufReg.Buffer ring_addr(@NativeType("__u64") long value) { IOURingBufReg.nring_addr(address(), value); return this; }
@@ -360,10 +337,6 @@ public class IOURingBufReg extends Struct<IOURingBufReg> implements NativeResour
         public IOURingBufReg.Buffer bgid(@NativeType("__u16") short value) { IOURingBufReg.nbgid(address(), value); return this; }
         /** Sets the specified value to the {@code flags} field. */
         public IOURingBufReg.Buffer flags(@NativeType("__u16") short value) { IOURingBufReg.nflags(address(), value); return this; }
-        /** Copies the specified {@link LongBuffer} to the {@code resv} field. */
-        public IOURingBufReg.Buffer resv(@NativeType("__u64[3]") LongBuffer value) { IOURingBufReg.nresv(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@code resv} field. */
-        public IOURingBufReg.Buffer resv(int index, @NativeType("__u64") long value) { IOURingBufReg.nresv(address(), index, value); return this; }
 
     }
 

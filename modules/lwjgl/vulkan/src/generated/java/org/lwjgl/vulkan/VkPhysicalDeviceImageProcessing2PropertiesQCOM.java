@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing image processing2 properties.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>These are properties of the image processing2 information of a physical device.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMImageProcessing2#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceImageProcessing2PropertiesQCOM {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkExtent2D VkExtent2D} {@link #maxBlockMatchWindow};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkExtent2D VkExtent2D} maxBlockMatchWindow;
+ * }}</pre>
  */
 public class VkPhysicalDeviceImageProcessing2PropertiesQCOM extends Struct<VkPhysicalDeviceImageProcessing2PropertiesQCOM> implements NativeResource {
 
@@ -94,20 +74,20 @@ public class VkPhysicalDeviceImageProcessing2PropertiesQCOM extends Struct<VkPhy
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkExtent2D} describing the largest dimensions ({@code width} and {@code height}) that <b>can</b> be specified for the block match window. */
+    /** @return a {@link VkExtent2D} view of the {@code maxBlockMatchWindow} field. */
     public VkExtent2D maxBlockMatchWindow() { return nmaxBlockMatchWindow(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceImageProcessing2PropertiesQCOM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link QCOMImageProcessing2#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM} value to the {@link #sType} field. */
+    /** Sets the {@link QCOMImageProcessing2#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM} value to the {@code sType} field. */
     public VkPhysicalDeviceImageProcessing2PropertiesQCOM sType$Default() { return sType(QCOMImageProcessing2.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceImageProcessing2PropertiesQCOM pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -157,8 +137,7 @@ public class VkPhysicalDeviceImageProcessing2PropertiesQCOM extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessing2PropertiesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageProcessing2PropertiesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageProcessing2PropertiesQCOM(address, null);
     }
 
@@ -201,8 +180,7 @@ public class VkPhysicalDeviceImageProcessing2PropertiesQCOM extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessing2PropertiesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageProcessing2PropertiesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,14 +225,14 @@ public class VkPhysicalDeviceImageProcessing2PropertiesQCOM extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.PNEXT); }
     /** Unsafe version of {@link #maxBlockMatchWindow}. */
     public static VkExtent2D nmaxBlockMatchWindow(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.MAXBLOCKMATCHWINDOW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageProcessing2PropertiesQCOM.PNEXT, value); }
 
@@ -292,24 +270,29 @@ public class VkPhysicalDeviceImageProcessing2PropertiesQCOM extends Struct<VkPhy
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceImageProcessing2PropertiesQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceImageProcessing2PropertiesQCOM.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceImageProcessing2PropertiesQCOM.npNext(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM#maxBlockMatchWindow} field. */
+        /** @return a {@link VkExtent2D} view of the {@code maxBlockMatchWindow} field. */
         public VkExtent2D maxBlockMatchWindow() { return VkPhysicalDeviceImageProcessing2PropertiesQCOM.nmaxBlockMatchWindow(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceImageProcessing2PropertiesQCOM.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceImageProcessing2PropertiesQCOM.nsType(address(), value); return this; }
-        /** Sets the {@link QCOMImageProcessing2#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM} value to the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM#sType} field. */
+        /** Sets the {@link QCOMImageProcessing2#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM} value to the {@code sType} field. */
         public VkPhysicalDeviceImageProcessing2PropertiesQCOM.Buffer sType$Default() { return sType(QCOMImageProcessing2.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceImageProcessing2PropertiesQCOM.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceImageProcessing2PropertiesQCOM.npNext(address(), value); return this; }
 
     }

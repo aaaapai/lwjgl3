@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing if a secondary command buffer can be executed if conditional rendering is active in the primary command buffer.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTConditionalRendering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceConditionalRenderingFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #conditionalRendering};
- *     VkBool32 {@link #inheritedConditionalRendering};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 conditionalRendering;
+ *     VkBool32 inheritedConditionalRendering;
+ * }}</pre>
  */
 public class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends Struct<VkPhysicalDeviceConditionalRenderingFeaturesEXT> implements NativeResource {
 
@@ -92,28 +78,28 @@ public class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends Struct<VkPh
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether conditional rendering is supported. */
+    /** @return the value of the {@code conditionalRendering} field. */
     @NativeType("VkBool32")
     public boolean conditionalRendering() { return nconditionalRendering(address()) != 0; }
-    /** specifies whether a secondary command buffer <b>can</b> be executed while conditional rendering is active in the primary command buffer. */
+    /** @return the value of the {@code inheritedConditionalRendering} field. */
     @NativeType("VkBool32")
     public boolean inheritedConditionalRendering() { return ninheritedConditionalRendering(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceConditionalRenderingFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTConditionalRendering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTConditionalRendering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceConditionalRenderingFeaturesEXT sType$Default() { return sType(EXTConditionalRendering.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceConditionalRenderingFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #conditionalRendering} field. */
+    /** Sets the specified value to the {@code conditionalRendering} field. */
     public VkPhysicalDeviceConditionalRenderingFeaturesEXT conditionalRendering(@NativeType("VkBool32") boolean value) { nconditionalRendering(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #inheritedConditionalRendering} field. */
+    /** Sets the specified value to the {@code inheritedConditionalRendering} field. */
     public VkPhysicalDeviceConditionalRenderingFeaturesEXT inheritedConditionalRendering(@NativeType("VkBool32") boolean value) { ninheritedConditionalRendering(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +153,7 @@ public class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceConditionalRenderingFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceConditionalRenderingFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceConditionalRenderingFeaturesEXT(address, null);
     }
 
@@ -211,8 +196,7 @@ public class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceConditionalRenderingFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceConditionalRenderingFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +260,22 @@ public class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #conditionalRendering}. */
-    public static int nconditionalRendering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.CONDITIONALRENDERING); }
+    public static int nconditionalRendering(long struct) { return memGetInt(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.CONDITIONALRENDERING); }
     /** Unsafe version of {@link #inheritedConditionalRendering}. */
-    public static int ninheritedConditionalRendering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.INHERITEDCONDITIONALRENDERING); }
+    public static int ninheritedConditionalRendering(long struct) { return memGetInt(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.INHERITEDCONDITIONALRENDERING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #conditionalRendering(boolean) conditionalRendering}. */
-    public static void nconditionalRendering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.CONDITIONALRENDERING, value); }
+    public static void nconditionalRendering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.CONDITIONALRENDERING, value); }
     /** Unsafe version of {@link #inheritedConditionalRendering(boolean) inheritedConditionalRendering}. */
-    public static void ninheritedConditionalRendering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.INHERITEDCONDITIONALRENDERING, value); }
+    public static void ninheritedConditionalRendering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceConditionalRenderingFeaturesEXT.INHERITEDCONDITIONALRENDERING, value); }
 
     // -----------------------------------
 
@@ -327,32 +311,37 @@ public class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends Struct<VkPh
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceConditionalRenderingFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceConditionalRenderingFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceConditionalRenderingFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#conditionalRendering} field. */
+        /** @return the value of the {@code conditionalRendering} field. */
         @NativeType("VkBool32")
         public boolean conditionalRendering() { return VkPhysicalDeviceConditionalRenderingFeaturesEXT.nconditionalRendering(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#inheritedConditionalRendering} field. */
+        /** @return the value of the {@code inheritedConditionalRendering} field. */
         @NativeType("VkBool32")
         public boolean inheritedConditionalRendering() { return VkPhysicalDeviceConditionalRenderingFeaturesEXT.ninheritedConditionalRendering(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceConditionalRenderingFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceConditionalRenderingFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTConditionalRendering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT} value to the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTConditionalRendering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceConditionalRenderingFeaturesEXT.Buffer sType$Default() { return sType(EXTConditionalRendering.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceConditionalRenderingFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceConditionalRenderingFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#conditionalRendering} field. */
+        /** Sets the specified value to the {@code conditionalRendering} field. */
         public VkPhysicalDeviceConditionalRenderingFeaturesEXT.Buffer conditionalRendering(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceConditionalRenderingFeaturesEXT.nconditionalRendering(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceConditionalRenderingFeaturesEXT#inheritedConditionalRendering} field. */
+        /** Sets the specified value to the {@code inheritedConditionalRendering} field. */
         public VkPhysicalDeviceConditionalRenderingFeaturesEXT.Buffer inheritedConditionalRendering(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceConditionalRenderingFeaturesEXT.ninheritedConditionalRendering(address(), value ? 1 : 0); return this; }
 
     }

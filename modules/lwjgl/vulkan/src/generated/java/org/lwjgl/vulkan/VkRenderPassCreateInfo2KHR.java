@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,11 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkRenderPassCreateInfo2}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRenderPassCreateInfo2KHR {
  *     VkStructureType sType;
  *     void const * pNext;
@@ -34,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link VkSubpassDependency2 VkSubpassDependency2} const * pDependencies;
  *     uint32_t correlatedViewMaskCount;
  *     uint32_t const * pCorrelatedViewMasks;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
 
@@ -71,13 +67,13 @@ public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
     public VkRenderPassCreateInfo2KHR flags(@NativeType("VkRenderPassCreateFlags") int value) { nflags(address(), value); return this; }
     /** Sets the address of the specified {@link VkAttachmentDescription2.Buffer} to the {@code pAttachments} field. */
     @Override
-    public VkRenderPassCreateInfo2KHR pAttachments(@Nullable @NativeType("VkAttachmentDescription2 const *") VkAttachmentDescription2.Buffer value) { npAttachments(address(), value); return this; }
+    public VkRenderPassCreateInfo2KHR pAttachments(@NativeType("VkAttachmentDescription2 const *") VkAttachmentDescription2.@Nullable Buffer value) { npAttachments(address(), value); return this; }
     /** Sets the address of the specified {@link VkSubpassDescription2.Buffer} to the {@code pSubpasses} field. */
     @Override
     public VkRenderPassCreateInfo2KHR pSubpasses(@NativeType("VkSubpassDescription2 const *") VkSubpassDescription2.Buffer value) { npSubpasses(address(), value); return this; }
     /** Sets the address of the specified {@link VkSubpassDependency2.Buffer} to the {@code pDependencies} field. */
     @Override
-    public VkRenderPassCreateInfo2KHR pDependencies(@Nullable @NativeType("VkSubpassDependency2 const *") VkSubpassDependency2.Buffer value) { npDependencies(address(), value); return this; }
+    public VkRenderPassCreateInfo2KHR pDependencies(@NativeType("VkSubpassDependency2 const *") VkSubpassDependency2.@Nullable Buffer value) { npDependencies(address(), value); return this; }
     /** Sets the address of the specified {@link IntBuffer} to the {@code pCorrelatedViewMasks} field. */
     @Override
     public VkRenderPassCreateInfo2KHR pCorrelatedViewMasks(@Nullable @NativeType("uint32_t const *") IntBuffer value) { npCorrelatedViewMasks(address(), value); return this; }
@@ -88,9 +84,9 @@ public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
         int sType,
         long pNext,
         int flags,
-        @Nullable VkAttachmentDescription2.Buffer pAttachments,
+        VkAttachmentDescription2.@Nullable Buffer pAttachments,
         VkSubpassDescription2.Buffer pSubpasses,
-        @Nullable VkSubpassDependency2.Buffer pDependencies,
+        VkSubpassDependency2.@Nullable Buffer pDependencies,
         @Nullable IntBuffer pCorrelatedViewMasks
     ) {
         sType(sType);
@@ -140,8 +136,7 @@ public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreateInfo2KHR createSafe(long address) {
+    public static @Nullable VkRenderPassCreateInfo2KHR createSafe(long address) {
         return address == NULL ? null : new VkRenderPassCreateInfo2KHR(address, null);
     }
 
@@ -184,8 +179,7 @@ public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreateInfo2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassCreateInfo2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,6 +274,11 @@ public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderPassCreateInfo2KHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -298,13 +297,13 @@ public class VkRenderPassCreateInfo2KHR extends VkRenderPassCreateInfo2 {
         public VkRenderPassCreateInfo2KHR.Buffer flags(@NativeType("VkRenderPassCreateFlags") int value) { VkRenderPassCreateInfo2KHR.nflags(address(), value); return this; }
         /** Sets the address of the specified {@link VkAttachmentDescription2.Buffer} to the {@code pAttachments} field. */
         @Override
-        public VkRenderPassCreateInfo2KHR.Buffer pAttachments(@Nullable @NativeType("VkAttachmentDescription2 const *") VkAttachmentDescription2.Buffer value) { VkRenderPassCreateInfo2KHR.npAttachments(address(), value); return this; }
+        public VkRenderPassCreateInfo2KHR.Buffer pAttachments(@NativeType("VkAttachmentDescription2 const *") VkAttachmentDescription2.@Nullable Buffer value) { VkRenderPassCreateInfo2KHR.npAttachments(address(), value); return this; }
         /** Sets the address of the specified {@link VkSubpassDescription2.Buffer} to the {@code pSubpasses} field. */
         @Override
         public VkRenderPassCreateInfo2KHR.Buffer pSubpasses(@NativeType("VkSubpassDescription2 const *") VkSubpassDescription2.Buffer value) { VkRenderPassCreateInfo2KHR.npSubpasses(address(), value); return this; }
         /** Sets the address of the specified {@link VkSubpassDependency2.Buffer} to the {@code pDependencies} field. */
         @Override
-        public VkRenderPassCreateInfo2KHR.Buffer pDependencies(@Nullable @NativeType("VkSubpassDependency2 const *") VkSubpassDependency2.Buffer value) { VkRenderPassCreateInfo2KHR.npDependencies(address(), value); return this; }
+        public VkRenderPassCreateInfo2KHR.Buffer pDependencies(@NativeType("VkSubpassDependency2 const *") VkSubpassDependency2.@Nullable Buffer value) { VkRenderPassCreateInfo2KHR.npDependencies(address(), value); return this; }
         /** Sets the address of the specified {@link IntBuffer} to the {@code pCorrelatedViewMasks} field. */
         @Override
         public VkRenderPassCreateInfo2KHR.Buffer pCorrelatedViewMasks(@Nullable @NativeType("uint32_t const *") IntBuffer value) { VkRenderPassCreateInfo2KHR.npCorrelatedViewMasks(address(), value); return this; }

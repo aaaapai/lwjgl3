@@ -5,27 +5,13 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * KTX_error_code (*{@link #invoke}) (
- *     int miplevel,
- *     int face,
- *     int width,
- *     int height,
- *     int depth,
- *     ktx_uint64_t faceLodSize,
- *     void *pixels,
- *     void *userdata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke PFNKTXITERCB} */
 public abstract class PFNKTXITERCB extends Callback implements PFNKTXITERCBI {
 
     /**
@@ -41,8 +27,7 @@ public abstract class PFNKTXITERCB extends Callback implements PFNKTXITERCBI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static PFNKTXITERCB createSafe(long functionPointer) {
+    public static @Nullable PFNKTXITERCB createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

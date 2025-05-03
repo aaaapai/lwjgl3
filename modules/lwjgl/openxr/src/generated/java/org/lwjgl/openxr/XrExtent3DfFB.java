@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,59 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Represents a rectangular prism.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure is used for component values that may be fractional (floating-point). If used to represent physical distances, values must be in meters. The width, height, and depth values must be non-negative.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBScene XR_FB_scene} extension <b>must</b> be enabled prior to using {@link XrExtent3DfFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrRect3DfFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrExtent3DfFB {
- *     float {@link #width};
- *     float {@link #height};
- *     float {@link #depth};
- * }</code></pre>
+ *     float width;
+ *     float height;
+ *     float depth;
+ * }}</pre>
  */
-public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResource {
-
-    /** The struct size in bytes. */
-    public static final int SIZEOF;
-
-    /** The struct alignment in bytes. */
-    public static final int ALIGNOF;
-
-    /** The struct member offsets. */
-    public static final int
-        WIDTH,
-        HEIGHT,
-        DEPTH;
-
-    static {
-        Layout layout = __struct(
-            __member(4),
-            __member(4),
-            __member(4)
-        );
-
-        SIZEOF = layout.getSize();
-        ALIGNOF = layout.getAlignment();
-
-        WIDTH = layout.offsetof(0);
-        HEIGHT = layout.offsetof(1);
-        DEPTH = layout.offsetof(2);
-    }
+public class XrExtent3DfFB extends XrExtent3Df {
 
     protected XrExtent3DfFB(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -86,27 +41,21 @@ public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResour
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public XrExtent3DfFB(ByteBuffer container) {
-        super(memAddress(container), __checkContainer(container, SIZEOF));
+        super(container);
     }
 
+    /** Sets the specified value to the {@code width} field. */
     @Override
-    public int sizeof() { return SIZEOF; }
-
-    /** the floating-point width of the extent. */
-    public float width() { return nwidth(address()); }
-    /** the floating-point height of the extent. */
-    public float height() { return nheight(address()); }
-    /** the floating-point depth of the extent. */
-    public float depth() { return ndepth(address()); }
-
-    /** Sets the specified value to the {@link #width} field. */
     public XrExtent3DfFB width(float value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
+    @Override
     public XrExtent3DfFB height(float value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #depth} field. */
+    /** Sets the specified value to the {@code depth} field. */
+    @Override
     public XrExtent3DfFB depth(float value) { ndepth(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
+    @Override
     public XrExtent3DfFB set(
         float width,
         float height,
@@ -155,8 +104,7 @@ public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent3DfFB createSafe(long address) {
+    public static @Nullable XrExtent3DfFB createSafe(long address) {
         return address == NULL ? null : new XrExtent3DfFB(address, null);
     }
 
@@ -199,8 +147,7 @@ public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent3DfFB.Buffer createSafe(long address, int capacity) {
+    public static XrExtent3DfFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,24 +191,8 @@ public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResour
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + XrExtent3DfFB.WIDTH); }
-    /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + XrExtent3DfFB.HEIGHT); }
-    /** Unsafe version of {@link #depth}. */
-    public static float ndepth(long struct) { return UNSAFE.getFloat(null, struct + XrExtent3DfFB.DEPTH); }
-
-    /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent3DfFB.WIDTH, value); }
-    /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent3DfFB.HEIGHT, value); }
-    /** Unsafe version of {@link #depth(float) depth}. */
-    public static void ndepth(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent3DfFB.DEPTH, value); }
-
-    // -----------------------------------
-
     /** An array of {@link XrExtent3DfFB} structs. */
-    public static class Buffer extends StructBuffer<XrExtent3DfFB, Buffer> implements NativeResource {
+    public static class Buffer extends XrExtent3Df.Buffer {
 
         private static final XrExtent3DfFB ELEMENT_FACTORY = XrExtent3DfFB.create(-1L);
 
@@ -275,7 +206,7 @@ public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResour
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container, container.remaining() / SIZEOF);
+            super(container);
         }
 
         public Buffer(long address, int cap) {
@@ -292,22 +223,23 @@ public class XrExtent3DfFB extends Struct<XrExtent3DfFB> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrExtent3DfFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrExtent3DfFB#width} field. */
-        public float width() { return XrExtent3DfFB.nwidth(address()); }
-        /** @return the value of the {@link XrExtent3DfFB#height} field. */
-        public float height() { return XrExtent3DfFB.nheight(address()); }
-        /** @return the value of the {@link XrExtent3DfFB#depth} field. */
-        public float depth() { return XrExtent3DfFB.ndepth(address()); }
-
-        /** Sets the specified value to the {@link XrExtent3DfFB#width} field. */
+        /** Sets the specified value to the {@code width} field. */
+        @Override
         public XrExtent3DfFB.Buffer width(float value) { XrExtent3DfFB.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link XrExtent3DfFB#height} field. */
+        /** Sets the specified value to the {@code height} field. */
+        @Override
         public XrExtent3DfFB.Buffer height(float value) { XrExtent3DfFB.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@link XrExtent3DfFB#depth} field. */
+        /** Sets the specified value to the {@code depth} field. */
+        @Override
         public XrExtent3DfFB.Buffer depth(float value) { XrExtent3DfFB.ndepth(address(), value); return this; }
 
     }

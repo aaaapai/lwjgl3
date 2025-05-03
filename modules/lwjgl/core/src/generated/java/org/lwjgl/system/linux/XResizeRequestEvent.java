@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XResizeRequestEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     int width;
  *     int height;
- * }</code></pre>
+ * }}</pre>
  */
 public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements NativeResource {
 
@@ -95,16 +93,16 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return the value of the {@code width} field. */
@@ -114,13 +112,13 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
 
     /** Sets the specified value to the {@code type} field. */
     public XResizeRequestEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XResizeRequestEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XResizeRequestEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XResizeRequestEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XResizeRequestEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Sets the specified value to the {@code width} field. */
     public XResizeRequestEvent width(int value) { nwidth(address(), value); return this; }
@@ -184,8 +182,7 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XResizeRequestEvent createSafe(long address) {
+    public static @Nullable XResizeRequestEvent createSafe(long address) {
         return address == NULL ? null : new XResizeRequestEvent(address, null);
     }
 
@@ -228,8 +225,7 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XResizeRequestEvent.Buffer createSafe(long address, int capacity) {
+    public static XResizeRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,34 +289,34 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XResizeRequestEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XResizeRequestEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XResizeRequestEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XResizeRequestEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XResizeRequestEvent.WINDOW); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XResizeRequestEvent.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XResizeRequestEvent.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XResizeRequestEvent.HEIGHT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XResizeRequestEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XResizeRequestEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XResizeRequestEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XResizeRequestEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XResizeRequestEvent.WINDOW, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XResizeRequestEvent.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XResizeRequestEvent.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XResizeRequestEvent.HEIGHT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -365,22 +361,27 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XResizeRequestEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XResizeRequestEvent.ntype(address()); }
-        /** @return the value of the {@link XResizeRequestEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XResizeRequestEvent.nserial(address()); }
-        /** @return the value of the {@link XResizeRequestEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XResizeRequestEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XResizeRequestEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XResizeRequestEvent.ndisplay(address()); }
-        /** @return the value of the {@link XResizeRequestEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XResizeRequestEvent.nwindow(address()); }
         /** @return the value of the {@code width} field. */
@@ -390,13 +391,13 @@ public class XResizeRequestEvent extends Struct<XResizeRequestEvent> implements 
 
         /** Sets the specified value to the {@code type} field. */
         public XResizeRequestEvent.Buffer type(int value) { XResizeRequestEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XResizeRequestEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XResizeRequestEvent.Buffer serial(@NativeType("unsigned long") long value) { XResizeRequestEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XResizeRequestEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XResizeRequestEvent.Buffer send_event(@NativeType("Bool") boolean value) { XResizeRequestEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XResizeRequestEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XResizeRequestEvent.Buffer display(@NativeType("Display *") long value) { XResizeRequestEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XResizeRequestEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XResizeRequestEvent.Buffer window(@NativeType("Window") long value) { XResizeRequestEvent.nwindow(address(), value); return this; }
         /** Sets the specified value to the {@code width} field. */
         public XResizeRequestEvent.Buffer width(int value) { XResizeRequestEvent.nwidth(address(), value); return this; }

@@ -5,29 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMOrc#LLVMOrcCreateCustomCAPIDefinitionGenerator OrcCreateCustomCAPIDefinitionGenerator} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * LLVMErrorRef (*{@link #invoke}) (
- *     LLVMOrcDefinitionGeneratorRef GeneratorObj,
- *     void *Ctx,
- *     LLVMOrcLookupStateRef *LookupState,
- *     LLVMOrcLookupKind Kind,
- *     LLVMOrcJITDylibRef JD,
- *     LLVMOrcJITDylibLookupFlags JDLookupFlags,
- *     LLVMOrcCLookupSet LookupSet,
- *     size_t LookupSetSize
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction} */
 public abstract class LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction extends Callback implements LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunctionI {
 
     /**
@@ -43,8 +27,7 @@ public abstract class LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction extend
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction createSafe(long functionPointer) {
+    public static @Nullable LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

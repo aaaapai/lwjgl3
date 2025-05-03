@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Offset in two dimensions.
- * 
- * <h5>Description</h5>
- * 
- * <p>This variant is for representing discrete values such as texels. For representing physical distances, the floating-point variant <b>must</b> be used instead.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrExtent2Di}, {@link XrRect2Di}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrOffset2Di {
- *     int32_t {@link #x};
- *     int32_t {@link #y};
- * }</code></pre>
+ *     int32_t x;
+ *     int32_t y;
+ * }}</pre>
  */
 public class XrOffset2Di extends Struct<XrOffset2Di> implements NativeResource {
 
@@ -82,16 +70,16 @@ public class XrOffset2Di extends Struct<XrOffset2Di> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the integer offset in the x direction. */
+    /** @return the value of the {@code x} field. */
     @NativeType("int32_t")
     public int x() { return nx(address()); }
-    /** the integer offset in the y direction. */
+    /** @return the value of the {@code y} field. */
     @NativeType("int32_t")
     public int y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public XrOffset2Di x(@NativeType("int32_t") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public XrOffset2Di y(@NativeType("int32_t") int value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -141,8 +129,7 @@ public class XrOffset2Di extends Struct<XrOffset2Di> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset2Di createSafe(long address) {
+    public static @Nullable XrOffset2Di createSafe(long address) {
         return address == NULL ? null : new XrOffset2Di(address, null);
     }
 
@@ -185,8 +172,7 @@ public class XrOffset2Di extends Struct<XrOffset2Di> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset2Di.Buffer createSafe(long address, int capacity) {
+    public static XrOffset2Di.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,14 +217,14 @@ public class XrOffset2Di extends Struct<XrOffset2Di> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XrOffset2Di.X); }
+    public static int nx(long struct) { return memGetInt(struct + XrOffset2Di.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XrOffset2Di.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XrOffset2Di.Y); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XrOffset2Di.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XrOffset2Di.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XrOffset2Di.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XrOffset2Di.Y, value); }
 
     // -----------------------------------
 
@@ -274,20 +260,25 @@ public class XrOffset2Di extends Struct<XrOffset2Di> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrOffset2Di getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrOffset2Di#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("int32_t")
         public int x() { return XrOffset2Di.nx(address()); }
-        /** @return the value of the {@link XrOffset2Di#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("int32_t")
         public int y() { return XrOffset2Di.ny(address()); }
 
-        /** Sets the specified value to the {@link XrOffset2Di#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public XrOffset2Di.Buffer x(@NativeType("int32_t") int value) { XrOffset2Di.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link XrOffset2Di#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public XrOffset2Di.Buffer y(@NativeType("int32_t") int value) { XrOffset2Di.ny(address(), value); return this; }
 
     }

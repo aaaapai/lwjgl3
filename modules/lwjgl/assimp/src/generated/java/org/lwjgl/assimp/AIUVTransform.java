@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,21 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines how an UV channel is transformed.
- * 
- * <p>This is just a helper structure for the {@link Assimp#_AI_MATKEY_UVTRANSFORM_BASE} key. See its documentation for more details.</p>
- * 
- * <p>Typically you'll want to build a matrix of this information. However, we keep separate scaling/translation/rotation values to make it easier to process
- * and optimize UV transformations internally.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiUVTransform {
- *     {@link AIVector2D struct aiVector2D} {@link #mTranslation};
- *     {@link AIVector2D struct aiVector2D} {@link #mScaling};
- *     float {@link #mRotation};
- * }</code></pre>
+ *     {@link AIVector2D struct aiVector2D} mTranslation;
+ *     {@link AIVector2D struct aiVector2D} mScaling;
+ *     float mRotation;
+ * }}</pre>
  */
 @NativeType("struct aiUVTransform")
 public class AIUVTransform extends Struct<AIUVTransform> implements NativeResource {
@@ -84,13 +75,13 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Translation on the u and v axes. The default value is (0|0). */
+    /** @return a {@link AIVector2D} view of the {@code mTranslation} field. */
     @NativeType("struct aiVector2D")
     public AIVector2D mTranslation() { return nmTranslation(address()); }
-    /** Scaling on the u and v axes. The default value is (1|1). */
+    /** @return a {@link AIVector2D} view of the {@code mScaling} field. */
     @NativeType("struct aiVector2D")
     public AIVector2D mScaling() { return nmScaling(address()); }
-    /** Rotation - in counter-clockwise direction. The rotation angle is specified in radians. The rotation center is 0.5f|0.5f. The default value 0.f. */
+    /** @return the value of the {@code mRotation} field. */
     public float mRotation() { return nmRotation(address()); }
 
     // -----------------------------------
@@ -117,8 +108,7 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIUVTransform createSafe(long address) {
+    public static @Nullable AIUVTransform createSafe(long address) {
         return address == NULL ? null : new AIUVTransform(address, null);
     }
 
@@ -161,8 +151,7 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIUVTransform.Buffer createSafe(long address, int capacity) {
+    public static AIUVTransform.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,7 +219,7 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     /** Unsafe version of {@link #mScaling}. */
     public static AIVector2D nmScaling(long struct) { return AIVector2D.create(struct + AIUVTransform.MSCALING); }
     /** Unsafe version of {@link #mRotation}. */
-    public static float nmRotation(long struct) { return UNSAFE.getFloat(null, struct + AIUVTransform.MROTATION); }
+    public static float nmRotation(long struct) { return memGetFloat(struct + AIUVTransform.MROTATION); }
 
     // -----------------------------------
 
@@ -266,17 +255,22 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIUVTransform getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link AIVector2D} view of the {@link AIUVTransform#mTranslation} field. */
+        /** @return a {@link AIVector2D} view of the {@code mTranslation} field. */
         @NativeType("struct aiVector2D")
         public AIVector2D mTranslation() { return AIUVTransform.nmTranslation(address()); }
-        /** @return a {@link AIVector2D} view of the {@link AIUVTransform#mScaling} field. */
+        /** @return a {@link AIVector2D} view of the {@code mScaling} field. */
         @NativeType("struct aiVector2D")
         public AIVector2D mScaling() { return AIUVTransform.nmScaling(address()); }
-        /** @return the value of the {@link AIUVTransform#mRotation} field. */
+        /** @return the value of the {@code mRotation} field. */
         public float mRotation() { return AIUVTransform.nmRotation(address()); }
 
     }

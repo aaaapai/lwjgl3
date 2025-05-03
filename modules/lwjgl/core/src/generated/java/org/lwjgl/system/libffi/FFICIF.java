@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.libffi;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains information about a libffi call interface.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ffi_cif {
  *     ffi_abi abi;
  *     unsigned nargs;
@@ -28,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link FFIType ffi_type} * rtype;
  *     unsigned bytes;
  *     unsigned flags;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct ffi_cif")
 public class FFICIF extends Struct<FFICIF> implements NativeResource {
@@ -94,11 +90,7 @@ public class FFICIF extends Struct<FFICIF> implements NativeResource {
     /** @return the value of the {@code nargs} field. */
     @NativeType("unsigned")
     public int nargs() { return nnargs(address()); }
-    /**
-     * @return a {@link PointerBuffer} view of the data pointed to by the {@code arg_types} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code arg_types} field. */
     @NativeType("ffi_type **")
     public PointerBuffer arg_types(int capacity) { return narg_types(address(), capacity); }
     /** @return a {@link FFIType} view of the struct pointed to by the {@code rtype} field. */
@@ -135,8 +127,7 @@ public class FFICIF extends Struct<FFICIF> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FFICIF createSafe(long address) {
+    public static @Nullable FFICIF createSafe(long address) {
         return address == NULL ? null : new FFICIF(address, null);
     }
 
@@ -179,8 +170,7 @@ public class FFICIF extends Struct<FFICIF> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FFICIF.Buffer createSafe(long address, int capacity) {
+    public static FFICIF.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,17 +215,17 @@ public class FFICIF extends Struct<FFICIF> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #abi}. */
-    public static int nabi(long struct) { return UNSAFE.getInt(null, struct + FFICIF.ABI); }
+    public static int nabi(long struct) { return memGetInt(struct + FFICIF.ABI); }
     /** Unsafe version of {@link #nargs}. */
-    public static int nnargs(long struct) { return UNSAFE.getInt(null, struct + FFICIF.NARGS); }
+    public static int nnargs(long struct) { return memGetInt(struct + FFICIF.NARGS); }
     /** Unsafe version of {@link #arg_types(int) arg_types}. */
     public static PointerBuffer narg_types(long struct, int capacity) { return memPointerBuffer(memGetAddress(struct + FFICIF.ARG_TYPES), capacity); }
     /** Unsafe version of {@link #rtype}. */
     public static FFIType nrtype(long struct) { return FFIType.create(memGetAddress(struct + FFICIF.RTYPE)); }
     /** Unsafe version of {@link #bytes}. */
-    public static int nbytes(long struct) { return UNSAFE.getInt(null, struct + FFICIF.BYTES); }
+    public static int nbytes(long struct) { return memGetInt(struct + FFICIF.BYTES); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + FFICIF.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + FFICIF.FLAGS); }
 
     // -----------------------------------
 
@@ -271,6 +261,11 @@ public class FFICIF extends Struct<FFICIF> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FFICIF getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -281,11 +276,7 @@ public class FFICIF extends Struct<FFICIF> implements NativeResource {
         /** @return the value of the {@code nargs} field. */
         @NativeType("unsigned")
         public int nargs() { return FFICIF.nnargs(address()); }
-        /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@code arg_types} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code arg_types} field. */
         @NativeType("ffi_type **")
         public PointerBuffer arg_types(int capacity) { return FFICIF.narg_types(address(), capacity); }
         /** @return a {@link FFIType} view of the struct pointed to by the {@code rtype} field. */

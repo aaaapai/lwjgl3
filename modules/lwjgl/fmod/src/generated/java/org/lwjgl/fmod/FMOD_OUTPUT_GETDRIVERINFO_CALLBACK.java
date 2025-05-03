@@ -5,27 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_OUTPUT_STATE *output_state,
- *     int id,
- *     char *name,
- *     int namelen,
- *     FMOD_GUID *guid,
- *     int *systemrate,
- *     FMOD_SPEAKERMODE *speakermode,
- *     int *speakermodechannels
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_GETDRIVERINFO_CALLBACK} */
 public abstract class FMOD_OUTPUT_GETDRIVERINFO_CALLBACK extends Callback implements FMOD_OUTPUT_GETDRIVERINFO_CALLBACKI {
 
     /**
@@ -41,8 +27,7 @@ public abstract class FMOD_OUTPUT_GETDRIVERINFO_CALLBACK extends Callback implem
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_GETDRIVERINFO_CALLBACK createSafe(long functionPointer) {
+    public static @Nullable FMOD_OUTPUT_GETDRIVERINFO_CALLBACK createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

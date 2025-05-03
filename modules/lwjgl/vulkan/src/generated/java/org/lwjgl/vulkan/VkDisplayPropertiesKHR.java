@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing an available display device.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayProperties2KHR}, {@link VkExtent2D}, {@link KHRDisplay#vkGetPhysicalDeviceDisplayPropertiesKHR GetPhysicalDeviceDisplayPropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayPropertiesKHR {
- *     VkDisplayKHR {@link #display};
- *     char const * {@link #displayName};
- *     {@link VkExtent2D VkExtent2D} {@link #physicalDimensions};
- *     {@link VkExtent2D VkExtent2D} {@link #physicalResolution};
- *     VkSurfaceTransformFlagsKHR {@link #supportedTransforms};
- *     VkBool32 {@link #planeReorderPossible};
- *     VkBool32 {@link #persistentContent};
- * }</code></pre>
+ *     VkDisplayKHR display;
+ *     char const * displayName;
+ *     {@link VkExtent2D VkExtent2D} physicalDimensions;
+ *     {@link VkExtent2D VkExtent2D} physicalResolution;
+ *     VkSurfaceTransformFlagsKHR supportedTransforms;
+ *     VkBool32 planeReorderPossible;
+ *     VkBool32 persistentContent;
+ * }}</pre>
  */
 public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> implements NativeResource {
 
@@ -98,40 +90,26 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a handle that is used to refer to the display described here. This handle will be valid for the lifetime of the Vulkan instance. */
+    /** @return the value of the {@code display} field. */
     @NativeType("VkDisplayKHR")
     public long display() { return ndisplay(address()); }
-    /** {@code NULL} or a pointer to a null-terminated UTF-8 string containing the name of the display. Generally, this will be the name provided by the display’s EDID. If {@code NULL}, no suitable name is available. If not {@code NULL}, the string pointed to <b>must</b> remain accessible and unmodified as long as {@code display} is valid. */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code displayName} field. */
     @NativeType("char const *")
     public ByteBuffer displayName() { return ndisplayName(address()); }
-    /** {@code NULL} or a pointer to a null-terminated UTF-8 string containing the name of the display. Generally, this will be the name provided by the display’s EDID. If {@code NULL}, no suitable name is available. If not {@code NULL}, the string pointed to <b>must</b> remain accessible and unmodified as long as {@code display} is valid. */
+    /** @return the null-terminated string pointed to by the {@code displayName} field. */
     @NativeType("char const *")
     public String displayNameString() { return ndisplayNameString(address()); }
-    /** describes the physical width and height of the visible portion of the display, in millimeters. */
+    /** @return a {@link VkExtent2D} view of the {@code physicalDimensions} field. */
     public VkExtent2D physicalDimensions() { return nphysicalDimensions(address()); }
-    /**
-     * describes the physical, native, or preferred resolution of the display.
-     * 
-     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-     * 
-     * <p>For devices which have no natural value to return here, implementations <b>should</b> return the maximum resolution supported.</p>
-     * </div>
-     */
+    /** @return a {@link VkExtent2D} view of the {@code physicalResolution} field. */
     public VkExtent2D physicalResolution() { return nphysicalResolution(address()); }
-    /** a bitmask of {@code VkSurfaceTransformFlagBitsKHR} describing which transforms are supported by this display. */
+    /** @return the value of the {@code supportedTransforms} field. */
     @NativeType("VkSurfaceTransformFlagsKHR")
     public int supportedTransforms() { return nsupportedTransforms(address()); }
-    /** tells whether the planes on this display <b>can</b> have their z order changed. If this is {@link VK10#VK_TRUE TRUE}, the application <b>can</b> re-arrange the planes on this display in any order relative to each other. */
+    /** @return the value of the {@code planeReorderPossible} field. */
     @NativeType("VkBool32")
     public boolean planeReorderPossible() { return nplaneReorderPossible(address()) != 0; }
-    /**
-     * tells whether the display supports self-refresh/internal buffering. If this is true, the application <b>can</b> submit persistent present operations on swapchains created against this display.
-     * 
-     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-     * 
-     * <p>Persistent presents <b>may</b> have higher latency, and <b>may</b> use less power when the screen content is updated infrequently, or when only a portion of the screen needs to be updated in most frames.</p>
-     * </div>
-     */
+    /** @return the value of the {@code persistentContent} field. */
     @NativeType("VkBool32")
     public boolean persistentContent() { return npersistentContent(address()) != 0; }
 
@@ -159,8 +137,7 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPropertiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPropertiesKHR(address, null);
     }
 
@@ -203,8 +180,7 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,7 +244,7 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #display}. */
-    public static long ndisplay(long struct) { return UNSAFE.getLong(null, struct + VkDisplayPropertiesKHR.DISPLAY); }
+    public static long ndisplay(long struct) { return memGetLong(struct + VkDisplayPropertiesKHR.DISPLAY); }
     /** Unsafe version of {@link #displayName}. */
     public static ByteBuffer ndisplayName(long struct) { return memByteBufferNT1(memGetAddress(struct + VkDisplayPropertiesKHR.DISPLAYNAME)); }
     /** Unsafe version of {@link #displayNameString}. */
@@ -278,11 +254,11 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
     /** Unsafe version of {@link #physicalResolution}. */
     public static VkExtent2D nphysicalResolution(long struct) { return VkExtent2D.create(struct + VkDisplayPropertiesKHR.PHYSICALRESOLUTION); }
     /** Unsafe version of {@link #supportedTransforms}. */
-    public static int nsupportedTransforms(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPropertiesKHR.SUPPORTEDTRANSFORMS); }
+    public static int nsupportedTransforms(long struct) { return memGetInt(struct + VkDisplayPropertiesKHR.SUPPORTEDTRANSFORMS); }
     /** Unsafe version of {@link #planeReorderPossible}. */
-    public static int nplaneReorderPossible(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPropertiesKHR.PLANEREORDERPOSSIBLE); }
+    public static int nplaneReorderPossible(long struct) { return memGetInt(struct + VkDisplayPropertiesKHR.PLANEREORDERPOSSIBLE); }
     /** Unsafe version of {@link #persistentContent}. */
-    public static int npersistentContent(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPropertiesKHR.PERSISTENTCONTENT); }
+    public static int npersistentContent(long struct) { return memGetInt(struct + VkDisplayPropertiesKHR.PERSISTENTCONTENT); }
 
     // -----------------------------------
 
@@ -318,30 +294,35 @@ public class VkDisplayPropertiesKHR extends Struct<VkDisplayPropertiesKHR> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayPropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayPropertiesKHR#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("VkDisplayKHR")
         public long display() { return VkDisplayPropertiesKHR.ndisplay(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VkDisplayPropertiesKHR#displayName} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code displayName} field. */
         @NativeType("char const *")
         public ByteBuffer displayName() { return VkDisplayPropertiesKHR.ndisplayName(address()); }
-        /** @return the null-terminated string pointed to by the {@link VkDisplayPropertiesKHR#displayName} field. */
+        /** @return the null-terminated string pointed to by the {@code displayName} field. */
         @NativeType("char const *")
         public String displayNameString() { return VkDisplayPropertiesKHR.ndisplayNameString(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkDisplayPropertiesKHR#physicalDimensions} field. */
+        /** @return a {@link VkExtent2D} view of the {@code physicalDimensions} field. */
         public VkExtent2D physicalDimensions() { return VkDisplayPropertiesKHR.nphysicalDimensions(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkDisplayPropertiesKHR#physicalResolution} field. */
+        /** @return a {@link VkExtent2D} view of the {@code physicalResolution} field. */
         public VkExtent2D physicalResolution() { return VkDisplayPropertiesKHR.nphysicalResolution(address()); }
-        /** @return the value of the {@link VkDisplayPropertiesKHR#supportedTransforms} field. */
+        /** @return the value of the {@code supportedTransforms} field. */
         @NativeType("VkSurfaceTransformFlagsKHR")
         public int supportedTransforms() { return VkDisplayPropertiesKHR.nsupportedTransforms(address()); }
-        /** @return the value of the {@link VkDisplayPropertiesKHR#planeReorderPossible} field. */
+        /** @return the value of the {@code planeReorderPossible} field. */
         @NativeType("VkBool32")
         public boolean planeReorderPossible() { return VkDisplayPropertiesKHR.nplaneReorderPossible(address()) != 0; }
-        /** @return the value of the {@link VkDisplayPropertiesKHR#persistentContent} field. */
+        /** @return the value of the {@code persistentContent} field. */
         @NativeType("VkBool32")
         public boolean persistentContent() { return VkDisplayPropertiesKHR.npersistentContent(address()) != 0; }
 

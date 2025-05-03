@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXIdxObjCInterfaceDeclInfo {
  *     {@link CXIdxObjCContainerDeclInfo CXIdxObjCContainerDeclInfo} const * containerInfo;
  *     {@link CXIdxBaseClassInfo CXIdxBaseClassInfo} const * superInfo;
  *     {@link CXIdxObjCProtocolRefListInfo CXIdxObjCProtocolRefListInfo} const * protocols;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXIdxObjCInterfaceDeclInfo extends Struct<CXIdxObjCInterfaceDeclInfo> {
 
@@ -92,8 +90,7 @@ public class CXIdxObjCInterfaceDeclInfo extends Struct<CXIdxObjCInterfaceDeclInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCInterfaceDeclInfo createSafe(long address) {
+    public static @Nullable CXIdxObjCInterfaceDeclInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxObjCInterfaceDeclInfo(address, null);
     }
 
@@ -108,8 +105,7 @@ public class CXIdxObjCInterfaceDeclInfo extends Struct<CXIdxObjCInterfaceDeclInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCInterfaceDeclInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxObjCInterfaceDeclInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -153,6 +149,11 @@ public class CXIdxObjCInterfaceDeclInfo extends Struct<CXIdxObjCInterfaceDeclInf
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

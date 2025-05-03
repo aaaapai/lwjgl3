@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying information about a reference picture slot.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoDecodeH264DpbSlotInfoKHR}, {@link VkVideoDecodeH265DpbSlotInfoKHR}, {@link VkVideoEncodeH264DpbSlotInfoEXT}, or {@link VkVideoEncodeH265DpbSlotInfoEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * <li>If {@code pPictureResource} is not {@code NULL}, {@code pPictureResource} <b>must</b> be a valid pointer to a valid {@link VkVideoPictureResourceInfoKHR} structure</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkVideoBeginCodingInfoKHR}, {@link VkVideoDecodeInfoKHR}, {@link VkVideoEncodeInfoKHR}, {@link VkVideoPictureResourceInfoKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoReferenceSlotInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     int32_t {@link #slotIndex};
- *     {@link VkVideoPictureResourceInfoKHR VkVideoPictureResourceInfoKHR} const * {@link #pPictureResource};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     int32_t slotIndex;
+ *     {@link VkVideoPictureResourceInfoKHR VkVideoPictureResourceInfoKHR} const * pPictureResource;
+ * }}</pre>
  */
 public class VkVideoReferenceSlotInfoKHR extends Struct<VkVideoReferenceSlotInfoKHR> implements NativeResource {
 
@@ -95,37 +78,40 @@ public class VkVideoReferenceSlotInfoKHR extends Struct<VkVideoReferenceSlotInfo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the index of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dpb-slot">DPB slot</a> or a negative integer value. */
+    /** @return the value of the {@code slotIndex} field. */
     @NativeType("int32_t")
     public int slotIndex() { return nslotIndex(address()); }
-    /** {@code NULL} or a pointer to a {@link VkVideoPictureResourceInfoKHR} structure describing the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-picture-resources">video picture resource</a> associated with the DPB slot index specified by {@code slotIndex}. */
-    @Nullable
+    /** @return a {@link VkVideoPictureResourceInfoKHR} view of the struct pointed to by the {@code pPictureResource} field. */
     @NativeType("VkVideoPictureResourceInfoKHR const *")
-    public VkVideoPictureResourceInfoKHR pPictureResource() { return npPictureResource(address()); }
+    public @Nullable VkVideoPictureResourceInfoKHR pPictureResource() { return npPictureResource(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoReferenceSlotInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR} value to the {@code sType} field. */
     public VkVideoReferenceSlotInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoReferenceSlotInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkVideoDecodeAV1DpbSlotInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoReferenceSlotInfoKHR pNext(VkVideoDecodeAV1DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeH264DpbSlotInfoKHR} value to the {@code pNext} chain. */
     public VkVideoReferenceSlotInfoKHR pNext(VkVideoDecodeH264DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkVideoDecodeH265DpbSlotInfoKHR} value to the {@code pNext} chain. */
     public VkVideoReferenceSlotInfoKHR pNext(VkVideoDecodeH265DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH264DpbSlotInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoReferenceSlotInfoKHR pNext(VkVideoEncodeH264DpbSlotInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH265DpbSlotInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoReferenceSlotInfoKHR pNext(VkVideoEncodeH265DpbSlotInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Sets the specified value to the {@link #slotIndex} field. */
+    /** Prepends the specified {@link VkVideoEncodeAV1DpbSlotInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoReferenceSlotInfoKHR pNext(VkVideoEncodeAV1DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH264DpbSlotInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoReferenceSlotInfoKHR pNext(VkVideoEncodeH264DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265DpbSlotInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoReferenceSlotInfoKHR pNext(VkVideoEncodeH265DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Sets the specified value to the {@code slotIndex} field. */
     public VkVideoReferenceSlotInfoKHR slotIndex(@NativeType("int32_t") int value) { nslotIndex(address(), value); return this; }
-    /** Sets the address of the specified {@link VkVideoPictureResourceInfoKHR} to the {@link #pPictureResource} field. */
+    /** Sets the address of the specified {@link VkVideoPictureResourceInfoKHR} to the {@code pPictureResource} field. */
     public VkVideoReferenceSlotInfoKHR pPictureResource(@Nullable @NativeType("VkVideoPictureResourceInfoKHR const *") VkVideoPictureResourceInfoKHR value) { npPictureResource(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -179,8 +165,7 @@ public class VkVideoReferenceSlotInfoKHR extends Struct<VkVideoReferenceSlotInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoReferenceSlotInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoReferenceSlotInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoReferenceSlotInfoKHR(address, null);
     }
 
@@ -223,8 +208,7 @@ public class VkVideoReferenceSlotInfoKHR extends Struct<VkVideoReferenceSlotInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoReferenceSlotInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoReferenceSlotInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,20 +253,20 @@ public class VkVideoReferenceSlotInfoKHR extends Struct<VkVideoReferenceSlotInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoReferenceSlotInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoReferenceSlotInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoReferenceSlotInfoKHR.PNEXT); }
     /** Unsafe version of {@link #slotIndex}. */
-    public static int nslotIndex(long struct) { return UNSAFE.getInt(null, struct + VkVideoReferenceSlotInfoKHR.SLOTINDEX); }
+    public static int nslotIndex(long struct) { return memGetInt(struct + VkVideoReferenceSlotInfoKHR.SLOTINDEX); }
     /** Unsafe version of {@link #pPictureResource}. */
-    @Nullable public static VkVideoPictureResourceInfoKHR npPictureResource(long struct) { return VkVideoPictureResourceInfoKHR.createSafe(memGetAddress(struct + VkVideoReferenceSlotInfoKHR.PPICTURERESOURCE)); }
+    public static @Nullable VkVideoPictureResourceInfoKHR npPictureResource(long struct) { return VkVideoPictureResourceInfoKHR.createSafe(memGetAddress(struct + VkVideoReferenceSlotInfoKHR.PPICTURERESOURCE)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoReferenceSlotInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoReferenceSlotInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoReferenceSlotInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #slotIndex(int) slotIndex}. */
-    public static void nslotIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoReferenceSlotInfoKHR.SLOTINDEX, value); }
+    public static void nslotIndex(long struct, int value) { memPutInt(struct + VkVideoReferenceSlotInfoKHR.SLOTINDEX, value); }
     /** Unsafe version of {@link #pPictureResource(VkVideoPictureResourceInfoKHR) pPictureResource}. */
     public static void npPictureResource(long struct, @Nullable VkVideoPictureResourceInfoKHR value) { memPutAddress(struct + VkVideoReferenceSlotInfoKHR.PPICTURERESOURCE, memAddressSafe(value)); }
 
@@ -320,41 +304,49 @@ public class VkVideoReferenceSlotInfoKHR extends Struct<VkVideoReferenceSlotInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoReferenceSlotInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoReferenceSlotInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoReferenceSlotInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoReferenceSlotInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoReferenceSlotInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoReferenceSlotInfoKHR#slotIndex} field. */
+        /** @return the value of the {@code slotIndex} field. */
         @NativeType("int32_t")
         public int slotIndex() { return VkVideoReferenceSlotInfoKHR.nslotIndex(address()); }
-        /** @return a {@link VkVideoPictureResourceInfoKHR} view of the struct pointed to by the {@link VkVideoReferenceSlotInfoKHR#pPictureResource} field. */
-        @Nullable
+        /** @return a {@link VkVideoPictureResourceInfoKHR} view of the struct pointed to by the {@code pPictureResource} field. */
         @NativeType("VkVideoPictureResourceInfoKHR const *")
-        public VkVideoPictureResourceInfoKHR pPictureResource() { return VkVideoReferenceSlotInfoKHR.npPictureResource(address()); }
+        public @Nullable VkVideoPictureResourceInfoKHR pPictureResource() { return VkVideoReferenceSlotInfoKHR.npPictureResource(address()); }
 
-        /** Sets the specified value to the {@link VkVideoReferenceSlotInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoReferenceSlotInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoReferenceSlotInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR} value to the {@link VkVideoReferenceSlotInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR} value to the {@code sType} field. */
         public VkVideoReferenceSlotInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR); }
-        /** Sets the specified value to the {@link VkVideoReferenceSlotInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoReferenceSlotInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoReferenceSlotInfoKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkVideoDecodeAV1DpbSlotInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoDecodeAV1DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeH264DpbSlotInfoKHR} value to the {@code pNext} chain. */
         public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoDecodeH264DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkVideoDecodeH265DpbSlotInfoKHR} value to the {@code pNext} chain. */
         public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoDecodeH265DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH264DpbSlotInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoEncodeH264DpbSlotInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH265DpbSlotInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoEncodeH265DpbSlotInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Sets the specified value to the {@link VkVideoReferenceSlotInfoKHR#slotIndex} field. */
+        /** Prepends the specified {@link VkVideoEncodeAV1DpbSlotInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoEncodeAV1DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH264DpbSlotInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoEncodeH264DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265DpbSlotInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoReferenceSlotInfoKHR.Buffer pNext(VkVideoEncodeH265DpbSlotInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Sets the specified value to the {@code slotIndex} field. */
         public VkVideoReferenceSlotInfoKHR.Buffer slotIndex(@NativeType("int32_t") int value) { VkVideoReferenceSlotInfoKHR.nslotIndex(address(), value); return this; }
-        /** Sets the address of the specified {@link VkVideoPictureResourceInfoKHR} to the {@link VkVideoReferenceSlotInfoKHR#pPictureResource} field. */
+        /** Sets the address of the specified {@link VkVideoPictureResourceInfoKHR} to the {@code pPictureResource} field. */
         public VkVideoReferenceSlotInfoKHR.Buffer pPictureResource(@Nullable @NativeType("VkVideoPictureResourceInfoKHR const *") VkVideoPictureResourceInfoKHR value) { VkVideoReferenceSlotInfoKHR.npPictureResource(address(), value); return this; }
 
     }

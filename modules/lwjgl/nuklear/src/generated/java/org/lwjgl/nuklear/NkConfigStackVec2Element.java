@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,13 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_config_stack_vec2_element {
  *     {@link NkVec2 struct nk_vec2} * pValues;
  *     {@link NkVec2 struct nk_vec2} old_value;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_config_stack_vec2_element")
 class NkConfigStackVec2Element extends Struct<NkConfigStackVec2Element> {
@@ -86,8 +84,7 @@ class NkConfigStackVec2Element extends Struct<NkConfigStackVec2Element> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackVec2Element createSafe(long address) {
+    public static @Nullable NkConfigStackVec2Element createSafe(long address) {
         return address == NULL ? null : new NkConfigStackVec2Element(address, null);
     }
 
@@ -102,8 +99,7 @@ class NkConfigStackVec2Element extends Struct<NkConfigStackVec2Element> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackVec2Element.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackVec2Element.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -145,6 +141,11 @@ class NkConfigStackVec2Element extends Struct<NkConfigStackVec2Element> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

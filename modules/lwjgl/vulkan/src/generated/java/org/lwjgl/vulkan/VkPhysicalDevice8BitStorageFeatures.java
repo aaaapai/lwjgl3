@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing features supported by VK_KHR_8bit_storage.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDevice8BitStorageFeatures} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDevice8BitStorageFeatures} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDevice8BitStorageFeatures {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #storageBuffer8BitAccess};
- *     VkBool32 {@link #uniformAndStorageBuffer8BitAccess};
- *     VkBool32 {@link #storagePushConstant8};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 storageBuffer8BitAccess;
+ *     VkBool32 uniformAndStorageBuffer8BitAccess;
+ *     VkBool32 storagePushConstant8;
+ * }}</pre>
  */
 public class VkPhysicalDevice8BitStorageFeatures extends Struct<VkPhysicalDevice8BitStorageFeatures> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDevice8BitStorageFeatures extends Struct<VkPhysicalDevice
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether objects in the {@code StorageBuffer}, {@code ShaderRecordBufferKHR}, or {@code PhysicalStorageBuffer} storage class with the {@code Block} decoration <b>can</b> have 8-bit integer members. If this feature is not enabled, 8-bit integer members <b>must</b> not be used in such objects. This also indicates whether shader modules <b>can</b> declare the {@code StorageBuffer8BitAccess} capability. */
+    /** @return the value of the {@code storageBuffer8BitAccess} field. */
     @NativeType("VkBool32")
     public boolean storageBuffer8BitAccess() { return nstorageBuffer8BitAccess(address()) != 0; }
-    /** indicates whether objects in the {@code Uniform} storage class with the {@code Block} decoration <b>can</b> have 8-bit integer members. If this feature is not enabled, 8-bit integer members <b>must</b> not be used in such objects. This also indicates whether shader modules <b>can</b> declare the {@code UniformAndStorageBuffer8BitAccess} capability. */
+    /** @return the value of the {@code uniformAndStorageBuffer8BitAccess} field. */
     @NativeType("VkBool32")
     public boolean uniformAndStorageBuffer8BitAccess() { return nuniformAndStorageBuffer8BitAccess(address()) != 0; }
-    /** indicates whether objects in the {@code PushConstant} storage class <b>can</b> have 8-bit integer members. If this feature is not enabled, 8-bit integer members <b>must</b> not be used in such objects. This also indicates whether shader modules <b>can</b> declare the {@code StoragePushConstant8} capability. */
+    /** @return the value of the {@code storagePushConstant8} field. */
     @NativeType("VkBool32")
     public boolean storagePushConstant8() { return nstoragePushConstant8(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDevice8BitStorageFeatures sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDevice8BitStorageFeatures sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDevice8BitStorageFeatures pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #storageBuffer8BitAccess} field. */
+    /** Sets the specified value to the {@code storageBuffer8BitAccess} field. */
     public VkPhysicalDevice8BitStorageFeatures storageBuffer8BitAccess(@NativeType("VkBool32") boolean value) { nstorageBuffer8BitAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #uniformAndStorageBuffer8BitAccess} field. */
+    /** Sets the specified value to the {@code uniformAndStorageBuffer8BitAccess} field. */
     public VkPhysicalDevice8BitStorageFeatures uniformAndStorageBuffer8BitAccess(@NativeType("VkBool32") boolean value) { nuniformAndStorageBuffer8BitAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #storagePushConstant8} field. */
+    /** Sets the specified value to the {@code storagePushConstant8} field. */
     public VkPhysicalDevice8BitStorageFeatures storagePushConstant8(@NativeType("VkBool32") boolean value) { nstoragePushConstant8(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDevice8BitStorageFeatures extends Struct<VkPhysicalDevice
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevice8BitStorageFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDevice8BitStorageFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevice8BitStorageFeatures(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDevice8BitStorageFeatures extends Struct<VkPhysicalDevice
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevice8BitStorageFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevice8BitStorageFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +252,26 @@ public class VkPhysicalDevice8BitStorageFeatures extends Struct<VkPhysicalDevice
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice8BitStorageFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevice8BitStorageFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevice8BitStorageFeatures.PNEXT); }
     /** Unsafe version of {@link #storageBuffer8BitAccess}. */
-    public static int nstorageBuffer8BitAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice8BitStorageFeatures.STORAGEBUFFER8BITACCESS); }
+    public static int nstorageBuffer8BitAccess(long struct) { return memGetInt(struct + VkPhysicalDevice8BitStorageFeatures.STORAGEBUFFER8BITACCESS); }
     /** Unsafe version of {@link #uniformAndStorageBuffer8BitAccess}. */
-    public static int nuniformAndStorageBuffer8BitAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice8BitStorageFeatures.UNIFORMANDSTORAGEBUFFER8BITACCESS); }
+    public static int nuniformAndStorageBuffer8BitAccess(long struct) { return memGetInt(struct + VkPhysicalDevice8BitStorageFeatures.UNIFORMANDSTORAGEBUFFER8BITACCESS); }
     /** Unsafe version of {@link #storagePushConstant8}. */
-    public static int nstoragePushConstant8(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevice8BitStorageFeatures.STORAGEPUSHCONSTANT8); }
+    public static int nstoragePushConstant8(long struct) { return memGetInt(struct + VkPhysicalDevice8BitStorageFeatures.STORAGEPUSHCONSTANT8); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice8BitStorageFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevice8BitStorageFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevice8BitStorageFeatures.PNEXT, value); }
     /** Unsafe version of {@link #storageBuffer8BitAccess(boolean) storageBuffer8BitAccess}. */
-    public static void nstorageBuffer8BitAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice8BitStorageFeatures.STORAGEBUFFER8BITACCESS, value); }
+    public static void nstorageBuffer8BitAccess(long struct, int value) { memPutInt(struct + VkPhysicalDevice8BitStorageFeatures.STORAGEBUFFER8BITACCESS, value); }
     /** Unsafe version of {@link #uniformAndStorageBuffer8BitAccess(boolean) uniformAndStorageBuffer8BitAccess}. */
-    public static void nuniformAndStorageBuffer8BitAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice8BitStorageFeatures.UNIFORMANDSTORAGEBUFFER8BITACCESS, value); }
+    public static void nuniformAndStorageBuffer8BitAccess(long struct, int value) { memPutInt(struct + VkPhysicalDevice8BitStorageFeatures.UNIFORMANDSTORAGEBUFFER8BITACCESS, value); }
     /** Unsafe version of {@link #storagePushConstant8(boolean) storagePushConstant8}. */
-    public static void nstoragePushConstant8(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevice8BitStorageFeatures.STORAGEPUSHCONSTANT8, value); }
+    public static void nstoragePushConstant8(long struct, int value) { memPutInt(struct + VkPhysicalDevice8BitStorageFeatures.STORAGEPUSHCONSTANT8, value); }
 
     // -----------------------------------
 
@@ -323,37 +307,42 @@ public class VkPhysicalDevice8BitStorageFeatures extends Struct<VkPhysicalDevice
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDevice8BitStorageFeatures getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDevice8BitStorageFeatures#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDevice8BitStorageFeatures.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDevice8BitStorageFeatures#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDevice8BitStorageFeatures.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDevice8BitStorageFeatures#storageBuffer8BitAccess} field. */
+        /** @return the value of the {@code storageBuffer8BitAccess} field. */
         @NativeType("VkBool32")
         public boolean storageBuffer8BitAccess() { return VkPhysicalDevice8BitStorageFeatures.nstorageBuffer8BitAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDevice8BitStorageFeatures#uniformAndStorageBuffer8BitAccess} field. */
+        /** @return the value of the {@code uniformAndStorageBuffer8BitAccess} field. */
         @NativeType("VkBool32")
         public boolean uniformAndStorageBuffer8BitAccess() { return VkPhysicalDevice8BitStorageFeatures.nuniformAndStorageBuffer8BitAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDevice8BitStorageFeatures#storagePushConstant8} field. */
+        /** @return the value of the {@code storagePushConstant8} field. */
         @NativeType("VkBool32")
         public boolean storagePushConstant8() { return VkPhysicalDevice8BitStorageFeatures.nstoragePushConstant8(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDevice8BitStorageFeatures#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDevice8BitStorageFeatures.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDevice8BitStorageFeatures.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES} value to the {@link VkPhysicalDevice8BitStorageFeatures#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDevice8BitStorageFeatures.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDevice8BitStorageFeatures#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDevice8BitStorageFeatures.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDevice8BitStorageFeatures.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevice8BitStorageFeatures#storageBuffer8BitAccess} field. */
+        /** Sets the specified value to the {@code storageBuffer8BitAccess} field. */
         public VkPhysicalDevice8BitStorageFeatures.Buffer storageBuffer8BitAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDevice8BitStorageFeatures.nstorageBuffer8BitAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevice8BitStorageFeatures#uniformAndStorageBuffer8BitAccess} field. */
+        /** Sets the specified value to the {@code uniformAndStorageBuffer8BitAccess} field. */
         public VkPhysicalDevice8BitStorageFeatures.Buffer uniformAndStorageBuffer8BitAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDevice8BitStorageFeatures.nuniformAndStorageBuffer8BitAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevice8BitStorageFeatures#storagePushConstant8} field. */
+        /** Sets the specified value to the {@code storagePushConstant8} field. */
         public VkPhysicalDevice8BitStorageFeatures.Buffer storagePushConstant8(@NativeType("VkBool32") boolean value) { VkPhysicalDevice8BitStorageFeatures.nstoragePushConstant8(address(), value ? 1 : 0); return this; }
 
     }

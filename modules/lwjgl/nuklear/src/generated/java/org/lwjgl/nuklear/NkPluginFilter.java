@@ -5,23 +5,13 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@link NkTextEdit} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * nk_bool (*{@link #invoke}) (
- *     struct nk_text_edit const *edit,
- *     nk_rune unicode
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_plugin_filter} */
 public abstract class NkPluginFilter extends Callback implements NkPluginFilterI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class NkPluginFilter extends Callback implements NkPluginFilterI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static NkPluginFilter createSafe(long functionPointer) {
+    public static @Nullable NkPluginFilter createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

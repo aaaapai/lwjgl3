@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,39 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Event indicating instance loss will occur.
- * 
- * <h5>Description</h5>
- * 
- * <p>After the application has destroyed all of its instances and their children and waited past the specified time, it may then re-try {@link XR10#xrCreateInstance CreateInstance} in a loop waiting for whatever maintenance the runtime is performing to complete. The runtime will return {@link XR10#XR_ERROR_RUNTIME_UNAVAILABLE ERROR_RUNTIME_UNAVAILABLE} from {@link XR10#xrCreateInstance CreateInstance} as long as it is unable to create the instance. Once the runtime has returned and is able to continue, it <b>must</b> resume returning {@link XR10#XR_SUCCESS SUCCESS} from {@link XR10#xrCreateInstance CreateInstance} if valid data is passed in.</p>
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
- * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR.</li>
- * <li>{@code lossTime} is the absolute time at which the indicated instance will be considered lost and become unusable.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrEventDataBaseHeader}, {@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataInstanceLossPending {
  *     XrStructureType type;
  *     void const * next;
  *     XrTime lossTime;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLossPending> implements NativeResource {
 
@@ -165,8 +138,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataInstanceLossPending createSafe(long address) {
+    public static @Nullable XrEventDataInstanceLossPending createSafe(long address) {
         return address == NULL ? null : new XrEventDataInstanceLossPending(address, null);
     }
 
@@ -214,8 +186,7 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataInstanceLossPending.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataInstanceLossPending.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,14 +236,14 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataInstanceLossPending.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataInstanceLossPending.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataInstanceLossPending.NEXT); }
     /** Unsafe version of {@link #lossTime}. */
-    public static long nlossTime(long struct) { return UNSAFE.getLong(null, struct + XrEventDataInstanceLossPending.LOSSTIME); }
+    public static long nlossTime(long struct) { return memGetLong(struct + XrEventDataInstanceLossPending.LOSSTIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataInstanceLossPending.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataInstanceLossPending.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataInstanceLossPending.NEXT, value); }
 
@@ -307,6 +278,11 @@ public class XrEventDataInstanceLossPending extends Struct<XrEventDataInstanceLo
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

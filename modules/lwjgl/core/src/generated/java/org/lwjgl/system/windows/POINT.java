@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines the x- and y- coordinates of a point.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct POINT {
- *     LONG {@link #x};
- *     LONG {@link #y};
- * }</code></pre>
+ *     LONG x;
+ *     LONG y;
+ * }}</pre>
  */
 public class POINT extends Struct<POINT> implements NativeResource {
 
@@ -74,16 +70,16 @@ public class POINT extends Struct<POINT> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x-coordinate of the point */
+    /** @return the value of the {@code x} field. */
     @NativeType("LONG")
     public int x() { return nx(address()); }
-    /** the y-coordinate of the point */
+    /** @return the value of the {@code y} field. */
     @NativeType("LONG")
     public int y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public POINT x(@NativeType("LONG") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public POINT y(@NativeType("LONG") int value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -133,8 +129,7 @@ public class POINT extends Struct<POINT> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static POINT createSafe(long address) {
+    public static @Nullable POINT createSafe(long address) {
         return address == NULL ? null : new POINT(address, null);
     }
 
@@ -177,8 +172,7 @@ public class POINT extends Struct<POINT> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static POINT.Buffer createSafe(long address, int capacity) {
+    public static POINT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +236,14 @@ public class POINT extends Struct<POINT> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + POINT.X); }
+    public static int nx(long struct) { return memGetInt(struct + POINT.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + POINT.Y); }
+    public static int ny(long struct) { return memGetInt(struct + POINT.Y); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + POINT.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + POINT.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + POINT.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + POINT.Y, value); }
 
     // -----------------------------------
 
@@ -285,20 +279,25 @@ public class POINT extends Struct<POINT> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected POINT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link POINT#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("LONG")
         public int x() { return POINT.nx(address()); }
-        /** @return the value of the {@link POINT#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("LONG")
         public int y() { return POINT.ny(address()); }
 
-        /** Sets the specified value to the {@link POINT#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public POINT.Buffer x(@NativeType("LONG") int value) { POINT.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link POINT#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public POINT.Buffer y(@NativeType("LONG") int value) { POINT.ny(address(), value); return this; }
 
     }

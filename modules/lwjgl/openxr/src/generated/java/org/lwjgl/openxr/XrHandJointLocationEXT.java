@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the location and radius of a hand joint.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the returned {@code locationFlags} has {@link XR10#XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} set, the returned radius <b>must</b> be a positive value.</p>
- * 
- * <p>If the returned {@code locationFlags} has {@link XR10#XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} unset, the returned radius value is undefined and should be avoided.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTHandTracking XR_EXT_hand_tracking} extension <b>must</b> be enabled prior to using {@link XrHandJointLocationEXT}</li>
- * <li>{@code locationFlags} <b>must</b> be 0 or a valid combination of {@code XrSpaceLocationFlagBits} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrHandJointLocationsEXT}, {@link XrPosef}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrHandJointLocationEXT {
- *     XrSpaceLocationFlags {@link #locationFlags};
- *     {@link XrPosef XrPosef} {@link #pose};
- *     float {@link #radius};
- * }</code></pre>
+ *     XrSpaceLocationFlags locationFlags;
+ *     {@link XrPosef XrPosef} pose;
+ *     float radius;
+ * }}</pre>
  */
 public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> implements NativeResource {
 
@@ -95,21 +74,21 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitfield, with bit masks defined in {@code XrSpaceLocationFlagBits}, to indicate which members contain valid data. If none of the bits are set, no other fields in this structure <b>should</b> be considered to be valid or meaningful. */
+    /** @return the value of the {@code locationFlags} field. */
     @NativeType("XrSpaceLocationFlags")
     public long locationFlags() { return nlocationFlags(address()); }
-    /** an {@link XrPosef} defining the position and orientation of the origin of a hand joint within the reference frame of the corresponding {@link XrHandJointsLocateInfoEXT}{@code ::baseSpace}. */
+    /** @return a {@link XrPosef} view of the {@code pose} field. */
     public XrPosef pose() { return npose(address()); }
-    /** a {@code float} value radius of the corresponding joint in units of meters. */
+    /** @return the value of the {@code radius} field. */
     public float radius() { return nradius(address()); }
 
-    /** Sets the specified value to the {@link #locationFlags} field. */
+    /** Sets the specified value to the {@code locationFlags} field. */
     public XrHandJointLocationEXT locationFlags(@NativeType("XrSpaceLocationFlags") long value) { nlocationFlags(address(), value); return this; }
-    /** Copies the specified {@link XrPosef} to the {@link #pose} field. */
+    /** Copies the specified {@link XrPosef} to the {@code pose} field. */
     public XrHandJointLocationEXT pose(XrPosef value) { npose(address(), value); return this; }
-    /** Passes the {@link #pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrHandJointLocationEXT pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
-    /** Sets the specified value to the {@link #radius} field. */
+    /** Sets the specified value to the {@code radius} field. */
     public XrHandJointLocationEXT radius(float value) { nradius(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -161,8 +140,7 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointLocationEXT createSafe(long address) {
+    public static @Nullable XrHandJointLocationEXT createSafe(long address) {
         return address == NULL ? null : new XrHandJointLocationEXT(address, null);
     }
 
@@ -205,8 +183,7 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointLocationEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandJointLocationEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,18 +228,18 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #locationFlags}. */
-    public static long nlocationFlags(long struct) { return UNSAFE.getLong(null, struct + XrHandJointLocationEXT.LOCATIONFLAGS); }
+    public static long nlocationFlags(long struct) { return memGetLong(struct + XrHandJointLocationEXT.LOCATIONFLAGS); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrHandJointLocationEXT.POSE); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrHandJointLocationEXT.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrHandJointLocationEXT.RADIUS); }
 
     /** Unsafe version of {@link #locationFlags(long) locationFlags}. */
-    public static void nlocationFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrHandJointLocationEXT.LOCATIONFLAGS, value); }
+    public static void nlocationFlags(long struct, long value) { memPutLong(struct + XrHandJointLocationEXT.LOCATIONFLAGS, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrHandJointLocationEXT.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrHandJointLocationEXT.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrHandJointLocationEXT.RADIUS, value); }
 
     // -----------------------------------
 
@@ -298,25 +275,30 @@ public class XrHandJointLocationEXT extends Struct<XrHandJointLocationEXT> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrHandJointLocationEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrHandJointLocationEXT#locationFlags} field. */
+        /** @return the value of the {@code locationFlags} field. */
         @NativeType("XrSpaceLocationFlags")
         public long locationFlags() { return XrHandJointLocationEXT.nlocationFlags(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrHandJointLocationEXT#pose} field. */
+        /** @return a {@link XrPosef} view of the {@code pose} field. */
         public XrPosef pose() { return XrHandJointLocationEXT.npose(address()); }
-        /** @return the value of the {@link XrHandJointLocationEXT#radius} field. */
+        /** @return the value of the {@code radius} field. */
         public float radius() { return XrHandJointLocationEXT.nradius(address()); }
 
-        /** Sets the specified value to the {@link XrHandJointLocationEXT#locationFlags} field. */
+        /** Sets the specified value to the {@code locationFlags} field. */
         public XrHandJointLocationEXT.Buffer locationFlags(@NativeType("XrSpaceLocationFlags") long value) { XrHandJointLocationEXT.nlocationFlags(address(), value); return this; }
-        /** Copies the specified {@link XrPosef} to the {@link XrHandJointLocationEXT#pose} field. */
+        /** Copies the specified {@link XrPosef} to the {@code pose} field. */
         public XrHandJointLocationEXT.Buffer pose(XrPosef value) { XrHandJointLocationEXT.npose(address(), value); return this; }
-        /** Passes the {@link XrHandJointLocationEXT#pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrHandJointLocationEXT.Buffer pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
-        /** Sets the specified value to the {@link XrHandJointLocationEXT#radius} field. */
+        /** Sets the specified value to the {@code radius} field. */
         public XrHandJointLocationEXT.Buffer radius(float value) { XrHandJointLocationEXT.nradius(address(), value); return this; }
 
     }

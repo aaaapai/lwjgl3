@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoDecodeH265ReferenceInfoFlags {
  *     uint32_t used_for_long_term_reference : 1;
  *     uint32_t unused_for_reference : 1;
- * }</code></pre>
+ * }}</pre>
  */
 public class StdVideoDecodeH265ReferenceInfoFlags extends Struct<StdVideoDecodeH265ReferenceInfoFlags> implements NativeResource {
 
@@ -128,8 +126,7 @@ public class StdVideoDecodeH265ReferenceInfoFlags extends Struct<StdVideoDecodeH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH265ReferenceInfoFlags createSafe(long address) {
+    public static @Nullable StdVideoDecodeH265ReferenceInfoFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoDecodeH265ReferenceInfoFlags(address, null);
     }
 
@@ -172,8 +169,7 @@ public class StdVideoDecodeH265ReferenceInfoFlags extends Struct<StdVideoDecodeH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH265ReferenceInfoFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoDecodeH265ReferenceInfoFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,13 +213,13 @@ public class StdVideoDecodeH265ReferenceInfoFlags extends Struct<StdVideoDecodeH
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoDecodeH265ReferenceInfoFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoDecodeH265ReferenceInfoFlags.BITFIELD0); }
     /** Unsafe version of {@link #used_for_long_term_reference}. */
     public static int nused_for_long_term_reference(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #unused_for_reference}. */
     public static int nunused_for_reference(long struct) { return (nbitfield0(struct) & 0x00_00_00_02) >>> 1; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoDecodeH265ReferenceInfoFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoDecodeH265ReferenceInfoFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #used_for_long_term_reference(boolean) used_for_long_term_reference}. */
     public static void nused_for_long_term_reference(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #unused_for_reference(boolean) unused_for_reference}. */
@@ -260,6 +256,11 @@ public class StdVideoDecodeH265ReferenceInfoFlags extends Struct<StdVideoDecodeH
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

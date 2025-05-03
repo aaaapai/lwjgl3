@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describe a scene sphere bounds.
- * 
- * <h5>Description</h5>
- * 
- * <p>The runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} if {@code radius} is not a finite positive value.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneSphereBoundMSFT}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSceneBoundsMSFT}, {@link XrVector3f}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSceneSphereBoundMSFT {
- *     {@link XrVector3f XrVector3f} {@link #center};
- *     float {@link #radius};
- * }</code></pre>
+ *     {@link XrVector3f XrVector3f} center;
+ *     float radius;
+ * }}</pre>
  */
 public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> implements NativeResource {
 
@@ -88,16 +70,16 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an {@link XrVector3f} representing the center of the sphere bound within the reference frame of the corresponding {@link XrSceneBoundsMSFT}{@code ::space}. */
+    /** @return a {@link XrVector3f} view of the {@code center} field. */
     public XrVector3f center() { return ncenter(address()); }
-    /** the finite positive radius of the sphere bound. */
+    /** @return the value of the {@code radius} field. */
     public float radius() { return nradius(address()); }
 
-    /** Copies the specified {@link XrVector3f} to the {@link #center} field. */
+    /** Copies the specified {@link XrVector3f} to the {@code center} field. */
     public XrSceneSphereBoundMSFT center(XrVector3f value) { ncenter(address(), value); return this; }
-    /** Passes the {@link #center} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code center} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSceneSphereBoundMSFT center(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(center()); return this; }
-    /** Sets the specified value to the {@link #radius} field. */
+    /** Sets the specified value to the {@code radius} field. */
     public XrSceneSphereBoundMSFT radius(float value) { nradius(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -147,8 +129,7 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneSphereBoundMSFT createSafe(long address) {
+    public static @Nullable XrSceneSphereBoundMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneSphereBoundMSFT(address, null);
     }
 
@@ -191,8 +172,7 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneSphereBoundMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneSphereBoundMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,12 +219,12 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
     /** Unsafe version of {@link #center}. */
     public static XrVector3f ncenter(long struct) { return XrVector3f.create(struct + XrSceneSphereBoundMSFT.CENTER); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrSceneSphereBoundMSFT.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrSceneSphereBoundMSFT.RADIUS); }
 
     /** Unsafe version of {@link #center(XrVector3f) center}. */
     public static void ncenter(long struct, XrVector3f value) { memCopy(value.address(), struct + XrSceneSphereBoundMSFT.CENTER, XrVector3f.SIZEOF); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrSceneSphereBoundMSFT.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrSceneSphereBoundMSFT.RADIUS, value); }
 
     // -----------------------------------
 
@@ -280,20 +260,25 @@ public class XrSceneSphereBoundMSFT extends Struct<XrSceneSphereBoundMSFT> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneSphereBoundMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link XrVector3f} view of the {@link XrSceneSphereBoundMSFT#center} field. */
+        /** @return a {@link XrVector3f} view of the {@code center} field. */
         public XrVector3f center() { return XrSceneSphereBoundMSFT.ncenter(address()); }
-        /** @return the value of the {@link XrSceneSphereBoundMSFT#radius} field. */
+        /** @return the value of the {@code radius} field. */
         public float radius() { return XrSceneSphereBoundMSFT.nradius(address()); }
 
-        /** Copies the specified {@link XrVector3f} to the {@link XrSceneSphereBoundMSFT#center} field. */
+        /** Copies the specified {@link XrVector3f} to the {@code center} field. */
         public XrSceneSphereBoundMSFT.Buffer center(XrVector3f value) { XrSceneSphereBoundMSFT.ncenter(address(), value); return this; }
-        /** Passes the {@link XrSceneSphereBoundMSFT#center} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code center} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSceneSphereBoundMSFT.Buffer center(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(center()); return this; }
-        /** Sets the specified value to the {@link XrSceneSphereBoundMSFT#radius} field. */
+        /** Sets the specified value to the {@code radius} field. */
         public XrSceneSphereBoundMSFT.Buffer radius(float value) { XrSceneSphereBoundMSFT.nradius(address(), value); return this; }
 
     }

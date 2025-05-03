@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,20 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetWindowContentScaleCallback SetWindowContentScaleCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     float xscale,
- *     float yscale
- * )</code></pre>
- *
- * @since version 3.3
- */
+/** Callback function: {@link #invoke GLFWwindowcontentscalefun} */
 public abstract class GLFWWindowContentScaleCallback extends Callback implements GLFWWindowContentScaleCallbackI {
 
     /**
@@ -42,8 +29,7 @@ public abstract class GLFWWindowContentScaleCallback extends Callback implements
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWWindowContentScaleCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWWindowContentScaleCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

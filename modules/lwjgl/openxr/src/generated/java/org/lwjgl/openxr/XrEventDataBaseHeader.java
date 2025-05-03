@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Base header for an event.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrEventDataBaseHeader} is a generic structure used to identify the common event data elements.</p>
- * 
- * <p>Upon receipt, the {@link XrEventDataBaseHeader} pointer should be type-cast to a pointer of the appropriate event data based on the {@code type} parameter.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link FBDisplayRefreshRate#XR_TYPE_EVENT_DATA_DISPLAY_REFRESH_RATE_CHANGED_FB TYPE_EVENT_DATA_DISPLAY_REFRESH_RATE_CHANGED_FB}, {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST}, {@link XR10#XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING}, {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED}, {@link EXTXOverlay#XR_TYPE_EVENT_DATA_MAIN_SESSION_VISIBILITY_CHANGED_EXTX TYPE_EVENT_DATA_MAIN_SESSION_VISIBILITY_CHANGED_EXTX}, {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO}, {@link EXTPerformanceSettings#XR_TYPE_EVENT_DATA_PERF_SETTINGS_EXT TYPE_EVENT_DATA_PERF_SETTINGS_EXT}, {@link XR10#XR_TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING}, {@link XR10#XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED TYPE_EVENT_DATA_SESSION_STATE_CHANGED}, {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB}, {@link FBSpatialEntityStorageBatch#XR_TYPE_EVENT_DATA_SPACE_LIST_SAVE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_LIST_SAVE_COMPLETE_FB}, {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB}, {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_RESULTS_AVAILABLE_FB TYPE_EVENT_DATA_SPACE_QUERY_RESULTS_AVAILABLE_FB}, {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_SAVE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_SAVE_COMPLETE_FB}, {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPACE_SET_STATUS_COMPLETE_FB TYPE_EVENT_DATA_SPACE_SET_STATUS_COMPLETE_FB}, {@link FBSpatialEntitySharing#XR_TYPE_EVENT_DATA_SPACE_SHARE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_SHARE_COMPLETE_FB}, {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB}, {@link KHRVisibilityMask#XR_TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR}, {@link HTCXViveTrackerInteraction#XR_TYPE_EVENT_DATA_VIVE_TRACKER_CONNECTED_HTCX TYPE_EVENT_DATA_VIVE_TRACKER_CONNECTED_HTCX}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataBaseHeader {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ * }}</pre>
  */
 public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> implements NativeResource {
 
@@ -91,16 +70,16 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. This base structure itself has no associated {@code XrStructureType} value. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataBaseHeader type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataBaseHeader next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -150,8 +129,7 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataBaseHeader createSafe(long address) {
+    public static @Nullable XrEventDataBaseHeader createSafe(long address) {
         return address == NULL ? null : new XrEventDataBaseHeader(address, null);
     }
 
@@ -220,6 +198,21 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEventDataLocalizationChangedML} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataLocalizationChangedML value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataHeadsetFitChangedML} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataHeadsetFitChangedML value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataEyeCalibrationChangedML} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataEyeCalibrationChangedML value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrEventDataSpaceQueryResultsAvailableFB} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataSpaceQueryResultsAvailableFB value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
@@ -247,6 +240,21 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
 
     /** Upcasts the specified {@code XrEventDataSpaceListSaveCompleteFB} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataSpaceListSaveCompleteFB value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataPassthroughLayerResumedMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataPassthroughLayerResumedMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataProviderStateChangedBD} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSenseDataProviderStateChangedBD value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataUpdatedBD} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSenseDataUpdatedBD value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
@@ -289,8 +297,7 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataBaseHeader.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataBaseHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -359,6 +366,21 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEventDataLocalizationChangedML.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataLocalizationChangedML.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataHeadsetFitChangedML.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataHeadsetFitChangedML.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataEyeCalibrationChangedML.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataEyeCalibrationChangedML.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrEventDataSpaceQueryResultsAvailableFB.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataSpaceQueryResultsAvailableFB.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
@@ -386,6 +408,21 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
 
     /** Upcasts the specified {@code XrEventDataSpaceListSaveCompleteFB.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataSpaceListSaveCompleteFB.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataPassthroughLayerResumedMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataPassthroughLayerResumedMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataProviderStateChangedBD.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSenseDataProviderStateChangedBD.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataUpdatedBD.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSenseDataUpdatedBD.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
@@ -430,12 +467,12 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataBaseHeader.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataBaseHeader.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataBaseHeader.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataBaseHeader.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataBaseHeader.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataBaseHeader.NEXT, value); }
 
@@ -473,20 +510,25 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataBaseHeader getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataBaseHeader#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataBaseHeader.ntype(address()); }
-        /** @return the value of the {@link XrEventDataBaseHeader#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataBaseHeader.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataBaseHeader#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataBaseHeader.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataBaseHeader.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataBaseHeader#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataBaseHeader.Buffer next(@NativeType("void const *") long value) { XrEventDataBaseHeader.nnext(address(), value); return this; }
 
     }

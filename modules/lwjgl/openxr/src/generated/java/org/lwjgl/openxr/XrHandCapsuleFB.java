@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,34 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.openxr.FBHandTrackingCapsules.*;
 
 /**
- * A 3D capsule defined by two points and a radius.
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code points} are the two points defining the capsule length.</li>
- * <li>{@code radius} is the radius of the capsule.</li>
- * <li>{@code joint} is the hand joint that drives this capsule’s transform. Multiple capsules can be attached to the same joint.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBHandTrackingCapsules XR_FB_hand_tracking_capsules} extension <b>must</b> be enabled prior to using {@link XrHandCapsuleFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrHandTrackingCapsulesStateFB}, {@link XrVector3f}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrHandCapsuleFB {
  *     {@link XrVector3f XrVector3f} points[XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB];
  *     float radius;
  *     XrHandJointEXT joint;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
 
@@ -116,8 +94,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandCapsuleFB createSafe(long address) {
+    public static @Nullable XrHandCapsuleFB createSafe(long address) {
         return address == NULL ? null : new XrHandCapsuleFB(address, null);
     }
 
@@ -132,8 +109,7 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandCapsuleFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandCapsuleFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -146,9 +122,9 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         return XrVector3f.create(struct + XrHandCapsuleFB.POINTS + check(index, XR_HAND_TRACKING_CAPSULE_POINT_COUNT_FB) * XrVector3f.SIZEOF);
     }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrHandCapsuleFB.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrHandCapsuleFB.RADIUS); }
     /** Unsafe version of {@link #joint}. */
-    public static int njoint(long struct) { return UNSAFE.getInt(null, struct + XrHandCapsuleFB.JOINT); }
+    public static int njoint(long struct) { return memGetInt(struct + XrHandCapsuleFB.JOINT); }
 
     // -----------------------------------
 
@@ -181,6 +157,11 @@ public class XrHandCapsuleFB extends Struct<XrHandCapsuleFB> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

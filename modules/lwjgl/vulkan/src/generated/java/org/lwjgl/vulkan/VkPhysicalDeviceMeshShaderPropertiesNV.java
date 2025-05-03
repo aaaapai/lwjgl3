@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,38 +17,24 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing mesh shading properties.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceMeshShaderPropertiesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVMeshShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceMeshShaderPropertiesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #maxDrawMeshTasksCount};
- *     uint32_t {@link #maxTaskWorkGroupInvocations};
- *     uint32_t {@link #maxTaskWorkGroupSize}[3];
- *     uint32_t {@link #maxTaskTotalMemorySize};
- *     uint32_t {@link #maxTaskOutputCount};
- *     uint32_t {@link #maxMeshWorkGroupInvocations};
- *     uint32_t {@link #maxMeshWorkGroupSize}[3];
- *     uint32_t {@link #maxMeshTotalMemorySize};
- *     uint32_t {@link #maxMeshOutputVertices};
- *     uint32_t {@link #maxMeshOutputPrimitives};
- *     uint32_t {@link #maxMeshMultiviewViewCount};
- *     uint32_t {@link #meshOutputPerVertexGranularity};
- *     uint32_t {@link #meshOutputPerPrimitiveGranularity};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t maxDrawMeshTasksCount;
+ *     uint32_t maxTaskWorkGroupInvocations;
+ *     uint32_t maxTaskWorkGroupSize[3];
+ *     uint32_t maxTaskTotalMemorySize;
+ *     uint32_t maxTaskOutputCount;
+ *     uint32_t maxMeshWorkGroupInvocations;
+ *     uint32_t maxMeshWorkGroupSize[3];
+ *     uint32_t maxMeshTotalMemorySize;
+ *     uint32_t maxMeshOutputVertices;
+ *     uint32_t maxMeshOutputPrimitives;
+ *     uint32_t maxMeshMultiviewViewCount;
+ *     uint32_t meshOutputPerVertexGranularity;
+ *     uint32_t meshOutputPerPrimitiveGranularity;
+ * }}</pre>
  */
 public class VkPhysicalDeviceMeshShaderPropertiesNV extends Struct<VkPhysicalDeviceMeshShaderPropertiesNV> implements NativeResource {
 
@@ -137,63 +123,63 @@ public class VkPhysicalDeviceMeshShaderPropertiesNV extends Struct<VkPhysicalDev
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum number of local workgroups that <b>can</b> be launched by a single draw mesh tasks command. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#drawing-mesh-shading">Programmable Mesh Shading</a>. */
+    /** @return the value of the {@code maxDrawMeshTasksCount} field. */
     @NativeType("uint32_t")
     public int maxDrawMeshTasksCount() { return nmaxDrawMeshTasksCount(address()); }
-    /** the maximum total number of task shader invocations in a single local workgroup. The product of the X, Y, and Z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode in shader modules or by the object decorated by the {@code WorkgroupSize} decoration, <b>must</b> be less than or equal to this limit. */
+    /** @return the value of the {@code maxTaskWorkGroupInvocations} field. */
     @NativeType("uint32_t")
     public int maxTaskWorkGroupInvocations() { return nmaxTaskWorkGroupInvocations(address()); }
-    /** the maximum size of a local task workgroup. These three values represent the maximum local workgroup size in the X, Y, and Z dimensions, respectively. The {@code x}, {@code y}, and {@code z} sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the {@code WorkgroupSize} decoration in shader modules, <b>must</b> be less than or equal to the corresponding limit. */
+    /** @return a {@link IntBuffer} view of the {@code maxTaskWorkGroupSize} field. */
     @NativeType("uint32_t[3]")
     public IntBuffer maxTaskWorkGroupSize() { return nmaxTaskWorkGroupSize(address()); }
-    /** the maximum size of a local task workgroup. These three values represent the maximum local workgroup size in the X, Y, and Z dimensions, respectively. The {@code x}, {@code y}, and {@code z} sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the {@code WorkgroupSize} decoration in shader modules, <b>must</b> be less than or equal to the corresponding limit. */
+    /** @return the value at the specified index of the {@code maxTaskWorkGroupSize} field. */
     @NativeType("uint32_t")
     public int maxTaskWorkGroupSize(int index) { return nmaxTaskWorkGroupSize(address(), index); }
-    /** the maximum number of bytes that the task shader can use in total for shared and output memory combined. */
+    /** @return the value of the {@code maxTaskTotalMemorySize} field. */
     @NativeType("uint32_t")
     public int maxTaskTotalMemorySize() { return nmaxTaskTotalMemorySize(address()); }
-    /** the maximum number of output tasks a single task shader workgroup can emit. */
+    /** @return the value of the {@code maxTaskOutputCount} field. */
     @NativeType("uint32_t")
     public int maxTaskOutputCount() { return nmaxTaskOutputCount(address()); }
-    /** the maximum total number of mesh shader invocations in a single local workgroup. The product of the X, Y, and Z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode in shader modules or by the object decorated by the {@code WorkgroupSize} decoration, <b>must</b> be less than or equal to this limit. */
+    /** @return the value of the {@code maxMeshWorkGroupInvocations} field. */
     @NativeType("uint32_t")
     public int maxMeshWorkGroupInvocations() { return nmaxMeshWorkGroupInvocations(address()); }
-    /** the maximum size of a local mesh workgroup. These three values represent the maximum local workgroup size in the X, Y, and Z dimensions, respectively. The {@code x}, {@code y}, and {@code z} sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the {@code WorkgroupSize} decoration in shader modules, <b>must</b> be less than or equal to the corresponding limit. */
+    /** @return a {@link IntBuffer} view of the {@code maxMeshWorkGroupSize} field. */
     @NativeType("uint32_t[3]")
     public IntBuffer maxMeshWorkGroupSize() { return nmaxMeshWorkGroupSize(address()); }
-    /** the maximum size of a local mesh workgroup. These three values represent the maximum local workgroup size in the X, Y, and Z dimensions, respectively. The {@code x}, {@code y}, and {@code z} sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the {@code WorkgroupSize} decoration in shader modules, <b>must</b> be less than or equal to the corresponding limit. */
+    /** @return the value at the specified index of the {@code maxMeshWorkGroupSize} field. */
     @NativeType("uint32_t")
     public int maxMeshWorkGroupSize(int index) { return nmaxMeshWorkGroupSize(address(), index); }
-    /** the maximum number of bytes that the mesh shader can use in total for shared and output memory combined. */
+    /** @return the value of the {@code maxMeshTotalMemorySize} field. */
     @NativeType("uint32_t")
     public int maxMeshTotalMemorySize() { return nmaxMeshTotalMemorySize(address()); }
-    /** the maximum number of vertices a mesh shader output can store. */
+    /** @return the value of the {@code maxMeshOutputVertices} field. */
     @NativeType("uint32_t")
     public int maxMeshOutputVertices() { return nmaxMeshOutputVertices(address()); }
-    /** the maximum number of primitives a mesh shader output can store. */
+    /** @return the value of the {@code maxMeshOutputPrimitives} field. */
     @NativeType("uint32_t")
     public int maxMeshOutputPrimitives() { return nmaxMeshOutputPrimitives(address()); }
-    /** the maximum number of multiview views a mesh shader can use. */
+    /** @return the value of the {@code maxMeshMultiviewViewCount} field. */
     @NativeType("uint32_t")
     public int maxMeshMultiviewViewCount() { return nmaxMeshMultiviewViewCount(address()); }
-    /** the granularity with which mesh vertex outputs are allocated. The value can be used to compute the memory size used by the mesh shader, which must be less than or equal to {@code maxMeshTotalMemorySize}. */
+    /** @return the value of the {@code meshOutputPerVertexGranularity} field. */
     @NativeType("uint32_t")
     public int meshOutputPerVertexGranularity() { return nmeshOutputPerVertexGranularity(address()); }
-    /** the granularity with which mesh outputs qualified as per-primitive are allocated. The value can be used to compute the memory size used by the mesh shader, which must be less than or equal to {@code maxMeshTotalMemorySize}. */
+    /** @return the value of the {@code meshOutputPerPrimitiveGranularity} field. */
     @NativeType("uint32_t")
     public int meshOutputPerPrimitiveGranularity() { return nmeshOutputPerPrimitiveGranularity(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceMeshShaderPropertiesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVMeshShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVMeshShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceMeshShaderPropertiesNV sType$Default() { return sType(NVMeshShader.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceMeshShaderPropertiesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -243,8 +229,7 @@ public class VkPhysicalDeviceMeshShaderPropertiesNV extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMeshShaderPropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMeshShaderPropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMeshShaderPropertiesNV(address, null);
     }
 
@@ -287,8 +272,7 @@ public class VkPhysicalDeviceMeshShaderPropertiesNV extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMeshShaderPropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMeshShaderPropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -352,46 +336,46 @@ public class VkPhysicalDeviceMeshShaderPropertiesNV extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMeshShaderPropertiesNV.PNEXT); }
     /** Unsafe version of {@link #maxDrawMeshTasksCount}. */
-    public static int nmaxDrawMeshTasksCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXDRAWMESHTASKSCOUNT); }
+    public static int nmaxDrawMeshTasksCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXDRAWMESHTASKSCOUNT); }
     /** Unsafe version of {@link #maxTaskWorkGroupInvocations}. */
-    public static int nmaxTaskWorkGroupInvocations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKWORKGROUPINVOCATIONS); }
+    public static int nmaxTaskWorkGroupInvocations(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKWORKGROUPINVOCATIONS); }
     /** Unsafe version of {@link #maxTaskWorkGroupSize}. */
     public static IntBuffer nmaxTaskWorkGroupSize(long struct) { return memIntBuffer(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKWORKGROUPSIZE, 3); }
     /** Unsafe version of {@link #maxTaskWorkGroupSize(int) maxTaskWorkGroupSize}. */
     public static int nmaxTaskWorkGroupSize(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKWORKGROUPSIZE + check(index, 3) * 4);
+        return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKWORKGROUPSIZE + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #maxTaskTotalMemorySize}. */
-    public static int nmaxTaskTotalMemorySize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKTOTALMEMORYSIZE); }
+    public static int nmaxTaskTotalMemorySize(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKTOTALMEMORYSIZE); }
     /** Unsafe version of {@link #maxTaskOutputCount}. */
-    public static int nmaxTaskOutputCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKOUTPUTCOUNT); }
+    public static int nmaxTaskOutputCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXTASKOUTPUTCOUNT); }
     /** Unsafe version of {@link #maxMeshWorkGroupInvocations}. */
-    public static int nmaxMeshWorkGroupInvocations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHWORKGROUPINVOCATIONS); }
+    public static int nmaxMeshWorkGroupInvocations(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHWORKGROUPINVOCATIONS); }
     /** Unsafe version of {@link #maxMeshWorkGroupSize}. */
     public static IntBuffer nmaxMeshWorkGroupSize(long struct) { return memIntBuffer(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHWORKGROUPSIZE, 3); }
     /** Unsafe version of {@link #maxMeshWorkGroupSize(int) maxMeshWorkGroupSize}. */
     public static int nmaxMeshWorkGroupSize(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHWORKGROUPSIZE + check(index, 3) * 4);
+        return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHWORKGROUPSIZE + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #maxMeshTotalMemorySize}. */
-    public static int nmaxMeshTotalMemorySize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHTOTALMEMORYSIZE); }
+    public static int nmaxMeshTotalMemorySize(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHTOTALMEMORYSIZE); }
     /** Unsafe version of {@link #maxMeshOutputVertices}. */
-    public static int nmaxMeshOutputVertices(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHOUTPUTVERTICES); }
+    public static int nmaxMeshOutputVertices(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHOUTPUTVERTICES); }
     /** Unsafe version of {@link #maxMeshOutputPrimitives}. */
-    public static int nmaxMeshOutputPrimitives(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHOUTPUTPRIMITIVES); }
+    public static int nmaxMeshOutputPrimitives(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHOUTPUTPRIMITIVES); }
     /** Unsafe version of {@link #maxMeshMultiviewViewCount}. */
-    public static int nmaxMeshMultiviewViewCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHMULTIVIEWVIEWCOUNT); }
+    public static int nmaxMeshMultiviewViewCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MAXMESHMULTIVIEWVIEWCOUNT); }
     /** Unsafe version of {@link #meshOutputPerVertexGranularity}. */
-    public static int nmeshOutputPerVertexGranularity(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MESHOUTPUTPERVERTEXGRANULARITY); }
+    public static int nmeshOutputPerVertexGranularity(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MESHOUTPUTPERVERTEXGRANULARITY); }
     /** Unsafe version of {@link #meshOutputPerPrimitiveGranularity}. */
-    public static int nmeshOutputPerPrimitiveGranularity(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.MESHOUTPUTPERPRIMITIVEGRANULARITY); }
+    public static int nmeshOutputPerPrimitiveGranularity(long struct) { return memGetInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.MESHOUTPUTPERPRIMITIVEGRANULARITY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMeshShaderPropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMeshShaderPropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMeshShaderPropertiesNV.PNEXT, value); }
 
@@ -429,67 +413,72 @@ public class VkPhysicalDeviceMeshShaderPropertiesNV extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceMeshShaderPropertiesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceMeshShaderPropertiesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMeshShaderPropertiesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxDrawMeshTasksCount} field. */
+        /** @return the value of the {@code maxDrawMeshTasksCount} field. */
         @NativeType("uint32_t")
         public int maxDrawMeshTasksCount() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxDrawMeshTasksCount(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxTaskWorkGroupInvocations} field. */
+        /** @return the value of the {@code maxTaskWorkGroupInvocations} field. */
         @NativeType("uint32_t")
         public int maxTaskWorkGroupInvocations() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxTaskWorkGroupInvocations(address()); }
-        /** @return a {@link IntBuffer} view of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxTaskWorkGroupSize} field. */
+        /** @return a {@link IntBuffer} view of the {@code maxTaskWorkGroupSize} field. */
         @NativeType("uint32_t[3]")
         public IntBuffer maxTaskWorkGroupSize() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxTaskWorkGroupSize(address()); }
-        /** @return the value at the specified index of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxTaskWorkGroupSize} field. */
+        /** @return the value at the specified index of the {@code maxTaskWorkGroupSize} field. */
         @NativeType("uint32_t")
         public int maxTaskWorkGroupSize(int index) { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxTaskWorkGroupSize(address(), index); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxTaskTotalMemorySize} field. */
+        /** @return the value of the {@code maxTaskTotalMemorySize} field. */
         @NativeType("uint32_t")
         public int maxTaskTotalMemorySize() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxTaskTotalMemorySize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxTaskOutputCount} field. */
+        /** @return the value of the {@code maxTaskOutputCount} field. */
         @NativeType("uint32_t")
         public int maxTaskOutputCount() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxTaskOutputCount(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshWorkGroupInvocations} field. */
+        /** @return the value of the {@code maxMeshWorkGroupInvocations} field. */
         @NativeType("uint32_t")
         public int maxMeshWorkGroupInvocations() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshWorkGroupInvocations(address()); }
-        /** @return a {@link IntBuffer} view of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshWorkGroupSize} field. */
+        /** @return a {@link IntBuffer} view of the {@code maxMeshWorkGroupSize} field. */
         @NativeType("uint32_t[3]")
         public IntBuffer maxMeshWorkGroupSize() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshWorkGroupSize(address()); }
-        /** @return the value at the specified index of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshWorkGroupSize} field. */
+        /** @return the value at the specified index of the {@code maxMeshWorkGroupSize} field. */
         @NativeType("uint32_t")
         public int maxMeshWorkGroupSize(int index) { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshWorkGroupSize(address(), index); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshTotalMemorySize} field. */
+        /** @return the value of the {@code maxMeshTotalMemorySize} field. */
         @NativeType("uint32_t")
         public int maxMeshTotalMemorySize() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshTotalMemorySize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshOutputVertices} field. */
+        /** @return the value of the {@code maxMeshOutputVertices} field. */
         @NativeType("uint32_t")
         public int maxMeshOutputVertices() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshOutputVertices(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshOutputPrimitives} field. */
+        /** @return the value of the {@code maxMeshOutputPrimitives} field. */
         @NativeType("uint32_t")
         public int maxMeshOutputPrimitives() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshOutputPrimitives(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#maxMeshMultiviewViewCount} field. */
+        /** @return the value of the {@code maxMeshMultiviewViewCount} field. */
         @NativeType("uint32_t")
         public int maxMeshMultiviewViewCount() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmaxMeshMultiviewViewCount(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#meshOutputPerVertexGranularity} field. */
+        /** @return the value of the {@code meshOutputPerVertexGranularity} field. */
         @NativeType("uint32_t")
         public int meshOutputPerVertexGranularity() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmeshOutputPerVertexGranularity(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMeshShaderPropertiesNV#meshOutputPerPrimitiveGranularity} field. */
+        /** @return the value of the {@code meshOutputPerPrimitiveGranularity} field. */
         @NativeType("uint32_t")
         public int meshOutputPerPrimitiveGranularity() { return VkPhysicalDeviceMeshShaderPropertiesNV.nmeshOutputPerPrimitiveGranularity(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceMeshShaderPropertiesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceMeshShaderPropertiesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceMeshShaderPropertiesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVMeshShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV} value to the {@link VkPhysicalDeviceMeshShaderPropertiesNV#sType} field. */
+        /** Sets the {@link NVMeshShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceMeshShaderPropertiesNV.Buffer sType$Default() { return sType(NVMeshShader.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMeshShaderPropertiesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceMeshShaderPropertiesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceMeshShaderPropertiesNV.npNext(address(), value); return this; }
 
     }

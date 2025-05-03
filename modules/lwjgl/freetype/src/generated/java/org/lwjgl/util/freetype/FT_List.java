@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,15 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure used to hold a simple doubly-linked list. These are used in many parts of FreeType.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_ListRec {
  *     {@link FT_ListNode FT_ListNode} head;
  *     {@link FT_ListNode FT_ListNode} tail;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct FT_ListRec")
 public class FT_List extends Struct<FT_List> {
@@ -74,11 +70,9 @@ public class FT_List extends Struct<FT_List> {
     public int sizeof() { return SIZEOF; }
 
     /** @return a {@link FT_ListNode} view of the struct pointed to by the {@code head} field. */
-    @Nullable
-    public FT_ListNode head() { return nhead(address()); }
+    public @Nullable FT_ListNode head() { return nhead(address()); }
     /** @return a {@link FT_ListNode} view of the struct pointed to by the {@code tail} field. */
-    @Nullable
-    public FT_ListNode tail() { return ntail(address()); }
+    public @Nullable FT_ListNode tail() { return ntail(address()); }
 
     // -----------------------------------
 
@@ -88,8 +82,7 @@ public class FT_List extends Struct<FT_List> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_List createSafe(long address) {
+    public static @Nullable FT_List createSafe(long address) {
         return address == NULL ? null : new FT_List(address, null);
     }
 
@@ -104,17 +97,16 @@ public class FT_List extends Struct<FT_List> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_List.Buffer createSafe(long address, int capacity) {
+    public static FT_List.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #head}. */
-    @Nullable public static FT_ListNode nhead(long struct) { return FT_ListNode.createSafe(memGetAddress(struct + FT_List.HEAD)); }
+    public static @Nullable FT_ListNode nhead(long struct) { return FT_ListNode.createSafe(memGetAddress(struct + FT_List.HEAD)); }
     /** Unsafe version of {@link #tail}. */
-    @Nullable public static FT_ListNode ntail(long struct) { return FT_ListNode.createSafe(memGetAddress(struct + FT_List.TAIL)); }
+    public static @Nullable FT_ListNode ntail(long struct) { return FT_ListNode.createSafe(memGetAddress(struct + FT_List.TAIL)); }
 
     // -----------------------------------
 
@@ -150,16 +142,19 @@ public class FT_List extends Struct<FT_List> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_List getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return a {@link FT_ListNode} view of the struct pointed to by the {@code head} field. */
-        @Nullable
-        public FT_ListNode head() { return FT_List.nhead(address()); }
+        public @Nullable FT_ListNode head() { return FT_List.nhead(address()); }
         /** @return a {@link FT_ListNode} view of the struct pointed to by the {@code tail} field. */
-        @Nullable
-        public FT_ListNode tail() { return FT_List.ntail(address()); }
+        public @Nullable FT_ListNode tail() { return FT_List.ntail(address()); }
 
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkDescriptorUpdateTemplateEntry}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDescriptorUpdateTemplateEntryKHR {
  *     uint32_t dstBinding;
  *     uint32_t dstArrayElement;
@@ -28,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkDescriptorType descriptorType;
  *     size_t offset;
  *     size_t stride;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkDescriptorUpdateTemplateEntryKHR extends VkDescriptorUpdateTemplateEntry {
 
@@ -126,8 +122,7 @@ public class VkDescriptorUpdateTemplateEntryKHR extends VkDescriptorUpdateTempla
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateEntryKHR createSafe(long address) {
+    public static @Nullable VkDescriptorUpdateTemplateEntryKHR createSafe(long address) {
         return address == NULL ? null : new VkDescriptorUpdateTemplateEntryKHR(address, null);
     }
 
@@ -170,8 +165,7 @@ public class VkDescriptorUpdateTemplateEntryKHR extends VkDescriptorUpdateTempla
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateEntryKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorUpdateTemplateEntryKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,6 +257,11 @@ public class VkDescriptorUpdateTemplateEntryKHR extends VkDescriptorUpdateTempla
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

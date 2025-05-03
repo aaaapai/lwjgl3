@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing a rectangle, including layer, changed by vkQueuePresentKHR for a given VkImage.
- * 
- * <h5>Description</h5>
- * 
- * <p>Some platforms allow the size of a surface to change, and then scale the pixels of the image to fit the surface. {@link VkRectLayerKHR} specifies pixels of the swapchain’s image(s), which will be constant for the life of the swapchain.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The sum of {@code offset} and {@code extent}, after being transformed according to the {@code preTransform} member of the {@link VkSwapchainCreateInfoKHR} structure, <b>must</b> be no greater than the {@code imageExtent} member of the {@link VkSwapchainCreateInfoKHR} structure passed to {@link KHRSwapchain#vkCreateSwapchainKHR CreateSwapchainKHR}</li>
- * <li>{@code layer} <b>must</b> be less than the {@code imageArrayLayers} member of the {@link VkSwapchainCreateInfoKHR} structure passed to {@link KHRSwapchain#vkCreateSwapchainKHR CreateSwapchainKHR}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}, {@link VkOffset2D}, {@link VkPresentRegionKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRectLayerKHR {
- *     {@link VkOffset2D VkOffset2D} {@link #offset};
- *     {@link VkExtent2D VkExtent2D} {@link #extent};
- *     uint32_t {@link #layer};
- * }</code></pre>
+ *     {@link VkOffset2D VkOffset2D} offset;
+ *     {@link VkExtent2D VkExtent2D} extent;
+ *     uint32_t layer;
+ * }}</pre>
  */
 public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeResource {
 
@@ -93,23 +74,23 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the origin of the rectangle, in pixels. */
+    /** @return a {@link VkOffset2D} view of the {@code offset} field. */
     public VkOffset2D offset() { return noffset(address()); }
-    /** the size of the rectangle, in pixels. */
+    /** @return a {@link VkExtent2D} view of the {@code extent} field. */
     public VkExtent2D extent() { return nextent(address()); }
-    /** the layer of the image. For images with only one layer, the value of {@code layer} <b>must</b> be 0. */
+    /** @return the value of the {@code layer} field. */
     @NativeType("uint32_t")
     public int layer() { return nlayer(address()); }
 
-    /** Copies the specified {@link VkOffset2D} to the {@link #offset} field. */
+    /** Copies the specified {@link VkOffset2D} to the {@code offset} field. */
     public VkRectLayerKHR offset(VkOffset2D value) { noffset(address(), value); return this; }
-    /** Passes the {@link #offset} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code offset} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkRectLayerKHR offset(java.util.function.Consumer<VkOffset2D> consumer) { consumer.accept(offset()); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #extent} field. */
+    /** Copies the specified {@link VkExtent2D} to the {@code extent} field. */
     public VkRectLayerKHR extent(VkExtent2D value) { nextent(address(), value); return this; }
-    /** Passes the {@link #extent} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code extent} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkRectLayerKHR extent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(extent()); return this; }
-    /** Sets the specified value to the {@link #layer} field. */
+    /** Sets the specified value to the {@code layer} field. */
     public VkRectLayerKHR layer(@NativeType("uint32_t") int value) { nlayer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -161,8 +142,7 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRectLayerKHR createSafe(long address) {
+    public static @Nullable VkRectLayerKHR createSafe(long address) {
         return address == NULL ? null : new VkRectLayerKHR(address, null);
     }
 
@@ -205,8 +185,7 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRectLayerKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRectLayerKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,14 +253,14 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
     /** Unsafe version of {@link #extent}. */
     public static VkExtent2D nextent(long struct) { return VkExtent2D.create(struct + VkRectLayerKHR.EXTENT); }
     /** Unsafe version of {@link #layer}. */
-    public static int nlayer(long struct) { return UNSAFE.getInt(null, struct + VkRectLayerKHR.LAYER); }
+    public static int nlayer(long struct) { return memGetInt(struct + VkRectLayerKHR.LAYER); }
 
     /** Unsafe version of {@link #offset(VkOffset2D) offset}. */
     public static void noffset(long struct, VkOffset2D value) { memCopy(value.address(), struct + VkRectLayerKHR.OFFSET, VkOffset2D.SIZEOF); }
     /** Unsafe version of {@link #extent(VkExtent2D) extent}. */
     public static void nextent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkRectLayerKHR.EXTENT, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #layer(int) layer}. */
-    public static void nlayer(long struct, int value) { UNSAFE.putInt(null, struct + VkRectLayerKHR.LAYER, value); }
+    public static void nlayer(long struct, int value) { memPutInt(struct + VkRectLayerKHR.LAYER, value); }
 
     // -----------------------------------
 
@@ -317,27 +296,32 @@ public class VkRectLayerKHR extends Struct<VkRectLayerKHR> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRectLayerKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkOffset2D} view of the {@link VkRectLayerKHR#offset} field. */
+        /** @return a {@link VkOffset2D} view of the {@code offset} field. */
         public VkOffset2D offset() { return VkRectLayerKHR.noffset(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkRectLayerKHR#extent} field. */
+        /** @return a {@link VkExtent2D} view of the {@code extent} field. */
         public VkExtent2D extent() { return VkRectLayerKHR.nextent(address()); }
-        /** @return the value of the {@link VkRectLayerKHR#layer} field. */
+        /** @return the value of the {@code layer} field. */
         @NativeType("uint32_t")
         public int layer() { return VkRectLayerKHR.nlayer(address()); }
 
-        /** Copies the specified {@link VkOffset2D} to the {@link VkRectLayerKHR#offset} field. */
+        /** Copies the specified {@link VkOffset2D} to the {@code offset} field. */
         public VkRectLayerKHR.Buffer offset(VkOffset2D value) { VkRectLayerKHR.noffset(address(), value); return this; }
-        /** Passes the {@link VkRectLayerKHR#offset} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code offset} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkRectLayerKHR.Buffer offset(java.util.function.Consumer<VkOffset2D> consumer) { consumer.accept(offset()); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkRectLayerKHR#extent} field. */
+        /** Copies the specified {@link VkExtent2D} to the {@code extent} field. */
         public VkRectLayerKHR.Buffer extent(VkExtent2D value) { VkRectLayerKHR.nextent(address(), value); return this; }
-        /** Passes the {@link VkRectLayerKHR#extent} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code extent} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkRectLayerKHR.Buffer extent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(extent()); return this; }
-        /** Sets the specified value to the {@link VkRectLayerKHR#layer} field. */
+        /** Sets the specified value to the {@code layer} field. */
         public VkRectLayerKHR.Buffer layer(@NativeType("uint32_t") int value) { VkRectLayerKHR.nlayer(address(), value); return this; }
 
     }

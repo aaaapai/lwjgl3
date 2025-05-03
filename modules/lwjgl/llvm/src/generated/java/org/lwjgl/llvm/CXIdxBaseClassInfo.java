@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXIdxBaseClassInfo {
  *     {@link CXIdxEntityInfo CXIdxEntityInfo} const * base;
  *     {@link CXCursor CXCursor} cursor;
  *     {@link CXIdxLoc CXIdxLoc} loc;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXIdxBaseClassInfo extends Struct<CXIdxBaseClassInfo> {
 
@@ -90,8 +88,7 @@ public class CXIdxBaseClassInfo extends Struct<CXIdxBaseClassInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxBaseClassInfo createSafe(long address) {
+    public static @Nullable CXIdxBaseClassInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxBaseClassInfo(address, null);
     }
 
@@ -106,8 +103,7 @@ public class CXIdxBaseClassInfo extends Struct<CXIdxBaseClassInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxBaseClassInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxBaseClassInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -151,6 +147,11 @@ public class CXIdxBaseClassInfo extends Struct<CXIdxBaseClassInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,29 +5,13 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     hb_paint_funcs_t *funcs,
- *     void *paint_data,
- *     hb_color_line_t *color_line,
- *     float x0,
- *     float y0,
- *     float r0,
- *     float x1,
- *     float y1,
- *     float r1,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_paint_radial_gradient_func_t} */
 public abstract class hb_paint_radial_gradient_func_t extends Callback implements hb_paint_radial_gradient_func_tI {
 
     /**
@@ -43,8 +27,7 @@ public abstract class hb_paint_radial_gradient_func_t extends Callback implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static hb_paint_radial_gradient_func_t createSafe(long functionPointer) {
+    public static @Nullable hb_paint_radial_gradient_func_t createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

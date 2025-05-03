@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing support for legacy dithering.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTLegacyDithering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceLegacyDitheringFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #legacyDithering};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 legacyDithering;
+ * }}</pre>
  */
 public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysicalDeviceLegacyDitheringFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-legacy-dithering">Legacy Dithering</a>. */
+    /** @return the value of the {@code legacyDithering} field. */
     @NativeType("VkBool32")
     public boolean legacyDithering() { return nlegacyDithering(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceLegacyDitheringFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTLegacyDithering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTLegacyDithering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceLegacyDitheringFeaturesEXT sType$Default() { return sType(EXTLegacyDithering.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceLegacyDitheringFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #legacyDithering} field. */
+    /** Sets the specified value to the {@code legacyDithering} field. */
     public VkPhysicalDeviceLegacyDitheringFeaturesEXT legacyDithering(@NativeType("VkBool32") boolean value) { nlegacyDithering(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLegacyDitheringFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceLegacyDitheringFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceLegacyDitheringFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLegacyDitheringFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceLegacyDitheringFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #legacyDithering}. */
-    public static int nlegacyDithering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING); }
+    public static int nlegacyDithering(long struct) { return memGetInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #legacyDithering(boolean) legacyDithering}. */
-    public static void nlegacyDithering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING, value); }
+    public static void nlegacyDithering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLegacyDitheringFeaturesEXT.LEGACYDITHERING, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends Struct<VkPhysica
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceLegacyDitheringFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceLegacyDitheringFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceLegacyDitheringFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#legacyDithering} field. */
+        /** @return the value of the {@code legacyDithering} field. */
         @NativeType("VkBool32")
         public boolean legacyDithering() { return VkPhysicalDeviceLegacyDitheringFeaturesEXT.nlegacyDithering(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceLegacyDitheringFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceLegacyDitheringFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTLegacyDithering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT} value to the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTLegacyDithering#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceLegacyDitheringFeaturesEXT.Buffer sType$Default() { return sType(EXTLegacyDithering.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceLegacyDitheringFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceLegacyDitheringFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceLegacyDitheringFeaturesEXT#legacyDithering} field. */
+        /** Sets the specified value to the {@code legacyDithering} field. */
         public VkPhysicalDeviceLegacyDitheringFeaturesEXT.Buffer legacyDithering(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceLegacyDitheringFeaturesEXT.nlegacyDithering(address(), value ? 1 : 0); return this; }
 
     }

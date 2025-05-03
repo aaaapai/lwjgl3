@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether per-swapchain image compression controls can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTImageCompressionControlSwapchain#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #imageCompressionControlSwapchain};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 imageCompressionControlSwapchain;
+ * }}</pre>
  */
 public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends Struct<VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports controlling image controls per swapchain and querying image compression properties per surface. */
+    /** @return the value of the {@code imageCompressionControlSwapchain} field. */
     @NativeType("VkBool32")
     public boolean imageCompressionControlSwapchain() { return nimageCompressionControlSwapchain(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTImageCompressionControlSwapchain#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTImageCompressionControlSwapchain#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT sType$Default() { return sType(EXTImageCompressionControlSwapchain.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #imageCompressionControlSwapchain} field. */
+    /** Sets the specified value to the {@code imageCompressionControlSwapchain} field. */
     public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT imageCompressionControlSwapchain(@NativeType("VkBool32") boolean value) { nimageCompressionControlSwapchain(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #imageCompressionControlSwapchain}. */
-    public static int nimageCompressionControlSwapchain(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN); }
+    public static int nimageCompressionControlSwapchain(long struct) { return memGetInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #imageCompressionControlSwapchain(boolean) imageCompressionControlSwapchain}. */
-    public static void nimageCompressionControlSwapchain(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN, value); }
+    public static void nimageCompressionControlSwapchain(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.IMAGECOMPRESSIONCONTROLSWAPCHAIN, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#imageCompressionControlSwapchain} field. */
+        /** @return the value of the {@code imageCompressionControlSwapchain} field. */
         @NativeType("VkBool32")
         public boolean imageCompressionControlSwapchain() { return VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.nimageCompressionControlSwapchain(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTImageCompressionControlSwapchain#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT} value to the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTImageCompressionControlSwapchain#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.Buffer sType$Default() { return sType(EXTImageCompressionControlSwapchain.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT#imageCompressionControlSwapchain} field. */
+        /** Sets the specified value to the {@code imageCompressionControlSwapchain} field. */
         public VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.Buffer imageCompressionControlSwapchain(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT.nimageCompressionControlSwapchain(address(), value ? 1 : 0); return this; }
 
     }

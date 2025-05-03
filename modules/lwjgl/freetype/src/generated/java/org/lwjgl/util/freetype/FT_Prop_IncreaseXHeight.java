@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,15 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The data exchange structure for the {@code increase-x-height} property.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Prop_IncreaseXHeight {
  *     {@link FT_Face FT_Face} face;
  *     FT_UInt limit;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Prop_IncreaseXHeight extends Struct<FT_Prop_IncreaseXHeight> {
 
@@ -86,8 +82,7 @@ public class FT_Prop_IncreaseXHeight extends Struct<FT_Prop_IncreaseXHeight> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Prop_IncreaseXHeight createSafe(long address) {
+    public static @Nullable FT_Prop_IncreaseXHeight createSafe(long address) {
         return address == NULL ? null : new FT_Prop_IncreaseXHeight(address, null);
     }
 
@@ -102,8 +97,7 @@ public class FT_Prop_IncreaseXHeight extends Struct<FT_Prop_IncreaseXHeight> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Prop_IncreaseXHeight.Buffer createSafe(long address, int capacity) {
+    public static FT_Prop_IncreaseXHeight.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -112,7 +106,7 @@ public class FT_Prop_IncreaseXHeight extends Struct<FT_Prop_IncreaseXHeight> {
     /** Unsafe version of {@link #face}. */
     public static FT_Face nface(long struct) { return FT_Face.create(memGetAddress(struct + FT_Prop_IncreaseXHeight.FACE)); }
     /** Unsafe version of {@link #limit$}. */
-    public static int nlimit$(long struct) { return UNSAFE.getInt(null, struct + FT_Prop_IncreaseXHeight.LIMIT); }
+    public static int nlimit$(long struct) { return memGetInt(struct + FT_Prop_IncreaseXHeight.LIMIT); }
 
     // -----------------------------------
 
@@ -145,6 +139,11 @@ public class FT_Prop_IncreaseXHeight extends Struct<FT_Prop_IncreaseXHeight> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

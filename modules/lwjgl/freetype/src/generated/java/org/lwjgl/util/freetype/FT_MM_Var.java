@@ -5,31 +5,25 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
-import org.lwjgl.*;
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
-import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure to model the axes and space of an Adobe MM, TrueType GX, or OpenType variation font.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_MM_Var {
  *     FT_UInt num_axis;
  *     FT_UInt num_designs;
  *     FT_UInt num_namedstyles;
  *     {@link FT_Var_Axis FT_Var_Axis} * axis;
  *     {@link FT_Var_Named_Style FT_Var_Named_Style} * namedstyle;
- * }</code></pre>
+ * }}</pre>
  */
-public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
+public class FT_MM_Var extends Struct<FT_MM_Var> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -104,59 +98,14 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
 
     // -----------------------------------
 
-    /** Returns a new {@code FT_MM_Var} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
-    public static FT_MM_Var malloc() {
-        return new FT_MM_Var(nmemAllocChecked(SIZEOF), null);
-    }
-
-    /** Returns a new {@code FT_MM_Var} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
-    public static FT_MM_Var calloc() {
-        return new FT_MM_Var(nmemCallocChecked(1, SIZEOF), null);
-    }
-
-    /** Returns a new {@code FT_MM_Var} instance allocated with {@link BufferUtils}. */
-    public static FT_MM_Var create() {
-        ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new FT_MM_Var(memAddress(container), container);
-    }
-
     /** Returns a new {@code FT_MM_Var} instance for the specified memory address. */
     public static FT_MM_Var create(long address) {
         return new FT_MM_Var(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_MM_Var createSafe(long address) {
+    public static @Nullable FT_MM_Var createSafe(long address) {
         return address == NULL ? null : new FT_MM_Var(address, null);
-    }
-
-    /**
-     * Returns a new {@link FT_MM_Var.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
-     *
-     * @param capacity the buffer capacity
-     */
-    public static FT_MM_Var.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
-    }
-
-    /**
-     * Returns a new {@link FT_MM_Var.Buffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed.
-     *
-     * @param capacity the buffer capacity
-     */
-    public static FT_MM_Var.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
-    }
-
-    /**
-     * Returns a new {@link FT_MM_Var.Buffer} instance allocated with {@link BufferUtils}.
-     *
-     * @param capacity the buffer capacity
-     */
-    public static FT_MM_Var.Buffer create(int capacity) {
-        ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -170,57 +119,18 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_MM_Var.Buffer createSafe(long address, int capacity) {
+    public static FT_MM_Var.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
-    }
-
-    /**
-     * Returns a new {@code FT_MM_Var} instance allocated on the specified {@link MemoryStack}.
-     *
-     * @param stack the stack from which to allocate
-     */
-    public static FT_MM_Var malloc(MemoryStack stack) {
-        return new FT_MM_Var(stack.nmalloc(ALIGNOF, SIZEOF), null);
-    }
-
-    /**
-     * Returns a new {@code FT_MM_Var} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
-     *
-     * @param stack the stack from which to allocate
-     */
-    public static FT_MM_Var calloc(MemoryStack stack) {
-        return new FT_MM_Var(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
-    }
-
-    /**
-     * Returns a new {@link FT_MM_Var.Buffer} instance allocated on the specified {@link MemoryStack}.
-     *
-     * @param stack    the stack from which to allocate
-     * @param capacity the buffer capacity
-     */
-    public static FT_MM_Var.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
-    }
-
-    /**
-     * Returns a new {@link FT_MM_Var.Buffer} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
-     *
-     * @param stack    the stack from which to allocate
-     * @param capacity the buffer capacity
-     */
-    public static FT_MM_Var.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #num_axis}. */
-    public static int nnum_axis(long struct) { return UNSAFE.getInt(null, struct + FT_MM_Var.NUM_AXIS); }
+    public static int nnum_axis(long struct) { return memGetInt(struct + FT_MM_Var.NUM_AXIS); }
     /** Unsafe version of {@link #num_designs}. */
-    public static int nnum_designs(long struct) { return UNSAFE.getInt(null, struct + FT_MM_Var.NUM_DESIGNS); }
+    public static int nnum_designs(long struct) { return memGetInt(struct + FT_MM_Var.NUM_DESIGNS); }
     /** Unsafe version of {@link #num_namedstyles}. */
-    public static int nnum_namedstyles(long struct) { return UNSAFE.getInt(null, struct + FT_MM_Var.NUM_NAMEDSTYLES); }
+    public static int nnum_namedstyles(long struct) { return memGetInt(struct + FT_MM_Var.NUM_NAMEDSTYLES); }
     /** Unsafe version of {@link #axis}. */
     public static FT_Var_Axis.Buffer naxis(long struct) { return FT_Var_Axis.create(memGetAddress(struct + FT_MM_Var.AXIS), nnum_axis(struct)); }
     /** Unsafe version of {@link #namedstyle}. */
@@ -229,7 +139,7 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
     // -----------------------------------
 
     /** An array of {@link FT_MM_Var} structs. */
-    public static class Buffer extends StructBuffer<FT_MM_Var, Buffer> implements NativeResource {
+    public static class Buffer extends StructBuffer<FT_MM_Var, Buffer> {
 
         private static final FT_MM_Var ELEMENT_FACTORY = FT_MM_Var.create(-1L);
 
@@ -257,6 +167,11 @@ public class FT_MM_Var extends Struct<FT_MM_Var> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

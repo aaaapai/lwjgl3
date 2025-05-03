@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,19 +18,11 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 /**
- * Structure specifying an extension properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkVideoCapabilitiesKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link VK10#vkEnumerateDeviceExtensionProperties EnumerateDeviceExtensionProperties}, {@link VK10#vkEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExtensionProperties {
- *     char {@link #extensionName}[VK_MAX_EXTENSION_NAME_SIZE];
- *     uint32_t {@link #specVersion};
- * }</code></pre>
+ *     char extensionName[VK_MAX_EXTENSION_NAME_SIZE];
+ *     uint32_t specVersion;
+ * }}</pre>
  */
 public class VkExtensionProperties extends Struct<VkExtensionProperties> implements NativeResource {
 
@@ -80,13 +72,13 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the extension. */
+    /** @return a {@link ByteBuffer} view of the {@code extensionName} field. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public ByteBuffer extensionName() { return nextensionName(address()); }
-    /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the extension. */
+    /** @return the null-terminated string stored in the {@code extensionName} field. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public String extensionNameString() { return nextensionNameString(address()); }
-    /** the version of this extension. It is an integer, incremented with backward compatible changes. */
+    /** @return the value of the {@code specVersion} field. */
     @NativeType("uint32_t")
     public int specVersion() { return nspecVersion(address()); }
 
@@ -114,8 +106,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtensionProperties createSafe(long address) {
+    public static @Nullable VkExtensionProperties createSafe(long address) {
         return address == NULL ? null : new VkExtensionProperties(address, null);
     }
 
@@ -158,8 +149,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtensionProperties.Buffer createSafe(long address, int capacity) {
+    public static VkExtensionProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -227,7 +217,7 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     /** Unsafe version of {@link #extensionNameString}. */
     public static String nextensionNameString(long struct) { return memUTF8(struct + VkExtensionProperties.EXTENSIONNAME); }
     /** Unsafe version of {@link #specVersion}. */
-    public static int nspecVersion(long struct) { return UNSAFE.getInt(null, struct + VkExtensionProperties.SPECVERSION); }
+    public static int nspecVersion(long struct) { return memGetInt(struct + VkExtensionProperties.SPECVERSION); }
 
     // -----------------------------------
 
@@ -263,17 +253,22 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExtensionProperties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link VkExtensionProperties#extensionName} field. */
+        /** @return a {@link ByteBuffer} view of the {@code extensionName} field. */
         @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
         public ByteBuffer extensionName() { return VkExtensionProperties.nextensionName(address()); }
-        /** @return the null-terminated string stored in the {@link VkExtensionProperties#extensionName} field. */
+        /** @return the null-terminated string stored in the {@code extensionName} field. */
         @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
         public String extensionNameString() { return VkExtensionProperties.nextensionNameString(address()); }
-        /** @return the value of the {@link VkExtensionProperties#specVersion} field. */
+        /** @return the value of the {@code specVersion} field. */
         @NativeType("uint32_t")
         public int specVersion() { return VkExtensionProperties.nspecVersion(address()); }
 

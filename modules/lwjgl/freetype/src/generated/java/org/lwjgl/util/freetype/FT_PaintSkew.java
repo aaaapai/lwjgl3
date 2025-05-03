@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,18 +14,14 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing a {@code COLR} v1 {@code PaintSkew} paint table. Used for skewing or shearing downstream paints by a given center and angle.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_PaintSkew {
  *     {@link FT_OpaquePaint FT_OpaquePaintRec} paint;
  *     FT_Fixed x_skew_angle;
  *     FT_Fixed y_skew_angle;
  *     FT_Fixed center_x;
  *     FT_Fixed center_y;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_PaintSkew extends Struct<FT_PaintSkew> {
 
@@ -108,8 +104,7 @@ public class FT_PaintSkew extends Struct<FT_PaintSkew> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintSkew createSafe(long address) {
+    public static @Nullable FT_PaintSkew createSafe(long address) {
         return address == NULL ? null : new FT_PaintSkew(address, null);
     }
 
@@ -124,8 +119,7 @@ public class FT_PaintSkew extends Struct<FT_PaintSkew> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintSkew.Buffer createSafe(long address, int capacity) {
+    public static FT_PaintSkew.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -173,6 +167,11 @@ public class FT_PaintSkew extends Struct<FT_PaintSkew> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

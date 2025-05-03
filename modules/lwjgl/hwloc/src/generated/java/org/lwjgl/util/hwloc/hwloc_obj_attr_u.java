@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union struct hwloc_obj_attr_u {
  *     {@link hwloc_numanode_attr_s hwloc_numanode_attr_s} numanode;
  *     {@link hwloc_cache_attr_s hwloc_cache_attr_s} cache;
@@ -26,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link hwloc_pcidev_attr_s hwloc_pcidev_attr_s} pcidev;
  *     {@link hwloc_bridge_attr_s hwloc_bridge_attr_s} bridge;
  *     {@link hwloc_osdev_attr_s hwloc_osdev_attr_s} osdev;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("union struct hwloc_obj_attr_u")
 public class hwloc_obj_attr_u extends Struct<hwloc_obj_attr_u> implements NativeResource {
@@ -126,8 +124,7 @@ public class hwloc_obj_attr_u extends Struct<hwloc_obj_attr_u> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_obj_attr_u createSafe(long address) {
+    public static @Nullable hwloc_obj_attr_u createSafe(long address) {
         return address == NULL ? null : new hwloc_obj_attr_u(address, null);
     }
 
@@ -170,8 +167,7 @@ public class hwloc_obj_attr_u extends Struct<hwloc_obj_attr_u> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_obj_attr_u.Buffer createSafe(long address, int capacity) {
+    public static hwloc_obj_attr_u.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,6 +255,11 @@ public class hwloc_obj_attr_u extends Struct<hwloc_obj_attr_u> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

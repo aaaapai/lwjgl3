@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,36 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the result of a save operation.
- * 
- * <h5>Description</h5>
- * 
- * <p>The erase result event contains the success of the erase operation from the specified storage location. It also provides the UUID of the entity and the async request ID from the initial calling function.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityStorage XR_FB_spatial_entity_storage} extension <b>must</b> be enabled prior to using {@link XrEventDataSpaceEraseCompleteFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrUuidEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataSpaceEraseCompleteFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrAsyncRequestIdFB {@link #requestId};
- *     XrResult {@link #result};
- *     XrSpace {@link #space};
- *     {@link XrUuidEXT XrUuidEXT} {@link #uuid};
- *     XrSpaceStorageLocationFB {@link #location};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrAsyncRequestIdFB requestId;
+ *     XrResult result;
+ *     XrSpace space;
+ *     {@link XrUuidEXT XrUuidEXT} uuid;
+ *     XrSpaceStorageLocationFB location;
+ * }}</pre>
  */
 public class XrEventDataSpaceEraseCompleteFB extends Struct<XrEventDataSpaceEraseCompleteFB> implements NativeResource {
 
@@ -110,32 +90,32 @@ public class XrEventDataSpaceEraseCompleteFB extends Struct<XrEventDataSpaceEras
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the ID of the asynchronous request to erase an entity. */
+    /** @return the value of the {@code requestId} field. */
     @NativeType("XrAsyncRequestIdFB")
     public long requestId() { return nrequestId(address()); }
-    /** an {@code XrResult} that describes whether the request succeeded or if an error occurred. */
+    /** @return the value of the {@code result} field. */
     @NativeType("XrResult")
     public int result() { return nresult(address()); }
-    /** the spatial entity being erased. */
+    /** @return the value of the {@code space} field. */
     @NativeType("XrSpace")
     public long space() { return nspace(address()); }
-    /** the UUID for the spatial entity being erased. */
+    /** @return a {@link XrUuidEXT} view of the {@code uuid} field. */
     public XrUuidEXT uuid() { return nuuid(address()); }
-    /** the location of the spatial entity being erased. */
+    /** @return the value of the {@code location} field. */
     @NativeType("XrSpaceStorageLocationFB")
     public int location() { return nlocation(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataSpaceEraseCompleteFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB} value to the {@code type} field. */
     public XrEventDataSpaceEraseCompleteFB type$Default() { return type(FBSpatialEntityStorage.XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataSpaceEraseCompleteFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -185,8 +165,7 @@ public class XrEventDataSpaceEraseCompleteFB extends Struct<XrEventDataSpaceEras
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpaceEraseCompleteFB createSafe(long address) {
+    public static @Nullable XrEventDataSpaceEraseCompleteFB createSafe(long address) {
         return address == NULL ? null : new XrEventDataSpaceEraseCompleteFB(address, null);
     }
 
@@ -234,8 +213,7 @@ public class XrEventDataSpaceEraseCompleteFB extends Struct<XrEventDataSpaceEras
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpaceEraseCompleteFB.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataSpaceEraseCompleteFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,22 +263,22 @@ public class XrEventDataSpaceEraseCompleteFB extends Struct<XrEventDataSpaceEras
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpaceEraseCompleteFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataSpaceEraseCompleteFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataSpaceEraseCompleteFB.NEXT); }
     /** Unsafe version of {@link #requestId}. */
-    public static long nrequestId(long struct) { return UNSAFE.getLong(null, struct + XrEventDataSpaceEraseCompleteFB.REQUESTID); }
+    public static long nrequestId(long struct) { return memGetLong(struct + XrEventDataSpaceEraseCompleteFB.REQUESTID); }
     /** Unsafe version of {@link #result}. */
-    public static int nresult(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpaceEraseCompleteFB.RESULT); }
+    public static int nresult(long struct) { return memGetInt(struct + XrEventDataSpaceEraseCompleteFB.RESULT); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrEventDataSpaceEraseCompleteFB.SPACE); }
     /** Unsafe version of {@link #uuid}. */
     public static XrUuidEXT nuuid(long struct) { return XrUuidEXT.create(struct + XrEventDataSpaceEraseCompleteFB.UUID); }
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpaceEraseCompleteFB.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + XrEventDataSpaceEraseCompleteFB.LOCATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataSpaceEraseCompleteFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataSpaceEraseCompleteFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataSpaceEraseCompleteFB.NEXT, value); }
 
@@ -338,36 +316,41 @@ public class XrEventDataSpaceEraseCompleteFB extends Struct<XrEventDataSpaceEras
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataSpaceEraseCompleteFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataSpaceEraseCompleteFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataSpaceEraseCompleteFB.ntype(address()); }
-        /** @return the value of the {@link XrEventDataSpaceEraseCompleteFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataSpaceEraseCompleteFB.nnext(address()); }
-        /** @return the value of the {@link XrEventDataSpaceEraseCompleteFB#requestId} field. */
+        /** @return the value of the {@code requestId} field. */
         @NativeType("XrAsyncRequestIdFB")
         public long requestId() { return XrEventDataSpaceEraseCompleteFB.nrequestId(address()); }
-        /** @return the value of the {@link XrEventDataSpaceEraseCompleteFB#result} field. */
+        /** @return the value of the {@code result} field. */
         @NativeType("XrResult")
         public int result() { return XrEventDataSpaceEraseCompleteFB.nresult(address()); }
-        /** @return the value of the {@link XrEventDataSpaceEraseCompleteFB#space} field. */
+        /** @return the value of the {@code space} field. */
         @NativeType("XrSpace")
         public long space() { return XrEventDataSpaceEraseCompleteFB.nspace(address()); }
-        /** @return a {@link XrUuidEXT} view of the {@link XrEventDataSpaceEraseCompleteFB#uuid} field. */
+        /** @return a {@link XrUuidEXT} view of the {@code uuid} field. */
         public XrUuidEXT uuid() { return XrEventDataSpaceEraseCompleteFB.nuuid(address()); }
-        /** @return the value of the {@link XrEventDataSpaceEraseCompleteFB#location} field. */
+        /** @return the value of the {@code location} field. */
         @NativeType("XrSpaceStorageLocationFB")
         public int location() { return XrEventDataSpaceEraseCompleteFB.nlocation(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataSpaceEraseCompleteFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataSpaceEraseCompleteFB.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataSpaceEraseCompleteFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB} value to the {@link XrEventDataSpaceEraseCompleteFB#type} field. */
+        /** Sets the {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB} value to the {@code type} field. */
         public XrEventDataSpaceEraseCompleteFB.Buffer type$Default() { return type(FBSpatialEntityStorage.XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB); }
-        /** Sets the specified value to the {@link XrEventDataSpaceEraseCompleteFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataSpaceEraseCompleteFB.Buffer next(@NativeType("void const *") long value) { XrEventDataSpaceEraseCompleteFB.nnext(address(), value); return this; }
 
     }

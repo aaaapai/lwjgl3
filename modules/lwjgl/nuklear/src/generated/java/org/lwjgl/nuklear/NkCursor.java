@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_cursor {
  *     {@link NkImage struct nk_image} img;
  *     {@link NkVec2 struct nk_vec2} size;
  *     {@link NkVec2 struct nk_vec2} offset;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_cursor")
 public class NkCursor extends Struct<NkCursor> implements NativeResource {
@@ -149,8 +147,7 @@ public class NkCursor extends Struct<NkCursor> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkCursor createSafe(long address) {
+    public static @Nullable NkCursor createSafe(long address) {
         return address == NULL ? null : new NkCursor(address, null);
     }
 
@@ -193,8 +190,7 @@ public class NkCursor extends Struct<NkCursor> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkCursor.Buffer createSafe(long address, int capacity) {
+    public static NkCursor.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -302,6 +298,11 @@ public class NkCursor extends Struct<NkCursor> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

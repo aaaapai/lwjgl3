@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing features supported by VK_KHR_shader_clock.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceShaderClockFeaturesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceShaderClockFeaturesKHR} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRShaderClock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShaderClockFeaturesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #shaderSubgroupClock};
- *     VkBool32 {@link #shaderDeviceClock};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 shaderSubgroupClock;
+ *     VkBool32 shaderDeviceClock;
+ * }}</pre>
  */
 public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDeviceShaderClockFeaturesKHR> implements NativeResource {
 
@@ -92,28 +78,28 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether shaders <b>can</b> perform {@code Subgroup} scoped clock reads. */
+    /** @return the value of the {@code shaderSubgroupClock} field. */
     @NativeType("VkBool32")
     public boolean shaderSubgroupClock() { return nshaderSubgroupClock(address()) != 0; }
-    /** indicates whether shaders <b>can</b> perform {@code Device} scoped clock reads. */
+    /** @return the value of the {@code shaderDeviceClock} field. */
     @NativeType("VkBool32")
     public boolean shaderDeviceClock() { return nshaderDeviceClock(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceShaderClockFeaturesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRShaderClock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRShaderClock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR} value to the {@code sType} field. */
     public VkPhysicalDeviceShaderClockFeaturesKHR sType$Default() { return sType(KHRShaderClock.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceShaderClockFeaturesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #shaderSubgroupClock} field. */
+    /** Sets the specified value to the {@code shaderSubgroupClock} field. */
     public VkPhysicalDeviceShaderClockFeaturesKHR shaderSubgroupClock(@NativeType("VkBool32") boolean value) { nshaderSubgroupClock(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderDeviceClock} field. */
+    /** Sets the specified value to the {@code shaderDeviceClock} field. */
     public VkPhysicalDeviceShaderClockFeaturesKHR shaderDeviceClock(@NativeType("VkBool32") boolean value) { nshaderDeviceClock(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +153,7 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderClockFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderClockFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderClockFeaturesKHR(address, null);
     }
 
@@ -211,8 +196,7 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderClockFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderClockFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +241,22 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderClockFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderSubgroupClock}. */
-    public static int nshaderSubgroupClock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK); }
+    public static int nshaderSubgroupClock(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK); }
     /** Unsafe version of {@link #shaderDeviceClock}. */
-    public static int nshaderDeviceClock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK); }
+    public static int nshaderDeviceClock(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderClockFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #shaderSubgroupClock(boolean) shaderSubgroupClock}. */
-    public static void nshaderSubgroupClock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK, value); }
+    public static void nshaderSubgroupClock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERSUBGROUPCLOCK, value); }
     /** Unsafe version of {@link #shaderDeviceClock(boolean) shaderDeviceClock}. */
-    public static void nshaderDeviceClock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK, value); }
+    public static void nshaderDeviceClock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderClockFeaturesKHR.SHADERDEVICECLOCK, value); }
 
     // -----------------------------------
 
@@ -308,32 +292,37 @@ public class VkPhysicalDeviceShaderClockFeaturesKHR extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceShaderClockFeaturesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceShaderClockFeaturesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceShaderClockFeaturesKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderClockFeaturesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceShaderClockFeaturesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderClockFeaturesKHR#shaderSubgroupClock} field. */
+        /** @return the value of the {@code shaderSubgroupClock} field. */
         @NativeType("VkBool32")
         public boolean shaderSubgroupClock() { return VkPhysicalDeviceShaderClockFeaturesKHR.nshaderSubgroupClock(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceShaderClockFeaturesKHR#shaderDeviceClock} field. */
+        /** @return the value of the {@code shaderDeviceClock} field. */
         @NativeType("VkBool32")
         public boolean shaderDeviceClock() { return VkPhysicalDeviceShaderClockFeaturesKHR.nshaderDeviceClock(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderClockFeaturesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceShaderClockFeaturesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceShaderClockFeaturesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRShaderClock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR} value to the {@link VkPhysicalDeviceShaderClockFeaturesKHR#sType} field. */
+        /** Sets the {@link KHRShaderClock#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR} value to the {@code sType} field. */
         public VkPhysicalDeviceShaderClockFeaturesKHR.Buffer sType$Default() { return sType(KHRShaderClock.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderClockFeaturesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceShaderClockFeaturesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShaderClockFeaturesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderClockFeaturesKHR#shaderSubgroupClock} field. */
+        /** Sets the specified value to the {@code shaderSubgroupClock} field. */
         public VkPhysicalDeviceShaderClockFeaturesKHR.Buffer shaderSubgroupClock(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderClockFeaturesKHR.nshaderSubgroupClock(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderClockFeaturesKHR#shaderDeviceClock} field. */
+        /** Sets the specified value to the {@code shaderDeviceClock} field. */
         public VkPhysicalDeviceShaderClockFeaturesKHR.Buffer shaderDeviceClock(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderClockFeaturesKHR.nshaderDeviceClock(address(), value ? 1 : 0); return this; }
 
     }

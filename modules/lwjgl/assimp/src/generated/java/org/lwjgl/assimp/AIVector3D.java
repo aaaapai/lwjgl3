@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiVector3D {
  *     float x;
  *     float y;
  *     float z;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct aiVector3D")
 public class AIVector3D extends Struct<AIVector3D> implements NativeResource {
@@ -140,8 +138,7 @@ public class AIVector3D extends Struct<AIVector3D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVector3D createSafe(long address) {
+    public static @Nullable AIVector3D createSafe(long address) {
         return address == NULL ? null : new AIVector3D(address, null);
     }
 
@@ -184,8 +181,7 @@ public class AIVector3D extends Struct<AIVector3D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVector3D.Buffer createSafe(long address, int capacity) {
+    public static AIVector3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +245,18 @@ public class AIVector3D extends Struct<AIVector3D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + AIVector3D.X); }
+    public static float nx(long struct) { return memGetFloat(struct + AIVector3D.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + AIVector3D.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + AIVector3D.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + AIVector3D.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + AIVector3D.Z); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + AIVector3D.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + AIVector3D.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + AIVector3D.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + AIVector3D.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + AIVector3D.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + AIVector3D.Z, value); }
 
     // -----------------------------------
 
@@ -293,6 +289,11 @@ public class AIVector3D extends Struct<AIVector3D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,22 +5,13 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *mm_context,
- *     void *ptr,
- *     rmtU32 size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtReallocPtr} */
 public abstract class RMTRealloc extends Callback implements RMTReallocI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class RMTRealloc extends Callback implements RMTReallocI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static RMTRealloc createSafe(long functionPointer) {
+    public static @Nullable RMTRealloc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,23 +5,13 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code nk_style_*} structs.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     struct nk_command_buffer *buffer,
- *     nk_handle userdata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_draw_begin} */
 public abstract class NkDrawBeginCallback extends Callback implements NkDrawBeginCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class NkDrawBeginCallback extends Callback implements NkDrawBegi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static NkDrawBeginCallback createSafe(long functionPointer) {
+    public static @Nullable NkDrawBeginCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,23 +5,13 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link BGFX#bgfx_make_ref_release make_ref_release} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *_ptr,
- *     void *_userData
- * )</code></pre>
- */
+/** Callback function: {@link #invoke bgfx_release_fn_t} */
 public abstract class BGFXReleaseFunctionCallback extends Callback implements BGFXReleaseFunctionCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class BGFXReleaseFunctionCallback extends Callback implements BG
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static BGFXReleaseFunctionCallback createSafe(long functionPointer) {
+    public static @Nullable BGFXReleaseFunctionCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

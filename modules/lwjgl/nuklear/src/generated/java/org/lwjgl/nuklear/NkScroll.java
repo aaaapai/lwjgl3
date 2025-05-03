@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_scroll {
  *     nk_uint x;
  *     nk_uint y;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_scroll")
 public class NkScroll extends Struct<NkScroll> implements NativeResource {
@@ -104,8 +102,7 @@ public class NkScroll extends Struct<NkScroll> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkScroll createSafe(long address) {
+    public static @Nullable NkScroll createSafe(long address) {
         return address == NULL ? null : new NkScroll(address, null);
     }
 
@@ -148,8 +145,7 @@ public class NkScroll extends Struct<NkScroll> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkScroll.Buffer createSafe(long address, int capacity) {
+    public static NkScroll.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,9 +209,9 @@ public class NkScroll extends Struct<NkScroll> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + NkScroll.X); }
+    public static int nx(long struct) { return memGetInt(struct + NkScroll.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + NkScroll.Y); }
+    public static int ny(long struct) { return memGetInt(struct + NkScroll.Y); }
 
     // -----------------------------------
 
@@ -248,6 +244,11 @@ public class NkScroll extends Struct<NkScroll> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Set of callbacks that the library will call for {@code vkAllocateMemory} and {@code vkFreeMemory}.
- * 
- * <p>Provided for informative purpose, e.g. to gather statistics about number of allocations or total amount of memory allocated in Vulkan.</p>
- * 
- * <p>Used in {@link VmaAllocatorCreateInfo}{@code ::pDeviceMemoryCallbacks}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaDeviceMemoryCallbacks {
  *     {@link VmaAllocateDeviceMemoryFunctionI PFN_vmaAllocateDeviceMemoryFunction} pfnAllocate;
  *     {@link VmaFreeDeviceMemoryFunctionI PFN_vmaFreeDeviceMemoryFunction} pfnFree;
  *     void * pUserData;
- * }</code></pre>
+ * }}</pre>
  */
 public class VmaDeviceMemoryCallbacks extends Struct<VmaDeviceMemoryCallbacks> implements NativeResource {
 
@@ -83,13 +75,11 @@ public class VmaDeviceMemoryCallbacks extends Struct<VmaDeviceMemoryCallbacks> i
     public int sizeof() { return SIZEOF; }
 
     /** @return the value of the {@code pfnAllocate} field. */
-    @Nullable
     @NativeType("PFN_vmaAllocateDeviceMemoryFunction")
-    public VmaAllocateDeviceMemoryFunction pfnAllocate() { return npfnAllocate(address()); }
+    public @Nullable VmaAllocateDeviceMemoryFunction pfnAllocate() { return npfnAllocate(address()); }
     /** @return the value of the {@code pfnFree} field. */
-    @Nullable
     @NativeType("PFN_vmaFreeDeviceMemoryFunction")
-    public VmaFreeDeviceMemoryFunction pfnFree() { return npfnFree(address()); }
+    public @Nullable VmaFreeDeviceMemoryFunction pfnFree() { return npfnFree(address()); }
     /** @return the value of the {@code pUserData} field. */
     @NativeType("void *")
     public long pUserData() { return npUserData(address()); }
@@ -150,8 +140,7 @@ public class VmaDeviceMemoryCallbacks extends Struct<VmaDeviceMemoryCallbacks> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDeviceMemoryCallbacks createSafe(long address) {
+    public static @Nullable VmaDeviceMemoryCallbacks createSafe(long address) {
         return address == NULL ? null : new VmaDeviceMemoryCallbacks(address, null);
     }
 
@@ -194,8 +183,7 @@ public class VmaDeviceMemoryCallbacks extends Struct<VmaDeviceMemoryCallbacks> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDeviceMemoryCallbacks.Buffer createSafe(long address, int capacity) {
+    public static VmaDeviceMemoryCallbacks.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,9 +247,9 @@ public class VmaDeviceMemoryCallbacks extends Struct<VmaDeviceMemoryCallbacks> i
     // -----------------------------------
 
     /** Unsafe version of {@link #pfnAllocate}. */
-    @Nullable public static VmaAllocateDeviceMemoryFunction npfnAllocate(long struct) { return VmaAllocateDeviceMemoryFunction.createSafe(memGetAddress(struct + VmaDeviceMemoryCallbacks.PFNALLOCATE)); }
+    public static @Nullable VmaAllocateDeviceMemoryFunction npfnAllocate(long struct) { return VmaAllocateDeviceMemoryFunction.createSafe(memGetAddress(struct + VmaDeviceMemoryCallbacks.PFNALLOCATE)); }
     /** Unsafe version of {@link #pfnFree}. */
-    @Nullable public static VmaFreeDeviceMemoryFunction npfnFree(long struct) { return VmaFreeDeviceMemoryFunction.createSafe(memGetAddress(struct + VmaDeviceMemoryCallbacks.PFNFREE)); }
+    public static @Nullable VmaFreeDeviceMemoryFunction npfnFree(long struct) { return VmaFreeDeviceMemoryFunction.createSafe(memGetAddress(struct + VmaDeviceMemoryCallbacks.PFNFREE)); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VmaDeviceMemoryCallbacks.PUSERDATA); }
 
@@ -306,18 +294,21 @@ public class VmaDeviceMemoryCallbacks extends Struct<VmaDeviceMemoryCallbacks> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaDeviceMemoryCallbacks getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code pfnAllocate} field. */
-        @Nullable
         @NativeType("PFN_vmaAllocateDeviceMemoryFunction")
-        public VmaAllocateDeviceMemoryFunction pfnAllocate() { return VmaDeviceMemoryCallbacks.npfnAllocate(address()); }
+        public @Nullable VmaAllocateDeviceMemoryFunction pfnAllocate() { return VmaDeviceMemoryCallbacks.npfnAllocate(address()); }
         /** @return the value of the {@code pfnFree} field. */
-        @Nullable
         @NativeType("PFN_vmaFreeDeviceMemoryFunction")
-        public VmaFreeDeviceMemoryFunction pfnFree() { return VmaDeviceMemoryCallbacks.npfnFree(address()); }
+        public @Nullable VmaFreeDeviceMemoryFunction pfnFree() { return VmaDeviceMemoryCallbacks.npfnFree(address()); }
         /** @return the value of the {@code pUserData} field. */
         @NativeType("void *")
         public long pUserData() { return VmaDeviceMemoryCallbacks.npUserData(address()); }

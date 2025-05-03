@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Visibility Mask.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link KHRVisibilityMask XR_KHR_visibility_mask} extension <b>must</b> be enabled prior to using {@link XrVisibilityMaskKHR}</li>
- * <li>{@code type} <b>must</b> be {@link KHRVisibilityMask#XR_TYPE_VISIBILITY_MASK_KHR TYPE_VISIBILITY_MASK_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code vertexCapacityInput} is not 0, {@code vertices} <b>must</b> be a pointer to an array of {@code vertexCapacityInput} {@link XrVector2f} structures</li>
- * <li>If {@code indexCapacityInput} is not 0, {@code indices} <b>must</b> be a pointer to an array of {@code indexCapacityInput} {@code uint32_t} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrVector2f}, {@link KHRVisibilityMask#xrGetVisibilityMaskKHR GetVisibilityMaskKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVisibilityMaskKHR {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #vertexCapacityInput};
- *     uint32_t {@link #vertexCountOutput};
- *     {@link XrVector2f XrVector2f} * {@link #vertices};
- *     uint32_t {@link #indexCapacityInput};
- *     uint32_t {@link #indexCountOutput};
- *     uint32_t * {@link #indices};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t vertexCapacityInput;
+ *     uint32_t vertexCountOutput;
+ *     {@link XrVector2f XrVector2f} * vertices;
+ *     uint32_t indexCapacityInput;
+ *     uint32_t indexCountOutput;
+ *     uint32_t * indices;
+ * }}</pre>
  */
 public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements NativeResource {
 
@@ -112,50 +94,48 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the capacity of the {@code vertices} array, or 0 to indicate a request to retrieve the required capacity. */
+    /** @return the value of the {@code vertexCapacityInput} field. */
     @NativeType("uint32_t")
     public int vertexCapacityInput() { return nvertexCapacityInput(address()); }
-    /** filled in by the runtime with the count of vertices written or the required capacity in the case that {@code vertexCapacityInput} or {@code indexCapacityInput} is insufficient. */
+    /** @return the value of the {@code vertexCountOutput} field. */
     @NativeType("uint32_t")
     public int vertexCountOutput() { return nvertexCountOutput(address()); }
-    /** an array of vertices filled in by the runtime that specifies mask coordinates in the z=-1 plane of the rendered view—​i.e. one meter in front of the view. When rendering the mask for use in a projection layer, these vertices must be transformed by the application’s projection matrix used for the respective {@link XrCompositionLayerProjectionView}. */
-    @Nullable
+    /** @return a {@link XrVector2f.Buffer} view of the struct array pointed to by the {@code vertices} field. */
     @NativeType("XrVector2f *")
-    public XrVector2f.Buffer vertices() { return nvertices(address()); }
-    /** the capacity of the {@code indices} array, or 0 to indicate a request to retrieve the required capacity. */
+    public XrVector2f.@Nullable Buffer vertices() { return nvertices(address()); }
+    /** @return the value of the {@code indexCapacityInput} field. */
     @NativeType("uint32_t")
     public int indexCapacityInput() { return nindexCapacityInput(address()); }
-    /** filled in by the runtime with the count of indices written or the required capacity in the case that {@code vertexCapacityInput} or {@code indexCapacityInput} is insufficient. */
+    /** @return the value of the {@code indexCountOutput} field. */
     @NativeType("uint32_t")
     public int indexCountOutput() { return nindexCountOutput(address()); }
-    /** an array of indices filled in by the runtime, specifying the indices of the mask geometry in the {@code vertices} array. */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code indices} field. */
     @NativeType("uint32_t *")
-    public IntBuffer indices() { return nindices(address()); }
+    public @Nullable IntBuffer indices() { return nindices(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVisibilityMaskKHR type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link KHRVisibilityMask#XR_TYPE_VISIBILITY_MASK_KHR TYPE_VISIBILITY_MASK_KHR} value to the {@link #type} field. */
+    /** Sets the {@link KHRVisibilityMask#XR_TYPE_VISIBILITY_MASK_KHR TYPE_VISIBILITY_MASK_KHR} value to the {@code type} field. */
     public XrVisibilityMaskKHR type$Default() { return type(KHRVisibilityMask.XR_TYPE_VISIBILITY_MASK_KHR); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVisibilityMaskKHR next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #vertexCapacityInput} field. */
+    /** Sets the specified value to the {@code vertexCapacityInput} field. */
     public XrVisibilityMaskKHR vertexCapacityInput(@NativeType("uint32_t") int value) { nvertexCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #vertexCountOutput} field. */
+    /** Sets the specified value to the {@code vertexCountOutput} field. */
     public XrVisibilityMaskKHR vertexCountOutput(@NativeType("uint32_t") int value) { nvertexCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@link #vertices} field. */
-    public XrVisibilityMaskKHR vertices(@Nullable @NativeType("XrVector2f *") XrVector2f.Buffer value) { nvertices(address(), value); return this; }
-    /** Sets the specified value to the {@link #indexCapacityInput} field. */
+    /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@code vertices} field. */
+    public XrVisibilityMaskKHR vertices(@NativeType("XrVector2f *") XrVector2f.@Nullable Buffer value) { nvertices(address(), value); return this; }
+    /** Sets the specified value to the {@code indexCapacityInput} field. */
     public XrVisibilityMaskKHR indexCapacityInput(@NativeType("uint32_t") int value) { nindexCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #indexCountOutput} field. */
+    /** Sets the specified value to the {@code indexCountOutput} field. */
     public XrVisibilityMaskKHR indexCountOutput(@NativeType("uint32_t") int value) { nindexCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #indices} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code indices} field. */
     public XrVisibilityMaskKHR indices(@Nullable @NativeType("uint32_t *") IntBuffer value) { nindices(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -164,7 +144,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
         long next,
         int vertexCapacityInput,
         int vertexCountOutput,
-        @Nullable XrVector2f.Buffer vertices,
+        XrVector2f.@Nullable Buffer vertices,
         int indexCapacityInput,
         int indexCountOutput,
         @Nullable IntBuffer indices
@@ -217,8 +197,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVisibilityMaskKHR createSafe(long address) {
+    public static @Nullable XrVisibilityMaskKHR createSafe(long address) {
         return address == NULL ? null : new XrVisibilityMaskKHR(address, null);
     }
 
@@ -261,8 +240,7 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVisibilityMaskKHR.Buffer createSafe(long address, int capacity) {
+    public static XrVisibilityMaskKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,36 +285,36 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVisibilityMaskKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVisibilityMaskKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVisibilityMaskKHR.NEXT); }
     /** Unsafe version of {@link #vertexCapacityInput}. */
-    public static int nvertexCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrVisibilityMaskKHR.VERTEXCAPACITYINPUT); }
+    public static int nvertexCapacityInput(long struct) { return memGetInt(struct + XrVisibilityMaskKHR.VERTEXCAPACITYINPUT); }
     /** Unsafe version of {@link #vertexCountOutput}. */
-    public static int nvertexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrVisibilityMaskKHR.VERTEXCOUNTOUTPUT); }
+    public static int nvertexCountOutput(long struct) { return memGetInt(struct + XrVisibilityMaskKHR.VERTEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #vertices}. */
-    @Nullable public static XrVector2f.Buffer nvertices(long struct) { return XrVector2f.createSafe(memGetAddress(struct + XrVisibilityMaskKHR.VERTICES), nvertexCapacityInput(struct)); }
+    public static XrVector2f.@Nullable Buffer nvertices(long struct) { return XrVector2f.createSafe(memGetAddress(struct + XrVisibilityMaskKHR.VERTICES), nvertexCapacityInput(struct)); }
     /** Unsafe version of {@link #indexCapacityInput}. */
-    public static int nindexCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrVisibilityMaskKHR.INDEXCAPACITYINPUT); }
+    public static int nindexCapacityInput(long struct) { return memGetInt(struct + XrVisibilityMaskKHR.INDEXCAPACITYINPUT); }
     /** Unsafe version of {@link #indexCountOutput}. */
-    public static int nindexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrVisibilityMaskKHR.INDEXCOUNTOUTPUT); }
+    public static int nindexCountOutput(long struct) { return memGetInt(struct + XrVisibilityMaskKHR.INDEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #indices() indices}. */
-    @Nullable public static IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrVisibilityMaskKHR.INDICES), nindexCapacityInput(struct)); }
+    public static @Nullable IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrVisibilityMaskKHR.INDICES), nindexCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVisibilityMaskKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVisibilityMaskKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVisibilityMaskKHR.NEXT, value); }
     /** Sets the specified value to the {@code vertexCapacityInput} field of the specified {@code struct}. */
-    public static void nvertexCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrVisibilityMaskKHR.VERTEXCAPACITYINPUT, value); }
+    public static void nvertexCapacityInput(long struct, int value) { memPutInt(struct + XrVisibilityMaskKHR.VERTEXCAPACITYINPUT, value); }
     /** Unsafe version of {@link #vertexCountOutput(int) vertexCountOutput}. */
-    public static void nvertexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrVisibilityMaskKHR.VERTEXCOUNTOUTPUT, value); }
+    public static void nvertexCountOutput(long struct, int value) { memPutInt(struct + XrVisibilityMaskKHR.VERTEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #vertices(XrVector2f.Buffer) vertices}. */
-    public static void nvertices(long struct, @Nullable XrVector2f.Buffer value) { memPutAddress(struct + XrVisibilityMaskKHR.VERTICES, memAddressSafe(value)); if (value != null) { nvertexCapacityInput(struct, value.remaining()); } }
+    public static void nvertices(long struct, XrVector2f.@Nullable Buffer value) { memPutAddress(struct + XrVisibilityMaskKHR.VERTICES, memAddressSafe(value)); if (value != null) { nvertexCapacityInput(struct, value.remaining()); } }
     /** Sets the specified value to the {@code indexCapacityInput} field of the specified {@code struct}. */
-    public static void nindexCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrVisibilityMaskKHR.INDEXCAPACITYINPUT, value); }
+    public static void nindexCapacityInput(long struct, int value) { memPutInt(struct + XrVisibilityMaskKHR.INDEXCAPACITYINPUT, value); }
     /** Unsafe version of {@link #indexCountOutput(int) indexCountOutput}. */
-    public static void nindexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrVisibilityMaskKHR.INDEXCOUNTOUTPUT, value); }
+    public static void nindexCountOutput(long struct, int value) { memPutInt(struct + XrVisibilityMaskKHR.INDEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #indices(IntBuffer) indices}. */
     public static void nindices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + XrVisibilityMaskKHR.INDICES, memAddressSafe(value)); if (value != null) { nindexCapacityInput(struct, value.remaining()); } }
 
@@ -374,54 +352,57 @@ public class XrVisibilityMaskKHR extends Struct<XrVisibilityMaskKHR> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVisibilityMaskKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVisibilityMaskKHR#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVisibilityMaskKHR.ntype(address()); }
-        /** @return the value of the {@link XrVisibilityMaskKHR#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrVisibilityMaskKHR.nnext(address()); }
-        /** @return the value of the {@link XrVisibilityMaskKHR#vertexCapacityInput} field. */
+        /** @return the value of the {@code vertexCapacityInput} field. */
         @NativeType("uint32_t")
         public int vertexCapacityInput() { return XrVisibilityMaskKHR.nvertexCapacityInput(address()); }
-        /** @return the value of the {@link XrVisibilityMaskKHR#vertexCountOutput} field. */
+        /** @return the value of the {@code vertexCountOutput} field. */
         @NativeType("uint32_t")
         public int vertexCountOutput() { return XrVisibilityMaskKHR.nvertexCountOutput(address()); }
-        /** @return a {@link XrVector2f.Buffer} view of the struct array pointed to by the {@link XrVisibilityMaskKHR#vertices} field. */
-        @Nullable
+        /** @return a {@link XrVector2f.Buffer} view of the struct array pointed to by the {@code vertices} field. */
         @NativeType("XrVector2f *")
-        public XrVector2f.Buffer vertices() { return XrVisibilityMaskKHR.nvertices(address()); }
-        /** @return the value of the {@link XrVisibilityMaskKHR#indexCapacityInput} field. */
+        public XrVector2f.@Nullable Buffer vertices() { return XrVisibilityMaskKHR.nvertices(address()); }
+        /** @return the value of the {@code indexCapacityInput} field. */
         @NativeType("uint32_t")
         public int indexCapacityInput() { return XrVisibilityMaskKHR.nindexCapacityInput(address()); }
-        /** @return the value of the {@link XrVisibilityMaskKHR#indexCountOutput} field. */
+        /** @return the value of the {@code indexCountOutput} field. */
         @NativeType("uint32_t")
         public int indexCountOutput() { return XrVisibilityMaskKHR.nindexCountOutput(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrVisibilityMaskKHR#indices} field. */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code indices} field. */
         @NativeType("uint32_t *")
-        public IntBuffer indices() { return XrVisibilityMaskKHR.nindices(address()); }
+        public @Nullable IntBuffer indices() { return XrVisibilityMaskKHR.nindices(address()); }
 
-        /** Sets the specified value to the {@link XrVisibilityMaskKHR#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVisibilityMaskKHR.Buffer type(@NativeType("XrStructureType") int value) { XrVisibilityMaskKHR.ntype(address(), value); return this; }
-        /** Sets the {@link KHRVisibilityMask#XR_TYPE_VISIBILITY_MASK_KHR TYPE_VISIBILITY_MASK_KHR} value to the {@link XrVisibilityMaskKHR#type} field. */
+        /** Sets the {@link KHRVisibilityMask#XR_TYPE_VISIBILITY_MASK_KHR TYPE_VISIBILITY_MASK_KHR} value to the {@code type} field. */
         public XrVisibilityMaskKHR.Buffer type$Default() { return type(KHRVisibilityMask.XR_TYPE_VISIBILITY_MASK_KHR); }
-        /** Sets the specified value to the {@link XrVisibilityMaskKHR#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVisibilityMaskKHR.Buffer next(@NativeType("void *") long value) { XrVisibilityMaskKHR.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVisibilityMaskKHR#vertexCapacityInput} field. */
+        /** Sets the specified value to the {@code vertexCapacityInput} field. */
         public XrVisibilityMaskKHR.Buffer vertexCapacityInput(@NativeType("uint32_t") int value) { XrVisibilityMaskKHR.nvertexCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVisibilityMaskKHR#vertexCountOutput} field. */
+        /** Sets the specified value to the {@code vertexCountOutput} field. */
         public XrVisibilityMaskKHR.Buffer vertexCountOutput(@NativeType("uint32_t") int value) { XrVisibilityMaskKHR.nvertexCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@link XrVisibilityMaskKHR#vertices} field. */
-        public XrVisibilityMaskKHR.Buffer vertices(@Nullable @NativeType("XrVector2f *") XrVector2f.Buffer value) { XrVisibilityMaskKHR.nvertices(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVisibilityMaskKHR#indexCapacityInput} field. */
+        /** Sets the address of the specified {@link XrVector2f.Buffer} to the {@code vertices} field. */
+        public XrVisibilityMaskKHR.Buffer vertices(@NativeType("XrVector2f *") XrVector2f.@Nullable Buffer value) { XrVisibilityMaskKHR.nvertices(address(), value); return this; }
+        /** Sets the specified value to the {@code indexCapacityInput} field. */
         public XrVisibilityMaskKHR.Buffer indexCapacityInput(@NativeType("uint32_t") int value) { XrVisibilityMaskKHR.nindexCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVisibilityMaskKHR#indexCountOutput} field. */
+        /** Sets the specified value to the {@code indexCountOutput} field. */
         public XrVisibilityMaskKHR.Buffer indexCountOutput(@NativeType("uint32_t") int value) { XrVisibilityMaskKHR.nindexCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link XrVisibilityMaskKHR#indices} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code indices} field. */
         public XrVisibilityMaskKHR.Buffer indices(@Nullable @NativeType("uint32_t *") IntBuffer value) { XrVisibilityMaskKHR.nindices(address(), value); return this; }
 
     }

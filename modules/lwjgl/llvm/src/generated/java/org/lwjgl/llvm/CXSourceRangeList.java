@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,15 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Identifies an array of ranges.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXSourceRangeList {
- *     unsigned {@link #count};
- *     {@link CXSourceRange CXSourceRange} * {@link #ranges};
- * }</code></pre>
+ *     unsigned count;
+ *     {@link CXSourceRange CXSourceRange} * ranges;
+ * }}</pre>
  */
 public class CXSourceRangeList extends Struct<CXSourceRangeList> {
 
@@ -72,10 +68,10 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of ranges in the {@code ranges} array */
+    /** @return the value of the {@code count} field. */
     @NativeType("unsigned")
     public int count() { return ncount(address()); }
-    /** an array of {@code CXSourceRange}s. */
+    /** @return a {@link CXSourceRange.Buffer} view of the struct array pointed to by the {@code ranges} field. */
     @NativeType("CXSourceRange *")
     public CXSourceRange.Buffer ranges() { return nranges(address()); }
 
@@ -87,8 +83,7 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceRangeList createSafe(long address) {
+    public static @Nullable CXSourceRangeList createSafe(long address) {
         return address == NULL ? null : new CXSourceRangeList(address, null);
     }
 
@@ -103,15 +98,14 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceRangeList.Buffer createSafe(long address, int capacity) {
+    public static CXSourceRangeList.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + CXSourceRangeList.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + CXSourceRangeList.COUNT); }
     /** Unsafe version of {@link #ranges}. */
     public static CXSourceRange.Buffer nranges(long struct) { return CXSourceRange.create(memGetAddress(struct + CXSourceRangeList.RANGES), ncount(struct)); }
 
@@ -149,14 +143,19 @@ public class CXSourceRangeList extends Struct<CXSourceRangeList> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CXSourceRangeList getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CXSourceRangeList#count} field. */
+        /** @return the value of the {@code count} field. */
         @NativeType("unsigned")
         public int count() { return CXSourceRangeList.ncount(address()); }
-        /** @return a {@link CXSourceRange.Buffer} view of the struct array pointed to by the {@link CXSourceRangeList#ranges} field. */
+        /** @return a {@link CXSourceRange.Buffer} view of the struct array pointed to by the {@code ranges} field. */
         @NativeType("CXSourceRange *")
         public CXSourceRange.Buffer ranges() { return CXSourceRangeList.nranges(address()); }
 

@@ -12,16 +12,7 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     YGNodeRef node,
- *     float width,
- *     float height
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGBaselineFunc} */
 @FunctionalInterface
 @NativeType("YGBaselineFunc")
 public interface YGBaselineFuncI extends CallbackI {
@@ -45,6 +36,7 @@ public interface YGBaselineFuncI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    float invoke(@NativeType("YGNodeRef") long node, float width, float height);
+    /** {@code float (* YGBaselineFunc) (YGNodeConstRef node, float width, float height)} */
+    float invoke(@NativeType("YGNodeConstRef") long node, float width, float height);
 
 }

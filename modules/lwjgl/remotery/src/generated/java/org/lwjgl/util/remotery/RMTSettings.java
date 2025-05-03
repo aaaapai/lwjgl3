@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,31 +17,27 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure to fill in to modify Remotery default settings.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct rmtSettings {
- *     rmtU16 {@link #port};
- *     rmtBool {@link #reuse_open_port};
- *     rmtBool {@link #limit_connections_to_localhost};
- *     rmtBool {@link #enableThreadSampler};
- *     rmtU32 {@link #msSleepBetweenServerUpdates};
- *     rmtU32 {@link #messageQueueSizeInBytes};
- *     rmtU32 {@link #maxNbMessagesPerUpdate};
- *     {@link RMTMallocI rmtMallocPtr} {@link #_malloc};
- *     {@link RMTReallocI rmtReallocPtr} {@link #realloc};
- *     {@link RMTFreeI rmtFreePtr} {@link #_free};
- *     void * {@link #mm_context};
- *     {@link RMTInputHandlerI rmtInputHandlerPtr} {@link #input_handler};
- *     {@link RMTSampleTreeHandlerI rmtSampleTreeHandlerPtr} {@link #sampletree_handler};
+ *     rmtU16 port;
+ *     rmtBool reuse_open_port;
+ *     rmtBool limit_connections_to_localhost;
+ *     rmtBool enableThreadSampler;
+ *     rmtU32 msSleepBetweenServerUpdates;
+ *     rmtU32 messageQueueSizeInBytes;
+ *     rmtU32 maxNbMessagesPerUpdate;
+ *     {@link RMTMallocI rmtMallocPtr} _malloc;
+ *     {@link RMTReallocI rmtReallocPtr} realloc;
+ *     {@link RMTFreeI rmtFreePtr} _free;
+ *     void * mm_context;
+ *     {@link RMTInputHandlerI rmtInputHandlerPtr} input_handler;
+ *     {@link RMTSampleTreeHandlerI rmtSampleTreeHandlerPtr} sampletree_handler;
  *     void * sampletree_context;
- *     {@link RMTPropertyHandlerI rmtPropertyHandlerPtr} {@link #snapshot_callback};
+ *     {@link RMTPropertyHandlerI rmtPropertyHandlerPtr} snapshot_callback;
  *     void * snapshot_context;
- *     void * {@link #input_handler_context};
+ *     void * input_handler_context;
  *     rmtPStr logPath;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct rmtSettings")
 public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
@@ -140,119 +136,97 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** which port to listen for incoming connections on */
+    /** @return the value of the {@code port} field. */
     @NativeType("rmtU16")
     public short port() { return nport(address()); }
-    /**
-     * when this server exits it can leave the port open in {@code TIME_WAIT} state for a while. This forces subsequent server bind attempts to fail when
-     * restarting. If you find restarts fail repeatedly with bind attempts, set this to true to forcibly reuse the open port.
-     */
+    /** @return the value of the {@code reuse_open_port} field. */
     @NativeType("rmtBool")
     public boolean reuse_open_port() { return nreuse_open_port(address()) != 0; }
-    /**
-     * Only allow connections on localhost?
-     * 
-     * <p>For dev builds you may want to access your game from other devices but if you distribute a game to your players with Remotery active, probably best to
-     * limit connections to localhost.</p>
-     */
+    /** @return the value of the {@code limit_connections_to_localhost} field. */
     @NativeType("rmtBool")
     public boolean limit_connections_to_localhost() { return nlimit_connections_to_localhost(address()) != 0; }
-    /**
-     * Whether to enable runtime thread sampling that discovers which processors a thread is running on.
-     * 
-     * <p>This will suspend and resume threads from outside repeatdly and inject code into each thread that automatically instruments the processor.</p>
-     * 
-     * <p>Default: Enabled</p>
-     */
+    /** @return the value of the {@code enableThreadSampler} field. */
     @NativeType("rmtBool")
     public boolean enableThreadSampler() { return nenableThreadSampler(address()) != 0; }
-    /** how long to sleep between server updates, hopefully trying to give a little CPU back to other threads */
+    /** @return the value of the {@code msSleepBetweenServerUpdates} field. */
     @NativeType("rmtU32")
     public int msSleepBetweenServerUpdates() { return nmsSleepBetweenServerUpdates(address()); }
-    /** size of the internal message queues Remotery uses. Will be rounded to page granularity of 64k. */
+    /** @return the value of the {@code messageQueueSizeInBytes} field. */
     @NativeType("rmtU32")
     public int messageQueueSizeInBytes() { return nmessageQueueSizeInBytes(address()); }
-    /**
-     * if the user continuously pushes to the message queue, the server network code won't get a chance to update unless there's an upper-limit on how many
-     * messages can be consumed per loop
-     */
+    /** @return the value of the {@code maxNbMessagesPerUpdate} field. */
     @NativeType("rmtU32")
     public int maxNbMessagesPerUpdate() { return nmaxNbMessagesPerUpdate(address()); }
-    /** callback pointer for memory allocation */
+    /** @return the value of the {@code _malloc} field. */
     @NativeType("rmtMallocPtr")
     public RMTMalloc _malloc() { return n_malloc(address()); }
-    /** callback pointer for memory allocation */
+    /** @return the value of the {@code realloc} field. */
     @NativeType("rmtReallocPtr")
     public RMTRealloc realloc() { return nrealloc(address()); }
-    /** callback pointer for memory allocation */
+    /** @return the value of the {@code _free} field. */
     @NativeType("rmtFreePtr")
     public RMTFree _free() { return n_free(address()); }
-    /** memory allocation context pointer */
+    /** @return the value of the {@code mm_context} field. */
     @NativeType("void *")
     public long mm_context() { return nmm_context(address()); }
-    /** callback pointer for receiving input from the Remotery console */
-    @Nullable
+    /** @return the value of the {@code input_handler} field. */
     @NativeType("rmtInputHandlerPtr")
-    public RMTInputHandler input_handler() { return ninput_handler(address()); }
-    /** callback pointer for traversing the sample tree graph */
-    @Nullable
+    public @Nullable RMTInputHandler input_handler() { return ninput_handler(address()); }
+    /** @return the value of the {@code sampletree_handler} field. */
     @NativeType("rmtSampleTreeHandlerPtr")
-    public RMTSampleTreeHandler sampletree_handler() { return nsampletree_handler(address()); }
+    public @Nullable RMTSampleTreeHandler sampletree_handler() { return nsampletree_handler(address()); }
     /** @return the value of the {@code sampletree_context} field. */
     @NativeType("void *")
     public long sampletree_context() { return nsampletree_context(address()); }
-    /** callback pointer for traversing the property graph */
-    @Nullable
+    /** @return the value of the {@code snapshot_callback} field. */
     @NativeType("rmtPropertyHandlerPtr")
-    public RMTPropertyHandler snapshot_callback() { return nsnapshot_callback(address()); }
+    public @Nullable RMTPropertyHandler snapshot_callback() { return nsnapshot_callback(address()); }
     /** @return the value of the {@code snapshot_context} field. */
     @NativeType("void *")
     public long snapshot_context() { return nsnapshot_context(address()); }
-    /** context pointer that gets sent to Remotery console callback function */
+    /** @return the value of the {@code input_handler_context} field. */
     @NativeType("void *")
     public long input_handler_context() { return ninput_handler_context(address()); }
     /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code logPath} field. */
-    @Nullable
     @NativeType("rmtPStr")
-    public ByteBuffer logPath() { return nlogPath(address()); }
+    public @Nullable ByteBuffer logPath() { return nlogPath(address()); }
     /** @return the null-terminated string pointed to by the {@code logPath} field. */
-    @Nullable
     @NativeType("rmtPStr")
-    public String logPathString() { return nlogPathString(address()); }
+    public @Nullable String logPathString() { return nlogPathString(address()); }
 
-    /** Sets the specified value to the {@link #port} field. */
+    /** Sets the specified value to the {@code port} field. */
     public RMTSettings port(@NativeType("rmtU16") short value) { nport(address(), value); return this; }
-    /** Sets the specified value to the {@link #reuse_open_port} field. */
+    /** Sets the specified value to the {@code reuse_open_port} field. */
     public RMTSettings reuse_open_port(@NativeType("rmtBool") boolean value) { nreuse_open_port(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #limit_connections_to_localhost} field. */
+    /** Sets the specified value to the {@code limit_connections_to_localhost} field. */
     public RMTSettings limit_connections_to_localhost(@NativeType("rmtBool") boolean value) { nlimit_connections_to_localhost(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #enableThreadSampler} field. */
+    /** Sets the specified value to the {@code enableThreadSampler} field. */
     public RMTSettings enableThreadSampler(@NativeType("rmtBool") boolean value) { nenableThreadSampler(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #msSleepBetweenServerUpdates} field. */
+    /** Sets the specified value to the {@code msSleepBetweenServerUpdates} field. */
     public RMTSettings msSleepBetweenServerUpdates(@NativeType("rmtU32") int value) { nmsSleepBetweenServerUpdates(address(), value); return this; }
-    /** Sets the specified value to the {@link #messageQueueSizeInBytes} field. */
+    /** Sets the specified value to the {@code messageQueueSizeInBytes} field. */
     public RMTSettings messageQueueSizeInBytes(@NativeType("rmtU32") int value) { nmessageQueueSizeInBytes(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxNbMessagesPerUpdate} field. */
+    /** Sets the specified value to the {@code maxNbMessagesPerUpdate} field. */
     public RMTSettings maxNbMessagesPerUpdate(@NativeType("rmtU32") int value) { nmaxNbMessagesPerUpdate(address(), value); return this; }
-    /** Sets the specified value to the {@link #_malloc} field. */
+    /** Sets the specified value to the {@code _malloc} field. */
     public RMTSettings _malloc(@NativeType("rmtMallocPtr") RMTMallocI value) { n_malloc(address(), value); return this; }
-    /** Sets the specified value to the {@link #realloc} field. */
+    /** Sets the specified value to the {@code realloc} field. */
     public RMTSettings realloc(@NativeType("rmtReallocPtr") RMTReallocI value) { nrealloc(address(), value); return this; }
-    /** Sets the specified value to the {@link #_free} field. */
+    /** Sets the specified value to the {@code _free} field. */
     public RMTSettings _free(@NativeType("rmtFreePtr") RMTFreeI value) { n_free(address(), value); return this; }
-    /** Sets the specified value to the {@link #mm_context} field. */
+    /** Sets the specified value to the {@code mm_context} field. */
     public RMTSettings mm_context(@NativeType("void *") long value) { nmm_context(address(), value); return this; }
-    /** Sets the specified value to the {@link #input_handler} field. */
+    /** Sets the specified value to the {@code input_handler} field. */
     public RMTSettings input_handler(@Nullable @NativeType("rmtInputHandlerPtr") RMTInputHandlerI value) { ninput_handler(address(), value); return this; }
-    /** Sets the specified value to the {@link #sampletree_handler} field. */
+    /** Sets the specified value to the {@code sampletree_handler} field. */
     public RMTSettings sampletree_handler(@Nullable @NativeType("rmtSampleTreeHandlerPtr") RMTSampleTreeHandlerI value) { nsampletree_handler(address(), value); return this; }
     /** Sets the specified value to the {@code sampletree_context} field. */
     public RMTSettings sampletree_context(@NativeType("void *") long value) { nsampletree_context(address(), value); return this; }
-    /** Sets the specified value to the {@link #snapshot_callback} field. */
+    /** Sets the specified value to the {@code snapshot_callback} field. */
     public RMTSettings snapshot_callback(@Nullable @NativeType("rmtPropertyHandlerPtr") RMTPropertyHandlerI value) { nsnapshot_callback(address(), value); return this; }
     /** Sets the specified value to the {@code snapshot_context} field. */
     public RMTSettings snapshot_context(@NativeType("void *") long value) { nsnapshot_context(address(), value); return this; }
-    /** Sets the specified value to the {@link #input_handler_context} field. */
+    /** Sets the specified value to the {@code input_handler_context} field. */
     public RMTSettings input_handler_context(@NativeType("void *") long value) { ninput_handler_context(address(), value); return this; }
     /** Sets the address of the specified encoded string to the {@code logPath} field. */
     public RMTSettings logPath(@Nullable @NativeType("rmtPStr") ByteBuffer value) { nlogPath(address(), value); return this; }
@@ -336,8 +310,7 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RMTSettings createSafe(long address) {
+    public static @Nullable RMTSettings createSafe(long address) {
         return address == NULL ? null : new RMTSettings(address, null);
     }
 
@@ -351,7 +324,6 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     @Deprecated public static RMTSettings mallocStack(MemoryStack stack) { return malloc(stack); }
     /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
     @Deprecated public static RMTSettings callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code RMTSettings} instance allocated on the specified {@link MemoryStack}.
@@ -374,19 +346,19 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #port}. */
-    public static short nport(long struct) { return UNSAFE.getShort(null, struct + RMTSettings.PORT); }
+    public static short nport(long struct) { return memGetShort(struct + RMTSettings.PORT); }
     /** Unsafe version of {@link #reuse_open_port}. */
-    public static int nreuse_open_port(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.REUSE_OPEN_PORT); }
+    public static int nreuse_open_port(long struct) { return memGetInt(struct + RMTSettings.REUSE_OPEN_PORT); }
     /** Unsafe version of {@link #limit_connections_to_localhost}. */
-    public static int nlimit_connections_to_localhost(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST); }
+    public static int nlimit_connections_to_localhost(long struct) { return memGetInt(struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST); }
     /** Unsafe version of {@link #enableThreadSampler}. */
-    public static int nenableThreadSampler(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.ENABLETHREADSAMPLER); }
+    public static int nenableThreadSampler(long struct) { return memGetInt(struct + RMTSettings.ENABLETHREADSAMPLER); }
     /** Unsafe version of {@link #msSleepBetweenServerUpdates}. */
-    public static int nmsSleepBetweenServerUpdates(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES); }
+    public static int nmsSleepBetweenServerUpdates(long struct) { return memGetInt(struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES); }
     /** Unsafe version of {@link #messageQueueSizeInBytes}. */
-    public static int nmessageQueueSizeInBytes(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.MESSAGEQUEUESIZEINBYTES); }
+    public static int nmessageQueueSizeInBytes(long struct) { return memGetInt(struct + RMTSettings.MESSAGEQUEUESIZEINBYTES); }
     /** Unsafe version of {@link #maxNbMessagesPerUpdate}. */
-    public static int nmaxNbMessagesPerUpdate(long struct) { return UNSAFE.getInt(null, struct + RMTSettings.MAXNBMESSAGESPERUPDATE); }
+    public static int nmaxNbMessagesPerUpdate(long struct) { return memGetInt(struct + RMTSettings.MAXNBMESSAGESPERUPDATE); }
     /** Unsafe version of {@link #_malloc}. */
     public static RMTMalloc n_malloc(long struct) { return RMTMalloc.create(memGetAddress(struct + RMTSettings._MALLOC)); }
     /** Unsafe version of {@link #realloc}. */
@@ -396,36 +368,36 @@ public class RMTSettings extends Struct<RMTSettings> implements NativeResource {
     /** Unsafe version of {@link #mm_context}. */
     public static long nmm_context(long struct) { return memGetAddress(struct + RMTSettings.MM_CONTEXT); }
     /** Unsafe version of {@link #input_handler}. */
-    @Nullable public static RMTInputHandler ninput_handler(long struct) { return RMTInputHandler.createSafe(memGetAddress(struct + RMTSettings.INPUT_HANDLER)); }
+    public static @Nullable RMTInputHandler ninput_handler(long struct) { return RMTInputHandler.createSafe(memGetAddress(struct + RMTSettings.INPUT_HANDLER)); }
     /** Unsafe version of {@link #sampletree_handler}. */
-    @Nullable public static RMTSampleTreeHandler nsampletree_handler(long struct) { return RMTSampleTreeHandler.createSafe(memGetAddress(struct + RMTSettings.SAMPLETREE_HANDLER)); }
+    public static @Nullable RMTSampleTreeHandler nsampletree_handler(long struct) { return RMTSampleTreeHandler.createSafe(memGetAddress(struct + RMTSettings.SAMPLETREE_HANDLER)); }
     /** Unsafe version of {@link #sampletree_context}. */
     public static long nsampletree_context(long struct) { return memGetAddress(struct + RMTSettings.SAMPLETREE_CONTEXT); }
     /** Unsafe version of {@link #snapshot_callback}. */
-    @Nullable public static RMTPropertyHandler nsnapshot_callback(long struct) { return RMTPropertyHandler.createSafe(memGetAddress(struct + RMTSettings.SNAPSHOT_CALLBACK)); }
+    public static @Nullable RMTPropertyHandler nsnapshot_callback(long struct) { return RMTPropertyHandler.createSafe(memGetAddress(struct + RMTSettings.SNAPSHOT_CALLBACK)); }
     /** Unsafe version of {@link #snapshot_context}. */
     public static long nsnapshot_context(long struct) { return memGetAddress(struct + RMTSettings.SNAPSHOT_CONTEXT); }
     /** Unsafe version of {@link #input_handler_context}. */
     public static long ninput_handler_context(long struct) { return memGetAddress(struct + RMTSettings.INPUT_HANDLER_CONTEXT); }
     /** Unsafe version of {@link #logPath}. */
-    @Nullable public static ByteBuffer nlogPath(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
+    public static @Nullable ByteBuffer nlogPath(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
     /** Unsafe version of {@link #logPathString}. */
-    @Nullable public static String nlogPathString(long struct) { return memUTF8Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
+    public static @Nullable String nlogPathString(long struct) { return memUTF8Safe(memGetAddress(struct + RMTSettings.LOGPATH)); }
 
     /** Unsafe version of {@link #port(short) port}. */
-    public static void nport(long struct, short value) { UNSAFE.putShort(null, struct + RMTSettings.PORT, value); }
+    public static void nport(long struct, short value) { memPutShort(struct + RMTSettings.PORT, value); }
     /** Unsafe version of {@link #reuse_open_port(boolean) reuse_open_port}. */
-    public static void nreuse_open_port(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.REUSE_OPEN_PORT, value); }
+    public static void nreuse_open_port(long struct, int value) { memPutInt(struct + RMTSettings.REUSE_OPEN_PORT, value); }
     /** Unsafe version of {@link #limit_connections_to_localhost(boolean) limit_connections_to_localhost}. */
-    public static void nlimit_connections_to_localhost(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST, value); }
+    public static void nlimit_connections_to_localhost(long struct, int value) { memPutInt(struct + RMTSettings.LIMIT_CONNECTIONS_TO_LOCALHOST, value); }
     /** Unsafe version of {@link #enableThreadSampler(boolean) enableThreadSampler}. */
-    public static void nenableThreadSampler(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.ENABLETHREADSAMPLER, value); }
+    public static void nenableThreadSampler(long struct, int value) { memPutInt(struct + RMTSettings.ENABLETHREADSAMPLER, value); }
     /** Unsafe version of {@link #msSleepBetweenServerUpdates(int) msSleepBetweenServerUpdates}. */
-    public static void nmsSleepBetweenServerUpdates(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES, value); }
+    public static void nmsSleepBetweenServerUpdates(long struct, int value) { memPutInt(struct + RMTSettings.MSSLEEPBETWEENSERVERUPDATES, value); }
     /** Unsafe version of {@link #messageQueueSizeInBytes(int) messageQueueSizeInBytes}. */
-    public static void nmessageQueueSizeInBytes(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.MESSAGEQUEUESIZEINBYTES, value); }
+    public static void nmessageQueueSizeInBytes(long struct, int value) { memPutInt(struct + RMTSettings.MESSAGEQUEUESIZEINBYTES, value); }
     /** Unsafe version of {@link #maxNbMessagesPerUpdate(int) maxNbMessagesPerUpdate}. */
-    public static void nmaxNbMessagesPerUpdate(long struct, int value) { UNSAFE.putInt(null, struct + RMTSettings.MAXNBMESSAGESPERUPDATE, value); }
+    public static void nmaxNbMessagesPerUpdate(long struct, int value) { memPutInt(struct + RMTSettings.MAXNBMESSAGESPERUPDATE, value); }
     /** Unsafe version of {@link #_malloc(RMTMallocI) _malloc}. */
     public static void n_malloc(long struct, RMTMallocI value) { memPutAddress(struct + RMTSettings._MALLOC, value.address()); }
     /** Unsafe version of {@link #realloc(RMTReallocI) realloc}. */

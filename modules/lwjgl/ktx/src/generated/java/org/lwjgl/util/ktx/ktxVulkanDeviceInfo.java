@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,39 +19,18 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.*;
 
 /**
- * Struct for passing information about the Vulkan device on which to create images to the texture image loading functions.
- * 
- * <p>Avoids passing a large number of parameters to each loading function. Use of {@link KTXVulkan#ktxVulkanDeviceInfo_Create VulkanDeviceInfo_Create} or {@link KTXVulkan#ktxVulkanDeviceInfo_Construct VulkanDeviceInfo_Construct} to populate
- * this structure is highly recommended.</p>
- * 
- * <pre><code>
- *     ktxVulkanDeviceInfo vdi;
- *     ktxVulkanTexture texture;
- *  
- *     vdi = ktxVulkanDeviceInfo_create(physicalDevice,
- *                                      device,
- *                                      queue,
- *                                      cmdPool,
- *                                      &amp;allocator);
- *     ktxLoadVkTextureN("texture_1.ktx", vdi, &amp;texture, NULL, NULL);
- *     // ...
- *     ktxLoadVkTextureN("texture_n.ktx", vdi, &amp;texture, NULL, NULL);
- *     ktxVulkanDeviceInfo_destroy(vdi);</code></pre>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ktxVulkanDeviceInfo {
- *     VkInstance {@link #instance};
- *     VkPhysicalDevice {@link #physicalDevice};
- *     VkDevice {@link #device};
- *     VkQueue {@link #queue};
- *     VkCommandBuffer {@link #cmdBuffer};
- *     VkCommandPool {@link #cmdPool};
- *     {@link VkAllocationCallbacks VkAllocationCallbacks} const * {@link #pAllocator};
- *     {@link VkPhysicalDeviceMemoryProperties VkPhysicalDeviceMemoryProperties} {@link #deviceMemoryProperties};
- *     {@link ktxVulkanFunctions ktxVulkanFunctions} {@link #vkFuncs};
- * }</code></pre>
+ *     VkInstance instance;
+ *     VkPhysicalDevice physicalDevice;
+ *     VkDevice device;
+ *     VkQueue queue;
+ *     VkCommandBuffer cmdBuffer;
+ *     VkCommandPool cmdPool;
+ *     {@link VkAllocationCallbacks VkAllocationCallbacks} const * pAllocator;
+ *     {@link VkPhysicalDeviceMemoryProperties VkPhysicalDeviceMemoryProperties} deviceMemoryProperties;
+ *     {@link ktxVulkanFunctions ktxVulkanFunctions} vkFuncs;
+ * }}</pre>
  */
 public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements NativeResource {
 
@@ -122,52 +101,51 @@ public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** instance used to communicate with vulkan */
+    /** @return the value of the {@code instance} field. */
     @NativeType("VkInstance")
     public long instance() { return ninstance(address()); }
-    /** handle of the physical device */
+    /** @return the value of the {@code physicalDevice} field. */
     @NativeType("VkPhysicalDevice")
     public long physicalDevice() { return nphysicalDevice(address()); }
-    /** handle of the logical device */
+    /** @return the value of the {@code device} field. */
     @NativeType("VkDevice")
     public long device() { return ndevice(address()); }
-    /** handle to the queue to which to submit commands */
+    /** @return the value of the {@code queue} field. */
     @NativeType("VkQueue")
     public long queue() { return nqueue(address()); }
-    /** handle of the cmdBuffer to use */
+    /** @return the value of the {@code cmdBuffer} field. */
     @NativeType("VkCommandBuffer")
     public long cmdBuffer() { return ncmdBuffer(address()); }
-    /** handle of the command pool from which to allocate the command buffer */
+    /** @return the value of the {@code cmdPool} field. */
     @NativeType("VkCommandPool")
     public long cmdPool() { return ncmdPool(address()); }
-    /** pointer to the allocator to use for the command buffer and created images */
-    @Nullable
+    /** @return a {@link VkAllocationCallbacks} view of the struct pointed to by the {@code pAllocator} field. */
     @NativeType("VkAllocationCallbacks const *")
-    public VkAllocationCallbacks pAllocator() { return npAllocator(address()); }
-    /** memory properties of the Vulkan physical device */
+    public @Nullable VkAllocationCallbacks pAllocator() { return npAllocator(address()); }
+    /** @return a {@link VkPhysicalDeviceMemoryProperties} view of the {@code deviceMemoryProperties} field. */
     public VkPhysicalDeviceMemoryProperties deviceMemoryProperties() { return ndeviceMemoryProperties(address()); }
-    /** the functions needed to operate functions */
+    /** @return a {@link ktxVulkanFunctions} view of the {@code vkFuncs} field. */
     public ktxVulkanFunctions vkFuncs() { return nvkFuncs(address()); }
 
-    /** Sets the specified value to the {@link #instance} field. */
+    /** Sets the specified value to the {@code instance} field. */
     public ktxVulkanDeviceInfo instance(VkInstance value) { ninstance(address(), value); return this; }
-    /** Sets the specified value to the {@link #physicalDevice} field. */
+    /** Sets the specified value to the {@code physicalDevice} field. */
     public ktxVulkanDeviceInfo physicalDevice(VkPhysicalDevice value) { nphysicalDevice(address(), value); return this; }
-    /** Sets the specified value to the {@link #device} field. */
+    /** Sets the specified value to the {@code device} field. */
     public ktxVulkanDeviceInfo device(VkDevice value) { ndevice(address(), value); return this; }
-    /** Sets the specified value to the {@link #queue} field. */
+    /** Sets the specified value to the {@code queue} field. */
     public ktxVulkanDeviceInfo queue(VkQueue value) { nqueue(address(), value); return this; }
-    /** Sets the specified value to the {@link #cmdBuffer} field. */
+    /** Sets the specified value to the {@code cmdBuffer} field. */
     public ktxVulkanDeviceInfo cmdBuffer(VkCommandBuffer value) { ncmdBuffer(address(), value); return this; }
-    /** Sets the specified value to the {@link #cmdPool} field. */
+    /** Sets the specified value to the {@code cmdPool} field. */
     public ktxVulkanDeviceInfo cmdPool(@NativeType("VkCommandPool") long value) { ncmdPool(address(), value); return this; }
-    /** Sets the address of the specified {@link VkAllocationCallbacks} to the {@link #pAllocator} field. */
+    /** Sets the address of the specified {@link VkAllocationCallbacks} to the {@code pAllocator} field. */
     public ktxVulkanDeviceInfo pAllocator(@Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks value) { npAllocator(address(), value); return this; }
-    /** Copies the specified {@link VkPhysicalDeviceMemoryProperties} to the {@link #deviceMemoryProperties} field. */
+    /** Copies the specified {@link VkPhysicalDeviceMemoryProperties} to the {@code deviceMemoryProperties} field. */
     public ktxVulkanDeviceInfo deviceMemoryProperties(VkPhysicalDeviceMemoryProperties value) { ndeviceMemoryProperties(address(), value); return this; }
-    /** Copies the specified {@link ktxVulkanFunctions} to the {@link #vkFuncs} field. */
+    /** Copies the specified {@link ktxVulkanFunctions} to the {@code vkFuncs} field. */
     public ktxVulkanDeviceInfo vkFuncs(ktxVulkanFunctions value) { nvkFuncs(address(), value); return this; }
-    /** Passes the {@link #vkFuncs} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code vkFuncs} field to the specified {@link java.util.function.Consumer Consumer}. */
     public ktxVulkanDeviceInfo vkFuncs(java.util.function.Consumer<ktxVulkanFunctions> consumer) { consumer.accept(vkFuncs()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -231,8 +209,7 @@ public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxVulkanDeviceInfo createSafe(long address) {
+    public static @Nullable ktxVulkanDeviceInfo createSafe(long address) {
         return address == NULL ? null : new ktxVulkanDeviceInfo(address, null);
     }
 
@@ -275,8 +252,7 @@ public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxVulkanDeviceInfo.Buffer createSafe(long address, int capacity) {
+    public static ktxVulkanDeviceInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -331,9 +307,9 @@ public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements 
     /** Unsafe version of {@link #cmdBuffer}. */
     public static long ncmdBuffer(long struct) { return memGetAddress(struct + ktxVulkanDeviceInfo.CMDBUFFER); }
     /** Unsafe version of {@link #cmdPool}. */
-    public static long ncmdPool(long struct) { return UNSAFE.getLong(null, struct + ktxVulkanDeviceInfo.CMDPOOL); }
+    public static long ncmdPool(long struct) { return memGetLong(struct + ktxVulkanDeviceInfo.CMDPOOL); }
     /** Unsafe version of {@link #pAllocator}. */
-    @Nullable public static VkAllocationCallbacks npAllocator(long struct) { return VkAllocationCallbacks.createSafe(memGetAddress(struct + ktxVulkanDeviceInfo.PALLOCATOR)); }
+    public static @Nullable VkAllocationCallbacks npAllocator(long struct) { return VkAllocationCallbacks.createSafe(memGetAddress(struct + ktxVulkanDeviceInfo.PALLOCATOR)); }
     /** Unsafe version of {@link #deviceMemoryProperties}. */
     public static VkPhysicalDeviceMemoryProperties ndeviceMemoryProperties(long struct) { return VkPhysicalDeviceMemoryProperties.create(struct + ktxVulkanDeviceInfo.DEVICEMEMORYPROPERTIES); }
     /** Unsafe version of {@link #vkFuncs}. */
@@ -350,7 +326,7 @@ public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements 
     /** Unsafe version of {@link #cmdBuffer(VkCommandBuffer) cmdBuffer}. */
     public static void ncmdBuffer(long struct, VkCommandBuffer value) { memPutAddress(struct + ktxVulkanDeviceInfo.CMDBUFFER, value.address()); }
     /** Unsafe version of {@link #cmdPool(long) cmdPool}. */
-    public static void ncmdPool(long struct, long value) { UNSAFE.putLong(null, struct + ktxVulkanDeviceInfo.CMDPOOL, value); }
+    public static void ncmdPool(long struct, long value) { memPutLong(struct + ktxVulkanDeviceInfo.CMDPOOL, value); }
     /** Unsafe version of {@link #pAllocator(VkAllocationCallbacks) pAllocator}. */
     public static void npAllocator(long struct, @Nullable VkAllocationCallbacks value) { memPutAddress(struct + ktxVulkanDeviceInfo.PALLOCATOR, memAddressSafe(value)); }
     /** Unsafe version of {@link #deviceMemoryProperties(VkPhysicalDeviceMemoryProperties) deviceMemoryProperties}. */
@@ -406,56 +382,60 @@ public class ktxVulkanDeviceInfo extends Struct<ktxVulkanDeviceInfo> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ktxVulkanDeviceInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ktxVulkanDeviceInfo#instance} field. */
+        /** @return the value of the {@code instance} field. */
         @NativeType("VkInstance")
         public long instance() { return ktxVulkanDeviceInfo.ninstance(address()); }
-        /** @return the value of the {@link ktxVulkanDeviceInfo#physicalDevice} field. */
+        /** @return the value of the {@code physicalDevice} field. */
         @NativeType("VkPhysicalDevice")
         public long physicalDevice() { return ktxVulkanDeviceInfo.nphysicalDevice(address()); }
-        /** @return the value of the {@link ktxVulkanDeviceInfo#device} field. */
+        /** @return the value of the {@code device} field. */
         @NativeType("VkDevice")
         public long device() { return ktxVulkanDeviceInfo.ndevice(address()); }
-        /** @return the value of the {@link ktxVulkanDeviceInfo#queue} field. */
+        /** @return the value of the {@code queue} field. */
         @NativeType("VkQueue")
         public long queue() { return ktxVulkanDeviceInfo.nqueue(address()); }
-        /** @return the value of the {@link ktxVulkanDeviceInfo#cmdBuffer} field. */
+        /** @return the value of the {@code cmdBuffer} field. */
         @NativeType("VkCommandBuffer")
         public long cmdBuffer() { return ktxVulkanDeviceInfo.ncmdBuffer(address()); }
-        /** @return the value of the {@link ktxVulkanDeviceInfo#cmdPool} field. */
+        /** @return the value of the {@code cmdPool} field. */
         @NativeType("VkCommandPool")
         public long cmdPool() { return ktxVulkanDeviceInfo.ncmdPool(address()); }
-        /** @return a {@link VkAllocationCallbacks} view of the struct pointed to by the {@link ktxVulkanDeviceInfo#pAllocator} field. */
-        @Nullable
+        /** @return a {@link VkAllocationCallbacks} view of the struct pointed to by the {@code pAllocator} field. */
         @NativeType("VkAllocationCallbacks const *")
-        public VkAllocationCallbacks pAllocator() { return ktxVulkanDeviceInfo.npAllocator(address()); }
-        /** @return a {@link VkPhysicalDeviceMemoryProperties} view of the {@link ktxVulkanDeviceInfo#deviceMemoryProperties} field. */
+        public @Nullable VkAllocationCallbacks pAllocator() { return ktxVulkanDeviceInfo.npAllocator(address()); }
+        /** @return a {@link VkPhysicalDeviceMemoryProperties} view of the {@code deviceMemoryProperties} field. */
         public VkPhysicalDeviceMemoryProperties deviceMemoryProperties() { return ktxVulkanDeviceInfo.ndeviceMemoryProperties(address()); }
-        /** @return a {@link ktxVulkanFunctions} view of the {@link ktxVulkanDeviceInfo#vkFuncs} field. */
+        /** @return a {@link ktxVulkanFunctions} view of the {@code vkFuncs} field. */
         public ktxVulkanFunctions vkFuncs() { return ktxVulkanDeviceInfo.nvkFuncs(address()); }
 
-        /** Sets the specified value to the {@link ktxVulkanDeviceInfo#instance} field. */
+        /** Sets the specified value to the {@code instance} field. */
         public ktxVulkanDeviceInfo.Buffer instance(VkInstance value) { ktxVulkanDeviceInfo.ninstance(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxVulkanDeviceInfo#physicalDevice} field. */
+        /** Sets the specified value to the {@code physicalDevice} field. */
         public ktxVulkanDeviceInfo.Buffer physicalDevice(VkPhysicalDevice value) { ktxVulkanDeviceInfo.nphysicalDevice(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxVulkanDeviceInfo#device} field. */
+        /** Sets the specified value to the {@code device} field. */
         public ktxVulkanDeviceInfo.Buffer device(VkDevice value) { ktxVulkanDeviceInfo.ndevice(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxVulkanDeviceInfo#queue} field. */
+        /** Sets the specified value to the {@code queue} field. */
         public ktxVulkanDeviceInfo.Buffer queue(VkQueue value) { ktxVulkanDeviceInfo.nqueue(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxVulkanDeviceInfo#cmdBuffer} field. */
+        /** Sets the specified value to the {@code cmdBuffer} field. */
         public ktxVulkanDeviceInfo.Buffer cmdBuffer(VkCommandBuffer value) { ktxVulkanDeviceInfo.ncmdBuffer(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxVulkanDeviceInfo#cmdPool} field. */
+        /** Sets the specified value to the {@code cmdPool} field. */
         public ktxVulkanDeviceInfo.Buffer cmdPool(@NativeType("VkCommandPool") long value) { ktxVulkanDeviceInfo.ncmdPool(address(), value); return this; }
-        /** Sets the address of the specified {@link VkAllocationCallbacks} to the {@link ktxVulkanDeviceInfo#pAllocator} field. */
+        /** Sets the address of the specified {@link VkAllocationCallbacks} to the {@code pAllocator} field. */
         public ktxVulkanDeviceInfo.Buffer pAllocator(@Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks value) { ktxVulkanDeviceInfo.npAllocator(address(), value); return this; }
-        /** Copies the specified {@link VkPhysicalDeviceMemoryProperties} to the {@link ktxVulkanDeviceInfo#deviceMemoryProperties} field. */
+        /** Copies the specified {@link VkPhysicalDeviceMemoryProperties} to the {@code deviceMemoryProperties} field. */
         public ktxVulkanDeviceInfo.Buffer deviceMemoryProperties(VkPhysicalDeviceMemoryProperties value) { ktxVulkanDeviceInfo.ndeviceMemoryProperties(address(), value); return this; }
-        /** Copies the specified {@link ktxVulkanFunctions} to the {@link ktxVulkanDeviceInfo#vkFuncs} field. */
+        /** Copies the specified {@link ktxVulkanFunctions} to the {@code vkFuncs} field. */
         public ktxVulkanDeviceInfo.Buffer vkFuncs(ktxVulkanFunctions value) { ktxVulkanDeviceInfo.nvkFuncs(address(), value); return this; }
-        /** Passes the {@link ktxVulkanDeviceInfo#vkFuncs} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code vkFuncs} field to the specified {@link java.util.function.Consumer Consumer}. */
         public ktxVulkanDeviceInfo.Buffer vkFuncs(java.util.function.Consumer<ktxVulkanFunctions> consumer) { consumer.accept(vkFuncs()); return this; }
 
     }

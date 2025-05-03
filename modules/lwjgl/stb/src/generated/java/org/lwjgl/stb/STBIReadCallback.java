@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,18 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;
 
-/**
- * Instances of this class may be set to the {@code read} field of the {@link STBIIOCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *user,
- *     char *data,
- *     int size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class STBIReadCallback extends Callback implements STBIReadCallbackI {
 
     /**
@@ -40,8 +29,7 @@ public abstract class STBIReadCallback extends Callback implements STBIReadCallb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static STBIReadCallback createSafe(long functionPointer) {
+    public static @Nullable STBIReadCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

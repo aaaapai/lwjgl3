@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link XrGraphicsRequirementsVulkanKHR}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrGraphicsRequirementsVulkan2KHR {
  *     XrStructureType type;
  *     void * next;
  *     XrVersion minApiVersionSupported;
  *     XrVersion maxApiVersionSupported;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrGraphicsRequirementsVulkan2KHR extends XrGraphicsRequirementsVulkanKHR {
 
@@ -117,8 +113,7 @@ public class XrGraphicsRequirementsVulkan2KHR extends XrGraphicsRequirementsVulk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsRequirementsVulkan2KHR createSafe(long address) {
+    public static @Nullable XrGraphicsRequirementsVulkan2KHR createSafe(long address) {
         return address == NULL ? null : new XrGraphicsRequirementsVulkan2KHR(address, null);
     }
 
@@ -161,8 +156,7 @@ public class XrGraphicsRequirementsVulkan2KHR extends XrGraphicsRequirementsVulk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsRequirementsVulkan2KHR.Buffer createSafe(long address, int capacity) {
+    public static XrGraphicsRequirementsVulkan2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,6 +229,11 @@ public class XrGraphicsRequirementsVulkan2KHR extends XrGraphicsRequirementsVulk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,11 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The module class descriptor.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Module_Class {
  *     FT_ULong module_flags;
  *     FT_Long module_size;
@@ -32,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link FT_Module_ConstructorI FT_Module_Constructor} module_init;
  *     {@link FT_Module_DestructorI FT_Module_Destructor} module_done;
  *     {@link FT_Module_RequesterI FT_Module_Requester} get_interface;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeResource {
 
@@ -121,23 +117,15 @@ public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeRe
     /** @return the value of the {@code module_requires} field. */
     @NativeType("FT_Fixed")
     public long module_requires() { return nmodule_requires(address()); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code module_interface} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code module_interface} field. */
     @NativeType("void const *")
-    public ByteBuffer module_interface(int capacity) { return nmodule_interface(address(), capacity); }
+    public @Nullable ByteBuffer module_interface(int capacity) { return nmodule_interface(address(), capacity); }
     /** @return the value of the {@code module_init} field. */
-    @Nullable
-    public FT_Module_Constructor module_init() { return nmodule_init(address()); }
+    public @Nullable FT_Module_Constructor module_init() { return nmodule_init(address()); }
     /** @return the value of the {@code module_done} field. */
-    @Nullable
-    public FT_Module_Destructor module_done() { return nmodule_done(address()); }
+    public @Nullable FT_Module_Destructor module_done() { return nmodule_done(address()); }
     /** @return the value of the {@code get_interface} field. */
-    @Nullable
-    public FT_Module_Requester get_interface() { return nget_interface(address()); }
+    public @Nullable FT_Module_Requester get_interface() { return nget_interface(address()); }
 
     /** Sets the specified value to the {@code module_flags} field. */
     public FT_Module_Class module_flags(@NativeType("FT_ULong") long value) { nmodule_flags(address(), value); return this; }
@@ -219,8 +207,7 @@ public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Module_Class createSafe(long address) {
+    public static @Nullable FT_Module_Class createSafe(long address) {
         return address == NULL ? null : new FT_Module_Class(address, null);
     }
 
@@ -263,8 +250,7 @@ public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Module_Class.Buffer createSafe(long address, int capacity) {
+    public static FT_Module_Class.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -321,13 +307,13 @@ public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeRe
     /** Unsafe version of {@link #module_requires}. */
     public static long nmodule_requires(long struct) { return memGetCLong(struct + FT_Module_Class.MODULE_REQUIRES); }
     /** Unsafe version of {@link #module_interface(int) module_interface}. */
-    @Nullable public static ByteBuffer nmodule_interface(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_Module_Class.MODULE_INTERFACE), capacity); }
+    public static @Nullable ByteBuffer nmodule_interface(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_Module_Class.MODULE_INTERFACE), capacity); }
     /** Unsafe version of {@link #module_init}. */
-    @Nullable public static FT_Module_Constructor nmodule_init(long struct) { return FT_Module_Constructor.createSafe(memGetAddress(struct + FT_Module_Class.MODULE_INIT)); }
+    public static @Nullable FT_Module_Constructor nmodule_init(long struct) { return FT_Module_Constructor.createSafe(memGetAddress(struct + FT_Module_Class.MODULE_INIT)); }
     /** Unsafe version of {@link #module_done}. */
-    @Nullable public static FT_Module_Destructor nmodule_done(long struct) { return FT_Module_Destructor.createSafe(memGetAddress(struct + FT_Module_Class.MODULE_DONE)); }
+    public static @Nullable FT_Module_Destructor nmodule_done(long struct) { return FT_Module_Destructor.createSafe(memGetAddress(struct + FT_Module_Class.MODULE_DONE)); }
     /** Unsafe version of {@link #get_interface}. */
-    @Nullable public static FT_Module_Requester nget_interface(long struct) { return FT_Module_Requester.createSafe(memGetAddress(struct + FT_Module_Class.GET_INTERFACE)); }
+    public static @Nullable FT_Module_Requester nget_interface(long struct) { return FT_Module_Requester.createSafe(memGetAddress(struct + FT_Module_Class.GET_INTERFACE)); }
 
     /** Unsafe version of {@link #module_flags(long) module_flags}. */
     public static void nmodule_flags(long struct, long value) { memPutCLong(struct + FT_Module_Class.MODULE_FLAGS, value); }
@@ -394,6 +380,11 @@ public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_Module_Class getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -416,23 +407,15 @@ public class FT_Module_Class extends Struct<FT_Module_Class> implements NativeRe
         /** @return the value of the {@code module_requires} field. */
         @NativeType("FT_Fixed")
         public long module_requires() { return FT_Module_Class.nmodule_requires(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code module_interface} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code module_interface} field. */
         @NativeType("void const *")
-        public ByteBuffer module_interface(int capacity) { return FT_Module_Class.nmodule_interface(address(), capacity); }
+        public @Nullable ByteBuffer module_interface(int capacity) { return FT_Module_Class.nmodule_interface(address(), capacity); }
         /** @return the value of the {@code module_init} field. */
-        @Nullable
-        public FT_Module_Constructor module_init() { return FT_Module_Class.nmodule_init(address()); }
+        public @Nullable FT_Module_Constructor module_init() { return FT_Module_Class.nmodule_init(address()); }
         /** @return the value of the {@code module_done} field. */
-        @Nullable
-        public FT_Module_Destructor module_done() { return FT_Module_Class.nmodule_done(address()); }
+        public @Nullable FT_Module_Destructor module_done() { return FT_Module_Class.nmodule_done(address()); }
         /** @return the value of the {@code get_interface} field. */
-        @Nullable
-        public FT_Module_Requester get_interface() { return FT_Module_Class.nget_interface(address()); }
+        public @Nullable FT_Module_Requester get_interface() { return FT_Module_Class.nget_interface(address()); }
 
         /** Sets the specified value to the {@code module_flags} field. */
         public FT_Module_Class.Buffer module_flags(@NativeType("FT_ULong") long value) { FT_Module_Class.nmodule_flags(address(), value); return this; }

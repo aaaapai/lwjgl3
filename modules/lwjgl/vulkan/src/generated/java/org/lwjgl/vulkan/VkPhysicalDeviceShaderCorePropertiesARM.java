@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing shader core properties that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If a throughput rate cannot be determined on the physical device, the value 0 will be returned for that rate.</p>
- * 
- * <p>If the {@link VkPhysicalDeviceShaderCorePropertiesARM} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link ARMShaderCoreProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShaderCorePropertiesARM {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #pixelRate};
- *     uint32_t {@link #texelRate};
- *     uint32_t {@link #fmaRate};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t pixelRate;
+ *     uint32_t texelRate;
+ *     uint32_t fmaRate;
+ * }}</pre>
  */
 public class VkPhysicalDeviceShaderCorePropertiesARM extends Struct<VkPhysicalDeviceShaderCorePropertiesARM> implements NativeResource {
 
@@ -98,27 +82,27 @@ public class VkPhysicalDeviceShaderCorePropertiesARM extends Struct<VkPhysicalDe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** an unsigned integer value indicating the maximum number of pixels output per clock per shader core. */
+    /** @return the value of the {@code pixelRate} field. */
     @NativeType("uint32_t")
     public int pixelRate() { return npixelRate(address()); }
-    /** an unsigned integer value indicating the maximum number of texels per clock per shader core. */
+    /** @return the value of the {@code texelRate} field. */
     @NativeType("uint32_t")
     public int texelRate() { return ntexelRate(address()); }
-    /** an unsigned integer value indicating the maximum number of single-precision fused multiply-add operations per clock per shader core. */
+    /** @return the value of the {@code fmaRate} field. */
     @NativeType("uint32_t")
     public int fmaRate() { return nfmaRate(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceShaderCorePropertiesARM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link ARMShaderCoreProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM} value to the {@link #sType} field. */
+    /** Sets the {@link ARMShaderCoreProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM} value to the {@code sType} field. */
     public VkPhysicalDeviceShaderCorePropertiesARM sType$Default() { return sType(ARMShaderCoreProperties.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceShaderCorePropertiesARM pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -168,8 +152,7 @@ public class VkPhysicalDeviceShaderCorePropertiesARM extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderCorePropertiesARM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderCorePropertiesARM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderCorePropertiesARM(address, null);
     }
 
@@ -212,8 +195,7 @@ public class VkPhysicalDeviceShaderCorePropertiesARM extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderCorePropertiesARM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderCorePropertiesARM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,18 +240,18 @@ public class VkPhysicalDeviceShaderCorePropertiesARM extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCorePropertiesARM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCorePropertiesARM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderCorePropertiesARM.PNEXT); }
     /** Unsafe version of {@link #pixelRate}. */
-    public static int npixelRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCorePropertiesARM.PIXELRATE); }
+    public static int npixelRate(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCorePropertiesARM.PIXELRATE); }
     /** Unsafe version of {@link #texelRate}. */
-    public static int ntexelRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCorePropertiesARM.TEXELRATE); }
+    public static int ntexelRate(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCorePropertiesARM.TEXELRATE); }
     /** Unsafe version of {@link #fmaRate}. */
-    public static int nfmaRate(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderCorePropertiesARM.FMARATE); }
+    public static int nfmaRate(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderCorePropertiesARM.FMARATE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderCorePropertiesARM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderCorePropertiesARM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderCorePropertiesARM.PNEXT, value); }
 
@@ -307,31 +289,36 @@ public class VkPhysicalDeviceShaderCorePropertiesARM extends Struct<VkPhysicalDe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceShaderCorePropertiesARM getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceShaderCorePropertiesARM#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceShaderCorePropertiesARM.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderCorePropertiesARM#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceShaderCorePropertiesARM.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderCorePropertiesARM#pixelRate} field. */
+        /** @return the value of the {@code pixelRate} field. */
         @NativeType("uint32_t")
         public int pixelRate() { return VkPhysicalDeviceShaderCorePropertiesARM.npixelRate(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderCorePropertiesARM#texelRate} field. */
+        /** @return the value of the {@code texelRate} field. */
         @NativeType("uint32_t")
         public int texelRate() { return VkPhysicalDeviceShaderCorePropertiesARM.ntexelRate(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderCorePropertiesARM#fmaRate} field. */
+        /** @return the value of the {@code fmaRate} field. */
         @NativeType("uint32_t")
         public int fmaRate() { return VkPhysicalDeviceShaderCorePropertiesARM.nfmaRate(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderCorePropertiesARM#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceShaderCorePropertiesARM.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceShaderCorePropertiesARM.nsType(address(), value); return this; }
-        /** Sets the {@link ARMShaderCoreProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM} value to the {@link VkPhysicalDeviceShaderCorePropertiesARM#sType} field. */
+        /** Sets the {@link ARMShaderCoreProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM} value to the {@code sType} field. */
         public VkPhysicalDeviceShaderCorePropertiesARM.Buffer sType$Default() { return sType(ARMShaderCoreProperties.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderCorePropertiesARM#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceShaderCorePropertiesARM.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShaderCorePropertiesARM.npNext(address(), value); return this; }
 
     }

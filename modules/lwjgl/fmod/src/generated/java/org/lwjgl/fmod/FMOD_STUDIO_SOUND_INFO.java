@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,15 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FMOD_STUDIO_SOUND_INFO {
  *     char const * name_or_data;
  *     FMOD_MODE mode;
  *     {@link FMOD_CREATESOUNDEXINFO FMOD_CREATESOUNDEXINFO} exinfo;
  *     int subsoundindex;
- * }</code></pre>
+ * }}</pre>
  */
 public class FMOD_STUDIO_SOUND_INFO extends Struct<FMOD_STUDIO_SOUND_INFO> implements NativeResource {
 
@@ -81,11 +79,7 @@ public class FMOD_STUDIO_SOUND_INFO extends Struct<FMOD_STUDIO_SOUND_INFO> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code name_or_data} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code name_or_data} field. */
     @NativeType("char const *")
     public ByteBuffer name_or_data(int capacity) { return nname_or_data(address(), capacity); }
     /** @return the value of the {@code mode} field. */
@@ -158,8 +152,7 @@ public class FMOD_STUDIO_SOUND_INFO extends Struct<FMOD_STUDIO_SOUND_INFO> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_SOUND_INFO createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_SOUND_INFO createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_SOUND_INFO(address, null);
     }
 
@@ -202,8 +195,7 @@ public class FMOD_STUDIO_SOUND_INFO extends Struct<FMOD_STUDIO_SOUND_INFO> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_SOUND_INFO.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_SOUND_INFO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,20 +242,20 @@ public class FMOD_STUDIO_SOUND_INFO extends Struct<FMOD_STUDIO_SOUND_INFO> imple
     /** Unsafe version of {@link #name_or_data(int) name_or_data}. */
     public static ByteBuffer nname_or_data(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + FMOD_STUDIO_SOUND_INFO.NAME_OR_DATA), capacity); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_SOUND_INFO.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + FMOD_STUDIO_SOUND_INFO.MODE); }
     /** Unsafe version of {@link #exinfo}. */
     public static FMOD_CREATESOUNDEXINFO nexinfo(long struct) { return FMOD_CREATESOUNDEXINFO.create(struct + FMOD_STUDIO_SOUND_INFO.EXINFO); }
     /** Unsafe version of {@link #subsoundindex}. */
-    public static int nsubsoundindex(long struct) { return UNSAFE.getInt(null, struct + FMOD_STUDIO_SOUND_INFO.SUBSOUNDINDEX); }
+    public static int nsubsoundindex(long struct) { return memGetInt(struct + FMOD_STUDIO_SOUND_INFO.SUBSOUNDINDEX); }
 
     /** Unsafe version of {@link #name_or_data(ByteBuffer) name_or_data}. */
     public static void nname_or_data(long struct, ByteBuffer value) { memPutAddress(struct + FMOD_STUDIO_SOUND_INFO.NAME_OR_DATA, memAddress(value)); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_SOUND_INFO.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + FMOD_STUDIO_SOUND_INFO.MODE, value); }
     /** Unsafe version of {@link #exinfo(FMOD_CREATESOUNDEXINFO) exinfo}. */
     public static void nexinfo(long struct, FMOD_CREATESOUNDEXINFO value) { memCopy(value.address(), struct + FMOD_STUDIO_SOUND_INFO.EXINFO, FMOD_CREATESOUNDEXINFO.SIZEOF); }
     /** Unsafe version of {@link #subsoundindex(int) subsoundindex}. */
-    public static void nsubsoundindex(long struct, int value) { UNSAFE.putInt(null, struct + FMOD_STUDIO_SOUND_INFO.SUBSOUNDINDEX, value); }
+    public static void nsubsoundindex(long struct, int value) { memPutInt(struct + FMOD_STUDIO_SOUND_INFO.SUBSOUNDINDEX, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -309,15 +301,16 @@ public class FMOD_STUDIO_SOUND_INFO extends Struct<FMOD_STUDIO_SOUND_INFO> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FMOD_STUDIO_SOUND_INFO getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code name_or_data} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code name_or_data} field. */
         @NativeType("char const *")
         public ByteBuffer name_or_data(int capacity) { return FMOD_STUDIO_SOUND_INFO.nname_or_data(address(), capacity); }
         /** @return the value of the {@code mode} field. */

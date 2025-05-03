@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,30 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the information to locate hand joints.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTHandTracking XR_EXT_hand_tracking} extension <b>must</b> be enabled prior to using {@link XrHandJointsLocateInfoEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTHandTracking#XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT TYPE_HAND_JOINTS_LOCATE_INFO_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrHandJointsMotionRangeInfoEXT}</li>
- * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTHandTracking#xrLocateHandJointsEXT LocateHandJointsEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrHandJointsLocateInfoEXT {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpace {@link #baseSpace};
- *     XrTime {@link #time};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpace baseSpace;
+ *     XrTime time;
+ * }}</pre>
  */
 public class XrHandJointsLocateInfoEXT extends Struct<XrHandJointsLocateInfoEXT> implements NativeResource {
 
@@ -96,30 +79,30 @@ public class XrHandJointsLocateInfoEXT extends Struct<XrHandJointsLocateInfoEXT>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrSpace} within which the returned hand joint locations will be represented. */
+    /** @return the value of the {@code baseSpace} field. */
     @NativeType("XrSpace")
     public long baseSpace() { return nbaseSpace(address()); }
-    /** an {@code XrTime} at which to locate the hand joints. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrHandJointsLocateInfoEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTHandTracking#XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT TYPE_HAND_JOINTS_LOCATE_INFO_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTHandTracking#XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT TYPE_HAND_JOINTS_LOCATE_INFO_EXT} value to the {@code type} field. */
     public XrHandJointsLocateInfoEXT type$Default() { return type(EXTHandTracking.XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrHandJointsLocateInfoEXT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrHandJointsMotionRangeInfoEXT} value to the {@code next} chain. */
     public XrHandJointsLocateInfoEXT next(XrHandJointsMotionRangeInfoEXT value) { return this.next(value.next(this.next()).address()); }
-    /** Sets the specified value to the {@link #baseSpace} field. */
+    /** Sets the specified value to the {@code baseSpace} field. */
     public XrHandJointsLocateInfoEXT baseSpace(XrSpace value) { nbaseSpace(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XrHandJointsLocateInfoEXT time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -173,8 +156,7 @@ public class XrHandJointsLocateInfoEXT extends Struct<XrHandJointsLocateInfoEXT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointsLocateInfoEXT createSafe(long address) {
+    public static @Nullable XrHandJointsLocateInfoEXT createSafe(long address) {
         return address == NULL ? null : new XrHandJointsLocateInfoEXT(address, null);
     }
 
@@ -217,8 +199,7 @@ public class XrHandJointsLocateInfoEXT extends Struct<XrHandJointsLocateInfoEXT>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandJointsLocateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static XrHandJointsLocateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,22 +244,22 @@ public class XrHandJointsLocateInfoEXT extends Struct<XrHandJointsLocateInfoEXT>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandJointsLocateInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandJointsLocateInfoEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandJointsLocateInfoEXT.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrHandJointsLocateInfoEXT.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrHandJointsLocateInfoEXT.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrHandJointsLocateInfoEXT.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandJointsLocateInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandJointsLocateInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandJointsLocateInfoEXT.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrHandJointsLocateInfoEXT.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrHandJointsLocateInfoEXT.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrHandJointsLocateInfoEXT.TIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -323,34 +304,39 @@ public class XrHandJointsLocateInfoEXT extends Struct<XrHandJointsLocateInfoEXT>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrHandJointsLocateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrHandJointsLocateInfoEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrHandJointsLocateInfoEXT.ntype(address()); }
-        /** @return the value of the {@link XrHandJointsLocateInfoEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrHandJointsLocateInfoEXT.nnext(address()); }
-        /** @return the value of the {@link XrHandJointsLocateInfoEXT#baseSpace} field. */
+        /** @return the value of the {@code baseSpace} field. */
         @NativeType("XrSpace")
         public long baseSpace() { return XrHandJointsLocateInfoEXT.nbaseSpace(address()); }
-        /** @return the value of the {@link XrHandJointsLocateInfoEXT#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrHandJointsLocateInfoEXT.ntime(address()); }
 
-        /** Sets the specified value to the {@link XrHandJointsLocateInfoEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrHandJointsLocateInfoEXT.Buffer type(@NativeType("XrStructureType") int value) { XrHandJointsLocateInfoEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTHandTracking#XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT TYPE_HAND_JOINTS_LOCATE_INFO_EXT} value to the {@link XrHandJointsLocateInfoEXT#type} field. */
+        /** Sets the {@link EXTHandTracking#XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT TYPE_HAND_JOINTS_LOCATE_INFO_EXT} value to the {@code type} field. */
         public XrHandJointsLocateInfoEXT.Buffer type$Default() { return type(EXTHandTracking.XR_TYPE_HAND_JOINTS_LOCATE_INFO_EXT); }
-        /** Sets the specified value to the {@link XrHandJointsLocateInfoEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrHandJointsLocateInfoEXT.Buffer next(@NativeType("void const *") long value) { XrHandJointsLocateInfoEXT.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrHandJointsMotionRangeInfoEXT} value to the {@code next} chain. */
         public XrHandJointsLocateInfoEXT.Buffer next(XrHandJointsMotionRangeInfoEXT value) { return this.next(value.next(this.next()).address()); }
-        /** Sets the specified value to the {@link XrHandJointsLocateInfoEXT#baseSpace} field. */
+        /** Sets the specified value to the {@code baseSpace} field. */
         public XrHandJointsLocateInfoEXT.Buffer baseSpace(XrSpace value) { XrHandJointsLocateInfoEXT.nbaseSpace(address(), value); return this; }
-        /** Sets the specified value to the {@link XrHandJointsLocateInfoEXT#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XrHandJointsLocateInfoEXT.Buffer time(@NativeType("XrTime") long value) { XrHandJointsLocateInfoEXT.ntime(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XUnmapEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window event;
  *     Window window;
  *     int from_configure;
- * }</code></pre>
+ * }}</pre>
  */
 public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
 
@@ -95,13 +93,13 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code event} field. */
@@ -115,11 +113,11 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
 
     /** Sets the specified value to the {@code type} field. */
     public XUnmapEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XUnmapEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XUnmapEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XUnmapEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code event} field. */
     public XUnmapEvent event(@NativeType("Window") long value) { nevent(address(), value); return this; }
@@ -185,8 +183,7 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XUnmapEvent createSafe(long address) {
+    public static @Nullable XUnmapEvent createSafe(long address) {
         return address == NULL ? null : new XUnmapEvent(address, null);
     }
 
@@ -229,8 +226,7 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XUnmapEvent.Buffer createSafe(long address, int capacity) {
+    public static XUnmapEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,11 +290,11 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XUnmapEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XUnmapEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XUnmapEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XUnmapEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XUnmapEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XUnmapEvent.DISPLAY); }
     /** Unsafe version of {@link #event}. */
@@ -306,14 +302,14 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XUnmapEvent.WINDOW); }
     /** Unsafe version of {@link #from_configure}. */
-    public static int nfrom_configure(long struct) { return UNSAFE.getInt(null, struct + XUnmapEvent.FROM_CONFIGURE); }
+    public static int nfrom_configure(long struct) { return memGetInt(struct + XUnmapEvent.FROM_CONFIGURE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XUnmapEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XUnmapEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XUnmapEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XUnmapEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XUnmapEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XUnmapEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #event(long) event}. */
@@ -321,7 +317,7 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XUnmapEvent.WINDOW, value); }
     /** Unsafe version of {@link #from_configure(int) from_configure}. */
-    public static void nfrom_configure(long struct, int value) { UNSAFE.putInt(null, struct + XUnmapEvent.FROM_CONFIGURE, value); }
+    public static void nfrom_configure(long struct, int value) { memPutInt(struct + XUnmapEvent.FROM_CONFIGURE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -366,19 +362,24 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XUnmapEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XUnmapEvent.ntype(address()); }
-        /** @return the value of the {@link XUnmapEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XUnmapEvent.nserial(address()); }
-        /** @return the value of the {@link XUnmapEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XUnmapEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XUnmapEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XUnmapEvent.ndisplay(address()); }
         /** @return the value of the {@code event} field. */
@@ -392,11 +393,11 @@ public class XUnmapEvent extends Struct<XUnmapEvent> implements NativeResource {
 
         /** Sets the specified value to the {@code type} field. */
         public XUnmapEvent.Buffer type(int value) { XUnmapEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XUnmapEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XUnmapEvent.Buffer serial(@NativeType("unsigned long") long value) { XUnmapEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XUnmapEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XUnmapEvent.Buffer send_event(@NativeType("Bool") boolean value) { XUnmapEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XUnmapEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XUnmapEvent.Buffer display(@NativeType("Display *") long value) { XUnmapEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code event} field. */
         public XUnmapEvent.Buffer event(@NativeType("Window") long value) { XUnmapEvent.nevent(address(), value); return this; }

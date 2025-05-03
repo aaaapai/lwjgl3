@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Binds a anim mesh to a specific point in time.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiMeshKey {
- *     double {@link #mTime};
- *     unsigned int {@link #mValue};
- * }</code></pre>
+ *     double mTime;
+ *     unsigned int mValue;
+ * }}</pre>
  */
 @NativeType("struct aiMeshKey")
 public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
@@ -75,18 +71,15 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** The time of this key */
+    /** @return the value of the {@code mTime} field. */
     public double mTime() { return nmTime(address()); }
-    /**
-     * Index into the {@link AIMesh}{@code ::mAnimMeshes} array of the mesh coresponding to the {@link AIMeshAnim} hosting this key frame. The referenced anim mesh is
-     * evaluated according to the rules defined in the docs for {@link AIAnimMesh}.
-     */
+    /** @return the value of the {@code mValue} field. */
     @NativeType("unsigned int")
     public int mValue() { return nmValue(address()); }
 
-    /** Sets the specified value to the {@link #mTime} field. */
+    /** Sets the specified value to the {@code mTime} field. */
     public AIMeshKey mTime(double value) { nmTime(address(), value); return this; }
-    /** Sets the specified value to the {@link #mValue} field. */
+    /** Sets the specified value to the {@code mValue} field. */
     public AIMeshKey mValue(@NativeType("unsigned int") int value) { nmValue(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -136,8 +129,7 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshKey createSafe(long address) {
+    public static @Nullable AIMeshKey createSafe(long address) {
         return address == NULL ? null : new AIMeshKey(address, null);
     }
 
@@ -180,8 +172,7 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshKey.Buffer createSafe(long address, int capacity) {
+    public static AIMeshKey.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,14 +236,14 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #mTime}. */
-    public static double nmTime(long struct) { return UNSAFE.getDouble(null, struct + AIMeshKey.MTIME); }
+    public static double nmTime(long struct) { return memGetDouble(struct + AIMeshKey.MTIME); }
     /** Unsafe version of {@link #mValue}. */
-    public static int nmValue(long struct) { return UNSAFE.getInt(null, struct + AIMeshKey.MVALUE); }
+    public static int nmValue(long struct) { return memGetInt(struct + AIMeshKey.MVALUE); }
 
     /** Unsafe version of {@link #mTime(double) mTime}. */
-    public static void nmTime(long struct, double value) { UNSAFE.putDouble(null, struct + AIMeshKey.MTIME, value); }
+    public static void nmTime(long struct, double value) { memPutDouble(struct + AIMeshKey.MTIME, value); }
     /** Unsafe version of {@link #mValue(int) mValue}. */
-    public static void nmValue(long struct, int value) { UNSAFE.putInt(null, struct + AIMeshKey.MVALUE, value); }
+    public static void nmValue(long struct, int value) { memPutInt(struct + AIMeshKey.MVALUE, value); }
 
     // -----------------------------------
 
@@ -288,19 +279,24 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIMeshKey getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIMeshKey#mTime} field. */
+        /** @return the value of the {@code mTime} field. */
         public double mTime() { return AIMeshKey.nmTime(address()); }
-        /** @return the value of the {@link AIMeshKey#mValue} field. */
+        /** @return the value of the {@code mValue} field. */
         @NativeType("unsigned int")
         public int mValue() { return AIMeshKey.nmValue(address()); }
 
-        /** Sets the specified value to the {@link AIMeshKey#mTime} field. */
+        /** Sets the specified value to the {@code mTime} field. */
         public AIMeshKey.Buffer mTime(double value) { AIMeshKey.nmTime(address(), value); return this; }
-        /** Sets the specified value to the {@link AIMeshKey#mValue} field. */
+        /** Sets the specified value to the {@code mValue} field. */
         public AIMeshKey.Buffer mValue(@NativeType("unsigned int") int value) { AIMeshKey.nmValue(address(), value); return this; }
 
     }

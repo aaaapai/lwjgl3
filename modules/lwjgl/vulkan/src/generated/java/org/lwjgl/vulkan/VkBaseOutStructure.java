@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Base structure for a read-only pointer chain.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link VkBaseOutStructure} can be used to facilitate iterating through a structure pointer chain that returns data back to the application.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkBaseOutStructure}, {@link EXTPipelineProperties#vkGetPipelinePropertiesEXT GetPipelinePropertiesEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBaseOutStructure {
- *     VkStructureType {@link #sType};
- *     {@link VkBaseOutStructure VkBaseOutStructure} * {@link #pNext};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     {@link VkBaseOutStructure VkBaseOutStructure} * pNext;
+ * }}</pre>
  */
 public class VkBaseOutStructure extends Struct<VkBaseOutStructure> implements NativeResource {
 
@@ -82,17 +70,16 @@ public class VkBaseOutStructure extends Struct<VkBaseOutStructure> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the structure type of the structure being iterated through. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
-    @Nullable
+    /** @return a {@link VkBaseOutStructure} view of the struct pointed to by the {@code pNext} field. */
     @NativeType("VkBaseOutStructure *")
-    public VkBaseOutStructure pNext() { return npNext(address()); }
+    public @Nullable VkBaseOutStructure pNext() { return npNext(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkBaseOutStructure sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the address of the specified {@link VkBaseOutStructure} to the {@link #pNext} field. */
+    /** Sets the address of the specified {@link VkBaseOutStructure} to the {@code pNext} field. */
     public VkBaseOutStructure pNext(@Nullable @NativeType("VkBaseOutStructure *") VkBaseOutStructure value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -142,8 +129,7 @@ public class VkBaseOutStructure extends Struct<VkBaseOutStructure> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBaseOutStructure createSafe(long address) {
+    public static @Nullable VkBaseOutStructure createSafe(long address) {
         return address == NULL ? null : new VkBaseOutStructure(address, null);
     }
 
@@ -186,8 +172,7 @@ public class VkBaseOutStructure extends Struct<VkBaseOutStructure> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBaseOutStructure.Buffer createSafe(long address, int capacity) {
+    public static VkBaseOutStructure.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,12 +236,12 @@ public class VkBaseOutStructure extends Struct<VkBaseOutStructure> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBaseOutStructure.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBaseOutStructure.STYPE); }
     /** Unsafe version of {@link #pNext}. */
-    @Nullable public static VkBaseOutStructure npNext(long struct) { return VkBaseOutStructure.createSafe(memGetAddress(struct + VkBaseOutStructure.PNEXT)); }
+    public static @Nullable VkBaseOutStructure npNext(long struct) { return VkBaseOutStructure.createSafe(memGetAddress(struct + VkBaseOutStructure.PNEXT)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBaseOutStructure.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBaseOutStructure.STYPE, value); }
     /** Unsafe version of {@link #pNext(VkBaseOutStructure) pNext}. */
     public static void npNext(long struct, @Nullable VkBaseOutStructure value) { memPutAddress(struct + VkBaseOutStructure.PNEXT, memAddressSafe(value)); }
 
@@ -294,21 +279,25 @@ public class VkBaseOutStructure extends Struct<VkBaseOutStructure> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBaseOutStructure getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBaseOutStructure#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkBaseOutStructure.nsType(address()); }
-        /** @return a {@link VkBaseOutStructure} view of the struct pointed to by the {@link VkBaseOutStructure#pNext} field. */
-        @Nullable
+        /** @return a {@link VkBaseOutStructure} view of the struct pointed to by the {@code pNext} field. */
         @NativeType("VkBaseOutStructure *")
-        public VkBaseOutStructure pNext() { return VkBaseOutStructure.npNext(address()); }
+        public @Nullable VkBaseOutStructure pNext() { return VkBaseOutStructure.npNext(address()); }
 
-        /** Sets the specified value to the {@link VkBaseOutStructure#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkBaseOutStructure.Buffer sType(@NativeType("VkStructureType") int value) { VkBaseOutStructure.nsType(address(), value); return this; }
-        /** Sets the address of the specified {@link VkBaseOutStructure} to the {@link VkBaseOutStructure#pNext} field. */
+        /** Sets the address of the specified {@link VkBaseOutStructure} to the {@code pNext} field. */
         public VkBaseOutStructure.Buffer pNext(@Nullable @NativeType("VkBaseOutStructure *") VkBaseOutStructure value) { VkBaseOutStructure.npNext(address(), value); return this; }
 
     }

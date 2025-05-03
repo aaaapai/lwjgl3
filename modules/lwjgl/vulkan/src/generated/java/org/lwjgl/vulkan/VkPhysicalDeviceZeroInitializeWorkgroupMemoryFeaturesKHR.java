@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 shaderZeroInitializeWorkgroupMemory;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR extends VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
 
@@ -111,8 +107,7 @@ public class VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR extends Vk
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR(address, null);
     }
 
@@ -155,8 +150,7 @@ public class VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR extends Vk
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,6 +223,11 @@ public class VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR extends Vk
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

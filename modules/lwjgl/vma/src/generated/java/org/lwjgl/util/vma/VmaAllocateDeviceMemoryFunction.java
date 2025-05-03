@@ -5,26 +5,13 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@link VmaDeviceMemoryCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     VmaAllocator allocator,
- *     uint32_t memoryType,
- *     VkDeviceMemory memory,
- *     VkDeviceSize size,
- *     void *pUserData
- * )</code></pre>
- */
+/** Callback function: {@link #invoke PFN_vmaAllocateDeviceMemoryFunction} */
 public abstract class VmaAllocateDeviceMemoryFunction extends Callback implements VmaAllocateDeviceMemoryFunctionI {
 
     /**
@@ -40,8 +27,7 @@ public abstract class VmaAllocateDeviceMemoryFunction extends Callback implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static VmaAllocateDeviceMemoryFunction createSafe(long functionPointer) {
+    public static @Nullable VmaAllocateDeviceMemoryFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

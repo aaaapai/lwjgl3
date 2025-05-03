@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * System property for facial tracking.
- * 
- * <h5>Description</h5>
- * 
- * <p>An application <b>can</b> inspect whether the system is capable of two of the facial tracking by extending the {@link XrSystemProperties} with {@link XrSystemFacialTrackingPropertiesHTC} structure when calling {@link XR10#xrGetSystemProperties GetSystemProperties}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemFacialTrackingPropertiesHTC}</li>
- * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <p>If a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportEyeFacialTracking}, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC} with {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC} set for {@code XrFacialTrackingTypeHTC} in {@link XrFacialTrackerCreateInfoHTC}. Similarly, if a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportLipFacialTracking} the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC} with {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC} set for {@code XrFacialTrackingTypeHTC} in {@link XrFacialTrackerCreateInfoHTC}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemFacialTrackingPropertiesHTC {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrBool32 {@link #supportEyeFacialTracking};
- *     XrBool32 {@link #supportLipFacialTracking};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrBool32 supportEyeFacialTracking;
+ *     XrBool32 supportLipFacialTracking;
+ * }}</pre>
  */
 public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTrackingPropertiesHTC> implements NativeResource {
 
@@ -96,24 +78,24 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** indicates if the current system is capable of generating eye expressions. */
+    /** @return the value of the {@code supportEyeFacialTracking} field. */
     @NativeType("XrBool32")
     public boolean supportEyeFacialTracking() { return nsupportEyeFacialTracking(address()) != 0; }
-    /** indicates if the current system is capable of generating lip expressions. */
+    /** @return the value of the {@code supportLipFacialTracking} field. */
     @NativeType("XrBool32")
     public boolean supportLipFacialTracking() { return nsupportLipFacialTracking(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSystemFacialTrackingPropertiesHTC type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC} value to the {@link #type} field. */
+    /** Sets the {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC} value to the {@code type} field. */
     public XrSystemFacialTrackingPropertiesHTC type$Default() { return type(HTCFacialTracking.XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSystemFacialTrackingPropertiesHTC next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +145,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFacialTrackingPropertiesHTC createSafe(long address) {
+    public static @Nullable XrSystemFacialTrackingPropertiesHTC createSafe(long address) {
         return address == NULL ? null : new XrSystemFacialTrackingPropertiesHTC(address, null);
     }
 
@@ -207,8 +188,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFacialTrackingPropertiesHTC.Buffer createSafe(long address, int capacity) {
+    public static XrSystemFacialTrackingPropertiesHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,16 +233,16 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemFacialTrackingPropertiesHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemFacialTrackingPropertiesHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemFacialTrackingPropertiesHTC.NEXT); }
     /** Unsafe version of {@link #supportEyeFacialTracking}. */
-    public static int nsupportEyeFacialTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTEYEFACIALTRACKING); }
+    public static int nsupportEyeFacialTracking(long struct) { return memGetInt(struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTEYEFACIALTRACKING); }
     /** Unsafe version of {@link #supportLipFacialTracking}. */
-    public static int nsupportLipFacialTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTLIPFACIALTRACKING); }
+    public static int nsupportLipFacialTracking(long struct) { return memGetInt(struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTLIPFACIALTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFacialTrackingPropertiesHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemFacialTrackingPropertiesHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemFacialTrackingPropertiesHTC.NEXT, value); }
 
@@ -300,28 +280,33 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSystemFacialTrackingPropertiesHTC getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSystemFacialTrackingPropertiesHTC#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSystemFacialTrackingPropertiesHTC.ntype(address()); }
-        /** @return the value of the {@link XrSystemFacialTrackingPropertiesHTC#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSystemFacialTrackingPropertiesHTC.nnext(address()); }
-        /** @return the value of the {@link XrSystemFacialTrackingPropertiesHTC#supportEyeFacialTracking} field. */
+        /** @return the value of the {@code supportEyeFacialTracking} field. */
         @NativeType("XrBool32")
         public boolean supportEyeFacialTracking() { return XrSystemFacialTrackingPropertiesHTC.nsupportEyeFacialTracking(address()) != 0; }
-        /** @return the value of the {@link XrSystemFacialTrackingPropertiesHTC#supportLipFacialTracking} field. */
+        /** @return the value of the {@code supportLipFacialTracking} field. */
         @NativeType("XrBool32")
         public boolean supportLipFacialTracking() { return XrSystemFacialTrackingPropertiesHTC.nsupportLipFacialTracking(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrSystemFacialTrackingPropertiesHTC#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSystemFacialTrackingPropertiesHTC.Buffer type(@NativeType("XrStructureType") int value) { XrSystemFacialTrackingPropertiesHTC.ntype(address(), value); return this; }
-        /** Sets the {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC} value to the {@link XrSystemFacialTrackingPropertiesHTC#type} field. */
+        /** Sets the {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC} value to the {@code type} field. */
         public XrSystemFacialTrackingPropertiesHTC.Buffer type$Default() { return type(HTCFacialTracking.XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC); }
-        /** Sets the specified value to the {@link XrSystemFacialTrackingPropertiesHTC#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSystemFacialTrackingPropertiesHTC.Buffer next(@NativeType("void *") long value) { XrSystemFacialTrackingPropertiesHTC.nnext(address(), value); return this; }
 
     }

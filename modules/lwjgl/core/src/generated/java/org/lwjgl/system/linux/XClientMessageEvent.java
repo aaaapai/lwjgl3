@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,23 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Client message event.
- * 
- * <p>The {@code message_type} member is set to an atom that indicates how the data should be interpreted by the receiving client. The {@code format}
- * member is set to 8, 16, or 32 and specifies whether the data should be viewed as a list of bytes, shorts, or longs. The {@code data} member is a
- * union that contains the members {@code b}, {@code s}, and {@code l}. The {@code b}, {@code s}, and {@code l} members represent data of twenty 8-bit
- * values, ten 16-bit values, and five 32-bit values. Particular message types might not make use of all these values. The X server places no
- * interpretation on the values in the {@code window}, {@code message_type}, or {@code data} members.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XClientMessageEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     Atom message_type;
  *     int format;
  *     struct {
@@ -41,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *         short s[10];
  *         long l[5];
  *     } data;
- * }</code></pre>
+ * }}</pre>
  */
 public class XClientMessageEvent extends Struct<XClientMessageEvent> implements NativeResource {
 
@@ -121,16 +111,16 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return the value of the {@code message_type} field. */
@@ -157,13 +147,13 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
 
     /** Sets the specified value to the {@code type} field. */
     public XClientMessageEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XClientMessageEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XClientMessageEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XClientMessageEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XClientMessageEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Sets the specified value to the {@code message_type} field. */
     public XClientMessageEvent message_type(@NativeType("Atom") long value) { nmessage_type(address(), value); return this; }
@@ -245,8 +235,7 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XClientMessageEvent createSafe(long address) {
+    public static @Nullable XClientMessageEvent createSafe(long address) {
         return address == NULL ? null : new XClientMessageEvent(address, null);
     }
 
@@ -289,8 +278,7 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XClientMessageEvent.Buffer createSafe(long address, int capacity) {
+    public static XClientMessageEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -354,11 +342,11 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XClientMessageEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XClientMessageEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XClientMessageEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XClientMessageEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XClientMessageEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XClientMessageEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -366,18 +354,18 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     /** Unsafe version of {@link #message_type}. */
     public static long nmessage_type(long struct) { return memGetCLong(struct + XClientMessageEvent.MESSAGE_TYPE); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + XClientMessageEvent.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + XClientMessageEvent.FORMAT); }
     /** Unsafe version of {@link #data_b}. */
     public static ByteBuffer ndata_b(long struct) { return memByteBuffer(struct + XClientMessageEvent.DATA_B, 20); }
     /** Unsafe version of {@link #data_b(int) data_b}. */
     public static byte ndata_b(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XClientMessageEvent.DATA_B + check(index, 20) * 1);
+        return memGetByte(struct + XClientMessageEvent.DATA_B + check(index, 20) * 1);
     }
     /** Unsafe version of {@link #data_s}. */
     public static ShortBuffer ndata_s(long struct) { return memShortBuffer(struct + XClientMessageEvent.DATA_S, 10); }
     /** Unsafe version of {@link #data_s(int) data_s}. */
     public static short ndata_s(long struct, int index) {
-        return UNSAFE.getShort(null, struct + XClientMessageEvent.DATA_S + check(index, 10) * 2);
+        return memGetShort(struct + XClientMessageEvent.DATA_S + check(index, 10) * 2);
     }
     /** Unsafe version of {@link #data_l}. */
     public static CLongBuffer ndata_l(long struct) { return memCLongBuffer(struct + XClientMessageEvent.DATA_L, 5); }
@@ -387,11 +375,11 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XClientMessageEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XClientMessageEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XClientMessageEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XClientMessageEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XClientMessageEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XClientMessageEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -399,7 +387,7 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     /** Unsafe version of {@link #message_type(long) message_type}. */
     public static void nmessage_type(long struct, long value) { memPutCLong(struct + XClientMessageEvent.MESSAGE_TYPE, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + XClientMessageEvent.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + XClientMessageEvent.FORMAT, value); }
     /** Unsafe version of {@link #data_b(ByteBuffer) data_b}. */
     public static void ndata_b(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 20); }
@@ -407,7 +395,7 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     }
     /** Unsafe version of {@link #data_b(int, byte) data_b}. */
     public static void ndata_b(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XClientMessageEvent.DATA_B + check(index, 20) * 1, value);
+        memPutByte(struct + XClientMessageEvent.DATA_B + check(index, 20) * 1, value);
     }
     /** Unsafe version of {@link #data_s(ShortBuffer) data_s}. */
     public static void ndata_s(long struct, ShortBuffer value) {
@@ -416,7 +404,7 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
     }
     /** Unsafe version of {@link #data_s(int, short) data_s}. */
     public static void ndata_s(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + XClientMessageEvent.DATA_S + check(index, 10) * 2, value);
+        memPutShort(struct + XClientMessageEvent.DATA_S + check(index, 10) * 2, value);
     }
     /** Unsafe version of {@link #data_l(CLongBuffer) data_l}. */
     public static void ndata_l(long struct, CLongBuffer value) {
@@ -471,22 +459,27 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XClientMessageEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XClientMessageEvent.ntype(address()); }
-        /** @return the value of the {@link XClientMessageEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XClientMessageEvent.nserial(address()); }
-        /** @return the value of the {@link XClientMessageEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XClientMessageEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XClientMessageEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XClientMessageEvent.ndisplay(address()); }
-        /** @return the value of the {@link XClientMessageEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XClientMessageEvent.nwindow(address()); }
         /** @return the value of the {@code message_type} field. */
@@ -513,13 +506,13 @@ public class XClientMessageEvent extends Struct<XClientMessageEvent> implements 
 
         /** Sets the specified value to the {@code type} field. */
         public XClientMessageEvent.Buffer type(int value) { XClientMessageEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XClientMessageEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XClientMessageEvent.Buffer serial(@NativeType("unsigned long") long value) { XClientMessageEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XClientMessageEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XClientMessageEvent.Buffer send_event(@NativeType("Bool") boolean value) { XClientMessageEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XClientMessageEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XClientMessageEvent.Buffer display(@NativeType("Display *") long value) { XClientMessageEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XClientMessageEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XClientMessageEvent.Buffer window(@NativeType("Window") long value) { XClientMessageEvent.nwindow(address(), value); return this; }
         /** Sets the specified value to the {@code message_type} field. */
         public XClientMessageEvent.Buffer message_type(@NativeType("Atom") long value) { XClientMessageEvent.nmessage_type(address(), value); return this; }

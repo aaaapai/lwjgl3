@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,29 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing cluster culling shader properties supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #maxWorkGroupCount}[3];
- *     uint32_t {@link #maxWorkGroupSize}[3];
- *     uint32_t {@link #maxOutputClusterCount};
- *     VkDeviceSize {@link #indirectBufferOffsetAlignment};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t maxWorkGroupCount[3];
+ *     uint32_t maxWorkGroupSize[3];
+ *     uint32_t maxOutputClusterCount;
+ *     VkDeviceSize indirectBufferOffsetAlignment;
+ * }}</pre>
  */
 public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct<VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI> implements NativeResource {
 
@@ -101,36 +87,36 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum number of local workgroups that can be launched by a single command. These three value represent the maximum local workgroup count in the X, Y and Z dimensions, respectively. In the current implementation, the values of Y and Z are both implicitly set as one. groupCountX of DrawCluster command must be less than or equal to maxWorkGroupCount[0]. */
+    /** @return a {@link IntBuffer} view of the {@code maxWorkGroupCount} field. */
     @NativeType("uint32_t[3]")
     public IntBuffer maxWorkGroupCount() { return nmaxWorkGroupCount(address()); }
-    /** the maximum number of local workgroups that can be launched by a single command. These three value represent the maximum local workgroup count in the X, Y and Z dimensions, respectively. In the current implementation, the values of Y and Z are both implicitly set as one. groupCountX of DrawCluster command must be less than or equal to maxWorkGroupCount[0]. */
+    /** @return the value at the specified index of the {@code maxWorkGroupCount} field. */
     @NativeType("uint32_t")
     public int maxWorkGroupCount(int index) { return nmaxWorkGroupCount(address(), index); }
-    /** the maximum size of a local workgroup. These three value represent the maximum local workgroup size in the X, Y and Z dimensions, respectively. The x, y and z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the WorkgroupSize decoration in shader modules, must be less than or equal to the corresponding limit. In the current implementation, the maximum workgroup size of the X dimension is 32, the others are 1. */
+    /** @return a {@link IntBuffer} view of the {@code maxWorkGroupSize} field. */
     @NativeType("uint32_t[3]")
     public IntBuffer maxWorkGroupSize() { return nmaxWorkGroupSize(address()); }
-    /** the maximum size of a local workgroup. These three value represent the maximum local workgroup size in the X, Y and Z dimensions, respectively. The x, y and z sizes, as specified by the {@code LocalSize} or {@code LocalSizeId} execution mode or by the object decorated by the WorkgroupSize decoration in shader modules, must be less than or equal to the corresponding limit. In the current implementation, the maximum workgroup size of the X dimension is 32, the others are 1. */
+    /** @return the value at the specified index of the {@code maxWorkGroupSize} field. */
     @NativeType("uint32_t")
     public int maxWorkGroupSize(int index) { return nmaxWorkGroupSize(address(), index); }
-    /** the maximum number of output cluster a single cluster culling shader workgroup can emit. */
+    /** @return the value of the {@code maxOutputClusterCount} field. */
     @NativeType("uint32_t")
     public int maxOutputClusterCount() { return nmaxOutputClusterCount(address()); }
-    /** indicates the alignment for cluster drawing command buffer stride. {@link HUAWEIClusterCullingShader#vkCmdDrawClusterIndirectHUAWEI CmdDrawClusterIndirectHUAWEI}{@code ::offset} must be a multiple of this value. */
+    /** @return the value of the {@code indirectBufferOffsetAlignment} field. */
     @NativeType("VkDeviceSize")
     public long indirectBufferOffsetAlignment() { return nindirectBufferOffsetAlignment(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI} value to the {@link #sType} field. */
+    /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI} value to the {@code sType} field. */
     public VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI sType$Default() { return sType(HUAWEIClusterCullingShader.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -180,8 +166,7 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI(address, null);
     }
 
@@ -224,8 +209,7 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,28 +254,28 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #maxWorkGroupCount}. */
     public static IntBuffer nmaxWorkGroupCount(long struct) { return memIntBuffer(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPCOUNT, 3); }
     /** Unsafe version of {@link #maxWorkGroupCount(int) maxWorkGroupCount}. */
     public static int nmaxWorkGroupCount(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPCOUNT + check(index, 3) * 4);
+        return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPCOUNT + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #maxWorkGroupSize}. */
     public static IntBuffer nmaxWorkGroupSize(long struct) { return memIntBuffer(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPSIZE, 3); }
     /** Unsafe version of {@link #maxWorkGroupSize(int) maxWorkGroupSize}. */
     public static int nmaxWorkGroupSize(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPSIZE + check(index, 3) * 4);
+        return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXWORKGROUPSIZE + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #maxOutputClusterCount}. */
-    public static int nmaxOutputClusterCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXOUTPUTCLUSTERCOUNT); }
+    public static int nmaxOutputClusterCount(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.MAXOUTPUTCLUSTERCOUNT); }
     /** Unsafe version of {@link #indirectBufferOffsetAlignment}. */
-    public static long nindirectBufferOffsetAlignment(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.INDIRECTBUFFEROFFSETALIGNMENT); }
+    public static long nindirectBufferOffsetAlignment(long struct) { return memGetLong(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.INDIRECTBUFFEROFFSETALIGNMENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.PNEXT, value); }
 
@@ -329,40 +313,45 @@ public class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extends Struct
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.npNext(address()); }
-        /** @return a {@link IntBuffer} view of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#maxWorkGroupCount} field. */
+        /** @return a {@link IntBuffer} view of the {@code maxWorkGroupCount} field. */
         @NativeType("uint32_t[3]")
         public IntBuffer maxWorkGroupCount() { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nmaxWorkGroupCount(address()); }
-        /** @return the value at the specified index of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#maxWorkGroupCount} field. */
+        /** @return the value at the specified index of the {@code maxWorkGroupCount} field. */
         @NativeType("uint32_t")
         public int maxWorkGroupCount(int index) { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nmaxWorkGroupCount(address(), index); }
-        /** @return a {@link IntBuffer} view of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#maxWorkGroupSize} field. */
+        /** @return a {@link IntBuffer} view of the {@code maxWorkGroupSize} field. */
         @NativeType("uint32_t[3]")
         public IntBuffer maxWorkGroupSize() { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nmaxWorkGroupSize(address()); }
-        /** @return the value at the specified index of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#maxWorkGroupSize} field. */
+        /** @return the value at the specified index of the {@code maxWorkGroupSize} field. */
         @NativeType("uint32_t")
         public int maxWorkGroupSize(int index) { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nmaxWorkGroupSize(address(), index); }
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#maxOutputClusterCount} field. */
+        /** @return the value of the {@code maxOutputClusterCount} field. */
         @NativeType("uint32_t")
         public int maxOutputClusterCount() { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nmaxOutputClusterCount(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#indirectBufferOffsetAlignment} field. */
+        /** @return the value of the {@code indirectBufferOffsetAlignment} field. */
         @NativeType("VkDeviceSize")
         public long indirectBufferOffsetAlignment() { return VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nindirectBufferOffsetAlignment(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.nsType(address(), value); return this; }
-        /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI} value to the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#sType} field. */
+        /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI} value to the {@code sType} field. */
         public VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.Buffer sType$Default() { return sType(HUAWEIClusterCullingShader.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI.npNext(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A render model system property.
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
- * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension.</li>
- * <li>{@code supportsRenderModelLoading} defines whether the system supports loading render models.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrSystemRenderModelPropertiesFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB TYPE_SYSTEM_RENDER_MODEL_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemRenderModelPropertiesFB {
  *     XrStructureType type;
  *     void * next;
  *     XrBool32 supportsRenderModelLoading;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrSystemRenderModelPropertiesFB extends Struct<XrSystemRenderModelPropertiesFB> implements NativeResource {
 
@@ -158,8 +138,7 @@ public class XrSystemRenderModelPropertiesFB extends Struct<XrSystemRenderModelP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemRenderModelPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemRenderModelPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemRenderModelPropertiesFB(address, null);
     }
 
@@ -202,8 +181,7 @@ public class XrSystemRenderModelPropertiesFB extends Struct<XrSystemRenderModelP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemRenderModelPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemRenderModelPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +226,14 @@ public class XrSystemRenderModelPropertiesFB extends Struct<XrSystemRenderModelP
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemRenderModelPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemRenderModelPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemRenderModelPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsRenderModelLoading}. */
-    public static int nsupportsRenderModelLoading(long struct) { return UNSAFE.getInt(null, struct + XrSystemRenderModelPropertiesFB.SUPPORTSRENDERMODELLOADING); }
+    public static int nsupportsRenderModelLoading(long struct) { return memGetInt(struct + XrSystemRenderModelPropertiesFB.SUPPORTSRENDERMODELLOADING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemRenderModelPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemRenderModelPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemRenderModelPropertiesFB.NEXT, value); }
 
@@ -290,6 +268,11 @@ public class XrSystemRenderModelPropertiesFB extends Struct<XrSystemRenderModelP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

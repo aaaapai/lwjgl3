@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoEncodeH265WeightTableFlags {
  *     uint16_t luma_weight_l0_flag;
  *     uint16_t chroma_weight_l0_flag;
  *     uint16_t luma_weight_l1_flag;
  *     uint16_t chroma_weight_l1_flag;
- * }</code></pre>
+ * }}</pre>
  */
 public class StdVideoEncodeH265WeightTableFlags extends Struct<StdVideoEncodeH265WeightTableFlags> implements NativeResource {
 
@@ -153,8 +151,7 @@ public class StdVideoEncodeH265WeightTableFlags extends Struct<StdVideoEncodeH26
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265WeightTableFlags createSafe(long address) {
+    public static @Nullable StdVideoEncodeH265WeightTableFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH265WeightTableFlags(address, null);
     }
 
@@ -197,8 +194,7 @@ public class StdVideoEncodeH265WeightTableFlags extends Struct<StdVideoEncodeH26
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265WeightTableFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH265WeightTableFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,22 +239,22 @@ public class StdVideoEncodeH265WeightTableFlags extends Struct<StdVideoEncodeH26
     // -----------------------------------
 
     /** Unsafe version of {@link #luma_weight_l0_flag}. */
-    public static short nluma_weight_l0_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L0_FLAG); }
+    public static short nluma_weight_l0_flag(long struct) { return memGetShort(struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L0_FLAG); }
     /** Unsafe version of {@link #chroma_weight_l0_flag}. */
-    public static short nchroma_weight_l0_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L0_FLAG); }
+    public static short nchroma_weight_l0_flag(long struct) { return memGetShort(struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L0_FLAG); }
     /** Unsafe version of {@link #luma_weight_l1_flag}. */
-    public static short nluma_weight_l1_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L1_FLAG); }
+    public static short nluma_weight_l1_flag(long struct) { return memGetShort(struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L1_FLAG); }
     /** Unsafe version of {@link #chroma_weight_l1_flag}. */
-    public static short nchroma_weight_l1_flag(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L1_FLAG); }
+    public static short nchroma_weight_l1_flag(long struct) { return memGetShort(struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L1_FLAG); }
 
     /** Unsafe version of {@link #luma_weight_l0_flag(short) luma_weight_l0_flag}. */
-    public static void nluma_weight_l0_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L0_FLAG, value); }
+    public static void nluma_weight_l0_flag(long struct, short value) { memPutShort(struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L0_FLAG, value); }
     /** Unsafe version of {@link #chroma_weight_l0_flag(short) chroma_weight_l0_flag}. */
-    public static void nchroma_weight_l0_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L0_FLAG, value); }
+    public static void nchroma_weight_l0_flag(long struct, short value) { memPutShort(struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L0_FLAG, value); }
     /** Unsafe version of {@link #luma_weight_l1_flag(short) luma_weight_l1_flag}. */
-    public static void nluma_weight_l1_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L1_FLAG, value); }
+    public static void nluma_weight_l1_flag(long struct, short value) { memPutShort(struct + StdVideoEncodeH265WeightTableFlags.LUMA_WEIGHT_L1_FLAG, value); }
     /** Unsafe version of {@link #chroma_weight_l1_flag(short) chroma_weight_l1_flag}. */
-    public static void nchroma_weight_l1_flag(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L1_FLAG, value); }
+    public static void nchroma_weight_l1_flag(long struct, short value) { memPutShort(struct + StdVideoEncodeH265WeightTableFlags.CHROMA_WEIGHT_L1_FLAG, value); }
 
     // -----------------------------------
 
@@ -291,6 +287,11 @@ public class StdVideoEncodeH265WeightTableFlags extends Struct<StdVideoEncodeH26
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Virtual keyboard model visibility.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAVirtualKeyboard XR_META_virtual_keyboard} extension <b>must</b> be enabled prior to using {@link XrVirtualKeyboardModelVisibilitySetInfoMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link METAVirtualKeyboard#xrSetVirtualKeyboardModelVisibilityMETA SetVirtualKeyboardModelVisibilityMETA}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVirtualKeyboardModelVisibilitySetInfoMETA {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrBool32 {@link #visible};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrBool32 visible;
+ * }}</pre>
  */
 public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtualKeyboardModelVisibilitySetInfoMETA> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrBool32} that controls whether to show or hide the keyboard. */
+    /** @return the value of the {@code visible} field. */
     @NativeType("XrBool32")
     public boolean visible() { return nvisible(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVirtualKeyboardModelVisibilitySetInfoMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META} value to the {@link #type} field. */
+    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META} value to the {@code type} field. */
     public XrVirtualKeyboardModelVisibilitySetInfoMETA type$Default() { return type(METAVirtualKeyboard.XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVirtualKeyboardModelVisibilitySetInfoMETA next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #visible} field. */
+    /** Sets the specified value to the {@code visible} field. */
     public XrVirtualKeyboardModelVisibilitySetInfoMETA visible(@NativeType("XrBool32") boolean value) { nvisible(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardModelVisibilitySetInfoMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardModelVisibilitySetInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardModelVisibilitySetInfoMETA(address, null);
     }
 
@@ -202,8 +185,7 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardModelVisibilitySetInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardModelVisibilitySetInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +230,18 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.NEXT); }
     /** Unsafe version of {@link #visible}. */
-    public static int nvisible(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE); }
+    public static int nvisible(long struct) { return memGetInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #visible(boolean) visible}. */
-    public static void nvisible(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE, value); }
+    public static void nvisible(long struct, int value) { memPutInt(struct + XrVirtualKeyboardModelVisibilitySetInfoMETA.VISIBLE, value); }
 
     // -----------------------------------
 
@@ -295,27 +277,32 @@ public class XrVirtualKeyboardModelVisibilitySetInfoMETA extends Struct<XrVirtua
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVirtualKeyboardModelVisibilitySetInfoMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVirtualKeyboardModelVisibilitySetInfoMETA.ntype(address()); }
-        /** @return the value of the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrVirtualKeyboardModelVisibilitySetInfoMETA.nnext(address()); }
-        /** @return the value of the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#visible} field. */
+        /** @return the value of the {@code visible} field. */
         @NativeType("XrBool32")
         public boolean visible() { return XrVirtualKeyboardModelVisibilitySetInfoMETA.nvisible(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVirtualKeyboardModelVisibilitySetInfoMETA.Buffer type(@NativeType("XrStructureType") int value) { XrVirtualKeyboardModelVisibilitySetInfoMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META} value to the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#type} field. */
+        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META} value to the {@code type} field. */
         public XrVirtualKeyboardModelVisibilitySetInfoMETA.Buffer type$Default() { return type(METAVirtualKeyboard.XR_TYPE_VIRTUAL_KEYBOARD_MODEL_VISIBILITY_SET_INFO_META); }
-        /** Sets the specified value to the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVirtualKeyboardModelVisibilitySetInfoMETA.Buffer next(@NativeType("void const *") long value) { XrVirtualKeyboardModelVisibilitySetInfoMETA.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVirtualKeyboardModelVisibilitySetInfoMETA#visible} field. */
+        /** Sets the specified value to the {@code visible} field. */
         public XrVirtualKeyboardModelVisibilitySetInfoMETA.Buffer visible(@NativeType("XrBool32") boolean value) { XrVirtualKeyboardModelVisibilitySetInfoMETA.nvisible(address(), value ? 1 : 0); return this; }
 
     }

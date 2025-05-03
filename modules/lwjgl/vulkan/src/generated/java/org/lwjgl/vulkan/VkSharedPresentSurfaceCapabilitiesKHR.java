@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing capabilities of a surface for shared presentation.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRSharedPresentableImage#VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSharedPresentSurfaceCapabilitiesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkImageUsageFlags {@link #sharedPresentSupportedUsageFlags};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkImageUsageFlags sharedPresentSupportedUsageFlags;
+ * }}</pre>
  */
 public class VkSharedPresentSurfaceCapabilitiesKHR extends Struct<VkSharedPresentSurfaceCapabilitiesKHR> implements NativeResource {
 
@@ -84,21 +74,21 @@ public class VkSharedPresentSurfaceCapabilitiesKHR extends Struct<VkSharedPresen
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkImageUsageFlagBits} representing the ways the application <b>can</b> use the shared presentable image from a swapchain created with {@code VkPresentModeKHR} set to {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR} or {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR} for the surface on the specified device. {@link VK10#VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT IMAGE_USAGE_COLOR_ATTACHMENT_BIT} <b>must</b> be included in the set but implementations <b>may</b> support additional usages. */
+    /** @return the value of the {@code sharedPresentSupportedUsageFlags} field. */
     @NativeType("VkImageUsageFlags")
     public int sharedPresentSupportedUsageFlags() { return nsharedPresentSupportedUsageFlags(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSharedPresentSurfaceCapabilitiesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRSharedPresentableImage#VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRSharedPresentableImage#VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR} value to the {@code sType} field. */
     public VkSharedPresentSurfaceCapabilitiesKHR sType$Default() { return sType(KHRSharedPresentableImage.VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSharedPresentSurfaceCapabilitiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -148,8 +138,7 @@ public class VkSharedPresentSurfaceCapabilitiesKHR extends Struct<VkSharedPresen
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSharedPresentSurfaceCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkSharedPresentSurfaceCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkSharedPresentSurfaceCapabilitiesKHR(address, null);
     }
 
@@ -192,8 +181,7 @@ public class VkSharedPresentSurfaceCapabilitiesKHR extends Struct<VkSharedPresen
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSharedPresentSurfaceCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSharedPresentSurfaceCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +245,14 @@ public class VkSharedPresentSurfaceCapabilitiesKHR extends Struct<VkSharedPresen
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSharedPresentSurfaceCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSharedPresentSurfaceCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSharedPresentSurfaceCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #sharedPresentSupportedUsageFlags}. */
-    public static int nsharedPresentSupportedUsageFlags(long struct) { return UNSAFE.getInt(null, struct + VkSharedPresentSurfaceCapabilitiesKHR.SHAREDPRESENTSUPPORTEDUSAGEFLAGS); }
+    public static int nsharedPresentSupportedUsageFlags(long struct) { return memGetInt(struct + VkSharedPresentSurfaceCapabilitiesKHR.SHAREDPRESENTSUPPORTEDUSAGEFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSharedPresentSurfaceCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSharedPresentSurfaceCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSharedPresentSurfaceCapabilitiesKHR.PNEXT, value); }
 
@@ -302,25 +290,30 @@ public class VkSharedPresentSurfaceCapabilitiesKHR extends Struct<VkSharedPresen
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSharedPresentSurfaceCapabilitiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSharedPresentSurfaceCapabilitiesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSharedPresentSurfaceCapabilitiesKHR.nsType(address()); }
-        /** @return the value of the {@link VkSharedPresentSurfaceCapabilitiesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkSharedPresentSurfaceCapabilitiesKHR.npNext(address()); }
-        /** @return the value of the {@link VkSharedPresentSurfaceCapabilitiesKHR#sharedPresentSupportedUsageFlags} field. */
+        /** @return the value of the {@code sharedPresentSupportedUsageFlags} field. */
         @NativeType("VkImageUsageFlags")
         public int sharedPresentSupportedUsageFlags() { return VkSharedPresentSurfaceCapabilitiesKHR.nsharedPresentSupportedUsageFlags(address()); }
 
-        /** Sets the specified value to the {@link VkSharedPresentSurfaceCapabilitiesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSharedPresentSurfaceCapabilitiesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkSharedPresentSurfaceCapabilitiesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRSharedPresentableImage#VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR} value to the {@link VkSharedPresentSurfaceCapabilitiesKHR#sType} field. */
+        /** Sets the {@link KHRSharedPresentableImage#VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR} value to the {@code sType} field. */
         public VkSharedPresentSurfaceCapabilitiesKHR.Buffer sType$Default() { return sType(KHRSharedPresentableImage.VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR); }
-        /** Sets the specified value to the {@link VkSharedPresentSurfaceCapabilitiesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSharedPresentSurfaceCapabilitiesKHR.Buffer pNext(@NativeType("void *") long value) { VkSharedPresentSurfaceCapabilitiesKHR.npNext(address(), value); return this; }
 
     }

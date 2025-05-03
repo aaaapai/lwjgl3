@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Experimental: Meshlet
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct meshopt_Meshlet {
- *     unsigned int {@link #vertex_offset};
- *     unsigned int {@link #triangle_offset};
- *     unsigned int {@link #vertex_count};
- *     unsigned int {@link #triangle_count};
- * }</code></pre>
+ *     unsigned int vertex_offset;
+ *     unsigned int triangle_offset;
+ *     unsigned int vertex_count;
+ *     unsigned int triangle_count;
+ * }}</pre>
  */
 @NativeType("struct meshopt_Meshlet")
 public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeResource {
@@ -83,16 +79,16 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** offset within {@code meshlet_vertices} array with meshlet data */
+    /** @return the value of the {@code vertex_offset} field. */
     @NativeType("unsigned int")
     public int vertex_offset() { return nvertex_offset(address()); }
-    /** offset within {@code meshlet_triangles} array with meshlet data */
+    /** @return the value of the {@code triangle_offset} field. */
     @NativeType("unsigned int")
     public int triangle_offset() { return ntriangle_offset(address()); }
-    /** number of vertices used in the meshlet; data is stored in consecutive range defined by offset and count */
+    /** @return the value of the {@code vertex_count} field. */
     @NativeType("unsigned int")
     public int vertex_count() { return nvertex_count(address()); }
-    /** number of triangles used in the meshlet; data is stored in consecutive range defined by offset and count */
+    /** @return the value of the {@code triangle_count} field. */
     @NativeType("unsigned int")
     public int triangle_count() { return ntriangle_count(address()); }
 
@@ -120,8 +116,7 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptMeshlet createSafe(long address) {
+    public static @Nullable MeshoptMeshlet createSafe(long address) {
         return address == NULL ? null : new MeshoptMeshlet(address, null);
     }
 
@@ -164,8 +159,7 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptMeshlet.Buffer createSafe(long address, int capacity) {
+    public static MeshoptMeshlet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -210,13 +204,13 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #vertex_offset}. */
-    public static int nvertex_offset(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.VERTEX_OFFSET); }
+    public static int nvertex_offset(long struct) { return memGetInt(struct + MeshoptMeshlet.VERTEX_OFFSET); }
     /** Unsafe version of {@link #triangle_offset}. */
-    public static int ntriangle_offset(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.TRIANGLE_OFFSET); }
+    public static int ntriangle_offset(long struct) { return memGetInt(struct + MeshoptMeshlet.TRIANGLE_OFFSET); }
     /** Unsafe version of {@link #vertex_count}. */
-    public static int nvertex_count(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.VERTEX_COUNT); }
+    public static int nvertex_count(long struct) { return memGetInt(struct + MeshoptMeshlet.VERTEX_COUNT); }
     /** Unsafe version of {@link #triangle_count}. */
-    public static int ntriangle_count(long struct) { return UNSAFE.getInt(null, struct + MeshoptMeshlet.TRIANGLE_COUNT); }
+    public static int ntriangle_count(long struct) { return memGetInt(struct + MeshoptMeshlet.TRIANGLE_COUNT); }
 
     // -----------------------------------
 
@@ -252,20 +246,25 @@ public class MeshoptMeshlet extends Struct<MeshoptMeshlet> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MeshoptMeshlet getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link MeshoptMeshlet#vertex_offset} field. */
+        /** @return the value of the {@code vertex_offset} field. */
         @NativeType("unsigned int")
         public int vertex_offset() { return MeshoptMeshlet.nvertex_offset(address()); }
-        /** @return the value of the {@link MeshoptMeshlet#triangle_offset} field. */
+        /** @return the value of the {@code triangle_offset} field. */
         @NativeType("unsigned int")
         public int triangle_offset() { return MeshoptMeshlet.ntriangle_offset(address()); }
-        /** @return the value of the {@link MeshoptMeshlet#vertex_count} field. */
+        /** @return the value of the {@code vertex_count} field. */
         @NativeType("unsigned int")
         public int vertex_count() { return MeshoptMeshlet.nvertex_count(address()); }
-        /** @return the value of the {@link MeshoptMeshlet#triangle_count} field. */
+        /** @return the value of the {@code triangle_count} field. */
         @NativeType("unsigned int")
         public int triangle_count() { return MeshoptMeshlet.ntriangle_count(address()); }
 

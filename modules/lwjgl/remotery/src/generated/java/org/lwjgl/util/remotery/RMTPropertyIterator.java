@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Struct to hold iterator info.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct rmtPropertyIterator {
  *     {@link RMTProperty rmtProperty} * property;
  *     {@link RMTProperty rmtProperty} * initial;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct rmtPropertyIterator")
 public class RMTPropertyIterator extends Struct<RMTPropertyIterator> implements NativeResource {
@@ -103,8 +99,7 @@ public class RMTPropertyIterator extends Struct<RMTPropertyIterator> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RMTPropertyIterator createSafe(long address) {
+    public static @Nullable RMTPropertyIterator createSafe(long address) {
         return address == NULL ? null : new RMTPropertyIterator(address, null);
     }
 

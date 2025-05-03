@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct io_uring_rsrc_update2 {
  *     __u32 offset;
  *     __u32 resv;
@@ -26,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     __u64 tags;
  *     __u32 nr;
  *     __u32 resv2;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct io_uring_rsrc_update2")
 public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements NativeResource {
@@ -92,9 +90,6 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     /** @return the value of the {@code offset} field. */
     @NativeType("__u32")
     public int offset() { return noffset(address()); }
-    /** @return the value of the {@code resv} field. */
-    @NativeType("__u32")
-    public int resv() { return nresv(address()); }
     /** @return the value of the {@code data} field. */
     @NativeType("__u64")
     public long data() { return ndata(address()); }
@@ -104,38 +99,27 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     /** @return the value of the {@code nr} field. */
     @NativeType("__u32")
     public int nr() { return nnr(address()); }
-    /** @return the value of the {@code resv2} field. */
-    @NativeType("__u32")
-    public int resv2() { return nresv2(address()); }
 
     /** Sets the specified value to the {@code offset} field. */
     public IOURingRSRCUpdate2 offset(@NativeType("__u32") int value) { noffset(address(), value); return this; }
-    /** Sets the specified value to the {@code resv} field. */
-    public IOURingRSRCUpdate2 resv(@NativeType("__u32") int value) { nresv(address(), value); return this; }
     /** Sets the specified value to the {@code data} field. */
     public IOURingRSRCUpdate2 data(@NativeType("__u64") long value) { ndata(address(), value); return this; }
     /** Sets the specified value to the {@code tags} field. */
     public IOURingRSRCUpdate2 tags(@NativeType("__u64") long value) { ntags(address(), value); return this; }
     /** Sets the specified value to the {@code nr} field. */
     public IOURingRSRCUpdate2 nr(@NativeType("__u32") int value) { nnr(address(), value); return this; }
-    /** Sets the specified value to the {@code resv2} field. */
-    public IOURingRSRCUpdate2 resv2(@NativeType("__u32") int value) { nresv2(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingRSRCUpdate2 set(
         int offset,
-        int resv,
         long data,
         long tags,
-        int nr,
-        int resv2
+        int nr
     ) {
         offset(offset);
-        resv(resv);
         data(data);
         tags(tags);
         nr(nr);
-        resv2(resv2);
 
         return this;
     }
@@ -176,8 +160,7 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingRSRCUpdate2 createSafe(long address) {
+    public static @Nullable IOURingRSRCUpdate2 createSafe(long address) {
         return address == NULL ? null : new IOURingRSRCUpdate2(address, null);
     }
 
@@ -220,8 +203,7 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingRSRCUpdate2.Buffer createSafe(long address, int capacity) {
+    public static IOURingRSRCUpdate2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,30 +248,26 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.OFFSET); }
-    /** Unsafe version of {@link #resv}. */
-    public static int nresv(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.RESV); }
+    public static int noffset(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.OFFSET); }
+    public static int nresv(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.RESV); }
     /** Unsafe version of {@link #data}. */
-    public static long ndata(long struct) { return UNSAFE.getLong(null, struct + IOURingRSRCUpdate2.DATA); }
+    public static long ndata(long struct) { return memGetLong(struct + IOURingRSRCUpdate2.DATA); }
     /** Unsafe version of {@link #tags}. */
-    public static long ntags(long struct) { return UNSAFE.getLong(null, struct + IOURingRSRCUpdate2.TAGS); }
+    public static long ntags(long struct) { return memGetLong(struct + IOURingRSRCUpdate2.TAGS); }
     /** Unsafe version of {@link #nr}. */
-    public static int nnr(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.NR); }
-    /** Unsafe version of {@link #resv2}. */
-    public static int nresv2(long struct) { return UNSAFE.getInt(null, struct + IOURingRSRCUpdate2.RESV2); }
+    public static int nnr(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.NR); }
+    public static int nresv2(long struct) { return memGetInt(struct + IOURingRSRCUpdate2.RESV2); }
 
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.OFFSET, value); }
-    /** Unsafe version of {@link #resv(int) resv}. */
-    public static void nresv(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.RESV, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.OFFSET, value); }
+    public static void nresv(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.RESV, value); }
     /** Unsafe version of {@link #data(long) data}. */
-    public static void ndata(long struct, long value) { UNSAFE.putLong(null, struct + IOURingRSRCUpdate2.DATA, value); }
+    public static void ndata(long struct, long value) { memPutLong(struct + IOURingRSRCUpdate2.DATA, value); }
     /** Unsafe version of {@link #tags(long) tags}. */
-    public static void ntags(long struct, long value) { UNSAFE.putLong(null, struct + IOURingRSRCUpdate2.TAGS, value); }
+    public static void ntags(long struct, long value) { memPutLong(struct + IOURingRSRCUpdate2.TAGS, value); }
     /** Unsafe version of {@link #nr(int) nr}. */
-    public static void nnr(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.NR, value); }
-    /** Unsafe version of {@link #resv2(int) resv2}. */
-    public static void nresv2(long struct, int value) { UNSAFE.putInt(null, struct + IOURingRSRCUpdate2.RESV2, value); }
+    public static void nnr(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.NR, value); }
+    public static void nresv2(long struct, int value) { memPutInt(struct + IOURingRSRCUpdate2.RESV2, value); }
 
     // -----------------------------------
 
@@ -325,6 +303,11 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected IOURingRSRCUpdate2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -332,9 +315,6 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
         /** @return the value of the {@code offset} field. */
         @NativeType("__u32")
         public int offset() { return IOURingRSRCUpdate2.noffset(address()); }
-        /** @return the value of the {@code resv} field. */
-        @NativeType("__u32")
-        public int resv() { return IOURingRSRCUpdate2.nresv(address()); }
         /** @return the value of the {@code data} field. */
         @NativeType("__u64")
         public long data() { return IOURingRSRCUpdate2.ndata(address()); }
@@ -344,22 +324,15 @@ public class IOURingRSRCUpdate2 extends Struct<IOURingRSRCUpdate2> implements Na
         /** @return the value of the {@code nr} field. */
         @NativeType("__u32")
         public int nr() { return IOURingRSRCUpdate2.nnr(address()); }
-        /** @return the value of the {@code resv2} field. */
-        @NativeType("__u32")
-        public int resv2() { return IOURingRSRCUpdate2.nresv2(address()); }
 
         /** Sets the specified value to the {@code offset} field. */
         public IOURingRSRCUpdate2.Buffer offset(@NativeType("__u32") int value) { IOURingRSRCUpdate2.noffset(address(), value); return this; }
-        /** Sets the specified value to the {@code resv} field. */
-        public IOURingRSRCUpdate2.Buffer resv(@NativeType("__u32") int value) { IOURingRSRCUpdate2.nresv(address(), value); return this; }
         /** Sets the specified value to the {@code data} field. */
         public IOURingRSRCUpdate2.Buffer data(@NativeType("__u64") long value) { IOURingRSRCUpdate2.ndata(address(), value); return this; }
         /** Sets the specified value to the {@code tags} field. */
         public IOURingRSRCUpdate2.Buffer tags(@NativeType("__u64") long value) { IOURingRSRCUpdate2.ntags(address(), value); return this; }
         /** Sets the specified value to the {@code nr} field. */
         public IOURingRSRCUpdate2.Buffer nr(@NativeType("__u32") int value) { IOURingRSRCUpdate2.nnr(address(), value); return this; }
-        /** Sets the specified value to the {@code resv2} field. */
-        public IOURingRSRCUpdate2.Buffer resv2(@NativeType("__u32") int value) { IOURingRSRCUpdate2.nresv2(address(), value); return this; }
 
     }
 

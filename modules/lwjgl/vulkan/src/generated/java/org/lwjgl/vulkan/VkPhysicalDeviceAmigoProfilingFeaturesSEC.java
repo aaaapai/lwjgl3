@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Stub description of VkPhysicalDeviceAmigoProfilingFeaturesSEC.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link SECAmigoProfiling#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC STRUCTURE_TYPE_PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceAmigoProfilingFeaturesSEC {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 amigoProfiling;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends Struct<VkPhysicalDeviceAmigoProfilingFeaturesSEC> implements NativeResource {
 
@@ -152,8 +142,7 @@ public class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAmigoProfilingFeaturesSEC createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceAmigoProfilingFeaturesSEC createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceAmigoProfilingFeaturesSEC(address, null);
     }
 
@@ -196,8 +185,7 @@ public class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAmigoProfilingFeaturesSEC.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceAmigoProfilingFeaturesSEC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +230,18 @@ public class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.PNEXT); }
     /** Unsafe version of {@link #amigoProfiling}. */
-    public static int namigoProfiling(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.AMIGOPROFILING); }
+    public static int namigoProfiling(long struct) { return memGetInt(struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.AMIGOPROFILING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.PNEXT, value); }
     /** Unsafe version of {@link #amigoProfiling(boolean) amigoProfiling}. */
-    public static void namigoProfiling(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.AMIGOPROFILING, value); }
+    public static void namigoProfiling(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAmigoProfilingFeaturesSEC.AMIGOPROFILING, value); }
 
     // -----------------------------------
 
@@ -286,6 +274,11 @@ public class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends Struct<VkPhysical
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,27 +18,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.video.*;
 
 /**
- * Structure describing H.264 decode capabilities.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkOffset2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoDecodeH264CapabilitiesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     StdVideoH264LevelIdc {@link #maxLevelIdc};
- *     {@link VkOffset2D VkOffset2D} {@link #fieldOffsetGranularity};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     StdVideoH264LevelIdc maxLevelIdc;
+ *     {@link VkOffset2D VkOffset2D} fieldOffsetGranularity;
+ * }}</pre>
  */
 public class VkVideoDecodeH264CapabilitiesKHR extends Struct<VkVideoDecodeH264CapabilitiesKHR> implements NativeResource {
 
@@ -94,23 +80,23 @@ public class VkVideoDecodeH264CapabilitiesKHR extends Struct<VkVideoDecodeH264Ca
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code StdVideoH264LevelIdc} value specifying the maximum H.264 level supported by the profile, where enum constant {@code STD_VIDEO_H264_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;} identifies H.264 level {@code &lt;major&gt;.&lt;minor&gt;} as defined in section A.3 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>. */
+    /** @return the value of the {@code maxLevelIdc} field. */
     @NativeType("StdVideoH264LevelIdc")
     public int maxLevelIdc() { return nmaxLevelIdc(address()); }
-    /** the minimum alignment for {@link VkVideoPictureResourceInfoKHR}{@code ::codedOffset} specified for a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#video-picture-resources">video picture resource</a> when using the picture layout {@link KHRVideoDecodeH264#VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR}. */
+    /** @return a {@link VkOffset2D} view of the {@code fieldOffsetGranularity} field. */
     public VkOffset2D fieldOffsetGranularity() { return nfieldOffsetGranularity(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoDecodeH264CapabilitiesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR} value to the {@code sType} field. */
     public VkVideoDecodeH264CapabilitiesKHR sType$Default() { return sType(KHRVideoDecodeH264.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoDecodeH264CapabilitiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -160,8 +146,7 @@ public class VkVideoDecodeH264CapabilitiesKHR extends Struct<VkVideoDecodeH264Ca
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264CapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH264CapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH264CapabilitiesKHR(address, null);
     }
 
@@ -204,8 +189,7 @@ public class VkVideoDecodeH264CapabilitiesKHR extends Struct<VkVideoDecodeH264Ca
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264CapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH264CapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,16 +234,16 @@ public class VkVideoDecodeH264CapabilitiesKHR extends Struct<VkVideoDecodeH264Ca
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264CapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH264CapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH264CapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #maxLevelIdc}. */
-    public static int nmaxLevelIdc(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264CapabilitiesKHR.MAXLEVELIDC); }
+    public static int nmaxLevelIdc(long struct) { return memGetInt(struct + VkVideoDecodeH264CapabilitiesKHR.MAXLEVELIDC); }
     /** Unsafe version of {@link #fieldOffsetGranularity}. */
     public static VkOffset2D nfieldOffsetGranularity(long struct) { return VkOffset2D.create(struct + VkVideoDecodeH264CapabilitiesKHR.FIELDOFFSETGRANULARITY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264CapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH264CapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH264CapabilitiesKHR.PNEXT, value); }
 
@@ -297,27 +281,32 @@ public class VkVideoDecodeH264CapabilitiesKHR extends Struct<VkVideoDecodeH264Ca
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoDecodeH264CapabilitiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoDecodeH264CapabilitiesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoDecodeH264CapabilitiesKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264CapabilitiesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkVideoDecodeH264CapabilitiesKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264CapabilitiesKHR#maxLevelIdc} field. */
+        /** @return the value of the {@code maxLevelIdc} field. */
         @NativeType("StdVideoH264LevelIdc")
         public int maxLevelIdc() { return VkVideoDecodeH264CapabilitiesKHR.nmaxLevelIdc(address()); }
-        /** @return a {@link VkOffset2D} view of the {@link VkVideoDecodeH264CapabilitiesKHR#fieldOffsetGranularity} field. */
+        /** @return a {@link VkOffset2D} view of the {@code fieldOffsetGranularity} field. */
         public VkOffset2D fieldOffsetGranularity() { return VkVideoDecodeH264CapabilitiesKHR.nfieldOffsetGranularity(address()); }
 
-        /** Sets the specified value to the {@link VkVideoDecodeH264CapabilitiesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoDecodeH264CapabilitiesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoDecodeH264CapabilitiesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR} value to the {@link VkVideoDecodeH264CapabilitiesKHR#sType} field. */
+        /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR} value to the {@code sType} field. */
         public VkVideoDecodeH264CapabilitiesKHR.Buffer sType$Default() { return sType(KHRVideoDecodeH264.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR); }
-        /** Sets the specified value to the {@link VkVideoDecodeH264CapabilitiesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoDecodeH264CapabilitiesKHR.Buffer pNext(@NativeType("void *") long value) { VkVideoDecodeH264CapabilitiesKHR.npNext(address(), value); return this; }
 
     }

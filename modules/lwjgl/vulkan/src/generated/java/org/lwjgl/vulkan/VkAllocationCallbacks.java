@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing callback function pointers for memory allocation.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code pfnAllocation} <b>must</b> be a valid pointer to a valid user-defined {@link VkAllocationFunction}</li>
- * <li>{@code pfnReallocation} <b>must</b> be a valid pointer to a valid user-defined {@link VkReallocationFunction}</li>
- * <li>{@code pfnFree} <b>must</b> be a valid pointer to a valid user-defined {@link VkFreeFunction}</li>
- * <li>If either of {@code pfnInternalAllocation} or {@code pfnInternalFree} is not {@code NULL}, both <b>must</b> be valid callbacks</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAllocationFunction}, {@link VkFreeFunction}, {@link VkInternalAllocationNotification}, {@link VkInternalFreeNotification}, {@link VkReallocationFunction}, {@link VK10#vkAllocateMemory AllocateMemory}, {@link KHRAccelerationStructure#vkCreateAccelerationStructureKHR CreateAccelerationStructureKHR}, {@link NVRayTracing#vkCreateAccelerationStructureNV CreateAccelerationStructureNV}, {@link KHRAndroidSurface#vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR}, {@link VK10#vkCreateBuffer CreateBuffer}, {@link VK10#vkCreateBufferView CreateBufferView}, {@link VK10#vkCreateCommandPool CreateCommandPool}, {@link VK10#vkCreateComputePipelines CreateComputePipelines}, {@link NVXBinaryImport#vkCreateCuFunctionNVX CreateCuFunctionNVX}, {@link NVXBinaryImport#vkCreateCuModuleNVX CreateCuModuleNVX}, {@link EXTDebugReport#vkCreateDebugReportCallbackEXT CreateDebugReportCallbackEXT}, {@link EXTDebugUtils#vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT}, {@link KHRDeferredHostOperations#vkCreateDeferredOperationKHR CreateDeferredOperationKHR}, {@link VK10#vkCreateDescriptorPool CreateDescriptorPool}, {@link VK10#vkCreateDescriptorSetLayout CreateDescriptorSetLayout}, {@link VK11#vkCreateDescriptorUpdateTemplate CreateDescriptorUpdateTemplate}, {@link KHRDescriptorUpdateTemplate#vkCreateDescriptorUpdateTemplateKHR CreateDescriptorUpdateTemplateKHR}, {@link VK10#vkCreateDevice CreateDevice}, {@link EXTDirectfbSurface#vkCreateDirectFBSurfaceEXT CreateDirectFBSurfaceEXT}, {@link KHRDisplay#vkCreateDisplayModeKHR CreateDisplayModeKHR}, {@link KHRDisplay#vkCreateDisplayPlaneSurfaceKHR CreateDisplayPlaneSurfaceKHR}, {@link VK10#vkCreateEvent CreateEvent}, {@link AMDXShaderEnqueue#vkCreateExecutionGraphPipelinesAMDX CreateExecutionGraphPipelinesAMDX}, {@link VK10#vkCreateFence CreateFence}, {@link VK10#vkCreateFramebuffer CreateFramebuffer}, {@link VK10#vkCreateGraphicsPipelines CreateGraphicsPipelines}, {@link EXTHeadlessSurface#vkCreateHeadlessSurfaceEXT CreateHeadlessSurfaceEXT}, {@link VK10#vkCreateImage CreateImage}, {@link VK10#vkCreateImageView CreateImageView}, {@link NVDeviceGeneratedCommands#vkCreateIndirectCommandsLayoutNV CreateIndirectCommandsLayoutNV}, {@link VK10#vkCreateInstance CreateInstance}, {@link MVKMacosSurface#vkCreateMacOSSurfaceMVK CreateMacOSSurfaceMVK}, {@link EXTMetalSurface#vkCreateMetalSurfaceEXT CreateMetalSurfaceEXT}, {@link EXTOpacityMicromap#vkCreateMicromapEXT CreateMicromapEXT}, {@link NVOpticalFlow#vkCreateOpticalFlowSessionNV CreateOpticalFlowSessionNV}, {@link VK10#vkCreatePipelineCache CreatePipelineCache}, {@link VK10#vkCreatePipelineLayout CreatePipelineLayout}, {@link VK13#vkCreatePrivateDataSlot CreatePrivateDataSlot}, {@link EXTPrivateData#vkCreatePrivateDataSlotEXT CreatePrivateDataSlotEXT}, {@link VK10#vkCreateQueryPool CreateQueryPool}, {@link KHRRayTracingPipeline#vkCreateRayTracingPipelinesKHR CreateRayTracingPipelinesKHR}, {@link NVRayTracing#vkCreateRayTracingPipelinesNV CreateRayTracingPipelinesNV}, {@link VK10#vkCreateRenderPass CreateRenderPass}, {@link VK12#vkCreateRenderPass2 CreateRenderPass2}, {@link KHRCreateRenderpass2#vkCreateRenderPass2KHR CreateRenderPass2KHR}, {@link VK10#vkCreateSampler CreateSampler}, {@link VK11#vkCreateSamplerYcbcrConversion CreateSamplerYcbcrConversion}, {@link KHRSamplerYcbcrConversion#vkCreateSamplerYcbcrConversionKHR CreateSamplerYcbcrConversionKHR}, {@link VK10#vkCreateSemaphore CreateSemaphore}, {@link VK10#vkCreateShaderModule CreateShaderModule}, {@link EXTShaderObject#vkCreateShadersEXT CreateShadersEXT}, {@link KHRDisplaySwapchain#vkCreateSharedSwapchainsKHR CreateSharedSwapchainsKHR}, {@link KHRSwapchain#vkCreateSwapchainKHR CreateSwapchainKHR}, {@link EXTValidationCache#vkCreateValidationCacheEXT CreateValidationCacheEXT}, {@link KHRVideoQueue#vkCreateVideoSessionKHR CreateVideoSessionKHR}, {@link KHRVideoQueue#vkCreateVideoSessionParametersKHR CreateVideoSessionParametersKHR}, {@link KHRWaylandSurface#vkCreateWaylandSurfaceKHR CreateWaylandSurfaceKHR}, {@link KHRWin32Surface#vkCreateWin32SurfaceKHR CreateWin32SurfaceKHR}, {@link KHRXcbSurface#vkCreateXcbSurfaceKHR CreateXcbSurfaceKHR}, {@link KHRXlibSurface#vkCreateXlibSurfaceKHR CreateXlibSurfaceKHR}, {@link KHRAccelerationStructure#vkDestroyAccelerationStructureKHR DestroyAccelerationStructureKHR}, {@link NVRayTracing#vkDestroyAccelerationStructureNV DestroyAccelerationStructureNV}, {@link VK10#vkDestroyBuffer DestroyBuffer}, {@link VK10#vkDestroyBufferView DestroyBufferView}, {@link VK10#vkDestroyCommandPool DestroyCommandPool}, {@link NVXBinaryImport#vkDestroyCuFunctionNVX DestroyCuFunctionNVX}, {@link NVXBinaryImport#vkDestroyCuModuleNVX DestroyCuModuleNVX}, {@link EXTDebugReport#vkDestroyDebugReportCallbackEXT DestroyDebugReportCallbackEXT}, {@link EXTDebugUtils#vkDestroyDebugUtilsMessengerEXT DestroyDebugUtilsMessengerEXT}, {@link KHRDeferredHostOperations#vkDestroyDeferredOperationKHR DestroyDeferredOperationKHR}, {@link VK10#vkDestroyDescriptorPool DestroyDescriptorPool}, {@link VK10#vkDestroyDescriptorSetLayout DestroyDescriptorSetLayout}, {@link VK11#vkDestroyDescriptorUpdateTemplate DestroyDescriptorUpdateTemplate}, {@link KHRDescriptorUpdateTemplate#vkDestroyDescriptorUpdateTemplateKHR DestroyDescriptorUpdateTemplateKHR}, {@link VK10#vkDestroyDevice DestroyDevice}, {@link VK10#vkDestroyEvent DestroyEvent}, {@link VK10#vkDestroyFence DestroyFence}, {@link VK10#vkDestroyFramebuffer DestroyFramebuffer}, {@link VK10#vkDestroyImage DestroyImage}, {@link VK10#vkDestroyImageView DestroyImageView}, {@link NVDeviceGeneratedCommands#vkDestroyIndirectCommandsLayoutNV DestroyIndirectCommandsLayoutNV}, {@link VK10#vkDestroyInstance DestroyInstance}, {@link EXTOpacityMicromap#vkDestroyMicromapEXT DestroyMicromapEXT}, {@link NVOpticalFlow#vkDestroyOpticalFlowSessionNV DestroyOpticalFlowSessionNV}, {@link VK10#vkDestroyPipeline DestroyPipeline}, {@link VK10#vkDestroyPipelineCache DestroyPipelineCache}, {@link VK10#vkDestroyPipelineLayout DestroyPipelineLayout}, {@link VK13#vkDestroyPrivateDataSlot DestroyPrivateDataSlot}, {@link EXTPrivateData#vkDestroyPrivateDataSlotEXT DestroyPrivateDataSlotEXT}, {@link VK10#vkDestroyQueryPool DestroyQueryPool}, {@link VK10#vkDestroyRenderPass DestroyRenderPass}, {@link VK10#vkDestroySampler DestroySampler}, {@link VK11#vkDestroySamplerYcbcrConversion DestroySamplerYcbcrConversion}, {@link KHRSamplerYcbcrConversion#vkDestroySamplerYcbcrConversionKHR DestroySamplerYcbcrConversionKHR}, {@link VK10#vkDestroySemaphore DestroySemaphore}, {@link EXTShaderObject#vkDestroyShaderEXT DestroyShaderEXT}, {@link VK10#vkDestroyShaderModule DestroyShaderModule}, {@link KHRSurface#vkDestroySurfaceKHR DestroySurfaceKHR}, {@link KHRSwapchain#vkDestroySwapchainKHR DestroySwapchainKHR}, {@link EXTValidationCache#vkDestroyValidationCacheEXT DestroyValidationCacheEXT}, {@link KHRVideoQueue#vkDestroyVideoSessionKHR DestroyVideoSessionKHR}, {@link KHRVideoQueue#vkDestroyVideoSessionParametersKHR DestroyVideoSessionParametersKHR}, {@link VK10#vkFreeMemory FreeMemory}, {@link EXTDisplayControl#vkRegisterDeviceEventEXT RegisterDeviceEventEXT}, {@link EXTDisplayControl#vkRegisterDisplayEventEXT RegisterDisplayEventEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAllocationCallbacks {
- *     void * {@link #pUserData};
- *     {@link VkAllocationFunctionI PFN_vkAllocationFunction} {@link #pfnAllocation};
- *     {@link VkReallocationFunctionI PFN_vkReallocationFunction} {@link #pfnReallocation};
- *     {@link VkFreeFunctionI PFN_vkFreeFunction} {@link #pfnFree};
- *     {@link VkInternalAllocationNotificationI PFN_vkInternalAllocationNotification} {@link #pfnInternalAllocation};
- *     {@link VkInternalFreeNotificationI PFN_vkInternalFreeNotification} {@link #pfnInternalFree};
- * }</code></pre>
+ *     void * pUserData;
+ *     {@link VkAllocationFunctionI PFN_vkAllocationFunction} pfnAllocation;
+ *     {@link VkReallocationFunctionI PFN_vkReallocationFunction} pfnReallocation;
+ *     {@link VkFreeFunctionI PFN_vkFreeFunction} pfnFree;
+ *     {@link VkInternalAllocationNotificationI PFN_vkInternalAllocationNotification} pfnInternalAllocation;
+ *     {@link VkInternalFreeNotificationI PFN_vkInternalFreeNotification} pfnInternalFree;
+ * }}</pre>
  */
 public class VkAllocationCallbacks extends Struct<VkAllocationCallbacks> implements NativeResource {
 
@@ -103,41 +86,36 @@ public class VkAllocationCallbacks extends Struct<VkAllocationCallbacks> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a value to be interpreted by the implementation of the callbacks. When any of the callbacks in {@link VkAllocationCallbacks} are called, the Vulkan implementation will pass this value as the first parameter to the callback. This value <b>can</b> vary each time an allocator is passed into a command, even when the same object takes an allocator in multiple commands. */
+    /** @return the value of the {@code pUserData} field. */
     @NativeType("void *")
     public long pUserData() { return npUserData(address()); }
-    /** a {@link VkAllocationFunction} pointer to an application-defined memory allocation function. */
-    @Nullable
+    /** @return the value of the {@code pfnAllocation} field. */
     @NativeType("PFN_vkAllocationFunction")
-    public VkAllocationFunction pfnAllocation() { return npfnAllocation(address()); }
-    /** a {@link VkReallocationFunction} pointer to an application-defined memory reallocation function. */
-    @Nullable
+    public @Nullable VkAllocationFunction pfnAllocation() { return npfnAllocation(address()); }
+    /** @return the value of the {@code pfnReallocation} field. */
     @NativeType("PFN_vkReallocationFunction")
-    public VkReallocationFunction pfnReallocation() { return npfnReallocation(address()); }
-    /** a {@link VkFreeFunction} pointer to an application-defined memory free function. */
-    @Nullable
+    public @Nullable VkReallocationFunction pfnReallocation() { return npfnReallocation(address()); }
+    /** @return the value of the {@code pfnFree} field. */
     @NativeType("PFN_vkFreeFunction")
-    public VkFreeFunction pfnFree() { return npfnFree(address()); }
-    /** a {@link VkInternalAllocationNotification} pointer to an application-defined function that is called by the implementation when the implementation makes internal allocations. */
-    @Nullable
+    public @Nullable VkFreeFunction pfnFree() { return npfnFree(address()); }
+    /** @return the value of the {@code pfnInternalAllocation} field. */
     @NativeType("PFN_vkInternalAllocationNotification")
-    public VkInternalAllocationNotification pfnInternalAllocation() { return npfnInternalAllocation(address()); }
-    /** a {@link VkInternalFreeNotification} pointer to an application-defined function that is called by the implementation when the implementation frees internal allocations. */
-    @Nullable
+    public @Nullable VkInternalAllocationNotification pfnInternalAllocation() { return npfnInternalAllocation(address()); }
+    /** @return the value of the {@code pfnInternalFree} field. */
     @NativeType("PFN_vkInternalFreeNotification")
-    public VkInternalFreeNotification pfnInternalFree() { return npfnInternalFree(address()); }
+    public @Nullable VkInternalFreeNotification pfnInternalFree() { return npfnInternalFree(address()); }
 
-    /** Sets the specified value to the {@link #pUserData} field. */
+    /** Sets the specified value to the {@code pUserData} field. */
     public VkAllocationCallbacks pUserData(@NativeType("void *") long value) { npUserData(address(), value); return this; }
-    /** Sets the specified value to the {@link #pfnAllocation} field. */
+    /** Sets the specified value to the {@code pfnAllocation} field. */
     public VkAllocationCallbacks pfnAllocation(@Nullable @NativeType("PFN_vkAllocationFunction") VkAllocationFunctionI value) { npfnAllocation(address(), value); return this; }
-    /** Sets the specified value to the {@link #pfnReallocation} field. */
+    /** Sets the specified value to the {@code pfnReallocation} field. */
     public VkAllocationCallbacks pfnReallocation(@Nullable @NativeType("PFN_vkReallocationFunction") VkReallocationFunctionI value) { npfnReallocation(address(), value); return this; }
-    /** Sets the specified value to the {@link #pfnFree} field. */
+    /** Sets the specified value to the {@code pfnFree} field. */
     public VkAllocationCallbacks pfnFree(@Nullable @NativeType("PFN_vkFreeFunction") VkFreeFunctionI value) { npfnFree(address(), value); return this; }
-    /** Sets the specified value to the {@link #pfnInternalAllocation} field. */
+    /** Sets the specified value to the {@code pfnInternalAllocation} field. */
     public VkAllocationCallbacks pfnInternalAllocation(@Nullable @NativeType("PFN_vkInternalAllocationNotification") VkInternalAllocationNotificationI value) { npfnInternalAllocation(address(), value); return this; }
-    /** Sets the specified value to the {@link #pfnInternalFree} field. */
+    /** Sets the specified value to the {@code pfnInternalFree} field. */
     public VkAllocationCallbacks pfnInternalFree(@Nullable @NativeType("PFN_vkInternalFreeNotification") VkInternalFreeNotificationI value) { npfnInternalFree(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -195,8 +173,7 @@ public class VkAllocationCallbacks extends Struct<VkAllocationCallbacks> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAllocationCallbacks createSafe(long address) {
+    public static @Nullable VkAllocationCallbacks createSafe(long address) {
         return address == NULL ? null : new VkAllocationCallbacks(address, null);
     }
 
@@ -239,8 +216,7 @@ public class VkAllocationCallbacks extends Struct<VkAllocationCallbacks> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAllocationCallbacks.Buffer createSafe(long address, int capacity) {
+    public static VkAllocationCallbacks.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -306,15 +282,15 @@ public class VkAllocationCallbacks extends Struct<VkAllocationCallbacks> impleme
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VkAllocationCallbacks.PUSERDATA); }
     /** Unsafe version of {@link #pfnAllocation}. */
-    @Nullable public static VkAllocationFunction npfnAllocation(long struct) { return VkAllocationFunction.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNALLOCATION)); }
+    public static @Nullable VkAllocationFunction npfnAllocation(long struct) { return VkAllocationFunction.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNALLOCATION)); }
     /** Unsafe version of {@link #pfnReallocation}. */
-    @Nullable public static VkReallocationFunction npfnReallocation(long struct) { return VkReallocationFunction.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNREALLOCATION)); }
+    public static @Nullable VkReallocationFunction npfnReallocation(long struct) { return VkReallocationFunction.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNREALLOCATION)); }
     /** Unsafe version of {@link #pfnFree}. */
-    @Nullable public static VkFreeFunction npfnFree(long struct) { return VkFreeFunction.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNFREE)); }
+    public static @Nullable VkFreeFunction npfnFree(long struct) { return VkFreeFunction.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNFREE)); }
     /** Unsafe version of {@link #pfnInternalAllocation}. */
-    @Nullable public static VkInternalAllocationNotification npfnInternalAllocation(long struct) { return VkInternalAllocationNotification.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNINTERNALALLOCATION)); }
+    public static @Nullable VkInternalAllocationNotification npfnInternalAllocation(long struct) { return VkInternalAllocationNotification.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNINTERNALALLOCATION)); }
     /** Unsafe version of {@link #pfnInternalFree}. */
-    @Nullable public static VkInternalFreeNotification npfnInternalFree(long struct) { return VkInternalFreeNotification.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNINTERNALFREE)); }
+    public static @Nullable VkInternalFreeNotification npfnInternalFree(long struct) { return VkInternalFreeNotification.createSafe(memGetAddress(struct + VkAllocationCallbacks.PFNINTERNALFREE)); }
 
     /** Unsafe version of {@link #pUserData(long) pUserData}. */
     public static void npUserData(long struct, long value) { memPutAddress(struct + VkAllocationCallbacks.PUSERDATA, value); }
@@ -363,45 +339,45 @@ public class VkAllocationCallbacks extends Struct<VkAllocationCallbacks> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAllocationCallbacks getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAllocationCallbacks#pUserData} field. */
+        /** @return the value of the {@code pUserData} field. */
         @NativeType("void *")
         public long pUserData() { return VkAllocationCallbacks.npUserData(address()); }
-        /** @return the value of the {@link VkAllocationCallbacks#pfnAllocation} field. */
-        @Nullable
+        /** @return the value of the {@code pfnAllocation} field. */
         @NativeType("PFN_vkAllocationFunction")
-        public VkAllocationFunction pfnAllocation() { return VkAllocationCallbacks.npfnAllocation(address()); }
-        /** @return the value of the {@link VkAllocationCallbacks#pfnReallocation} field. */
-        @Nullable
+        public @Nullable VkAllocationFunction pfnAllocation() { return VkAllocationCallbacks.npfnAllocation(address()); }
+        /** @return the value of the {@code pfnReallocation} field. */
         @NativeType("PFN_vkReallocationFunction")
-        public VkReallocationFunction pfnReallocation() { return VkAllocationCallbacks.npfnReallocation(address()); }
-        /** @return the value of the {@link VkAllocationCallbacks#pfnFree} field. */
-        @Nullable
+        public @Nullable VkReallocationFunction pfnReallocation() { return VkAllocationCallbacks.npfnReallocation(address()); }
+        /** @return the value of the {@code pfnFree} field. */
         @NativeType("PFN_vkFreeFunction")
-        public VkFreeFunction pfnFree() { return VkAllocationCallbacks.npfnFree(address()); }
-        /** @return the value of the {@link VkAllocationCallbacks#pfnInternalAllocation} field. */
-        @Nullable
+        public @Nullable VkFreeFunction pfnFree() { return VkAllocationCallbacks.npfnFree(address()); }
+        /** @return the value of the {@code pfnInternalAllocation} field. */
         @NativeType("PFN_vkInternalAllocationNotification")
-        public VkInternalAllocationNotification pfnInternalAllocation() { return VkAllocationCallbacks.npfnInternalAllocation(address()); }
-        /** @return the value of the {@link VkAllocationCallbacks#pfnInternalFree} field. */
-        @Nullable
+        public @Nullable VkInternalAllocationNotification pfnInternalAllocation() { return VkAllocationCallbacks.npfnInternalAllocation(address()); }
+        /** @return the value of the {@code pfnInternalFree} field. */
         @NativeType("PFN_vkInternalFreeNotification")
-        public VkInternalFreeNotification pfnInternalFree() { return VkAllocationCallbacks.npfnInternalFree(address()); }
+        public @Nullable VkInternalFreeNotification pfnInternalFree() { return VkAllocationCallbacks.npfnInternalFree(address()); }
 
-        /** Sets the specified value to the {@link VkAllocationCallbacks#pUserData} field. */
+        /** Sets the specified value to the {@code pUserData} field. */
         public VkAllocationCallbacks.Buffer pUserData(@NativeType("void *") long value) { VkAllocationCallbacks.npUserData(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAllocationCallbacks#pfnAllocation} field. */
+        /** Sets the specified value to the {@code pfnAllocation} field. */
         public VkAllocationCallbacks.Buffer pfnAllocation(@Nullable @NativeType("PFN_vkAllocationFunction") VkAllocationFunctionI value) { VkAllocationCallbacks.npfnAllocation(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAllocationCallbacks#pfnReallocation} field. */
+        /** Sets the specified value to the {@code pfnReallocation} field. */
         public VkAllocationCallbacks.Buffer pfnReallocation(@Nullable @NativeType("PFN_vkReallocationFunction") VkReallocationFunctionI value) { VkAllocationCallbacks.npfnReallocation(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAllocationCallbacks#pfnFree} field. */
+        /** Sets the specified value to the {@code pfnFree} field. */
         public VkAllocationCallbacks.Buffer pfnFree(@Nullable @NativeType("PFN_vkFreeFunction") VkFreeFunctionI value) { VkAllocationCallbacks.npfnFree(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAllocationCallbacks#pfnInternalAllocation} field. */
+        /** Sets the specified value to the {@code pfnInternalAllocation} field. */
         public VkAllocationCallbacks.Buffer pfnInternalAllocation(@Nullable @NativeType("PFN_vkInternalAllocationNotification") VkInternalAllocationNotificationI value) { VkAllocationCallbacks.npfnInternalAllocation(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAllocationCallbacks#pfnInternalFree} field. */
+        /** Sets the specified value to the {@code pfnInternalFree} field. */
         public VkAllocationCallbacks.Buffer pfnInternalFree(@Nullable @NativeType("PFN_vkInternalFreeNotification") VkInternalFreeNotificationI value) { VkAllocationCallbacks.npfnInternalFree(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure representing a {@code COLR} v1 {@code ClipBox} table.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_ClipBox {
  *     {@link FT_Vector FT_Vector} bottom_left;
  *     {@link FT_Vector FT_Vector} top_left;
  *     {@link FT_Vector FT_Vector} top_right;
  *     {@link FT_Vector FT_Vector} bottom_right;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_ClipBox extends Struct<FT_ClipBox> implements NativeResource {
 
@@ -115,8 +111,7 @@ public class FT_ClipBox extends Struct<FT_ClipBox> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_ClipBox createSafe(long address) {
+    public static @Nullable FT_ClipBox createSafe(long address) {
         return address == NULL ? null : new FT_ClipBox(address, null);
     }
 
@@ -159,8 +154,7 @@ public class FT_ClipBox extends Struct<FT_ClipBox> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_ClipBox.Buffer createSafe(long address, int capacity) {
+    public static FT_ClipBox.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,6 +238,11 @@ public class FT_ClipBox extends Struct<FT_ClipBox> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

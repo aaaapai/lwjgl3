@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FT_GlyphSlot slot,
- *     FT_Pointer *data_pointer
- * )</code></pre>
- */
+/** Callback function: {@link #invoke SVG_Lib_Render_Func} */
 public abstract class SVG_Lib_Render_Func extends Callback implements SVG_Lib_Render_FuncI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class SVG_Lib_Render_Func extends Callback implements SVG_Lib_Re
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static SVG_Lib_Render_Func createSafe(long functionPointer) {
+    public static @Nullable SVG_Lib_Render_Func createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

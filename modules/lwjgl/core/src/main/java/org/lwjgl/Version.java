@@ -4,7 +4,8 @@
  */
 package org.lwjgl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -16,8 +17,8 @@ public final class Version {
     /** Current version of library. */
     public static final int
         VERSION_MAJOR    = 3,
-        VERSION_MINOR    = 3,
-        VERSION_REVISION = 3;
+        VERSION_MINOR    = 4,
+        VERSION_REVISION = 0;
 
     /** The development state of the current build. */
     public static final BuildType BUILD_TYPE = BuildType.STABLE;
@@ -68,8 +69,7 @@ public final class Version {
         return build;
     }
 
-    @Nullable
-    static String findImplementationFromManifest() {
+    static @Nullable String findImplementationFromManifest() {
         ClassLoader classLoader = Version.class.getClassLoader();
 
         URL url = classLoader.getResource("org/lwjgl/Version.class");
@@ -99,8 +99,7 @@ public final class Version {
         return null;
     }
 
-    @Nullable
-    private static String readImplementationFromManifest(URL url) {
+    private static @Nullable String readImplementationFromManifest(URL url) {
         try (InputStream stream = url.openStream()) {
             Attributes attribs = new Manifest(stream).getMainAttributes();
 

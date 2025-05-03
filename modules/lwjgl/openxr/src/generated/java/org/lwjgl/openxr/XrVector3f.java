@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Three-dimensional vector.
- * 
- * <h5>Description</h5>
- * 
- * <p>If used to represent physical distances (rather than e.g. velocity or angular velocity) and not otherwise specified, values <b>must</b> be in meters.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrCompositionLayerReprojectionPlaneOverrideMSFT}, {@link XrGeometryInstanceCreateInfoFB}, {@link XrGeometryInstanceTransformFB}, {@link XrHandCapsuleFB}, {@link XrHandJointVelocityEXT}, {@link XrHandMeshVertexMSFT}, {@link XrHandTrackingMeshFB}, {@link XrKeyboardTrackingDescriptionFB}, {@link XrPassthroughMeshTransformInfoHTC}, {@link XrPosef}, {@link XrQuaternionf}, {@link XrSceneMeshVertexBufferMSFT}, {@link XrSceneOrientedBoxBoundMSFT}, {@link XrSceneSphereBoundMSFT}, {@link XrSpaceVelocity}, {@link XrTriangleMeshCreateInfoFB}, {@link XrVector2f}, {@link XrVector4f}, {@link FBTriangleMesh#xrTriangleMeshGetVertexBufferFB TriangleMeshGetVertexBufferFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVector3f {
- *     float {@link #x};
- *     float {@link #y};
- *     float {@link #z};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ *     float z;
+ * }}</pre>
  */
 public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
 
@@ -86,18 +74,18 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x coordinate of the vector. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the y coordinate of the vector. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
-    /** the z coordinate of the vector. */
+    /** @return the value of the {@code z} field. */
     public float z() { return nz(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public XrVector3f x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public XrVector3f y(float value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #z} field. */
+    /** Sets the specified value to the {@code z} field. */
     public XrVector3f z(float value) { nz(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -149,8 +137,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector3f createSafe(long address) {
+    public static @Nullable XrVector3f createSafe(long address) {
         return address == NULL ? null : new XrVector3f(address, null);
     }
 
@@ -193,8 +180,7 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector3f.Buffer createSafe(long address, int capacity) {
+    public static XrVector3f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -239,18 +225,18 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrVector3f.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrVector3f.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrVector3f.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrVector3f.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + XrVector3f.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + XrVector3f.Z); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector3f.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrVector3f.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector3f.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrVector3f.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector3f.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + XrVector3f.Z, value); }
 
     // -----------------------------------
 
@@ -286,22 +272,27 @@ public class XrVector3f extends Struct<XrVector3f> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVector3f getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVector3f#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return XrVector3f.nx(address()); }
-        /** @return the value of the {@link XrVector3f#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return XrVector3f.ny(address()); }
-        /** @return the value of the {@link XrVector3f#z} field. */
+        /** @return the value of the {@code z} field. */
         public float z() { return XrVector3f.nz(address()); }
 
-        /** Sets the specified value to the {@link XrVector3f#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public XrVector3f.Buffer x(float value) { XrVector3f.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVector3f#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public XrVector3f.Buffer y(float value) { XrVector3f.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVector3f#z} field. */
+        /** Sets the specified value to the {@code z} field. */
         public XrVector3f.Buffer z(float value) { XrVector3f.nz(address(), value); return this; }
 
     }

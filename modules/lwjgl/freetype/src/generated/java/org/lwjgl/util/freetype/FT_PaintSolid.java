@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,10 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing a {@code PaintSolid} value of the {@code COLR} v1 extensions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_PaintSolid {
  *     {@link FT_ColorIndex FT_ColorIndex} color;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_PaintSolid extends Struct<FT_PaintSolid> {
 
@@ -79,8 +75,7 @@ public class FT_PaintSolid extends Struct<FT_PaintSolid> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintSolid createSafe(long address) {
+    public static @Nullable FT_PaintSolid createSafe(long address) {
         return address == NULL ? null : new FT_PaintSolid(address, null);
     }
 
@@ -95,8 +90,7 @@ public class FT_PaintSolid extends Struct<FT_PaintSolid> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintSolid.Buffer createSafe(long address, int capacity) {
+    public static FT_PaintSolid.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -136,6 +130,11 @@ public class FT_PaintSolid extends Struct<FT_PaintSolid> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

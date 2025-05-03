@@ -5,22 +5,13 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code eof} field of the {@link STBIIOCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *user
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class STBIEOFCallback extends Callback implements STBIEOFCallbackI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class STBIEOFCallback extends Callback implements STBIEOFCallbac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static STBIEOFCallback createSafe(long functionPointer) {
+    public static @Nullable STBIEOFCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

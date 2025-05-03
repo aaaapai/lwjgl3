@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,27 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Request feedback about the creation of render pass.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTSubpassMergeFeedback#VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT}</li>
- * <li>{@code pRenderPassFeedback} <b>must</b> be a valid pointer to a {@link VkRenderPassCreationFeedbackInfoEXT} structure</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRenderPassCreateInfo2}, {@link VkRenderPassCreationControlEXT}, {@link VkRenderPassCreationFeedbackInfoEXT}, {@link VK12#vkCreateRenderPass2 CreateRenderPass2}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRenderPassCreationFeedbackCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     {@link VkRenderPassCreationFeedbackInfoEXT VkRenderPassCreationFeedbackInfoEXT} * {@link #pRenderPassFeedback};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     {@link VkRenderPassCreationFeedbackInfoEXT VkRenderPassCreationFeedbackInfoEXT} * pRenderPassFeedback;
+ * }}</pre>
  */
 public class VkRenderPassCreationFeedbackCreateInfoEXT extends Struct<VkRenderPassCreationFeedbackCreateInfoEXT> implements NativeResource {
 
@@ -90,23 +75,23 @@ public class VkRenderPassCreationFeedbackCreateInfoEXT extends Struct<VkRenderPa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@link VkRenderPassCreationFeedbackInfoEXT} structure in which feedback is returned. */
+    /** @return a {@link VkRenderPassCreationFeedbackInfoEXT} view of the struct pointed to by the {@code pRenderPassFeedback} field. */
     @NativeType("VkRenderPassCreationFeedbackInfoEXT *")
     public VkRenderPassCreationFeedbackInfoEXT pRenderPassFeedback() { return npRenderPassFeedback(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkRenderPassCreationFeedbackCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTSubpassMergeFeedback#VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTSubpassMergeFeedback#VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkRenderPassCreationFeedbackCreateInfoEXT sType$Default() { return sType(EXTSubpassMergeFeedback.VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkRenderPassCreationFeedbackCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the address of the specified {@link VkRenderPassCreationFeedbackInfoEXT} to the {@link #pRenderPassFeedback} field. */
+    /** Sets the address of the specified {@link VkRenderPassCreationFeedbackInfoEXT} to the {@code pRenderPassFeedback} field. */
     public VkRenderPassCreationFeedbackCreateInfoEXT pRenderPassFeedback(@NativeType("VkRenderPassCreationFeedbackInfoEXT *") VkRenderPassCreationFeedbackInfoEXT value) { npRenderPassFeedback(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +143,7 @@ public class VkRenderPassCreationFeedbackCreateInfoEXT extends Struct<VkRenderPa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreationFeedbackCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkRenderPassCreationFeedbackCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkRenderPassCreationFeedbackCreateInfoEXT(address, null);
     }
 
@@ -202,8 +186,7 @@ public class VkRenderPassCreationFeedbackCreateInfoEXT extends Struct<VkRenderPa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreationFeedbackCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassCreationFeedbackCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +231,14 @@ public class VkRenderPassCreationFeedbackCreateInfoEXT extends Struct<VkRenderPa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassCreationFeedbackCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRenderPassCreationFeedbackCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRenderPassCreationFeedbackCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #pRenderPassFeedback}. */
     public static VkRenderPassCreationFeedbackInfoEXT npRenderPassFeedback(long struct) { return VkRenderPassCreationFeedbackInfoEXT.create(memGetAddress(struct + VkRenderPassCreationFeedbackCreateInfoEXT.PRENDERPASSFEEDBACK)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRenderPassCreationFeedbackCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRenderPassCreationFeedbackCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRenderPassCreationFeedbackCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #pRenderPassFeedback(VkRenderPassCreationFeedbackInfoEXT) pRenderPassFeedback}. */
@@ -304,27 +287,32 @@ public class VkRenderPassCreationFeedbackCreateInfoEXT extends Struct<VkRenderPa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderPassCreationFeedbackCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkRenderPassCreationFeedbackCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkRenderPassCreationFeedbackCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkRenderPassCreationFeedbackCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkRenderPassCreationFeedbackCreateInfoEXT.npNext(address()); }
-        /** @return a {@link VkRenderPassCreationFeedbackInfoEXT} view of the struct pointed to by the {@link VkRenderPassCreationFeedbackCreateInfoEXT#pRenderPassFeedback} field. */
+        /** @return a {@link VkRenderPassCreationFeedbackInfoEXT} view of the struct pointed to by the {@code pRenderPassFeedback} field. */
         @NativeType("VkRenderPassCreationFeedbackInfoEXT *")
         public VkRenderPassCreationFeedbackInfoEXT pRenderPassFeedback() { return VkRenderPassCreationFeedbackCreateInfoEXT.npRenderPassFeedback(address()); }
 
-        /** Sets the specified value to the {@link VkRenderPassCreationFeedbackCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkRenderPassCreationFeedbackCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkRenderPassCreationFeedbackCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTSubpassMergeFeedback#VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT} value to the {@link VkRenderPassCreationFeedbackCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTSubpassMergeFeedback#VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkRenderPassCreationFeedbackCreateInfoEXT.Buffer sType$Default() { return sType(EXTSubpassMergeFeedback.VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkRenderPassCreationFeedbackCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkRenderPassCreationFeedbackCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkRenderPassCreationFeedbackCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the address of the specified {@link VkRenderPassCreationFeedbackInfoEXT} to the {@link VkRenderPassCreationFeedbackCreateInfoEXT#pRenderPassFeedback} field. */
+        /** Sets the address of the specified {@link VkRenderPassCreationFeedbackInfoEXT} to the {@code pRenderPassFeedback} field. */
         public VkRenderPassCreationFeedbackCreateInfoEXT.Buffer pRenderPassFeedback(@NativeType("VkRenderPassCreationFeedbackInfoEXT *") VkRenderPassCreationFeedbackInfoEXT value) { VkRenderPassCreationFeedbackCreateInfoEXT.npRenderPassFeedback(address(), value); return this; }
 
     }

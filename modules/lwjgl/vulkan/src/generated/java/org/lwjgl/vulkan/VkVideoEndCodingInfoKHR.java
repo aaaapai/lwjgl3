@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying video coding scope end information.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRVideoQueue#vkCmdEndVideoCodingKHR CmdEndVideoCodingKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoEndCodingInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkVideoEndCodingFlagsKHR {@link #flags};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkVideoEndCodingFlagsKHR flags;
+ * }}</pre>
  */
 public class VkVideoEndCodingInfoKHR extends Struct<VkVideoEndCodingInfoKHR> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkVideoEndCodingInfoKHR extends Struct<VkVideoEndCodingInfoKHR> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkVideoEndCodingFlagsKHR")
     public int flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoEndCodingInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR} value to the {@code sType} field. */
     public VkVideoEndCodingInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoEndCodingInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkVideoEndCodingInfoKHR flags(@NativeType("VkVideoEndCodingFlagsKHR") int value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkVideoEndCodingInfoKHR extends Struct<VkVideoEndCodingInfoKHR> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEndCodingInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEndCodingInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEndCodingInfoKHR(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkVideoEndCodingInfoKHR extends Struct<VkVideoEndCodingInfoKHR> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEndCodingInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEndCodingInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +230,18 @@ public class VkVideoEndCodingInfoKHR extends Struct<VkVideoEndCodingInfoKHR> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEndCodingInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEndCodingInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEndCodingInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkVideoEndCodingInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkVideoEndCodingInfoKHR.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEndCodingInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEndCodingInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEndCodingInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEndCodingInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkVideoEndCodingInfoKHR.FLAGS, value); }
 
     // -----------------------------------
 
@@ -295,27 +277,32 @@ public class VkVideoEndCodingInfoKHR extends Struct<VkVideoEndCodingInfoKHR> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEndCodingInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoEndCodingInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoEndCodingInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoEndCodingInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoEndCodingInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoEndCodingInfoKHR#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkVideoEndCodingFlagsKHR")
         public int flags() { return VkVideoEndCodingInfoKHR.nflags(address()); }
 
-        /** Sets the specified value to the {@link VkVideoEndCodingInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoEndCodingInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoEndCodingInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR} value to the {@link VkVideoEndCodingInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR} value to the {@code sType} field. */
         public VkVideoEndCodingInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR); }
-        /** Sets the specified value to the {@link VkVideoEndCodingInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoEndCodingInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoEndCodingInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoEndCodingInfoKHR#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkVideoEndCodingInfoKHR.Buffer flags(@NativeType("VkVideoEndCodingFlagsKHR") int value) { VkVideoEndCodingInfoKHR.nflags(address(), value); return this; }
 
     }

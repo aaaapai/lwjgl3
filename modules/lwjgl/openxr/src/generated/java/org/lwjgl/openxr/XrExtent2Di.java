@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Extent in two dimensions.
- * 
- * <h5>Description</h5>
- * 
- * <p>This variant is for representing discrete values such as texels. For representing physical distances, the floating-point variant <b>must</b> be used instead.</p>
- * 
- * <p>The {@code width} and {@code height} value <b>must</b> be non-negative.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrExternalCameraIntrinsicsOCULUS}, {@link XrOffset2Di}, {@link XrRect2Di}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrExtent2Di {
- *     int32_t {@link #width};
- *     int32_t {@link #height};
- * }</code></pre>
+ *     int32_t width;
+ *     int32_t height;
+ * }}</pre>
  */
 public class XrExtent2Di extends Struct<XrExtent2Di> implements NativeResource {
 
@@ -84,16 +70,16 @@ public class XrExtent2Di extends Struct<XrExtent2Di> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the integer width of the extent. */
+    /** @return the value of the {@code width} field. */
     @NativeType("int32_t")
     public int width() { return nwidth(address()); }
-    /** the integer height of the extent. */
+    /** @return the value of the {@code height} field. */
     @NativeType("int32_t")
     public int height() { return nheight(address()); }
 
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public XrExtent2Di width(@NativeType("int32_t") int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public XrExtent2Di height(@NativeType("int32_t") int value) { nheight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -143,8 +129,7 @@ public class XrExtent2Di extends Struct<XrExtent2Di> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent2Di createSafe(long address) {
+    public static @Nullable XrExtent2Di createSafe(long address) {
         return address == NULL ? null : new XrExtent2Di(address, null);
     }
 
@@ -187,8 +172,7 @@ public class XrExtent2Di extends Struct<XrExtent2Di> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent2Di.Buffer createSafe(long address, int capacity) {
+    public static XrExtent2Di.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,14 +217,14 @@ public class XrExtent2Di extends Struct<XrExtent2Di> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XrExtent2Di.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XrExtent2Di.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XrExtent2Di.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XrExtent2Di.HEIGHT); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XrExtent2Di.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XrExtent2Di.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XrExtent2Di.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XrExtent2Di.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -276,20 +260,25 @@ public class XrExtent2Di extends Struct<XrExtent2Di> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrExtent2Di getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrExtent2Di#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("int32_t")
         public int width() { return XrExtent2Di.nwidth(address()); }
-        /** @return the value of the {@link XrExtent2Di#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("int32_t")
         public int height() { return XrExtent2Di.nheight(address()); }
 
-        /** Sets the specified value to the {@link XrExtent2Di#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public XrExtent2Di.Buffer width(@NativeType("int32_t") int value) { XrExtent2Di.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link XrExtent2Di#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public XrExtent2Di.Buffer height(@NativeType("int32_t") int value) { XrExtent2Di.nheight(address(), value); return this; }
 
     }

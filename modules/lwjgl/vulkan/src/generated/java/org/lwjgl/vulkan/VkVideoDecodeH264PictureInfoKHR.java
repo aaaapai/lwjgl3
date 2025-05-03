@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,64 +19,14 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.video.*;
 
 /**
- * Structure specifies H.264 decode picture parameters when decoding a picture.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure is specified in the {@code pNext} chain of the {@link VkVideoDecodeInfoKHR} structure passed to {@link KHRVideoDecodeQueue#vkCmdDecodeVideoKHR CmdDecodeVideoKHR} to specify the codec-specific picture information for an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264">H.264 decode operation</a>.</p>
- * 
- * <dl>
- * <dt>Decode Output Picture Information</dt>
- * <dd><ul>
- * <li>If {@code pStdPictureInfo→flags.field_pic_flag} is not set, then the picture represents a frame.</li>
- * <li>If {@code pStdPictureInfo→flags.field_pic_flag} is set, then the picture represents a field. Specifically:
- * 
- * <ul>
- * <li>If {@code pStdPictureInfo→flags.bottom_field_flag} is not set, then the picture represents the top field of the frame.</li>
- * <li>If {@code pStdPictureInfo→flags.bottom_field_flag} is set, then the picture represents the bottom field of the frame.</li>
- * </ul>
- * </li>
- * <li>The image subregion used is determined according to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-data-access">H.264 Decode Picture Data Access</a> section.</li>
- * <li>The decode output picture is associated with the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-info">H.264 picture information</a> provided in {@code pStdPictureInfo}.</li>
- * </ul></dd>
- * </dl>
- * 
- * <dl>
- * <dt>Std Picture Information</dt>
- * <dd><ul>
- * <li>{@code reserved1} and {@code reserved2} are used only for padding purposes and are otherwise ignored;</li>
- * <li>{@code flags.is_intra} as defined in section 3.73 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code flags.is_reference} as defined in section 3.136 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code flags.complementary_field_pair} as defined in section 3.35 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>;</li>
- * <li>{@code seq_parameter_set_id} and {@code pic_parameter_set_id} are used to identify the active parameter sets, as described below;</li>
- * <li>all other members are interpreted as defined in section 7.4.3 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>.</li>
- * </ul></dd>
- * <dt>Active Parameter Sets</dt>
- * <dd><ul>
- * <li>The <em>active SPS</em> is the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-sps">SPS</a> identified by the key specified in {@code StdVideoDecodeH264PictureInfo}{@code ::seq_parameter_set_id}.</li>
- * <li>The <em>active PPS</em> is the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-pps">PPS</a> identified by the key specified by the pair constructed from {@code StdVideoDecodeH264PictureInfo}{@code ::seq_parameter_set_id} and {@code StdVideoDecodeH264PictureInfo}{@code ::pic_parameter_set_id}.</li>
- * </ul></dd>
- * </dl>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR}</li>
- * <li>{@code pStdPictureInfo} <b>must</b> be a valid pointer to a valid {@code StdVideoDecodeH264PictureInfo} value</li>
- * <li>{@code pSliceOffsets} <b>must</b> be a valid pointer to an array of {@code sliceCount} {@code uint32_t} values</li>
- * <li>{@code sliceCount} <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoDecodeH264PictureInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     {@link StdVideoDecodeH264PictureInfo StdVideoDecodeH264PictureInfo} const * {@link #pStdPictureInfo};
- *     uint32_t {@link #sliceCount};
- *     uint32_t const * {@link #pSliceOffsets};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     {@link StdVideoDecodeH264PictureInfo StdVideoDecodeH264PictureInfo} const * pStdPictureInfo;
+ *     uint32_t sliceCount;
+ *     uint32_t const * pSliceOffsets;
+ * }}</pre>
  */
 public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264PictureInfoKHR> implements NativeResource {
 
@@ -135,31 +85,31 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@code StdVideoDecodeH264PictureInfo} structure specifying <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#decode-h264-picture-info">H.264 picture information</a>. */
+    /** @return a {@link StdVideoDecodeH264PictureInfo} view of the struct pointed to by the {@code pStdPictureInfo} field. */
     @NativeType("StdVideoDecodeH264PictureInfo const *")
     public StdVideoDecodeH264PictureInfo pStdPictureInfo() { return npStdPictureInfo(address()); }
-    /** the number of elements in {@code pSliceOffsets}. */
+    /** @return the value of the {@code sliceCount} field. */
     @NativeType("uint32_t")
     public int sliceCount() { return nsliceCount(address()); }
-    /** a pointer to an array of {@code sliceCount} offsets specifying the start offset of the slices of the picture within the video bitstream buffer range specified in {@link VkVideoDecodeInfoKHR}. */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code pSliceOffsets} field. */
     @NativeType("uint32_t const *")
     public IntBuffer pSliceOffsets() { return npSliceOffsets(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoDecodeH264PictureInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR} value to the {@code sType} field. */
     public VkVideoDecodeH264PictureInfoKHR sType$Default() { return sType(KHRVideoDecodeH264.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoDecodeH264PictureInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the address of the specified {@link StdVideoDecodeH264PictureInfo} to the {@link #pStdPictureInfo} field. */
+    /** Sets the address of the specified {@link StdVideoDecodeH264PictureInfo} to the {@code pStdPictureInfo} field. */
     public VkVideoDecodeH264PictureInfoKHR pStdPictureInfo(@NativeType("StdVideoDecodeH264PictureInfo const *") StdVideoDecodeH264PictureInfo value) { npStdPictureInfo(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #pSliceOffsets} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code pSliceOffsets} field. */
     public VkVideoDecodeH264PictureInfoKHR pSliceOffsets(@NativeType("uint32_t const *") IntBuffer value) { npSliceOffsets(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -213,8 +163,7 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264PictureInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH264PictureInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH264PictureInfoKHR(address, null);
     }
 
@@ -257,8 +206,7 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264PictureInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH264PictureInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,24 +251,24 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264PictureInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH264PictureInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH264PictureInfoKHR.PNEXT); }
     /** Unsafe version of {@link #pStdPictureInfo}. */
     public static StdVideoDecodeH264PictureInfo npStdPictureInfo(long struct) { return StdVideoDecodeH264PictureInfo.create(memGetAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSTDPICTUREINFO)); }
     /** Unsafe version of {@link #sliceCount}. */
-    public static int nsliceCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT); }
+    public static int nsliceCount(long struct) { return memGetInt(struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT); }
     /** Unsafe version of {@link #pSliceOffsets() pSliceOffsets}. */
     public static IntBuffer npSliceOffsets(long struct) { return memIntBuffer(memGetAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSLICEOFFSETS), nsliceCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264PictureInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH264PictureInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH264PictureInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #pStdPictureInfo(StdVideoDecodeH264PictureInfo) pStdPictureInfo}. */
     public static void npStdPictureInfo(long struct, StdVideoDecodeH264PictureInfo value) { memPutAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSTDPICTUREINFO, value.address()); }
     /** Sets the specified value to the {@code sliceCount} field of the specified {@code struct}. */
-    public static void nsliceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT, value); }
+    public static void nsliceCount(long struct, int value) { memPutInt(struct + VkVideoDecodeH264PictureInfoKHR.SLICECOUNT, value); }
     /** Unsafe version of {@link #pSliceOffsets(IntBuffer) pSliceOffsets}. */
     public static void npSliceOffsets(long struct, IntBuffer value) { memPutAddress(struct + VkVideoDecodeH264PictureInfoKHR.PSLICEOFFSETS, memAddress(value)); nsliceCount(struct, value.remaining()); }
 
@@ -368,35 +316,40 @@ public class VkVideoDecodeH264PictureInfoKHR extends Struct<VkVideoDecodeH264Pic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoDecodeH264PictureInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoDecodeH264PictureInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoDecodeH264PictureInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264PictureInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoDecodeH264PictureInfoKHR.npNext(address()); }
-        /** @return a {@link StdVideoDecodeH264PictureInfo} view of the struct pointed to by the {@link VkVideoDecodeH264PictureInfoKHR#pStdPictureInfo} field. */
+        /** @return a {@link StdVideoDecodeH264PictureInfo} view of the struct pointed to by the {@code pStdPictureInfo} field. */
         @NativeType("StdVideoDecodeH264PictureInfo const *")
         public StdVideoDecodeH264PictureInfo pStdPictureInfo() { return VkVideoDecodeH264PictureInfoKHR.npStdPictureInfo(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264PictureInfoKHR#sliceCount} field. */
+        /** @return the value of the {@code sliceCount} field. */
         @NativeType("uint32_t")
         public int sliceCount() { return VkVideoDecodeH264PictureInfoKHR.nsliceCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkVideoDecodeH264PictureInfoKHR#pSliceOffsets} field. */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code pSliceOffsets} field. */
         @NativeType("uint32_t const *")
         public IntBuffer pSliceOffsets() { return VkVideoDecodeH264PictureInfoKHR.npSliceOffsets(address()); }
 
-        /** Sets the specified value to the {@link VkVideoDecodeH264PictureInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoDecodeH264PictureInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoDecodeH264PictureInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR} value to the {@link VkVideoDecodeH264PictureInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR} value to the {@code sType} field. */
         public VkVideoDecodeH264PictureInfoKHR.Buffer sType$Default() { return sType(KHRVideoDecodeH264.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkVideoDecodeH264PictureInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoDecodeH264PictureInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoDecodeH264PictureInfoKHR.npNext(address(), value); return this; }
-        /** Sets the address of the specified {@link StdVideoDecodeH264PictureInfo} to the {@link VkVideoDecodeH264PictureInfoKHR#pStdPictureInfo} field. */
+        /** Sets the address of the specified {@link StdVideoDecodeH264PictureInfo} to the {@code pStdPictureInfo} field. */
         public VkVideoDecodeH264PictureInfoKHR.Buffer pStdPictureInfo(@NativeType("StdVideoDecodeH264PictureInfo const *") StdVideoDecodeH264PictureInfo value) { VkVideoDecodeH264PictureInfoKHR.npStdPictureInfo(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link VkVideoDecodeH264PictureInfoKHR#pSliceOffsets} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code pSliceOffsets} field. */
         public VkVideoDecodeH264PictureInfoKHR.Buffer pSliceOffsets(@NativeType("uint32_t const *") IntBuffer value) { VkVideoDecodeH264PictureInfoKHR.npSliceOffsets(address(), value); return this; }
 
     }

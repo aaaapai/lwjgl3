@@ -5,25 +5,13 @@
  */
 package org.lwjgl.openal;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     ALenum eventType,
- *     ALuint object,
- *     ALuint param,
- *     ALsizei length,
- *     ALchar const *message,
- *     ALvoid *userParam
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ALEVENTPROCSOFT} */
 public abstract class SOFTEventProc extends Callback implements SOFTEventProcI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class SOFTEventProc extends Callback implements SOFTEventProcI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static SOFTEventProc createSafe(long functionPointer) {
+    public static @Nullable SOFTEventProc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

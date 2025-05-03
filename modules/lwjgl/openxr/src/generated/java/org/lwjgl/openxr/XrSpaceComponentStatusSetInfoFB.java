@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Request info to enable or disable an entity.
- * 
- * <h5>Description</h5>
- * 
- * <p>Enables or disables the specified component for the specified spatial entity.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntity XR_FB_spatial_entity} extension <b>must</b> be enabled prior to using {@link XrSpaceComponentStatusSetInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntity#XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code componentType} <b>must</b> be a valid {@code XrSpaceComponentTypeFB} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBSpatialEntity#xrSetSpaceComponentStatusFB SetSpaceComponentStatusFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceComponentStatusSetInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpaceComponentTypeFB {@link #componentType};
- *     XrBool32 {@link #enabled};
- *     XrDuration {@link #timeout};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpaceComponentTypeFB componentType;
+ *     XrBool32 enabled;
+ *     XrDuration timeout;
+ * }}</pre>
  */
 public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStatusSetInfoFB> implements NativeResource {
 
@@ -103,33 +82,33 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the component whose status is to be set. */
+    /** @return the value of the {@code componentType} field. */
     @NativeType("XrSpaceComponentTypeFB")
     public int componentType() { return ncomponentType(address()); }
-    /** the value to set the component to. */
+    /** @return the value of the {@code enabled} field. */
     @NativeType("XrBool32")
     public boolean enabled() { return nenabled(address()) != 0; }
-    /** the number of nanoseconds before the operation should be cancelled. A value of {@link XR10#XR_INFINITE_DURATION INFINITE_DURATION} indicates to never time out. See <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#duration">duration</a> for more details. */
+    /** @return the value of the {@code timeout} field. */
     @NativeType("XrDuration")
     public long timeout() { return ntimeout(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceComponentStatusSetInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntity#XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntity#XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB} value to the {@code type} field. */
     public XrSpaceComponentStatusSetInfoFB type$Default() { return type(FBSpatialEntity.XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceComponentStatusSetInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #componentType} field. */
+    /** Sets the specified value to the {@code componentType} field. */
     public XrSpaceComponentStatusSetInfoFB componentType(@NativeType("XrSpaceComponentTypeFB") int value) { ncomponentType(address(), value); return this; }
-    /** Sets the specified value to the {@link #enabled} field. */
+    /** Sets the specified value to the {@code enabled} field. */
     public XrSpaceComponentStatusSetInfoFB enabled(@NativeType("XrBool32") boolean value) { nenabled(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #timeout} field. */
+    /** Sets the specified value to the {@code timeout} field. */
     public XrSpaceComponentStatusSetInfoFB timeout(@NativeType("XrDuration") long value) { ntimeout(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -185,8 +164,7 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentStatusSetInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceComponentStatusSetInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceComponentStatusSetInfoFB(address, null);
     }
 
@@ -229,8 +207,7 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentStatusSetInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceComponentStatusSetInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +252,26 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusSetInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceComponentStatusSetInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceComponentStatusSetInfoFB.NEXT); }
     /** Unsafe version of {@link #componentType}. */
-    public static int ncomponentType(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE); }
+    public static int ncomponentType(long struct) { return memGetInt(struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE); }
     /** Unsafe version of {@link #enabled}. */
-    public static int nenabled(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentStatusSetInfoFB.ENABLED); }
+    public static int nenabled(long struct) { return memGetInt(struct + XrSpaceComponentStatusSetInfoFB.ENABLED); }
     /** Unsafe version of {@link #timeout}. */
-    public static long ntimeout(long struct) { return UNSAFE.getLong(null, struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT); }
+    public static long ntimeout(long struct) { return memGetLong(struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusSetInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusSetInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceComponentStatusSetInfoFB.NEXT, value); }
     /** Unsafe version of {@link #componentType(int) componentType}. */
-    public static void ncomponentType(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE, value); }
+    public static void ncomponentType(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusSetInfoFB.COMPONENTTYPE, value); }
     /** Unsafe version of {@link #enabled(boolean) enabled}. */
-    public static void nenabled(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentStatusSetInfoFB.ENABLED, value); }
+    public static void nenabled(long struct, int value) { memPutInt(struct + XrSpaceComponentStatusSetInfoFB.ENABLED, value); }
     /** Unsafe version of {@link #timeout(long) timeout}. */
-    public static void ntimeout(long struct, long value) { UNSAFE.putLong(null, struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT, value); }
+    public static void ntimeout(long struct, long value) { memPutLong(struct + XrSpaceComponentStatusSetInfoFB.TIMEOUT, value); }
 
     // -----------------------------------
 
@@ -330,37 +307,42 @@ public class XrSpaceComponentStatusSetInfoFB extends Struct<XrSpaceComponentStat
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceComponentStatusSetInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceComponentStatusSetInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceComponentStatusSetInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrSpaceComponentStatusSetInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpaceComponentStatusSetInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrSpaceComponentStatusSetInfoFB#componentType} field. */
+        /** @return the value of the {@code componentType} field. */
         @NativeType("XrSpaceComponentTypeFB")
         public int componentType() { return XrSpaceComponentStatusSetInfoFB.ncomponentType(address()); }
-        /** @return the value of the {@link XrSpaceComponentStatusSetInfoFB#enabled} field. */
+        /** @return the value of the {@code enabled} field. */
         @NativeType("XrBool32")
         public boolean enabled() { return XrSpaceComponentStatusSetInfoFB.nenabled(address()) != 0; }
-        /** @return the value of the {@link XrSpaceComponentStatusSetInfoFB#timeout} field. */
+        /** @return the value of the {@code timeout} field. */
         @NativeType("XrDuration")
         public long timeout() { return XrSpaceComponentStatusSetInfoFB.ntimeout(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceComponentStatusSetInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceComponentStatusSetInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceComponentStatusSetInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntity#XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB} value to the {@link XrSpaceComponentStatusSetInfoFB#type} field. */
+        /** Sets the {@link FBSpatialEntity#XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB} value to the {@code type} field. */
         public XrSpaceComponentStatusSetInfoFB.Buffer type$Default() { return type(FBSpatialEntity.XR_TYPE_SPACE_COMPONENT_STATUS_SET_INFO_FB); }
-        /** Sets the specified value to the {@link XrSpaceComponentStatusSetInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceComponentStatusSetInfoFB.Buffer next(@NativeType("void const *") long value) { XrSpaceComponentStatusSetInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceComponentStatusSetInfoFB#componentType} field. */
+        /** Sets the specified value to the {@code componentType} field. */
         public XrSpaceComponentStatusSetInfoFB.Buffer componentType(@NativeType("XrSpaceComponentTypeFB") int value) { XrSpaceComponentStatusSetInfoFB.ncomponentType(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceComponentStatusSetInfoFB#enabled} field. */
+        /** Sets the specified value to the {@code enabled} field. */
         public XrSpaceComponentStatusSetInfoFB.Buffer enabled(@NativeType("XrBool32") boolean value) { XrSpaceComponentStatusSetInfoFB.nenabled(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XrSpaceComponentStatusSetInfoFB#timeout} field. */
+        /** Sets the specified value to the {@code timeout} field. */
         public XrSpaceComponentStatusSetInfoFB.Buffer timeout(@NativeType("XrDuration") long value) { XrSpaceComponentStatusSetInfoFB.ntimeout(address(), value); return this; }
 
     }

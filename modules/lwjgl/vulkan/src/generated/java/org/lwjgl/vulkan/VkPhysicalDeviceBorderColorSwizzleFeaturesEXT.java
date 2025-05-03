@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether samplers with custom border colors require the component swizzle specified in order to have defined behavior.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTBorderColorSwizzle#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceBorderColorSwizzleFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #borderColorSwizzle};
- *     VkBool32 {@link #borderColorSwizzleFromImage};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 borderColorSwizzle;
+ *     VkBool32 borderColorSwizzleFromImage;
+ * }}</pre>
  */
 public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhysicalDeviceBorderColorSwizzleFeaturesEXT> implements NativeResource {
 
@@ -92,28 +78,28 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that defined values are returned by sampled image operations when used with a sampler that uses a {@link VK10#VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK BORDER_COLOR_FLOAT_OPAQUE_BLACK}, {@link VK10#VK_BORDER_COLOR_INT_OPAQUE_BLACK BORDER_COLOR_INT_OPAQUE_BLACK}, {@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT}, or {@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT} {@code borderColor} and an image view that uses a non-<a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views-identity-mappings">identity component mapping</a>, when either {@code borderColorSwizzleFromImage} is enabled or the {@link VkSamplerBorderColorComponentMappingCreateInfoEXT} is specified. */
+    /** @return the value of the {@code borderColorSwizzle} field. */
     @NativeType("VkBool32")
     public boolean borderColorSwizzle() { return nborderColorSwizzle(address()) != 0; }
-    /** indicates that the implementation will return the correct border color values from sampled image operations under the conditions expressed above, without the application having to specify the border color component mapping when creating the sampler object. If this feature bit is not set, applications <b>can</b> chain a {@link VkSamplerBorderColorComponentMappingCreateInfoEXT} structure when creating samplers for use with image views that do not have an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views-identity-mappings">identity swizzle</a> and, when those samplers are combined with image views using the same component mapping, sampled image operations that use opaque black or custom border colors will return the correct border color values. */
+    /** @return the value of the {@code borderColorSwizzleFromImage} field. */
     @NativeType("VkBool32")
     public boolean borderColorSwizzleFromImage() { return nborderColorSwizzleFromImage(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTBorderColorSwizzle#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTBorderColorSwizzle#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT sType$Default() { return sType(EXTBorderColorSwizzle.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #borderColorSwizzle} field. */
+    /** Sets the specified value to the {@code borderColorSwizzle} field. */
     public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT borderColorSwizzle(@NativeType("VkBool32") boolean value) { nborderColorSwizzle(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #borderColorSwizzleFromImage} field. */
+    /** Sets the specified value to the {@code borderColorSwizzleFromImage} field. */
     public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT borderColorSwizzleFromImage(@NativeType("VkBool32") boolean value) { nborderColorSwizzleFromImage(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +153,7 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBorderColorSwizzleFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceBorderColorSwizzleFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceBorderColorSwizzleFeaturesEXT(address, null);
     }
 
@@ -211,8 +196,7 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +241,22 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #borderColorSwizzle}. */
-    public static int nborderColorSwizzle(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE); }
+    public static int nborderColorSwizzle(long struct) { return memGetInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE); }
     /** Unsafe version of {@link #borderColorSwizzleFromImage}. */
-    public static int nborderColorSwizzleFromImage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE); }
+    public static int nborderColorSwizzleFromImage(long struct) { return memGetInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #borderColorSwizzle(boolean) borderColorSwizzle}. */
-    public static void nborderColorSwizzle(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE, value); }
+    public static void nborderColorSwizzle(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLE, value); }
     /** Unsafe version of {@link #borderColorSwizzleFromImage(boolean) borderColorSwizzleFromImage}. */
-    public static void nborderColorSwizzleFromImage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE, value); }
+    public static void nborderColorSwizzleFromImage(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.BORDERCOLORSWIZZLEFROMIMAGE, value); }
 
     // -----------------------------------
 
@@ -308,32 +292,37 @@ public class VkPhysicalDeviceBorderColorSwizzleFeaturesEXT extends Struct<VkPhys
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceBorderColorSwizzleFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#borderColorSwizzle} field. */
+        /** @return the value of the {@code borderColorSwizzle} field. */
         @NativeType("VkBool32")
         public boolean borderColorSwizzle() { return VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.nborderColorSwizzle(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#borderColorSwizzleFromImage} field. */
+        /** @return the value of the {@code borderColorSwizzleFromImage} field. */
         @NativeType("VkBool32")
         public boolean borderColorSwizzleFromImage() { return VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.nborderColorSwizzleFromImage(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTBorderColorSwizzle#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT} value to the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTBorderColorSwizzle#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer sType$Default() { return sType(EXTBorderColorSwizzle.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#borderColorSwizzle} field. */
+        /** Sets the specified value to the {@code borderColorSwizzle} field. */
         public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer borderColorSwizzle(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.nborderColorSwizzle(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceBorderColorSwizzleFeaturesEXT#borderColorSwizzleFromImage} field. */
+        /** Sets the specified value to the {@code borderColorSwizzleFromImage} field. */
         public VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.Buffer borderColorSwizzleFromImage(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.nborderColorSwizzleFromImage(address(), value ? 1 : 0); return this; }
 
     }

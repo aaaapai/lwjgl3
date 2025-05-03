@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,45 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A composition layer for passthrough.
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
- * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension.</li>
- * <li>{@code flags} is a bitmask of {@code XrCompositionLayerFlagBits} that specify additional behavior.</li>
- * <li>{@code space} is the {@code XrSpace} that specifies the layer’s space - <b>must</b> be {@link XR10#XR_NULL_HANDLE NULL_HANDLE}.</li>
- * <li>{@code layer} is the {@code XrPassthroughLayerFB} that defines this layer’s behavior.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerPassthroughFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB TYPE_COMPOSITION_LAYER_PASSTHROUGH_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code XrCompositionLayerFlagBits} values</li>
- * <li>{@code flags} <b>must</b> not be 0</li>
- * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
- * <li>{@code layerHandle} <b>must</b> be a valid {@code XrPassthroughLayerFB} handle</li>
- * <li>Both of {@code layerHandle} and {@code space} <b>must</b> have been created, allocated, or retrieved from the same {@code XrSession}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrCompositionLayerBaseHeader}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrCompositionLayerPassthroughFB {
  *     XrStructureType type;
  *     void const * next;
  *     XrCompositionLayerFlags flags;
  *     XrSpace space;
  *     XrPassthroughLayerFB layerHandle;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPassthroughFB> implements NativeResource {
 
@@ -196,9 +165,13 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerPassthroughFB createSafe(long address) {
+    public static @Nullable XrCompositionLayerPassthroughFB createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerPassthroughFB(address, null);
+    }
+
+    /** Downcasts the specified {@code XrCompositionLayerBaseHeader} instance to {@code XrCompositionLayerPassthroughFB}. */
+    public static XrCompositionLayerPassthroughFB create(XrCompositionLayerBaseHeader value) {
+        return new XrCompositionLayerPassthroughFB(value.address(), __getContainer(value));
     }
 
     /**
@@ -240,9 +213,13 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerPassthroughFB.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerPassthroughFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
+    }
+
+    /** Downcasts the specified {@code XrCompositionLayerBaseHeader.Buffer} instance to {@code XrCompositionLayerPassthroughFB.Buffer}. */
+    public static XrCompositionLayerPassthroughFB.Buffer create(XrCompositionLayerBaseHeader.Buffer value) {
+        return new XrCompositionLayerPassthroughFB.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -286,22 +263,22 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerPassthroughFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerPassthroughFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerPassthroughFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerPassthroughFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrCompositionLayerPassthroughFB.FLAGS); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrCompositionLayerPassthroughFB.SPACE); }
     /** Unsafe version of {@link #layerHandle}. */
     public static long nlayerHandle(long struct) { return memGetAddress(struct + XrCompositionLayerPassthroughFB.LAYERHANDLE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerPassthroughFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerPassthroughFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerPassthroughFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerPassthroughFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrCompositionLayerPassthroughFB.FLAGS, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrCompositionLayerPassthroughFB.SPACE, value.address()); }
     /** Unsafe version of {@link #layerHandle(XrPassthroughLayerFB) layerHandle}. */
@@ -348,6 +325,11 @@ public class XrCompositionLayerPassthroughFB extends Struct<XrCompositionLayerPa
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

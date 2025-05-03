@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Data type for holding variation-axis values.
- * 
- * <p>The minimum, default, and maximum values are in un-normalized, user scales.</p>
- * 
- * <p>Note: at present, the only flag defined for flags is {@link OpenType#HB_OT_VAR_AXIS_FLAG_HIDDEN VAR_AXIS_FLAG_HIDDEN}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_ot_var_axis_info_t {
- *     unsigned int {@link #axis_index};
- *     hb_tag_t {@link #tag};
- *     hb_ot_name_id_t {@link #name_id};
- *     hb_ot_var_axis_flags_t {@link #flags};
- *     float {@link #min_value};
- *     float {@link #default_value};
- *     float {@link #max_value};
+ *     unsigned int axis_index;
+ *     hb_tag_t tag;
+ *     hb_ot_name_id_t name_id;
+ *     hb_ot_var_axis_flags_t flags;
+ *     float min_value;
+ *     float default_value;
+ *     float max_value;
  *     unsigned int reserved;
- * }</code></pre>
+ * }}</pre>
  */
 public class hb_ot_var_axis_info_t extends Struct<hb_ot_var_axis_info_t> implements NativeResource {
 
@@ -102,38 +94,38 @@ public class hb_ot_var_axis_info_t extends Struct<hb_ot_var_axis_info_t> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** index of the axis in the variation-axis array */
+    /** @return the value of the {@code axis_index} field. */
     @NativeType("unsigned int")
     public int axis_index() { return naxis_index(address()); }
-    /** the {@code hb_tag_t} tag identifying the design variation of the axis */
+    /** @return the value of the {@code tag} field. */
     @NativeType("hb_tag_t")
     public int tag() { return ntag(address()); }
-    /** the {@code name} table Name ID that provides display names for the axis */
+    /** @return the value of the {@code name_id} field. */
     @NativeType("hb_ot_name_id_t")
     public int name_id() { return nname_id(address()); }
-    /** the {@code hb_ot_var_axis_flags_t} flags for the axis */
+    /** @return the value of the {@code flags} field. */
     @NativeType("hb_ot_var_axis_flags_t")
     public int flags() { return nflags(address()); }
-    /** the minimum value on the variation axis that the font covers */
+    /** @return the value of the {@code min_value} field. */
     public float min_value() { return nmin_value(address()); }
-    /** the position on the variation axis corresponding to the font's defaults */
+    /** @return the value of the {@code default_value} field. */
     public float default_value() { return ndefault_value(address()); }
-    /** the maximum value on the variation axis that the font covers */
+    /** @return the value of the {@code max_value} field. */
     public float max_value() { return nmax_value(address()); }
 
-    /** Sets the specified value to the {@link #axis_index} field. */
+    /** Sets the specified value to the {@code axis_index} field. */
     public hb_ot_var_axis_info_t axis_index(@NativeType("unsigned int") int value) { naxis_index(address(), value); return this; }
-    /** Sets the specified value to the {@link #tag} field. */
+    /** Sets the specified value to the {@code tag} field. */
     public hb_ot_var_axis_info_t tag(@NativeType("hb_tag_t") int value) { ntag(address(), value); return this; }
-    /** Sets the specified value to the {@link #name_id} field. */
+    /** Sets the specified value to the {@code name_id} field. */
     public hb_ot_var_axis_info_t name_id(@NativeType("hb_ot_name_id_t") int value) { nname_id(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public hb_ot_var_axis_info_t flags(@NativeType("hb_ot_var_axis_flags_t") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #min_value} field. */
+    /** Sets the specified value to the {@code min_value} field. */
     public hb_ot_var_axis_info_t min_value(float value) { nmin_value(address(), value); return this; }
-    /** Sets the specified value to the {@link #default_value} field. */
+    /** Sets the specified value to the {@code default_value} field. */
     public hb_ot_var_axis_info_t default_value(float value) { ndefault_value(address(), value); return this; }
-    /** Sets the specified value to the {@link #max_value} field. */
+    /** Sets the specified value to the {@code max_value} field. */
     public hb_ot_var_axis_info_t max_value(float value) { nmax_value(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -193,8 +185,7 @@ public class hb_ot_var_axis_info_t extends Struct<hb_ot_var_axis_info_t> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_var_axis_info_t createSafe(long address) {
+    public static @Nullable hb_ot_var_axis_info_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_var_axis_info_t(address, null);
     }
 
@@ -237,8 +228,7 @@ public class hb_ot_var_axis_info_t extends Struct<hb_ot_var_axis_info_t> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_var_axis_info_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_var_axis_info_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,36 +273,36 @@ public class hb_ot_var_axis_info_t extends Struct<hb_ot_var_axis_info_t> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #axis_index}. */
-    public static int naxis_index(long struct) { return UNSAFE.getInt(null, struct + hb_ot_var_axis_info_t.AXIS_INDEX); }
+    public static int naxis_index(long struct) { return memGetInt(struct + hb_ot_var_axis_info_t.AXIS_INDEX); }
     /** Unsafe version of {@link #tag}. */
-    public static int ntag(long struct) { return UNSAFE.getInt(null, struct + hb_ot_var_axis_info_t.TAG); }
+    public static int ntag(long struct) { return memGetInt(struct + hb_ot_var_axis_info_t.TAG); }
     /** Unsafe version of {@link #name_id}. */
-    public static int nname_id(long struct) { return UNSAFE.getInt(null, struct + hb_ot_var_axis_info_t.NAME_ID); }
+    public static int nname_id(long struct) { return memGetInt(struct + hb_ot_var_axis_info_t.NAME_ID); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + hb_ot_var_axis_info_t.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + hb_ot_var_axis_info_t.FLAGS); }
     /** Unsafe version of {@link #min_value}. */
-    public static float nmin_value(long struct) { return UNSAFE.getFloat(null, struct + hb_ot_var_axis_info_t.MIN_VALUE); }
+    public static float nmin_value(long struct) { return memGetFloat(struct + hb_ot_var_axis_info_t.MIN_VALUE); }
     /** Unsafe version of {@link #default_value}. */
-    public static float ndefault_value(long struct) { return UNSAFE.getFloat(null, struct + hb_ot_var_axis_info_t.DEFAULT_VALUE); }
+    public static float ndefault_value(long struct) { return memGetFloat(struct + hb_ot_var_axis_info_t.DEFAULT_VALUE); }
     /** Unsafe version of {@link #max_value}. */
-    public static float nmax_value(long struct) { return UNSAFE.getFloat(null, struct + hb_ot_var_axis_info_t.MAX_VALUE); }
-    public static int nreserved(long struct) { return UNSAFE.getInt(null, struct + hb_ot_var_axis_info_t.RESERVED); }
+    public static float nmax_value(long struct) { return memGetFloat(struct + hb_ot_var_axis_info_t.MAX_VALUE); }
+    public static int nreserved(long struct) { return memGetInt(struct + hb_ot_var_axis_info_t.RESERVED); }
 
     /** Unsafe version of {@link #axis_index(int) axis_index}. */
-    public static void naxis_index(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_var_axis_info_t.AXIS_INDEX, value); }
+    public static void naxis_index(long struct, int value) { memPutInt(struct + hb_ot_var_axis_info_t.AXIS_INDEX, value); }
     /** Unsafe version of {@link #tag(int) tag}. */
-    public static void ntag(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_var_axis_info_t.TAG, value); }
+    public static void ntag(long struct, int value) { memPutInt(struct + hb_ot_var_axis_info_t.TAG, value); }
     /** Unsafe version of {@link #name_id(int) name_id}. */
-    public static void nname_id(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_var_axis_info_t.NAME_ID, value); }
+    public static void nname_id(long struct, int value) { memPutInt(struct + hb_ot_var_axis_info_t.NAME_ID, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_var_axis_info_t.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + hb_ot_var_axis_info_t.FLAGS, value); }
     /** Unsafe version of {@link #min_value(float) min_value}. */
-    public static void nmin_value(long struct, float value) { UNSAFE.putFloat(null, struct + hb_ot_var_axis_info_t.MIN_VALUE, value); }
+    public static void nmin_value(long struct, float value) { memPutFloat(struct + hb_ot_var_axis_info_t.MIN_VALUE, value); }
     /** Unsafe version of {@link #default_value(float) default_value}. */
-    public static void ndefault_value(long struct, float value) { UNSAFE.putFloat(null, struct + hb_ot_var_axis_info_t.DEFAULT_VALUE, value); }
+    public static void ndefault_value(long struct, float value) { memPutFloat(struct + hb_ot_var_axis_info_t.DEFAULT_VALUE, value); }
     /** Unsafe version of {@link #max_value(float) max_value}. */
-    public static void nmax_value(long struct, float value) { UNSAFE.putFloat(null, struct + hb_ot_var_axis_info_t.MAX_VALUE, value); }
-    public static void nreserved(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_var_axis_info_t.RESERVED, value); }
+    public static void nmax_value(long struct, float value) { memPutFloat(struct + hb_ot_var_axis_info_t.MAX_VALUE, value); }
+    public static void nreserved(long struct, int value) { memPutInt(struct + hb_ot_var_axis_info_t.RESERVED, value); }
 
     // -----------------------------------
 
@@ -348,42 +338,47 @@ public class hb_ot_var_axis_info_t extends Struct<hb_ot_var_axis_info_t> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_ot_var_axis_info_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_ot_var_axis_info_t#axis_index} field. */
+        /** @return the value of the {@code axis_index} field. */
         @NativeType("unsigned int")
         public int axis_index() { return hb_ot_var_axis_info_t.naxis_index(address()); }
-        /** @return the value of the {@link hb_ot_var_axis_info_t#tag} field. */
+        /** @return the value of the {@code tag} field. */
         @NativeType("hb_tag_t")
         public int tag() { return hb_ot_var_axis_info_t.ntag(address()); }
-        /** @return the value of the {@link hb_ot_var_axis_info_t#name_id} field. */
+        /** @return the value of the {@code name_id} field. */
         @NativeType("hb_ot_name_id_t")
         public int name_id() { return hb_ot_var_axis_info_t.nname_id(address()); }
-        /** @return the value of the {@link hb_ot_var_axis_info_t#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("hb_ot_var_axis_flags_t")
         public int flags() { return hb_ot_var_axis_info_t.nflags(address()); }
-        /** @return the value of the {@link hb_ot_var_axis_info_t#min_value} field. */
+        /** @return the value of the {@code min_value} field. */
         public float min_value() { return hb_ot_var_axis_info_t.nmin_value(address()); }
-        /** @return the value of the {@link hb_ot_var_axis_info_t#default_value} field. */
+        /** @return the value of the {@code default_value} field. */
         public float default_value() { return hb_ot_var_axis_info_t.ndefault_value(address()); }
-        /** @return the value of the {@link hb_ot_var_axis_info_t#max_value} field. */
+        /** @return the value of the {@code max_value} field. */
         public float max_value() { return hb_ot_var_axis_info_t.nmax_value(address()); }
 
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#axis_index} field. */
+        /** Sets the specified value to the {@code axis_index} field. */
         public hb_ot_var_axis_info_t.Buffer axis_index(@NativeType("unsigned int") int value) { hb_ot_var_axis_info_t.naxis_index(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#tag} field. */
+        /** Sets the specified value to the {@code tag} field. */
         public hb_ot_var_axis_info_t.Buffer tag(@NativeType("hb_tag_t") int value) { hb_ot_var_axis_info_t.ntag(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#name_id} field. */
+        /** Sets the specified value to the {@code name_id} field. */
         public hb_ot_var_axis_info_t.Buffer name_id(@NativeType("hb_ot_name_id_t") int value) { hb_ot_var_axis_info_t.nname_id(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public hb_ot_var_axis_info_t.Buffer flags(@NativeType("hb_ot_var_axis_flags_t") int value) { hb_ot_var_axis_info_t.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#min_value} field. */
+        /** Sets the specified value to the {@code min_value} field. */
         public hb_ot_var_axis_info_t.Buffer min_value(float value) { hb_ot_var_axis_info_t.nmin_value(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#default_value} field. */
+        /** Sets the specified value to the {@code default_value} field. */
         public hb_ot_var_axis_info_t.Buffer default_value(float value) { hb_ot_var_axis_info_t.ndefault_value(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_var_axis_info_t#max_value} field. */
+        /** Sets the specified value to the {@code max_value} field. */
         public hb_ot_var_axis_info_t.Buffer max_value(float value) { hb_ot_var_axis_info_t.nmax_value(address(), value); return this; }
 
     }

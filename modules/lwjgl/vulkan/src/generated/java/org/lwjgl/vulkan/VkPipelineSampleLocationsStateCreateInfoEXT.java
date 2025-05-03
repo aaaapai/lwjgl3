@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying sample locations for a pipeline.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT}</li>
- * <li>{@code sampleLocationsInfo} <b>must</b> be a valid {@link VkSampleLocationsInfoEXT} structure</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSampleLocationsInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineSampleLocationsStateCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBool32 {@link #sampleLocationsEnable};
- *     {@link VkSampleLocationsInfoEXT VkSampleLocationsInfoEXT} {@link #sampleLocationsInfo};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBool32 sampleLocationsEnable;
+ *     {@link VkSampleLocationsInfoEXT VkSampleLocationsInfoEXT} sampleLocationsInfo;
+ * }}</pre>
  */
 public class VkPipelineSampleLocationsStateCreateInfoEXT extends Struct<VkPipelineSampleLocationsStateCreateInfoEXT> implements NativeResource {
 
@@ -93,29 +78,29 @@ public class VkPipelineSampleLocationsStateCreateInfoEXT extends Struct<VkPipeli
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** controls whether custom sample locations are used. If {@code sampleLocationsEnable} is {@link VK10#VK_FALSE FALSE}, the default sample locations are used and the values specified in {@code sampleLocationsInfo} are ignored. */
+    /** @return the value of the {@code sampleLocationsEnable} field. */
     @NativeType("VkBool32")
     public boolean sampleLocationsEnable() { return nsampleLocationsEnable(address()) != 0; }
-    /** the sample locations to use during rasterization if {@code sampleLocationsEnable} is {@link VK10#VK_TRUE TRUE} and the graphics pipeline is not created with {@link EXTSampleLocations#VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_EXT DYNAMIC_STATE_SAMPLE_LOCATIONS_EXT}. */
+    /** @return a {@link VkSampleLocationsInfoEXT} view of the {@code sampleLocationsInfo} field. */
     public VkSampleLocationsInfoEXT sampleLocationsInfo() { return nsampleLocationsInfo(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineSampleLocationsStateCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkPipelineSampleLocationsStateCreateInfoEXT sType$Default() { return sType(EXTSampleLocations.VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineSampleLocationsStateCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #sampleLocationsEnable} field. */
+    /** Sets the specified value to the {@code sampleLocationsEnable} field. */
     public VkPipelineSampleLocationsStateCreateInfoEXT sampleLocationsEnable(@NativeType("VkBool32") boolean value) { nsampleLocationsEnable(address(), value ? 1 : 0); return this; }
-    /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@link #sampleLocationsInfo} field. */
+    /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@code sampleLocationsInfo} field. */
     public VkPipelineSampleLocationsStateCreateInfoEXT sampleLocationsInfo(VkSampleLocationsInfoEXT value) { nsampleLocationsInfo(address(), value); return this; }
-    /** Passes the {@link #sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkPipelineSampleLocationsStateCreateInfoEXT sampleLocationsInfo(java.util.function.Consumer<VkSampleLocationsInfoEXT> consumer) { consumer.accept(sampleLocationsInfo()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -169,8 +154,7 @@ public class VkPipelineSampleLocationsStateCreateInfoEXT extends Struct<VkPipeli
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineSampleLocationsStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineSampleLocationsStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineSampleLocationsStateCreateInfoEXT(address, null);
     }
 
@@ -213,8 +197,7 @@ public class VkPipelineSampleLocationsStateCreateInfoEXT extends Struct<VkPipeli
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineSampleLocationsStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineSampleLocationsStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,20 +261,20 @@ public class VkPipelineSampleLocationsStateCreateInfoEXT extends Struct<VkPipeli
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineSampleLocationsStateCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineSampleLocationsStateCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineSampleLocationsStateCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #sampleLocationsEnable}. */
-    public static int nsampleLocationsEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineSampleLocationsStateCreateInfoEXT.SAMPLELOCATIONSENABLE); }
+    public static int nsampleLocationsEnable(long struct) { return memGetInt(struct + VkPipelineSampleLocationsStateCreateInfoEXT.SAMPLELOCATIONSENABLE); }
     /** Unsafe version of {@link #sampleLocationsInfo}. */
     public static VkSampleLocationsInfoEXT nsampleLocationsInfo(long struct) { return VkSampleLocationsInfoEXT.create(struct + VkPipelineSampleLocationsStateCreateInfoEXT.SAMPLELOCATIONSINFO); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineSampleLocationsStateCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineSampleLocationsStateCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineSampleLocationsStateCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #sampleLocationsEnable(boolean) sampleLocationsEnable}. */
-    public static void nsampleLocationsEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineSampleLocationsStateCreateInfoEXT.SAMPLELOCATIONSENABLE, value); }
+    public static void nsampleLocationsEnable(long struct, int value) { memPutInt(struct + VkPipelineSampleLocationsStateCreateInfoEXT.SAMPLELOCATIONSENABLE, value); }
     /** Unsafe version of {@link #sampleLocationsInfo(VkSampleLocationsInfoEXT) sampleLocationsInfo}. */
     public static void nsampleLocationsInfo(long struct, VkSampleLocationsInfoEXT value) { memCopy(value.address(), struct + VkPipelineSampleLocationsStateCreateInfoEXT.SAMPLELOCATIONSINFO, VkSampleLocationsInfoEXT.SIZEOF); }
 
@@ -338,33 +321,38 @@ public class VkPipelineSampleLocationsStateCreateInfoEXT extends Struct<VkPipeli
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineSampleLocationsStateCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineSampleLocationsStateCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkPipelineSampleLocationsStateCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineSampleLocationsStateCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sampleLocationsEnable} field. */
+        /** @return the value of the {@code sampleLocationsEnable} field. */
         @NativeType("VkBool32")
         public boolean sampleLocationsEnable() { return VkPipelineSampleLocationsStateCreateInfoEXT.nsampleLocationsEnable(address()) != 0; }
-        /** @return a {@link VkSampleLocationsInfoEXT} view of the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sampleLocationsInfo} field. */
+        /** @return a {@link VkSampleLocationsInfoEXT} view of the {@code sampleLocationsInfo} field. */
         public VkSampleLocationsInfoEXT sampleLocationsInfo() { return VkPipelineSampleLocationsStateCreateInfoEXT.nsampleLocationsInfo(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineSampleLocationsStateCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineSampleLocationsStateCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT} value to the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkPipelineSampleLocationsStateCreateInfoEXT.Buffer sType$Default() { return sType(EXTSampleLocations.VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkPipelineSampleLocationsStateCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineSampleLocationsStateCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkPipelineSampleLocationsStateCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sampleLocationsEnable} field. */
+        /** Sets the specified value to the {@code sampleLocationsEnable} field. */
         public VkPipelineSampleLocationsStateCreateInfoEXT.Buffer sampleLocationsEnable(@NativeType("VkBool32") boolean value) { VkPipelineSampleLocationsStateCreateInfoEXT.nsampleLocationsEnable(address(), value ? 1 : 0); return this; }
-        /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sampleLocationsInfo} field. */
+        /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@code sampleLocationsInfo} field. */
         public VkPipelineSampleLocationsStateCreateInfoEXT.Buffer sampleLocationsInfo(VkSampleLocationsInfoEXT value) { VkPipelineSampleLocationsStateCreateInfoEXT.nsampleLocationsInfo(address(), value); return this; }
-        /** Passes the {@link VkPipelineSampleLocationsStateCreateInfoEXT#sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkPipelineSampleLocationsStateCreateInfoEXT.Buffer sampleLocationsInfo(java.util.function.Consumer<VkSampleLocationsInfoEXT> consumer) { consumer.accept(sampleLocationsInfo()); return this; }
 
     }

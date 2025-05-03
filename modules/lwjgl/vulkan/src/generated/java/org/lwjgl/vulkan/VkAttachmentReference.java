@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying an attachment reference.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code attachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code layout} <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_UNDEFINED IMAGE_LAYOUT_UNDEFINED}, {@link VK10#VK_IMAGE_LAYOUT_PREINITIALIZED IMAGE_LAYOUT_PREINITIALIZED}, or {@link KHRSwapchain#VK_IMAGE_LAYOUT_PRESENT_SRC_KHR IMAGE_LAYOUT_PRESENT_SRC_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-separateDepthStencilLayouts">{@code separateDepthStencilLayouts}</a> feature is not enabled, and {@code attachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, {@code layout} <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}, or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL},</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-synchronization2">{@code synchronization2}</a> feature is not enabled, {@code layout} <b>must</b> not be {@link KHRSynchronization2#VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR} or {@link KHRSynchronization2#VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-attachmentFeedbackLoopLayout">{@code attachmentFeedbackLoopLayout}</a> feature is not enabled, {@code layout} <b>must</b> not be {@link EXTAttachmentFeedbackLoopLayout#VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code layout} <b>must</b> be a valid {@code VkImageLayout} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRenderPassFragmentDensityMapCreateInfoEXT}, {@link VkSubpassDescription}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAttachmentReference {
- *     uint32_t {@link #attachment};
- *     VkImageLayout {@link #layout};
- * }</code></pre>
+ *     uint32_t attachment;
+ *     VkImageLayout layout;
+ * }}</pre>
  */
 public class VkAttachmentReference extends Struct<VkAttachmentReference> implements NativeResource {
 
@@ -93,16 +70,16 @@ public class VkAttachmentReference extends Struct<VkAttachmentReference> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** either an integer value identifying an attachment at the corresponding index in {@link VkRenderPassCreateInfo}{@code ::pAttachments}, or {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} to signify that this attachment is not used. */
+    /** @return the value of the {@code attachment} field. */
     @NativeType("uint32_t")
     public int attachment() { return nattachment(address()); }
-    /** a {@code VkImageLayout} value specifying the layout the attachment uses during the subpass. */
+    /** @return the value of the {@code layout} field. */
     @NativeType("VkImageLayout")
     public int layout() { return nlayout(address()); }
 
-    /** Sets the specified value to the {@link #attachment} field. */
+    /** Sets the specified value to the {@code attachment} field. */
     public VkAttachmentReference attachment(@NativeType("uint32_t") int value) { nattachment(address(), value); return this; }
-    /** Sets the specified value to the {@link #layout} field. */
+    /** Sets the specified value to the {@code layout} field. */
     public VkAttachmentReference layout(@NativeType("VkImageLayout") int value) { nlayout(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +129,7 @@ public class VkAttachmentReference extends Struct<VkAttachmentReference> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentReference createSafe(long address) {
+    public static @Nullable VkAttachmentReference createSafe(long address) {
         return address == NULL ? null : new VkAttachmentReference(address, null);
     }
 
@@ -196,8 +172,7 @@ public class VkAttachmentReference extends Struct<VkAttachmentReference> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentReference.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentReference.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +236,14 @@ public class VkAttachmentReference extends Struct<VkAttachmentReference> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #attachment}. */
-    public static int nattachment(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentReference.ATTACHMENT); }
+    public static int nattachment(long struct) { return memGetInt(struct + VkAttachmentReference.ATTACHMENT); }
     /** Unsafe version of {@link #layout}. */
-    public static int nlayout(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentReference.LAYOUT); }
+    public static int nlayout(long struct) { return memGetInt(struct + VkAttachmentReference.LAYOUT); }
 
     /** Unsafe version of {@link #attachment(int) attachment}. */
-    public static void nattachment(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentReference.ATTACHMENT, value); }
+    public static void nattachment(long struct, int value) { memPutInt(struct + VkAttachmentReference.ATTACHMENT, value); }
     /** Unsafe version of {@link #layout(int) layout}. */
-    public static void nlayout(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentReference.LAYOUT, value); }
+    public static void nlayout(long struct, int value) { memPutInt(struct + VkAttachmentReference.LAYOUT, value); }
 
     // -----------------------------------
 
@@ -304,20 +279,25 @@ public class VkAttachmentReference extends Struct<VkAttachmentReference> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAttachmentReference getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAttachmentReference#attachment} field. */
+        /** @return the value of the {@code attachment} field. */
         @NativeType("uint32_t")
         public int attachment() { return VkAttachmentReference.nattachment(address()); }
-        /** @return the value of the {@link VkAttachmentReference#layout} field. */
+        /** @return the value of the {@code layout} field. */
         @NativeType("VkImageLayout")
         public int layout() { return VkAttachmentReference.nlayout(address()); }
 
-        /** Sets the specified value to the {@link VkAttachmentReference#attachment} field. */
+        /** Sets the specified value to the {@code attachment} field. */
         public VkAttachmentReference.Buffer attachment(@NativeType("uint32_t") int value) { VkAttachmentReference.nattachment(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAttachmentReference#layout} field. */
+        /** Sets the specified value to the {@code layout} field. */
         public VkAttachmentReference.Buffer layout(@NativeType("VkImageLayout") int value) { VkAttachmentReference.nlayout(address(), value); return this; }
 
     }

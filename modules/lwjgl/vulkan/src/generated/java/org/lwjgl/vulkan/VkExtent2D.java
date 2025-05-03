@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a two-dimensional extent.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayPlaneCapabilitiesKHR}, {@link VkDisplayPropertiesKHR}, {@link VkDisplaySurfaceCreateInfoKHR}, {@link VkFragmentShadingRateAttachmentInfoKHR}, {@link VkImageViewSampleWeightCreateInfoQCOM}, {@link VkMultisamplePropertiesEXT}, {@link VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM}, {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT}, {@link VkPhysicalDeviceFragmentShadingRateKHR}, {@link VkPhysicalDeviceFragmentShadingRatePropertiesKHR}, {@link VkPhysicalDeviceImageProcessing2PropertiesQCOM}, {@link VkPhysicalDeviceImageProcessingPropertiesQCOM}, {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}, {@link VkPhysicalDeviceShadingRateImagePropertiesNV}, {@link VkPipelineFragmentShadingRateStateCreateInfoKHR}, {@link VkRect2D}, {@link VkRectLayerKHR}, {@link VkRenderingFragmentShadingRateAttachmentInfoKHR}, {@link VkSampleLocationsInfoEXT}, {@link VkSamplerBlockMatchWindowCreateInfoQCOM}, {@link VkSurfaceCapabilities2EXT}, {@link VkSurfaceCapabilitiesKHR}, {@link VkSurfacePresentScalingCapabilitiesEXT}, {@link VkSwapchainCreateInfoKHR}, {@link VkTilePropertiesQCOM}, {@link VkVideoCapabilitiesKHR}, {@link VkVideoEncodeCapabilitiesKHR}, {@link VkVideoEncodeH265CapabilitiesEXT}, {@link VkVideoPictureResourceInfoKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link KHRFragmentShadingRate#vkCmdSetFragmentShadingRateKHR CmdSetFragmentShadingRateKHR}, {@link HUAWEISubpassShading#vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI GetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI}, {@link VK10#vkGetRenderAreaGranularity GetRenderAreaGranularity}, {@link KHRMaintenance5#vkGetRenderingAreaGranularityKHR GetRenderingAreaGranularityKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExtent2D {
- *     uint32_t {@link #width};
- *     uint32_t {@link #height};
- * }</code></pre>
+ *     uint32_t width;
+ *     uint32_t height;
+ * }}</pre>
  */
 public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
 
@@ -78,16 +70,16 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the width of the extent. */
+    /** @return the value of the {@code width} field. */
     @NativeType("uint32_t")
     public int width() { return nwidth(address()); }
-    /** the height of the extent. */
+    /** @return the value of the {@code height} field. */
     @NativeType("uint32_t")
     public int height() { return nheight(address()); }
 
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public VkExtent2D width(@NativeType("uint32_t") int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public VkExtent2D height(@NativeType("uint32_t") int value) { nheight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -137,8 +129,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent2D createSafe(long address) {
+    public static @Nullable VkExtent2D createSafe(long address) {
         return address == NULL ? null : new VkExtent2D(address, null);
     }
 
@@ -181,8 +172,7 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent2D.Buffer createSafe(long address, int capacity) {
+    public static VkExtent2D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +236,14 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + VkExtent2D.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + VkExtent2D.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + VkExtent2D.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + VkExtent2D.HEIGHT); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent2D.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + VkExtent2D.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent2D.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + VkExtent2D.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -289,20 +279,25 @@ public class VkExtent2D extends Struct<VkExtent2D> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExtent2D getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExtent2D#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("uint32_t")
         public int width() { return VkExtent2D.nwidth(address()); }
-        /** @return the value of the {@link VkExtent2D#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("uint32_t")
         public int height() { return VkExtent2D.nheight(address()); }
 
-        /** Sets the specified value to the {@link VkExtent2D#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public VkExtent2D.Buffer width(@NativeType("uint32_t") int value) { VkExtent2D.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExtent2D#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public VkExtent2D.Buffer height(@NativeType("uint32_t") int value) { VkExtent2D.nheight(address(), value); return this; }
 
     }

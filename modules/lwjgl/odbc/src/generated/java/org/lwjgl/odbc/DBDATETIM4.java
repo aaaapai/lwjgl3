@@ -5,7 +5,7 @@
  */
 package org.lwjgl.odbc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct DBDATETIM4 {
  *     USHORT numdays;
  *     USHORT nummins;
- * }</code></pre>
+ * }}</pre>
  */
 public class DBDATETIM4 extends Struct<DBDATETIM4> implements NativeResource {
 
@@ -131,8 +129,7 @@ public class DBDATETIM4 extends Struct<DBDATETIM4> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DBDATETIM4 createSafe(long address) {
+    public static @Nullable DBDATETIM4 createSafe(long address) {
         return address == NULL ? null : new DBDATETIM4(address, null);
     }
 
@@ -175,8 +172,7 @@ public class DBDATETIM4 extends Struct<DBDATETIM4> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DBDATETIM4.Buffer createSafe(long address, int capacity) {
+    public static DBDATETIM4.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,14 +236,14 @@ public class DBDATETIM4 extends Struct<DBDATETIM4> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #numdays}. */
-    public static short nnumdays(long struct) { return UNSAFE.getShort(null, struct + DBDATETIM4.NUMDAYS); }
+    public static short nnumdays(long struct) { return memGetShort(struct + DBDATETIM4.NUMDAYS); }
     /** Unsafe version of {@link #nummins}. */
-    public static short nnummins(long struct) { return UNSAFE.getShort(null, struct + DBDATETIM4.NUMMINS); }
+    public static short nnummins(long struct) { return memGetShort(struct + DBDATETIM4.NUMMINS); }
 
     /** Unsafe version of {@link #numdays(short) numdays}. */
-    public static void nnumdays(long struct, short value) { UNSAFE.putShort(null, struct + DBDATETIM4.NUMDAYS, value); }
+    public static void nnumdays(long struct, short value) { memPutShort(struct + DBDATETIM4.NUMDAYS, value); }
     /** Unsafe version of {@link #nummins(short) nummins}. */
-    public static void nnummins(long struct, short value) { UNSAFE.putShort(null, struct + DBDATETIM4.NUMMINS, value); }
+    public static void nnummins(long struct, short value) { memPutShort(struct + DBDATETIM4.NUMMINS, value); }
 
     // -----------------------------------
 
@@ -280,6 +276,11 @@ public class DBDATETIM4 extends Struct<DBDATETIM4> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

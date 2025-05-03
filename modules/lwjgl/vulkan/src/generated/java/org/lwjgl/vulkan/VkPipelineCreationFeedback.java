@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,23 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Feedback about the creation of a pipeline or pipeline stage.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VK13#VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT PIPELINE_CREATION_FEEDBACK_VALID_BIT} is not set in {@code flags}, an implementation <b>must</b> not set any other bits in {@code flags}, and the values of all other {@link VkPipelineCreationFeedback} data members are undefined.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPipelineCreationFeedbackCreateInfo}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineCreationFeedback {
- *     VkPipelineCreationFeedbackFlags {@link #flags};
- *     uint64_t {@link #duration};
- * }</code></pre>
+ *     VkPipelineCreationFeedbackFlags flags;
+ *     uint64_t duration;
+ * }}</pre>
  */
 public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedback> {
 
@@ -80,10 +68,10 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitmask of {@code VkPipelineCreationFeedbackFlagBits} providing feedback about the creation of a pipeline or of a pipeline stage. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkPipelineCreationFeedbackFlags")
     public int flags() { return nflags(address()); }
-    /** the duration spent creating a pipeline or pipeline stage in nanoseconds. */
+    /** @return the value of the {@code duration} field. */
     @NativeType("uint64_t")
     public long duration() { return nduration(address()); }
 
@@ -95,8 +83,7 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedback createSafe(long address) {
+    public static @Nullable VkPipelineCreationFeedback createSafe(long address) {
         return address == NULL ? null : new VkPipelineCreationFeedback(address, null);
     }
 
@@ -111,17 +98,16 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedback.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCreationFeedback.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCreationFeedback.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineCreationFeedback.FLAGS); }
     /** Unsafe version of {@link #duration}. */
-    public static long nduration(long struct) { return UNSAFE.getLong(null, struct + VkPipelineCreationFeedback.DURATION); }
+    public static long nduration(long struct) { return memGetLong(struct + VkPipelineCreationFeedback.DURATION); }
 
     // -----------------------------------
 
@@ -157,14 +143,19 @@ public class VkPipelineCreationFeedback extends Struct<VkPipelineCreationFeedbac
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineCreationFeedback getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineCreationFeedback#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkPipelineCreationFeedbackFlags")
         public int flags() { return VkPipelineCreationFeedback.nflags(address()); }
-        /** @return the value of the {@link VkPipelineCreationFeedback#duration} field. */
+        /** @return the value of the {@code duration} field. */
         @NativeType("uint64_t")
         public long duration() { return VkPipelineCreationFeedback.nduration(address()); }
 

@@ -30,7 +30,7 @@ class ReturnValue private constructor(override val nativeType: NativeType) : Qua
     // --- [ Helper functions & properties ] ---
 
     internal val isSpecial
-        get() = hasUnsafe || nativeType.mapping === PrimitiveMapping.BOOLEAN4
+        get() = hasUnsafe || nativeType.mapping.isPseudoBoolean()
 
     internal val isVoid
         get() = nativeType.mapping === TypeMapping.VOID
@@ -45,22 +45,8 @@ class ReturnValue private constructor(override val nativeType: NativeType) : Qua
 
 class Parameter(
     override val nativeType: NativeType,
-    val name: String,
-    val documentation: (() -> String)?
+    val name: String
 ) : ModifierTarget<ParameterModifier>(), QualifiedType {
-
-    constructor(
-        nativeType: NativeType,
-        name: String,
-        javadoc: String,
-        links: String = "",
-        linkMode: LinkMode = LinkMode.SINGLE
-    ) : this(nativeType, name, if (javadoc.isNotEmpty() || links.isNotEmpty()) {
-        val documentation: (() -> String)? = { if (links.isEmpty()) javadoc else linkMode.appendLinks(javadoc, links) }
-        documentation
-    } else
-        null
-    )
 
     init {
         require(name.isNotEmpty()) {
@@ -77,6 +63,7 @@ class Parameter(
     internal val isSpecial
         get() = hasUnsafe || when (nativeType.mapping) {
             PointerMapping.OPAQUE_POINTER -> (nativeType is WrappedPointerType || !has(nullable)) && this !== JNI_ENV
+            PrimitiveMapping.BOOLEAN2     -> true
             PrimitiveMapping.BOOLEAN4     -> true
             else                          -> false
         } || modifiers.any { it.value.isSpecial }
@@ -110,8 +97,7 @@ class Parameter(
 
     internal fun copy(nativeType: NativeType = this.nativeType) = Parameter(
         nativeType,
-        name,
-        documentation
+        name
     ).copyModifiers(this)
 
     private fun copyModifiers(other: Parameter): Parameter {

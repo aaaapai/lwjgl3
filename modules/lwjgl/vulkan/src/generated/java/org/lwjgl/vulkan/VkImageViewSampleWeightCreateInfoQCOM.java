@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,43 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing weight sampling parameters for image view.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@code filterCenter} specifies the origin or center of the filter kernel, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-weightimage-filteroperation">Weight Sampling Operation</a>. The {@code numPhases} describes the number of sub-pixel filter phases as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-weightimage-filterphases">Weight Sampling Phases</a>.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code filterSize.width} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-weightfilter-maxdimension">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterDimension.width}</a></li>
- * <li>{@code filterSize.height} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-weightfilter-maxdimension">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterDimension.height}</a></li>
- * <li>{@code filterCenter.x} <b>must</b> be less than or equal to <code>(filterSize.width - 1)</code></li>
- * <li>{@code filterCenter.y} <b>must</b> be less than or equal to <code>(filterSize.height - 1)</code></li>
- * <li>{@code numPhases} <b>must</b> be a power of two squared value (i.e., 1, 4, 16, 64, 256, etc.)</li>
- * <li>{@code numPhases} <b>must</b> be less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-weightfilter-phases">{@link VkPhysicalDeviceImageProcessingPropertiesQCOM}{@code ::maxWeightFilterPhases}</a></li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}, {@link VkOffset2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkImageViewSampleWeightCreateInfoQCOM {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     {@link VkOffset2D VkOffset2D} {@link #filterCenter};
- *     {@link VkExtent2D VkExtent2D} {@link #filterSize};
- *     uint32_t {@link #numPhases};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     {@link VkOffset2D VkOffset2D} filterCenter;
+ *     {@link VkExtent2D VkExtent2D} filterSize;
+ *     uint32_t numPhases;
+ * }}</pre>
  */
 public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSampleWeightCreateInfoQCOM> implements NativeResource {
 
@@ -111,35 +82,35 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkOffset2D} describing the location of the weight filter origin. */
+    /** @return a {@link VkOffset2D} view of the {@code filterCenter} field. */
     public VkOffset2D filterCenter() { return nfilterCenter(address()); }
-    /** a {@link VkExtent2D} specifying weight filter dimensions. */
+    /** @return a {@link VkExtent2D} view of the {@code filterSize} field. */
     public VkExtent2D filterSize() { return nfilterSize(address()); }
-    /** number of sub-pixel filter phases. */
+    /** @return the value of the {@code numPhases} field. */
     @NativeType("uint32_t")
     public int numPhases() { return nnumPhases(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkImageViewSampleWeightCreateInfoQCOM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM} value to the {@link #sType} field. */
+    /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM} value to the {@code sType} field. */
     public VkImageViewSampleWeightCreateInfoQCOM sType$Default() { return sType(QCOMImageProcessing.VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkImageViewSampleWeightCreateInfoQCOM pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Copies the specified {@link VkOffset2D} to the {@link #filterCenter} field. */
+    /** Copies the specified {@link VkOffset2D} to the {@code filterCenter} field. */
     public VkImageViewSampleWeightCreateInfoQCOM filterCenter(VkOffset2D value) { nfilterCenter(address(), value); return this; }
-    /** Passes the {@link #filterCenter} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code filterCenter} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkImageViewSampleWeightCreateInfoQCOM filterCenter(java.util.function.Consumer<VkOffset2D> consumer) { consumer.accept(filterCenter()); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #filterSize} field. */
+    /** Copies the specified {@link VkExtent2D} to the {@code filterSize} field. */
     public VkImageViewSampleWeightCreateInfoQCOM filterSize(VkExtent2D value) { nfilterSize(address(), value); return this; }
-    /** Passes the {@link #filterSize} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code filterSize} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkImageViewSampleWeightCreateInfoQCOM filterSize(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(filterSize()); return this; }
-    /** Sets the specified value to the {@link #numPhases} field. */
+    /** Sets the specified value to the {@code numPhases} field. */
     public VkImageViewSampleWeightCreateInfoQCOM numPhases(@NativeType("uint32_t") int value) { nnumPhases(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -195,8 +166,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSampleWeightCreateInfoQCOM createSafe(long address) {
+    public static @Nullable VkImageViewSampleWeightCreateInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkImageViewSampleWeightCreateInfoQCOM(address, null);
     }
 
@@ -239,8 +209,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewSampleWeightCreateInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewSampleWeightCreateInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,7 +254,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewSampleWeightCreateInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #filterCenter}. */
@@ -293,10 +262,10 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     /** Unsafe version of {@link #filterSize}. */
     public static VkExtent2D nfilterSize(long struct) { return VkExtent2D.create(struct + VkImageViewSampleWeightCreateInfoQCOM.FILTERSIZE); }
     /** Unsafe version of {@link #numPhases}. */
-    public static int nnumPhases(long struct) { return UNSAFE.getInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES); }
+    public static int nnumPhases(long struct) { return memGetInt(struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewSampleWeightCreateInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewSampleWeightCreateInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #filterCenter(VkOffset2D) filterCenter}. */
@@ -304,7 +273,7 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
     /** Unsafe version of {@link #filterSize(VkExtent2D) filterSize}. */
     public static void nfilterSize(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkImageViewSampleWeightCreateInfoQCOM.FILTERSIZE, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #numPhases(int) numPhases}. */
-    public static void nnumPhases(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES, value); }
+    public static void nnumPhases(long struct, int value) { memPutInt(struct + VkImageViewSampleWeightCreateInfoQCOM.NUMPHASES, value); }
 
     // -----------------------------------
 
@@ -340,39 +309,44 @@ public class VkImageViewSampleWeightCreateInfoQCOM extends Struct<VkImageViewSam
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImageViewSampleWeightCreateInfoQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkImageViewSampleWeightCreateInfoQCOM#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkImageViewSampleWeightCreateInfoQCOM.nsType(address()); }
-        /** @return the value of the {@link VkImageViewSampleWeightCreateInfoQCOM#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkImageViewSampleWeightCreateInfoQCOM.npNext(address()); }
-        /** @return a {@link VkOffset2D} view of the {@link VkImageViewSampleWeightCreateInfoQCOM#filterCenter} field. */
+        /** @return a {@link VkOffset2D} view of the {@code filterCenter} field. */
         public VkOffset2D filterCenter() { return VkImageViewSampleWeightCreateInfoQCOM.nfilterCenter(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkImageViewSampleWeightCreateInfoQCOM#filterSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code filterSize} field. */
         public VkExtent2D filterSize() { return VkImageViewSampleWeightCreateInfoQCOM.nfilterSize(address()); }
-        /** @return the value of the {@link VkImageViewSampleWeightCreateInfoQCOM#numPhases} field. */
+        /** @return the value of the {@code numPhases} field. */
         @NativeType("uint32_t")
         public int numPhases() { return VkImageViewSampleWeightCreateInfoQCOM.nnumPhases(address()); }
 
-        /** Sets the specified value to the {@link VkImageViewSampleWeightCreateInfoQCOM#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer sType(@NativeType("VkStructureType") int value) { VkImageViewSampleWeightCreateInfoQCOM.nsType(address(), value); return this; }
-        /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM} value to the {@link VkImageViewSampleWeightCreateInfoQCOM#sType} field. */
+        /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM} value to the {@code sType} field. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer sType$Default() { return sType(QCOMImageProcessing.VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM); }
-        /** Sets the specified value to the {@link VkImageViewSampleWeightCreateInfoQCOM#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer pNext(@NativeType("void const *") long value) { VkImageViewSampleWeightCreateInfoQCOM.npNext(address(), value); return this; }
-        /** Copies the specified {@link VkOffset2D} to the {@link VkImageViewSampleWeightCreateInfoQCOM#filterCenter} field. */
+        /** Copies the specified {@link VkOffset2D} to the {@code filterCenter} field. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer filterCenter(VkOffset2D value) { VkImageViewSampleWeightCreateInfoQCOM.nfilterCenter(address(), value); return this; }
-        /** Passes the {@link VkImageViewSampleWeightCreateInfoQCOM#filterCenter} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code filterCenter} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer filterCenter(java.util.function.Consumer<VkOffset2D> consumer) { consumer.accept(filterCenter()); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkImageViewSampleWeightCreateInfoQCOM#filterSize} field. */
+        /** Copies the specified {@link VkExtent2D} to the {@code filterSize} field. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer filterSize(VkExtent2D value) { VkImageViewSampleWeightCreateInfoQCOM.nfilterSize(address(), value); return this; }
-        /** Passes the {@link VkImageViewSampleWeightCreateInfoQCOM#filterSize} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code filterSize} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer filterSize(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(filterSize()); return this; }
-        /** Sets the specified value to the {@link VkImageViewSampleWeightCreateInfoQCOM#numPhases} field. */
+        /** Sets the specified value to the {@code numPhases} field. */
         public VkImageViewSampleWeightCreateInfoQCOM.Buffer numPhases(@NativeType("uint32_t") int value) { VkImageViewSampleWeightCreateInfoQCOM.nnumPhases(address(), value); return this; }
 
     }

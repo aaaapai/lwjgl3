@@ -30,7 +30,12 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
     internal fun register(function: CallbackFunction) = signatures.put(Signature(function), Unit)
 
     init {
-        documentation =
+		javaImport("org.jspecify.annotations.*")
+    }
+
+    override fun PrintWriter.generateJava() {
+        generateJavaPreamble()
+        println(processDocumentation(
             """
             This class contains native methods that can be used to call dynamically loaded functions. It is used internally by the LWJGL bindings, but can also
             be used to call other dynamically loaded functions. Not all possible signatures are available, only those needed by the LWJGL bindings. To call a
@@ -59,11 +64,7 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
                 """
             )}
             """
-		javaImport("javax.annotation.*")
-    }
-
-    override fun PrintWriter.generateJava() {
-        generateJavaPreamble()
+        ).toJavaDoc(indentation = ""))
         print("""public final class JNI {
 
     static {
@@ -90,7 +91,7 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
             print("${t}public static native ${it.returnType.nativeMethodType} ${it.signature}(")
             if (it.arguments.isNotEmpty())
                 print(it.arguments.asSequence()
-                    .mapIndexed { i, param -> if (param is ArrayType<*>) "@Nullable ${param.mapping.primitive}[] param$i" else "${param.nativeMethodType} param$i" }
+                    .mapIndexed { i, param -> if (param is ArrayType<*>) "${param.mapping.primitive} @Nullable [] param$i" else "${param.nativeMethodType} param$i" }
                     .joinToString(", ", postfix = ", "))
             println("long $FUNCTION_ADDRESS);")
         }
@@ -132,7 +133,7 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
                 print("return ")
                 val resultType = it.returnType.jniFunctionType
                 if (it.returnType.abiType != resultType)
-                    print("($resultType)");
+                    print("($resultType)")
             }
             print("((${it.returnType.abiType} (${if (it.callingConvention === CallingConvention.STDCALL) "APIENTRY " else ""}*) ")
             print(if (it.arguments.isEmpty())
@@ -174,7 +175,7 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
                 val resultType = it.returnType.jniFunctionType
                 print("$resultType $RESULT = ")
                 if (it.returnType.abiType != resultType)
-                    print("($resultType)");
+                    print("($resultType)")
             }
             print("((${it.returnType.abiType} (${if (it.callingConvention === CallingConvention.STDCALL) "APIENTRY " else ""}*) ")
             print(it.arguments.asSequence()

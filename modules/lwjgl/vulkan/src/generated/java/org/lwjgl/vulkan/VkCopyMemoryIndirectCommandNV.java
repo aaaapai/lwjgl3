@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying indirect memory region copy operation.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The {@code srcAddress} <b>must</b> be 4 byte aligned</li>
- * <li>The {@code dstAddress} <b>must</b> be 4 byte aligned</li>
- * <li>The {@code size} <b>must</b> be 4 byte aligned</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkCopyMemoryIndirectCommandNV {
- *     VkDeviceAddress {@link #srcAddress};
- *     VkDeviceAddress {@link #dstAddress};
- *     VkDeviceSize {@link #size};
- * }</code></pre>
+ *     VkDeviceAddress srcAddress;
+ *     VkDeviceAddress dstAddress;
+ *     VkDeviceSize size;
+ * }}</pre>
  */
 public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCommandNV> implements NativeResource {
 
@@ -86,21 +74,21 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the starting address of the source host or device memory to copy from. */
+    /** @return the value of the {@code srcAddress} field. */
     @NativeType("VkDeviceAddress")
     public long srcAddress() { return nsrcAddress(address()); }
-    /** the starting address of the destination host or device memory to copy to. */
+    /** @return the value of the {@code dstAddress} field. */
     @NativeType("VkDeviceAddress")
     public long dstAddress() { return ndstAddress(address()); }
-    /** the size of the copy in bytes. */
+    /** @return the value of the {@code size} field. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
 
-    /** Sets the specified value to the {@link #srcAddress} field. */
+    /** Sets the specified value to the {@code srcAddress} field. */
     public VkCopyMemoryIndirectCommandNV srcAddress(@NativeType("VkDeviceAddress") long value) { nsrcAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstAddress} field. */
+    /** Sets the specified value to the {@code dstAddress} field. */
     public VkCopyMemoryIndirectCommandNV dstAddress(@NativeType("VkDeviceAddress") long value) { ndstAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #size} field. */
+    /** Sets the specified value to the {@code size} field. */
     public VkCopyMemoryIndirectCommandNV size(@NativeType("VkDeviceSize") long value) { nsize(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +140,7 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkCopyMemoryIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkCopyMemoryIndirectCommandNV(address, null);
     }
 
@@ -196,8 +183,7 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkCopyMemoryIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +228,18 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
     // -----------------------------------
 
     /** Unsafe version of {@link #srcAddress}. */
-    public static long nsrcAddress(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS); }
+    public static long nsrcAddress(long struct) { return memGetLong(struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS); }
     /** Unsafe version of {@link #dstAddress}. */
-    public static long ndstAddress(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS); }
+    public static long ndstAddress(long struct) { return memGetLong(struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryIndirectCommandNV.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkCopyMemoryIndirectCommandNV.SIZE); }
 
     /** Unsafe version of {@link #srcAddress(long) srcAddress}. */
-    public static void nsrcAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS, value); }
+    public static void nsrcAddress(long struct, long value) { memPutLong(struct + VkCopyMemoryIndirectCommandNV.SRCADDRESS, value); }
     /** Unsafe version of {@link #dstAddress(long) dstAddress}. */
-    public static void ndstAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS, value); }
+    public static void ndstAddress(long struct, long value) { memPutLong(struct + VkCopyMemoryIndirectCommandNV.DSTADDRESS, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryIndirectCommandNV.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkCopyMemoryIndirectCommandNV.SIZE, value); }
 
     // -----------------------------------
 
@@ -289,25 +275,30 @@ public class VkCopyMemoryIndirectCommandNV extends Struct<VkCopyMemoryIndirectCo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkCopyMemoryIndirectCommandNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkCopyMemoryIndirectCommandNV#srcAddress} field. */
+        /** @return the value of the {@code srcAddress} field. */
         @NativeType("VkDeviceAddress")
         public long srcAddress() { return VkCopyMemoryIndirectCommandNV.nsrcAddress(address()); }
-        /** @return the value of the {@link VkCopyMemoryIndirectCommandNV#dstAddress} field. */
+        /** @return the value of the {@code dstAddress} field. */
         @NativeType("VkDeviceAddress")
         public long dstAddress() { return VkCopyMemoryIndirectCommandNV.ndstAddress(address()); }
-        /** @return the value of the {@link VkCopyMemoryIndirectCommandNV#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VkCopyMemoryIndirectCommandNV.nsize(address()); }
 
-        /** Sets the specified value to the {@link VkCopyMemoryIndirectCommandNV#srcAddress} field. */
+        /** Sets the specified value to the {@code srcAddress} field. */
         public VkCopyMemoryIndirectCommandNV.Buffer srcAddress(@NativeType("VkDeviceAddress") long value) { VkCopyMemoryIndirectCommandNV.nsrcAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCopyMemoryIndirectCommandNV#dstAddress} field. */
+        /** Sets the specified value to the {@code dstAddress} field. */
         public VkCopyMemoryIndirectCommandNV.Buffer dstAddress(@NativeType("VkDeviceAddress") long value) { VkCopyMemoryIndirectCommandNV.ndstAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCopyMemoryIndirectCommandNV#size} field. */
+        /** Sets the specified value to the {@code size} field. */
         public VkCopyMemoryIndirectCommandNV.Buffer size(@NativeType("VkDeviceSize") long value) { VkCopyMemoryIndirectCommandNV.nsize(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,20 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * General statistics from current state of the Allocator - total memory usage across all memory heaps and types.
- * 
- * <p>These are slower to calculate. Use for debugging purposes.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaTotalStatistics {
  *     {@link VmaDetailedStatistics VmaDetailedStatistics} memoryType[32];
  *     {@link VmaDetailedStatistics VmaDetailedStatistics} memoryHeap[16];
  *     {@link VmaDetailedStatistics VmaDetailedStatistics} total;
- * }</code></pre>
- *
- * @see Vma#vmaCalculateStatistics
+ * }}</pre>
  */
 public class VmaTotalStatistics extends Struct<VmaTotalStatistics> implements NativeResource {
 
@@ -120,8 +112,7 @@ public class VmaTotalStatistics extends Struct<VmaTotalStatistics> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaTotalStatistics createSafe(long address) {
+    public static @Nullable VmaTotalStatistics createSafe(long address) {
         return address == NULL ? null : new VmaTotalStatistics(address, null);
     }
 
@@ -164,8 +155,7 @@ public class VmaTotalStatistics extends Struct<VmaTotalStatistics> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaTotalStatistics.Buffer createSafe(long address, int capacity) {
+    public static VmaTotalStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,6 +245,11 @@ public class VmaTotalStatistics extends Struct<VmaTotalStatistics> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

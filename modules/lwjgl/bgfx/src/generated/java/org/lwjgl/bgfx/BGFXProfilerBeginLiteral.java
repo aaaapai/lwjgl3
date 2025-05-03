@@ -5,26 +5,13 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Profiler region begin with string literal name.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     bgfx_callback_interface_t *_this,
- *     char const *_name,
- *     uint32_t _abgr,
- *     char const *_filePath,
- *     uint16_t _line
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class BGFXProfilerBeginLiteral extends Callback implements BGFXProfilerBeginLiteralI {
 
     /**
@@ -40,8 +27,7 @@ public abstract class BGFXProfilerBeginLiteral extends Callback implements BGFXP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static BGFXProfilerBeginLiteral createSafe(long functionPointer) {
+    public static @Nullable BGFXProfilerBeginLiteral createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

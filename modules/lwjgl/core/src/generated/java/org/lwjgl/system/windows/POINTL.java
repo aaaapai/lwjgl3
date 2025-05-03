@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the coordinates of a point.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct POINTL {
- *     LONG {@link #x};
- *     LONG {@link #y};
- * }</code></pre>
+ *     LONG x;
+ *     LONG y;
+ * }}</pre>
  */
 public class POINTL extends Struct<POINTL> implements NativeResource {
 
@@ -74,16 +70,16 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the horizontal (x) coordinate of the point */
+    /** @return the value of the {@code x} field. */
     @NativeType("LONG")
     public int x() { return nx(address()); }
-    /** the vertical (y) coordinate of the point. */
+    /** @return the value of the {@code y} field. */
     @NativeType("LONG")
     public int y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public POINTL x(@NativeType("LONG") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public POINTL y(@NativeType("LONG") int value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -133,8 +129,7 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static POINTL createSafe(long address) {
+    public static @Nullable POINTL createSafe(long address) {
         return address == NULL ? null : new POINTL(address, null);
     }
 
@@ -177,8 +172,7 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static POINTL.Buffer createSafe(long address, int capacity) {
+    public static POINTL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +236,14 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + POINTL.X); }
+    public static int nx(long struct) { return memGetInt(struct + POINTL.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + POINTL.Y); }
+    public static int ny(long struct) { return memGetInt(struct + POINTL.Y); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + POINTL.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + POINTL.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + POINTL.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + POINTL.Y, value); }
 
     // -----------------------------------
 
@@ -285,20 +279,25 @@ public class POINTL extends Struct<POINTL> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected POINTL getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link POINTL#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("LONG")
         public int x() { return POINTL.nx(address()); }
-        /** @return the value of the {@link POINTL#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("LONG")
         public int y() { return POINTL.ny(address()); }
 
-        /** Sets the specified value to the {@link POINTL#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public POINTL.Buffer x(@NativeType("LONG") int value) { POINTL.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link POINTL#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public POINTL.Buffer y(@NativeType("LONG") int value) { POINTL.ny(address(), value); return this; }
 
     }

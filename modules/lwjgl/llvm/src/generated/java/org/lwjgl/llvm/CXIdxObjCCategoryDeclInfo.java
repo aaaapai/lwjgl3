@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,16 +14,14 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXIdxObjCCategoryDeclInfo {
  *     {@link CXIdxObjCContainerDeclInfo CXIdxObjCContainerDeclInfo} const * containerInfo;
  *     {@link CXIdxEntityInfo CXIdxEntityInfo} const * objcClass;
  *     {@link CXCursor CXCursor} classCursor;
  *     {@link CXIdxLoc CXIdxLoc} classLoc;
  *     {@link CXIdxObjCProtocolRefListInfo CXIdxObjCProtocolRefListInfo} const * protocols;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo> {
 
@@ -104,8 +102,7 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCCategoryDeclInfo createSafe(long address) {
+    public static @Nullable CXIdxObjCCategoryDeclInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxObjCCategoryDeclInfo(address, null);
     }
 
@@ -120,8 +117,7 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCCategoryDeclInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxObjCCategoryDeclInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -169,6 +165,11 @@ public class CXIdxObjCCategoryDeclInfo extends Struct<CXIdxObjCCategoryDeclInfo>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

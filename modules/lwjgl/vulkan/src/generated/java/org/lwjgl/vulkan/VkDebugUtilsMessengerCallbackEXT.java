@@ -5,40 +5,13 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Application-defined debug messenger callback function.
- * 
- * <h5>C Specification</h5>
- * 
- * <p>The prototype for the {@link VkDebugUtilsMessengerCreateInfoEXT}{@code ::pfnUserCallback} function implemented by the application is:</p>
- * 
- * <pre><code>
- * typedef VkBool32 (VKAPI_PTR *PFN_vkDebugUtilsMessengerCallbackEXT)(
- *     VkDebugUtilsMessageSeverityFlagBitsEXT           messageSeverity,
- *     VkDebugUtilsMessageTypeFlagsEXT                  messageTypes,
- *     const VkDebugUtilsMessengerCallbackDataEXT*      pCallbackData,
- *     void*                                            pUserData);</code></pre>
- * 
- * <h5>Description</h5>
- * 
- * <p>The callback returns a {@code VkBool32}, which is interpreted in a layer-specified manner. The application <b>should</b> always return {@link VK10#VK_FALSE FALSE}. The {@link VK10#VK_TRUE TRUE} value is reserved for use in layer development.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The callback <b>must</b> not make calls to any Vulkan commands</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDebugUtilsMessengerCreateInfoEXT}</p>
- */
+/** Callback function: {@link #invoke PFN_vkDebugUtilsMessengerCallbackEXT} */
 public abstract class VkDebugUtilsMessengerCallbackEXT extends Callback implements VkDebugUtilsMessengerCallbackEXTI {
 
     /**
@@ -54,8 +27,7 @@ public abstract class VkDebugUtilsMessengerCallbackEXT extends Callback implemen
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static VkDebugUtilsMessengerCallbackEXT createSafe(long functionPointer) {
+    public static @Nullable VkDebugUtilsMessengerCallbackEXT createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

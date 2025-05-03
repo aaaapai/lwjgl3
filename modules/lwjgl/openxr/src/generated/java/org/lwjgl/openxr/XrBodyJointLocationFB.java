@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the location and radius of a body joint.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBBodyTracking XR_FB_body_tracking} extension <b>must</b> be enabled prior to using {@link XrBodyJointLocationFB}</li>
- * <li>{@code locationFlags} <b>must</b> be a valid combination of {@code XrSpaceLocationFlagBits} values</li>
- * <li>{@code locationFlags} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrBodyJointLocationsFB}, {@link XrPosef}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrBodyJointLocationFB {
- *     XrSpaceLocationFlags {@link #locationFlags};
- *     {@link XrPosef XrPosef} {@link #pose};
- * }</code></pre>
+ *     XrSpaceLocationFlags locationFlags;
+ *     {@link XrPosef XrPosef} pose;
+ * }}</pre>
  */
 public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> implements NativeResource {
 
@@ -86,17 +70,17 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitfield, with bit masks defined in {@code XrSpaceLocationFlagBits}, to indicate which members contain valid data. If none of the bits are set, no other fields in this structure <b>should</b> be considered to be valid or meaningful. */
+    /** @return the value of the {@code locationFlags} field. */
     @NativeType("XrSpaceLocationFlags")
     public long locationFlags() { return nlocationFlags(address()); }
-    /** an {@link XrPosef} defining the position and orientation of the origin of a body joint within the reference frame of the corresponding {@link XrBodyJointsLocateInfoFB}{@code ::baseSpace}. */
+    /** @return a {@link XrPosef} view of the {@code pose} field. */
     public XrPosef pose() { return npose(address()); }
 
-    /** Sets the specified value to the {@link #locationFlags} field. */
+    /** Sets the specified value to the {@code locationFlags} field. */
     public XrBodyJointLocationFB locationFlags(@NativeType("XrSpaceLocationFlags") long value) { nlocationFlags(address(), value); return this; }
-    /** Copies the specified {@link XrPosef} to the {@link #pose} field. */
+    /** Copies the specified {@link XrPosef} to the {@code pose} field. */
     public XrBodyJointLocationFB pose(XrPosef value) { npose(address(), value); return this; }
-    /** Passes the {@link #pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrBodyJointLocationFB pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -146,8 +130,7 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationFB createSafe(long address) {
+    public static @Nullable XrBodyJointLocationFB createSafe(long address) {
         return address == NULL ? null : new XrBodyJointLocationFB(address, null);
     }
 
@@ -190,8 +173,7 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationFB.Buffer createSafe(long address, int capacity) {
+    public static XrBodyJointLocationFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,12 +218,12 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #locationFlags}. */
-    public static long nlocationFlags(long struct) { return UNSAFE.getLong(null, struct + XrBodyJointLocationFB.LOCATIONFLAGS); }
+    public static long nlocationFlags(long struct) { return memGetLong(struct + XrBodyJointLocationFB.LOCATIONFLAGS); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrBodyJointLocationFB.POSE); }
 
     /** Unsafe version of {@link #locationFlags(long) locationFlags}. */
-    public static void nlocationFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrBodyJointLocationFB.LOCATIONFLAGS, value); }
+    public static void nlocationFlags(long struct, long value) { memPutLong(struct + XrBodyJointLocationFB.LOCATIONFLAGS, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrBodyJointLocationFB.POSE, XrPosef.SIZEOF); }
 
@@ -279,21 +261,26 @@ public class XrBodyJointLocationFB extends Struct<XrBodyJointLocationFB> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrBodyJointLocationFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrBodyJointLocationFB#locationFlags} field. */
+        /** @return the value of the {@code locationFlags} field. */
         @NativeType("XrSpaceLocationFlags")
         public long locationFlags() { return XrBodyJointLocationFB.nlocationFlags(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrBodyJointLocationFB#pose} field. */
+        /** @return a {@link XrPosef} view of the {@code pose} field. */
         public XrPosef pose() { return XrBodyJointLocationFB.npose(address()); }
 
-        /** Sets the specified value to the {@link XrBodyJointLocationFB#locationFlags} field. */
+        /** Sets the specified value to the {@code locationFlags} field. */
         public XrBodyJointLocationFB.Buffer locationFlags(@NativeType("XrSpaceLocationFlags") long value) { XrBodyJointLocationFB.nlocationFlags(address(), value); return this; }
-        /** Copies the specified {@link XrPosef} to the {@link XrBodyJointLocationFB#pose} field. */
+        /** Copies the specified {@link XrPosef} to the {@code pose} field. */
         public XrBodyJointLocationFB.Buffer pose(XrPosef value) { XrBodyJointLocationFB.npose(address(), value); return this; }
-        /** Passes the {@link XrBodyJointLocationFB#pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrBodyJointLocationFB.Buffer pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Makes it possible to set or read frame parameters.
- * 
- * <p>Structure must be first init to 0, using {@code memset()}, setting all parameters to default. It's then possible to update selectively some parameter.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct LZ4F_frameInfo_t {
- *     LZ4F_blockSizeID_t {@link #blockSizeID};
- *     LZ4F_blockMode_t {@link #blockMode};
- *     LZ4F_contentChecksum_t {@link #contentChecksumFlag};
- *     LZ4F_frameType_t {@link #frameType};
- *     unsigned long long {@link #contentSize};
- *     unsigned {@link #dictID};
- *     LZ4F_blockChecksum_t {@link #blockChecksumFlag};
- * }</code></pre>
+ *     LZ4F_blockSizeID_t blockSizeID;
+ *     LZ4F_blockMode_t blockMode;
+ *     LZ4F_contentChecksum_t contentChecksumFlag;
+ *     LZ4F_frameType_t frameType;
+ *     unsigned long long contentSize;
+ *     unsigned dictID;
+ *     LZ4F_blockChecksum_t blockChecksumFlag;
+ * }}</pre>
  */
 @NativeType("struct LZ4F_frameInfo_t")
 public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResource {
@@ -97,41 +91,41 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@code 0 == default}. One of:<br><table><tr><td>{@link LZ4Frame#LZ4F_max64KB max64KB}</td><td>{@link LZ4Frame#LZ4F_max256KB max256KB}</td><td>{@link LZ4Frame#LZ4F_max1MB max1MB}</td><td>{@link LZ4Frame#LZ4F_max4MB max4MB}</td></tr></table> */
+    /** @return the value of the {@code blockSizeID} field. */
     @NativeType("LZ4F_blockSizeID_t")
     public int blockSizeID() { return nblockSizeID(address()); }
-    /** {@code 0 == default}. One of:<br><table><tr><td>{@link LZ4Frame#LZ4F_blockLinked blockLinked}</td><td>{@link LZ4Frame#LZ4F_blockIndependent blockIndependent}</td><td>{@link LZ4Frame#LZ4F_blockChecksumEnabled blockChecksumEnabled}</td></tr></table> */
+    /** @return the value of the {@code blockMode} field. */
     @NativeType("LZ4F_blockMode_t")
     public int blockMode() { return nblockMode(address()); }
-    /** 1: frame terminated with 32-bit checksum of decompressed data; 0: disabled (default) */
+    /** @return the value of the {@code contentChecksumFlag} field. */
     @NativeType("LZ4F_contentChecksum_t")
     public int contentChecksumFlag() { return ncontentChecksumFlag(address()); }
-    /** read-only field. One of:<br><table><tr><td>{@link LZ4Frame#LZ4F_frame frame}</td><td>{@link LZ4Frame#LZ4F_skippableFrame skippableFrame}</td></tr></table> */
+    /** @return the value of the {@code frameType} field. */
     @NativeType("LZ4F_frameType_t")
     public int frameType() { return nframeType(address()); }
-    /** size of uncompressed content ; {@code 0 == unknown} */
+    /** @return the value of the {@code contentSize} field. */
     @NativeType("unsigned long long")
     public long contentSize() { return ncontentSize(address()); }
-    /** dictionary ID, sent by compressor to help decoder select correct dictionary; 0 == no {@code dictID} provided */
+    /** @return the value of the {@code dictID} field. */
     @NativeType("unsigned")
     public int dictID() { return ndictID(address()); }
-    /** 1: each block followed by a checksum of block's compressed data; 0: disabled (default) */
+    /** @return the value of the {@code blockChecksumFlag} field. */
     @NativeType("LZ4F_blockChecksum_t")
     public int blockChecksumFlag() { return nblockChecksumFlag(address()); }
 
-    /** Sets the specified value to the {@link #blockSizeID} field. */
+    /** Sets the specified value to the {@code blockSizeID} field. */
     public LZ4FFrameInfo blockSizeID(@NativeType("LZ4F_blockSizeID_t") int value) { nblockSizeID(address(), value); return this; }
-    /** Sets the specified value to the {@link #blockMode} field. */
+    /** Sets the specified value to the {@code blockMode} field. */
     public LZ4FFrameInfo blockMode(@NativeType("LZ4F_blockMode_t") int value) { nblockMode(address(), value); return this; }
-    /** Sets the specified value to the {@link #contentChecksumFlag} field. */
+    /** Sets the specified value to the {@code contentChecksumFlag} field. */
     public LZ4FFrameInfo contentChecksumFlag(@NativeType("LZ4F_contentChecksum_t") int value) { ncontentChecksumFlag(address(), value); return this; }
-    /** Sets the specified value to the {@link #frameType} field. */
+    /** Sets the specified value to the {@code frameType} field. */
     public LZ4FFrameInfo frameType(@NativeType("LZ4F_frameType_t") int value) { nframeType(address(), value); return this; }
-    /** Sets the specified value to the {@link #contentSize} field. */
+    /** Sets the specified value to the {@code contentSize} field. */
     public LZ4FFrameInfo contentSize(@NativeType("unsigned long long") long value) { ncontentSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #dictID} field. */
+    /** Sets the specified value to the {@code dictID} field. */
     public LZ4FFrameInfo dictID(@NativeType("unsigned") int value) { ndictID(address(), value); return this; }
-    /** Sets the specified value to the {@link #blockChecksumFlag} field. */
+    /** Sets the specified value to the {@code blockChecksumFlag} field. */
     public LZ4FFrameInfo blockChecksumFlag(@NativeType("LZ4F_blockChecksum_t") int value) { nblockChecksumFlag(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -191,8 +185,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FFrameInfo createSafe(long address) {
+    public static @Nullable LZ4FFrameInfo createSafe(long address) {
         return address == NULL ? null : new LZ4FFrameInfo(address, null);
     }
 
@@ -235,8 +228,7 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4FFrameInfo.Buffer createSafe(long address, int capacity) {
+    public static LZ4FFrameInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -300,34 +292,34 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #blockSizeID}. */
-    public static int nblockSizeID(long struct) { return UNSAFE.getInt(null, struct + LZ4FFrameInfo.BLOCKSIZEID); }
+    public static int nblockSizeID(long struct) { return memGetInt(struct + LZ4FFrameInfo.BLOCKSIZEID); }
     /** Unsafe version of {@link #blockMode}. */
-    public static int nblockMode(long struct) { return UNSAFE.getInt(null, struct + LZ4FFrameInfo.BLOCKMODE); }
+    public static int nblockMode(long struct) { return memGetInt(struct + LZ4FFrameInfo.BLOCKMODE); }
     /** Unsafe version of {@link #contentChecksumFlag}. */
-    public static int ncontentChecksumFlag(long struct) { return UNSAFE.getInt(null, struct + LZ4FFrameInfo.CONTENTCHECKSUMFLAG); }
+    public static int ncontentChecksumFlag(long struct) { return memGetInt(struct + LZ4FFrameInfo.CONTENTCHECKSUMFLAG); }
     /** Unsafe version of {@link #frameType}. */
-    public static int nframeType(long struct) { return UNSAFE.getInt(null, struct + LZ4FFrameInfo.FRAMETYPE); }
+    public static int nframeType(long struct) { return memGetInt(struct + LZ4FFrameInfo.FRAMETYPE); }
     /** Unsafe version of {@link #contentSize}. */
-    public static long ncontentSize(long struct) { return UNSAFE.getLong(null, struct + LZ4FFrameInfo.CONTENTSIZE); }
+    public static long ncontentSize(long struct) { return memGetLong(struct + LZ4FFrameInfo.CONTENTSIZE); }
     /** Unsafe version of {@link #dictID}. */
-    public static int ndictID(long struct) { return UNSAFE.getInt(null, struct + LZ4FFrameInfo.DICTID); }
+    public static int ndictID(long struct) { return memGetInt(struct + LZ4FFrameInfo.DICTID); }
     /** Unsafe version of {@link #blockChecksumFlag}. */
-    public static int nblockChecksumFlag(long struct) { return UNSAFE.getInt(null, struct + LZ4FFrameInfo.BLOCKCHECKSUMFLAG); }
+    public static int nblockChecksumFlag(long struct) { return memGetInt(struct + LZ4FFrameInfo.BLOCKCHECKSUMFLAG); }
 
     /** Unsafe version of {@link #blockSizeID(int) blockSizeID}. */
-    public static void nblockSizeID(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FFrameInfo.BLOCKSIZEID, value); }
+    public static void nblockSizeID(long struct, int value) { memPutInt(struct + LZ4FFrameInfo.BLOCKSIZEID, value); }
     /** Unsafe version of {@link #blockMode(int) blockMode}. */
-    public static void nblockMode(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FFrameInfo.BLOCKMODE, value); }
+    public static void nblockMode(long struct, int value) { memPutInt(struct + LZ4FFrameInfo.BLOCKMODE, value); }
     /** Unsafe version of {@link #contentChecksumFlag(int) contentChecksumFlag}. */
-    public static void ncontentChecksumFlag(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FFrameInfo.CONTENTCHECKSUMFLAG, value); }
+    public static void ncontentChecksumFlag(long struct, int value) { memPutInt(struct + LZ4FFrameInfo.CONTENTCHECKSUMFLAG, value); }
     /** Unsafe version of {@link #frameType(int) frameType}. */
-    public static void nframeType(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FFrameInfo.FRAMETYPE, value); }
+    public static void nframeType(long struct, int value) { memPutInt(struct + LZ4FFrameInfo.FRAMETYPE, value); }
     /** Unsafe version of {@link #contentSize(long) contentSize}. */
-    public static void ncontentSize(long struct, long value) { UNSAFE.putLong(null, struct + LZ4FFrameInfo.CONTENTSIZE, value); }
+    public static void ncontentSize(long struct, long value) { memPutLong(struct + LZ4FFrameInfo.CONTENTSIZE, value); }
     /** Unsafe version of {@link #dictID(int) dictID}. */
-    public static void ndictID(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FFrameInfo.DICTID, value); }
+    public static void ndictID(long struct, int value) { memPutInt(struct + LZ4FFrameInfo.DICTID, value); }
     /** Unsafe version of {@link #blockChecksumFlag(int) blockChecksumFlag}. */
-    public static void nblockChecksumFlag(long struct, int value) { UNSAFE.putInt(null, struct + LZ4FFrameInfo.BLOCKCHECKSUMFLAG, value); }
+    public static void nblockChecksumFlag(long struct, int value) { memPutInt(struct + LZ4FFrameInfo.BLOCKCHECKSUMFLAG, value); }
 
     // -----------------------------------
 
@@ -363,45 +355,50 @@ public class LZ4FFrameInfo extends Struct<LZ4FFrameInfo> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected LZ4FFrameInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link LZ4FFrameInfo#blockSizeID} field. */
+        /** @return the value of the {@code blockSizeID} field. */
         @NativeType("LZ4F_blockSizeID_t")
         public int blockSizeID() { return LZ4FFrameInfo.nblockSizeID(address()); }
-        /** @return the value of the {@link LZ4FFrameInfo#blockMode} field. */
+        /** @return the value of the {@code blockMode} field. */
         @NativeType("LZ4F_blockMode_t")
         public int blockMode() { return LZ4FFrameInfo.nblockMode(address()); }
-        /** @return the value of the {@link LZ4FFrameInfo#contentChecksumFlag} field. */
+        /** @return the value of the {@code contentChecksumFlag} field. */
         @NativeType("LZ4F_contentChecksum_t")
         public int contentChecksumFlag() { return LZ4FFrameInfo.ncontentChecksumFlag(address()); }
-        /** @return the value of the {@link LZ4FFrameInfo#frameType} field. */
+        /** @return the value of the {@code frameType} field. */
         @NativeType("LZ4F_frameType_t")
         public int frameType() { return LZ4FFrameInfo.nframeType(address()); }
-        /** @return the value of the {@link LZ4FFrameInfo#contentSize} field. */
+        /** @return the value of the {@code contentSize} field. */
         @NativeType("unsigned long long")
         public long contentSize() { return LZ4FFrameInfo.ncontentSize(address()); }
-        /** @return the value of the {@link LZ4FFrameInfo#dictID} field. */
+        /** @return the value of the {@code dictID} field. */
         @NativeType("unsigned")
         public int dictID() { return LZ4FFrameInfo.ndictID(address()); }
-        /** @return the value of the {@link LZ4FFrameInfo#blockChecksumFlag} field. */
+        /** @return the value of the {@code blockChecksumFlag} field. */
         @NativeType("LZ4F_blockChecksum_t")
         public int blockChecksumFlag() { return LZ4FFrameInfo.nblockChecksumFlag(address()); }
 
-        /** Sets the specified value to the {@link LZ4FFrameInfo#blockSizeID} field. */
+        /** Sets the specified value to the {@code blockSizeID} field. */
         public LZ4FFrameInfo.Buffer blockSizeID(@NativeType("LZ4F_blockSizeID_t") int value) { LZ4FFrameInfo.nblockSizeID(address(), value); return this; }
-        /** Sets the specified value to the {@link LZ4FFrameInfo#blockMode} field. */
+        /** Sets the specified value to the {@code blockMode} field. */
         public LZ4FFrameInfo.Buffer blockMode(@NativeType("LZ4F_blockMode_t") int value) { LZ4FFrameInfo.nblockMode(address(), value); return this; }
-        /** Sets the specified value to the {@link LZ4FFrameInfo#contentChecksumFlag} field. */
+        /** Sets the specified value to the {@code contentChecksumFlag} field. */
         public LZ4FFrameInfo.Buffer contentChecksumFlag(@NativeType("LZ4F_contentChecksum_t") int value) { LZ4FFrameInfo.ncontentChecksumFlag(address(), value); return this; }
-        /** Sets the specified value to the {@link LZ4FFrameInfo#frameType} field. */
+        /** Sets the specified value to the {@code frameType} field. */
         public LZ4FFrameInfo.Buffer frameType(@NativeType("LZ4F_frameType_t") int value) { LZ4FFrameInfo.nframeType(address(), value); return this; }
-        /** Sets the specified value to the {@link LZ4FFrameInfo#contentSize} field. */
+        /** Sets the specified value to the {@code contentSize} field. */
         public LZ4FFrameInfo.Buffer contentSize(@NativeType("unsigned long long") long value) { LZ4FFrameInfo.ncontentSize(address(), value); return this; }
-        /** Sets the specified value to the {@link LZ4FFrameInfo#dictID} field. */
+        /** Sets the specified value to the {@code dictID} field. */
         public LZ4FFrameInfo.Buffer dictID(@NativeType("unsigned") int value) { LZ4FFrameInfo.ndictID(address(), value); return this; }
-        /** Sets the specified value to the {@link LZ4FFrameInfo#blockChecksumFlag} field. */
+        /** Sets the specified value to the {@code blockChecksumFlag} field. */
         public LZ4FFrameInfo.Buffer blockChecksumFlag(@NativeType("LZ4F_blockChecksum_t") int value) { LZ4FFrameInfo.nblockChecksumFlag(address(), value); return this; }
 
     }

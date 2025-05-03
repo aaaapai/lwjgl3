@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,17 +14,13 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing a {@code PaintSweepGradient} value of the {@code COLR} v1 extensions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_PaintSweepGradient {
  *     {@link FT_ColorLine FT_ColorLine} colorline;
  *     {@link FT_Vector FT_Vector} center;
  *     FT_Fixed start_angle;
  *     FT_Fixed end_angle;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_PaintSweepGradient extends Struct<FT_PaintSweepGradient> {
 
@@ -99,8 +95,7 @@ public class FT_PaintSweepGradient extends Struct<FT_PaintSweepGradient> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintSweepGradient createSafe(long address) {
+    public static @Nullable FT_PaintSweepGradient createSafe(long address) {
         return address == NULL ? null : new FT_PaintSweepGradient(address, null);
     }
 
@@ -115,8 +110,7 @@ public class FT_PaintSweepGradient extends Struct<FT_PaintSweepGradient> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintSweepGradient.Buffer createSafe(long address, int capacity) {
+    public static FT_PaintSweepGradient.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -162,6 +156,11 @@ public class FT_PaintSweepGradient extends Struct<FT_PaintSweepGradient> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,41 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * (None).
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The {@code pCreateInfo}{@code ::pNext} chain <b>must</b> not contain a {@link VkImageSwapchainCreateInfoKHR} structure</li>
- * <li>The {@code pCreateInfo}{@code ::pNext} chain <b>must</b> not contain a {@link VkImageDrmFormatModifierExplicitCreateInfoEXT} structure</li>
- * <li>Applications also <b>must</b> not call {@link VK13#vkGetDeviceImageMemoryRequirements GetDeviceImageMemoryRequirements} with a {@link VkImageCreateInfo} whose {@code pNext} chain includes a {@link VkExternalFormatANDROID} structure with non-zero {@code externalFormat}</li>
- * <li>If {@code pCreateInfo}{@code ::format} specifies a <em>multi-planar</em> format and {@code pCreateInfo}{@code ::flags} has {@link VK11#VK_IMAGE_CREATE_DISJOINT_BIT IMAGE_CREATE_DISJOINT_BIT} set then {@code planeAspect} <b>must</b> not be {@link KHRMaintenance4#VK_IMAGE_ASPECT_NONE_KHR IMAGE_ASPECT_NONE_KHR}</li>
- * <li>If {@code pCreateInfo}{@code ::flags} has {@link VK11#VK_IMAGE_CREATE_DISJOINT_BIT IMAGE_CREATE_DISJOINT_BIT} set and if the {@code pCreateInfo}{@code ::tiling} is {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR} or {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}, then {@code planeAspect} <b>must</b> be a single valid <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-planes-image-aspect">multi-planar aspect mask</a> bit</li>
- * <li>If {@code pCreateInfo}{@code ::tiling} is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, then {@code planeAspect} <b>must</b> be a single valid <em>memory plane</em> for the image (that is, {@code aspectMask} <b>must</b> specify a plane index that is less than the {@link VkDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifierPlaneCount} associated with the image’s {@code format} and {@link VkImageDrmFormatModifierPropertiesEXT}{@code ::drmFormatModifier})</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code pCreateInfo} <b>must</b> be a valid pointer to a valid {@link VkImageCreateInfo} structure</li>
- * <li>If {@code planeAspect} is not 0, {@code planeAspect} <b>must</b> be a valid {@code VkImageAspectFlagBits} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkImageCreateInfo}, {@link VK13#vkGetDeviceImageMemoryRequirements GetDeviceImageMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceImageMemoryRequirementsKHR GetDeviceImageMemoryRequirementsKHR}, {@link VK13#vkGetDeviceImageSparseMemoryRequirements GetDeviceImageSparseMemoryRequirements}, {@link KHRMaintenance4#vkGetDeviceImageSparseMemoryRequirementsKHR GetDeviceImageSparseMemoryRequirementsKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceImageMemoryRequirements {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     {@link VkImageCreateInfo VkImageCreateInfo} const * {@link #pCreateInfo};
- *     VkImageAspectFlagBits {@link #planeAspect};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     {@link VkImageCreateInfo VkImageCreateInfo} const * pCreateInfo;
+ *     VkImageAspectFlagBits planeAspect;
+ * }}</pre>
  */
 public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryRequirements> implements NativeResource {
 
@@ -107,28 +79,28 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a {@link VkImageCreateInfo} structure containing parameters affecting creation of the image to query. */
+    /** @return a {@link VkImageCreateInfo} view of the struct pointed to by the {@code pCreateInfo} field. */
     @NativeType("VkImageCreateInfo const *")
     public VkImageCreateInfo pCreateInfo() { return npCreateInfo(address()); }
-    /** a {@code VkImageAspectFlagBits} value specifying the aspect corresponding to the image plane to query. This parameter is ignored unless {@code pCreateInfo}{@code ::tiling} is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}, or {@code pCreateInfo}{@code ::flags} has {@link VK11#VK_IMAGE_CREATE_DISJOINT_BIT IMAGE_CREATE_DISJOINT_BIT} set. */
+    /** @return the value of the {@code planeAspect} field. */
     @NativeType("VkImageAspectFlagBits")
     public int planeAspect() { return nplaneAspect(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDeviceImageMemoryRequirements sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS} value to the {@code sType} field. */
     public VkDeviceImageMemoryRequirements sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDeviceImageMemoryRequirements pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the address of the specified {@link VkImageCreateInfo} to the {@link #pCreateInfo} field. */
+    /** Sets the address of the specified {@link VkImageCreateInfo} to the {@code pCreateInfo} field. */
     public VkDeviceImageMemoryRequirements pCreateInfo(@NativeType("VkImageCreateInfo const *") VkImageCreateInfo value) { npCreateInfo(address(), value); return this; }
-    /** Sets the specified value to the {@link #planeAspect} field. */
+    /** Sets the specified value to the {@code planeAspect} field. */
     public VkDeviceImageMemoryRequirements planeAspect(@NativeType("VkImageAspectFlagBits") int value) { nplaneAspect(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -182,8 +154,7 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceImageMemoryRequirements createSafe(long address) {
+    public static @Nullable VkDeviceImageMemoryRequirements createSafe(long address) {
         return address == NULL ? null : new VkDeviceImageMemoryRequirements(address, null);
     }
 
@@ -226,8 +197,7 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceImageMemoryRequirements.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceImageMemoryRequirements.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,22 +242,22 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceImageMemoryRequirements.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceImageMemoryRequirements.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceImageMemoryRequirements.PNEXT); }
     /** Unsafe version of {@link #pCreateInfo}. */
     public static VkImageCreateInfo npCreateInfo(long struct) { return VkImageCreateInfo.create(memGetAddress(struct + VkDeviceImageMemoryRequirements.PCREATEINFO)); }
     /** Unsafe version of {@link #planeAspect}. */
-    public static int nplaneAspect(long struct) { return UNSAFE.getInt(null, struct + VkDeviceImageMemoryRequirements.PLANEASPECT); }
+    public static int nplaneAspect(long struct) { return memGetInt(struct + VkDeviceImageMemoryRequirements.PLANEASPECT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceImageMemoryRequirements.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceImageMemoryRequirements.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceImageMemoryRequirements.PNEXT, value); }
     /** Unsafe version of {@link #pCreateInfo(VkImageCreateInfo) pCreateInfo}. */
     public static void npCreateInfo(long struct, VkImageCreateInfo value) { memPutAddress(struct + VkDeviceImageMemoryRequirements.PCREATEINFO, value.address()); }
     /** Unsafe version of {@link #planeAspect(int) planeAspect}. */
-    public static void nplaneAspect(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceImageMemoryRequirements.PLANEASPECT, value); }
+    public static void nplaneAspect(long struct, int value) { memPutInt(struct + VkDeviceImageMemoryRequirements.PLANEASPECT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -332,32 +302,37 @@ public class VkDeviceImageMemoryRequirements extends Struct<VkDeviceImageMemoryR
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceImageMemoryRequirements getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceImageMemoryRequirements#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDeviceImageMemoryRequirements.nsType(address()); }
-        /** @return the value of the {@link VkDeviceImageMemoryRequirements#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDeviceImageMemoryRequirements.npNext(address()); }
-        /** @return a {@link VkImageCreateInfo} view of the struct pointed to by the {@link VkDeviceImageMemoryRequirements#pCreateInfo} field. */
+        /** @return a {@link VkImageCreateInfo} view of the struct pointed to by the {@code pCreateInfo} field. */
         @NativeType("VkImageCreateInfo const *")
         public VkImageCreateInfo pCreateInfo() { return VkDeviceImageMemoryRequirements.npCreateInfo(address()); }
-        /** @return the value of the {@link VkDeviceImageMemoryRequirements#planeAspect} field. */
+        /** @return the value of the {@code planeAspect} field. */
         @NativeType("VkImageAspectFlagBits")
         public int planeAspect() { return VkDeviceImageMemoryRequirements.nplaneAspect(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceImageMemoryRequirements#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDeviceImageMemoryRequirements.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceImageMemoryRequirements.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS} value to the {@link VkDeviceImageMemoryRequirements#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS} value to the {@code sType} field. */
         public VkDeviceImageMemoryRequirements.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS); }
-        /** Sets the specified value to the {@link VkDeviceImageMemoryRequirements#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDeviceImageMemoryRequirements.Buffer pNext(@NativeType("void const *") long value) { VkDeviceImageMemoryRequirements.npNext(address(), value); return this; }
-        /** Sets the address of the specified {@link VkImageCreateInfo} to the {@link VkDeviceImageMemoryRequirements#pCreateInfo} field. */
+        /** Sets the address of the specified {@link VkImageCreateInfo} to the {@code pCreateInfo} field. */
         public VkDeviceImageMemoryRequirements.Buffer pCreateInfo(@NativeType("VkImageCreateInfo const *") VkImageCreateInfo value) { VkDeviceImageMemoryRequirements.npCreateInfo(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceImageMemoryRequirements#planeAspect} field. */
+        /** Sets the specified value to the {@code planeAspect} field. */
         public VkDeviceImageMemoryRequirements.Buffer planeAspect(@NativeType("VkImageAspectFlagBits") int value) { VkDeviceImageMemoryRequirements.nplaneAspect(address(), value); return this; }
 
     }

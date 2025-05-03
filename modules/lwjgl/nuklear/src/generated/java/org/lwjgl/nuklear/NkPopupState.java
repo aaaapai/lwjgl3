@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,12 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.nuklear.Nuklear.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_popup_state {
  *     {@link NkWindow struct nk_window} * win;
- *     enum nk_panel_type {@link #type};
+ *     enum nk_panel_type type;
  *     {@link NkPopupBuffer struct nk_popup_buffer} buf;
  *     nk_hash name;
  *     nk_bool active;
@@ -30,7 +28,7 @@ import static org.lwjgl.nuklear.Nuklear.*;
  *     unsigned con_old;
  *     unsigned active_con;
  *     {@link NkRect struct nk_rect} header;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_popup_state")
 public class NkPopupState extends Struct<NkPopupState> {
@@ -108,7 +106,7 @@ public class NkPopupState extends Struct<NkPopupState> {
     /** @return a {@link NkWindow} view of the struct pointed to by the {@code win} field. */
     @NativeType("struct nk_window *")
     public NkWindow win() { return nwin(address()); }
-    /** one of:<br><table><tr><td>{@link Nuklear#NK_PANEL_NONE PANEL_NONE}</td><td>{@link Nuklear#NK_PANEL_WINDOW PANEL_WINDOW}</td><td>{@link Nuklear#NK_PANEL_GROUP PANEL_GROUP}</td><td>{@link Nuklear#NK_PANEL_POPUP PANEL_POPUP}</td><td>{@link Nuklear#NK_PANEL_CONTEXTUAL PANEL_CONTEXTUAL}</td><td>{@link Nuklear#NK_PANEL_COMBO PANEL_COMBO}</td></tr><tr><td>{@link Nuklear#NK_PANEL_MENU PANEL_MENU}</td><td>{@link Nuklear#NK_PANEL_TOOLTIP PANEL_TOOLTIP}</td><td>{@link Nuklear#NK_PANEL_SET_NONBLOCK PANEL_SET_NONBLOCK}</td><td>{@link Nuklear#NK_PANEL_SET_POPUP PANEL_SET_POPUP}</td><td>{@link Nuklear#NK_PANEL_SET_SUB PANEL_SET_SUB}</td></tr></table> */
+    /** @return the value of the {@code type} field. */
     @NativeType("enum nk_panel_type")
     public int type() { return ntype(address()); }
     /** @return a {@link NkPopupBuffer} view of the {@code buf} field. */
@@ -144,8 +142,7 @@ public class NkPopupState extends Struct<NkPopupState> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPopupState createSafe(long address) {
+    public static @Nullable NkPopupState createSafe(long address) {
         return address == NULL ? null : new NkPopupState(address, null);
     }
 
@@ -160,8 +157,7 @@ public class NkPopupState extends Struct<NkPopupState> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPopupState.Buffer createSafe(long address, int capacity) {
+    public static NkPopupState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -170,21 +166,21 @@ public class NkPopupState extends Struct<NkPopupState> {
     /** Unsafe version of {@link #win}. */
     public static NkWindow nwin(long struct) { return NkWindow.create(memGetAddress(struct + NkPopupState.WIN)); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkPopupState.TYPE); }
     /** Unsafe version of {@link #buf}. */
     public static NkPopupBuffer nbuf(long struct) { return NkPopupBuffer.create(struct + NkPopupState.BUF); }
     /** Unsafe version of {@link #name}. */
-    public static int nname(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.NAME); }
+    public static int nname(long struct) { return memGetInt(struct + NkPopupState.NAME); }
     /** Unsafe version of {@link #active}. */
-    public static boolean nactive(long struct) { return UNSAFE.getByte(null, struct + NkPopupState.ACTIVE) != 0; }
+    public static boolean nactive(long struct) { return memGetByte(struct + NkPopupState.ACTIVE) != 0; }
     /** Unsafe version of {@link #combo_count}. */
-    public static int ncombo_count(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.COMBO_COUNT); }
+    public static int ncombo_count(long struct) { return memGetInt(struct + NkPopupState.COMBO_COUNT); }
     /** Unsafe version of {@link #con_count}. */
-    public static int ncon_count(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.CON_COUNT); }
+    public static int ncon_count(long struct) { return memGetInt(struct + NkPopupState.CON_COUNT); }
     /** Unsafe version of {@link #con_old}. */
-    public static int ncon_old(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.CON_OLD); }
+    public static int ncon_old(long struct) { return memGetInt(struct + NkPopupState.CON_OLD); }
     /** Unsafe version of {@link #active_con}. */
-    public static int nactive_con(long struct) { return UNSAFE.getInt(null, struct + NkPopupState.ACTIVE_CON); }
+    public static int nactive_con(long struct) { return memGetInt(struct + NkPopupState.ACTIVE_CON); }
     /** Unsafe version of {@link #header}. */
     public static NkRect nheader(long struct) { return NkRect.create(struct + NkPopupState.HEADER); }
 
@@ -222,6 +218,11 @@ public class NkPopupState extends Struct<NkPopupState> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkPopupState getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -229,7 +230,7 @@ public class NkPopupState extends Struct<NkPopupState> {
         /** @return a {@link NkWindow} view of the struct pointed to by the {@code win} field. */
         @NativeType("struct nk_window *")
         public NkWindow win() { return NkPopupState.nwin(address()); }
-        /** @return the value of the {@link NkPopupState#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("enum nk_panel_type")
         public int type() { return NkPopupState.ntype(address()); }
         /** @return a {@link NkPopupBuffer} view of the {@code buf} field. */

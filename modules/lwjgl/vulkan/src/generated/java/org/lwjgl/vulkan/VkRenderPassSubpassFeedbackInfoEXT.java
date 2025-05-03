@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 /**
- * Feedback about the creation of subpass.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRenderPassSubpassFeedbackCreateInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRenderPassSubpassFeedbackInfoEXT {
- *     VkSubpassMergeStatusEXT {@link #subpassMergeStatus};
- *     char {@link #description}[VK_MAX_DESCRIPTION_SIZE];
- *     uint32_t {@link #postMergeIndex};
- * }</code></pre>
+ *     VkSubpassMergeStatusEXT subpassMergeStatus;
+ *     char description[VK_MAX_DESCRIPTION_SIZE];
+ *     uint32_t postMergeIndex;
+ * }}</pre>
  */
 public class VkRenderPassSubpassFeedbackInfoEXT extends Struct<VkRenderPassSubpassFeedbackInfoEXT> {
 
@@ -82,16 +74,16 @@ public class VkRenderPassSubpassFeedbackInfoEXT extends Struct<VkRenderPassSubpa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkSubpassMergeStatusEXT} value specifying information about whether the subpass is merged with previous subpass and the reason why it is not merged. */
+    /** @return the value of the {@code subpassMergeStatus} field. */
     @NativeType("VkSubpassMergeStatusEXT")
     public int subpassMergeStatus() { return nsubpassMergeStatus(address()); }
-    /** an array of {@link VK10#VK_MAX_DESCRIPTION_SIZE MAX_DESCRIPTION_SIZE} {@code char} containing a null-terminated UTF-8 string which provides additional details. */
+    /** @return a {@link ByteBuffer} view of the {@code description} field. */
     @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
     public ByteBuffer description() { return ndescription(address()); }
-    /** an array of {@link VK10#VK_MAX_DESCRIPTION_SIZE MAX_DESCRIPTION_SIZE} {@code char} containing a null-terminated UTF-8 string which provides additional details. */
+    /** @return the null-terminated string stored in the {@code description} field. */
     @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
     public String descriptionString() { return ndescriptionString(address()); }
-    /** the subpass index after the subpass merging. */
+    /** @return the value of the {@code postMergeIndex} field. */
     @NativeType("uint32_t")
     public int postMergeIndex() { return npostMergeIndex(address()); }
 
@@ -103,8 +95,7 @@ public class VkRenderPassSubpassFeedbackInfoEXT extends Struct<VkRenderPassSubpa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassSubpassFeedbackInfoEXT createSafe(long address) {
+    public static @Nullable VkRenderPassSubpassFeedbackInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkRenderPassSubpassFeedbackInfoEXT(address, null);
     }
 
@@ -119,21 +110,20 @@ public class VkRenderPassSubpassFeedbackInfoEXT extends Struct<VkRenderPassSubpa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassSubpassFeedbackInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassSubpassFeedbackInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #subpassMergeStatus}. */
-    public static int nsubpassMergeStatus(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassSubpassFeedbackInfoEXT.SUBPASSMERGESTATUS); }
+    public static int nsubpassMergeStatus(long struct) { return memGetInt(struct + VkRenderPassSubpassFeedbackInfoEXT.SUBPASSMERGESTATUS); }
     /** Unsafe version of {@link #description}. */
     public static ByteBuffer ndescription(long struct) { return memByteBuffer(struct + VkRenderPassSubpassFeedbackInfoEXT.DESCRIPTION, VK_MAX_DESCRIPTION_SIZE); }
     /** Unsafe version of {@link #descriptionString}. */
     public static String ndescriptionString(long struct) { return memUTF8(struct + VkRenderPassSubpassFeedbackInfoEXT.DESCRIPTION); }
     /** Unsafe version of {@link #postMergeIndex}. */
-    public static int npostMergeIndex(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassSubpassFeedbackInfoEXT.POSTMERGEINDEX); }
+    public static int npostMergeIndex(long struct) { return memGetInt(struct + VkRenderPassSubpassFeedbackInfoEXT.POSTMERGEINDEX); }
 
     // -----------------------------------
 
@@ -169,20 +159,25 @@ public class VkRenderPassSubpassFeedbackInfoEXT extends Struct<VkRenderPassSubpa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderPassSubpassFeedbackInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkRenderPassSubpassFeedbackInfoEXT#subpassMergeStatus} field. */
+        /** @return the value of the {@code subpassMergeStatus} field. */
         @NativeType("VkSubpassMergeStatusEXT")
         public int subpassMergeStatus() { return VkRenderPassSubpassFeedbackInfoEXT.nsubpassMergeStatus(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link VkRenderPassSubpassFeedbackInfoEXT#description} field. */
+        /** @return a {@link ByteBuffer} view of the {@code description} field. */
         @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
         public ByteBuffer description() { return VkRenderPassSubpassFeedbackInfoEXT.ndescription(address()); }
-        /** @return the null-terminated string stored in the {@link VkRenderPassSubpassFeedbackInfoEXT#description} field. */
+        /** @return the null-terminated string stored in the {@code description} field. */
         @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
         public String descriptionString() { return VkRenderPassSubpassFeedbackInfoEXT.ndescriptionString(address()); }
-        /** @return the value of the {@link VkRenderPassSubpassFeedbackInfoEXT#postMergeIndex} field. */
+        /** @return the value of the {@code postMergeIndex} field. */
         @NativeType("uint32_t")
         public int postMergeIndex() { return VkRenderPassSubpassFeedbackInfoEXT.npostMergeIndex(address()); }
 

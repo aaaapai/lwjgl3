@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,59 +18,21 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.egl.*;
 
 /**
- * OpenGL ES-specific swapchain sampler state structure.
- * 
- * <h5>Description</h5>
- * 
- * <p>When {@link XrSwapchainStateSamplerOpenGLESFB} is specified in the call to {@link FBSwapchainUpdateState#xrUpdateSwapchainFB UpdateSwapchainFB}, texture sampler state for all images in the {@code XrSwapchain} will be updated for both the application and compositor processes.</p>
- * 
- * <p>For most cases, the sampler state update is only required compositor-side, as that is where the swapchain images are sampled. For completeness, the application-side sampler state is additionally updated to support cases where the application may choose to directly sample the swapchain images.</p>
- * 
- * <p>Applications are expected to handle synchronization of the sampler state update with application-side rendering. Similarly, the compositor will synchronize the sampler state update with rendering of the next compositor frame.</p>
- * 
- * <p>An {@code EGLContext}, either the {@code EGLContext} bound during {@code XrSwapchain} creation or an {@code EGLContext} in the same share group, is required to be bound on the application calling thread. Current texture bindings may be altered by the call, including the active texture.</p>
- * 
- * <p>When {@link XrSwapchainStateSamplerOpenGLESFB} is specified in the call to {@link FBSwapchainUpdateState#xrGetSwapchainStateFB GetSwapchainStateFB}, the sampler state will be populated with the current swapchain sampler state.</p>
- * 
- * <p>To use {@link XrSwapchainStateSamplerOpenGLESFB}, {@link XR10#XR_USE_GRAPHICS_API_OPENGL_ES USE_GRAPHICS_API_OPENGL_ES} must be defined before including {@code openxr_platform.h}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSwapchainUpdateStateOpenGLES XR_FB_swapchain_update_state_opengl_es} extension <b>must</b> be enabled prior to using {@link XrSwapchainStateSamplerOpenGLESFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code minFilter} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code magFilter} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code wrapModeS} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code wrapModeT} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code swizzleRed} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code swizzleGreen} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code swizzleBlue} <b>must</b> be a valid {@code EGLenum} value</li>
- * <li>{@code swizzleAlpha} <b>must</b> be a valid {@code EGLenum} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrColor4f}, {@link FBSwapchainUpdateState#xrGetSwapchainStateFB GetSwapchainStateFB}, {@link FBSwapchainUpdateState#xrUpdateSwapchainFB UpdateSwapchainFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSwapchainStateSamplerOpenGLESFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     EGLenum {@link #minFilter};
- *     EGLenum {@link #magFilter};
- *     EGLenum {@link #wrapModeS};
- *     EGLenum {@link #wrapModeT};
- *     EGLenum {@link #swizzleRed};
- *     EGLenum {@link #swizzleGreen};
- *     EGLenum {@link #swizzleBlue};
- *     EGLenum {@link #swizzleAlpha};
- *     float {@link #maxAnisotropy};
- *     {@link XrColor4f XrColor4f} {@link #borderColor};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     EGLenum minFilter;
+ *     EGLenum magFilter;
+ *     EGLenum wrapModeS;
+ *     EGLenum wrapModeT;
+ *     EGLenum swizzleRed;
+ *     EGLenum swizzleGreen;
+ *     EGLenum swizzleBlue;
+ *     EGLenum swizzleAlpha;
+ *     float maxAnisotropy;
+ *     {@link XrColor4f XrColor4f} borderColor;
+ * }}</pre>
  */
 public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSamplerOpenGLESFB> implements NativeResource {
 
@@ -150,68 +112,68 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code minFilter} field. */
     @NativeType("EGLenum")
     public int minFilter() { return nminFilter(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code magFilter} field. */
     @NativeType("EGLenum")
     public int magFilter() { return nmagFilter(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code wrapModeS} field. */
     @NativeType("EGLenum")
     public int wrapModeS() { return nwrapModeS(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code wrapModeT} field. */
     @NativeType("EGLenum")
     public int wrapModeT() { return nwrapModeT(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code swizzleRed} field. */
     @NativeType("EGLenum")
     public int swizzleRed() { return nswizzleRed(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code swizzleGreen} field. */
     @NativeType("EGLenum")
     public int swizzleGreen() { return nswizzleGreen(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code swizzleBlue} field. */
     @NativeType("EGLenum")
     public int swizzleBlue() { return nswizzleBlue(address()); }
-    /** a valid Android OpenGL ES {@code EGLenum}. */
+    /** @return the value of the {@code swizzleAlpha} field. */
     @NativeType("EGLenum")
     public int swizzleAlpha() { return nswizzleAlpha(address()); }
-    /** a valid float used to represent max anisotropy. */
+    /** @return the value of the {@code maxAnisotropy} field. */
     public float maxAnisotropy() { return nmaxAnisotropy(address()); }
-    /** an RGBA color to be used as border texels. */
+    /** @return a {@link XrColor4f} view of the {@code borderColor} field. */
     public XrColor4f borderColor() { return nborderColor(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSwapchainStateSamplerOpenGLESFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB} value to the {@code type} field. */
     public XrSwapchainStateSamplerOpenGLESFB type$Default() { return type(FBSwapchainUpdateStateOpenGLES.XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSwapchainStateSamplerOpenGLESFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #minFilter} field. */
+    /** Sets the specified value to the {@code minFilter} field. */
     public XrSwapchainStateSamplerOpenGLESFB minFilter(@NativeType("EGLenum") int value) { nminFilter(address(), value); return this; }
-    /** Sets the specified value to the {@link #magFilter} field. */
+    /** Sets the specified value to the {@code magFilter} field. */
     public XrSwapchainStateSamplerOpenGLESFB magFilter(@NativeType("EGLenum") int value) { nmagFilter(address(), value); return this; }
-    /** Sets the specified value to the {@link #wrapModeS} field. */
+    /** Sets the specified value to the {@code wrapModeS} field. */
     public XrSwapchainStateSamplerOpenGLESFB wrapModeS(@NativeType("EGLenum") int value) { nwrapModeS(address(), value); return this; }
-    /** Sets the specified value to the {@link #wrapModeT} field. */
+    /** Sets the specified value to the {@code wrapModeT} field. */
     public XrSwapchainStateSamplerOpenGLESFB wrapModeT(@NativeType("EGLenum") int value) { nwrapModeT(address(), value); return this; }
-    /** Sets the specified value to the {@link #swizzleRed} field. */
+    /** Sets the specified value to the {@code swizzleRed} field. */
     public XrSwapchainStateSamplerOpenGLESFB swizzleRed(@NativeType("EGLenum") int value) { nswizzleRed(address(), value); return this; }
-    /** Sets the specified value to the {@link #swizzleGreen} field. */
+    /** Sets the specified value to the {@code swizzleGreen} field. */
     public XrSwapchainStateSamplerOpenGLESFB swizzleGreen(@NativeType("EGLenum") int value) { nswizzleGreen(address(), value); return this; }
-    /** Sets the specified value to the {@link #swizzleBlue} field. */
+    /** Sets the specified value to the {@code swizzleBlue} field. */
     public XrSwapchainStateSamplerOpenGLESFB swizzleBlue(@NativeType("EGLenum") int value) { nswizzleBlue(address(), value); return this; }
-    /** Sets the specified value to the {@link #swizzleAlpha} field. */
+    /** Sets the specified value to the {@code swizzleAlpha} field. */
     public XrSwapchainStateSamplerOpenGLESFB swizzleAlpha(@NativeType("EGLenum") int value) { nswizzleAlpha(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxAnisotropy} field. */
+    /** Sets the specified value to the {@code maxAnisotropy} field. */
     public XrSwapchainStateSamplerOpenGLESFB maxAnisotropy(float value) { nmaxAnisotropy(address(), value); return this; }
-    /** Copies the specified {@link XrColor4f} to the {@link #borderColor} field. */
+    /** Copies the specified {@link XrColor4f} to the {@code borderColor} field. */
     public XrSwapchainStateSamplerOpenGLESFB borderColor(XrColor4f value) { nborderColor(address(), value); return this; }
-    /** Passes the {@link #borderColor} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code borderColor} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSwapchainStateSamplerOpenGLESFB borderColor(java.util.function.Consumer<XrColor4f> consumer) { consumer.accept(borderColor()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -281,8 +243,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateSamplerOpenGLESFB createSafe(long address) {
+    public static @Nullable XrSwapchainStateSamplerOpenGLESFB createSafe(long address) {
         return address == NULL ? null : new XrSwapchainStateSamplerOpenGLESFB(address, null);
     }
 
@@ -330,8 +291,7 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateSamplerOpenGLESFB.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainStateSamplerOpenGLESFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -381,52 +341,52 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainStateSamplerOpenGLESFB.NEXT); }
     /** Unsafe version of {@link #minFilter}. */
-    public static int nminFilter(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.MINFILTER); }
+    public static int nminFilter(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.MINFILTER); }
     /** Unsafe version of {@link #magFilter}. */
-    public static int nmagFilter(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.MAGFILTER); }
+    public static int nmagFilter(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.MAGFILTER); }
     /** Unsafe version of {@link #wrapModeS}. */
-    public static int nwrapModeS(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODES); }
+    public static int nwrapModeS(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODES); }
     /** Unsafe version of {@link #wrapModeT}. */
-    public static int nwrapModeT(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODET); }
+    public static int nwrapModeT(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODET); }
     /** Unsafe version of {@link #swizzleRed}. */
-    public static int nswizzleRed(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLERED); }
+    public static int nswizzleRed(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLERED); }
     /** Unsafe version of {@link #swizzleGreen}. */
-    public static int nswizzleGreen(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEGREEN); }
+    public static int nswizzleGreen(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEGREEN); }
     /** Unsafe version of {@link #swizzleBlue}. */
-    public static int nswizzleBlue(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEBLUE); }
+    public static int nswizzleBlue(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEBLUE); }
     /** Unsafe version of {@link #swizzleAlpha}. */
-    public static int nswizzleAlpha(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEALPHA); }
+    public static int nswizzleAlpha(long struct) { return memGetInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEALPHA); }
     /** Unsafe version of {@link #maxAnisotropy}. */
-    public static float nmaxAnisotropy(long struct) { return UNSAFE.getFloat(null, struct + XrSwapchainStateSamplerOpenGLESFB.MAXANISOTROPY); }
+    public static float nmaxAnisotropy(long struct) { return memGetFloat(struct + XrSwapchainStateSamplerOpenGLESFB.MAXANISOTROPY); }
     /** Unsafe version of {@link #borderColor}. */
     public static XrColor4f nborderColor(long struct) { return XrColor4f.create(struct + XrSwapchainStateSamplerOpenGLESFB.BORDERCOLOR); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainStateSamplerOpenGLESFB.NEXT, value); }
     /** Unsafe version of {@link #minFilter(int) minFilter}. */
-    public static void nminFilter(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.MINFILTER, value); }
+    public static void nminFilter(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.MINFILTER, value); }
     /** Unsafe version of {@link #magFilter(int) magFilter}. */
-    public static void nmagFilter(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.MAGFILTER, value); }
+    public static void nmagFilter(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.MAGFILTER, value); }
     /** Unsafe version of {@link #wrapModeS(int) wrapModeS}. */
-    public static void nwrapModeS(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODES, value); }
+    public static void nwrapModeS(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODES, value); }
     /** Unsafe version of {@link #wrapModeT(int) wrapModeT}. */
-    public static void nwrapModeT(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODET, value); }
+    public static void nwrapModeT(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.WRAPMODET, value); }
     /** Unsafe version of {@link #swizzleRed(int) swizzleRed}. */
-    public static void nswizzleRed(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLERED, value); }
+    public static void nswizzleRed(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLERED, value); }
     /** Unsafe version of {@link #swizzleGreen(int) swizzleGreen}. */
-    public static void nswizzleGreen(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEGREEN, value); }
+    public static void nswizzleGreen(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEGREEN, value); }
     /** Unsafe version of {@link #swizzleBlue(int) swizzleBlue}. */
-    public static void nswizzleBlue(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEBLUE, value); }
+    public static void nswizzleBlue(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEBLUE, value); }
     /** Unsafe version of {@link #swizzleAlpha(int) swizzleAlpha}. */
-    public static void nswizzleAlpha(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEALPHA, value); }
+    public static void nswizzleAlpha(long struct, int value) { memPutInt(struct + XrSwapchainStateSamplerOpenGLESFB.SWIZZLEALPHA, value); }
     /** Unsafe version of {@link #maxAnisotropy(float) maxAnisotropy}. */
-    public static void nmaxAnisotropy(long struct, float value) { UNSAFE.putFloat(null, struct + XrSwapchainStateSamplerOpenGLESFB.MAXANISOTROPY, value); }
+    public static void nmaxAnisotropy(long struct, float value) { memPutFloat(struct + XrSwapchainStateSamplerOpenGLESFB.MAXANISOTROPY, value); }
     /** Unsafe version of {@link #borderColor(XrColor4f) borderColor}. */
     public static void nborderColor(long struct, XrColor4f value) { memCopy(value.address(), struct + XrSwapchainStateSamplerOpenGLESFB.BORDERCOLOR, XrColor4f.SIZEOF); }
 
@@ -464,72 +424,77 @@ public class XrSwapchainStateSamplerOpenGLESFB extends Struct<XrSwapchainStateSa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSwapchainStateSamplerOpenGLESFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSwapchainStateSamplerOpenGLESFB.ntype(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSwapchainStateSamplerOpenGLESFB.nnext(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#minFilter} field. */
+        /** @return the value of the {@code minFilter} field. */
         @NativeType("EGLenum")
         public int minFilter() { return XrSwapchainStateSamplerOpenGLESFB.nminFilter(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#magFilter} field. */
+        /** @return the value of the {@code magFilter} field. */
         @NativeType("EGLenum")
         public int magFilter() { return XrSwapchainStateSamplerOpenGLESFB.nmagFilter(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#wrapModeS} field. */
+        /** @return the value of the {@code wrapModeS} field. */
         @NativeType("EGLenum")
         public int wrapModeS() { return XrSwapchainStateSamplerOpenGLESFB.nwrapModeS(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#wrapModeT} field. */
+        /** @return the value of the {@code wrapModeT} field. */
         @NativeType("EGLenum")
         public int wrapModeT() { return XrSwapchainStateSamplerOpenGLESFB.nwrapModeT(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleRed} field. */
+        /** @return the value of the {@code swizzleRed} field. */
         @NativeType("EGLenum")
         public int swizzleRed() { return XrSwapchainStateSamplerOpenGLESFB.nswizzleRed(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleGreen} field. */
+        /** @return the value of the {@code swizzleGreen} field. */
         @NativeType("EGLenum")
         public int swizzleGreen() { return XrSwapchainStateSamplerOpenGLESFB.nswizzleGreen(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleBlue} field. */
+        /** @return the value of the {@code swizzleBlue} field. */
         @NativeType("EGLenum")
         public int swizzleBlue() { return XrSwapchainStateSamplerOpenGLESFB.nswizzleBlue(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleAlpha} field. */
+        /** @return the value of the {@code swizzleAlpha} field. */
         @NativeType("EGLenum")
         public int swizzleAlpha() { return XrSwapchainStateSamplerOpenGLESFB.nswizzleAlpha(address()); }
-        /** @return the value of the {@link XrSwapchainStateSamplerOpenGLESFB#maxAnisotropy} field. */
+        /** @return the value of the {@code maxAnisotropy} field. */
         public float maxAnisotropy() { return XrSwapchainStateSamplerOpenGLESFB.nmaxAnisotropy(address()); }
-        /** @return a {@link XrColor4f} view of the {@link XrSwapchainStateSamplerOpenGLESFB#borderColor} field. */
+        /** @return a {@link XrColor4f} view of the {@code borderColor} field. */
         public XrColor4f borderColor() { return XrSwapchainStateSamplerOpenGLESFB.nborderColor(address()); }
 
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer type(@NativeType("XrStructureType") int value) { XrSwapchainStateSamplerOpenGLESFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB} value to the {@link XrSwapchainStateSamplerOpenGLESFB#type} field. */
+        /** Sets the {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB} value to the {@code type} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer type$Default() { return type(FBSwapchainUpdateStateOpenGLES.XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB); }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer next(@NativeType("void *") long value) { XrSwapchainStateSamplerOpenGLESFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#minFilter} field. */
+        /** Sets the specified value to the {@code minFilter} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer minFilter(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nminFilter(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#magFilter} field. */
+        /** Sets the specified value to the {@code magFilter} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer magFilter(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nmagFilter(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#wrapModeS} field. */
+        /** Sets the specified value to the {@code wrapModeS} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer wrapModeS(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nwrapModeS(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#wrapModeT} field. */
+        /** Sets the specified value to the {@code wrapModeT} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer wrapModeT(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nwrapModeT(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleRed} field. */
+        /** Sets the specified value to the {@code swizzleRed} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer swizzleRed(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nswizzleRed(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleGreen} field. */
+        /** Sets the specified value to the {@code swizzleGreen} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer swizzleGreen(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nswizzleGreen(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleBlue} field. */
+        /** Sets the specified value to the {@code swizzleBlue} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer swizzleBlue(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nswizzleBlue(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#swizzleAlpha} field. */
+        /** Sets the specified value to the {@code swizzleAlpha} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer swizzleAlpha(@NativeType("EGLenum") int value) { XrSwapchainStateSamplerOpenGLESFB.nswizzleAlpha(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateSamplerOpenGLESFB#maxAnisotropy} field. */
+        /** Sets the specified value to the {@code maxAnisotropy} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer maxAnisotropy(float value) { XrSwapchainStateSamplerOpenGLESFB.nmaxAnisotropy(address(), value); return this; }
-        /** Copies the specified {@link XrColor4f} to the {@link XrSwapchainStateSamplerOpenGLESFB#borderColor} field. */
+        /** Copies the specified {@link XrColor4f} to the {@code borderColor} field. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer borderColor(XrColor4f value) { XrSwapchainStateSamplerOpenGLESFB.nborderColor(address(), value); return this; }
-        /** Passes the {@link XrSwapchainStateSamplerOpenGLESFB#borderColor} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code borderColor} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSwapchainStateSamplerOpenGLESFB.Buffer borderColor(java.util.function.Consumer<XrColor4f> consumer) { consumer.accept(borderColor()); return this; }
 
     }

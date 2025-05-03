@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying attachment formats.
- * 
- * <h5>Description</h5>
- * 
- * <p>When a pipeline is created without a {@code VkRenderPass}, if the {@code pNext} chain of {@link VkGraphicsPipelineCreateInfo} includes this structure, it specifies the view mask and format of attachments used for rendering. If this structure is not specified, and the pipeline does not include a {@code VkRenderPass}, {@code viewMask} and {@code colorAttachmentCount} are 0, and {@code depthAttachmentFormat} and {@code stencilAttachmentFormat} are {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}. If a graphics pipeline is created with a valid {@code VkRenderPass}, parameters of this structure are ignored.</p>
- * 
- * <p>If {@code depthAttachmentFormat}, {@code stencilAttachmentFormat}, or any element of {@code pColorAttachmentFormats} is {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}, it indicates that the corresponding attachment is unused within the render pass. Valid formats indicate that an attachment <b>can</b> be used - but it is still valid to set the attachment to {@code NULL} when beginning rendering.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineRenderingCreateInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #viewMask};
- *     uint32_t {@link #colorAttachmentCount};
- *     VkFormat const * {@link #pColorAttachmentFormats};
- *     VkFormat {@link #depthAttachmentFormat};
- *     VkFormat {@link #stencilAttachmentFormat};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t viewMask;
+ *     uint32_t colorAttachmentCount;
+ *     VkFormat const * pColorAttachmentFormats;
+ *     VkFormat depthAttachmentFormat;
+ *     VkFormat stencilAttachmentFormat;
+ * }}</pre>
  */
 public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCreateInfo> implements NativeResource {
 
@@ -106,44 +90,43 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the viewMask used for rendering. */
+    /** @return the value of the {@code viewMask} field. */
     @NativeType("uint32_t")
     public int viewMask() { return nviewMask(address()); }
-    /** the number of entries in {@code pColorAttachmentFormats} */
+    /** @return the value of the {@code colorAttachmentCount} field. */
     @NativeType("uint32_t")
     public int colorAttachmentCount() { return ncolorAttachmentCount(address()); }
-    /** a pointer to an array of {@code VkFormat} values defining the format of color attachments used in this pipeline. */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code pColorAttachmentFormats} field. */
     @NativeType("VkFormat const *")
-    public IntBuffer pColorAttachmentFormats() { return npColorAttachmentFormats(address()); }
-    /** a {@code VkFormat} value defining the format of the depth attachment used in this pipeline. */
+    public @Nullable IntBuffer pColorAttachmentFormats() { return npColorAttachmentFormats(address()); }
+    /** @return the value of the {@code depthAttachmentFormat} field. */
     @NativeType("VkFormat")
     public int depthAttachmentFormat() { return ndepthAttachmentFormat(address()); }
-    /** a {@code VkFormat} value defining the format of the stencil attachment used in this pipeline. */
+    /** @return the value of the {@code stencilAttachmentFormat} field. */
     @NativeType("VkFormat")
     public int stencilAttachmentFormat() { return nstencilAttachmentFormat(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineRenderingCreateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO} value to the {@code sType} field. */
     public VkPipelineRenderingCreateInfo sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineRenderingCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewMask} field. */
+    /** Sets the specified value to the {@code viewMask} field. */
     public VkPipelineRenderingCreateInfo viewMask(@NativeType("uint32_t") int value) { nviewMask(address(), value); return this; }
-    /** Sets the specified value to the {@link #colorAttachmentCount} field. */
+    /** Sets the specified value to the {@code colorAttachmentCount} field. */
     public VkPipelineRenderingCreateInfo colorAttachmentCount(@NativeType("uint32_t") int value) { ncolorAttachmentCount(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #pColorAttachmentFormats} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code pColorAttachmentFormats} field. */
     public VkPipelineRenderingCreateInfo pColorAttachmentFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { npColorAttachmentFormats(address(), value); return this; }
-    /** Sets the specified value to the {@link #depthAttachmentFormat} field. */
+    /** Sets the specified value to the {@code depthAttachmentFormat} field. */
     public VkPipelineRenderingCreateInfo depthAttachmentFormat(@NativeType("VkFormat") int value) { ndepthAttachmentFormat(address(), value); return this; }
-    /** Sets the specified value to the {@link #stencilAttachmentFormat} field. */
+    /** Sets the specified value to the {@code stencilAttachmentFormat} field. */
     public VkPipelineRenderingCreateInfo stencilAttachmentFormat(@NativeType("VkFormat") int value) { nstencilAttachmentFormat(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -203,8 +186,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRenderingCreateInfo createSafe(long address) {
+    public static @Nullable VkPipelineRenderingCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkPipelineRenderingCreateInfo(address, null);
     }
 
@@ -247,8 +229,7 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRenderingCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRenderingCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,34 +274,34 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRenderingCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRenderingCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRenderingCreateInfo.PNEXT); }
     /** Unsafe version of {@link #viewMask}. */
-    public static int nviewMask(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRenderingCreateInfo.VIEWMASK); }
+    public static int nviewMask(long struct) { return memGetInt(struct + VkPipelineRenderingCreateInfo.VIEWMASK); }
     /** Unsafe version of {@link #colorAttachmentCount}. */
-    public static int ncolorAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRenderingCreateInfo.COLORATTACHMENTCOUNT); }
+    public static int ncolorAttachmentCount(long struct) { return memGetInt(struct + VkPipelineRenderingCreateInfo.COLORATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorAttachmentFormats() pColorAttachmentFormats}. */
-    @Nullable public static IntBuffer npColorAttachmentFormats(long struct) { return memIntBufferSafe(memGetAddress(struct + VkPipelineRenderingCreateInfo.PCOLORATTACHMENTFORMATS), ncolorAttachmentCount(struct)); }
+    public static @Nullable IntBuffer npColorAttachmentFormats(long struct) { return memIntBufferSafe(memGetAddress(struct + VkPipelineRenderingCreateInfo.PCOLORATTACHMENTFORMATS), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #depthAttachmentFormat}. */
-    public static int ndepthAttachmentFormat(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRenderingCreateInfo.DEPTHATTACHMENTFORMAT); }
+    public static int ndepthAttachmentFormat(long struct) { return memGetInt(struct + VkPipelineRenderingCreateInfo.DEPTHATTACHMENTFORMAT); }
     /** Unsafe version of {@link #stencilAttachmentFormat}. */
-    public static int nstencilAttachmentFormat(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRenderingCreateInfo.STENCILATTACHMENTFORMAT); }
+    public static int nstencilAttachmentFormat(long struct) { return memGetInt(struct + VkPipelineRenderingCreateInfo.STENCILATTACHMENTFORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRenderingCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRenderingCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #viewMask(int) viewMask}. */
-    public static void nviewMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.VIEWMASK, value); }
+    public static void nviewMask(long struct, int value) { memPutInt(struct + VkPipelineRenderingCreateInfo.VIEWMASK, value); }
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
-    public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.COLORATTACHMENTCOUNT, value); }
+    public static void ncolorAttachmentCount(long struct, int value) { memPutInt(struct + VkPipelineRenderingCreateInfo.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachmentFormats(IntBuffer) pColorAttachmentFormats}. */
     public static void npColorAttachmentFormats(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkPipelineRenderingCreateInfo.PCOLORATTACHMENTFORMATS, memAddressSafe(value)); if (value != null) { ncolorAttachmentCount(struct, value.remaining()); } }
     /** Unsafe version of {@link #depthAttachmentFormat(int) depthAttachmentFormat}. */
-    public static void ndepthAttachmentFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.DEPTHATTACHMENTFORMAT, value); }
+    public static void ndepthAttachmentFormat(long struct, int value) { memPutInt(struct + VkPipelineRenderingCreateInfo.DEPTHATTACHMENTFORMAT, value); }
     /** Unsafe version of {@link #stencilAttachmentFormat(int) stencilAttachmentFormat}. */
-    public static void nstencilAttachmentFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRenderingCreateInfo.STENCILATTACHMENTFORMAT, value); }
+    public static void nstencilAttachmentFormat(long struct, int value) { memPutInt(struct + VkPipelineRenderingCreateInfo.STENCILATTACHMENTFORMAT, value); }
 
     // -----------------------------------
 
@@ -356,48 +337,52 @@ public class VkPipelineRenderingCreateInfo extends Struct<VkPipelineRenderingCre
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineRenderingCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineRenderingCreateInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineRenderingCreateInfo.nsType(address()); }
-        /** @return the value of the {@link VkPipelineRenderingCreateInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineRenderingCreateInfo.npNext(address()); }
-        /** @return the value of the {@link VkPipelineRenderingCreateInfo#viewMask} field. */
+        /** @return the value of the {@code viewMask} field. */
         @NativeType("uint32_t")
         public int viewMask() { return VkPipelineRenderingCreateInfo.nviewMask(address()); }
-        /** @return the value of the {@link VkPipelineRenderingCreateInfo#colorAttachmentCount} field. */
+        /** @return the value of the {@code colorAttachmentCount} field. */
         @NativeType("uint32_t")
         public int colorAttachmentCount() { return VkPipelineRenderingCreateInfo.ncolorAttachmentCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkPipelineRenderingCreateInfo#pColorAttachmentFormats} field. */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code pColorAttachmentFormats} field. */
         @NativeType("VkFormat const *")
-        public IntBuffer pColorAttachmentFormats() { return VkPipelineRenderingCreateInfo.npColorAttachmentFormats(address()); }
-        /** @return the value of the {@link VkPipelineRenderingCreateInfo#depthAttachmentFormat} field. */
+        public @Nullable IntBuffer pColorAttachmentFormats() { return VkPipelineRenderingCreateInfo.npColorAttachmentFormats(address()); }
+        /** @return the value of the {@code depthAttachmentFormat} field. */
         @NativeType("VkFormat")
         public int depthAttachmentFormat() { return VkPipelineRenderingCreateInfo.ndepthAttachmentFormat(address()); }
-        /** @return the value of the {@link VkPipelineRenderingCreateInfo#stencilAttachmentFormat} field. */
+        /** @return the value of the {@code stencilAttachmentFormat} field. */
         @NativeType("VkFormat")
         public int stencilAttachmentFormat() { return VkPipelineRenderingCreateInfo.nstencilAttachmentFormat(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineRenderingCreateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineRenderingCreateInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO} value to the {@link VkPipelineRenderingCreateInfo#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO} value to the {@code sType} field. */
         public VkPipelineRenderingCreateInfo.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO); }
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineRenderingCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkPipelineRenderingCreateInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#viewMask} field. */
+        /** Sets the specified value to the {@code viewMask} field. */
         public VkPipelineRenderingCreateInfo.Buffer viewMask(@NativeType("uint32_t") int value) { VkPipelineRenderingCreateInfo.nviewMask(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#colorAttachmentCount} field. */
+        /** Sets the specified value to the {@code colorAttachmentCount} field. */
         public VkPipelineRenderingCreateInfo.Buffer colorAttachmentCount(@NativeType("uint32_t") int value) { VkPipelineRenderingCreateInfo.ncolorAttachmentCount(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link VkPipelineRenderingCreateInfo#pColorAttachmentFormats} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code pColorAttachmentFormats} field. */
         public VkPipelineRenderingCreateInfo.Buffer pColorAttachmentFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { VkPipelineRenderingCreateInfo.npColorAttachmentFormats(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#depthAttachmentFormat} field. */
+        /** Sets the specified value to the {@code depthAttachmentFormat} field. */
         public VkPipelineRenderingCreateInfo.Buffer depthAttachmentFormat(@NativeType("VkFormat") int value) { VkPipelineRenderingCreateInfo.ndepthAttachmentFormat(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRenderingCreateInfo#stencilAttachmentFormat} field. */
+        /** Sets the specified value to the {@code stencilAttachmentFormat} field. */
         public VkPipelineRenderingCreateInfo.Buffer stencilAttachmentFormat(@NativeType("VkFormat") int value) { VkPipelineRenderingCreateInfo.nstencilAttachmentFormat(address(), value); return this; }
 
     }

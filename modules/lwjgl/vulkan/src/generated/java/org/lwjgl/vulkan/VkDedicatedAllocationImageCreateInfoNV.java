@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify that an image is bound to a dedicated memory resource.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>Using a dedicated allocation for color and depth/stencil attachments or other large images <b>may</b> improve performance on some devices.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code dedicatedAllocation} is {@link VK10#VK_TRUE TRUE}, {@link VkImageCreateInfo}{@code ::flags} <b>must</b> not include {@link VK10#VK_IMAGE_CREATE_SPARSE_BINDING_BIT IMAGE_CREATE_SPARSE_BINDING_BIT}, {@link VK10#VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT IMAGE_CREATE_SPARSE_RESIDENCY_BIT}, or {@link VK10#VK_IMAGE_CREATE_SPARSE_ALIASED_BIT IMAGE_CREATE_SPARSE_ALIASED_BIT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDedicatedAllocationImageCreateInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBool32 {@link #dedicatedAllocation};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBool32 dedicatedAllocation;
+ * }}</pre>
  */
 public class VkDedicatedAllocationImageCreateInfoNV extends Struct<VkDedicatedAllocationImageCreateInfoNV> implements NativeResource {
 
@@ -97,23 +74,23 @@ public class VkDedicatedAllocationImageCreateInfoNV extends Struct<VkDedicatedAl
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether the image will have a dedicated allocation bound to it. */
+    /** @return the value of the {@code dedicatedAllocation} field. */
     @NativeType("VkBool32")
     public boolean dedicatedAllocation() { return ndedicatedAllocation(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDedicatedAllocationImageCreateInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV} value to the {@code sType} field. */
     public VkDedicatedAllocationImageCreateInfoNV sType$Default() { return sType(NVDedicatedAllocation.VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDedicatedAllocationImageCreateInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #dedicatedAllocation} field. */
+    /** Sets the specified value to the {@code dedicatedAllocation} field. */
     public VkDedicatedAllocationImageCreateInfoNV dedicatedAllocation(@NativeType("VkBool32") boolean value) { ndedicatedAllocation(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -165,8 +142,7 @@ public class VkDedicatedAllocationImageCreateInfoNV extends Struct<VkDedicatedAl
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDedicatedAllocationImageCreateInfoNV createSafe(long address) {
+    public static @Nullable VkDedicatedAllocationImageCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkDedicatedAllocationImageCreateInfoNV(address, null);
     }
 
@@ -209,8 +185,7 @@ public class VkDedicatedAllocationImageCreateInfoNV extends Struct<VkDedicatedAl
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDedicatedAllocationImageCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkDedicatedAllocationImageCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,18 +249,18 @@ public class VkDedicatedAllocationImageCreateInfoNV extends Struct<VkDedicatedAl
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDedicatedAllocationImageCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDedicatedAllocationImageCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDedicatedAllocationImageCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #dedicatedAllocation}. */
-    public static int ndedicatedAllocation(long struct) { return UNSAFE.getInt(null, struct + VkDedicatedAllocationImageCreateInfoNV.DEDICATEDALLOCATION); }
+    public static int ndedicatedAllocation(long struct) { return memGetInt(struct + VkDedicatedAllocationImageCreateInfoNV.DEDICATEDALLOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDedicatedAllocationImageCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDedicatedAllocationImageCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDedicatedAllocationImageCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #dedicatedAllocation(boolean) dedicatedAllocation}. */
-    public static void ndedicatedAllocation(long struct, int value) { UNSAFE.putInt(null, struct + VkDedicatedAllocationImageCreateInfoNV.DEDICATEDALLOCATION, value); }
+    public static void ndedicatedAllocation(long struct, int value) { memPutInt(struct + VkDedicatedAllocationImageCreateInfoNV.DEDICATEDALLOCATION, value); }
 
     // -----------------------------------
 
@@ -321,27 +296,32 @@ public class VkDedicatedAllocationImageCreateInfoNV extends Struct<VkDedicatedAl
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDedicatedAllocationImageCreateInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDedicatedAllocationImageCreateInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDedicatedAllocationImageCreateInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkDedicatedAllocationImageCreateInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDedicatedAllocationImageCreateInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkDedicatedAllocationImageCreateInfoNV#dedicatedAllocation} field. */
+        /** @return the value of the {@code dedicatedAllocation} field. */
         @NativeType("VkBool32")
         public boolean dedicatedAllocation() { return VkDedicatedAllocationImageCreateInfoNV.ndedicatedAllocation(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkDedicatedAllocationImageCreateInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDedicatedAllocationImageCreateInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkDedicatedAllocationImageCreateInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV} value to the {@link VkDedicatedAllocationImageCreateInfoNV#sType} field. */
+        /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV} value to the {@code sType} field. */
         public VkDedicatedAllocationImageCreateInfoNV.Buffer sType$Default() { return sType(NVDedicatedAllocation.VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV); }
-        /** Sets the specified value to the {@link VkDedicatedAllocationImageCreateInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDedicatedAllocationImageCreateInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkDedicatedAllocationImageCreateInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDedicatedAllocationImageCreateInfoNV#dedicatedAllocation} field. */
+        /** Sets the specified value to the {@code dedicatedAllocation} field. */
         public VkDedicatedAllocationImageCreateInfoNV.Buffer dedicatedAllocation(@NativeType("VkBool32") boolean value) { VkDedicatedAllocationImageCreateInfoNV.ndedicatedAllocation(address(), value ? 1 : 0); return this; }
 
     }

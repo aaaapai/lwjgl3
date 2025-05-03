@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.libffi;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The libffi closure structure.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ffi_closure {
- *     {@link FFICIF ffi_cif} * {@link #cif};
- *     void (*)(ffi_cif*,void*,void**,void*) {@link #fun};
- *     void * {@link #user_data};
- * }</code></pre>
+ *     {@link FFICIF ffi_cif} * cif;
+ *     void (*)(ffi_cif*,void*,void**,void*) fun;
+ *     void * user_data;
+ * }}</pre>
  */
 @NativeType("struct ffi_closure")
 public class FFIClosure extends Struct<FFIClosure> implements NativeResource {
@@ -79,13 +75,13 @@ public class FFIClosure extends Struct<FFIClosure> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a pointer to an {@code ffi_cif} structure */
+    /** @return a {@link FFICIF} view of the struct pointed to by the {@code cif} field. */
     @NativeType("ffi_cif *")
     public FFICIF cif() { return ncif(address()); }
-    /** a pointer to a function */
+    /** @return the value of the {@code fun} field. */
     @NativeType("void (*)(ffi_cif*,void*,void**,void*)")
     public long fun() { return nfun(address()); }
-    /** a pointer to user-specified data */
+    /** @return the value of the {@code user_data} field. */
     @NativeType("void *")
     public long user_data() { return nuser_data(address()); }
 
@@ -113,8 +109,7 @@ public class FFIClosure extends Struct<FFIClosure> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FFIClosure createSafe(long address) {
+    public static @Nullable FFIClosure createSafe(long address) {
         return address == NULL ? null : new FFIClosure(address, null);
     }
 
@@ -157,8 +152,7 @@ public class FFIClosure extends Struct<FFIClosure> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FFIClosure.Buffer createSafe(long address, int capacity) {
+    public static FFIClosure.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,17 +237,22 @@ public class FFIClosure extends Struct<FFIClosure> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FFIClosure getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link FFICIF} view of the struct pointed to by the {@link FFIClosure#cif} field. */
+        /** @return a {@link FFICIF} view of the struct pointed to by the {@code cif} field. */
         @NativeType("ffi_cif *")
         public FFICIF cif() { return FFIClosure.ncif(address()); }
-        /** @return the value of the {@link FFIClosure#fun} field. */
+        /** @return the value of the {@code fun} field. */
         @NativeType("void (*)(ffi_cif*,void*,void**,void*)")
         public long fun() { return FFIClosure.nfun(address()); }
-        /** @return the value of the {@link FFIClosure#user_data} field. */
+        /** @return the value of the {@code user_data} field. */
         @NativeType("void *")
         public long user_data() { return FFIClosure.nuser_data(address()); }
 

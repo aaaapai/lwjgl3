@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the maximum number of inline uniform block bindings of a newly created descriptor pool.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDescriptorPoolInlineUniformBlockCreateInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #maxInlineUniformBlockBindings};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t maxInlineUniformBlockBindings;
+ * }}</pre>
  */
 public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescriptorPoolInlineUniformBlockCreateInfo> implements NativeResource {
 
@@ -84,23 +74,23 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the number of inline uniform block bindings to allocate. */
+    /** @return the value of the {@code maxInlineUniformBlockBindings} field. */
     @NativeType("uint32_t")
     public int maxInlineUniformBlockBindings() { return nmaxInlineUniformBlockBindings(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDescriptorPoolInlineUniformBlockCreateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO} value to the {@code sType} field. */
     public VkDescriptorPoolInlineUniformBlockCreateInfo sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDescriptorPoolInlineUniformBlockCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxInlineUniformBlockBindings} field. */
+    /** Sets the specified value to the {@code maxInlineUniformBlockBindings} field. */
     public VkDescriptorPoolInlineUniformBlockCreateInfo maxInlineUniformBlockBindings(@NativeType("uint32_t") int value) { nmaxInlineUniformBlockBindings(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +142,7 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolInlineUniformBlockCreateInfo createSafe(long address) {
+    public static @Nullable VkDescriptorPoolInlineUniformBlockCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorPoolInlineUniformBlockCreateInfo(address, null);
     }
 
@@ -196,8 +185,7 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorPoolInlineUniformBlockCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorPoolInlineUniformBlockCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +230,18 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.PNEXT); }
     /** Unsafe version of {@link #maxInlineUniformBlockBindings}. */
-    public static int nmaxInlineUniformBlockBindings(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS); }
+    public static int nmaxInlineUniformBlockBindings(long struct) { return memGetInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #maxInlineUniformBlockBindings(int) maxInlineUniformBlockBindings}. */
-    public static void nmaxInlineUniformBlockBindings(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS, value); }
+    public static void nmaxInlineUniformBlockBindings(long struct, int value) { memPutInt(struct + VkDescriptorPoolInlineUniformBlockCreateInfo.MAXINLINEUNIFORMBLOCKBINDINGS, value); }
 
     // -----------------------------------
 
@@ -289,27 +277,32 @@ public class VkDescriptorPoolInlineUniformBlockCreateInfo extends Struct<VkDescr
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDescriptorPoolInlineUniformBlockCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDescriptorPoolInlineUniformBlockCreateInfo.nsType(address()); }
-        /** @return the value of the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDescriptorPoolInlineUniformBlockCreateInfo.npNext(address()); }
-        /** @return the value of the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#maxInlineUniformBlockBindings} field. */
+        /** @return the value of the {@code maxInlineUniformBlockBindings} field. */
         @NativeType("uint32_t")
         public int maxInlineUniformBlockBindings() { return VkDescriptorPoolInlineUniformBlockCreateInfo.nmaxInlineUniformBlockBindings(address()); }
 
-        /** Sets the specified value to the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDescriptorPoolInlineUniformBlockCreateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkDescriptorPoolInlineUniformBlockCreateInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO} value to the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO} value to the {@code sType} field. */
         public VkDescriptorPoolInlineUniformBlockCreateInfo.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO); }
-        /** Sets the specified value to the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDescriptorPoolInlineUniformBlockCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkDescriptorPoolInlineUniformBlockCreateInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDescriptorPoolInlineUniformBlockCreateInfo#maxInlineUniformBlockBindings} field. */
+        /** Sets the specified value to the {@code maxInlineUniformBlockBindings} field. */
         public VkDescriptorPoolInlineUniformBlockCreateInfo.Buffer maxInlineUniformBlockBindings(@NativeType("uint32_t") int value) { VkDescriptorPoolInlineUniformBlockCreateInfo.nmaxInlineUniformBlockBindings(address(), value); return this; }
 
     }

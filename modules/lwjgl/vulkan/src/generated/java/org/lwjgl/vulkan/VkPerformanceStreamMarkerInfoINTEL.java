@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying stream performance markers.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The value written by the application into {@code marker} <b>must</b> only used the valid bits as reported by {@link INTELPerformanceQuery#vkGetPerformanceParameterINTEL GetPerformanceParameterINTEL} with the {@link INTELPerformanceQuery#VK_PERFORMANCE_PARAMETER_TYPE_STREAM_MARKER_VALID_BITS_INTEL PERFORMANCE_PARAMETER_TYPE_STREAM_MARKER_VALID_BITS_INTEL}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link INTELPerformanceQuery#vkCmdSetPerformanceStreamMarkerINTEL CmdSetPerformanceStreamMarkerINTEL}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPerformanceStreamMarkerInfoINTEL {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #marker};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t marker;
+ * }}</pre>
  */
 public class VkPerformanceStreamMarkerInfoINTEL extends Struct<VkPerformanceStreamMarkerInfoINTEL> implements NativeResource {
 
@@ -95,23 +74,23 @@ public class VkPerformanceStreamMarkerInfoINTEL extends Struct<VkPerformanceStre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the marker value that will be recorded into the reports consumed by an external application. */
+    /** @return the value of the {@code marker} field. */
     @NativeType("uint32_t")
     public int marker() { return nmarker(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPerformanceStreamMarkerInfoINTEL sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL} value to the {@link #sType} field. */
+    /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL} value to the {@code sType} field. */
     public VkPerformanceStreamMarkerInfoINTEL sType$Default() { return sType(INTELPerformanceQuery.VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPerformanceStreamMarkerInfoINTEL pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #marker} field. */
+    /** Sets the specified value to the {@code marker} field. */
     public VkPerformanceStreamMarkerInfoINTEL marker(@NativeType("uint32_t") int value) { nmarker(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +142,7 @@ public class VkPerformanceStreamMarkerInfoINTEL extends Struct<VkPerformanceStre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceStreamMarkerInfoINTEL createSafe(long address) {
+    public static @Nullable VkPerformanceStreamMarkerInfoINTEL createSafe(long address) {
         return address == NULL ? null : new VkPerformanceStreamMarkerInfoINTEL(address, null);
     }
 
@@ -207,8 +185,7 @@ public class VkPerformanceStreamMarkerInfoINTEL extends Struct<VkPerformanceStre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceStreamMarkerInfoINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceStreamMarkerInfoINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,18 +249,18 @@ public class VkPerformanceStreamMarkerInfoINTEL extends Struct<VkPerformanceStre
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceStreamMarkerInfoINTEL.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPerformanceStreamMarkerInfoINTEL.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPerformanceStreamMarkerInfoINTEL.PNEXT); }
     /** Unsafe version of {@link #marker}. */
-    public static int nmarker(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceStreamMarkerInfoINTEL.MARKER); }
+    public static int nmarker(long struct) { return memGetInt(struct + VkPerformanceStreamMarkerInfoINTEL.MARKER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceStreamMarkerInfoINTEL.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPerformanceStreamMarkerInfoINTEL.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPerformanceStreamMarkerInfoINTEL.PNEXT, value); }
     /** Unsafe version of {@link #marker(int) marker}. */
-    public static void nmarker(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceStreamMarkerInfoINTEL.MARKER, value); }
+    public static void nmarker(long struct, int value) { memPutInt(struct + VkPerformanceStreamMarkerInfoINTEL.MARKER, value); }
 
     // -----------------------------------
 
@@ -319,27 +296,32 @@ public class VkPerformanceStreamMarkerInfoINTEL extends Struct<VkPerformanceStre
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPerformanceStreamMarkerInfoINTEL getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPerformanceStreamMarkerInfoINTEL#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPerformanceStreamMarkerInfoINTEL.nsType(address()); }
-        /** @return the value of the {@link VkPerformanceStreamMarkerInfoINTEL#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPerformanceStreamMarkerInfoINTEL.npNext(address()); }
-        /** @return the value of the {@link VkPerformanceStreamMarkerInfoINTEL#marker} field. */
+        /** @return the value of the {@code marker} field. */
         @NativeType("uint32_t")
         public int marker() { return VkPerformanceStreamMarkerInfoINTEL.nmarker(address()); }
 
-        /** Sets the specified value to the {@link VkPerformanceStreamMarkerInfoINTEL#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPerformanceStreamMarkerInfoINTEL.Buffer sType(@NativeType("VkStructureType") int value) { VkPerformanceStreamMarkerInfoINTEL.nsType(address(), value); return this; }
-        /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL} value to the {@link VkPerformanceStreamMarkerInfoINTEL#sType} field. */
+        /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL} value to the {@code sType} field. */
         public VkPerformanceStreamMarkerInfoINTEL.Buffer sType$Default() { return sType(INTELPerformanceQuery.VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL); }
-        /** Sets the specified value to the {@link VkPerformanceStreamMarkerInfoINTEL#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPerformanceStreamMarkerInfoINTEL.Buffer pNext(@NativeType("void const *") long value) { VkPerformanceStreamMarkerInfoINTEL.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPerformanceStreamMarkerInfoINTEL#marker} field. */
+        /** Sets the specified value to the {@code marker} field. */
         public VkPerformanceStreamMarkerInfoINTEL.Buffer marker(@NativeType("uint32_t") int value) { VkPerformanceStreamMarkerInfoINTEL.nmarker(address(), value); return this; }
 
     }

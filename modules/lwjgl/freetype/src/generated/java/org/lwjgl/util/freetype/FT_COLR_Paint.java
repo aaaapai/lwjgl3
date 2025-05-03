@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A union object representing format and details of a paint table of a {@code COLR} v1 font.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_COLR_Paint {
  *     FT_PaintFormat format;
  *     union {
@@ -38,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *         {@link FT_PaintComposite FT_PaintComposite} composite;
  *         {@link FT_PaintColrGlyph FT_PaintColrGlyph} colr_glyph;
  *     } u;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_COLR_Paint extends Struct<FT_COLR_Paint> implements NativeResource {
 
@@ -182,8 +178,7 @@ public class FT_COLR_Paint extends Struct<FT_COLR_Paint> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_COLR_Paint createSafe(long address) {
+    public static @Nullable FT_COLR_Paint createSafe(long address) {
         return address == NULL ? null : new FT_COLR_Paint(address, null);
     }
 
@@ -226,8 +221,7 @@ public class FT_COLR_Paint extends Struct<FT_COLR_Paint> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_COLR_Paint.Buffer createSafe(long address, int capacity) {
+    public static FT_COLR_Paint.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,7 +266,7 @@ public class FT_COLR_Paint extends Struct<FT_COLR_Paint> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + FT_COLR_Paint.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + FT_COLR_Paint.FORMAT); }
     /** Unsafe version of {@link #u_colr_layers}. */
     public static FT_PaintColrLayers nu_colr_layers(long struct) { return FT_PaintColrLayers.create(struct + FT_COLR_Paint.U_COLR_LAYERS); }
     /** Unsafe version of {@link #u_glyph}. */
@@ -331,6 +325,11 @@ public class FT_COLR_Paint extends Struct<FT_COLR_Paint> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

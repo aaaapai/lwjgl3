@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,50 +17,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The information of mesh and transformation of the passthrough.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrPassthroughMeshTransformInfoHTC} structure describes the mesh and transformation.</p>
- * 
- * <p>The application <b>must</b> specify the {@link XrPassthroughMeshTransformInfoHTC} in the {@code next} chain of {@link XrCompositionLayerPassthroughHTC} if the specified form of passthrough layer previously created by {@link HTCPassthrough#xrCreatePassthroughHTC CreatePassthroughHTC} is {@link HTCPassthrough#XR_PASSTHROUGH_FORM_PROJECTED_HTC PASSTHROUGH_FORM_PROJECTED_HTC}.</p>
- * 
- * <p>Passing {@link XrPassthroughMeshTransformInfoHTC} updates the projected mesh information in the runtime for passthrough layer composition.</p>
- * 
- * <p>If {@link XrPassthroughMeshTransformInfoHTC} is not set correctly, runtime <b>must</b> return error {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} when {@link XR10#xrEndFrame EndFrame} is called with composition layer {@link XrCompositionLayerPassthroughHTC}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCPassthrough XR_HTC_passthrough} extension <b>must</b> be enabled prior to using {@link XrPassthroughMeshTransformInfoHTC}</li>
- * <li>{@code type} <b>must</b> be {@link HTCPassthrough#XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code vertices} <b>must</b> be a pointer to an array of {@code vertexCount} {@link XrVector3f} structures</li>
- * <li>{@code indices} <b>must</b> be a pointer to an array of {@code indexCount} {@code uint32_t} values</li>
- * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
- * <li>The {@code vertexCount} parameter <b>must</b> be greater than 0</li>
- * <li>The {@code indexCount} parameter <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrPosef}, {@link XrVector3f}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPassthroughMeshTransformInfoHTC {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint32_t {@link #vertexCount};
- *     {@link XrVector3f XrVector3f} const * {@link #vertices};
- *     uint32_t {@link #indexCount};
- *     uint32_t const * {@link #indices};
- *     XrSpace {@link #baseSpace};
- *     XrTime {@link #time};
- *     {@link XrPosef XrPosef} {@link #pose};
- *     {@link XrVector3f XrVector3f} {@link #scale};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint32_t vertexCount;
+ *     {@link XrVector3f XrVector3f} const * vertices;
+ *     uint32_t indexCount;
+ *     uint32_t const * indices;
+ *     XrSpace baseSpace;
+ *     XrTime time;
+ *     {@link XrPosef XrPosef} pose;
+ *     {@link XrVector3f XrVector3f} scale;
+ * }}</pre>
  */
 public class XrPassthroughMeshTransformInfoHTC extends Struct<XrPassthroughMeshTransformInfoHTC> implements NativeResource {
 
@@ -134,56 +103,56 @@ public class XrPassthroughMeshTransformInfoHTC extends Struct<XrPassthroughMeshT
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the count of vertices array in the mesh. */
+    /** @return the value of the {@code vertexCount} field. */
     @NativeType("uint32_t")
     public int vertexCount() { return nvertexCount(address()); }
-    /** an array of {@link XrVector3f}. The size of the array <b>must</b> be equal to vertexCount. */
+    /** @return a {@link XrVector3f.Buffer} view of the struct array pointed to by the {@code vertices} field. */
     @NativeType("XrVector3f const *")
     public XrVector3f.Buffer vertices() { return nvertices(address()); }
-    /** the count of indices array in the mesh. */
+    /** @return the value of the {@code indexCount} field. */
     @NativeType("uint32_t")
     public int indexCount() { return nindexCount(address()); }
-    /** an array of triangle indices. The size of the array <b>must</b> be equal to indexCount. */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code indices} field. */
     @NativeType("uint32_t const *")
     public IntBuffer indices() { return nindices(address()); }
-    /** the {@code XrSpace} that defines the projected passthrough’s base space for transformations. */
+    /** @return the value of the {@code baseSpace} field. */
     @NativeType("XrSpace")
     public long baseSpace() { return nbaseSpace(address()); }
-    /** the {@code XrTime} that defines the time at which the transform is applied. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
-    /** the {@link XrPosef} that defines the pose of the mesh */
+    /** @return a {@link XrPosef} view of the {@code pose} field. */
     public XrPosef pose() { return npose(address()); }
-    /** the {@link XrVector3f} that defines the scale of the mesh */
+    /** @return a {@link XrVector3f} view of the {@code scale} field. */
     public XrVector3f scale() { return nscale(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrPassthroughMeshTransformInfoHTC type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link HTCPassthrough#XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC} value to the {@link #type} field. */
+    /** Sets the {@link HTCPassthrough#XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC} value to the {@code type} field. */
     public XrPassthroughMeshTransformInfoHTC type$Default() { return type(HTCPassthrough.XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrPassthroughMeshTransformInfoHTC next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the address of the specified {@link XrVector3f.Buffer} to the {@link #vertices} field. */
+    /** Sets the address of the specified {@link XrVector3f.Buffer} to the {@code vertices} field. */
     public XrPassthroughMeshTransformInfoHTC vertices(@NativeType("XrVector3f const *") XrVector3f.Buffer value) { nvertices(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #indices} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code indices} field. */
     public XrPassthroughMeshTransformInfoHTC indices(@NativeType("uint32_t const *") IntBuffer value) { nindices(address(), value); return this; }
-    /** Sets the specified value to the {@link #baseSpace} field. */
+    /** Sets the specified value to the {@code baseSpace} field. */
     public XrPassthroughMeshTransformInfoHTC baseSpace(XrSpace value) { nbaseSpace(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XrPassthroughMeshTransformInfoHTC time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
-    /** Copies the specified {@link XrPosef} to the {@link #pose} field. */
+    /** Copies the specified {@link XrPosef} to the {@code pose} field. */
     public XrPassthroughMeshTransformInfoHTC pose(XrPosef value) { npose(address(), value); return this; }
-    /** Passes the {@link #pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrPassthroughMeshTransformInfoHTC pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
-    /** Copies the specified {@link XrVector3f} to the {@link #scale} field. */
+    /** Copies the specified {@link XrVector3f} to the {@code scale} field. */
     public XrPassthroughMeshTransformInfoHTC scale(XrVector3f value) { nscale(address(), value); return this; }
-    /** Passes the {@link #scale} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code scale} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrPassthroughMeshTransformInfoHTC scale(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(scale()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -245,8 +214,7 @@ public class XrPassthroughMeshTransformInfoHTC extends Struct<XrPassthroughMeshT
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughMeshTransformInfoHTC createSafe(long address) {
+    public static @Nullable XrPassthroughMeshTransformInfoHTC createSafe(long address) {
         return address == NULL ? null : new XrPassthroughMeshTransformInfoHTC(address, null);
     }
 
@@ -289,8 +257,7 @@ public class XrPassthroughMeshTransformInfoHTC extends Struct<XrPassthroughMeshT
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughMeshTransformInfoHTC.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughMeshTransformInfoHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -335,42 +302,42 @@ public class XrPassthroughMeshTransformInfoHTC extends Struct<XrPassthroughMeshT
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughMeshTransformInfoHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughMeshTransformInfoHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughMeshTransformInfoHTC.NEXT); }
     /** Unsafe version of {@link #vertexCount}. */
-    public static int nvertexCount(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughMeshTransformInfoHTC.VERTEXCOUNT); }
+    public static int nvertexCount(long struct) { return memGetInt(struct + XrPassthroughMeshTransformInfoHTC.VERTEXCOUNT); }
     /** Unsafe version of {@link #vertices}. */
     public static XrVector3f.Buffer nvertices(long struct) { return XrVector3f.create(memGetAddress(struct + XrPassthroughMeshTransformInfoHTC.VERTICES), nvertexCount(struct)); }
     /** Unsafe version of {@link #indexCount}. */
-    public static int nindexCount(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughMeshTransformInfoHTC.INDEXCOUNT); }
+    public static int nindexCount(long struct) { return memGetInt(struct + XrPassthroughMeshTransformInfoHTC.INDEXCOUNT); }
     /** Unsafe version of {@link #indices() indices}. */
     public static IntBuffer nindices(long struct) { return memIntBuffer(memGetAddress(struct + XrPassthroughMeshTransformInfoHTC.INDICES), nindexCount(struct)); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrPassthroughMeshTransformInfoHTC.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrPassthroughMeshTransformInfoHTC.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrPassthroughMeshTransformInfoHTC.TIME); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrPassthroughMeshTransformInfoHTC.POSE); }
     /** Unsafe version of {@link #scale}. */
     public static XrVector3f nscale(long struct) { return XrVector3f.create(struct + XrPassthroughMeshTransformInfoHTC.SCALE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughMeshTransformInfoHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughMeshTransformInfoHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughMeshTransformInfoHTC.NEXT, value); }
     /** Sets the specified value to the {@code vertexCount} field of the specified {@code struct}. */
-    public static void nvertexCount(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughMeshTransformInfoHTC.VERTEXCOUNT, value); }
+    public static void nvertexCount(long struct, int value) { memPutInt(struct + XrPassthroughMeshTransformInfoHTC.VERTEXCOUNT, value); }
     /** Unsafe version of {@link #vertices(XrVector3f.Buffer) vertices}. */
     public static void nvertices(long struct, XrVector3f.Buffer value) { memPutAddress(struct + XrPassthroughMeshTransformInfoHTC.VERTICES, value.address()); nvertexCount(struct, value.remaining()); }
     /** Sets the specified value to the {@code indexCount} field of the specified {@code struct}. */
-    public static void nindexCount(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughMeshTransformInfoHTC.INDEXCOUNT, value); }
+    public static void nindexCount(long struct, int value) { memPutInt(struct + XrPassthroughMeshTransformInfoHTC.INDEXCOUNT, value); }
     /** Unsafe version of {@link #indices(IntBuffer) indices}. */
     public static void nindices(long struct, IntBuffer value) { memPutAddress(struct + XrPassthroughMeshTransformInfoHTC.INDICES, memAddress(value)); nindexCount(struct, value.remaining()); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrPassthroughMeshTransformInfoHTC.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrPassthroughMeshTransformInfoHTC.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrPassthroughMeshTransformInfoHTC.TIME, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrPassthroughMeshTransformInfoHTC.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #scale(XrVector3f) scale}. */
@@ -421,60 +388,65 @@ public class XrPassthroughMeshTransformInfoHTC extends Struct<XrPassthroughMeshT
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPassthroughMeshTransformInfoHTC getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrPassthroughMeshTransformInfoHTC#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrPassthroughMeshTransformInfoHTC.ntype(address()); }
-        /** @return the value of the {@link XrPassthroughMeshTransformInfoHTC#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrPassthroughMeshTransformInfoHTC.nnext(address()); }
-        /** @return the value of the {@link XrPassthroughMeshTransformInfoHTC#vertexCount} field. */
+        /** @return the value of the {@code vertexCount} field. */
         @NativeType("uint32_t")
         public int vertexCount() { return XrPassthroughMeshTransformInfoHTC.nvertexCount(address()); }
-        /** @return a {@link XrVector3f.Buffer} view of the struct array pointed to by the {@link XrPassthroughMeshTransformInfoHTC#vertices} field. */
+        /** @return a {@link XrVector3f.Buffer} view of the struct array pointed to by the {@code vertices} field. */
         @NativeType("XrVector3f const *")
         public XrVector3f.Buffer vertices() { return XrPassthroughMeshTransformInfoHTC.nvertices(address()); }
-        /** @return the value of the {@link XrPassthroughMeshTransformInfoHTC#indexCount} field. */
+        /** @return the value of the {@code indexCount} field. */
         @NativeType("uint32_t")
         public int indexCount() { return XrPassthroughMeshTransformInfoHTC.nindexCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrPassthroughMeshTransformInfoHTC#indices} field. */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code indices} field. */
         @NativeType("uint32_t const *")
         public IntBuffer indices() { return XrPassthroughMeshTransformInfoHTC.nindices(address()); }
-        /** @return the value of the {@link XrPassthroughMeshTransformInfoHTC#baseSpace} field. */
+        /** @return the value of the {@code baseSpace} field. */
         @NativeType("XrSpace")
         public long baseSpace() { return XrPassthroughMeshTransformInfoHTC.nbaseSpace(address()); }
-        /** @return the value of the {@link XrPassthroughMeshTransformInfoHTC#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrPassthroughMeshTransformInfoHTC.ntime(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrPassthroughMeshTransformInfoHTC#pose} field. */
+        /** @return a {@link XrPosef} view of the {@code pose} field. */
         public XrPosef pose() { return XrPassthroughMeshTransformInfoHTC.npose(address()); }
-        /** @return a {@link XrVector3f} view of the {@link XrPassthroughMeshTransformInfoHTC#scale} field. */
+        /** @return a {@link XrVector3f} view of the {@code scale} field. */
         public XrVector3f scale() { return XrPassthroughMeshTransformInfoHTC.nscale(address()); }
 
-        /** Sets the specified value to the {@link XrPassthroughMeshTransformInfoHTC#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer type(@NativeType("XrStructureType") int value) { XrPassthroughMeshTransformInfoHTC.ntype(address(), value); return this; }
-        /** Sets the {@link HTCPassthrough#XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC} value to the {@link XrPassthroughMeshTransformInfoHTC#type} field. */
+        /** Sets the {@link HTCPassthrough#XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC} value to the {@code type} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer type$Default() { return type(HTCPassthrough.XR_TYPE_PASSTHROUGH_MESH_TRANSFORM_INFO_HTC); }
-        /** Sets the specified value to the {@link XrPassthroughMeshTransformInfoHTC#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer next(@NativeType("void const *") long value) { XrPassthroughMeshTransformInfoHTC.nnext(address(), value); return this; }
-        /** Sets the address of the specified {@link XrVector3f.Buffer} to the {@link XrPassthroughMeshTransformInfoHTC#vertices} field. */
+        /** Sets the address of the specified {@link XrVector3f.Buffer} to the {@code vertices} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer vertices(@NativeType("XrVector3f const *") XrVector3f.Buffer value) { XrPassthroughMeshTransformInfoHTC.nvertices(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link XrPassthroughMeshTransformInfoHTC#indices} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code indices} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer indices(@NativeType("uint32_t const *") IntBuffer value) { XrPassthroughMeshTransformInfoHTC.nindices(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPassthroughMeshTransformInfoHTC#baseSpace} field. */
+        /** Sets the specified value to the {@code baseSpace} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer baseSpace(XrSpace value) { XrPassthroughMeshTransformInfoHTC.nbaseSpace(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPassthroughMeshTransformInfoHTC#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer time(@NativeType("XrTime") long value) { XrPassthroughMeshTransformInfoHTC.ntime(address(), value); return this; }
-        /** Copies the specified {@link XrPosef} to the {@link XrPassthroughMeshTransformInfoHTC#pose} field. */
+        /** Copies the specified {@link XrPosef} to the {@code pose} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer pose(XrPosef value) { XrPassthroughMeshTransformInfoHTC.npose(address(), value); return this; }
-        /** Passes the {@link XrPassthroughMeshTransformInfoHTC#pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrPassthroughMeshTransformInfoHTC.Buffer pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
-        /** Copies the specified {@link XrVector3f} to the {@link XrPassthroughMeshTransformInfoHTC#scale} field. */
+        /** Copies the specified {@link XrVector3f} to the {@code scale} field. */
         public XrPassthroughMeshTransformInfoHTC.Buffer scale(XrVector3f value) { XrPassthroughMeshTransformInfoHTC.nscale(address(), value); return this; }
-        /** Passes the {@link XrPassthroughMeshTransformInfoHTC#scale} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code scale} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrPassthroughMeshTransformInfoHTC.Buffer scale(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(scale()); return this; }
 
     }

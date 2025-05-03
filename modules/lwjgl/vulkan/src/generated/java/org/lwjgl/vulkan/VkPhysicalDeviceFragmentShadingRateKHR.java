@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure returning information about sample count specific additional multisampling capabilities.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}, {@link KHRFragmentShadingRate#vkGetPhysicalDeviceFragmentShadingRatesKHR GetPhysicalDeviceFragmentShadingRatesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceFragmentShadingRateKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkSampleCountFlags {@link #sampleCounts};
- *     {@link VkExtent2D VkExtent2D} {@link #fragmentSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkSampleCountFlags sampleCounts;
+ *     {@link VkExtent2D VkExtent2D} fragmentSize;
+ * }}</pre>
  */
 public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDeviceFragmentShadingRateKHR> implements NativeResource {
 
@@ -93,23 +78,23 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of sample counts for which the shading rate described by {@code fragmentSize} is supported. */
+    /** @return the value of the {@code sampleCounts} field. */
     @NativeType("VkSampleCountFlags")
     public int sampleCounts() { return nsampleCounts(address()); }
-    /** a {@link VkExtent2D} describing the width and height of a supported shading rate. */
+    /** @return a {@link VkExtent2D} view of the {@code fragmentSize} field. */
     public VkExtent2D fragmentSize() { return nfragmentSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceFragmentShadingRateKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR} value to the {@code sType} field. */
     public VkPhysicalDeviceFragmentShadingRateKHR sType$Default() { return sType(KHRFragmentShadingRate.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceFragmentShadingRateKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -159,8 +144,7 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShadingRateKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShadingRateKHR(address, null);
     }
 
@@ -203,8 +187,7 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShadingRateKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShadingRateKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,16 +232,16 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentShadingRateKHR.PNEXT); }
     /** Unsafe version of {@link #sampleCounts}. */
-    public static int nsampleCounts(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShadingRateKHR.SAMPLECOUNTS); }
+    public static int nsampleCounts(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShadingRateKHR.SAMPLECOUNTS); }
     /** Unsafe version of {@link #fragmentSize}. */
     public static VkExtent2D nfragmentSize(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceFragmentShadingRateKHR.FRAGMENTSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShadingRateKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentShadingRateKHR.PNEXT, value); }
 
@@ -296,27 +279,32 @@ public class VkPhysicalDeviceFragmentShadingRateKHR extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceFragmentShadingRateKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShadingRateKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceFragmentShadingRateKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShadingRateKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceFragmentShadingRateKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShadingRateKHR#sampleCounts} field. */
+        /** @return the value of the {@code sampleCounts} field. */
         @NativeType("VkSampleCountFlags")
         public int sampleCounts() { return VkPhysicalDeviceFragmentShadingRateKHR.nsampleCounts(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkPhysicalDeviceFragmentShadingRateKHR#fragmentSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code fragmentSize} field. */
         public VkExtent2D fragmentSize() { return VkPhysicalDeviceFragmentShadingRateKHR.nfragmentSize(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShadingRateKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceFragmentShadingRateKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceFragmentShadingRateKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR} value to the {@link VkPhysicalDeviceFragmentShadingRateKHR#sType} field. */
+        /** Sets the {@link KHRFragmentShadingRate#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR} value to the {@code sType} field. */
         public VkPhysicalDeviceFragmentShadingRateKHR.Buffer sType$Default() { return sType(KHRFragmentShadingRate.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentShadingRateKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceFragmentShadingRateKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceFragmentShadingRateKHR.npNext(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * More detailed statistics than {@link VmaStatistics}.
- * 
- * <p>These are slower to calculate. Use for debugging purposes.</p>
- * 
- * <p>Previous version of the statistics API provided averages, but they have been removed because they can be easily calculated as:</p>
- * 
- * <pre><code>
- * VkDeviceSize allocationSizeAvg = detailedStats.statistics.allocationBytes / detailedStats.statistics.allocationCount;
- * VkDeviceSize unusedBytes = detailedStats.statistics.blockBytes - detailedStats.statistics.allocationBytes;
- * VkDeviceSize unusedRangeSizeAvg = unusedBytes / detailedStats.unusedRangeCount;</code></pre>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaDetailedStatistics {
- *     {@link VmaStatistics VmaStatistics} {@link #statistics};
- *     uint32_t {@link #unusedRangeCount};
- *     VkDeviceSize {@link #allocationSizeMin};
- *     VkDeviceSize {@link #allocationSizeMax};
- *     VkDeviceSize {@link #unusedRangeSizeMin};
- *     VkDeviceSize {@link #unusedRangeSizeMax};
- * }</code></pre>
- *
- * @see Vma#vmaCalculateStatistics
- * @see Vma#vmaCalculatePoolStatistics
+ *     {@link VmaStatistics VmaStatistics} statistics;
+ *     uint32_t unusedRangeCount;
+ *     VkDeviceSize allocationSizeMin;
+ *     VkDeviceSize allocationSizeMax;
+ *     VkDeviceSize unusedRangeSizeMin;
+ *     VkDeviceSize unusedRangeSizeMax;
+ * }}</pre>
  */
 public class VmaDetailedStatistics extends Struct<VmaDetailedStatistics> implements NativeResource {
 
@@ -102,21 +86,21 @@ public class VmaDetailedStatistics extends Struct<VmaDetailedStatistics> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** basic statistics */
+    /** @return a {@link VmaStatistics} view of the {@code statistics} field. */
     public VmaStatistics statistics() { return nstatistics(address()); }
-    /** number of free ranges of memory between allocations */
+    /** @return the value of the {@code unusedRangeCount} field. */
     @NativeType("uint32_t")
     public int unusedRangeCount() { return nunusedRangeCount(address()); }
-    /** smallest allocation size. {@code VK_WHOLE_SIZE} if there are 0 allocations. */
+    /** @return the value of the {@code allocationSizeMin} field. */
     @NativeType("VkDeviceSize")
     public long allocationSizeMin() { return nallocationSizeMin(address()); }
-    /** largest allocation size. 0 if there are 0 allocations. */
+    /** @return the value of the {@code allocationSizeMax} field. */
     @NativeType("VkDeviceSize")
     public long allocationSizeMax() { return nallocationSizeMax(address()); }
-    /** smallest empty range size. {@code VK_WHOLE_SIZE} if there are 0 empty ranges. */
+    /** @return the value of the {@code unusedRangeSizeMin} field. */
     @NativeType("VkDeviceSize")
     public long unusedRangeSizeMin() { return nunusedRangeSizeMin(address()); }
-    /** largest empty range size. 0 if there are 0 empty ranges. */
+    /** @return the value of the {@code unusedRangeSizeMax} field. */
     @NativeType("VkDeviceSize")
     public long unusedRangeSizeMax() { return nunusedRangeSizeMax(address()); }
 
@@ -144,8 +128,7 @@ public class VmaDetailedStatistics extends Struct<VmaDetailedStatistics> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDetailedStatistics createSafe(long address) {
+    public static @Nullable VmaDetailedStatistics createSafe(long address) {
         return address == NULL ? null : new VmaDetailedStatistics(address, null);
     }
 
@@ -188,8 +171,7 @@ public class VmaDetailedStatistics extends Struct<VmaDetailedStatistics> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDetailedStatistics.Buffer createSafe(long address, int capacity) {
+    public static VmaDetailedStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,15 +218,15 @@ public class VmaDetailedStatistics extends Struct<VmaDetailedStatistics> impleme
     /** Unsafe version of {@link #statistics}. */
     public static VmaStatistics nstatistics(long struct) { return VmaStatistics.create(struct + VmaDetailedStatistics.STATISTICS); }
     /** Unsafe version of {@link #unusedRangeCount}. */
-    public static int nunusedRangeCount(long struct) { return UNSAFE.getInt(null, struct + VmaDetailedStatistics.UNUSEDRANGECOUNT); }
+    public static int nunusedRangeCount(long struct) { return memGetInt(struct + VmaDetailedStatistics.UNUSEDRANGECOUNT); }
     /** Unsafe version of {@link #allocationSizeMin}. */
-    public static long nallocationSizeMin(long struct) { return UNSAFE.getLong(null, struct + VmaDetailedStatistics.ALLOCATIONSIZEMIN); }
+    public static long nallocationSizeMin(long struct) { return memGetLong(struct + VmaDetailedStatistics.ALLOCATIONSIZEMIN); }
     /** Unsafe version of {@link #allocationSizeMax}. */
-    public static long nallocationSizeMax(long struct) { return UNSAFE.getLong(null, struct + VmaDetailedStatistics.ALLOCATIONSIZEMAX); }
+    public static long nallocationSizeMax(long struct) { return memGetLong(struct + VmaDetailedStatistics.ALLOCATIONSIZEMAX); }
     /** Unsafe version of {@link #unusedRangeSizeMin}. */
-    public static long nunusedRangeSizeMin(long struct) { return UNSAFE.getLong(null, struct + VmaDetailedStatistics.UNUSEDRANGESIZEMIN); }
+    public static long nunusedRangeSizeMin(long struct) { return memGetLong(struct + VmaDetailedStatistics.UNUSEDRANGESIZEMIN); }
     /** Unsafe version of {@link #unusedRangeSizeMax}. */
-    public static long nunusedRangeSizeMax(long struct) { return UNSAFE.getLong(null, struct + VmaDetailedStatistics.UNUSEDRANGESIZEMAX); }
+    public static long nunusedRangeSizeMax(long struct) { return memGetLong(struct + VmaDetailedStatistics.UNUSEDRANGESIZEMAX); }
 
     // -----------------------------------
 
@@ -280,25 +262,30 @@ public class VmaDetailedStatistics extends Struct<VmaDetailedStatistics> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaDetailedStatistics getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VmaStatistics} view of the {@link VmaDetailedStatistics#statistics} field. */
+        /** @return a {@link VmaStatistics} view of the {@code statistics} field. */
         public VmaStatistics statistics() { return VmaDetailedStatistics.nstatistics(address()); }
-        /** @return the value of the {@link VmaDetailedStatistics#unusedRangeCount} field. */
+        /** @return the value of the {@code unusedRangeCount} field. */
         @NativeType("uint32_t")
         public int unusedRangeCount() { return VmaDetailedStatistics.nunusedRangeCount(address()); }
-        /** @return the value of the {@link VmaDetailedStatistics#allocationSizeMin} field. */
+        /** @return the value of the {@code allocationSizeMin} field. */
         @NativeType("VkDeviceSize")
         public long allocationSizeMin() { return VmaDetailedStatistics.nallocationSizeMin(address()); }
-        /** @return the value of the {@link VmaDetailedStatistics#allocationSizeMax} field. */
+        /** @return the value of the {@code allocationSizeMax} field. */
         @NativeType("VkDeviceSize")
         public long allocationSizeMax() { return VmaDetailedStatistics.nallocationSizeMax(address()); }
-        /** @return the value of the {@link VmaDetailedStatistics#unusedRangeSizeMin} field. */
+        /** @return the value of the {@code unusedRangeSizeMin} field. */
         @NativeType("VkDeviceSize")
         public long unusedRangeSizeMin() { return VmaDetailedStatistics.nunusedRangeSizeMin(address()); }
-        /** @return the value of the {@link VmaDetailedStatistics#unusedRangeSizeMax} field. */
+        /** @return the value of the {@code unusedRangeSizeMax} field. */
         @NativeType("VkDeviceSize")
         public long unusedRangeSizeMax() { return VmaDetailedStatistics.nunusedRangeSizeMax(address()); }
 

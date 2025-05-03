@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * {@code k} and {@code d} are the only required parameters. For others, value 0 means default.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZDICT_cover_params_t {
- *     unsigned {@link #k};
- *     unsigned {@link #d};
- *     unsigned {@link #steps};
- *     unsigned {@link #nbThreads};
- *     double {@link #splitPoint};
+ *     unsigned k;
+ *     unsigned d;
+ *     unsigned steps;
+ *     unsigned nbThreads;
+ *     double splitPoint;
  *     {@link ZDICTParams ZDICT_params_t} zParams;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct ZDICT_cover_params_t")
 public class ZDICTCoverParams extends Struct<ZDICTCoverParams> implements NativeResource {
@@ -91,40 +87,33 @@ public class ZDICTCoverParams extends Struct<ZDICTCoverParams> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** segment size : constraint: {@code 0 < k} : Reasonable range {@code [16, 2048+]} */
+    /** @return the value of the {@code k} field. */
     @NativeType("unsigned")
     public int k() { return nk(address()); }
-    /** {@code dmer} size : constraint: {@code 0 < d <= k} : Reasonable range {@code [6, 16]} */
+    /** @return the value of the {@code d} field. */
     @NativeType("unsigned")
     public int d() { return nd(address()); }
-    /** Number of steps : Only used for optimization : 0 means default (40) : Higher means more parameters checked */
+    /** @return the value of the {@code steps} field. */
     @NativeType("unsigned")
     public int steps() { return nsteps(address()); }
-    /**
-     * number of threads : constraint: {@code 0 < nbThreads} : 1 means single-threaded : Only used for optimization : Ignored if {@code ZSTD_MULTITHREAD} is
-     * not defined.
-     */
+    /** @return the value of the {@code nbThreads} field. */
     @NativeType("unsigned")
     public int nbThreads() { return nnbThreads(address()); }
-    /**
-     * percentage of samples used for training: Only used for optimization: the first {@code nbSamples * splitPoint} samples will be used to training, the
-     * last {@code nbSamples * (1 - splitPoint)} samples will be used for testing, 0 means default (1.0), 1.0 when all samples are used for both training and
-     * testing.
-     */
+    /** @return the value of the {@code splitPoint} field. */
     public double splitPoint() { return nsplitPoint(address()); }
     /** @return a {@link ZDICTParams} view of the {@code zParams} field. */
     @NativeType("ZDICT_params_t")
     public ZDICTParams zParams() { return nzParams(address()); }
 
-    /** Sets the specified value to the {@link #k} field. */
+    /** Sets the specified value to the {@code k} field. */
     public ZDICTCoverParams k(@NativeType("unsigned") int value) { nk(address(), value); return this; }
-    /** Sets the specified value to the {@link #d} field. */
+    /** Sets the specified value to the {@code d} field. */
     public ZDICTCoverParams d(@NativeType("unsigned") int value) { nd(address(), value); return this; }
-    /** Sets the specified value to the {@link #steps} field. */
+    /** Sets the specified value to the {@code steps} field. */
     public ZDICTCoverParams steps(@NativeType("unsigned") int value) { nsteps(address(), value); return this; }
-    /** Sets the specified value to the {@link #nbThreads} field. */
+    /** Sets the specified value to the {@code nbThreads} field. */
     public ZDICTCoverParams nbThreads(@NativeType("unsigned") int value) { nnbThreads(address(), value); return this; }
-    /** Sets the specified value to the {@link #splitPoint} field. */
+    /** Sets the specified value to the {@code splitPoint} field. */
     public ZDICTCoverParams splitPoint(double value) { nsplitPoint(address(), value); return this; }
     /** Copies the specified {@link ZDICTParams} to the {@code zParams} field. */
     public ZDICTCoverParams zParams(@NativeType("ZDICT_params_t") ZDICTParams value) { nzParams(address(), value); return this; }
@@ -186,8 +175,7 @@ public class ZDICTCoverParams extends Struct<ZDICTCoverParams> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZDICTCoverParams createSafe(long address) {
+    public static @Nullable ZDICTCoverParams createSafe(long address) {
         return address == NULL ? null : new ZDICTCoverParams(address, null);
     }
 
@@ -230,8 +218,7 @@ public class ZDICTCoverParams extends Struct<ZDICTCoverParams> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZDICTCoverParams.Buffer createSafe(long address, int capacity) {
+    public static ZDICTCoverParams.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,28 +282,28 @@ public class ZDICTCoverParams extends Struct<ZDICTCoverParams> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #k}. */
-    public static int nk(long struct) { return UNSAFE.getInt(null, struct + ZDICTCoverParams.K); }
+    public static int nk(long struct) { return memGetInt(struct + ZDICTCoverParams.K); }
     /** Unsafe version of {@link #d}. */
-    public static int nd(long struct) { return UNSAFE.getInt(null, struct + ZDICTCoverParams.D); }
+    public static int nd(long struct) { return memGetInt(struct + ZDICTCoverParams.D); }
     /** Unsafe version of {@link #steps}. */
-    public static int nsteps(long struct) { return UNSAFE.getInt(null, struct + ZDICTCoverParams.STEPS); }
+    public static int nsteps(long struct) { return memGetInt(struct + ZDICTCoverParams.STEPS); }
     /** Unsafe version of {@link #nbThreads}. */
-    public static int nnbThreads(long struct) { return UNSAFE.getInt(null, struct + ZDICTCoverParams.NBTHREADS); }
+    public static int nnbThreads(long struct) { return memGetInt(struct + ZDICTCoverParams.NBTHREADS); }
     /** Unsafe version of {@link #splitPoint}. */
-    public static double nsplitPoint(long struct) { return UNSAFE.getDouble(null, struct + ZDICTCoverParams.SPLITPOINT); }
+    public static double nsplitPoint(long struct) { return memGetDouble(struct + ZDICTCoverParams.SPLITPOINT); }
     /** Unsafe version of {@link #zParams}. */
     public static ZDICTParams nzParams(long struct) { return ZDICTParams.create(struct + ZDICTCoverParams.ZPARAMS); }
 
     /** Unsafe version of {@link #k(int) k}. */
-    public static void nk(long struct, int value) { UNSAFE.putInt(null, struct + ZDICTCoverParams.K, value); }
+    public static void nk(long struct, int value) { memPutInt(struct + ZDICTCoverParams.K, value); }
     /** Unsafe version of {@link #d(int) d}. */
-    public static void nd(long struct, int value) { UNSAFE.putInt(null, struct + ZDICTCoverParams.D, value); }
+    public static void nd(long struct, int value) { memPutInt(struct + ZDICTCoverParams.D, value); }
     /** Unsafe version of {@link #steps(int) steps}. */
-    public static void nsteps(long struct, int value) { UNSAFE.putInt(null, struct + ZDICTCoverParams.STEPS, value); }
+    public static void nsteps(long struct, int value) { memPutInt(struct + ZDICTCoverParams.STEPS, value); }
     /** Unsafe version of {@link #nbThreads(int) nbThreads}. */
-    public static void nnbThreads(long struct, int value) { UNSAFE.putInt(null, struct + ZDICTCoverParams.NBTHREADS, value); }
+    public static void nnbThreads(long struct, int value) { memPutInt(struct + ZDICTCoverParams.NBTHREADS, value); }
     /** Unsafe version of {@link #splitPoint(double) splitPoint}. */
-    public static void nsplitPoint(long struct, double value) { UNSAFE.putDouble(null, struct + ZDICTCoverParams.SPLITPOINT, value); }
+    public static void nsplitPoint(long struct, double value) { memPutDouble(struct + ZDICTCoverParams.SPLITPOINT, value); }
     /** Unsafe version of {@link #zParams(ZDICTParams) zParams}. */
     public static void nzParams(long struct, ZDICTParams value) { memCopy(value.address(), struct + ZDICTCoverParams.ZPARAMS, ZDICTParams.SIZEOF); }
 
@@ -354,37 +341,42 @@ public class ZDICTCoverParams extends Struct<ZDICTCoverParams> implements Native
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ZDICTCoverParams getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZDICTCoverParams#k} field. */
+        /** @return the value of the {@code k} field. */
         @NativeType("unsigned")
         public int k() { return ZDICTCoverParams.nk(address()); }
-        /** @return the value of the {@link ZDICTCoverParams#d} field. */
+        /** @return the value of the {@code d} field. */
         @NativeType("unsigned")
         public int d() { return ZDICTCoverParams.nd(address()); }
-        /** @return the value of the {@link ZDICTCoverParams#steps} field. */
+        /** @return the value of the {@code steps} field. */
         @NativeType("unsigned")
         public int steps() { return ZDICTCoverParams.nsteps(address()); }
-        /** @return the value of the {@link ZDICTCoverParams#nbThreads} field. */
+        /** @return the value of the {@code nbThreads} field. */
         @NativeType("unsigned")
         public int nbThreads() { return ZDICTCoverParams.nnbThreads(address()); }
-        /** @return the value of the {@link ZDICTCoverParams#splitPoint} field. */
+        /** @return the value of the {@code splitPoint} field. */
         public double splitPoint() { return ZDICTCoverParams.nsplitPoint(address()); }
         /** @return a {@link ZDICTParams} view of the {@code zParams} field. */
         @NativeType("ZDICT_params_t")
         public ZDICTParams zParams() { return ZDICTCoverParams.nzParams(address()); }
 
-        /** Sets the specified value to the {@link ZDICTCoverParams#k} field. */
+        /** Sets the specified value to the {@code k} field. */
         public ZDICTCoverParams.Buffer k(@NativeType("unsigned") int value) { ZDICTCoverParams.nk(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTCoverParams#d} field. */
+        /** Sets the specified value to the {@code d} field. */
         public ZDICTCoverParams.Buffer d(@NativeType("unsigned") int value) { ZDICTCoverParams.nd(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTCoverParams#steps} field. */
+        /** Sets the specified value to the {@code steps} field. */
         public ZDICTCoverParams.Buffer steps(@NativeType("unsigned") int value) { ZDICTCoverParams.nsteps(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTCoverParams#nbThreads} field. */
+        /** Sets the specified value to the {@code nbThreads} field. */
         public ZDICTCoverParams.Buffer nbThreads(@NativeType("unsigned") int value) { ZDICTCoverParams.nnbThreads(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTCoverParams#splitPoint} field. */
+        /** Sets the specified value to the {@code splitPoint} field. */
         public ZDICTCoverParams.Buffer splitPoint(double value) { ZDICTCoverParams.nsplitPoint(address(), value); return this; }
         /** Copies the specified {@link ZDICTParams} to the {@code zParams} field. */
         public ZDICTCoverParams.Buffer zParams(@NativeType("ZDICT_params_t") ZDICTParams value) { ZDICTCoverParams.nzParams(address(), value); return this; }

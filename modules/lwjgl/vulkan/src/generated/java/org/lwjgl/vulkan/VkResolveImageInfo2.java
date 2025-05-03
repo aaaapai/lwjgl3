@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,77 +17,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of resolve image command.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The union of all source regions, and the union of all destination regions, specified by the elements of {@code pRegions}, <b>must</b> not overlap in memory</li>
- * <li>If {@code srcImage} is non-sparse then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
- * <li>{@code srcImage} <b>must</b> have a sample count equal to any valid sample count value other than {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
- * <li>If {@code dstImage} is non-sparse then it <b>must</b> be bound completely and contiguously to a single {@code VkDeviceMemory} object</li>
- * <li>{@code dstImage} <b>must</b> have a sample count equal to {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
- * <li>{@code srcImageLayout} <b>must</b> specify the layout of the image subresources of {@code srcImage} specified in {@code pRegions} at the time this command is executed on a {@code VkDevice}</li>
- * <li>{@code srcImageLayout} <b>must</b> be {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}, {@link VK10#VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL}</li>
- * <li>{@code dstImageLayout} <b>must</b> specify the layout of the image subresources of {@code dstImage} specified in {@code pRegions} at the time this command is executed on a {@code VkDevice}</li>
- * <li>{@code dstImageLayout} <b>must</b> be {@link KHRSharedPresentableImage#VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR IMAGE_LAYOUT_SHARED_PRESENT_KHR}, {@link VK10#VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_GENERAL IMAGE_LAYOUT_GENERAL}</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-format-features">format features</a> of {@code dstImage} <b>must</b> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-format-features">format features</a> of {@code dstImage} <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
- * <li>{@code srcImage} and {@code dstImage} <b>must</b> have been created with the same image format</li>
- * <li>The {@code srcSubresource.mipLevel} member of each element of {@code pRegions} <b>must</b> be less than the {@code mipLevels} specified in {@link VkImageCreateInfo} when {@code srcImage} was created</li>
- * <li>The {@code dstSubresource.mipLevel} member of each element of {@code pRegions} <b>must</b> be less than the {@code mipLevels} specified in {@link VkImageCreateInfo} when {@code dstImage} was created</li>
- * <li>The <code>srcSubresource.baseArrayLayer + srcSubresource.layerCount</code> of each element of {@code pRegions} , if {@code srcSubresource.layerCount} is not {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-maintenance5">{@code maintenance5}</a> is not enabled, <b>must</b> be less than or equal to the {@code arrayLayers} specified in {@link VkImageCreateInfo} when {@code srcImage} was created</li>
- * <li>The <code>dstSubresource.baseArrayLayer + dstSubresource.layerCount</code> of each element of {@code pRegions} , if {@code dstSubresource.layerCount} is not {@link VK10#VK_REMAINING_ARRAY_LAYERS REMAINING_ARRAY_LAYERS} and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-maintenance5">{@code maintenance5}</a> is not enabled, <b>must</b> be less than or equal to the {@code arrayLayers} specified in {@link VkImageCreateInfo} when {@code dstImage} was created</li>
- * <li>{@code dstImage} and {@code srcImage} <b>must</b> not have been created with {@code flags} containing {@link EXTFragmentDensityMap#VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT IMAGE_CREATE_SUBSAMPLED_BIT_EXT}</li>
- * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, then for each element of {@code pRegions}, {@code srcSubresource.layerCount} <b>must</b> be 1</li>
- * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_3D IMAGE_TYPE_3D}, then for each element of {@code pRegions}, {@code dstSubresource.baseArrayLayer} <b>must</b> be 0 and {@code dstSubresource.layerCount} <b>must</b> be 1</li>
- * <li>For each element of {@code pRegions}, {@code srcOffset.x} and <code>(extent.width + srcOffset.x)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the width of the specified {@code srcSubresource} of {@code srcImage}</li>
- * <li>For each element of {@code pRegions}, {@code srcOffset.y} and <code>(extent.height + srcOffset.y)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the height of the specified {@code srcSubresource} of {@code srcImage}</li>
- * <li>If {@code srcImage} is of type {@link VK10#VK_IMAGE_TYPE_1D IMAGE_TYPE_1D}, then for each element of {@code pRegions}, {@code srcOffset.y} <b>must</b> be 0 and {@code extent.height} <b>must</b> be 1</li>
- * <li>For each element of {@code pRegions}, {@code srcOffset.z} and <code>(extent.depth + srcOffset.z)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the depth of the specified {@code srcSubresource} of {@code srcImage}</li>
- * <li>If {@code srcImage} is of type {@link VK10#VK_IMAGE_TYPE_1D IMAGE_TYPE_1D} or {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}, then for each element of {@code pRegions}, {@code srcOffset.z} <b>must</b> be 0 and {@code extent.depth} <b>must</b> be 1</li>
- * <li>For each element of {@code pRegions}, {@code dstOffset.x} and <code>(extent.width + dstOffset.x)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the width of the specified {@code dstSubresource} of {@code dstImage}</li>
- * <li>For each element of {@code pRegions}, {@code dstOffset.y} and <code>(extent.height + dstOffset.y)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the height of the specified {@code dstSubresource} of {@code dstImage}</li>
- * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_1D IMAGE_TYPE_1D}, then for each element of {@code pRegions}, {@code dstOffset.y} <b>must</b> be 0 and {@code extent.height} <b>must</b> be 1</li>
- * <li>For each element of {@code pRegions}, {@code dstOffset.z} and <code>(extent.depth + dstOffset.z)</code> <b>must</b> both be greater than or equal to 0 and less than or equal to the depth of the specified {@code dstSubresource} of {@code dstImage}</li>
- * <li>If {@code dstImage} is of type {@link VK10#VK_IMAGE_TYPE_1D IMAGE_TYPE_1D} or {@link VK10#VK_IMAGE_TYPE_2D IMAGE_TYPE_2D}, then for each element of {@code pRegions}, {@code dstOffset.z} <b>must</b> be 0 and {@code extent.depth} <b>must</b> be 1</li>
- * <li>{@code srcImage} <b>must</b> have been created with {@link VK10#VK_IMAGE_USAGE_TRANSFER_SRC_BIT IMAGE_USAGE_TRANSFER_SRC_BIT} usage flag</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-format-features">format features</a> of {@code srcImage} <b>must</b> contain {@link VK11#VK_FORMAT_FEATURE_TRANSFER_SRC_BIT FORMAT_FEATURE_TRANSFER_SRC_BIT}</li>
- * <li>{@code dstImage} <b>must</b> have been created with {@link VK10#VK_IMAGE_USAGE_TRANSFER_DST_BIT IMAGE_USAGE_TRANSFER_DST_BIT} usage flag</li>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-format-features">format features</a> of {@code dstImage} <b>must</b> contain {@link VK11#VK_FORMAT_FEATURE_TRANSFER_DST_BIT FORMAT_FEATURE_TRANSFER_DST_BIT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code srcImage} <b>must</b> be a valid {@code VkImage} handle</li>
- * <li>{@code srcImageLayout} <b>must</b> be a valid {@code VkImageLayout} value</li>
- * <li>{@code dstImage} <b>must</b> be a valid {@code VkImage} handle</li>
- * <li>{@code dstImageLayout} <b>must</b> be a valid {@code VkImageLayout} value</li>
- * <li>{@code pRegions} <b>must</b> be a valid pointer to an array of {@code regionCount} valid {@link VkImageResolve2} structures</li>
- * <li>{@code regionCount} <b>must</b> be greater than 0</li>
- * <li>Both of {@code dstImage}, and {@code srcImage} <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkImageResolve2}, {@link VK13#vkCmdResolveImage2 CmdResolveImage2}, {@link KHRCopyCommands2#vkCmdResolveImage2KHR CmdResolveImage2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkResolveImageInfo2 {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkImage {@link #srcImage};
- *     VkImageLayout {@link #srcImageLayout};
- *     VkImage {@link #dstImage};
- *     VkImageLayout {@link #dstImageLayout};
- *     uint32_t {@link #regionCount};
- *     {@link VkImageResolve2 VkImageResolve2} const * {@link #pRegions};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkImage srcImage;
+ *     VkImageLayout srcImageLayout;
+ *     VkImage dstImage;
+ *     VkImageLayout dstImageLayout;
+ *     uint32_t regionCount;
+ *     {@link VkImageResolve2 VkImageResolve2} const * pRegions;
+ * }}</pre>
  */
 public class VkResolveImageInfo2 extends Struct<VkResolveImageInfo2> implements NativeResource {
 
@@ -155,46 +95,46 @@ public class VkResolveImageInfo2 extends Struct<VkResolveImageInfo2> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the source image. */
+    /** @return the value of the {@code srcImage} field. */
     @NativeType("VkImage")
     public long srcImage() { return nsrcImage(address()); }
-    /** the layout of the source image subresources for the resolve. */
+    /** @return the value of the {@code srcImageLayout} field. */
     @NativeType("VkImageLayout")
     public int srcImageLayout() { return nsrcImageLayout(address()); }
-    /** the destination image. */
+    /** @return the value of the {@code dstImage} field. */
     @NativeType("VkImage")
     public long dstImage() { return ndstImage(address()); }
-    /** the layout of the destination image subresources for the resolve. */
+    /** @return the value of the {@code dstImageLayout} field. */
     @NativeType("VkImageLayout")
     public int dstImageLayout() { return ndstImageLayout(address()); }
-    /** the number of regions to resolve. */
+    /** @return the value of the {@code regionCount} field. */
     @NativeType("uint32_t")
     public int regionCount() { return nregionCount(address()); }
-    /** a pointer to an array of {@link VkImageResolve2} structures specifying the regions to resolve. */
+    /** @return a {@link VkImageResolve2.Buffer} view of the struct array pointed to by the {@code pRegions} field. */
     @NativeType("VkImageResolve2 const *")
     public VkImageResolve2.Buffer pRegions() { return npRegions(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkResolveImageInfo2 sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2} value to the {@code sType} field. */
     public VkResolveImageInfo2 sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkResolveImageInfo2 pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #srcImage} field. */
+    /** Sets the specified value to the {@code srcImage} field. */
     public VkResolveImageInfo2 srcImage(@NativeType("VkImage") long value) { nsrcImage(address(), value); return this; }
-    /** Sets the specified value to the {@link #srcImageLayout} field. */
+    /** Sets the specified value to the {@code srcImageLayout} field. */
     public VkResolveImageInfo2 srcImageLayout(@NativeType("VkImageLayout") int value) { nsrcImageLayout(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstImage} field. */
+    /** Sets the specified value to the {@code dstImage} field. */
     public VkResolveImageInfo2 dstImage(@NativeType("VkImage") long value) { ndstImage(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstImageLayout} field. */
+    /** Sets the specified value to the {@code dstImageLayout} field. */
     public VkResolveImageInfo2 dstImageLayout(@NativeType("VkImageLayout") int value) { ndstImageLayout(address(), value); return this; }
-    /** Sets the address of the specified {@link VkImageResolve2.Buffer} to the {@link #pRegions} field. */
+    /** Sets the address of the specified {@link VkImageResolve2.Buffer} to the {@code pRegions} field. */
     public VkResolveImageInfo2 pRegions(@NativeType("VkImageResolve2 const *") VkImageResolve2.Buffer value) { npRegions(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -254,8 +194,7 @@ public class VkResolveImageInfo2 extends Struct<VkResolveImageInfo2> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkResolveImageInfo2 createSafe(long address) {
+    public static @Nullable VkResolveImageInfo2 createSafe(long address) {
         return address == NULL ? null : new VkResolveImageInfo2(address, null);
     }
 
@@ -298,8 +237,7 @@ public class VkResolveImageInfo2 extends Struct<VkResolveImageInfo2> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkResolveImageInfo2.Buffer createSafe(long address, int capacity) {
+    public static VkResolveImageInfo2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -344,36 +282,36 @@ public class VkResolveImageInfo2 extends Struct<VkResolveImageInfo2> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkResolveImageInfo2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkResolveImageInfo2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkResolveImageInfo2.PNEXT); }
     /** Unsafe version of {@link #srcImage}. */
-    public static long nsrcImage(long struct) { return UNSAFE.getLong(null, struct + VkResolveImageInfo2.SRCIMAGE); }
+    public static long nsrcImage(long struct) { return memGetLong(struct + VkResolveImageInfo2.SRCIMAGE); }
     /** Unsafe version of {@link #srcImageLayout}. */
-    public static int nsrcImageLayout(long struct) { return UNSAFE.getInt(null, struct + VkResolveImageInfo2.SRCIMAGELAYOUT); }
+    public static int nsrcImageLayout(long struct) { return memGetInt(struct + VkResolveImageInfo2.SRCIMAGELAYOUT); }
     /** Unsafe version of {@link #dstImage}. */
-    public static long ndstImage(long struct) { return UNSAFE.getLong(null, struct + VkResolveImageInfo2.DSTIMAGE); }
+    public static long ndstImage(long struct) { return memGetLong(struct + VkResolveImageInfo2.DSTIMAGE); }
     /** Unsafe version of {@link #dstImageLayout}. */
-    public static int ndstImageLayout(long struct) { return UNSAFE.getInt(null, struct + VkResolveImageInfo2.DSTIMAGELAYOUT); }
+    public static int ndstImageLayout(long struct) { return memGetInt(struct + VkResolveImageInfo2.DSTIMAGELAYOUT); }
     /** Unsafe version of {@link #regionCount}. */
-    public static int nregionCount(long struct) { return UNSAFE.getInt(null, struct + VkResolveImageInfo2.REGIONCOUNT); }
+    public static int nregionCount(long struct) { return memGetInt(struct + VkResolveImageInfo2.REGIONCOUNT); }
     /** Unsafe version of {@link #pRegions}. */
     public static VkImageResolve2.Buffer npRegions(long struct) { return VkImageResolve2.create(memGetAddress(struct + VkResolveImageInfo2.PREGIONS), nregionCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkResolveImageInfo2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkResolveImageInfo2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkResolveImageInfo2.PNEXT, value); }
     /** Unsafe version of {@link #srcImage(long) srcImage}. */
-    public static void nsrcImage(long struct, long value) { UNSAFE.putLong(null, struct + VkResolveImageInfo2.SRCIMAGE, value); }
+    public static void nsrcImage(long struct, long value) { memPutLong(struct + VkResolveImageInfo2.SRCIMAGE, value); }
     /** Unsafe version of {@link #srcImageLayout(int) srcImageLayout}. */
-    public static void nsrcImageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkResolveImageInfo2.SRCIMAGELAYOUT, value); }
+    public static void nsrcImageLayout(long struct, int value) { memPutInt(struct + VkResolveImageInfo2.SRCIMAGELAYOUT, value); }
     /** Unsafe version of {@link #dstImage(long) dstImage}. */
-    public static void ndstImage(long struct, long value) { UNSAFE.putLong(null, struct + VkResolveImageInfo2.DSTIMAGE, value); }
+    public static void ndstImage(long struct, long value) { memPutLong(struct + VkResolveImageInfo2.DSTIMAGE, value); }
     /** Unsafe version of {@link #dstImageLayout(int) dstImageLayout}. */
-    public static void ndstImageLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkResolveImageInfo2.DSTIMAGELAYOUT, value); }
+    public static void ndstImageLayout(long struct, int value) { memPutInt(struct + VkResolveImageInfo2.DSTIMAGELAYOUT, value); }
     /** Sets the specified value to the {@code regionCount} field of the specified {@code struct}. */
-    public static void nregionCount(long struct, int value) { UNSAFE.putInt(null, struct + VkResolveImageInfo2.REGIONCOUNT, value); }
+    public static void nregionCount(long struct, int value) { memPutInt(struct + VkResolveImageInfo2.REGIONCOUNT, value); }
     /** Unsafe version of {@link #pRegions(VkImageResolve2.Buffer) pRegions}. */
     public static void npRegions(long struct, VkImageResolve2.Buffer value) { memPutAddress(struct + VkResolveImageInfo2.PREGIONS, value.address()); nregionCount(struct, value.remaining()); }
 
@@ -420,50 +358,55 @@ public class VkResolveImageInfo2 extends Struct<VkResolveImageInfo2> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkResolveImageInfo2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkResolveImageInfo2#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkResolveImageInfo2.nsType(address()); }
-        /** @return the value of the {@link VkResolveImageInfo2#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkResolveImageInfo2.npNext(address()); }
-        /** @return the value of the {@link VkResolveImageInfo2#srcImage} field. */
+        /** @return the value of the {@code srcImage} field. */
         @NativeType("VkImage")
         public long srcImage() { return VkResolveImageInfo2.nsrcImage(address()); }
-        /** @return the value of the {@link VkResolveImageInfo2#srcImageLayout} field. */
+        /** @return the value of the {@code srcImageLayout} field. */
         @NativeType("VkImageLayout")
         public int srcImageLayout() { return VkResolveImageInfo2.nsrcImageLayout(address()); }
-        /** @return the value of the {@link VkResolveImageInfo2#dstImage} field. */
+        /** @return the value of the {@code dstImage} field. */
         @NativeType("VkImage")
         public long dstImage() { return VkResolveImageInfo2.ndstImage(address()); }
-        /** @return the value of the {@link VkResolveImageInfo2#dstImageLayout} field. */
+        /** @return the value of the {@code dstImageLayout} field. */
         @NativeType("VkImageLayout")
         public int dstImageLayout() { return VkResolveImageInfo2.ndstImageLayout(address()); }
-        /** @return the value of the {@link VkResolveImageInfo2#regionCount} field. */
+        /** @return the value of the {@code regionCount} field. */
         @NativeType("uint32_t")
         public int regionCount() { return VkResolveImageInfo2.nregionCount(address()); }
-        /** @return a {@link VkImageResolve2.Buffer} view of the struct array pointed to by the {@link VkResolveImageInfo2#pRegions} field. */
+        /** @return a {@link VkImageResolve2.Buffer} view of the struct array pointed to by the {@code pRegions} field. */
         @NativeType("VkImageResolve2 const *")
         public VkImageResolve2.Buffer pRegions() { return VkResolveImageInfo2.npRegions(address()); }
 
-        /** Sets the specified value to the {@link VkResolveImageInfo2#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkResolveImageInfo2.Buffer sType(@NativeType("VkStructureType") int value) { VkResolveImageInfo2.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2} value to the {@link VkResolveImageInfo2#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2 STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2} value to the {@code sType} field. */
         public VkResolveImageInfo2.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2); }
-        /** Sets the specified value to the {@link VkResolveImageInfo2#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkResolveImageInfo2.Buffer pNext(@NativeType("void const *") long value) { VkResolveImageInfo2.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkResolveImageInfo2#srcImage} field. */
+        /** Sets the specified value to the {@code srcImage} field. */
         public VkResolveImageInfo2.Buffer srcImage(@NativeType("VkImage") long value) { VkResolveImageInfo2.nsrcImage(address(), value); return this; }
-        /** Sets the specified value to the {@link VkResolveImageInfo2#srcImageLayout} field. */
+        /** Sets the specified value to the {@code srcImageLayout} field. */
         public VkResolveImageInfo2.Buffer srcImageLayout(@NativeType("VkImageLayout") int value) { VkResolveImageInfo2.nsrcImageLayout(address(), value); return this; }
-        /** Sets the specified value to the {@link VkResolveImageInfo2#dstImage} field. */
+        /** Sets the specified value to the {@code dstImage} field. */
         public VkResolveImageInfo2.Buffer dstImage(@NativeType("VkImage") long value) { VkResolveImageInfo2.ndstImage(address(), value); return this; }
-        /** Sets the specified value to the {@link VkResolveImageInfo2#dstImageLayout} field. */
+        /** Sets the specified value to the {@code dstImageLayout} field. */
         public VkResolveImageInfo2.Buffer dstImageLayout(@NativeType("VkImageLayout") int value) { VkResolveImageInfo2.ndstImageLayout(address(), value); return this; }
-        /** Sets the address of the specified {@link VkImageResolve2.Buffer} to the {@link VkResolveImageInfo2#pRegions} field. */
+        /** Sets the address of the specified {@link VkImageResolve2.Buffer} to the {@code pRegions} field. */
         public VkResolveImageInfo2.Buffer pRegions(@NativeType("VkImageResolve2 const *") VkImageResolve2.Buffer value) { VkResolveImageInfo2.npRegions(address(), value); return this; }
 
     }

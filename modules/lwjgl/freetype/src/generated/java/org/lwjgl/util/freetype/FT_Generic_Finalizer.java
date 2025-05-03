@@ -5,20 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *object
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Generic_Finalizer} */
 public abstract class FT_Generic_Finalizer extends Callback implements FT_Generic_FinalizerI {
 
     /**
@@ -34,8 +27,7 @@ public abstract class FT_Generic_Finalizer extends Callback implements FT_Generi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FT_Generic_Finalizer createSafe(long functionPointer) {
+    public static @Nullable FT_Generic_Finalizer createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

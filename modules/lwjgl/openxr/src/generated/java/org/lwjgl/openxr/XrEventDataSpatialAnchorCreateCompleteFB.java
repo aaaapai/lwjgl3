@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Result of request to create a new spatial anchor.
- * 
- * <h5>Description</h5>
- * 
- * <p>It describes the result of a request to create a new spatial anchor. Once this event is posted, it is the applications responsibility to take ownership of the {@code XrSpace}. The {@code XrSession} passed into {@link FBSpatialEntity#xrCreateSpatialAnchorFB CreateSpatialAnchorFB} is the parent handle of the newly created {@code XrSpace}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntity XR_FB_spatial_entity} extension <b>must</b> be enabled prior to using {@link XrEventDataSpatialAnchorCreateCompleteFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrEventDataBaseHeader}, {@link XrEventDataBuffer}, {@link XrUuidEXT}, {@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataSpatialAnchorCreateCompleteFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrAsyncRequestIdFB {@link #requestId};
- *     XrResult {@link #result};
- *     XrSpace {@link #space};
- *     {@link XrUuidEXT XrUuidEXT} {@link #uuid};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrAsyncRequestIdFB requestId;
+ *     XrResult result;
+ *     XrSpace space;
+ *     {@link XrUuidEXT XrUuidEXT} uuid;
+ * }}</pre>
  */
 public class XrEventDataSpatialAnchorCreateCompleteFB extends Struct<XrEventDataSpatialAnchorCreateCompleteFB> implements NativeResource {
 
@@ -106,29 +86,29 @@ public class XrEventDataSpatialAnchorCreateCompleteFB extends Struct<XrEventData
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the ID of the asynchronous request used to create a new spatial anchor. */
+    /** @return the value of the {@code requestId} field. */
     @NativeType("XrAsyncRequestIdFB")
     public long requestId() { return nrequestId(address()); }
-    /** an {@code XrResult} that determines if the request succeeded or if an error occurred. */
+    /** @return the value of the {@code result} field. */
     @NativeType("XrResult")
     public int result() { return nresult(address()); }
-    /** the {@code XrSpace} handle to the newly created spatial anchor. */
+    /** @return the value of the {@code space} field. */
     @NativeType("XrSpace")
     public long space() { return nspace(address()); }
-    /** the UUID of the newly created spatial anchor. */
+    /** @return a {@link XrUuidEXT} view of the {@code uuid} field. */
     public XrUuidEXT uuid() { return nuuid(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataSpatialAnchorCreateCompleteFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB} value to the {@code type} field. */
     public XrEventDataSpatialAnchorCreateCompleteFB type$Default() { return type(FBSpatialEntity.XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataSpatialAnchorCreateCompleteFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +158,7 @@ public class XrEventDataSpatialAnchorCreateCompleteFB extends Struct<XrEventData
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpatialAnchorCreateCompleteFB createSafe(long address) {
+    public static @Nullable XrEventDataSpatialAnchorCreateCompleteFB createSafe(long address) {
         return address == NULL ? null : new XrEventDataSpatialAnchorCreateCompleteFB(address, null);
     }
 
@@ -227,8 +206,7 @@ public class XrEventDataSpatialAnchorCreateCompleteFB extends Struct<XrEventData
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpatialAnchorCreateCompleteFB.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataSpatialAnchorCreateCompleteFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,20 +256,20 @@ public class XrEventDataSpatialAnchorCreateCompleteFB extends Struct<XrEventData
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpatialAnchorCreateCompleteFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataSpatialAnchorCreateCompleteFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataSpatialAnchorCreateCompleteFB.NEXT); }
     /** Unsafe version of {@link #requestId}. */
-    public static long nrequestId(long struct) { return UNSAFE.getLong(null, struct + XrEventDataSpatialAnchorCreateCompleteFB.REQUESTID); }
+    public static long nrequestId(long struct) { return memGetLong(struct + XrEventDataSpatialAnchorCreateCompleteFB.REQUESTID); }
     /** Unsafe version of {@link #result}. */
-    public static int nresult(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpatialAnchorCreateCompleteFB.RESULT); }
+    public static int nresult(long struct) { return memGetInt(struct + XrEventDataSpatialAnchorCreateCompleteFB.RESULT); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrEventDataSpatialAnchorCreateCompleteFB.SPACE); }
     /** Unsafe version of {@link #uuid}. */
     public static XrUuidEXT nuuid(long struct) { return XrUuidEXT.create(struct + XrEventDataSpatialAnchorCreateCompleteFB.UUID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataSpatialAnchorCreateCompleteFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataSpatialAnchorCreateCompleteFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataSpatialAnchorCreateCompleteFB.NEXT, value); }
 
@@ -329,33 +307,38 @@ public class XrEventDataSpatialAnchorCreateCompleteFB extends Struct<XrEventData
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataSpatialAnchorCreateCompleteFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataSpatialAnchorCreateCompleteFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataSpatialAnchorCreateCompleteFB.ntype(address()); }
-        /** @return the value of the {@link XrEventDataSpatialAnchorCreateCompleteFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataSpatialAnchorCreateCompleteFB.nnext(address()); }
-        /** @return the value of the {@link XrEventDataSpatialAnchorCreateCompleteFB#requestId} field. */
+        /** @return the value of the {@code requestId} field. */
         @NativeType("XrAsyncRequestIdFB")
         public long requestId() { return XrEventDataSpatialAnchorCreateCompleteFB.nrequestId(address()); }
-        /** @return the value of the {@link XrEventDataSpatialAnchorCreateCompleteFB#result} field. */
+        /** @return the value of the {@code result} field. */
         @NativeType("XrResult")
         public int result() { return XrEventDataSpatialAnchorCreateCompleteFB.nresult(address()); }
-        /** @return the value of the {@link XrEventDataSpatialAnchorCreateCompleteFB#space} field. */
+        /** @return the value of the {@code space} field. */
         @NativeType("XrSpace")
         public long space() { return XrEventDataSpatialAnchorCreateCompleteFB.nspace(address()); }
-        /** @return a {@link XrUuidEXT} view of the {@link XrEventDataSpatialAnchorCreateCompleteFB#uuid} field. */
+        /** @return a {@link XrUuidEXT} view of the {@code uuid} field. */
         public XrUuidEXT uuid() { return XrEventDataSpatialAnchorCreateCompleteFB.nuuid(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataSpatialAnchorCreateCompleteFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataSpatialAnchorCreateCompleteFB.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataSpatialAnchorCreateCompleteFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB} value to the {@link XrEventDataSpatialAnchorCreateCompleteFB#type} field. */
+        /** Sets the {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB} value to the {@code type} field. */
         public XrEventDataSpatialAnchorCreateCompleteFB.Buffer type$Default() { return type(FBSpatialEntity.XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB); }
-        /** Sets the specified value to the {@link XrEventDataSpatialAnchorCreateCompleteFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataSpatialAnchorCreateCompleteFB.Buffer next(@NativeType("void const *") long value) { XrEventDataSpatialAnchorCreateCompleteFB.nnext(address(), value); return this; }
 
     }

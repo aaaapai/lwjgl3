@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,14 +15,10 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK12.*;
 
 /**
- * See {@link VkPhysicalDeviceDriverProperties}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDriverPropertiesKHR {
  *     VkStructureType sType;
  *     void * pNext;
@@ -30,7 +26,7 @@ import static org.lwjgl.vulkan.VK10.*;
  *     char driverName[VK_MAX_DRIVER_NAME_SIZE];
  *     char driverInfo[VK_MAX_DRIVER_INFO_SIZE];
  *     {@link VkConformanceVersion VkConformanceVersion} conformanceVersion;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceDriverPropertiesKHR extends VkPhysicalDeviceDriverProperties {
 
@@ -111,8 +107,7 @@ public class VkPhysicalDeviceDriverPropertiesKHR extends VkPhysicalDeviceDriverP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDriverPropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDriverPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDriverPropertiesKHR(address, null);
     }
 
@@ -155,8 +150,7 @@ public class VkPhysicalDeviceDriverPropertiesKHR extends VkPhysicalDeviceDriverP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDriverPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDriverPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +242,11 @@ public class VkPhysicalDeviceDriverPropertiesKHR extends VkPhysicalDeviceDriverP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

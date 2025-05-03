@@ -5,25 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link ClangIndex#clang_getInclusions getInclusions} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     CXFile included_file,
- *     CXSourceLocation *inclusion_stack,
- *     unsigned include_len,
- *     CXClientData client_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CXInclusionVisitor extends Callback implements CXInclusionVisitorI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class CXInclusionVisitor extends Callback implements CXInclusion
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CXInclusionVisitor createSafe(long functionPointer) {
+    public static @Nullable CXInclusionVisitor createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

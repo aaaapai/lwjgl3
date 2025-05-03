@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,25 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for NV internal use only.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV}</li>
- * <li>{@code pPrivateData} <b>must</b> be a pointer value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkOpticalFlowSessionCreatePrivateDataInfoNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #id};
- *     uint32_t {@link #size};
- *     void const * {@link #pPrivateData};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t id;
+ *     uint32_t size;
+ *     void const * pPrivateData;
+ * }}</pre>
  */
 public class VkOpticalFlowSessionCreatePrivateDataInfoNV extends Struct<VkOpticalFlowSessionCreatePrivateDataInfoNV> implements NativeResource {
 
@@ -94,33 +83,33 @@ public class VkOpticalFlowSessionCreatePrivateDataInfoNV extends Struct<VkOptica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** an identifier for data which is passed at a memory location specified in {@link VkOpticalFlowSessionCreatePrivateDataInfoNV}{@code ::pPrivateData}. */
+    /** @return the value of the {@code id} field. */
     @NativeType("uint32_t")
     public int id() { return nid(address()); }
-    /** the size of data in bytes which is passed at a memory location specified in {@link VkOpticalFlowSessionCreatePrivateDataInfoNV}{@code ::pPrivateData}. */
+    /** @return the value of the {@code size} field. */
     @NativeType("uint32_t")
     public int size() { return nsize(address()); }
-    /** a pointer to NV internal data. */
+    /** @return the value of the {@code pPrivateData} field. */
     @NativeType("void const *")
     public long pPrivateData() { return npPrivateData(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkOpticalFlowSessionCreatePrivateDataInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV} value to the {@code sType} field. */
     public VkOpticalFlowSessionCreatePrivateDataInfoNV sType$Default() { return sType(NVOpticalFlow.VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkOpticalFlowSessionCreatePrivateDataInfoNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #id} field. */
+    /** Sets the specified value to the {@code id} field. */
     public VkOpticalFlowSessionCreatePrivateDataInfoNV id(@NativeType("uint32_t") int value) { nid(address(), value); return this; }
-    /** Sets the specified value to the {@link #size} field. */
+    /** Sets the specified value to the {@code size} field. */
     public VkOpticalFlowSessionCreatePrivateDataInfoNV size(@NativeType("uint32_t") int value) { nsize(address(), value); return this; }
-    /** Sets the specified value to the {@link #pPrivateData} field. */
+    /** Sets the specified value to the {@code pPrivateData} field. */
     public VkOpticalFlowSessionCreatePrivateDataInfoNV pPrivateData(@NativeType("void const *") long value) { npPrivateData(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -176,8 +165,7 @@ public class VkOpticalFlowSessionCreatePrivateDataInfoNV extends Struct<VkOptica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpticalFlowSessionCreatePrivateDataInfoNV createSafe(long address) {
+    public static @Nullable VkOpticalFlowSessionCreatePrivateDataInfoNV createSafe(long address) {
         return address == NULL ? null : new VkOpticalFlowSessionCreatePrivateDataInfoNV(address, null);
     }
 
@@ -220,8 +208,7 @@ public class VkOpticalFlowSessionCreatePrivateDataInfoNV extends Struct<VkOptica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkOpticalFlowSessionCreatePrivateDataInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,24 +253,24 @@ public class VkOpticalFlowSessionCreatePrivateDataInfoNV extends Struct<VkOptica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.PNEXT); }
     /** Unsafe version of {@link #id}. */
-    public static int nid(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.ID); }
+    public static int nid(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.ID); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.SIZE); }
     /** Unsafe version of {@link #pPrivateData}. */
     public static long npPrivateData(long struct) { return memGetAddress(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.PPRIVATEDATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #id(int) id}. */
-    public static void nid(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.ID, value); }
+    public static void nid(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.ID, value); }
     /** Unsafe version of {@link #size(int) size}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.SIZE, value); }
     /** Unsafe version of {@link #pPrivateData(long) pPrivateData}. */
     public static void npPrivateData(long struct, long value) { memPutAddress(struct + VkOpticalFlowSessionCreatePrivateDataInfoNV.PPRIVATEDATA, check(value)); }
 
@@ -330,37 +317,42 @@ public class VkOpticalFlowSessionCreatePrivateDataInfoNV extends Struct<VkOptica
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkOpticalFlowSessionCreatePrivateDataInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkOpticalFlowSessionCreatePrivateDataInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkOpticalFlowSessionCreatePrivateDataInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#id} field. */
+        /** @return the value of the {@code id} field. */
         @NativeType("uint32_t")
         public int id() { return VkOpticalFlowSessionCreatePrivateDataInfoNV.nid(address()); }
-        /** @return the value of the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("uint32_t")
         public int size() { return VkOpticalFlowSessionCreatePrivateDataInfoNV.nsize(address()); }
-        /** @return the value of the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#pPrivateData} field. */
+        /** @return the value of the {@code pPrivateData} field. */
         @NativeType("void const *")
         public long pPrivateData() { return VkOpticalFlowSessionCreatePrivateDataInfoNV.npPrivateData(address()); }
 
-        /** Sets the specified value to the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkOpticalFlowSessionCreatePrivateDataInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV} value to the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#sType} field. */
+        /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV} value to the {@code sType} field. */
         public VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer sType$Default() { return sType(NVOpticalFlow.VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV); }
-        /** Sets the specified value to the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer pNext(@NativeType("void *") long value) { VkOpticalFlowSessionCreatePrivateDataInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#id} field. */
+        /** Sets the specified value to the {@code id} field. */
         public VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer id(@NativeType("uint32_t") int value) { VkOpticalFlowSessionCreatePrivateDataInfoNV.nid(address(), value); return this; }
-        /** Sets the specified value to the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#size} field. */
+        /** Sets the specified value to the {@code size} field. */
         public VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer size(@NativeType("uint32_t") int value) { VkOpticalFlowSessionCreatePrivateDataInfoNV.nsize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkOpticalFlowSessionCreatePrivateDataInfoNV#pPrivateData} field. */
+        /** Sets the specified value to the {@code pPrivateData} field. */
         public VkOpticalFlowSessionCreatePrivateDataInfoNV.Buffer pPrivateData(@NativeType("void const *") long value) { VkOpticalFlowSessionCreatePrivateDataInfoNV.npPrivateData(address(), value); return this; }
 
     }

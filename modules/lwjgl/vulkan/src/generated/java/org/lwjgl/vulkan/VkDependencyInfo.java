@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,43 +17,18 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying dependency information for a synchronization command.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure defines a set of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies-memory">memory dependencies</a>, as well as <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-queue-transfers">queue family transfer operations</a> and <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-image-layout-transitions">image layout transitions</a>.</p>
- * 
- * <p>Each member of {@code pMemoryBarriers}, {@code pBufferMemoryBarriers}, and {@code pImageMemoryBarriers} defines a separate <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies-memory">memory dependency</a>.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_DEPENDENCY_INFO STRUCTURE_TYPE_DEPENDENCY_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code dependencyFlags} <b>must</b> be a valid combination of {@code VkDependencyFlagBits} values</li>
- * <li>If {@code memoryBarrierCount} is not 0, {@code pMemoryBarriers} <b>must</b> be a valid pointer to an array of {@code memoryBarrierCount} valid {@link VkMemoryBarrier2} structures</li>
- * <li>If {@code bufferMemoryBarrierCount} is not 0, {@code pBufferMemoryBarriers} <b>must</b> be a valid pointer to an array of {@code bufferMemoryBarrierCount} valid {@link VkBufferMemoryBarrier2} structures</li>
- * <li>If {@code imageMemoryBarrierCount} is not 0, {@code pImageMemoryBarriers} <b>must</b> be a valid pointer to an array of {@code imageMemoryBarrierCount} valid {@link VkImageMemoryBarrier2} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkBufferMemoryBarrier2}, {@link VkImageMemoryBarrier2}, {@link VkMemoryBarrier2}, {@link VK13#vkCmdPipelineBarrier2 CmdPipelineBarrier2}, {@link KHRSynchronization2#vkCmdPipelineBarrier2KHR CmdPipelineBarrier2KHR}, {@link VK13#vkCmdSetEvent2 CmdSetEvent2}, {@link KHRSynchronization2#vkCmdSetEvent2KHR CmdSetEvent2KHR}, {@link VK13#vkCmdWaitEvents2 CmdWaitEvents2}, {@link KHRSynchronization2#vkCmdWaitEvents2KHR CmdWaitEvents2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDependencyInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDependencyFlags {@link #dependencyFlags};
- *     uint32_t {@link #memoryBarrierCount};
- *     {@link VkMemoryBarrier2 VkMemoryBarrier2} const * {@link #pMemoryBarriers};
- *     uint32_t {@link #bufferMemoryBarrierCount};
- *     {@link VkBufferMemoryBarrier2 VkBufferMemoryBarrier2} const * {@link #pBufferMemoryBarriers};
- *     uint32_t {@link #imageMemoryBarrierCount};
- *     {@link VkImageMemoryBarrier2 VkImageMemoryBarrier2} const * {@link #pImageMemoryBarriers};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDependencyFlags dependencyFlags;
+ *     uint32_t memoryBarrierCount;
+ *     {@link VkMemoryBarrier2 VkMemoryBarrier2} const * pMemoryBarriers;
+ *     uint32_t bufferMemoryBarrierCount;
+ *     {@link VkBufferMemoryBarrier2 VkBufferMemoryBarrier2} const * pBufferMemoryBarriers;
+ *     uint32_t imageMemoryBarrierCount;
+ *     {@link VkImageMemoryBarrier2 VkImageMemoryBarrier2} const * pImageMemoryBarriers;
+ * }}</pre>
  */
 public class VkDependencyInfo extends Struct<VkDependencyInfo> implements NativeResource {
 
@@ -124,60 +99,57 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkDependencyFlagBits} specifying how execution and memory dependencies are formed. */
+    /** @return the value of the {@code dependencyFlags} field. */
     @NativeType("VkDependencyFlags")
     public int dependencyFlags() { return ndependencyFlags(address()); }
-    /** the length of the {@code pMemoryBarriers} array. */
+    /** @return the value of the {@code memoryBarrierCount} field. */
     @NativeType("uint32_t")
     public int memoryBarrierCount() { return nmemoryBarrierCount(address()); }
-    /** a pointer to an array of {@link VkMemoryBarrier2} structures defining memory dependencies between any memory accesses. */
-    @Nullable
+    /** @return a {@link VkMemoryBarrier2.Buffer} view of the struct array pointed to by the {@code pMemoryBarriers} field. */
     @NativeType("VkMemoryBarrier2 const *")
-    public VkMemoryBarrier2.Buffer pMemoryBarriers() { return npMemoryBarriers(address()); }
-    /** the length of the {@code pBufferMemoryBarriers} array. */
+    public VkMemoryBarrier2.@Nullable Buffer pMemoryBarriers() { return npMemoryBarriers(address()); }
+    /** @return the value of the {@code bufferMemoryBarrierCount} field. */
     @NativeType("uint32_t")
     public int bufferMemoryBarrierCount() { return nbufferMemoryBarrierCount(address()); }
-    /** a pointer to an array of {@link VkBufferMemoryBarrier2} structures defining memory dependencies between buffer ranges. */
-    @Nullable
+    /** @return a {@link VkBufferMemoryBarrier2.Buffer} view of the struct array pointed to by the {@code pBufferMemoryBarriers} field. */
     @NativeType("VkBufferMemoryBarrier2 const *")
-    public VkBufferMemoryBarrier2.Buffer pBufferMemoryBarriers() { return npBufferMemoryBarriers(address()); }
-    /** the length of the {@code pImageMemoryBarriers} array. */
+    public VkBufferMemoryBarrier2.@Nullable Buffer pBufferMemoryBarriers() { return npBufferMemoryBarriers(address()); }
+    /** @return the value of the {@code imageMemoryBarrierCount} field. */
     @NativeType("uint32_t")
     public int imageMemoryBarrierCount() { return nimageMemoryBarrierCount(address()); }
-    /** a pointer to an array of {@link VkImageMemoryBarrier2} structures defining memory dependencies between image subresources. */
-    @Nullable
+    /** @return a {@link VkImageMemoryBarrier2.Buffer} view of the struct array pointed to by the {@code pImageMemoryBarriers} field. */
     @NativeType("VkImageMemoryBarrier2 const *")
-    public VkImageMemoryBarrier2.Buffer pImageMemoryBarriers() { return npImageMemoryBarriers(address()); }
+    public VkImageMemoryBarrier2.@Nullable Buffer pImageMemoryBarriers() { return npImageMemoryBarriers(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDependencyInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEPENDENCY_INFO STRUCTURE_TYPE_DEPENDENCY_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEPENDENCY_INFO STRUCTURE_TYPE_DEPENDENCY_INFO} value to the {@code sType} field. */
     public VkDependencyInfo sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_DEPENDENCY_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDependencyInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #dependencyFlags} field. */
+    /** Sets the specified value to the {@code dependencyFlags} field. */
     public VkDependencyInfo dependencyFlags(@NativeType("VkDependencyFlags") int value) { ndependencyFlags(address(), value); return this; }
-    /** Sets the address of the specified {@link VkMemoryBarrier2.Buffer} to the {@link #pMemoryBarriers} field. */
-    public VkDependencyInfo pMemoryBarriers(@Nullable @NativeType("VkMemoryBarrier2 const *") VkMemoryBarrier2.Buffer value) { npMemoryBarriers(address(), value); return this; }
-    /** Sets the address of the specified {@link VkBufferMemoryBarrier2.Buffer} to the {@link #pBufferMemoryBarriers} field. */
-    public VkDependencyInfo pBufferMemoryBarriers(@Nullable @NativeType("VkBufferMemoryBarrier2 const *") VkBufferMemoryBarrier2.Buffer value) { npBufferMemoryBarriers(address(), value); return this; }
-    /** Sets the address of the specified {@link VkImageMemoryBarrier2.Buffer} to the {@link #pImageMemoryBarriers} field. */
-    public VkDependencyInfo pImageMemoryBarriers(@Nullable @NativeType("VkImageMemoryBarrier2 const *") VkImageMemoryBarrier2.Buffer value) { npImageMemoryBarriers(address(), value); return this; }
+    /** Sets the address of the specified {@link VkMemoryBarrier2.Buffer} to the {@code pMemoryBarriers} field. */
+    public VkDependencyInfo pMemoryBarriers(@NativeType("VkMemoryBarrier2 const *") VkMemoryBarrier2.@Nullable Buffer value) { npMemoryBarriers(address(), value); return this; }
+    /** Sets the address of the specified {@link VkBufferMemoryBarrier2.Buffer} to the {@code pBufferMemoryBarriers} field. */
+    public VkDependencyInfo pBufferMemoryBarriers(@NativeType("VkBufferMemoryBarrier2 const *") VkBufferMemoryBarrier2.@Nullable Buffer value) { npBufferMemoryBarriers(address(), value); return this; }
+    /** Sets the address of the specified {@link VkImageMemoryBarrier2.Buffer} to the {@code pImageMemoryBarriers} field. */
+    public VkDependencyInfo pImageMemoryBarriers(@NativeType("VkImageMemoryBarrier2 const *") VkImageMemoryBarrier2.@Nullable Buffer value) { npImageMemoryBarriers(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkDependencyInfo set(
         int sType,
         long pNext,
         int dependencyFlags,
-        @Nullable VkMemoryBarrier2.Buffer pMemoryBarriers,
-        @Nullable VkBufferMemoryBarrier2.Buffer pBufferMemoryBarriers,
-        @Nullable VkImageMemoryBarrier2.Buffer pImageMemoryBarriers
+        VkMemoryBarrier2.@Nullable Buffer pMemoryBarriers,
+        VkBufferMemoryBarrier2.@Nullable Buffer pBufferMemoryBarriers,
+        VkImageMemoryBarrier2.@Nullable Buffer pImageMemoryBarriers
     ) {
         sType(sType);
         pNext(pNext);
@@ -225,8 +197,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDependencyInfo createSafe(long address) {
+    public static @Nullable VkDependencyInfo createSafe(long address) {
         return address == NULL ? null : new VkDependencyInfo(address, null);
     }
 
@@ -269,8 +240,7 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDependencyInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDependencyInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -315,42 +285,42 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDependencyInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDependencyInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDependencyInfo.PNEXT); }
     /** Unsafe version of {@link #dependencyFlags}. */
-    public static int ndependencyFlags(long struct) { return UNSAFE.getInt(null, struct + VkDependencyInfo.DEPENDENCYFLAGS); }
+    public static int ndependencyFlags(long struct) { return memGetInt(struct + VkDependencyInfo.DEPENDENCYFLAGS); }
     /** Unsafe version of {@link #memoryBarrierCount}. */
-    public static int nmemoryBarrierCount(long struct) { return UNSAFE.getInt(null, struct + VkDependencyInfo.MEMORYBARRIERCOUNT); }
+    public static int nmemoryBarrierCount(long struct) { return memGetInt(struct + VkDependencyInfo.MEMORYBARRIERCOUNT); }
     /** Unsafe version of {@link #pMemoryBarriers}. */
-    @Nullable public static VkMemoryBarrier2.Buffer npMemoryBarriers(long struct) { return VkMemoryBarrier2.createSafe(memGetAddress(struct + VkDependencyInfo.PMEMORYBARRIERS), nmemoryBarrierCount(struct)); }
+    public static VkMemoryBarrier2.@Nullable Buffer npMemoryBarriers(long struct) { return VkMemoryBarrier2.createSafe(memGetAddress(struct + VkDependencyInfo.PMEMORYBARRIERS), nmemoryBarrierCount(struct)); }
     /** Unsafe version of {@link #bufferMemoryBarrierCount}. */
-    public static int nbufferMemoryBarrierCount(long struct) { return UNSAFE.getInt(null, struct + VkDependencyInfo.BUFFERMEMORYBARRIERCOUNT); }
+    public static int nbufferMemoryBarrierCount(long struct) { return memGetInt(struct + VkDependencyInfo.BUFFERMEMORYBARRIERCOUNT); }
     /** Unsafe version of {@link #pBufferMemoryBarriers}. */
-    @Nullable public static VkBufferMemoryBarrier2.Buffer npBufferMemoryBarriers(long struct) { return VkBufferMemoryBarrier2.createSafe(memGetAddress(struct + VkDependencyInfo.PBUFFERMEMORYBARRIERS), nbufferMemoryBarrierCount(struct)); }
+    public static VkBufferMemoryBarrier2.@Nullable Buffer npBufferMemoryBarriers(long struct) { return VkBufferMemoryBarrier2.createSafe(memGetAddress(struct + VkDependencyInfo.PBUFFERMEMORYBARRIERS), nbufferMemoryBarrierCount(struct)); }
     /** Unsafe version of {@link #imageMemoryBarrierCount}. */
-    public static int nimageMemoryBarrierCount(long struct) { return UNSAFE.getInt(null, struct + VkDependencyInfo.IMAGEMEMORYBARRIERCOUNT); }
+    public static int nimageMemoryBarrierCount(long struct) { return memGetInt(struct + VkDependencyInfo.IMAGEMEMORYBARRIERCOUNT); }
     /** Unsafe version of {@link #pImageMemoryBarriers}. */
-    @Nullable public static VkImageMemoryBarrier2.Buffer npImageMemoryBarriers(long struct) { return VkImageMemoryBarrier2.createSafe(memGetAddress(struct + VkDependencyInfo.PIMAGEMEMORYBARRIERS), nimageMemoryBarrierCount(struct)); }
+    public static VkImageMemoryBarrier2.@Nullable Buffer npImageMemoryBarriers(long struct) { return VkImageMemoryBarrier2.createSafe(memGetAddress(struct + VkDependencyInfo.PIMAGEMEMORYBARRIERS), nimageMemoryBarrierCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDependencyInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDependencyInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDependencyInfo.PNEXT, value); }
     /** Unsafe version of {@link #dependencyFlags(int) dependencyFlags}. */
-    public static void ndependencyFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkDependencyInfo.DEPENDENCYFLAGS, value); }
+    public static void ndependencyFlags(long struct, int value) { memPutInt(struct + VkDependencyInfo.DEPENDENCYFLAGS, value); }
     /** Sets the specified value to the {@code memoryBarrierCount} field of the specified {@code struct}. */
-    public static void nmemoryBarrierCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDependencyInfo.MEMORYBARRIERCOUNT, value); }
+    public static void nmemoryBarrierCount(long struct, int value) { memPutInt(struct + VkDependencyInfo.MEMORYBARRIERCOUNT, value); }
     /** Unsafe version of {@link #pMemoryBarriers(VkMemoryBarrier2.Buffer) pMemoryBarriers}. */
-    public static void npMemoryBarriers(long struct, @Nullable VkMemoryBarrier2.Buffer value) { memPutAddress(struct + VkDependencyInfo.PMEMORYBARRIERS, memAddressSafe(value)); nmemoryBarrierCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npMemoryBarriers(long struct, VkMemoryBarrier2.@Nullable Buffer value) { memPutAddress(struct + VkDependencyInfo.PMEMORYBARRIERS, memAddressSafe(value)); nmemoryBarrierCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code bufferMemoryBarrierCount} field of the specified {@code struct}. */
-    public static void nbufferMemoryBarrierCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDependencyInfo.BUFFERMEMORYBARRIERCOUNT, value); }
+    public static void nbufferMemoryBarrierCount(long struct, int value) { memPutInt(struct + VkDependencyInfo.BUFFERMEMORYBARRIERCOUNT, value); }
     /** Unsafe version of {@link #pBufferMemoryBarriers(VkBufferMemoryBarrier2.Buffer) pBufferMemoryBarriers}. */
-    public static void npBufferMemoryBarriers(long struct, @Nullable VkBufferMemoryBarrier2.Buffer value) { memPutAddress(struct + VkDependencyInfo.PBUFFERMEMORYBARRIERS, memAddressSafe(value)); nbufferMemoryBarrierCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npBufferMemoryBarriers(long struct, VkBufferMemoryBarrier2.@Nullable Buffer value) { memPutAddress(struct + VkDependencyInfo.PBUFFERMEMORYBARRIERS, memAddressSafe(value)); nbufferMemoryBarrierCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code imageMemoryBarrierCount} field of the specified {@code struct}. */
-    public static void nimageMemoryBarrierCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDependencyInfo.IMAGEMEMORYBARRIERCOUNT, value); }
+    public static void nimageMemoryBarrierCount(long struct, int value) { memPutInt(struct + VkDependencyInfo.IMAGEMEMORYBARRIERCOUNT, value); }
     /** Unsafe version of {@link #pImageMemoryBarriers(VkImageMemoryBarrier2.Buffer) pImageMemoryBarriers}. */
-    public static void npImageMemoryBarriers(long struct, @Nullable VkImageMemoryBarrier2.Buffer value) { memPutAddress(struct + VkDependencyInfo.PIMAGEMEMORYBARRIERS, memAddressSafe(value)); nimageMemoryBarrierCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npImageMemoryBarriers(long struct, VkImageMemoryBarrier2.@Nullable Buffer value) { memPutAddress(struct + VkDependencyInfo.PIMAGEMEMORYBARRIERS, memAddressSafe(value)); nimageMemoryBarrierCount(struct, value == null ? 0 : value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -403,55 +373,57 @@ public class VkDependencyInfo extends Struct<VkDependencyInfo> implements Native
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDependencyInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDependencyInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDependencyInfo.nsType(address()); }
-        /** @return the value of the {@link VkDependencyInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDependencyInfo.npNext(address()); }
-        /** @return the value of the {@link VkDependencyInfo#dependencyFlags} field. */
+        /** @return the value of the {@code dependencyFlags} field. */
         @NativeType("VkDependencyFlags")
         public int dependencyFlags() { return VkDependencyInfo.ndependencyFlags(address()); }
-        /** @return the value of the {@link VkDependencyInfo#memoryBarrierCount} field. */
+        /** @return the value of the {@code memoryBarrierCount} field. */
         @NativeType("uint32_t")
         public int memoryBarrierCount() { return VkDependencyInfo.nmemoryBarrierCount(address()); }
-        /** @return a {@link VkMemoryBarrier2.Buffer} view of the struct array pointed to by the {@link VkDependencyInfo#pMemoryBarriers} field. */
-        @Nullable
+        /** @return a {@link VkMemoryBarrier2.Buffer} view of the struct array pointed to by the {@code pMemoryBarriers} field. */
         @NativeType("VkMemoryBarrier2 const *")
-        public VkMemoryBarrier2.Buffer pMemoryBarriers() { return VkDependencyInfo.npMemoryBarriers(address()); }
-        /** @return the value of the {@link VkDependencyInfo#bufferMemoryBarrierCount} field. */
+        public VkMemoryBarrier2.@Nullable Buffer pMemoryBarriers() { return VkDependencyInfo.npMemoryBarriers(address()); }
+        /** @return the value of the {@code bufferMemoryBarrierCount} field. */
         @NativeType("uint32_t")
         public int bufferMemoryBarrierCount() { return VkDependencyInfo.nbufferMemoryBarrierCount(address()); }
-        /** @return a {@link VkBufferMemoryBarrier2.Buffer} view of the struct array pointed to by the {@link VkDependencyInfo#pBufferMemoryBarriers} field. */
-        @Nullable
+        /** @return a {@link VkBufferMemoryBarrier2.Buffer} view of the struct array pointed to by the {@code pBufferMemoryBarriers} field. */
         @NativeType("VkBufferMemoryBarrier2 const *")
-        public VkBufferMemoryBarrier2.Buffer pBufferMemoryBarriers() { return VkDependencyInfo.npBufferMemoryBarriers(address()); }
-        /** @return the value of the {@link VkDependencyInfo#imageMemoryBarrierCount} field. */
+        public VkBufferMemoryBarrier2.@Nullable Buffer pBufferMemoryBarriers() { return VkDependencyInfo.npBufferMemoryBarriers(address()); }
+        /** @return the value of the {@code imageMemoryBarrierCount} field. */
         @NativeType("uint32_t")
         public int imageMemoryBarrierCount() { return VkDependencyInfo.nimageMemoryBarrierCount(address()); }
-        /** @return a {@link VkImageMemoryBarrier2.Buffer} view of the struct array pointed to by the {@link VkDependencyInfo#pImageMemoryBarriers} field. */
-        @Nullable
+        /** @return a {@link VkImageMemoryBarrier2.Buffer} view of the struct array pointed to by the {@code pImageMemoryBarriers} field. */
         @NativeType("VkImageMemoryBarrier2 const *")
-        public VkImageMemoryBarrier2.Buffer pImageMemoryBarriers() { return VkDependencyInfo.npImageMemoryBarriers(address()); }
+        public VkImageMemoryBarrier2.@Nullable Buffer pImageMemoryBarriers() { return VkDependencyInfo.npImageMemoryBarriers(address()); }
 
-        /** Sets the specified value to the {@link VkDependencyInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDependencyInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkDependencyInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEPENDENCY_INFO STRUCTURE_TYPE_DEPENDENCY_INFO} value to the {@link VkDependencyInfo#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_DEPENDENCY_INFO STRUCTURE_TYPE_DEPENDENCY_INFO} value to the {@code sType} field. */
         public VkDependencyInfo.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_DEPENDENCY_INFO); }
-        /** Sets the specified value to the {@link VkDependencyInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDependencyInfo.Buffer pNext(@NativeType("void const *") long value) { VkDependencyInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDependencyInfo#dependencyFlags} field. */
+        /** Sets the specified value to the {@code dependencyFlags} field. */
         public VkDependencyInfo.Buffer dependencyFlags(@NativeType("VkDependencyFlags") int value) { VkDependencyInfo.ndependencyFlags(address(), value); return this; }
-        /** Sets the address of the specified {@link VkMemoryBarrier2.Buffer} to the {@link VkDependencyInfo#pMemoryBarriers} field. */
-        public VkDependencyInfo.Buffer pMemoryBarriers(@Nullable @NativeType("VkMemoryBarrier2 const *") VkMemoryBarrier2.Buffer value) { VkDependencyInfo.npMemoryBarriers(address(), value); return this; }
-        /** Sets the address of the specified {@link VkBufferMemoryBarrier2.Buffer} to the {@link VkDependencyInfo#pBufferMemoryBarriers} field. */
-        public VkDependencyInfo.Buffer pBufferMemoryBarriers(@Nullable @NativeType("VkBufferMemoryBarrier2 const *") VkBufferMemoryBarrier2.Buffer value) { VkDependencyInfo.npBufferMemoryBarriers(address(), value); return this; }
-        /** Sets the address of the specified {@link VkImageMemoryBarrier2.Buffer} to the {@link VkDependencyInfo#pImageMemoryBarriers} field. */
-        public VkDependencyInfo.Buffer pImageMemoryBarriers(@Nullable @NativeType("VkImageMemoryBarrier2 const *") VkImageMemoryBarrier2.Buffer value) { VkDependencyInfo.npImageMemoryBarriers(address(), value); return this; }
+        /** Sets the address of the specified {@link VkMemoryBarrier2.Buffer} to the {@code pMemoryBarriers} field. */
+        public VkDependencyInfo.Buffer pMemoryBarriers(@NativeType("VkMemoryBarrier2 const *") VkMemoryBarrier2.@Nullable Buffer value) { VkDependencyInfo.npMemoryBarriers(address(), value); return this; }
+        /** Sets the address of the specified {@link VkBufferMemoryBarrier2.Buffer} to the {@code pBufferMemoryBarriers} field. */
+        public VkDependencyInfo.Buffer pBufferMemoryBarriers(@NativeType("VkBufferMemoryBarrier2 const *") VkBufferMemoryBarrier2.@Nullable Buffer value) { VkDependencyInfo.npBufferMemoryBarriers(address(), value); return this; }
+        /** Sets the address of the specified {@link VkImageMemoryBarrier2.Buffer} to the {@code pImageMemoryBarriers} field. */
+        public VkDependencyInfo.Buffer pImageMemoryBarriers(@NativeType("VkImageMemoryBarrier2 const *") VkImageMemoryBarrier2.@Nullable Buffer value) { VkDependencyInfo.npImageMemoryBarriers(address(), value); return this; }
 
     }
 

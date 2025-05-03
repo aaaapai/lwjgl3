@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,26 +19,24 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH265.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoEncodeH265SliceSegmentHeader {
  *     {@link StdVideoEncodeH265SliceSegmentHeaderFlags StdVideoEncodeH265SliceSegmentHeaderFlags} flags;
  *     StdVideoH265SliceType slice_type;
  *     uint32_t slice_segment_address;
  *     uint8_t collocated_ref_idx;
  *     uint8_t MaxNumMergeCand;
- *     int8_t {@link #slice_cb_qp_offset};
- *     int8_t {@link #slice_cr_qp_offset};
- *     int8_t {@link #slice_beta_offset_div2};
- *     int8_t {@link #slice_tc_offset_div2};
+ *     int8_t slice_cb_qp_offset;
+ *     int8_t slice_cr_qp_offset;
+ *     int8_t slice_beta_offset_div2;
+ *     int8_t slice_tc_offset_div2;
  *     int8_t slice_act_y_qp_offset;
  *     int8_t slice_act_cb_qp_offset;
  *     int8_t slice_act_cr_qp_offset;
  *     int8_t slice_qp_delta;
  *     uint16_t reserved1;
  *     {@link StdVideoEncodeH265WeightTable StdVideoEncodeH265WeightTable} const * pWeightTable;
- * }</code></pre>
+ * }}</pre>
  */
 public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH265SliceSegmentHeader> implements NativeResource {
 
@@ -141,16 +139,16 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
     /** @return the value of the {@code MaxNumMergeCand} field. */
     @NativeType("uint8_t")
     public byte MaxNumMergeCand() { return nMaxNumMergeCand(address()); }
-    /** [-12, 12] */
+    /** @return the value of the {@code slice_cb_qp_offset} field. */
     @NativeType("int8_t")
     public byte slice_cb_qp_offset() { return nslice_cb_qp_offset(address()); }
-    /** [-12, 12] */
+    /** @return the value of the {@code slice_cr_qp_offset} field. */
     @NativeType("int8_t")
     public byte slice_cr_qp_offset() { return nslice_cr_qp_offset(address()); }
-    /** [-6, 6] */
+    /** @return the value of the {@code slice_beta_offset_div2} field. */
     @NativeType("int8_t")
     public byte slice_beta_offset_div2() { return nslice_beta_offset_div2(address()); }
-    /** [-6, 6] */
+    /** @return the value of the {@code slice_tc_offset_div2} field. */
     @NativeType("int8_t")
     public byte slice_tc_offset_div2() { return nslice_tc_offset_div2(address()); }
     /** @return the value of the {@code slice_act_y_qp_offset} field. */
@@ -181,13 +179,13 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
     public StdVideoEncodeH265SliceSegmentHeader collocated_ref_idx(@NativeType("uint8_t") byte value) { ncollocated_ref_idx(address(), value); return this; }
     /** Sets the specified value to the {@code MaxNumMergeCand} field. */
     public StdVideoEncodeH265SliceSegmentHeader MaxNumMergeCand(@NativeType("uint8_t") byte value) { nMaxNumMergeCand(address(), value); return this; }
-    /** Sets the specified value to the {@link #slice_cb_qp_offset} field. */
+    /** Sets the specified value to the {@code slice_cb_qp_offset} field. */
     public StdVideoEncodeH265SliceSegmentHeader slice_cb_qp_offset(@NativeType("int8_t") byte value) { nslice_cb_qp_offset(address(), value); return this; }
-    /** Sets the specified value to the {@link #slice_cr_qp_offset} field. */
+    /** Sets the specified value to the {@code slice_cr_qp_offset} field. */
     public StdVideoEncodeH265SliceSegmentHeader slice_cr_qp_offset(@NativeType("int8_t") byte value) { nslice_cr_qp_offset(address(), value); return this; }
-    /** Sets the specified value to the {@link #slice_beta_offset_div2} field. */
+    /** Sets the specified value to the {@code slice_beta_offset_div2} field. */
     public StdVideoEncodeH265SliceSegmentHeader slice_beta_offset_div2(@NativeType("int8_t") byte value) { nslice_beta_offset_div2(address(), value); return this; }
-    /** Sets the specified value to the {@link #slice_tc_offset_div2} field. */
+    /** Sets the specified value to the {@code slice_tc_offset_div2} field. */
     public StdVideoEncodeH265SliceSegmentHeader slice_tc_offset_div2(@NativeType("int8_t") byte value) { nslice_tc_offset_div2(address(), value); return this; }
     /** Sets the specified value to the {@code slice_act_y_qp_offset} field. */
     public StdVideoEncodeH265SliceSegmentHeader slice_act_y_qp_offset(@NativeType("int8_t") byte value) { nslice_act_y_qp_offset(address(), value); return this; }
@@ -271,8 +269,7 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265SliceSegmentHeader createSafe(long address) {
+    public static @Nullable StdVideoEncodeH265SliceSegmentHeader createSafe(long address) {
         return address == NULL ? null : new StdVideoEncodeH265SliceSegmentHeader(address, null);
     }
 
@@ -315,8 +312,7 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoEncodeH265SliceSegmentHeader.Buffer createSafe(long address, int capacity) {
+    public static StdVideoEncodeH265SliceSegmentHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -363,60 +359,60 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
     /** Unsafe version of {@link #flags}. */
     public static StdVideoEncodeH265SliceSegmentHeaderFlags nflags(long struct) { return StdVideoEncodeH265SliceSegmentHeaderFlags.create(struct + StdVideoEncodeH265SliceSegmentHeader.FLAGS); }
     /** Unsafe version of {@link #slice_type}. */
-    public static int nslice_type(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TYPE); }
+    public static int nslice_type(long struct) { return memGetInt(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TYPE); }
     /** Unsafe version of {@link #slice_segment_address}. */
-    public static int nslice_segment_address(long struct) { return UNSAFE.getInt(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_SEGMENT_ADDRESS); }
+    public static int nslice_segment_address(long struct) { return memGetInt(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_SEGMENT_ADDRESS); }
     /** Unsafe version of {@link #collocated_ref_idx}. */
-    public static byte ncollocated_ref_idx(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.COLLOCATED_REF_IDX); }
+    public static byte ncollocated_ref_idx(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.COLLOCATED_REF_IDX); }
     /** Unsafe version of {@link #MaxNumMergeCand}. */
-    public static byte nMaxNumMergeCand(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.MAXNUMMERGECAND); }
+    public static byte nMaxNumMergeCand(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.MAXNUMMERGECAND); }
     /** Unsafe version of {@link #slice_cb_qp_offset}. */
-    public static byte nslice_cb_qp_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CB_QP_OFFSET); }
+    public static byte nslice_cb_qp_offset(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CB_QP_OFFSET); }
     /** Unsafe version of {@link #slice_cr_qp_offset}. */
-    public static byte nslice_cr_qp_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CR_QP_OFFSET); }
+    public static byte nslice_cr_qp_offset(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CR_QP_OFFSET); }
     /** Unsafe version of {@link #slice_beta_offset_div2}. */
-    public static byte nslice_beta_offset_div2(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_BETA_OFFSET_DIV2); }
+    public static byte nslice_beta_offset_div2(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_BETA_OFFSET_DIV2); }
     /** Unsafe version of {@link #slice_tc_offset_div2}. */
-    public static byte nslice_tc_offset_div2(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TC_OFFSET_DIV2); }
+    public static byte nslice_tc_offset_div2(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TC_OFFSET_DIV2); }
     /** Unsafe version of {@link #slice_act_y_qp_offset}. */
-    public static byte nslice_act_y_qp_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_Y_QP_OFFSET); }
+    public static byte nslice_act_y_qp_offset(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_Y_QP_OFFSET); }
     /** Unsafe version of {@link #slice_act_cb_qp_offset}. */
-    public static byte nslice_act_cb_qp_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CB_QP_OFFSET); }
+    public static byte nslice_act_cb_qp_offset(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CB_QP_OFFSET); }
     /** Unsafe version of {@link #slice_act_cr_qp_offset}. */
-    public static byte nslice_act_cr_qp_offset(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CR_QP_OFFSET); }
+    public static byte nslice_act_cr_qp_offset(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CR_QP_OFFSET); }
     /** Unsafe version of {@link #slice_qp_delta}. */
-    public static byte nslice_qp_delta(long struct) { return UNSAFE.getByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_QP_DELTA); }
-    public static short nreserved1(long struct) { return UNSAFE.getShort(null, struct + StdVideoEncodeH265SliceSegmentHeader.RESERVED1); }
+    public static byte nslice_qp_delta(long struct) { return memGetByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_QP_DELTA); }
+    public static short nreserved1(long struct) { return memGetShort(struct + StdVideoEncodeH265SliceSegmentHeader.RESERVED1); }
     /** Unsafe version of {@link #pWeightTable}. */
     public static StdVideoEncodeH265WeightTable npWeightTable(long struct) { return StdVideoEncodeH265WeightTable.create(memGetAddress(struct + StdVideoEncodeH265SliceSegmentHeader.PWEIGHTTABLE)); }
 
     /** Unsafe version of {@link #flags(StdVideoEncodeH265SliceSegmentHeaderFlags) flags}. */
     public static void nflags(long struct, StdVideoEncodeH265SliceSegmentHeaderFlags value) { memCopy(value.address(), struct + StdVideoEncodeH265SliceSegmentHeader.FLAGS, StdVideoEncodeH265SliceSegmentHeaderFlags.SIZEOF); }
     /** Unsafe version of {@link #slice_type(int) slice_type}. */
-    public static void nslice_type(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TYPE, value); }
+    public static void nslice_type(long struct, int value) { memPutInt(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TYPE, value); }
     /** Unsafe version of {@link #slice_segment_address(int) slice_segment_address}. */
-    public static void nslice_segment_address(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_SEGMENT_ADDRESS, value); }
+    public static void nslice_segment_address(long struct, int value) { memPutInt(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_SEGMENT_ADDRESS, value); }
     /** Unsafe version of {@link #collocated_ref_idx(byte) collocated_ref_idx}. */
-    public static void ncollocated_ref_idx(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.COLLOCATED_REF_IDX, value); }
+    public static void ncollocated_ref_idx(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.COLLOCATED_REF_IDX, value); }
     /** Unsafe version of {@link #MaxNumMergeCand(byte) MaxNumMergeCand}. */
-    public static void nMaxNumMergeCand(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.MAXNUMMERGECAND, value); }
+    public static void nMaxNumMergeCand(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.MAXNUMMERGECAND, value); }
     /** Unsafe version of {@link #slice_cb_qp_offset(byte) slice_cb_qp_offset}. */
-    public static void nslice_cb_qp_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CB_QP_OFFSET, value); }
+    public static void nslice_cb_qp_offset(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CB_QP_OFFSET, value); }
     /** Unsafe version of {@link #slice_cr_qp_offset(byte) slice_cr_qp_offset}. */
-    public static void nslice_cr_qp_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CR_QP_OFFSET, value); }
+    public static void nslice_cr_qp_offset(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_CR_QP_OFFSET, value); }
     /** Unsafe version of {@link #slice_beta_offset_div2(byte) slice_beta_offset_div2}. */
-    public static void nslice_beta_offset_div2(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_BETA_OFFSET_DIV2, value); }
+    public static void nslice_beta_offset_div2(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_BETA_OFFSET_DIV2, value); }
     /** Unsafe version of {@link #slice_tc_offset_div2(byte) slice_tc_offset_div2}. */
-    public static void nslice_tc_offset_div2(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TC_OFFSET_DIV2, value); }
+    public static void nslice_tc_offset_div2(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_TC_OFFSET_DIV2, value); }
     /** Unsafe version of {@link #slice_act_y_qp_offset(byte) slice_act_y_qp_offset}. */
-    public static void nslice_act_y_qp_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_Y_QP_OFFSET, value); }
+    public static void nslice_act_y_qp_offset(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_Y_QP_OFFSET, value); }
     /** Unsafe version of {@link #slice_act_cb_qp_offset(byte) slice_act_cb_qp_offset}. */
-    public static void nslice_act_cb_qp_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CB_QP_OFFSET, value); }
+    public static void nslice_act_cb_qp_offset(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CB_QP_OFFSET, value); }
     /** Unsafe version of {@link #slice_act_cr_qp_offset(byte) slice_act_cr_qp_offset}. */
-    public static void nslice_act_cr_qp_offset(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CR_QP_OFFSET, value); }
+    public static void nslice_act_cr_qp_offset(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_ACT_CR_QP_OFFSET, value); }
     /** Unsafe version of {@link #slice_qp_delta(byte) slice_qp_delta}. */
-    public static void nslice_qp_delta(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_QP_DELTA, value); }
-    public static void nreserved1(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoEncodeH265SliceSegmentHeader.RESERVED1, value); }
+    public static void nslice_qp_delta(long struct, byte value) { memPutByte(struct + StdVideoEncodeH265SliceSegmentHeader.SLICE_QP_DELTA, value); }
+    public static void nreserved1(long struct, short value) { memPutShort(struct + StdVideoEncodeH265SliceSegmentHeader.RESERVED1, value); }
     /** Unsafe version of {@link #pWeightTable(StdVideoEncodeH265WeightTable) pWeightTable}. */
     public static void npWeightTable(long struct, StdVideoEncodeH265WeightTable value) { memPutAddress(struct + StdVideoEncodeH265SliceSegmentHeader.PWEIGHTTABLE, value.address()); }
 
@@ -463,6 +459,11 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected StdVideoEncodeH265SliceSegmentHeader getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -481,16 +482,16 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
         /** @return the value of the {@code MaxNumMergeCand} field. */
         @NativeType("uint8_t")
         public byte MaxNumMergeCand() { return StdVideoEncodeH265SliceSegmentHeader.nMaxNumMergeCand(address()); }
-        /** @return the value of the {@link StdVideoEncodeH265SliceSegmentHeader#slice_cb_qp_offset} field. */
+        /** @return the value of the {@code slice_cb_qp_offset} field. */
         @NativeType("int8_t")
         public byte slice_cb_qp_offset() { return StdVideoEncodeH265SliceSegmentHeader.nslice_cb_qp_offset(address()); }
-        /** @return the value of the {@link StdVideoEncodeH265SliceSegmentHeader#slice_cr_qp_offset} field. */
+        /** @return the value of the {@code slice_cr_qp_offset} field. */
         @NativeType("int8_t")
         public byte slice_cr_qp_offset() { return StdVideoEncodeH265SliceSegmentHeader.nslice_cr_qp_offset(address()); }
-        /** @return the value of the {@link StdVideoEncodeH265SliceSegmentHeader#slice_beta_offset_div2} field. */
+        /** @return the value of the {@code slice_beta_offset_div2} field. */
         @NativeType("int8_t")
         public byte slice_beta_offset_div2() { return StdVideoEncodeH265SliceSegmentHeader.nslice_beta_offset_div2(address()); }
-        /** @return the value of the {@link StdVideoEncodeH265SliceSegmentHeader#slice_tc_offset_div2} field. */
+        /** @return the value of the {@code slice_tc_offset_div2} field. */
         @NativeType("int8_t")
         public byte slice_tc_offset_div2() { return StdVideoEncodeH265SliceSegmentHeader.nslice_tc_offset_div2(address()); }
         /** @return the value of the {@code slice_act_y_qp_offset} field. */
@@ -521,13 +522,13 @@ public class StdVideoEncodeH265SliceSegmentHeader extends Struct<StdVideoEncodeH
         public StdVideoEncodeH265SliceSegmentHeader.Buffer collocated_ref_idx(@NativeType("uint8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.ncollocated_ref_idx(address(), value); return this; }
         /** Sets the specified value to the {@code MaxNumMergeCand} field. */
         public StdVideoEncodeH265SliceSegmentHeader.Buffer MaxNumMergeCand(@NativeType("uint8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.nMaxNumMergeCand(address(), value); return this; }
-        /** Sets the specified value to the {@link StdVideoEncodeH265SliceSegmentHeader#slice_cb_qp_offset} field. */
+        /** Sets the specified value to the {@code slice_cb_qp_offset} field. */
         public StdVideoEncodeH265SliceSegmentHeader.Buffer slice_cb_qp_offset(@NativeType("int8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.nslice_cb_qp_offset(address(), value); return this; }
-        /** Sets the specified value to the {@link StdVideoEncodeH265SliceSegmentHeader#slice_cr_qp_offset} field. */
+        /** Sets the specified value to the {@code slice_cr_qp_offset} field. */
         public StdVideoEncodeH265SliceSegmentHeader.Buffer slice_cr_qp_offset(@NativeType("int8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.nslice_cr_qp_offset(address(), value); return this; }
-        /** Sets the specified value to the {@link StdVideoEncodeH265SliceSegmentHeader#slice_beta_offset_div2} field. */
+        /** Sets the specified value to the {@code slice_beta_offset_div2} field. */
         public StdVideoEncodeH265SliceSegmentHeader.Buffer slice_beta_offset_div2(@NativeType("int8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.nslice_beta_offset_div2(address(), value); return this; }
-        /** Sets the specified value to the {@link StdVideoEncodeH265SliceSegmentHeader#slice_tc_offset_div2} field. */
+        /** Sets the specified value to the {@code slice_tc_offset_div2} field. */
         public StdVideoEncodeH265SliceSegmentHeader.Buffer slice_tc_offset_div2(@NativeType("int8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.nslice_tc_offset_div2(address(), value); return this; }
         /** Sets the specified value to the {@code slice_act_y_qp_offset} field. */
         public StdVideoEncodeH265SliceSegmentHeader.Buffer slice_act_y_qp_offset(@NativeType("int8_t") byte value) { StdVideoEncodeH265SliceSegmentHeader.nslice_act_y_qp_offset(address(), value); return this; }

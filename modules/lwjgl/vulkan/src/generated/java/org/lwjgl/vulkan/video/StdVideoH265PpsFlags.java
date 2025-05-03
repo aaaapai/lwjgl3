@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoH265PpsFlags {
  *     uint32_t dependent_slice_segments_enabled_flag : 1;
  *     uint32_t output_flag_present_flag : 1;
@@ -43,15 +41,15 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t lists_modification_present_flag : 1;
  *     uint32_t slice_segment_header_extension_present_flag : 1;
  *     uint32_t pps_extension_present_flag : 1;
- *     uint32_t {@link #cross_component_prediction_enabled_flag} : 1;
+ *     uint32_t cross_component_prediction_enabled_flag : 1;
  *     uint32_t chroma_qp_offset_list_enabled_flag : 1;
- *     uint32_t {@link #pps_curr_pic_ref_enabled_flag} : 1;
+ *     uint32_t pps_curr_pic_ref_enabled_flag : 1;
  *     uint32_t residual_adaptive_colour_transform_enabled_flag : 1;
  *     uint32_t pps_slice_act_qp_offsets_present_flag : 1;
  *     uint32_t pps_palette_predictor_initializers_present_flag : 1;
  *     uint32_t monochrome_palette_flag : 1;
  *     uint32_t pps_range_extension_flag : 1;
- * }</code></pre>
+ * }}</pre>
  */
 public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implements NativeResource {
 
@@ -167,13 +165,13 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
     /** @return the value of the {@code pps_extension_present_flag} field. */
     @NativeType("uint32_t")
     public boolean pps_extension_present_flag() { return npps_extension_present_flag(address()) != 0; }
-    /** extension PPS flags, valid when {@link STDVulkanVideoCodecH265#STD_VIDEO_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSIONS VIDEO_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSIONS} is set */
+    /** @return the value of the {@code cross_component_prediction_enabled_flag} field. */
     @NativeType("uint32_t")
     public boolean cross_component_prediction_enabled_flag() { return ncross_component_prediction_enabled_flag(address()) != 0; }
     /** @return the value of the {@code chroma_qp_offset_list_enabled_flag} field. */
     @NativeType("uint32_t")
     public boolean chroma_qp_offset_list_enabled_flag() { return nchroma_qp_offset_list_enabled_flag(address()) != 0; }
-    /** extension PPS flags, valid when {@link STDVulkanVideoCodecH265#STD_VIDEO_H265_PROFILE_IDC_SCC_EXTENSIONS VIDEO_H265_PROFILE_IDC_SCC_EXTENSIONS} is set */
+    /** @return the value of the {@code pps_curr_pic_ref_enabled_flag} field. */
     @NativeType("uint32_t")
     public boolean pps_curr_pic_ref_enabled_flag() { return npps_curr_pic_ref_enabled_flag(address()) != 0; }
     /** @return the value of the {@code residual_adaptive_colour_transform_enabled_flag} field. */
@@ -238,11 +236,11 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
     public StdVideoH265PpsFlags slice_segment_header_extension_present_flag(@NativeType("uint32_t") boolean value) { nslice_segment_header_extension_present_flag(address(), value ? 1 : 0); return this; }
     /** Sets the specified value to the {@code pps_extension_present_flag} field. */
     public StdVideoH265PpsFlags pps_extension_present_flag(@NativeType("uint32_t") boolean value) { npps_extension_present_flag(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #cross_component_prediction_enabled_flag} field. */
+    /** Sets the specified value to the {@code cross_component_prediction_enabled_flag} field. */
     public StdVideoH265PpsFlags cross_component_prediction_enabled_flag(@NativeType("uint32_t") boolean value) { ncross_component_prediction_enabled_flag(address(), value ? 1 : 0); return this; }
     /** Sets the specified value to the {@code chroma_qp_offset_list_enabled_flag} field. */
     public StdVideoH265PpsFlags chroma_qp_offset_list_enabled_flag(@NativeType("uint32_t") boolean value) { nchroma_qp_offset_list_enabled_flag(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #pps_curr_pic_ref_enabled_flag} field. */
+    /** Sets the specified value to the {@code pps_curr_pic_ref_enabled_flag} field. */
     public StdVideoH265PpsFlags pps_curr_pic_ref_enabled_flag(@NativeType("uint32_t") boolean value) { npps_curr_pic_ref_enabled_flag(address(), value ? 1 : 0); return this; }
     /** Sets the specified value to the {@code residual_adaptive_colour_transform_enabled_flag} field. */
     public StdVideoH265PpsFlags residual_adaptive_colour_transform_enabled_flag(@NativeType("uint32_t") boolean value) { nresidual_adaptive_colour_transform_enabled_flag(address(), value ? 1 : 0); return this; }
@@ -360,8 +358,7 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265PpsFlags createSafe(long address) {
+    public static @Nullable StdVideoH265PpsFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoH265PpsFlags(address, null);
     }
 
@@ -404,8 +401,7 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265PpsFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265PpsFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -449,7 +445,7 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265PpsFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoH265PpsFlags.BITFIELD0); }
     /** Unsafe version of {@link #dependent_slice_segments_enabled_flag}. */
     public static int ndependent_slice_segments_enabled_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #output_flag_present_flag}. */
@@ -513,7 +509,7 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
     /** Unsafe version of {@link #pps_range_extension_flag}. */
     public static int npps_range_extension_flag(long struct) { return (nbitfield0(struct) & 0x40_00_00_00) >>> 30; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265PpsFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoH265PpsFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #dependent_slice_segments_enabled_flag(boolean) dependent_slice_segments_enabled_flag}. */
     public static void ndependent_slice_segments_enabled_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #output_flag_present_flag(boolean) output_flag_present_flag}. */
@@ -611,6 +607,11 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected StdVideoH265PpsFlags getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -684,13 +685,13 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
         /** @return the value of the {@code pps_extension_present_flag} field. */
         @NativeType("uint32_t")
         public boolean pps_extension_present_flag() { return StdVideoH265PpsFlags.npps_extension_present_flag(address()) != 0; }
-        /** @return the value of the {@link StdVideoH265PpsFlags#cross_component_prediction_enabled_flag} field. */
+        /** @return the value of the {@code cross_component_prediction_enabled_flag} field. */
         @NativeType("uint32_t")
         public boolean cross_component_prediction_enabled_flag() { return StdVideoH265PpsFlags.ncross_component_prediction_enabled_flag(address()) != 0; }
         /** @return the value of the {@code chroma_qp_offset_list_enabled_flag} field. */
         @NativeType("uint32_t")
         public boolean chroma_qp_offset_list_enabled_flag() { return StdVideoH265PpsFlags.nchroma_qp_offset_list_enabled_flag(address()) != 0; }
-        /** @return the value of the {@link StdVideoH265PpsFlags#pps_curr_pic_ref_enabled_flag} field. */
+        /** @return the value of the {@code pps_curr_pic_ref_enabled_flag} field. */
         @NativeType("uint32_t")
         public boolean pps_curr_pic_ref_enabled_flag() { return StdVideoH265PpsFlags.npps_curr_pic_ref_enabled_flag(address()) != 0; }
         /** @return the value of the {@code residual_adaptive_colour_transform_enabled_flag} field. */
@@ -755,11 +756,11 @@ public class StdVideoH265PpsFlags extends Struct<StdVideoH265PpsFlags> implement
         public StdVideoH265PpsFlags.Buffer slice_segment_header_extension_present_flag(@NativeType("uint32_t") boolean value) { StdVideoH265PpsFlags.nslice_segment_header_extension_present_flag(address(), value ? 1 : 0); return this; }
         /** Sets the specified value to the {@code pps_extension_present_flag} field. */
         public StdVideoH265PpsFlags.Buffer pps_extension_present_flag(@NativeType("uint32_t") boolean value) { StdVideoH265PpsFlags.npps_extension_present_flag(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link StdVideoH265PpsFlags#cross_component_prediction_enabled_flag} field. */
+        /** Sets the specified value to the {@code cross_component_prediction_enabled_flag} field. */
         public StdVideoH265PpsFlags.Buffer cross_component_prediction_enabled_flag(@NativeType("uint32_t") boolean value) { StdVideoH265PpsFlags.ncross_component_prediction_enabled_flag(address(), value ? 1 : 0); return this; }
         /** Sets the specified value to the {@code chroma_qp_offset_list_enabled_flag} field. */
         public StdVideoH265PpsFlags.Buffer chroma_qp_offset_list_enabled_flag(@NativeType("uint32_t") boolean value) { StdVideoH265PpsFlags.nchroma_qp_offset_list_enabled_flag(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link StdVideoH265PpsFlags#pps_curr_pic_ref_enabled_flag} field. */
+        /** Sets the specified value to the {@code pps_curr_pic_ref_enabled_flag} field. */
         public StdVideoH265PpsFlags.Buffer pps_curr_pic_ref_enabled_flag(@NativeType("uint32_t") boolean value) { StdVideoH265PpsFlags.npps_curr_pic_ref_enabled_flag(address(), value ? 1 : 0); return this; }
         /** Sets the specified value to the {@code residual_adaptive_colour_transform_enabled_flag} field. */
         public StdVideoH265PpsFlags.Buffer residual_adaptive_colour_transform_enabled_flag(@NativeType("uint32_t") boolean value) { StdVideoH265PpsFlags.nresidual_adaptive_colour_transform_enabled_flag(address(), value ? 1 : 0); return this; }

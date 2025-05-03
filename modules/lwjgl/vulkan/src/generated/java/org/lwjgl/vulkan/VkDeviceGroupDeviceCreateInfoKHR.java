@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkDeviceGroupDeviceCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceGroupDeviceCreateInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     uint32_t physicalDeviceCount;
  *     VkPhysicalDevice const * pPhysicalDevices;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkDeviceGroupDeviceCreateInfoKHR extends VkDeviceGroupDeviceCreateInfo {
 
@@ -113,8 +109,7 @@ public class VkDeviceGroupDeviceCreateInfoKHR extends VkDeviceGroupDeviceCreateI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupDeviceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkDeviceGroupDeviceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupDeviceCreateInfoKHR(address, null);
     }
 
@@ -157,8 +152,7 @@ public class VkDeviceGroupDeviceCreateInfoKHR extends VkDeviceGroupDeviceCreateI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupDeviceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupDeviceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,6 +244,11 @@ public class VkDeviceGroupDeviceCreateInfoKHR extends VkDeviceGroupDeviceCreateI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

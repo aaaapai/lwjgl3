@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,24 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A cursor representing some element in the abstract syntax tree for a translation unit.
- * 
- * <p>The cursor abstraction unifies the different kinds of entities in a program --declaration, statements, expressions, references to declarations, etc.--
- * under a single "cursor" abstraction with a common set of operations. Common operation for a cursor include: getting the physical location in a source
- * file where the cursor points, getting the name associated with a cursor, and retrieving cursors for any child nodes of a particular cursor.</p>
- * 
- * <p>Cursors can be produced in two specific ways. {@link ClangIndex#clang_getTranslationUnitCursor getTranslationUnitCursor} produces a cursor for a translation unit, from which one can use
- * {@link ClangIndex#clang_visitChildren visitChildren} to explore the rest of the translation unit. {@link ClangIndex#clang_getCursor getCursor} maps from a physical source location to the entity that resides at that
- * location, allowing one to map from the source code into the AST.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXCursor {
  *     enum CXCursorKind kind;
  *     int xdata;
  *     void const * data[3];
- * }</code></pre>
+ * }}</pre>
  */
 public class CXCursor extends Struct<CXCursor> implements NativeResource {
 
@@ -123,8 +111,7 @@ public class CXCursor extends Struct<CXCursor> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCursor createSafe(long address) {
+    public static @Nullable CXCursor createSafe(long address) {
         return address == NULL ? null : new CXCursor(address, null);
     }
 
@@ -167,8 +154,7 @@ public class CXCursor extends Struct<CXCursor> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCursor.Buffer createSafe(long address, int capacity) {
+    public static CXCursor.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -232,9 +218,9 @@ public class CXCursor extends Struct<CXCursor> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #kind}. */
-    public static int nkind(long struct) { return UNSAFE.getInt(null, struct + CXCursor.KIND); }
+    public static int nkind(long struct) { return memGetInt(struct + CXCursor.KIND); }
     /** Unsafe version of {@link #xdata}. */
-    public static int nxdata(long struct) { return UNSAFE.getInt(null, struct + CXCursor.XDATA); }
+    public static int nxdata(long struct) { return memGetInt(struct + CXCursor.XDATA); }
     /** Unsafe version of {@link #data}. */
     public static PointerBuffer ndata(long struct) { return memPointerBuffer(struct + CXCursor.DATA, 3); }
     /** Unsafe version of {@link #data(int) data}. */
@@ -273,6 +259,11 @@ public class CXCursor extends Struct<CXCursor> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

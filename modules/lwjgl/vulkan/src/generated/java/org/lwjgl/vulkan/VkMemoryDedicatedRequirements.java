@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,44 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing dedicated allocation requirements of buffer and image resources.
- * 
- * <h5>Description</h5>
- * 
- * <p>To determine the dedicated allocation requirements of a buffer or image resource, add a {@link VkMemoryDedicatedRequirements} structure to the {@code pNext} chain of the {@link VkMemoryRequirements2} structure passed as the {@code pMemoryRequirements} parameter of {@link VK11#vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2} or {@link VK11#vkGetImageMemoryRequirements2 GetImageMemoryRequirements2}, respectively.</p>
- * 
- * <p>Constraints on the values returned for buffer resources are:</p>
- * 
- * <ul>
- * <li>{@code requiresDedicatedAllocation} <b>may</b> be {@link VK10#VK_TRUE TRUE} if the {@code pNext} chain of {@link VkBufferCreateInfo} for the call to {@code vkCreateBuffer} used to create the buffer being queried included a {@link VkExternalMemoryBufferCreateInfo} structure, and any of the handle types specified in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} requires dedicated allocation, as reported by {@link VK11#vkGetPhysicalDeviceExternalBufferProperties GetPhysicalDeviceExternalBufferProperties} in {@link VkExternalBufferProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}. Otherwise, {@code requiresDedicatedAllocation} will be {@link VK10#VK_FALSE FALSE}.</li>
- * <li>When the implementation sets {@code requiresDedicatedAllocation} to {@link VK10#VK_TRUE TRUE}, it <b>must</b> also set {@code prefersDedicatedAllocation} to {@link VK10#VK_TRUE TRUE}.</li>
- * <li>If {@link VK10#VK_BUFFER_CREATE_SPARSE_BINDING_BIT BUFFER_CREATE_SPARSE_BINDING_BIT} was set in {@link VkBufferCreateInfo}{@code ::flags} when {@code buffer} was created, then both {@code prefersDedicatedAllocation} and {@code requiresDedicatedAllocation} will be {@link VK10#VK_FALSE FALSE}.</li>
- * </ul>
- * 
- * <p>Constraints on the values returned for image resources are:</p>
- * 
- * <ul>
- * <li>{@code requiresDedicatedAllocation} <b>may</b> be {@link VK10#VK_TRUE TRUE} if the {@code pNext} chain of {@link VkImageCreateInfo} for the call to {@link VK10#vkCreateImage CreateImage} used to create the image being queried included a {@link VkExternalMemoryImageCreateInfo} structure, and any of the handle types specified in {@link VkExternalMemoryImageCreateInfo}{@code ::handleTypes} requires dedicated allocation, as reported by {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} in {@link VkExternalImageFormatProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}.</li>
- * <li>{@code requiresDedicatedAllocation} <b>may</b> be {@link VK10#VK_TRUE TRUE} if the image’s tiling is {@link EXTImageDrmFormatModifier#VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT}.</li>
- * <li>{@code requiresDedicatedAllocation} will otherwise be {@link VK10#VK_FALSE FALSE}</li>
- * <li>If {@link VK10#VK_IMAGE_CREATE_SPARSE_BINDING_BIT IMAGE_CREATE_SPARSE_BINDING_BIT} was set in {@link VkImageCreateInfo}{@code ::flags} when {@code image} was created, then both {@code prefersDedicatedAllocation} and {@code requiresDedicatedAllocation} will be {@link VK10#VK_FALSE FALSE}.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryDedicatedRequirements {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #prefersDedicatedAllocation};
- *     VkBool32 {@link #requiresDedicatedAllocation};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 prefersDedicatedAllocation;
+ *     VkBool32 requiresDedicatedAllocation;
+ * }}</pre>
  */
 public class VkMemoryDedicatedRequirements extends Struct<VkMemoryDedicatedRequirements> implements NativeResource {
 
@@ -109,24 +78,24 @@ public class VkMemoryDedicatedRequirements extends Struct<VkMemoryDedicatedRequi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies that the implementation would prefer a dedicated allocation for this resource. The application is still free to suballocate the resource but it <b>may</b> get better performance if a dedicated allocation is used. */
+    /** @return the value of the {@code prefersDedicatedAllocation} field. */
     @NativeType("VkBool32")
     public boolean prefersDedicatedAllocation() { return nprefersDedicatedAllocation(address()) != 0; }
-    /** specifies that a dedicated allocation is required for this resource. */
+    /** @return the value of the {@code requiresDedicatedAllocation} field. */
     @NativeType("VkBool32")
     public boolean requiresDedicatedAllocation() { return nrequiresDedicatedAllocation(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryDedicatedRequirements sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS} value to the {@code sType} field. */
     public VkMemoryDedicatedRequirements sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryDedicatedRequirements pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -176,8 +145,7 @@ public class VkMemoryDedicatedRequirements extends Struct<VkMemoryDedicatedRequi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryDedicatedRequirements createSafe(long address) {
+    public static @Nullable VkMemoryDedicatedRequirements createSafe(long address) {
         return address == NULL ? null : new VkMemoryDedicatedRequirements(address, null);
     }
 
@@ -220,8 +188,7 @@ public class VkMemoryDedicatedRequirements extends Struct<VkMemoryDedicatedRequi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryDedicatedRequirements.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryDedicatedRequirements.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,16 +252,16 @@ public class VkMemoryDedicatedRequirements extends Struct<VkMemoryDedicatedRequi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryDedicatedRequirements.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryDedicatedRequirements.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryDedicatedRequirements.PNEXT); }
     /** Unsafe version of {@link #prefersDedicatedAllocation}. */
-    public static int nprefersDedicatedAllocation(long struct) { return UNSAFE.getInt(null, struct + VkMemoryDedicatedRequirements.PREFERSDEDICATEDALLOCATION); }
+    public static int nprefersDedicatedAllocation(long struct) { return memGetInt(struct + VkMemoryDedicatedRequirements.PREFERSDEDICATEDALLOCATION); }
     /** Unsafe version of {@link #requiresDedicatedAllocation}. */
-    public static int nrequiresDedicatedAllocation(long struct) { return UNSAFE.getInt(null, struct + VkMemoryDedicatedRequirements.REQUIRESDEDICATEDALLOCATION); }
+    public static int nrequiresDedicatedAllocation(long struct) { return memGetInt(struct + VkMemoryDedicatedRequirements.REQUIRESDEDICATEDALLOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryDedicatedRequirements.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryDedicatedRequirements.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryDedicatedRequirements.PNEXT, value); }
 
@@ -332,28 +299,33 @@ public class VkMemoryDedicatedRequirements extends Struct<VkMemoryDedicatedRequi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryDedicatedRequirements getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryDedicatedRequirements#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryDedicatedRequirements.nsType(address()); }
-        /** @return the value of the {@link VkMemoryDedicatedRequirements#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkMemoryDedicatedRequirements.npNext(address()); }
-        /** @return the value of the {@link VkMemoryDedicatedRequirements#prefersDedicatedAllocation} field. */
+        /** @return the value of the {@code prefersDedicatedAllocation} field. */
         @NativeType("VkBool32")
         public boolean prefersDedicatedAllocation() { return VkMemoryDedicatedRequirements.nprefersDedicatedAllocation(address()) != 0; }
-        /** @return the value of the {@link VkMemoryDedicatedRequirements#requiresDedicatedAllocation} field. */
+        /** @return the value of the {@code requiresDedicatedAllocation} field. */
         @NativeType("VkBool32")
         public boolean requiresDedicatedAllocation() { return VkMemoryDedicatedRequirements.nrequiresDedicatedAllocation(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkMemoryDedicatedRequirements#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryDedicatedRequirements.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryDedicatedRequirements.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS} value to the {@link VkMemoryDedicatedRequirements#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS} value to the {@code sType} field. */
         public VkMemoryDedicatedRequirements.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS); }
-        /** Sets the specified value to the {@link VkMemoryDedicatedRequirements#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryDedicatedRequirements.Buffer pNext(@NativeType("void *") long value) { VkMemoryDedicatedRequirements.npNext(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct DeepImage {
  *     char const ** channel_names;
- *     float *** {@link #image};
- *     int ** {@link #offset_table};
+ *     float *** image;
+ *     int ** offset_table;
  *     int num_channels;
  *     int width;
  *     int height;
  *     char[4];
- * }</code></pre>
+ * }}</pre>
  */
 public class DeepImage extends Struct<DeepImage> implements NativeResource {
 
@@ -94,14 +92,10 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
     /** @return a {@link PointerBuffer} view of the data pointed to by the {@code channel_names} field. */
     @NativeType("char const **")
     public PointerBuffer channel_names() { return nchannel_names(address()); }
-    /** image[channels][scanlines][samples] */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code image} field. */
     @NativeType("float ***")
     public PointerBuffer image() { return nimage(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return offset_table[scanline][offsets]
-     */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code offset_table} field. */
     @NativeType("int **")
     public PointerBuffer offset_table(int capacity) { return noffset_table(address(), capacity); }
     /** @return the value of the {@code num_channels} field. */
@@ -113,9 +107,9 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
 
     /** Sets the address of the specified {@link PointerBuffer} to the {@code channel_names} field. */
     public DeepImage channel_names(@NativeType("char const **") PointerBuffer value) { nchannel_names(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #image} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code image} field. */
     public DeepImage image(@NativeType("float ***") PointerBuffer value) { nimage(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #offset_table} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code offset_table} field. */
     public DeepImage offset_table(@NativeType("int **") PointerBuffer value) { noffset_table(address(), value); return this; }
     /** Sets the specified value to the {@code num_channels} field. */
     public DeepImage num_channels(int value) { nnum_channels(address(), value); return this; }
@@ -179,8 +173,7 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DeepImage createSafe(long address) {
+    public static @Nullable DeepImage createSafe(long address) {
         return address == NULL ? null : new DeepImage(address, null);
     }
 
@@ -223,8 +216,7 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DeepImage.Buffer createSafe(long address, int capacity) {
+    public static DeepImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,11 +286,11 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
     /** Unsafe version of {@link #offset_table(int) offset_table}. */
     public static PointerBuffer noffset_table(long struct, int capacity) { return memPointerBuffer(memGetAddress(struct + DeepImage.OFFSET_TABLE), capacity); }
     /** Unsafe version of {@link #num_channels}. */
-    public static int nnum_channels(long struct) { return UNSAFE.getInt(null, struct + DeepImage.NUM_CHANNELS); }
+    public static int nnum_channels(long struct) { return memGetInt(struct + DeepImage.NUM_CHANNELS); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + DeepImage.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + DeepImage.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + DeepImage.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + DeepImage.HEIGHT); }
 
     /** Unsafe version of {@link #channel_names(PointerBuffer) channel_names}. */
     public static void nchannel_names(long struct, PointerBuffer value) { memPutAddress(struct + DeepImage.CHANNEL_NAMES, memAddress(value)); }
@@ -307,11 +299,11 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
     /** Unsafe version of {@link #offset_table(PointerBuffer) offset_table}. */
     public static void noffset_table(long struct, PointerBuffer value) { memPutAddress(struct + DeepImage.OFFSET_TABLE, memAddress(value)); }
     /** Sets the specified value to the {@code num_channels} field of the specified {@code struct}. */
-    public static void nnum_channels(long struct, int value) { UNSAFE.putInt(null, struct + DeepImage.NUM_CHANNELS, value); }
+    public static void nnum_channels(long struct, int value) { memPutInt(struct + DeepImage.NUM_CHANNELS, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + DeepImage.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + DeepImage.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + DeepImage.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + DeepImage.HEIGHT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -358,6 +350,11 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected DeepImage getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -365,14 +362,10 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@code channel_names} field. */
         @NativeType("char const **")
         public PointerBuffer channel_names() { return DeepImage.nchannel_names(address()); }
-        /** @return a {@link PointerBuffer} view of the data pointed to by the {@link DeepImage#image} field. */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code image} field. */
         @NativeType("float ***")
         public PointerBuffer image() { return DeepImage.nimage(address()); }
-        /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@link DeepImage#offset_table} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code offset_table} field. */
         @NativeType("int **")
         public PointerBuffer offset_table(int capacity) { return DeepImage.noffset_table(address(), capacity); }
         /** @return the value of the {@code num_channels} field. */
@@ -384,9 +377,9 @@ public class DeepImage extends Struct<DeepImage> implements NativeResource {
 
         /** Sets the address of the specified {@link PointerBuffer} to the {@code channel_names} field. */
         public DeepImage.Buffer channel_names(@NativeType("char const **") PointerBuffer value) { DeepImage.nchannel_names(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link DeepImage#image} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code image} field. */
         public DeepImage.Buffer image(@NativeType("float ***") PointerBuffer value) { DeepImage.nimage(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link DeepImage#offset_table} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code offset_table} field. */
         public DeepImage.Buffer offset_table(@NativeType("int **") PointerBuffer value) { DeepImage.noffset_table(address(), value); return this; }
         /** Sets the specified value to the {@code num_channels} field. */
         public DeepImage.Buffer num_channels(int value) { DeepImage.nnum_channels(address(), value); return this; }

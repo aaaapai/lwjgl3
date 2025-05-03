@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,40 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing parameters of a queue presentation to a swapchain.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the extent of the {@code srcRect} and {@code dstRect} are not equal, the presented pixels will be scaled accordingly.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code srcRect} <b>must</b> specify a rectangular region that is a subset of the image being presented</li>
- * <li>{@code dstRect} <b>must</b> specify a rectangular region that is a subset of the {@code visibleRegion} parameter of the display mode the swapchain being presented uses</li>
- * <li>If the {@code persistentContent} member of the {@link VkDisplayPropertiesKHR} structure returned by {@code vkGetPhysicalDeviceDisplayPropertiesKHR} for the display the present operation targets is {@link VK10#VK_FALSE FALSE}, then {@code persistent} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRDisplaySwapchain#VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRect2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayPresentInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     {@link VkRect2D VkRect2D} {@link #srcRect};
- *     {@link VkRect2D VkRect2D} {@link #dstRect};
- *     VkBool32 {@link #persistent};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     {@link VkRect2D VkRect2D} srcRect;
+ *     {@link VkRect2D VkRect2D} dstRect;
+ *     VkBool32 persistent;
+ * }}</pre>
  */
 public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> implements NativeResource {
 
@@ -108,35 +82,35 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a rectangular region of pixels to present. It <b>must</b> be a subset of the image being presented. If {@link VkDisplayPresentInfoKHR} is not specified, this region will be assumed to be the entire presentable image. */
+    /** @return a {@link VkRect2D} view of the {@code srcRect} field. */
     public VkRect2D srcRect() { return nsrcRect(address()); }
-    /** a rectangular region within the visible region of the swapchain’s display mode. If {@link VkDisplayPresentInfoKHR} is not specified, this region will be assumed to be the entire visible region of the swapchain’s mode. If the specified rectangle is a subset of the display mode’s visible region, content from display planes below the swapchain’s plane will be visible outside the rectangle. If there are no planes below the swapchain’s, the area outside the specified rectangle will be black. If portions of the specified rectangle are outside of the display’s visible region, pixels mapping only to those portions of the rectangle will be discarded. */
+    /** @return a {@link VkRect2D} view of the {@code dstRect} field. */
     public VkRect2D dstRect() { return ndstRect(address()); }
-    /** If this is {@link VK10#VK_TRUE TRUE}, the display engine will enable buffered mode on displays that support it. This allows the display engine to stop sending content to the display until a new image is presented. The display will instead maintain a copy of the last presented image. This allows less power to be used, but <b>may</b> increase presentation latency. If {@link VkDisplayPresentInfoKHR} is not specified, persistent mode will not be used. */
+    /** @return the value of the {@code persistent} field. */
     @NativeType("VkBool32")
     public boolean persistent() { return npersistent(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDisplayPresentInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRDisplaySwapchain#VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRDisplaySwapchain#VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR} value to the {@code sType} field. */
     public VkDisplayPresentInfoKHR sType$Default() { return sType(KHRDisplaySwapchain.VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDisplayPresentInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Copies the specified {@link VkRect2D} to the {@link #srcRect} field. */
+    /** Copies the specified {@link VkRect2D} to the {@code srcRect} field. */
     public VkDisplayPresentInfoKHR srcRect(VkRect2D value) { nsrcRect(address(), value); return this; }
-    /** Passes the {@link #srcRect} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code srcRect} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkDisplayPresentInfoKHR srcRect(java.util.function.Consumer<VkRect2D> consumer) { consumer.accept(srcRect()); return this; }
-    /** Copies the specified {@link VkRect2D} to the {@link #dstRect} field. */
+    /** Copies the specified {@link VkRect2D} to the {@code dstRect} field. */
     public VkDisplayPresentInfoKHR dstRect(VkRect2D value) { ndstRect(address(), value); return this; }
-    /** Passes the {@link #dstRect} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code dstRect} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkDisplayPresentInfoKHR dstRect(java.util.function.Consumer<VkRect2D> consumer) { consumer.accept(dstRect()); return this; }
-    /** Sets the specified value to the {@link #persistent} field. */
+    /** Sets the specified value to the {@code persistent} field. */
     public VkDisplayPresentInfoKHR persistent(@NativeType("VkBool32") boolean value) { npersistent(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -192,8 +166,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPresentInfoKHR createSafe(long address) {
+    public static @Nullable VkDisplayPresentInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPresentInfoKHR(address, null);
     }
 
@@ -236,8 +209,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPresentInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPresentInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -301,7 +273,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPresentInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayPresentInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayPresentInfoKHR.PNEXT); }
     /** Unsafe version of {@link #srcRect}. */
@@ -309,10 +281,10 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     /** Unsafe version of {@link #dstRect}. */
     public static VkRect2D ndstRect(long struct) { return VkRect2D.create(struct + VkDisplayPresentInfoKHR.DSTRECT); }
     /** Unsafe version of {@link #persistent}. */
-    public static int npersistent(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPresentInfoKHR.PERSISTENT); }
+    public static int npersistent(long struct) { return memGetInt(struct + VkDisplayPresentInfoKHR.PERSISTENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPresentInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayPresentInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayPresentInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #srcRect(VkRect2D) srcRect}. */
@@ -320,7 +292,7 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
     /** Unsafe version of {@link #dstRect(VkRect2D) dstRect}. */
     public static void ndstRect(long struct, VkRect2D value) { memCopy(value.address(), struct + VkDisplayPresentInfoKHR.DSTRECT, VkRect2D.SIZEOF); }
     /** Unsafe version of {@link #persistent(boolean) persistent}. */
-    public static void npersistent(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPresentInfoKHR.PERSISTENT, value); }
+    public static void npersistent(long struct, int value) { memPutInt(struct + VkDisplayPresentInfoKHR.PERSISTENT, value); }
 
     // -----------------------------------
 
@@ -356,39 +328,44 @@ public class VkDisplayPresentInfoKHR extends Struct<VkDisplayPresentInfoKHR> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayPresentInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayPresentInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDisplayPresentInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkDisplayPresentInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDisplayPresentInfoKHR.npNext(address()); }
-        /** @return a {@link VkRect2D} view of the {@link VkDisplayPresentInfoKHR#srcRect} field. */
+        /** @return a {@link VkRect2D} view of the {@code srcRect} field. */
         public VkRect2D srcRect() { return VkDisplayPresentInfoKHR.nsrcRect(address()); }
-        /** @return a {@link VkRect2D} view of the {@link VkDisplayPresentInfoKHR#dstRect} field. */
+        /** @return a {@link VkRect2D} view of the {@code dstRect} field. */
         public VkRect2D dstRect() { return VkDisplayPresentInfoKHR.ndstRect(address()); }
-        /** @return the value of the {@link VkDisplayPresentInfoKHR#persistent} field. */
+        /** @return the value of the {@code persistent} field. */
         @NativeType("VkBool32")
         public boolean persistent() { return VkDisplayPresentInfoKHR.npersistent(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkDisplayPresentInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDisplayPresentInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkDisplayPresentInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRDisplaySwapchain#VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR} value to the {@link VkDisplayPresentInfoKHR#sType} field. */
+        /** Sets the {@link KHRDisplaySwapchain#VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR} value to the {@code sType} field. */
         public VkDisplayPresentInfoKHR.Buffer sType$Default() { return sType(KHRDisplaySwapchain.VK_STRUCTURE_TYPE_DISPLAY_PRESENT_INFO_KHR); }
-        /** Sets the specified value to the {@link VkDisplayPresentInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDisplayPresentInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkDisplayPresentInfoKHR.npNext(address(), value); return this; }
-        /** Copies the specified {@link VkRect2D} to the {@link VkDisplayPresentInfoKHR#srcRect} field. */
+        /** Copies the specified {@link VkRect2D} to the {@code srcRect} field. */
         public VkDisplayPresentInfoKHR.Buffer srcRect(VkRect2D value) { VkDisplayPresentInfoKHR.nsrcRect(address(), value); return this; }
-        /** Passes the {@link VkDisplayPresentInfoKHR#srcRect} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code srcRect} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkDisplayPresentInfoKHR.Buffer srcRect(java.util.function.Consumer<VkRect2D> consumer) { consumer.accept(srcRect()); return this; }
-        /** Copies the specified {@link VkRect2D} to the {@link VkDisplayPresentInfoKHR#dstRect} field. */
+        /** Copies the specified {@link VkRect2D} to the {@code dstRect} field. */
         public VkDisplayPresentInfoKHR.Buffer dstRect(VkRect2D value) { VkDisplayPresentInfoKHR.ndstRect(address(), value); return this; }
-        /** Passes the {@link VkDisplayPresentInfoKHR#dstRect} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code dstRect} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkDisplayPresentInfoKHR.Buffer dstRect(java.util.function.Consumer<VkRect2D> consumer) { consumer.accept(dstRect()); return this; }
-        /** Sets the specified value to the {@link VkDisplayPresentInfoKHR#persistent} field. */
+        /** Sets the specified value to the {@code persistent} field. */
         public VkDisplayPresentInfoKHR.Buffer persistent(@NativeType("VkBool32") boolean value) { VkDisplayPresentInfoKHR.npersistent(address(), value ? 1 : 0); return this; }
 
     }

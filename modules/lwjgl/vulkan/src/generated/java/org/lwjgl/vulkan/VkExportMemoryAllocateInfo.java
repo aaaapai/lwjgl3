@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify exportable handle types for a device memory object.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The bits in {@code handleTypes} <b>must</b> be supported and compatible, as reported by {@link VkExternalImageFormatProperties} or {@link VkExternalBufferProperties}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO}</li>
- * <li>{@code handleTypes} <b>must</b> be a valid combination of {@code VkExternalMemoryHandleTypeFlagBits} values</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExportMemoryAllocateInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkExternalMemoryHandleTypeFlags {@link #handleTypes};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkExternalMemoryHandleTypeFlags handleTypes;
+ * }}</pre>
  */
 public class VkExportMemoryAllocateInfo extends Struct<VkExportMemoryAllocateInfo> implements NativeResource {
 
@@ -91,23 +74,23 @@ public class VkExportMemoryAllocateInfo extends Struct<VkExportMemoryAllocateInf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** zero or a bitmask of {@code VkExternalMemoryHandleTypeFlagBits} specifying one or more memory handle types the application <b>can</b> export from the resulting allocation. The application <b>can</b> request multiple handle types for the same allocation. */
+    /** @return the value of the {@code handleTypes} field. */
     @NativeType("VkExternalMemoryHandleTypeFlags")
     public int handleTypes() { return nhandleTypes(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkExportMemoryAllocateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO} value to the {@code sType} field. */
     public VkExportMemoryAllocateInfo sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkExportMemoryAllocateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #handleTypes} field. */
+    /** Sets the specified value to the {@code handleTypes} field. */
     public VkExportMemoryAllocateInfo handleTypes(@NativeType("VkExternalMemoryHandleTypeFlags") int value) { nhandleTypes(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -159,8 +142,7 @@ public class VkExportMemoryAllocateInfo extends Struct<VkExportMemoryAllocateInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMemoryAllocateInfo createSafe(long address) {
+    public static @Nullable VkExportMemoryAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkExportMemoryAllocateInfo(address, null);
     }
 
@@ -203,8 +185,7 @@ public class VkExportMemoryAllocateInfo extends Struct<VkExportMemoryAllocateInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMemoryAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkExportMemoryAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,18 +249,18 @@ public class VkExportMemoryAllocateInfo extends Struct<VkExportMemoryAllocateInf
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMemoryAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMemoryAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMemoryAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #handleTypes}. */
-    public static int nhandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExportMemoryAllocateInfo.HANDLETYPES); }
+    public static int nhandleTypes(long struct) { return memGetInt(struct + VkExportMemoryAllocateInfo.HANDLETYPES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMemoryAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMemoryAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMemoryAllocateInfo.PNEXT, value); }
     /** Unsafe version of {@link #handleTypes(int) handleTypes}. */
-    public static void nhandleTypes(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMemoryAllocateInfo.HANDLETYPES, value); }
+    public static void nhandleTypes(long struct, int value) { memPutInt(struct + VkExportMemoryAllocateInfo.HANDLETYPES, value); }
 
     // -----------------------------------
 
@@ -315,27 +296,32 @@ public class VkExportMemoryAllocateInfo extends Struct<VkExportMemoryAllocateInf
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExportMemoryAllocateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExportMemoryAllocateInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkExportMemoryAllocateInfo.nsType(address()); }
-        /** @return the value of the {@link VkExportMemoryAllocateInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkExportMemoryAllocateInfo.npNext(address()); }
-        /** @return the value of the {@link VkExportMemoryAllocateInfo#handleTypes} field. */
+        /** @return the value of the {@code handleTypes} field. */
         @NativeType("VkExternalMemoryHandleTypeFlags")
         public int handleTypes() { return VkExportMemoryAllocateInfo.nhandleTypes(address()); }
 
-        /** Sets the specified value to the {@link VkExportMemoryAllocateInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkExportMemoryAllocateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkExportMemoryAllocateInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO} value to the {@link VkExportMemoryAllocateInfo#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO} value to the {@code sType} field. */
         public VkExportMemoryAllocateInfo.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO); }
-        /** Sets the specified value to the {@link VkExportMemoryAllocateInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkExportMemoryAllocateInfo.Buffer pNext(@NativeType("void const *") long value) { VkExportMemoryAllocateInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMemoryAllocateInfo#handleTypes} field. */
+        /** Sets the specified value to the {@code handleTypes} field. */
         public VkExportMemoryAllocateInfo.Buffer handleTypes(@NativeType("VkExternalMemoryHandleTypeFlags") int value) { VkExportMemoryAllocateInfo.nhandleTypes(address(), value); return this; }
 
     }

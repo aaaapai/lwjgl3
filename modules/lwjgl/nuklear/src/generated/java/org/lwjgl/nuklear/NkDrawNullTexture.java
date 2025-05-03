@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_draw_null_texture {
- *     {@link NkHandle nk_handle} {@link #texture};
- *     {@link NkVec2 struct nk_vec2} {@link #uv};
- * }</code></pre>
+ *     {@link NkHandle nk_handle} texture;
+ *     {@link NkVec2 struct nk_vec2} uv;
+ * }}</pre>
  */
 @NativeType("struct nk_draw_null_texture")
 public class NkDrawNullTexture extends Struct<NkDrawNullTexture> implements NativeResource {
@@ -73,20 +71,20 @@ public class NkDrawNullTexture extends Struct<NkDrawNullTexture> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** texture handle to a texture with a white pixel */
+    /** @return a {@link NkHandle} view of the {@code texture} field. */
     @NativeType("nk_handle")
     public NkHandle texture() { return ntexture(address()); }
-    /** coordinates to a white pixel in the texture */
+    /** @return a {@link NkVec2} view of the {@code uv} field. */
     @NativeType("struct nk_vec2")
     public NkVec2 uv() { return nuv(address()); }
 
-    /** Copies the specified {@link NkHandle} to the {@link #texture} field. */
+    /** Copies the specified {@link NkHandle} to the {@code texture} field. */
     public NkDrawNullTexture texture(@NativeType("nk_handle") NkHandle value) { ntexture(address(), value); return this; }
-    /** Passes the {@link #texture} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code texture} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkDrawNullTexture texture(java.util.function.Consumer<NkHandle> consumer) { consumer.accept(texture()); return this; }
-    /** Copies the specified {@link NkVec2} to the {@link #uv} field. */
+    /** Copies the specified {@link NkVec2} to the {@code uv} field. */
     public NkDrawNullTexture uv(@NativeType("struct nk_vec2") NkVec2 value) { nuv(address(), value); return this; }
-    /** Passes the {@link #uv} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code uv} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkDrawNullTexture uv(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(uv()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -136,8 +134,7 @@ public class NkDrawNullTexture extends Struct<NkDrawNullTexture> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkDrawNullTexture createSafe(long address) {
+    public static @Nullable NkDrawNullTexture createSafe(long address) {
         return address == NULL ? null : new NkDrawNullTexture(address, null);
     }
 
@@ -180,8 +177,7 @@ public class NkDrawNullTexture extends Struct<NkDrawNullTexture> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkDrawNullTexture.Buffer createSafe(long address, int capacity) {
+    public static NkDrawNullTexture.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,24 +284,29 @@ public class NkDrawNullTexture extends Struct<NkDrawNullTexture> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkDrawNullTexture getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link NkHandle} view of the {@link NkDrawNullTexture#texture} field. */
+        /** @return a {@link NkHandle} view of the {@code texture} field. */
         @NativeType("nk_handle")
         public NkHandle texture() { return NkDrawNullTexture.ntexture(address()); }
-        /** @return a {@link NkVec2} view of the {@link NkDrawNullTexture#uv} field. */
+        /** @return a {@link NkVec2} view of the {@code uv} field. */
         @NativeType("struct nk_vec2")
         public NkVec2 uv() { return NkDrawNullTexture.nuv(address()); }
 
-        /** Copies the specified {@link NkHandle} to the {@link NkDrawNullTexture#texture} field. */
+        /** Copies the specified {@link NkHandle} to the {@code texture} field. */
         public NkDrawNullTexture.Buffer texture(@NativeType("nk_handle") NkHandle value) { NkDrawNullTexture.ntexture(address(), value); return this; }
-        /** Passes the {@link NkDrawNullTexture#texture} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code texture} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkDrawNullTexture.Buffer texture(java.util.function.Consumer<NkHandle> consumer) { consumer.accept(texture()); return this; }
-        /** Copies the specified {@link NkVec2} to the {@link NkDrawNullTexture#uv} field. */
+        /** Copies the specified {@link NkVec2} to the {@code uv} field. */
         public NkDrawNullTexture.Buffer uv(@NativeType("struct nk_vec2") NkVec2 value) { NkDrawNullTexture.nuv(address(), value); return this; }
-        /** Passes the {@link NkDrawNullTexture#uv} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code uv} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkDrawNullTexture.Buffer uv(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(uv()); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created pipeline viewport W scaling state.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVClipSpaceWScaling#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV}</li>
- * <li>{@code viewportCount} <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkViewportWScalingNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineViewportWScalingStateCreateInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBool32 {@link #viewportWScalingEnable};
- *     uint32_t {@link #viewportCount};
- *     {@link VkViewportWScalingNV VkViewportWScalingNV} const * {@link #pViewportWScalings};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBool32 viewportWScalingEnable;
+ *     uint32_t viewportCount;
+ *     {@link VkViewportWScalingNV VkViewportWScalingNV} const * pViewportWScalings;
+ * }}</pre>
  */
 public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipelineViewportWScalingStateCreateInfoNV> implements NativeResource {
 
@@ -97,35 +82,34 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** controls whether viewport <b>W</b> scaling is enabled. */
+    /** @return the value of the {@code viewportWScalingEnable} field. */
     @NativeType("VkBool32")
     public boolean viewportWScalingEnable() { return nviewportWScalingEnable(address()) != 0; }
-    /** the number of viewports used by <b>W</b> scaling, and <b>must</b> match the number of viewports in the pipeline if viewport <b>W</b> scaling is enabled. */
+    /** @return the value of the {@code viewportCount} field. */
     @NativeType("uint32_t")
     public int viewportCount() { return nviewportCount(address()); }
-    /** a pointer to an array of {@link VkViewportWScalingNV} structures defining the <b>W</b> scaling parameters for the corresponding viewports. If the viewport <b>W</b> scaling state is dynamic, this member is ignored. */
-    @Nullable
+    /** @return a {@link VkViewportWScalingNV.Buffer} view of the struct array pointed to by the {@code pViewportWScalings} field. */
     @NativeType("VkViewportWScalingNV const *")
-    public VkViewportWScalingNV.Buffer pViewportWScalings() { return npViewportWScalings(address()); }
+    public VkViewportWScalingNV.@Nullable Buffer pViewportWScalings() { return npViewportWScalings(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineViewportWScalingStateCreateInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVClipSpaceWScaling#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVClipSpaceWScaling#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV} value to the {@code sType} field. */
     public VkPipelineViewportWScalingStateCreateInfoNV sType$Default() { return sType(NVClipSpaceWScaling.VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineViewportWScalingStateCreateInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewportWScalingEnable} field. */
+    /** Sets the specified value to the {@code viewportWScalingEnable} field. */
     public VkPipelineViewportWScalingStateCreateInfoNV viewportWScalingEnable(@NativeType("VkBool32") boolean value) { nviewportWScalingEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #viewportCount} field. */
+    /** Sets the specified value to the {@code viewportCount} field. */
     public VkPipelineViewportWScalingStateCreateInfoNV viewportCount(@NativeType("uint32_t") int value) { nviewportCount(address(), value); return this; }
-    /** Sets the address of the specified {@link VkViewportWScalingNV.Buffer} to the {@link #pViewportWScalings} field. */
-    public VkPipelineViewportWScalingStateCreateInfoNV pViewportWScalings(@Nullable @NativeType("VkViewportWScalingNV const *") VkViewportWScalingNV.Buffer value) { npViewportWScalings(address(), value); return this; }
+    /** Sets the address of the specified {@link VkViewportWScalingNV.Buffer} to the {@code pViewportWScalings} field. */
+    public VkPipelineViewportWScalingStateCreateInfoNV pViewportWScalings(@NativeType("VkViewportWScalingNV const *") VkViewportWScalingNV.@Nullable Buffer value) { npViewportWScalings(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkPipelineViewportWScalingStateCreateInfoNV set(
@@ -133,7 +117,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
         long pNext,
         boolean viewportWScalingEnable,
         int viewportCount,
-        @Nullable VkViewportWScalingNV.Buffer pViewportWScalings
+        VkViewportWScalingNV.@Nullable Buffer pViewportWScalings
     ) {
         sType(sType);
         pNext(pNext);
@@ -180,8 +164,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineViewportWScalingStateCreateInfoNV createSafe(long address) {
+    public static @Nullable VkPipelineViewportWScalingStateCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkPipelineViewportWScalingStateCreateInfoNV(address, null);
     }
 
@@ -224,8 +207,7 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineViewportWScalingStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineViewportWScalingStateCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,26 +271,26 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineViewportWScalingStateCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineViewportWScalingStateCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineViewportWScalingStateCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #viewportWScalingEnable}. */
-    public static int nviewportWScalingEnable(long struct) { return UNSAFE.getInt(null, struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTWSCALINGENABLE); }
+    public static int nviewportWScalingEnable(long struct) { return memGetInt(struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTWSCALINGENABLE); }
     /** Unsafe version of {@link #viewportCount}. */
-    public static int nviewportCount(long struct) { return UNSAFE.getInt(null, struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTCOUNT); }
+    public static int nviewportCount(long struct) { return memGetInt(struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTCOUNT); }
     /** Unsafe version of {@link #pViewportWScalings}. */
-    @Nullable public static VkViewportWScalingNV.Buffer npViewportWScalings(long struct) { return VkViewportWScalingNV.createSafe(memGetAddress(struct + VkPipelineViewportWScalingStateCreateInfoNV.PVIEWPORTWSCALINGS), nviewportCount(struct)); }
+    public static VkViewportWScalingNV.@Nullable Buffer npViewportWScalings(long struct) { return VkViewportWScalingNV.createSafe(memGetAddress(struct + VkPipelineViewportWScalingStateCreateInfoNV.PVIEWPORTWSCALINGS), nviewportCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineViewportWScalingStateCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineViewportWScalingStateCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineViewportWScalingStateCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #viewportWScalingEnable(boolean) viewportWScalingEnable}. */
-    public static void nviewportWScalingEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTWSCALINGENABLE, value); }
+    public static void nviewportWScalingEnable(long struct, int value) { memPutInt(struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTWSCALINGENABLE, value); }
     /** Sets the specified value to the {@code viewportCount} field of the specified {@code struct}. */
-    public static void nviewportCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTCOUNT, value); }
+    public static void nviewportCount(long struct, int value) { memPutInt(struct + VkPipelineViewportWScalingStateCreateInfoNV.VIEWPORTCOUNT, value); }
     /** Unsafe version of {@link #pViewportWScalings(VkViewportWScalingNV.Buffer) pViewportWScalings}. */
-    public static void npViewportWScalings(long struct, @Nullable VkViewportWScalingNV.Buffer value) { memPutAddress(struct + VkPipelineViewportWScalingStateCreateInfoNV.PVIEWPORTWSCALINGS, memAddressSafe(value)); if (value != null) { nviewportCount(struct, value.remaining()); } }
+    public static void npViewportWScalings(long struct, VkViewportWScalingNV.@Nullable Buffer value) { memPutAddress(struct + VkPipelineViewportWScalingStateCreateInfoNV.PVIEWPORTWSCALINGS, memAddressSafe(value)); if (value != null) { nviewportCount(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -344,39 +326,43 @@ public class VkPipelineViewportWScalingStateCreateInfoNV extends Struct<VkPipeli
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineViewportWScalingStateCreateInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineViewportWScalingStateCreateInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineViewportWScalingStateCreateInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkPipelineViewportWScalingStateCreateInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineViewportWScalingStateCreateInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkPipelineViewportWScalingStateCreateInfoNV#viewportWScalingEnable} field. */
+        /** @return the value of the {@code viewportWScalingEnable} field. */
         @NativeType("VkBool32")
         public boolean viewportWScalingEnable() { return VkPipelineViewportWScalingStateCreateInfoNV.nviewportWScalingEnable(address()) != 0; }
-        /** @return the value of the {@link VkPipelineViewportWScalingStateCreateInfoNV#viewportCount} field. */
+        /** @return the value of the {@code viewportCount} field. */
         @NativeType("uint32_t")
         public int viewportCount() { return VkPipelineViewportWScalingStateCreateInfoNV.nviewportCount(address()); }
-        /** @return a {@link VkViewportWScalingNV.Buffer} view of the struct array pointed to by the {@link VkPipelineViewportWScalingStateCreateInfoNV#pViewportWScalings} field. */
-        @Nullable
+        /** @return a {@link VkViewportWScalingNV.Buffer} view of the struct array pointed to by the {@code pViewportWScalings} field. */
         @NativeType("VkViewportWScalingNV const *")
-        public VkViewportWScalingNV.Buffer pViewportWScalings() { return VkPipelineViewportWScalingStateCreateInfoNV.npViewportWScalings(address()); }
+        public VkViewportWScalingNV.@Nullable Buffer pViewportWScalings() { return VkPipelineViewportWScalingStateCreateInfoNV.npViewportWScalings(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineViewportWScalingStateCreateInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineViewportWScalingStateCreateInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineViewportWScalingStateCreateInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVClipSpaceWScaling#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV} value to the {@link VkPipelineViewportWScalingStateCreateInfoNV#sType} field. */
+        /** Sets the {@link NVClipSpaceWScaling#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV} value to the {@code sType} field. */
         public VkPipelineViewportWScalingStateCreateInfoNV.Buffer sType$Default() { return sType(NVClipSpaceWScaling.VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV); }
-        /** Sets the specified value to the {@link VkPipelineViewportWScalingStateCreateInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineViewportWScalingStateCreateInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkPipelineViewportWScalingStateCreateInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineViewportWScalingStateCreateInfoNV#viewportWScalingEnable} field. */
+        /** Sets the specified value to the {@code viewportWScalingEnable} field. */
         public VkPipelineViewportWScalingStateCreateInfoNV.Buffer viewportWScalingEnable(@NativeType("VkBool32") boolean value) { VkPipelineViewportWScalingStateCreateInfoNV.nviewportWScalingEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPipelineViewportWScalingStateCreateInfoNV#viewportCount} field. */
+        /** Sets the specified value to the {@code viewportCount} field. */
         public VkPipelineViewportWScalingStateCreateInfoNV.Buffer viewportCount(@NativeType("uint32_t") int value) { VkPipelineViewportWScalingStateCreateInfoNV.nviewportCount(address(), value); return this; }
-        /** Sets the address of the specified {@link VkViewportWScalingNV.Buffer} to the {@link VkPipelineViewportWScalingStateCreateInfoNV#pViewportWScalings} field. */
-        public VkPipelineViewportWScalingStateCreateInfoNV.Buffer pViewportWScalings(@Nullable @NativeType("VkViewportWScalingNV const *") VkViewportWScalingNV.Buffer value) { VkPipelineViewportWScalingStateCreateInfoNV.npViewportWScalings(address(), value); return this; }
+        /** Sets the address of the specified {@link VkViewportWScalingNV.Buffer} to the {@code pViewportWScalings} field. */
+        public VkPipelineViewportWScalingStateCreateInfoNV.Buffer pViewportWScalings(@NativeType("VkViewportWScalingNV const *") VkViewportWScalingNV.@Nullable Buffer value) { VkPipelineViewportWScalingStateCreateInfoNV.npViewportWScalings(address(), value); return this; }
 
     }
 

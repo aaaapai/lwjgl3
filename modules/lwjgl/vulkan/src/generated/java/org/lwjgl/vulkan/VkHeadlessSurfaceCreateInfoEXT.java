@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created headless surface object.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTHeadlessSurface#VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTHeadlessSurface#vkCreateHeadlessSurfaceEXT CreateHeadlessSurfaceEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkHeadlessSurfaceCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkHeadlessSurfaceCreateFlagsEXT {@link #flags};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkHeadlessSurfaceCreateFlagsEXT flags;
+ * }}</pre>
  */
 public class VkHeadlessSurfaceCreateInfoEXT extends Struct<VkHeadlessSurfaceCreateInfoEXT> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkHeadlessSurfaceCreateInfoEXT extends Struct<VkHeadlessSurfaceCrea
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkHeadlessSurfaceCreateFlagsEXT")
     public int flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkHeadlessSurfaceCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTHeadlessSurface#VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTHeadlessSurface#VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkHeadlessSurfaceCreateInfoEXT sType$Default() { return sType(EXTHeadlessSurface.VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkHeadlessSurfaceCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkHeadlessSurfaceCreateInfoEXT flags(@NativeType("VkHeadlessSurfaceCreateFlagsEXT") int value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkHeadlessSurfaceCreateInfoEXT extends Struct<VkHeadlessSurfaceCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHeadlessSurfaceCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkHeadlessSurfaceCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkHeadlessSurfaceCreateInfoEXT(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkHeadlessSurfaceCreateInfoEXT extends Struct<VkHeadlessSurfaceCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkHeadlessSurfaceCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkHeadlessSurfaceCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +249,18 @@ public class VkHeadlessSurfaceCreateInfoEXT extends Struct<VkHeadlessSurfaceCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkHeadlessSurfaceCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkHeadlessSurfaceCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkHeadlessSurfaceCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkHeadlessSurfaceCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkHeadlessSurfaceCreateInfoEXT.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkHeadlessSurfaceCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkHeadlessSurfaceCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkHeadlessSurfaceCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkHeadlessSurfaceCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkHeadlessSurfaceCreateInfoEXT.FLAGS, value); }
 
     // -----------------------------------
 
@@ -314,27 +296,32 @@ public class VkHeadlessSurfaceCreateInfoEXT extends Struct<VkHeadlessSurfaceCrea
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkHeadlessSurfaceCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkHeadlessSurfaceCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkHeadlessSurfaceCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkHeadlessSurfaceCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkHeadlessSurfaceCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkHeadlessSurfaceCreateInfoEXT#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkHeadlessSurfaceCreateFlagsEXT")
         public int flags() { return VkHeadlessSurfaceCreateInfoEXT.nflags(address()); }
 
-        /** Sets the specified value to the {@link VkHeadlessSurfaceCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkHeadlessSurfaceCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkHeadlessSurfaceCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTHeadlessSurface#VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT} value to the {@link VkHeadlessSurfaceCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTHeadlessSurface#VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkHeadlessSurfaceCreateInfoEXT.Buffer sType$Default() { return sType(EXTHeadlessSurface.VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkHeadlessSurfaceCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkHeadlessSurfaceCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkHeadlessSurfaceCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkHeadlessSurfaceCreateInfoEXT#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkHeadlessSurfaceCreateInfoEXT.Buffer flags(@NativeType("VkHeadlessSurfaceCreateFlagsEXT") int value) { VkHeadlessSurfaceCreateInfoEXT.nflags(address(), value); return this; }
 
     }

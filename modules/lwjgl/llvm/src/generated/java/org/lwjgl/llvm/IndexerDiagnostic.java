@@ -5,24 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code diagnostic} field of the {@link IndexerCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     CXClientData client_data,
- *     CXDiagnosticSet diagnosticSet,
- *     void *reserved
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class IndexerDiagnostic extends Callback implements IndexerDiagnosticI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class IndexerDiagnostic extends Callback implements IndexerDiagn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static IndexerDiagnostic createSafe(long functionPointer) {
+    public static @Nullable IndexerDiagnostic createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

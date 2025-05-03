@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,19 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Transient vertex buffer.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_transient_vertex_buffer_t {
- *     uint8_t * {@link #data};
- *     uint32_t {@link #size};
- *     uint32_t {@link #startVertex};
- *     uint16_t {@link #stride};
- *     bgfx_vertex_buffer_handle_t {@link #handle};
- *     bgfx_vertex_layout_handle_t {@link #layoutHandle};
- * }</code></pre>
+ *     uint8_t * data;
+ *     uint32_t size;
+ *     uint32_t startVertex;
+ *     uint16_t stride;
+ *     bgfx_vertex_buffer_handle_t handle;
+ *     bgfx_vertex_layout_handle_t layoutHandle;
+ * }}</pre>
  */
 @NativeType("struct bgfx_transient_vertex_buffer_t")
 public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer> implements NativeResource {
@@ -92,34 +88,34 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** pointer to data */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("uint8_t *")
     public ByteBuffer data() { return ndata(address()); }
-    /** data size */
+    /** @return the value of the {@code size} field. */
     @NativeType("uint32_t")
     public int size() { return nsize(address()); }
-    /** first vertex */
+    /** @return the value of the {@code startVertex} field. */
     @NativeType("uint32_t")
     public int startVertex() { return nstartVertex(address()); }
-    /** vertex stride */
+    /** @return the value of the {@code stride} field. */
     @NativeType("uint16_t")
     public short stride() { return nstride(address()); }
-    /** vertex buffer handle */
+    /** @return the value of the {@code handle} field. */
     @NativeType("bgfx_vertex_buffer_handle_t")
     public short handle() { return nhandle(address()); }
-    /** vertex layout handle */
+    /** @return the value of the {@code layoutHandle} field. */
     @NativeType("bgfx_vertex_layout_handle_t")
     public short layoutHandle() { return nlayoutHandle(address()); }
 
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #data} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code data} field. */
     public BGFXTransientVertexBuffer data(@NativeType("uint8_t *") ByteBuffer value) { ndata(address(), value); return this; }
-    /** Sets the specified value to the {@link #startVertex} field. */
+    /** Sets the specified value to the {@code startVertex} field. */
     public BGFXTransientVertexBuffer startVertex(@NativeType("uint32_t") int value) { nstartVertex(address(), value); return this; }
-    /** Sets the specified value to the {@link #stride} field. */
+    /** Sets the specified value to the {@code stride} field. */
     public BGFXTransientVertexBuffer stride(@NativeType("uint16_t") short value) { nstride(address(), value); return this; }
-    /** Sets the specified value to the {@link #handle} field. */
+    /** Sets the specified value to the {@code handle} field. */
     public BGFXTransientVertexBuffer handle(@NativeType("bgfx_vertex_buffer_handle_t") short value) { nhandle(address(), value); return this; }
-    /** Sets the specified value to the {@link #layoutHandle} field. */
+    /** Sets the specified value to the {@code layoutHandle} field. */
     public BGFXTransientVertexBuffer layoutHandle(@NativeType("bgfx_vertex_layout_handle_t") short value) { nlayoutHandle(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +171,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransientVertexBuffer createSafe(long address) {
+    public static @Nullable BGFXTransientVertexBuffer createSafe(long address) {
         return address == NULL ? null : new BGFXTransientVertexBuffer(address, null);
     }
 
@@ -219,8 +214,7 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransientVertexBuffer.Buffer createSafe(long address, int capacity) {
+    public static BGFXTransientVertexBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,28 +280,28 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + BGFXTransientVertexBuffer.DATA), nsize(struct)); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + BGFXTransientVertexBuffer.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + BGFXTransientVertexBuffer.SIZE); }
     /** Unsafe version of {@link #startVertex}. */
-    public static int nstartVertex(long struct) { return UNSAFE.getInt(null, struct + BGFXTransientVertexBuffer.STARTVERTEX); }
+    public static int nstartVertex(long struct) { return memGetInt(struct + BGFXTransientVertexBuffer.STARTVERTEX); }
     /** Unsafe version of {@link #stride}. */
-    public static short nstride(long struct) { return UNSAFE.getShort(null, struct + BGFXTransientVertexBuffer.STRIDE); }
+    public static short nstride(long struct) { return memGetShort(struct + BGFXTransientVertexBuffer.STRIDE); }
     /** Unsafe version of {@link #handle}. */
-    public static short nhandle(long struct) { return UNSAFE.getShort(null, struct + BGFXTransientVertexBuffer.HANDLE); }
+    public static short nhandle(long struct) { return memGetShort(struct + BGFXTransientVertexBuffer.HANDLE); }
     /** Unsafe version of {@link #layoutHandle}. */
-    public static short nlayoutHandle(long struct) { return UNSAFE.getShort(null, struct + BGFXTransientVertexBuffer.LAYOUTHANDLE); }
+    public static short nlayoutHandle(long struct) { return memGetShort(struct + BGFXTransientVertexBuffer.LAYOUTHANDLE); }
 
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + BGFXTransientVertexBuffer.DATA, memAddress(value)); nsize(struct, value.remaining()); }
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXTransientVertexBuffer.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + BGFXTransientVertexBuffer.SIZE, value); }
     /** Unsafe version of {@link #startVertex(int) startVertex}. */
-    public static void nstartVertex(long struct, int value) { UNSAFE.putInt(null, struct + BGFXTransientVertexBuffer.STARTVERTEX, value); }
+    public static void nstartVertex(long struct, int value) { memPutInt(struct + BGFXTransientVertexBuffer.STARTVERTEX, value); }
     /** Unsafe version of {@link #stride(short) stride}. */
-    public static void nstride(long struct, short value) { UNSAFE.putShort(null, struct + BGFXTransientVertexBuffer.STRIDE, value); }
+    public static void nstride(long struct, short value) { memPutShort(struct + BGFXTransientVertexBuffer.STRIDE, value); }
     /** Unsafe version of {@link #handle(short) handle}. */
-    public static void nhandle(long struct, short value) { UNSAFE.putShort(null, struct + BGFXTransientVertexBuffer.HANDLE, value); }
+    public static void nhandle(long struct, short value) { memPutShort(struct + BGFXTransientVertexBuffer.HANDLE, value); }
     /** Unsafe version of {@link #layoutHandle(short) layoutHandle}. */
-    public static void nlayoutHandle(long struct, short value) { UNSAFE.putShort(null, struct + BGFXTransientVertexBuffer.LAYOUTHANDLE, value); }
+    public static void nlayoutHandle(long struct, short value) { memPutShort(struct + BGFXTransientVertexBuffer.LAYOUTHANDLE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -352,38 +346,43 @@ public class BGFXTransientVertexBuffer extends Struct<BGFXTransientVertexBuffer>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected BGFXTransientVertexBuffer getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link BGFXTransientVertexBuffer#data} field. */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("uint8_t *")
         public ByteBuffer data() { return BGFXTransientVertexBuffer.ndata(address()); }
-        /** @return the value of the {@link BGFXTransientVertexBuffer#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("uint32_t")
         public int size() { return BGFXTransientVertexBuffer.nsize(address()); }
-        /** @return the value of the {@link BGFXTransientVertexBuffer#startVertex} field. */
+        /** @return the value of the {@code startVertex} field. */
         @NativeType("uint32_t")
         public int startVertex() { return BGFXTransientVertexBuffer.nstartVertex(address()); }
-        /** @return the value of the {@link BGFXTransientVertexBuffer#stride} field. */
+        /** @return the value of the {@code stride} field. */
         @NativeType("uint16_t")
         public short stride() { return BGFXTransientVertexBuffer.nstride(address()); }
-        /** @return the value of the {@link BGFXTransientVertexBuffer#handle} field. */
+        /** @return the value of the {@code handle} field. */
         @NativeType("bgfx_vertex_buffer_handle_t")
         public short handle() { return BGFXTransientVertexBuffer.nhandle(address()); }
-        /** @return the value of the {@link BGFXTransientVertexBuffer#layoutHandle} field. */
+        /** @return the value of the {@code layoutHandle} field. */
         @NativeType("bgfx_vertex_layout_handle_t")
         public short layoutHandle() { return BGFXTransientVertexBuffer.nlayoutHandle(address()); }
 
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link BGFXTransientVertexBuffer#data} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code data} field. */
         public BGFXTransientVertexBuffer.Buffer data(@NativeType("uint8_t *") ByteBuffer value) { BGFXTransientVertexBuffer.ndata(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXTransientVertexBuffer#startVertex} field. */
+        /** Sets the specified value to the {@code startVertex} field. */
         public BGFXTransientVertexBuffer.Buffer startVertex(@NativeType("uint32_t") int value) { BGFXTransientVertexBuffer.nstartVertex(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXTransientVertexBuffer#stride} field. */
+        /** Sets the specified value to the {@code stride} field. */
         public BGFXTransientVertexBuffer.Buffer stride(@NativeType("uint16_t") short value) { BGFXTransientVertexBuffer.nstride(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXTransientVertexBuffer#handle} field. */
+        /** Sets the specified value to the {@code handle} field. */
         public BGFXTransientVertexBuffer.Buffer handle(@NativeType("bgfx_vertex_buffer_handle_t") short value) { BGFXTransientVertexBuffer.nhandle(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXTransientVertexBuffer#layoutHandle} field. */
+        /** Sets the specified value to the {@code layoutHandle} field. */
         public BGFXTransientVertexBuffer.Buffer layoutHandle(@NativeType("bgfx_vertex_layout_handle_t") short value) { BGFXTransientVertexBuffer.nlayoutHandle(address(), value); return this; }
 
     }

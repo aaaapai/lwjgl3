@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opengl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,10 +20,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.system.linux.*;
 
-/** Native bindings to GLX 1.3. */
 public class GLX13 extends GLX12 {
 
-    /** Added in GLX 1.3. */
     public static final int
         GLX_WINDOW_BIT              = 0x1,
         GLX_PIXMAP_BIT              = 0x2,
@@ -88,11 +86,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXGetFBConfigs ] ---
 
-    /**
-     * Unsafe version of: {@link #glXGetFBConfigs GetFBConfigs}
-     *
-     * @param nelements returns the number of GLXFBConfigs in the returned list
-     */
+    /** {@code GLXFBConfig * glXGetFBConfigs(Display * display, int screen, int * nelements)} */
     public static long nglXGetFBConfigs(long display, int screen, long nelements) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXGetFBConfigs;
         if (CHECKS) {
@@ -102,15 +96,9 @@ public class GLX13 extends GLX12 {
         return callPPP(display, screen, nelements, __functionAddress);
     }
 
-    /**
-     * Returns the list of all GLXFBConfigs that are available on the specified screen.
-     *
-     * @param display the connection to the X server
-     * @param screen  the screen number
-     */
-    @Nullable
+    /** {@code GLXFBConfig * glXGetFBConfigs(Display * display, int screen, int * nelements)} */
     @NativeType("GLXFBConfig *")
-    public static PointerBuffer glXGetFBConfigs(@NativeType("Display *") long display, int screen) {
+    public static @Nullable PointerBuffer glXGetFBConfigs(@NativeType("Display *") long display, int screen) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         IntBuffer nelements = stack.callocInt(1);
         try {
@@ -123,11 +111,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXChooseFBConfig ] ---
 
-    /**
-     * Unsafe version of: {@link #glXChooseFBConfig ChooseFBConfig}
-     *
-     * @param nelements returns the number of GLXFBConfigs matched
-     */
+    /** {@code GLXFBConfig * glXChooseFBConfig(Display * display, int screen, int const * attrib_list, int * nelements)} */
     public static long nglXChooseFBConfig(long display, int screen, long attrib_list, long nelements) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXChooseFBConfig;
         if (CHECKS) {
@@ -137,16 +121,9 @@ public class GLX13 extends GLX12 {
         return callPPPP(display, screen, attrib_list, nelements, __functionAddress);
     }
 
-    /**
-     * Returns a list of GLXFBConfigs that match a list of attributes.
-     *
-     * @param display     the connection to the X server
-     * @param screen      the screen number
-     * @param attrib_list a list of attributes terminated with {@code None}
-     */
-    @Nullable
+    /** {@code GLXFBConfig * glXChooseFBConfig(Display * display, int screen, int const * attrib_list, int * nelements)} */
     @NativeType("GLXFBConfig *")
-    public static PointerBuffer glXChooseFBConfig(@NativeType("Display *") long display, int screen, @Nullable @NativeType("int const *") IntBuffer attrib_list) {
+    public static @Nullable PointerBuffer glXChooseFBConfig(@NativeType("Display *") long display, int screen, @NativeType("int const *") @Nullable IntBuffer attrib_list) {
         if (CHECKS) {
             checkNTSafe(attrib_list);
         }
@@ -162,7 +139,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXGetFBConfigAttrib ] ---
 
-    /** Unsafe version of: {@link #glXGetFBConfigAttrib GetFBConfigAttrib} */
+    /** {@code int glXGetFBConfigAttrib(Display * display, GLXFBConfig config, int attribute, int * value)} */
     public static int nglXGetFBConfigAttrib(long display, long config, int attribute, long value) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXGetFBConfigAttrib;
         if (CHECKS) {
@@ -173,14 +150,7 @@ public class GLX13 extends GLX12 {
         return callPPPI(display, config, attribute, value, __functionAddress);
     }
 
-    /**
-     * Queries the value of a GLX attribute for a GLXFBConfig.
-     *
-     * @param display   the connection to the X server
-     * @param config    the GLXFBConfig being queried
-     * @param attribute the attribute to query
-     * @param value     the attribute value
-     */
+    /** {@code int glXGetFBConfigAttrib(Display * display, GLXFBConfig config, int attribute, int * value)} */
     public static int glXGetFBConfigAttrib(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, int attribute, @NativeType("int *") IntBuffer value) {
         if (CHECKS) {
             check(value, 1);
@@ -190,7 +160,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXGetVisualFromFBConfig ] ---
 
-    /** Unsafe version of: {@link #glXGetVisualFromFBConfig GetVisualFromFBConfig} */
+    /** {@code XVisualInfo * glXGetVisualFromFBConfig(Display * display, GLXFBConfig config)} */
     public static long nglXGetVisualFromFBConfig(long display, long config) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXGetVisualFromFBConfig;
         if (CHECKS) {
@@ -201,22 +171,16 @@ public class GLX13 extends GLX12 {
         return callPPP(display, config, __functionAddress);
     }
 
-    /**
-     * Retrieves the associated visual of a GLXFBConfig.
-     *
-     * @param display the connection to the X server
-     * @param config  the GLXFBConfig
-     */
-    @Nullable
+    /** {@code XVisualInfo * glXGetVisualFromFBConfig(Display * display, GLXFBConfig config)} */
     @NativeType("XVisualInfo *")
-    public static XVisualInfo glXGetVisualFromFBConfig(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config) {
+    public static @Nullable XVisualInfo glXGetVisualFromFBConfig(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config) {
         long __result = nglXGetVisualFromFBConfig(display, config);
         return XVisualInfo.createSafe(__result);
     }
 
     // --- [ glXCreateWindow ] ---
 
-    /** Unsafe version of: {@link #glXCreateWindow CreateWindow} */
+    /** {@code GLXWindow glXCreateWindow(Display * display, GLXFBConfig config, Window win, int const * attrib_list)} */
     public static long nglXCreateWindow(long display, long config, long win, long attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreateWindow;
         if (CHECKS) {
@@ -227,16 +191,9 @@ public class GLX13 extends GLX12 {
         return callPPNPP(display, config, win, attrib_list, __functionAddress);
     }
 
-    /**
-     * Create an onscreen rendering area from an X Window and a desired GLXFBConfig.
-     *
-     * @param display     the connection to the X server
-     * @param config      the GLXFBConfig
-     * @param win         the X Window
-     * @param attrib_list a list of attributes terminated with {@code None}
-     */
+    /** {@code GLXWindow glXCreateWindow(Display * display, GLXFBConfig config, Window win, int const * attrib_list)} */
     @NativeType("GLXWindow")
-    public static long glXCreateWindow(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Window") long win, @Nullable @NativeType("int const *") IntBuffer attrib_list) {
+    public static long glXCreateWindow(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Window") long win, @NativeType("int const *") @Nullable IntBuffer attrib_list) {
         if (CHECKS) {
             checkNTSafe(attrib_list);
         }
@@ -245,7 +202,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXCreatePixmap ] ---
 
-    /** Unsafe version of: {@link #glXCreatePixmap CreatePixmap} */
+    /** {@code GLXPixmap glXCreatePixmap(Display * display, GLXFBConfig config, Pixmap pixmap, int const * attrib_list)} */
     public static long nglXCreatePixmap(long display, long config, long pixmap, long attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreatePixmap;
         if (CHECKS) {
@@ -256,16 +213,9 @@ public class GLX13 extends GLX12 {
         return callPPNPP(display, config, pixmap, attrib_list, __functionAddress);
     }
 
-    /**
-     * Creates a GLXPixmap offscreen rendering area from an X Pixmap and a desired GLXFBConfig.
-     *
-     * @param display     the connection to the X server
-     * @param config      the GLXFBConfig
-     * @param pixmap      the X Pixmap
-     * @param attrib_list a list of attributes terminated with {@code None}
-     */
+    /** {@code GLXPixmap glXCreatePixmap(Display * display, GLXFBConfig config, Pixmap pixmap, int const * attrib_list)} */
     @NativeType("GLXPixmap")
-    public static long glXCreatePixmap(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Pixmap") long pixmap, @Nullable @NativeType("int const *") IntBuffer attrib_list) {
+    public static long glXCreatePixmap(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Pixmap") long pixmap, @NativeType("int const *") @Nullable IntBuffer attrib_list) {
         if (CHECKS) {
             checkNTSafe(attrib_list);
         }
@@ -274,12 +224,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXDestroyPixmap ] ---
 
-    /**
-     * Destroys a GLXPixmap.
-     *
-     * @param display the connection to the X server
-     * @param pixmap  the GLXPixmap to destroy
-     */
+    /** {@code void glXDestroyPixmap(Display * display, GLXPixmap pixmap)} */
     public static void glXDestroyPixmap(@NativeType("Display *") long display, @NativeType("GLXPixmap") long pixmap) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXDestroyPixmap;
         if (CHECKS) {
@@ -292,7 +237,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXCreatePbuffer ] ---
 
-    /** Unsafe version of: {@link #glXCreatePbuffer CreatePbuffer} */
+    /** {@code GLXPbuffer glXCreatePbuffer(Display * display, GLXFBConfig config, int const * attrib_list)} */
     public static long nglXCreatePbuffer(long display, long config, long attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreatePbuffer;
         if (CHECKS) {
@@ -303,15 +248,9 @@ public class GLX13 extends GLX12 {
         return callPPPP(display, config, attrib_list, __functionAddress);
     }
 
-    /**
-     * Creates a GLXPbuffer from a GLXFBConfig.
-     *
-     * @param display     the connection to the X server
-     * @param config      the GLXFBConfig
-     * @param attrib_list a list of attributes terminated with {@code None}
-     */
+    /** {@code GLXPbuffer glXCreatePbuffer(Display * display, GLXFBConfig config, int const * attrib_list)} */
     @NativeType("GLXPbuffer")
-    public static long glXCreatePbuffer(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @Nullable @NativeType("int const *") IntBuffer attrib_list) {
+    public static long glXCreatePbuffer(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("int const *") @Nullable IntBuffer attrib_list) {
         if (CHECKS) {
             checkNTSafe(attrib_list);
         }
@@ -320,12 +259,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXDestroyPbuffer ] ---
 
-    /**
-     * Destroys a GLXPbuffer.
-     *
-     * @param display the connection to the X server
-     * @param pbuf    the GLXPbuffer to destroy
-     */
+    /** {@code void glXDestroyPbuffer(Display * display, GLXPbuffer pbuf)} */
     public static void glXDestroyPbuffer(@NativeType("Display *") long display, @NativeType("GLXPbuffer") long pbuf) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXDestroyPbuffer;
         if (CHECKS) {
@@ -338,7 +272,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXQueryDrawable ] ---
 
-    /** Unsafe version of: {@link #glXQueryDrawable QueryDrawable} */
+    /** {@code void glXQueryDrawable(Display * display, GLXDrawable draw, int attribute, unsigned int * value)} */
     public static void nglXQueryDrawable(long display, long draw, int attribute, long value) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXQueryDrawable;
         if (CHECKS) {
@@ -349,14 +283,7 @@ public class GLX13 extends GLX12 {
         callPPPV(display, draw, attribute, value, __functionAddress);
     }
 
-    /**
-     * Queries an attribute associated with a GLXDrawable.
-     *
-     * @param display   the connection to the X server
-     * @param draw      the GLXDrawable being queried
-     * @param attribute the attribute to query
-     * @param value     returns the attribute value
-     */
+    /** {@code void glXQueryDrawable(Display * display, GLXDrawable draw, int attribute, unsigned int * value)} */
     public static void glXQueryDrawable(@NativeType("Display *") long display, @NativeType("GLXDrawable") long draw, int attribute, @NativeType("unsigned int *") IntBuffer value) {
         if (CHECKS) {
             check(value, 1);
@@ -364,13 +291,7 @@ public class GLX13 extends GLX12 {
         nglXQueryDrawable(display, draw, attribute, memAddress(value));
     }
 
-    /**
-     * Queries an attribute associated with a GLXDrawable.
-     *
-     * @param display   the connection to the X server
-     * @param draw      the GLXDrawable being queried
-     * @param attribute the attribute to query
-     */
+    /** {@code void glXQueryDrawable(Display * display, GLXDrawable draw, int attribute, unsigned int * value)} */
     @NativeType("void")
     public static int glXQueryDrawable(@NativeType("Display *") long display, @NativeType("GLXDrawable") long draw, int attribute) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -385,15 +306,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXCreateNewContext ] ---
 
-    /**
-     * Creates an OpenGL rendering context.
-     *
-     * @param display     the connection to the X server
-     * @param config      the GLXFBConfig
-     * @param render_type the render type
-     * @param share_list  a GLXContext to share objects with
-     * @param direct      whether direct rendering is requested
-     */
+    /** {@code GLXContext glXCreateNewContext(Display * display, GLXFBConfig config, int render_type, GLXContext share_list, Bool direct)} */
     @NativeType("GLXContext")
     public static long glXCreateNewContext(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, int render_type, @NativeType("GLXContext") long share_list, @NativeType("Bool") boolean direct) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreateNewContext;
@@ -407,14 +320,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXMakeContextCurrent ] ---
 
-    /**
-     * Makes a GLXContext current in the current thread.
-     *
-     * @param display the connection to the X server
-     * @param draw    the draw GLXDrawable
-     * @param read    the read GLXDrawable
-     * @param ctx     the GLXContext
-     */
+    /** {@code Bool glXMakeContextCurrent(Display * display, GLXDrawable draw, GLXDrawable read, GLXContext ctx)} */
     @NativeType("Bool")
     public static boolean glXMakeContextCurrent(@NativeType("Display *") long display, @NativeType("GLXDrawable") long draw, @NativeType("GLXDrawable") long read, @NativeType("GLXContext") long ctx) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXMakeContextCurrent;
@@ -427,7 +333,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXGetCurrentReadDrawable ] ---
 
-    /** Returns the current GLXDrawable used for reading in the current thread. */
+    /** {@code GLXDrawable glXGetCurrentReadDrawable(void)} */
     @NativeType("GLXDrawable")
     public static long glXGetCurrentReadDrawable() {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXGetCurrentReadDrawable;
@@ -439,7 +345,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXQueryContext ] ---
 
-    /** Unsafe version of: {@link #glXQueryContext QueryContext} */
+    /** {@code int glXQueryContext(Display * display, GLXContext ctx, int attribute, int * value)} */
     public static int nglXQueryContext(long display, long ctx, int attribute, long value) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXQueryContext;
         if (CHECKS) {
@@ -450,14 +356,7 @@ public class GLX13 extends GLX12 {
         return callPPPI(display, ctx, attribute, value, __functionAddress);
     }
 
-    /**
-     * Queries the value of a GLXContext attribute.
-     *
-     * @param display   the connection to the X server
-     * @param ctx       the GLXContext being queried
-     * @param attribute the attribute to query
-     * @param value     returns the attribute value
-     */
+    /** {@code int glXQueryContext(Display * display, GLXContext ctx, int attribute, int * value)} */
     public static int glXQueryContext(@NativeType("Display *") long display, @NativeType("GLXContext") long ctx, int attribute, @NativeType("int *") IntBuffer value) {
         if (CHECKS) {
             check(value, 1);
@@ -467,13 +366,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXSelectEvent ] ---
 
-    /**
-     * Selects which GLX events should be received on a GLXDrawable.
-     *
-     * @param display    the connection to the X server
-     * @param draw       the GLXDrawable
-     * @param event_mask the selection mask
-     */
+    /** {@code void glXSelectEvent(Display * display, GLXDrawable draw, unsigned long event_mask)} */
     public static void glXSelectEvent(@NativeType("Display *") long display, @NativeType("GLXDrawable") long draw, @NativeType("unsigned long") long event_mask) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXSelectEvent;
         if (CHECKS) {
@@ -486,7 +379,7 @@ public class GLX13 extends GLX12 {
 
     // --- [ glXGetSelectedEvent ] ---
 
-    /** Unsafe version of: {@link #glXGetSelectedEvent GetSelectedEvent} */
+    /** {@code void glXGetSelectedEvent(Display * display, GLXDrawable draw, unsigned long * event_mask)} */
     public static void nglXGetSelectedEvent(long display, long draw, long event_mask) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXGetSelectedEvent;
         if (CHECKS) {
@@ -497,13 +390,7 @@ public class GLX13 extends GLX12 {
         callPPPV(display, draw, event_mask, __functionAddress);
     }
 
-    /**
-     * Returns which GLX events are selected for a GLXDrawable.
-     *
-     * @param display    the connection to the X server
-     * @param draw       the GLXDrawable
-     * @param event_mask returns the selection mask
-     */
+    /** {@code void glXGetSelectedEvent(Display * display, GLXDrawable draw, unsigned long * event_mask)} */
     public static void glXGetSelectedEvent(@NativeType("Display *") long display, @NativeType("GLXDrawable") long draw, @NativeType("unsigned long *") CLongBuffer event_mask) {
         if (CHECKS) {
             check(event_mask, 1);
@@ -511,10 +398,9 @@ public class GLX13 extends GLX12 {
         nglXGetSelectedEvent(display, draw, memAddress(event_mask));
     }
 
-    /** Array version of: {@link #glXChooseFBConfig ChooseFBConfig} */
-    @Nullable
+    /** {@code GLXFBConfig * glXChooseFBConfig(Display * display, int screen, int const * attrib_list, int * nelements)} */
     @NativeType("GLXFBConfig *")
-    public static PointerBuffer glXChooseFBConfig(@NativeType("Display *") long display, int screen, @Nullable @NativeType("int const *") int[] attrib_list) {
+    public static @Nullable PointerBuffer glXChooseFBConfig(@NativeType("Display *") long display, int screen, @NativeType("int const *") int @Nullable [] attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXChooseFBConfig;
         if (CHECKS) {
             check(__functionAddress);
@@ -531,7 +417,7 @@ public class GLX13 extends GLX12 {
         }
     }
 
-    /** Array version of: {@link #glXGetFBConfigAttrib GetFBConfigAttrib} */
+    /** {@code int glXGetFBConfigAttrib(Display * display, GLXFBConfig config, int attribute, int * value)} */
     public static int glXGetFBConfigAttrib(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, int attribute, @NativeType("int *") int[] value) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXGetFBConfigAttrib;
         if (CHECKS) {
@@ -543,9 +429,9 @@ public class GLX13 extends GLX12 {
         return callPPPI(display, config, attribute, value, __functionAddress);
     }
 
-    /** Array version of: {@link #glXCreateWindow CreateWindow} */
+    /** {@code GLXWindow glXCreateWindow(Display * display, GLXFBConfig config, Window win, int const * attrib_list)} */
     @NativeType("GLXWindow")
-    public static long glXCreateWindow(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Window") long win, @Nullable @NativeType("int const *") int[] attrib_list) {
+    public static long glXCreateWindow(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Window") long win, @NativeType("int const *") int @Nullable [] attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreateWindow;
         if (CHECKS) {
             check(__functionAddress);
@@ -556,9 +442,9 @@ public class GLX13 extends GLX12 {
         return callPPNPP(display, config, win, attrib_list, __functionAddress);
     }
 
-    /** Array version of: {@link #glXCreatePixmap CreatePixmap} */
+    /** {@code GLXPixmap glXCreatePixmap(Display * display, GLXFBConfig config, Pixmap pixmap, int const * attrib_list)} */
     @NativeType("GLXPixmap")
-    public static long glXCreatePixmap(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Pixmap") long pixmap, @Nullable @NativeType("int const *") int[] attrib_list) {
+    public static long glXCreatePixmap(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("Pixmap") long pixmap, @NativeType("int const *") int @Nullable [] attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreatePixmap;
         if (CHECKS) {
             check(__functionAddress);
@@ -569,9 +455,9 @@ public class GLX13 extends GLX12 {
         return callPPNPP(display, config, pixmap, attrib_list, __functionAddress);
     }
 
-    /** Array version of: {@link #glXCreatePbuffer CreatePbuffer} */
+    /** {@code GLXPbuffer glXCreatePbuffer(Display * display, GLXFBConfig config, int const * attrib_list)} */
     @NativeType("GLXPbuffer")
-    public static long glXCreatePbuffer(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @Nullable @NativeType("int const *") int[] attrib_list) {
+    public static long glXCreatePbuffer(@NativeType("Display *") long display, @NativeType("GLXFBConfig") long config, @NativeType("int const *") int @Nullable [] attrib_list) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXCreatePbuffer;
         if (CHECKS) {
             check(__functionAddress);
@@ -582,7 +468,7 @@ public class GLX13 extends GLX12 {
         return callPPPP(display, config, attrib_list, __functionAddress);
     }
 
-    /** Array version of: {@link #glXQueryDrawable QueryDrawable} */
+    /** {@code void glXQueryDrawable(Display * display, GLXDrawable draw, int attribute, unsigned int * value)} */
     public static void glXQueryDrawable(@NativeType("Display *") long display, @NativeType("GLXDrawable") long draw, int attribute, @NativeType("unsigned int *") int[] value) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXQueryDrawable;
         if (CHECKS) {
@@ -594,7 +480,7 @@ public class GLX13 extends GLX12 {
         callPPPV(display, draw, attribute, value, __functionAddress);
     }
 
-    /** Array version of: {@link #glXQueryContext QueryContext} */
+    /** {@code int glXQueryContext(Display * display, GLXContext ctx, int attribute, int * value)} */
     public static int glXQueryContext(@NativeType("Display *") long display, @NativeType("GLXContext") long ctx, int attribute, @NativeType("int *") int[] value) {
         long __functionAddress = GL.getCapabilitiesGLXClient().glXQueryContext;
         if (CHECKS) {

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes an file format which Assimp can export to. Use {@link Assimp#aiGetExportFormatCount GetExportFormatCount} to learn how many export-formats are supported by the current
- * Assimp-build and {@link Assimp#aiGetExportFormatDescription GetExportFormatDescription} to retrieve the description of the export format option.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiExportFormatDesc {
- *     char const * {@link #id};
- *     char const * {@link #description};
- *     char const * {@link #fileExtension};
- * }</code></pre>
+ *     char const * id;
+ *     char const * description;
+ *     char const * fileExtension;
+ * }}</pre>
  */
 @NativeType("struct aiExportFormatDesc")
 public class AIExportFormatDesc extends Struct<AIExportFormatDesc> implements NativeResource {
@@ -81,36 +76,30 @@ public class AIExportFormatDesc extends Struct<AIExportFormatDesc> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * a short string ID to uniquely identify the export format. Use this ID string to specify which file format you want to export to when calling
-     * {@link Assimp#aiExportScene ExportScene}. Example: "dae" or "obj"
-     */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code id} field. */
     @NativeType("char const *")
     public ByteBuffer id() { return nid(address()); }
-    /**
-     * a short string ID to uniquely identify the export format. Use this ID string to specify which file format you want to export to when calling
-     * {@link Assimp#aiExportScene ExportScene}. Example: "dae" or "obj"
-     */
+    /** @return the null-terminated string pointed to by the {@code id} field. */
     @NativeType("char const *")
     public String idString() { return nidString(address()); }
-    /** A short description of the file format to present to users. Useful if you want to allow the user to select an export format. */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code description} field. */
     @NativeType("char const *")
     public ByteBuffer description() { return ndescription(address()); }
-    /** A short description of the file format to present to users. Useful if you want to allow the user to select an export format. */
+    /** @return the null-terminated string pointed to by the {@code description} field. */
     @NativeType("char const *")
     public String descriptionString() { return ndescriptionString(address()); }
-    /** Recommended file extension for the exported file in lower case. */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code fileExtension} field. */
     @NativeType("char const *")
     public ByteBuffer fileExtension() { return nfileExtension(address()); }
-    /** Recommended file extension for the exported file in lower case. */
+    /** @return the null-terminated string pointed to by the {@code fileExtension} field. */
     @NativeType("char const *")
     public String fileExtensionString() { return nfileExtensionString(address()); }
 
-    /** Sets the address of the specified encoded string to the {@link #id} field. */
+    /** Sets the address of the specified encoded string to the {@code id} field. */
     public AIExportFormatDesc id(@NativeType("char const *") ByteBuffer value) { nid(address(), value); return this; }
-    /** Sets the address of the specified encoded string to the {@link #description} field. */
+    /** Sets the address of the specified encoded string to the {@code description} field. */
     public AIExportFormatDesc description(@NativeType("char const *") ByteBuffer value) { ndescription(address(), value); return this; }
-    /** Sets the address of the specified encoded string to the {@link #fileExtension} field. */
+    /** Sets the address of the specified encoded string to the {@code fileExtension} field. */
     public AIExportFormatDesc fileExtension(@NativeType("char const *") ByteBuffer value) { nfileExtension(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +151,7 @@ public class AIExportFormatDesc extends Struct<AIExportFormatDesc> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIExportFormatDesc createSafe(long address) {
+    public static @Nullable AIExportFormatDesc createSafe(long address) {
         return address == NULL ? null : new AIExportFormatDesc(address, null);
     }
 
@@ -206,8 +194,7 @@ public class AIExportFormatDesc extends Struct<AIExportFormatDesc> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIExportFormatDesc.Buffer createSafe(long address, int capacity) {
+    public static AIExportFormatDesc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -344,34 +331,39 @@ public class AIExportFormatDesc extends Struct<AIExportFormatDesc> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIExportFormatDesc getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link AIExportFormatDesc#id} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code id} field. */
         @NativeType("char const *")
         public ByteBuffer id() { return AIExportFormatDesc.nid(address()); }
-        /** @return the null-terminated string pointed to by the {@link AIExportFormatDesc#id} field. */
+        /** @return the null-terminated string pointed to by the {@code id} field. */
         @NativeType("char const *")
         public String idString() { return AIExportFormatDesc.nidString(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link AIExportFormatDesc#description} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code description} field. */
         @NativeType("char const *")
         public ByteBuffer description() { return AIExportFormatDesc.ndescription(address()); }
-        /** @return the null-terminated string pointed to by the {@link AIExportFormatDesc#description} field. */
+        /** @return the null-terminated string pointed to by the {@code description} field. */
         @NativeType("char const *")
         public String descriptionString() { return AIExportFormatDesc.ndescriptionString(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link AIExportFormatDesc#fileExtension} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code fileExtension} field. */
         @NativeType("char const *")
         public ByteBuffer fileExtension() { return AIExportFormatDesc.nfileExtension(address()); }
-        /** @return the null-terminated string pointed to by the {@link AIExportFormatDesc#fileExtension} field. */
+        /** @return the null-terminated string pointed to by the {@code fileExtension} field. */
         @NativeType("char const *")
         public String fileExtensionString() { return AIExportFormatDesc.nfileExtensionString(address()); }
 
-        /** Sets the address of the specified encoded string to the {@link AIExportFormatDesc#id} field. */
+        /** Sets the address of the specified encoded string to the {@code id} field. */
         public AIExportFormatDesc.Buffer id(@NativeType("char const *") ByteBuffer value) { AIExportFormatDesc.nid(address(), value); return this; }
-        /** Sets the address of the specified encoded string to the {@link AIExportFormatDesc#description} field. */
+        /** Sets the address of the specified encoded string to the {@code description} field. */
         public AIExportFormatDesc.Buffer description(@NativeType("char const *") ByteBuffer value) { AIExportFormatDesc.ndescription(address(), value); return this; }
-        /** Sets the address of the specified encoded string to the {@link AIExportFormatDesc#fileExtension} field. */
+        /** Sets the address of the specified encoded string to the {@code fileExtension} field. */
         public AIExportFormatDesc.Buffer fileExtension(@NativeType("char const *") ByteBuffer value) { AIExportFormatDesc.nfileExtension(address(), value); return this; }
 
     }

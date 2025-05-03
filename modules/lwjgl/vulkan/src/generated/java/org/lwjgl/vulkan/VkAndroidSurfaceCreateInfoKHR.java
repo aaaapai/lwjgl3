@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created Android surface object.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code window} <b>must</b> point to a valid Android {@code ANativeWindow}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRAndroidSurface#VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRAndroidSurface#vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAndroidSurfaceCreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkAndroidSurfaceCreateFlagsKHR {@link #flags};
- *     ANativeWindow * {@link #window};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkAndroidSurfaceCreateFlagsKHR flags;
+ *     ANativeWindow * window;
+ * }}</pre>
  */
 public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreateInfoKHR> implements NativeResource {
 
@@ -100,28 +78,28 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkAndroidSurfaceCreateFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** a pointer to the {@code ANativeWindow} to associate the surface with. */
+    /** @return the value of the {@code window} field. */
     @NativeType("ANativeWindow *")
     public long window() { return nwindow(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkAndroidSurfaceCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRAndroidSurface#VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRAndroidSurface#VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR} value to the {@code sType} field. */
     public VkAndroidSurfaceCreateInfoKHR sType$Default() { return sType(KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkAndroidSurfaceCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkAndroidSurfaceCreateInfoKHR flags(@NativeType("VkAndroidSurfaceCreateFlagsKHR") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public VkAndroidSurfaceCreateInfoKHR window(@NativeType("ANativeWindow *") long value) { nwindow(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +153,7 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidSurfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkAndroidSurfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAndroidSurfaceCreateInfoKHR(address, null);
     }
 
@@ -219,8 +196,7 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAndroidSurfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAndroidSurfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,20 +241,20 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAndroidSurfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAndroidSurfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAndroidSurfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAndroidSurfaceCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAndroidSurfaceCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetAddress(struct + VkAndroidSurfaceCreateInfoKHR.WINDOW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidSurfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAndroidSurfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAndroidSurfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAndroidSurfaceCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAndroidSurfaceCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutAddress(struct + VkAndroidSurfaceCreateInfoKHR.WINDOW, value); }
 
@@ -316,32 +292,37 @@ public class VkAndroidSurfaceCreateInfoKHR extends Struct<VkAndroidSurfaceCreate
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAndroidSurfaceCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAndroidSurfaceCreateInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkAndroidSurfaceCreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkAndroidSurfaceCreateInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkAndroidSurfaceCreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkAndroidSurfaceCreateInfoKHR#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkAndroidSurfaceCreateFlagsKHR")
         public int flags() { return VkAndroidSurfaceCreateInfoKHR.nflags(address()); }
-        /** @return the value of the {@link VkAndroidSurfaceCreateInfoKHR#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("ANativeWindow *")
         public long window() { return VkAndroidSurfaceCreateInfoKHR.nwindow(address()); }
 
-        /** Sets the specified value to the {@link VkAndroidSurfaceCreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkAndroidSurfaceCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkAndroidSurfaceCreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRAndroidSurface#VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR} value to the {@link VkAndroidSurfaceCreateInfoKHR#sType} field. */
+        /** Sets the {@link KHRAndroidSurface#VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR} value to the {@code sType} field. */
         public VkAndroidSurfaceCreateInfoKHR.Buffer sType$Default() { return sType(KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkAndroidSurfaceCreateInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkAndroidSurfaceCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkAndroidSurfaceCreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAndroidSurfaceCreateInfoKHR#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkAndroidSurfaceCreateInfoKHR.Buffer flags(@NativeType("VkAndroidSurfaceCreateFlagsKHR") int value) { VkAndroidSurfaceCreateInfoKHR.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAndroidSurfaceCreateInfoKHR#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public VkAndroidSurfaceCreateInfoKHR.Buffer window(@NativeType("ANativeWindow *") long value) { VkAndroidSurfaceCreateInfoKHR.nwindow(address(), value); return this; }
 
     }

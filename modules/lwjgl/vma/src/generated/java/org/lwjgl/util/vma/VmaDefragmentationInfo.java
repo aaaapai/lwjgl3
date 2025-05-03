@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,21 +18,15 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.*;
 
 /**
- * Parameters for defragmentation.
- * 
- * <p>To be used with function {@link Vma#vmaBeginDefragmentation BeginDefragmentation}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaDefragmentationInfo {
- *     VmaDefragmentationFlags {@link #flags};
- *     VmaPool {@link #pool};
- *     VkDeviceSize {@link #maxBytesPerPass};
- *     uint32_t {@link #maxAllocationsPerPass};
- *     {@link VmaCheckDefragmentationBreakFunctionI PFN_vmaCheckDefragmentationBreakFunction} {@link #pfnBreakCallback};
- *     void * {@link #pBreakCallbackUserData};
- * }</code></pre>
+ *     VmaDefragmentationFlags flags;
+ *     VmaPool pool;
+ *     VkDeviceSize maxBytesPerPass;
+ *     uint32_t maxAllocationsPerPass;
+ *     {@link VmaCheckDefragmentationBreakFunctionI PFN_vmaCheckDefragmentationBreakFunction} pfnBreakCallback;
+ *     void * pBreakCallbackUserData;
+ * }}</pre>
  */
 public class VmaDefragmentationInfo extends Struct<VmaDefragmentationInfo> implements NativeResource {
 
@@ -94,53 +88,36 @@ public class VmaDefragmentationInfo extends Struct<VmaDefragmentationInfo> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** use combination of {@code VmaDefragmentationFlagBits}. One or more of:<br><table><tr><td>{@link Vma#VMA_DEFRAGMENTATION_FLAG_ALGORITHM_FAST_BIT DEFRAGMENTATION_FLAG_ALGORITHM_FAST_BIT}</td><td>{@link Vma#VMA_DEFRAGMENTATION_FLAG_ALGORITHM_BALANCED_BIT DEFRAGMENTATION_FLAG_ALGORITHM_BALANCED_BIT}</td></tr><tr><td>{@link Vma#VMA_DEFRAGMENTATION_FLAG_ALGORITHM_FULL_BIT DEFRAGMENTATION_FLAG_ALGORITHM_FULL_BIT}</td><td>{@link Vma#VMA_DEFRAGMENTATION_FLAG_ALGORITHM_EXTENSIVE_BIT DEFRAGMENTATION_FLAG_ALGORITHM_EXTENSIVE_BIT}</td></tr><tr><td>{@link Vma#VMA_DEFRAGMENTATION_FLAG_ALGORITHM_MASK DEFRAGMENTATION_FLAG_ALGORITHM_MASK}</td></tr></table> */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VmaDefragmentationFlags")
     public int flags() { return nflags(address()); }
-    /**
-     * custom pool to be defragmented.
-     * 
-     * <p>If null then default pools will undergo defragmentation process.</p>
-     */
+    /** @return the value of the {@code pool} field. */
     @NativeType("VmaPool")
     public long pool() { return npool(address()); }
-    /**
-     * maximum numbers of bytes that can be copied during single pass, while moving allocations to different places.
-     * 
-     * <p>0 means no limit.</p>
-     */
+    /** @return the value of the {@code maxBytesPerPass} field. */
     @NativeType("VkDeviceSize")
     public long maxBytesPerPass() { return nmaxBytesPerPass(address()); }
-    /**
-     * maximum number of allocations that can be moved during single pass to a different place.
-     * 
-     * <p>0 means no limit.</p>
-     */
+    /** @return the value of the {@code maxAllocationsPerPass} field. */
     @NativeType("uint32_t")
     public int maxAllocationsPerPass() { return nmaxAllocationsPerPass(address()); }
-    /**
-     * Optional custom callback for stopping {@link Vma#vmaBeginDefragmentation BeginDefragmentation}.
-     * 
-     * <p>Have to return true for breaking current defragmentation pass.</p>
-     */
-    @Nullable
+    /** @return the value of the {@code pfnBreakCallback} field. */
     @NativeType("PFN_vmaCheckDefragmentationBreakFunction")
-    public VmaCheckDefragmentationBreakFunction pfnBreakCallback() { return npfnBreakCallback(address()); }
-    /** optional data to pass to custom callback for stopping pass of defragmentation. */
+    public @Nullable VmaCheckDefragmentationBreakFunction pfnBreakCallback() { return npfnBreakCallback(address()); }
+    /** @return the value of the {@code pBreakCallbackUserData} field. */
     @NativeType("void *")
     public long pBreakCallbackUserData() { return npBreakCallbackUserData(address()); }
 
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VmaDefragmentationInfo flags(@NativeType("VmaDefragmentationFlags") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #pool} field. */
+    /** Sets the specified value to the {@code pool} field. */
     public VmaDefragmentationInfo pool(@NativeType("VmaPool") long value) { npool(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxBytesPerPass} field. */
+    /** Sets the specified value to the {@code maxBytesPerPass} field. */
     public VmaDefragmentationInfo maxBytesPerPass(@NativeType("VkDeviceSize") long value) { nmaxBytesPerPass(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxAllocationsPerPass} field. */
+    /** Sets the specified value to the {@code maxAllocationsPerPass} field. */
     public VmaDefragmentationInfo maxAllocationsPerPass(@NativeType("uint32_t") int value) { nmaxAllocationsPerPass(address(), value); return this; }
-    /** Sets the specified value to the {@link #pfnBreakCallback} field. */
+    /** Sets the specified value to the {@code pfnBreakCallback} field. */
     public VmaDefragmentationInfo pfnBreakCallback(@Nullable @NativeType("PFN_vmaCheckDefragmentationBreakFunction") VmaCheckDefragmentationBreakFunctionI value) { npfnBreakCallback(address(), value); return this; }
-    /** Sets the specified value to the {@link #pBreakCallbackUserData} field. */
+    /** Sets the specified value to the {@code pBreakCallbackUserData} field. */
     public VmaDefragmentationInfo pBreakCallbackUserData(@NativeType("void *") long value) { npBreakCallbackUserData(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -198,8 +175,7 @@ public class VmaDefragmentationInfo extends Struct<VmaDefragmentationInfo> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDefragmentationInfo createSafe(long address) {
+    public static @Nullable VmaDefragmentationInfo createSafe(long address) {
         return address == NULL ? null : new VmaDefragmentationInfo(address, null);
     }
 
@@ -242,8 +218,7 @@ public class VmaDefragmentationInfo extends Struct<VmaDefragmentationInfo> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDefragmentationInfo.Buffer createSafe(long address, int capacity) {
+    public static VmaDefragmentationInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,26 +282,26 @@ public class VmaDefragmentationInfo extends Struct<VmaDefragmentationInfo> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VmaDefragmentationInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VmaDefragmentationInfo.FLAGS); }
     /** Unsafe version of {@link #pool}. */
     public static long npool(long struct) { return memGetAddress(struct + VmaDefragmentationInfo.POOL); }
     /** Unsafe version of {@link #maxBytesPerPass}. */
-    public static long nmaxBytesPerPass(long struct) { return UNSAFE.getLong(null, struct + VmaDefragmentationInfo.MAXBYTESPERPASS); }
+    public static long nmaxBytesPerPass(long struct) { return memGetLong(struct + VmaDefragmentationInfo.MAXBYTESPERPASS); }
     /** Unsafe version of {@link #maxAllocationsPerPass}. */
-    public static int nmaxAllocationsPerPass(long struct) { return UNSAFE.getInt(null, struct + VmaDefragmentationInfo.MAXALLOCATIONSPERPASS); }
+    public static int nmaxAllocationsPerPass(long struct) { return memGetInt(struct + VmaDefragmentationInfo.MAXALLOCATIONSPERPASS); }
     /** Unsafe version of {@link #pfnBreakCallback}. */
-    @Nullable public static VmaCheckDefragmentationBreakFunction npfnBreakCallback(long struct) { return VmaCheckDefragmentationBreakFunction.createSafe(memGetAddress(struct + VmaDefragmentationInfo.PFNBREAKCALLBACK)); }
+    public static @Nullable VmaCheckDefragmentationBreakFunction npfnBreakCallback(long struct) { return VmaCheckDefragmentationBreakFunction.createSafe(memGetAddress(struct + VmaDefragmentationInfo.PFNBREAKCALLBACK)); }
     /** Unsafe version of {@link #pBreakCallbackUserData}. */
     public static long npBreakCallbackUserData(long struct) { return memGetAddress(struct + VmaDefragmentationInfo.PBREAKCALLBACKUSERDATA); }
 
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VmaDefragmentationInfo.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VmaDefragmentationInfo.FLAGS, value); }
     /** Unsafe version of {@link #pool(long) pool}. */
     public static void npool(long struct, long value) { memPutAddress(struct + VmaDefragmentationInfo.POOL, value); }
     /** Unsafe version of {@link #maxBytesPerPass(long) maxBytesPerPass}. */
-    public static void nmaxBytesPerPass(long struct, long value) { UNSAFE.putLong(null, struct + VmaDefragmentationInfo.MAXBYTESPERPASS, value); }
+    public static void nmaxBytesPerPass(long struct, long value) { memPutLong(struct + VmaDefragmentationInfo.MAXBYTESPERPASS, value); }
     /** Unsafe version of {@link #maxAllocationsPerPass(int) maxAllocationsPerPass}. */
-    public static void nmaxAllocationsPerPass(long struct, int value) { UNSAFE.putInt(null, struct + VmaDefragmentationInfo.MAXALLOCATIONSPERPASS, value); }
+    public static void nmaxAllocationsPerPass(long struct, int value) { memPutInt(struct + VmaDefragmentationInfo.MAXALLOCATIONSPERPASS, value); }
     /** Unsafe version of {@link #pfnBreakCallback(VmaCheckDefragmentationBreakFunctionI) pfnBreakCallback}. */
     public static void npfnBreakCallback(long struct, @Nullable VmaCheckDefragmentationBreakFunctionI value) { memPutAddress(struct + VmaDefragmentationInfo.PFNBREAKCALLBACK, memAddressSafe(value)); }
     /** Unsafe version of {@link #pBreakCallbackUserData(long) pBreakCallbackUserData}. */
@@ -366,41 +341,45 @@ public class VmaDefragmentationInfo extends Struct<VmaDefragmentationInfo> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaDefragmentationInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VmaDefragmentationInfo#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VmaDefragmentationFlags")
         public int flags() { return VmaDefragmentationInfo.nflags(address()); }
-        /** @return the value of the {@link VmaDefragmentationInfo#pool} field. */
+        /** @return the value of the {@code pool} field. */
         @NativeType("VmaPool")
         public long pool() { return VmaDefragmentationInfo.npool(address()); }
-        /** @return the value of the {@link VmaDefragmentationInfo#maxBytesPerPass} field. */
+        /** @return the value of the {@code maxBytesPerPass} field. */
         @NativeType("VkDeviceSize")
         public long maxBytesPerPass() { return VmaDefragmentationInfo.nmaxBytesPerPass(address()); }
-        /** @return the value of the {@link VmaDefragmentationInfo#maxAllocationsPerPass} field. */
+        /** @return the value of the {@code maxAllocationsPerPass} field. */
         @NativeType("uint32_t")
         public int maxAllocationsPerPass() { return VmaDefragmentationInfo.nmaxAllocationsPerPass(address()); }
-        /** @return the value of the {@link VmaDefragmentationInfo#pfnBreakCallback} field. */
-        @Nullable
+        /** @return the value of the {@code pfnBreakCallback} field. */
         @NativeType("PFN_vmaCheckDefragmentationBreakFunction")
-        public VmaCheckDefragmentationBreakFunction pfnBreakCallback() { return VmaDefragmentationInfo.npfnBreakCallback(address()); }
-        /** @return the value of the {@link VmaDefragmentationInfo#pBreakCallbackUserData} field. */
+        public @Nullable VmaCheckDefragmentationBreakFunction pfnBreakCallback() { return VmaDefragmentationInfo.npfnBreakCallback(address()); }
+        /** @return the value of the {@code pBreakCallbackUserData} field. */
         @NativeType("void *")
         public long pBreakCallbackUserData() { return VmaDefragmentationInfo.npBreakCallbackUserData(address()); }
 
-        /** Sets the specified value to the {@link VmaDefragmentationInfo#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VmaDefragmentationInfo.Buffer flags(@NativeType("VmaDefragmentationFlags") int value) { VmaDefragmentationInfo.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationInfo#pool} field. */
+        /** Sets the specified value to the {@code pool} field. */
         public VmaDefragmentationInfo.Buffer pool(@NativeType("VmaPool") long value) { VmaDefragmentationInfo.npool(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationInfo#maxBytesPerPass} field. */
+        /** Sets the specified value to the {@code maxBytesPerPass} field. */
         public VmaDefragmentationInfo.Buffer maxBytesPerPass(@NativeType("VkDeviceSize") long value) { VmaDefragmentationInfo.nmaxBytesPerPass(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationInfo#maxAllocationsPerPass} field. */
+        /** Sets the specified value to the {@code maxAllocationsPerPass} field. */
         public VmaDefragmentationInfo.Buffer maxAllocationsPerPass(@NativeType("uint32_t") int value) { VmaDefragmentationInfo.nmaxAllocationsPerPass(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationInfo#pfnBreakCallback} field. */
+        /** Sets the specified value to the {@code pfnBreakCallback} field. */
         public VmaDefragmentationInfo.Buffer pfnBreakCallback(@Nullable @NativeType("PFN_vmaCheckDefragmentationBreakFunction") VmaCheckDefragmentationBreakFunctionI value) { VmaDefragmentationInfo.npfnBreakCallback(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationInfo#pBreakCallbackUserData} field. */
+        /** Sets the specified value to the {@code pBreakCallbackUserData} field. */
         public VmaDefragmentationInfo.Buffer pBreakCallbackUserData(@NativeType("void *") long value) { VmaDefragmentationInfo.npBreakCallbackUserData(address(), value); return this; }
 
     }

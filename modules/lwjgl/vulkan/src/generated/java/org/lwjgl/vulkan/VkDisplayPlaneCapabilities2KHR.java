@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the capabilities of a mode and plane combination.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayPlaneCapabilitiesKHR}, {@link KHRGetDisplayProperties2#vkGetDisplayPlaneCapabilities2KHR GetDisplayPlaneCapabilities2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayPlaneCapabilities2KHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkDisplayPlaneCapabilitiesKHR VkDisplayPlaneCapabilitiesKHR} {@link #capabilities};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkDisplayPlaneCapabilitiesKHR VkDisplayPlaneCapabilitiesKHR} capabilities;
+ * }}</pre>
  */
 public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabilities2KHR> implements NativeResource {
 
@@ -89,20 +74,20 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkDisplayPlaneCapabilitiesKHR} structure. */
+    /** @return a {@link VkDisplayPlaneCapabilitiesKHR} view of the {@code capabilities} field. */
     public VkDisplayPlaneCapabilitiesKHR capabilities() { return ncapabilities(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDisplayPlaneCapabilities2KHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@code sType} field. */
     public VkDisplayPlaneCapabilities2KHR sType$Default() { return sType(KHRGetDisplayProperties2.VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDisplayPlaneCapabilities2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +137,7 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlaneCapabilities2KHR createSafe(long address) {
+    public static @Nullable VkDisplayPlaneCapabilities2KHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPlaneCapabilities2KHR(address, null);
     }
 
@@ -196,8 +180,7 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlaneCapabilities2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPlaneCapabilities2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +244,14 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPlaneCapabilities2KHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayPlaneCapabilities2KHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayPlaneCapabilities2KHR.PNEXT); }
     /** Unsafe version of {@link #capabilities}. */
     public static VkDisplayPlaneCapabilitiesKHR ncapabilities(long struct) { return VkDisplayPlaneCapabilitiesKHR.create(struct + VkDisplayPlaneCapabilities2KHR.CAPABILITIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayPlaneCapabilities2KHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayPlaneCapabilities2KHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayPlaneCapabilities2KHR.PNEXT, value); }
 
@@ -306,24 +289,29 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayPlaneCapabilities2KHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayPlaneCapabilities2KHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDisplayPlaneCapabilities2KHR.nsType(address()); }
-        /** @return the value of the {@link VkDisplayPlaneCapabilities2KHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkDisplayPlaneCapabilities2KHR.npNext(address()); }
-        /** @return a {@link VkDisplayPlaneCapabilitiesKHR} view of the {@link VkDisplayPlaneCapabilities2KHR#capabilities} field. */
+        /** @return a {@link VkDisplayPlaneCapabilitiesKHR} view of the {@code capabilities} field. */
         public VkDisplayPlaneCapabilitiesKHR capabilities() { return VkDisplayPlaneCapabilities2KHR.ncapabilities(address()); }
 
-        /** Sets the specified value to the {@link VkDisplayPlaneCapabilities2KHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDisplayPlaneCapabilities2KHR.Buffer sType(@NativeType("VkStructureType") int value) { VkDisplayPlaneCapabilities2KHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@link VkDisplayPlaneCapabilities2KHR#sType} field. */
+        /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@code sType} field. */
         public VkDisplayPlaneCapabilities2KHR.Buffer sType$Default() { return sType(KHRGetDisplayProperties2.VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR); }
-        /** Sets the specified value to the {@link VkDisplayPlaneCapabilities2KHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDisplayPlaneCapabilities2KHR.Buffer pNext(@NativeType("void *") long value) { VkDisplayPlaneCapabilities2KHR.npNext(address(), value); return this; }
 
     }

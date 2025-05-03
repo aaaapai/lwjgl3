@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,22 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetCharModsCallback SetCharModsCallback} method.
- * 
- * <p>Deprecared: scheduled for removal in version 4.0.</p>
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     unsigned int codepoint,
- *     int mods
- * )</code></pre>
- *
- * @since version 3.1
- */
+/** Callback function: {@link #invoke GLFWcharmodsfun} */
 public abstract class GLFWCharModsCallback extends Callback implements GLFWCharModsCallbackI {
 
     /**
@@ -44,8 +29,7 @@ public abstract class GLFWCharModsCallback extends Callback implements GLFWCharM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWCharModsCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWCharModsCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

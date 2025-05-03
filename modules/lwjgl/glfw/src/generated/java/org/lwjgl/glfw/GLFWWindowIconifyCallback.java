@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,19 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetWindowIconifyCallback SetWindowIconifyCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     int iconified
- * )</code></pre>
- *
- * @since version 3.0
- */
+/** Callback function: {@link #invoke GLFWwindowiconifyfun} */
 public abstract class GLFWWindowIconifyCallback extends Callback implements GLFWWindowIconifyCallbackI {
 
     /**
@@ -41,8 +29,7 @@ public abstract class GLFWWindowIconifyCallback extends Callback implements GLFW
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWWindowIconifyCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWWindowIconifyCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

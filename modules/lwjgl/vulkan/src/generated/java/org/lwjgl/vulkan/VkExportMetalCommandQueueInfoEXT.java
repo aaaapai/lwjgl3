@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,24 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure that identifies a VkQueue object and corresponding Metal MTLCommandQueue object.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT}</li>
- * <li>{@code queue} <b>must</b> be a valid {@code VkQueue} handle</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExportMetalCommandQueueInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkQueue {@link #queue};
- *     MTLCommandQueue_id {@link #mtlCommandQueue};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkQueue queue;
+ *     MTLCommandQueue_id mtlCommandQueue;
+ * }}</pre>
  */
 public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalCommandQueueInfoEXT> implements NativeResource {
 
@@ -90,28 +79,28 @@ public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalComman
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkQueue}. */
+    /** @return the value of the {@code queue} field. */
     @NativeType("VkQueue")
     public long queue() { return nqueue(address()); }
-    /** the Metal {@code id&lt;MTLCommandQueue&gt;} object underlying the {@code VkQueue} object in {@code queue}. The implementation will return the {@code MTLCommandQueue} in this member, or it will return {@code NULL} if no {@code MTLCommandQueue} could be found underlying the {@code VkQueue} object. */
+    /** @return the value of the {@code mtlCommandQueue} field. */
     @NativeType("MTLCommandQueue_id")
     public long mtlCommandQueue() { return nmtlCommandQueue(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkExportMetalCommandQueueInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT} value to the {@code sType} field. */
     public VkExportMetalCommandQueueInfoEXT sType$Default() { return sType(EXTMetalObjects.VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkExportMetalCommandQueueInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #queue} field. */
+    /** Sets the specified value to the {@code queue} field. */
     public VkExportMetalCommandQueueInfoEXT queue(VkQueue value) { nqueue(address(), value); return this; }
-    /** Sets the specified value to the {@link #mtlCommandQueue} field. */
+    /** Sets the specified value to the {@code mtlCommandQueue} field. */
     public VkExportMetalCommandQueueInfoEXT mtlCommandQueue(@NativeType("MTLCommandQueue_id") long value) { nmtlCommandQueue(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -165,8 +154,7 @@ public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalComman
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalCommandQueueInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalCommandQueueInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalCommandQueueInfoEXT(address, null);
     }
 
@@ -209,8 +197,7 @@ public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalComman
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalCommandQueueInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalCommandQueueInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,7 +242,7 @@ public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalComman
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalCommandQueueInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalCommandQueueInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalCommandQueueInfoEXT.PNEXT); }
     /** Unsafe version of {@link #queue}. */
@@ -264,7 +251,7 @@ public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalComman
     public static long nmtlCommandQueue(long struct) { return memGetAddress(struct + VkExportMetalCommandQueueInfoEXT.MTLCOMMANDQUEUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalCommandQueueInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalCommandQueueInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalCommandQueueInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #queue(VkQueue) queue}. */
@@ -316,32 +303,37 @@ public class VkExportMetalCommandQueueInfoEXT extends Struct<VkExportMetalComman
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExportMetalCommandQueueInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExportMetalCommandQueueInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkExportMetalCommandQueueInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkExportMetalCommandQueueInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkExportMetalCommandQueueInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkExportMetalCommandQueueInfoEXT#queue} field. */
+        /** @return the value of the {@code queue} field. */
         @NativeType("VkQueue")
         public long queue() { return VkExportMetalCommandQueueInfoEXT.nqueue(address()); }
-        /** @return the value of the {@link VkExportMetalCommandQueueInfoEXT#mtlCommandQueue} field. */
+        /** @return the value of the {@code mtlCommandQueue} field. */
         @NativeType("MTLCommandQueue_id")
         public long mtlCommandQueue() { return VkExportMetalCommandQueueInfoEXT.nmtlCommandQueue(address()); }
 
-        /** Sets the specified value to the {@link VkExportMetalCommandQueueInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkExportMetalCommandQueueInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkExportMetalCommandQueueInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT} value to the {@link VkExportMetalCommandQueueInfoEXT#sType} field. */
+        /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT} value to the {@code sType} field. */
         public VkExportMetalCommandQueueInfoEXT.Buffer sType$Default() { return sType(EXTMetalObjects.VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkExportMetalCommandQueueInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkExportMetalCommandQueueInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkExportMetalCommandQueueInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalCommandQueueInfoEXT#queue} field. */
+        /** Sets the specified value to the {@code queue} field. */
         public VkExportMetalCommandQueueInfoEXT.Buffer queue(VkQueue value) { VkExportMetalCommandQueueInfoEXT.nqueue(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalCommandQueueInfoEXT#mtlCommandQueue} field. */
+        /** Sets the specified value to the {@code mtlCommandQueue} field. */
         public VkExportMetalCommandQueueInfoEXT.Buffer mtlCommandQueue(@NativeType("MTLCommandQueue_id") long value) { VkExportMetalCommandQueueInfoEXT.nmtlCommandQueue(address(), value); return this; }
 
     }

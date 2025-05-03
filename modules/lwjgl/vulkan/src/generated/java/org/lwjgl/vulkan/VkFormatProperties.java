@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying image format properties.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>If no format feature flags are supported, the format itself is not supported, and images of that format cannot be created.</p>
- * </div>
- * 
- * <p>If {@code format} is a block-compressed format, then {@code bufferFeatures} <b>must</b> not support any features for the format.</p>
- * 
- * <p>If {@code format} is not a multi-plane format then {@code linearTilingFeatures} and {@code optimalTilingFeatures} <b>must</b> not contain {@link VK11#VK_FORMAT_FEATURE_DISJOINT_BIT FORMAT_FEATURE_DISJOINT_BIT}.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkFormatProperties2}, {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkFormatProperties {
- *     VkFormatFeatureFlags {@link #linearTilingFeatures};
- *     VkFormatFeatureFlags {@link #optimalTilingFeatures};
- *     VkFormatFeatureFlags {@link #bufferFeatures};
- * }</code></pre>
+ *     VkFormatFeatureFlags linearTilingFeatures;
+ *     VkFormatFeatureFlags optimalTilingFeatures;
+ *     VkFormatFeatureFlags bufferFeatures;
+ * }}</pre>
  */
 public class VkFormatProperties extends Struct<VkFormatProperties> implements NativeResource {
 
@@ -93,13 +74,13 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitmask of {@code VkFormatFeatureFlagBits} specifying features supported by images created with a {@code tiling} parameter of {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}. */
+    /** @return the value of the {@code linearTilingFeatures} field. */
     @NativeType("VkFormatFeatureFlags")
     public int linearTilingFeatures() { return nlinearTilingFeatures(address()); }
-    /** a bitmask of {@code VkFormatFeatureFlagBits} specifying features supported by images created with a {@code tiling} parameter of {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}. */
+    /** @return the value of the {@code optimalTilingFeatures} field. */
     @NativeType("VkFormatFeatureFlags")
     public int optimalTilingFeatures() { return noptimalTilingFeatures(address()); }
-    /** a bitmask of {@code VkFormatFeatureFlagBits} specifying features supported by buffers. */
+    /** @return the value of the {@code bufferFeatures} field. */
     @NativeType("VkFormatFeatureFlags")
     public int bufferFeatures() { return nbufferFeatures(address()); }
 
@@ -127,8 +108,7 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFormatProperties createSafe(long address) {
+    public static @Nullable VkFormatProperties createSafe(long address) {
         return address == NULL ? null : new VkFormatProperties(address, null);
     }
 
@@ -171,8 +151,7 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFormatProperties.Buffer createSafe(long address, int capacity) {
+    public static VkFormatProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,11 +215,11 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #linearTilingFeatures}. */
-    public static int nlinearTilingFeatures(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties.LINEARTILINGFEATURES); }
+    public static int nlinearTilingFeatures(long struct) { return memGetInt(struct + VkFormatProperties.LINEARTILINGFEATURES); }
     /** Unsafe version of {@link #optimalTilingFeatures}. */
-    public static int noptimalTilingFeatures(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties.OPTIMALTILINGFEATURES); }
+    public static int noptimalTilingFeatures(long struct) { return memGetInt(struct + VkFormatProperties.OPTIMALTILINGFEATURES); }
     /** Unsafe version of {@link #bufferFeatures}. */
-    public static int nbufferFeatures(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties.BUFFERFEATURES); }
+    public static int nbufferFeatures(long struct) { return memGetInt(struct + VkFormatProperties.BUFFERFEATURES); }
 
     // -----------------------------------
 
@@ -276,17 +255,22 @@ public class VkFormatProperties extends Struct<VkFormatProperties> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkFormatProperties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkFormatProperties#linearTilingFeatures} field. */
+        /** @return the value of the {@code linearTilingFeatures} field. */
         @NativeType("VkFormatFeatureFlags")
         public int linearTilingFeatures() { return VkFormatProperties.nlinearTilingFeatures(address()); }
-        /** @return the value of the {@link VkFormatProperties#optimalTilingFeatures} field. */
+        /** @return the value of the {@code optimalTilingFeatures} field. */
         @NativeType("VkFormatFeatureFlags")
         public int optimalTilingFeatures() { return VkFormatProperties.noptimalTilingFeatures(address()); }
-        /** @return the value of the {@link VkFormatProperties#bufferFeatures} field. */
+        /** @return the value of the {@code bufferFeatures} field. */
         @NativeType("VkFormatFeatureFlags")
         public int bufferFeatures() { return VkFormatProperties.nbufferFeatures(address()); }
 

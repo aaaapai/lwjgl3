@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,16 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Client applications often need to associate their own data to a variety of FreeType core objects. For example, a text layout API might
- * want to associate a glyph cache to a given size object.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Generic {
  *     void * data;
  *     {@link FT_Generic_FinalizerI FT_Generic_Finalizer} finalizer;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Generic extends Struct<FT_Generic> implements NativeResource {
 
@@ -134,8 +129,7 @@ public class FT_Generic extends Struct<FT_Generic> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Generic createSafe(long address) {
+    public static @Nullable FT_Generic createSafe(long address) {
         return address == NULL ? null : new FT_Generic(address, null);
     }
 
@@ -178,8 +172,7 @@ public class FT_Generic extends Struct<FT_Generic> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Generic.Buffer createSafe(long address, int capacity) {
+    public static FT_Generic.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,6 +266,11 @@ public class FT_Generic extends Struct<FT_Generic> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

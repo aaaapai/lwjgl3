@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct EXRTile {
  *     int offset_x;
  *     int offset_y;
  *     int level_x;
  *     int level_y;
- *     int {@link #width};
- *     int {@link #height};
- *     unsigned char ** {@link #images};
- * }</code></pre>
+ *     int width;
+ *     int height;
+ *     unsigned char ** images;
+ * }}</pre>
  */
 public class EXRTile extends Struct<EXRTile> implements NativeResource {
 
@@ -101,15 +99,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     public int level_x() { return nlevel_x(address()); }
     /** @return the value of the {@code level_y} field. */
     public int level_y() { return nlevel_y(address()); }
-    /** actual width in a tile */
+    /** @return the value of the {@code width} field. */
     public int width() { return nwidth(address()); }
-    /** actual height in a tile */
+    /** @return the value of the {@code height} field. */
     public int height() { return nheight(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return image[channels][pixels]
-     */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code images} field. */
     @NativeType("unsigned char **")
     public PointerBuffer images(int capacity) { return nimages(address(), capacity); }
 
@@ -121,11 +115,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     public EXRTile level_x(int value) { nlevel_x(address(), value); return this; }
     /** Sets the specified value to the {@code level_y} field. */
     public EXRTile level_y(int value) { nlevel_y(address(), value); return this; }
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public EXRTile width(int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public EXRTile height(int value) { nheight(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #images} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code images} field. */
     public EXRTile images(@NativeType("unsigned char **") PointerBuffer value) { nimages(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -185,8 +179,7 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRTile createSafe(long address) {
+    public static @Nullable EXRTile createSafe(long address) {
         return address == NULL ? null : new EXRTile(address, null);
     }
 
@@ -229,8 +222,7 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRTile.Buffer createSafe(long address, int capacity) {
+    public static EXRTile.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,32 +286,32 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #offset_x}. */
-    public static int noffset_x(long struct) { return UNSAFE.getInt(null, struct + EXRTile.OFFSET_X); }
+    public static int noffset_x(long struct) { return memGetInt(struct + EXRTile.OFFSET_X); }
     /** Unsafe version of {@link #offset_y}. */
-    public static int noffset_y(long struct) { return UNSAFE.getInt(null, struct + EXRTile.OFFSET_Y); }
+    public static int noffset_y(long struct) { return memGetInt(struct + EXRTile.OFFSET_Y); }
     /** Unsafe version of {@link #level_x}. */
-    public static int nlevel_x(long struct) { return UNSAFE.getInt(null, struct + EXRTile.LEVEL_X); }
+    public static int nlevel_x(long struct) { return memGetInt(struct + EXRTile.LEVEL_X); }
     /** Unsafe version of {@link #level_y}. */
-    public static int nlevel_y(long struct) { return UNSAFE.getInt(null, struct + EXRTile.LEVEL_Y); }
+    public static int nlevel_y(long struct) { return memGetInt(struct + EXRTile.LEVEL_Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + EXRTile.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + EXRTile.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + EXRTile.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + EXRTile.HEIGHT); }
     /** Unsafe version of {@link #images(int) images}. */
     public static PointerBuffer nimages(long struct, int capacity) { return memPointerBuffer(memGetAddress(struct + EXRTile.IMAGES), capacity); }
 
     /** Unsafe version of {@link #offset_x(int) offset_x}. */
-    public static void noffset_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.OFFSET_X, value); }
+    public static void noffset_x(long struct, int value) { memPutInt(struct + EXRTile.OFFSET_X, value); }
     /** Unsafe version of {@link #offset_y(int) offset_y}. */
-    public static void noffset_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.OFFSET_Y, value); }
+    public static void noffset_y(long struct, int value) { memPutInt(struct + EXRTile.OFFSET_Y, value); }
     /** Unsafe version of {@link #level_x(int) level_x}. */
-    public static void nlevel_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.LEVEL_X, value); }
+    public static void nlevel_x(long struct, int value) { memPutInt(struct + EXRTile.LEVEL_X, value); }
     /** Unsafe version of {@link #level_y(int) level_y}. */
-    public static void nlevel_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.LEVEL_Y, value); }
+    public static void nlevel_y(long struct, int value) { memPutInt(struct + EXRTile.LEVEL_Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + EXRTile.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + EXRTile.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + EXRTile.HEIGHT, value); }
     /** Unsafe version of {@link #images(PointerBuffer) images}. */
     public static void nimages(long struct, PointerBuffer value) { memPutAddress(struct + EXRTile.IMAGES, memAddress(value)); }
 
@@ -366,6 +358,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected EXRTile getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -378,15 +375,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
         public int level_x() { return EXRTile.nlevel_x(address()); }
         /** @return the value of the {@code level_y} field. */
         public int level_y() { return EXRTile.nlevel_y(address()); }
-        /** @return the value of the {@link EXRTile#width} field. */
+        /** @return the value of the {@code width} field. */
         public int width() { return EXRTile.nwidth(address()); }
-        /** @return the value of the {@link EXRTile#height} field. */
+        /** @return the value of the {@code height} field. */
         public int height() { return EXRTile.nheight(address()); }
-        /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@link EXRTile#images} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code images} field. */
         @NativeType("unsigned char **")
         public PointerBuffer images(int capacity) { return EXRTile.nimages(address(), capacity); }
 
@@ -398,11 +391,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
         public EXRTile.Buffer level_x(int value) { EXRTile.nlevel_x(address(), value); return this; }
         /** Sets the specified value to the {@code level_y} field. */
         public EXRTile.Buffer level_y(int value) { EXRTile.nlevel_y(address(), value); return this; }
-        /** Sets the specified value to the {@link EXRTile#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public EXRTile.Buffer width(int value) { EXRTile.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link EXRTile#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public EXRTile.Buffer height(int value) { EXRTile.nheight(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link EXRTile#images} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code images} field. */
         public EXRTile.Buffer images(@NativeType("unsigned char **") PointerBuffer value) { EXRTile.nimages(address(), value); return this; }
 
     }

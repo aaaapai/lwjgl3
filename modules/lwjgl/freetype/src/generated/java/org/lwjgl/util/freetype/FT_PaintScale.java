@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,18 +14,14 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing all of the {@code COLR} v1 {@code PaintScale*} paint tables.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_PaintScale {
  *     {@link FT_OpaquePaint FT_OpaquePaintRec} paint;
  *     FT_Fixed scale_x;
  *     FT_Fixed scale_y;
  *     FT_Fixed center_x;
  *     FT_Fixed center_y;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_PaintScale extends Struct<FT_PaintScale> {
 
@@ -108,8 +104,7 @@ public class FT_PaintScale extends Struct<FT_PaintScale> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintScale createSafe(long address) {
+    public static @Nullable FT_PaintScale createSafe(long address) {
         return address == NULL ? null : new FT_PaintScale(address, null);
     }
 
@@ -124,8 +119,7 @@ public class FT_PaintScale extends Struct<FT_PaintScale> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_PaintScale.Buffer createSafe(long address, int capacity) {
+    public static FT_PaintScale.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -173,6 +167,11 @@ public class FT_PaintScale extends Struct<FT_PaintScale> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

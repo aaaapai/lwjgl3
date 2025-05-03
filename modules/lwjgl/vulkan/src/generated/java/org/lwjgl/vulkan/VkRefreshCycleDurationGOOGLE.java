@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing the RC duration of a display.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link GOOGLEDisplayTiming#vkGetRefreshCycleDurationGOOGLE GetRefreshCycleDurationGOOGLE}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRefreshCycleDurationGOOGLE {
- *     uint64_t {@link #refreshDuration};
- * }</code></pre>
+ *     uint64_t refreshDuration;
+ * }}</pre>
  */
 public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationGOOGLE> implements NativeResource {
 
@@ -74,7 +66,7 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of nanoseconds from the start of one refresh cycle to the next. */
+    /** @return the value of the {@code refreshDuration} field. */
     @NativeType("uint64_t")
     public long refreshDuration() { return nrefreshDuration(address()); }
 
@@ -102,8 +94,7 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRefreshCycleDurationGOOGLE createSafe(long address) {
+    public static @Nullable VkRefreshCycleDurationGOOGLE createSafe(long address) {
         return address == NULL ? null : new VkRefreshCycleDurationGOOGLE(address, null);
     }
 
@@ -146,8 +137,7 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRefreshCycleDurationGOOGLE.Buffer createSafe(long address, int capacity) {
+    public static VkRefreshCycleDurationGOOGLE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -211,7 +201,7 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
     // -----------------------------------
 
     /** Unsafe version of {@link #refreshDuration}. */
-    public static long nrefreshDuration(long struct) { return UNSAFE.getLong(null, struct + VkRefreshCycleDurationGOOGLE.REFRESHDURATION); }
+    public static long nrefreshDuration(long struct) { return memGetLong(struct + VkRefreshCycleDurationGOOGLE.REFRESHDURATION); }
 
     // -----------------------------------
 
@@ -247,11 +237,16 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRefreshCycleDurationGOOGLE getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkRefreshCycleDurationGOOGLE#refreshDuration} field. */
+        /** @return the value of the {@code refreshDuration} field. */
         @NativeType("uint64_t")
         public long refreshDuration() { return VkRefreshCycleDurationGOOGLE.nrefreshDuration(address()); }
 

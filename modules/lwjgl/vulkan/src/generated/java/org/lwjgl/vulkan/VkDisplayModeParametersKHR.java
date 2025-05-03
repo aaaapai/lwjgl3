@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display parameters associated with a display mode.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>For example, a 60Hz display mode would report a {@code refreshRate} of 60,000.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The {@code width} member of {@code visibleRegion} <b>must</b> be greater than 0</li>
- * <li>The {@code height} member of {@code visibleRegion} <b>must</b> be greater than 0</li>
- * <li>{@code refreshRate} <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayModeCreateInfoKHR}, {@link VkDisplayModePropertiesKHR}, {@link VkExtent2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayModeParametersKHR {
- *     {@link VkExtent2D VkExtent2D} {@link #visibleRegion};
- *     uint32_t {@link #refreshRate};
- * }</code></pre>
+ *     {@link VkExtent2D VkExtent2D} visibleRegion;
+ *     uint32_t refreshRate;
+ * }}</pre>
  */
 public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKHR> implements NativeResource {
 
@@ -93,17 +70,17 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the 2D extents of the visible region. */
+    /** @return a {@link VkExtent2D} view of the {@code visibleRegion} field. */
     public VkExtent2D visibleRegion() { return nvisibleRegion(address()); }
-    /** a {@code uint32_t} that is the number of times the display is refreshed each second multiplied by 1000. */
+    /** @return the value of the {@code refreshRate} field. */
     @NativeType("uint32_t")
     public int refreshRate() { return nrefreshRate(address()); }
 
-    /** Copies the specified {@link VkExtent2D} to the {@link #visibleRegion} field. */
+    /** Copies the specified {@link VkExtent2D} to the {@code visibleRegion} field. */
     public VkDisplayModeParametersKHR visibleRegion(VkExtent2D value) { nvisibleRegion(address(), value); return this; }
-    /** Passes the {@link #visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkDisplayModeParametersKHR visibleRegion(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(visibleRegion()); return this; }
-    /** Sets the specified value to the {@link #refreshRate} field. */
+    /** Sets the specified value to the {@code refreshRate} field. */
     public VkDisplayModeParametersKHR refreshRate(@NativeType("uint32_t") int value) { nrefreshRate(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -153,8 +130,7 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeParametersKHR createSafe(long address) {
+    public static @Nullable VkDisplayModeParametersKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayModeParametersKHR(address, null);
     }
 
@@ -197,8 +173,7 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModeParametersKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayModeParametersKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,12 +239,12 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     /** Unsafe version of {@link #visibleRegion}. */
     public static VkExtent2D nvisibleRegion(long struct) { return VkExtent2D.create(struct + VkDisplayModeParametersKHR.VISIBLEREGION); }
     /** Unsafe version of {@link #refreshRate}. */
-    public static int nrefreshRate(long struct) { return UNSAFE.getInt(null, struct + VkDisplayModeParametersKHR.REFRESHRATE); }
+    public static int nrefreshRate(long struct) { return memGetInt(struct + VkDisplayModeParametersKHR.REFRESHRATE); }
 
     /** Unsafe version of {@link #visibleRegion(VkExtent2D) visibleRegion}. */
     public static void nvisibleRegion(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkDisplayModeParametersKHR.VISIBLEREGION, VkExtent2D.SIZEOF); }
     /** Unsafe version of {@link #refreshRate(int) refreshRate}. */
-    public static void nrefreshRate(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayModeParametersKHR.REFRESHRATE, value); }
+    public static void nrefreshRate(long struct, int value) { memPutInt(struct + VkDisplayModeParametersKHR.REFRESHRATE, value); }
 
     // -----------------------------------
 
@@ -305,21 +280,26 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayModeParametersKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkExtent2D} view of the {@link VkDisplayModeParametersKHR#visibleRegion} field. */
+        /** @return a {@link VkExtent2D} view of the {@code visibleRegion} field. */
         public VkExtent2D visibleRegion() { return VkDisplayModeParametersKHR.nvisibleRegion(address()); }
-        /** @return the value of the {@link VkDisplayModeParametersKHR#refreshRate} field. */
+        /** @return the value of the {@code refreshRate} field. */
         @NativeType("uint32_t")
         public int refreshRate() { return VkDisplayModeParametersKHR.nrefreshRate(address()); }
 
-        /** Copies the specified {@link VkExtent2D} to the {@link VkDisplayModeParametersKHR#visibleRegion} field. */
+        /** Copies the specified {@link VkExtent2D} to the {@code visibleRegion} field. */
         public VkDisplayModeParametersKHR.Buffer visibleRegion(VkExtent2D value) { VkDisplayModeParametersKHR.nvisibleRegion(address(), value); return this; }
-        /** Passes the {@link VkDisplayModeParametersKHR#visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkDisplayModeParametersKHR.Buffer visibleRegion(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(visibleRegion()); return this; }
-        /** Sets the specified value to the {@link VkDisplayModeParametersKHR#refreshRate} field. */
+        /** Sets the specified value to the {@code refreshRate} field. */
         public VkDisplayModeParametersKHR.Buffer refreshRate(@NativeType("uint32_t") int value) { VkDisplayModeParametersKHR.nrefreshRate(address(), value); return this; }
 
     }

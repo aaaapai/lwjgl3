@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceVariablePointersFeatures}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceVariablePointerFeaturesKHR {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 variablePointersStorageBuffer;
  *     VkBool32 variablePointers;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceVariablePointerFeaturesKHR extends VkPhysicalDeviceVariablePointersFeatures {
 
@@ -117,8 +113,7 @@ public class VkPhysicalDeviceVariablePointerFeaturesKHR extends VkPhysicalDevice
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVariablePointerFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVariablePointerFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVariablePointerFeaturesKHR(address, null);
     }
 
@@ -161,8 +156,7 @@ public class VkPhysicalDeviceVariablePointerFeaturesKHR extends VkPhysicalDevice
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVariablePointerFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVariablePointerFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,6 +248,11 @@ public class VkPhysicalDeviceVariablePointerFeaturesKHR extends VkPhysicalDevice
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

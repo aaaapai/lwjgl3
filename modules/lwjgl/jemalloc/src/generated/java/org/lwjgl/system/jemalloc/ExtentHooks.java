@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jemalloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,27 +17,18 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The {@code extent_hooks_t} structure comprises function pointers which are described individually below. jemalloc uses these functions to manage extent
- * lifetime, which starts off with allocation of mapped committed memory, in the simplest case followed by deallocation. However, there are performance
- * and platform reasons to retain extents for later reuse. Cleanup attempts cascade from deallocation to decommit to forced purging to lazy purging, which
- * gives the extent management functions opportunities to reject the most permanent cleanup operations in favor of less permanent (and often less costly)
- * operations. All operations except allocation can be universally opted out of by setting the hook pointers to {@code NULL}, or selectively opted out of by
- * returning failure.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct extent_hooks_t {
- *     {@link ExtentAllocI extent_alloc_t} {@link #alloc};
- *     {@link ExtentDallocI extent_dalloc_t} {@link #dalloc};
- *     {@link ExtentDestroyI extent_destroy_t} {@link #destroy};
- *     {@link ExtentCommitI extent_commit_t} {@link #commit};
- *     {@link ExtentDecommitI extent_decommit_t} {@link #decommit};
- *     {@link ExtentPurgeI extent_purge_t} {@link #purge_lazy};
- *     {@link ExtentPurgeI extent_purge_t} {@link #purge_forced};
- *     {@link ExtentSplitI extent_split_t} {@link #split};
- *     {@link ExtentMergeI extent_merge_t} {@link #merge};
- * }</code></pre>
+ *     {@link ExtentAllocI extent_alloc_t} alloc;
+ *     {@link ExtentDallocI extent_dalloc_t} dalloc;
+ *     {@link ExtentDestroyI extent_destroy_t} destroy;
+ *     {@link ExtentCommitI extent_commit_t} commit;
+ *     {@link ExtentDecommitI extent_decommit_t} decommit;
+ *     {@link ExtentPurgeI extent_purge_t} purge_lazy;
+ *     {@link ExtentPurgeI extent_purge_t} purge_forced;
+ *     {@link ExtentSplitI extent_split_t} split;
+ *     {@link ExtentMergeI extent_merge_t} merge;
+ * }}</pre>
  */
 @NativeType("struct extent_hooks_t")
 public class ExtentHooks extends Struct<ExtentHooks> implements NativeResource {
@@ -109,59 +100,51 @@ public class ExtentHooks extends Struct<ExtentHooks> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the extent allocation hook */
+    /** @return the value of the {@code alloc} field. */
     @NativeType("extent_alloc_t")
     public ExtentAlloc alloc() { return nalloc(address()); }
-    /** the extent deallocation hook */
-    @Nullable
+    /** @return the value of the {@code dalloc} field. */
     @NativeType("extent_dalloc_t")
-    public ExtentDalloc dalloc() { return ndalloc(address()); }
-    /** the extent destruction hook */
-    @Nullable
+    public @Nullable ExtentDalloc dalloc() { return ndalloc(address()); }
+    /** @return the value of the {@code destroy} field. */
     @NativeType("extent_destroy_t")
-    public ExtentDestroy destroy() { return ndestroy(address()); }
-    /** the extent commit hook */
-    @Nullable
+    public @Nullable ExtentDestroy destroy() { return ndestroy(address()); }
+    /** @return the value of the {@code commit} field. */
     @NativeType("extent_commit_t")
-    public ExtentCommit commit() { return ncommit(address()); }
-    /** the extent decommit hook */
-    @Nullable
+    public @Nullable ExtentCommit commit() { return ncommit(address()); }
+    /** @return the value of the {@code decommit} field. */
     @NativeType("extent_decommit_t")
-    public ExtentDecommit decommit() { return ndecommit(address()); }
-    /** the extent lazy purge hook */
-    @Nullable
+    public @Nullable ExtentDecommit decommit() { return ndecommit(address()); }
+    /** @return the value of the {@code purge_lazy} field. */
     @NativeType("extent_purge_t")
-    public ExtentPurge purge_lazy() { return npurge_lazy(address()); }
-    /** the extent forced purge hook */
-    @Nullable
+    public @Nullable ExtentPurge purge_lazy() { return npurge_lazy(address()); }
+    /** @return the value of the {@code purge_forced} field. */
     @NativeType("extent_purge_t")
-    public ExtentPurge purge_forced() { return npurge_forced(address()); }
-    /** the extent split hook */
-    @Nullable
+    public @Nullable ExtentPurge purge_forced() { return npurge_forced(address()); }
+    /** @return the value of the {@code split} field. */
     @NativeType("extent_split_t")
-    public ExtentSplit split() { return nsplit(address()); }
-    /** the extent merge hook */
-    @Nullable
+    public @Nullable ExtentSplit split() { return nsplit(address()); }
+    /** @return the value of the {@code merge} field. */
     @NativeType("extent_merge_t")
-    public ExtentMerge merge() { return nmerge(address()); }
+    public @Nullable ExtentMerge merge() { return nmerge(address()); }
 
-    /** Sets the specified value to the {@link #alloc} field. */
+    /** Sets the specified value to the {@code alloc} field. */
     public ExtentHooks alloc(@NativeType("extent_alloc_t") ExtentAllocI value) { nalloc(address(), value); return this; }
-    /** Sets the specified value to the {@link #dalloc} field. */
+    /** Sets the specified value to the {@code dalloc} field. */
     public ExtentHooks dalloc(@Nullable @NativeType("extent_dalloc_t") ExtentDallocI value) { ndalloc(address(), value); return this; }
-    /** Sets the specified value to the {@link #destroy} field. */
+    /** Sets the specified value to the {@code destroy} field. */
     public ExtentHooks destroy(@Nullable @NativeType("extent_destroy_t") ExtentDestroyI value) { ndestroy(address(), value); return this; }
-    /** Sets the specified value to the {@link #commit} field. */
+    /** Sets the specified value to the {@code commit} field. */
     public ExtentHooks commit(@Nullable @NativeType("extent_commit_t") ExtentCommitI value) { ncommit(address(), value); return this; }
-    /** Sets the specified value to the {@link #decommit} field. */
+    /** Sets the specified value to the {@code decommit} field. */
     public ExtentHooks decommit(@Nullable @NativeType("extent_decommit_t") ExtentDecommitI value) { ndecommit(address(), value); return this; }
-    /** Sets the specified value to the {@link #purge_lazy} field. */
+    /** Sets the specified value to the {@code purge_lazy} field. */
     public ExtentHooks purge_lazy(@Nullable @NativeType("extent_purge_t") ExtentPurgeI value) { npurge_lazy(address(), value); return this; }
-    /** Sets the specified value to the {@link #purge_forced} field. */
+    /** Sets the specified value to the {@code purge_forced} field. */
     public ExtentHooks purge_forced(@Nullable @NativeType("extent_purge_t") ExtentPurgeI value) { npurge_forced(address(), value); return this; }
-    /** Sets the specified value to the {@link #split} field. */
+    /** Sets the specified value to the {@code split} field. */
     public ExtentHooks split(@Nullable @NativeType("extent_split_t") ExtentSplitI value) { nsplit(address(), value); return this; }
-    /** Sets the specified value to the {@link #merge} field. */
+    /** Sets the specified value to the {@code merge} field. */
     public ExtentHooks merge(@Nullable @NativeType("extent_merge_t") ExtentMergeI value) { nmerge(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -225,8 +208,7 @@ public class ExtentHooks extends Struct<ExtentHooks> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ExtentHooks createSafe(long address) {
+    public static @Nullable ExtentHooks createSafe(long address) {
         return address == NULL ? null : new ExtentHooks(address, null);
     }
 
@@ -240,7 +222,6 @@ public class ExtentHooks extends Struct<ExtentHooks> implements NativeResource {
     @Deprecated public static ExtentHooks mallocStack(MemoryStack stack) { return malloc(stack); }
     /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
     @Deprecated public static ExtentHooks callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code ExtentHooks} instance allocated on the specified {@link MemoryStack}.
@@ -265,21 +246,21 @@ public class ExtentHooks extends Struct<ExtentHooks> implements NativeResource {
     /** Unsafe version of {@link #alloc}. */
     public static ExtentAlloc nalloc(long struct) { return ExtentAlloc.create(memGetAddress(struct + ExtentHooks.ALLOC)); }
     /** Unsafe version of {@link #dalloc}. */
-    @Nullable public static ExtentDalloc ndalloc(long struct) { return ExtentDalloc.createSafe(memGetAddress(struct + ExtentHooks.DALLOC)); }
+    public static @Nullable ExtentDalloc ndalloc(long struct) { return ExtentDalloc.createSafe(memGetAddress(struct + ExtentHooks.DALLOC)); }
     /** Unsafe version of {@link #destroy}. */
-    @Nullable public static ExtentDestroy ndestroy(long struct) { return ExtentDestroy.createSafe(memGetAddress(struct + ExtentHooks.DESTROY)); }
+    public static @Nullable ExtentDestroy ndestroy(long struct) { return ExtentDestroy.createSafe(memGetAddress(struct + ExtentHooks.DESTROY)); }
     /** Unsafe version of {@link #commit}. */
-    @Nullable public static ExtentCommit ncommit(long struct) { return ExtentCommit.createSafe(memGetAddress(struct + ExtentHooks.COMMIT)); }
+    public static @Nullable ExtentCommit ncommit(long struct) { return ExtentCommit.createSafe(memGetAddress(struct + ExtentHooks.COMMIT)); }
     /** Unsafe version of {@link #decommit}. */
-    @Nullable public static ExtentDecommit ndecommit(long struct) { return ExtentDecommit.createSafe(memGetAddress(struct + ExtentHooks.DECOMMIT)); }
+    public static @Nullable ExtentDecommit ndecommit(long struct) { return ExtentDecommit.createSafe(memGetAddress(struct + ExtentHooks.DECOMMIT)); }
     /** Unsafe version of {@link #purge_lazy}. */
-    @Nullable public static ExtentPurge npurge_lazy(long struct) { return ExtentPurge.createSafe(memGetAddress(struct + ExtentHooks.PURGE_LAZY)); }
+    public static @Nullable ExtentPurge npurge_lazy(long struct) { return ExtentPurge.createSafe(memGetAddress(struct + ExtentHooks.PURGE_LAZY)); }
     /** Unsafe version of {@link #purge_forced}. */
-    @Nullable public static ExtentPurge npurge_forced(long struct) { return ExtentPurge.createSafe(memGetAddress(struct + ExtentHooks.PURGE_FORCED)); }
+    public static @Nullable ExtentPurge npurge_forced(long struct) { return ExtentPurge.createSafe(memGetAddress(struct + ExtentHooks.PURGE_FORCED)); }
     /** Unsafe version of {@link #split}. */
-    @Nullable public static ExtentSplit nsplit(long struct) { return ExtentSplit.createSafe(memGetAddress(struct + ExtentHooks.SPLIT)); }
+    public static @Nullable ExtentSplit nsplit(long struct) { return ExtentSplit.createSafe(memGetAddress(struct + ExtentHooks.SPLIT)); }
     /** Unsafe version of {@link #merge}. */
-    @Nullable public static ExtentMerge nmerge(long struct) { return ExtentMerge.createSafe(memGetAddress(struct + ExtentHooks.MERGE)); }
+    public static @Nullable ExtentMerge nmerge(long struct) { return ExtentMerge.createSafe(memGetAddress(struct + ExtentHooks.MERGE)); }
 
     /** Unsafe version of {@link #alloc(ExtentAllocI) alloc}. */
     public static void nalloc(long struct, ExtentAllocI value) { memPutAddress(struct + ExtentHooks.ALLOC, value.address()); }

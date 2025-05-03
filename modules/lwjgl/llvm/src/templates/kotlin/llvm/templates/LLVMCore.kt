@@ -14,164 +14,149 @@ val LLVMCore = "LLVMCore".nativeClass(
     binding = LLVM_BINDING
 ) {
     EnumConstant(
-        "{@code LLVMOpcode}",
-
-        "Ret".enum("", "1"),
-        "Br".enum(""),
-        "Switch".enum(""),
-        "IndirectBr".enum(""),
-        "Invoke".enum(""),
-        "Unreachable".enum("", "7"),
-        "CallBr".enum("", "67"),
-        "FNeg".enum("", "66"),
-        "Add".enum("", "8"),
-        "FAdd".enum(""),
-        "Sub".enum(""),
-        "FSub".enum(""),
-        "Mul".enum(""),
-        "FMul".enum(""),
-        "UDiv".enum(""),
-        "SDiv".enum(""),
-        "FDiv".enum(""),
-        "URem".enum(""),
-        "SRem".enum(""),
-        "FRem".enum(""),
-        "Shl".enum(""),
-        "LShr".enum(""),
-        "AShr".enum(""),
-        "And".enum(""),
-        "Or".enum(""),
-        "Xor".enum(""),
-        "Alloca".enum(""),
-        "Load".enum(""),
-        "Store".enum(""),
-        "GetElementPtr".enum(""),
-        "Trunc".enum(""),
-        "ZExt".enum(""),
-        "SExt".enum(""),
-        "FPToUI".enum(""),
-        "FPToSI".enum(""),
-        "UIToFP".enum(""),
-        "SIToFP".enum(""),
-        "FPTrunc".enum(""),
-        "FPExt".enum(""),
-        "PtrToInt".enum(""),
-        "IntToPtr".enum(""),
-        "BitCast".enum(""),
-        "AddrSpaceCast".enum("", "60"),
-        "ICmp".enum("", "42"),
-        "FCmp".enum(""),
-        "PHI".enum(""),
-        "Call".enum(""),
-        "Select".enum(""),
-        "UserOp1".enum(""),
-        "UserOp2".enum(""),
-        "VAArg".enum(""),
-        "ExtractElement".enum(""),
-        "InsertElement".enum(""),
-        "ShuffleVector".enum(""),
-        "ExtractValue".enum(""),
-        "InsertValue".enum(""),
-        "Freeze".enum("", "68"),
-        "Fence".enum("", "55"),
-        "AtomicCmpXchg".enum(""),
-        "AtomicRMW".enum(""),
-        "Resume".enum(""),
-        "LandingPad".enum(""),
-        "CleanupRet".enum("", "61"),
-        "CatchRet".enum(""),
-        "CatchPad".enum(""),
-        "CleanupPad".enum(""),
-        "CatchSwitch".enum("")
+        "Ret".enum("1"),
+        "Br".enum,
+        "Switch".enum,
+        "IndirectBr".enum,
+        "Invoke".enum,
+        "Unreachable".enum("7"),
+        "CallBr".enum("67"),
+        "FNeg".enum("66"),
+        "Add".enum("8"),
+        "FAdd".enum,
+        "Sub".enum,
+        "FSub".enum,
+        "Mul".enum,
+        "FMul".enum,
+        "UDiv".enum,
+        "SDiv".enum,
+        "FDiv".enum,
+        "URem".enum,
+        "SRem".enum,
+        "FRem".enum,
+        "Shl".enum,
+        "LShr".enum,
+        "AShr".enum,
+        "And".enum,
+        "Or".enum,
+        "Xor".enum,
+        "Alloca".enum,
+        "Load".enum,
+        "Store".enum,
+        "GetElementPtr".enum,
+        "Trunc".enum,
+        "ZExt".enum,
+        "SExt".enum,
+        "FPToUI".enum,
+        "FPToSI".enum,
+        "UIToFP".enum,
+        "SIToFP".enum,
+        "FPTrunc".enum,
+        "FPExt".enum,
+        "PtrToInt".enum,
+        "IntToPtr".enum,
+        "BitCast".enum,
+        "AddrSpaceCast".enum("60"),
+        "ICmp".enum("42"),
+        "FCmp".enum,
+        "PHI".enum,
+        "Call".enum,
+        "Select".enum,
+        "UserOp1".enum,
+        "UserOp2".enum,
+        "VAArg".enum,
+        "ExtractElement".enum,
+        "InsertElement".enum,
+        "ShuffleVector".enum,
+        "ExtractValue".enum,
+        "InsertValue".enum,
+        "Freeze".enum("68"),
+        "Fence".enum("55"),
+        "AtomicCmpXchg".enum,
+        "AtomicRMW".enum,
+        "Resume".enum,
+        "LandingPad".enum,
+        "CleanupRet".enum("61"),
+        "CatchRet".enum,
+        "CatchPad".enum,
+        "CleanupPad".enum,
+        "CatchSwitch".enum
     )
 
     EnumConstant(
-        "{@code LLVMTypeKind}",
-
-        "VoidTypeKind".enum("type with no size", "0"),
-        "HalfTypeKind".enum("16 bit floating point type"),
-        "FloatTypeKind".enum("32 bit floating point type"),
-        "DoubleTypeKind".enum("64 bit floating point type"),
-        "X86_FP80TypeKind".enum("80 bit floating point type (X87)"),
-        "FP128TypeKind".enum("128 bit floating point type (112-bit mantissa)"),
-        "PPC_FP128TypeKind".enum("128 bit floating point type (two 64-bits)"),
-        "LabelTypeKind".enum("Labels"),
-        "IntegerTypeKind".enum("Arbitrary bit width integers"),
-        "FunctionTypeKind".enum("Functions"),
-        "StructTypeKind".enum("Structures"),
-        "ArrayTypeKind".enum("Arrays"),
-        "PointerTypeKind".enum("Pointers"),
-        "VectorTypeKind".enum("Fixed width SIMD vector type"),
-        "MetadataTypeKind".enum("Metadata"),
-        "X86_MMXTypeKind".enum("X86 MMX"),
-        "TokenTypeKind".enum("Tokens"),
-        "ScalableVectorTypeKind".enum("Scalable SIMD vector type"),
-        "BFloatTypeKind".enum("16 bit brain floating point type"),
-        "X86_AMXTypeKind".enum("X86 AMX"),
-        "TargetExtTypeKind".enum("Target extension type")
+        "VoidTypeKind".enum("0"),
+        "HalfTypeKind".enum,
+        "FloatTypeKind".enum,
+        "DoubleTypeKind".enum,
+        "X86_FP80TypeKind".enum,
+        "FP128TypeKind".enum,
+        "PPC_FP128TypeKind".enum,
+        "LabelTypeKind".enum,
+        "IntegerTypeKind".enum,
+        "FunctionTypeKind".enum,
+        "StructTypeKind".enum,
+        "ArrayTypeKind".enum,
+        "PointerTypeKind".enum,
+        "VectorTypeKind".enum,
+        "MetadataTypeKind".enum,
+        //"X86_MMXTypeKind".enum,
+        "TokenTypeKind".enum("16"),
+        "ScalableVectorTypeKind".enum,
+        "BFloatTypeKind".enum,
+        "X86_AMXTypeKind".enum,
+        "TargetExtTypeKind".enum
     )
 
     EnumConstant(
-        "{@code LLVMLinkage}",
-
-        "ExternalLinkage".enum("Externally visible function", "0"),
+        "ExternalLinkage".enum("0"),
         "AvailableExternallyLinkage".enum,
-        "LinkOnceAnyLinkage".enum("Keep one copy of function when linking (inline)"),
-        "LinkOnceODRLinkage".enum("Same, but only replaced by something equivalent."),
-        "LinkOnceODRAutoHideLinkage".enum("Obsolete"),
-        "WeakAnyLinkage".enum("Keep one copy of function when linking (weak)"),
-        "WeakODRLinkage".enum("Same, but only replaced by something equivalent."),
-        "AppendingLinkage".enum("Special purpose, only applies to global arrays"),
-        "InternalLinkage".enum("Rename collisions when linking (static functions)"),
-        "PrivateLinkage".enum("Like Internal, but omit from symbol table"),
-        "DLLImportLinkage".enum("Obsolete"),
-        "DLLExportLinkage".enum("Obsolete"),
-        "ExternalWeakLinkage".enum("ExternalWeak linkage description"),
-        "GhostLinkage".enum("Obsolete"),
-        "CommonLinkage".enum("Tentative definitions"),
-        "LinkerPrivateLinkage".enum("Like Private, but linker removes."),
-        "LinkerPrivateWeakLinkage".enum("Like LinkerPrivate, but is weak.")
+        "LinkOnceAnyLinkage".enum,
+        "LinkOnceODRLinkage".enum,
+        "LinkOnceODRAutoHideLinkage".enum,
+        "WeakAnyLinkage".enum,
+        "WeakODRLinkage".enum,
+        "AppendingLinkage".enum,
+        "InternalLinkage".enum,
+        "PrivateLinkage".enum,
+        "DLLImportLinkage".enum,
+        "DLLExportLinkage".enum,
+        "ExternalWeakLinkage".enum,
+        "GhostLinkage".enum,
+        "CommonLinkage".enum,
+        "LinkerPrivateLinkage".enum,
+        "LinkerPrivateWeakLinkage".enum
     )
 
     EnumConstant(
-        "{@code LLVMVisibility}",
-
-        "DefaultVisibility".enum("The GV is visible", "0"),
-        "HiddenVisibility".enum("The GV is hidden"),
-        "ProtectedVisibility".enum("The GV is protected")
+        "DefaultVisibility".enum("0"),
+        "HiddenVisibility".enum,
+        "ProtectedVisibility".enum
     )
 
     EnumConstant(
-        "{@code LLVMUnnamedAddr}",
-
-        "NoUnnamedAddr".enum("Address of the GV is significant.", "0"),
-        "LocalUnnamedAddr".enum("Address of the GV is locally insignificant."),
-        "GlobalUnnamedAddr".enum("Address of the GV is globally insignificant.")
+        "NoUnnamedAddr".enum("0"),
+        "LocalUnnamedAddr".enum,
+        "GlobalUnnamedAddr".enum
     )
 
     EnumConstant(
-        "{@code LLVMDLLStorageClass}",
-
-        "DefaultStorageClass".enum("", "0"),
-        "DLLImportStorageClass".enum("Function to be imported from DLL."),
-        "DLLExportStorageClass".enum("Function to be accessible from DLL.")
+        "DefaultStorageClass".enum("0"),
+        "DLLImportStorageClass".enum,
+        "DLLExportStorageClass".enum
     )
 
     EnumConstant(
-        "{@code LLVMCallConv}",
-
-        "CCallConv".enum("", "0"),
-        "FastCallConv".enum("", "8"),
+        "CCallConv".enum("0"),
+        "FastCallConv".enum("8"),
         "ColdCallConv".enum,
         "GHCCallConv".enum,
         "HiPECallConv".enum,
-        "WebKitJSCallConv".enum,
-        "AnyRegCallConv".enum,
+        "AnyRegCallConv".enum("13"),
         "PreserveMostCallConv".enum,
         "PreserveAllCallConv".enum,
         "SwiftCallConv".enum,
         "CXXFASTTLSCallConv".enum,
-        "X86StdcallCallConv".enum("", "64"),
+        "X86StdcallCallConv".enum("64"),
         "X86FastcallCallConv".enum,
         "ARMAPCSCallConv".enum,
         "ARMAAPCSCallConv".enum,
@@ -180,7 +165,7 @@ val LLVMCore = "LLVMCore".nativeClass(
         "X86ThisCallCallConv".enum,
         "PTXKernelCallConv".enum,
         "PTXDeviceCallConv".enum,
-        "SPIRFUNCCallConv".enum("", "75"),
+        "SPIRFUNCCallConv".enum("75"),
         "SPIRKERNELCallConv".enum,
         "IntelOCLBICallConv".enum,
         "X8664SysVCallConv".enum,
@@ -205,9 +190,7 @@ val LLVMCore = "LLVMCore".nativeClass(
     )
 
     EnumConstant(
-        "{@code LLVMValueKind}",
-
-        "ArgumentValueKind".enum("", "0"),
+        "ArgumentValueKind".enum("0"),
         "BasicBlockValueKind".enum,
         "MemoryUseValueKind".enum,
         "MemoryDefValueKind".enum,
@@ -233,56 +216,49 @@ val LLVMCore = "LLVMCore".nativeClass(
         "InlineAsmValueKind".enum,
         "InstructionValueKind".enum,
         "PoisonValueValueKind".enum,
-        "ConstantTargetNoneValueKind".enum
+        "ConstantTargetNoneValueKind".enum,
+        "ConstantPtrAuthValueKind".enum
     )
 
     EnumConstant(
-        "{@code LLVMIntPredicate}",
-
-        "IntEQ".enum("equal", "32"),
-        "IntNE".enum("not equal"),
-        "IntUGT".enum("unsigned greater than"),
-        "IntUGE".enum("unsigned greater or equal"),
-        "IntULT".enum("unsigned less than"),
-        "IntULE".enum("unsigned less or equal"),
-        "IntSGT".enum("signed greater than"),
-        "IntSGE".enum("signed greater or equal"),
-        "IntSLT".enum("signed less than"),
-        "IntSLE".enum("signed less or equal")
+        "IntEQ".enum("32"),
+        "IntNE".enum,
+        "IntUGT".enum,
+        "IntUGE".enum,
+        "IntULT".enum,
+        "IntULE".enum,
+        "IntSGT".enum,
+        "IntSGE".enum,
+        "IntSLT".enum,
+        "IntSLE".enum
     )
 
     EnumConstant(
-        "{@code LLVMRealPredicate}",
-
-        "RealPredicateFalse".enum("Always false (always folded)", "0"),
-        "RealOEQ".enum("True if ordered and equal"),
-        "RealOGT".enum("True if ordered and greater than"),
-        "RealOGE".enum("True if ordered and greater than or equal"),
-        "RealOLT".enum("True if ordered and less than"),
-        "RealOLE".enum("True if ordered and less than or equal"),
-        "RealONE".enum("True if ordered and operands are unequal"),
-        "RealORD".enum("True if ordered (no nans)"),
-        "RealUNO".enum("True if unordered: isnan(X) | isnan(Y)"),
-        "RealUEQ".enum("True if unordered or equal"),
-        "RealUGT".enum("True if unordered or greater than"),
-        "RealUGE".enum("True if unordered, greater than, or equal"),
-        "RealULT".enum("True if unordered or less than"),
-        "RealULE".enum("True if unordered, less than, or equal"),
-        "RealUNE".enum("True if unordered or not equal"),
-        "RealPredicateTrue".enum("Always true (always folded)")
+        "RealPredicateFalse".enum("0"),
+        "RealOEQ".enum,
+        "RealOGT".enum,
+        "RealOGE".enum,
+        "RealOLT".enum,
+        "RealOLE".enum,
+        "RealONE".enum,
+        "RealORD".enum,
+        "RealUNO".enum,
+        "RealUEQ".enum,
+        "RealUGT".enum,
+        "RealUGE".enum,
+        "RealULT".enum,
+        "RealULE".enum,
+        "RealUNE".enum,
+        "RealPredicateTrue".enum
     )
 
     EnumConstant(
-        "{@code LLVMLandingPadClauseTy}",
-
-        "LandingPadCatch".enum("A catch clause", "0"),
-        "LandingPadFilter".enum("A filter clause")
+        "LandingPadCatch".enum("0"),
+        "LandingPadFilter".enum
     )
 
     EnumConstant(
-        "{@code LLVMThreadLocalMode}",
-
-        "NotThreadLocal".enum("", "0"),
+        "NotThreadLocal".enum("0"),
         "GeneralDynamicTLSModel".enum,
         "LocalDynamicTLSModel".enum,
         "InitialExecTLSModel".enum,
@@ -290,5919 +266,5216 @@ val LLVMCore = "LLVMCore".nativeClass(
     )
 
     EnumConstant(
-        "{@code LLVMAtomicOrdering}",
-
-        "AtomicOrderingNotAtomic".enum("A load or store which is not atomic", "0"),
-        "AtomicOrderingUnordered".enum("Lowest level of atomicity, guarantees somewhat sane results, lock free."),
-        "AtomicOrderingMonotonic".enum("guarantees that if you take all the operations affecting a specific address, a consistent ordering exists"),
-        "AtomicOrderingAcquire".enum(
-            "Acquire provides a barrier of the sort necessary to acquire a lock to access other memory with normal loads and stores.",
-            "4"
-        ),
-        "AtomicOrderingRelease".enum("Release is similar to Acquire, but with a barrier of the sort necessary to release a lock."),
-        "AtomicOrderingAcquireRelease".enum("provides both an Acquire and a Release barrier (for fences and operations which both read and write memory)."),
-        "AtomicOrderingSequentiallyConsistent".enum(
-            """
-            provides Acquire semantics for loads and Release semantics for stores. Additionally, it guarantees that a total ordering exists between all
-            SequentiallyConsistent operations.
-            """
-        )
+        "AtomicOrderingNotAtomic".enum("0"),
+        "AtomicOrderingUnordered".enum,
+        "AtomicOrderingMonotonic".enum,
+        "AtomicOrderingAcquire".enum("4"),
+        "AtomicOrderingRelease".enum,
+        "AtomicOrderingAcquireRelease".enum,
+        "AtomicOrderingSequentiallyConsistent".enum
     )
 
     EnumConstant(
-        "{@code LLVMAtomicRMWBinOp}",
-
-        "AtomicRMWBinOpXchg".enum("Set the new value and return the one old", "0"),
-        "AtomicRMWBinOpAdd".enum("Add a value and return the old one"),
-        "AtomicRMWBinOpSub".enum("Subtract a value and return the old one"),
-        "AtomicRMWBinOpAnd".enum("And a value and return the old one"),
-        "AtomicRMWBinOpNand".enum("Not-And a value and return the old one"),
-        "AtomicRMWBinOpOr".enum("OR a value and return the old one"),
-        "AtomicRMWBinOpXor".enum("Xor a value and return the old one"),
-        "AtomicRMWBinOpMax".enum("Sets the value if it's greater than the original using a signed comparison and return the old one"),
-        "AtomicRMWBinOpMin".enum("Sets the value if it's smaller than the original using a signed comparison and return the old one"),
-        "AtomicRMWBinOpUMax".enum("Sets the value if it's greater than the original using an unsigned comparison and return the old one"),
-        "AtomicRMWBinOpUMin".enum("Sets the value if it's greater than the original using an unsigned comparison and return the old one"),
-        "AtomicRMWBinOpFAdd".enum("Add a floating point value and return the old one"),
-        "AtomicRMWBinOpFSub".enum("Subtract a floating point value and return the old one"),
-        "AtomicRMWBinOpFMax".enum("Sets the value if it's greater than the original using a floating point comparison and return the old one"),
-        "AtomicRMWBinOpFMin".enum("Sets the value if it's smaller than the original using a floating point comparison and return the old one")
+        "AtomicRMWBinOpXchg".enum("0"),
+        "AtomicRMWBinOpAdd".enum,
+        "AtomicRMWBinOpSub".enum,
+        "AtomicRMWBinOpAnd".enum,
+        "AtomicRMWBinOpNand".enum,
+        "AtomicRMWBinOpOr".enum,
+        "AtomicRMWBinOpXor".enum,
+        "AtomicRMWBinOpMax".enum,
+        "AtomicRMWBinOpMin".enum,
+        "AtomicRMWBinOpUMax".enum,
+        "AtomicRMWBinOpUMin".enum,
+        "AtomicRMWBinOpFAdd".enum,
+        "AtomicRMWBinOpFSub".enum,
+        "AtomicRMWBinOpFMax".enum,
+        "AtomicRMWBinOpFMin".enum,
+        "AtomicRMWBinOpUIncWrap".enum,
+        "AtomicRMWBinOpUDecWrap".enum,
+        "AtomicRMWBinOpUSubCond".enum,
+        "AtomicRMWBinOpUSubSat".enum
     )
 
     EnumConstant(
-        "{@code LLVMDiagnosticSeverity}",
-
-        "DSError".enum("", "0"),
+        "DSError".enum("0"),
         "DSWarning".enum,
         "DSRemark".enum,
         "DSNote".enum
     )
 
     EnumConstant(
-        "{@code LLVMInlineAsmDialect}",
-
-        "InlineAsmDialectATT".enum("", "0"),
+        "InlineAsmDialectATT".enum("0"),
         "InlineAsmDialectIntel".enum
     )
 
     EnumConstant(
-        "{@code LLVMModuleFlagBehavior}",
-
-        "ModuleFlagBehaviorError".enum("Emits an error if two values disagree, otherwise the resulting value is that of the operands.", "0"),
-        "ModuleFlagBehaviorWarning".enum(
-            "Emits a warning if two values disagree. The result value will be the operand for the flag from the first module being linked."
-        ),
-        "ModuleFlagBehaviorRequire".enum(
-            """
-            Adds a requirement that another module flag be present and have a specified value after linking is performed. The value must be a metadata pair,
-            where the first element of the pair is the ID of the module flag to be restricted, and the second element of the pair is the value the module flag
-            should be restricted to. This behavior can be used to restrict the allowable results (via triggering of an error) of linking IDs with the
-            **Override** behavior.
-            """
-        ),
-        "ModuleFlagBehaviorOverride".enum(
-            """
-            Uses the specified value, regardless of the behavior or value of the other module. If both modules specify **Override**, but the values differ, an
-            error will be emitted.
-            """
-        ),
-        "ModuleFlagBehaviorAppend".enum("Appends the two values, which are required to be metadata nodes."),
-        "ModuleFlagBehaviorAppendUnique".enum(
-            """
-            Appends the two values, which are required to be metadata nodes. However, duplicate entries in the second list are dropped during the append
-            operation.
-            """
-        )
+        "ModuleFlagBehaviorError".enum("0"),
+        "ModuleFlagBehaviorWarning".enum,
+        "ModuleFlagBehaviorRequire".enum,
+        "ModuleFlagBehaviorOverride".enum,
+        "ModuleFlagBehaviorAppend".enum,
+        "ModuleFlagBehaviorAppendUnique".enum
     )
 
     EnumConstant(
-        "Attribute index are either {@code LLVMAttributeReturnIndex}, {@code LLVMAttributeFunctionIndex} or a parameter number from 1 to N.",
-
-        "AttributeReturnIndex".enum("", "0"),
-        "AttributeFunctionIndex".enum("ISO C restricts enumerator values to range of 'int' (4294967295 is too large)", "-1")
-    )
-
-    void(
-        "InitializeCore",
-        "",
-
-        LLVMPassRegistryRef("R", "")
-    )
-
-    void(
-        "Shutdown",
-        "Deallocate and destroy all {@code ManagedStatic} variables.",
-
-        void()
-    )
-
-    /*===-- Version query -----------------------------------------------------===*/
-
-    IgnoreMissing..void(
-        "GetVersion",
-        """
-        Return the major, minor, and patch version of LLVM.
-
-        The version components are returned via the function's three output parameters or skipped if a #NULL pointer was supplied.
-        """,
-
-        Check(1)..nullable..unsigned.p("Major", ""),
-        Check(1)..nullable..unsigned.p("Minor", ""),
-        Check(1)..nullable..unsigned.p("Patch", "")
-    )
-
-    Nonnull..charUTF8.p(
-        "CreateMessage",
-        "",
-
-        charUTF8.const.p("Message", "")
-    )
-
-    void(
-        "DisposeMessage",
-        "",
-
-        charUTF8.p("Message", "")
-    )
-
-    LLVMContextRef(
-        "ContextCreate",
-        """
-        Create a new context.
-
-        Every call to this function should be paired with a call to #ContextDispose() or the context will leak memory.
-        """,
-
-        void()
-    )
-
-    LLVMContextRef(
-        "GetGlobalContext",
-        "Obtain the global context instance.",
-
-        void()
-    )
-
-    void(
-        "ContextSetDiagnosticHandler",
-        "Set the diagnostic handler for this context.",
-
-        LLVMContextRef("C", ""),
-        nullable..LLVMDiagnosticHandler("Handler", ""),
-        nullable..opaque_p("DiagnosticContext", "")
-    )
-
-    LLVMDiagnosticHandler(
-        "ContextGetDiagnosticHandler",
-        "Get the diagnostic handler of this context.",
-
-        LLVMContextRef("C", "")
-    )
-
-    opaque_p(
-        "ContextGetDiagnosticContext",
-        "Get the diagnostic context of this context.",
-
-        LLVMContextRef("C", "")
-    )
-
-    void(
-        "ContextSetYieldCallback",
-        "Set the yield callback function for this context.",
-
-        LLVMContextRef("C", ""),
-        nullable..LLVMYieldCallback("Callback", ""),
-        nullable..opaque_p("OpaqueHandle", "")
-    )
-
-    IgnoreMissing..LLVMBool(
-        "ContextShouldDiscardValueNames",
-        "Retrieve whether the given context is set to discard all value names.",
-
-        LLVMContextRef("C", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..void(
-        "ContextSetDiscardValueNames",
-        """
-        Set whether the given context discards all value names.
-
-        If true, only the names of {@code GlobalValue} objects will be available in the IR. This can be used to save memory and runtime, especially in release
-        mode.
-        """,
-
-        LLVMContextRef("C", ""),
-        LLVMBool("Discard", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..void(
-        "ContextSetOpaquePointers",
-        "Set whether the given context is in opaque pointer mode.",
-
-        LLVMContextRef("C", ""),
-        LLVMBool("OpaquePointers", "")
-    )
-
-    void(
-        "ContextDispose",
-        """
-        Destroy a context instance.
-
-        This should be called for every call to #ContextCreate() or memory will be leaked.
-        """,
-
-        LLVMContextRef("C", "")
-    )
-
-    Nonnull..charUTF8.p(
-        "GetDiagInfoDescription",
-        "Return a string representation of the {@code DiagnosticInfo}. Use #DisposeMessage() to free the string.",
-
-        LLVMDiagnosticInfoRef("DI", "")
-    )
-
-    LLVMDiagnosticSeverity(
-        "GetDiagInfoSeverity",
-        "Return an {@code enum LLVMDiagnosticSeverity}.",
-
-        LLVMDiagnosticInfoRef("DI", "")
-    )
-
-    unsigned_int(
-        "GetMDKindIDInContext",
-        "",
-
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..unsigned_int("SLen", "")
-    )
-
-    unsigned_int(
-        "GetMDKindID",
-        "",
-
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..unsigned_int("SLen", "")
-    )
-
-    unsigned_int(
-        "GetEnumAttributeKindForName",
-        """
-        Return an unique id given the name of a enum attribute, or 0 if no attribute by that name exists.
-
-        See ${url("https://llvm.org/docs/LangRef.html\\#parameter-attributes")} and ${url("https://llvm.org/docs/LangRef.html\\#function-attributes")} for the
-        list of available attributes.
-
-        NB: Attribute names and/or id are subject to change without going through the C API deprecation cycle.
-        """,
-
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("SLen", "")
-    )
-
-    unsigned_int(
-        "GetLastEnumAttributeKind",
-        "",
-
-        void()
-    )
-
-    LLVMAttributeRef(
-        "CreateEnumAttribute",
-        "Create an enum attribute.",
-
-        LLVMContextRef("C", ""),
-        unsigned_int("KindID", ""),
-        uint64_t("Val", "")
-    )
-
-    unsigned_int(
-        "GetEnumAttributeKind",
-        "Get the unique id corresponding to the enum attribute passed as argument.",
-
-        LLVMAttributeRef("A", "")
-    )
-
-    uint64_t(
-        "GetEnumAttributeValue",
-        "Get the enum attribute's value. 0 is returned if none exists.",
-
-        LLVMAttributeRef("A", "")
-    )
-
-    IgnoreMissing..LLVMAttributeRef(
-        "CreateTypeAttribute",
-        "Create a type attribute.",
-
-        LLVMContextRef("C", ""),
-        unsigned("KindID", ""),
-        LLVMTypeRef("type_ref", ""),
-
-        since = "12"
-    )
-
-    IgnoreMissing..LLVMTypeRef(
-        "GetTypeAttributeValue",
-        "Get the type attribute's value.",
-
-        LLVMAttributeRef("A", ""),
-
-        since = "12"
-    )
-
-    LLVMAttributeRef(
-        "CreateStringAttribute",
-        "Create a string attribute.",
-
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("K", ""),
-        AutoSize("K")..unsigned_int("KLength", ""),
-        charUTF8.const.p("V", ""),
-        AutoSize("V")..unsigned_int("VLength", "")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetStringAttributeKind",
-        "Get the string attribute's kind.",
-
-        LLVMAttributeRef("A", ""),
-        AutoSizeResult..unsigned_int.p("Length", "")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetStringAttributeValue",
-        "Get the string attribute's value.",
-
-        LLVMAttributeRef("A", ""),
-        AutoSizeResult..unsigned_int.p("Length", "")
-    )
-
-    LLVMBool(
-        "IsEnumAttribute",
-        "",
-
-        LLVMAttributeRef("A", "")
-    )
-
-    LLVMBool(
-        "IsStringAttribute",
-        "",
-
-        LLVMAttributeRef("A", "")
-    )
-
-    IgnoreMissing..LLVMBool(
-        "IsTypeAttribute",
-        "",
-
-        LLVMAttributeRef("A", ""),
-
-        since = "12"
-    )
-
-    IgnoreMissing..LLVMTypeRef(
-        "GetTypeByName2",
-        "Obtain a Type from a context by its registered name.",
-
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "12"
-    )
-
-    LLVMModuleRef(
-        "ModuleCreateWithName",
-        """
-        Create a new, empty module in the global context.
-
-        This is equivalent to calling #ModuleCreateWithNameInContext() with #GetGlobalContext() as the context parameter.
-
-        Every invocation should be paired with #DisposeModule() or memory will be leaked.
-        """,
-
-        charUTF8.const.p("ModuleID", "")
-    )
-
-    LLVMModuleRef(
-        "ModuleCreateWithNameInContext",
-        """
-        Create a new, empty module in a specific context.
-
-        Every invocation should be paired with #DisposeModule() or memory will be leaked.
-        """,
-
-        charUTF8.const.p("ModuleID", ""),
-        LLVMContextRef("C", "")
-    )
-
-    LLVMModuleRef(
-        "CloneModule",
-        "Return an exact copy of the specified module.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    void(
-        "DisposeModule",
-        """
-        Destroy a module instance.
-
-        This must be called for every created module or memory will be leaked.
-        """,
-
-        LLVMModuleRef("M", "")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetModuleIdentifier",
-        "Obtain the identifier of a module.",
-
-        LLVMModuleRef("M", "module to obtain identifier of"),
-        AutoSizeResult..size_t.p("Len", "out parameter which holds the length of the returned string"),
-
-        returnDoc = "the identifier of {@code M}"
-    )
-
-    void(
-        "SetModuleIdentifier",
-        "Set the identifier of a module to a string {@code Ident} with length {@code Len}.",
-
-        LLVMModuleRef("M", "the module to set identifier"),
-        charUTF8.const.p("Ident", "the string to set {@code M}'s identifier to"),
-        AutoSize("Ident")..size_t("Len", "length of {@code Ident}")
-    )
-
-    IgnoreMissing..Nonnull..charUTF8.const.p(
-        "GetSourceFileName",
-        "Obtain the module's original source file name.",
-
-        LLVMModuleRef("M", "module to obtain the name of"),
-        AutoSizeResult..size_t.p("Len", "out parameter which holds the length of the returned string"),
-
-        returnDoc = "the original source file name of {@code M}"
-    )
-
-    IgnoreMissing..void(
-        "SetSourceFileName",
-        "Set the original source file name of a module to a string {@code Name} with length {@code Len}.",
-
-        LLVMModuleRef("M", "the module to set the source file name of"),
-        charUTF8.const.p("Name", "the string to set {@code M}'s source file name to"),
-        AutoSize("Name")..size_t("Len", "length of {@code Name}")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetDataLayoutStr",
-        """
-        Obtain the data layout for a module.
-
-        #GetDataLayout() is DEPRECATED, as the name is not only incorrect, but match the name of another method on the module. Prefer the use of
-        {@code LLVMGetDataLayoutStr}, which is not ambiguous.
-        """,
-
-        LLVMModuleRef("M", "")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetDataLayout",
-        "",
-
-        LLVMModuleRef("M", "")
-    )
-
-    void(
-        "SetDataLayout",
-        "Set the data layout for a module.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("DataLayoutStr", "")
+        "AttributeReturnIndex".enum("0"),
+        "AttributeFunctionIndex".enum("-1")
     )
 
-    Nonnull..charUTF8.const.p(
-        "GetTarget",
-        "Obtain the target triple for a module.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    void(
-        "SetTarget",
-        "Set the target triple for a module.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Triple", "")
-    )
-
-    IgnoreMissing..LLVMModuleFlagEntry.p(
-        "CopyModuleFlagsMetadata",
-        """
-        Returns the module flags as an array of flag-key-value triples. The caller is responsible for freeing this array by calling {@code
-        #DisposeModuleFlagsMetadata()}.
-        """,
-
-        LLVMModuleRef("M", ""),
-        Check(1)..size_t.p("Len", "")
-    )
-
-    IgnoreMissing..void(
-        "DisposeModuleFlagsMetadata",
-        "Destroys module flags metadata entries.",
-
-        LLVMModuleFlagEntry.p("Entries", "")
-    )
-
-    IgnoreMissing..LLVMModuleFlagBehavior(
-        "ModuleFlagEntriesGetFlagBehavior",
-        "Returns the flag behavior for a module flag entry at a specific index.",
-
-        LLVMModuleFlagEntry.p("Entries", ""),
-        unsigned_int("Index", "")
-    )
-
-    IgnoreMissing..Nonnull..charUTF8.const.p(
-        "ModuleFlagEntriesGetKey",
-        "Returns the key for a module flag entry at a specific index.",
-
-        LLVMModuleFlagEntry.p("Entries", ""),
-        unsigned_int("Index", ""),
-        AutoSizeResult..size_t.p("Len", "")
-    )
-
-    IgnoreMissing..LLVMMetadataRef(
-        "ModuleFlagEntriesGetMetadata",
-        "Returns the metadata for a module flag entry at a specific index.",
-
-        LLVMModuleFlagEntry.p("Entries", ""),
-        unsigned_int("Index", "")
-    )
-
-    IgnoreMissing..LLVMMetadataRef(
-        "GetModuleFlag",
-        "Add a module-level flag to the module-level flags metadata if it doesn't already exist.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Key", ""),
-        AutoSize("Key")..size_t("KeyLen", "")
-    )
-
-    IgnoreMissing..void(
-        "AddModuleFlag",
-        "Add a module-level flag to the module-level flags metadata if it doesn't already exist.",
-
-        LLVMModuleRef("M", ""),
-        LLVMModuleFlagBehavior("Behavior", ""),
-        charUTF8.const.p("Key", ""),
-        AutoSize("Key")..size_t("KeyLen", ""),
-        LLVMMetadataRef("Val", "")
-    )
-
-    void(
-        "DumpModule",
-        "Dump a representation of a module to {@code stderr}.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    LLVMBool(
-        "PrintModuleToFile",
-        "Print a representation of a module to a file. The {@code ErrorMessage} needs to be disposed with #DisposeMessage().",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Filename", ""),
-        Check(1)..charUTF8.p.p("ErrorMessage", ""),
-
-        returnDoc = "0 on success, 1 otherwise"
-    )
-
-    Nonnull..charUTF8.p(
-        "PrintModuleToString",
-        "Return a string representation of the module. Use #DisposeMessage() to free the string.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    IgnoreMissing..Nonnull..charUTF8.const.p(
-        "GetModuleInlineAsm",
-        "Get inline assembly for a module.",
-
-        LLVMModuleRef("M", ""),
-        AutoSizeResult..size_t.p("Len", "")
-    )
-
-    IgnoreMissing..void(
-        "SetModuleInlineAsm2",
-        "Set inline assembly for a module.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Asm", ""),
-        AutoSize("Asm")..size_t("Len", "")
-    )
-
-    IgnoreMissing..void(
-        "AppendModuleInlineAsm",
-        "Append inline assembly to a module.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Asm", ""),
-        AutoSize("Asm")..size_t("Len", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "GetInlineAsm",
-        "Create the specified uniqued inline asm string.",
-
-        LLVMTypeRef("Ty", ""),
-        charUTF8.p("AsmString", ""),
-        AutoSize("AsmString")..size_t("AsmStringSize", ""),
-        charUTF8.p("Constraints", ""),
-        AutoSize("Constraints")..size_t("ConstraintsSize", ""),
-        LLVMBool("HasSideEffects", ""),
-        LLVMBool("IsAlignStack", ""),
-        LLVMInlineAsmDialect("Dialect", ""),
-        LLVMBool("CanThrow", "")
-    )
-
-    LLVMContextRef(
-        "GetModuleContext",
-        "Obtain the context to which this module is associated.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    LLVMTypeRef(
-        "GetTypeByName",
-        "Deprecated: Use #GetTypeByName2() instead.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMNamedMDNodeRef(
-        "GetFirstNamedMetadata",
-        "Obtain an iterator to the first {@code NamedMDNode} in a {@code Module}.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    IgnoreMissing..LLVMNamedMDNodeRef(
-        "GetLastNamedMetadata",
-        "Obtain an iterator to the last {@code NamedMDNode} in a {@code Module}.",
-
-        LLVMModuleRef("M", "")
-    )
-
-    IgnoreMissing..LLVMNamedMDNodeRef(
-        "GetNextNamedMetadata",
-        """
-        Advance a {@code NamedMDNode} iterator to the next {@code NamedMDNode}.
-
-        Returns #NULL if the iterator was already at the end and there are no more named metadata nodes.
-        """,
-
-        LLVMNamedMDNodeRef("NamedMDNode", "")
-    )
-
-    IgnoreMissing..LLVMNamedMDNodeRef(
-        "GetPreviousNamedMetadata",
-        """
-        Decrement a {@code NamedMDNode} iterator to the previous {@code NamedMDNode}.
-
-        Returns #NULL if the iterator was already at the beginning and there are no previous named metadata nodes.
-        """,
-
-        LLVMNamedMDNodeRef("NamedMDNode", "")
-    )
-
-    IgnoreMissing..LLVMNamedMDNodeRef(
-        "GetNamedMetadata",
-        "Retrieve a {@code NamedMDNode} with the given name, returning #NULL if no such node exists.",
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", "")
+    EnumConstant(
+        "TailCallKindNone".enum("0"),
+        "TailCallKindTail".enum,
+        "TailCallKindMustTail".enum,
+        "TailCallKindNoTail".enum
     )
-
-    IgnoreMissing..LLVMNamedMDNodeRef(
-        "GetOrInsertNamedMetadata",
-        "Retrieve a {@code NamedMDNode} with the given name, creating a new node if no such node exists.",
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", "")
+    EnumConstant(
+        "FastMathAllowReassoc".enum("1 << 0"),
+        "FastMathNoNaNs".enum("1 << 1"),
+        "FastMathNoInfs".enum("1 << 2"),
+        "FastMathNoSignedZeros".enum("1 << 3"),
+        "FastMathAllowReciprocal".enum("1 << 4"),
+        "FastMathAllowContract".enum("1 << 5"),
+        "FastMathApproxFunc".enum("1 << 6"),
+        "FastMathNone".enum("0"),
+        "FastMathAll".enum("""
+            LLVMFastMathAllowReassoc | LLVMFastMathNoNaNs |
+            LLVMFastMathNoInfs | LLVMFastMathNoSignedZeros |
+            LLVMFastMathAllowReciprocal | LLVMFastMathAllowContract |
+            LLVMFastMathApproxFunc""")
     )
 
-    IgnoreMissing..Nonnull..charUTF8.const.p(
-        "GetNamedMetadataName",
-        "Retrieve the name of a {@code NamedMDNode}.",
-
-        LLVMNamedMDNodeRef("NamedMD", ""),
-        AutoSizeResult..size_t.p("NameLen", "")
+    EnumConstant(
+        "GEPFlagInBounds".enum("1 << 0"),
+        "GEPFlagNUSW".enum("1 << 1"),
+        "GEPFlagNUW".enum("1 << 2"),
     )
 
-    unsigned_int(
-        "GetNamedMetadataNumOperands",
-        "Obtain the number of operands for named metadata in a module.",
+    split {
+        IgnoreMissing..void(
+            "InitializeCore",
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMPassRegistryRef("R")
+        )
 
-    void(
-        "GetNamedMetadataOperands",
-        """
-        Obtain the named metadata operands for a module.
-
-        The passed {@code LLVMValueRef} pointer should refer to an array of {@code LLVMValueRef} at least #GetNamedMetadataNumOperands() long. This array will
-        be populated with the {@code LLVMValueRef} instances. Each instance corresponds to a {@code llvm::MDNode}.
-        """,
-
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        Check(
-            "LLVMGetNamedMetadataNumOperands(M, Name)", debug = true
-        )..LLVMValueRef.p("Dest", "")
-    )
+        void(
+            "Shutdown",
 
-    void(
-        "AddNamedMetadataOperand",
-        "Add an operand to named metadata.",
+            void()
+        )
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        LLVMValueRef("Val", "")
-    )
+        /*===-- Version query -----------------------------------------------------===*/
 
-    IgnoreMissing..charUTF8.const.p(
-        "GetDebugLocDirectory",
-        """
-        Return the directory of the debug location for this value, which must be an {@code llvm::Instruction}, {@code llvm::GlobalVariable}, or
-        {@code llvm::Function}.
-        """,
-
-        LLVMValueRef("Val", ""),
-        AutoSizeResult..unsigned_int.p("Length", "")
-    )
+        IgnoreMissing..void(
+            "GetVersion",
 
-    IgnoreMissing..charUTF8.const.p(
-        "GetDebugLocFilename",
-        """
-        Return the filename of the debug location for this value, which must be an {@code llvm::Instruction}, {@code llvm::GlobalVariable}, or
-        {@code llvm::Function}.
-        """,
-
-        LLVMValueRef("Val", ""),
-        AutoSizeResult..unsigned_int.p("Length", "")
-    )
+            Check(1)..nullable..unsigned.p("Major"),
+            Check(1)..nullable..unsigned.p("Minor"),
+            Check(1)..nullable..unsigned.p("Patch")
+        )
 
-    IgnoreMissing..unsigned_int(
-        "GetDebugLocLine",
-        """
-        Return the line number of the debug location for this value, which must be an {@code llvm::Instruction}, {@code llvm::GlobalVariable}, or
-        {@code llvm::Function}.
-        """,
-
-        LLVMValueRef("Val", "")
-    )
+        Nonnull..charUTF8.p(
+            "CreateMessage",
 
-    IgnoreMissing..unsigned_int(
-        "GetDebugLocColumn",
-        "Return the column number of the debug location for this value, which must be an {@code llvm::Instruction}.",
+            charUTF8.const.p("Message")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        void(
+            "DisposeMessage",
 
-    LLVMValueRef(
-        "AddFunction",
-        "Add a function to a module under a specified name.",
+            charUTF8.p("Message")
+        )
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        LLVMTypeRef("FunctionTy", "")
-    )
+        LLVMContextRef(
+            "ContextCreate",
 
-    LLVMValueRef(
-        "GetNamedFunction",
-        """
-        Obtain a {@code Function} value from a {@code Module} by its name.
+            void()
+        )
 
-        The returned value corresponds to a {@code llvm::Function} value.
-        """,
+        LLVMContextRef(
+            "GetGlobalContext",
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", "")
-    )
+            void()
+        )
 
-    LLVMValueRef(
-        "GetFirstFunction",
-        "Obtain an iterator to the first {@code Function} in a {@code Module}.",
+        void(
+            "ContextSetDiagnosticHandler",
 
-        LLVMModuleRef("M", "")
-    )
+            LLVMContextRef("C"),
+            nullable..LLVMDiagnosticHandler("Handler"),
+            nullable..opaque_p("DiagnosticContext")
+        )
 
-    LLVMValueRef(
-        "GetLastFunction",
-        "Obtain an iterator to the last {@code Function} in a {@code Module}.",
+        LLVMDiagnosticHandler(
+            "ContextGetDiagnosticHandler",
 
-        LLVMModuleRef("M", "")
-    )
+            LLVMContextRef("C")
+        )
 
-    LLVMValueRef(
-        "GetNextFunction",
-        """
-        Advance a {@code Function} iterator to the next {@code Function}.
+        opaque_p(
+            "ContextGetDiagnosticContext",
 
-        Returns #NULL if the iterator was already at the end and there are no more functions.
-        """,
+            LLVMContextRef("C")
+        )
 
-        LLVMValueRef("Fn", "")
-    )
+        void(
+            "ContextSetYieldCallback",
 
-    LLVMValueRef(
-        "GetPreviousFunction",
-        """
-        Decrement a {@code Function} iterator to the previous {@code Function}.
+            LLVMContextRef("C"),
+            nullable..LLVMYieldCallback("Callback"),
+            nullable..opaque_p("OpaqueHandle")
+        )
 
-        Returns #NULL if the iterator was already at the beginning and there are no previous functions.
-        """,
+        IgnoreMissing..LLVMBool(
+            "ContextShouldDiscardValueNames",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMContextRef("C")
+        )
 
-    IgnoreMissing..void(
-        "SetModuleInlineAsm",
-        "Deprecated: Use #SetModuleInlineAsm2() instead.",
+        IgnoreMissing..void(
+            "ContextSetDiscardValueNames",
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Asm", "")
-    )
+            LLVMContextRef("C"),
+            LLVMBool("Discard")
+        )
 
-    LLVMTypeKind(
-        "GetTypeKind",
-        "Obtain the enumerated type of a {@code Type} instance.",
+        IgnoreMissing..void(
+            "ContextSetOpaquePointers",
 
-        LLVMTypeRef("Ty", "")
-    )
+            LLVMContextRef("C"),
+            LLVMBool("OpaquePointers")
+        )
 
-    LLVMBool(
-        "TypeIsSized",
-        """
-        Whether the type has a known size.
+        void(
+            "ContextDispose",
 
-        Things that don't have a size are abstract types, labels, and void.
-        """,
+            LLVMContextRef("C")
+        )
 
-        LLVMTypeRef("Ty", "")
-    )
+        Nonnull..charUTF8.p(
+            "GetDiagInfoDescription",
 
-    LLVMContextRef(
-        "GetTypeContext",
-        "Obtain the context to which this type instance is associated.",
+            LLVMDiagnosticInfoRef("DI")
+        )
 
-        LLVMTypeRef("Ty", "")
-    )
+        LLVMDiagnosticSeverity(
+            "GetDiagInfoSeverity",
 
-    IgnoreMissing..void(
-        "DumpType",
-        "Dump a representation of a type to {@code stderr}.",
+            LLVMDiagnosticInfoRef("DI")
+        )
 
-        LLVMTypeRef("Val", "")
-    )
+        unsigned_int(
+            "GetMDKindIDInContext",
 
-    Nonnull..charUTF8.p(
-        "PrintTypeToString",
-        "Return a string representation of the type. Use #DisposeMessage() to free the string.",
+            LLVMContextRef("C"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..unsigned_int("SLen")
+        )
 
-        LLVMTypeRef("Val", "")
-    )
+        IgnoreMissing..unsigned(
+            "GetSyncScopeID",
 
-    LLVMTypeRef(
-        "Int1TypeInContext",
-        "Obtain an integer type from a context with specified bit width.",
+            LLVMContextRef("C"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("SLen")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        unsigned_int(
+            "GetMDKindID",
 
-    LLVMTypeRef(
-        "Int8TypeInContext",
-        "",
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..unsigned_int("SLen")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        unsigned_int(
+            "GetEnumAttributeKindForName",
 
-    LLVMTypeRef(
-        "Int16TypeInContext",
-        "",
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("SLen")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        unsigned_int(
+            "GetLastEnumAttributeKind",
 
-    LLVMTypeRef(
-        "Int32TypeInContext",
-        "",
+            void()
+        )
 
-        LLVMContextRef("C", "")
-    )
+        LLVMAttributeRef(
+            "CreateEnumAttribute",
 
-    LLVMTypeRef(
-        "Int64TypeInContext",
-        "",
+            LLVMContextRef("C"),
+            unsigned_int("KindID"),
+            uint64_t("Val")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        unsigned_int(
+            "GetEnumAttributeKind",
 
-    LLVMTypeRef(
-        "Int128TypeInContext",
-        "",
+            LLVMAttributeRef("A")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        uint64_t(
+            "GetEnumAttributeValue",
 
-    LLVMTypeRef(
-        "IntTypeInContext",
-        "",
+            LLVMAttributeRef("A")
+        )
 
-        LLVMContextRef("C", ""),
-        unsigned_int("NumBits", "")
-    )
+        IgnoreMissing..LLVMAttributeRef(
+            "CreateTypeAttribute",
 
-    LLVMTypeRef("Int1Type", "Obtain an integer type from the global context with a specified bit width.", void())
-    LLVMTypeRef("Int8Type", "", void())
-    LLVMTypeRef("Int16Type", "", void())
-    LLVMTypeRef("Int32Type", "", void())
-    LLVMTypeRef("Int64Type", "", void())
-    LLVMTypeRef("Int128Type", "", void())
-
-    LLVMTypeRef(
-        "IntType",
-        "",
-
-        unsigned_int("NumBits", "")
-    )
+            LLVMContextRef("C"),
+            unsigned("KindID"),
+            LLVMTypeRef("type_ref")
+        )
 
-    unsigned_int(
-        "GetIntTypeWidth",
-        "",
+        IgnoreMissing..LLVMTypeRef(
+            "GetTypeAttributeValue",
 
-        LLVMTypeRef("IntegerTy", "")
-    )
+            LLVMAttributeRef("A")
+        )
 
-    LLVMTypeRef(
-        "HalfTypeInContext",
-        "Obtain a 16-bit floating point type from a context.",
+        IgnoreMissing..LLVMAttributeRef(
+            "CreateConstantRangeAttribute",
 
-        LLVMContextRef("C", "")
-    )
+            LLVMContextRef("C"),
+            unsigned("KindID"),
+            unsigned("NumBits"),
+            Unsafe..uint64_t.const.p("LowerWords"),
+            Unsafe..uint64_t.const.p("UpperWords")
+        )
 
-    IgnoreMissing..LLVMTypeRef(
-        "BFloatTypeInContext",
-        "Obtain a 16-bit brain floating point type from a context.",
+        LLVMAttributeRef(
+            "CreateStringAttribute",
 
-        LLVMContextRef("C", ""),
+            LLVMContextRef("C"),
+            charUTF8.const.p("K"),
+            AutoSize("K")..unsigned_int("KLength"),
+            charUTF8.const.p("V"),
+            AutoSize("V")..unsigned_int("VLength")
+        )
 
-        since = "11"
-    )
+        Nonnull..charUTF8.const.p(
+            "GetStringAttributeKind",
 
-    LLVMTypeRef(
-        "FloatTypeInContext",
-        "Obtain a 32-bit floating point type from a context.",
+            LLVMAttributeRef("A"),
+            AutoSizeResult..unsigned_int.p("Length")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        Nonnull..charUTF8.const.p(
+            "GetStringAttributeValue",
 
-    LLVMTypeRef(
-        "DoubleTypeInContext",
-        "Obtain a 64-bit floating point type from a context.",
+            LLVMAttributeRef("A"),
+            AutoSizeResult..unsigned_int.p("Length")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        LLVMBool(
+            "IsEnumAttribute",
 
-    LLVMTypeRef(
-        "X86FP80TypeInContext",
-        "Obtain a 80-bit floating point type (X87) from a context.",
+            LLVMAttributeRef("A")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        LLVMBool(
+            "IsStringAttribute",
 
-    LLVMTypeRef(
-        "FP128TypeInContext",
-        "Obtain a 128-bit floating point type (112-bit mantissa) from a context.",
+            LLVMAttributeRef("A")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "IsTypeAttribute",
 
-    LLVMTypeRef(
-        "PPCFP128TypeInContext",
-        "Obtain a 128-bit floating point type (two 64-bits) from a context.",
+            LLVMAttributeRef("A")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        IgnoreMissing..LLVMTypeRef(
+            "GetTypeByName2",
 
-    LLVMTypeRef("HalfType", "", void())
-    IgnoreMissing..LLVMTypeRef(
-        "BFloatType",
-        "",
+            LLVMContextRef("C"),
+            charUTF8.const.p("Name")
+        )
 
-        void(),
+        LLVMModuleRef(
+            "ModuleCreateWithName",
 
-        since = "11"
-    )
-    LLVMTypeRef("FloatType", "", void())
-    LLVMTypeRef("DoubleType", "", void())
-    LLVMTypeRef("X86FP80Type", "", void())
-    LLVMTypeRef("FP128Type", "", void())
-    LLVMTypeRef("PPCFP128Type", "", void())
-
-    LLVMTypeRef(
-        "FunctionType",
-        """
-        Obtain a function type consisting of a specified signature.
-
-        The function is defined as a tuple of a return {@code Type}, a list of parameter types, and whether the function is variadic.
-        """,
-
-        LLVMTypeRef("ReturnType", ""),
-        LLVMTypeRef.p("ParamTypes", ""),
-        AutoSize("ParamTypes")..unsigned_int("ParamCount", ""),
-        LLVMBool("IsVarArg", "")
-    )
+            charUTF8.const.p("ModuleID")
+        )
 
-    LLVMBool(
-        "IsFunctionVarArg",
-        "Returns whether a function type is variadic.",
+        LLVMModuleRef(
+            "ModuleCreateWithNameInContext",
 
-        LLVMTypeRef("FunctionTy", "")
-    )
+            charUTF8.const.p("ModuleID"),
+            LLVMContextRef("C")
+        )
 
-    LLVMTypeRef(
-        "GetReturnType",
-        "Obtain the Type this function Type returns.",
+        LLVMModuleRef(
+            "CloneModule",
 
-        LLVMTypeRef("FunctionTy", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    unsigned_int(
-        "CountParamTypes",
-        "Obtain the number of parameters this function accepts.",
+        void(
+            "DisposeModule",
 
-        LLVMTypeRef("FunctionTy", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    void(
-        "GetParamTypes",
-        """
-        Obtain the types of a function's parameters.
-
-        The {@code Dest} parameter should point to a pre-allocated array of {@code LLVMTypeRef} at least #CountParamTypes() large. On return, the first
-        {@code LLVMCountParamTypes()} entries in the array will be populated with {@code LLVMTypeRef} instances.
-        """,
-
-        LLVMTypeRef("FunctionTy", "the function type to operate on"),
-        Check(
-            "LLVMCountParamTypes(FunctionTy)", debug = true
-        )..LLVMTypeRef.p("Dest", "memory address of an array to be filled with result")
-    )
+        Nonnull..charUTF8.const.p(
+            "GetModuleIdentifier",
 
-    LLVMTypeRef(
-        "StructTypeInContext",
-        """
-        Create a new structure type in a context.
-
-        A structure is specified by a list of inner elements/types and whether these can be packed together.
-        """,
-
-        LLVMContextRef("C", ""),
-        LLVMTypeRef.p("ElementTypes", ""),
-        AutoSize("ElementTypes")..unsigned_int("ElementCount", ""),
-        LLVMBool("Packed", "")
-    )
+            LLVMModuleRef("M"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-    LLVMTypeRef(
-        "StructType",
-        "Create a new structure type in the global context.",
+        void(
+            "SetModuleIdentifier",
 
-        LLVMTypeRef.p("ElementTypes", ""),
-        AutoSize("ElementTypes")..unsigned_int("ElementCount", ""),
-        LLVMBool("Packed", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Ident"),
+            AutoSize("Ident")..size_t("Len")
+        )
 
-    LLVMTypeRef(
-        "StructCreateNamed",
-        "Create an empty structure in a context having a specified name.",
+        IgnoreMissing..Nonnull..charUTF8.const.p(
+            "GetSourceFileName",
 
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMModuleRef("M"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-    charUTF8.const.p(
-        "GetStructName",
-        "Obtain the name of a structure.",
+        IgnoreMissing..void(
+            "SetSourceFileName",
 
-        LLVMTypeRef("Ty", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("Len")
+        )
 
-    void(
-        "StructSetBody",
-        "Set the contents of a structure type.",
-
-        LLVMTypeRef("StructTy", ""),
-        LLVMTypeRef.p("ElementTypes", ""),
-        AutoSize("ElementTypes")..unsigned_int("ElementCount", ""),
-        LLVMBool("Packed", "")
-    )
+        Nonnull..charUTF8.const.p(
+            "GetDataLayoutStr",
 
-    unsigned_int(
-        "CountStructElementTypes",
-        "Get the number of elements defined inside the structure.",
+            LLVMModuleRef("M")
+        )
 
-        LLVMTypeRef("StructTy", "")
-    )
+        Nonnull..charUTF8.const.p(
+            "GetDataLayout",
 
-    void(
-        "GetStructElementTypes",
-        """
-        Get the elements within a structure.
-
-        The function is passed the address of a pre-allocated array of {@code LLVMTypeRef} at least #CountStructElementTypes() long. After invocation, this
-        array will be populated with the structure's elements. The objects in the destination array will have a lifetime of the structure type itself, which is
-        the lifetime of the context it is contained in.
-        """,
-
-        LLVMTypeRef("StructTy", ""),
-        Check(
-            "LLVMCountStructElementTypes(StructTy)", debug = true
-        )..LLVMTypeRef.p("Dest", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    LLVMTypeRef(
-        "StructGetTypeAtIndex",
-        "Get the type of the element at a given index in the structure.",
+        void(
+            "SetDataLayout",
 
-        LLVMTypeRef("StructTy", ""),
-        unsigned_int("i", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("DataLayoutStr")
+        )
 
-    LLVMBool(
-        "IsPackedStruct",
-        "Determine whether a structure is packed.",
+        Nonnull..charUTF8.const.p(
+            "GetTarget",
 
-        LLVMTypeRef("StructTy", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    LLVMBool(
-        "IsOpaqueStruct",
-        "Determine whether a structure is opaque.",
+        void(
+            "SetTarget",
 
-        LLVMTypeRef("StructTy", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Triple")
+        )
 
-    IgnoreMissing..LLVMBool(
-        "IsLiteralStruct",
-        "Determine whether a structure is literal.",
+        IgnoreMissing..LLVMModuleFlagEntry.p(
+            "CopyModuleFlagsMetadata",
 
-        LLVMTypeRef("StructTy", "")
-    )
+            LLVMModuleRef("M"),
+            Check(1)..size_t.p("Len")
+        )
 
-    LLVMTypeRef(
-        "GetElementType",
-        """
-        Obtain the element type of an array or vector type.
+        IgnoreMissing..void(
+            "DisposeModuleFlagsMetadata",
 
-        This currently also works for pointer types, but this usage is deprecated.
-        """,
+            LLVMModuleFlagEntry.p("Entries")
+        )
 
-        LLVMTypeRef("Ty", "")
-    )
+        IgnoreMissing..LLVMModuleFlagBehavior(
+            "ModuleFlagEntriesGetFlagBehavior",
 
-    void(
-        "GetSubtypes",
-        "Returns type's subtypes",
+            LLVMModuleFlagEntry.p("Entries"),
+            unsigned_int("Index")
+        )
 
-        LLVMTypeRef("Tp", ""),
-        Unsafe..LLVMTypeRef.p("Arr", "")
-    )
+        IgnoreMissing..Nonnull..charUTF8.const.p(
+            "ModuleFlagEntriesGetKey",
 
-    unsigned_int(
-        "GetNumContainedTypes",
-        "Return the number of types in the derived type.",
+            LLVMModuleFlagEntry.p("Entries"),
+            unsigned_int("Index"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-        LLVMTypeRef("Tp", "")
-    )
+        IgnoreMissing..LLVMMetadataRef(
+            "ModuleFlagEntriesGetMetadata",
 
-    LLVMTypeRef(
-        "ArrayType",
-        """
-        Create a fixed size array type that refers to a specific type.
+            LLVMModuleFlagEntry.p("Entries"),
+            unsigned_int("Index")
+        )
 
-        The created type will exist in the context that its element type exists in.
-        """,
+        IgnoreMissing..LLVMMetadataRef(
+            "GetModuleFlag",
 
-        LLVMTypeRef("ElementType", ""),
-        unsigned_int("ElementCount", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Key"),
+            AutoSize("Key")..size_t("KeyLen")
+        )
 
-    unsigned_int(
-        "GetArrayLength",
-        """
-        Obtain the length of an array type.
+        IgnoreMissing..void(
+            "AddModuleFlag",
 
-        This only works on types that represent arrays.
-        """,
+            LLVMModuleRef("M"),
+            LLVMModuleFlagBehavior("Behavior"),
+            charUTF8.const.p("Key"),
+            AutoSize("Key")..size_t("KeyLen"),
+            LLVMMetadataRef("Val")
+        )
 
-        LLVMTypeRef("ArrayTy", "")
-    )
+        void(
+            "DumpModule",
 
-    LLVMTypeRef(
-        "PointerType",
-        """
-        Create a pointer type that points to a defined type.
+            LLVMModuleRef("M")
+        )
 
-        The created type will exist in the context that its pointee type exists in.
-        """,
+        LLVMBool(
+            "PrintModuleToFile",
 
-        LLVMTypeRef("ElementType", ""),
-        unsigned_int("AddressSpace", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Filename"),
+            Check(1)..charUTF8.p.p("ErrorMessage")
+        )
 
-    IgnoreMissing..LLVMBool(
-        "PointerTypeIsOpaque",
-        "Determine whether a pointer is opaque.",
+        Nonnull..charUTF8.p(
+            "PrintModuleToString",
 
-        LLVMTypeRef("Ty", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    IgnoreMissing..LLVMTypeRef(
-        "PointerTypeInContext",
-        "Create an opaque pointer type in a context.",
+        IgnoreMissing..Nonnull..charUTF8.const.p(
+            "GetModuleInlineAsm",
 
-        LLVMContextRef("C", ""),
-        unsigned("AddressSpace", "")
-    )
+            LLVMModuleRef("M"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-    unsigned_int(
-        "GetPointerAddressSpace",
-        """
-        Obtain the address space of a pointer type.
+        IgnoreMissing..void(
+            "SetModuleInlineAsm2",
 
-        This only works on types that represent pointers.
-        """,
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Asm"),
+            AutoSize("Asm")..size_t("Len")
+        )
 
-        LLVMTypeRef("PointerTy", "")
-    )
+        IgnoreMissing..void(
+            "AppendModuleInlineAsm",
 
-    LLVMTypeRef(
-        "VectorType",
-        """
-        Create a vector type that contains a defined type and has a specific number of elements.
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Asm"),
+            AutoSize("Asm")..size_t("Len")
+        )
 
-        The created type will exist in the context thats its element type exists in.
-        """,
+        IgnoreMissing..LLVMValueRef(
+            "GetInlineAsm",
 
-        LLVMTypeRef("ElementType", ""),
-        unsigned_int("ElementCount", "")
-    )
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("AsmString"),
+            AutoSize("AsmString")..size_t("AsmStringSize"),
+            charUTF8.const.p("Constraints"),
+            AutoSize("Constraints")..size_t("ConstraintsSize"),
+            LLVMBool("HasSideEffects"),
+            LLVMBool("IsAlignStack"),
+            LLVMInlineAsmDialect("Dialect"),
+            LLVMBool("CanThrow")
+        )
 
-    IgnoreMissing..LLVMTypeRef(
-        "ScalableVectorType",
-        """
-        Create a vector type that contains a defined type and has a scalable number of elements.
+        IgnoreMissing..charUTF8.const.p(
+            "GetInlineAsmAsmString",
 
-        The created type will exist in the context thats its element type exists in.
+            LLVMValueRef("InlineAsmVal"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-        See {@code llvm::ScalableVectorType::get()}.
-        """,
+        IgnoreMissing..charUTF8.const.p(
+            "GetInlineAsmConstraintString",
 
-        LLVMTypeRef("ElementType", ""),
-        unsigned("ElementCount", ""),
+            LLVMValueRef("InlineAsmVal"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-        since = "12"
-    )
+        IgnoreMissing..LLVMInlineAsmDialect(
+            "GetInlineAsmDialect",
 
-    unsigned_int(
-        "GetVectorSize",
-        """
-        Obtain the (possibly scalable) number of elements in a vector type.
+            LLVMValueRef("InlineAsmVal")
+        )
 
-        This only works on types that represent vectors (fixed or scalable).
+        IgnoreMissing..LLVMTypeRef(
+            "GetInlineAsmFunctionType",
 
-        See {@code llvm::VectorType::getNumElements()}.
-        """,
+            LLVMValueRef("InlineAsmVal")
+        )
 
-        LLVMTypeRef("VectorTy", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "GetInlineAsmHasSideEffects",
 
-    LLVMTypeRef(
-        "VoidTypeInContext",
-        "Create a void type in a context.",
+            LLVMValueRef("InlineAsmVal")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "GetInlineAsmNeedsAlignedStack",
 
-    LLVMTypeRef(
-        "LabelTypeInContext",
-        "Create a label type in a context.",
+            LLVMValueRef("InlineAsmVal")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "GetInlineAsmCanUnwind",
 
-    LLVMTypeRef(
-        "X86MMXTypeInContext",
-        "Create a X86 MMX type in a context.",
+            LLVMValueRef("InlineAsmVal")
+        )
 
-        LLVMContextRef("C", "")
-    )
+        LLVMContextRef(
+            "GetModuleContext",
 
-    IgnoreMissing..LLVMTypeRef(
-        "X86AMXTypeInContext",
-        "Create a X86 AMX type in a context.",
+            LLVMModuleRef("M")
+        )
 
-        LLVMContextRef("C", ""),
+        LLVMTypeRef(
+            "GetTypeByName",
 
-        since = "12"
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..LLVMTypeRef(
-        "TokenTypeInContext",
-        "Create a token type in a context.",
+        IgnoreMissing..LLVMNamedMDNodeRef(
+            "GetFirstNamedMetadata",
 
-        LLVMContextRef("C", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    IgnoreMissing..LLVMTypeRef(
-        "MetadataTypeInContext",
-        "Create a metadata type in a context.",
+        IgnoreMissing..LLVMNamedMDNodeRef(
+            "GetLastNamedMetadata",
 
-        LLVMContextRef("C", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    LLVMTypeRef(
-        "VoidType",
-        "These are similar to the above functions except they operate on the global context.",
+        IgnoreMissing..LLVMNamedMDNodeRef(
+            "GetNextNamedMetadata",
 
-        void()
-    )
-    LLVMTypeRef("LabelType", "", void())
-    LLVMTypeRef("X86MMXType", "", void())
-    IgnoreMissing..LLVMTypeRef(
-        "X86AMXType",
-        "",
-
-        void(),
-
-        since = "12"
-    )
+            LLVMNamedMDNodeRef("NamedMDNode")
+        )
 
-    IgnoreMissing..LLVMTypeRef(
-        "TargetExtTypeInContext",
-        "Create a target extension type in LLVM context.",
-
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Name", ""),
-        nullable..LLVMTypeRef.p("TypeParams", ""),
-        AutoSize("TypeParams")..unsigned("TypeParamCount", ""),
-        nullable..unsigned.p("IntParams", ""),
-        AutoSize("IntParams")..unsigned("IntParamCount", "")
-    )
+        IgnoreMissing..LLVMNamedMDNodeRef(
+            "GetPreviousNamedMetadata",
 
-    LLVMTypeRef(
-        "TypeOf",
-        "Obtain the type of a value.",
+            LLVMNamedMDNodeRef("NamedMDNode")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        IgnoreMissing..LLVMNamedMDNodeRef(
+            "GetNamedMetadata",
 
-    LLVMValueKind(
-        "GetValueKind",
-        "Obtain the enumerated type of a Value instance.",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        IgnoreMissing..LLVMNamedMDNodeRef(
+            "GetOrInsertNamedMetadata",
 
-    IgnoreMissing..Nonnull..charUTF8.const.p(
-        "GetValueName2",
-        "Obtain the string name of a value.",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen")
+        )
 
-        LLVMValueRef("Val", ""),
-        AutoSizeResult..size_t.p("Length", "")
-    )
+        IgnoreMissing..Nonnull..charUTF8.const.p(
+            "GetNamedMetadataName",
 
-    IgnoreMissing..void(
-        "SetValueName2",
-        "Set the string name of a value.",
+            LLVMNamedMDNodeRef("NamedMD"),
+            AutoSizeResult..size_t.p("NameLen")
+        )
 
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", "")
-    )
+        unsigned_int(
+            "GetNamedMetadataNumOperands",
 
-    void(
-        "DumpValue",
-        "Dump a representation of a value to stderr.",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        void(
+            "GetNamedMetadataOperands",
 
-    Nonnull..charUTF8.p(
-        "PrintValueToString",
-        "Return a string representation of the value. Use #DisposeMessage() to free the string.",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            Check(
+                "LLVMGetNamedMetadataNumOperands(M, Name)", debug = true
+            )..LLVMValueRef.p("Dest")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        void(
+            "AddNamedMetadataOperand",
 
-    void(
-        "ReplaceAllUsesWith",
-        "Replace all uses of a value with another one.",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            LLVMValueRef("Val")
+        )
 
-        LLVMValueRef("OldVal", ""),
-        LLVMValueRef("NewVal", "")
-    )
+        IgnoreMissing..charUTF8.const.p(
+            "GetDebugLocDirectory",
 
-    LLVMBool(
-        "IsConstant",
-        "Determine whether the specified value instance is constant.",
+            LLVMValueRef("Val"),
+            AutoSizeResult..unsigned_int.p("Length")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        IgnoreMissing..charUTF8.const.p(
+            "GetDebugLocFilename",
 
-    LLVMBool(
-        "IsUndef",
-        "Determine whether a value instance is undefined.",
+            LLVMValueRef("Val"),
+            AutoSizeResult..unsigned_int.p("Length")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        IgnoreMissing..unsigned_int(
+            "GetDebugLocLine",
 
-    IgnoreMissing..LLVMBool(
-        "IsPoison",
-        "Determine whether a value instance is poisonous.",
+            LLVMValueRef("Val")
+        )
 
-        LLVMValueRef("Val", ""),
+        IgnoreMissing..unsigned_int(
+            "GetDebugLocColumn",
 
-        since = "12"
-    )
+            LLVMValueRef("Val")
+        )
 
-    val postLLVM5 = setOf(
-        "GlobalIFunc",
-        "DbgVariableIntrinsic",
-        "DbgLabelInst"
-    )
-    arrayOf(
-        "Argument",
-        "BasicBlock",
-        "InlineAsm",
-        "User",
-        "Constant",
-        "BlockAddress",
-        "ConstantAggregateZero",
-        "ConstantArray",
-        "ConstantDataSequential",
-        "ConstantDataArray",
-        "ConstantDataVector",
-        "ConstantExpr",
-        "ConstantFP",
-        "ConstantInt",
-        "ConstantPointerNull",
-        "ConstantStruct",
-        "ConstantTokenNone",
-        "ConstantVector",
-        "GlobalValue",
-        "GlobalAlias",
-        "GlobalIFunc",
-        "GlobalObject",
-        "Function",
-        "GlobalVariable",
-        "UndefValue",
-        "Instruction",
-        "BinaryOperator",
-        "CallInst",
-        "IntrinsicInst",
-        "DbgInfoIntrinsic",
-        "DbgVariableIntrinsic",
-        "DbgDeclareInst",
-        "DbgLabelInst",
-        "MemIntrinsic",
-        "MemCpyInst",
-        "MemMoveInst",
-        "MemSetInst",
-        "CmpInst",
-        "FCmpInst",
-        "ICmpInst",
-        "ExtractElementInst",
-        "GetElementPtrInst",
-        "InsertElementInst",
-        "InsertValueInst",
-        "LandingPadInst",
-        "PHINode",
-        "SelectInst",
-        "ShuffleVectorInst",
-        "StoreInst",
-        "BranchInst",
-        "IndirectBrInst",
-        "InvokeInst",
-        "ReturnInst",
-        "SwitchInst",
-        "UnreachableInst",
-        "ResumeInst",
-        "CleanupReturnInst",
-        "CatchReturnInst",
-        "FuncletPadInst",
-        "CatchPadInst",
-        "CleanupPadInst",
-        "UnaryInstruction",
-        "AllocaInst",
-        "CastInst",
-        "AddrSpaceCastInst",
-        "BitCastInst",
-        "FPExtInst",
-        "FPToSIInst",
-        "FPToUIInst",
-        "FPTruncInst",
-        "IntToPtrInst",
-        "PtrToIntInst",
-        "SExtInst",
-        "SIToFPInst",
-        "TruncInst",
-        "UIToFPInst",
-        "ZExtInst",
-        "ExtractValueInst",
-        "LoadInst",
-        "VAArgInst",
-        "MDNode",
-        "MDString"
-    ).forEach {
         LLVMValueRef(
-            "IsA$it",
-            "",
+            "AddFunction",
 
-            LLVMValueRef("Val", "")
-        ).let { func ->
-            if (postLLVM5.contains(it)) {
-                IgnoreMissing..func
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            LLVMTypeRef("FunctionTy")
+        )
+
+        LLVMValueRef(
+            "GetNamedFunction",
+
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetNamedFunctionWithLength",
+
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("Length")
+        )
+
+        LLVMValueRef(
+            "GetFirstFunction",
+
+            LLVMModuleRef("M")
+        )
+
+        LLVMValueRef(
+            "GetLastFunction",
+
+            LLVMModuleRef("M")
+        )
+
+        LLVMValueRef(
+            "GetNextFunction",
+
+            LLVMValueRef("Fn")
+        )
+
+        LLVMValueRef(
+            "GetPreviousFunction",
+
+            LLVMValueRef("Fn")
+        )
+
+        IgnoreMissing..void(
+            "SetModuleInlineAsm",
+
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Asm")
+        )
+
+        LLVMTypeKind(
+            "GetTypeKind",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMBool(
+            "TypeIsSized",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMContextRef(
+            "GetTypeContext",
+
+            LLVMTypeRef("Ty")
+        )
+
+        IgnoreMissing..void(
+            "DumpType",
+
+            LLVMTypeRef("Val")
+        )
+
+        Nonnull..charUTF8.p(
+            "PrintTypeToString",
+
+            LLVMTypeRef("Val")
+        )
+
+        LLVMTypeRef(
+            "Int1TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "Int8TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "Int16TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "Int32TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "Int64TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "Int128TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "IntTypeInContext",
+
+            LLVMContextRef("C"),
+            unsigned_int("NumBits")
+        )
+
+        LLVMTypeRef("Int1Type", void())
+        LLVMTypeRef("Int8Type", void())
+        LLVMTypeRef("Int16Type", void())
+        LLVMTypeRef("Int32Type", void())
+        LLVMTypeRef("Int64Type", void())
+        LLVMTypeRef("Int128Type", void())
+
+        LLVMTypeRef(
+            "IntType",
+
+            unsigned_int("NumBits")
+        )
+
+        unsigned_int(
+            "GetIntTypeWidth",
+
+            LLVMTypeRef("IntegerTy")
+        )
+
+        LLVMTypeRef(
+            "HalfTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "BFloatTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "FloatTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "DoubleTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "X86FP80TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "FP128TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "PPCFP128TypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef("HalfType", void())
+        IgnoreMissing..LLVMTypeRef(
+            "BFloatType",
+
+            void()
+        )
+        LLVMTypeRef("FloatType", void())
+        LLVMTypeRef("DoubleType", void())
+        LLVMTypeRef("X86FP80Type", void())
+        LLVMTypeRef("FP128Type", void())
+        LLVMTypeRef("PPCFP128Type", void())
+
+        LLVMTypeRef(
+            "FunctionType",
+
+            LLVMTypeRef("ReturnType"),
+            LLVMTypeRef.p("ParamTypes"),
+            AutoSize("ParamTypes")..unsigned_int("ParamCount"),
+            LLVMBool("IsVarArg")
+        )
+
+        LLVMBool(
+            "IsFunctionVarArg",
+
+            LLVMTypeRef("FunctionTy")
+        )
+
+        LLVMTypeRef(
+            "GetReturnType",
+
+            LLVMTypeRef("FunctionTy")
+        )
+
+        unsigned_int(
+            "CountParamTypes",
+
+            LLVMTypeRef("FunctionTy")
+        )
+
+        void(
+            "GetParamTypes",
+
+            LLVMTypeRef("FunctionTy"),
+            Check(
+                "LLVMCountParamTypes(FunctionTy)", debug = true
+            )..LLVMTypeRef.p("Dest")
+        )
+
+        LLVMTypeRef(
+            "StructTypeInContext",
+
+            LLVMContextRef("C"),
+            LLVMTypeRef.p("ElementTypes"),
+            AutoSize("ElementTypes")..unsigned_int("ElementCount"),
+            LLVMBool("Packed")
+        )
+
+        LLVMTypeRef(
+            "StructType",
+
+            LLVMTypeRef.p("ElementTypes"),
+            AutoSize("ElementTypes")..unsigned_int("ElementCount"),
+            LLVMBool("Packed")
+        )
+
+        LLVMTypeRef(
+            "StructCreateNamed",
+
+            LLVMContextRef("C"),
+            charUTF8.const.p("Name")
+        )
+
+        charUTF8.const.p(
+            "GetStructName",
+
+            LLVMTypeRef("Ty")
+        )
+
+        void(
+            "StructSetBody",
+
+            LLVMTypeRef("StructTy"),
+            LLVMTypeRef.p("ElementTypes"),
+            AutoSize("ElementTypes")..unsigned_int("ElementCount"),
+            LLVMBool("Packed")
+        )
+
+        unsigned_int(
+            "CountStructElementTypes",
+
+            LLVMTypeRef("StructTy")
+        )
+
+        void(
+            "GetStructElementTypes",
+
+            LLVMTypeRef("StructTy"),
+            Check(
+                "LLVMCountStructElementTypes(StructTy)", debug = true
+            )..LLVMTypeRef.p("Dest")
+        )
+
+        LLVMTypeRef(
+            "StructGetTypeAtIndex",
+
+            LLVMTypeRef("StructTy"),
+            unsigned_int("i")
+        )
+
+        LLVMBool(
+            "IsPackedStruct",
+
+            LLVMTypeRef("StructTy")
+        )
+
+        LLVMBool(
+            "IsOpaqueStruct",
+
+            LLVMTypeRef("StructTy")
+        )
+
+        IgnoreMissing..LLVMBool(
+            "IsLiteralStruct",
+
+            LLVMTypeRef("StructTy")
+        )
+
+        LLVMTypeRef(
+            "GetElementType",
+
+            LLVMTypeRef("Ty")
+        )
+
+        void(
+            "GetSubtypes",
+
+            LLVMTypeRef("Tp"),
+            Unsafe..LLVMTypeRef.p("Arr")
+        )
+
+        unsigned_int(
+            "GetNumContainedTypes",
+
+            LLVMTypeRef("Tp")
+        )
+
+        LLVMTypeRef(
+            "ArrayType",
+
+            LLVMTypeRef("ElementType"),
+            unsigned_int("ElementCount")
+        )
+
+        LLVMTypeRef(
+            "ArrayType2",
+
+            LLVMTypeRef("ElementType"),
+            uint64_t("ElementCount")
+        )
+
+        unsigned_int(
+            "GetArrayLength",
+
+            LLVMTypeRef("ArrayTy")
+        )
+
+        uint64_t(
+            "GetArrayLength2",
+
+            LLVMTypeRef("ArrayTy")
+        )
+
+        LLVMTypeRef(
+            "PointerType",
+
+            LLVMTypeRef("ElementType"),
+            unsigned_int("AddressSpace")
+        )
+
+        IgnoreMissing..LLVMBool(
+            "PointerTypeIsOpaque",
+
+            LLVMTypeRef("Ty")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "PointerTypeInContext",
+
+            LLVMContextRef("C"),
+            unsigned("AddressSpace")
+        )
+
+        unsigned_int(
+            "GetPointerAddressSpace",
+
+            LLVMTypeRef("PointerTy")
+        )
+
+        LLVMTypeRef(
+            "VectorType",
+
+            LLVMTypeRef("ElementType"),
+            unsigned_int("ElementCount")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "ScalableVectorType",
+
+            LLVMTypeRef("ElementType"),
+            unsigned("ElementCount")
+        )
+
+        unsigned_int(
+            "GetVectorSize",
+
+            LLVMTypeRef("VectorTy")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetConstantPtrAuthPointer",
+
+            LLVMValueRef("PtrAuth")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetConstantPtrAuthKey",
+
+            LLVMValueRef("PtrAuth")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetConstantPtrAuthDiscriminator",
+
+            LLVMValueRef("PtrAuth")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetConstantPtrAuthAddrDiscriminator",
+
+            LLVMValueRef("PtrAuth")
+        )
+
+        LLVMTypeRef(
+            "VoidTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "LabelTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "X86MMXTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "X86AMXTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "TokenTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "MetadataTypeInContext",
+
+            LLVMContextRef("C")
+        )
+
+        LLVMTypeRef(
+            "VoidType",
+
+            void()
+        )
+        LLVMTypeRef("LabelType", void())
+        LLVMTypeRef("X86MMXType", void())
+        IgnoreMissing..LLVMTypeRef(
+            "X86AMXType",
+
+            void()
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "TargetExtTypeInContext",
+
+            LLVMContextRef("C"),
+            charUTF8.const.p("Name"),
+            nullable..LLVMTypeRef.p("TypeParams"),
+            AutoSize("TypeParams")..unsigned("TypeParamCount"),
+            nullable..unsigned.p("IntParams"),
+            AutoSize("IntParams")..unsigned("IntParamCount")
+        )
+
+        IgnoreMissing..charUTF8.const.p(
+            "GetTargetExtTypeName",
+
+            LLVMTypeRef("TargetExtTy")
+        )
+
+        IgnoreMissing..unsigned(
+            "GetTargetExtTypeNumTypeParams",
+
+            LLVMTypeRef("TargetExtTy")
+        )
+
+        IgnoreMissing..LLVMTypeRef(
+            "GetTargetExtTypeTypeParam",
+
+            LLVMTypeRef("TargetExtTy"),
+            unsigned("Idx")
+        )
+
+        IgnoreMissing..unsigned(
+            "GetTargetExtTypeNumIntParams",
+
+            LLVMTypeRef("TargetExtTy")
+        )
+
+        IgnoreMissing..unsigned(
+            "GetTargetExtTypeIntParam",
+
+            LLVMTypeRef("TargetExtTy"),
+            unsigned("Idx")
+        )
+
+        LLVMTypeRef(
+            "TypeOf",
+
+            LLVMValueRef("Val")
+        )
+
+        LLVMValueKind(
+            "GetValueKind",
+
+            LLVMValueRef("Val")
+        )
+
+        IgnoreMissing..Nonnull..charUTF8.const.p(
+            "GetValueName2",
+
+            LLVMValueRef("Val"),
+            AutoSizeResult..size_t.p("Length")
+        )
+
+        IgnoreMissing..void(
+            "SetValueName2",
+
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen")
+        )
+
+        void(
+            "DumpValue",
+
+            LLVMValueRef("Val")
+        )
+
+        Nonnull..charUTF8.p(
+            "PrintValueToString",
+
+            LLVMValueRef("Val")
+        )
+
+        IgnoreMissing..LLVMContextRef(
+            "GetValueContext",
+
+            LLVMValueRef("Val")
+        )
+
+        IgnoreMissing..charUTF8.p(
+            "PrintDbgRecordToString",
+
+            LLVMDbgRecordRef("Record")
+        )
+
+        void(
+            "ReplaceAllUsesWith",
+
+            LLVMValueRef("OldVal"),
+            LLVMValueRef("NewVal")
+        )
+
+        LLVMBool(
+            "IsConstant",
+
+            LLVMValueRef("Val")
+        )
+
+        LLVMBool(
+            "IsUndef",
+
+            LLVMValueRef("Val")
+        )
+
+        IgnoreMissing..LLVMBool(
+            "IsPoison",
+
+            LLVMValueRef("Val")
+        )
+
+        val postLLVM5 = setOf(
+            "GlobalIFunc",
+            "PoisonValue",
+            "UnaryOperator",
+            "DbgVariableIntrinsic",
+            "DbgLabelInst",
+            "CatchSwitchInst",
+            "CallBrInst",
+            "FreezeInst",
+            "AtomicCmpXchgInst",
+            "AtomicRMWInst",
+            "FenceInst",
+            "ValueAsMetadata",
+        )
+        arrayOf(
+            "Argument",
+            "BasicBlock",
+            "InlineAsm",
+            "User",
+            "Constant",
+            "BlockAddress",
+            "ConstantAggregateZero",
+            "ConstantArray",
+            "ConstantDataSequential",
+            "ConstantDataArray",
+            "ConstantDataVector",
+            "ConstantExpr",
+            "ConstantFP",
+            "ConstantInt",
+            "ConstantPointerNull",
+            "ConstantStruct",
+            "ConstantTokenNone",
+            "ConstantVector",
+            "GlobalValue",
+            "GlobalAlias",
+            "GlobalObject",
+            "Function",
+            "GlobalVariable",
+            "GlobalIFunc",
+            "UndefValue",
+            "PoisonValue",
+            "Instruction",
+            "UnaryOperator",
+            "BinaryOperator",
+            "CallInst",
+            "IntrinsicInst",
+            "DbgInfoIntrinsic",
+            "DbgVariableIntrinsic",
+            "DbgDeclareInst",
+            "DbgLabelInst",
+            "MemIntrinsic",
+            "MemCpyInst",
+            "MemMoveInst",
+            "MemSetInst",
+            "CmpInst",
+            "FCmpInst",
+            "ICmpInst",
+            "ExtractElementInst",
+            "GetElementPtrInst",
+            "InsertElementInst",
+            "InsertValueInst",
+            "LandingPadInst",
+            "PHINode",
+            "SelectInst",
+            "ShuffleVectorInst",
+            "StoreInst",
+            "BranchInst",
+            "IndirectBrInst",
+            "InvokeInst",
+            "ReturnInst",
+            "SwitchInst",
+            "UnreachableInst",
+            "ResumeInst",
+            "CleanupReturnInst",
+            "CatchReturnInst",
+            "CatchSwitchInst",
+            "CallBrInst",
+            "FuncletPadInst",
+            "CatchPadInst",
+            "CleanupPadInst",
+            "UnaryInstruction",
+            "AllocaInst",
+            "CastInst",
+            "AddrSpaceCastInst",
+            "BitCastInst",
+            "FPExtInst",
+            "FPToSIInst",
+            "FPToUIInst",
+            "FPTruncInst",
+            "IntToPtrInst",
+            "PtrToIntInst",
+            "SExtInst",
+            "SIToFPInst",
+            "TruncInst",
+            "UIToFPInst",
+            "ZExtInst",
+            "ExtractValueInst",
+            "LoadInst",
+            "VAArgInst",
+            "FreezeInst",
+            "AtomicCmpXchgInst",
+            "AtomicRMWInst",
+            "FenceInst",
+            // ----------------
+            "MDNode",
+            "ValueAsMetadata",
+            "MDString"
+        ).forEach {
+            LLVMValueRef(
+                "IsA$it",
+
+                LLVMValueRef("Val")
+            ).let { func ->
+                if (postLLVM5.contains(it)) {
+                    IgnoreMissing..func
+                }
             }
         }
+
+        Nonnull..charUTF8.const.p(
+            "GetValueName",
+
+            LLVMValueRef("Val")
+        )
+
+        void(
+            "SetValueName",
+
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMUseRef(
+            "GetFirstUse",
+
+            LLVMValueRef("Val")
+        )
+
+        LLVMUseRef(
+            "GetNextUse",
+
+            LLVMUseRef("U")
+        )
+
+        LLVMValueRef(
+            "GetUser",
+
+            LLVMUseRef("U")
+        )
+
+        LLVMValueRef(
+            "GetUsedValue",
+
+            LLVMUseRef("U")
+        )
+
+        LLVMValueRef(
+            "GetOperand",
+
+            LLVMValueRef("Val"),
+            unsigned_int("Index")
+        )
+
+        LLVMUseRef(
+            "GetOperandUse",
+
+            LLVMValueRef("Val"),
+            unsigned_int("Index")
+        )
+
+        void(
+            "SetOperand",
+
+            LLVMValueRef("User"),
+            unsigned_int("Index"),
+            LLVMValueRef("Val")
+        )
+
+        int(
+            "GetNumOperands",
+
+            LLVMValueRef("Val")
+        )
+
+        LLVMValueRef(
+            "ConstNull",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMValueRef(
+            "ConstAllOnes",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMValueRef(
+            "GetUndef",
+
+            LLVMTypeRef("Ty")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetPoison",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMBool(
+            "IsNull",
+
+            LLVMValueRef("Val")
+        )
+
+        LLVMValueRef(
+            "ConstPointerNull",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMValueRef(
+            "ConstInt",
+
+            LLVMTypeRef("IntTy"),
+            unsigned_long_long("N"),
+            LLVMBool("SignExtend")
+        )
+
+        LLVMValueRef(
+            "ConstIntOfArbitraryPrecision",
+
+            LLVMTypeRef("IntTy"),
+            AutoSize("Words")..unsigned_int("NumWords"),
+            uint64_t.const.p("Words")
+        )
+
+        LLVMValueRef(
+            "ConstIntOfString",
+
+            LLVMTypeRef("IntTy"),
+            charUTF8.const.p("Text"),
+            uint8_t("Radix")
+        )
+
+        LLVMValueRef(
+            "ConstIntOfStringAndSize",
+
+            LLVMTypeRef("IntTy"),
+            charUTF8.const.p("Text"),
+            AutoSize("Text")..unsigned_int("SLen"),
+            uint8_t("Radix")
+        )
+
+        LLVMValueRef(
+            "ConstReal",
+
+            LLVMTypeRef("RealTy"),
+            double("N")
+        )
+
+        LLVMValueRef(
+            "ConstRealOfString",
+
+            LLVMTypeRef("RealTy"),
+            charUTF8.const.p("Text")
+        )
+
+        LLVMValueRef(
+            "ConstRealOfStringAndSize",
+
+            LLVMTypeRef("RealTy"),
+            charUTF8.const.p("Text"),
+            AutoSize("Text")..unsigned_int("SLen")
+        )
+
+        unsigned_long_long(
+            "ConstIntGetZExtValue",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        long_long(
+            "ConstIntGetSExtValue",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        double(
+            "ConstRealGetDouble",
+
+            LLVMValueRef("ConstantVal"),
+            Check(1)..LLVMBool.p("losesInfo")
+        )
+
+        LLVMValueRef(
+            "ConstStringInContext",
+
+            LLVMContextRef("C"),
+            charUTF8.const.p("Str"),
+            AutoSize("Str")..unsigned_int("Length"),
+            LLVMBool("DontNullTerminate")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstStringInContext2",
+
+            LLVMContextRef("C"),
+            charUTF8.const.p("Str"),
+            AutoSize("Str")..unsigned_int("Length"),
+            LLVMBool("DontNullTerminate")
+        )
+
+        LLVMValueRef(
+            "ConstString",
+
+            charUTF8.const.p("Str"),
+            AutoSize("Str")..unsigned_int("Length"),
+            LLVMBool("DontNullTerminate")
+        )
+
+        LLVMBool(
+            "IsConstantString",
+
+            LLVMValueRef("c")
+        )
+
+        Nonnull..charUTF8.const.p(
+            "GetAsString",
+
+            LLVMValueRef("c"),
+            AutoSizeResult..size_t.p("Length")
+        )
+
+        LLVMValueRef(
+            "ConstStructInContext",
+
+            LLVMContextRef("C"),
+            LLVMValueRef.p("ConstantVals"),
+            AutoSize("ConstantVals")..unsigned_int("Count"),
+            LLVMBool("Packed")
+        )
+
+        LLVMValueRef(
+            "ConstStruct",
+
+            LLVMValueRef.p("ConstantVals"),
+            AutoSize("ConstantVals")..unsigned_int("Count"),
+            LLVMBool("Packed")
+        )
+
+        LLVMValueRef(
+            "ConstArray",
+
+            LLVMTypeRef("ElementTy"),
+            LLVMValueRef.p("ConstantVals"),
+            AutoSize("ConstantVals")..unsigned_int("Length")
+        )
+
+        LLVMValueRef(
+            "ConstArray2",
+
+            LLVMTypeRef("ElementTy"),
+            LLVMValueRef.p("ConstantVals"),
+            AutoSize("ConstantVals")..uint64_t("Length")
+        )
+
+        LLVMValueRef(
+            "ConstNamedStruct",
+
+            LLVMTypeRef("StructTy"),
+            LLVMValueRef.p("ConstantVals"),
+            AutoSize("ConstantVals")..unsigned_int("Count")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "GetAggregateElement",
+
+            LLVMValueRef("C"),
+            unsigned("Idx")
+        )
+
+        LLVMValueRef(
+            "GetElementAsConstant",
+
+            LLVMValueRef("C"),
+            unsigned_int("idx")
+        )
+
+        LLVMValueRef(
+            "ConstVector",
+
+            LLVMValueRef.p("ScalarConstantVals"),
+            AutoSize("ScalarConstantVals")..unsigned_int("Size")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstantPtrAuth",
+
+            LLVMValueRef("Ptr"),
+            LLVMValueRef("Key"),
+            LLVMValueRef("Disc"),
+            LLVMValueRef("AddrDisc")
+        )
+
+        LLVMOpcode(
+            "GetConstOpcode",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        LLVMValueRef(
+            "AlignOf",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMValueRef(
+            "SizeOf",
+
+            LLVMTypeRef("Ty")
+        )
+
+        LLVMValueRef(
+            "ConstNeg",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        LLVMValueRef(
+            "ConstNSWNeg",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        LLVMValueRef(
+            "ConstNUWNeg",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFNeg",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        LLVMValueRef(
+            "ConstNot",
+
+            LLVMValueRef("ConstantVal")
+        )
+
+        LLVMValueRef(
+            "ConstAdd",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstNSWAdd",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstNUWAdd",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFAdd",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstSub",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstNSWSub",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstNUWSub",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFSub",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstMul",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstNSWMul",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstNUWMul",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFMul",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstUDiv",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstExactUDiv",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstSDiv",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstExactSDiv",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFDiv",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstURem",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstSRem",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFRem",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstAnd",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstOr",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        LLVMValueRef(
+            "ConstXor",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstICmp",
+
+            LLVMIntPredicate("Predicate"),
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFCmp",
+
+            LLVMRealPredicate("Predicate"),
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstShl",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstLShr",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstAShr",
+
+            LLVMValueRef("LHSConstant"),
+            LLVMValueRef("RHSConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstGEP",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMValueRef.p("ConstantIndices"),
+            AutoSize("ConstantIndices")..unsigned_int("NumIndices")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstGEP2",
+
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("ConstantVal"),
+            LLVMValueRef.p("ConstantIndices"),
+            AutoSize("ConstantIndices")..unsigned_int("NumIndices")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstInBoundsGEP",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMValueRef.p("ConstantIndices"),
+            AutoSize("ConstantIndices")..unsigned_int("NumIndices")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstInBoundsGEP2",
+
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("ConstantVal"),
+            LLVMValueRef.p("ConstantIndices"),
+            AutoSize("ConstantIndices")..unsigned_int("NumIndices")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstInBoundsGEPWithNoWrapFlags",
+
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("ConstantVal"),
+            LLVMValueRef.p("ConstantIndices"),
+            AutoSize("ConstantIndices")..unsigned("NumIndices"),
+            LLVMGEPNoWrapFlags("NoWrapFlags")
+        )
+
+        LLVMValueRef(
+            "ConstTrunc",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstSExt",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstZExt",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFPTrunc",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFPExt",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstUIToFP",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstSIToFP",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFPToUI",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFPToSI",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        LLVMValueRef(
+            "ConstPtrToInt",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        LLVMValueRef(
+            "ConstIntToPtr",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        LLVMValueRef(
+            "ConstBitCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        LLVMValueRef(
+            "ConstAddrSpaceCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstZExtOrBitCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstSExtOrBitCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        LLVMValueRef(
+            "ConstTruncOrBitCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        LLVMValueRef(
+            "ConstPointerCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstIntCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType"),
+            LLVMBool("isSigned")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstFPCast",
+
+            LLVMValueRef("ConstantVal"),
+            LLVMTypeRef("ToType")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstSelect",
+
+            LLVMValueRef("ConstantCondition"),
+            LLVMValueRef("ConstantIfTrue"),
+            LLVMValueRef("ConstantIfFalse")
+        )
+
+        LLVMValueRef(
+            "ConstExtractElement",
+
+            LLVMValueRef("VectorConstant"),
+            LLVMValueRef("IndexConstant")
+        )
+
+        LLVMValueRef(
+            "ConstInsertElement",
+
+            LLVMValueRef("VectorConstant"),
+            LLVMValueRef("ElementValueConstant"),
+            LLVMValueRef("IndexConstant")
+        )
+
+        LLVMValueRef(
+            "ConstShuffleVector",
+
+            LLVMValueRef("VectorAConstant"),
+            LLVMValueRef("VectorBConstant"),
+            LLVMValueRef("MaskConstant")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstExtractValue",
+
+            LLVMValueRef("AggConstant"),
+            unsigned_int.p("IdxList"),
+            AutoSize("IdxList")..unsigned_int("NumIdx")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "ConstInsertValue",
+
+            LLVMValueRef("AggConstant"),
+            LLVMValueRef("ElementValueConstant"),
+            unsigned_int.p("IdxList"),
+            AutoSize("IdxList")..unsigned_int("NumIdx")
+        )
     }
 
-    Nonnull..charUTF8.const.p(
-        "GetValueName",
-        "Deprecated: Use #GetValueName2() instead.",
+    split {
+        IgnoreMissing..LLVMValueRef(
+            "BlockAddress",
 
-        LLVMValueRef("Val", "")
-    )
+            LLVMValueRef("F"),
+            LLVMBasicBlockRef("BB")
+        )
 
-    void(
-        "SetValueName",
-        "Deprecated: Use #SetValueName2() instead.",
+        IgnoreMissing..LLVMValueRef(
+            "GetBlockAddressFunction",
 
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMValueRef("BlockAddr")
+        )
 
-    LLVMUseRef(
-        "GetFirstUse",
-        """
-        Obtain the first use of a value.
+        IgnoreMissing..LLVMBasicBlockRef(
+            "GetBlockAddressBasicBlock",
 
-        Uses are obtained in an iterator fashion. First, call this function to obtain a reference to the first use. Then, call #GetNextUse() on that instance
-        and all subsequently obtained instances until #GetNextUse() returns #NULL.
-        """,
+            LLVMValueRef("BlockAddr")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        LLVMValueRef(
+            "ConstInlineAsm",
 
-    LLVMUseRef(
-        "GetNextUse",
-        """
-        Obtain the next use of a value.
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("AsmString"),
+            charUTF8.const.p("Constraints"),
+            LLVMBool("HasSideEffects"),
+            LLVMBool("IsAlignStack")
+        )
 
-        This effectively advances the iterator. It returns #NULL if you are on the final use and no more are available.
-        """,
+        LLVMModuleRef(
+            "GetGlobalParent",
 
-        LLVMUseRef("U", "")
-    )
+            LLVMValueRef("Global")
+        )
 
-    LLVMValueRef(
-        "GetUser",
-        """
-        Obtain the user value for a user.
+        LLVMBool(
+            "IsDeclaration",
 
-        The returned value corresponds to a {@code llvm::User} type.
-        """,
+            LLVMValueRef("Global")
+        )
 
-        LLVMUseRef("U", "")
-    )
+        LLVMLinkage(
+            "GetLinkage",
 
-    LLVMValueRef(
-        "GetUsedValue",
-        "Obtain the value this use corresponds to.",
+            LLVMValueRef("Global")
+        )
 
-        LLVMUseRef("U", "")
-    )
+        void(
+            "SetLinkage",
 
-    LLVMValueRef(
-        "GetOperand",
-        "Obtain an operand at a specific index in a {@code llvm::User} value.",
+            LLVMValueRef("Global"),
+            LLVMLinkage("Linkage")
+        )
 
-        LLVMValueRef("Val", ""),
-        unsigned_int("Index", "")
-    )
+        Nonnull..charUTF8.const.p(
+            "GetSection",
 
-    LLVMUseRef(
-        "GetOperandUse",
-        "Obtain the use of an operand at a specific index in a {@code llvm::User} value.",
+            LLVMValueRef("Global")
+        )
 
-        LLVMValueRef("Val", ""),
-        unsigned_int("Index", "")
-    )
+        void(
+            "SetSection",
 
-    void(
-        "SetOperand",
-        "Set an operand at a specific index in a {@code llvm::User} value.",
+            LLVMValueRef("Global"),
+            charUTF8.const.p("Section")
+        )
 
-        LLVMValueRef("User", ""),
-        unsigned_int("Index", ""),
-        LLVMValueRef("Val", "")
-    )
+        LLVMVisibility(
+            "GetVisibility",
 
-    int(
-        "GetNumOperands",
-        "Obtain the number of operands in a {@code llvm::User} value.",
+            LLVMValueRef("Global")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        void(
+            "SetVisibility",
 
-    LLVMValueRef(
-        "ConstNull",
-        "Obtain a constant value referring to the null instance of a type.",
+            LLVMValueRef("Global"),
+            LLVMVisibility("Viz")
+        )
 
-        LLVMTypeRef("Ty", "")
-    )
+        LLVMDLLStorageClass(
+            "GetDLLStorageClass",
 
-    LLVMValueRef(
-        "ConstAllOnes",
-        """
-        Obtain a constant value referring to the instance of a type consisting of all ones.
+            LLVMValueRef("Global")
+        )
 
-        This is only valid for integer types.
-        """,
+        void(
+            "SetDLLStorageClass",
 
-        LLVMTypeRef("Ty", "")
-    )
+            LLVMValueRef("Global"),
+            LLVMDLLStorageClass("Class")
+        )
 
-    LLVMValueRef(
-        "GetUndef",
-        "Obtain a constant value referring to an undefined value of a type.",
-
-        LLVMTypeRef("Ty", "")
-    )
+        IgnoreMissing..LLVMUnnamedAddr(
+            "GetUnnamedAddress",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetPoison",
-        "Obtain a constant value referring to a poison value of a type.",
+            LLVMValueRef("Global")
+        )
 
-        LLVMTypeRef("Ty", ""),
+        IgnoreMissing..void(
+            "SetUnnamedAddress",
 
-        since = "12"
-    )
+            LLVMValueRef("Global"),
+            LLVMUnnamedAddr("UnnamedAddr")
+        )
 
-    LLVMBool(
-        "IsNull",
-        "Determine whether a value instance is null.",
+        IgnoreMissing..LLVMTypeRef(
+            "GlobalGetValueType",
 
-        LLVMValueRef("Val", "")
-    )
+            LLVMValueRef("Global")
+        )
 
-    LLVMValueRef(
-        "ConstPointerNull",
-        "Obtain a constant that is a constant pointer pointing to NULL for a specified type.",
+        LLVMBool(
+            "HasUnnamedAddr",
 
-        LLVMTypeRef("Ty", "")
-    )
+            LLVMValueRef("Global")
+        )
 
-    LLVMValueRef(
-        "ConstInt",
-        """
-        Obtain a constant value for an integer type.
+        void(
+            "SetUnnamedAddr",
 
-        The returned value corresponds to a {@code llvm::ConstantInt}.
-        """,
+            LLVMValueRef("Global"),
+            LLVMBool("HasUnnamedAddr")
+        )
 
-        LLVMTypeRef("IntTy", "integer type to obtain value of"),
-        unsigned_long_long("N", "the value the returned instance should refer to"),
-        LLVMBool("SignExtend", "whether to sign extend the produced value")
-    )
+        unsigned_int(
+            "GetAlignment",
 
-    LLVMValueRef(
-        "ConstIntOfArbitraryPrecision",
-        "Obtain a constant value for an integer of arbitrary precision.",
+            LLVMValueRef("V")
+        )
 
-        LLVMTypeRef("IntTy", ""),
-        AutoSize("Words")..unsigned_int("NumWords", ""),
-        uint64_t.const.p("Words", "")
-    )
-
-    LLVMValueRef(
-        "ConstIntOfString",
-        """
-        Obtain a constant value for an integer parsed from a string.
+        void(
+            "SetAlignment",
 
-        A similar API, #ConstIntOfStringAndSize() is also available. If the string's length is available, it is preferred to call that function instead.
-        """,
-
-        LLVMTypeRef("IntTy", ""),
-        charUTF8.const.p("Text", ""),
-        uint8_t("Radix", "")
-    )
+            LLVMValueRef("V"),
+            unsigned_int("Bytes")
+        )
 
-    LLVMValueRef(
-        "ConstIntOfStringAndSize",
-        "Obtain a constant value for an integer parsed from a string with specified length.",
+        IgnoreMissing..void(
+            "GlobalSetMetadata",
 
-        LLVMTypeRef("IntTy", ""),
-        charUTF8.const.p("Text", ""),
-        AutoSize("Text")..unsigned_int("SLen", ""),
-        uint8_t("Radix", "")
-    )
+            LLVMValueRef("Global"),
+            unsigned_int("Kind"),
+            LLVMMetadataRef("MD")
+        )
 
-    LLVMValueRef(
-        "ConstReal",
-        "Obtain a constant value referring to a double floating point value.",
-
-        LLVMTypeRef("RealTy", ""),
-        double("N", "")
-    )
+        IgnoreMissing..void(
+            "GlobalEraseMetadata",
 
-    LLVMValueRef(
-        "ConstRealOfString",
-        """
-        Obtain a constant for a floating point value parsed from a string.
-
-        A similar API, #ConstRealOfStringAndSize() is also available. It should be used if the input string's length is known.
-        """,
-
-        LLVMTypeRef("RealTy", ""),
-        charUTF8.const.p("Text", "")
-    )
-
-    LLVMValueRef(
-        "ConstRealOfStringAndSize",
-        "Obtain a constant for a floating point value parsed from a string.",
-
-        LLVMTypeRef("RealTy", ""),
-        charUTF8.const.p("Text", ""),
-        AutoSize("Text")..unsigned_int("SLen", "")
-    )
-
-    unsigned_long_long(
-        "ConstIntGetZExtValue",
-        "Obtain the zero extended value for an integer constant value.",
-
-        LLVMValueRef("ConstantVal", "")
-    )
-
-    long_long(
-        "ConstIntGetSExtValue",
-        "Obtain the sign extended value for an integer constant value.",
-
-        LLVMValueRef("ConstantVal", "")
-    )
-
-    double(
-        "ConstRealGetDouble",
-        "Obtain the double value for an floating point constant value. {@code losesInfo} indicates if some precision was lost in the conversion.",
-
-        LLVMValueRef("ConstantVal", ""),
-        Check(1)..LLVMBool.p("losesInfo", "")
-    )
-
-    LLVMValueRef(
-        "ConstStringInContext",
-        "Create a {@code ConstantDataSequential} and initialize it with a string.",
-
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Str", ""),
-        AutoSize("Str")..unsigned_int("Length", ""),
-        LLVMBool("DontNullTerminate", "")
-    )
-
-    LLVMValueRef(
-        "ConstString",
-        """
-        Create a {@code ConstantDataSequential} with string content in the global context.
-
-        This is the same as #ConstStringInContext() except it operates on the global context.
-        """,
-
-        charUTF8.const.p("Str", ""),
-        AutoSize("Str")..unsigned_int("Length", ""),
-        LLVMBool("DontNullTerminate", "")
-    )
-
-    LLVMBool(
-        "IsConstantString",
-        "Returns true if the specified constant is an array of {@code i8}.",
-
-        LLVMValueRef("c", "")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetAsString",
-        "Get the given constant data sequential as a string.",
-
-        LLVMValueRef("c", ""),
-        AutoSizeResult..size_t.p("Length", "")
-    )
-
-    LLVMValueRef(
-        "ConstStructInContext",
-        "Create an anonymous {@code ConstantStruct} with the specified values.",
-
-        LLVMContextRef("C", ""),
-        LLVMValueRef.p("ConstantVals", ""),
-        AutoSize("ConstantVals")..unsigned_int("Count", ""),
-        LLVMBool("Packed", "")
-    )
+            LLVMValueRef("Global"),
+            unsigned_int("Kind")
+        )
 
-    LLVMValueRef(
-        "ConstStruct",
-        """
-        Create a {@code ConstantStruct} in the global Context.
+        IgnoreMissing..void(
+            "GlobalClearMetadata",
 
-        This is the same as #ConstStructInContext() except it operates on the global Context.
-        """,
+            LLVMValueRef("Global")
+        )
 
-        LLVMValueRef.p("ConstantVals", ""),
-        AutoSize("ConstantVals")..unsigned_int("Count", ""),
-        LLVMBool("Packed", "")
-    )
+        IgnoreMissing..LLVMValueMetadataEntry.p(
+            "GlobalCopyAllMetadata",
 
-    LLVMValueRef(
-        "ConstArray",
-        "Create a {@code ConstantArray} from values.",
+            LLVMValueRef("Value"),
+            Check(1)..size_t.p("NumEntries")
+        )
 
-        LLVMTypeRef("ElementTy", ""),
-        LLVMValueRef.p("ConstantVals", ""),
-        AutoSize("ConstantVals")..unsigned_int("Length", "")
-    )
+        IgnoreMissing..void(
+            "DisposeValueMetadataEntries",
 
-    LLVMValueRef(
-        "ConstNamedStruct",
-        "Create a non-anonymous {@code ConstantStruct} from values.",
+            LLVMValueMetadataEntry.p("Entries")
+        )
 
-        LLVMTypeRef("StructTy", ""),
-        LLVMValueRef.p("ConstantVals", ""),
-        AutoSize("ConstantVals")..unsigned_int("Count", "")
-    )
+        IgnoreMissing..unsigned_int(
+            "ValueMetadataEntriesGetKind",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetAggregateElement",
-        """
-        Get element of a constant aggregate (struct, array or vector) at the specified index.
+            LLVMValueMetadataEntry.p("Entries"),
+            unsigned_int("Index")
+        )
 
-        Returns null if the index is out of range, or it's not possible to determine the element (e.g., because the constant is a constant expression.)
-        """,
+        IgnoreMissing..LLVMMetadataRef(
+            "ValueMetadataEntriesGetMetadata",
 
-        LLVMValueRef("C", ""),
-        unsigned("Idx", "")
-    )
+            LLVMValueMetadataEntry.p("Entries"),
+            unsigned_int("Index")
+        )
 
-    LLVMValueRef(
-        "GetElementAsConstant",
-        """
-        Get an element at specified index as a constant.
+        LLVMValueRef(
+            "AddGlobal",
 
-        Deprecated, use #GetAggregateElement() instead.
-        """,
+            LLVMModuleRef("M"),
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("C", ""),
-        unsigned_int("idx", "")
-    )
+        LLVMValueRef(
+            "AddGlobalInAddressSpace",
 
-    LLVMValueRef(
-        "ConstVector",
-        "Create a {@code ConstantVector} from values.",
+            LLVMModuleRef("M"),
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("Name"),
+            unsigned_int("AddressSpace")
+        )
 
-        LLVMValueRef.p("ScalarConstantVals", ""),
-        AutoSize("ScalarConstantVals")..unsigned_int("Size", "")
-    )
+        LLVMValueRef(
+            "GetNamedGlobal",
 
-    LLVMOpcode(
-        "GetConstOpcode",
-        "",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("ConstantVal", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetNamedGlobalWithLength",
 
-    LLVMValueRef(
-        "AlignOf",
-        "",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("Length")
+        )
 
-        LLVMTypeRef("Ty", "")
-    )
+        LLVMValueRef(
+            "GetFirstGlobal",
 
-    LLVMValueRef(
-        "SizeOf",
-        "",
+            LLVMModuleRef("M")
+        )
 
-        LLVMTypeRef("Ty", "")
-    )
+        LLVMValueRef(
+            "GetLastGlobal",
 
-    LLVMValueRef(
-        "ConstNeg",
-        "",
+            LLVMModuleRef("M")
+        )
 
-        LLVMValueRef("ConstantVal", "")
-    )
+        LLVMValueRef(
+            "GetNextGlobal",
 
-    LLVMValueRef(
-        "ConstNSWNeg",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("ConstantVal", "")
-    )
+        LLVMValueRef(
+            "GetPreviousGlobal",
 
-    LLVMValueRef(
-        "ConstNUWNeg",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("ConstantVal", "")
-    )
+        void(
+            "DeleteGlobal",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstFNeg",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("ConstantVal", "")
-    )
+        LLVMValueRef(
+            "GetInitializer",
 
-    LLVMValueRef(
-        "ConstNot",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("ConstantVal", "")
-    )
+        void(
+            "SetInitializer",
 
-    LLVMValueRef(
-        "ConstAdd",
-        "",
+            LLVMValueRef("GlobalVar"),
+            LLVMValueRef("ConstantVal")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        LLVMBool(
+            "IsThreadLocal",
 
-    LLVMValueRef(
-        "ConstNSWAdd",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        void(
+            "SetThreadLocal",
 
-    LLVMValueRef(
-        "ConstNUWAdd",
-        "",
+            LLVMValueRef("GlobalVar"),
+            LLVMBool("IsThreadLocal")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        LLVMBool(
+            "IsGlobalConstant",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstFAdd",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        void(
+            "SetGlobalConstant",
 
-    LLVMValueRef(
-        "ConstSub",
-        "",
+            LLVMValueRef("GlobalVar"),
+            LLVMBool("IsConstant")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        LLVMThreadLocalMode(
+            "GetThreadLocalMode",
 
-    LLVMValueRef(
-        "ConstNSWSub",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        void(
+            "SetThreadLocalMode",
 
-    LLVMValueRef(
-        "ConstNUWSub",
-        "",
+            LLVMValueRef("GlobalVar"),
+            LLVMThreadLocalMode("Mode")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        LLVMBool(
+            "IsExternallyInitialized",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstFSub",
-        "",
+            LLVMValueRef("GlobalVar")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        void(
+            "SetExternallyInitialized",
 
-    LLVMValueRef(
-        "ConstMul",
-        "",
+            LLVMValueRef("GlobalVar"),
+            LLVMBool("IsExtInit")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "AddAlias",
 
-    LLVMValueRef(
-        "ConstNSWMul",
-        "",
+            LLVMModuleRef("M"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Aliasee"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "AddAlias2",
 
-    LLVMValueRef(
-        "ConstNUWMul",
-        "",
+            LLVMModuleRef("M"),
+            LLVMTypeRef("ValueTy"),
+            unsigned("AddrSpace"),
+            LLVMValueRef("Aliasee"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetNamedGlobalAlias",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstFMul",
-        "",
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetFirstGlobalAlias",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstUDiv",
-        "",
+            LLVMModuleRef("M")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetLastGlobalAlias",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstExactUDiv",
-        "",
+            LLVMModuleRef("M")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetNextGlobalAlias",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstSDiv",
-        "",
+            LLVMValueRef("GA")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetPreviousGlobalAlias",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstExactSDiv",
-        "",
+            LLVMValueRef("GA")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "AliasGetAliasee",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstFDiv",
-        "",
+            LLVMValueRef("Alias")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..void(
+            "AliasSetAliasee",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstURem",
-        "",
+            LLVMValueRef("Alias"),
+            LLVMValueRef("Aliasee")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "ConstSRem",
-        "",
+        void(
+            "DeleteFunction",
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+            LLVMValueRef("Fn")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstFRem",
-        "",
-
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
-
-    LLVMValueRef(
-        "ConstAnd",
-        "",
-
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
-
-    LLVMValueRef(
-        "ConstOr",
-        "",
-
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
-
-    LLVMValueRef(
-        "ConstXor",
-        "",
-
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
-
-    LLVMValueRef(
-        "ConstICmp",
-        "",
-
-        LLVMIntPredicate("Predicate", ""),
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        LLVMBool(
+            "HasPersonalityFn",
 
-    LLVMValueRef(
-        "ConstFCmp",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMRealPredicate("Predicate", ""),
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        LLVMValueRef(
+            "GetPersonalityFn",
 
-    LLVMValueRef(
-        "ConstShl",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        void(
+            "SetPersonalityFn",
 
-    LLVMValueRef(
-        "ConstLShr",
-        "",
+            LLVMValueRef("Fn"),
+            LLVMValueRef("PersonalityFn")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        IgnoreMissing..unsigned_int(
+            "LookupIntrinsicID",
 
-    LLVMValueRef(
-        "ConstAShr",
-        "",
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen")
+        )
 
-        LLVMValueRef("LHSConstant", ""),
-        LLVMValueRef("RHSConstant", "")
-    )
+        unsigned_int(
+            "GetIntrinsicID",
 
-    IgnoreMissing..LLVMValueRef(
-        "ConstGEP",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMValueRef("ConstantVal", ""),
-        LLVMValueRef.p("ConstantIndices", ""),
-        AutoSize("ConstantIndices")..unsigned_int("NumIndices", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "ConstGEP2",
-        "",
-
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("ConstantVal", ""),
-        LLVMValueRef.p("ConstantIndices", ""),
-        AutoSize("ConstantIndices")..unsigned_int("NumIndices", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "ConstInBoundsGEP",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMValueRef.p("ConstantIndices", ""),
-        AutoSize("ConstantIndices")..unsigned_int("NumIndices", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "ConstInBoundsGEP2",
-        "",
-
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("ConstantVal", ""),
-        LLVMValueRef.p("ConstantIndices", ""),
-        AutoSize("ConstantIndices")..unsigned_int("NumIndices", ""),
+        IgnoreMissing..LLVMValueRef(
+            "GetIntrinsicDeclaration",
 
-        since = "8.0"
-    )
-
-    LLVMValueRef(
-        "ConstTrunc",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstSExt",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstZExt",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstFPTrunc",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstFPExt",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstUIToFP",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstSIToFP",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstFPToUI",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstFPToSI",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstPtrToInt",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstIntToPtr",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstBitCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstAddrSpaceCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstZExtOrBitCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstSExtOrBitCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstTruncOrBitCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstPointerCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstIntCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", ""),
-        LLVMBool("isSigned", "")
-    )
-
-    LLVMValueRef(
-        "ConstFPCast",
-        "",
-
-        LLVMValueRef("ConstantVal", ""),
-        LLVMTypeRef("ToType", "")
-    )
-
-    LLVMValueRef(
-        "ConstSelect",
-        "",
-
-        LLVMValueRef("ConstantCondition", ""),
-        LLVMValueRef("ConstantIfTrue", ""),
-        LLVMValueRef("ConstantIfFalse", "")
-    )
-
-    LLVMValueRef(
-        "ConstExtractElement",
-        "",
-
-        LLVMValueRef("VectorConstant", ""),
-        LLVMValueRef("IndexConstant", "")
-    )
-
-    LLVMValueRef(
-        "ConstInsertElement",
-        "",
-
-        LLVMValueRef("VectorConstant", ""),
-        LLVMValueRef("ElementValueConstant", ""),
-        LLVMValueRef("IndexConstant", "")
-    )
-
-    LLVMValueRef(
-        "ConstShuffleVector",
-        "",
-
-        LLVMValueRef("VectorAConstant", ""),
-        LLVMValueRef("VectorBConstant", ""),
-        LLVMValueRef("MaskConstant", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "ConstExtractValue",
-        "",
-
-        LLVMValueRef("AggConstant", ""),
-        unsigned_int.p("IdxList", ""),
-        AutoSize("IdxList")..unsigned_int("NumIdx", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "ConstInsertValue",
-        "",
-
-        LLVMValueRef("AggConstant", ""),
-        LLVMValueRef("ElementValueConstant", ""),
-        unsigned_int.p("IdxList", ""),
-        AutoSize("IdxList")..unsigned_int("NumIdx", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BlockAddress",
-        "",
-
-        LLVMValueRef("F", ""),
-        LLVMBasicBlockRef("BB", "")
-    )
-
-    LLVMValueRef(
-        "ConstInlineAsm",
-        "Deprecated: Use #GetInlineAsm() instead.",
-
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("AsmString", ""),
-        charUTF8.const.p("Constraints", ""),
-        LLVMBool("HasSideEffects", ""),
-        LLVMBool("IsAlignStack", "")
-    )
-
-    LLVMModuleRef(
-        "GetGlobalParent",
-        "",
+            LLVMModuleRef("Mod"),
+            unsigned("ID"),
+            LLVMTypeRef.p("ParamTypes"),
+            AutoSize("ParamTypes")..size_t("ParamCount")
+        )
 
-        LLVMValueRef("Global", "")
-    )
-
-    LLVMBool(
-        "IsDeclaration",
-        "",
-
-        LLVMValueRef("Global", "")
-    )
-
-    LLVMLinkage(
-        "GetLinkage",
-        "",
-
-        LLVMValueRef("Global", "")
-    )
-
-    void(
-        "SetLinkage",
-        "",
-
-        LLVMValueRef("Global", ""),
-        LLVMLinkage("Linkage", "")
-    )
-
-    Nonnull..charUTF8.const.p(
-        "GetSection",
-        "",
-
-        LLVMValueRef("Global", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "IntrinsicGetType",
 
-    void(
-        "SetSection",
-        "",
+            LLVMContextRef("Ctx"),
+            unsigned("ID"),
+            LLVMTypeRef.p("ParamTypes"),
+            AutoSize("ParamTypes")..size_t("ParamCount")
+        )
 
-        LLVMValueRef("Global", ""),
-        charUTF8.const.p("Section", "")
-    )
+        IgnoreMissing..charUTF8.const.p(
+            "IntrinsicGetName",
 
-    LLVMVisibility(
-        "GetVisibility",
-        "",
+            unsigned("ID"),
+            AutoSizeResult..Check(1)..size_t.p("NameLength")
+        )
 
-        LLVMValueRef("Global", "")
-    )
+        IgnoreMissing..charUTF8.p(
+            "IntrinsicCopyOverloadedName",
 
-    void(
-        "SetVisibility",
-        "",
-
-        LLVMValueRef("Global", ""),
-        LLVMVisibility("Viz", "")
-    )
-
-    LLVMDLLStorageClass(
-        "GetDLLStorageClass",
-        "",
-
-        LLVMValueRef("Global", "")
-    )
-
-    void(
-        "SetDLLStorageClass",
-        "",
-
-        LLVMValueRef("Global", ""),
-        LLVMDLLStorageClass("Class", "")
-    )
-
-    IgnoreMissing..LLVMUnnamedAddr(
-        "GetUnnamedAddress",
-        "",
-
-        LLVMValueRef("Global", "")
-    )
-
-    IgnoreMissing..void(
-        "SetUnnamedAddress",
-        "",
-
-        LLVMValueRef("Global", ""),
-        LLVMUnnamedAddr("UnnamedAddr", "")
-    )
-
-    IgnoreMissing..LLVMTypeRef(
-        "GlobalGetValueType",
-        "Returns the \"value type\" of a global value.  This differs from the formal type of a global value which is always a pointer type.",
-
-        LLVMValueRef("Global", "")
-    )
-
-    LLVMBool(
-        "HasUnnamedAddr",
-        "Deprecated: Use #GetUnnamedAddress() instead.",
-
-        LLVMValueRef("Global", "")
-    )
-
-    void(
-        "SetUnnamedAddr",
-        "Deprecated: Use #SetUnnamedAddress() instead.",
-
-        LLVMValueRef("Global", ""),
-        LLVMBool("HasUnnamedAddr", "")
-    )
-
-    unsigned_int(
-        "GetAlignment",
-        "Obtain the preferred alignment of the value.",
-
-        LLVMValueRef("V", "")
-    )
-
-    void(
-        "SetAlignment",
-        "Set the preferred alignment of the value.",
-
-        LLVMValueRef("V", ""),
-        unsigned_int("Bytes", "")
-    )
-
-    IgnoreMissing..void(
-        "GlobalSetMetadata",
-        "Sets a metadata attachment, erasing the existing metadata attachment if it already exists for the given kind.",
-
-        LLVMValueRef("Global", ""),
-        unsigned_int("Kind", ""),
-        LLVMMetadataRef("MD", "")
-    )
-
-    IgnoreMissing..void(
-        "GlobalEraseMetadata",
-        "Erases a metadata attachment of the given kind if it exists.",
-
-        LLVMValueRef("Global", ""),
-        unsigned_int("Kind", "")
-    )
-
-    IgnoreMissing..void(
-        "GlobalClearMetadata",
-        "Removes all metadata attachments from this value.",
+            unsigned("ID"),
+            LLVMTypeRef.p("ParamTypes"),
+            AutoSize("ParamTypes")..size_t("ParamCount"),
+            AutoSizeResult..Check(1)..size_t.p("NameLength")
+        )
 
-        LLVMValueRef("Global", "")
-    )
-
-    IgnoreMissing..LLVMValueMetadataEntry.p(
-        "GlobalCopyAllMetadata",
-        """
-        Retrieves an array of metadata entries representing the metadata attached to this value. The caller is responsible for freeing this array by calling
-        #DisposeValueMetadataEntries().
-        """,
-
-        LLVMValueRef("Value", ""),
-        Check(1)..size_t.p("NumEntries", "")
-    )
-
-    IgnoreMissing..void(
-        "DisposeValueMetadataEntries",
-        "Destroys value metadata entries.",
-
-        LLVMValueMetadataEntry.p("Entries", "")
-    )
+        IgnoreMissing..charUTF8.p(
+            "IntrinsicCopyOverloadedName2",
 
-    IgnoreMissing..unsigned_int(
-        "ValueMetadataEntriesGetKind",
-        "Returns the kind of a value metadata entry at a specific index.",
+            LLVMModuleRef("Mod"),
+            unsigned("ID"),
+            LLVMTypeRef.p("ParamTypes"),
+            AutoSize("ParamTypes")..size_t("ParamCount"),
+            AutoSizeResult..Check(1)..size_t.p("NameLength")
+        )
 
-        LLVMValueMetadataEntry.p("Entries", ""),
-        unsigned_int("Index", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "IntrinsicIsOverloaded",
 
-    IgnoreMissing..LLVMMetadataRef(
-        "ValueMetadataEntriesGetMetadata",
-        "Returns the underlying metadata node of a value metadata entry at a specific index.",
+            unsigned("ID")
+        )
 
-        LLVMValueMetadataEntry.p("Entries", ""),
-        unsigned_int("Index", "")
-    )
+        unsigned_int(
+            "GetFunctionCallConv",
 
-    LLVMValueRef(
-        "AddGlobal",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMModuleRef("M", ""),
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("Name", "")
-    )
+        void(
+            "SetFunctionCallConv",
 
-    LLVMValueRef(
-        "AddGlobalInAddressSpace",
-        "",
+            LLVMValueRef("Fn"),
+            unsigned_int("CC")
+        )
 
-        LLVMModuleRef("M", ""),
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("Name", ""),
-        unsigned_int("AddressSpace", "")
-    )
+        charUTF8.const.p(
+            "GetGC",
 
-    LLVMValueRef(
-        "GetNamedGlobal",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", "")
-    )
+        void(
+            "SetGC",
 
-    LLVMValueRef(
-        "GetFirstGlobal",
-        "",
+            LLVMValueRef("Fn"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMModuleRef("M", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetPrefixData",
 
-    LLVMValueRef(
-        "GetLastGlobal",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMModuleRef("M", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "HasPrefixData",
 
-    LLVMValueRef(
-        "GetNextGlobal",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMValueRef("GlobalVar", "")
-    )
+        IgnoreMissing..void(
+            "SetPrefixData",
 
-    LLVMValueRef(
-        "GetPreviousGlobal",
-        "",
+            LLVMValueRef("Fn"),
+            LLVMValueRef("prefixData")
+        )
 
-        LLVMValueRef("GlobalVar", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetPrologueData",
 
-    void(
-        "DeleteGlobal",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMValueRef("GlobalVar", "")
-    )
-
-    LLVMValueRef(
-        "GetInitializer",
-        "",
-
-        LLVMValueRef("GlobalVar", "")
-    )
-
-    void(
-        "SetInitializer",
-        "",
-
-        LLVMValueRef("GlobalVar", ""),
-        LLVMValueRef("ConstantVal", "")
-    )
-
-    LLVMBool(
-        "IsThreadLocal",
-        "",
-
-        LLVMValueRef("GlobalVar", "")
-    )
+        IgnoreMissing..LLVMBool(
+            "HasPrologueData",
 
-    void(
-        "SetThreadLocal",
-        "",
+            LLVMValueRef("Fn")
+        )
 
-        LLVMValueRef("GlobalVar", ""),
-        LLVMBool("IsThreadLocal", "")
-    )
+        IgnoreMissing..void(
+            "SetPrologueData",
 
-    LLVMBool(
-        "IsGlobalConstant",
-        "",
+            LLVMValueRef("Fn"),
+            LLVMValueRef("prologueData")
+        )
 
-        LLVMValueRef("GlobalVar", "")
-    )
+        void(
+            "AddAttributeAtIndex",
 
-    void(
-        "SetGlobalConstant",
-        "",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx"),
+            LLVMAttributeRef("A")
+        )
 
-        LLVMValueRef("GlobalVar", ""),
-        LLVMBool("IsConstant", "")
-    )
+        unsigned_int(
+            "GetAttributeCountAtIndex",
 
-    LLVMThreadLocalMode(
-        "GetThreadLocalMode",
-        "",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx")
+        )
 
-        LLVMValueRef("GlobalVar", "")
-    )
+        void(
+            "GetAttributesAtIndex",
 
-    void(
-        "SetThreadLocalMode",
-        "",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx"),
+            Check(
+                "LLVMGetAttributeCountAtIndex(F, Idx)", debug = true
+            )..LLVMAttributeRef.p("Attrs")
+        )
 
-        LLVMValueRef("GlobalVar", ""),
-        LLVMThreadLocalMode("Mode", "")
-    )
+        LLVMAttributeRef(
+            "GetEnumAttributeAtIndex",
 
-    LLVMBool(
-        "IsExternallyInitialized",
-        "",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx"),
+            unsigned_int("KindID")
+        )
 
-        LLVMValueRef("GlobalVar", "")
-    )
+        LLVMAttributeRef(
+            "GetStringAttributeAtIndex",
 
-    void(
-        "SetExternallyInitialized",
-        "",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx"),
+            charUTF8.const.p("K"),
+            AutoSize("K")..unsigned_int("KLen")
+        )
 
-        LLVMValueRef("GlobalVar", ""),
-        LLVMBool("IsExtInit", "")
-    )
+        void(
+            "RemoveEnumAttributeAtIndex",
 
-    IgnoreMissing..LLVMValueRef(
-        "AddAlias",
-        "",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx"),
+            unsigned_int("KindID")
+        )
 
-        LLVMModuleRef("M", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Aliasee", ""),
-        charUTF8.const.p("Name", "")
-    )
+        void(
+            "RemoveStringAttributeAtIndex",
 
-    IgnoreMissing..LLVMValueRef(
-        "AddAlias2",
-        "Add a GlobalAlias with the given value type, address space and aliasee.",
+            LLVMValueRef("F"),
+            LLVMAttributeIndex("Idx"),
+            charUTF8.const.p("K"),
+            AutoSize("K")..unsigned_int("KLen")
+        )
 
-        LLVMModuleRef("M", ""),
-        LLVMTypeRef("ValueTy", ""),
-        unsigned("AddrSpace", ""),
-        LLVMValueRef("Aliasee", ""),
-        charUTF8.const.p("Name", "")
-    )
+        void(
+            "AddTargetDependentFunctionAttr",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetNamedGlobalAlias",
-        """
-        Obtain a GlobalAlias value from a Module by its name.
+            LLVMValueRef("Fn"),
+            charUTF8.const.p("A"),
+            charUTF8.const.p("V")
+        )
 
-        The returned value corresponds to a {@code llvm::GlobalAlias} value.
-        """,
+        unsigned_int(
+            "CountParams",
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", "")
-    )
+            LLVMValueRef("Fn")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "GetFirstGlobalAlias",
-        "Obtain an iterator to the first GlobalAlias in a Module.",
+        void(
+            "GetParams",
 
-        LLVMModuleRef("M", "")
-    )
+            LLVMValueRef("Fn"),
+            Check(
+                "LLVMCountParams(Fn)", debug = true
+            )..LLVMValueRef.p("Params")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "GetLastGlobalAlias",
-        "Obtain an iterator to the last GlobalAlias in a Module.",
+        LLVMValueRef(
+            "GetParam",
 
-        LLVMModuleRef("M", "")
-    )
+            LLVMValueRef("Fn"),
+            unsigned_int("Index")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "GetNextGlobalAlias",
-        """
-        Advance a {@code GlobalAlias} iterator to the next {@code GlobalAlias}.
+        LLVMValueRef(
+            "GetParamParent",
 
-        Returns #NULL if the iterator was already at the end and there are no more global aliases.
-        """,
+            LLVMValueRef("Inst")
+        )
 
-        LLVMValueRef("GA", "")
-    )
+        LLVMValueRef(
+            "GetFirstParam",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetPreviousGlobalAlias",
-        """
-        Decrement a {@code GlobalAlias} iterator to the previous {@code GlobalAlias}.
+            LLVMValueRef("Fn")
+        )
 
-        Returns #NULL if the iterator was already at the beginning and there are no previous global aliases.
-        """,
+        LLVMValueRef(
+            "GetLastParam",
 
-        LLVMValueRef("GA", "")
-    )
+            LLVMValueRef("Fn")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "AliasGetAliasee",
-        "Retrieve the target value of an alias.",
+        LLVMValueRef(
+            "GetNextParam",
 
-        LLVMValueRef("Alias", "")
-    )
+            LLVMValueRef("Arg")
+        )
 
-    IgnoreMissing..void(
-        "AliasSetAliasee",
-        "Set the target value of an alias.",
+        LLVMValueRef(
+            "GetPreviousParam",
 
-        LLVMValueRef("Alias", ""),
-        LLVMValueRef("Aliasee", "")
-    )
+            LLVMValueRef("Arg")
+        )
 
-    void(
-        "DeleteFunction",
-        "Remove a function from its containing module and deletes it.",
+        void(
+            "SetParamAlignment",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("Arg"),
+            unsigned_int("Align")
+        )
 
-    LLVMBool(
-        "HasPersonalityFn",
-        "Check whether the given function has a personality function.",
+        IgnoreMissing..LLVMValueRef(
+            "AddGlobalIFunc",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen"),
+            LLVMTypeRef("Ty"),
+            unsigned("AddrSpace"),
+            LLVMValueRef("Resolver")
+        )
 
-    LLVMValueRef(
-        "GetPersonalityFn",
-        "Obtain the personality function attached to the function.",
+        IgnoreMissing..LLVMValueRef(
+            "GetNamedGlobalIFunc",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMModuleRef("M"),
+            charUTF8.const.p("Name"),
+            AutoSize("Name")..size_t("NameLen")
+        )
 
-    void(
-        "SetPersonalityFn",
-        "Set the personality function attached to the function.",
+        IgnoreMissing..LLVMValueRef(
+            "GetFirstGlobalIFunc",
 
-        LLVMValueRef("Fn", ""),
-        LLVMValueRef("PersonalityFn", "")
-    )
+            LLVMModuleRef("M")
+        )
 
-    IgnoreMissing..void(
-        "LookupIntrinsicID",
-        "Obtain the intrinsic ID number which matches the given function name.",
+        IgnoreMissing..LLVMValueRef(
+            "GetLastGlobalIFunc",
 
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", ""),
+            LLVMModuleRef("M")
+        )
 
-        since = "9"
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetNextGlobalIFunc",
 
-    unsigned_int(
-        "GetIntrinsicID",
-        "Obtain the ID number from a function instance.",
+            LLVMValueRef("IFunc")
+        )
 
-        LLVMValueRef("Fn", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetPreviousGlobalIFunc",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetIntrinsicDeclaration",
-        """
-        Create or insert the declaration of an intrinsic.
+            LLVMValueRef("IFunc")
+        )
 
-        For overloaded intrinsics, parameter types must be provided to uniquely identify an overload.
-        """,
+        IgnoreMissing..LLVMValueRef(
+            "GetGlobalIFuncResolver",
 
-        LLVMModuleRef("Mod", ""),
-        unsigned("ID", ""),
-        LLVMTypeRef.p("ParamTypes", ""),
-        AutoSize("ParamTypes")..size_t("ParamCount", ""),
+            LLVMValueRef("IFunc")
+        )
 
-        since = "8.0"
-    )
+        IgnoreMissing..void(
+            "SetGlobalIFuncResolver",
 
-    IgnoreMissing..LLVMValueRef(
-        "IntrinsicGetType",
-        """
-        Retrieves the type of an intrinsic.
+            LLVMValueRef("IFunc"),
+            LLVMValueRef("Resolver")
+        )
 
-        For overloaded intrinsics, parameter types must be provided to uniquely identify an overload.
-        """,
+        IgnoreMissing..void(
+            "EraseGlobalIFunc",
 
-        LLVMContextRef("Ctx", ""),
-        unsigned("ID", ""),
-        LLVMTypeRef.p("ParamTypes", ""),
-        AutoSize("ParamTypes")..size_t("ParamCount", ""),
+            LLVMValueRef("IFunc")
+        )
 
-        since = "8.0"
-    )
+        IgnoreMissing..void(
+            "RemoveGlobalIFunc",
 
-    IgnoreMissing..charUTF8.const.p(
-        "IntrinsicGetName",
-        "Retrieves the name of an intrinsic.",
+            LLVMValueRef("IFunc")
+        )
 
-        unsigned("ID", ""),
-        AutoSizeResult..Check(1)..size_t.p("NameLength", ""),
+        IgnoreMissing..LLVMMetadataRef(
+            "MDStringInContext2",
 
-        since = "8.0"
-    )
+            LLVMContextRef("C"),
+            charUTF8.const.p("Str"),
+            AutoSize("Str")..size_t("SLen")
+        )
 
-    IgnoreMissing..charUTF8.const.p(
-        "IntrinsicCopyOverloadedName",
-        "Deprecated: Use #IntrinsicCopyOverloadedName2() instead.",
+        IgnoreMissing..LLVMMetadataRef(
+            "MDNodeInContext2",
 
-        unsigned("ID", ""),
-        LLVMTypeRef.p("ParamTypes", ""),
-        AutoSize("ParamTypes")..size_t("ParamCount", ""),
-        AutoSizeResult..Check(1)..size_t.p("NameLength", ""),
+            LLVMContextRef("C"),
+            LLVMMetadataRef.p("MDs"),
+            AutoSize("MDs")..size_t("Count")
+        )
 
-        since = "8.0"
-    )
+        LLVMValueRef(
+            "MDStringInContext",
 
-    IgnoreMissing..charUTF8.const.p(
-        "IntrinsicCopyOverloadedName2",
-        """
-        Copies the name of an overloaded intrinsic identified by a given list of parameter types.
+            LLVMContextRef("C"),
+            charUTF8.const.p("Str"),
+            AutoSize("Str")..unsigned_int("SLen")
+        )
 
-        Unlike #IntrinsicGetName(), the caller is responsible for freeing the returned string.
+        LLVMValueRef(
+            "MDString",
 
-        This version also supports unnamed types.
-        """,
+            charUTF8.const.p("Str"),
+            AutoSize("Str")..unsigned_int("SLen")
+        )
 
-        LLVMModuleRef("Mod", ""),
-        unsigned("ID", ""),
-        LLVMTypeRef.p("ParamTypes", ""),
-        AutoSize("ParamTypes")..size_t("ParamCount", ""),
-        AutoSizeResult..Check(1)..size_t.p("NameLength", ""),
+        LLVMValueRef(
+            "MDNodeInContext",
 
-        since = "13"
-    )
+            LLVMContextRef("C"),
+            LLVMValueRef.p("Vals"),
+            AutoSize("Vals")..unsigned_int("Count")
+        )
 
-    IgnoreMissing..LLVMBool(
-        "IntrinsicIsOverloaded",
-        "Obtain if the intrinsic identified by the given ID is overloaded.",
+        LLVMValueRef(
+            "MDNode",
 
-        unsigned("ID", ""),
+            LLVMValueRef.p("Vals"),
+            AutoSize("Vals")..unsigned_int("Count")
+        )
 
-        since = "8.0"
-    )
+        IgnoreMissing..LLVMOperandBundleRef(
+            "CreateOperandBundle",
 
-    unsigned_int(
-        "GetFunctionCallConv",
-        """
-        Obtain the calling function of a function.
+            charUTF8.const.p("Tag"),
+            AutoSize("Tag")..size_t("TagLen"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned("NumArgs")
+        )
 
-        The returned value corresponds to the {@code LLVMCallConv} enumeration.
-        """,
+        IgnoreMissing..void(
+            "DisposeOperandBundle",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMOperandBundleRef("Bundle")
+        )
 
-    void(
-        "SetFunctionCallConv",
-        "Set the calling convention of a function.",
+        IgnoreMissing..charUTF8.const.p(
+            "GetOperandBundleTag",
 
-        LLVMValueRef("Fn", "function to operate on"),
-        unsigned_int("CC", "{@code LLVMCallConv} to set calling convention to")
-    )
+            LLVMOperandBundleRef("Bundle"),
+            AutoSizeResult..size_t.p("Len")
+        )
 
-    charUTF8.const.p(
-        "GetGC",
-        "Obtain the name of the garbage collector to use during code generation.",
+        IgnoreMissing..unsigned(
+            "GetNumOperandBundleArgs",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMOperandBundleRef("Bundle")
+        )
 
-    void(
-        "SetGC",
-        "Define the garbage collector to use during code generation.",
+        IgnoreMissing..LLVMValueRef(
+            "GetOperandBundleArgAtIndex",
 
-        LLVMValueRef("Fn", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMOperandBundleRef("Bundle"),
+            unsigned("Index")
+        )
 
-    void(
-        "AddAttributeAtIndex",
-        "Add an attribute to a function.",
+        LLVMValueRef(
+            "MetadataAsValue",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", ""),
-        LLVMAttributeRef("A", "")
-    )
+            LLVMContextRef("C"),
+            LLVMMetadataRef("MD")
+        )
 
-    unsigned_int(
-        "GetAttributeCountAtIndex",
-        "",
+        LLVMMetadataRef(
+            "ValueAsMetadata",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", "")
-    )
+            LLVMValueRef("Val")
+        )
 
-    void(
-        "GetAttributesAtIndex",
-        "",
+        charUTF8.const.p(
+            "GetMDString",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", ""),
-        Check(
-            "LLVMGetAttributeCountAtIndex(F, Idx)", debug = true
-        )..LLVMAttributeRef.p("Attrs", "")
-    )
+            LLVMValueRef("V"),
+            AutoSizeResult..unsigned_int.p("Length")
+        )
 
-    LLVMAttributeRef(
-        "GetEnumAttributeAtIndex",
-        "",
+        unsigned_int(
+            "GetMDNodeNumOperands",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", ""),
-        unsigned_int("KindID", "")
-    )
+            LLVMValueRef("V")
+        )
 
-    LLVMAttributeRef(
-        "GetStringAttributeAtIndex",
-        "",
+        void(
+            "GetMDNodeOperands",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", ""),
-        charUTF8.const.p("K", ""),
-        AutoSize("K")..unsigned_int("KLen", "")
-    )
+            LLVMValueRef("V"),
+            Check(
+                "LLVMGetMDNodeNumOperands(V)", debug = true
+            )..LLVMValueRef.p("Dest")
+        )
 
-    void(
-        "RemoveEnumAttributeAtIndex",
-        "",
+        void(
+            "ReplaceMDNodeOperandWith",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", ""),
-        unsigned_int("KindID", "")
-    )
+            LLVMValueRef("V"),
+            unsigned_int("Index"),
+            nullable..LLVMMetadataRef("Replacement")
+        )
 
-    void(
-        "RemoveStringAttributeAtIndex",
-        "",
+        LLVMValueRef(
+            "BasicBlockAsValue",
 
-        LLVMValueRef("F", ""),
-        LLVMAttributeIndex("Idx", ""),
-        charUTF8.const.p("K", ""),
-        AutoSize("K")..unsigned_int("KLen", "")
-    )
+            LLVMBasicBlockRef("BB")
+        )
 
-    void(
-        "AddTargetDependentFunctionAttr",
-        "Add a target-dependent attribute to a function",
+        LLVMBool(
+            "ValueIsBasicBlock",
 
-        LLVMValueRef("Fn", ""),
-        charUTF8.const.p("A", ""),
-        charUTF8.const.p("V", "")
-    )
+            LLVMValueRef("Val")
+        )
 
-    unsigned_int(
-        "CountParams",
-        "Obtain the number of parameters in a function.",
+        LLVMBasicBlockRef(
+            "ValueAsBasicBlock",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("Val")
+        )
 
-    void(
-        "GetParams",
-        """
-        Obtain the parameters in a function.
+        Nonnull..charUTF8.const.p(
+            "GetBasicBlockName",
 
-        The takes a pointer to a pre-allocated array of {@code LLVMValueRef} that is at least #CountParams() long. This array will be filled with
-        {@code LLVMValueRef} instances which correspond to the parameters the function receives. Each {@code LLVMValueRef} corresponds to a
-        {@code llvm::Argument} instance.
-        """,
+            LLVMBasicBlockRef("BB")
+        )
 
-        LLVMValueRef("Fn", ""),
-        Check(
-            "LLVMCountParams(Fn)", debug = true
-        )..LLVMValueRef.p("Params", "")
-    )
+        LLVMValueRef(
+            "GetBasicBlockParent",
 
-    LLVMValueRef(
-        "GetParam",
-        """
-        Obtain the parameter at the specified index.
+            LLVMBasicBlockRef("BB")
+        )
 
-        Parameters are indexed from 0.
-        """,
+        LLVMValueRef(
+            "GetBasicBlockTerminator",
 
-        LLVMValueRef("Fn", ""),
-        unsigned_int("Index", "")
-    )
+            LLVMBasicBlockRef("BB")
+        )
 
-    LLVMValueRef(
-        "GetParamParent",
-        """
-        Obtain the function to which this argument belongs.
+        unsigned_int(
+            "CountBasicBlocks",
 
-        Unlike other functions in this group, this one takes an {@code LLVMValueRef} that corresponds to a {@code llvm::Attribute}.
+            LLVMValueRef("Fn")
+        )
 
-        The returned {@code LLVMValueRef} is the {@code llvm::Function} to which this argument belongs.
-        """,
+        void(
+            "GetBasicBlocks",
 
-        LLVMValueRef("Inst", "")
-    )
+            LLVMValueRef("Fn"),
+            Check(
+                "LLVMCountBasicBlocks(Fn)", debug = true
+            )..LLVMBasicBlockRef.p("BasicBlocks")
+        )
 
-    LLVMValueRef(
-        "GetFirstParam",
-        "Obtain the first parameter to a function.",
+        LLVMBasicBlockRef(
+            "GetFirstBasicBlock",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("Fn")
+        )
 
-    LLVMValueRef(
-        "GetLastParam",
-        "Obtain the last parameter to a function.",
+        LLVMBasicBlockRef(
+            "GetLastBasicBlock",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("Fn")
+        )
 
-    LLVMValueRef(
-        "GetNextParam",
-        """
-        Obtain the next parameter to a function.
+        LLVMBasicBlockRef(
+            "GetNextBasicBlock",
 
-        This takes an {@code LLVMValueRef} obtained from #GetFirstParam() (which is actually a wrapped iterator) and obtains the next parameter from the
-        underlying iterator.
-        """,
+            LLVMBasicBlockRef("BB")
+        )
 
-        LLVMValueRef("Arg", "")
-    )
+        LLVMBasicBlockRef(
+            "GetPreviousBasicBlock",
 
-    LLVMValueRef(
-        "GetPreviousParam",
-        """
-        Obtain the previous parameter to a function.
+            LLVMBasicBlockRef("BB")
+        )
 
-        This is the opposite of #GetNextParam().
-        """,
+        LLVMBasicBlockRef(
+            "GetEntryBasicBlock",
 
-        LLVMValueRef("Arg", "")
-    )
+            LLVMValueRef("Fn")
+        )
 
-    void(
-        "SetParamAlignment",
-        "Set the alignment for a function parameter.",
+        IgnoreMissing..void(
+            "InsertExistingBasicBlockAfterInsertBlock",
 
-        LLVMValueRef("Arg", ""),
-        unsigned_int("Align", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMBasicBlockRef("BB")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "AddGlobalIFunc",
-        """
-        Add a global indirect function to a module under a specified name.
+        IgnoreMissing..void(
+            "AppendExistingBasicBlock",
 
-        See {@code llvm::GlobalIFunc::create()}
-        """,
+            LLVMValueRef("Fn"),
+            LLVMBasicBlockRef("BB")
+        )
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", ""),
-        LLVMTypeRef("Ty", ""),
-        unsigned("AddrSpace", ""),
-        LLVMValueRef("Resolver", ""),
+        IgnoreMissing..LLVMBasicBlockRef(
+            "CreateBasicBlockInContext",
 
-        since = "9"
-    )
+            LLVMContextRef("C"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "GetNamedGlobalIFunc",
-        """
-        Obtain a {@code GlobalIFunc} value from a {@code Module} by its name.
+        LLVMBasicBlockRef(
+            "AppendBasicBlockInContext",
 
-        The returned value corresponds to a {@code llvm::GlobalIFunc} value.
+            LLVMContextRef("C"),
+            LLVMValueRef("Fn"),
+            charUTF8.const.p("Name")
+        )
 
-        See {@code llvm::Module::getNamedIFunc()}
-        """,
+        LLVMBasicBlockRef(
+            "AppendBasicBlock",
 
-        LLVMModuleRef("M", ""),
-        charUTF8.const.p("Name", ""),
-        AutoSize("Name")..size_t("NameLen", ""),
+            LLVMValueRef("Fn"),
+            charUTF8.const.p("Name")
+        )
 
-        since = "9"
-    )
+        LLVMBasicBlockRef(
+            "InsertBasicBlockInContext",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetFirstGlobalIFunc",
-        """
-        Obtain an iterator to the first {@code GlobalIFunc} in a {@code Module}.
+            LLVMContextRef("C"),
+            LLVMBasicBlockRef("BB"),
+            charUTF8.const.p("Name")
+        )
 
-        See {@code llvm::Module::ifunc_begin()}
-        """,
+        LLVMBasicBlockRef(
+            "InsertBasicBlock",
 
-        LLVMModuleRef("M", ""),
+            LLVMBasicBlockRef("InsertBeforeBB"),
+            charUTF8.const.p("Name")
+        )
 
-        since = "9"
-    )
+        void(
+            "DeleteBasicBlock",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetLastGlobalIFunc",
-        """
-        Obtain an iterator to the last {@code GlobalIFunc} in a {@code Module}.
+            LLVMBasicBlockRef("BB")
+        )
 
-        See {@code llvm::Module::ifunc_end()}.
-        """,
+        void(
+            "RemoveBasicBlockFromParent",
 
-        LLVMModuleRef("M", ""),
+            LLVMBasicBlockRef("BB")
+        )
 
-        since = "9"
-    )
+        void(
+            "MoveBasicBlockBefore",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetNextGlobalIFunc",
-        """
-        Advance a {@code GlobalIFunc} iterator to the next {@code GlobalIFunc}.
+            LLVMBasicBlockRef("BB"),
+            LLVMBasicBlockRef("MovePos")
+        )
 
-        Returns #NULL if the iterator was already at the end and there are no more global aliases.
-        """,
+        void(
+            "MoveBasicBlockAfter",
 
-        LLVMValueRef("IFunc", ""),
+            LLVMBasicBlockRef("BB"),
+            LLVMBasicBlockRef("MovePos")
+        )
 
-        since = "9"
-    )
+        LLVMValueRef(
+            "GetFirstInstruction",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetPreviousGlobalIFunc",
-        """
-        Decrement a {@code GlobalIFunc} iterator to the previous {@code GlobalIFunc}.
+            LLVMBasicBlockRef("BB")
+        )
 
-        Returns #NULL if the iterator was already at the beginning and there are no previous global aliases.
-        """,
+        LLVMValueRef(
+            "GetLastInstruction",
 
-        LLVMValueRef("IFunc", ""),
+            LLVMBasicBlockRef("BB")
+        )
 
-        since = "9"
-    )
+        intb(
+            "HasMetadata",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetGlobalIFuncResolver",
-        """
-        Retrieves the resolver function associated with this indirect function, or #NULL if it doesn't not exist.
+            LLVMValueRef("Val")
+        )
 
-        See {@code llvm::GlobalIFunc::getResolver()}
-        """,
+        LLVMValueRef(
+            "GetMetadata",
 
-        LLVMValueRef("IFunc", ""),
+            LLVMValueRef("Val"),
+            unsigned_int("KindID")
+        )
 
-        since = "9"
-    )
+        void(
+            "SetMetadata",
 
-    IgnoreMissing..void(
-        "SetGlobalIFuncResolver",
-        """
-        Sets the resolver function associated with this indirect function.
+            LLVMValueRef("Val"),
+            unsigned_int("KindID"),
+            LLVMValueRef("Node")
+        )
 
-        See {@code llvm::GlobalIFunc::setResolver()}
-        """,
+        IgnoreMissing..LLVMValueMetadataEntry.p(
+            "InstructionGetAllMetadataOtherThanDebugLoc",
 
-        LLVMValueRef("IFunc", ""),
-        LLVMValueRef("Resolver", ""),
+            LLVMValueRef("Instr"),
+            Check(1)..size_t.p("NumEntries")
+        )
 
-        since = "9"
-    )
+        LLVMBasicBlockRef(
+            "GetInstructionParent",
 
-    IgnoreMissing..void(
-        "EraseGlobalIFunc",
-        """
-        Remove a global indirect function from its parent module and delete it.
+            LLVMValueRef("Inst")
+        )
 
-        See {@code llvm::GlobalIFunc::eraseFromParent()}
-        """,
+        LLVMValueRef(
+            "GetNextInstruction",
 
-        LLVMValueRef("IFunc", ""),
+            LLVMValueRef("Inst")
+        )
 
-        since = "9"
-    )
+        LLVMValueRef(
+            "GetPreviousInstruction",
 
-    IgnoreMissing..void(
-        "RemoveGlobalIFunc",
-        """
-        Remove a global indirect function from its parent module.
+            LLVMValueRef("Inst")
+        )
 
-        This unlinks the global indirect function from its containing module but keeps it alive.
+        void(
+            "InstructionRemoveFromParent",
 
-        See {@code llvm::GlobalIFunc::removeFromParent()}
-        """,
+            LLVMValueRef("Inst")
+        )
 
-        LLVMValueRef("IFunc", ""),
+        void(
+            "InstructionEraseFromParent",
 
-        since = "9"
-    )
+            LLVMValueRef("Inst")
+        )
 
-    IgnoreMissing..LLVMMetadataRef(
-        "MDStringInContext2",
-        """
-        Create an {@code MDString} value from a given string value.
+        IgnoreMissing..void(
+            "DeleteInstruction",
 
-        The {@code MDString} value does not take ownership of the given string, it remains the responsibility of the caller to free it.
+            LLVMValueRef("Inst")
+        )
 
-        See {@code llvm::MDString::get()}
-        """,
+        LLVMOpcode(
+            "GetInstructionOpcode",
 
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Str", ""),
-        AutoSize("Str")..size_t("SLen", ""),
+            LLVMValueRef("Inst")
+        )
 
-        since = "9"
-    )
+        LLVMIntPredicate(
+            "GetICmpPredicate",
 
-    IgnoreMissing..LLVMMetadataRef(
-        "MDNodeInContext2",
-        """
-        Create an {@code MDNode} value with the given array of operands.
+            LLVMValueRef("Inst")
+        )
 
-        See {@code llvm::MDNode::get()}
-        """,
+        LLVMRealPredicate(
+            "GetFCmpPredicate",
 
-        LLVMContextRef("C", ""),
-        LLVMMetadataRef.p("MDs", ""),
-        AutoSize("MDs")..size_t("Count", ""),
+            LLVMValueRef("Inst")
+        )
 
-        since = "9"
-    )
+        LLVMValueRef(
+            "InstructionClone",
 
-    LLVMValueRef(
-        "MDStringInContext",
-        "Deprecated: Use #MDStringInContext2() instead.",
+            LLVMValueRef("Inst")
+        )
 
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Str", ""),
-        AutoSize("Str")..unsigned_int("SLen", "")
-    )
+        LLVMValueRef(
+            "IsATerminatorInst",
 
-    LLVMValueRef(
-        "MDString",
-        "Deprecated: Use #MDStringInContext2() instead.",
+            LLVMValueRef("Inst")
+        )
 
-        charUTF8.const.p("Str", ""),
-        AutoSize("Str")..unsigned_int("SLen", "")
-    )
+        IgnoreMissing..LLVMDbgRecordRef("GetFirstDbgRecord", LLVMValueRef("Inst"))
+        IgnoreMissing..LLVMDbgRecordRef("GetLastDbgRecord",  LLVMValueRef("Inst"))
 
-    LLVMValueRef(
-        "MDNodeInContext",
-        "Deprecated: Use #MDNodeInContext2() instead.",
+        IgnoreMissing..LLVMDbgRecordRef("GetNextDbgRecord",     LLVMDbgRecordRef("DbgRecord"))
+        IgnoreMissing..LLVMDbgRecordRef("GetPreviousDbgRecord", LLVMDbgRecordRef("DbgRecord"))
 
-        LLVMContextRef("C", ""),
-        LLVMValueRef.p("Vals", ""),
-        AutoSize("Vals")..unsigned_int("Count", "")
-    )
+        unsigned_int(
+            "GetNumArgOperands",
 
-    LLVMValueRef(
-        "MDNode",
-        "Deprecated: Use #MDNodeInContext2() instead.",
+            LLVMValueRef("Instr")
+        )
 
-        LLVMValueRef.p("Vals", ""),
-        AutoSize("Vals")..unsigned_int("Count", "")
-    )
+        void(
+            "SetInstructionCallConv",
 
-    LLVMValueRef(
-        "MetadataAsValue",
-        "Obtain a {@code Metadata} as a Value.",
+            LLVMValueRef("Instr"),
+            unsigned_int("CC")
+        )
 
-        LLVMContextRef("C", ""),
-        LLVMMetadataRef("MD", "")
-    )
+        unsigned_int(
+            "GetInstructionCallConv",
 
-    LLVMMetadataRef(
-        "ValueAsMetadata",
-        "Obtain a {@code Value} as a {@code Metadata}.",
+            LLVMValueRef("Instr")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        void(
+            "SetInstrParamAlignment",
 
-    charUTF8.const.p(
-        "GetMDString",
-        "Obtain the underlying string from a {@code MDString} value.",
+            LLVMValueRef("Instr"),
+            LLVMAttributeIndex("index"),
+            unsigned_int("Align")
+        )
 
-        LLVMValueRef("V", "instance to obtain string from"),
-        AutoSizeResult..unsigned_int.p("Length", "memory address which will hold length of returned string"),
+        void(
+            "AddCallSiteAttribute",
 
-        returnDoc = "string data in {@code MDString}"
-    )
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx"),
+            LLVMAttributeRef("A")
+        )
 
-    unsigned_int(
-        "GetMDNodeNumOperands",
-        "Obtain the number of operands from an {@code MDNode} value.",
+        unsigned_int(
+            "GetCallSiteAttributeCount",
 
-        LLVMValueRef("V", "{@code MDNode} to get number of operands from"),
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx")
+        )
 
-        returnDoc = "number of operands of the {@code MDNode}"
-    )
+        void(
+            "GetCallSiteAttributes",
 
-    void(
-        "GetMDNodeOperands",
-        """
-        Obtain the given {@code MDNode}'s operands.
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx"),
+            Check(
+                "LLVMGetCallSiteAttributeCount(C, Idx)", debug = true
+            )..LLVMAttributeRef.p("Attrs")
+        )
 
-        The passed {@code LLVMValueRef} pointer should point to enough memory to hold all of the operands of the given {@code MDNode} (see
-        #GetMDNodeNumOperands()) as {@code LLVMValueRefs}. This memory will be populated with the {@code LLVMValueRefs} of the {@code MDNode}'s operands.
-        """,
+        LLVMAttributeRef(
+            "GetCallSiteEnumAttribute",
 
-        LLVMValueRef("V", "MDNode to get the operands from"),
-        Check(
-            "LLVMGetMDNodeNumOperands(V)", debug = true
-        )..LLVMValueRef.p("Dest", "destination array for operands")
-    )
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx"),
+            unsigned_int("KindID")
+        )
 
-    LLVMValueRef(
-        "BasicBlockAsValue",
-        "Convert a basic block instance to a value type.",
+        LLVMAttributeRef(
+            "GetCallSiteStringAttribute",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx"),
+            charUTF8.const.p("K"),
+            AutoSize("K")..unsigned_int("KLen")
+        )
 
-    LLVMBool(
-        "ValueIsBasicBlock",
-        "Determine whether an {@code LLVMValueRef} is itself a basic block.",
+        void(
+            "RemoveCallSiteEnumAttribute",
 
-        LLVMValueRef("Val", "")
-    )
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx"),
+            unsigned_int("KindID")
+        )
 
-    LLVMBasicBlockRef(
-        "ValueAsBasicBlock",
-        "Convert an {@code LLVMValueRef} to an {@code LLVMBasicBlockRef} instance.",
+        void(
+            "RemoveCallSiteStringAttribute",
 
-        LLVMValueRef("Val", "")
-    )
+            LLVMValueRef("C"),
+            LLVMAttributeIndex("Idx"),
+            charUTF8.const.p("K"),
+            AutoSize("K")..unsigned_int("KLen")
+        )
 
-    Nonnull..charUTF8.const.p(
-        "GetBasicBlockName",
-        "Obtain the string name of a basic block.",
+        IgnoreMissing..LLVMTypeRef(
+            "GetCalledFunctionType",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("C")
+        )
 
-    LLVMValueRef(
-        "GetBasicBlockParent",
-        "Obtain the function to which a basic block belongs.",
+        LLVMValueRef(
+            "GetCalledValue",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("Instr")
+        )
 
-    LLVMValueRef(
-        "GetBasicBlockTerminator",
-        """
-        Obtain the terminator instruction for a basic block.
+        IgnoreMissing..unsigned(
+            "GetNumOperandBundles",
 
-        If the basic block does not have a terminator (it is not well-formed if it doesn't), then #NULL is returned.
+            LLVMValueRef("C")
+        )
 
-        The returned {@code LLVMValueRef} corresponds to an {@code llvm::Instruction}.
-        """,
+        IgnoreMissing..LLVMOperandBundleRef(
+            "GetOperandBundleAtIndex",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("C"),
+            unsigned("Index")
+        )
 
-    unsigned_int(
-        "CountBasicBlocks",
-        "Obtain the number of basic blocks in a function.",
+        LLVMBool(
+            "IsTailCall",
 
-        LLVMValueRef("Fn", "function value to operate on")
-    )
+            LLVMValueRef("CallInst")
+        )
 
-    void(
-        "GetBasicBlocks",
-        """
-        Obtain all of the basic blocks in a function.
+        void(
+            "SetTailCall",
 
-        This operates on a function value. The {@code BasicBlocks} parameter is a pointer to a pre-allocated array of {@code LLVMBasicBlockRef} of at least
-        #CountBasicBlocks() in length. This array is populated with {@code LLVMBasicBlockRef} instances.
-        """,
+            LLVMValueRef("CallInst"),
+            LLVMBool("IsTailCall")
+        )
 
-        LLVMValueRef("Fn", ""),
-        Check(
-            "LLVMCountBasicBlocks(Fn)", debug = true
-        )..LLVMBasicBlockRef.p("BasicBlocks", "")
-    )
+        IgnoreMissing..LLVMTailCallKind(
+            "GetTailCallKind",
 
-    LLVMBasicBlockRef(
-        "GetFirstBasicBlock",
-        """
-        Obtain the first basic block in a function.
+            LLVMValueRef("CallInst")
+        )
 
-        The returned basic block can be used as an iterator. You will likely eventually call into #GetNextBasicBlock() with it.
-        """,
+        IgnoreMissing..void(
+            "SetTailCallKind",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("CallInst"),
+            LLVMTailCallKind("kind")
+        )
 
-    LLVMBasicBlockRef(
-        "GetLastBasicBlock",
-        "Obtain the last basic block in a function.",
+        LLVMBasicBlockRef(
+            "GetNormalDest",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("InvokeInst")
+        )
 
-    LLVMBasicBlockRef(
-        "GetNextBasicBlock",
-        "Advance a basic block iterator.",
+        LLVMBasicBlockRef(
+            "GetUnwindDest",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("InvokeInst")
+        )
 
-    LLVMBasicBlockRef(
-        "GetPreviousBasicBlock",
-        "Go backwards in a basic block iterator.",
+        void(
+            "SetNormalDest",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("InvokeInst"),
+            LLVMBasicBlockRef("B")
+        )
 
-    LLVMBasicBlockRef(
-        "GetEntryBasicBlock",
-        "Obtain the basic block that corresponds to the entry point of a function.",
+        void(
+            "SetUnwindDest",
 
-        LLVMValueRef("Fn", "")
-    )
+            LLVMValueRef("InvokeInst"),
+            LLVMBasicBlockRef("B")
+        )
 
-    IgnoreMissing..void(
-        "InsertExistingBasicBlockAfterInsertBlock",
-        """
-        Insert the given basic block after the insertion point of the given builder.
+        IgnoreMissing..LLVMBasicBlockRef(
+            "GetCallBrDefaultDest",
 
-        The insertion point must be valid.
+            LLVMValueRef("CallBr")
+        )
 
-        See {@code llvm::Function::BasicBlockListType::insertAfter()}.        
-        """,
+        IgnoreMissing..unsigned(
+            "GetCallBrNumIndirectDests",
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMBasicBlockRef("BB", ""),
+            LLVMValueRef("CallBr")
+        )
 
-        since = "9"
-    )
+        IgnoreMissing..LLVMBasicBlockRef(
+            "GetCallBrIndirectDest",
 
-    IgnoreMissing..void(
-        "AppendExistingBasicBlock",
-        """
-        Append the given basic block to the basic block list of the given function.
+            LLVMValueRef("CallBr"),
+            unsigned("Idx")
+        )
 
-        See {@code llvm::Function::BasicBlockListType::push_back()}
-        """,
+        unsigned_int(
+            "GetNumSuccessors",
 
-        LLVMValueRef("Fn", ""),
-        LLVMBasicBlockRef("BB", ""),
+            LLVMValueRef("Term")
+        )
 
-        since = "9"
-    )
+        LLVMBasicBlockRef(
+            "GetSuccessor",
 
-    IgnoreMissing..LLVMBasicBlockRef(
-        "CreateBasicBlockInContext",
-        "Create a new basic block without inserting it into a function.",
+            LLVMValueRef("Term"),
+            unsigned_int("i")
+        )
 
-        LLVMContextRef("C", ""),
-        charUTF8.const.p("Name", ""),
+        void(
+            "SetSuccessor",
 
-        since = "8.0"
-    )
+            LLVMValueRef("Term"),
+            unsigned_int("i"),
+            LLVMBasicBlockRef("block")
+        )
 
-    LLVMBasicBlockRef(
-        "AppendBasicBlockInContext",
-        "Append a basic block to the end of a function.",
+        LLVMBool(
+            "IsConditional",
 
-        LLVMContextRef("C", ""),
-        LLVMValueRef("Fn", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMValueRef("Branch")
+        )
 
-    LLVMBasicBlockRef(
-        "AppendBasicBlock",
-        "Append a basic block to the end of a function using the global context.",
+        LLVMValueRef(
+            "GetCondition",
 
-        LLVMValueRef("Fn", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMValueRef("Branch")
+        )
 
-    LLVMBasicBlockRef(
-        "InsertBasicBlockInContext",
-        """
-        Insert a basic block in a function before another basic block.
+        void(
+            "SetCondition",
 
-        The function to add to is determined by the function of the passed basic block.
-        """,
+            LLVMValueRef("Branch"),
+            LLVMValueRef("Cond")
+        )
 
-        LLVMContextRef("C", ""),
-        LLVMBasicBlockRef("BB", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMBasicBlockRef(
+            "GetSwitchDefaultDest",
 
-    LLVMBasicBlockRef(
-        "InsertBasicBlock",
-        "Insert a basic block in a function using the global context.",
+            LLVMValueRef("SwitchInstr")
+        )
 
-        LLVMBasicBlockRef("InsertBeforeBB", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMTypeRef(
+            "GetAllocatedType",
 
-    void(
-        "DeleteBasicBlock",
-        """
-        Remove a basic block from a function and delete it.
+            LLVMValueRef("Alloca")
+        )
 
-        This deletes the basic block from its containing function and deletes the basic block itself.
-        """,
+        LLVMBool(
+            "IsInBounds",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("GEP")
+        )
 
-    void(
-        "RemoveBasicBlockFromParent",
-        """
-        Remove a basic block from a function.
+        void(
+            "SetIsInBounds",
 
-        This deletes the basic block from its containing function but keep the basic block alive.
-        """,
+            LLVMValueRef("GEP"),
+            LLVMBool("InBounds")
+        )
 
-        LLVMBasicBlockRef("BB", "")
-    )
+        IgnoreMissing..LLVMTypeRef(
+            "GetGEPSourceElementType",
 
-    void(
-        "MoveBasicBlockBefore",
-        "Move a basic block to before another one.",
+            LLVMValueRef("GEP")
+        )
 
-        LLVMBasicBlockRef("BB", ""),
-        LLVMBasicBlockRef("MovePos", "")
-    )
+        IgnoreMissing..LLVMGEPNoWrapFlags(
+            "GEPGetNoWrapFlags",
 
-    void(
-        "MoveBasicBlockAfter",
-        "Move a basic block to after another one.",
+            LLVMValueRef("GEP")
+        )
 
-        LLVMBasicBlockRef("BB", ""),
-        LLVMBasicBlockRef("MovePos", "")
-    )
+        IgnoreMissing..void(
+            "GEPSetNoWrapFlags",
 
-    LLVMValueRef(
-        "GetFirstInstruction",
-        """
-        Obtain the first instruction in a basic block.
+            LLVMValueRef("GEP"),
+            LLVMGEPNoWrapFlags("NoWrapFlags")
+        )
 
-        The returned {@code LLVMValueRef} corresponds to a {@code llvm::Instruction} instance.
-        """,
+        void(
+            "AddIncoming",
 
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMValueRef("PhiNode"),
+            LLVMValueRef.p("IncomingValues"),
+            LLVMBasicBlockRef.p("IncomingBlocks"),
+            AutoSize("IncomingValues", "IncomingBlocks")..unsigned_int("Count")
+        )
 
-    LLVMValueRef(
-        "GetLastInstruction",
-        """
-        Obtain the last instruction in a basic block.
+        unsigned_int(
+            "CountIncoming",
 
-        The returned {@code LLVMValueRef} corresponds to an {@code LLVM::Instruction}.
-        """,
+            LLVMValueRef("PhiNode")
+        )
 
-        LLVMBasicBlockRef("BB", "")
-    )
+        LLVMValueRef(
+            "GetIncomingValue",
 
-    intb(
-        "HasMetadata",
-        "Determine whether an instruction has any metadata attached.",
+            LLVMValueRef("PhiNode"),
+            unsigned_int("Index")
+        )
 
-        LLVMValueRef("Val", "")
-    )
+        LLVMBasicBlockRef(
+            "GetIncomingBlock",
 
-    LLVMValueRef(
-        "GetMetadata",
-        "Return metadata associated with an instruction value.",
+            LLVMValueRef("PhiNode"),
+            unsigned_int("Index")
+        )
 
-        LLVMValueRef("Val", ""),
-        unsigned_int("KindID", "")
-    )
+        unsigned_int(
+            "GetNumIndices",
 
-    void(
-        "SetMetadata",
-        "Set metadata associated with an instruction value.",
+            LLVMValueRef("Inst")
+        )
 
-        LLVMValueRef("Val", ""),
-        unsigned_int("KindID", ""),
-        LLVMValueRef("Node", "")
-    )
+        Nonnull..unsigned_int.const.p(
+            "GetIndices",
 
-    IgnoreMissing..LLVMValueMetadataEntry.p(
-        "InstructionGetAllMetadataOtherThanDebugLoc",
-        "Returns the metadata associated with an instruction value, but filters out all the debug locations.",
+            LLVMValueRef("Inst"),
+            AutoSizeResult..Virtual..unsigned_int("Count")
+        )
 
-        LLVMValueRef("Instr", ""),
-        Check(1)..size_t.p("NumEntries", "")
-    )
+        LLVMBuilderRef(
+            "CreateBuilderInContext",
 
-    LLVMBasicBlockRef(
-        "GetInstructionParent",
-        "Obtain the basic block to which an instruction belongs.",
+            LLVMContextRef("C")
+        )
+        LLVMBuilderRef("CreateBuilder", void())
 
-        LLVMValueRef("Inst", "")
-    )
+        void(
+            "PositionBuilder",
 
-    LLVMValueRef(
-        "GetNextInstruction",
-        """
-        Obtain the instruction that occurs after the one specified.
+            LLVMBuilderRef("Builder"),
+            LLVMBasicBlockRef("Block"),
+            nullable..LLVMValueRef("Instr")
+        )
 
-        The next instruction will be from the same basic block.
+        IgnoreMissing..void(
+            "PositionBuilderBeforeDbgRecords",
 
-        If this is the last instruction in a basic block, #NULL will be returned.
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMBasicBlockRef("Block"),
+            nullable..LLVMValueRef("Instr")
+        )
 
-        LLVMValueRef("Inst", "")
-    )
+        void(
+            "PositionBuilderBefore",
 
-    LLVMValueRef(
-        "GetPreviousInstruction",
-        """
-        Obtain the instruction that occurred before this one.
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Instr")
+        )
 
-        If the instruction is the first instruction in a basic block, #NULL will be returned.
-        """,
+        IgnoreMissing..void(
+            "PositionBuilderBeforeInstrAndDbgRecords",
 
-        LLVMValueRef("Inst", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Instr")
+        )
 
-    void(
-        "InstructionRemoveFromParent",
-        """
-        Remove an instruction.
+        void(
+            "PositionBuilderAtEnd",
 
-        The instruction specified is removed from its containing building block but is kept alive.
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMBasicBlockRef("Block")
+        )
 
-        LLVMValueRef("Inst", "")
-    )
+        LLVMBasicBlockRef(
+            "GetInsertBlock",
 
-    void(
-        "InstructionEraseFromParent",
-        """
-        Remove and delete an instruction.
+            LLVMBuilderRef("Builder")
+        )
 
-        The instruction specified is removed from its containing building block and then deleted.
-        """,
+        void(
+            "ClearInsertionPosition",
 
-        LLVMValueRef("Inst", "")
-    )
+            LLVMBuilderRef("Builder")
+        )
 
-    IgnoreMissing..void(
-        "DeleteInstruction",
-        """
-        Delete an instruction.
+        void(
+            "InsertIntoBuilder",
 
-        The instruction specified is deleted. It must have previously been removed from its containing building block.
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Instr")
+        )
 
-        LLVMValueRef("Inst", "")
-    )
+        void(
+            "InsertIntoBuilderWithName",
 
-    LLVMOpcode(
-        "GetInstructionOpcode",
-        "Obtain the code opcode for an individual instruction.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Instr"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("Inst", "")
-    )
+        void(
+            "DisposeBuilder",
 
-    LLVMIntPredicate(
-        "GetICmpPredicate",
-        """
-        Obtain the predicate of an instruction.
+            LLVMBuilderRef("Builder")
+        )
 
-        This is only valid for instructions that correspond to {@code llvm::ICmpInst} or {@code llvm::ConstantExpr} whose opcode is
-        {@code llvm::Instruction::ICmp}.
-        """,
+        IgnoreMissing..LLVMMetadataRef(
+            "GetCurrentDebugLocation2",
 
-        LLVMValueRef("Inst", "")
-    )
+            LLVMBuilderRef("Builder")
+        )
 
-    LLVMRealPredicate(
-        "GetFCmpPredicate",
-        """
-        Obtain the float predicate of an instruction.
+        IgnoreMissing..void(
+            "SetCurrentDebugLocation2",
 
-        This is only valid for instructions that correspond to {@code llvm::FCmpInst} or {@code llvm::ConstantExpr} whose opcode is
-        {@code llvm::Instruction::FCmp}.
-        """,
+            LLVMBuilderRef("Builder"),
+            nullable..LLVMMetadataRef("Loc")
+        )
 
-        LLVMValueRef("Inst", "")
-    )
+        IgnoreMissing..void(
+            "SetInstDebugLocation",
 
-    LLVMValueRef(
-        "InstructionClone",
-        """
-        Create a copy of 'this' instruction that is identical in all ways except the following:
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Inst")
+        )
 
-        ${ul(
-            "The instruction has no parent",
-            "The instruction has no name"
-        )}
-        """,
+        IgnoreMissing..void(
+            "AddMetadataToInst",
 
-        LLVMValueRef("Inst", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Inst")
+        )
 
-    LLVMValueRef(
-        "IsATerminatorInst",
-        """
-        Determine whether an instruction is a terminator. This routine is named to be compatible with historical functions that did this by querying the
-        underlying C++ type.
-        """,
+        IgnoreMissing..LLVMMetadataRef(
+            "BuilderGetDefaultFPMathTag",
 
-        LLVMValueRef("Inst", "")
-    )
+            LLVMBuilderRef("Builder")
+        )
 
-    unsigned_int(
-        "GetNumArgOperands",
-        """
-        Obtain the argument count for a call instruction.
+        IgnoreMissing..void(
+            "BuilderSetDefaultFPMathTag",
 
-        This expects an {@code LLVMValueRef} that corresponds to a {@code llvm::CallInst}, {@code llvm::InvokeInst}, or {@code llvm::FuncletPadInst}.
-        """,
+            LLVMBuilderRef("Builder"),
+            nullable..LLVMMetadataRef("FPMathTag")
+        )
 
-        LLVMValueRef("Instr", "")
-    )
+        IgnoreMissing..LLVMContextRef(
+            "GetBuilderContext",
 
-    void(
-        "SetInstructionCallConv",
-        """
-        Set the calling convention for a call instruction.
+            LLVMBuilderRef("Builder")
+        )
 
-        This expects an {@code LLVMValueRef} that corresponds to a {@code llvm::CallInst} or {@code llvm::InvokeInst}.
-        """,
+        void(
+            "SetCurrentDebugLocation",
 
-        LLVMValueRef("Instr", ""),
-        unsigned_int("CC", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("L")
+        )
 
-    unsigned_int(
-        "GetInstructionCallConv",
-        """
-        Obtain the calling convention for a call instruction.
+        LLVMValueRef(
+            "GetCurrentDebugLocation",
 
-        This is the opposite of #SetInstructionCallConv(). Reads its usage.
-        """,
+            LLVMBuilderRef("Builder")
+        )
 
-        LLVMValueRef("Instr", "")
-    )
+        LLVMValueRef(
+            "BuildRetVoid",
 
-    void(
-        "SetInstrParamAlignment",
-        "",
+            LLVMBuilderRef("Builder")
+        )
 
-        LLVMValueRef("Instr", ""),
-        LLVMAttributeIndex("index", ""),
-        unsigned_int("Align", "")
-    )
+        LLVMValueRef(
+            "BuildRet",
 
-    void(
-        "AddCallSiteAttribute",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("V")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", ""),
-        LLVMAttributeRef("A", "")
-    )
+        LLVMValueRef(
+            "BuildAggregateRet",
 
-    unsigned_int(
-        "GetCallSiteAttributeCount",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef.p("RetVals"),
+            AutoSize("RetVals")..unsigned_int("N")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", "")
-    )
+        LLVMValueRef(
+            "BuildBr",
 
-    void(
-        "GetCallSiteAttributes",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMBasicBlockRef("Dest")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", ""),
-        Check(
-            "LLVMGetCallSiteAttributeCount(C, Idx)", debug = true
-        )..LLVMAttributeRef.p("Attrs", "")
-    )
+        LLVMValueRef(
+            "BuildCondBr",
 
-    LLVMAttributeRef(
-        "GetCallSiteEnumAttribute",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("If"),
+            LLVMBasicBlockRef("Then"),
+            LLVMBasicBlockRef("Else")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", ""),
-        unsigned_int("KindID", "")
-    )
+        LLVMValueRef(
+            "BuildSwitch",
 
-    LLVMAttributeRef(
-        "GetCallSiteStringAttribute",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("V"),
+            LLVMBasicBlockRef("Else"),
+            unsigned_int("NumCases")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", ""),
-        charUTF8.const.p("K", ""),
-        AutoSize("K")..unsigned_int("KLen", "")
-    )
+        LLVMValueRef(
+            "BuildIndirectBr",
 
-    void(
-        "RemoveCallSiteEnumAttribute",
-        "",
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Addr"),
+            unsigned_int("NumDests")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", ""),
-        unsigned_int("KindID", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "BuildCallBr",
 
-    void(
-        "RemoveCallSiteStringAttribute",
-        "",
+            LLVMBuilderRef("B"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Fn"),
+            LLVMBasicBlockRef("DefaultDest"),
+            LLVMBasicBlockRef.p("IndirectDests"),
+            AutoSize("IndirectDests")..unsigned("NumIndirectDests"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned("NumArgs"),
+            LLVMOperandBundleRef.p("Bundles"),
+            AutoSize("Bundles")..unsigned("NumBundles"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("C", ""),
-        LLVMAttributeIndex("Idx", ""),
-        charUTF8.const.p("K", ""),
-        AutoSize("K")..unsigned_int("KLen", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "BuildInvoke",
 
-    IgnoreMissing..LLVMTypeRef(
-        "GetCalledFunctionType",
-        "Obtain the function type called by this instruction.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Fn"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            LLVMBasicBlockRef("Then"),
+            LLVMBasicBlockRef("Catch"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("C", ""),
+        IgnoreMissing..LLVMValueRef(
+            "BuildInvoke2",
 
-        since = "8.0"
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Fn"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            LLVMBasicBlockRef("Then"),
+            LLVMBasicBlockRef("Catch"),
+            charUTF8.const.p("Name")
+        )
 
-    LLVMValueRef(
-        "GetCalledValue",
-        """
-        Obtain the pointer to the function invoked by this instruction.
+        IgnoreMissing..LLVMValueRef(
+            "BuildInvokeWithOperandBundles",
 
-        This expects an {@code LLVMValueRef} that corresponds to a {@code llvm::CallInst} or {@code llvm::InvokeInst}.
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Fn"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned("NumArgs"),
+            LLVMBasicBlockRef("Then"),
+            LLVMBasicBlockRef("Catch"),
+            LLVMOperandBundleRef.p("Bundles"),
+            AutoSize("Bundles")..unsigned("NumBundles"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("Instr", "")
-    )
+        LLVMValueRef(
+            "BuildUnreachable",
 
-    LLVMBool(
-        "IsTailCall",
-        """
-        Obtain whether a call instruction is a tail call.
+            LLVMBuilderRef("Builder")
+        )
 
-        This only works on {@code llvm::CallInst} instructions.
-        """,
+        LLVMValueRef(
+            "BuildResume",
 
-        LLVMValueRef("CallInst", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Exn")
+        )
 
-    void(
-        "SetTailCall",
-        """
-        Set whether a call instruction is a tail call.
+        LLVMValueRef(
+            "BuildLandingPad",
 
-        This only works on {@code llvm::CallInst} instructions.
-        """,
+            LLVMBuilderRef("B"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("PersFn"),
+            unsigned_int("NumClauses"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("CallInst", ""),
-        LLVMBool("IsTailCall", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "BuildCleanupRet",
 
-    LLVMBasicBlockRef(
-        "GetNormalDest",
-        """
-        Return the normal destination basic block.
+            LLVMBuilderRef("B"),
+            LLVMValueRef("CatchPad"),
+            LLVMBasicBlockRef("BB")
+        )
 
-        This only works on {@code llvm::InvokeInst} instructions.
-        """,
+        IgnoreMissing..LLVMValueRef(
+            "BuildCatchRet",
 
-        LLVMValueRef("InvokeInst", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("CatchPad"),
+            LLVMBasicBlockRef("BB")
+        )
 
-    LLVMBasicBlockRef(
-        "GetUnwindDest",
-        """
-        Return the unwind destination basic block.
+        IgnoreMissing..LLVMValueRef(
+            "BuildCatchPad",
 
-        Works on {@code llvm::InvokeInst}, {@code llvm::CleanupReturnInst}, and {@code llvm::CatchSwitchInst} instructions.
-        """,
+            LLVMBuilderRef("B"),
+            LLVMValueRef("ParentPad"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("InvokeInst", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "BuildCleanupPad",
 
-    void(
-        "SetNormalDest",
-        """
-        Set the normal destination basic block.
+            LLVMBuilderRef("B"),
+            LLVMValueRef("ParentPad"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            charUTF8.const.p("Name")
+        )
 
-        This only works on {@code llvm::InvokeInst} instructions.
-        """,
+        IgnoreMissing..LLVMValueRef(
+            "BuildCatchSwitch",
 
-        LLVMValueRef("InvokeInst", ""),
-        LLVMBasicBlockRef("B", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("ParentPad"),
+            LLVMBasicBlockRef("UnwindBB"),
+            unsigned_int("NumHandlers"),
+            charUTF8.const.p("Name")
+        )
 
-    void(
-        "SetUnwindDest",
-        """
-        Set the unwind destination basic block.
+        void(
+            "AddCase",
 
-        Works on {@code llvm::InvokeInst}, {@code llvm::CleanupReturnInst}, and {@code llvm::CatchSwitchInst} instructions.
-        """,
+            LLVMValueRef("Switch"),
+            LLVMValueRef("OnVal"),
+            LLVMBasicBlockRef("Dest")
+        )
 
-        LLVMValueRef("InvokeInst", ""),
-        LLVMBasicBlockRef("B", "")
-    )
+        void(
+            "AddDestination",
 
-    unsigned_int(
-        "GetNumSuccessors",
-        "Return the number of successors that this terminator has.",
+            LLVMValueRef("IndirectBr"),
+            LLVMBasicBlockRef("Dest")
+        )
 
-        LLVMValueRef("Term", "")
-    )
+        unsigned_int(
+            "GetNumClauses",
 
-    LLVMBasicBlockRef(
-        "GetSuccessor",
-        "Return the specified successor.",
+            LLVMValueRef("LandingPad")
+        )
 
-        LLVMValueRef("Term", ""),
-        unsigned_int("i", "")
-    )
+        LLVMValueRef(
+            "GetClause",
 
-    void(
-        "SetSuccessor",
-        "Update the specified successor to point at the provided block.",
+            LLVMValueRef("LandingPad"),
+            unsigned_int("Idx")
+        )
 
-        LLVMValueRef("Term", ""),
-        unsigned_int("i", ""),
-        LLVMBasicBlockRef("block", "")
-    )
+        void(
+            "AddClause",
 
-    LLVMBool(
-        "IsConditional",
-        """
-        Return if a branch is conditional.
+            LLVMValueRef("LandingPad"),
+            LLVMValueRef("ClauseVal")
+        )
 
-        This only works on {@code llvm::BranchInst} instructions.
-        """,
+        LLVMBool(
+            "IsCleanup",
 
-        LLVMValueRef("Branch", "")
-    )
+            LLVMValueRef("LandingPad")
+        )
 
-    LLVMValueRef(
-        "GetCondition",
-        """
-        Return the condition of a branch instruction.
+        void(
+            "SetCleanup",
 
-        This only works on {@code llvm::BranchInst} instructions.
-        """,
+            LLVMValueRef("LandingPad"),
+            LLVMBool("Val")
+        )
 
-        LLVMValueRef("Branch", "")
-    )
+        IgnoreMissing..void(
+            "AddHandler",
 
-    void(
-        "SetCondition",
-        """
-        Set the condition of a branch instruction.
+            LLVMValueRef("CatchSwitch"),
+            LLVMBasicBlockRef("Dest")
+        )
 
-        This only works on {@code llvm::BranchInst} instructions.
-        """,
+        IgnoreMissing..unsigned_int(
+            "GetNumHandlers",
 
-        LLVMValueRef("Branch", ""),
-        LLVMValueRef("Cond", "")
-    )
+            LLVMValueRef("CatchSwitch")
+        )
 
-    LLVMBasicBlockRef(
-        "GetSwitchDefaultDest",
-        """
-        Obtain the default destination basic block of a switch instruction.
+        IgnoreMissing..void(
+            "GetHandlers",
 
-        This only works on {@code llvm::SwitchInst} instructions.
-        """,
+            LLVMValueRef("CatchSwitch"),
+            Check(
+                "LLVMGetNumHandlers(CatchSwitch)", debug = true
+            )..LLVMBasicBlockRef.p("Handlers")
+        )
 
-        LLVMValueRef("SwitchInstr", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetArgOperand",
 
-    LLVMTypeRef(
-        "GetAllocatedType",
-        "Obtain the type that is being allocated by the {@code alloca} instruction.",
+            LLVMValueRef("Funclet"),
+            unsigned_int("i")
+        )
 
-        LLVMValueRef("Alloca", "")
-    )
+        IgnoreMissing..void(
+            "SetArgOperand",
 
-    LLVMBool(
-        "IsInBounds",
-        "Check whether the given {@code GEP} operator is inbounds.",
+            LLVMValueRef("Funclet"),
+            unsigned_int("i"),
+            LLVMValueRef("value")
+        )
 
-        LLVMValueRef("GEP", "")
-    )
+        IgnoreMissing..LLVMValueRef(
+            "GetParentCatchSwitch",
 
-    void(
-        "SetIsInBounds",
-        "Set the given {@code GEP} instruction to be inbounds or not.",
+            LLVMValueRef("CatchPad")
+        )
 
-        LLVMValueRef("GEP", ""),
-        LLVMBool("InBounds", "")
-    )
+        IgnoreMissing..void(
+            "SetParentCatchSwitch",
 
-    IgnoreMissing..LLVMTypeRef(
-        "GetGEPSourceElementType",
-        "Get the source element type of the given GEP operator.",
+            LLVMValueRef("CatchPad"),
+            LLVMValueRef("CatchSwitch")
+        )
 
-        LLVMValueRef("GEP", "")
-    )
+        LLVMValueRef(
+            "BuildAdd",
 
-    void(
-        "AddIncoming",
-        "Add an incoming value to the end of a PHI list.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("PhiNode", ""),
-        LLVMValueRef.p("IncomingValues", ""),
-        LLVMBasicBlockRef.p("IncomingBlocks", ""),
-        AutoSize("IncomingValues", "IncomingBlocks")..unsigned_int("Count", "")
-    )
+        LLVMValueRef(
+            "BuildNSWAdd",
 
-    unsigned_int(
-        "CountIncoming",
-        "Obtain the number of incoming basic blocks to a PHI node.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("PhiNode", "")
-    )
+        LLVMValueRef(
+            "BuildNUWAdd",
 
-    LLVMValueRef(
-        "GetIncomingValue",
-        "Obtain an incoming value to a PHI node as an {@code LLVMValueRef}.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("PhiNode", ""),
-        unsigned_int("Index", "")
-    )
+        LLVMValueRef(
+            "BuildFAdd",
 
-    LLVMBasicBlockRef(
-        "GetIncomingBlock",
-        "Obtain an incoming value to a PHI node as an {@code LLVMBasicBlockRef}.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("PhiNode", ""),
-        unsigned_int("Index", "")
-    )
+        LLVMValueRef(
+            "BuildSub",
 
-    unsigned_int(
-        "GetNumIndices",
-        "Obtain the number of indices. NB: This also works on {@code GEP} operators.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("Inst", "")
-    )
+        LLVMValueRef(
+            "BuildNSWSub",
 
-    Nonnull..unsigned_int.const.p(
-        "GetIndices",
-        "Obtain the indices as an array.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("Inst", ""),
-        AutoSizeResult..Virtual..unsigned_int("Count", "LWJGL: virtual parameter, should pass #GetNumIndices()")
-    )
+        LLVMValueRef(
+            "BuildNUWSub",
 
-    LLVMBuilderRef(
-        "CreateBuilderInContext",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMContextRef("C", "")
-    )
-    LLVMBuilderRef("CreateBuilder", "", void())
+        LLVMValueRef(
+            "BuildFSub",
 
-    void(
-        "PositionBuilder",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMBasicBlockRef("Block", ""),
-        LLVMValueRef("Instr", "")
-    )
+        LLVMValueRef(
+            "BuildMul",
 
-    void(
-        "PositionBuilderBefore",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Instr", "")
-    )
+        LLVMValueRef(
+            "BuildNSWMul",
 
-    void(
-        "PositionBuilderAtEnd",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMBasicBlockRef("Block", "")
-    )
+        LLVMValueRef(
+            "BuildNUWMul",
 
-    LLVMBasicBlockRef(
-        "GetInsertBlock",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", "")
-    )
+        LLVMValueRef(
+            "BuildFMul",
 
-    void(
-        "ClearInsertionPosition",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", "")
-    )
+        LLVMValueRef(
+            "BuildUDiv",
 
-    void(
-        "InsertIntoBuilder",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Instr", "")
-    )
+        LLVMValueRef(
+            "BuildExactUDiv",
 
-    void(
-        "InsertIntoBuilderWithName",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Instr", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildSDiv",
 
-    void(
-        "DisposeBuilder",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", "")
-    )
+        LLVMValueRef(
+            "BuildExactSDiv",
 
-    IgnoreMissing..LLVMMetadataRef(
-        "GetCurrentDebugLocation2",
-        """
-        Get location information used by debugging information.
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        See {@code llvm::IRBuilder::getCurrentDebugLocation()}.
-        """,
+        LLVMValueRef(
+            "BuildFDiv",
 
-        LLVMBuilderRef("Builder", ""),
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        since = "9"
-    )
+        LLVMValueRef(
+            "BuildURem",
 
-    IgnoreMissing..void(
-        "SetCurrentDebugLocation2",
-        """
-        Set location information used by debugging information.
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        To clear the location metadata of the given instruction, pass #NULL to {@code Loc}.
+        LLVMValueRef(
+            "BuildSRem",
 
-        See {@code llvm::IRBuilder::SetCurrentDebugLocation()}.
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        nullable..LLVMMetadataRef("Loc", ""),
+        LLVMValueRef(
+            "BuildFRem",
 
-        since = "9"
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..void(
-        "SetInstDebugLocation",
-        """
-        Attempts to set the debug location for the given instruction using the current debug location for the given builder. If the builder has no current
-        debug location, this function is a no-op.
+        LLVMValueRef(
+            "BuildShl",
 
-        Deprecated in favor of the more general #AddMetadataToInst().
- 
-        See {@code llvm::IRBuilder::SetInstDebugLocation()}.
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Inst", ""),
+        LLVMValueRef(
+            "BuildLShr",
 
-        since = "9"
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..void(
-        "AddMetadataToInst",
-        "Adds the metadata registered with the given builder to the given instruction.",
+        LLVMValueRef(
+            "BuildAShr",
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Inst", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..LLVMMetadataRef(
-        "BuilderGetDefaultFPMathTag",
-        """
-        Get the default floating-point math metadata for a given builder.
+        LLVMValueRef(
+            "BuildAnd",
 
-        See {@code llvm::IRBuilder::getDefaultFPMathTag()}
-        """,
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
+        LLVMValueRef(
+            "BuildOr",
 
-        since = "9"
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..void(
-        "BuilderSetDefaultFPMathTag",
-        """
-        Set the default floating-point math metadata for the given builder.
+        LLVMValueRef(
+            "BuildXor",
 
-        To clear the metadata, pass #NULL to {@code FPMathTag}.
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        See {@code llvm::IRBuilder::setDefaultFPMathTag()}.
-        """,
+        LLVMValueRef(
+            "BuildBinOp",
 
-        LLVMBuilderRef("Builder", ""),
-        nullable..LLVMMetadataRef("FPMathTag", ""),
+            LLVMBuilderRef("B"),
+            LLVMOpcode("Op"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
 
-        since = "9"
-    )
+        LLVMValueRef(
+            "BuildNeg",
 
-    void(
-        "SetCurrentDebugLocation",
-        "Deprecated: Passing the #NULL location will crash. Use #SetCurrentDebugLocation2() instead.",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("V"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("L", "")
-    )
+        LLVMValueRef(
+            "BuildNSWNeg",
 
-    LLVMValueRef(
-        "GetCurrentDebugLocation",
-        "Deprecated: Returning the #NULL location will crash. Use #GetCurrentDebugLocation2() instead.",
+            LLVMBuilderRef("B"),
+            LLVMValueRef("V"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", "")
-    )
+        LLVMValueRef(
+            "BuildNUWNeg",
 
-    LLVMValueRef(
-        "BuildRetVoid",
-        "Terminators",
+            LLVMBuilderRef("B"),
+            LLVMValueRef("V"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", "")
-    )
+        LLVMValueRef(
+            "BuildFNeg",
 
-    LLVMValueRef(
-        "BuildRet",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("V"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("V", "")
-    )
+        LLVMBool("GetNUW", LLVMValueRef("ArithInst"))
+        void("SetNUW", LLVMValueRef("ArithInst"), LLVMBool("HasNUW"))
+        LLVMBool("GetNSW", LLVMValueRef("ArithInst"))
+        void("SetNSW", LLVMValueRef("ArithInst"), LLVMBool("HasNSW"))
+        LLVMBool("GetExact", LLVMValueRef("DivOrShrInst"))
+        void("SetExact", LLVMValueRef("DivOrShrInst"), LLVMBool("IsExact"))
 
-    LLVMValueRef(
-        "BuildAggregateRet",
-        "",
+        IgnoreMissing..LLVMBool(
+            "GetNNeg",
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef.p("RetVals", ""),
-        AutoSize("RetVals")..unsigned_int("N", "")
-    )
+            LLVMValueRef("NonNegInst")
+        )
+        IgnoreMissing..void(
+            "SetNNeg",
 
-    LLVMValueRef(
-        "BuildBr",
-        "",
+            LLVMValueRef("NonNegInst"),
+            LLVMBool("IsNonNeg")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMBasicBlockRef("Dest", "")
-    )
+        IgnoreMissing..LLVMFastMathFlags(
+            "GetFastMathFlags",
 
-    LLVMValueRef(
-        "BuildCondBr",
-        "",
+            LLVMValueRef("FPMathInst")
+        )
+        IgnoreMissing..void(
+            "SetFastMathFlags",
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("If", ""),
-        LLVMBasicBlockRef("Then", ""),
-        LLVMBasicBlockRef("Else", "")
-    )
+            LLVMValueRef("FPMathInst"),
+            LLVMFastMathFlags("FMF")
+        )
 
-    LLVMValueRef(
-        "BuildSwitch",
-        "",
+        IgnoreMissing..LLVMBool(
+            "CanValueUseFastMathFlags",
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("V", ""),
-        LLVMBasicBlockRef("Else", ""),
-        unsigned_int("NumCases", "")
-    )
+            LLVMValueRef("Inst")
+        )
 
-    LLVMValueRef(
-        "BuildIndirectBr",
-        "",
+        IgnoreMissing..LLVMBool(
+            "GetIsDisjoint",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Addr", ""),
-        unsigned_int("NumDests", "")
-    )
+            LLVMValueRef("Inst")
+        )
+        IgnoreMissing..void(
+            "SetIsDisjoint",
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildInvoke",
-        "",
+            LLVMValueRef("Inst"),
+            LLVMBool("IsDisjoint")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Fn", ""),
-        LLVMValueRef.p("Args", ""),
-        AutoSize("Args")..unsigned_int("NumArgs", ""),
-        LLVMBasicBlockRef("Then", ""),
-        LLVMBasicBlockRef("Catch", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildNot",
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildInvoke2",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("V"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Fn", ""),
-        LLVMValueRef.p("Args", ""),
-        AutoSize("Args")..unsigned_int("NumArgs", ""),
-        LLVMBasicBlockRef("Then", ""),
-        LLVMBasicBlockRef("Catch", ""),
-        charUTF8.const.p("Name", ""),
+        LLVMValueRef(
+            "BuildMalloc",
 
-        since = "8.0"
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("Name")
+        )
 
-    LLVMValueRef(
-        "BuildUnreachable",
-        "",
+        LLVMValueRef(
+            "BuildArrayMalloc",
 
-        LLVMBuilderRef("Builder", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name")
+        )
 
-    LLVMValueRef(
-        "BuildResume",
-        "Exception Handling",
+        IgnoreMissing..LLVMValueRef(
+            "BuildMemSet",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Exn", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Ptr"),
+            LLVMValueRef("Val"),
+            LLVMValueRef("Len"),
+            unsigned("Align")
+        )
 
-    LLVMValueRef(
-        "BuildLandingPad",
-        "",
+        IgnoreMissing..LLVMValueRef(
+            "BuildMemCpy",
 
-        LLVMBuilderRef("B", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("PersFn", ""),
-        unsigned_int("NumClauses", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Dst"),
+            unsigned("DstAlign"),
+            LLVMValueRef("Src"),
+            unsigned("SrcAlign"),
+            LLVMValueRef("Size")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildCleanupRet",
-        "",
+        IgnoreMissing..LLVMValueRef(
+            "BuildMemMove",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("CatchPad", ""),
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Dst"),
+            unsigned("DstAlign"),
+            LLVMValueRef("Src"),
+            unsigned("SrcAlign"),
+            LLVMValueRef("Size")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildCatchRet",
-        "",
+        LLVMValueRef(
+            "BuildAlloca",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("CatchPad", ""),
-        LLVMBasicBlockRef("BB", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildCatchPad",
-        "",
+        LLVMValueRef(
+            "BuildArrayAlloca",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("ParentPad", ""),
-        LLVMValueRef.p("Args", ""),
-        AutoSize("Args")..unsigned_int("NumArgs", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildCleanupPad",
-        "",
+        LLVMValueRef(
+            "BuildFree",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("ParentPad", ""),
-        LLVMValueRef.p("Args", ""),
-        AutoSize("Args")..unsigned_int("NumArgs", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("PointerVal")
+        )
 
-    IgnoreMissing..LLVMValueRef(
-        "BuildCatchSwitch",
-        "",
+        IgnoreMissing..LLVMValueRef(
+            "BuildLoad",
 
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("ParentPad", ""),
-        LLVMBasicBlockRef("UnwindBB", ""),
-        unsigned_int("NumHandlers", ""),
-        charUTF8.const.p("Name", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("PointerVal"),
+            charUTF8.const.p("Name")
+        )
 
-    void(
-        "AddCase",
-        "Add a case to the {@code switch} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildLoad2",
 
-        LLVMValueRef("Switch", ""),
-        LLVMValueRef("OnVal", ""),
-        LLVMBasicBlockRef("Dest", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("PointerVal"),
+            charUTF8.const.p("Name")
+        )
 
-    void(
-        "AddDestination",
-        "Add a destination to the {@code indirectbr} instruction",
+        LLVMValueRef(
+            "BuildStore",
 
-        LLVMValueRef("IndirectBr", ""),
-        LLVMBasicBlockRef("Dest", "")
-    )
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMValueRef("Ptr")
+        )
 
-    unsigned_int(
-        "GetNumClauses",
-        "Get the number of clauses on the {@code landingpad} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildGEP",
 
-        LLVMValueRef("LandingPad", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Pointer"),
+            LLVMValueRef.p("Indices"),
+            AutoSize("Indices")..unsigned_int("NumIndices"),
+            charUTF8.const.p("Name")
+        )
 
-    LLVMValueRef(
-        "GetClause",
-        "Get the value of the clause at index {@code Idx} on the {@code landingpad} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildInBoundsGEP",
 
-        LLVMValueRef("LandingPad", ""),
-        unsigned_int("Idx", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Pointer"),
+            LLVMValueRef.p("Indices"),
+            AutoSize("Indices")..unsigned_int("NumIndices"),
+            charUTF8.const.p("Name")
+        )
 
-    void(
-        "AddClause",
-        "Add a {@code catch} or {@code filter} clause to the {@code landingpad} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildStructGEP",
 
-        LLVMValueRef("LandingPad", ""),
-        LLVMValueRef("ClauseVal", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Pointer"),
+            unsigned_int("Idx"),
+            charUTF8.const.p("Name")
+        )
 
-    LLVMBool(
-        "IsCleanup",
-        "Get the 'cleanup' flag in the {@code landingpad} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildGEP2",
 
-        LLVMValueRef("LandingPad", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Pointer"),
+            LLVMValueRef.p("Indices"),
+            AutoSize("Indices")..unsigned_int("NumIndices"),
+            charUTF8.const.p("Name")
+        )
 
-    void(
-        "SetCleanup",
-        "Set the 'cleanup' flag in the {@code landingpad} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildInBoundsGEP2",
 
-        LLVMValueRef("LandingPad", ""),
-        LLVMBool("Val", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Pointer"),
+            LLVMValueRef.p("Indices"),
+            AutoSize("Indices")..unsigned_int("NumIndices"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..void(
-        "AddHandler",
-        "Add a destination to the {@code catchswitch} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildGEPWithNoWrapFlags",
 
-        LLVMValueRef("CatchSwitch", ""),
-        LLVMBasicBlockRef("Dest", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Pointer"),
+            LLVMValueRef.p("Indices"),
+            AutoSize("Indices")..unsigned("NumIndices"),
+            charUTF8.const.p("Name"),
+            LLVMGEPNoWrapFlags("NoWrapFlags")
+        )
 
-    IgnoreMissing..unsigned_int(
-        "GetNumHandlers",
-        "Get the number of handlers on the {@code catchswitch} instruction",
+        IgnoreMissing..LLVMValueRef(
+            "BuildStructGEP2",
 
-        LLVMValueRef("CatchSwitch", "")
-    )
+            LLVMBuilderRef("B"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Pointer"),
+            unsigned_int("Idx"),
+            charUTF8.const.p("Name")
+        )
 
-    IgnoreMissing..void(
-        "GetHandlers",
-        """
-        Obtain the basic blocks acting as handlers for a {@code catchswitch} instruction.
+        LLVMValueRef(
+            "BuildGlobalString",
 
-        The {@code Handlers} parameter should point to a pre-allocated array of {@code LLVMBasicBlockRefs} at least #GetNumHandlers() large. On return, the
-        first {@code LLVMGetNumHandlers()} entries in the array will be populated with {@code LLVMBasicBlockRef} instances.
-        """,
+            LLVMBuilderRef("B"),
+            charUTF8.const.p("Str"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("CatchSwitch", "the {@code catchswitch} instruction to operate on"),
-        Check(
-            "LLVMGetNumHandlers(CatchSwitch)", debug = true
-        )..LLVMBasicBlockRef.p("Handlers", "memory address of an array to be filled with basic blocks")
-    )
+        LLVMValueRef(
+            "BuildGlobalStringPtr",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetArgOperand",
-        "Get the number of {@code funcletpad} arguments.",
+            LLVMBuilderRef("B"),
+            charUTF8.const.p("Str"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMValueRef("Funclet", ""),
-        unsigned_int("i", "")
-    )
+        LLVMBool(
+            "GetVolatile",
 
-    IgnoreMissing..void(
-        "SetArgOperand",
-        "Set a {@code funcletpad} argument at the given index.",
+            LLVMValueRef("MemoryAccessInst")
+        )
 
-        LLVMValueRef("Funclet", ""),
-        unsigned_int("i", ""),
-        LLVMValueRef("value", "")
-    )
+        void(
+            "SetVolatile",
 
-    IgnoreMissing..LLVMValueRef(
-        "GetParentCatchSwitch",
-        """
-        Get the parent {@code catchswitch} instruction of a {@code catchpad} instruction.
+            LLVMValueRef("MemoryAccessInst"),
+            LLVMBool("IsVolatile")
+        )
 
-        This only works on {@code llvm::CatchPadInst} instructions.
-        """,
+        IgnoreMissing..LLVMBool(
+            "GetWeak",
 
-        LLVMValueRef("CatchPad", "")
-    )
+            LLVMValueRef("CmpXchgInst")
+        )
 
-    IgnoreMissing..void(
-        "SetParentCatchSwitch",
-        """
-        Set the parent {@code catchswitch} instruction of a {@code catchpad} instruction.
+        IgnoreMissing..void(
+            "SetWeak",
 
-        This only works on {@code llvm::CatchPadInst} instructions.
-        """,
+            LLVMValueRef("CmpXchgInst"),
+            LLVMBool("IsWeak")
+        )
 
-        LLVMValueRef("CatchPad", ""),
-        LLVMValueRef("CatchSwitch", "")
-    )
+        LLVMAtomicOrdering(
+            "GetOrdering",
 
-    LLVMValueRef(
-        "BuildAdd",
-        "Arithmetic",
+            LLVMValueRef("MemoryAccessInst")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        IgnoreMissing..void(
+            "SetOrdering",
 
-    LLVMValueRef(
-        "BuildNSWAdd",
-        "",
+            LLVMValueRef("MemoryAccessInst"),
+            LLVMAtomicOrdering("Ordering")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        IgnoreMissing..LLVMAtomicRMWBinOp(
+            "GetAtomicRMWBinOp",
 
-    LLVMValueRef(
-        "BuildNUWAdd",
-        "",
+            LLVMValueRef("AtomicRMWInst")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        IgnoreMissing..void(
+            "SetAtomicRMWBinOp",
 
-    LLVMValueRef(
-        "BuildFAdd",
-        "",
+            LLVMValueRef("AtomicRMWInst"),
+            LLVMAtomicRMWBinOp("BinOp")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildTrunc",
 
-    LLVMValueRef(
-        "BuildSub",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildZExt",
 
-    LLVMValueRef(
-        "BuildNSWSub",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildSExt",
 
-    LLVMValueRef(
-        "BuildNUWSub",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildFPToUI",
 
-    LLVMValueRef(
-        "BuildFSub",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildFPToSI",
 
-    LLVMValueRef(
-        "BuildMul",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildUIToFP",
 
-    LLVMValueRef(
-        "BuildNSWMul",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildSIToFP",
 
-    LLVMValueRef(
-        "BuildNUWMul",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildFPTrunc",
 
-    LLVMValueRef(
-        "BuildFMul",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildFPExt",
 
-    LLVMValueRef(
-        "BuildUDiv",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildPtrToInt",
 
-    LLVMValueRef(
-        "BuildExactUDiv",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildIntToPtr",
 
-    LLVMValueRef(
-        "BuildSDiv",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildBitCast",
 
-    LLVMValueRef(
-        "BuildExactSDiv",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildAddrSpaceCast",
 
-    LLVMValueRef(
-        "BuildFDiv",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildZExtOrBitCast",
 
-    LLVMValueRef(
-        "BuildURem",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildSExtOrBitCast",
 
-    LLVMValueRef(
-        "BuildSRem",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildTruncOrBitCast",
 
-    LLVMValueRef(
-        "BuildFRem",
-        "",
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
+        LLVMValueRef(
+            "BuildCast",
 
-    LLVMValueRef(
-        "BuildShl",
-        "",
+            LLVMBuilderRef("B"),
+            LLVMOpcode("Op"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
 
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildLShr",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildAShr",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildAnd",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildOr",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildXor",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildBinOp",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMOpcode("Op", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildNeg",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("V", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildNSWNeg",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("V", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildNUWNeg",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("V", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFNeg",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("V", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildNot",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("V", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildMalloc",
-        "Memory",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildArrayMalloc",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildMemSet",
-        "Creates and inserts a memset to the specified pointer and the specified value.",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Ptr", ""),
-        LLVMValueRef("Val", ""),
-        LLVMValueRef("Len", ""),
-        unsigned("Align", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildMemCpy",
-        "Creates and inserts a memcpy between the specified pointers.",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Dst", ""),
-        unsigned("DstAlign", ""),
-        LLVMValueRef("Src", ""),
-        unsigned("SrcAlign", ""),
-        LLVMValueRef("Size", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildMemMove",
-        "Creates and inserts a memmove between the specified pointers.",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Dst", ""),
-        unsigned("DstAlign", ""),
-        LLVMValueRef("Src", ""),
-        unsigned("SrcAlign", ""),
-        LLVMValueRef("Size", ""),
-
-        since = "8.0"
-    )
-
-    LLVMValueRef(
-        "BuildAlloca",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildArrayAlloca",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFree",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("PointerVal", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildLoad",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("PointerVal", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildLoad2",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("PointerVal", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "8.0"
-    )
-
-    LLVMValueRef(
-        "BuildStore",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMValueRef("Ptr", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildGEP",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Pointer", ""),
-        LLVMValueRef.p("Indices", ""),
-        AutoSize("Indices")..unsigned_int("NumIndices", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildInBoundsGEP",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Pointer", ""),
-        LLVMValueRef.p("Indices", ""),
-        AutoSize("Indices")..unsigned_int("NumIndices", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildStructGEP",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Pointer", ""),
-        unsigned_int("Idx", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildGEP2",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Pointer", ""),
-        LLVMValueRef.p("Indices", ""),
-        AutoSize("Indices")..unsigned_int("NumIndices", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildInBoundsGEP2",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Pointer", ""),
-        LLVMValueRef.p("Indices", ""),
-        AutoSize("Indices")..unsigned_int("NumIndices", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "8.0"
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildStructGEP2",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Pointer", ""),
-        unsigned_int("Idx", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "8.0"
-    )
-
-    LLVMValueRef(
-        "BuildGlobalString",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        charUTF8.const.p("Str", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildGlobalStringPtr",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        charUTF8.const.p("Str", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMBool(
-        "GetVolatile",
-        "",
-
-        LLVMValueRef("MemoryAccessInst", "")
-    )
-
-    void(
-        "SetVolatile",
-        "",
-
-        LLVMValueRef("MemoryAccessInst", ""),
-        LLVMBool("IsVolatile", "")
-    )
-
-    IgnoreMissing..LLVMBool(
-        "GetWeak",
-        "",
-
-        LLVMValueRef("CmpXchgInst", ""),
-
-        since = "10"
-    )
-
-    IgnoreMissing..void(
-        "SetWeak",
-        "",
-
-        LLVMValueRef("CmpXchgInst", ""),
-        LLVMBool("IsWeak", ""),
-
-        since = "10"
-    )
-
-    LLVMAtomicOrdering(
-        "GetOrdering",
-        "",
-
-        LLVMValueRef("MemoryAccessInst", "")
-    )
-
-    IgnoreMissing..void(
-        "SetOrdering",
-        "",
-
-        LLVMValueRef("MemoryAccessInst", ""),
-        LLVMAtomicOrdering("Ordering", "")
-    )
-
-    IgnoreMissing..LLVMAtomicRMWBinOp(
-        "GetAtomicRMWBinOp",
-        "",
-
-        LLVMValueRef("AtomicRMWInst", ""),
-
-        since = "10"
-    )
-
-    IgnoreMissing..void(
-        "SetAtomicRMWBinOp",
-        "",
-
-        LLVMValueRef("AtomicRMWInst", ""),
-        LLVMAtomicRMWBinOp("BinOp", ""),
-
-        since = "10"
-    )
-
-    LLVMValueRef(
-        "BuildTrunc",
-        "Casts",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildZExt",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildSExt",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFPToUI",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFPToSI",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildUIToFP",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildSIToFP",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFPTrunc",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFPExt",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildPtrToInt",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildIntToPtr",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildBitCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildAddrSpaceCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildZExtOrBitCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildSExtOrBitCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildTruncOrBitCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildCast",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMOpcode("Op", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildPointerCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildIntCast2",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        LLVMBool("IsSigned", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "8.0"
-    )
-
-    LLVMValueRef(
-        "BuildIntCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMOpcode(
-        "GetCastOpcode",
-        "",
-
-        LLVMValueRef("Src", ""),
-        LLVMBool("SrcIsSigned", ""),
-        LLVMTypeRef("DestTy", ""),
-        LLVMBool("DestIsSigned", "")
-    )
-
-
-    LLVMValueRef(
-        "BuildFPCast",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        LLVMTypeRef("DestTy", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildICmp",
-        "Comparisons",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMIntPredicate("Op", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFCmp",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMRealPredicate("Op", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildPhi",
-        "Miscellaneous instructions",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildCall",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Fn", ""),
-        LLVMValueRef.p("Args", ""),
-        AutoSize("Args")..unsigned_int("NumArgs", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildCall2",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("Ty", ""),
-        LLVMValueRef("Fn", ""),
-        LLVMValueRef.p("Args", ""),
-        AutoSize("Args")..unsigned_int("NumArgs", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "8.0"
-    )
-
-    LLVMValueRef(
-        "BuildSelect",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("If", ""),
-        LLVMValueRef("Then", ""),
-        LLVMValueRef("Else", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildVAArg",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("List", ""),
-        LLVMTypeRef("Ty", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildExtractElement",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("VecVal", ""),
-        LLVMValueRef("Index", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildInsertElement",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("VecVal", ""),
-        LLVMValueRef("EltVal", ""),
-        LLVMValueRef("Index", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildShuffleVector",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("V1", ""),
-        LLVMValueRef("V2", ""),
-        LLVMValueRef("Mask", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildExtractValue",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("AggVal", ""),
-        unsigned_int("Index", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildInsertValue",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("AggVal", ""),
-        LLVMValueRef("EltVal", ""),
-        unsigned_int("Index", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildFreeze",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", ""),
-
-        since = "10"
-    )
-
-    LLVMValueRef(
-        "BuildIsNull",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildIsNotNull",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("Val", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildPtrDiff",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    IgnoreMissing..LLVMValueRef(
-        "BuildPtrDiff2",
-        "",
-
-        LLVMBuilderRef("Builder", ""),
-        LLVMTypeRef("ElemTy", ""),
-        LLVMValueRef("LHS", ""),
-        LLVMValueRef("RHS", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildFence",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMAtomicOrdering("ordering", ""),
-        LLVMBool("singleThread", ""),
-        charUTF8.const.p("Name", "")
-    )
-
-    LLVMValueRef(
-        "BuildAtomicRMW",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMAtomicRMWBinOp("op", ""),
-        LLVMValueRef("PTR", ""),
-        LLVMValueRef("Val", ""),
-        LLVMAtomicOrdering("ordering", ""),
-        LLVMBool("singleThread", "")
-    )
-
-    LLVMValueRef(
-        "BuildAtomicCmpXchg",
-        "",
-
-        LLVMBuilderRef("B", ""),
-        LLVMValueRef("Ptr", ""),
-        LLVMValueRef("Cmp", ""),
-        LLVMValueRef("New", ""),
-        LLVMAtomicOrdering("SuccessOrdering", ""),
-        LLVMAtomicOrdering("FailureOrdering", ""),
-        LLVMBool("SingleThread", "")
-    )
-
-    IgnoreMissing..unsigned(
-        "GetNumMaskElements",
-        "Get the number of elements in the mask of a {@code ShuffleVector} instruction.",
-
-        LLVMValueRef("ShuffleVectorInst", ""),
-
-        since = "11"
-    )
-
-    IgnoreMissing..int(
-        "GetUndefMaskElem",
-        "Returns a constant that specifies that the result of a {@code ShuffleVectorInst} is undefined.",
-
-        void(),
-
-        since = "11"
-    )
-
-    IgnoreMissing..int(
-        "GetMaskValue",
-        "Get the mask value at position {@code Elt} in the mask of a {@code ShuffleVector} instruction.",
-
-        LLVMValueRef("ShuffleVectorInst", ""),
-        unsigned("Elt", ""),
-
-        returnDoc = "the result of #GetUndefMaskElem() if the mask value is {@code undef} at that position.",
-        since = "11"
-    )
-
-    LLVMBool(
-        "IsAtomicSingleThread",
-        "",
-
-        LLVMValueRef("AtomicInst", "")
-    )
-
-    void(
-        "SetAtomicSingleThread",
-        "",
-
-        LLVMValueRef("AtomicInst", ""),
-        LLVMBool("SingleThread", "")
-    )
-
-    LLVMAtomicOrdering(
-        "GetCmpXchgSuccessOrdering",
-        "",
-
-        LLVMValueRef("CmpXchgInst", "")
-    )
-
-    void(
-        "SetCmpXchgSuccessOrdering",
-        "",
-
-        LLVMValueRef("CmpXchgInst", ""),
-        LLVMAtomicOrdering("Ordering", "")
-    )
-
-    LLVMAtomicOrdering(
-        "GetCmpXchgFailureOrdering",
-        "",
-
-        LLVMValueRef("CmpXchgInst", "")
-    )
-
-    void(
-        "SetCmpXchgFailureOrdering",
-        "",
-
-        LLVMValueRef("CmpXchgInst", ""),
-        LLVMAtomicOrdering("Ordering", "")
-    )
-
-    LLVMModuleProviderRef(
-        "CreateModuleProviderForExistingModule",
-        """
-        Changes the type of {@code M} so it can be passed to {@code FunctionPassManagers} and the JIT.  They take {@code ModuleProviders} for historical
-        reasons.
-        """,
-
-        LLVMModuleRef("M", "")
-    )
-
-    void(
-        "DisposeModuleProvider",
-        "Destroys the module {@code M}.",
-
-        LLVMModuleProviderRef("M", "")
-    )
-
-    LLVMBool(
-        "CreateMemoryBufferWithContentsOfFile",
-        "",
-
-        charUTF8.const.p("Path", ""),
-        Check(1)..LLVMMemoryBufferRef.p("OutMemBuf", ""),
-        Check(1)..charUTF8.p.p("OutMessage", "")
-    )
-
-    LLVMBool(
-        "CreateMemoryBufferWithSTDIN",
-        "",
-
-        Check(1)..LLVMMemoryBufferRef.p("OutMemBuf", ""),
-        Check(1)..charUTF8.p.p("OutMessage", "")
-    )
-
-    LLVMMemoryBufferRef(
-        "CreateMemoryBufferWithMemoryRange",
-        "",
-
-        char.const.p("InputData", ""),
-        AutoSize("InputData")..size_t("InputDataLength", ""),
-        charUTF8.const.p("BufferName", ""),
-        LLVMBool("RequiresNullTerminator", "")
-    )
-
-    LLVMMemoryBufferRef(
-        "CreateMemoryBufferWithMemoryRangeCopy",
-        "",
-
-        char.const.p("InputData", ""),
-        AutoSize("InputData")..size_t("InputDataLength", ""),
-        charUTF8.const.p("BufferName", "")
-    )
-
-    charUTF8.const.p(
-        "GetBufferStart",
-        "",
-
-        LLVMMemoryBufferRef("MemBuf", "")
-    )
-
-    size_t(
-        "GetBufferSize",
-        "",
-
-        LLVMMemoryBufferRef("MemBuf", "")
-    )
-
-    void(
-        "DisposeMemoryBuffer",
-        "",
-
-        LLVMMemoryBufferRef("MemBuf", "")
-    )
-
-    LLVMPassRegistryRef(
-        "GetGlobalPassRegistry",
-        "Return the global pass registry, for use with initialization functions.",
-
-        void()
-    )
-
-    LLVMPassManagerRef(
-        "CreatePassManager",
-        "Constructs a new whole-module pass pipeline. This type of pipeline is suitable for link-time optimization and whole-module transformations.",
-
-        void()
-    )
-
-    LLVMPassManagerRef(
-        "CreateFunctionPassManagerForModule",
-        """
-        Constructs a new function-by-function pass pipeline over the module provider. It does not take ownership of the module provider. This type of pipeline
-        is suitable for code generation and JIT compilation tasks.
-        """,
-
-        LLVMModuleRef("M", "")
-    )
-
-    LLVMPassManagerRef(
-        "CreateFunctionPassManager",
-        "Deprecated: Use #CreateFunctionPassManagerForModule() instead.",
-
-        LLVMModuleProviderRef("MP", "")
-    )
-
-    LLVMBool(
-        "RunPassManager",
-        """
-        Initializes, executes on the provided module, and finalizes all of the passes scheduled in the pass manager. Returns 1 if any of the passes modified
-        the module, 0 otherwise.
-        """,
-
-        LLVMPassManagerRef("PM", ""),
-        LLVMModuleRef("M", "")
-    )
-
-    LLVMBool(
-        "InitializeFunctionPassManager",
-        "Initializes all of the function passes scheduled in the function pass manager. Returns 1 if any of the passes modified the module, 0 otherwise.",
-
-        LLVMPassManagerRef("FPM", "")
-    )
-
-    LLVMBool(
-        "RunFunctionPassManager",
-        """
-        Executes all of the function passes scheduled in the function pass manager on the provided function. Returns 1 if any of the passes modified the
-        function, false otherwise.
-        """,
-
-        LLVMPassManagerRef("FPM", ""),
-        LLVMValueRef("F", "")
-    )
-
-    LLVMBool(
-        "FinalizeFunctionPassManager",
-        "Finalizes all of the function passes scheduled in the function pass manager. Returns 1 if any of the passes modified the module, 0 otherwise.",
-
-        LLVMPassManagerRef("FPM", "")
-    )
-
-    void(
-        "DisposePassManager",
-        "Frees the memory of a pass pipeline. For function pipelines, does not free the module provider.",
-
-        LLVMPassManagerRef("PM", "")
-    )
-
-    LLVMBool(
-        "StartMultithreaded",
-        """
-        Deprecated: Multi-threading can only be enabled/disabled with the compile time define {@code LLVM_ENABLE_THREADS}. This function always returns
-        #IsMultithreaded().
-        """,
-
-        void()
-    )
-
-    void(
-        "StopMultithreaded",
-        "Deprecated: Multi-threading can only be enabled/disabled with the compile time define {@code LLVM_ENABLE_THREADS}.",
-
-        void()
-    )
-
-    LLVMBool("IsMultithreaded", "Check whether LLVM is executing in thread-safe mode or not.", void())
+        LLVMValueRef(
+            "BuildPointerCast",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildIntCast2",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            LLVMBool("IsSigned"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildIntCast",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMOpcode(
+            "GetCastOpcode",
+
+            LLVMValueRef("Src"),
+            LLVMBool("SrcIsSigned"),
+            LLVMTypeRef("DestTy"),
+            LLVMBool("DestIsSigned")
+        )
+
+
+        LLVMValueRef(
+            "BuildFPCast",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            LLVMTypeRef("DestTy"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildICmp",
+
+            LLVMBuilderRef("Builder"),
+            LLVMIntPredicate("Op"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildFCmp",
+
+            LLVMBuilderRef("Builder"),
+            LLVMRealPredicate("Op"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildPhi",
+
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildCall",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Fn"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildCall2",
+
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Fn"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildCallWithOperandBundles",
+
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("Ty"),
+            LLVMValueRef("Fn"),
+            LLVMValueRef.p("Args"),
+            AutoSize("Args")..unsigned_int("NumArgs"),
+            LLVMOperandBundleRef.p("Bundles"),
+            AutoSize("Bundles")..unsigned("NumBundles"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildSelect",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("If"),
+            LLVMValueRef("Then"),
+            LLVMValueRef("Else"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildVAArg",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("List"),
+            LLVMTypeRef("Ty"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildExtractElement",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("VecVal"),
+            LLVMValueRef("Index"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildInsertElement",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("VecVal"),
+            LLVMValueRef("EltVal"),
+            LLVMValueRef("Index"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildShuffleVector",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("V1"),
+            LLVMValueRef("V2"),
+            LLVMValueRef("Mask"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildExtractValue",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("AggVal"),
+            unsigned_int("Index"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildInsertValue",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("AggVal"),
+            LLVMValueRef("EltVal"),
+            unsigned_int("Index"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildFreeze",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildIsNull",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildIsNotNull",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("Val"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildPtrDiff",
+
+            LLVMBuilderRef("Builder"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildPtrDiff2",
+
+            LLVMBuilderRef("Builder"),
+            LLVMTypeRef("ElemTy"),
+            LLVMValueRef("LHS"),
+            LLVMValueRef("RHS"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildFence",
+
+            LLVMBuilderRef("B"),
+            LLVMAtomicOrdering("ordering"),
+            LLVMBool("singleThread"),
+            charUTF8.const.p("Name")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildFenceSyncScope",
+
+            LLVMBuilderRef("B"),
+            LLVMAtomicOrdering("ordering"),
+            unsigned("SSID"),
+            charUTF8.const.p("Name")
+        )
+
+        LLVMValueRef(
+            "BuildAtomicRMW",
+
+            LLVMBuilderRef("B"),
+            LLVMAtomicRMWBinOp("op"),
+            LLVMValueRef("PTR"),
+            LLVMValueRef("Val"),
+            LLVMAtomicOrdering("ordering"),
+            LLVMBool("singleThread")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildAtomicRMWSyncScope",
+
+            LLVMBuilderRef("B"),
+            LLVMAtomicRMWBinOp("op"),
+            LLVMValueRef("PTR"),
+            LLVMValueRef("Val"),
+            LLVMAtomicOrdering("ordering"),
+            unsigned("SSID")
+        )
+
+        LLVMValueRef(
+            "BuildAtomicCmpXchg",
+
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Ptr"),
+            LLVMValueRef("Cmp"),
+            LLVMValueRef("New"),
+            LLVMAtomicOrdering("SuccessOrdering"),
+            LLVMAtomicOrdering("FailureOrdering"),
+            LLVMBool("SingleThread")
+        )
+
+        IgnoreMissing..LLVMValueRef(
+            "BuildAtomicCmpXchgSyncScope",
+
+            LLVMBuilderRef("B"),
+            LLVMValueRef("Ptr"),
+            LLVMValueRef("Cmp"),
+            LLVMValueRef("New"),
+            LLVMAtomicOrdering("SuccessOrdering"),
+            LLVMAtomicOrdering("FailureOrdering"),
+            unsigned("SSID")
+        )
+
+        IgnoreMissing..unsigned(
+            "GetNumMaskElements",
+
+            LLVMValueRef("ShuffleVectorInst")
+        )
+
+        IgnoreMissing..int(
+            "GetUndefMaskElem",
+
+            void()
+        )
+
+        IgnoreMissing..int(
+            "GetMaskValue",
+
+            LLVMValueRef("ShuffleVectorInst"),
+            unsigned("Elt")
+        )
+
+        LLVMBool(
+            "IsAtomicSingleThread",
+
+            LLVMValueRef("AtomicInst")
+        )
+
+        void(
+            "SetAtomicSingleThread",
+
+            LLVMValueRef("AtomicInst"),
+            LLVMBool("SingleThread")
+        )
+
+        IgnoreMissing..LLVMBool(
+            "IsAtomic",
+
+            LLVMValueRef("Inst")
+        )
+
+        IgnoreMissing..unsigned(
+            "GetAtomicSyncScopeID",
+
+            LLVMValueRef("AtomicInst")
+        )
+
+        IgnoreMissing..void(
+            "SetAtomicSyncScopeID",
+
+            LLVMValueRef("AtomicInst"),
+            unsigned("SSID")
+        )
+
+        LLVMAtomicOrdering(
+            "GetCmpXchgSuccessOrdering",
+
+            LLVMValueRef("CmpXchgInst")
+        )
+
+        void(
+            "SetCmpXchgSuccessOrdering",
+
+            LLVMValueRef("CmpXchgInst"),
+            LLVMAtomicOrdering("Ordering")
+        )
+
+        LLVMAtomicOrdering(
+            "GetCmpXchgFailureOrdering",
+
+            LLVMValueRef("CmpXchgInst")
+        )
+
+        void(
+            "SetCmpXchgFailureOrdering",
+
+            LLVMValueRef("CmpXchgInst"),
+            LLVMAtomicOrdering("Ordering")
+        )
+
+        LLVMModuleProviderRef(
+            "CreateModuleProviderForExistingModule",
+
+            LLVMModuleRef("M")
+        )
+
+        void(
+            "DisposeModuleProvider",
+
+            LLVMModuleProviderRef("M")
+        )
+
+        LLVMBool(
+            "CreateMemoryBufferWithContentsOfFile",
+
+            charUTF8.const.p("Path"),
+            Check(1)..LLVMMemoryBufferRef.p("OutMemBuf"),
+            Check(1)..charUTF8.p.p("OutMessage")
+        )
+
+        LLVMBool(
+            "CreateMemoryBufferWithSTDIN",
+
+            Check(1)..LLVMMemoryBufferRef.p("OutMemBuf"),
+            Check(1)..charUTF8.p.p("OutMessage")
+        )
+
+        LLVMMemoryBufferRef(
+            "CreateMemoryBufferWithMemoryRange",
+
+            char.const.p("InputData"),
+            AutoSize("InputData")..size_t("InputDataLength"),
+            charUTF8.const.p("BufferName"),
+            LLVMBool("RequiresNullTerminator")
+        )
+
+        LLVMMemoryBufferRef(
+            "CreateMemoryBufferWithMemoryRangeCopy",
+
+            char.const.p("InputData"),
+            AutoSize("InputData")..size_t("InputDataLength"),
+            charUTF8.const.p("BufferName")
+        )
+
+        MapPointer("LLVMGetBufferSize(MemBuf)")..char.const.p(
+            "GetBufferStart",
+
+            LLVMMemoryBufferRef("MemBuf")
+        )
+
+        size_t(
+            "GetBufferSize",
+
+            LLVMMemoryBufferRef("MemBuf")
+        )
+
+        void(
+            "DisposeMemoryBuffer",
+
+            LLVMMemoryBufferRef("MemBuf")
+        )
+
+        IgnoreMissing..LLVMPassRegistryRef(
+            "GetGlobalPassRegistry",
+
+            void()
+        )
+
+        LLVMPassManagerRef(
+            "CreatePassManager",
+
+            void()
+        )
+
+        LLVMPassManagerRef(
+            "CreateFunctionPassManagerForModule",
+
+            LLVMModuleRef("M")
+        )
+
+        LLVMPassManagerRef(
+            "CreateFunctionPassManager",
+
+            LLVMModuleProviderRef("MP")
+        )
+
+        LLVMBool(
+            "RunPassManager",
+
+            LLVMPassManagerRef("PM"),
+            LLVMModuleRef("M")
+        )
+
+        LLVMBool(
+            "InitializeFunctionPassManager",
+
+            LLVMPassManagerRef("FPM")
+        )
+
+        LLVMBool(
+            "RunFunctionPassManager",
+
+            LLVMPassManagerRef("FPM"),
+            LLVMValueRef("F")
+        )
+
+        LLVMBool(
+            "FinalizeFunctionPassManager",
+
+            LLVMPassManagerRef("FPM")
+        )
+
+        void(
+            "DisposePassManager",
+
+            LLVMPassManagerRef("PM")
+        )
+
+        LLVMBool(
+            "StartMultithreaded",
+
+            void()
+        )
+
+        void(
+            "StopMultithreaded",
+
+            void()
+        )
+
+        LLVMBool("IsMultithreaded", void())
+    }
 }

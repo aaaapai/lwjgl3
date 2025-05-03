@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure that stores the four hooks needed to render OT-SVG glyphs properly.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct SVG_RendererHooks {
  *     {@link SVG_Lib_Init_FuncI SVG_Lib_Init_Func} init_svg;
  *     {@link SVG_Lib_Free_FuncI SVG_Lib_Free_Func} free_svg;
  *     {@link SVG_Lib_Render_FuncI SVG_Lib_Render_Func} render_svg;
  *     {@link SVG_Lib_Preset_Slot_FuncI SVG_Lib_Preset_Slot_Func} preset_slot;
- * }</code></pre>
+ * }}</pre>
  */
 public class SVG_RendererHooks extends Struct<SVG_RendererHooks> implements NativeResource {
 
@@ -152,8 +148,7 @@ public class SVG_RendererHooks extends Struct<SVG_RendererHooks> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SVG_RendererHooks createSafe(long address) {
+    public static @Nullable SVG_RendererHooks createSafe(long address) {
         return address == NULL ? null : new SVG_RendererHooks(address, null);
     }
 
@@ -196,8 +191,7 @@ public class SVG_RendererHooks extends Struct<SVG_RendererHooks> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SVG_RendererHooks.Buffer createSafe(long address, int capacity) {
+    public static SVG_RendererHooks.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -302,6 +296,11 @@ public class SVG_RendererHooks extends Struct<SVG_RendererHooks> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

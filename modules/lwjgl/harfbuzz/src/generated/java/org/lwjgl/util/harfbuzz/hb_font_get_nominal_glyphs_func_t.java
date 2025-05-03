@@ -5,27 +5,13 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * unsigned int (*{@link #invoke}) (
- *     hb_font_t *font,
- *     void *font_data,
- *     unsigned int count,
- *     hb_codepoint_t const *first_unicode,
- *     unsigned int unicode_stride,
- *     hb_codepoint_t *first_glyph,
- *     unsigned int glyph_stride,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_font_get_nominal_glyphs_func_t} */
 public abstract class hb_font_get_nominal_glyphs_func_t extends Callback implements hb_font_get_nominal_glyphs_func_tI {
 
     /**
@@ -41,8 +27,7 @@ public abstract class hb_font_get_nominal_glyphs_func_t extends Callback impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static hb_font_get_nominal_glyphs_func_t createSafe(long functionPointer) {
+    public static @Nullable hb_font_get_nominal_glyphs_func_t createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

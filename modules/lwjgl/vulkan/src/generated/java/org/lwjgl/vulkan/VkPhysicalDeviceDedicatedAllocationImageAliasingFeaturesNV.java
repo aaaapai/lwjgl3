@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing dedicated allocation image aliasing features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVDedicatedAllocationImageAliasing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #dedicatedAllocationImageAliasing};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 dedicatedAllocationImageAliasing;
+ * }}</pre>
  */
 public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends Struct<VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports aliasing of compatible image objects on a dedicated allocation. */
+    /** @return the value of the {@code dedicatedAllocationImageAliasing} field. */
     @NativeType("VkBool32")
     public boolean dedicatedAllocationImageAliasing() { return ndedicatedAllocationImageAliasing(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDedicatedAllocationImageAliasing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVDedicatedAllocationImageAliasing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV sType$Default() { return sType(NVDedicatedAllocationImageAliasing.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #dedicatedAllocationImageAliasing} field. */
+    /** Sets the specified value to the {@code dedicatedAllocationImageAliasing} field. */
     public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV dedicatedAllocationImageAliasing(@NativeType("VkBool32") boolean value) { ndedicatedAllocationImageAliasing(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +249,18 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #dedicatedAllocationImageAliasing}. */
-    public static int ndedicatedAllocationImageAliasing(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING); }
+    public static int ndedicatedAllocationImageAliasing(long struct) { return memGetInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #dedicatedAllocationImageAliasing(boolean) dedicatedAllocationImageAliasing}. */
-    public static void ndedicatedAllocationImageAliasing(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING, value); }
+    public static void ndedicatedAllocationImageAliasing(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.DEDICATEDALLOCATIONIMAGEALIASING, value); }
 
     // -----------------------------------
 
@@ -312,27 +296,32 @@ public class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#dedicatedAllocationImageAliasing} field. */
+        /** @return the value of the {@code dedicatedAllocationImageAliasing} field. */
         @NativeType("VkBool32")
         public boolean dedicatedAllocationImageAliasing() { return VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.ndedicatedAllocationImageAliasing(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDedicatedAllocationImageAliasing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV} value to the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#sType} field. */
+        /** Sets the {@link NVDedicatedAllocationImageAliasing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer sType$Default() { return sType(NVDedicatedAllocationImageAliasing.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV#dedicatedAllocationImageAliasing} field. */
+        /** Sets the specified value to the {@code dedicatedAllocationImageAliasing} field. */
         public VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.Buffer dedicatedAllocationImageAliasing(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.ndedicatedAllocationImageAliasing(address(), value ? 1 : 0); return this; }
 
     }

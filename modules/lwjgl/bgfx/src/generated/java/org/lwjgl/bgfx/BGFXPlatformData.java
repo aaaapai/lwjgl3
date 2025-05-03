@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Platform data.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_platform_data_t {
- *     void * {@link #ndt};
- *     void * {@link #nwh};
- *     void * {@link #context};
- *     void * {@link #backBuffer};
- *     void * {@link #backBufferDS};
- *     bgfx_native_window_handle_type_t {@link #type};
- * }</code></pre>
+ *     void * ndt;
+ *     void * nwh;
+ *     void * context;
+ *     void * backBuffer;
+ *     void * backBufferDS;
+ *     bgfx_native_window_handle_type_t type;
+ * }}</pre>
  */
 @NativeType("struct bgfx_platform_data_t")
 public class BGFXPlatformData extends Struct<BGFXPlatformData> implements NativeResource {
@@ -91,36 +87,36 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** native display type (*nix specific) */
+    /** @return the value of the {@code ndt} field. */
     @NativeType("void *")
     public long ndt() { return nndt(address()); }
-    /** native window handle. If {@code NULL}, bgfx will create a headless context/device, provided the rendering API supports it. */
+    /** @return the value of the {@code nwh} field. */
     @NativeType("void *")
     public long nwh() { return nnwh(address()); }
-    /** GL context, D3D device, or Vulkan device. If {@code NULL}, bgfx will create context/device. */
+    /** @return the value of the {@code context} field. */
     @NativeType("void *")
     public long context() { return ncontext(address()); }
-    /** GL back-buffer, or D3D render target view. If {@code NULL} bgfx will create back-buffer color surface. */
+    /** @return the value of the {@code backBuffer} field. */
     @NativeType("void *")
     public long backBuffer() { return nbackBuffer(address()); }
-    /** backbuffer depth/stencil. If {@code NULL}, bgfx will create a back-buffer depth/stencil surface. */
+    /** @return the value of the {@code backBufferDS} field. */
     @NativeType("void *")
     public long backBufferDS() { return nbackBufferDS(address()); }
-    /** handle type. Needed for platforms having more than one option. */
+    /** @return the value of the {@code type} field. */
     @NativeType("bgfx_native_window_handle_type_t")
     public int type() { return ntype(address()); }
 
-    /** Sets the specified value to the {@link #ndt} field. */
+    /** Sets the specified value to the {@code ndt} field. */
     public BGFXPlatformData ndt(@NativeType("void *") long value) { nndt(address(), value); return this; }
-    /** Sets the specified value to the {@link #nwh} field. */
+    /** Sets the specified value to the {@code nwh} field. */
     public BGFXPlatformData nwh(@NativeType("void *") long value) { nnwh(address(), value); return this; }
-    /** Sets the specified value to the {@link #context} field. */
+    /** Sets the specified value to the {@code context} field. */
     public BGFXPlatformData context(@NativeType("void *") long value) { ncontext(address(), value); return this; }
-    /** Sets the specified value to the {@link #backBuffer} field. */
+    /** Sets the specified value to the {@code backBuffer} field. */
     public BGFXPlatformData backBuffer(@NativeType("void *") long value) { nbackBuffer(address(), value); return this; }
-    /** Sets the specified value to the {@link #backBufferDS} field. */
+    /** Sets the specified value to the {@code backBufferDS} field. */
     public BGFXPlatformData backBufferDS(@NativeType("void *") long value) { nbackBufferDS(address(), value); return this; }
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public BGFXPlatformData type(@NativeType("bgfx_native_window_handle_type_t") int value) { ntype(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +174,7 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXPlatformData createSafe(long address) {
+    public static @Nullable BGFXPlatformData createSafe(long address) {
         return address == NULL ? null : new BGFXPlatformData(address, null);
     }
 
@@ -193,7 +188,6 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     @Deprecated public static BGFXPlatformData mallocStack(MemoryStack stack) { return malloc(stack); }
     /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
     @Deprecated public static BGFXPlatformData callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code BGFXPlatformData} instance allocated on the specified {@link MemoryStack}.
@@ -226,7 +220,7 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     /** Unsafe version of {@link #backBufferDS}. */
     public static long nbackBufferDS(long struct) { return memGetAddress(struct + BGFXPlatformData.BACKBUFFERDS); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + BGFXPlatformData.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + BGFXPlatformData.TYPE); }
 
     /** Unsafe version of {@link #ndt(long) ndt}. */
     public static void nndt(long struct, long value) { memPutAddress(struct + BGFXPlatformData.NDT, value); }
@@ -239,6 +233,6 @@ public class BGFXPlatformData extends Struct<BGFXPlatformData> implements Native
     /** Unsafe version of {@link #backBufferDS(long) backBufferDS}. */
     public static void nbackBufferDS(long struct, long value) { memPutAddress(struct + BGFXPlatformData.BACKBUFFERDS, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + BGFXPlatformData.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + BGFXPlatformData.TYPE, value); }
 
 }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Client-owned list of line strips that will be tessellated.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct parsl_spine_list {
  *     uint32_t num_vertices;
  *     uint16_t num_spines;
  *     {@link ParSLPosition parsl_position} * vertices;
  *     uint16_t * spine_lengths;
  *     bool closed;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct parsl_spine_list")
 public class ParSLSpineList extends Struct<ParSLSpineList> implements NativeResource {
@@ -160,8 +156,7 @@ public class ParSLSpineList extends Struct<ParSLSpineList> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLSpineList createSafe(long address) {
+    public static @Nullable ParSLSpineList createSafe(long address) {
         return address == NULL ? null : new ParSLSpineList(address, null);
     }
 
@@ -204,8 +199,7 @@ public class ParSLSpineList extends Struct<ParSLSpineList> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLSpineList.Buffer createSafe(long address, int capacity) {
+    public static ParSLSpineList.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +263,26 @@ public class ParSLSpineList extends Struct<ParSLSpineList> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #num_vertices}. */
-    public static int nnum_vertices(long struct) { return UNSAFE.getInt(null, struct + ParSLSpineList.NUM_VERTICES); }
+    public static int nnum_vertices(long struct) { return memGetInt(struct + ParSLSpineList.NUM_VERTICES); }
     /** Unsafe version of {@link #num_spines}. */
-    public static short nnum_spines(long struct) { return UNSAFE.getShort(null, struct + ParSLSpineList.NUM_SPINES); }
+    public static short nnum_spines(long struct) { return memGetShort(struct + ParSLSpineList.NUM_SPINES); }
     /** Unsafe version of {@link #vertices}. */
     public static ParSLPosition.Buffer nvertices(long struct) { return ParSLPosition.create(memGetAddress(struct + ParSLSpineList.VERTICES), nnum_vertices(struct)); }
     /** Unsafe version of {@link #spine_lengths() spine_lengths}. */
     public static ShortBuffer nspine_lengths(long struct) { return memShortBuffer(memGetAddress(struct + ParSLSpineList.SPINE_LENGTHS), Short.toUnsignedInt(nnum_spines(struct))); }
     /** Unsafe version of {@link #closed}. */
-    public static boolean nclosed(long struct) { return UNSAFE.getByte(null, struct + ParSLSpineList.CLOSED) != 0; }
+    public static boolean nclosed(long struct) { return memGetByte(struct + ParSLSpineList.CLOSED) != 0; }
 
     /** Sets the specified value to the {@code num_vertices} field of the specified {@code struct}. */
-    public static void nnum_vertices(long struct, int value) { UNSAFE.putInt(null, struct + ParSLSpineList.NUM_VERTICES, value); }
+    public static void nnum_vertices(long struct, int value) { memPutInt(struct + ParSLSpineList.NUM_VERTICES, value); }
     /** Sets the specified value to the {@code num_spines} field of the specified {@code struct}. */
-    public static void nnum_spines(long struct, short value) { UNSAFE.putShort(null, struct + ParSLSpineList.NUM_SPINES, value); }
+    public static void nnum_spines(long struct, short value) { memPutShort(struct + ParSLSpineList.NUM_SPINES, value); }
     /** Unsafe version of {@link #vertices(ParSLPosition.Buffer) vertices}. */
     public static void nvertices(long struct, ParSLPosition.Buffer value) { memPutAddress(struct + ParSLSpineList.VERTICES, value.address()); nnum_vertices(struct, value.remaining()); }
     /** Unsafe version of {@link #spine_lengths(ShortBuffer) spine_lengths}. */
     public static void nspine_lengths(long struct, ShortBuffer value) { memPutAddress(struct + ParSLSpineList.SPINE_LENGTHS, memAddress(value)); nnum_spines(struct, (short)value.remaining()); }
     /** Unsafe version of {@link #closed(boolean) closed}. */
-    public static void nclosed(long struct, boolean value) { UNSAFE.putByte(null, struct + ParSLSpineList.CLOSED, value ? (byte)1 : (byte)0); }
+    public static void nclosed(long struct, boolean value) { memPutByte(struct + ParSLSpineList.CLOSED, value ? (byte)1 : (byte)0); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -331,6 +325,11 @@ public class ParSLSpineList extends Struct<ParSLSpineList> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

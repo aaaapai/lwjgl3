@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains information about a display monitor.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct MONITORINFOEX {
- *     DWORD {@link #cbSize};
- *     {@link RECT RECT} {@link #rcMonitor};
- *     {@link RECT RECT} {@link #rcWork};
- *     DWORD {@link #dwFlags};
- *     TCHAR {@link #szDevice}[32];
- * }</code></pre>
+ *     DWORD cbSize;
+ *     {@link RECT RECT} rcMonitor;
+ *     {@link RECT RECT} rcWork;
+ *     DWORD dwFlags;
+ *     TCHAR szDevice[32];
+ * }}</pre>
  */
 public class MONITORINFOEX extends Struct<MONITORINFOEX> implements NativeResource {
 
@@ -86,37 +82,24 @@ public class MONITORINFOEX extends Struct<MONITORINFOEX> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * the size, in bytes, of the structure.
-     * 
-     * <p>Set this member to {@link #SIZEOF} before calling the {@link User32#GetMonitorInfo} function. Doing so lets the function determine the type of structure you
-     * are passing to it.</p>
-     */
+    /** @return the value of the {@code cbSize} field. */
     @NativeType("DWORD")
     public int cbSize() { return ncbSize(address()); }
-    /**
-     * a {@link RECT} structure that specifies the display monitor rectangle, expressed in virtual-screen coordinates. Note that if the monitor is not the primary
-     * display monitor, some of the rectangle's coordinates may be negative values.
-     */
+    /** @return a {@link RECT} view of the {@code rcMonitor} field. */
     public RECT rcMonitor() { return nrcMonitor(address()); }
-    /**
-     * a {@link RECT} structure that specifies the work area rectangle of the display monitor that can be used by applications, expressed in virtual-screen
-     * coordinates. Windows uses this rectangle to maximize an application on the monitor. The rest of the area in {@code rcMonitor} contains system windows
-     * such as the task bar and side bars. Note that if the monitor is not the primary display monitor, some of the rectangle's coordinates may be negative
-     * values.
-     */
+    /** @return a {@link RECT} view of the {@code rcWork} field. */
     public RECT rcWork() { return nrcWork(address()); }
-    /** the attributes of the display monitor. May be:<br>{@link User32#MONITORINFOF_PRIMARY} */
+    /** @return the value of the {@code dwFlags} field. */
     @NativeType("DWORD")
     public int dwFlags() { return ndwFlags(address()); }
-    /** a string that specifies the device name of the monitor being used */
+    /** @return a {@link ByteBuffer} view of the {@code szDevice} field. */
     @NativeType("TCHAR[32]")
     public ByteBuffer szDevice() { return nszDevice(address()); }
-    /** a string that specifies the device name of the monitor being used */
+    /** @return the null-terminated string stored in the {@code szDevice} field. */
     @NativeType("TCHAR[32]")
     public String szDeviceString() { return nszDeviceString(address()); }
 
-    /** Sets the specified value to the {@link #cbSize} field. */
+    /** Sets the specified value to the {@code cbSize} field. */
     public MONITORINFOEX cbSize(@NativeType("DWORD") int value) { ncbSize(address(), value); return this; }
 
     /**
@@ -155,8 +138,7 @@ public class MONITORINFOEX extends Struct<MONITORINFOEX> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MONITORINFOEX createSafe(long address) {
+    public static @Nullable MONITORINFOEX createSafe(long address) {
         return address == NULL ? null : new MONITORINFOEX(address, null);
     }
 
@@ -199,8 +181,7 @@ public class MONITORINFOEX extends Struct<MONITORINFOEX> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MONITORINFOEX.Buffer createSafe(long address, int capacity) {
+    public static MONITORINFOEX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,20 +245,20 @@ public class MONITORINFOEX extends Struct<MONITORINFOEX> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #cbSize}. */
-    public static int ncbSize(long struct) { return UNSAFE.getInt(null, struct + MONITORINFOEX.CBSIZE); }
+    public static int ncbSize(long struct) { return memGetInt(struct + MONITORINFOEX.CBSIZE); }
     /** Unsafe version of {@link #rcMonitor}. */
     public static RECT nrcMonitor(long struct) { return RECT.create(struct + MONITORINFOEX.RCMONITOR); }
     /** Unsafe version of {@link #rcWork}. */
     public static RECT nrcWork(long struct) { return RECT.create(struct + MONITORINFOEX.RCWORK); }
     /** Unsafe version of {@link #dwFlags}. */
-    public static int ndwFlags(long struct) { return UNSAFE.getInt(null, struct + MONITORINFOEX.DWFLAGS); }
+    public static int ndwFlags(long struct) { return memGetInt(struct + MONITORINFOEX.DWFLAGS); }
     /** Unsafe version of {@link #szDevice}. */
     public static ByteBuffer nszDevice(long struct) { return memByteBuffer(struct + MONITORINFOEX.SZDEVICE, 32 * 2); }
     /** Unsafe version of {@link #szDeviceString}. */
     public static String nszDeviceString(long struct) { return memUTF16(struct + MONITORINFOEX.SZDEVICE); }
 
     /** Unsafe version of {@link #cbSize(int) cbSize}. */
-    public static void ncbSize(long struct, int value) { UNSAFE.putInt(null, struct + MONITORINFOEX.CBSIZE, value); }
+    public static void ncbSize(long struct, int value) { memPutInt(struct + MONITORINFOEX.CBSIZE, value); }
 
     // -----------------------------------
 
@@ -313,28 +294,33 @@ public class MONITORINFOEX extends Struct<MONITORINFOEX> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MONITORINFOEX getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link MONITORINFOEX#cbSize} field. */
+        /** @return the value of the {@code cbSize} field. */
         @NativeType("DWORD")
         public int cbSize() { return MONITORINFOEX.ncbSize(address()); }
-        /** @return a {@link RECT} view of the {@link MONITORINFOEX#rcMonitor} field. */
+        /** @return a {@link RECT} view of the {@code rcMonitor} field. */
         public RECT rcMonitor() { return MONITORINFOEX.nrcMonitor(address()); }
-        /** @return a {@link RECT} view of the {@link MONITORINFOEX#rcWork} field. */
+        /** @return a {@link RECT} view of the {@code rcWork} field. */
         public RECT rcWork() { return MONITORINFOEX.nrcWork(address()); }
-        /** @return the value of the {@link MONITORINFOEX#dwFlags} field. */
+        /** @return the value of the {@code dwFlags} field. */
         @NativeType("DWORD")
         public int dwFlags() { return MONITORINFOEX.ndwFlags(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link MONITORINFOEX#szDevice} field. */
+        /** @return a {@link ByteBuffer} view of the {@code szDevice} field. */
         @NativeType("TCHAR[32]")
         public ByteBuffer szDevice() { return MONITORINFOEX.nszDevice(address()); }
-        /** @return the null-terminated string stored in the {@link MONITORINFOEX#szDevice} field. */
+        /** @return the null-terminated string stored in the {@code szDevice} field. */
         @NativeType("TCHAR[32]")
         public String szDeviceString() { return MONITORINFOEX.nszDeviceString(address()); }
 
-        /** Sets the specified value to the {@link MONITORINFOEX#cbSize} field. */
+        /** Sets the specified value to the {@code cbSize} field. */
         public MONITORINFOEX.Buffer cbSize(@NativeType("DWORD") int value) { MONITORINFOEX.ncbSize(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union nk_style_item_data {
  *     {@link NkColor struct nk_color} color;
  *     {@link NkImage struct nk_image} image;
  *     {@link NkNineSlice struct nk_nine_slice} slice;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("union nk_style_item_data")
 public class NkStyleItemData extends Struct<NkStyleItemData> implements NativeResource {
@@ -136,8 +134,7 @@ public class NkStyleItemData extends Struct<NkStyleItemData> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleItemData createSafe(long address) {
+    public static @Nullable NkStyleItemData createSafe(long address) {
         return address == NULL ? null : new NkStyleItemData(address, null);
     }
 
@@ -180,8 +177,7 @@ public class NkStyleItemData extends Struct<NkStyleItemData> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleItemData.Buffer createSafe(long address, int capacity) {
+    public static NkStyleItemData.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,6 +285,11 @@ public class NkStyleItemData extends Struct<NkStyleItemData> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

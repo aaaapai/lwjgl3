@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FT_ListNode node,
- *     void *user
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_List_Iterator} */
 public abstract class FT_List_Iterator extends Callback implements FT_List_IteratorI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class FT_List_Iterator extends Callback implements FT_List_Itera
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FT_List_Iterator createSafe(long functionPointer) {
+    public static @Nullable FT_List_Iterator createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

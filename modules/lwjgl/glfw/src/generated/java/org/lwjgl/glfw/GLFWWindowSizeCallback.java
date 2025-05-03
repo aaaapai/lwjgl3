@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,18 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetWindowSizeCallback SetWindowSizeCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     int width,
- *     int height
- * )</code></pre>
- */
+/** Callback function: {@link #invoke GLFWwindowsizefun} */
 public abstract class GLFWWindowSizeCallback extends Callback implements GLFWWindowSizeCallbackI {
 
     /**
@@ -40,8 +29,7 @@ public abstract class GLFWWindowSizeCallback extends Callback implements GLFWWin
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWWindowSizeCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWWindowSizeCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

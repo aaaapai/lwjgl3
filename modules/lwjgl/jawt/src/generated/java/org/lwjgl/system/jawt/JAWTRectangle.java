@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jawt;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for a native rectangle.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct JAWT_Rectangle {
- *     jint {@link #x};
- *     jint {@link #y};
- *     jint {@link #width};
- *     jint {@link #height};
- * }</code></pre>
+ *     jint x;
+ *     jint y;
+ *     jint width;
+ *     jint height;
+ * }}</pre>
  */
 @NativeType("struct JAWT_Rectangle")
 public class JAWTRectangle extends Struct<JAWTRectangle> implements NativeResource {
@@ -83,26 +79,26 @@ public class JAWTRectangle extends Struct<JAWTRectangle> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the rectangle X axis coordinate */
+    /** @return the value of the {@code x} field. */
     @NativeType("jint")
     public int x() { return nx(address()); }
-    /** the rectangle Y axis coordinate */
+    /** @return the value of the {@code y} field. */
     @NativeType("jint")
     public int y() { return ny(address()); }
-    /** the rectangle width */
+    /** @return the value of the {@code width} field. */
     @NativeType("jint")
     public int width() { return nwidth(address()); }
-    /** the rectangle height */
+    /** @return the value of the {@code height} field. */
     @NativeType("jint")
     public int height() { return nheight(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public JAWTRectangle x(@NativeType("jint") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public JAWTRectangle y(@NativeType("jint") int value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public JAWTRectangle width(@NativeType("jint") int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public JAWTRectangle height(@NativeType("jint") int value) { nheight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +152,7 @@ public class JAWTRectangle extends Struct<JAWTRectangle> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTRectangle createSafe(long address) {
+    public static @Nullable JAWTRectangle createSafe(long address) {
         return address == NULL ? null : new JAWTRectangle(address, null);
     }
 
@@ -200,8 +195,7 @@ public class JAWTRectangle extends Struct<JAWTRectangle> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTRectangle.Buffer createSafe(long address, int capacity) {
+    public static JAWTRectangle.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,22 +259,22 @@ public class JAWTRectangle extends Struct<JAWTRectangle> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + JAWTRectangle.X); }
+    public static int nx(long struct) { return memGetInt(struct + JAWTRectangle.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + JAWTRectangle.Y); }
+    public static int ny(long struct) { return memGetInt(struct + JAWTRectangle.Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + JAWTRectangle.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + JAWTRectangle.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + JAWTRectangle.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + JAWTRectangle.HEIGHT); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + JAWTRectangle.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + JAWTRectangle.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + JAWTRectangle.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + JAWTRectangle.Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + JAWTRectangle.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + JAWTRectangle.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + JAWTRectangle.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + JAWTRectangle.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -316,30 +310,35 @@ public class JAWTRectangle extends Struct<JAWTRectangle> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected JAWTRectangle getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link JAWTRectangle#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("jint")
         public int x() { return JAWTRectangle.nx(address()); }
-        /** @return the value of the {@link JAWTRectangle#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("jint")
         public int y() { return JAWTRectangle.ny(address()); }
-        /** @return the value of the {@link JAWTRectangle#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("jint")
         public int width() { return JAWTRectangle.nwidth(address()); }
-        /** @return the value of the {@link JAWTRectangle#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("jint")
         public int height() { return JAWTRectangle.nheight(address()); }
 
-        /** Sets the specified value to the {@link JAWTRectangle#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public JAWTRectangle.Buffer x(@NativeType("jint") int value) { JAWTRectangle.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link JAWTRectangle#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public JAWTRectangle.Buffer y(@NativeType("jint") int value) { JAWTRectangle.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link JAWTRectangle#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public JAWTRectangle.Buffer width(@NativeType("jint") int value) { JAWTRectangle.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link JAWTRectangle#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public JAWTRectangle.Buffer height(@NativeType("jint") int value) { JAWTRectangle.nheight(address(), value); return this; }
 
     }

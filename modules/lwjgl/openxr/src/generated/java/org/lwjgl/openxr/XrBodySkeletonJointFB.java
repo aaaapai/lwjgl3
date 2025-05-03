@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the location and position of a joint in the skeleton hierarchy.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBBodyTracking XR_FB_body_tracking} extension <b>must</b> be enabled prior to using {@link XrBodySkeletonJointFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrBodySkeletonFB}, {@link XrPosef}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrBodySkeletonJointFB {
- *     int32_t {@link #joint};
- *     int32_t {@link #parentJoint};
- *     {@link XrPosef XrPosef} {@link #pose};
- * }</code></pre>
+ *     int32_t joint;
+ *     int32_t parentJoint;
+ *     {@link XrPosef XrPosef} pose;
+ * }}</pre>
  */
 public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> implements NativeResource {
 
@@ -88,22 +74,22 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an index of a joint using the corresponding body joint enum (e.g. {@code XrBodyJointFB}). */
+    /** @return the value of the {@code joint} field. */
     @NativeType("int32_t")
     public int joint() { return njoint(address()); }
-    /** an index of a parent joint of that joint, using the corresponding body joint enum (e.g. {@code XrBodyJointFB}). */
+    /** @return the value of the {@code parentJoint} field. */
     @NativeType("int32_t")
     public int parentJoint() { return nparentJoint(address()); }
-    /** an {@link XrPosef} defining the position and orientation of the origin of a body joint within the reference frame of the corresponding {@link XrBodyJointsLocateInfoFB}{@code ::baseSpace}. */
+    /** @return a {@link XrPosef} view of the {@code pose} field. */
     public XrPosef pose() { return npose(address()); }
 
-    /** Sets the specified value to the {@link #joint} field. */
+    /** Sets the specified value to the {@code joint} field. */
     public XrBodySkeletonJointFB joint(@NativeType("int32_t") int value) { njoint(address(), value); return this; }
-    /** Sets the specified value to the {@link #parentJoint} field. */
+    /** Sets the specified value to the {@code parentJoint} field. */
     public XrBodySkeletonJointFB parentJoint(@NativeType("int32_t") int value) { nparentJoint(address(), value); return this; }
-    /** Copies the specified {@link XrPosef} to the {@link #pose} field. */
+    /** Copies the specified {@link XrPosef} to the {@code pose} field. */
     public XrBodySkeletonJointFB pose(XrPosef value) { npose(address(), value); return this; }
-    /** Passes the {@link #pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrBodySkeletonJointFB pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -155,8 +141,7 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodySkeletonJointFB createSafe(long address) {
+    public static @Nullable XrBodySkeletonJointFB createSafe(long address) {
         return address == NULL ? null : new XrBodySkeletonJointFB(address, null);
     }
 
@@ -199,8 +184,7 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodySkeletonJointFB.Buffer createSafe(long address, int capacity) {
+    public static XrBodySkeletonJointFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,16 +229,16 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #joint}. */
-    public static int njoint(long struct) { return UNSAFE.getInt(null, struct + XrBodySkeletonJointFB.JOINT); }
+    public static int njoint(long struct) { return memGetInt(struct + XrBodySkeletonJointFB.JOINT); }
     /** Unsafe version of {@link #parentJoint}. */
-    public static int nparentJoint(long struct) { return UNSAFE.getInt(null, struct + XrBodySkeletonJointFB.PARENTJOINT); }
+    public static int nparentJoint(long struct) { return memGetInt(struct + XrBodySkeletonJointFB.PARENTJOINT); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrBodySkeletonJointFB.POSE); }
 
     /** Unsafe version of {@link #joint(int) joint}. */
-    public static void njoint(long struct, int value) { UNSAFE.putInt(null, struct + XrBodySkeletonJointFB.JOINT, value); }
+    public static void njoint(long struct, int value) { memPutInt(struct + XrBodySkeletonJointFB.JOINT, value); }
     /** Unsafe version of {@link #parentJoint(int) parentJoint}. */
-    public static void nparentJoint(long struct, int value) { UNSAFE.putInt(null, struct + XrBodySkeletonJointFB.PARENTJOINT, value); }
+    public static void nparentJoint(long struct, int value) { memPutInt(struct + XrBodySkeletonJointFB.PARENTJOINT, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrBodySkeletonJointFB.POSE, XrPosef.SIZEOF); }
 
@@ -292,26 +276,31 @@ public class XrBodySkeletonJointFB extends Struct<XrBodySkeletonJointFB> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrBodySkeletonJointFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrBodySkeletonJointFB#joint} field. */
+        /** @return the value of the {@code joint} field. */
         @NativeType("int32_t")
         public int joint() { return XrBodySkeletonJointFB.njoint(address()); }
-        /** @return the value of the {@link XrBodySkeletonJointFB#parentJoint} field. */
+        /** @return the value of the {@code parentJoint} field. */
         @NativeType("int32_t")
         public int parentJoint() { return XrBodySkeletonJointFB.nparentJoint(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrBodySkeletonJointFB#pose} field. */
+        /** @return a {@link XrPosef} view of the {@code pose} field. */
         public XrPosef pose() { return XrBodySkeletonJointFB.npose(address()); }
 
-        /** Sets the specified value to the {@link XrBodySkeletonJointFB#joint} field. */
+        /** Sets the specified value to the {@code joint} field. */
         public XrBodySkeletonJointFB.Buffer joint(@NativeType("int32_t") int value) { XrBodySkeletonJointFB.njoint(address(), value); return this; }
-        /** Sets the specified value to the {@link XrBodySkeletonJointFB#parentJoint} field. */
+        /** Sets the specified value to the {@code parentJoint} field. */
         public XrBodySkeletonJointFB.Buffer parentJoint(@NativeType("int32_t") int value) { XrBodySkeletonJointFB.nparentJoint(address(), value); return this; }
-        /** Copies the specified {@link XrPosef} to the {@link XrBodySkeletonJointFB#pose} field. */
+        /** Copies the specified {@link XrPosef} to the {@code pose} field. */
         public XrBodySkeletonJointFB.Buffer pose(XrPosef value) { XrBodySkeletonJointFB.npose(address(), value); return this; }
-        /** Passes the {@link XrBodySkeletonJointFB#pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrBodySkeletonJointFB.Buffer pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
 
     }

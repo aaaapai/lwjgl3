@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,9 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FMOD_CODEC_STATE_FUNCTIONS {
  *     {@link FMOD_CODEC_METADATA_FUNCI FMOD_CODEC_METADATA_FUNC} metadata;
  *     {@link FMOD_CODEC_ALLOC_FUNCI FMOD_CODEC_ALLOC_FUNC} alloc;
@@ -29,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link FMOD_CODEC_FILE_SEEK_FUNCI FMOD_CODEC_FILE_SEEK_FUNC} seek;
  *     {@link FMOD_CODEC_FILE_TELL_FUNCI FMOD_CODEC_FILE_TELL_FUNC} tell;
  *     {@link FMOD_CODEC_FILE_SIZE_FUNCI FMOD_CODEC_FILE_SIZE_FUNC} size;
- * }</code></pre>
+ * }}</pre>
  */
 public class FMOD_CODEC_STATE_FUNCTIONS extends Struct<FMOD_CODEC_STATE_FUNCTIONS> implements NativeResource {
 
@@ -190,8 +188,7 @@ public class FMOD_CODEC_STATE_FUNCTIONS extends Struct<FMOD_CODEC_STATE_FUNCTION
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_STATE_FUNCTIONS createSafe(long address) {
+    public static @Nullable FMOD_CODEC_STATE_FUNCTIONS createSafe(long address) {
         return address == NULL ? null : new FMOD_CODEC_STATE_FUNCTIONS(address, null);
     }
 
@@ -234,8 +231,7 @@ public class FMOD_CODEC_STATE_FUNCTIONS extends Struct<FMOD_CODEC_STATE_FUNCTION
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_STATE_FUNCTIONS.Buffer createSafe(long address, int capacity) {
+    public static FMOD_CODEC_STATE_FUNCTIONS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -360,6 +356,11 @@ public class FMOD_CODEC_STATE_FUNCTIONS extends Struct<FMOD_CODEC_STATE_FUNCTION
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

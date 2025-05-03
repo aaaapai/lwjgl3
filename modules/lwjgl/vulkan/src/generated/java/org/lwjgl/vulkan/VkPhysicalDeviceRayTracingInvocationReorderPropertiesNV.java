@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing shader module identifier properties of an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>Because the extension changes how hits are managed there is a compatibility reason to expose the extension even when an implementation does not have sorting active.</p>
- * </div>
- * 
- * <p>If the {@link VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVRayTracingInvocationReorder#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkRayTracingInvocationReorderModeNV {@link #rayTracingInvocationReorderReorderingHint};
- * }</code></pre>
+ *     VkRayTracingInvocationReorderModeNV rayTracingInvocationReorderReorderingHint;
+ * }}</pre>
  */
 public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Struct<VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV> implements NativeResource {
 
@@ -99,7 +80,7 @@ public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Str
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a hint indicating if the implementation will actually reorder at the reorder calls. */
+    /** @return the value of the {@code rayTracingInvocationReorderReorderingHint} field. */
     @NativeType("VkRayTracingInvocationReorderModeNV")
     public int rayTracingInvocationReorderReorderingHint() { return nrayTracingInvocationReorderReorderingHint(address()); }
 
@@ -157,8 +138,7 @@ public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Str
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV(address, null);
     }
 
@@ -201,8 +181,7 @@ public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Str
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,14 +226,14 @@ public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Str
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.PNEXT); }
     /** Unsafe version of {@link #rayTracingInvocationReorderReorderingHint}. */
-    public static int nrayTracingInvocationReorderReorderingHint(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.RAYTRACINGINVOCATIONREORDERREORDERINGHINT); }
+    public static int nrayTracingInvocationReorderReorderingHint(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.RAYTRACINGINVOCATIONREORDERREORDERINGHINT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.PNEXT, value); }
 
@@ -292,6 +271,11 @@ public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Str
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -302,7 +286,7 @@ public class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV extends Str
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV#rayTracingInvocationReorderReorderingHint} field. */
+        /** @return the value of the {@code rayTracingInvocationReorderReorderingHint} field. */
         @NativeType("VkRayTracingInvocationReorderModeNV")
         public int rayTracingInvocationReorderReorderingHint() { return VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.nrayTracingInvocationReorderReorderingHint(address()); }
 

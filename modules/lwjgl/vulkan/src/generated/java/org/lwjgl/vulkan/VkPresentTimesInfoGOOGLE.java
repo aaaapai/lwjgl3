@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The earliest time each image should be presented.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code swapchainCount} <b>must</b> be the same value as {@link VkPresentInfoKHR}{@code ::swapchainCount}, where {@link VkPresentInfoKHR} is included in the {@code pNext} chain of this {@link VkPresentTimesInfoGOOGLE} structure</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link GOOGLEDisplayTiming#VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE}</li>
- * <li>If {@code pTimes} is not {@code NULL}, {@code pTimes} <b>must</b> be a valid pointer to an array of {@code swapchainCount} {@link VkPresentTimeGOOGLE} structures</li>
- * <li>{@code swapchainCount} <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPresentTimeGOOGLE}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPresentTimesInfoGOOGLE {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #swapchainCount};
- *     {@link VkPresentTimeGOOGLE VkPresentTimeGOOGLE} const * {@link #pTimes};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t swapchainCount;
+ *     {@link VkPresentTimeGOOGLE VkPresentTimeGOOGLE} const * pTimes;
+ * }}</pre>
  */
 public class VkPresentTimesInfoGOOGLE extends Struct<VkPresentTimesInfoGOOGLE> implements NativeResource {
 
@@ -100,37 +78,36 @@ public class VkPresentTimesInfoGOOGLE extends Struct<VkPresentTimesInfoGOOGLE> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the number of swapchains being presented to by this command. */
+    /** @return the value of the {@code swapchainCount} field. */
     @NativeType("uint32_t")
     public int swapchainCount() { return nswapchainCount(address()); }
-    /** {@code NULL} or a pointer to an array of {@link VkPresentTimeGOOGLE} elements with {@code swapchainCount} entries. If not {@code NULL}, each element of {@code pTimes} contains the earliest time to present the image corresponding to the entry in the {@link VkPresentInfoKHR}{@code ::pImageIndices} array. */
-    @Nullable
+    /** @return a {@link VkPresentTimeGOOGLE.Buffer} view of the struct array pointed to by the {@code pTimes} field. */
     @NativeType("VkPresentTimeGOOGLE const *")
-    public VkPresentTimeGOOGLE.Buffer pTimes() { return npTimes(address()); }
+    public VkPresentTimeGOOGLE.@Nullable Buffer pTimes() { return npTimes(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPresentTimesInfoGOOGLE sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link GOOGLEDisplayTiming#VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE} value to the {@link #sType} field. */
+    /** Sets the {@link GOOGLEDisplayTiming#VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE} value to the {@code sType} field. */
     public VkPresentTimesInfoGOOGLE sType$Default() { return sType(GOOGLEDisplayTiming.VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPresentTimesInfoGOOGLE pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #swapchainCount} field. */
+    /** Sets the specified value to the {@code swapchainCount} field. */
     public VkPresentTimesInfoGOOGLE swapchainCount(@NativeType("uint32_t") int value) { nswapchainCount(address(), value); return this; }
-    /** Sets the address of the specified {@link VkPresentTimeGOOGLE.Buffer} to the {@link #pTimes} field. */
-    public VkPresentTimesInfoGOOGLE pTimes(@Nullable @NativeType("VkPresentTimeGOOGLE const *") VkPresentTimeGOOGLE.Buffer value) { npTimes(address(), value); return this; }
+    /** Sets the address of the specified {@link VkPresentTimeGOOGLE.Buffer} to the {@code pTimes} field. */
+    public VkPresentTimesInfoGOOGLE pTimes(@NativeType("VkPresentTimeGOOGLE const *") VkPresentTimeGOOGLE.@Nullable Buffer value) { npTimes(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkPresentTimesInfoGOOGLE set(
         int sType,
         long pNext,
         int swapchainCount,
-        @Nullable VkPresentTimeGOOGLE.Buffer pTimes
+        VkPresentTimeGOOGLE.@Nullable Buffer pTimes
     ) {
         sType(sType);
         pNext(pNext);
@@ -176,8 +153,7 @@ public class VkPresentTimesInfoGOOGLE extends Struct<VkPresentTimesInfoGOOGLE> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPresentTimesInfoGOOGLE createSafe(long address) {
+    public static @Nullable VkPresentTimesInfoGOOGLE createSafe(long address) {
         return address == NULL ? null : new VkPresentTimesInfoGOOGLE(address, null);
     }
 
@@ -220,8 +196,7 @@ public class VkPresentTimesInfoGOOGLE extends Struct<VkPresentTimesInfoGOOGLE> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPresentTimesInfoGOOGLE.Buffer createSafe(long address, int capacity) {
+    public static VkPresentTimesInfoGOOGLE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,22 +260,22 @@ public class VkPresentTimesInfoGOOGLE extends Struct<VkPresentTimesInfoGOOGLE> i
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPresentTimesInfoGOOGLE.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPresentTimesInfoGOOGLE.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPresentTimesInfoGOOGLE.PNEXT); }
     /** Unsafe version of {@link #swapchainCount}. */
-    public static int nswapchainCount(long struct) { return UNSAFE.getInt(null, struct + VkPresentTimesInfoGOOGLE.SWAPCHAINCOUNT); }
+    public static int nswapchainCount(long struct) { return memGetInt(struct + VkPresentTimesInfoGOOGLE.SWAPCHAINCOUNT); }
     /** Unsafe version of {@link #pTimes}. */
-    @Nullable public static VkPresentTimeGOOGLE.Buffer npTimes(long struct) { return VkPresentTimeGOOGLE.createSafe(memGetAddress(struct + VkPresentTimesInfoGOOGLE.PTIMES), nswapchainCount(struct)); }
+    public static VkPresentTimeGOOGLE.@Nullable Buffer npTimes(long struct) { return VkPresentTimeGOOGLE.createSafe(memGetAddress(struct + VkPresentTimesInfoGOOGLE.PTIMES), nswapchainCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPresentTimesInfoGOOGLE.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPresentTimesInfoGOOGLE.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPresentTimesInfoGOOGLE.PNEXT, value); }
     /** Sets the specified value to the {@code swapchainCount} field of the specified {@code struct}. */
-    public static void nswapchainCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPresentTimesInfoGOOGLE.SWAPCHAINCOUNT, value); }
+    public static void nswapchainCount(long struct, int value) { memPutInt(struct + VkPresentTimesInfoGOOGLE.SWAPCHAINCOUNT, value); }
     /** Unsafe version of {@link #pTimes(VkPresentTimeGOOGLE.Buffer) pTimes}. */
-    public static void npTimes(long struct, @Nullable VkPresentTimeGOOGLE.Buffer value) { memPutAddress(struct + VkPresentTimesInfoGOOGLE.PTIMES, memAddressSafe(value)); if (value != null) { nswapchainCount(struct, value.remaining()); } }
+    public static void npTimes(long struct, VkPresentTimeGOOGLE.@Nullable Buffer value) { memPutAddress(struct + VkPresentTimesInfoGOOGLE.PTIMES, memAddressSafe(value)); if (value != null) { nswapchainCount(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -336,34 +311,38 @@ public class VkPresentTimesInfoGOOGLE extends Struct<VkPresentTimesInfoGOOGLE> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPresentTimesInfoGOOGLE getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPresentTimesInfoGOOGLE#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPresentTimesInfoGOOGLE.nsType(address()); }
-        /** @return the value of the {@link VkPresentTimesInfoGOOGLE#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPresentTimesInfoGOOGLE.npNext(address()); }
-        /** @return the value of the {@link VkPresentTimesInfoGOOGLE#swapchainCount} field. */
+        /** @return the value of the {@code swapchainCount} field. */
         @NativeType("uint32_t")
         public int swapchainCount() { return VkPresentTimesInfoGOOGLE.nswapchainCount(address()); }
-        /** @return a {@link VkPresentTimeGOOGLE.Buffer} view of the struct array pointed to by the {@link VkPresentTimesInfoGOOGLE#pTimes} field. */
-        @Nullable
+        /** @return a {@link VkPresentTimeGOOGLE.Buffer} view of the struct array pointed to by the {@code pTimes} field. */
         @NativeType("VkPresentTimeGOOGLE const *")
-        public VkPresentTimeGOOGLE.Buffer pTimes() { return VkPresentTimesInfoGOOGLE.npTimes(address()); }
+        public VkPresentTimeGOOGLE.@Nullable Buffer pTimes() { return VkPresentTimesInfoGOOGLE.npTimes(address()); }
 
-        /** Sets the specified value to the {@link VkPresentTimesInfoGOOGLE#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPresentTimesInfoGOOGLE.Buffer sType(@NativeType("VkStructureType") int value) { VkPresentTimesInfoGOOGLE.nsType(address(), value); return this; }
-        /** Sets the {@link GOOGLEDisplayTiming#VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE} value to the {@link VkPresentTimesInfoGOOGLE#sType} field. */
+        /** Sets the {@link GOOGLEDisplayTiming#VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE} value to the {@code sType} field. */
         public VkPresentTimesInfoGOOGLE.Buffer sType$Default() { return sType(GOOGLEDisplayTiming.VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE); }
-        /** Sets the specified value to the {@link VkPresentTimesInfoGOOGLE#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPresentTimesInfoGOOGLE.Buffer pNext(@NativeType("void const *") long value) { VkPresentTimesInfoGOOGLE.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPresentTimesInfoGOOGLE#swapchainCount} field. */
+        /** Sets the specified value to the {@code swapchainCount} field. */
         public VkPresentTimesInfoGOOGLE.Buffer swapchainCount(@NativeType("uint32_t") int value) { VkPresentTimesInfoGOOGLE.nswapchainCount(address(), value); return this; }
-        /** Sets the address of the specified {@link VkPresentTimeGOOGLE.Buffer} to the {@link VkPresentTimesInfoGOOGLE#pTimes} field. */
-        public VkPresentTimesInfoGOOGLE.Buffer pTimes(@Nullable @NativeType("VkPresentTimeGOOGLE const *") VkPresentTimeGOOGLE.Buffer value) { VkPresentTimesInfoGOOGLE.npTimes(address(), value); return this; }
+        /** Sets the address of the specified {@link VkPresentTimeGOOGLE.Buffer} to the {@code pTimes} field. */
+        public VkPresentTimesInfoGOOGLE.Buffer pTimes(@NativeType("VkPresentTimeGOOGLE const *") VkPresentTimeGOOGLE.@Nullable Buffer value) { VkPresentTimesInfoGOOGLE.npTimes(address(), value); return this; }
 
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,11 +14,7 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure that models one SVG document.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_SVG_DocumentRec {
  *     FT_Byte * svg_document;
  *     FT_ULong svg_document_length;
@@ -28,7 +24,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     FT_UShort end_glyph_id;
  *     {@link FT_Matrix FT_Matrix} transform;
  *     {@link FT_Vector FT_Vector} delta;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct FT_SVG_DocumentRec")
 public class FT_SVG_Document extends Struct<FT_SVG_Document> {
@@ -127,8 +123,7 @@ public class FT_SVG_Document extends Struct<FT_SVG_Document> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_SVG_Document createSafe(long address) {
+    public static @Nullable FT_SVG_Document createSafe(long address) {
         return address == NULL ? null : new FT_SVG_Document(address, null);
     }
 
@@ -143,8 +138,7 @@ public class FT_SVG_Document extends Struct<FT_SVG_Document> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_SVG_Document.Buffer createSafe(long address, int capacity) {
+    public static FT_SVG_Document.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -157,11 +151,11 @@ public class FT_SVG_Document extends Struct<FT_SVG_Document> {
     /** Unsafe version of {@link #metrics}. */
     public static FT_Size_Metrics nmetrics(long struct) { return FT_Size_Metrics.create(struct + FT_SVG_Document.METRICS); }
     /** Unsafe version of {@link #units_per_EM}. */
-    public static short nunits_per_EM(long struct) { return UNSAFE.getShort(null, struct + FT_SVG_Document.UNITS_PER_EM); }
+    public static short nunits_per_EM(long struct) { return memGetShort(struct + FT_SVG_Document.UNITS_PER_EM); }
     /** Unsafe version of {@link #start_glyph_id}. */
-    public static short nstart_glyph_id(long struct) { return UNSAFE.getShort(null, struct + FT_SVG_Document.START_GLYPH_ID); }
+    public static short nstart_glyph_id(long struct) { return memGetShort(struct + FT_SVG_Document.START_GLYPH_ID); }
     /** Unsafe version of {@link #end_glyph_id}. */
-    public static short nend_glyph_id(long struct) { return UNSAFE.getShort(null, struct + FT_SVG_Document.END_GLYPH_ID); }
+    public static short nend_glyph_id(long struct) { return memGetShort(struct + FT_SVG_Document.END_GLYPH_ID); }
     /** Unsafe version of {@link #transform}. */
     public static FT_Matrix ntransform(long struct) { return FT_Matrix.create(struct + FT_SVG_Document.TRANSFORM); }
     /** Unsafe version of {@link #delta}. */
@@ -198,6 +192,11 @@ public class FT_SVG_Document extends Struct<FT_SVG_Document> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

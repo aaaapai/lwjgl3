@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a viewport swizzle.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code x} <b>must</b> be a valid {@code VkViewportCoordinateSwizzleNV} value</li>
- * <li>{@code y} <b>must</b> be a valid {@code VkViewportCoordinateSwizzleNV} value</li>
- * <li>{@code z} <b>must</b> be a valid {@code VkViewportCoordinateSwizzleNV} value</li>
- * <li>{@code w} <b>must</b> be a valid {@code VkViewportCoordinateSwizzleNV} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPipelineViewportSwizzleStateCreateInfoNV}, {@link EXTShaderObject#vkCmdSetViewportSwizzleNV CmdSetViewportSwizzleNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkViewportSwizzleNV {
- *     VkViewportCoordinateSwizzleNV {@link #x};
- *     VkViewportCoordinateSwizzleNV {@link #y};
- *     VkViewportCoordinateSwizzleNV {@link #z};
- *     VkViewportCoordinateSwizzleNV {@link #w};
- * }</code></pre>
+ *     VkViewportCoordinateSwizzleNV x;
+ *     VkViewportCoordinateSwizzleNV y;
+ *     VkViewportCoordinateSwizzleNV z;
+ *     VkViewportCoordinateSwizzleNV w;
+ * }}</pre>
  */
 public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements NativeResource {
 
@@ -95,26 +78,26 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkViewportCoordinateSwizzleNV} value specifying the swizzle operation to apply to the x component of the primitive */
+    /** @return the value of the {@code x} field. */
     @NativeType("VkViewportCoordinateSwizzleNV")
     public int x() { return nx(address()); }
-    /** a {@code VkViewportCoordinateSwizzleNV} value specifying the swizzle operation to apply to the y component of the primitive */
+    /** @return the value of the {@code y} field. */
     @NativeType("VkViewportCoordinateSwizzleNV")
     public int y() { return ny(address()); }
-    /** a {@code VkViewportCoordinateSwizzleNV} value specifying the swizzle operation to apply to the z component of the primitive */
+    /** @return the value of the {@code z} field. */
     @NativeType("VkViewportCoordinateSwizzleNV")
     public int z() { return nz(address()); }
-    /** a {@code VkViewportCoordinateSwizzleNV} value specifying the swizzle operation to apply to the w component of the primitive */
+    /** @return the value of the {@code w} field. */
     @NativeType("VkViewportCoordinateSwizzleNV")
     public int w() { return nw(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkViewportSwizzleNV x(@NativeType("VkViewportCoordinateSwizzleNV") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkViewportSwizzleNV y(@NativeType("VkViewportCoordinateSwizzleNV") int value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #z} field. */
+    /** Sets the specified value to the {@code z} field. */
     public VkViewportSwizzleNV z(@NativeType("VkViewportCoordinateSwizzleNV") int value) { nz(address(), value); return this; }
-    /** Sets the specified value to the {@link #w} field. */
+    /** Sets the specified value to the {@code w} field. */
     public VkViewportSwizzleNV w(@NativeType("VkViewportCoordinateSwizzleNV") int value) { nw(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -168,8 +151,7 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewportSwizzleNV createSafe(long address) {
+    public static @Nullable VkViewportSwizzleNV createSafe(long address) {
         return address == NULL ? null : new VkViewportSwizzleNV(address, null);
     }
 
@@ -212,8 +194,7 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkViewportSwizzleNV.Buffer createSafe(long address, int capacity) {
+    public static VkViewportSwizzleNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,22 +258,22 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkViewportSwizzleNV.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkViewportSwizzleNV.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.Z); }
+    public static int nz(long struct) { return memGetInt(struct + VkViewportSwizzleNV.Z); }
     /** Unsafe version of {@link #w}. */
-    public static int nw(long struct) { return UNSAFE.getInt(null, struct + VkViewportSwizzleNV.W); }
+    public static int nw(long struct) { return memGetInt(struct + VkViewportSwizzleNV.W); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.Y, value); }
     /** Unsafe version of {@link #z(int) z}. */
-    public static void nz(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.Z, value); }
+    public static void nz(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.Z, value); }
     /** Unsafe version of {@link #w(int) w}. */
-    public static void nw(long struct, int value) { UNSAFE.putInt(null, struct + VkViewportSwizzleNV.W, value); }
+    public static void nw(long struct, int value) { memPutInt(struct + VkViewportSwizzleNV.W, value); }
 
     // -----------------------------------
 
@@ -328,30 +309,35 @@ public class VkViewportSwizzleNV extends Struct<VkViewportSwizzleNV> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkViewportSwizzleNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkViewportSwizzleNV#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("VkViewportCoordinateSwizzleNV")
         public int x() { return VkViewportSwizzleNV.nx(address()); }
-        /** @return the value of the {@link VkViewportSwizzleNV#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("VkViewportCoordinateSwizzleNV")
         public int y() { return VkViewportSwizzleNV.ny(address()); }
-        /** @return the value of the {@link VkViewportSwizzleNV#z} field. */
+        /** @return the value of the {@code z} field. */
         @NativeType("VkViewportCoordinateSwizzleNV")
         public int z() { return VkViewportSwizzleNV.nz(address()); }
-        /** @return the value of the {@link VkViewportSwizzleNV#w} field. */
+        /** @return the value of the {@code w} field. */
         @NativeType("VkViewportCoordinateSwizzleNV")
         public int w() { return VkViewportSwizzleNV.nw(address()); }
 
-        /** Sets the specified value to the {@link VkViewportSwizzleNV#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkViewportSwizzleNV.Buffer x(@NativeType("VkViewportCoordinateSwizzleNV") int value) { VkViewportSwizzleNV.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkViewportSwizzleNV#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkViewportSwizzleNV.Buffer y(@NativeType("VkViewportCoordinateSwizzleNV") int value) { VkViewportSwizzleNV.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link VkViewportSwizzleNV#z} field. */
+        /** Sets the specified value to the {@code z} field. */
         public VkViewportSwizzleNV.Buffer z(@NativeType("VkViewportCoordinateSwizzleNV") int value) { VkViewportSwizzleNV.nz(address(), value); return this; }
-        /** Sets the specified value to the {@link VkViewportSwizzleNV#w} field. */
+        /** Sets the specified value to the {@code w} field. */
         public VkViewportSwizzleNV.Buffer w(@NativeType("VkViewportCoordinateSwizzleNV") int value) { VkViewportSwizzleNV.nw(address(), value); return this; }
 
     }

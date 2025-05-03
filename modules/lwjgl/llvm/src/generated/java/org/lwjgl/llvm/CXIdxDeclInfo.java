@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,22 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXIdxDeclInfo {
  *     {@link CXIdxEntityInfo CXIdxEntityInfo} const * entityInfo;
  *     {@link CXCursor CXCursor} cursor;
  *     {@link CXIdxLoc CXIdxLoc} loc;
  *     {@link CXIdxContainerInfo CXIdxContainerInfo} const * semanticContainer;
- *     {@link CXIdxContainerInfo CXIdxContainerInfo} const * {@link #lexicalContainer};
+ *     {@link CXIdxContainerInfo CXIdxContainerInfo} const * lexicalContainer;
  *     int isRedeclaration;
  *     int isDefinition;
  *     int isContainer;
  *     {@link CXIdxContainerInfo CXIdxContainerInfo} const * declAsContainer;
- *     int {@link #isImplicit};
+ *     int isImplicit;
  *     {@link CXIdxAttrInfo CXIdxAttrInfo} const * const * attributes;
  *     unsigned numAttributes;
  *     unsigned flags;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResource {
 
@@ -126,7 +124,7 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
     /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@code semanticContainer} field. */
     @NativeType("CXIdxContainerInfo const *")
     public CXIdxContainerInfo semanticContainer() { return nsemanticContainer(address()); }
-    /** generally same as {@code semanticContainer} but can be different in cases like out-of-line C++ member functions */
+    /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@code lexicalContainer} field. */
     @NativeType("CXIdxContainerInfo const *")
     public CXIdxContainerInfo lexicalContainer() { return nlexicalContainer(address()); }
     /** @return the value of the {@code isRedeclaration} field. */
@@ -141,7 +139,7 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
     /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@code declAsContainer} field. */
     @NativeType("CXIdxContainerInfo const *")
     public CXIdxContainerInfo declAsContainer() { return ndeclAsContainer(address()); }
-    /** whether the declaration exists in code or was created implicitly by the compiler, e.g. implicit Objective-C methods for properties */
+    /** @return the value of the {@code isImplicit} field. */
     @NativeType("int")
     public boolean isImplicit() { return nisImplicit(address()) != 0; }
     /** @return a {@link PointerBuffer} view of the data pointed to by the {@code attributes} field. */
@@ -178,8 +176,7 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxDeclInfo createSafe(long address) {
+    public static @Nullable CXIdxDeclInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxDeclInfo(address, null);
     }
 
@@ -222,8 +219,7 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxDeclInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxDeclInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -297,21 +293,21 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
     /** Unsafe version of {@link #lexicalContainer}. */
     public static CXIdxContainerInfo nlexicalContainer(long struct) { return CXIdxContainerInfo.create(memGetAddress(struct + CXIdxDeclInfo.LEXICALCONTAINER)); }
     /** Unsafe version of {@link #isRedeclaration}. */
-    public static int nisRedeclaration(long struct) { return UNSAFE.getInt(null, struct + CXIdxDeclInfo.ISREDECLARATION); }
+    public static int nisRedeclaration(long struct) { return memGetInt(struct + CXIdxDeclInfo.ISREDECLARATION); }
     /** Unsafe version of {@link #isDefinition}. */
-    public static int nisDefinition(long struct) { return UNSAFE.getInt(null, struct + CXIdxDeclInfo.ISDEFINITION); }
+    public static int nisDefinition(long struct) { return memGetInt(struct + CXIdxDeclInfo.ISDEFINITION); }
     /** Unsafe version of {@link #isContainer}. */
-    public static int nisContainer(long struct) { return UNSAFE.getInt(null, struct + CXIdxDeclInfo.ISCONTAINER); }
+    public static int nisContainer(long struct) { return memGetInt(struct + CXIdxDeclInfo.ISCONTAINER); }
     /** Unsafe version of {@link #declAsContainer}. */
     public static CXIdxContainerInfo ndeclAsContainer(long struct) { return CXIdxContainerInfo.create(memGetAddress(struct + CXIdxDeclInfo.DECLASCONTAINER)); }
     /** Unsafe version of {@link #isImplicit}. */
-    public static int nisImplicit(long struct) { return UNSAFE.getInt(null, struct + CXIdxDeclInfo.ISIMPLICIT); }
+    public static int nisImplicit(long struct) { return memGetInt(struct + CXIdxDeclInfo.ISIMPLICIT); }
     /** Unsafe version of {@link #attributes() attributes}. */
     public static PointerBuffer nattributes(long struct) { return memPointerBuffer(memGetAddress(struct + CXIdxDeclInfo.ATTRIBUTES), nnumAttributes(struct)); }
     /** Unsafe version of {@link #numAttributes}. */
-    public static int nnumAttributes(long struct) { return UNSAFE.getInt(null, struct + CXIdxDeclInfo.NUMATTRIBUTES); }
+    public static int nnumAttributes(long struct) { return memGetInt(struct + CXIdxDeclInfo.NUMATTRIBUTES); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + CXIdxDeclInfo.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + CXIdxDeclInfo.FLAGS); }
 
     // -----------------------------------
 
@@ -347,6 +343,11 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CXIdxDeclInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -361,7 +362,7 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
         /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@code semanticContainer} field. */
         @NativeType("CXIdxContainerInfo const *")
         public CXIdxContainerInfo semanticContainer() { return CXIdxDeclInfo.nsemanticContainer(address()); }
-        /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@link CXIdxDeclInfo#lexicalContainer} field. */
+        /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@code lexicalContainer} field. */
         @NativeType("CXIdxContainerInfo const *")
         public CXIdxContainerInfo lexicalContainer() { return CXIdxDeclInfo.nlexicalContainer(address()); }
         /** @return the value of the {@code isRedeclaration} field. */
@@ -376,7 +377,7 @@ public class CXIdxDeclInfo extends Struct<CXIdxDeclInfo> implements NativeResour
         /** @return a {@link CXIdxContainerInfo} view of the struct pointed to by the {@code declAsContainer} field. */
         @NativeType("CXIdxContainerInfo const *")
         public CXIdxContainerInfo declAsContainer() { return CXIdxDeclInfo.ndeclAsContainer(address()); }
-        /** @return the value of the {@link CXIdxDeclInfo#isImplicit} field. */
+        /** @return the value of the {@code isImplicit} field. */
         @NativeType("int")
         public boolean isImplicit() { return CXIdxDeclInfo.nisImplicit(address()) != 0; }
         /** @return a {@link PointerBuffer} view of the data pointed to by the {@code attributes} field. */

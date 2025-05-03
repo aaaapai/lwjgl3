@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing features to disable seamless cube maps.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTNonSeamlessCubeMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #nonSeamlessCubeMap};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 nonSeamlessCubeMap;
+ * }}</pre>
  */
 public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports {@link EXTNonSeamlessCubeMap#VK_SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT}. */
+    /** @return the value of the {@code nonSeamlessCubeMap} field. */
     @NativeType("VkBool32")
     public boolean nonSeamlessCubeMap() { return nnonSeamlessCubeMap(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTNonSeamlessCubeMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTNonSeamlessCubeMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT sType$Default() { return sType(EXTNonSeamlessCubeMap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #nonSeamlessCubeMap} field. */
+    /** Sets the specified value to the {@code nonSeamlessCubeMap} field. */
     public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT nonSeamlessCubeMap(@NativeType("VkBool32") boolean value) { nnonSeamlessCubeMap(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #nonSeamlessCubeMap}. */
-    public static int nnonSeamlessCubeMap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP); }
+    public static int nnonSeamlessCubeMap(long struct) { return memGetInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #nonSeamlessCubeMap(boolean) nonSeamlessCubeMap}. */
-    public static void nnonSeamlessCubeMap(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP, value); }
+    public static void nnonSeamlessCubeMap(long struct, int value) { memPutInt(struct + VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.NONSEAMLESSCUBEMAP, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends Struct<VkPhys
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#nonSeamlessCubeMap} field. */
+        /** @return the value of the {@code nonSeamlessCubeMap} field. */
         @NativeType("VkBool32")
         public boolean nonSeamlessCubeMap() { return VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.nnonSeamlessCubeMap(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTNonSeamlessCubeMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT} value to the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTNonSeamlessCubeMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.Buffer sType$Default() { return sType(EXTNonSeamlessCubeMap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT#nonSeamlessCubeMap} field. */
+        /** Sets the specified value to the {@code nonSeamlessCubeMap} field. */
         public VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.Buffer nonSeamlessCubeMap(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT.nnonSeamlessCubeMap(address(), value ? 1 : 0); return this; }
 
     }

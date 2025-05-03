@@ -5,40 +5,24 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
+import org.lwjgl.*;
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Query result.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSpaceQueryResultFB} structure is a query result returned in the {@code results} output parameter of the {@link FBSpatialEntityQuery#xrRetrieveSpaceQueryResultsFB RetrieveSpaceQueryResultsFB} function.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityQuery XR_FB_spatial_entity_query} extension <b>must</b> be enabled prior to using {@link XrSpaceQueryResultFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSpaceQueryResultsFB}, {@link XrUuidEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceQueryResultFB {
- *     XrSpace {@link #space};
- *     {@link XrUuidEXT XrUuidEXT} {@link #uuid};
- * }</code></pre>
+ *     XrSpace space;
+ *     {@link XrUuidEXT XrUuidEXT} uuid;
+ * }}</pre>
  */
-public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> {
+public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,13 +70,29 @@ public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrSpace} handle to the spatial entity found by the query. */
+    /** @return the value of the {@code space} field. */
     @NativeType("XrSpace")
     public long space() { return nspace(address()); }
-    /** the UUID that identifies the entity. */
+    /** @return a {@link XrUuidEXT} view of the {@code uuid} field. */
     public XrUuidEXT uuid() { return nuuid(address()); }
 
     // -----------------------------------
+
+    /** Returns a new {@code XrSpaceQueryResultFB} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
+    public static XrSpaceQueryResultFB malloc() {
+        return new XrSpaceQueryResultFB(nmemAllocChecked(SIZEOF), null);
+    }
+
+    /** Returns a new {@code XrSpaceQueryResultFB} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
+    public static XrSpaceQueryResultFB calloc() {
+        return new XrSpaceQueryResultFB(nmemCallocChecked(1, SIZEOF), null);
+    }
+
+    /** Returns a new {@code XrSpaceQueryResultFB} instance allocated with {@link BufferUtils}. */
+    public static XrSpaceQueryResultFB create() {
+        ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
+        return new XrSpaceQueryResultFB(memAddress(container), container);
+    }
 
     /** Returns a new {@code XrSpaceQueryResultFB} instance for the specified memory address. */
     public static XrSpaceQueryResultFB create(long address) {
@@ -100,9 +100,36 @@ public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceQueryResultFB createSafe(long address) {
+    public static @Nullable XrSpaceQueryResultFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceQueryResultFB(address, null);
+    }
+
+    /**
+     * Returns a new {@link XrSpaceQueryResultFB.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static XrSpaceQueryResultFB.Buffer malloc(int capacity) {
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+    }
+
+    /**
+     * Returns a new {@link XrSpaceQueryResultFB.Buffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static XrSpaceQueryResultFB.Buffer calloc(int capacity) {
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+    }
+
+    /**
+     * Returns a new {@link XrSpaceQueryResultFB.Buffer} instance allocated with {@link BufferUtils}.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static XrSpaceQueryResultFB.Buffer create(int capacity) {
+        ByteBuffer container = __create(capacity, SIZEOF);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -116,9 +143,46 @@ public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceQueryResultFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceQueryResultFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
+    }
+
+    /**
+     * Returns a new {@code XrSpaceQueryResultFB} instance allocated on the specified {@link MemoryStack}.
+     *
+     * @param stack the stack from which to allocate
+     */
+    public static XrSpaceQueryResultFB malloc(MemoryStack stack) {
+        return new XrSpaceQueryResultFB(stack.nmalloc(ALIGNOF, SIZEOF), null);
+    }
+
+    /**
+     * Returns a new {@code XrSpaceQueryResultFB} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
+     *
+     * @param stack the stack from which to allocate
+     */
+    public static XrSpaceQueryResultFB calloc(MemoryStack stack) {
+        return new XrSpaceQueryResultFB(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+    }
+
+    /**
+     * Returns a new {@link XrSpaceQueryResultFB.Buffer} instance allocated on the specified {@link MemoryStack}.
+     *
+     * @param stack    the stack from which to allocate
+     * @param capacity the buffer capacity
+     */
+    public static XrSpaceQueryResultFB.Buffer malloc(int capacity, MemoryStack stack) {
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+    }
+
+    /**
+     * Returns a new {@link XrSpaceQueryResultFB.Buffer} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
+     *
+     * @param stack    the stack from which to allocate
+     * @param capacity the buffer capacity
+     */
+    public static XrSpaceQueryResultFB.Buffer calloc(int capacity, MemoryStack stack) {
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -131,7 +195,7 @@ public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> {
     // -----------------------------------
 
     /** An array of {@link XrSpaceQueryResultFB} structs. */
-    public static class Buffer extends StructBuffer<XrSpaceQueryResultFB, Buffer> {
+    public static class Buffer extends StructBuffer<XrSpaceQueryResultFB, Buffer> implements NativeResource {
 
         private static final XrSpaceQueryResultFB ELEMENT_FACTORY = XrSpaceQueryResultFB.create(-1L);
 
@@ -162,14 +226,19 @@ public class XrSpaceQueryResultFB extends Struct<XrSpaceQueryResultFB> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceQueryResultFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceQueryResultFB#space} field. */
+        /** @return the value of the {@code space} field. */
         @NativeType("XrSpace")
         public long space() { return XrSpaceQueryResultFB.nspace(address()); }
-        /** @return a {@link XrUuidEXT} view of the {@link XrSpaceQueryResultFB#uuid} field. */
+        /** @return a {@link XrUuidEXT} view of the {@code uuid} field. */
         public XrUuidEXT uuid() { return XrSpaceQueryResultFB.nuuid(address()); }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct NSVGimage {
- *     float {@link #width};
- *     float {@link #height};
- *     {@link NSVGShape NSVGshape} * {@link #shapes};
- * }</code></pre>
+ *     float width;
+ *     float height;
+ *     {@link NSVGShape NSVGshape} * shapes;
+ * }}</pre>
  */
 @NativeType("struct NSVGimage")
 public class NSVGImage extends Struct<NSVGImage> {
@@ -75,11 +73,11 @@ public class NSVGImage extends Struct<NSVGImage> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Width of the image. */
+    /** @return the value of the {@code width} field. */
     public float width() { return nwidth(address()); }
-    /** Height of the image. */
+    /** @return the value of the {@code height} field. */
     public float height() { return nheight(address()); }
-    /** lLinked list of shapes in the image */
+    /** @return a {@link NSVGShape} view of the struct pointed to by the {@code shapes} field. */
     @NativeType("NSVGshape *")
     public NSVGShape shapes() { return nshapes(address()); }
 
@@ -91,8 +89,7 @@ public class NSVGImage extends Struct<NSVGImage> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGImage createSafe(long address) {
+    public static @Nullable NSVGImage createSafe(long address) {
         return address == NULL ? null : new NSVGImage(address, null);
     }
 
@@ -107,17 +104,16 @@ public class NSVGImage extends Struct<NSVGImage> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGImage.Buffer createSafe(long address, int capacity) {
+    public static NSVGImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + NSVGImage.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + NSVGImage.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + NSVGImage.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + NSVGImage.HEIGHT); }
     /** Unsafe version of {@link #shapes}. */
     public static NSVGShape nshapes(long struct) { return NSVGShape.create(memGetAddress(struct + NSVGImage.SHAPES)); }
 
@@ -155,15 +151,20 @@ public class NSVGImage extends Struct<NSVGImage> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NSVGImage getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NSVGImage#width} field. */
+        /** @return the value of the {@code width} field. */
         public float width() { return NSVGImage.nwidth(address()); }
-        /** @return the value of the {@link NSVGImage#height} field. */
+        /** @return the value of the {@code height} field. */
         public float height() { return NSVGImage.nheight(address()); }
-        /** @return a {@link NSVGShape} view of the struct pointed to by the {@link NSVGImage#shapes} field. */
+        /** @return a {@link NSVGShape} view of the struct pointed to by the {@code shapes} field. */
         @NativeType("NSVGshape *")
         public NSVGShape shapes() { return NSVGImage.nshapes(address()); }
 

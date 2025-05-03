@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The information to deserialize a binary scene.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the scene fragments are not in the same order as returned by {@link MSFTSceneUnderstanding#xrGetSceneComponentsMSFT GetSceneComponentsMSFT} or the runtime failed to deserialized the binary data then {@link MSFTSceneUnderstanding#xrGetSceneComputeStateMSFT GetSceneComputeStateMSFT} <b>must</b> return {@link MSFTSceneUnderstanding#XR_SCENE_COMPUTE_STATE_COMPLETED_WITH_ERROR_MSFT SCENE_COMPUTE_STATE_COMPLETED_WITH_ERROR_MSFT}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstandingSerialization XR_MSFT_scene_understanding_serialization} extension <b>must</b> be enabled prior to using {@link XrSceneDeserializeInfoMSFT}</li>
- * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT TYPE_SCENE_DESERIALIZE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code fragmentCount} is not 0, {@code fragments} <b>must</b> be a pointer to an array of {@code fragmentCount} valid {@link XrDeserializeSceneFragmentMSFT} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrDeserializeSceneFragmentMSFT}, {@link MSFTSceneUnderstandingSerialization#xrDeserializeSceneMSFT DeserializeSceneMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSceneDeserializeInfoMSFT {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint32_t {@link #fragmentCount};
- *     {@link XrDeserializeSceneFragmentMSFT XrDeserializeSceneFragmentMSFT} const * {@link #fragments};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint32_t fragmentCount;
+ *     {@link XrDeserializeSceneFragmentMSFT XrDeserializeSceneFragmentMSFT} const * fragments;
+ * }}</pre>
  */
 public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSFT> implements NativeResource {
 
@@ -99,37 +78,36 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the count of {@link XrDeserializeSceneFragmentMSFT} structures in the {@code fragments} array. */
+    /** @return the value of the {@code fragmentCount} field. */
     @NativeType("uint32_t")
     public int fragmentCount() { return nfragmentCount(address()); }
-    /** an array of {@link XrDeserializeSceneFragmentMSFT}. */
-    @Nullable
+    /** @return a {@link XrDeserializeSceneFragmentMSFT.Buffer} view of the struct array pointed to by the {@code fragments} field. */
     @NativeType("XrDeserializeSceneFragmentMSFT const *")
-    public XrDeserializeSceneFragmentMSFT.Buffer fragments() { return nfragments(address()); }
+    public XrDeserializeSceneFragmentMSFT.@Nullable Buffer fragments() { return nfragments(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSceneDeserializeInfoMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT TYPE_SCENE_DESERIALIZE_INFO_MSFT} value to the {@link #type} field. */
+    /** Sets the {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT TYPE_SCENE_DESERIALIZE_INFO_MSFT} value to the {@code type} field. */
     public XrSceneDeserializeInfoMSFT type$Default() { return type(MSFTSceneUnderstandingSerialization.XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSceneDeserializeInfoMSFT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #fragmentCount} field. */
+    /** Sets the specified value to the {@code fragmentCount} field. */
     public XrSceneDeserializeInfoMSFT fragmentCount(@NativeType("uint32_t") int value) { nfragmentCount(address(), value); return this; }
-    /** Sets the address of the specified {@link XrDeserializeSceneFragmentMSFT.Buffer} to the {@link #fragments} field. */
-    public XrSceneDeserializeInfoMSFT fragments(@Nullable @NativeType("XrDeserializeSceneFragmentMSFT const *") XrDeserializeSceneFragmentMSFT.Buffer value) { nfragments(address(), value); return this; }
+    /** Sets the address of the specified {@link XrDeserializeSceneFragmentMSFT.Buffer} to the {@code fragments} field. */
+    public XrSceneDeserializeInfoMSFT fragments(@NativeType("XrDeserializeSceneFragmentMSFT const *") XrDeserializeSceneFragmentMSFT.@Nullable Buffer value) { nfragments(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSceneDeserializeInfoMSFT set(
         int type,
         long next,
         int fragmentCount,
-        @Nullable XrDeserializeSceneFragmentMSFT.Buffer fragments
+        XrDeserializeSceneFragmentMSFT.@Nullable Buffer fragments
     ) {
         type(type);
         next(next);
@@ -175,8 +153,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneDeserializeInfoMSFT createSafe(long address) {
+    public static @Nullable XrSceneDeserializeInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneDeserializeInfoMSFT(address, null);
     }
 
@@ -219,8 +196,7 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneDeserializeInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneDeserializeInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,22 +241,22 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneDeserializeInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneDeserializeInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneDeserializeInfoMSFT.NEXT); }
     /** Unsafe version of {@link #fragmentCount}. */
-    public static int nfragmentCount(long struct) { return UNSAFE.getInt(null, struct + XrSceneDeserializeInfoMSFT.FRAGMENTCOUNT); }
+    public static int nfragmentCount(long struct) { return memGetInt(struct + XrSceneDeserializeInfoMSFT.FRAGMENTCOUNT); }
     /** Unsafe version of {@link #fragments}. */
-    @Nullable public static XrDeserializeSceneFragmentMSFT.Buffer nfragments(long struct) { return XrDeserializeSceneFragmentMSFT.createSafe(memGetAddress(struct + XrSceneDeserializeInfoMSFT.FRAGMENTS), nfragmentCount(struct)); }
+    public static XrDeserializeSceneFragmentMSFT.@Nullable Buffer nfragments(long struct) { return XrDeserializeSceneFragmentMSFT.createSafe(memGetAddress(struct + XrSceneDeserializeInfoMSFT.FRAGMENTS), nfragmentCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneDeserializeInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneDeserializeInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneDeserializeInfoMSFT.NEXT, value); }
     /** Sets the specified value to the {@code fragmentCount} field of the specified {@code struct}. */
-    public static void nfragmentCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneDeserializeInfoMSFT.FRAGMENTCOUNT, value); }
+    public static void nfragmentCount(long struct, int value) { memPutInt(struct + XrSceneDeserializeInfoMSFT.FRAGMENTCOUNT, value); }
     /** Unsafe version of {@link #fragments(XrDeserializeSceneFragmentMSFT.Buffer) fragments}. */
-    public static void nfragments(long struct, @Nullable XrDeserializeSceneFragmentMSFT.Buffer value) { memPutAddress(struct + XrSceneDeserializeInfoMSFT.FRAGMENTS, memAddressSafe(value)); if (value != null) { nfragmentCount(struct, value.remaining()); } }
+    public static void nfragments(long struct, XrDeserializeSceneFragmentMSFT.@Nullable Buffer value) { memPutAddress(struct + XrSceneDeserializeInfoMSFT.FRAGMENTS, memAddressSafe(value)); if (value != null) { nfragmentCount(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -316,34 +292,38 @@ public class XrSceneDeserializeInfoMSFT extends Struct<XrSceneDeserializeInfoMSF
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneDeserializeInfoMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSceneDeserializeInfoMSFT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSceneDeserializeInfoMSFT.ntype(address()); }
-        /** @return the value of the {@link XrSceneDeserializeInfoMSFT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSceneDeserializeInfoMSFT.nnext(address()); }
-        /** @return the value of the {@link XrSceneDeserializeInfoMSFT#fragmentCount} field. */
+        /** @return the value of the {@code fragmentCount} field. */
         @NativeType("uint32_t")
         public int fragmentCount() { return XrSceneDeserializeInfoMSFT.nfragmentCount(address()); }
-        /** @return a {@link XrDeserializeSceneFragmentMSFT.Buffer} view of the struct array pointed to by the {@link XrSceneDeserializeInfoMSFT#fragments} field. */
-        @Nullable
+        /** @return a {@link XrDeserializeSceneFragmentMSFT.Buffer} view of the struct array pointed to by the {@code fragments} field. */
         @NativeType("XrDeserializeSceneFragmentMSFT const *")
-        public XrDeserializeSceneFragmentMSFT.Buffer fragments() { return XrSceneDeserializeInfoMSFT.nfragments(address()); }
+        public XrDeserializeSceneFragmentMSFT.@Nullable Buffer fragments() { return XrSceneDeserializeInfoMSFT.nfragments(address()); }
 
-        /** Sets the specified value to the {@link XrSceneDeserializeInfoMSFT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSceneDeserializeInfoMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSceneDeserializeInfoMSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT TYPE_SCENE_DESERIALIZE_INFO_MSFT} value to the {@link XrSceneDeserializeInfoMSFT#type} field. */
+        /** Sets the {@link MSFTSceneUnderstandingSerialization#XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT TYPE_SCENE_DESERIALIZE_INFO_MSFT} value to the {@code type} field. */
         public XrSceneDeserializeInfoMSFT.Buffer type$Default() { return type(MSFTSceneUnderstandingSerialization.XR_TYPE_SCENE_DESERIALIZE_INFO_MSFT); }
-        /** Sets the specified value to the {@link XrSceneDeserializeInfoMSFT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSceneDeserializeInfoMSFT.Buffer next(@NativeType("void const *") long value) { XrSceneDeserializeInfoMSFT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSceneDeserializeInfoMSFT#fragmentCount} field. */
+        /** Sets the specified value to the {@code fragmentCount} field. */
         public XrSceneDeserializeInfoMSFT.Buffer fragmentCount(@NativeType("uint32_t") int value) { XrSceneDeserializeInfoMSFT.nfragmentCount(address(), value); return this; }
-        /** Sets the address of the specified {@link XrDeserializeSceneFragmentMSFT.Buffer} to the {@link XrSceneDeserializeInfoMSFT#fragments} field. */
-        public XrSceneDeserializeInfoMSFT.Buffer fragments(@Nullable @NativeType("XrDeserializeSceneFragmentMSFT const *") XrDeserializeSceneFragmentMSFT.Buffer value) { XrSceneDeserializeInfoMSFT.nfragments(address(), value); return this; }
+        /** Sets the address of the specified {@link XrDeserializeSceneFragmentMSFT.Buffer} to the {@code fragments} field. */
+        public XrSceneDeserializeInfoMSFT.Buffer fragments(@NativeType("XrDeserializeSceneFragmentMSFT const *") XrDeserializeSceneFragmentMSFT.@Nullable Buffer value) { XrSceneDeserializeInfoMSFT.nfragments(address(), value); return this; }
 
     }
 

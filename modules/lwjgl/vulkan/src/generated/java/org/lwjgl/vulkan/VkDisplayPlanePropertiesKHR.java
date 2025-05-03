@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display plane properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayPlaneProperties2KHR}, {@link KHRDisplay#vkGetPhysicalDeviceDisplayPlanePropertiesKHR GetPhysicalDeviceDisplayPlanePropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayPlanePropertiesKHR {
- *     VkDisplayKHR {@link #currentDisplay};
- *     uint32_t {@link #currentStackIndex};
- * }</code></pre>
+ *     VkDisplayKHR currentDisplay;
+ *     uint32_t currentStackIndex;
+ * }}</pre>
  */
 public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlanePropertiesKHR> implements NativeResource {
 
@@ -78,10 +70,10 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the handle of the display the plane is currently associated with. If the plane is not currently attached to any displays, this will be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. */
+    /** @return the value of the {@code currentDisplay} field. */
     @NativeType("VkDisplayKHR")
     public long currentDisplay() { return ncurrentDisplay(address()); }
-    /** the current z-order of the plane. This will be between 0 and the value returned by {@code vkGetPhysicalDeviceDisplayPlanePropertiesKHR} in {@code pPropertyCount}. */
+    /** @return the value of the {@code currentStackIndex} field. */
     @NativeType("uint32_t")
     public int currentStackIndex() { return ncurrentStackIndex(address()); }
 
@@ -109,8 +101,7 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlanePropertiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayPlanePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayPlanePropertiesKHR(address, null);
     }
 
@@ -153,8 +144,7 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayPlanePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayPlanePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -218,9 +208,9 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     // -----------------------------------
 
     /** Unsafe version of {@link #currentDisplay}. */
-    public static long ncurrentDisplay(long struct) { return UNSAFE.getLong(null, struct + VkDisplayPlanePropertiesKHR.CURRENTDISPLAY); }
+    public static long ncurrentDisplay(long struct) { return memGetLong(struct + VkDisplayPlanePropertiesKHR.CURRENTDISPLAY); }
     /** Unsafe version of {@link #currentStackIndex}. */
-    public static int ncurrentStackIndex(long struct) { return UNSAFE.getInt(null, struct + VkDisplayPlanePropertiesKHR.CURRENTSTACKINDEX); }
+    public static int ncurrentStackIndex(long struct) { return memGetInt(struct + VkDisplayPlanePropertiesKHR.CURRENTSTACKINDEX); }
 
     // -----------------------------------
 
@@ -256,14 +246,19 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayPlanePropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayPlanePropertiesKHR#currentDisplay} field. */
+        /** @return the value of the {@code currentDisplay} field. */
         @NativeType("VkDisplayKHR")
         public long currentDisplay() { return VkDisplayPlanePropertiesKHR.ncurrentDisplay(address()); }
-        /** @return the value of the {@link VkDisplayPlanePropertiesKHR#currentStackIndex} field. */
+        /** @return the value of the {@code currentStackIndex} field. */
         @NativeType("uint32_t")
         public int currentStackIndex() { return VkDisplayPlanePropertiesKHR.ncurrentStackIndex(address()); }
 

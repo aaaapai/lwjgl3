@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains info about a space.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_SPACE_VELOCITY TYPE_SPACE_VELOCITY}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code velocityFlags} <b>must</b> be 0 or a valid combination of {@code XrSpaceVelocityFlagBits} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSpaceLocation}, {@link XrVector3f}, {@link XR10#xrLocateSpace LocateSpace}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceVelocity {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrSpaceVelocityFlags {@link #velocityFlags};
- *     {@link XrVector3f XrVector3f} {@link #linearVelocity};
- *     {@link XrVector3f XrVector3f} {@link #angularVelocity};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrSpaceVelocityFlags velocityFlags;
+ *     {@link XrVector3f XrVector3f} linearVelocity;
+ *     {@link XrVector3f XrVector3f} angularVelocity;
+ * }}</pre>
  */
 public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeResource {
 
@@ -98,35 +82,35 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a bitfield, with bit masks defined in {@code XrSpaceVelocityFlagBits}, to indicate which members contain valid data. If none of the bits are set, no other fields in this structure <b>should</b> be considered to be valid or meaningful. */
+    /** @return the value of the {@code velocityFlags} field. */
     @NativeType("XrSpaceVelocityFlags")
     public long velocityFlags() { return nvelocityFlags(address()); }
-    /** the relative linear velocity of the origin of {@link XR10#xrLocateSpace LocateSpace}{@code ::space} with respect to and expressed in the reference frame of {@link XR10#xrLocateSpace LocateSpace}{@code ::baseSpace}, in units of meters per second. */
+    /** @return a {@link XrVector3f} view of the {@code linearVelocity} field. */
     public XrVector3f linearVelocity() { return nlinearVelocity(address()); }
-    /** the relative angular velocity of {@link XR10#xrLocateSpace LocateSpace}{@code ::space} with respect to {@link XR10#xrLocateSpace LocateSpace}{@code ::baseSpace}. The vector’s direction is expressed in the reference frame of {@link XR10#xrLocateSpace LocateSpace}{@code ::baseSpace} and is parallel to the rotational axis of {@link XR10#xrLocateSpace LocateSpace}{@code ::space}. The vector’s magnitude is the relative angular speed of {@link XR10#xrLocateSpace LocateSpace}{@code ::space} in radians per second. The vector follows the right-hand rule for torque/rotation. */
+    /** @return a {@link XrVector3f} view of the {@code angularVelocity} field. */
     public XrVector3f angularVelocity() { return nangularVelocity(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceVelocity type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_SPACE_VELOCITY TYPE_SPACE_VELOCITY} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_SPACE_VELOCITY TYPE_SPACE_VELOCITY} value to the {@code type} field. */
     public XrSpaceVelocity type$Default() { return type(XR10.XR_TYPE_SPACE_VELOCITY); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceVelocity next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #velocityFlags} field. */
+    /** Sets the specified value to the {@code velocityFlags} field. */
     public XrSpaceVelocity velocityFlags(@NativeType("XrSpaceVelocityFlags") long value) { nvelocityFlags(address(), value); return this; }
-    /** Copies the specified {@link XrVector3f} to the {@link #linearVelocity} field. */
+    /** Copies the specified {@link XrVector3f} to the {@code linearVelocity} field. */
     public XrSpaceVelocity linearVelocity(XrVector3f value) { nlinearVelocity(address(), value); return this; }
-    /** Passes the {@link #linearVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code linearVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSpaceVelocity linearVelocity(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(linearVelocity()); return this; }
-    /** Copies the specified {@link XrVector3f} to the {@link #angularVelocity} field. */
+    /** Copies the specified {@link XrVector3f} to the {@code angularVelocity} field. */
     public XrSpaceVelocity angularVelocity(XrVector3f value) { nangularVelocity(address(), value); return this; }
-    /** Passes the {@link #angularVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code angularVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSpaceVelocity angularVelocity(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(angularVelocity()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -182,8 +166,7 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceVelocity createSafe(long address) {
+    public static @Nullable XrSpaceVelocity createSafe(long address) {
         return address == NULL ? null : new XrSpaceVelocity(address, null);
     }
 
@@ -226,8 +209,7 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceVelocity.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceVelocity.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,22 +254,22 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceVelocity.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceVelocity.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceVelocity.NEXT); }
     /** Unsafe version of {@link #velocityFlags}. */
-    public static long nvelocityFlags(long struct) { return UNSAFE.getLong(null, struct + XrSpaceVelocity.VELOCITYFLAGS); }
+    public static long nvelocityFlags(long struct) { return memGetLong(struct + XrSpaceVelocity.VELOCITYFLAGS); }
     /** Unsafe version of {@link #linearVelocity}. */
     public static XrVector3f nlinearVelocity(long struct) { return XrVector3f.create(struct + XrSpaceVelocity.LINEARVELOCITY); }
     /** Unsafe version of {@link #angularVelocity}. */
     public static XrVector3f nangularVelocity(long struct) { return XrVector3f.create(struct + XrSpaceVelocity.ANGULARVELOCITY); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceVelocity.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceVelocity.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceVelocity.NEXT, value); }
     /** Unsafe version of {@link #velocityFlags(long) velocityFlags}. */
-    public static void nvelocityFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrSpaceVelocity.VELOCITYFLAGS, value); }
+    public static void nvelocityFlags(long struct, long value) { memPutLong(struct + XrSpaceVelocity.VELOCITYFLAGS, value); }
     /** Unsafe version of {@link #linearVelocity(XrVector3f) linearVelocity}. */
     public static void nlinearVelocity(long struct, XrVector3f value) { memCopy(value.address(), struct + XrSpaceVelocity.LINEARVELOCITY, XrVector3f.SIZEOF); }
     /** Unsafe version of {@link #angularVelocity(XrVector3f) angularVelocity}. */
@@ -327,39 +309,44 @@ public class XrSpaceVelocity extends Struct<XrSpaceVelocity> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceVelocity getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceVelocity#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceVelocity.ntype(address()); }
-        /** @return the value of the {@link XrSpaceVelocity#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSpaceVelocity.nnext(address()); }
-        /** @return the value of the {@link XrSpaceVelocity#velocityFlags} field. */
+        /** @return the value of the {@code velocityFlags} field. */
         @NativeType("XrSpaceVelocityFlags")
         public long velocityFlags() { return XrSpaceVelocity.nvelocityFlags(address()); }
-        /** @return a {@link XrVector3f} view of the {@link XrSpaceVelocity#linearVelocity} field. */
+        /** @return a {@link XrVector3f} view of the {@code linearVelocity} field. */
         public XrVector3f linearVelocity() { return XrSpaceVelocity.nlinearVelocity(address()); }
-        /** @return a {@link XrVector3f} view of the {@link XrSpaceVelocity#angularVelocity} field. */
+        /** @return a {@link XrVector3f} view of the {@code angularVelocity} field. */
         public XrVector3f angularVelocity() { return XrSpaceVelocity.nangularVelocity(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceVelocity#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceVelocity.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceVelocity.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_SPACE_VELOCITY TYPE_SPACE_VELOCITY} value to the {@link XrSpaceVelocity#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_SPACE_VELOCITY TYPE_SPACE_VELOCITY} value to the {@code type} field. */
         public XrSpaceVelocity.Buffer type$Default() { return type(XR10.XR_TYPE_SPACE_VELOCITY); }
-        /** Sets the specified value to the {@link XrSpaceVelocity#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceVelocity.Buffer next(@NativeType("void *") long value) { XrSpaceVelocity.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceVelocity#velocityFlags} field. */
+        /** Sets the specified value to the {@code velocityFlags} field. */
         public XrSpaceVelocity.Buffer velocityFlags(@NativeType("XrSpaceVelocityFlags") long value) { XrSpaceVelocity.nvelocityFlags(address(), value); return this; }
-        /** Copies the specified {@link XrVector3f} to the {@link XrSpaceVelocity#linearVelocity} field. */
+        /** Copies the specified {@link XrVector3f} to the {@code linearVelocity} field. */
         public XrSpaceVelocity.Buffer linearVelocity(XrVector3f value) { XrSpaceVelocity.nlinearVelocity(address(), value); return this; }
-        /** Passes the {@link XrSpaceVelocity#linearVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code linearVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSpaceVelocity.Buffer linearVelocity(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(linearVelocity()); return this; }
-        /** Copies the specified {@link XrVector3f} to the {@link XrSpaceVelocity#angularVelocity} field. */
+        /** Copies the specified {@link XrVector3f} to the {@code angularVelocity} field. */
         public XrSpaceVelocity.Buffer angularVelocity(XrVector3f value) { XrSpaceVelocity.nangularVelocity(address(), value); return this; }
-        /** Passes the {@link XrSpaceVelocity#angularVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code angularVelocity} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSpaceVelocity.Buffer angularVelocity(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(angularVelocity()); return this; }
 
     }

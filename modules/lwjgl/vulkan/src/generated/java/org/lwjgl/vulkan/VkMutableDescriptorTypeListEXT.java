@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,37 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing descriptor types that a given descriptor may mutate to.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code descriptorTypeCount} <b>must</b> not be 0 if the corresponding binding is of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
- * <li>{@code pDescriptorTypes} <b>must</b> be a valid pointer to an array of {@code descriptorTypeCount} valid, unique {@code VkDescriptorType} values if the given binding is of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} type</li>
- * <li>{@code descriptorTypeCount} <b>must</b> be 0 if the corresponding binding is not of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
- * <li>{@code pDescriptorTypes} <b>must</b> not contain {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT}</li>
- * <li>{@code pDescriptorTypes} <b>must</b> not contain {@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC}</li>
- * <li>{@code pDescriptorTypes} <b>must</b> not contain {@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC}</li>
- * <li>{@code pDescriptorTypes} <b>must</b> not contain {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>If {@code descriptorTypeCount} is not 0, {@code pDescriptorTypes} <b>must</b> be a valid pointer to an array of {@code descriptorTypeCount} valid {@code VkDescriptorType} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkMutableDescriptorTypeCreateInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMutableDescriptorTypeListEXT {
- *     uint32_t {@link #descriptorTypeCount};
- *     VkDescriptorType const * {@link #pDescriptorTypes};
- * }</code></pre>
+ *     uint32_t descriptorTypeCount;
+ *     VkDescriptorType const * pDescriptorTypes;
+ * }}</pre>
  */
 public class VkMutableDescriptorTypeListEXT extends Struct<VkMutableDescriptorTypeListEXT> implements NativeResource {
 
@@ -97,15 +71,14 @@ public class VkMutableDescriptorTypeListEXT extends Struct<VkMutableDescriptorTy
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of elements in {@code pDescriptorTypes}. */
+    /** @return the value of the {@code descriptorTypeCount} field. */
     @NativeType("uint32_t")
     public int descriptorTypeCount() { return ndescriptorTypeCount(address()); }
-    /** {@code NULL} or a pointer to an array of {@code descriptorTypeCount} {@code VkDescriptorType} values defining which descriptor types a given binding may mutate to. */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code pDescriptorTypes} field. */
     @NativeType("VkDescriptorType const *")
-    public IntBuffer pDescriptorTypes() { return npDescriptorTypes(address()); }
+    public @Nullable IntBuffer pDescriptorTypes() { return npDescriptorTypes(address()); }
 
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #pDescriptorTypes} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code pDescriptorTypes} field. */
     public VkMutableDescriptorTypeListEXT pDescriptorTypes(@Nullable @NativeType("VkDescriptorType const *") IntBuffer value) { npDescriptorTypes(address(), value); return this; }
 
     /**
@@ -144,8 +117,7 @@ public class VkMutableDescriptorTypeListEXT extends Struct<VkMutableDescriptorTy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMutableDescriptorTypeListEXT createSafe(long address) {
+    public static @Nullable VkMutableDescriptorTypeListEXT createSafe(long address) {
         return address == NULL ? null : new VkMutableDescriptorTypeListEXT(address, null);
     }
 
@@ -188,8 +160,7 @@ public class VkMutableDescriptorTypeListEXT extends Struct<VkMutableDescriptorTy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMutableDescriptorTypeListEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMutableDescriptorTypeListEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -234,12 +205,12 @@ public class VkMutableDescriptorTypeListEXT extends Struct<VkMutableDescriptorTy
     // -----------------------------------
 
     /** Unsafe version of {@link #descriptorTypeCount}. */
-    public static int ndescriptorTypeCount(long struct) { return UNSAFE.getInt(null, struct + VkMutableDescriptorTypeListEXT.DESCRIPTORTYPECOUNT); }
+    public static int ndescriptorTypeCount(long struct) { return memGetInt(struct + VkMutableDescriptorTypeListEXT.DESCRIPTORTYPECOUNT); }
     /** Unsafe version of {@link #pDescriptorTypes() pDescriptorTypes}. */
-    @Nullable public static IntBuffer npDescriptorTypes(long struct) { return memIntBufferSafe(memGetAddress(struct + VkMutableDescriptorTypeListEXT.PDESCRIPTORTYPES), ndescriptorTypeCount(struct)); }
+    public static @Nullable IntBuffer npDescriptorTypes(long struct) { return memIntBufferSafe(memGetAddress(struct + VkMutableDescriptorTypeListEXT.PDESCRIPTORTYPES), ndescriptorTypeCount(struct)); }
 
     /** Sets the specified value to the {@code descriptorTypeCount} field of the specified {@code struct}. */
-    public static void ndescriptorTypeCount(long struct, int value) { UNSAFE.putInt(null, struct + VkMutableDescriptorTypeListEXT.DESCRIPTORTYPECOUNT, value); }
+    public static void ndescriptorTypeCount(long struct, int value) { memPutInt(struct + VkMutableDescriptorTypeListEXT.DESCRIPTORTYPECOUNT, value); }
     /** Unsafe version of {@link #pDescriptorTypes(IntBuffer) pDescriptorTypes}. */
     public static void npDescriptorTypes(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkMutableDescriptorTypeListEXT.PDESCRIPTORTYPES, memAddressSafe(value)); ndescriptorTypeCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -288,19 +259,23 @@ public class VkMutableDescriptorTypeListEXT extends Struct<VkMutableDescriptorTy
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMutableDescriptorTypeListEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMutableDescriptorTypeListEXT#descriptorTypeCount} field. */
+        /** @return the value of the {@code descriptorTypeCount} field. */
         @NativeType("uint32_t")
         public int descriptorTypeCount() { return VkMutableDescriptorTypeListEXT.ndescriptorTypeCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkMutableDescriptorTypeListEXT#pDescriptorTypes} field. */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code pDescriptorTypes} field. */
         @NativeType("VkDescriptorType const *")
-        public IntBuffer pDescriptorTypes() { return VkMutableDescriptorTypeListEXT.npDescriptorTypes(address()); }
+        public @Nullable IntBuffer pDescriptorTypes() { return VkMutableDescriptorTypeListEXT.npDescriptorTypes(address()); }
 
-        /** Sets the address of the specified {@link IntBuffer} to the {@link VkMutableDescriptorTypeListEXT#pDescriptorTypes} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code pDescriptorTypes} field. */
         public VkMutableDescriptorTypeListEXT.Buffer pDescriptorTypes(@Nullable @NativeType("VkDescriptorType const *") IntBuffer value) { VkMutableDescriptorTypeListEXT.npDescriptorTypes(address(), value); return this; }
 
     }

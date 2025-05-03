@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_style_edit {
  *     {@link NkStyleItem struct nk_style_item} normal;
  *     {@link NkStyleItem struct nk_style_item} hover;
@@ -42,7 +40,9 @@ import static org.lwjgl.system.MemoryStack.*;
  *     {@link NkVec2 struct nk_vec2} scrollbar_size;
  *     {@link NkVec2 struct nk_vec2} padding;
  *     float row_padding;
- * }</code></pre>
+ *     float color_factor;
+ *     float disabled_factor;
+ * }}</pre>
  */
 @NativeType("struct nk_style_edit")
 public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
@@ -76,7 +76,9 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         CURSOR_SIZE,
         SCROLLBAR_SIZE,
         PADDING,
-        ROW_PADDING;
+        ROW_PADDING,
+        COLOR_FACTOR,
+        DISABLED_FACTOR;
 
     static {
         Layout layout = __struct(
@@ -101,6 +103,8 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
             __member(4),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
             __member(NkVec2.SIZEOF, NkVec2.ALIGNOF),
+            __member(4),
+            __member(4),
             __member(4)
         );
 
@@ -129,6 +133,8 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         SCROLLBAR_SIZE = layout.offsetof(19);
         PADDING = layout.offsetof(20);
         ROW_PADDING = layout.offsetof(21);
+        COLOR_FACTOR = layout.offsetof(22);
+        DISABLED_FACTOR = layout.offsetof(23);
     }
 
     protected NkStyleEdit(long address, @Nullable ByteBuffer container) {
@@ -215,6 +221,10 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
     public NkVec2 padding() { return npadding(address()); }
     /** @return the value of the {@code row_padding} field. */
     public float row_padding() { return nrow_padding(address()); }
+    /** @return the value of the {@code color_factor} field. */
+    public float color_factor() { return ncolor_factor(address()); }
+    /** @return the value of the {@code disabled_factor} field. */
+    public float disabled_factor() { return ndisabled_factor(address()); }
 
     /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
     public NkStyleEdit normal(@NativeType("struct nk_style_item") NkStyleItem value) { nnormal(address(), value); return this; }
@@ -296,6 +306,10 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
     public NkStyleEdit padding(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(padding()); return this; }
     /** Sets the specified value to the {@code row_padding} field. */
     public NkStyleEdit row_padding(float value) { nrow_padding(address(), value); return this; }
+    /** Sets the specified value to the {@code color_factor} field. */
+    public NkStyleEdit color_factor(float value) { ncolor_factor(address(), value); return this; }
+    /** Sets the specified value to the {@code disabled_factor} field. */
+    public NkStyleEdit disabled_factor(float value) { ndisabled_factor(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public NkStyleEdit set(
@@ -320,7 +334,9 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         float cursor_size,
         NkVec2 scrollbar_size,
         NkVec2 padding,
-        float row_padding
+        float row_padding,
+        float color_factor,
+        float disabled_factor
     ) {
         normal(normal);
         hover(hover);
@@ -344,6 +360,8 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         scrollbar_size(scrollbar_size);
         padding(padding);
         row_padding(row_padding);
+        color_factor(color_factor);
+        disabled_factor(disabled_factor);
 
         return this;
     }
@@ -384,8 +402,7 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleEdit createSafe(long address) {
+    public static @Nullable NkStyleEdit createSafe(long address) {
         return address == NULL ? null : new NkStyleEdit(address, null);
     }
 
@@ -428,8 +445,7 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleEdit.Buffer createSafe(long address, int capacity) {
+    public static NkStyleEdit.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -525,17 +541,21 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
     /** Unsafe version of {@link #selected_text_hover}. */
     public static NkColor nselected_text_hover(long struct) { return NkColor.create(struct + NkStyleEdit.SELECTED_TEXT_HOVER); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkStyleEdit.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkStyleEdit.BORDER); }
     /** Unsafe version of {@link #rounding}. */
-    public static float nrounding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleEdit.ROUNDING); }
+    public static float nrounding(long struct) { return memGetFloat(struct + NkStyleEdit.ROUNDING); }
     /** Unsafe version of {@link #cursor_size}. */
-    public static float ncursor_size(long struct) { return UNSAFE.getFloat(null, struct + NkStyleEdit.CURSOR_SIZE); }
+    public static float ncursor_size(long struct) { return memGetFloat(struct + NkStyleEdit.CURSOR_SIZE); }
     /** Unsafe version of {@link #scrollbar_size}. */
     public static NkVec2 nscrollbar_size(long struct) { return NkVec2.create(struct + NkStyleEdit.SCROLLBAR_SIZE); }
     /** Unsafe version of {@link #padding}. */
     public static NkVec2 npadding(long struct) { return NkVec2.create(struct + NkStyleEdit.PADDING); }
     /** Unsafe version of {@link #row_padding}. */
-    public static float nrow_padding(long struct) { return UNSAFE.getFloat(null, struct + NkStyleEdit.ROW_PADDING); }
+    public static float nrow_padding(long struct) { return memGetFloat(struct + NkStyleEdit.ROW_PADDING); }
+    /** Unsafe version of {@link #color_factor}. */
+    public static float ncolor_factor(long struct) { return memGetFloat(struct + NkStyleEdit.COLOR_FACTOR); }
+    /** Unsafe version of {@link #disabled_factor}. */
+    public static float ndisabled_factor(long struct) { return memGetFloat(struct + NkStyleEdit.DISABLED_FACTOR); }
 
     /** Unsafe version of {@link #normal(NkStyleItem) normal}. */
     public static void nnormal(long struct, NkStyleItem value) { memCopy(value.address(), struct + NkStyleEdit.NORMAL, NkStyleItem.SIZEOF); }
@@ -570,17 +590,21 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
     /** Unsafe version of {@link #selected_text_hover(NkColor) selected_text_hover}. */
     public static void nselected_text_hover(long struct, NkColor value) { memCopy(value.address(), struct + NkStyleEdit.SELECTED_TEXT_HOVER, NkColor.SIZEOF); }
     /** Unsafe version of {@link #border(float) border}. */
-    public static void nborder(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleEdit.BORDER, value); }
+    public static void nborder(long struct, float value) { memPutFloat(struct + NkStyleEdit.BORDER, value); }
     /** Unsafe version of {@link #rounding(float) rounding}. */
-    public static void nrounding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleEdit.ROUNDING, value); }
+    public static void nrounding(long struct, float value) { memPutFloat(struct + NkStyleEdit.ROUNDING, value); }
     /** Unsafe version of {@link #cursor_size(float) cursor_size}. */
-    public static void ncursor_size(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleEdit.CURSOR_SIZE, value); }
+    public static void ncursor_size(long struct, float value) { memPutFloat(struct + NkStyleEdit.CURSOR_SIZE, value); }
     /** Unsafe version of {@link #scrollbar_size(NkVec2) scrollbar_size}. */
     public static void nscrollbar_size(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleEdit.SCROLLBAR_SIZE, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #padding(NkVec2) padding}. */
     public static void npadding(long struct, NkVec2 value) { memCopy(value.address(), struct + NkStyleEdit.PADDING, NkVec2.SIZEOF); }
     /** Unsafe version of {@link #row_padding(float) row_padding}. */
-    public static void nrow_padding(long struct, float value) { UNSAFE.putFloat(null, struct + NkStyleEdit.ROW_PADDING, value); }
+    public static void nrow_padding(long struct, float value) { memPutFloat(struct + NkStyleEdit.ROW_PADDING, value); }
+    /** Unsafe version of {@link #color_factor(float) color_factor}. */
+    public static void ncolor_factor(long struct, float value) { memPutFloat(struct + NkStyleEdit.COLOR_FACTOR, value); }
+    /** Unsafe version of {@link #disabled_factor(float) disabled_factor}. */
+    public static void ndisabled_factor(long struct, float value) { memPutFloat(struct + NkStyleEdit.DISABLED_FACTOR, value); }
 
     // -----------------------------------
 
@@ -613,6 +637,11 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -682,6 +711,10 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         public NkVec2 padding() { return NkStyleEdit.npadding(address()); }
         /** @return the value of the {@code row_padding} field. */
         public float row_padding() { return NkStyleEdit.nrow_padding(address()); }
+        /** @return the value of the {@code color_factor} field. */
+        public float color_factor() { return NkStyleEdit.ncolor_factor(address()); }
+        /** @return the value of the {@code disabled_factor} field. */
+        public float disabled_factor() { return NkStyleEdit.ndisabled_factor(address()); }
 
         /** Copies the specified {@link NkStyleItem} to the {@code normal} field. */
         public NkStyleEdit.Buffer normal(@NativeType("struct nk_style_item") NkStyleItem value) { NkStyleEdit.nnormal(address(), value); return this; }
@@ -763,6 +796,10 @@ public class NkStyleEdit extends Struct<NkStyleEdit> implements NativeResource {
         public NkStyleEdit.Buffer padding(java.util.function.Consumer<NkVec2> consumer) { consumer.accept(padding()); return this; }
         /** Sets the specified value to the {@code row_padding} field. */
         public NkStyleEdit.Buffer row_padding(float value) { NkStyleEdit.nrow_padding(address(), value); return this; }
+        /** Sets the specified value to the {@code color_factor} field. */
+        public NkStyleEdit.Buffer color_factor(float value) { NkStyleEdit.ncolor_factor(address(), value); return this; }
+        /** Sets the specified value to the {@code disabled_factor} field. */
+        public NkStyleEdit.Buffer disabled_factor(float value) { NkStyleEdit.ndisabled_factor(address(), value); return this; }
 
     }
 

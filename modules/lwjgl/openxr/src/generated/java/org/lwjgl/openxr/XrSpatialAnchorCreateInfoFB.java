@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,35 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Parameters to create a new spatial anchor.
- * 
- * <h5>Description</h5>
- * 
- * <p>Parameters to create a new spatial anchor.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntity XR_FB_spatial_entity} extension <b>must</b> be enabled prior to using {@link XrSpatialAnchorCreateInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntity#XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrPosef}, {@link FBSpatialEntity#xrCreateSpatialAnchorFB CreateSpatialAnchorFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpatialAnchorCreateInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpace {@link #space};
- *     {@link XrPosef XrPosef} {@link #poseInSpace};
- *     XrTime {@link #time};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpace space;
+ *     {@link XrPosef XrPosef} poseInSpace;
+ *     XrTime time;
+ * }}</pre>
  */
 public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInfoFB> implements NativeResource {
 
@@ -104,34 +83,34 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrSpace} handle to the reference space that defines the {@code poseInSpace} of the anchor to be defined. */
+    /** @return the value of the {@code space} field. */
     @NativeType("XrSpace")
     public long space() { return nspace(address()); }
-    /** the {@link XrPosef} location and orientation of the Spatial Anchor in the specified reference space. */
+    /** @return a {@link XrPosef} view of the {@code poseInSpace} field. */
     public XrPosef poseInSpace() { return nposeInSpace(address()); }
-    /** the {@code XrTime} timestamp associated with the specified pose. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpatialAnchorCreateInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntity#XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntity#XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB} value to the {@code type} field. */
     public XrSpatialAnchorCreateInfoFB type$Default() { return type(FBSpatialEntity.XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpatialAnchorCreateInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #space} field. */
+    /** Sets the specified value to the {@code space} field. */
     public XrSpatialAnchorCreateInfoFB space(XrSpace value) { nspace(address(), value); return this; }
-    /** Copies the specified {@link XrPosef} to the {@link #poseInSpace} field. */
+    /** Copies the specified {@link XrPosef} to the {@code poseInSpace} field. */
     public XrSpatialAnchorCreateInfoFB poseInSpace(XrPosef value) { nposeInSpace(address(), value); return this; }
-    /** Passes the {@link #poseInSpace} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code poseInSpace} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSpatialAnchorCreateInfoFB poseInSpace(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(poseInSpace()); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XrSpatialAnchorCreateInfoFB time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -187,8 +166,7 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorCreateInfoFB createSafe(long address) {
+    public static @Nullable XrSpatialAnchorCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpatialAnchorCreateInfoFB(address, null);
     }
 
@@ -231,8 +209,7 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialAnchorCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialAnchorCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,7 +254,7 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialAnchorCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialAnchorCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialAnchorCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #space}. */
@@ -285,10 +262,10 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
     /** Unsafe version of {@link #poseInSpace}. */
     public static XrPosef nposeInSpace(long struct) { return XrPosef.create(struct + XrSpatialAnchorCreateInfoFB.POSEINSPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrSpatialAnchorCreateInfoFB.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrSpatialAnchorCreateInfoFB.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialAnchorCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialAnchorCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialAnchorCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
@@ -296,7 +273,7 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
     /** Unsafe version of {@link #poseInSpace(XrPosef) poseInSpace}. */
     public static void nposeInSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrSpatialAnchorCreateInfoFB.POSEINSPACE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrSpatialAnchorCreateInfoFB.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrSpatialAnchorCreateInfoFB.TIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -341,38 +318,43 @@ public class XrSpatialAnchorCreateInfoFB extends Struct<XrSpatialAnchorCreateInf
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpatialAnchorCreateInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpatialAnchorCreateInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpatialAnchorCreateInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrSpatialAnchorCreateInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpatialAnchorCreateInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrSpatialAnchorCreateInfoFB#space} field. */
+        /** @return the value of the {@code space} field. */
         @NativeType("XrSpace")
         public long space() { return XrSpatialAnchorCreateInfoFB.nspace(address()); }
-        /** @return a {@link XrPosef} view of the {@link XrSpatialAnchorCreateInfoFB#poseInSpace} field. */
+        /** @return a {@link XrPosef} view of the {@code poseInSpace} field. */
         public XrPosef poseInSpace() { return XrSpatialAnchorCreateInfoFB.nposeInSpace(address()); }
-        /** @return the value of the {@link XrSpatialAnchorCreateInfoFB#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrSpatialAnchorCreateInfoFB.ntime(address()); }
 
-        /** Sets the specified value to the {@link XrSpatialAnchorCreateInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpatialAnchorCreateInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpatialAnchorCreateInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntity#XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB} value to the {@link XrSpatialAnchorCreateInfoFB#type} field. */
+        /** Sets the {@link FBSpatialEntity#XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB} value to the {@code type} field. */
         public XrSpatialAnchorCreateInfoFB.Buffer type$Default() { return type(FBSpatialEntity.XR_TYPE_SPATIAL_ANCHOR_CREATE_INFO_FB); }
-        /** Sets the specified value to the {@link XrSpatialAnchorCreateInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpatialAnchorCreateInfoFB.Buffer next(@NativeType("void const *") long value) { XrSpatialAnchorCreateInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpatialAnchorCreateInfoFB#space} field. */
+        /** Sets the specified value to the {@code space} field. */
         public XrSpatialAnchorCreateInfoFB.Buffer space(XrSpace value) { XrSpatialAnchorCreateInfoFB.nspace(address(), value); return this; }
-        /** Copies the specified {@link XrPosef} to the {@link XrSpatialAnchorCreateInfoFB#poseInSpace} field. */
+        /** Copies the specified {@link XrPosef} to the {@code poseInSpace} field. */
         public XrSpatialAnchorCreateInfoFB.Buffer poseInSpace(XrPosef value) { XrSpatialAnchorCreateInfoFB.nposeInSpace(address(), value); return this; }
-        /** Passes the {@link XrSpatialAnchorCreateInfoFB#poseInSpace} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code poseInSpace} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSpatialAnchorCreateInfoFB.Buffer poseInSpace(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(poseInSpace()); return this; }
-        /** Sets the specified value to the {@link XrSpatialAnchorCreateInfoFB#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XrSpatialAnchorCreateInfoFB.Buffer time(@NativeType("XrTime") long value) { XrSpatialAnchorCreateInfoFB.ntime(address(), value); return this; }
 
     }

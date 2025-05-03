@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_bounds {
  *     size_t error;
  *     int lowerBound;
  *     int upperBound;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct ZSTD_bounds")
 public class ZSTDBounds extends Struct<ZSTDBounds> implements NativeResource {
@@ -109,8 +107,7 @@ public class ZSTDBounds extends Struct<ZSTDBounds> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDBounds createSafe(long address) {
+    public static @Nullable ZSTDBounds createSafe(long address) {
         return address == NULL ? null : new ZSTDBounds(address, null);
     }
 
@@ -153,8 +150,7 @@ public class ZSTDBounds extends Struct<ZSTDBounds> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDBounds.Buffer createSafe(long address, int capacity) {
+    public static ZSTDBounds.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -220,9 +216,9 @@ public class ZSTDBounds extends Struct<ZSTDBounds> implements NativeResource {
     /** Unsafe version of {@link #error}. */
     public static long nerror(long struct) { return memGetAddress(struct + ZSTDBounds.ERROR); }
     /** Unsafe version of {@link #lowerBound}. */
-    public static int nlowerBound(long struct) { return UNSAFE.getInt(null, struct + ZSTDBounds.LOWERBOUND); }
+    public static int nlowerBound(long struct) { return memGetInt(struct + ZSTDBounds.LOWERBOUND); }
     /** Unsafe version of {@link #upperBound}. */
-    public static int nupperBound(long struct) { return UNSAFE.getInt(null, struct + ZSTDBounds.UPPERBOUND); }
+    public static int nupperBound(long struct) { return memGetInt(struct + ZSTDBounds.UPPERBOUND); }
 
     // -----------------------------------
 
@@ -255,6 +251,11 @@ public class ZSTDBounds extends Struct<ZSTDBounds> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

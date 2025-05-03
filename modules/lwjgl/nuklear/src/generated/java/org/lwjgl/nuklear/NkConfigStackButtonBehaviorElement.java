@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,13 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_config_stack_button_behavior_element {
  *     enum nk_button_behavior * pValues;
  *     enum nk_button_behavior old_value;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_config_stack_button_behavior_element")
 class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehaviorElement> {
@@ -71,11 +69,7 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link IntBuffer} view of the data pointed to by the {@code pValues} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code pValues} field. */
     @NativeType("enum nk_button_behavior *")
     public IntBuffer pValues(int capacity) { return npValues(address(), capacity); }
     /** @return the value of the {@code old_value} field. */
@@ -90,8 +84,7 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackButtonBehaviorElement createSafe(long address) {
+    public static @Nullable NkConfigStackButtonBehaviorElement createSafe(long address) {
         return address == NULL ? null : new NkConfigStackButtonBehaviorElement(address, null);
     }
 
@@ -106,8 +99,7 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackButtonBehaviorElement.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackButtonBehaviorElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -116,7 +108,7 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
     /** Unsafe version of {@link #pValues(int) pValues}. */
     public static IntBuffer npValues(long struct, int capacity) { return memIntBuffer(memGetAddress(struct + NkConfigStackButtonBehaviorElement.PVALUES), capacity); }
     /** Unsafe version of {@link #old_value}. */
-    public static int nold_value(long struct) { return UNSAFE.getInt(null, struct + NkConfigStackButtonBehaviorElement.OLD_VALUE); }
+    public static int nold_value(long struct) { return memGetInt(struct + NkConfigStackButtonBehaviorElement.OLD_VALUE); }
 
     // -----------------------------------
 
@@ -152,15 +144,16 @@ class NkConfigStackButtonBehaviorElement extends Struct<NkConfigStackButtonBehav
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkConfigStackButtonBehaviorElement getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@code pValues} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code pValues} field. */
         @NativeType("enum nk_button_behavior *")
         public IntBuffer pValues(int capacity) { return NkConfigStackButtonBehaviorElement.npValues(address(), capacity); }
         /** @return the value of the {@code old_value} field. */

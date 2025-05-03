@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.tinyexr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,20 +17,18 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct EXRImage {
- *     {@link EXRTile EXRTile} * {@link #tiles};
- *     {@link EXRImage struct _EXRImage} * {@link #next_level};
- *     int {@link #level_x};
- *     int {@link #level_y};
- *     unsigned char ** {@link #images};
+ *     {@link EXRTile EXRTile} * tiles;
+ *     {@link EXRImage struct _EXRImage} * next_level;
+ *     int level_x;
+ *     int level_y;
+ *     unsigned char ** images;
  *     int width;
  *     int height;
  *     int num_channels;
  *     int num_tiles;
- * }</code></pre>
+ * }}</pre>
  */
 public class EXRImage extends Struct<EXRImage> implements NativeResource {
 
@@ -101,22 +99,19 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** tiled pixel data. The application must reconstruct image from tiles manually. {@code NULL} if scanline format. */
-    @Nullable
+    /** @return a {@link EXRTile.Buffer} view of the struct array pointed to by the {@code tiles} field. */
     @NativeType("EXRTile *")
-    public EXRTile.Buffer tiles() { return ntiles(address()); }
-    /** {@code NULL} if scanline format or image is the last level. */
-    @Nullable
+    public EXRTile.@Nullable Buffer tiles() { return ntiles(address()); }
+    /** @return a {@link EXRImage} view of the struct pointed to by the {@code next_level} field. */
     @NativeType("struct _EXRImage *")
-    public EXRImage next_level() { return nnext_level(address()); }
-    /** x level index */
+    public @Nullable EXRImage next_level() { return nnext_level(address()); }
+    /** @return the value of the {@code level_x} field. */
     public int level_x() { return nlevel_x(address()); }
-    /** y level index */
+    /** @return the value of the {@code level_y} field. */
     public int level_y() { return nlevel_y(address()); }
-    /** {@code image[channels][pixels]}. {@code NULL} if tiled format. */
-    @Nullable
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code images} field. */
     @NativeType("unsigned char **")
-    public PointerBuffer images() { return nimages(address()); }
+    public @Nullable PointerBuffer images() { return nimages(address()); }
     /** @return the value of the {@code width} field. */
     public int width() { return nwidth(address()); }
     /** @return the value of the {@code height} field. */
@@ -126,15 +121,15 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
     /** @return the value of the {@code num_tiles} field. */
     public int num_tiles() { return nnum_tiles(address()); }
 
-    /** Sets the address of the specified {@link EXRTile.Buffer} to the {@link #tiles} field. */
-    public EXRImage tiles(@Nullable @NativeType("EXRTile *") EXRTile.Buffer value) { ntiles(address(), value); return this; }
-    /** Sets the address of the specified {@link EXRImage} to the {@link #next_level} field. */
+    /** Sets the address of the specified {@link EXRTile.Buffer} to the {@code tiles} field. */
+    public EXRImage tiles(@NativeType("EXRTile *") EXRTile.@Nullable Buffer value) { ntiles(address(), value); return this; }
+    /** Sets the address of the specified {@link EXRImage} to the {@code next_level} field. */
     public EXRImage next_level(@Nullable @NativeType("struct _EXRImage *") EXRImage value) { nnext_level(address(), value); return this; }
-    /** Sets the specified value to the {@link #level_x} field. */
+    /** Sets the specified value to the {@code level_x} field. */
     public EXRImage level_x(int value) { nlevel_x(address(), value); return this; }
-    /** Sets the specified value to the {@link #level_y} field. */
+    /** Sets the specified value to the {@code level_y} field. */
     public EXRImage level_y(int value) { nlevel_y(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #images} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code images} field. */
     public EXRImage images(@Nullable @NativeType("unsigned char **") PointerBuffer value) { nimages(address(), value); return this; }
     /** Sets the specified value to the {@code width} field. */
     public EXRImage width(int value) { nwidth(address(), value); return this; }
@@ -145,7 +140,7 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
 
     /** Initializes this struct with the specified values. */
     public EXRImage set(
-        @Nullable EXRTile.Buffer tiles,
+        EXRTile.@Nullable Buffer tiles,
         @Nullable EXRImage next_level,
         int level_x,
         int level_y,
@@ -202,8 +197,7 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRImage createSafe(long address) {
+    public static @Nullable EXRImage createSafe(long address) {
         return address == NULL ? null : new EXRImage(address, null);
     }
 
@@ -246,8 +240,7 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static EXRImage.Buffer createSafe(long address, int capacity) {
+    public static EXRImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -311,42 +304,42 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #tiles}. */
-    @Nullable public static EXRTile.Buffer ntiles(long struct) { return EXRTile.createSafe(memGetAddress(struct + EXRImage.TILES), nnum_tiles(struct)); }
+    public static EXRTile.@Nullable Buffer ntiles(long struct) { return EXRTile.createSafe(memGetAddress(struct + EXRImage.TILES), nnum_tiles(struct)); }
     /** Unsafe version of {@link #next_level}. */
-    @Nullable public static EXRImage nnext_level(long struct) { return EXRImage.createSafe(memGetAddress(struct + EXRImage.NEXT_LEVEL)); }
+    public static @Nullable EXRImage nnext_level(long struct) { return EXRImage.createSafe(memGetAddress(struct + EXRImage.NEXT_LEVEL)); }
     /** Unsafe version of {@link #level_x}. */
-    public static int nlevel_x(long struct) { return UNSAFE.getInt(null, struct + EXRImage.LEVEL_X); }
+    public static int nlevel_x(long struct) { return memGetInt(struct + EXRImage.LEVEL_X); }
     /** Unsafe version of {@link #level_y}. */
-    public static int nlevel_y(long struct) { return UNSAFE.getInt(null, struct + EXRImage.LEVEL_Y); }
+    public static int nlevel_y(long struct) { return memGetInt(struct + EXRImage.LEVEL_Y); }
     /** Unsafe version of {@link #images() images}. */
-    @Nullable public static PointerBuffer nimages(long struct) { return memPointerBufferSafe(memGetAddress(struct + EXRImage.IMAGES), nnum_channels(struct)); }
+    public static @Nullable PointerBuffer nimages(long struct) { return memPointerBufferSafe(memGetAddress(struct + EXRImage.IMAGES), nnum_channels(struct)); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + EXRImage.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + EXRImage.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + EXRImage.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + EXRImage.HEIGHT); }
     /** Unsafe version of {@link #num_channels}. */
-    public static int nnum_channels(long struct) { return UNSAFE.getInt(null, struct + EXRImage.NUM_CHANNELS); }
+    public static int nnum_channels(long struct) { return memGetInt(struct + EXRImage.NUM_CHANNELS); }
     /** Unsafe version of {@link #num_tiles}. */
-    public static int nnum_tiles(long struct) { return UNSAFE.getInt(null, struct + EXRImage.NUM_TILES); }
+    public static int nnum_tiles(long struct) { return memGetInt(struct + EXRImage.NUM_TILES); }
 
     /** Unsafe version of {@link #tiles(EXRTile.Buffer) tiles}. */
-    public static void ntiles(long struct, @Nullable EXRTile.Buffer value) { memPutAddress(struct + EXRImage.TILES, memAddressSafe(value)); nnum_tiles(struct, value == null ? 0 : value.remaining()); }
+    public static void ntiles(long struct, EXRTile.@Nullable Buffer value) { memPutAddress(struct + EXRImage.TILES, memAddressSafe(value)); nnum_tiles(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #next_level(EXRImage) next_level}. */
     public static void nnext_level(long struct, @Nullable EXRImage value) { memPutAddress(struct + EXRImage.NEXT_LEVEL, memAddressSafe(value)); }
     /** Unsafe version of {@link #level_x(int) level_x}. */
-    public static void nlevel_x(long struct, int value) { UNSAFE.putInt(null, struct + EXRImage.LEVEL_X, value); }
+    public static void nlevel_x(long struct, int value) { memPutInt(struct + EXRImage.LEVEL_X, value); }
     /** Unsafe version of {@link #level_y(int) level_y}. */
-    public static void nlevel_y(long struct, int value) { UNSAFE.putInt(null, struct + EXRImage.LEVEL_Y, value); }
+    public static void nlevel_y(long struct, int value) { memPutInt(struct + EXRImage.LEVEL_Y, value); }
     /** Unsafe version of {@link #images(PointerBuffer) images}. */
     public static void nimages(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + EXRImage.IMAGES, memAddressSafe(value)); nnum_channels(struct, value == null ? 0 : value.remaining()); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + EXRImage.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + EXRImage.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + EXRImage.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + EXRImage.HEIGHT, value); }
     /** Sets the specified value to the {@code num_channels} field of the specified {@code struct}. */
-    public static void nnum_channels(long struct, int value) { UNSAFE.putInt(null, struct + EXRImage.NUM_CHANNELS, value); }
+    public static void nnum_channels(long struct, int value) { memPutInt(struct + EXRImage.NUM_CHANNELS, value); }
     /** Sets the specified value to the {@code num_tiles} field of the specified {@code struct}. */
-    public static void nnum_tiles(long struct, int value) { UNSAFE.putInt(null, struct + EXRImage.NUM_TILES, value); }
+    public static void nnum_tiles(long struct, int value) { memPutInt(struct + EXRImage.NUM_TILES, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -396,26 +389,28 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected EXRImage getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link EXRTile.Buffer} view of the struct array pointed to by the {@link EXRImage#tiles} field. */
-        @Nullable
+        /** @return a {@link EXRTile.Buffer} view of the struct array pointed to by the {@code tiles} field. */
         @NativeType("EXRTile *")
-        public EXRTile.Buffer tiles() { return EXRImage.ntiles(address()); }
-        /** @return a {@link EXRImage} view of the struct pointed to by the {@link EXRImage#next_level} field. */
-        @Nullable
+        public EXRTile.@Nullable Buffer tiles() { return EXRImage.ntiles(address()); }
+        /** @return a {@link EXRImage} view of the struct pointed to by the {@code next_level} field. */
         @NativeType("struct _EXRImage *")
-        public EXRImage next_level() { return EXRImage.nnext_level(address()); }
-        /** @return the value of the {@link EXRImage#level_x} field. */
+        public @Nullable EXRImage next_level() { return EXRImage.nnext_level(address()); }
+        /** @return the value of the {@code level_x} field. */
         public int level_x() { return EXRImage.nlevel_x(address()); }
-        /** @return the value of the {@link EXRImage#level_y} field. */
+        /** @return the value of the {@code level_y} field. */
         public int level_y() { return EXRImage.nlevel_y(address()); }
-        /** @return a {@link PointerBuffer} view of the data pointed to by the {@link EXRImage#images} field. */
-        @Nullable
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code images} field. */
         @NativeType("unsigned char **")
-        public PointerBuffer images() { return EXRImage.nimages(address()); }
+        public @Nullable PointerBuffer images() { return EXRImage.nimages(address()); }
         /** @return the value of the {@code width} field. */
         public int width() { return EXRImage.nwidth(address()); }
         /** @return the value of the {@code height} field. */
@@ -425,15 +420,15 @@ public class EXRImage extends Struct<EXRImage> implements NativeResource {
         /** @return the value of the {@code num_tiles} field. */
         public int num_tiles() { return EXRImage.nnum_tiles(address()); }
 
-        /** Sets the address of the specified {@link EXRTile.Buffer} to the {@link EXRImage#tiles} field. */
-        public EXRImage.Buffer tiles(@Nullable @NativeType("EXRTile *") EXRTile.Buffer value) { EXRImage.ntiles(address(), value); return this; }
-        /** Sets the address of the specified {@link EXRImage} to the {@link EXRImage#next_level} field. */
+        /** Sets the address of the specified {@link EXRTile.Buffer} to the {@code tiles} field. */
+        public EXRImage.Buffer tiles(@NativeType("EXRTile *") EXRTile.@Nullable Buffer value) { EXRImage.ntiles(address(), value); return this; }
+        /** Sets the address of the specified {@link EXRImage} to the {@code next_level} field. */
         public EXRImage.Buffer next_level(@Nullable @NativeType("struct _EXRImage *") EXRImage value) { EXRImage.nnext_level(address(), value); return this; }
-        /** Sets the specified value to the {@link EXRImage#level_x} field. */
+        /** Sets the specified value to the {@code level_x} field. */
         public EXRImage.Buffer level_x(int value) { EXRImage.nlevel_x(address(), value); return this; }
-        /** Sets the specified value to the {@link EXRImage#level_y} field. */
+        /** Sets the specified value to the {@code level_y} field. */
         public EXRImage.Buffer level_y(int value) { EXRImage.nlevel_y(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link EXRImage#images} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code images} field. */
         public EXRImage.Buffer images(@Nullable @NativeType("unsigned char **") PointerBuffer value) { EXRImage.nimages(address(), value); return this; }
         /** Sets the specified value to the {@code width} field. */
         public EXRImage.Buffer width(int value) { EXRImage.nwidth(address(), value); return this; }

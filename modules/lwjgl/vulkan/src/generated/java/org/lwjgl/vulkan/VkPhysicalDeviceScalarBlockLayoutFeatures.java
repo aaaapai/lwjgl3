@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure indicating support for scalar block layouts.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceScalarBlockLayoutFeatures} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceScalarBlockLayoutFeatures} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceScalarBlockLayoutFeatures {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #scalarBlockLayout};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 scalarBlockLayout;
+ * }}</pre>
  */
 public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysicalDeviceScalarBlockLayoutFeatures> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the layout of resource blocks in shaders using <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a>. */
+    /** @return the value of the {@code scalarBlockLayout} field. */
     @NativeType("VkBool32")
     public boolean scalarBlockLayout() { return nscalarBlockLayout(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceScalarBlockLayoutFeatures sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDeviceScalarBlockLayoutFeatures sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceScalarBlockLayoutFeatures pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #scalarBlockLayout} field. */
+    /** Sets the specified value to the {@code scalarBlockLayout} field. */
     public VkPhysicalDeviceScalarBlockLayoutFeatures scalarBlockLayout(@NativeType("VkBool32") boolean value) { nscalarBlockLayout(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceScalarBlockLayoutFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceScalarBlockLayoutFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceScalarBlockLayoutFeatures(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceScalarBlockLayoutFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceScalarBlockLayoutFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.PNEXT); }
     /** Unsafe version of {@link #scalarBlockLayout}. */
-    public static int nscalarBlockLayout(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT); }
+    public static int nscalarBlockLayout(long struct) { return memGetInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.PNEXT, value); }
     /** Unsafe version of {@link #scalarBlockLayout(boolean) scalarBlockLayout}. */
-    public static void nscalarBlockLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT, value); }
+    public static void nscalarBlockLayout(long struct, int value) { memPutInt(struct + VkPhysicalDeviceScalarBlockLayoutFeatures.SCALARBLOCKLAYOUT, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceScalarBlockLayoutFeatures extends Struct<VkPhysical
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceScalarBlockLayoutFeatures getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceScalarBlockLayoutFeatures.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceScalarBlockLayoutFeatures.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#scalarBlockLayout} field. */
+        /** @return the value of the {@code scalarBlockLayout} field. */
         @NativeType("VkBool32")
         public boolean scalarBlockLayout() { return VkPhysicalDeviceScalarBlockLayoutFeatures.nscalarBlockLayout(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceScalarBlockLayoutFeatures.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceScalarBlockLayoutFeatures.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES} value to the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDeviceScalarBlockLayoutFeatures.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceScalarBlockLayoutFeatures.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceScalarBlockLayoutFeatures.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceScalarBlockLayoutFeatures#scalarBlockLayout} field. */
+        /** Sets the specified value to the {@code scalarBlockLayout} field. */
         public VkPhysicalDeviceScalarBlockLayoutFeatures.Buffer scalarBlockLayout(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceScalarBlockLayoutFeatures.nscalarBlockLayout(address(), value ? 1 : 0); return this; }
 
     }

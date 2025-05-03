@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Properties of External Memory Windows Handles.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRExternalMemoryWin32#VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRExternalMemoryWin32#vkGetMemoryWin32HandlePropertiesKHR GetMemoryWin32HandlePropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryWin32HandlePropertiesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #memoryTypeBits};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t memoryTypeBits;
+ * }}</pre>
  */
 public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32HandlePropertiesKHR> implements NativeResource {
 
@@ -89,21 +74,21 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask containing one bit set for every memory type which the specified windows handle <b>can</b> be imported as. */
+    /** @return the value of the {@code memoryTypeBits} field. */
     @NativeType("uint32_t")
     public int memoryTypeBits() { return nmemoryTypeBits(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryWin32HandlePropertiesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRExternalMemoryWin32#VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRExternalMemoryWin32#VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR} value to the {@code sType} field. */
     public VkMemoryWin32HandlePropertiesKHR sType$Default() { return sType(KHRExternalMemoryWin32.VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryWin32HandlePropertiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -153,8 +138,7 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryWin32HandlePropertiesKHR createSafe(long address) {
+    public static @Nullable VkMemoryWin32HandlePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryWin32HandlePropertiesKHR(address, null);
     }
 
@@ -197,8 +181,7 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryWin32HandlePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryWin32HandlePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,14 +245,14 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryWin32HandlePropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryWin32HandlePropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryWin32HandlePropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #memoryTypeBits}. */
-    public static int nmemoryTypeBits(long struct) { return UNSAFE.getInt(null, struct + VkMemoryWin32HandlePropertiesKHR.MEMORYTYPEBITS); }
+    public static int nmemoryTypeBits(long struct) { return memGetInt(struct + VkMemoryWin32HandlePropertiesKHR.MEMORYTYPEBITS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryWin32HandlePropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryWin32HandlePropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryWin32HandlePropertiesKHR.PNEXT, value); }
 
@@ -307,25 +290,30 @@ public class VkMemoryWin32HandlePropertiesKHR extends Struct<VkMemoryWin32Handle
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryWin32HandlePropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryWin32HandlePropertiesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryWin32HandlePropertiesKHR.nsType(address()); }
-        /** @return the value of the {@link VkMemoryWin32HandlePropertiesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkMemoryWin32HandlePropertiesKHR.npNext(address()); }
-        /** @return the value of the {@link VkMemoryWin32HandlePropertiesKHR#memoryTypeBits} field. */
+        /** @return the value of the {@code memoryTypeBits} field. */
         @NativeType("uint32_t")
         public int memoryTypeBits() { return VkMemoryWin32HandlePropertiesKHR.nmemoryTypeBits(address()); }
 
-        /** Sets the specified value to the {@link VkMemoryWin32HandlePropertiesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryWin32HandlePropertiesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryWin32HandlePropertiesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRExternalMemoryWin32#VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR} value to the {@link VkMemoryWin32HandlePropertiesKHR#sType} field. */
+        /** Sets the {@link KHRExternalMemoryWin32#VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR} value to the {@code sType} field. */
         public VkMemoryWin32HandlePropertiesKHR.Buffer sType$Default() { return sType(KHRExternalMemoryWin32.VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR); }
-        /** Sets the specified value to the {@link VkMemoryWin32HandlePropertiesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryWin32HandlePropertiesKHR.Buffer pNext(@NativeType("void *") long value) { VkMemoryWin32HandlePropertiesKHR.npNext(address(), value); return this; }
 
     }

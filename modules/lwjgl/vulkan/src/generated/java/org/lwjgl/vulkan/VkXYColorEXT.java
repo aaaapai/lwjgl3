@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify X,Y chromaticity coordinates.
- * 
- * <h5>Description</h5>
- * 
- * <p>Chromaticity coordinates are as specified in CIE 15:2004 “{@code Calculation of chromaticity coordinates}” (Section 7.3) and are limited to between 0 and 1 for real colors for the reference monitor.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkHdrMetadataEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkXYColorEXT {
- *     float {@link #x};
- *     float {@link #y};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ * }}</pre>
  */
 public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource {
 
@@ -82,14 +70,14 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the <code>x</code> chromaticity coordinate. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the <code>y</code> chromaticity coordinate. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkXYColorEXT x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkXYColorEXT y(float value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -139,8 +127,7 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkXYColorEXT createSafe(long address) {
+    public static @Nullable VkXYColorEXT createSafe(long address) {
         return address == NULL ? null : new VkXYColorEXT(address, null);
     }
 
@@ -183,8 +170,7 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkXYColorEXT.Buffer createSafe(long address, int capacity) {
+    public static VkXYColorEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +234,14 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VkXYColorEXT.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VkXYColorEXT.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VkXYColorEXT.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VkXYColorEXT.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + VkXYColorEXT.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + VkXYColorEXT.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + VkXYColorEXT.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + VkXYColorEXT.Y, value); }
 
     // -----------------------------------
 
@@ -291,18 +277,23 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkXYColorEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkXYColorEXT#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return VkXYColorEXT.nx(address()); }
-        /** @return the value of the {@link VkXYColorEXT#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return VkXYColorEXT.ny(address()); }
 
-        /** Sets the specified value to the {@link VkXYColorEXT#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkXYColorEXT.Buffer x(float value) { VkXYColorEXT.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkXYColorEXT#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkXYColorEXT.Buffer y(float value) { VkXYColorEXT.ny(address(), value); return this; }
 
     }

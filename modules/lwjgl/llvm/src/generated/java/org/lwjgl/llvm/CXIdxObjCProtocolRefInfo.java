@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXIdxObjCProtocolRefInfo {
  *     {@link CXIdxEntityInfo CXIdxEntityInfo} const * protocol;
  *     {@link CXCursor CXCursor} cursor;
  *     {@link CXIdxLoc CXIdxLoc} loc;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
 
@@ -90,8 +88,7 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCProtocolRefInfo createSafe(long address) {
+    public static @Nullable CXIdxObjCProtocolRefInfo createSafe(long address) {
         return address == NULL ? null : new CXIdxObjCProtocolRefInfo(address, null);
     }
 
@@ -106,8 +103,7 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXIdxObjCProtocolRefInfo.Buffer createSafe(long address, int capacity) {
+    public static CXIdxObjCProtocolRefInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -151,6 +147,11 @@ public class CXIdxObjCProtocolRefInfo extends Struct<CXIdxObjCProtocolRefInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

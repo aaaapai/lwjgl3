@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,38 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing capabilities of a surface.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link GOOGLESurfacelessQuery VK_GOOGLE_surfaceless_query} extension is enabled and {@link VkPhysicalDeviceSurfaceInfo2KHR}{@code ::surface} in the {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR} call is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the values returned in {@code minImageCount}, {@code maxImageCount}, {@code currentExtent}, and {@code currentTransform} will not reflect that of any surface and will instead be as such:</p>
- * 
- * <ul>
- * <li>{@code minImageCount} and {@code maxImageCount} will be <code>0xFFFFFFFF</code></li>
- * <li>{@code currentExtent} will be <code>(0xFFFFFFFF, 0xFFFFFFFF)</code></li>
- * <li>{@code currentTransform} will be {@link KHRSurface#VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR SURFACE_TRANSFORM_INHERIT_BIT_KHR}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD}, {@link VkSharedPresentSurfaceCapabilitiesKHR}, {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT}, {@link VkSurfaceCapabilitiesPresentBarrierNV}, {@link VkSurfacePresentModeCompatibilityEXT}, {@link VkSurfacePresentScalingCapabilitiesEXT}, or {@link VkSurfaceProtectedCapabilitiesKHR}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSurfaceCapabilitiesKHR}, {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSurfaceCapabilities2KHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkSurfaceCapabilitiesKHR VkSurfaceCapabilitiesKHR} {@link #surfaceCapabilities};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkSurfaceCapabilitiesKHR VkSurfaceCapabilitiesKHR} surfaceCapabilities;
+ * }}</pre>
  */
 public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR> implements NativeResource {
 
@@ -100,23 +74,25 @@ public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkSurfaceCapabilitiesKHR} structure describing the capabilities of the specified surface. */
+    /** @return a {@link VkSurfaceCapabilitiesKHR} view of the {@code surfaceCapabilities} field. */
     public VkSurfaceCapabilitiesKHR surfaceCapabilities() { return nsurfaceCapabilities(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSurfaceCapabilities2KHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR} value to the {@code sType} field. */
     public VkSurfaceCapabilities2KHR sType$Default() { return sType(KHRGetSurfaceCapabilities2.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSurfaceCapabilities2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkDisplayNativeHdrSurfaceCapabilitiesAMD value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkLatencySurfaceCapabilitiesNV} value to the {@code pNext} chain. */
+    public VkSurfaceCapabilities2KHR pNext(VkLatencySurfaceCapabilitiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSharedPresentSurfaceCapabilitiesKHR} value to the {@code pNext} chain. */
     public VkSurfaceCapabilities2KHR pNext(VkSharedPresentSurfaceCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT} value to the {@code pNext} chain. */
@@ -177,8 +153,7 @@ public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilities2KHR createSafe(long address) {
+    public static @Nullable VkSurfaceCapabilities2KHR createSafe(long address) {
         return address == NULL ? null : new VkSurfaceCapabilities2KHR(address, null);
     }
 
@@ -221,8 +196,7 @@ public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilities2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceCapabilities2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,14 +260,14 @@ public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilities2KHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfaceCapabilities2KHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfaceCapabilities2KHR.PNEXT); }
     /** Unsafe version of {@link #surfaceCapabilities}. */
     public static VkSurfaceCapabilitiesKHR nsurfaceCapabilities(long struct) { return VkSurfaceCapabilitiesKHR.create(struct + VkSurfaceCapabilities2KHR.SURFACECAPABILITIES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilities2KHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfaceCapabilities2KHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceCapabilities2KHR.PNEXT, value); }
 
@@ -331,27 +305,34 @@ public class VkSurfaceCapabilities2KHR extends Struct<VkSurfaceCapabilities2KHR>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSurfaceCapabilities2KHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSurfaceCapabilities2KHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSurfaceCapabilities2KHR.nsType(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilities2KHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkSurfaceCapabilities2KHR.npNext(address()); }
-        /** @return a {@link VkSurfaceCapabilitiesKHR} view of the {@link VkSurfaceCapabilities2KHR#surfaceCapabilities} field. */
+        /** @return a {@link VkSurfaceCapabilitiesKHR} view of the {@code surfaceCapabilities} field. */
         public VkSurfaceCapabilitiesKHR surfaceCapabilities() { return VkSurfaceCapabilities2KHR.nsurfaceCapabilities(address()); }
 
-        /** Sets the specified value to the {@link VkSurfaceCapabilities2KHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSurfaceCapabilities2KHR.Buffer sType(@NativeType("VkStructureType") int value) { VkSurfaceCapabilities2KHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR} value to the {@link VkSurfaceCapabilities2KHR#sType} field. */
+        /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR} value to the {@code sType} field. */
         public VkSurfaceCapabilities2KHR.Buffer sType$Default() { return sType(KHRGetSurfaceCapabilities2.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR); }
-        /** Sets the specified value to the {@link VkSurfaceCapabilities2KHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(@NativeType("void *") long value) { VkSurfaceCapabilities2KHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkDisplayNativeHdrSurfaceCapabilitiesAMD value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkLatencySurfaceCapabilitiesNV} value to the {@code pNext} chain. */
+        public VkSurfaceCapabilities2KHR.Buffer pNext(VkLatencySurfaceCapabilitiesNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSharedPresentSurfaceCapabilitiesKHR} value to the {@code pNext} chain. */
         public VkSurfaceCapabilities2KHR.Buffer pNext(VkSharedPresentSurfaceCapabilitiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT} value to the {@code pNext} chain. */

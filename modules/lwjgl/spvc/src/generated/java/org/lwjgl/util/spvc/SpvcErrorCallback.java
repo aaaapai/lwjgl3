@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link Spvc#spvc_context_set_error_callback context_set_error_callback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *userdata,
- *     char const *error
- * )</code></pre>
- */
+/** Callback function: {@link #invoke spvc_error_callback} */
 public abstract class SpvcErrorCallback extends Callback implements SpvcErrorCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class SpvcErrorCallback extends Callback implements SpvcErrorCal
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static SpvcErrorCallback createSafe(long functionPointer) {
+    public static @Nullable SpvcErrorCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Transform data.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_transform_t {
- *     float * {@link #data};
- *     uint16_t {@link #num};
- * }</code></pre>
+ *     float * data;
+ *     uint16_t num;
+ * }}</pre>
  */
 @NativeType("struct bgfx_transform_t")
 public class BGFXTransform extends Struct<BGFXTransform> implements NativeResource {
@@ -75,10 +71,10 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** pointer to first 4x4 matrix */
+    /** @return a {@link FloatBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("float *")
     public FloatBuffer data() { return ndata(address()); }
-    /** number of matrices */
+    /** @return the value of the {@code num} field. */
     @NativeType("uint16_t")
     public short num() { return nnum(address()); }
 
@@ -106,8 +102,7 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransform createSafe(long address) {
+    public static @Nullable BGFXTransform createSafe(long address) {
         return address == NULL ? null : new BGFXTransform(address, null);
     }
 
@@ -150,8 +145,7 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXTransform.Buffer createSafe(long address, int capacity) {
+    public static BGFXTransform.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,7 +211,7 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
     /** Unsafe version of {@link #data() data}. */
     public static FloatBuffer ndata(long struct) { return memFloatBuffer(memGetAddress(struct + BGFXTransform.DATA), (Short.toUnsignedInt(nnum(struct)) << 4)); }
     /** Unsafe version of {@link #num}. */
-    public static short nnum(long struct) { return UNSAFE.getShort(null, struct + BGFXTransform.NUM); }
+    public static short nnum(long struct) { return memGetShort(struct + BGFXTransform.NUM); }
 
     // -----------------------------------
 
@@ -253,14 +247,19 @@ public class BGFXTransform extends Struct<BGFXTransform> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected BGFXTransform getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link FloatBuffer} view of the data pointed to by the {@link BGFXTransform#data} field. */
+        /** @return a {@link FloatBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("float *")
         public FloatBuffer data() { return BGFXTransform.ndata(address()); }
-        /** @return the value of the {@link BGFXTransform#num} field. */
+        /** @return the value of the {@code num} field. */
         @NativeType("uint16_t")
         public short num() { return BGFXTransform.nnum(address()); }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify a memory allocation priority.
- * 
- * <h5>Description</h5>
- * 
- * <p>Memory allocations with higher priority <b>may</b> be more likely to stay in device-local memory when the system is under memory pressure.</p>
- * 
- * <p>If this structure is not included, it is as if the {@code priority} value were {@code 0.5}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code priority} <b>must</b> be between 0 and 1, inclusive</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryPriorityAllocateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     float {@link #priority};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     float priority;
+ * }}</pre>
  */
 public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllocateInfoEXT> implements NativeResource {
 
@@ -96,22 +74,22 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a floating-point value between 0 and 1, indicating the priority of the allocation relative to other memory allocations. Larger values are higher priority. The granularity of the priorities is implementation-dependent. */
+    /** @return the value of the {@code priority} field. */
     public float priority() { return npriority(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryPriorityAllocateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@code sType} field. */
     public VkMemoryPriorityAllocateInfoEXT sType$Default() { return sType(EXTMemoryPriority.VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryPriorityAllocateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #priority} field. */
+    /** Sets the specified value to the {@code priority} field. */
     public VkMemoryPriorityAllocateInfoEXT priority(float value) { npriority(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +141,7 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryPriorityAllocateInfoEXT createSafe(long address) {
+    public static @Nullable VkMemoryPriorityAllocateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMemoryPriorityAllocateInfoEXT(address, null);
     }
 
@@ -207,8 +184,7 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryPriorityAllocateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryPriorityAllocateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,18 +248,18 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryPriorityAllocateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryPriorityAllocateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryPriorityAllocateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #priority}. */
-    public static float npriority(long struct) { return UNSAFE.getFloat(null, struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY); }
+    public static float npriority(long struct) { return memGetFloat(struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryPriorityAllocateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryPriorityAllocateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryPriorityAllocateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #priority(float) priority}. */
-    public static void npriority(long struct, float value) { UNSAFE.putFloat(null, struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY, value); }
+    public static void npriority(long struct, float value) { memPutFloat(struct + VkMemoryPriorityAllocateInfoEXT.PRIORITY, value); }
 
     // -----------------------------------
 
@@ -319,26 +295,31 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryPriorityAllocateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryPriorityAllocateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryPriorityAllocateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkMemoryPriorityAllocateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMemoryPriorityAllocateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkMemoryPriorityAllocateInfoEXT#priority} field. */
+        /** @return the value of the {@code priority} field. */
         public float priority() { return VkMemoryPriorityAllocateInfoEXT.npriority(address()); }
 
-        /** Sets the specified value to the {@link VkMemoryPriorityAllocateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryPriorityAllocateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@link VkMemoryPriorityAllocateInfoEXT#sType} field. */
+        /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@code sType} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer sType$Default() { return sType(EXTMemoryPriority.VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkMemoryPriorityAllocateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkMemoryPriorityAllocateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryPriorityAllocateInfoEXT#priority} field. */
+        /** Sets the specified value to the {@code priority} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer priority(float value) { VkMemoryPriorityAllocateInfoEXT.npriority(address(), value); return this; }
 
     }

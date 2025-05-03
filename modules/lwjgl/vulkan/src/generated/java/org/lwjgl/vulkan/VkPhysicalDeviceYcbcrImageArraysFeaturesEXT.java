@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing extended Y′C<sub>B</sub>C<sub>R</sub> image creation features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTYcbcrImageArrays#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceYcbcrImageArraysFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #ycbcrImageArrays};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 ycbcrImageArrays;
+ * }}</pre>
  */
 public class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends Struct<VkPhysicalDeviceYcbcrImageArraysFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports creating images with a format that requires <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#formats-requiring-sampler-ycbcr-conversion">Y′C<sub>B</sub>C<sub>R</sub> conversion</a> and has multiple array layers. */
+    /** @return the value of the {@code ycbcrImageArrays} field. */
     @NativeType("VkBool32")
     public boolean ycbcrImageArrays() { return nycbcrImageArrays(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTYcbcrImageArrays#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTYcbcrImageArrays#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT sType$Default() { return sType(EXTYcbcrImageArrays.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #ycbcrImageArrays} field. */
+    /** Sets the specified value to the {@code ycbcrImageArrays} field. */
     public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT ycbcrImageArrays(@NativeType("VkBool32") boolean value) { nycbcrImageArrays(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceYcbcrImageArraysFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceYcbcrImageArraysFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceYcbcrImageArraysFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +249,18 @@ public class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #ycbcrImageArrays}. */
-    public static int nycbcrImageArrays(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.YCBCRIMAGEARRAYS); }
+    public static int nycbcrImageArrays(long struct) { return memGetInt(struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.YCBCRIMAGEARRAYS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #ycbcrImageArrays(boolean) ycbcrImageArrays}. */
-    public static void nycbcrImageArrays(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.YCBCRIMAGEARRAYS, value); }
+    public static void nycbcrImageArrays(long struct, int value) { memPutInt(struct + VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.YCBCRIMAGEARRAYS, value); }
 
     // -----------------------------------
 
@@ -312,27 +296,32 @@ public class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends Struct<VkPhysic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceYcbcrImageArraysFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#ycbcrImageArrays} field. */
+        /** @return the value of the {@code ycbcrImageArrays} field. */
         @NativeType("VkBool32")
         public boolean ycbcrImageArrays() { return VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.nycbcrImageArrays(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTYcbcrImageArrays#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT} value to the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTYcbcrImageArrays#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.Buffer sType$Default() { return sType(EXTYcbcrImageArrays.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceYcbcrImageArraysFeaturesEXT#ycbcrImageArrays} field. */
+        /** Sets the specified value to the {@code ycbcrImageArrays} field. */
         public VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.Buffer ycbcrImageArrays(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.nycbcrImageArrays(address(), value ? 1 : 0); return this; }
 
     }

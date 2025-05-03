@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure representing a {@code ColorStop} value of the 'COLR' v1 extensions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_ColorStop {
  *     FT_Fixed stop_offset;
  *     {@link FT_ColorIndex FT_ColorIndex} color;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_ColorStop extends Struct<FT_ColorStop> implements NativeResource {
 
@@ -104,8 +100,7 @@ public class FT_ColorStop extends Struct<FT_ColorStop> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_ColorStop createSafe(long address) {
+    public static @Nullable FT_ColorStop createSafe(long address) {
         return address == NULL ? null : new FT_ColorStop(address, null);
     }
 
@@ -148,8 +143,7 @@ public class FT_ColorStop extends Struct<FT_ColorStop> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_ColorStop.Buffer createSafe(long address, int capacity) {
+    public static FT_ColorStop.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,6 +223,11 @@ public class FT_ColorStop extends Struct<FT_ColorStop> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

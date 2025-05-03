@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_input {
  *     {@link NkKeyboard struct nk_keyboard} keyboard;
  *     {@link NkMouse struct nk_mouse} mouse;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_input")
 public class NkInput extends Struct<NkInput> implements NativeResource {
@@ -104,8 +102,7 @@ public class NkInput extends Struct<NkInput> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkInput createSafe(long address) {
+    public static @Nullable NkInput createSafe(long address) {
         return address == NULL ? null : new NkInput(address, null);
     }
 
@@ -148,8 +145,7 @@ public class NkInput extends Struct<NkInput> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkInput.Buffer createSafe(long address, int capacity) {
+    public static NkInput.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +244,11 @@ public class NkInput extends Struct<NkInput> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

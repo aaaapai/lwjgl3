@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * (None).
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2 STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code buffer} <b>must</b> be a valid {@code VkBuffer} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK11#vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2}, {@link KHRGetMemoryRequirements2#vkGetBufferMemoryRequirements2KHR GetBufferMemoryRequirements2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBufferMemoryRequirementsInfo2 {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBuffer {@link #buffer};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBuffer buffer;
+ * }}</pre>
  */
 public class VkBufferMemoryRequirementsInfo2 extends Struct<VkBufferMemoryRequirementsInfo2> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkBufferMemoryRequirementsInfo2 extends Struct<VkBufferMemoryRequir
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the buffer to query. */
+    /** @return the value of the {@code buffer} field. */
     @NativeType("VkBuffer")
     public long buffer() { return nbuffer(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkBufferMemoryRequirementsInfo2 sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2 STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2 STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2} value to the {@code sType} field. */
     public VkBufferMemoryRequirementsInfo2 sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkBufferMemoryRequirementsInfo2 pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #buffer} field. */
+    /** Sets the specified value to the {@code buffer} field. */
     public VkBufferMemoryRequirementsInfo2 buffer(@NativeType("VkBuffer") long value) { nbuffer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkBufferMemoryRequirementsInfo2 extends Struct<VkBufferMemoryRequir
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferMemoryRequirementsInfo2 createSafe(long address) {
+    public static @Nullable VkBufferMemoryRequirementsInfo2 createSafe(long address) {
         return address == NULL ? null : new VkBufferMemoryRequirementsInfo2(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkBufferMemoryRequirementsInfo2 extends Struct<VkBufferMemoryRequir
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferMemoryRequirementsInfo2.Buffer createSafe(long address, int capacity) {
+    public static VkBufferMemoryRequirementsInfo2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +249,18 @@ public class VkBufferMemoryRequirementsInfo2 extends Struct<VkBufferMemoryRequir
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferMemoryRequirementsInfo2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferMemoryRequirementsInfo2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferMemoryRequirementsInfo2.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkBufferMemoryRequirementsInfo2.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkBufferMemoryRequirementsInfo2.BUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferMemoryRequirementsInfo2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferMemoryRequirementsInfo2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferMemoryRequirementsInfo2.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferMemoryRequirementsInfo2.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkBufferMemoryRequirementsInfo2.BUFFER, value); }
 
     // -----------------------------------
 
@@ -314,27 +296,32 @@ public class VkBufferMemoryRequirementsInfo2 extends Struct<VkBufferMemoryRequir
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBufferMemoryRequirementsInfo2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBufferMemoryRequirementsInfo2#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkBufferMemoryRequirementsInfo2.nsType(address()); }
-        /** @return the value of the {@link VkBufferMemoryRequirementsInfo2#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkBufferMemoryRequirementsInfo2.npNext(address()); }
-        /** @return the value of the {@link VkBufferMemoryRequirementsInfo2#buffer} field. */
+        /** @return the value of the {@code buffer} field. */
         @NativeType("VkBuffer")
         public long buffer() { return VkBufferMemoryRequirementsInfo2.nbuffer(address()); }
 
-        /** Sets the specified value to the {@link VkBufferMemoryRequirementsInfo2#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkBufferMemoryRequirementsInfo2.Buffer sType(@NativeType("VkStructureType") int value) { VkBufferMemoryRequirementsInfo2.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2 STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2} value to the {@link VkBufferMemoryRequirementsInfo2#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2 STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2} value to the {@code sType} field. */
         public VkBufferMemoryRequirementsInfo2.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2); }
-        /** Sets the specified value to the {@link VkBufferMemoryRequirementsInfo2#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkBufferMemoryRequirementsInfo2.Buffer pNext(@NativeType("void const *") long value) { VkBufferMemoryRequirementsInfo2.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBufferMemoryRequirementsInfo2#buffer} field. */
+        /** Sets the specified value to the {@code buffer} field. */
         public VkBufferMemoryRequirementsInfo2.Buffer buffer(@NativeType("VkBuffer") long value) { VkBufferMemoryRequirementsInfo2.nbuffer(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines MSL characteristics of a vertex attribute at a particular location.
- * 
- * <p>After compilation, it is possible to query whether or not this location was used.</p>
- * 
- * <p>Deprecated; use {@link SpvcMslShaderInterfaceVar}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_msl_vertex_attribute {
  *     unsigned int location;
- *     unsigned int {@link #msl_buffer};
- *     unsigned int {@link #msl_offset};
- *     unsigned int {@link #msl_stride};
- *     spvc_bool {@link #per_instance};
+ *     unsigned int msl_buffer;
+ *     unsigned int msl_offset;
+ *     unsigned int msl_stride;
+ *     spvc_bool per_instance;
  *     spvc_msl_vertex_format format;
  *     SpvBuiltIn builtin;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct spvc_msl_vertex_attribute")
 public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> implements NativeResource {
@@ -102,16 +94,16 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     /** @return the value of the {@code location} field. */
     @NativeType("unsigned int")
     public int location() { return nlocation(address()); }
-    /** Obsolete, do not use. Only lingers on for ABI compatibility. */
+    /** @return the value of the {@code msl_buffer} field. */
     @NativeType("unsigned int")
     public int msl_buffer() { return nmsl_buffer(address()); }
-    /** Obsolete, do not use. Only lingers on for ABI compatibility. */
+    /** @return the value of the {@code msl_offset} field. */
     @NativeType("unsigned int")
     public int msl_offset() { return nmsl_offset(address()); }
-    /** Obsolete, do not use. Only lingers on for ABI compatibility. */
+    /** @return the value of the {@code msl_stride} field. */
     @NativeType("unsigned int")
     public int msl_stride() { return nmsl_stride(address()); }
-    /** Obsolete, do not use. Only lingers on for ABI compatibility. */
+    /** @return the value of the {@code per_instance} field. */
     @NativeType("spvc_bool")
     public boolean per_instance() { return nper_instance(address()); }
     /** @return the value of the {@code format} field. */
@@ -123,13 +115,13 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
 
     /** Sets the specified value to the {@code location} field. */
     public SpvcMslVertexAttribute location(@NativeType("unsigned int") int value) { nlocation(address(), value); return this; }
-    /** Sets the specified value to the {@link #msl_buffer} field. */
+    /** Sets the specified value to the {@code msl_buffer} field. */
     public SpvcMslVertexAttribute msl_buffer(@NativeType("unsigned int") int value) { nmsl_buffer(address(), value); return this; }
-    /** Sets the specified value to the {@link #msl_offset} field. */
+    /** Sets the specified value to the {@code msl_offset} field. */
     public SpvcMslVertexAttribute msl_offset(@NativeType("unsigned int") int value) { nmsl_offset(address(), value); return this; }
-    /** Sets the specified value to the {@link #msl_stride} field. */
+    /** Sets the specified value to the {@code msl_stride} field. */
     public SpvcMslVertexAttribute msl_stride(@NativeType("unsigned int") int value) { nmsl_stride(address(), value); return this; }
-    /** Sets the specified value to the {@link #per_instance} field. */
+    /** Sets the specified value to the {@code per_instance} field. */
     public SpvcMslVertexAttribute per_instance(@NativeType("spvc_bool") boolean value) { nper_instance(address(), value); return this; }
     /** Sets the specified value to the {@code format} field. */
     public SpvcMslVertexAttribute format(@NativeType("spvc_msl_vertex_format") int value) { nformat(address(), value); return this; }
@@ -193,8 +185,7 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcMslVertexAttribute createSafe(long address) {
+    public static @Nullable SpvcMslVertexAttribute createSafe(long address) {
         return address == NULL ? null : new SpvcMslVertexAttribute(address, null);
     }
 
@@ -237,8 +228,7 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcMslVertexAttribute.Buffer createSafe(long address, int capacity) {
+    public static SpvcMslVertexAttribute.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,34 +273,34 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.LOCATION); }
     /** Unsafe version of {@link #msl_buffer}. */
-    public static int nmsl_buffer(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.MSL_BUFFER); }
+    public static int nmsl_buffer(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.MSL_BUFFER); }
     /** Unsafe version of {@link #msl_offset}. */
-    public static int nmsl_offset(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.MSL_OFFSET); }
+    public static int nmsl_offset(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.MSL_OFFSET); }
     /** Unsafe version of {@link #msl_stride}. */
-    public static int nmsl_stride(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.MSL_STRIDE); }
+    public static int nmsl_stride(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.MSL_STRIDE); }
     /** Unsafe version of {@link #per_instance}. */
-    public static boolean nper_instance(long struct) { return UNSAFE.getByte(null, struct + SpvcMslVertexAttribute.PER_INSTANCE) != 0; }
+    public static boolean nper_instance(long struct) { return memGetByte(struct + SpvcMslVertexAttribute.PER_INSTANCE) != 0; }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.FORMAT); }
     /** Unsafe version of {@link #builtin}. */
-    public static int nbuiltin(long struct) { return UNSAFE.getInt(null, struct + SpvcMslVertexAttribute.BUILTIN); }
+    public static int nbuiltin(long struct) { return memGetInt(struct + SpvcMslVertexAttribute.BUILTIN); }
 
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.LOCATION, value); }
     /** Unsafe version of {@link #msl_buffer(int) msl_buffer}. */
-    public static void nmsl_buffer(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.MSL_BUFFER, value); }
+    public static void nmsl_buffer(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.MSL_BUFFER, value); }
     /** Unsafe version of {@link #msl_offset(int) msl_offset}. */
-    public static void nmsl_offset(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.MSL_OFFSET, value); }
+    public static void nmsl_offset(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.MSL_OFFSET, value); }
     /** Unsafe version of {@link #msl_stride(int) msl_stride}. */
-    public static void nmsl_stride(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.MSL_STRIDE, value); }
+    public static void nmsl_stride(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.MSL_STRIDE, value); }
     /** Unsafe version of {@link #per_instance(boolean) per_instance}. */
-    public static void nper_instance(long struct, boolean value) { UNSAFE.putByte(null, struct + SpvcMslVertexAttribute.PER_INSTANCE, value ? (byte)1 : (byte)0); }
+    public static void nper_instance(long struct, boolean value) { memPutByte(struct + SpvcMslVertexAttribute.PER_INSTANCE, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.FORMAT, value); }
     /** Unsafe version of {@link #builtin(int) builtin}. */
-    public static void nbuiltin(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslVertexAttribute.BUILTIN, value); }
+    public static void nbuiltin(long struct, int value) { memPutInt(struct + SpvcMslVertexAttribute.BUILTIN, value); }
 
     // -----------------------------------
 
@@ -346,6 +336,11 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected SpvcMslVertexAttribute getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -353,16 +348,16 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
         /** @return the value of the {@code location} field. */
         @NativeType("unsigned int")
         public int location() { return SpvcMslVertexAttribute.nlocation(address()); }
-        /** @return the value of the {@link SpvcMslVertexAttribute#msl_buffer} field. */
+        /** @return the value of the {@code msl_buffer} field. */
         @NativeType("unsigned int")
         public int msl_buffer() { return SpvcMslVertexAttribute.nmsl_buffer(address()); }
-        /** @return the value of the {@link SpvcMslVertexAttribute#msl_offset} field. */
+        /** @return the value of the {@code msl_offset} field. */
         @NativeType("unsigned int")
         public int msl_offset() { return SpvcMslVertexAttribute.nmsl_offset(address()); }
-        /** @return the value of the {@link SpvcMslVertexAttribute#msl_stride} field. */
+        /** @return the value of the {@code msl_stride} field. */
         @NativeType("unsigned int")
         public int msl_stride() { return SpvcMslVertexAttribute.nmsl_stride(address()); }
-        /** @return the value of the {@link SpvcMslVertexAttribute#per_instance} field. */
+        /** @return the value of the {@code per_instance} field. */
         @NativeType("spvc_bool")
         public boolean per_instance() { return SpvcMslVertexAttribute.nper_instance(address()); }
         /** @return the value of the {@code format} field. */
@@ -374,13 +369,13 @@ public class SpvcMslVertexAttribute extends Struct<SpvcMslVertexAttribute> imple
 
         /** Sets the specified value to the {@code location} field. */
         public SpvcMslVertexAttribute.Buffer location(@NativeType("unsigned int") int value) { SpvcMslVertexAttribute.nlocation(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcMslVertexAttribute#msl_buffer} field. */
+        /** Sets the specified value to the {@code msl_buffer} field. */
         public SpvcMslVertexAttribute.Buffer msl_buffer(@NativeType("unsigned int") int value) { SpvcMslVertexAttribute.nmsl_buffer(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcMslVertexAttribute#msl_offset} field. */
+        /** Sets the specified value to the {@code msl_offset} field. */
         public SpvcMslVertexAttribute.Buffer msl_offset(@NativeType("unsigned int") int value) { SpvcMslVertexAttribute.nmsl_offset(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcMslVertexAttribute#msl_stride} field. */
+        /** Sets the specified value to the {@code msl_stride} field. */
         public SpvcMslVertexAttribute.Buffer msl_stride(@NativeType("unsigned int") int value) { SpvcMslVertexAttribute.nmsl_stride(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcMslVertexAttribute#per_instance} field. */
+        /** Sets the specified value to the {@code per_instance} field. */
         public SpvcMslVertexAttribute.Buffer per_instance(@NativeType("spvc_bool") boolean value) { SpvcMslVertexAttribute.nper_instance(address(), value); return this; }
         /** Sets the specified value to the {@code format} field. */
         public SpvcMslVertexAttribute.Buffer format(@NativeType("spvc_msl_vertex_format") int value) { SpvcMslVertexAttribute.nformat(address(), value); return this; }

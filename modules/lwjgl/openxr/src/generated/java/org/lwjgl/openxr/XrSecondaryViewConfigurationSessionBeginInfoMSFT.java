@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,39 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes an extension structure to {@link XR10#xrBeginSession BeginSession} indicating supported view configuration types.
- * 
- * <h5>Description</h5>
- * 
- * <p>If there are any duplicated view configuration types in the array of {@code enabledViewConfigurationTypes}, the runtime <b>must</b> return error {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE}.</p>
- * 
- * <p>If there are any primary view configuration types in the array of {@code enabledViewConfigurationTypes}, the runtime <b>must</b> return error {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE}.</p>
- * 
- * <p>If there are any secondary view configuration types not returned by {@link XR10#xrEnumerateViewConfigurations EnumerateViewConfigurations} in the array of {@code enabledViewConfigurationTypes}, the runtime <b>must</b> return error {@link XR10#XR_ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED ERROR_VIEW_CONFIGURATION_TYPE_UNSUPPORTED}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSecondaryViewConfiguration XR_MSFT_secondary_view_configuration} extension <b>must</b> be enabled prior to using {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT}</li>
- * <li>{@code type} <b>must</b> be {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code enabledViewConfigurationTypes} <b>must</b> be a pointer to an array of {@code viewConfigurationCount} valid {@code XrViewConfigurationType} values</li>
- * <li>The {@code viewConfigurationCount} parameter <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSessionBeginInfo}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSecondaryViewConfigurationSessionBeginInfoMSFT {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint32_t {@link #viewConfigurationCount};
- *     XrViewConfigurationType const * {@link #enabledViewConfigurationTypes};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint32_t viewConfigurationCount;
+ *     XrViewConfigurationType const * enabledViewConfigurationTypes;
+ * }}</pre>
  */
 public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrSecondaryViewConfigurationSessionBeginInfoMSFT> implements NativeResource {
 
@@ -105,26 +79,26 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the number of elements in {@code enabledViewConfigurationTypes} */
+    /** @return the value of the {@code viewConfigurationCount} field. */
     @NativeType("uint32_t")
     public int viewConfigurationCount() { return nviewConfigurationCount(address()); }
-    /** an array of enabled secondary view configuration types that application supports. */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code enabledViewConfigurationTypes} field. */
     @NativeType("XrViewConfigurationType const *")
     public IntBuffer enabledViewConfigurationTypes() { return nenabledViewConfigurationTypes(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSecondaryViewConfigurationSessionBeginInfoMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT} value to the {@link #type} field. */
+    /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT} value to the {@code type} field. */
     public XrSecondaryViewConfigurationSessionBeginInfoMSFT type$Default() { return type(MSFTSecondaryViewConfiguration.XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSecondaryViewConfigurationSessionBeginInfoMSFT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #enabledViewConfigurationTypes} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code enabledViewConfigurationTypes} field. */
     public XrSecondaryViewConfigurationSessionBeginInfoMSFT enabledViewConfigurationTypes(@NativeType("XrViewConfigurationType const *") IntBuffer value) { nenabledViewConfigurationTypes(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -176,8 +150,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationSessionBeginInfoMSFT createSafe(long address) {
+    public static @Nullable XrSecondaryViewConfigurationSessionBeginInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSecondaryViewConfigurationSessionBeginInfoMSFT(address, null);
     }
 
@@ -220,8 +193,7 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSecondaryViewConfigurationSessionBeginInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,20 +238,20 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.NEXT); }
     /** Unsafe version of {@link #viewConfigurationCount}. */
-    public static int nviewConfigurationCount(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.VIEWCONFIGURATIONCOUNT); }
+    public static int nviewConfigurationCount(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.VIEWCONFIGURATIONCOUNT); }
     /** Unsafe version of {@link #enabledViewConfigurationTypes() enabledViewConfigurationTypes}. */
     public static IntBuffer nenabledViewConfigurationTypes(long struct) { return memIntBuffer(memGetAddress(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.ENABLEDVIEWCONFIGURATIONTYPES), nviewConfigurationCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.NEXT, value); }
     /** Sets the specified value to the {@code viewConfigurationCount} field of the specified {@code struct}. */
-    public static void nviewConfigurationCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.VIEWCONFIGURATIONCOUNT, value); }
+    public static void nviewConfigurationCount(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.VIEWCONFIGURATIONCOUNT, value); }
     /** Unsafe version of {@link #enabledViewConfigurationTypes(IntBuffer) enabledViewConfigurationTypes}. */
     public static void nenabledViewConfigurationTypes(long struct, IntBuffer value) { memPutAddress(struct + XrSecondaryViewConfigurationSessionBeginInfoMSFT.ENABLEDVIEWCONFIGURATIONTYPES, memAddress(value)); nviewConfigurationCount(struct, value.remaining()); }
 
@@ -326,30 +298,35 @@ public class XrSecondaryViewConfigurationSessionBeginInfoMSFT extends Struct<XrS
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSecondaryViewConfigurationSessionBeginInfoMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSecondaryViewConfigurationSessionBeginInfoMSFT.ntype(address()); }
-        /** @return the value of the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSecondaryViewConfigurationSessionBeginInfoMSFT.nnext(address()); }
-        /** @return the value of the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#viewConfigurationCount} field. */
+        /** @return the value of the {@code viewConfigurationCount} field. */
         @NativeType("uint32_t")
         public int viewConfigurationCount() { return XrSecondaryViewConfigurationSessionBeginInfoMSFT.nviewConfigurationCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#enabledViewConfigurationTypes} field. */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code enabledViewConfigurationTypes} field. */
         @NativeType("XrViewConfigurationType const *")
         public IntBuffer enabledViewConfigurationTypes() { return XrSecondaryViewConfigurationSessionBeginInfoMSFT.nenabledViewConfigurationTypes(address()); }
 
-        /** Sets the specified value to the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSecondaryViewConfigurationSessionBeginInfoMSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT} value to the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#type} field. */
+        /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT} value to the {@code type} field. */
         public XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer type$Default() { return type(MSFTSecondaryViewConfiguration.XR_TYPE_SECONDARY_VIEW_CONFIGURATION_SESSION_BEGIN_INFO_MSFT); }
-        /** Sets the specified value to the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer next(@NativeType("void const *") long value) { XrSecondaryViewConfigurationSessionBeginInfoMSFT.nnext(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT#enabledViewConfigurationTypes} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code enabledViewConfigurationTypes} field. */
         public XrSecondaryViewConfigurationSessionBeginInfoMSFT.Buffer enabledViewConfigurationTypes(@NativeType("XrViewConfigurationType const *") IntBuffer value) { XrSecondaryViewConfigurationSessionBeginInfoMSFT.nenabledViewConfigurationTypes(address(), value); return this; }
 
     }

@@ -12,18 +12,7 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * YGSize (*{@link #invoke}) (
- *     YGNodeRef node,
- *     float width,
- *     YGMeasureMode widthMode,
- *     float height,
- *     YGMeasureMode heightMode
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGMeasureFunc} */
 @FunctionalInterface
 @NativeType("YGMeasureFunc")
 public interface YGMeasureFuncI extends CallbackI {
@@ -49,6 +38,7 @@ public interface YGMeasureFuncI extends CallbackI {
         );
     }
 
-    void invoke(@NativeType("YGNodeRef") long node, float width, @NativeType("YGMeasureMode") int widthMode, float height, @NativeType("YGMeasureMode") int heightMode, YGSize __result);
+    /** {@code YGSize (* YGMeasureFunc) (YGNodeConstRef node, float width, YGMeasureMode widthMode, float height, YGMeasureMode heightMode)} */
+    void invoke(@NativeType("YGNodeConstRef") long node, float width, @NativeType("YGMeasureMode") int widthMode, float height, @NativeType("YGMeasureMode") int heightMode, YGSize __result);
 
 }

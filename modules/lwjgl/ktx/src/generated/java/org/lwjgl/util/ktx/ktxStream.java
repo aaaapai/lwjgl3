@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,32 +17,28 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Interface of {@code ktxStream}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ktxStream {
- *     {@link ktxStream_readI ktxStream_read} {@link #read};
- *     {@link ktxStream_skipI ktxStream_skip} {@link #skip};
- *     {@link ktxStream_writeI ktxStream_write} {@link #write};
- *     {@link ktxStream_getposI ktxStream_getpos} {@link #getpos};
- *     {@link ktxStream_setposI ktxStream_setpos} {@link #setpos};
- *     {@link ktxStream_getsizeI ktxStream_getsize} {@link #getsize};
- *     {@link ktxStream_destructI ktxStream_destruct} {@link #destruct};
+ *     {@link ktxStream_readI ktxStream_read} read;
+ *     {@link ktxStream_skipI ktxStream_skip} skip;
+ *     {@link ktxStream_writeI ktxStream_write} write;
+ *     {@link ktxStream_getposI ktxStream_getpos} getpos;
+ *     {@link ktxStream_setposI ktxStream_setpos} setpos;
+ *     {@link ktxStream_getsizeI ktxStream_getsize} getsize;
+ *     {@link ktxStream_destructI ktxStream_destruct} destruct;
  *     enum streamType type;
  *     union {
- *         FILE * {@link #data_file file};
- *         ktxMem * {@link #data_mem mem};
+ *         FILE * file;
+ *         ktxMem * mem;
  *         struct {
- *             void * {@link #data_custom_ptr_address address};
- *             void * {@link #data_custom_ptr_allocatorAddress allocatorAddress};
- *             ktx_size_t {@link #data_custom_ptr_size size};
+ *             void * address;
+ *             void * allocatorAddress;
+ *             ktx_size_t size;
  *         } custom_ptr;
  *     } data;
- *     ktx_off_t {@link #readpos};
- *     ktx_bool_t {@link #closeOnDestruct};
- * }</code></pre>
+ *     ktx_off_t readpos;
+ *     ktx_bool_t closeOnDestruct;
+ * }}</pre>
  */
 @NativeType("struct ktxStream")
 public class ktxStream extends Struct<ktxStream> implements NativeResource {
@@ -140,78 +136,74 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** pointer to function for reading bytes */
+    /** @return the value of the {@code read} field. */
     public ktxStream_read read() { return nread(address()); }
-    /** pointer to function for skipping bytes */
+    /** @return the value of the {@code skip} field. */
     public ktxStream_skip skip() { return nskip(address()); }
-    /** pointer to function for writing bytes */
+    /** @return the value of the {@code write} field. */
     public ktxStream_write write() { return nwrite(address()); }
-    /** pointer to function for getting current position in stream */
+    /** @return the value of the {@code getpos} field. */
     public ktxStream_getpos getpos() { return ngetpos(address()); }
-    /** pointer to function for setting current position in stream */
+    /** @return the value of the {@code setpos} field. */
     public ktxStream_setpos setpos() { return nsetpos(address()); }
-    /** pointer to function for querying size */
+    /** @return the value of the {@code getsize} field. */
     public ktxStream_getsize getsize() { return ngetsize(address()); }
-    /** destruct the stream */
+    /** @return the value of the {@code destruct} field. */
     public ktxStream_destruct destruct() { return ndestruct(address()); }
     /** @return the value of the {@code type} field. */
     @NativeType("enum streamType")
     public int type() { return ntype(address()); }
-    /** a {@code stdio} {@code FILE} pointer for a {@code ktxFileStream} */
+    /** @return the value of the {@code data.file} field. */
     @NativeType("FILE *")
     public long data_file() { return ndata_file(address()); }
-    /** a pointer to a {@code ktxMem} struct for a {@code ktxMemStream} */
+    /** @return the value of the {@code data.mem} field. */
     @NativeType("ktxMem *")
     public long data_mem() { return ndata_mem(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return pointer to the data
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data.custom_ptr.address} field. */
     @NativeType("void *")
     public ByteBuffer data_custom_ptr_address(int capacity) { return ndata_custom_ptr_address(address(), capacity); }
-    /** pointer to a memory allocator */
+    /** @return the value of the {@code data.custom_ptr.allocatorAddress} field. */
     @NativeType("void *")
     public long data_custom_ptr_allocatorAddress() { return ndata_custom_ptr_allocatorAddress(address()); }
-    /** size of the data */
+    /** @return the value of the {@code data.custom_ptr.size} field. */
     @NativeType("ktx_size_t")
     public long data_custom_ptr_size() { return ndata_custom_ptr_size(address()); }
-    /** used by {@code FileStream} for {@code stdin} */
+    /** @return the value of the {@code readpos} field. */
     @NativeType("ktx_off_t")
     public long readpos() { return nreadpos(address()); }
-    /** close {@code FILE*} or dispose of memory on destruct */
+    /** @return the value of the {@code closeOnDestruct} field. */
     @NativeType("ktx_bool_t")
     public boolean closeOnDestruct() { return ncloseOnDestruct(address()); }
 
-    /** Sets the specified value to the {@link #read} field. */
+    /** Sets the specified value to the {@code read} field. */
     public ktxStream read(@NativeType("ktxStream_read") ktxStream_readI value) { nread(address(), value); return this; }
-    /** Sets the specified value to the {@link #skip} field. */
+    /** Sets the specified value to the {@code skip} field. */
     public ktxStream skip(@NativeType("ktxStream_skip") ktxStream_skipI value) { nskip(address(), value); return this; }
-    /** Sets the specified value to the {@link #write} field. */
+    /** Sets the specified value to the {@code write} field. */
     public ktxStream write(@NativeType("ktxStream_write") ktxStream_writeI value) { nwrite(address(), value); return this; }
-    /** Sets the specified value to the {@link #getpos} field. */
+    /** Sets the specified value to the {@code getpos} field. */
     public ktxStream getpos(@NativeType("ktxStream_getpos") ktxStream_getposI value) { ngetpos(address(), value); return this; }
-    /** Sets the specified value to the {@link #setpos} field. */
+    /** Sets the specified value to the {@code setpos} field. */
     public ktxStream setpos(@NativeType("ktxStream_setpos") ktxStream_setposI value) { nsetpos(address(), value); return this; }
-    /** Sets the specified value to the {@link #getsize} field. */
+    /** Sets the specified value to the {@code getsize} field. */
     public ktxStream getsize(@NativeType("ktxStream_getsize") ktxStream_getsizeI value) { ngetsize(address(), value); return this; }
-    /** Sets the specified value to the {@link #destruct} field. */
+    /** Sets the specified value to the {@code destruct} field. */
     public ktxStream destruct(@NativeType("ktxStream_destruct") ktxStream_destructI value) { ndestruct(address(), value); return this; }
     /** Sets the specified value to the {@code type} field. */
     public ktxStream type(@NativeType("enum streamType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #data_file} field. */
+    /** Sets the specified value to the {@code file} field. */
     public ktxStream data_file(@NativeType("FILE *") long value) { ndata_file(address(), value); return this; }
-    /** Sets the specified value to the {@link #data_mem} field. */
+    /** Sets the specified value to the {@code mem} field. */
     public ktxStream data_mem(@NativeType("ktxMem *") long value) { ndata_mem(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #data_custom_ptr_address} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code address} field. */
     public ktxStream data_custom_ptr_address(@NativeType("void *") ByteBuffer value) { ndata_custom_ptr_address(address(), value); return this; }
-    /** Sets the specified value to the {@link #data_custom_ptr_allocatorAddress} field. */
+    /** Sets the specified value to the {@code allocatorAddress} field. */
     public ktxStream data_custom_ptr_allocatorAddress(@NativeType("void *") long value) { ndata_custom_ptr_allocatorAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #data_custom_ptr_size} field. */
+    /** Sets the specified value to the {@code size} field. */
     public ktxStream data_custom_ptr_size(@NativeType("ktx_size_t") long value) { ndata_custom_ptr_size(address(), value); return this; }
-    /** Sets the specified value to the {@link #readpos} field. */
+    /** Sets the specified value to the {@code readpos} field. */
     public ktxStream readpos(@NativeType("ktx_off_t") long value) { nreadpos(address(), value); return this; }
-    /** Sets the specified value to the {@link #closeOnDestruct} field. */
+    /** Sets the specified value to the {@code closeOnDestruct} field. */
     public ktxStream closeOnDestruct(@NativeType("ktx_bool_t") boolean value) { ncloseOnDestruct(address(), value); return this; }
 
     /**
@@ -250,8 +242,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxStream createSafe(long address) {
+    public static @Nullable ktxStream createSafe(long address) {
         return address == NULL ? null : new ktxStream(address, null);
     }
 
@@ -294,8 +285,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxStream.Buffer createSafe(long address, int capacity) {
+    public static ktxStream.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -354,7 +344,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Unsafe version of {@link #destruct}. */
     public static ktxStream_destruct ndestruct(long struct) { return ktxStream_destruct.create(memGetAddress(struct + ktxStream.DESTRUCT)); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + ktxStream.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + ktxStream.TYPE); }
     /** Unsafe version of {@link #data_file}. */
     public static long ndata_file(long struct) { return memGetAddress(struct + ktxStream.DATA_FILE); }
     /** Unsafe version of {@link #data_mem}. */
@@ -366,9 +356,9 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Unsafe version of {@link #data_custom_ptr_size}. */
     public static long ndata_custom_ptr_size(long struct) { return memGetAddress(struct + ktxStream.DATA_CUSTOM_PTR_SIZE); }
     /** Unsafe version of {@link #readpos}. */
-    public static long nreadpos(long struct) { return UNSAFE.getLong(null, struct + ktxStream.READPOS); }
+    public static long nreadpos(long struct) { return memGetLong(struct + ktxStream.READPOS); }
     /** Unsafe version of {@link #closeOnDestruct}. */
-    public static boolean ncloseOnDestruct(long struct) { return UNSAFE.getByte(null, struct + ktxStream.CLOSEONDESTRUCT) != 0; }
+    public static boolean ncloseOnDestruct(long struct) { return memGetByte(struct + ktxStream.CLOSEONDESTRUCT) != 0; }
 
     /** Unsafe version of {@link #read(ktxStream_readI) read}. */
     public static void nread(long struct, ktxStream_readI value) { memPutAddress(struct + ktxStream.READ, value.address()); }
@@ -385,7 +375,7 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Unsafe version of {@link #destruct(ktxStream_destructI) destruct}. */
     public static void ndestruct(long struct, ktxStream_destructI value) { memPutAddress(struct + ktxStream.DESTRUCT, value.address()); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + ktxStream.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + ktxStream.TYPE, value); }
     /** Unsafe version of {@link #data_file(long) data_file}. */
     public static void ndata_file(long struct, long value) { memPutAddress(struct + ktxStream.DATA_FILE, check(value)); }
     /** Unsafe version of {@link #data_mem(long) data_mem}. */
@@ -397,9 +387,9 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
     public static void ndata_custom_ptr_size(long struct, long value) { memPutAddress(struct + ktxStream.DATA_CUSTOM_PTR_SIZE, value); }
     /** Unsafe version of {@link #readpos(long) readpos}. */
-    public static void nreadpos(long struct, long value) { UNSAFE.putLong(null, struct + ktxStream.READPOS, value); }
+    public static void nreadpos(long struct, long value) { memPutLong(struct + ktxStream.READPOS, value); }
     /** Unsafe version of {@link #closeOnDestruct(boolean) closeOnDestruct}. */
-    public static void ncloseOnDestruct(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxStream.CLOSEONDESTRUCT, value ? (byte)1 : (byte)0); }
+    public static void ncloseOnDestruct(long struct, boolean value) { memPutByte(struct + ktxStream.CLOSEONDESTRUCT, value ? (byte)1 : (byte)0); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -450,82 +440,83 @@ public class ktxStream extends Struct<ktxStream> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ktxStream getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ktxStream#read} field. */
+        /** @return the value of the {@code read} field. */
         public ktxStream_read read() { return ktxStream.nread(address()); }
-        /** @return the value of the {@link ktxStream#skip} field. */
+        /** @return the value of the {@code skip} field. */
         public ktxStream_skip skip() { return ktxStream.nskip(address()); }
-        /** @return the value of the {@link ktxStream#write} field. */
+        /** @return the value of the {@code write} field. */
         public ktxStream_write write() { return ktxStream.nwrite(address()); }
-        /** @return the value of the {@link ktxStream#getpos} field. */
+        /** @return the value of the {@code getpos} field. */
         public ktxStream_getpos getpos() { return ktxStream.ngetpos(address()); }
-        /** @return the value of the {@link ktxStream#setpos} field. */
+        /** @return the value of the {@code setpos} field. */
         public ktxStream_setpos setpos() { return ktxStream.nsetpos(address()); }
-        /** @return the value of the {@link ktxStream#getsize} field. */
+        /** @return the value of the {@code getsize} field. */
         public ktxStream_getsize getsize() { return ktxStream.ngetsize(address()); }
-        /** @return the value of the {@link ktxStream#destruct} field. */
+        /** @return the value of the {@code destruct} field. */
         public ktxStream_destruct destruct() { return ktxStream.ndestruct(address()); }
         /** @return the value of the {@code type} field. */
         @NativeType("enum streamType")
         public int type() { return ktxStream.ntype(address()); }
-        /** @return the value of the {@link ktxStream#data_file} field. */
+        /** @return the value of the {@code data.file} field. */
         @NativeType("FILE *")
         public long data_file() { return ktxStream.ndata_file(address()); }
-        /** @return the value of the {@link ktxStream#data_mem} field. */
+        /** @return the value of the {@code data.mem} field. */
         @NativeType("ktxMem *")
         public long data_mem() { return ktxStream.ndata_mem(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@link ktxStream#data_custom_ptr_address} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data.custom_ptr.address} field. */
         @NativeType("void *")
         public ByteBuffer data_custom_ptr_address(int capacity) { return ktxStream.ndata_custom_ptr_address(address(), capacity); }
-        /** @return the value of the {@link ktxStream#data_custom_ptr_allocatorAddress} field. */
+        /** @return the value of the {@code data.custom_ptr.allocatorAddress} field. */
         @NativeType("void *")
         public long data_custom_ptr_allocatorAddress() { return ktxStream.ndata_custom_ptr_allocatorAddress(address()); }
-        /** @return the value of the {@link ktxStream#data_custom_ptr_size} field. */
+        /** @return the value of the {@code data.custom_ptr.size} field. */
         @NativeType("ktx_size_t")
         public long data_custom_ptr_size() { return ktxStream.ndata_custom_ptr_size(address()); }
-        /** @return the value of the {@link ktxStream#readpos} field. */
+        /** @return the value of the {@code readpos} field. */
         @NativeType("ktx_off_t")
         public long readpos() { return ktxStream.nreadpos(address()); }
-        /** @return the value of the {@link ktxStream#closeOnDestruct} field. */
+        /** @return the value of the {@code closeOnDestruct} field. */
         @NativeType("ktx_bool_t")
         public boolean closeOnDestruct() { return ktxStream.ncloseOnDestruct(address()); }
 
-        /** Sets the specified value to the {@link ktxStream#read} field. */
+        /** Sets the specified value to the {@code read} field. */
         public ktxStream.Buffer read(@NativeType("ktxStream_read") ktxStream_readI value) { ktxStream.nread(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#skip} field. */
+        /** Sets the specified value to the {@code skip} field. */
         public ktxStream.Buffer skip(@NativeType("ktxStream_skip") ktxStream_skipI value) { ktxStream.nskip(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#write} field. */
+        /** Sets the specified value to the {@code write} field. */
         public ktxStream.Buffer write(@NativeType("ktxStream_write") ktxStream_writeI value) { ktxStream.nwrite(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#getpos} field. */
+        /** Sets the specified value to the {@code getpos} field. */
         public ktxStream.Buffer getpos(@NativeType("ktxStream_getpos") ktxStream_getposI value) { ktxStream.ngetpos(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#setpos} field. */
+        /** Sets the specified value to the {@code setpos} field. */
         public ktxStream.Buffer setpos(@NativeType("ktxStream_setpos") ktxStream_setposI value) { ktxStream.nsetpos(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#getsize} field. */
+        /** Sets the specified value to the {@code getsize} field. */
         public ktxStream.Buffer getsize(@NativeType("ktxStream_getsize") ktxStream_getsizeI value) { ktxStream.ngetsize(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#destruct} field. */
+        /** Sets the specified value to the {@code destruct} field. */
         public ktxStream.Buffer destruct(@NativeType("ktxStream_destruct") ktxStream_destructI value) { ktxStream.ndestruct(address(), value); return this; }
         /** Sets the specified value to the {@code type} field. */
         public ktxStream.Buffer type(@NativeType("enum streamType") int value) { ktxStream.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#data_file} field. */
+        /** Sets the specified value to the {@code file} field. */
         public ktxStream.Buffer data_file(@NativeType("FILE *") long value) { ktxStream.ndata_file(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#data_mem} field. */
+        /** Sets the specified value to the {@code mem} field. */
         public ktxStream.Buffer data_mem(@NativeType("ktxMem *") long value) { ktxStream.ndata_mem(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link ktxStream#data_custom_ptr_address} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code address} field. */
         public ktxStream.Buffer data_custom_ptr_address(@NativeType("void *") ByteBuffer value) { ktxStream.ndata_custom_ptr_address(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#data_custom_ptr_allocatorAddress} field. */
+        /** Sets the specified value to the {@code allocatorAddress} field. */
         public ktxStream.Buffer data_custom_ptr_allocatorAddress(@NativeType("void *") long value) { ktxStream.ndata_custom_ptr_allocatorAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#data_custom_ptr_size} field. */
+        /** Sets the specified value to the {@code size} field. */
         public ktxStream.Buffer data_custom_ptr_size(@NativeType("ktx_size_t") long value) { ktxStream.ndata_custom_ptr_size(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#readpos} field. */
+        /** Sets the specified value to the {@code readpos} field. */
         public ktxStream.Buffer readpos(@NativeType("ktx_off_t") long value) { ktxStream.nreadpos(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxStream#closeOnDestruct} field. */
+        /** Sets the specified value to the {@code closeOnDestruct} field. */
         public ktxStream.Buffer closeOnDestruct(@NativeType("ktx_bool_t") boolean value) { ktxStream.ncloseOnDestruct(address(), value); return this; }
 
     }

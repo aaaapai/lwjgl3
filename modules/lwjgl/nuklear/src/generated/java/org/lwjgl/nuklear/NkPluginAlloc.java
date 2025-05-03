@@ -5,22 +5,13 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     nk_handle handle,
- *     void *old,
- *     nk_size size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_plugin_alloc} */
 public abstract class NkPluginAlloc extends Callback implements NkPluginAllocI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class NkPluginAlloc extends Callback implements NkPluginAllocI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static NkPluginAlloc createSafe(long functionPointer) {
+    public static @Nullable NkPluginAlloc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,37 +17,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Parameters for a list save operation.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSpaceListSaveInfoFB} structure contains information used to save multiple spatial entities.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityStorageBatch XR_FB_spatial_entity_storage_batch} extension <b>must</b> be enabled prior to using {@link XrSpaceListSaveInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntityStorageBatch#XR_TYPE_SPACE_LIST_SAVE_INFO_FB TYPE_SPACE_LIST_SAVE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code spaces} <b>must</b> be a pointer to an array of {@code spaceCount} {@code XrSpace} handles</li>
- * <li>{@code location} <b>must</b> be a valid {@code XrSpaceStorageLocationFB} value</li>
- * <li>The {@code spaceCount} parameter <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBSpatialEntityStorageBatch#xrSaveSpaceListFB SaveSpaceListFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceListSaveInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint32_t {@link #spaceCount};
- *     XrSpace * {@link #spaces};
- *     XrSpaceStorageLocationFB {@link #location};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint32_t spaceCount;
+ *     XrSpace * spaces;
+ *     XrSpaceStorageLocationFB location;
+ * }}</pre>
  */
 public class XrSpaceListSaveInfoFB extends Struct<XrSpaceListSaveInfoFB> implements NativeResource {
 
@@ -106,31 +83,31 @@ public class XrSpaceListSaveInfoFB extends Struct<XrSpaceListSaveInfoFB> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the number of spatial entities to save. */
+    /** @return the value of the {@code spaceCount} field. */
     @NativeType("uint32_t")
     public int spaceCount() { return nspaceCount(address()); }
-    /** a list of {@code XrSpace} handles for the entities to be saved. */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code spaces} field. */
     @NativeType("XrSpace *")
     public PointerBuffer spaces() { return nspaces(address()); }
-    /** the storage location. */
+    /** @return the value of the {@code location} field. */
     @NativeType("XrSpaceStorageLocationFB")
     public int location() { return nlocation(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceListSaveInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntityStorageBatch#XR_TYPE_SPACE_LIST_SAVE_INFO_FB TYPE_SPACE_LIST_SAVE_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntityStorageBatch#XR_TYPE_SPACE_LIST_SAVE_INFO_FB TYPE_SPACE_LIST_SAVE_INFO_FB} value to the {@code type} field. */
     public XrSpaceListSaveInfoFB type$Default() { return type(FBSpatialEntityStorageBatch.XR_TYPE_SPACE_LIST_SAVE_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceListSaveInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #spaces} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code spaces} field. */
     public XrSpaceListSaveInfoFB spaces(@NativeType("XrSpace *") PointerBuffer value) { nspaces(address(), value); return this; }
-    /** Sets the specified value to the {@link #location} field. */
+    /** Sets the specified value to the {@code location} field. */
     public XrSpaceListSaveInfoFB location(@NativeType("XrSpaceStorageLocationFB") int value) { nlocation(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -184,8 +161,7 @@ public class XrSpaceListSaveInfoFB extends Struct<XrSpaceListSaveInfoFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceListSaveInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceListSaveInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceListSaveInfoFB(address, null);
     }
 
@@ -228,8 +204,7 @@ public class XrSpaceListSaveInfoFB extends Struct<XrSpaceListSaveInfoFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceListSaveInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceListSaveInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -274,26 +249,26 @@ public class XrSpaceListSaveInfoFB extends Struct<XrSpaceListSaveInfoFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceListSaveInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceListSaveInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceListSaveInfoFB.NEXT); }
     /** Unsafe version of {@link #spaceCount}. */
-    public static int nspaceCount(long struct) { return UNSAFE.getInt(null, struct + XrSpaceListSaveInfoFB.SPACECOUNT); }
+    public static int nspaceCount(long struct) { return memGetInt(struct + XrSpaceListSaveInfoFB.SPACECOUNT); }
     /** Unsafe version of {@link #spaces() spaces}. */
     public static PointerBuffer nspaces(long struct) { return memPointerBuffer(memGetAddress(struct + XrSpaceListSaveInfoFB.SPACES), nspaceCount(struct)); }
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + XrSpaceListSaveInfoFB.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + XrSpaceListSaveInfoFB.LOCATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceListSaveInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceListSaveInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceListSaveInfoFB.NEXT, value); }
     /** Sets the specified value to the {@code spaceCount} field of the specified {@code struct}. */
-    public static void nspaceCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceListSaveInfoFB.SPACECOUNT, value); }
+    public static void nspaceCount(long struct, int value) { memPutInt(struct + XrSpaceListSaveInfoFB.SPACECOUNT, value); }
     /** Unsafe version of {@link #spaces(PointerBuffer) spaces}. */
     public static void nspaces(long struct, PointerBuffer value) { memPutAddress(struct + XrSpaceListSaveInfoFB.SPACES, memAddress(value)); nspaceCount(struct, value.remaining()); }
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceListSaveInfoFB.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + XrSpaceListSaveInfoFB.LOCATION, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -338,35 +313,40 @@ public class XrSpaceListSaveInfoFB extends Struct<XrSpaceListSaveInfoFB> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceListSaveInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceListSaveInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceListSaveInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrSpaceListSaveInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpaceListSaveInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrSpaceListSaveInfoFB#spaceCount} field. */
+        /** @return the value of the {@code spaceCount} field. */
         @NativeType("uint32_t")
         public int spaceCount() { return XrSpaceListSaveInfoFB.nspaceCount(address()); }
-        /** @return a {@link PointerBuffer} view of the data pointed to by the {@link XrSpaceListSaveInfoFB#spaces} field. */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code spaces} field. */
         @NativeType("XrSpace *")
         public PointerBuffer spaces() { return XrSpaceListSaveInfoFB.nspaces(address()); }
-        /** @return the value of the {@link XrSpaceListSaveInfoFB#location} field. */
+        /** @return the value of the {@code location} field. */
         @NativeType("XrSpaceStorageLocationFB")
         public int location() { return XrSpaceListSaveInfoFB.nlocation(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceListSaveInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceListSaveInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceListSaveInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntityStorageBatch#XR_TYPE_SPACE_LIST_SAVE_INFO_FB TYPE_SPACE_LIST_SAVE_INFO_FB} value to the {@link XrSpaceListSaveInfoFB#type} field. */
+        /** Sets the {@link FBSpatialEntityStorageBatch#XR_TYPE_SPACE_LIST_SAVE_INFO_FB TYPE_SPACE_LIST_SAVE_INFO_FB} value to the {@code type} field. */
         public XrSpaceListSaveInfoFB.Buffer type$Default() { return type(FBSpatialEntityStorageBatch.XR_TYPE_SPACE_LIST_SAVE_INFO_FB); }
-        /** Sets the specified value to the {@link XrSpaceListSaveInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceListSaveInfoFB.Buffer next(@NativeType("void const *") long value) { XrSpaceListSaveInfoFB.nnext(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link XrSpaceListSaveInfoFB#spaces} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code spaces} field. */
         public XrSpaceListSaveInfoFB.Buffer spaces(@NativeType("XrSpace *") PointerBuffer value) { XrSpaceListSaveInfoFB.nspaces(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceListSaveInfoFB#location} field. */
+        /** Sets the specified value to the {@code location} field. */
         public XrSpaceListSaveInfoFB.Buffer location(@NativeType("XrSpaceStorageLocationFB") int value) { XrSpaceListSaveInfoFB.nlocation(address(), value); return this; }
 
     }

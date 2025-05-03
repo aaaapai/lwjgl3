@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Rect in two dimensions.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure is used for component values that may be fractional (floating-point).</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrExtent2Df}, {@link XrOffset2Df}, {@link FBScene#xrGetSpaceBoundingBox2DFB GetSpaceBoundingBox2DFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrRect2Df {
- *     {@link XrOffset2Df XrOffset2Df} {@link #offset};
- *     {@link XrExtent2Df XrExtent2Df} {@link #extent};
- * }</code></pre>
+ *     {@link XrOffset2Df XrOffset2Df} offset;
+ *     {@link XrExtent2Df XrExtent2Df} extent;
+ * }}</pre>
  */
 public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
 
@@ -82,18 +70,18 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@link XrOffset2Df} specifying the rectangle offset. */
+    /** @return a {@link XrOffset2Df} view of the {@code offset} field. */
     public XrOffset2Df offset() { return noffset(address()); }
-    /** the {@link XrExtent2Df} specifying the rectangle extent. */
+    /** @return a {@link XrExtent2Df} view of the {@code extent} field. */
     public XrExtent2Df extent() { return nextent(address()); }
 
-    /** Copies the specified {@link XrOffset2Df} to the {@link #offset} field. */
+    /** Copies the specified {@link XrOffset2Df} to the {@code offset} field. */
     public XrRect2Df offset(XrOffset2Df value) { noffset(address(), value); return this; }
-    /** Passes the {@link #offset} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code offset} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrRect2Df offset(java.util.function.Consumer<XrOffset2Df> consumer) { consumer.accept(offset()); return this; }
-    /** Copies the specified {@link XrExtent2Df} to the {@link #extent} field. */
+    /** Copies the specified {@link XrExtent2Df} to the {@code extent} field. */
     public XrRect2Df extent(XrExtent2Df value) { nextent(address(), value); return this; }
-    /** Passes the {@link #extent} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code extent} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrRect2Df extent(java.util.function.Consumer<XrExtent2Df> consumer) { consumer.accept(extent()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -143,8 +131,7 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRect2Df createSafe(long address) {
+    public static @Nullable XrRect2Df createSafe(long address) {
         return address == NULL ? null : new XrRect2Df(address, null);
     }
 
@@ -187,8 +174,7 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRect2Df.Buffer createSafe(long address, int capacity) {
+    public static XrRect2Df.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,22 +262,27 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrRect2Df getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link XrOffset2Df} view of the {@link XrRect2Df#offset} field. */
+        /** @return a {@link XrOffset2Df} view of the {@code offset} field. */
         public XrOffset2Df offset() { return XrRect2Df.noffset(address()); }
-        /** @return a {@link XrExtent2Df} view of the {@link XrRect2Df#extent} field. */
+        /** @return a {@link XrExtent2Df} view of the {@code extent} field. */
         public XrExtent2Df extent() { return XrRect2Df.nextent(address()); }
 
-        /** Copies the specified {@link XrOffset2Df} to the {@link XrRect2Df#offset} field. */
+        /** Copies the specified {@link XrOffset2Df} to the {@code offset} field. */
         public XrRect2Df.Buffer offset(XrOffset2Df value) { XrRect2Df.noffset(address(), value); return this; }
-        /** Passes the {@link XrRect2Df#offset} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code offset} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrRect2Df.Buffer offset(java.util.function.Consumer<XrOffset2Df> consumer) { consumer.accept(offset()); return this; }
-        /** Copies the specified {@link XrExtent2Df} to the {@link XrRect2Df#extent} field. */
+        /** Copies the specified {@link XrExtent2Df} to the {@code extent} field. */
         public XrRect2Df.Buffer extent(XrExtent2Df value) { XrRect2Df.nextent(address(), value); return this; }
-        /** Passes the {@link XrRect2Df#extent} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code extent} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrRect2Df.Buffer extent(java.util.function.Consumer<XrExtent2Df> consumer) { consumer.accept(extent()); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify the intended usage of an image view.
- * 
- * <h5>Description</h5>
- * 
- * <p>When this structure is chained to {@link VkImageViewCreateInfo} the {@code usage} field overrides the implicit {@code usage} parameter inherited from image creation time and its value is used instead for the purposes of determining the valid usage conditions of {@link VkImageViewCreateInfo}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO}</li>
- * <li>{@code usage} <b>must</b> be a valid combination of {@code VkImageUsageFlagBits} values</li>
- * <li>{@code usage} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkImageViewUsageCreateInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkImageUsageFlags {@link #usage};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkImageUsageFlags usage;
+ * }}</pre>
  */
 public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInfo> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkImageUsageFlagBits} specifying allowed usages of the image view. */
+    /** @return the value of the {@code usage} field. */
     @NativeType("VkImageUsageFlags")
     public int usage() { return nusage(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkImageViewUsageCreateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO} value to the {@code sType} field. */
     public VkImageViewUsageCreateInfo sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkImageViewUsageCreateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #usage} field. */
+    /** Sets the specified value to the {@code usage} field. */
     public VkImageViewUsageCreateInfo usage(@NativeType("VkImageUsageFlags") int value) { nusage(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewUsageCreateInfo createSafe(long address) {
+    public static @Nullable VkImageViewUsageCreateInfo createSafe(long address) {
         return address == NULL ? null : new VkImageViewUsageCreateInfo(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImageViewUsageCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkImageViewUsageCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +249,18 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImageViewUsageCreateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImageViewUsageCreateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImageViewUsageCreateInfo.PNEXT); }
     /** Unsafe version of {@link #usage}. */
-    public static int nusage(long struct) { return UNSAFE.getInt(null, struct + VkImageViewUsageCreateInfo.USAGE); }
+    public static int nusage(long struct) { return memGetInt(struct + VkImageViewUsageCreateInfo.USAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewUsageCreateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImageViewUsageCreateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImageViewUsageCreateInfo.PNEXT, value); }
     /** Unsafe version of {@link #usage(int) usage}. */
-    public static void nusage(long struct, int value) { UNSAFE.putInt(null, struct + VkImageViewUsageCreateInfo.USAGE, value); }
+    public static void nusage(long struct, int value) { memPutInt(struct + VkImageViewUsageCreateInfo.USAGE, value); }
 
     // -----------------------------------
 
@@ -314,27 +296,32 @@ public class VkImageViewUsageCreateInfo extends Struct<VkImageViewUsageCreateInf
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImageViewUsageCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkImageViewUsageCreateInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkImageViewUsageCreateInfo.nsType(address()); }
-        /** @return the value of the {@link VkImageViewUsageCreateInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkImageViewUsageCreateInfo.npNext(address()); }
-        /** @return the value of the {@link VkImageViewUsageCreateInfo#usage} field. */
+        /** @return the value of the {@code usage} field. */
         @NativeType("VkImageUsageFlags")
         public int usage() { return VkImageViewUsageCreateInfo.nusage(address()); }
 
-        /** Sets the specified value to the {@link VkImageViewUsageCreateInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkImageViewUsageCreateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkImageViewUsageCreateInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO} value to the {@link VkImageViewUsageCreateInfo#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO} value to the {@code sType} field. */
         public VkImageViewUsageCreateInfo.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO); }
-        /** Sets the specified value to the {@link VkImageViewUsageCreateInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkImageViewUsageCreateInfo.Buffer pNext(@NativeType("void const *") long value) { VkImageViewUsageCreateInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImageViewUsageCreateInfo#usage} field. */
+        /** Sets the specified value to the {@code usage} field. */
         public VkImageViewUsageCreateInfo.Buffer usage(@NativeType("VkImageUsageFlags") int value) { VkImageViewUsageCreateInfo.nusage(address(), value); return this; }
 
     }

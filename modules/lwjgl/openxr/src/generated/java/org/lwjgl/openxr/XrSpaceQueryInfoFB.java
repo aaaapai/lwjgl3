@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,39 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Query for entities and perform an action on any results.
- * 
- * <h5>Description</h5>
- * 
- * <p>May be used to query for spaces and perform a specific action on the spaces returned. The available actions are enumerated in {@code XrSpaceQueryActionFB}. The filter info provided to the {@code filter} member of the struct is used as an inclusive filter. The filter info provided to the {@code excludeFilter} member of the structure is used to exclude spaces from the results returned from the filter. All spaces that match the criteria in {@code filter}, and that do not match the criteria in {@code excludeFilter}, <b>must</b> be included in the results returned. This is to allow for a more selective style query.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityQuery XR_FB_spatial_entity_query} extension <b>must</b> be enabled prior to using {@link XrSpaceQueryInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_INFO_FB TYPE_SPACE_QUERY_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code queryAction} <b>must</b> be a valid {@code XrSpaceQueryActionFB} value</li>
- * <li>If {@code filter} is not {@code NULL}, {@code filter} <b>must</b> be a pointer to a valid {@link XrSpaceFilterInfoBaseHeaderFB}-based structure. See also: {@link XrSpaceComponentFilterInfoFB}, {@link XrSpaceUuidFilterInfoFB}</li>
- * <li>If {@code excludeFilter} is not {@code NULL}, {@code excludeFilter} <b>must</b> be a pointer to a valid {@link XrSpaceFilterInfoBaseHeaderFB}-based structure. See also: {@link XrSpaceComponentFilterInfoFB}, {@link XrSpaceUuidFilterInfoFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSpaceFilterInfoBaseHeaderFB}, {@link XrSpaceQueryInfoBaseHeaderFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceQueryInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpaceQueryActionFB {@link #queryAction};
- *     uint32_t {@link #maxResultCount};
- *     XrDuration {@link #timeout};
- *     {@link XrSpaceFilterInfoBaseHeaderFB XrSpaceFilterInfoBaseHeaderFB} const * {@link #filter};
- *     {@link XrSpaceFilterInfoBaseHeaderFB XrSpaceFilterInfoBaseHeaderFB} const * {@link #excludeFilter};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpaceQueryActionFB queryAction;
+ *     uint32_t maxResultCount;
+ *     XrDuration timeout;
+ *     {@link XrSpaceFilterInfoBaseHeaderFB XrSpaceFilterInfoBaseHeaderFB} const * filter;
+ *     {@link XrSpaceFilterInfoBaseHeaderFB XrSpaceFilterInfoBaseHeaderFB} const * excludeFilter;
+ * }}</pre>
  */
 public class XrSpaceQueryInfoFB extends Struct<XrSpaceQueryInfoFB> implements NativeResource {
 
@@ -113,45 +90,43 @@ public class XrSpaceQueryInfoFB extends Struct<XrSpaceQueryInfoFB> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the type of query to perform. */
+    /** @return the value of the {@code queryAction} field. */
     @NativeType("XrSpaceQueryActionFB")
     public int queryAction() { return nqueryAction(address()); }
-    /** the maximum number of entities to be found. */
+    /** @return the value of the {@code maxResultCount} field. */
     @NativeType("uint32_t")
     public int maxResultCount() { return nmaxResultCount(address()); }
-    /** the number of nanoseconds before the operation should time out. A value of {@link XR10#XR_INFINITE_DURATION INFINITE_DURATION} indicates no timeout. */
+    /** @return the value of the {@code timeout} field. */
     @NativeType("XrDuration")
     public long timeout() { return ntimeout(address()); }
-    /** NULL or a pointer to a valid structure based on {@link XrSpaceFilterInfoBaseHeaderFB}. */
-    @Nullable
+    /** @return a {@link XrSpaceFilterInfoBaseHeaderFB} view of the struct pointed to by the {@code filter} field. */
     @NativeType("XrSpaceFilterInfoBaseHeaderFB const *")
-    public XrSpaceFilterInfoBaseHeaderFB filter() { return nfilter(address()); }
-    /** NULL or a pointer to a valid structure based on {@link XrSpaceFilterInfoBaseHeaderFB}. */
-    @Nullable
+    public @Nullable XrSpaceFilterInfoBaseHeaderFB filter() { return nfilter(address()); }
+    /** @return a {@link XrSpaceFilterInfoBaseHeaderFB} view of the struct pointed to by the {@code excludeFilter} field. */
     @NativeType("XrSpaceFilterInfoBaseHeaderFB const *")
-    public XrSpaceFilterInfoBaseHeaderFB excludeFilter() { return nexcludeFilter(address()); }
+    public @Nullable XrSpaceFilterInfoBaseHeaderFB excludeFilter() { return nexcludeFilter(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceQueryInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_INFO_FB TYPE_SPACE_QUERY_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_INFO_FB TYPE_SPACE_QUERY_INFO_FB} value to the {@code type} field. */
     public XrSpaceQueryInfoFB type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_SPACE_QUERY_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceQueryInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #queryAction} field. */
+    /** Sets the specified value to the {@code queryAction} field. */
     public XrSpaceQueryInfoFB queryAction(@NativeType("XrSpaceQueryActionFB") int value) { nqueryAction(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxResultCount} field. */
+    /** Sets the specified value to the {@code maxResultCount} field. */
     public XrSpaceQueryInfoFB maxResultCount(@NativeType("uint32_t") int value) { nmaxResultCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #timeout} field. */
+    /** Sets the specified value to the {@code timeout} field. */
     public XrSpaceQueryInfoFB timeout(@NativeType("XrDuration") long value) { ntimeout(address(), value); return this; }
-    /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@link #filter} field. */
+    /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@code filter} field. */
     public XrSpaceQueryInfoFB filter(@Nullable @NativeType("XrSpaceFilterInfoBaseHeaderFB const *") XrSpaceFilterInfoBaseHeaderFB value) { nfilter(address(), value); return this; }
-    /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@link #excludeFilter} field. */
+    /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@code excludeFilter} field. */
     public XrSpaceQueryInfoFB excludeFilter(@Nullable @NativeType("XrSpaceFilterInfoBaseHeaderFB const *") XrSpaceFilterInfoBaseHeaderFB value) { nexcludeFilter(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -211,8 +186,7 @@ public class XrSpaceQueryInfoFB extends Struct<XrSpaceQueryInfoFB> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceQueryInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceQueryInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceQueryInfoFB(address, null);
     }
 
@@ -260,8 +234,7 @@ public class XrSpaceQueryInfoFB extends Struct<XrSpaceQueryInfoFB> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceQueryInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceQueryInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -311,30 +284,30 @@ public class XrSpaceQueryInfoFB extends Struct<XrSpaceQueryInfoFB> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceQueryInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceQueryInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceQueryInfoFB.NEXT); }
     /** Unsafe version of {@link #queryAction}. */
-    public static int nqueryAction(long struct) { return UNSAFE.getInt(null, struct + XrSpaceQueryInfoFB.QUERYACTION); }
+    public static int nqueryAction(long struct) { return memGetInt(struct + XrSpaceQueryInfoFB.QUERYACTION); }
     /** Unsafe version of {@link #maxResultCount}. */
-    public static int nmaxResultCount(long struct) { return UNSAFE.getInt(null, struct + XrSpaceQueryInfoFB.MAXRESULTCOUNT); }
+    public static int nmaxResultCount(long struct) { return memGetInt(struct + XrSpaceQueryInfoFB.MAXRESULTCOUNT); }
     /** Unsafe version of {@link #timeout}. */
-    public static long ntimeout(long struct) { return UNSAFE.getLong(null, struct + XrSpaceQueryInfoFB.TIMEOUT); }
+    public static long ntimeout(long struct) { return memGetLong(struct + XrSpaceQueryInfoFB.TIMEOUT); }
     /** Unsafe version of {@link #filter}. */
-    @Nullable public static XrSpaceFilterInfoBaseHeaderFB nfilter(long struct) { return XrSpaceFilterInfoBaseHeaderFB.createSafe(memGetAddress(struct + XrSpaceQueryInfoFB.FILTER)); }
+    public static @Nullable XrSpaceFilterInfoBaseHeaderFB nfilter(long struct) { return XrSpaceFilterInfoBaseHeaderFB.createSafe(memGetAddress(struct + XrSpaceQueryInfoFB.FILTER)); }
     /** Unsafe version of {@link #excludeFilter}. */
-    @Nullable public static XrSpaceFilterInfoBaseHeaderFB nexcludeFilter(long struct) { return XrSpaceFilterInfoBaseHeaderFB.createSafe(memGetAddress(struct + XrSpaceQueryInfoFB.EXCLUDEFILTER)); }
+    public static @Nullable XrSpaceFilterInfoBaseHeaderFB nexcludeFilter(long struct) { return XrSpaceFilterInfoBaseHeaderFB.createSafe(memGetAddress(struct + XrSpaceQueryInfoFB.EXCLUDEFILTER)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceQueryInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceQueryInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceQueryInfoFB.NEXT, value); }
     /** Unsafe version of {@link #queryAction(int) queryAction}. */
-    public static void nqueryAction(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceQueryInfoFB.QUERYACTION, value); }
+    public static void nqueryAction(long struct, int value) { memPutInt(struct + XrSpaceQueryInfoFB.QUERYACTION, value); }
     /** Unsafe version of {@link #maxResultCount(int) maxResultCount}. */
-    public static void nmaxResultCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceQueryInfoFB.MAXRESULTCOUNT, value); }
+    public static void nmaxResultCount(long struct, int value) { memPutInt(struct + XrSpaceQueryInfoFB.MAXRESULTCOUNT, value); }
     /** Unsafe version of {@link #timeout(long) timeout}. */
-    public static void ntimeout(long struct, long value) { UNSAFE.putLong(null, struct + XrSpaceQueryInfoFB.TIMEOUT, value); }
+    public static void ntimeout(long struct, long value) { memPutLong(struct + XrSpaceQueryInfoFB.TIMEOUT, value); }
     /** Unsafe version of {@link #filter(XrSpaceFilterInfoBaseHeaderFB) filter}. */
     public static void nfilter(long struct, @Nullable XrSpaceFilterInfoBaseHeaderFB value) { memPutAddress(struct + XrSpaceQueryInfoFB.FILTER, memAddressSafe(value)); }
     /** Unsafe version of {@link #excludeFilter(XrSpaceFilterInfoBaseHeaderFB) excludeFilter}. */
@@ -374,49 +347,52 @@ public class XrSpaceQueryInfoFB extends Struct<XrSpaceQueryInfoFB> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceQueryInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceQueryInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceQueryInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrSpaceQueryInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpaceQueryInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrSpaceQueryInfoFB#queryAction} field. */
+        /** @return the value of the {@code queryAction} field. */
         @NativeType("XrSpaceQueryActionFB")
         public int queryAction() { return XrSpaceQueryInfoFB.nqueryAction(address()); }
-        /** @return the value of the {@link XrSpaceQueryInfoFB#maxResultCount} field. */
+        /** @return the value of the {@code maxResultCount} field. */
         @NativeType("uint32_t")
         public int maxResultCount() { return XrSpaceQueryInfoFB.nmaxResultCount(address()); }
-        /** @return the value of the {@link XrSpaceQueryInfoFB#timeout} field. */
+        /** @return the value of the {@code timeout} field. */
         @NativeType("XrDuration")
         public long timeout() { return XrSpaceQueryInfoFB.ntimeout(address()); }
-        /** @return a {@link XrSpaceFilterInfoBaseHeaderFB} view of the struct pointed to by the {@link XrSpaceQueryInfoFB#filter} field. */
-        @Nullable
+        /** @return a {@link XrSpaceFilterInfoBaseHeaderFB} view of the struct pointed to by the {@code filter} field. */
         @NativeType("XrSpaceFilterInfoBaseHeaderFB const *")
-        public XrSpaceFilterInfoBaseHeaderFB filter() { return XrSpaceQueryInfoFB.nfilter(address()); }
-        /** @return a {@link XrSpaceFilterInfoBaseHeaderFB} view of the struct pointed to by the {@link XrSpaceQueryInfoFB#excludeFilter} field. */
-        @Nullable
+        public @Nullable XrSpaceFilterInfoBaseHeaderFB filter() { return XrSpaceQueryInfoFB.nfilter(address()); }
+        /** @return a {@link XrSpaceFilterInfoBaseHeaderFB} view of the struct pointed to by the {@code excludeFilter} field. */
         @NativeType("XrSpaceFilterInfoBaseHeaderFB const *")
-        public XrSpaceFilterInfoBaseHeaderFB excludeFilter() { return XrSpaceQueryInfoFB.nexcludeFilter(address()); }
+        public @Nullable XrSpaceFilterInfoBaseHeaderFB excludeFilter() { return XrSpaceQueryInfoFB.nexcludeFilter(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceQueryInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceQueryInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceQueryInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_INFO_FB TYPE_SPACE_QUERY_INFO_FB} value to the {@link XrSpaceQueryInfoFB#type} field. */
+        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_INFO_FB TYPE_SPACE_QUERY_INFO_FB} value to the {@code type} field. */
         public XrSpaceQueryInfoFB.Buffer type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_SPACE_QUERY_INFO_FB); }
-        /** Sets the specified value to the {@link XrSpaceQueryInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceQueryInfoFB.Buffer next(@NativeType("void const *") long value) { XrSpaceQueryInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceQueryInfoFB#queryAction} field. */
+        /** Sets the specified value to the {@code queryAction} field. */
         public XrSpaceQueryInfoFB.Buffer queryAction(@NativeType("XrSpaceQueryActionFB") int value) { XrSpaceQueryInfoFB.nqueryAction(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceQueryInfoFB#maxResultCount} field. */
+        /** Sets the specified value to the {@code maxResultCount} field. */
         public XrSpaceQueryInfoFB.Buffer maxResultCount(@NativeType("uint32_t") int value) { XrSpaceQueryInfoFB.nmaxResultCount(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceQueryInfoFB#timeout} field. */
+        /** Sets the specified value to the {@code timeout} field. */
         public XrSpaceQueryInfoFB.Buffer timeout(@NativeType("XrDuration") long value) { XrSpaceQueryInfoFB.ntimeout(address(), value); return this; }
-        /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@link XrSpaceQueryInfoFB#filter} field. */
+        /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@code filter} field. */
         public XrSpaceQueryInfoFB.Buffer filter(@Nullable @NativeType("XrSpaceFilterInfoBaseHeaderFB const *") XrSpaceFilterInfoBaseHeaderFB value) { XrSpaceQueryInfoFB.nfilter(address(), value); return this; }
-        /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@link XrSpaceQueryInfoFB#excludeFilter} field. */
+        /** Sets the address of the specified {@link XrSpaceFilterInfoBaseHeaderFB} to the {@code excludeFilter} field. */
         public XrSpaceQueryInfoFB.Buffer excludeFilter(@Nullable @NativeType("XrSpaceFilterInfoBaseHeaderFB const *") XrSpaceFilterInfoBaseHeaderFB value) { XrSpaceQueryInfoFB.nexcludeFilter(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describe a scene oriented box bounds.
- * 
- * <h5>Description</h5>
- * 
- * <p>The runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} if any component of {@code extents} is not finite or less than or equal to zero.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneOrientedBoxBoundMSFT}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrPosef}, {@link XrSceneBoundsMSFT}, {@link XrVector3f}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSceneOrientedBoxBoundMSFT {
- *     {@link XrPosef XrPosef} {@link #pose};
- *     {@link XrVector3f XrVector3f} {@link #extents};
- * }</code></pre>
+ *     {@link XrPosef XrPosef} pose;
+ *     {@link XrVector3f XrVector3f} extents;
+ * }}</pre>
  */
 public class XrSceneOrientedBoxBoundMSFT extends Struct<XrSceneOrientedBoxBoundMSFT> implements NativeResource {
 
@@ -88,18 +70,18 @@ public class XrSceneOrientedBoxBoundMSFT extends Struct<XrSceneOrientedBoxBoundM
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an {@link XrPosef} defining the center position and orientation of the oriented bounding box bound within the reference frame of the corresponding {@link XrSceneBoundsMSFT}{@code ::space}. */
+    /** @return a {@link XrPosef} view of the {@code pose} field. */
     public XrPosef pose() { return npose(address()); }
-    /** an {@link XrVector3f} defining the edge-to-edge length of the box along each dimension with {@code pose} as the center. */
+    /** @return a {@link XrVector3f} view of the {@code extents} field. */
     public XrVector3f extents() { return nextents(address()); }
 
-    /** Copies the specified {@link XrPosef} to the {@link #pose} field. */
+    /** Copies the specified {@link XrPosef} to the {@code pose} field. */
     public XrSceneOrientedBoxBoundMSFT pose(XrPosef value) { npose(address(), value); return this; }
-    /** Passes the {@link #pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSceneOrientedBoxBoundMSFT pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
-    /** Copies the specified {@link XrVector3f} to the {@link #extents} field. */
+    /** Copies the specified {@link XrVector3f} to the {@code extents} field. */
     public XrSceneOrientedBoxBoundMSFT extents(XrVector3f value) { nextents(address(), value); return this; }
-    /** Passes the {@link #extents} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code extents} field to the specified {@link java.util.function.Consumer Consumer}. */
     public XrSceneOrientedBoxBoundMSFT extents(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(extents()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -149,8 +131,7 @@ public class XrSceneOrientedBoxBoundMSFT extends Struct<XrSceneOrientedBoxBoundM
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneOrientedBoxBoundMSFT createSafe(long address) {
+    public static @Nullable XrSceneOrientedBoxBoundMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneOrientedBoxBoundMSFT(address, null);
     }
 
@@ -193,8 +174,7 @@ public class XrSceneOrientedBoxBoundMSFT extends Struct<XrSceneOrientedBoxBoundM
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneOrientedBoxBoundMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneOrientedBoxBoundMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,22 +262,27 @@ public class XrSceneOrientedBoxBoundMSFT extends Struct<XrSceneOrientedBoxBoundM
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneOrientedBoxBoundMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link XrPosef} view of the {@link XrSceneOrientedBoxBoundMSFT#pose} field. */
+        /** @return a {@link XrPosef} view of the {@code pose} field. */
         public XrPosef pose() { return XrSceneOrientedBoxBoundMSFT.npose(address()); }
-        /** @return a {@link XrVector3f} view of the {@link XrSceneOrientedBoxBoundMSFT#extents} field. */
+        /** @return a {@link XrVector3f} view of the {@code extents} field. */
         public XrVector3f extents() { return XrSceneOrientedBoxBoundMSFT.nextents(address()); }
 
-        /** Copies the specified {@link XrPosef} to the {@link XrSceneOrientedBoxBoundMSFT#pose} field. */
+        /** Copies the specified {@link XrPosef} to the {@code pose} field. */
         public XrSceneOrientedBoxBoundMSFT.Buffer pose(XrPosef value) { XrSceneOrientedBoxBoundMSFT.npose(address(), value); return this; }
-        /** Passes the {@link XrSceneOrientedBoxBoundMSFT#pose} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code pose} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSceneOrientedBoxBoundMSFT.Buffer pose(java.util.function.Consumer<XrPosef> consumer) { consumer.accept(pose()); return this; }
-        /** Copies the specified {@link XrVector3f} to the {@link XrSceneOrientedBoxBoundMSFT#extents} field. */
+        /** Copies the specified {@link XrVector3f} to the {@code extents} field. */
         public XrSceneOrientedBoxBoundMSFT.Buffer extents(XrVector3f value) { XrSceneOrientedBoxBoundMSFT.nextents(address(), value); return this; }
-        /** Passes the {@link XrSceneOrientedBoxBoundMSFT#extents} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code extents} field to the specified {@link java.util.function.Consumer Consumer}. */
         public XrSceneOrientedBoxBoundMSFT.Buffer extents(java.util.function.Consumer<XrVector3f> consumer) { consumer.accept(extents()); return this; }
 
     }

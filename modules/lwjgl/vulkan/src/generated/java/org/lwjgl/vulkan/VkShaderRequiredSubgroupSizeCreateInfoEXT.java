@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPipelineShaderStageRequiredSubgroupSizeCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkShaderRequiredSubgroupSizeCreateInfoEXT {
  *     VkStructureType sType;
  *     void * pNext;
  *     uint32_t requiredSubgroupSize;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkShaderRequiredSubgroupSizeCreateInfoEXT extends VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {
 
@@ -106,8 +102,7 @@ public class VkShaderRequiredSubgroupSizeCreateInfoEXT extends VkPipelineShaderS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderRequiredSubgroupSizeCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkShaderRequiredSubgroupSizeCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkShaderRequiredSubgroupSizeCreateInfoEXT(address, null);
     }
 
@@ -150,8 +145,7 @@ public class VkShaderRequiredSubgroupSizeCreateInfoEXT extends VkPipelineShaderS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderRequiredSubgroupSizeCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkShaderRequiredSubgroupSizeCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -224,6 +218,11 @@ public class VkShaderRequiredSubgroupSizeCreateInfoEXT extends VkPipelineShaderS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

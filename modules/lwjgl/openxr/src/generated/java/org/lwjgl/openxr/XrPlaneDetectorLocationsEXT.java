@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the plane information.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTPlaneDetection XR_EXT_plane_detection} extension <b>must</b> be enabled prior to using {@link XrPlaneDetectorLocationsEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT TYPE_PLANE_DETECTOR_LOCATIONS_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code planeLocationCapacityInput} is not 0, {@code planeLocations} <b>must</b> be a pointer to an array of {@code planeLocationCapacityInput} {@link XrPlaneDetectorLocationEXT} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrPlaneDetectorLocationEXT}, {@link EXTPlaneDetection#xrGetPlaneDetectionsEXT GetPlaneDetectionsEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPlaneDetectorLocationsEXT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #planeLocationCapacityInput};
- *     uint32_t {@link #planeLocationCountOutput};
- *     {@link XrPlaneDetectorLocationEXT XrPlaneDetectorLocationEXT} * {@link #planeLocations};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t planeLocationCapacityInput;
+ *     uint32_t planeLocationCountOutput;
+ *     {@link XrPlaneDetectorLocationEXT XrPlaneDetectorLocationEXT} * planeLocations;
+ * }}</pre>
  */
 public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocationsEXT> implements NativeResource {
 
@@ -99,35 +82,34 @@ public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocations
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the capacity of the array, or 0 to indicate a request to retrieve the required capacity. */
+    /** @return the value of the {@code planeLocationCapacityInput} field. */
     @NativeType("uint32_t")
     public int planeLocationCapacityInput() { return nplaneLocationCapacityInput(address()); }
-    /** the number of planes, or the required capacity in the case that {@code planeCapacityInput} is insufficient. */
+    /** @return the value of the {@code planeLocationCountOutput} field. */
     @NativeType("uint32_t")
     public int planeLocationCountOutput() { return nplaneLocationCountOutput(address()); }
-    /** an array of {@link XrPlaneDetectorLocationEXT}. It <b>can</b> be {@code NULL} if {@code planeCapacityInput} is 0. */
-    @Nullable
+    /** @return a {@link XrPlaneDetectorLocationEXT.Buffer} view of the struct array pointed to by the {@code planeLocations} field. */
     @NativeType("XrPlaneDetectorLocationEXT *")
-    public XrPlaneDetectorLocationEXT.Buffer planeLocations() { return nplaneLocations(address()); }
+    public XrPlaneDetectorLocationEXT.@Nullable Buffer planeLocations() { return nplaneLocations(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrPlaneDetectorLocationsEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT TYPE_PLANE_DETECTOR_LOCATIONS_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT TYPE_PLANE_DETECTOR_LOCATIONS_EXT} value to the {@code type} field. */
     public XrPlaneDetectorLocationsEXT type$Default() { return type(EXTPlaneDetection.XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrPlaneDetectorLocationsEXT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #planeLocationCapacityInput} field. */
+    /** Sets the specified value to the {@code planeLocationCapacityInput} field. */
     public XrPlaneDetectorLocationsEXT planeLocationCapacityInput(@NativeType("uint32_t") int value) { nplaneLocationCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #planeLocationCountOutput} field. */
+    /** Sets the specified value to the {@code planeLocationCountOutput} field. */
     public XrPlaneDetectorLocationsEXT planeLocationCountOutput(@NativeType("uint32_t") int value) { nplaneLocationCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link XrPlaneDetectorLocationEXT.Buffer} to the {@link #planeLocations} field. */
-    public XrPlaneDetectorLocationsEXT planeLocations(@Nullable @NativeType("XrPlaneDetectorLocationEXT *") XrPlaneDetectorLocationEXT.Buffer value) { nplaneLocations(address(), value); return this; }
+    /** Sets the address of the specified {@link XrPlaneDetectorLocationEXT.Buffer} to the {@code planeLocations} field. */
+    public XrPlaneDetectorLocationsEXT planeLocations(@NativeType("XrPlaneDetectorLocationEXT *") XrPlaneDetectorLocationEXT.@Nullable Buffer value) { nplaneLocations(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrPlaneDetectorLocationsEXT set(
@@ -135,7 +117,7 @@ public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocations
         long next,
         int planeLocationCapacityInput,
         int planeLocationCountOutput,
-        @Nullable XrPlaneDetectorLocationEXT.Buffer planeLocations
+        XrPlaneDetectorLocationEXT.@Nullable Buffer planeLocations
     ) {
         type(type);
         next(next);
@@ -182,8 +164,7 @@ public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocations
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPlaneDetectorLocationsEXT createSafe(long address) {
+    public static @Nullable XrPlaneDetectorLocationsEXT createSafe(long address) {
         return address == NULL ? null : new XrPlaneDetectorLocationsEXT(address, null);
     }
 
@@ -226,8 +207,7 @@ public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocations
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPlaneDetectorLocationsEXT.Buffer createSafe(long address, int capacity) {
+    public static XrPlaneDetectorLocationsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,26 +252,26 @@ public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocations
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorLocationsEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPlaneDetectorLocationsEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPlaneDetectorLocationsEXT.NEXT); }
     /** Unsafe version of {@link #planeLocationCapacityInput}. */
-    public static int nplaneLocationCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCAPACITYINPUT); }
+    public static int nplaneLocationCapacityInput(long struct) { return memGetInt(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCAPACITYINPUT); }
     /** Unsafe version of {@link #planeLocationCountOutput}. */
-    public static int nplaneLocationCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCOUNTOUTPUT); }
+    public static int nplaneLocationCountOutput(long struct) { return memGetInt(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCOUNTOUTPUT); }
     /** Unsafe version of {@link #planeLocations}. */
-    @Nullable public static XrPlaneDetectorLocationEXT.Buffer nplaneLocations(long struct) { return XrPlaneDetectorLocationEXT.createSafe(memGetAddress(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONS), nplaneLocationCapacityInput(struct)); }
+    public static XrPlaneDetectorLocationEXT.@Nullable Buffer nplaneLocations(long struct) { return XrPlaneDetectorLocationEXT.createSafe(memGetAddress(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONS), nplaneLocationCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorLocationsEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPlaneDetectorLocationsEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPlaneDetectorLocationsEXT.NEXT, value); }
     /** Sets the specified value to the {@code planeLocationCapacityInput} field of the specified {@code struct}. */
-    public static void nplaneLocationCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCAPACITYINPUT, value); }
+    public static void nplaneLocationCapacityInput(long struct, int value) { memPutInt(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCAPACITYINPUT, value); }
     /** Unsafe version of {@link #planeLocationCountOutput(int) planeLocationCountOutput}. */
-    public static void nplaneLocationCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCOUNTOUTPUT, value); }
+    public static void nplaneLocationCountOutput(long struct, int value) { memPutInt(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #planeLocations(XrPlaneDetectorLocationEXT.Buffer) planeLocations}. */
-    public static void nplaneLocations(long struct, @Nullable XrPlaneDetectorLocationEXT.Buffer value) { memPutAddress(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONS, memAddressSafe(value)); if (value != null) { nplaneLocationCapacityInput(struct, value.remaining()); } }
+    public static void nplaneLocations(long struct, XrPlaneDetectorLocationEXT.@Nullable Buffer value) { memPutAddress(struct + XrPlaneDetectorLocationsEXT.PLANELOCATIONS, memAddressSafe(value)); if (value != null) { nplaneLocationCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -327,39 +307,43 @@ public class XrPlaneDetectorLocationsEXT extends Struct<XrPlaneDetectorLocations
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPlaneDetectorLocationsEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrPlaneDetectorLocationsEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrPlaneDetectorLocationsEXT.ntype(address()); }
-        /** @return the value of the {@link XrPlaneDetectorLocationsEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrPlaneDetectorLocationsEXT.nnext(address()); }
-        /** @return the value of the {@link XrPlaneDetectorLocationsEXT#planeLocationCapacityInput} field. */
+        /** @return the value of the {@code planeLocationCapacityInput} field. */
         @NativeType("uint32_t")
         public int planeLocationCapacityInput() { return XrPlaneDetectorLocationsEXT.nplaneLocationCapacityInput(address()); }
-        /** @return the value of the {@link XrPlaneDetectorLocationsEXT#planeLocationCountOutput} field. */
+        /** @return the value of the {@code planeLocationCountOutput} field. */
         @NativeType("uint32_t")
         public int planeLocationCountOutput() { return XrPlaneDetectorLocationsEXT.nplaneLocationCountOutput(address()); }
-        /** @return a {@link XrPlaneDetectorLocationEXT.Buffer} view of the struct array pointed to by the {@link XrPlaneDetectorLocationsEXT#planeLocations} field. */
-        @Nullable
+        /** @return a {@link XrPlaneDetectorLocationEXT.Buffer} view of the struct array pointed to by the {@code planeLocations} field. */
         @NativeType("XrPlaneDetectorLocationEXT *")
-        public XrPlaneDetectorLocationEXT.Buffer planeLocations() { return XrPlaneDetectorLocationsEXT.nplaneLocations(address()); }
+        public XrPlaneDetectorLocationEXT.@Nullable Buffer planeLocations() { return XrPlaneDetectorLocationsEXT.nplaneLocations(address()); }
 
-        /** Sets the specified value to the {@link XrPlaneDetectorLocationsEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrPlaneDetectorLocationsEXT.Buffer type(@NativeType("XrStructureType") int value) { XrPlaneDetectorLocationsEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT TYPE_PLANE_DETECTOR_LOCATIONS_EXT} value to the {@link XrPlaneDetectorLocationsEXT#type} field. */
+        /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT TYPE_PLANE_DETECTOR_LOCATIONS_EXT} value to the {@code type} field. */
         public XrPlaneDetectorLocationsEXT.Buffer type$Default() { return type(EXTPlaneDetection.XR_TYPE_PLANE_DETECTOR_LOCATIONS_EXT); }
-        /** Sets the specified value to the {@link XrPlaneDetectorLocationsEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrPlaneDetectorLocationsEXT.Buffer next(@NativeType("void *") long value) { XrPlaneDetectorLocationsEXT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPlaneDetectorLocationsEXT#planeLocationCapacityInput} field. */
+        /** Sets the specified value to the {@code planeLocationCapacityInput} field. */
         public XrPlaneDetectorLocationsEXT.Buffer planeLocationCapacityInput(@NativeType("uint32_t") int value) { XrPlaneDetectorLocationsEXT.nplaneLocationCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPlaneDetectorLocationsEXT#planeLocationCountOutput} field. */
+        /** Sets the specified value to the {@code planeLocationCountOutput} field. */
         public XrPlaneDetectorLocationsEXT.Buffer planeLocationCountOutput(@NativeType("uint32_t") int value) { XrPlaneDetectorLocationsEXT.nplaneLocationCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link XrPlaneDetectorLocationEXT.Buffer} to the {@link XrPlaneDetectorLocationsEXT#planeLocations} field. */
-        public XrPlaneDetectorLocationsEXT.Buffer planeLocations(@Nullable @NativeType("XrPlaneDetectorLocationEXT *") XrPlaneDetectorLocationEXT.Buffer value) { XrPlaneDetectorLocationsEXT.nplaneLocations(address(), value); return this; }
+        /** Sets the address of the specified {@link XrPlaneDetectorLocationEXT.Buffer} to the {@code planeLocations} field. */
+        public XrPlaneDetectorLocationsEXT.Buffer planeLocations(@NativeType("XrPlaneDetectorLocationEXT *") XrPlaneDetectorLocationEXT.@Nullable Buffer value) { XrPlaneDetectorLocationsEXT.nplaneLocations(address(), value); return this; }
 
     }
 

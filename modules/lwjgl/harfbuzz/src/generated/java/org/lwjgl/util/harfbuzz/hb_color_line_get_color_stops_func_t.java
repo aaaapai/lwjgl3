@@ -5,25 +5,13 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * unsigned int (*{@link #invoke}) (
- *     hb_color_line_t *color_line,
- *     void *color_line_data,
- *     unsigned int start,
- *     unsigned int *count,
- *     hb_color_stop_t *color_stops,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_color_line_get_color_stops_func_t} */
 public abstract class hb_color_line_get_color_stops_func_t extends Callback implements hb_color_line_get_color_stops_func_tI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class hb_color_line_get_color_stops_func_t extends Callback impl
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static hb_color_line_get_color_stops_func_t createSafe(long functionPointer) {
+    public static @Nullable hb_color_line_get_color_stops_func_t createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_style_item {
- *     enum nk_style_item_type {@link #type};
- *     {@link NkStyleItemData union nk_style_item_data} {@link #data};
- * }</code></pre>
+ *     enum nk_style_item_type type;
+ *     {@link NkStyleItemData union nk_style_item_data} data;
+ * }}</pre>
  */
 @NativeType("struct nk_style_item")
 public class NkStyleItem extends Struct<NkStyleItem> implements NativeResource {
@@ -73,18 +71,18 @@ public class NkStyleItem extends Struct<NkStyleItem> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the style type. One of:<br><table><tr><td>{@link Nuklear#NK_STYLE_ITEM_STACK_SIZE STYLE_ITEM_STACK_SIZE}</td><td>{@link Nuklear#NK_STYLE_ITEM_COLOR STYLE_ITEM_COLOR}</td><td>{@link Nuklear#NK_STYLE_ITEM_IMAGE STYLE_ITEM_IMAGE}</td><td>{@link Nuklear#NK_STYLE_ITEM_NINE_SLICE STYLE_ITEM_NINE_SLICE}</td></tr></table> */
+    /** @return the value of the {@code type} field. */
     @NativeType("enum nk_style_item_type")
     public int type() { return ntype(address()); }
-    /** the style data */
+    /** @return a {@link NkStyleItemData} view of the {@code data} field. */
     @NativeType("union nk_style_item_data")
     public NkStyleItemData data() { return ndata(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public NkStyleItem type(@NativeType("enum nk_style_item_type") int value) { ntype(address(), value); return this; }
-    /** Copies the specified {@link NkStyleItemData} to the {@link #data} field. */
+    /** Copies the specified {@link NkStyleItemData} to the {@code data} field. */
     public NkStyleItem data(@NativeType("union nk_style_item_data") NkStyleItemData value) { ndata(address(), value); return this; }
-    /** Passes the {@link #data} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code data} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NkStyleItem data(java.util.function.Consumer<NkStyleItemData> consumer) { consumer.accept(data()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -134,8 +132,7 @@ public class NkStyleItem extends Struct<NkStyleItem> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleItem createSafe(long address) {
+    public static @Nullable NkStyleItem createSafe(long address) {
         return address == NULL ? null : new NkStyleItem(address, null);
     }
 
@@ -178,8 +175,7 @@ public class NkStyleItem extends Struct<NkStyleItem> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStyleItem.Buffer createSafe(long address, int capacity) {
+    public static NkStyleItem.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,12 +239,12 @@ public class NkStyleItem extends Struct<NkStyleItem> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkStyleItem.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkStyleItem.TYPE); }
     /** Unsafe version of {@link #data}. */
     public static NkStyleItemData ndata(long struct) { return NkStyleItemData.create(struct + NkStyleItem.DATA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + NkStyleItem.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + NkStyleItem.TYPE, value); }
     /** Unsafe version of {@link #data(NkStyleItemData) data}. */
     public static void ndata(long struct, NkStyleItemData value) { memCopy(value.address(), struct + NkStyleItem.DATA, NkStyleItemData.SIZEOF); }
 
@@ -286,22 +282,27 @@ public class NkStyleItem extends Struct<NkStyleItem> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkStyleItem getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NkStyleItem#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("enum nk_style_item_type")
         public int type() { return NkStyleItem.ntype(address()); }
-        /** @return a {@link NkStyleItemData} view of the {@link NkStyleItem#data} field. */
+        /** @return a {@link NkStyleItemData} view of the {@code data} field. */
         @NativeType("union nk_style_item_data")
         public NkStyleItemData data() { return NkStyleItem.ndata(address()); }
 
-        /** Sets the specified value to the {@link NkStyleItem#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public NkStyleItem.Buffer type(@NativeType("enum nk_style_item_type") int value) { NkStyleItem.ntype(address(), value); return this; }
-        /** Copies the specified {@link NkStyleItemData} to the {@link NkStyleItem#data} field. */
+        /** Copies the specified {@link NkStyleItemData} to the {@code data} field. */
         public NkStyleItem.Buffer data(@NativeType("union nk_style_item_data") NkStyleItemData value) { NkStyleItem.ndata(address(), value); return this; }
-        /** Passes the {@link NkStyleItem#data} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code data} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NkStyleItem.Buffer data(java.util.function.Consumer<NkStyleItemData> consumer) { consumer.accept(data()); return this; }
 
     }

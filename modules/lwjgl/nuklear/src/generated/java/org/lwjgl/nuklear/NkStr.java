@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Basic string buffer which is only used in context with the text editor to manage and manipulate dynamic or
- * fixed size string content. This is <em>NOT</em> the default string handling method. The only instance you
- * should have any contact with this API is if you interact with an {@link NkTextEdit} object inside one of the copy and
- * paste functions and even there only for more advanced cases.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_str {
  *     {@link NkBuffer struct nk_buffer} buffer;
- *     int {@link #len};
- * }</code></pre>
+ *     int len;
+ * }}</pre>
  */
 @NativeType("struct nk_str")
 public class NkStr extends Struct<NkStr> implements NativeResource {
@@ -81,7 +74,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     /** @return a {@link NkBuffer} view of the {@code buffer} field. */
     @NativeType("struct nk_buffer")
     public NkBuffer buffer() { return nbuffer(address()); }
-    /** in codepoints/runes/glyphs */
+    /** @return the value of the {@code len} field. */
     public int len() { return nlen(address()); }
 
     // -----------------------------------
@@ -108,8 +101,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStr createSafe(long address) {
+    public static @Nullable NkStr createSafe(long address) {
         return address == NULL ? null : new NkStr(address, null);
     }
 
@@ -152,8 +144,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkStr.Buffer createSafe(long address, int capacity) {
+    public static NkStr.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -219,7 +210,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     /** Unsafe version of {@link #buffer}. */
     public static NkBuffer nbuffer(long struct) { return NkBuffer.create(struct + NkStr.BUFFER); }
     /** Unsafe version of {@link #len}. */
-    public static int nlen(long struct) { return UNSAFE.getInt(null, struct + NkStr.LEN); }
+    public static int nlen(long struct) { return memGetInt(struct + NkStr.LEN); }
 
     // -----------------------------------
 
@@ -255,6 +246,11 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkStr getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -262,7 +258,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
         /** @return a {@link NkBuffer} view of the {@code buffer} field. */
         @NativeType("struct nk_buffer")
         public NkBuffer buffer() { return NkStr.nbuffer(address()); }
-        /** @return the value of the {@link NkStr#len} field. */
+        /** @return the value of the {@code len} field. */
         public int len() { return NkStr.nlen(address()); }
 
     }

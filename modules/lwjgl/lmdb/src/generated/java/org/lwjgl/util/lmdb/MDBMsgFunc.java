@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.lmdb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * A callback function used to print a message from the library.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     char const *msg,
- *     void *ctx
- * )</code></pre>
- */
+/** Callback function: {@link #invoke MDB_msg_func *} */
 public abstract class MDBMsgFunc extends Callback implements MDBMsgFuncI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class MDBMsgFunc extends Callback implements MDBMsgFuncI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static MDBMsgFunc createSafe(long functionPointer) {
+    public static @Nullable MDBMsgFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

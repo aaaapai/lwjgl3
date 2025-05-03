@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying an attachment description.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code stencilInitialLayout} <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL}, {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL}, {@link VK11#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL}, or {@link VK11#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL}</li>
- * <li>{@code stencilFinalLayout} <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL}, {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL}, {@link VK11#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL}, or {@link VK11#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL}</li>
- * <li>{@code stencilFinalLayout} <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_UNDEFINED IMAGE_LAYOUT_UNDEFINED} or {@link VK10#VK_IMAGE_LAYOUT_PREINITIALIZED IMAGE_LAYOUT_PREINITIALIZED}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT}</li>
- * <li>{@code stencilInitialLayout} <b>must</b> be a valid {@code VkImageLayout} value</li>
- * <li>{@code stencilFinalLayout} <b>must</b> be a valid {@code VkImageLayout} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAttachmentDescriptionStencilLayout {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkImageLayout {@link #stencilInitialLayout};
- *     VkImageLayout {@link #stencilFinalLayout};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkImageLayout stencilInitialLayout;
+ *     VkImageLayout stencilFinalLayout;
+ * }}</pre>
  */
 public class VkAttachmentDescriptionStencilLayout extends Struct<VkAttachmentDescriptionStencilLayout> implements NativeResource {
 
@@ -98,28 +78,28 @@ public class VkAttachmentDescriptionStencilLayout extends Struct<VkAttachmentDes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the layout the stencil aspect of the attachment image subresource will be in when a render pass instance begins. */
+    /** @return the value of the {@code stencilInitialLayout} field. */
     @NativeType("VkImageLayout")
     public int stencilInitialLayout() { return nstencilInitialLayout(address()); }
-    /** the layout the stencil aspect of the attachment image subresource will be transitioned to when a render pass instance ends. */
+    /** @return the value of the {@code stencilFinalLayout} field. */
     @NativeType("VkImageLayout")
     public int stencilFinalLayout() { return nstencilFinalLayout(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkAttachmentDescriptionStencilLayout sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT} value to the {@code sType} field. */
     public VkAttachmentDescriptionStencilLayout sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkAttachmentDescriptionStencilLayout pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #stencilInitialLayout} field. */
+    /** Sets the specified value to the {@code stencilInitialLayout} field. */
     public VkAttachmentDescriptionStencilLayout stencilInitialLayout(@NativeType("VkImageLayout") int value) { nstencilInitialLayout(address(), value); return this; }
-    /** Sets the specified value to the {@link #stencilFinalLayout} field. */
+    /** Sets the specified value to the {@code stencilFinalLayout} field. */
     public VkAttachmentDescriptionStencilLayout stencilFinalLayout(@NativeType("VkImageLayout") int value) { nstencilFinalLayout(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -173,8 +153,7 @@ public class VkAttachmentDescriptionStencilLayout extends Struct<VkAttachmentDes
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentDescriptionStencilLayout createSafe(long address) {
+    public static @Nullable VkAttachmentDescriptionStencilLayout createSafe(long address) {
         return address == NULL ? null : new VkAttachmentDescriptionStencilLayout(address, null);
     }
 
@@ -217,8 +196,7 @@ public class VkAttachmentDescriptionStencilLayout extends Struct<VkAttachmentDes
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentDescriptionStencilLayout.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentDescriptionStencilLayout.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,22 +241,22 @@ public class VkAttachmentDescriptionStencilLayout extends Struct<VkAttachmentDes
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentDescriptionStencilLayout.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAttachmentDescriptionStencilLayout.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAttachmentDescriptionStencilLayout.PNEXT); }
     /** Unsafe version of {@link #stencilInitialLayout}. */
-    public static int nstencilInitialLayout(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentDescriptionStencilLayout.STENCILINITIALLAYOUT); }
+    public static int nstencilInitialLayout(long struct) { return memGetInt(struct + VkAttachmentDescriptionStencilLayout.STENCILINITIALLAYOUT); }
     /** Unsafe version of {@link #stencilFinalLayout}. */
-    public static int nstencilFinalLayout(long struct) { return UNSAFE.getInt(null, struct + VkAttachmentDescriptionStencilLayout.STENCILFINALLAYOUT); }
+    public static int nstencilFinalLayout(long struct) { return memGetInt(struct + VkAttachmentDescriptionStencilLayout.STENCILFINALLAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentDescriptionStencilLayout.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAttachmentDescriptionStencilLayout.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAttachmentDescriptionStencilLayout.PNEXT, value); }
     /** Unsafe version of {@link #stencilInitialLayout(int) stencilInitialLayout}. */
-    public static void nstencilInitialLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentDescriptionStencilLayout.STENCILINITIALLAYOUT, value); }
+    public static void nstencilInitialLayout(long struct, int value) { memPutInt(struct + VkAttachmentDescriptionStencilLayout.STENCILINITIALLAYOUT, value); }
     /** Unsafe version of {@link #stencilFinalLayout(int) stencilFinalLayout}. */
-    public static void nstencilFinalLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkAttachmentDescriptionStencilLayout.STENCILFINALLAYOUT, value); }
+    public static void nstencilFinalLayout(long struct, int value) { memPutInt(struct + VkAttachmentDescriptionStencilLayout.STENCILFINALLAYOUT, value); }
 
     // -----------------------------------
 
@@ -314,32 +292,37 @@ public class VkAttachmentDescriptionStencilLayout extends Struct<VkAttachmentDes
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAttachmentDescriptionStencilLayout getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAttachmentDescriptionStencilLayout#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkAttachmentDescriptionStencilLayout.nsType(address()); }
-        /** @return the value of the {@link VkAttachmentDescriptionStencilLayout#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkAttachmentDescriptionStencilLayout.npNext(address()); }
-        /** @return the value of the {@link VkAttachmentDescriptionStencilLayout#stencilInitialLayout} field. */
+        /** @return the value of the {@code stencilInitialLayout} field. */
         @NativeType("VkImageLayout")
         public int stencilInitialLayout() { return VkAttachmentDescriptionStencilLayout.nstencilInitialLayout(address()); }
-        /** @return the value of the {@link VkAttachmentDescriptionStencilLayout#stencilFinalLayout} field. */
+        /** @return the value of the {@code stencilFinalLayout} field. */
         @NativeType("VkImageLayout")
         public int stencilFinalLayout() { return VkAttachmentDescriptionStencilLayout.nstencilFinalLayout(address()); }
 
-        /** Sets the specified value to the {@link VkAttachmentDescriptionStencilLayout#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkAttachmentDescriptionStencilLayout.Buffer sType(@NativeType("VkStructureType") int value) { VkAttachmentDescriptionStencilLayout.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT} value to the {@link VkAttachmentDescriptionStencilLayout#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT} value to the {@code sType} field. */
         public VkAttachmentDescriptionStencilLayout.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT); }
-        /** Sets the specified value to the {@link VkAttachmentDescriptionStencilLayout#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkAttachmentDescriptionStencilLayout.Buffer pNext(@NativeType("void *") long value) { VkAttachmentDescriptionStencilLayout.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAttachmentDescriptionStencilLayout#stencilInitialLayout} field. */
+        /** Sets the specified value to the {@code stencilInitialLayout} field. */
         public VkAttachmentDescriptionStencilLayout.Buffer stencilInitialLayout(@NativeType("VkImageLayout") int value) { VkAttachmentDescriptionStencilLayout.nstencilInitialLayout(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAttachmentDescriptionStencilLayout#stencilFinalLayout} field. */
+        /** Sets the specified value to the {@code stencilFinalLayout} field. */
         public VkAttachmentDescriptionStencilLayout.Buffer stencilFinalLayout(@NativeType("VkImageLayout") int value) { VkAttachmentDescriptionStencilLayout.nstencilFinalLayout(address(), value); return this; }
 
     }

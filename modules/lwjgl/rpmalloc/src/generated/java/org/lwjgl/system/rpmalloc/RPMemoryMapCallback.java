@@ -5,23 +5,13 @@
  */
 package org.lwjgl.system.rpmalloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@link RPMallocConfig} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     size_t size,
- *     size_t *offset
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class RPMemoryMapCallback extends Callback implements RPMemoryMapCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class RPMemoryMapCallback extends Callback implements RPMemoryMa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static RPMemoryMapCallback createSafe(long functionPointer) {
+    public static @Nullable RPMemoryMapCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

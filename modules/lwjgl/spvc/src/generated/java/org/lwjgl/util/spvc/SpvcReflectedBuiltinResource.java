@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_reflected_builtin_resource {
- *     SpvBuiltIn {@link #builtin};
- *     spvc_type_id {@link #value_type_id};
- *     {@link SpvcReflectedResource spvc_reflected_resource} {@link #resource};
- * }</code></pre>
+ *     SpvBuiltIn builtin;
+ *     spvc_type_id value_type_id;
+ *     {@link SpvcReflectedResource spvc_reflected_resource} resource;
+ * }}</pre>
  */
 @NativeType("struct spvc_reflected_builtin_resource")
 public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinResource> implements NativeResource {
@@ -77,39 +75,23 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * This is mostly here to support reflection of builtins such as {@code Position/PointSize/CullDistance/ClipDistance}.
-     * 
-     * <p>This needs to be different from {@code Resource} since we can collect builtins from blocks. A builtin present here does not necessarily mean it's
-     * considered an active builtin, since variable ID "activeness" is only tracked on {@code OpVariable} level, not {@code Block} members. For that,
-     * {@link Spvc#spvc_compiler_update_active_builtins compiler_update_active_builtins} -&gt; {@link Spvc#spvc_compiler_has_active_builtin compiler_has_active_builtin} can be used to further refine the reflection.</p>
-     */
+    /** @return the value of the {@code builtin} field. */
     @NativeType("SpvBuiltIn")
     public int builtin() { return nbuiltin(address()); }
-    /**
-     * This is the actual value type of the builtin.
-     * 
-     * <p>Typically {@code float4}, {@code float}, {@code array<float, N>} for the {@code gl_PerVertex} builtins. If the builtin is a control point, the control
-     * point array type will be stripped away here as appropriate.</p>
-     */
+    /** @return the value of the {@code value_type_id} field. */
     @NativeType("spvc_type_id")
     public int value_type_id() { return nvalue_type_id(address()); }
-    /**
-     * This refers to the base resource which contains the builtin.
-     * 
-     * <p>If resource is a {@code Block}, it can hold multiple builtins, or it might not be a block. For advanced reflection scenarios, all information in
-     * builtin/{@code value_type_id} can be deduced, it's just more convenient this way.</p>
-     */
+    /** @return a {@link SpvcReflectedResource} view of the {@code resource} field. */
     @NativeType("spvc_reflected_resource")
     public SpvcReflectedResource resource() { return nresource(address()); }
 
-    /** Sets the specified value to the {@link #builtin} field. */
+    /** Sets the specified value to the {@code builtin} field. */
     public SpvcReflectedBuiltinResource builtin(@NativeType("SpvBuiltIn") int value) { nbuiltin(address(), value); return this; }
-    /** Sets the specified value to the {@link #value_type_id} field. */
+    /** Sets the specified value to the {@code value_type_id} field. */
     public SpvcReflectedBuiltinResource value_type_id(@NativeType("spvc_type_id") int value) { nvalue_type_id(address(), value); return this; }
-    /** Copies the specified {@link SpvcReflectedResource} to the {@link #resource} field. */
+    /** Copies the specified {@link SpvcReflectedResource} to the {@code resource} field. */
     public SpvcReflectedBuiltinResource resource(@NativeType("spvc_reflected_resource") SpvcReflectedResource value) { nresource(address(), value); return this; }
-    /** Passes the {@link #resource} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code resource} field to the specified {@link java.util.function.Consumer Consumer}. */
     public SpvcReflectedBuiltinResource resource(java.util.function.Consumer<SpvcReflectedResource> consumer) { consumer.accept(resource()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -161,8 +143,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcReflectedBuiltinResource createSafe(long address) {
+    public static @Nullable SpvcReflectedBuiltinResource createSafe(long address) {
         return address == NULL ? null : new SpvcReflectedBuiltinResource(address, null);
     }
 
@@ -205,8 +186,7 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcReflectedBuiltinResource.Buffer createSafe(long address, int capacity) {
+    public static SpvcReflectedBuiltinResource.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,16 +231,16 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
     // -----------------------------------
 
     /** Unsafe version of {@link #builtin}. */
-    public static int nbuiltin(long struct) { return UNSAFE.getInt(null, struct + SpvcReflectedBuiltinResource.BUILTIN); }
+    public static int nbuiltin(long struct) { return memGetInt(struct + SpvcReflectedBuiltinResource.BUILTIN); }
     /** Unsafe version of {@link #value_type_id}. */
-    public static int nvalue_type_id(long struct) { return UNSAFE.getInt(null, struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID); }
+    public static int nvalue_type_id(long struct) { return memGetInt(struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID); }
     /** Unsafe version of {@link #resource}. */
     public static SpvcReflectedResource nresource(long struct) { return SpvcReflectedResource.create(struct + SpvcReflectedBuiltinResource.RESOURCE); }
 
     /** Unsafe version of {@link #builtin(int) builtin}. */
-    public static void nbuiltin(long struct, int value) { UNSAFE.putInt(null, struct + SpvcReflectedBuiltinResource.BUILTIN, value); }
+    public static void nbuiltin(long struct, int value) { memPutInt(struct + SpvcReflectedBuiltinResource.BUILTIN, value); }
     /** Unsafe version of {@link #value_type_id(int) value_type_id}. */
-    public static void nvalue_type_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID, value); }
+    public static void nvalue_type_id(long struct, int value) { memPutInt(struct + SpvcReflectedBuiltinResource.VALUE_TYPE_ID, value); }
     /** Unsafe version of {@link #resource(SpvcReflectedResource) resource}. */
     public static void nresource(long struct, SpvcReflectedResource value) { memCopy(value.address(), struct + SpvcReflectedBuiltinResource.RESOURCE, SpvcReflectedResource.SIZEOF); }
 
@@ -307,27 +287,32 @@ public class SpvcReflectedBuiltinResource extends Struct<SpvcReflectedBuiltinRes
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected SpvcReflectedBuiltinResource getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link SpvcReflectedBuiltinResource#builtin} field. */
+        /** @return the value of the {@code builtin} field. */
         @NativeType("SpvBuiltIn")
         public int builtin() { return SpvcReflectedBuiltinResource.nbuiltin(address()); }
-        /** @return the value of the {@link SpvcReflectedBuiltinResource#value_type_id} field. */
+        /** @return the value of the {@code value_type_id} field. */
         @NativeType("spvc_type_id")
         public int value_type_id() { return SpvcReflectedBuiltinResource.nvalue_type_id(address()); }
-        /** @return a {@link SpvcReflectedResource} view of the {@link SpvcReflectedBuiltinResource#resource} field. */
+        /** @return a {@link SpvcReflectedResource} view of the {@code resource} field. */
         @NativeType("spvc_reflected_resource")
         public SpvcReflectedResource resource() { return SpvcReflectedBuiltinResource.nresource(address()); }
 
-        /** Sets the specified value to the {@link SpvcReflectedBuiltinResource#builtin} field. */
+        /** Sets the specified value to the {@code builtin} field. */
         public SpvcReflectedBuiltinResource.Buffer builtin(@NativeType("SpvBuiltIn") int value) { SpvcReflectedBuiltinResource.nbuiltin(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcReflectedBuiltinResource#value_type_id} field. */
+        /** Sets the specified value to the {@code value_type_id} field. */
         public SpvcReflectedBuiltinResource.Buffer value_type_id(@NativeType("spvc_type_id") int value) { SpvcReflectedBuiltinResource.nvalue_type_id(address(), value); return this; }
-        /** Copies the specified {@link SpvcReflectedResource} to the {@link SpvcReflectedBuiltinResource#resource} field. */
+        /** Copies the specified {@link SpvcReflectedResource} to the {@code resource} field. */
         public SpvcReflectedBuiltinResource.Buffer resource(@NativeType("spvc_reflected_resource") SpvcReflectedResource value) { SpvcReflectedBuiltinResource.nresource(address(), value); return this; }
-        /** Passes the {@link SpvcReflectedBuiltinResource#resource} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code resource} field to the specified {@link java.util.function.Consumer Consumer}. */
         public SpvcReflectedBuiltinResource.Buffer resource(java.util.function.Consumer<SpvcReflectedResource> consumer) { consumer.accept(resource()); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,41 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying decompression parameters.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The {@code srcAddress} <b>must</b> be 4 byte aligned</li>
- * <li>The memory in range {@code srcAddress} and {@code srcAddress} + {@code compressedSize} <b>must</b> be valid and bound to a {@code VkDeviceMemory} object</li>
- * <li>The {@code dstAddress} <b>must</b> be 4 byte aligned</li>
- * <li>The memory in range {@code dstAddress} and {@code dstAddress} + {@code decompressedSize} <b>must</b> be valid and bound to a {@code VkDeviceMemory} object</li>
- * <li>The {@code decompressedSize} <b>must</b> be large enough to hold the decompressed data based on the {@code decompressionMethod}</li>
- * <li>The {@code decompressionMethod} <b>must</b> have a single bit set</li>
- * <li>The {@code srcAddress} to {@code srcAddress} + {@code compressedSize} region <b>must</b> not overlap with the {@code dstAddress} and {@code dstAddress} + {@code decompressedSize} region</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code decompressionMethod} <b>must</b> be a valid combination of {@code VkMemoryDecompressionMethodFlagBitsNV} values</li>
- * <li>{@code decompressionMethod} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link NVMemoryDecompression#vkCmdDecompressMemoryNV CmdDecompressMemoryNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDecompressMemoryRegionNV {
- *     VkDeviceAddress {@link #srcAddress};
- *     VkDeviceAddress {@link #dstAddress};
- *     VkDeviceSize {@link #compressedSize};
- *     VkDeviceSize {@link #decompressedSize};
- *     VkMemoryDecompressionMethodFlagsNV {@link #decompressionMethod};
- * }</code></pre>
+ *     VkDeviceAddress srcAddress;
+ *     VkDeviceAddress dstAddress;
+ *     VkDeviceSize compressedSize;
+ *     VkDeviceSize decompressedSize;
+ *     VkMemoryDecompressionMethodFlagsNV decompressionMethod;
+ * }}</pre>
  */
 public class VkDecompressMemoryRegionNV extends Struct<VkDecompressMemoryRegionNV> implements NativeResource {
 
@@ -109,31 +82,31 @@ public class VkDecompressMemoryRegionNV extends Struct<VkDecompressMemoryRegionN
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the address where compressed data is stored. */
+    /** @return the value of the {@code srcAddress} field. */
     @NativeType("VkDeviceAddress")
     public long srcAddress() { return nsrcAddress(address()); }
-    /** the destination address where decompressed data will be written. */
+    /** @return the value of the {@code dstAddress} field. */
     @NativeType("VkDeviceAddress")
     public long dstAddress() { return ndstAddress(address()); }
-    /** the size of compressed data in bytes. */
+    /** @return the value of the {@code compressedSize} field. */
     @NativeType("VkDeviceSize")
     public long compressedSize() { return ncompressedSize(address()); }
-    /** the size of decompressed data in bytes. */
+    /** @return the value of the {@code decompressedSize} field. */
     @NativeType("VkDeviceSize")
     public long decompressedSize() { return ndecompressedSize(address()); }
-    /** a bitmask of {@code VkMemoryDecompressionMethodFlagBitsNV} with a single bit set specifying the method used to decompress data. */
+    /** @return the value of the {@code decompressionMethod} field. */
     @NativeType("VkMemoryDecompressionMethodFlagsNV")
     public long decompressionMethod() { return ndecompressionMethod(address()); }
 
-    /** Sets the specified value to the {@link #srcAddress} field. */
+    /** Sets the specified value to the {@code srcAddress} field. */
     public VkDecompressMemoryRegionNV srcAddress(@NativeType("VkDeviceAddress") long value) { nsrcAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstAddress} field. */
+    /** Sets the specified value to the {@code dstAddress} field. */
     public VkDecompressMemoryRegionNV dstAddress(@NativeType("VkDeviceAddress") long value) { ndstAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #compressedSize} field. */
+    /** Sets the specified value to the {@code compressedSize} field. */
     public VkDecompressMemoryRegionNV compressedSize(@NativeType("VkDeviceSize") long value) { ncompressedSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #decompressedSize} field. */
+    /** Sets the specified value to the {@code decompressedSize} field. */
     public VkDecompressMemoryRegionNV decompressedSize(@NativeType("VkDeviceSize") long value) { ndecompressedSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #decompressionMethod} field. */
+    /** Sets the specified value to the {@code decompressionMethod} field. */
     public VkDecompressMemoryRegionNV decompressionMethod(@NativeType("VkMemoryDecompressionMethodFlagsNV") long value) { ndecompressionMethod(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -189,8 +162,7 @@ public class VkDecompressMemoryRegionNV extends Struct<VkDecompressMemoryRegionN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDecompressMemoryRegionNV createSafe(long address) {
+    public static @Nullable VkDecompressMemoryRegionNV createSafe(long address) {
         return address == NULL ? null : new VkDecompressMemoryRegionNV(address, null);
     }
 
@@ -233,8 +205,7 @@ public class VkDecompressMemoryRegionNV extends Struct<VkDecompressMemoryRegionN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDecompressMemoryRegionNV.Buffer createSafe(long address, int capacity) {
+    public static VkDecompressMemoryRegionNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,26 +250,26 @@ public class VkDecompressMemoryRegionNV extends Struct<VkDecompressMemoryRegionN
     // -----------------------------------
 
     /** Unsafe version of {@link #srcAddress}. */
-    public static long nsrcAddress(long struct) { return UNSAFE.getLong(null, struct + VkDecompressMemoryRegionNV.SRCADDRESS); }
+    public static long nsrcAddress(long struct) { return memGetLong(struct + VkDecompressMemoryRegionNV.SRCADDRESS); }
     /** Unsafe version of {@link #dstAddress}. */
-    public static long ndstAddress(long struct) { return UNSAFE.getLong(null, struct + VkDecompressMemoryRegionNV.DSTADDRESS); }
+    public static long ndstAddress(long struct) { return memGetLong(struct + VkDecompressMemoryRegionNV.DSTADDRESS); }
     /** Unsafe version of {@link #compressedSize}. */
-    public static long ncompressedSize(long struct) { return UNSAFE.getLong(null, struct + VkDecompressMemoryRegionNV.COMPRESSEDSIZE); }
+    public static long ncompressedSize(long struct) { return memGetLong(struct + VkDecompressMemoryRegionNV.COMPRESSEDSIZE); }
     /** Unsafe version of {@link #decompressedSize}. */
-    public static long ndecompressedSize(long struct) { return UNSAFE.getLong(null, struct + VkDecompressMemoryRegionNV.DECOMPRESSEDSIZE); }
+    public static long ndecompressedSize(long struct) { return memGetLong(struct + VkDecompressMemoryRegionNV.DECOMPRESSEDSIZE); }
     /** Unsafe version of {@link #decompressionMethod}. */
-    public static long ndecompressionMethod(long struct) { return UNSAFE.getLong(null, struct + VkDecompressMemoryRegionNV.DECOMPRESSIONMETHOD); }
+    public static long ndecompressionMethod(long struct) { return memGetLong(struct + VkDecompressMemoryRegionNV.DECOMPRESSIONMETHOD); }
 
     /** Unsafe version of {@link #srcAddress(long) srcAddress}. */
-    public static void nsrcAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDecompressMemoryRegionNV.SRCADDRESS, value); }
+    public static void nsrcAddress(long struct, long value) { memPutLong(struct + VkDecompressMemoryRegionNV.SRCADDRESS, value); }
     /** Unsafe version of {@link #dstAddress(long) dstAddress}. */
-    public static void ndstAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDecompressMemoryRegionNV.DSTADDRESS, value); }
+    public static void ndstAddress(long struct, long value) { memPutLong(struct + VkDecompressMemoryRegionNV.DSTADDRESS, value); }
     /** Unsafe version of {@link #compressedSize(long) compressedSize}. */
-    public static void ncompressedSize(long struct, long value) { UNSAFE.putLong(null, struct + VkDecompressMemoryRegionNV.COMPRESSEDSIZE, value); }
+    public static void ncompressedSize(long struct, long value) { memPutLong(struct + VkDecompressMemoryRegionNV.COMPRESSEDSIZE, value); }
     /** Unsafe version of {@link #decompressedSize(long) decompressedSize}. */
-    public static void ndecompressedSize(long struct, long value) { UNSAFE.putLong(null, struct + VkDecompressMemoryRegionNV.DECOMPRESSEDSIZE, value); }
+    public static void ndecompressedSize(long struct, long value) { memPutLong(struct + VkDecompressMemoryRegionNV.DECOMPRESSEDSIZE, value); }
     /** Unsafe version of {@link #decompressionMethod(long) decompressionMethod}. */
-    public static void ndecompressionMethod(long struct, long value) { UNSAFE.putLong(null, struct + VkDecompressMemoryRegionNV.DECOMPRESSIONMETHOD, value); }
+    public static void ndecompressionMethod(long struct, long value) { memPutLong(struct + VkDecompressMemoryRegionNV.DECOMPRESSIONMETHOD, value); }
 
     // -----------------------------------
 
@@ -334,35 +305,40 @@ public class VkDecompressMemoryRegionNV extends Struct<VkDecompressMemoryRegionN
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDecompressMemoryRegionNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDecompressMemoryRegionNV#srcAddress} field. */
+        /** @return the value of the {@code srcAddress} field. */
         @NativeType("VkDeviceAddress")
         public long srcAddress() { return VkDecompressMemoryRegionNV.nsrcAddress(address()); }
-        /** @return the value of the {@link VkDecompressMemoryRegionNV#dstAddress} field. */
+        /** @return the value of the {@code dstAddress} field. */
         @NativeType("VkDeviceAddress")
         public long dstAddress() { return VkDecompressMemoryRegionNV.ndstAddress(address()); }
-        /** @return the value of the {@link VkDecompressMemoryRegionNV#compressedSize} field. */
+        /** @return the value of the {@code compressedSize} field. */
         @NativeType("VkDeviceSize")
         public long compressedSize() { return VkDecompressMemoryRegionNV.ncompressedSize(address()); }
-        /** @return the value of the {@link VkDecompressMemoryRegionNV#decompressedSize} field. */
+        /** @return the value of the {@code decompressedSize} field. */
         @NativeType("VkDeviceSize")
         public long decompressedSize() { return VkDecompressMemoryRegionNV.ndecompressedSize(address()); }
-        /** @return the value of the {@link VkDecompressMemoryRegionNV#decompressionMethod} field. */
+        /** @return the value of the {@code decompressionMethod} field. */
         @NativeType("VkMemoryDecompressionMethodFlagsNV")
         public long decompressionMethod() { return VkDecompressMemoryRegionNV.ndecompressionMethod(address()); }
 
-        /** Sets the specified value to the {@link VkDecompressMemoryRegionNV#srcAddress} field. */
+        /** Sets the specified value to the {@code srcAddress} field. */
         public VkDecompressMemoryRegionNV.Buffer srcAddress(@NativeType("VkDeviceAddress") long value) { VkDecompressMemoryRegionNV.nsrcAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDecompressMemoryRegionNV#dstAddress} field. */
+        /** Sets the specified value to the {@code dstAddress} field. */
         public VkDecompressMemoryRegionNV.Buffer dstAddress(@NativeType("VkDeviceAddress") long value) { VkDecompressMemoryRegionNV.ndstAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDecompressMemoryRegionNV#compressedSize} field. */
+        /** Sets the specified value to the {@code compressedSize} field. */
         public VkDecompressMemoryRegionNV.Buffer compressedSize(@NativeType("VkDeviceSize") long value) { VkDecompressMemoryRegionNV.ncompressedSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDecompressMemoryRegionNV#decompressedSize} field. */
+        /** Sets the specified value to the {@code decompressedSize} field. */
         public VkDecompressMemoryRegionNV.Buffer decompressedSize(@NativeType("VkDeviceSize") long value) { VkDecompressMemoryRegionNV.ndecompressedSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDecompressMemoryRegionNV#decompressionMethod} field. */
+        /** Sets the specified value to the {@code decompressionMethod} field. */
         public VkDecompressMemoryRegionNV.Buffer decompressionMethod(@NativeType("VkMemoryDecompressionMethodFlagsNV") long value) { VkDecompressMemoryRegionNV.ndecompressionMethod(address(), value); return this; }
 
     }

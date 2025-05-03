@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FMOD_STUDIO_BUFFER_USAGE {
  *     {@link FMOD_STUDIO_BUFFER_INFO FMOD_STUDIO_BUFFER_INFO} studiocommandqueue;
  *     {@link FMOD_STUDIO_BUFFER_INFO FMOD_STUDIO_BUFFER_INFO} studiohandle;
- * }</code></pre>
+ * }}</pre>
  */
 public class FMOD_STUDIO_BUFFER_USAGE extends Struct<FMOD_STUDIO_BUFFER_USAGE> implements NativeResource {
 
@@ -133,8 +131,7 @@ public class FMOD_STUDIO_BUFFER_USAGE extends Struct<FMOD_STUDIO_BUFFER_USAGE> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_BUFFER_USAGE createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_BUFFER_USAGE createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_BUFFER_USAGE(address, null);
     }
 
@@ -177,8 +174,7 @@ public class FMOD_STUDIO_BUFFER_USAGE extends Struct<FMOD_STUDIO_BUFFER_USAGE> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_BUFFER_USAGE.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_BUFFER_USAGE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,6 +259,11 @@ public class FMOD_STUDIO_BUFFER_USAGE extends Struct<FMOD_STUDIO_BUFFER_USAGE> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

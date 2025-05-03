@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_parameters {
  *     {@link ZSTDCompressionParameters ZSTD_compressionParameters} cParams;
  *     {@link ZSTDFrameParameters ZSTD_frameParameters} fParams;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct ZSTD_parameters")
 public class ZSTDParameters extends Struct<ZSTDParameters> implements NativeResource {
@@ -136,8 +134,7 @@ public class ZSTDParameters extends Struct<ZSTDParameters> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDParameters createSafe(long address) {
+    public static @Nullable ZSTDParameters createSafe(long address) {
         return address == NULL ? null : new ZSTDParameters(address, null);
     }
 
@@ -180,8 +177,7 @@ public class ZSTDParameters extends Struct<ZSTDParameters> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDParameters.Buffer createSafe(long address, int capacity) {
+    public static ZSTDParameters.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,6 +281,11 @@ public class ZSTDParameters extends Struct<ZSTDParameters> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

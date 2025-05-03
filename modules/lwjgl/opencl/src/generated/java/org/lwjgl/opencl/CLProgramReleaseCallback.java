@@ -5,23 +5,13 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CL22#clSetProgramReleaseCallback SetProgramReleaseCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     cl_program program,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CLProgramReleaseCallback extends Callback implements CLProgramReleaseCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class CLProgramReleaseCallback extends Callback implements CLPro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CLProgramReleaseCallback createSafe(long functionPointer) {
+    public static @Nullable CLProgramReleaseCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

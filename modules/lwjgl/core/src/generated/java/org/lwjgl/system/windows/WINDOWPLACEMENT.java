@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains information about the placement of a window on the screen.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct WINDOWPLACEMENT {
- *     UINT {@link #length};
- *     UINT {@link #flags};
- *     UINT {@link #showCmd};
- *     {@link POINT POINT} {@link #ptMinPosition};
- *     {@link POINT POINT} {@link #ptMaxPosition};
- *     {@link RECT RECT} {@link #rcNormalPosition};
- * }</code></pre>
+ *     UINT length;
+ *     UINT flags;
+ *     UINT showCmd;
+ *     {@link POINT POINT} ptMinPosition;
+ *     {@link POINT POINT} ptMaxPosition;
+ *     {@link RECT RECT} rcNormalPosition;
+ * }}</pre>
  */
 public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeResource {
 
@@ -90,42 +86,39 @@ public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * the length of the structure, in bytes. Before calling the {@link User32#GetWindowPlacement} or {@link User32#SetWindowPlacement} functions, set this member to
-     * {@link #SIZEOF}.
-     */
+    /** @return the value of the {@code length} field. */
     @NativeType("UINT")
     public int length() { return nlength(address()); }
-    /** the flags that control the position of the minimized window and the method by which the window is restored. This member can be one or more of thefollowing values:<br>{@link User32#WPF_SETMINPOSITION} {@link User32#WPF_RESTORETOMAXIMIZED} {@link User32#WPF_ASYNCWINDOWPLACEMENT} */
+    /** @return the value of the {@code flags} field. */
     @NativeType("UINT")
     public int flags() { return nflags(address()); }
-    /** the current show state of the window */
+    /** @return the value of the {@code showCmd} field. */
     @NativeType("UINT")
     public int showCmd() { return nshowCmd(address()); }
-    /** the coordinates of the window's upper-left corner when the window is minimized */
+    /** @return a {@link POINT} view of the {@code ptMinPosition} field. */
     public POINT ptMinPosition() { return nptMinPosition(address()); }
-    /** the coordinates of the window's upper-left corner when the window is maximized */
+    /** @return a {@link POINT} view of the {@code ptMaxPosition} field. */
     public POINT ptMaxPosition() { return nptMaxPosition(address()); }
-    /** the window's coordinates when the window is in the restored position */
+    /** @return a {@link RECT} view of the {@code rcNormalPosition} field. */
     public RECT rcNormalPosition() { return nrcNormalPosition(address()); }
 
-    /** Sets the specified value to the {@link #length} field. */
+    /** Sets the specified value to the {@code length} field. */
     public WINDOWPLACEMENT length(@NativeType("UINT") int value) { nlength(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public WINDOWPLACEMENT flags(@NativeType("UINT") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #showCmd} field. */
+    /** Sets the specified value to the {@code showCmd} field. */
     public WINDOWPLACEMENT showCmd(@NativeType("UINT") int value) { nshowCmd(address(), value); return this; }
-    /** Copies the specified {@link POINT} to the {@link #ptMinPosition} field. */
+    /** Copies the specified {@link POINT} to the {@code ptMinPosition} field. */
     public WINDOWPLACEMENT ptMinPosition(POINT value) { nptMinPosition(address(), value); return this; }
-    /** Passes the {@link #ptMinPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code ptMinPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
     public WINDOWPLACEMENT ptMinPosition(java.util.function.Consumer<POINT> consumer) { consumer.accept(ptMinPosition()); return this; }
-    /** Copies the specified {@link POINT} to the {@link #ptMaxPosition} field. */
+    /** Copies the specified {@link POINT} to the {@code ptMaxPosition} field. */
     public WINDOWPLACEMENT ptMaxPosition(POINT value) { nptMaxPosition(address(), value); return this; }
-    /** Passes the {@link #ptMaxPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code ptMaxPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
     public WINDOWPLACEMENT ptMaxPosition(java.util.function.Consumer<POINT> consumer) { consumer.accept(ptMaxPosition()); return this; }
-    /** Copies the specified {@link RECT} to the {@link #rcNormalPosition} field. */
+    /** Copies the specified {@link RECT} to the {@code rcNormalPosition} field. */
     public WINDOWPLACEMENT rcNormalPosition(RECT value) { nrcNormalPosition(address(), value); return this; }
-    /** Passes the {@link #rcNormalPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code rcNormalPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
     public WINDOWPLACEMENT rcNormalPosition(java.util.function.Consumer<RECT> consumer) { consumer.accept(rcNormalPosition()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -183,8 +176,7 @@ public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static WINDOWPLACEMENT createSafe(long address) {
+    public static @Nullable WINDOWPLACEMENT createSafe(long address) {
         return address == NULL ? null : new WINDOWPLACEMENT(address, null);
     }
 
@@ -227,8 +219,7 @@ public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static WINDOWPLACEMENT.Buffer createSafe(long address, int capacity) {
+    public static WINDOWPLACEMENT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,11 +283,11 @@ public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #length}. */
-    public static int nlength(long struct) { return UNSAFE.getInt(null, struct + WINDOWPLACEMENT.LENGTH); }
+    public static int nlength(long struct) { return memGetInt(struct + WINDOWPLACEMENT.LENGTH); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + WINDOWPLACEMENT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + WINDOWPLACEMENT.FLAGS); }
     /** Unsafe version of {@link #showCmd}. */
-    public static int nshowCmd(long struct) { return UNSAFE.getInt(null, struct + WINDOWPLACEMENT.SHOWCMD); }
+    public static int nshowCmd(long struct) { return memGetInt(struct + WINDOWPLACEMENT.SHOWCMD); }
     /** Unsafe version of {@link #ptMinPosition}. */
     public static POINT nptMinPosition(long struct) { return POINT.create(struct + WINDOWPLACEMENT.PTMINPOSITION); }
     /** Unsafe version of {@link #ptMaxPosition}. */
@@ -305,11 +296,11 @@ public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeRe
     public static RECT nrcNormalPosition(long struct) { return RECT.create(struct + WINDOWPLACEMENT.RCNORMALPOSITION); }
 
     /** Unsafe version of {@link #length(int) length}. */
-    public static void nlength(long struct, int value) { UNSAFE.putInt(null, struct + WINDOWPLACEMENT.LENGTH, value); }
+    public static void nlength(long struct, int value) { memPutInt(struct + WINDOWPLACEMENT.LENGTH, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + WINDOWPLACEMENT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + WINDOWPLACEMENT.FLAGS, value); }
     /** Unsafe version of {@link #showCmd(int) showCmd}. */
-    public static void nshowCmd(long struct, int value) { UNSAFE.putInt(null, struct + WINDOWPLACEMENT.SHOWCMD, value); }
+    public static void nshowCmd(long struct, int value) { memPutInt(struct + WINDOWPLACEMENT.SHOWCMD, value); }
     /** Unsafe version of {@link #ptMinPosition(POINT) ptMinPosition}. */
     public static void nptMinPosition(long struct, POINT value) { memCopy(value.address(), struct + WINDOWPLACEMENT.PTMINPOSITION, POINT.SIZEOF); }
     /** Unsafe version of {@link #ptMaxPosition(POINT) ptMaxPosition}. */
@@ -351,43 +342,48 @@ public class WINDOWPLACEMENT extends Struct<WINDOWPLACEMENT> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected WINDOWPLACEMENT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link WINDOWPLACEMENT#length} field. */
+        /** @return the value of the {@code length} field. */
         @NativeType("UINT")
         public int length() { return WINDOWPLACEMENT.nlength(address()); }
-        /** @return the value of the {@link WINDOWPLACEMENT#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("UINT")
         public int flags() { return WINDOWPLACEMENT.nflags(address()); }
-        /** @return the value of the {@link WINDOWPLACEMENT#showCmd} field. */
+        /** @return the value of the {@code showCmd} field. */
         @NativeType("UINT")
         public int showCmd() { return WINDOWPLACEMENT.nshowCmd(address()); }
-        /** @return a {@link POINT} view of the {@link WINDOWPLACEMENT#ptMinPosition} field. */
+        /** @return a {@link POINT} view of the {@code ptMinPosition} field. */
         public POINT ptMinPosition() { return WINDOWPLACEMENT.nptMinPosition(address()); }
-        /** @return a {@link POINT} view of the {@link WINDOWPLACEMENT#ptMaxPosition} field. */
+        /** @return a {@link POINT} view of the {@code ptMaxPosition} field. */
         public POINT ptMaxPosition() { return WINDOWPLACEMENT.nptMaxPosition(address()); }
-        /** @return a {@link RECT} view of the {@link WINDOWPLACEMENT#rcNormalPosition} field. */
+        /** @return a {@link RECT} view of the {@code rcNormalPosition} field. */
         public RECT rcNormalPosition() { return WINDOWPLACEMENT.nrcNormalPosition(address()); }
 
-        /** Sets the specified value to the {@link WINDOWPLACEMENT#length} field. */
+        /** Sets the specified value to the {@code length} field. */
         public WINDOWPLACEMENT.Buffer length(@NativeType("UINT") int value) { WINDOWPLACEMENT.nlength(address(), value); return this; }
-        /** Sets the specified value to the {@link WINDOWPLACEMENT#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public WINDOWPLACEMENT.Buffer flags(@NativeType("UINT") int value) { WINDOWPLACEMENT.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link WINDOWPLACEMENT#showCmd} field. */
+        /** Sets the specified value to the {@code showCmd} field. */
         public WINDOWPLACEMENT.Buffer showCmd(@NativeType("UINT") int value) { WINDOWPLACEMENT.nshowCmd(address(), value); return this; }
-        /** Copies the specified {@link POINT} to the {@link WINDOWPLACEMENT#ptMinPosition} field. */
+        /** Copies the specified {@link POINT} to the {@code ptMinPosition} field. */
         public WINDOWPLACEMENT.Buffer ptMinPosition(POINT value) { WINDOWPLACEMENT.nptMinPosition(address(), value); return this; }
-        /** Passes the {@link WINDOWPLACEMENT#ptMinPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code ptMinPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
         public WINDOWPLACEMENT.Buffer ptMinPosition(java.util.function.Consumer<POINT> consumer) { consumer.accept(ptMinPosition()); return this; }
-        /** Copies the specified {@link POINT} to the {@link WINDOWPLACEMENT#ptMaxPosition} field. */
+        /** Copies the specified {@link POINT} to the {@code ptMaxPosition} field. */
         public WINDOWPLACEMENT.Buffer ptMaxPosition(POINT value) { WINDOWPLACEMENT.nptMaxPosition(address(), value); return this; }
-        /** Passes the {@link WINDOWPLACEMENT#ptMaxPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code ptMaxPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
         public WINDOWPLACEMENT.Buffer ptMaxPosition(java.util.function.Consumer<POINT> consumer) { consumer.accept(ptMaxPosition()); return this; }
-        /** Copies the specified {@link RECT} to the {@link WINDOWPLACEMENT#rcNormalPosition} field. */
+        /** Copies the specified {@link RECT} to the {@code rcNormalPosition} field. */
         public WINDOWPLACEMENT.Buffer rcNormalPosition(RECT value) { WINDOWPLACEMENT.nrcNormalPosition(address(), value); return this; }
-        /** Passes the {@link WINDOWPLACEMENT#rcNormalPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code rcNormalPosition} field to the specified {@link java.util.function.Consumer Consumer}. */
         public WINDOWPLACEMENT.Buffer rcNormalPosition(java.util.function.Consumer<RECT> consumer) { consumer.accept(rcNormalPosition()); return this; }
 
     }

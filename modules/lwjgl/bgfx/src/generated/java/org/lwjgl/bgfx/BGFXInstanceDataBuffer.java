@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,19 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Instance data buffer info.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_instance_data_buffer_t {
- *     uint8_t * {@link #data};
- *     uint32_t {@link #size};
- *     uint32_t {@link #offset};
- *     uint32_t {@link #num};
- *     uint16_t {@link #stride};
- *     bgfx_vertex_buffer_handle_t {@link #handle};
- * }</code></pre>
+ *     uint8_t * data;
+ *     uint32_t size;
+ *     uint32_t offset;
+ *     uint32_t num;
+ *     uint16_t stride;
+ *     bgfx_vertex_buffer_handle_t handle;
+ * }}</pre>
  */
 @NativeType("struct bgfx_instance_data_buffer_t")
 public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> implements NativeResource {
@@ -92,34 +88,34 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** pointer to data */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("uint8_t *")
     public ByteBuffer data() { return ndata(address()); }
-    /** data size */
+    /** @return the value of the {@code size} field. */
     @NativeType("uint32_t")
     public int size() { return nsize(address()); }
-    /** offset in vertex buffer */
+    /** @return the value of the {@code offset} field. */
     @NativeType("uint32_t")
     public int offset() { return noffset(address()); }
-    /** number of instances */
+    /** @return the value of the {@code num} field. */
     @NativeType("uint32_t")
     public int num() { return nnum(address()); }
-    /** vertex stride */
+    /** @return the value of the {@code stride} field. */
     @NativeType("uint16_t")
     public short stride() { return nstride(address()); }
-    /** vertex buffer object handle */
+    /** @return the value of the {@code handle} field. */
     @NativeType("bgfx_vertex_buffer_handle_t")
     public short handle() { return nhandle(address()); }
 
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #data} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code data} field. */
     public BGFXInstanceDataBuffer data(@NativeType("uint8_t *") ByteBuffer value) { ndata(address(), value); return this; }
-    /** Sets the specified value to the {@link #offset} field. */
+    /** Sets the specified value to the {@code offset} field. */
     public BGFXInstanceDataBuffer offset(@NativeType("uint32_t") int value) { noffset(address(), value); return this; }
-    /** Sets the specified value to the {@link #num} field. */
+    /** Sets the specified value to the {@code num} field. */
     public BGFXInstanceDataBuffer num(@NativeType("uint32_t") int value) { nnum(address(), value); return this; }
-    /** Sets the specified value to the {@link #stride} field. */
+    /** Sets the specified value to the {@code stride} field. */
     public BGFXInstanceDataBuffer stride(@NativeType("uint16_t") short value) { nstride(address(), value); return this; }
-    /** Sets the specified value to the {@link #handle} field. */
+    /** Sets the specified value to the {@code handle} field. */
     public BGFXInstanceDataBuffer handle(@NativeType("bgfx_vertex_buffer_handle_t") short value) { nhandle(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +171,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXInstanceDataBuffer createSafe(long address) {
+    public static @Nullable BGFXInstanceDataBuffer createSafe(long address) {
         return address == NULL ? null : new BGFXInstanceDataBuffer(address, null);
     }
 
@@ -219,8 +214,7 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXInstanceDataBuffer.Buffer createSafe(long address, int capacity) {
+    public static BGFXInstanceDataBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,28 +280,28 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + BGFXInstanceDataBuffer.DATA), nsize(struct)); }
     /** Unsafe version of {@link #size}. */
-    public static int nsize(long struct) { return UNSAFE.getInt(null, struct + BGFXInstanceDataBuffer.SIZE); }
+    public static int nsize(long struct) { return memGetInt(struct + BGFXInstanceDataBuffer.SIZE); }
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + BGFXInstanceDataBuffer.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + BGFXInstanceDataBuffer.OFFSET); }
     /** Unsafe version of {@link #num}. */
-    public static int nnum(long struct) { return UNSAFE.getInt(null, struct + BGFXInstanceDataBuffer.NUM); }
+    public static int nnum(long struct) { return memGetInt(struct + BGFXInstanceDataBuffer.NUM); }
     /** Unsafe version of {@link #stride}. */
-    public static short nstride(long struct) { return UNSAFE.getShort(null, struct + BGFXInstanceDataBuffer.STRIDE); }
+    public static short nstride(long struct) { return memGetShort(struct + BGFXInstanceDataBuffer.STRIDE); }
     /** Unsafe version of {@link #handle}. */
-    public static short nhandle(long struct) { return UNSAFE.getShort(null, struct + BGFXInstanceDataBuffer.HANDLE); }
+    public static short nhandle(long struct) { return memGetShort(struct + BGFXInstanceDataBuffer.HANDLE); }
 
     /** Unsafe version of {@link #data(ByteBuffer) data}. */
     public static void ndata(long struct, ByteBuffer value) { memPutAddress(struct + BGFXInstanceDataBuffer.DATA, memAddress(value)); nsize(struct, value.remaining()); }
     /** Sets the specified value to the {@code size} field of the specified {@code struct}. */
-    public static void nsize(long struct, int value) { UNSAFE.putInt(null, struct + BGFXInstanceDataBuffer.SIZE, value); }
+    public static void nsize(long struct, int value) { memPutInt(struct + BGFXInstanceDataBuffer.SIZE, value); }
     /** Unsafe version of {@link #offset(int) offset}. */
-    public static void noffset(long struct, int value) { UNSAFE.putInt(null, struct + BGFXInstanceDataBuffer.OFFSET, value); }
+    public static void noffset(long struct, int value) { memPutInt(struct + BGFXInstanceDataBuffer.OFFSET, value); }
     /** Unsafe version of {@link #num(int) num}. */
-    public static void nnum(long struct, int value) { UNSAFE.putInt(null, struct + BGFXInstanceDataBuffer.NUM, value); }
+    public static void nnum(long struct, int value) { memPutInt(struct + BGFXInstanceDataBuffer.NUM, value); }
     /** Unsafe version of {@link #stride(short) stride}. */
-    public static void nstride(long struct, short value) { UNSAFE.putShort(null, struct + BGFXInstanceDataBuffer.STRIDE, value); }
+    public static void nstride(long struct, short value) { memPutShort(struct + BGFXInstanceDataBuffer.STRIDE, value); }
     /** Unsafe version of {@link #handle(short) handle}. */
-    public static void nhandle(long struct, short value) { UNSAFE.putShort(null, struct + BGFXInstanceDataBuffer.HANDLE, value); }
+    public static void nhandle(long struct, short value) { memPutShort(struct + BGFXInstanceDataBuffer.HANDLE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -352,38 +346,43 @@ public class BGFXInstanceDataBuffer extends Struct<BGFXInstanceDataBuffer> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected BGFXInstanceDataBuffer getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link BGFXInstanceDataBuffer#data} field. */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("uint8_t *")
         public ByteBuffer data() { return BGFXInstanceDataBuffer.ndata(address()); }
-        /** @return the value of the {@link BGFXInstanceDataBuffer#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("uint32_t")
         public int size() { return BGFXInstanceDataBuffer.nsize(address()); }
-        /** @return the value of the {@link BGFXInstanceDataBuffer#offset} field. */
+        /** @return the value of the {@code offset} field. */
         @NativeType("uint32_t")
         public int offset() { return BGFXInstanceDataBuffer.noffset(address()); }
-        /** @return the value of the {@link BGFXInstanceDataBuffer#num} field. */
+        /** @return the value of the {@code num} field. */
         @NativeType("uint32_t")
         public int num() { return BGFXInstanceDataBuffer.nnum(address()); }
-        /** @return the value of the {@link BGFXInstanceDataBuffer#stride} field. */
+        /** @return the value of the {@code stride} field. */
         @NativeType("uint16_t")
         public short stride() { return BGFXInstanceDataBuffer.nstride(address()); }
-        /** @return the value of the {@link BGFXInstanceDataBuffer#handle} field. */
+        /** @return the value of the {@code handle} field. */
         @NativeType("bgfx_vertex_buffer_handle_t")
         public short handle() { return BGFXInstanceDataBuffer.nhandle(address()); }
 
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link BGFXInstanceDataBuffer#data} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code data} field. */
         public BGFXInstanceDataBuffer.Buffer data(@NativeType("uint8_t *") ByteBuffer value) { BGFXInstanceDataBuffer.ndata(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXInstanceDataBuffer#offset} field. */
+        /** Sets the specified value to the {@code offset} field. */
         public BGFXInstanceDataBuffer.Buffer offset(@NativeType("uint32_t") int value) { BGFXInstanceDataBuffer.noffset(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXInstanceDataBuffer#num} field. */
+        /** Sets the specified value to the {@code num} field. */
         public BGFXInstanceDataBuffer.Buffer num(@NativeType("uint32_t") int value) { BGFXInstanceDataBuffer.nnum(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXInstanceDataBuffer#stride} field. */
+        /** Sets the specified value to the {@code stride} field. */
         public BGFXInstanceDataBuffer.Buffer stride(@NativeType("uint16_t") short value) { BGFXInstanceDataBuffer.nstride(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXInstanceDataBuffer#handle} field. */
+        /** Sets the specified value to the {@code handle} field. */
         public BGFXInstanceDataBuffer.Buffer handle(@NativeType("bgfx_vertex_buffer_handle_t") short value) { BGFXInstanceDataBuffer.nhandle(address(), value); return this; }
 
     }

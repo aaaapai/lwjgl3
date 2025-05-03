@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,28 +17,24 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Motion event.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XMotionEvent {
- *     int {@link #type};
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
- *     Window {@link #root};
- *     Window {@link #subwindow};
- *     Time {@link #time};
- *     int {@link #x};
- *     int {@link #y};
- *     int {@link #x_root};
- *     int {@link #y_root};
- *     unsigned int {@link #state};
- *     char {@link #is_hint};
- *     Bool {@link #same_screen};
- * }</code></pre>
+ *     int type;
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
+ *     Window root;
+ *     Window subwindow;
+ *     Time time;
+ *     int x;
+ *     int y;
+ *     int x_root;
+ *     int y_root;
+ *     unsigned int state;
+ *     char is_hint;
+ *     Bool same_screen;
+ * }}</pre>
  */
 public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource {
 
@@ -127,76 +123,76 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the event type. Must be:<br><table><tr><td>{@link X11#MotionNotify}</td></tr></table> */
+    /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
-    /** root window that the event occurred on */
+    /** @return the value of the {@code root} field. */
     @NativeType("Window")
     public long root() { return nroot(address()); }
-    /** child window */
+    /** @return the value of the {@code subwindow} field. */
     @NativeType("Window")
     public long subwindow() { return nsubwindow(address()); }
-    /** milliseconds */
+    /** @return the value of the {@code time} field. */
     @NativeType("Time")
     public long time() { return ntime(address()); }
-    /** pointer x coordinate in event window */
+    /** @return the value of the {@code x} field. */
     public int x() { return nx(address()); }
-    /** pointer y coordinate in event window */
+    /** @return the value of the {@code y} field. */
     public int y() { return ny(address()); }
-    /** x coordinate relative to {@code root} */
+    /** @return the value of the {@code x_root} field. */
     public int x_root() { return nx_root(address()); }
-    /** y coordinate relative to {@code root} */
+    /** @return the value of the {@code y_root} field. */
     public int y_root() { return ny_root(address()); }
-    /** key or button mask */
+    /** @return the value of the {@code state} field. */
     @NativeType("unsigned int")
     public int state() { return nstate(address()); }
-    /** detail */
+    /** @return the value of the {@code is_hint} field. */
     @NativeType("char")
     public byte is_hint() { return nis_hint(address()); }
-    /** same screen flag */
+    /** @return the value of the {@code same_screen} field. */
     @NativeType("Bool")
     public boolean same_screen() { return nsame_screen(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XMotionEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XMotionEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XMotionEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XMotionEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XMotionEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
-    /** Sets the specified value to the {@link #root} field. */
+    /** Sets the specified value to the {@code root} field. */
     public XMotionEvent root(@NativeType("Window") long value) { nroot(address(), value); return this; }
-    /** Sets the specified value to the {@link #subwindow} field. */
+    /** Sets the specified value to the {@code subwindow} field. */
     public XMotionEvent subwindow(@NativeType("Window") long value) { nsubwindow(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XMotionEvent time(@NativeType("Time") long value) { ntime(address(), value); return this; }
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public XMotionEvent x(int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public XMotionEvent y(int value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #x_root} field. */
+    /** Sets the specified value to the {@code x_root} field. */
     public XMotionEvent x_root(int value) { nx_root(address(), value); return this; }
-    /** Sets the specified value to the {@link #y_root} field. */
+    /** Sets the specified value to the {@code y_root} field. */
     public XMotionEvent y_root(int value) { ny_root(address(), value); return this; }
-    /** Sets the specified value to the {@link #state} field. */
+    /** Sets the specified value to the {@code state} field. */
     public XMotionEvent state(@NativeType("unsigned int") int value) { nstate(address(), value); return this; }
-    /** Sets the specified value to the {@link #is_hint} field. */
+    /** Sets the specified value to the {@code is_hint} field. */
     public XMotionEvent is_hint(@NativeType("char") byte value) { nis_hint(address(), value); return this; }
-    /** Sets the specified value to the {@link #same_screen} field. */
+    /** Sets the specified value to the {@code same_screen} field. */
     public XMotionEvent same_screen(@NativeType("Bool") boolean value) { nsame_screen(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -272,8 +268,7 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XMotionEvent createSafe(long address) {
+    public static @Nullable XMotionEvent createSafe(long address) {
         return address == NULL ? null : new XMotionEvent(address, null);
     }
 
@@ -316,8 +311,7 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XMotionEvent.Buffer createSafe(long address, int capacity) {
+    public static XMotionEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -381,11 +375,11 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XMotionEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XMotionEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XMotionEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XMotionEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -397,26 +391,26 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
     /** Unsafe version of {@link #time}. */
     public static long ntime(long struct) { return memGetCLong(struct + XMotionEvent.TIME); }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.X); }
+    public static int nx(long struct) { return memGetInt(struct + XMotionEvent.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XMotionEvent.Y); }
     /** Unsafe version of {@link #x_root}. */
-    public static int nx_root(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.X_ROOT); }
+    public static int nx_root(long struct) { return memGetInt(struct + XMotionEvent.X_ROOT); }
     /** Unsafe version of {@link #y_root}. */
-    public static int ny_root(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.Y_ROOT); }
+    public static int ny_root(long struct) { return memGetInt(struct + XMotionEvent.Y_ROOT); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XMotionEvent.STATE); }
     /** Unsafe version of {@link #is_hint}. */
-    public static byte nis_hint(long struct) { return UNSAFE.getByte(null, struct + XMotionEvent.IS_HINT); }
+    public static byte nis_hint(long struct) { return memGetByte(struct + XMotionEvent.IS_HINT); }
     /** Unsafe version of {@link #same_screen}. */
-    public static int nsame_screen(long struct) { return UNSAFE.getInt(null, struct + XMotionEvent.SAME_SCREEN); }
+    public static int nsame_screen(long struct) { return memGetInt(struct + XMotionEvent.SAME_SCREEN); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XMotionEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XMotionEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XMotionEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XMotionEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -428,19 +422,19 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
     /** Unsafe version of {@link #time(long) time}. */
     public static void ntime(long struct, long value) { memPutCLong(struct + XMotionEvent.TIME, value); }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XMotionEvent.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XMotionEvent.Y, value); }
     /** Unsafe version of {@link #x_root(int) x_root}. */
-    public static void nx_root(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.X_ROOT, value); }
+    public static void nx_root(long struct, int value) { memPutInt(struct + XMotionEvent.X_ROOT, value); }
     /** Unsafe version of {@link #y_root(int) y_root}. */
-    public static void ny_root(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.Y_ROOT, value); }
+    public static void ny_root(long struct, int value) { memPutInt(struct + XMotionEvent.Y_ROOT, value); }
     /** Unsafe version of {@link #state(int) state}. */
-    public static void nstate(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.STATE, value); }
+    public static void nstate(long struct, int value) { memPutInt(struct + XMotionEvent.STATE, value); }
     /** Unsafe version of {@link #is_hint(byte) is_hint}. */
-    public static void nis_hint(long struct, byte value) { UNSAFE.putByte(null, struct + XMotionEvent.IS_HINT, value); }
+    public static void nis_hint(long struct, byte value) { memPutByte(struct + XMotionEvent.IS_HINT, value); }
     /** Unsafe version of {@link #same_screen(boolean) same_screen}. */
-    public static void nsame_screen(long struct, int value) { UNSAFE.putInt(null, struct + XMotionEvent.SAME_SCREEN, value); }
+    public static void nsame_screen(long struct, int value) { memPutInt(struct + XMotionEvent.SAME_SCREEN, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -485,80 +479,85 @@ public class XMotionEvent extends Struct<XMotionEvent> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XMotionEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XMotionEvent#type} field. */
+        /** @return the value of the {@code type} field. */
         public int type() { return XMotionEvent.ntype(address()); }
-        /** @return the value of the {@link XMotionEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XMotionEvent.nserial(address()); }
-        /** @return the value of the {@link XMotionEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XMotionEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XMotionEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XMotionEvent.ndisplay(address()); }
-        /** @return the value of the {@link XMotionEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XMotionEvent.nwindow(address()); }
-        /** @return the value of the {@link XMotionEvent#root} field. */
+        /** @return the value of the {@code root} field. */
         @NativeType("Window")
         public long root() { return XMotionEvent.nroot(address()); }
-        /** @return the value of the {@link XMotionEvent#subwindow} field. */
+        /** @return the value of the {@code subwindow} field. */
         @NativeType("Window")
         public long subwindow() { return XMotionEvent.nsubwindow(address()); }
-        /** @return the value of the {@link XMotionEvent#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("Time")
         public long time() { return XMotionEvent.ntime(address()); }
-        /** @return the value of the {@link XMotionEvent#x} field. */
+        /** @return the value of the {@code x} field. */
         public int x() { return XMotionEvent.nx(address()); }
-        /** @return the value of the {@link XMotionEvent#y} field. */
+        /** @return the value of the {@code y} field. */
         public int y() { return XMotionEvent.ny(address()); }
-        /** @return the value of the {@link XMotionEvent#x_root} field. */
+        /** @return the value of the {@code x_root} field. */
         public int x_root() { return XMotionEvent.nx_root(address()); }
-        /** @return the value of the {@link XMotionEvent#y_root} field. */
+        /** @return the value of the {@code y_root} field. */
         public int y_root() { return XMotionEvent.ny_root(address()); }
-        /** @return the value of the {@link XMotionEvent#state} field. */
+        /** @return the value of the {@code state} field. */
         @NativeType("unsigned int")
         public int state() { return XMotionEvent.nstate(address()); }
-        /** @return the value of the {@link XMotionEvent#is_hint} field. */
+        /** @return the value of the {@code is_hint} field. */
         @NativeType("char")
         public byte is_hint() { return XMotionEvent.nis_hint(address()); }
-        /** @return the value of the {@link XMotionEvent#same_screen} field. */
+        /** @return the value of the {@code same_screen} field. */
         @NativeType("Bool")
         public boolean same_screen() { return XMotionEvent.nsame_screen(address()) != 0; }
 
-        /** Sets the specified value to the {@link XMotionEvent#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XMotionEvent.Buffer type(int value) { XMotionEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XMotionEvent.Buffer serial(@NativeType("unsigned long") long value) { XMotionEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XMotionEvent.Buffer send_event(@NativeType("Bool") boolean value) { XMotionEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XMotionEvent.Buffer display(@NativeType("Display *") long value) { XMotionEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XMotionEvent.Buffer window(@NativeType("Window") long value) { XMotionEvent.nwindow(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#root} field. */
+        /** Sets the specified value to the {@code root} field. */
         public XMotionEvent.Buffer root(@NativeType("Window") long value) { XMotionEvent.nroot(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#subwindow} field. */
+        /** Sets the specified value to the {@code subwindow} field. */
         public XMotionEvent.Buffer subwindow(@NativeType("Window") long value) { XMotionEvent.nsubwindow(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XMotionEvent.Buffer time(@NativeType("Time") long value) { XMotionEvent.ntime(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public XMotionEvent.Buffer x(int value) { XMotionEvent.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public XMotionEvent.Buffer y(int value) { XMotionEvent.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#x_root} field. */
+        /** Sets the specified value to the {@code x_root} field. */
         public XMotionEvent.Buffer x_root(int value) { XMotionEvent.nx_root(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#y_root} field. */
+        /** Sets the specified value to the {@code y_root} field. */
         public XMotionEvent.Buffer y_root(int value) { XMotionEvent.ny_root(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#state} field. */
+        /** Sets the specified value to the {@code state} field. */
         public XMotionEvent.Buffer state(@NativeType("unsigned int") int value) { XMotionEvent.nstate(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#is_hint} field. */
+        /** Sets the specified value to the {@code is_hint} field. */
         public XMotionEvent.Buffer is_hint(@NativeType("char") byte value) { XMotionEvent.nis_hint(address(), value); return this; }
-        /** Sets the specified value to the {@link XMotionEvent#same_screen} field. */
+        /** Sets the specified value to the {@code same_screen} field. */
         public XMotionEvent.Buffer same_screen(@NativeType("Bool") boolean value) { XMotionEvent.nsame_screen(address(), value ? 1 : 0); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The memory usage of a CXTranslationUnit, broken into categories.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXTUResourceUsage {
- *     void * {@link #data};
- *     unsigned {@link #numEntries};
- *     {@link CXTUResourceUsageEntry CXTUResourceUsageEntry} * {@link #entries};
- * }</code></pre>
+ *     void * data;
+ *     unsigned numEntries;
+ *     {@link CXTUResourceUsageEntry CXTUResourceUsageEntry} * entries;
+ * }}</pre>
  */
 public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements NativeResource {
 
@@ -78,13 +74,13 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** private data member, used for queries */
+    /** @return the value of the {@code data} field. */
     @NativeType("void *")
     public long data() { return ndata(address()); }
-    /** the number of entries in the {@code entries} array. */
+    /** @return the value of the {@code numEntries} field. */
     @NativeType("unsigned")
     public int numEntries() { return nnumEntries(address()); }
-    /** an array of key-value pairs, representing the breakdown of memory usage */
+    /** @return a {@link CXTUResourceUsageEntry.Buffer} view of the struct array pointed to by the {@code entries} field. */
     @NativeType("CXTUResourceUsageEntry *")
     public CXTUResourceUsageEntry.Buffer entries() { return nentries(address()); }
 
@@ -112,8 +108,7 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXTUResourceUsage createSafe(long address) {
+    public static @Nullable CXTUResourceUsage createSafe(long address) {
         return address == NULL ? null : new CXTUResourceUsage(address, null);
     }
 
@@ -156,8 +151,7 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXTUResourceUsage.Buffer createSafe(long address, int capacity) {
+    public static CXTUResourceUsage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,7 +217,7 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
     /** Unsafe version of {@link #data}. */
     public static long ndata(long struct) { return memGetAddress(struct + CXTUResourceUsage.DATA); }
     /** Unsafe version of {@link #numEntries}. */
-    public static int nnumEntries(long struct) { return UNSAFE.getInt(null, struct + CXTUResourceUsage.NUMENTRIES); }
+    public static int nnumEntries(long struct) { return memGetInt(struct + CXTUResourceUsage.NUMENTRIES); }
     /** Unsafe version of {@link #entries}. */
     public static CXTUResourceUsageEntry.Buffer nentries(long struct) { return CXTUResourceUsageEntry.create(memGetAddress(struct + CXTUResourceUsage.ENTRIES), nnumEntries(struct)); }
 
@@ -261,17 +255,22 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CXTUResourceUsage getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CXTUResourceUsage#data} field. */
+        /** @return the value of the {@code data} field. */
         @NativeType("void *")
         public long data() { return CXTUResourceUsage.ndata(address()); }
-        /** @return the value of the {@link CXTUResourceUsage#numEntries} field. */
+        /** @return the value of the {@code numEntries} field. */
         @NativeType("unsigned")
         public int numEntries() { return CXTUResourceUsage.nnumEntries(address()); }
-        /** @return a {@link CXTUResourceUsageEntry.Buffer} view of the struct array pointed to by the {@link CXTUResourceUsage#entries} field. */
+        /** @return a {@link CXTUResourceUsageEntry.Buffer} view of the struct array pointed to by the {@code entries} field. */
         @NativeType("CXTUResourceUsageEntry *")
         public CXTUResourceUsageEntry.Buffer entries() { return CXTUResourceUsage.nentries(address()); }
 

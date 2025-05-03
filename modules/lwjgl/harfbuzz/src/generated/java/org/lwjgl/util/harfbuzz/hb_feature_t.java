@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The structure that holds information about requested feature application.
- * 
- * <p>The feature will be applied with the given value to all  glyphs which are in clusters between start (inclusive) and end (exclusive). Setting start to
- * {@link HarfBuzz#HB_FEATURE_GLOBAL_START FEATURE_GLOBAL_START} and end to {@link HarfBuzz#HB_FEATURE_GLOBAL_END FEATURE_GLOBAL_END} specifies that the feature always applies to the entire buffer.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_feature_t {
- *     hb_tag_t {@link #tag};
- *     uint32_t {@link #value};
- *     unsigned int {@link #start};
- *     unsigned int {@link #end};
- * }</code></pre>
+ *     hb_tag_t tag;
+ *     uint32_t value;
+ *     unsigned int start;
+ *     unsigned int end;
+ * }}</pre>
  */
 public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource {
 
@@ -85,31 +78,26 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code hb_tag_t} tag of the feature */
+    /** @return the value of the {@code tag} field. */
     @NativeType("hb_tag_t")
     public int tag() { return ntag(address()); }
-    /**
-     * The value of the feature.
-     * 
-     * <p>0 disables the feature, non-zero (usually 1) enables the feature. For features implemented as lookup type 3 (like 'salt') the value is a one based
-     * index into the alternates.</p>
-     */
+    /** @return the value of the {@code value} field. */
     @NativeType("uint32_t")
     public int value() { return nvalue(address()); }
-    /** the cluster to start applying this feature setting (inclusive) */
+    /** @return the value of the {@code start} field. */
     @NativeType("unsigned int")
     public int start() { return nstart(address()); }
-    /** the cluster to end applying this feature setting (exclusive). */
+    /** @return the value of the {@code end} field. */
     @NativeType("unsigned int")
     public int end() { return nend(address()); }
 
-    /** Sets the specified value to the {@link #tag} field. */
+    /** Sets the specified value to the {@code tag} field. */
     public hb_feature_t tag(@NativeType("hb_tag_t") int value) { ntag(address(), value); return this; }
-    /** Sets the specified value to the {@link #value} field. */
+    /** Sets the specified value to the {@code value} field. */
     public hb_feature_t value(@NativeType("uint32_t") int value) { nvalue(address(), value); return this; }
-    /** Sets the specified value to the {@link #start} field. */
+    /** Sets the specified value to the {@code start} field. */
     public hb_feature_t start(@NativeType("unsigned int") int value) { nstart(address(), value); return this; }
-    /** Sets the specified value to the {@link #end} field. */
+    /** Sets the specified value to the {@code end} field. */
     public hb_feature_t end(@NativeType("unsigned int") int value) { nend(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +151,7 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_feature_t createSafe(long address) {
+    public static @Nullable hb_feature_t createSafe(long address) {
         return address == NULL ? null : new hb_feature_t(address, null);
     }
 
@@ -207,8 +194,7 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_feature_t.Buffer createSafe(long address, int capacity) {
+    public static hb_feature_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,22 +239,22 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #tag}. */
-    public static int ntag(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.TAG); }
+    public static int ntag(long struct) { return memGetInt(struct + hb_feature_t.TAG); }
     /** Unsafe version of {@link #value}. */
-    public static int nvalue(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.VALUE); }
+    public static int nvalue(long struct) { return memGetInt(struct + hb_feature_t.VALUE); }
     /** Unsafe version of {@link #start}. */
-    public static int nstart(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.START); }
+    public static int nstart(long struct) { return memGetInt(struct + hb_feature_t.START); }
     /** Unsafe version of {@link #end}. */
-    public static int nend(long struct) { return UNSAFE.getInt(null, struct + hb_feature_t.END); }
+    public static int nend(long struct) { return memGetInt(struct + hb_feature_t.END); }
 
     /** Unsafe version of {@link #tag(int) tag}. */
-    public static void ntag(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.TAG, value); }
+    public static void ntag(long struct, int value) { memPutInt(struct + hb_feature_t.TAG, value); }
     /** Unsafe version of {@link #value(int) value}. */
-    public static void nvalue(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.VALUE, value); }
+    public static void nvalue(long struct, int value) { memPutInt(struct + hb_feature_t.VALUE, value); }
     /** Unsafe version of {@link #start(int) start}. */
-    public static void nstart(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.START, value); }
+    public static void nstart(long struct, int value) { memPutInt(struct + hb_feature_t.START, value); }
     /** Unsafe version of {@link #end(int) end}. */
-    public static void nend(long struct, int value) { UNSAFE.putInt(null, struct + hb_feature_t.END, value); }
+    public static void nend(long struct, int value) { memPutInt(struct + hb_feature_t.END, value); }
 
     // -----------------------------------
 
@@ -304,30 +290,35 @@ public class hb_feature_t extends Struct<hb_feature_t> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_feature_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_feature_t#tag} field. */
+        /** @return the value of the {@code tag} field. */
         @NativeType("hb_tag_t")
         public int tag() { return hb_feature_t.ntag(address()); }
-        /** @return the value of the {@link hb_feature_t#value} field. */
+        /** @return the value of the {@code value} field. */
         @NativeType("uint32_t")
         public int value() { return hb_feature_t.nvalue(address()); }
-        /** @return the value of the {@link hb_feature_t#start} field. */
+        /** @return the value of the {@code start} field. */
         @NativeType("unsigned int")
         public int start() { return hb_feature_t.nstart(address()); }
-        /** @return the value of the {@link hb_feature_t#end} field. */
+        /** @return the value of the {@code end} field. */
         @NativeType("unsigned int")
         public int end() { return hb_feature_t.nend(address()); }
 
-        /** Sets the specified value to the {@link hb_feature_t#tag} field. */
+        /** Sets the specified value to the {@code tag} field. */
         public hb_feature_t.Buffer tag(@NativeType("hb_tag_t") int value) { hb_feature_t.ntag(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_feature_t#value} field. */
+        /** Sets the specified value to the {@code value} field. */
         public hb_feature_t.Buffer value(@NativeType("uint32_t") int value) { hb_feature_t.nvalue(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_feature_t#start} field. */
+        /** Sets the specified value to the {@code start} field. */
         public hb_feature_t.Buffer start(@NativeType("unsigned int") int value) { hb_feature_t.nstart(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_feature_t#end} field. */
+        /** Sets the specified value to the {@code end} field. */
         public hb_feature_t.Buffer end(@NativeType("unsigned int") int value) { hb_feature_t.nend(address(), value); return this; }
 
     }

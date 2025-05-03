@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,30 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the plane retrieval information.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTPlaneDetection XR_EXT_plane_detection} extension <b>must</b> be enabled prior to using {@link XrPlaneDetectorGetInfoEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT TYPE_PLANE_DETECTOR_GET_INFO_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTPlaneDetection#xrGetPlaneDetectionsEXT GetPlaneDetectionsEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPlaneDetectorGetInfoEXT {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpace {@link #baseSpace};
- *     XrTime {@link #time};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpace baseSpace;
+ *     XrTime time;
+ * }}</pre>
  */
 public class XrPlaneDetectorGetInfoEXT extends Struct<XrPlaneDetectorGetInfoEXT> implements NativeResource {
 
@@ -96,28 +79,28 @@ public class XrPlaneDetectorGetInfoEXT extends Struct<XrPlaneDetectorGetInfoEXT>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the plane pose will be relative to this {@code XrSpace} at {@code time}. */
+    /** @return the value of the {@code baseSpace} field. */
     @NativeType("XrSpace")
     public long baseSpace() { return nbaseSpace(address()); }
-    /** the {@code XrTime} at which to evaluate the coordinates relative to the {@code baseSpace}. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrPlaneDetectorGetInfoEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT TYPE_PLANE_DETECTOR_GET_INFO_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT TYPE_PLANE_DETECTOR_GET_INFO_EXT} value to the {@code type} field. */
     public XrPlaneDetectorGetInfoEXT type$Default() { return type(EXTPlaneDetection.XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrPlaneDetectorGetInfoEXT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #baseSpace} field. */
+    /** Sets the specified value to the {@code baseSpace} field. */
     public XrPlaneDetectorGetInfoEXT baseSpace(XrSpace value) { nbaseSpace(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XrPlaneDetectorGetInfoEXT time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -171,8 +154,7 @@ public class XrPlaneDetectorGetInfoEXT extends Struct<XrPlaneDetectorGetInfoEXT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPlaneDetectorGetInfoEXT createSafe(long address) {
+    public static @Nullable XrPlaneDetectorGetInfoEXT createSafe(long address) {
         return address == NULL ? null : new XrPlaneDetectorGetInfoEXT(address, null);
     }
 
@@ -215,8 +197,7 @@ public class XrPlaneDetectorGetInfoEXT extends Struct<XrPlaneDetectorGetInfoEXT>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPlaneDetectorGetInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static XrPlaneDetectorGetInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +242,22 @@ public class XrPlaneDetectorGetInfoEXT extends Struct<XrPlaneDetectorGetInfoEXT>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPlaneDetectorGetInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPlaneDetectorGetInfoEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPlaneDetectorGetInfoEXT.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrPlaneDetectorGetInfoEXT.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrPlaneDetectorGetInfoEXT.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrPlaneDetectorGetInfoEXT.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPlaneDetectorGetInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPlaneDetectorGetInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPlaneDetectorGetInfoEXT.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrPlaneDetectorGetInfoEXT.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrPlaneDetectorGetInfoEXT.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrPlaneDetectorGetInfoEXT.TIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -321,32 +302,37 @@ public class XrPlaneDetectorGetInfoEXT extends Struct<XrPlaneDetectorGetInfoEXT>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPlaneDetectorGetInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrPlaneDetectorGetInfoEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrPlaneDetectorGetInfoEXT.ntype(address()); }
-        /** @return the value of the {@link XrPlaneDetectorGetInfoEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrPlaneDetectorGetInfoEXT.nnext(address()); }
-        /** @return the value of the {@link XrPlaneDetectorGetInfoEXT#baseSpace} field. */
+        /** @return the value of the {@code baseSpace} field. */
         @NativeType("XrSpace")
         public long baseSpace() { return XrPlaneDetectorGetInfoEXT.nbaseSpace(address()); }
-        /** @return the value of the {@link XrPlaneDetectorGetInfoEXT#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrPlaneDetectorGetInfoEXT.ntime(address()); }
 
-        /** Sets the specified value to the {@link XrPlaneDetectorGetInfoEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrPlaneDetectorGetInfoEXT.Buffer type(@NativeType("XrStructureType") int value) { XrPlaneDetectorGetInfoEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT TYPE_PLANE_DETECTOR_GET_INFO_EXT} value to the {@link XrPlaneDetectorGetInfoEXT#type} field. */
+        /** Sets the {@link EXTPlaneDetection#XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT TYPE_PLANE_DETECTOR_GET_INFO_EXT} value to the {@code type} field. */
         public XrPlaneDetectorGetInfoEXT.Buffer type$Default() { return type(EXTPlaneDetection.XR_TYPE_PLANE_DETECTOR_GET_INFO_EXT); }
-        /** Sets the specified value to the {@link XrPlaneDetectorGetInfoEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrPlaneDetectorGetInfoEXT.Buffer next(@NativeType("void const *") long value) { XrPlaneDetectorGetInfoEXT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPlaneDetectorGetInfoEXT#baseSpace} field. */
+        /** Sets the specified value to the {@code baseSpace} field. */
         public XrPlaneDetectorGetInfoEXT.Buffer baseSpace(XrSpace value) { XrPlaneDetectorGetInfoEXT.nbaseSpace(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPlaneDetectorGetInfoEXT#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XrPlaneDetectorGetInfoEXT.Buffer time(@NativeType("XrTime") long value) { XrPlaneDetectorGetInfoEXT.ntime(address(), value); return this; }
 
     }

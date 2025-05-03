@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,11 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkBindImageMemoryDeviceGroupInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBindImageMemoryDeviceGroupInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
@@ -29,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t const * pDeviceIndices;
  *     uint32_t splitInstanceBindRegionCount;
  *     {@link VkRect2D VkRect2D} const * pSplitInstanceBindRegions;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDeviceGroupInfo {
 
@@ -66,7 +62,7 @@ public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDevice
     public VkBindImageMemoryDeviceGroupInfoKHR pDeviceIndices(@Nullable @NativeType("uint32_t const *") IntBuffer value) { npDeviceIndices(address(), value); return this; }
     /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@code pSplitInstanceBindRegions} field. */
     @Override
-    public VkBindImageMemoryDeviceGroupInfoKHR pSplitInstanceBindRegions(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { npSplitInstanceBindRegions(address(), value); return this; }
+    public VkBindImageMemoryDeviceGroupInfoKHR pSplitInstanceBindRegions(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { npSplitInstanceBindRegions(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     @Override
@@ -74,7 +70,7 @@ public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDevice
         int sType,
         long pNext,
         @Nullable IntBuffer pDeviceIndices,
-        @Nullable VkRect2D.Buffer pSplitInstanceBindRegions
+        VkRect2D.@Nullable Buffer pSplitInstanceBindRegions
     ) {
         sType(sType);
         pNext(pNext);
@@ -120,8 +116,7 @@ public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDevice
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemoryDeviceGroupInfoKHR createSafe(long address) {
+    public static @Nullable VkBindImageMemoryDeviceGroupInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkBindImageMemoryDeviceGroupInfoKHR(address, null);
     }
 
@@ -164,8 +159,7 @@ public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDevice
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemoryDeviceGroupInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkBindImageMemoryDeviceGroupInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,6 +254,11 @@ public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDevice
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBindImageMemoryDeviceGroupInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -278,7 +277,7 @@ public class VkBindImageMemoryDeviceGroupInfoKHR extends VkBindImageMemoryDevice
         public VkBindImageMemoryDeviceGroupInfoKHR.Buffer pDeviceIndices(@Nullable @NativeType("uint32_t const *") IntBuffer value) { VkBindImageMemoryDeviceGroupInfoKHR.npDeviceIndices(address(), value); return this; }
         /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@code pSplitInstanceBindRegions} field. */
         @Override
-        public VkBindImageMemoryDeviceGroupInfoKHR.Buffer pSplitInstanceBindRegions(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { VkBindImageMemoryDeviceGroupInfoKHR.npSplitInstanceBindRegions(address(), value); return this; }
+        public VkBindImageMemoryDeviceGroupInfoKHR.Buffer pSplitInstanceBindRegions(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { VkBindImageMemoryDeviceGroupInfoKHR.npSplitInstanceBindRegions(address(), value); return this; }
 
     }
 

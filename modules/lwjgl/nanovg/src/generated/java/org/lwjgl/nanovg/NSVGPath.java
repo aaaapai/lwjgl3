@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,16 +15,14 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct NSVGpath {
- *     float * {@link #pts};
- *     int {@link #npts};
- *     char {@link #closed};
- *     float {@link #bounds}[4];
- *     {@link NSVGPath NSVGpath} * {@link #next};
- * }</code></pre>
+ *     float * pts;
+ *     int npts;
+ *     char closed;
+ *     float bounds[4];
+ *     {@link NSVGPath NSVGpath} * next;
+ * }}</pre>
  */
 @NativeType("struct NSVGpath")
 public class NSVGPath extends Struct<NSVGPath> {
@@ -84,20 +82,20 @@ public class NSVGPath extends Struct<NSVGPath> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** cubic bezier points: {@code x0,y0, [cpx1,cpx1,cpx2,cpy2,x1,y1], ...} */
+    /** @return a {@link FloatBuffer} view of the data pointed to by the {@code pts} field. */
     @NativeType("float *")
     public FloatBuffer pts() { return npts(address()); }
-    /** total number of bezier points */
+    /** @return the value of the {@code npts} field. */
     public int npts() { return nnpts(address()); }
-    /** flag indicating if shapes should be treated as closed */
+    /** @return the value of the {@code closed} field. */
     @NativeType("char")
     public byte closed() { return nclosed(address()); }
-    /** tight bounding box of the shape {@code [minx,miny,maxx,maxy]} */
+    /** @return a {@link FloatBuffer} view of the {@code bounds} field. */
     @NativeType("float[4]")
     public FloatBuffer bounds() { return nbounds(address()); }
-    /** tight bounding box of the shape {@code [minx,miny,maxx,maxy]} */
+    /** @return the value at the specified index of the {@code bounds} field. */
     public float bounds(int index) { return nbounds(address(), index); }
-    /** pointer to next path, or {@code NULL} if last element */
+    /** @return a {@link NSVGPath} view of the struct pointed to by the {@code next} field. */
     @NativeType("NSVGpath *")
     public NSVGPath next() { return nnext(address()); }
 
@@ -109,8 +107,7 @@ public class NSVGPath extends Struct<NSVGPath> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGPath createSafe(long address) {
+    public static @Nullable NSVGPath createSafe(long address) {
         return address == NULL ? null : new NSVGPath(address, null);
     }
 
@@ -125,8 +122,7 @@ public class NSVGPath extends Struct<NSVGPath> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NSVGPath.Buffer createSafe(long address, int capacity) {
+    public static NSVGPath.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -135,14 +131,14 @@ public class NSVGPath extends Struct<NSVGPath> {
     /** Unsafe version of {@link #pts() pts}. */
     public static FloatBuffer npts(long struct) { return memFloatBuffer(memGetAddress(struct + NSVGPath.PTS), (nnpts(struct) << 1)); }
     /** Unsafe version of {@link #npts}. */
-    public static int nnpts(long struct) { return UNSAFE.getInt(null, struct + NSVGPath.NPTS); }
+    public static int nnpts(long struct) { return memGetInt(struct + NSVGPath.NPTS); }
     /** Unsafe version of {@link #closed}. */
-    public static byte nclosed(long struct) { return UNSAFE.getByte(null, struct + NSVGPath.CLOSED); }
+    public static byte nclosed(long struct) { return memGetByte(struct + NSVGPath.CLOSED); }
     /** Unsafe version of {@link #bounds}. */
     public static FloatBuffer nbounds(long struct) { return memFloatBuffer(struct + NSVGPath.BOUNDS, 4); }
     /** Unsafe version of {@link #bounds(int) bounds}. */
     public static float nbounds(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + NSVGPath.BOUNDS + check(index, 4) * 4);
+        return memGetFloat(struct + NSVGPath.BOUNDS + check(index, 4) * 4);
     }
     /** Unsafe version of {@link #next}. */
     public static NSVGPath nnext(long struct) { return NSVGPath.create(memGetAddress(struct + NSVGPath.NEXT)); }
@@ -181,24 +177,29 @@ public class NSVGPath extends Struct<NSVGPath> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NSVGPath getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link FloatBuffer} view of the data pointed to by the {@link NSVGPath#pts} field. */
+        /** @return a {@link FloatBuffer} view of the data pointed to by the {@code pts} field. */
         @NativeType("float *")
         public FloatBuffer pts() { return NSVGPath.npts(address()); }
-        /** @return the value of the {@link NSVGPath#npts} field. */
+        /** @return the value of the {@code npts} field. */
         public int npts() { return NSVGPath.nnpts(address()); }
-        /** @return the value of the {@link NSVGPath#closed} field. */
+        /** @return the value of the {@code closed} field. */
         @NativeType("char")
         public byte closed() { return NSVGPath.nclosed(address()); }
-        /** @return a {@link FloatBuffer} view of the {@link NSVGPath#bounds} field. */
+        /** @return a {@link FloatBuffer} view of the {@code bounds} field. */
         @NativeType("float[4]")
         public FloatBuffer bounds() { return NSVGPath.nbounds(address()); }
-        /** @return the value at the specified index of the {@link NSVGPath#bounds} field. */
+        /** @return the value at the specified index of the {@code bounds} field. */
         public float bounds(int index) { return NSVGPath.nbounds(address(), index); }
-        /** @return a {@link NSVGPath} view of the struct pointed to by the {@link NSVGPath#next} field. */
+        /** @return a {@link NSVGPath} view of the struct pointed to by the {@code next} field. */
         @NativeType("NSVGpath *")
         public NSVGPath next() { return NSVGPath.nnext(address()); }
 

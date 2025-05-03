@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,34 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing sample location limits that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceSampleLocationsPropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkSampleCountFlags {@link #sampleLocationSampleCounts};
- *     {@link VkExtent2D VkExtent2D} {@link #maxSampleLocationGridSize};
- *     float {@link #sampleLocationCoordinateRange}[2];
- *     uint32_t {@link #sampleLocationSubPixelBits};
- *     VkBool32 {@link #variableSampleLocations};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkSampleCountFlags sampleLocationSampleCounts;
+ *     {@link VkExtent2D VkExtent2D} maxSampleLocationGridSize;
+ *     float sampleLocationCoordinateRange[2];
+ *     uint32_t sampleLocationSubPixelBits;
+ *     VkBool32 variableSampleLocations;
+ * }}</pre>
  */
 public class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Struct<VkPhysicalDeviceSampleLocationsPropertiesEXT> implements NativeResource {
 
@@ -109,34 +91,34 @@ public class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkSampleCountFlagBits} indicating the sample counts supporting custom sample locations. */
+    /** @return the value of the {@code sampleLocationSampleCounts} field. */
     @NativeType("VkSampleCountFlags")
     public int sampleLocationSampleCounts() { return nsampleLocationSampleCounts(address()); }
-    /** the maximum size of the pixel grid in which sample locations <b>can</b> vary that is supported for all sample counts in {@code sampleLocationSampleCounts}. */
+    /** @return a {@link VkExtent2D} view of the {@code maxSampleLocationGridSize} field. */
     public VkExtent2D maxSampleLocationGridSize() { return nmaxSampleLocationGridSize(address()); }
-    /** the range of supported sample location coordinates. */
+    /** @return a {@link FloatBuffer} view of the {@code sampleLocationCoordinateRange} field. */
     @NativeType("float[2]")
     public FloatBuffer sampleLocationCoordinateRange() { return nsampleLocationCoordinateRange(address()); }
-    /** the range of supported sample location coordinates. */
+    /** @return the value at the specified index of the {@code sampleLocationCoordinateRange} field. */
     public float sampleLocationCoordinateRange(int index) { return nsampleLocationCoordinateRange(address(), index); }
-    /** the number of bits of subpixel precision for sample locations. */
+    /** @return the value of the {@code sampleLocationSubPixelBits} field. */
     @NativeType("uint32_t")
     public int sampleLocationSubPixelBits() { return nsampleLocationSubPixelBits(address()); }
-    /** specifies whether the sample locations used by all pipelines that will be bound to a command buffer during a subpass <b>must</b> match. If set to {@link VK10#VK_TRUE TRUE}, the implementation supports variable sample locations in a subpass. If set to {@link VK10#VK_FALSE FALSE}, then the sample locations <b>must</b> stay constant in each subpass. */
+    /** @return the value of the {@code variableSampleLocations} field. */
     @NativeType("VkBool32")
     public boolean variableSampleLocations() { return nvariableSampleLocations(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceSampleLocationsPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceSampleLocationsPropertiesEXT sType$Default() { return sType(EXTSampleLocations.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceSampleLocationsPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -186,8 +168,7 @@ public class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSampleLocationsPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSampleLocationsPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSampleLocationsPropertiesEXT(address, null);
     }
 
@@ -230,8 +211,7 @@ public class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSampleLocationsPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSampleLocationsPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,26 +275,26 @@ public class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #sampleLocationSampleCounts}. */
-    public static int nsampleLocationSampleCounts(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONSAMPLECOUNTS); }
+    public static int nsampleLocationSampleCounts(long struct) { return memGetInt(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONSAMPLECOUNTS); }
     /** Unsafe version of {@link #maxSampleLocationGridSize}. */
     public static VkExtent2D nmaxSampleLocationGridSize(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.MAXSAMPLELOCATIONGRIDSIZE); }
     /** Unsafe version of {@link #sampleLocationCoordinateRange}. */
     public static FloatBuffer nsampleLocationCoordinateRange(long struct) { return memFloatBuffer(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONCOORDINATERANGE, 2); }
     /** Unsafe version of {@link #sampleLocationCoordinateRange(int) sampleLocationCoordinateRange}. */
     public static float nsampleLocationCoordinateRange(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONCOORDINATERANGE + check(index, 2) * 4);
+        return memGetFloat(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONCOORDINATERANGE + check(index, 2) * 4);
     }
     /** Unsafe version of {@link #sampleLocationSubPixelBits}. */
-    public static int nsampleLocationSubPixelBits(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONSUBPIXELBITS); }
+    public static int nsampleLocationSubPixelBits(long struct) { return memGetInt(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.SAMPLELOCATIONSUBPIXELBITS); }
     /** Unsafe version of {@link #variableSampleLocations}. */
-    public static int nvariableSampleLocations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.VARIABLESAMPLELOCATIONS); }
+    public static int nvariableSampleLocations(long struct) { return memGetInt(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.VARIABLESAMPLELOCATIONS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSampleLocationsPropertiesEXT.PNEXT, value); }
 
@@ -352,38 +332,43 @@ public class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceSampleLocationsPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sampleLocationSampleCounts} field. */
+        /** @return the value of the {@code sampleLocationSampleCounts} field. */
         @NativeType("VkSampleCountFlags")
         public int sampleLocationSampleCounts() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nsampleLocationSampleCounts(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#maxSampleLocationGridSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code maxSampleLocationGridSize} field. */
         public VkExtent2D maxSampleLocationGridSize() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nmaxSampleLocationGridSize(address()); }
-        /** @return a {@link FloatBuffer} view of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sampleLocationCoordinateRange} field. */
+        /** @return a {@link FloatBuffer} view of the {@code sampleLocationCoordinateRange} field. */
         @NativeType("float[2]")
         public FloatBuffer sampleLocationCoordinateRange() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nsampleLocationCoordinateRange(address()); }
-        /** @return the value at the specified index of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sampleLocationCoordinateRange} field. */
+        /** @return the value at the specified index of the {@code sampleLocationCoordinateRange} field. */
         public float sampleLocationCoordinateRange(int index) { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nsampleLocationCoordinateRange(address(), index); }
-        /** @return the value of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sampleLocationSubPixelBits} field. */
+        /** @return the value of the {@code sampleLocationSubPixelBits} field. */
         @NativeType("uint32_t")
         public int sampleLocationSubPixelBits() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nsampleLocationSubPixelBits(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#variableSampleLocations} field. */
+        /** @return the value of the {@code variableSampleLocations} field. */
         @NativeType("VkBool32")
         public boolean variableSampleLocations() { return VkPhysicalDeviceSampleLocationsPropertiesEXT.nvariableSampleLocations(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceSampleLocationsPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceSampleLocationsPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT} value to the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#sType} field. */
+        /** Sets the {@link EXTSampleLocations#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceSampleLocationsPropertiesEXT.Buffer sType$Default() { return sType(EXTSampleLocations.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceSampleLocationsPropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceSampleLocationsPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceSampleLocationsPropertiesEXT.npNext(address(), value); return this; }
 
     }

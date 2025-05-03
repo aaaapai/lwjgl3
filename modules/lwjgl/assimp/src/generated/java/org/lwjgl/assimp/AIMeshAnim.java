@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes vertex-based animations for a single mesh or a group of meshes. Meshes carry the animation data for each frame in their
- * {@link AIMesh}{@code ::mAnimMeshes} array. The purpose of {@code aiMeshAnim} is to define keyframes linking each mesh attachment to a particular point in
- * time.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiMeshAnim {
- *     {@link AIString struct aiString} {@link #mName};
- *     unsigned int {@link #mNumKeys};
- *     {@link AIMeshKey struct aiMeshKey} * {@link #mKeys};
- * }</code></pre>
+ *     {@link AIString struct aiString} mName;
+ *     unsigned int mNumKeys;
+ *     {@link AIMeshKey struct aiMeshKey} * mKeys;
+ * }}</pre>
  */
 @NativeType("struct aiMeshAnim")
 public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
@@ -82,24 +76,21 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * Name of the mesh to be animated. An empty string is not allowed, animated meshes need to be named (not necessarily uniquely, the name can basically
-     * serve as wildcard to select a group of meshes with similar animation setup)
-     */
+    /** @return a {@link AIString} view of the {@code mName} field. */
     @NativeType("struct aiString")
     public AIString mName() { return nmName(address()); }
-    /** Size of the {@code mKeys} array. Must be 1, at least. */
+    /** @return the value of the {@code mNumKeys} field. */
     @NativeType("unsigned int")
     public int mNumKeys() { return nmNumKeys(address()); }
-    /** Key frames of the animation. May not be {@code NULL}. */
+    /** @return a {@link AIMeshKey.Buffer} view of the struct array pointed to by the {@code mKeys} field. */
     @NativeType("struct aiMeshKey *")
     public AIMeshKey.Buffer mKeys() { return nmKeys(address()); }
 
-    /** Copies the specified {@link AIString} to the {@link #mName} field. */
+    /** Copies the specified {@link AIString} to the {@code mName} field. */
     public AIMeshAnim mName(@NativeType("struct aiString") AIString value) { nmName(address(), value); return this; }
-    /** Passes the {@link #mName} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code mName} field to the specified {@link java.util.function.Consumer Consumer}. */
     public AIMeshAnim mName(java.util.function.Consumer<AIString> consumer) { consumer.accept(mName()); return this; }
-    /** Sets the address of the specified {@link AIMeshKey.Buffer} to the {@link #mKeys} field. */
+    /** Sets the address of the specified {@link AIMeshKey.Buffer} to the {@code mKeys} field. */
     public AIMeshAnim mKeys(@NativeType("struct aiMeshKey *") AIMeshKey.Buffer value) { nmKeys(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -149,8 +140,7 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshAnim createSafe(long address) {
+    public static @Nullable AIMeshAnim createSafe(long address) {
         return address == NULL ? null : new AIMeshAnim(address, null);
     }
 
@@ -193,8 +183,7 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMeshAnim.Buffer createSafe(long address, int capacity) {
+    public static AIMeshAnim.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,14 +249,14 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
     /** Unsafe version of {@link #mName}. */
     public static AIString nmName(long struct) { return AIString.create(struct + AIMeshAnim.MNAME); }
     /** Unsafe version of {@link #mNumKeys}. */
-    public static int nmNumKeys(long struct) { return UNSAFE.getInt(null, struct + AIMeshAnim.MNUMKEYS); }
+    public static int nmNumKeys(long struct) { return memGetInt(struct + AIMeshAnim.MNUMKEYS); }
     /** Unsafe version of {@link #mKeys}. */
     public static AIMeshKey.Buffer nmKeys(long struct) { return AIMeshKey.create(memGetAddress(struct + AIMeshAnim.MKEYS), nmNumKeys(struct)); }
 
     /** Unsafe version of {@link #mName(AIString) mName}. */
     public static void nmName(long struct, AIString value) { memCopy(value.address(), struct + AIMeshAnim.MNAME, AIString.SIZEOF); }
     /** Sets the specified value to the {@code mNumKeys} field of the specified {@code struct}. */
-    public static void nmNumKeys(long struct, int value) { UNSAFE.putInt(null, struct + AIMeshAnim.MNUMKEYS, value); }
+    public static void nmNumKeys(long struct, int value) { memPutInt(struct + AIMeshAnim.MNUMKEYS, value); }
     /** Unsafe version of {@link #mKeys(AIMeshKey.Buffer) mKeys}. */
     public static void nmKeys(long struct, AIMeshKey.Buffer value) { memPutAddress(struct + AIMeshAnim.MKEYS, value.address()); nmNumKeys(struct, value.remaining()); }
 
@@ -314,25 +303,30 @@ public class AIMeshAnim extends Struct<AIMeshAnim> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIMeshAnim getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link AIString} view of the {@link AIMeshAnim#mName} field. */
+        /** @return a {@link AIString} view of the {@code mName} field. */
         @NativeType("struct aiString")
         public AIString mName() { return AIMeshAnim.nmName(address()); }
-        /** @return the value of the {@link AIMeshAnim#mNumKeys} field. */
+        /** @return the value of the {@code mNumKeys} field. */
         @NativeType("unsigned int")
         public int mNumKeys() { return AIMeshAnim.nmNumKeys(address()); }
-        /** @return a {@link AIMeshKey.Buffer} view of the struct array pointed to by the {@link AIMeshAnim#mKeys} field. */
+        /** @return a {@link AIMeshKey.Buffer} view of the struct array pointed to by the {@code mKeys} field. */
         @NativeType("struct aiMeshKey *")
         public AIMeshKey.Buffer mKeys() { return AIMeshAnim.nmKeys(address()); }
 
-        /** Copies the specified {@link AIString} to the {@link AIMeshAnim#mName} field. */
+        /** Copies the specified {@link AIString} to the {@code mName} field. */
         public AIMeshAnim.Buffer mName(@NativeType("struct aiString") AIString value) { AIMeshAnim.nmName(address(), value); return this; }
-        /** Passes the {@link AIMeshAnim#mName} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code mName} field to the specified {@link java.util.function.Consumer Consumer}. */
         public AIMeshAnim.Buffer mName(java.util.function.Consumer<AIString> consumer) { consumer.accept(mName()); return this; }
-        /** Sets the address of the specified {@link AIMeshKey.Buffer} to the {@link AIMeshAnim#mKeys} field. */
+        /** Sets the address of the specified {@link AIMeshKey.Buffer} to the {@code mKeys} field. */
         public AIMeshAnim.Buffer mKeys(@NativeType("struct aiMeshKey *") AIMeshKey.Buffer value) { AIMeshAnim.nmKeys(address(), value); return this; }
 
     }

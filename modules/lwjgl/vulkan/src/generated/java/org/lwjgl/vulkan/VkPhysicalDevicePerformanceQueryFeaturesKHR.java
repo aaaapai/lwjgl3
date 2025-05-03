@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing performance query support for an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDevicePerformanceQueryFeaturesKHR} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDevicePerformanceQueryFeaturesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #performanceCounterQueryPools};
- *     VkBool32 {@link #performanceCounterMultipleQueryPools};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 performanceCounterQueryPools;
+ *     VkBool32 performanceCounterMultipleQueryPools;
+ * }}</pre>
  */
 public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysicalDevicePerformanceQueryFeaturesKHR> implements NativeResource {
 
@@ -92,28 +78,28 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports performance counter query pools. */
+    /** @return the value of the {@code performanceCounterQueryPools} field. */
     @NativeType("VkBool32")
     public boolean performanceCounterQueryPools() { return nperformanceCounterQueryPools(address()) != 0; }
-    /** indicates whether the implementation supports using multiple performance query pools in a primary command buffer and secondary command buffers executed within it. */
+    /** @return the value of the {@code performanceCounterMultipleQueryPools} field. */
     @NativeType("VkBool32")
     public boolean performanceCounterMultipleQueryPools() { return nperformanceCounterMultipleQueryPools(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDevicePerformanceQueryFeaturesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR} value to the {@code sType} field. */
     public VkPhysicalDevicePerformanceQueryFeaturesKHR sType$Default() { return sType(KHRPerformanceQuery.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDevicePerformanceQueryFeaturesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #performanceCounterQueryPools} field. */
+    /** Sets the specified value to the {@code performanceCounterQueryPools} field. */
     public VkPhysicalDevicePerformanceQueryFeaturesKHR performanceCounterQueryPools(@NativeType("VkBool32") boolean value) { nperformanceCounterQueryPools(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #performanceCounterMultipleQueryPools} field. */
+    /** Sets the specified value to the {@code performanceCounterMultipleQueryPools} field. */
     public VkPhysicalDevicePerformanceQueryFeaturesKHR performanceCounterMultipleQueryPools(@NativeType("VkBool32") boolean value) { nperformanceCounterMultipleQueryPools(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +153,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePerformanceQueryFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePerformanceQueryFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePerformanceQueryFeaturesKHR(address, null);
     }
 
@@ -211,8 +196,7 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePerformanceQueryFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +241,22 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #performanceCounterQueryPools}. */
-    public static int nperformanceCounterQueryPools(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS); }
+    public static int nperformanceCounterQueryPools(long struct) { return memGetInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS); }
     /** Unsafe version of {@link #performanceCounterMultipleQueryPools}. */
-    public static int nperformanceCounterMultipleQueryPools(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS); }
+    public static int nperformanceCounterMultipleQueryPools(long struct) { return memGetInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #performanceCounterQueryPools(boolean) performanceCounterQueryPools}. */
-    public static void nperformanceCounterQueryPools(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS, value); }
+    public static void nperformanceCounterQueryPools(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERQUERYPOOLS, value); }
     /** Unsafe version of {@link #performanceCounterMultipleQueryPools(boolean) performanceCounterMultipleQueryPools}. */
-    public static void nperformanceCounterMultipleQueryPools(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS, value); }
+    public static void nperformanceCounterMultipleQueryPools(long struct, int value) { memPutInt(struct + VkPhysicalDevicePerformanceQueryFeaturesKHR.PERFORMANCECOUNTERMULTIPLEQUERYPOOLS, value); }
 
     // -----------------------------------
 
@@ -308,32 +292,37 @@ public class VkPhysicalDevicePerformanceQueryFeaturesKHR extends Struct<VkPhysic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDevicePerformanceQueryFeaturesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDevicePerformanceQueryFeaturesKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDevicePerformanceQueryFeaturesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#performanceCounterQueryPools} field. */
+        /** @return the value of the {@code performanceCounterQueryPools} field. */
         @NativeType("VkBool32")
         public boolean performanceCounterQueryPools() { return VkPhysicalDevicePerformanceQueryFeaturesKHR.nperformanceCounterQueryPools(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#performanceCounterMultipleQueryPools} field. */
+        /** @return the value of the {@code performanceCounterMultipleQueryPools} field. */
         @NativeType("VkBool32")
         public boolean performanceCounterMultipleQueryPools() { return VkPhysicalDevicePerformanceQueryFeaturesKHR.nperformanceCounterMultipleQueryPools(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDevicePerformanceQueryFeaturesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR} value to the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#sType} field. */
+        /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR} value to the {@code sType} field. */
         public VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer sType$Default() { return sType(KHRPerformanceQuery.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDevicePerformanceQueryFeaturesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#performanceCounterQueryPools} field. */
+        /** Sets the specified value to the {@code performanceCounterQueryPools} field. */
         public VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer performanceCounterQueryPools(@NativeType("VkBool32") boolean value) { VkPhysicalDevicePerformanceQueryFeaturesKHR.nperformanceCounterQueryPools(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevicePerformanceQueryFeaturesKHR#performanceCounterMultipleQueryPools} field. */
+        /** Sets the specified value to the {@code performanceCounterMultipleQueryPools} field. */
         public VkPhysicalDevicePerformanceQueryFeaturesKHR.Buffer performanceCounterMultipleQueryPools(@NativeType("VkBool32") boolean value) { VkPhysicalDevicePerformanceQueryFeaturesKHR.nperformanceCounterMultipleQueryPools(address(), value ? 1 : 0); return this; }
 
     }

@@ -5,23 +5,13 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CL30#clSetContextDestructorCallback SetContextDestructorCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     cl_context context,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CLContextDestructorCallback extends Callback implements CLContextDestructorCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class CLContextDestructorCallback extends Callback implements CL
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CLContextDestructorCallback createSafe(long functionPointer) {
+    public static @Nullable CLContextDestructorCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

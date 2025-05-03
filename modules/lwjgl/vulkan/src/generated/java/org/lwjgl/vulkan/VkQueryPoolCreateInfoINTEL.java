@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkQueryPoolPerformanceQueryCreateInfoINTEL}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkQueryPoolCreateInfoINTEL {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkQueryPoolSamplingModeINTEL performanceCountersSampling;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkQueryPoolCreateInfoINTEL extends VkQueryPoolPerformanceQueryCreateInfoINTEL {
 
@@ -111,8 +107,7 @@ public class VkQueryPoolCreateInfoINTEL extends VkQueryPoolPerformanceQueryCreat
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolCreateInfoINTEL createSafe(long address) {
+    public static @Nullable VkQueryPoolCreateInfoINTEL createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolCreateInfoINTEL(address, null);
     }
 
@@ -155,8 +150,7 @@ public class VkQueryPoolCreateInfoINTEL extends VkQueryPoolPerformanceQueryCreat
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolCreateInfoINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolCreateInfoINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +242,11 @@ public class VkQueryPoolCreateInfoINTEL extends VkQueryPoolPerformanceQueryCreat
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

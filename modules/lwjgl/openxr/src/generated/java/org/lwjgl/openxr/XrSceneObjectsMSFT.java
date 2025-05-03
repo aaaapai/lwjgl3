@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,44 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Scene objects.
- * 
- * <h5>Description</h5>
- * 
- * <p>The runtime <b>must</b> only set {@link XrSceneObjectMSFT}{@code ::objectType} to any of the following {@code XrSceneObjectTypeMSFT} values:</p>
- * 
- * <ul>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_UNCATEGORIZED_MSFT SCENE_OBJECT_TYPE_UNCATEGORIZED_MSFT}</li>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_BACKGROUND_MSFT SCENE_OBJECT_TYPE_BACKGROUND_MSFT}</li>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_WALL_MSFT SCENE_OBJECT_TYPE_WALL_MSFT}</li>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_FLOOR_MSFT SCENE_OBJECT_TYPE_FLOOR_MSFT}</li>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_CEILING_MSFT SCENE_OBJECT_TYPE_CEILING_MSFT}</li>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_PLATFORM_MSFT SCENE_OBJECT_TYPE_PLATFORM_MSFT}</li>
- * <li>{@link MSFTSceneUnderstanding#XR_SCENE_OBJECT_TYPE_INFERRED_MSFT SCENE_OBJECT_TYPE_INFERRED_MSFT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneObjectsMSFT}</li>
- * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_OBJECTS_MSFT TYPE_SCENE_OBJECTS_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code sceneObjectCount} is not 0, {@code sceneObjects} <b>must</b> be a pointer to an array of {@code sceneObjectCount} {@link XrSceneObjectMSFT} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSceneComponentsMSFT}, {@link XrSceneObjectMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSceneObjectsMSFT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #sceneObjectCount};
- *     {@link XrSceneObjectMSFT XrSceneObjectMSFT} * {@link #sceneObjects};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t sceneObjectCount;
+ *     {@link XrSceneObjectMSFT XrSceneObjectMSFT} * sceneObjects;
+ * }}</pre>
  */
 public class XrSceneObjectsMSFT extends Struct<XrSceneObjectsMSFT> implements NativeResource {
 
@@ -109,37 +78,36 @@ public class XrSceneObjectsMSFT extends Struct<XrSceneObjectsMSFT> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a {@code uint32_t} describing the count of elements in the {@code sceneObjects} array. */
+    /** @return the value of the {@code sceneObjectCount} field. */
     @NativeType("uint32_t")
     public int sceneObjectCount() { return nsceneObjectCount(address()); }
-    /** an array of {@link XrSceneObjectMSFT}. */
-    @Nullable
+    /** @return a {@link XrSceneObjectMSFT.Buffer} view of the struct array pointed to by the {@code sceneObjects} field. */
     @NativeType("XrSceneObjectMSFT *")
-    public XrSceneObjectMSFT.Buffer sceneObjects() { return nsceneObjects(address()); }
+    public XrSceneObjectMSFT.@Nullable Buffer sceneObjects() { return nsceneObjects(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSceneObjectsMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_OBJECTS_MSFT TYPE_SCENE_OBJECTS_MSFT} value to the {@link #type} field. */
+    /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_OBJECTS_MSFT TYPE_SCENE_OBJECTS_MSFT} value to the {@code type} field. */
     public XrSceneObjectsMSFT type$Default() { return type(MSFTSceneUnderstanding.XR_TYPE_SCENE_OBJECTS_MSFT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSceneObjectsMSFT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #sceneObjectCount} field. */
+    /** Sets the specified value to the {@code sceneObjectCount} field. */
     public XrSceneObjectsMSFT sceneObjectCount(@NativeType("uint32_t") int value) { nsceneObjectCount(address(), value); return this; }
-    /** Sets the address of the specified {@link XrSceneObjectMSFT.Buffer} to the {@link #sceneObjects} field. */
-    public XrSceneObjectsMSFT sceneObjects(@Nullable @NativeType("XrSceneObjectMSFT *") XrSceneObjectMSFT.Buffer value) { nsceneObjects(address(), value); return this; }
+    /** Sets the address of the specified {@link XrSceneObjectMSFT.Buffer} to the {@code sceneObjects} field. */
+    public XrSceneObjectsMSFT sceneObjects(@NativeType("XrSceneObjectMSFT *") XrSceneObjectMSFT.@Nullable Buffer value) { nsceneObjects(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSceneObjectsMSFT set(
         int type,
         long next,
         int sceneObjectCount,
-        @Nullable XrSceneObjectMSFT.Buffer sceneObjects
+        XrSceneObjectMSFT.@Nullable Buffer sceneObjects
     ) {
         type(type);
         next(next);
@@ -185,8 +153,7 @@ public class XrSceneObjectsMSFT extends Struct<XrSceneObjectsMSFT> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneObjectsMSFT createSafe(long address) {
+    public static @Nullable XrSceneObjectsMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneObjectsMSFT(address, null);
     }
 
@@ -229,8 +196,7 @@ public class XrSceneObjectsMSFT extends Struct<XrSceneObjectsMSFT> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneObjectsMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneObjectsMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,22 +241,22 @@ public class XrSceneObjectsMSFT extends Struct<XrSceneObjectsMSFT> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneObjectsMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneObjectsMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneObjectsMSFT.NEXT); }
     /** Unsafe version of {@link #sceneObjectCount}. */
-    public static int nsceneObjectCount(long struct) { return UNSAFE.getInt(null, struct + XrSceneObjectsMSFT.SCENEOBJECTCOUNT); }
+    public static int nsceneObjectCount(long struct) { return memGetInt(struct + XrSceneObjectsMSFT.SCENEOBJECTCOUNT); }
     /** Unsafe version of {@link #sceneObjects}. */
-    @Nullable public static XrSceneObjectMSFT.Buffer nsceneObjects(long struct) { return XrSceneObjectMSFT.createSafe(memGetAddress(struct + XrSceneObjectsMSFT.SCENEOBJECTS), nsceneObjectCount(struct)); }
+    public static XrSceneObjectMSFT.@Nullable Buffer nsceneObjects(long struct) { return XrSceneObjectMSFT.createSafe(memGetAddress(struct + XrSceneObjectsMSFT.SCENEOBJECTS), nsceneObjectCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneObjectsMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneObjectsMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneObjectsMSFT.NEXT, value); }
     /** Sets the specified value to the {@code sceneObjectCount} field of the specified {@code struct}. */
-    public static void nsceneObjectCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneObjectsMSFT.SCENEOBJECTCOUNT, value); }
+    public static void nsceneObjectCount(long struct, int value) { memPutInt(struct + XrSceneObjectsMSFT.SCENEOBJECTCOUNT, value); }
     /** Unsafe version of {@link #sceneObjects(XrSceneObjectMSFT.Buffer) sceneObjects}. */
-    public static void nsceneObjects(long struct, @Nullable XrSceneObjectMSFT.Buffer value) { memPutAddress(struct + XrSceneObjectsMSFT.SCENEOBJECTS, memAddressSafe(value)); if (value != null) { nsceneObjectCount(struct, value.remaining()); } }
+    public static void nsceneObjects(long struct, XrSceneObjectMSFT.@Nullable Buffer value) { memPutAddress(struct + XrSceneObjectsMSFT.SCENEOBJECTS, memAddressSafe(value)); if (value != null) { nsceneObjectCount(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -326,34 +292,38 @@ public class XrSceneObjectsMSFT extends Struct<XrSceneObjectsMSFT> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneObjectsMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSceneObjectsMSFT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSceneObjectsMSFT.ntype(address()); }
-        /** @return the value of the {@link XrSceneObjectsMSFT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSceneObjectsMSFT.nnext(address()); }
-        /** @return the value of the {@link XrSceneObjectsMSFT#sceneObjectCount} field. */
+        /** @return the value of the {@code sceneObjectCount} field. */
         @NativeType("uint32_t")
         public int sceneObjectCount() { return XrSceneObjectsMSFT.nsceneObjectCount(address()); }
-        /** @return a {@link XrSceneObjectMSFT.Buffer} view of the struct array pointed to by the {@link XrSceneObjectsMSFT#sceneObjects} field. */
-        @Nullable
+        /** @return a {@link XrSceneObjectMSFT.Buffer} view of the struct array pointed to by the {@code sceneObjects} field. */
         @NativeType("XrSceneObjectMSFT *")
-        public XrSceneObjectMSFT.Buffer sceneObjects() { return XrSceneObjectsMSFT.nsceneObjects(address()); }
+        public XrSceneObjectMSFT.@Nullable Buffer sceneObjects() { return XrSceneObjectsMSFT.nsceneObjects(address()); }
 
-        /** Sets the specified value to the {@link XrSceneObjectsMSFT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSceneObjectsMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSceneObjectsMSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_OBJECTS_MSFT TYPE_SCENE_OBJECTS_MSFT} value to the {@link XrSceneObjectsMSFT#type} field. */
+        /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_OBJECTS_MSFT TYPE_SCENE_OBJECTS_MSFT} value to the {@code type} field. */
         public XrSceneObjectsMSFT.Buffer type$Default() { return type(MSFTSceneUnderstanding.XR_TYPE_SCENE_OBJECTS_MSFT); }
-        /** Sets the specified value to the {@link XrSceneObjectsMSFT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSceneObjectsMSFT.Buffer next(@NativeType("void *") long value) { XrSceneObjectsMSFT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSceneObjectsMSFT#sceneObjectCount} field. */
+        /** Sets the specified value to the {@code sceneObjectCount} field. */
         public XrSceneObjectsMSFT.Buffer sceneObjectCount(@NativeType("uint32_t") int value) { XrSceneObjectsMSFT.nsceneObjectCount(address(), value); return this; }
-        /** Sets the address of the specified {@link XrSceneObjectMSFT.Buffer} to the {@link XrSceneObjectsMSFT#sceneObjects} field. */
-        public XrSceneObjectsMSFT.Buffer sceneObjects(@Nullable @NativeType("XrSceneObjectMSFT *") XrSceneObjectMSFT.Buffer value) { XrSceneObjectsMSFT.nsceneObjects(address(), value); return this; }
+        /** Sets the address of the specified {@link XrSceneObjectMSFT.Buffer} to the {@code sceneObjects} field. */
+        public XrSceneObjectsMSFT.Buffer sceneObjects(@NativeType("XrSceneObjectMSFT *") XrSceneObjectMSFT.@Nullable Buffer value) { XrSceneObjectsMSFT.nsceneObjects(address(), value); return this; }
 
     }
 

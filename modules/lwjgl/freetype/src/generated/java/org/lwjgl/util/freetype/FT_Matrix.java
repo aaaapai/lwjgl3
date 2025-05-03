@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A simple structure used to store a 2x2 matrix. Coefficients are in 16.16 fixed-point format.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Matrix {
  *     FT_Fixed xx;
  *     FT_Fixed xy;
  *     FT_Fixed yx;
  *     FT_Fixed yy;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Matrix extends Struct<FT_Matrix> implements NativeResource {
 
@@ -155,8 +151,7 @@ public class FT_Matrix extends Struct<FT_Matrix> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Matrix createSafe(long address) {
+    public static @Nullable FT_Matrix createSafe(long address) {
         return address == NULL ? null : new FT_Matrix(address, null);
     }
 
@@ -199,8 +194,7 @@ public class FT_Matrix extends Struct<FT_Matrix> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Matrix.Buffer createSafe(long address, int capacity) {
+    public static FT_Matrix.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,6 +287,11 @@ public class FT_Matrix extends Struct<FT_Matrix> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

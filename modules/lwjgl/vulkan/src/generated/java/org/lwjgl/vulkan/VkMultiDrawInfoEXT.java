@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a multi-draw command.
- * 
- * <h5>Description</h5>
- * 
- * <p>The members of {@link VkMultiDrawInfoEXT} have the same meaning as the {@code firstVertex} and {@code vertexCount} parameters in {@link VK10#vkCmdDraw CmdDraw}.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTMultiDraw#vkCmdDrawMultiEXT CmdDrawMultiEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMultiDrawInfoEXT {
- *     uint32_t {@link #firstVertex};
- *     uint32_t {@link #vertexCount};
- * }</code></pre>
+ *     uint32_t firstVertex;
+ *     uint32_t vertexCount;
+ * }}</pre>
  */
 public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements NativeResource {
 
@@ -82,16 +70,16 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the first vertex to draw. */
+    /** @return the value of the {@code firstVertex} field. */
     @NativeType("uint32_t")
     public int firstVertex() { return nfirstVertex(address()); }
-    /** the number of vertices to draw. */
+    /** @return the value of the {@code vertexCount} field. */
     @NativeType("uint32_t")
     public int vertexCount() { return nvertexCount(address()); }
 
-    /** Sets the specified value to the {@link #firstVertex} field. */
+    /** Sets the specified value to the {@code firstVertex} field. */
     public VkMultiDrawInfoEXT firstVertex(@NativeType("uint32_t") int value) { nfirstVertex(address(), value); return this; }
-    /** Sets the specified value to the {@link #vertexCount} field. */
+    /** Sets the specified value to the {@code vertexCount} field. */
     public VkMultiDrawInfoEXT vertexCount(@NativeType("uint32_t") int value) { nvertexCount(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -141,8 +129,7 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiDrawInfoEXT createSafe(long address) {
+    public static @Nullable VkMultiDrawInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMultiDrawInfoEXT(address, null);
     }
 
@@ -185,8 +172,7 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMultiDrawInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMultiDrawInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,14 +217,14 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #firstVertex}. */
-    public static int nfirstVertex(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawInfoEXT.FIRSTVERTEX); }
+    public static int nfirstVertex(long struct) { return memGetInt(struct + VkMultiDrawInfoEXT.FIRSTVERTEX); }
     /** Unsafe version of {@link #vertexCount}. */
-    public static int nvertexCount(long struct) { return UNSAFE.getInt(null, struct + VkMultiDrawInfoEXT.VERTEXCOUNT); }
+    public static int nvertexCount(long struct) { return memGetInt(struct + VkMultiDrawInfoEXT.VERTEXCOUNT); }
 
     /** Unsafe version of {@link #firstVertex(int) firstVertex}. */
-    public static void nfirstVertex(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawInfoEXT.FIRSTVERTEX, value); }
+    public static void nfirstVertex(long struct, int value) { memPutInt(struct + VkMultiDrawInfoEXT.FIRSTVERTEX, value); }
     /** Unsafe version of {@link #vertexCount(int) vertexCount}. */
-    public static void nvertexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkMultiDrawInfoEXT.VERTEXCOUNT, value); }
+    public static void nvertexCount(long struct, int value) { memPutInt(struct + VkMultiDrawInfoEXT.VERTEXCOUNT, value); }
 
     // -----------------------------------
 
@@ -274,20 +260,25 @@ public class VkMultiDrawInfoEXT extends Struct<VkMultiDrawInfoEXT> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMultiDrawInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMultiDrawInfoEXT#firstVertex} field. */
+        /** @return the value of the {@code firstVertex} field. */
         @NativeType("uint32_t")
         public int firstVertex() { return VkMultiDrawInfoEXT.nfirstVertex(address()); }
-        /** @return the value of the {@link VkMultiDrawInfoEXT#vertexCount} field. */
+        /** @return the value of the {@code vertexCount} field. */
         @NativeType("uint32_t")
         public int vertexCount() { return VkMultiDrawInfoEXT.nvertexCount(address()); }
 
-        /** Sets the specified value to the {@link VkMultiDrawInfoEXT#firstVertex} field. */
+        /** Sets the specified value to the {@code firstVertex} field. */
         public VkMultiDrawInfoEXT.Buffer firstVertex(@NativeType("uint32_t") int value) { VkMultiDrawInfoEXT.nfirstVertex(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMultiDrawInfoEXT#vertexCount} field. */
+        /** Sets the specified value to the {@code vertexCount} field. */
         public VkMultiDrawInfoEXT.Buffer vertexCount(@NativeType("uint32_t") int value) { VkMultiDrawInfoEXT.nvertexCount(address(), value); return this; }
 
     }

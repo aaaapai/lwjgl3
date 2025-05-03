@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,35 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A geometry transformation.
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
- * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension.</li>
- * <li>{@code baseSpace} is the {@code XrSpace} that defines the geometry instance’s base space for transformations.</li>
- * <li>{@code time} is the {@code XrTime} that define the time at which the transform is applied.</li>
- * <li>{@code pose} is the {@link XrPosef} that defines the geometry instance’s pose.</li>
- * <li>{@code scale} is the {@link XrVector3f} that defines the geometry instance’s scale.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrGeometryInstanceTransformFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB TYPE_GEOMETRY_INSTANCE_TRANSFORM_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrPosef}, {@link XrVector3f}, {@link FBPassthrough#xrGeometryInstanceSetTransformFB GeometryInstanceSetTransformFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrGeometryInstanceTransformFB {
  *     XrStructureType type;
  *     void const * next;
@@ -53,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     XrTime time;
  *     {@link XrPosef XrPosef} pose;
  *     {@link XrVector3f XrVector3f} scale;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrGeometryInstanceTransformFB extends Struct<XrGeometryInstanceTransformFB> implements NativeResource {
 
@@ -206,8 +178,7 @@ public class XrGeometryInstanceTransformFB extends Struct<XrGeometryInstanceTran
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGeometryInstanceTransformFB createSafe(long address) {
+    public static @Nullable XrGeometryInstanceTransformFB createSafe(long address) {
         return address == NULL ? null : new XrGeometryInstanceTransformFB(address, null);
     }
 
@@ -250,8 +221,7 @@ public class XrGeometryInstanceTransformFB extends Struct<XrGeometryInstanceTran
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGeometryInstanceTransformFB.Buffer createSafe(long address, int capacity) {
+    public static XrGeometryInstanceTransformFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,26 +266,26 @@ public class XrGeometryInstanceTransformFB extends Struct<XrGeometryInstanceTran
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGeometryInstanceTransformFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGeometryInstanceTransformFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGeometryInstanceTransformFB.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrGeometryInstanceTransformFB.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrGeometryInstanceTransformFB.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrGeometryInstanceTransformFB.TIME); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrGeometryInstanceTransformFB.POSE); }
     /** Unsafe version of {@link #scale}. */
     public static XrVector3f nscale(long struct) { return XrVector3f.create(struct + XrGeometryInstanceTransformFB.SCALE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGeometryInstanceTransformFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGeometryInstanceTransformFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGeometryInstanceTransformFB.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrGeometryInstanceTransformFB.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrGeometryInstanceTransformFB.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrGeometryInstanceTransformFB.TIME, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrGeometryInstanceTransformFB.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #scale(XrVector3f) scale}. */
@@ -361,6 +331,11 @@ public class XrGeometryInstanceTransformFB extends Struct<XrGeometryInstanceTran
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,14 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_outBuffer {
- *     void * {@link #dst};
- *     size_t {@link #size};
- *     size_t {@link #pos};
- * }</code></pre>
+ *     void * dst;
+ *     size_t size;
+ *     size_t pos;
+ * }}</pre>
  */
 @NativeType("struct ZSTD_outBuffer")
 public class ZSTDOutBuffer extends Struct<ZSTDOutBuffer> implements NativeResource {
@@ -78,19 +76,19 @@ public class ZSTDOutBuffer extends Struct<ZSTDOutBuffer> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** start of output buffer */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code dst} field. */
     @NativeType("void *")
     public ByteBuffer dst() { return ndst(address()); }
-    /** size of output buffer */
+    /** @return the value of the {@code size} field. */
     @NativeType("size_t")
     public long size() { return nsize(address()); }
-    /** position where writing stopped. Will be updated. Necessarily 0 &le; {@code pos} &le; {@code size} */
+    /** @return the value of the {@code pos} field. */
     @NativeType("size_t")
     public long pos() { return npos(address()); }
 
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #dst} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code dst} field. */
     public ZSTDOutBuffer dst(@NativeType("void *") ByteBuffer value) { ndst(address(), value); return this; }
-    /** Sets the specified value to the {@link #pos} field. */
+    /** Sets the specified value to the {@code pos} field. */
     public ZSTDOutBuffer pos(@NativeType("size_t") long value) { npos(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -140,8 +138,7 @@ public class ZSTDOutBuffer extends Struct<ZSTDOutBuffer> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDOutBuffer createSafe(long address) {
+    public static @Nullable ZSTDOutBuffer createSafe(long address) {
         return address == NULL ? null : new ZSTDOutBuffer(address, null);
     }
 
@@ -184,8 +181,7 @@ public class ZSTDOutBuffer extends Struct<ZSTDOutBuffer> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDOutBuffer.Buffer createSafe(long address, int capacity) {
+    public static ZSTDOutBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -305,23 +301,28 @@ public class ZSTDOutBuffer extends Struct<ZSTDOutBuffer> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ZSTDOutBuffer getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link ZSTDOutBuffer#dst} field. */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code dst} field. */
         @NativeType("void *")
         public ByteBuffer dst() { return ZSTDOutBuffer.ndst(address()); }
-        /** @return the value of the {@link ZSTDOutBuffer#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("size_t")
         public long size() { return ZSTDOutBuffer.nsize(address()); }
-        /** @return the value of the {@link ZSTDOutBuffer#pos} field. */
+        /** @return the value of the {@code pos} field. */
         @NativeType("size_t")
         public long pos() { return ZSTDOutBuffer.npos(address()); }
 
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link ZSTDOutBuffer#dst} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code dst} field. */
         public ZSTDOutBuffer.Buffer dst(@NativeType("void *") ByteBuffer value) { ZSTDOutBuffer.ndst(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDOutBuffer#pos} field. */
+        /** Sets the specified value to the {@code pos} field. */
         public ZSTDOutBuffer.Buffer pos(@NativeType("size_t") long value) { ZSTDOutBuffer.npos(address(), value); return this; }
 
     }

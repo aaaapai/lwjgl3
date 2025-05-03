@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union struct hwloc_topology_diff_obj_attr_u {
  *     {@link hwloc_topology_diff_obj_attr_generic_s hwloc_topology_diff_obj_attr_generic_s} generic;
  *     {@link hwloc_topology_diff_obj_attr_uint64_s hwloc_topology_diff_obj_attr_uint64_s} uint64;
  *     {@link hwloc_topology_diff_obj_attr_string_s hwloc_topology_diff_obj_attr_string_s} string;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("union struct hwloc_topology_diff_obj_attr_u")
 public class hwloc_topology_diff_obj_attr_u extends Struct<hwloc_topology_diff_obj_attr_u> {
@@ -90,8 +88,7 @@ public class hwloc_topology_diff_obj_attr_u extends Struct<hwloc_topology_diff_o
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_diff_obj_attr_u createSafe(long address) {
+    public static @Nullable hwloc_topology_diff_obj_attr_u createSafe(long address) {
         return address == NULL ? null : new hwloc_topology_diff_obj_attr_u(address, null);
     }
 
@@ -106,8 +103,7 @@ public class hwloc_topology_diff_obj_attr_u extends Struct<hwloc_topology_diff_o
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_diff_obj_attr_u.Buffer createSafe(long address, int capacity) {
+    public static hwloc_topology_diff_obj_attr_u.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -151,6 +147,11 @@ public class hwloc_topology_diff_obj_attr_u extends Struct<hwloc_topology_diff_o
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

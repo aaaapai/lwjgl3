@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display mode properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayModeProperties2KHR}, {@link KHRDisplay#vkGetDisplayModePropertiesKHR GetDisplayModePropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayModePropertiesKHR {
- *     VkDisplayModeKHR {@link #displayMode};
- *     {@link VkDisplayModeParametersKHR VkDisplayModeParametersKHR} {@link #parameters};
- * }</code></pre>
+ *     VkDisplayModeKHR displayMode;
+ *     {@link VkDisplayModeParametersKHR VkDisplayModeParametersKHR} parameters;
+ * }}</pre>
  */
 public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKHR> implements NativeResource {
 
@@ -78,10 +70,10 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a handle to the display mode described in this structure. This handle will be valid for the lifetime of the Vulkan instance. */
+    /** @return the value of the {@code displayMode} field. */
     @NativeType("VkDisplayModeKHR")
     public long displayMode() { return ndisplayMode(address()); }
-    /** a {@link VkDisplayModeParametersKHR} structure describing the display parameters associated with {@code displayMode}. */
+    /** @return a {@link VkDisplayModeParametersKHR} view of the {@code parameters} field. */
     public VkDisplayModeParametersKHR parameters() { return nparameters(address()); }
 
     // -----------------------------------
@@ -108,8 +100,7 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModePropertiesKHR createSafe(long address) {
+    public static @Nullable VkDisplayModePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplayModePropertiesKHR(address, null);
     }
 
@@ -152,8 +143,7 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayModePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayModePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,7 +207,7 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     // -----------------------------------
 
     /** Unsafe version of {@link #displayMode}. */
-    public static long ndisplayMode(long struct) { return UNSAFE.getLong(null, struct + VkDisplayModePropertiesKHR.DISPLAYMODE); }
+    public static long ndisplayMode(long struct) { return memGetLong(struct + VkDisplayModePropertiesKHR.DISPLAYMODE); }
     /** Unsafe version of {@link #parameters}. */
     public static VkDisplayModeParametersKHR nparameters(long struct) { return VkDisplayModeParametersKHR.create(struct + VkDisplayModePropertiesKHR.PARAMETERS); }
 
@@ -255,14 +245,19 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayModePropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayModePropertiesKHR#displayMode} field. */
+        /** @return the value of the {@code displayMode} field. */
         @NativeType("VkDisplayModeKHR")
         public long displayMode() { return VkDisplayModePropertiesKHR.ndisplayMode(address()); }
-        /** @return a {@link VkDisplayModeParametersKHR} view of the {@link VkDisplayModePropertiesKHR#parameters} field. */
+        /** @return a {@link VkDisplayModeParametersKHR} view of the {@code parameters} field. */
         public VkDisplayModeParametersKHR parameters() { return VkDisplayModePropertiesKHR.nparameters(address()); }
 
     }

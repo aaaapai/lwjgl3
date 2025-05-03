@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Struct contains two paths of VIVE tracker.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrViveTrackerPathsHTCX} structure contains two paths of VIVE tracker.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCXViveTrackerInteraction XR_HTCX_vive_tracker_interaction} extension <b>must</b> be enabled prior to using {@link XrViveTrackerPathsHTCX}</li>
- * <li>{@code type} <b>must</b> be {@link HTCXViveTrackerInteraction#XR_TYPE_VIVE_TRACKER_PATHS_HTCX TYPE_VIVE_TRACKER_PATHS_HTCX}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrEventDataViveTrackerConnectedHTCX}, {@link HTCXViveTrackerInteraction#xrEnumerateViveTrackerPathsHTCX EnumerateViveTrackerPathsHTCX}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrViveTrackerPathsHTCX {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrPath {@link #persistentPath};
- *     XrPath {@link #rolePath};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrPath persistentPath;
+ *     XrPath rolePath;
+ * }}</pre>
  */
 public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> implements NativeResource {
 
@@ -98,24 +78,24 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the unique path of the VIVE tracker which is persistent over the lifetime of the hardware. */
+    /** @return the value of the {@code persistentPath} field. */
     @NativeType("XrPath")
     public long persistentPath() { return npersistentPath(address()); }
-    /** the path of the VIVE tracker role. This <b>may</b> be {@link XR10#XR_NULL_PATH NULL_PATH} if the role is not assigned. */
+    /** @return the value of the {@code rolePath} field. */
     @NativeType("XrPath")
     public long rolePath() { return nrolePath(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrViveTrackerPathsHTCX type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link HTCXViveTrackerInteraction#XR_TYPE_VIVE_TRACKER_PATHS_HTCX TYPE_VIVE_TRACKER_PATHS_HTCX} value to the {@link #type} field. */
+    /** Sets the {@link HTCXViveTrackerInteraction#XR_TYPE_VIVE_TRACKER_PATHS_HTCX TYPE_VIVE_TRACKER_PATHS_HTCX} value to the {@code type} field. */
     public XrViveTrackerPathsHTCX type$Default() { return type(HTCXViveTrackerInteraction.XR_TYPE_VIVE_TRACKER_PATHS_HTCX); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrViveTrackerPathsHTCX next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -165,8 +145,7 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViveTrackerPathsHTCX createSafe(long address) {
+    public static @Nullable XrViveTrackerPathsHTCX createSafe(long address) {
         return address == NULL ? null : new XrViveTrackerPathsHTCX(address, null);
     }
 
@@ -209,8 +188,7 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViveTrackerPathsHTCX.Buffer createSafe(long address, int capacity) {
+    public static XrViveTrackerPathsHTCX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,16 +233,16 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViveTrackerPathsHTCX.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViveTrackerPathsHTCX.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViveTrackerPathsHTCX.NEXT); }
     /** Unsafe version of {@link #persistentPath}. */
-    public static long npersistentPath(long struct) { return UNSAFE.getLong(null, struct + XrViveTrackerPathsHTCX.PERSISTENTPATH); }
+    public static long npersistentPath(long struct) { return memGetLong(struct + XrViveTrackerPathsHTCX.PERSISTENTPATH); }
     /** Unsafe version of {@link #rolePath}. */
-    public static long nrolePath(long struct) { return UNSAFE.getLong(null, struct + XrViveTrackerPathsHTCX.ROLEPATH); }
+    public static long nrolePath(long struct) { return memGetLong(struct + XrViveTrackerPathsHTCX.ROLEPATH); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViveTrackerPathsHTCX.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViveTrackerPathsHTCX.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViveTrackerPathsHTCX.NEXT, value); }
 
@@ -302,28 +280,33 @@ public class XrViveTrackerPathsHTCX extends Struct<XrViveTrackerPathsHTCX> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrViveTrackerPathsHTCX getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrViveTrackerPathsHTCX#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrViveTrackerPathsHTCX.ntype(address()); }
-        /** @return the value of the {@link XrViveTrackerPathsHTCX#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrViveTrackerPathsHTCX.nnext(address()); }
-        /** @return the value of the {@link XrViveTrackerPathsHTCX#persistentPath} field. */
+        /** @return the value of the {@code persistentPath} field. */
         @NativeType("XrPath")
         public long persistentPath() { return XrViveTrackerPathsHTCX.npersistentPath(address()); }
-        /** @return the value of the {@link XrViveTrackerPathsHTCX#rolePath} field. */
+        /** @return the value of the {@code rolePath} field. */
         @NativeType("XrPath")
         public long rolePath() { return XrViveTrackerPathsHTCX.nrolePath(address()); }
 
-        /** Sets the specified value to the {@link XrViveTrackerPathsHTCX#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrViveTrackerPathsHTCX.Buffer type(@NativeType("XrStructureType") int value) { XrViveTrackerPathsHTCX.ntype(address(), value); return this; }
-        /** Sets the {@link HTCXViveTrackerInteraction#XR_TYPE_VIVE_TRACKER_PATHS_HTCX TYPE_VIVE_TRACKER_PATHS_HTCX} value to the {@link XrViveTrackerPathsHTCX#type} field. */
+        /** Sets the {@link HTCXViveTrackerInteraction#XR_TYPE_VIVE_TRACKER_PATHS_HTCX TYPE_VIVE_TRACKER_PATHS_HTCX} value to the {@code type} field. */
         public XrViveTrackerPathsHTCX.Buffer type$Default() { return type(HTCXViveTrackerInteraction.XR_TYPE_VIVE_TRACKER_PATHS_HTCX); }
-        /** Sets the specified value to the {@link XrViveTrackerPathsHTCX#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrViveTrackerPathsHTCX.Buffer next(@NativeType("void *") long value) { XrViveTrackerPathsHTCX.nnext(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,39 +16,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing capabilities of a surface.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>Supported usage flags of a presentable image when using {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR} or {@link KHRSharedPresentableImage#VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR} presentation mode are provided by {@link VkSharedPresentSurfaceCapabilitiesKHR}{@code ::sharedPresentSupportedUsageFlags}.</p>
- * </div>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>Formulas such as <code>min(N, maxImageCount)</code> are not correct, since {@code maxImageCount} <b>may</b> be zero.</p>
- * </div>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}, {@link VkSurfaceCapabilities2KHR}, {@link KHRSurface#vkGetPhysicalDeviceSurfaceCapabilitiesKHR GetPhysicalDeviceSurfaceCapabilitiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSurfaceCapabilitiesKHR {
- *     uint32_t {@link #minImageCount};
- *     uint32_t {@link #maxImageCount};
- *     {@link VkExtent2D VkExtent2D} {@link #currentExtent};
- *     {@link VkExtent2D VkExtent2D} {@link #minImageExtent};
- *     {@link VkExtent2D VkExtent2D} {@link #maxImageExtent};
- *     uint32_t {@link #maxImageArrayLayers};
- *     VkSurfaceTransformFlagsKHR {@link #supportedTransforms};
- *     VkSurfaceTransformFlagBitsKHR {@link #currentTransform};
- *     VkCompositeAlphaFlagsKHR {@link #supportedCompositeAlpha};
- *     VkImageUsageFlags {@link #supportedUsageFlags};
- * }</code></pre>
+ *     uint32_t minImageCount;
+ *     uint32_t maxImageCount;
+ *     {@link VkExtent2D VkExtent2D} currentExtent;
+ *     {@link VkExtent2D VkExtent2D} minImageExtent;
+ *     {@link VkExtent2D VkExtent2D} maxImageExtent;
+ *     uint32_t maxImageArrayLayers;
+ *     VkSurfaceTransformFlagsKHR supportedTransforms;
+ *     VkSurfaceTransformFlagBitsKHR currentTransform;
+ *     VkCompositeAlphaFlagsKHR supportedCompositeAlpha;
+ *     VkImageUsageFlags supportedUsageFlags;
+ * }}</pre>
  */
 public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> implements NativeResource {
 
@@ -122,31 +102,31 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the minimum number of images the specified device supports for a swapchain created for the surface, and will be at least one. */
+    /** @return the value of the {@code minImageCount} field. */
     @NativeType("uint32_t")
     public int minImageCount() { return nminImageCount(address()); }
-    /** the maximum number of images the specified device supports for a swapchain created for the surface, and will be either 0, or greater than or equal to {@code minImageCount}. A value of 0 means that there is no limit on the number of images, though there <b>may</b> be limits related to the total amount of memory used by presentable images. */
+    /** @return the value of the {@code maxImageCount} field. */
     @NativeType("uint32_t")
     public int maxImageCount() { return nmaxImageCount(address()); }
-    /** the current width and height of the surface, or the special value <code>(0xFFFFFFFF, 0xFFFFFFFF)</code> indicating that the surface size will be determined by the extent of a swapchain targeting the surface. */
+    /** @return a {@link VkExtent2D} view of the {@code currentExtent} field. */
     public VkExtent2D currentExtent() { return ncurrentExtent(address()); }
-    /** contains the smallest valid swapchain extent for the surface on the specified device. The {@code width} and {@code height} of the extent will each be less than or equal to the corresponding {@code width} and {@code height} of {@code currentExtent}, unless {@code currentExtent} has the special value described above. */
+    /** @return a {@link VkExtent2D} view of the {@code minImageExtent} field. */
     public VkExtent2D minImageExtent() { return nminImageExtent(address()); }
-    /** contains the largest valid swapchain extent for the surface on the specified device. The {@code width} and {@code height} of the extent will each be greater than or equal to the corresponding {@code width} and {@code height} of {@code minImageExtent}. The {@code width} and {@code height} of the extent will each be greater than or equal to the corresponding {@code width} and {@code height} of {@code currentExtent}, unless {@code currentExtent} has the special value described above. */
+    /** @return a {@link VkExtent2D} view of the {@code maxImageExtent} field. */
     public VkExtent2D maxImageExtent() { return nmaxImageExtent(address()); }
-    /** the maximum number of layers presentable images <b>can</b> have for a swapchain created for this device and surface, and will be at least one. */
+    /** @return the value of the {@code maxImageArrayLayers} field. */
     @NativeType("uint32_t")
     public int maxImageArrayLayers() { return nmaxImageArrayLayers(address()); }
-    /** a bitmask of {@code VkSurfaceTransformFlagBitsKHR} indicating the presentation transforms supported for the surface on the specified device. At least one bit will be set. */
+    /** @return the value of the {@code supportedTransforms} field. */
     @NativeType("VkSurfaceTransformFlagsKHR")
     public int supportedTransforms() { return nsupportedTransforms(address()); }
-    /** {@code VkSurfaceTransformFlagBitsKHR} value indicating the surface’s current transform relative to the presentation engine’s natural orientation. */
+    /** @return the value of the {@code currentTransform} field. */
     @NativeType("VkSurfaceTransformFlagBitsKHR")
     public int currentTransform() { return ncurrentTransform(address()); }
-    /** a bitmask of {@code VkCompositeAlphaFlagBitsKHR}, representing the alpha compositing modes supported by the presentation engine for the surface on the specified device, and at least one bit will be set. Opaque composition <b>can</b> be achieved in any alpha compositing mode by either using an image format that has no alpha component, or by ensuring that all pixels in the presentable images have an alpha value of 1.0. */
+    /** @return the value of the {@code supportedCompositeAlpha} field. */
     @NativeType("VkCompositeAlphaFlagsKHR")
     public int supportedCompositeAlpha() { return nsupportedCompositeAlpha(address()); }
-    /** a bitmask of {@code VkImageUsageFlagBits} representing the ways the application <b>can</b> use the presentable images of a swapchain created with {@code VkPresentModeKHR} set to {@link KHRSurface#VK_PRESENT_MODE_IMMEDIATE_KHR PRESENT_MODE_IMMEDIATE_KHR}, {@link KHRSurface#VK_PRESENT_MODE_MAILBOX_KHR PRESENT_MODE_MAILBOX_KHR}, {@link KHRSurface#VK_PRESENT_MODE_FIFO_KHR PRESENT_MODE_FIFO_KHR} or {@link KHRSurface#VK_PRESENT_MODE_FIFO_RELAXED_KHR PRESENT_MODE_FIFO_RELAXED_KHR} for the surface on the specified device. {@link VK10#VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT IMAGE_USAGE_COLOR_ATTACHMENT_BIT} <b>must</b> be included in the set. Implementations <b>may</b> support additional usages. */
+    /** @return the value of the {@code supportedUsageFlags} field. */
     @NativeType("VkImageUsageFlags")
     public int supportedUsageFlags() { return nsupportedUsageFlags(address()); }
 
@@ -174,8 +154,7 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkSurfaceCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkSurfaceCapabilitiesKHR(address, null);
     }
 
@@ -218,8 +197,7 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,9 +261,9 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     // -----------------------------------
 
     /** Unsafe version of {@link #minImageCount}. */
-    public static int nminImageCount(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.MINIMAGECOUNT); }
+    public static int nminImageCount(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.MINIMAGECOUNT); }
     /** Unsafe version of {@link #maxImageCount}. */
-    public static int nmaxImageCount(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.MAXIMAGECOUNT); }
+    public static int nmaxImageCount(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.MAXIMAGECOUNT); }
     /** Unsafe version of {@link #currentExtent}. */
     public static VkExtent2D ncurrentExtent(long struct) { return VkExtent2D.create(struct + VkSurfaceCapabilitiesKHR.CURRENTEXTENT); }
     /** Unsafe version of {@link #minImageExtent}. */
@@ -293,15 +271,15 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
     /** Unsafe version of {@link #maxImageExtent}. */
     public static VkExtent2D nmaxImageExtent(long struct) { return VkExtent2D.create(struct + VkSurfaceCapabilitiesKHR.MAXIMAGEEXTENT); }
     /** Unsafe version of {@link #maxImageArrayLayers}. */
-    public static int nmaxImageArrayLayers(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.MAXIMAGEARRAYLAYERS); }
+    public static int nmaxImageArrayLayers(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.MAXIMAGEARRAYLAYERS); }
     /** Unsafe version of {@link #supportedTransforms}. */
-    public static int nsupportedTransforms(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.SUPPORTEDTRANSFORMS); }
+    public static int nsupportedTransforms(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.SUPPORTEDTRANSFORMS); }
     /** Unsafe version of {@link #currentTransform}. */
-    public static int ncurrentTransform(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.CURRENTTRANSFORM); }
+    public static int ncurrentTransform(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.CURRENTTRANSFORM); }
     /** Unsafe version of {@link #supportedCompositeAlpha}. */
-    public static int nsupportedCompositeAlpha(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.SUPPORTEDCOMPOSITEALPHA); }
+    public static int nsupportedCompositeAlpha(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.SUPPORTEDCOMPOSITEALPHA); }
     /** Unsafe version of {@link #supportedUsageFlags}. */
-    public static int nsupportedUsageFlags(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesKHR.SUPPORTEDUSAGEFLAGS); }
+    public static int nsupportedUsageFlags(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesKHR.SUPPORTEDUSAGEFLAGS); }
 
     // -----------------------------------
 
@@ -337,35 +315,40 @@ public class VkSurfaceCapabilitiesKHR extends Struct<VkSurfaceCapabilitiesKHR> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSurfaceCapabilitiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#minImageCount} field. */
+        /** @return the value of the {@code minImageCount} field. */
         @NativeType("uint32_t")
         public int minImageCount() { return VkSurfaceCapabilitiesKHR.nminImageCount(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#maxImageCount} field. */
+        /** @return the value of the {@code maxImageCount} field. */
         @NativeType("uint32_t")
         public int maxImageCount() { return VkSurfaceCapabilitiesKHR.nmaxImageCount(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkSurfaceCapabilitiesKHR#currentExtent} field. */
+        /** @return a {@link VkExtent2D} view of the {@code currentExtent} field. */
         public VkExtent2D currentExtent() { return VkSurfaceCapabilitiesKHR.ncurrentExtent(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkSurfaceCapabilitiesKHR#minImageExtent} field. */
+        /** @return a {@link VkExtent2D} view of the {@code minImageExtent} field. */
         public VkExtent2D minImageExtent() { return VkSurfaceCapabilitiesKHR.nminImageExtent(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkSurfaceCapabilitiesKHR#maxImageExtent} field. */
+        /** @return a {@link VkExtent2D} view of the {@code maxImageExtent} field. */
         public VkExtent2D maxImageExtent() { return VkSurfaceCapabilitiesKHR.nmaxImageExtent(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#maxImageArrayLayers} field. */
+        /** @return the value of the {@code maxImageArrayLayers} field. */
         @NativeType("uint32_t")
         public int maxImageArrayLayers() { return VkSurfaceCapabilitiesKHR.nmaxImageArrayLayers(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#supportedTransforms} field. */
+        /** @return the value of the {@code supportedTransforms} field. */
         @NativeType("VkSurfaceTransformFlagsKHR")
         public int supportedTransforms() { return VkSurfaceCapabilitiesKHR.nsupportedTransforms(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#currentTransform} field. */
+        /** @return the value of the {@code currentTransform} field. */
         @NativeType("VkSurfaceTransformFlagBitsKHR")
         public int currentTransform() { return VkSurfaceCapabilitiesKHR.ncurrentTransform(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#supportedCompositeAlpha} field. */
+        /** @return the value of the {@code supportedCompositeAlpha} field. */
         @NativeType("VkCompositeAlphaFlagsKHR")
         public int supportedCompositeAlpha() { return VkSurfaceCapabilitiesKHR.nsupportedCompositeAlpha(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesKHR#supportedUsageFlags} field. */
+        /** @return the value of the {@code supportedUsageFlags} field. */
         @NativeType("VkImageUsageFlags")
         public int supportedUsageFlags() { return VkSurfaceCapabilitiesKHR.nsupportedUsageFlags(address()); }
 

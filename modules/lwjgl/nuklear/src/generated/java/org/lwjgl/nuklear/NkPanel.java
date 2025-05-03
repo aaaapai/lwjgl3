@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,11 +14,9 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_panel {
- *     enum nk_panel_type {@link #type};
+ *     enum nk_panel_type type;
  *     nk_flags flags;
  *     {@link NkRect struct nk_rect} bounds;
  *     nk_uint * offset_x;
@@ -36,7 +34,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     {@link NkChart struct nk_chart} chart;
  *     {@link NkCommandBuffer struct nk_command_buffer} * buffer;
  *     {@link NkPanel struct nk_panel} * parent;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_panel")
 public class NkPanel extends Struct<NkPanel> {
@@ -135,7 +133,7 @@ public class NkPanel extends Struct<NkPanel> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** one of:<br><table><tr><td>{@link Nuklear#NK_PANEL_NONE PANEL_NONE}</td><td>{@link Nuklear#NK_PANEL_WINDOW PANEL_WINDOW}</td><td>{@link Nuklear#NK_PANEL_GROUP PANEL_GROUP}</td><td>{@link Nuklear#NK_PANEL_POPUP PANEL_POPUP}</td><td>{@link Nuklear#NK_PANEL_CONTEXTUAL PANEL_CONTEXTUAL}</td><td>{@link Nuklear#NK_PANEL_COMBO PANEL_COMBO}</td></tr><tr><td>{@link Nuklear#NK_PANEL_MENU PANEL_MENU}</td><td>{@link Nuklear#NK_PANEL_TOOLTIP PANEL_TOOLTIP}</td><td>{@link Nuklear#NK_PANEL_SET_NONBLOCK PANEL_SET_NONBLOCK}</td><td>{@link Nuklear#NK_PANEL_SET_POPUP PANEL_SET_POPUP}</td><td>{@link Nuklear#NK_PANEL_SET_SUB PANEL_SET_SUB}</td></tr></table> */
+    /** @return the value of the {@code type} field. */
     @NativeType("enum nk_panel_type")
     public int type() { return ntype(address()); }
     /** @return the value of the {@code flags} field. */
@@ -144,18 +142,10 @@ public class NkPanel extends Struct<NkPanel> {
     /** @return a {@link NkRect} view of the {@code bounds} field. */
     @NativeType("struct nk_rect")
     public NkRect bounds() { return nbounds(address()); }
-    /**
-     * @return a {@link IntBuffer} view of the data pointed to by the {@code offset_x} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code offset_x} field. */
     @NativeType("nk_uint *")
     public IntBuffer offset_x(int capacity) { return noffset_x(address(), capacity); }
-    /**
-     * @return a {@link IntBuffer} view of the data pointed to by the {@code offset_y} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code offset_y} field. */
     @NativeType("nk_uint *")
     public IntBuffer offset_y(int capacity) { return noffset_y(address(), capacity); }
     /** @return the value of the {@code at_x} field. */
@@ -200,8 +190,7 @@ public class NkPanel extends Struct<NkPanel> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPanel createSafe(long address) {
+    public static @Nullable NkPanel createSafe(long address) {
         return address == NULL ? null : new NkPanel(address, null);
     }
 
@@ -216,17 +205,16 @@ public class NkPanel extends Struct<NkPanel> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPanel.Buffer createSafe(long address, int capacity) {
+    public static NkPanel.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + NkPanel.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + NkPanel.TYPE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + NkPanel.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + NkPanel.FLAGS); }
     /** Unsafe version of {@link #bounds}. */
     public static NkRect nbounds(long struct) { return NkRect.create(struct + NkPanel.BOUNDS); }
     /** Unsafe version of {@link #offset_x(int) offset_x}. */
@@ -234,19 +222,19 @@ public class NkPanel extends Struct<NkPanel> {
     /** Unsafe version of {@link #offset_y(int) offset_y}. */
     public static IntBuffer noffset_y(long struct, int capacity) { return memIntBuffer(memGetAddress(struct + NkPanel.OFFSET_Y), capacity); }
     /** Unsafe version of {@link #at_x}. */
-    public static float nat_x(long struct) { return UNSAFE.getFloat(null, struct + NkPanel.AT_X); }
+    public static float nat_x(long struct) { return memGetFloat(struct + NkPanel.AT_X); }
     /** Unsafe version of {@link #at_y}. */
-    public static float nat_y(long struct) { return UNSAFE.getFloat(null, struct + NkPanel.AT_Y); }
+    public static float nat_y(long struct) { return memGetFloat(struct + NkPanel.AT_Y); }
     /** Unsafe version of {@link #max_x}. */
-    public static float nmax_x(long struct) { return UNSAFE.getFloat(null, struct + NkPanel.MAX_X); }
+    public static float nmax_x(long struct) { return memGetFloat(struct + NkPanel.MAX_X); }
     /** Unsafe version of {@link #footer_height}. */
-    public static float nfooter_height(long struct) { return UNSAFE.getFloat(null, struct + NkPanel.FOOTER_HEIGHT); }
+    public static float nfooter_height(long struct) { return memGetFloat(struct + NkPanel.FOOTER_HEIGHT); }
     /** Unsafe version of {@link #header_height}. */
-    public static float nheader_height(long struct) { return UNSAFE.getFloat(null, struct + NkPanel.HEADER_HEIGHT); }
+    public static float nheader_height(long struct) { return memGetFloat(struct + NkPanel.HEADER_HEIGHT); }
     /** Unsafe version of {@link #border}. */
-    public static float nborder(long struct) { return UNSAFE.getFloat(null, struct + NkPanel.BORDER); }
+    public static float nborder(long struct) { return memGetFloat(struct + NkPanel.BORDER); }
     /** Unsafe version of {@link #has_scrolling}. */
-    public static int nhas_scrolling(long struct) { return UNSAFE.getInt(null, struct + NkPanel.HAS_SCROLLING); }
+    public static int nhas_scrolling(long struct) { return memGetInt(struct + NkPanel.HAS_SCROLLING); }
     /** Unsafe version of {@link #clip}. */
     public static NkRect nclip(long struct) { return NkRect.create(struct + NkPanel.CLIP); }
     /** Unsafe version of {@link #menu}. */
@@ -294,11 +282,16 @@ public class NkPanel extends Struct<NkPanel> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkPanel getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NkPanel#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("enum nk_panel_type")
         public int type() { return NkPanel.ntype(address()); }
         /** @return the value of the {@code flags} field. */
@@ -307,18 +300,10 @@ public class NkPanel extends Struct<NkPanel> {
         /** @return a {@link NkRect} view of the {@code bounds} field. */
         @NativeType("struct nk_rect")
         public NkRect bounds() { return NkPanel.nbounds(address()); }
-        /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@code offset_x} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code offset_x} field. */
         @NativeType("nk_uint *")
         public IntBuffer offset_x(int capacity) { return NkPanel.noffset_x(address(), capacity); }
-        /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@code offset_y} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code offset_y} field. */
         @NativeType("nk_uint *")
         public IntBuffer offset_y(int capacity) { return NkPanel.noffset_y(address(), capacity); }
         /** @return the value of the {@code at_x} field. */

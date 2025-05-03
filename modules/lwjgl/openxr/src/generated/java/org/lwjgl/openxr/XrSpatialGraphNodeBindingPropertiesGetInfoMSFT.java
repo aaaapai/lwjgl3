@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The information to get node binding properties.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSpatialGraphBridge XR_MSFT_spatial_graph_bridge} extension <b>must</b> be enabled prior to using {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT}</li>
- * <li>{@code type} <b>must</b> be {@link MSFTSpatialGraphBridge#XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link MSFTSpatialGraphBridge#xrGetSpatialGraphNodeBindingPropertiesMSFT GetSpatialGraphNodeBindingPropertiesMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpatialGraphNodeBindingPropertiesGetInfoMSFT {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ * }}</pre>
  */
 public class XrSpatialGraphNodeBindingPropertiesGetInfoMSFT extends Struct<XrSpatialGraphNodeBindingPropertiesGetInfoMSFT> implements NativeResource {
 
@@ -86,18 +70,18 @@ public class XrSpatialGraphNodeBindingPropertiesGetInfoMSFT extends Struct<XrSpa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpatialGraphNodeBindingPropertiesGetInfoMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTSpatialGraphBridge#XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT} value to the {@link #type} field. */
+    /** Sets the {@link MSFTSpatialGraphBridge#XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT} value to the {@code type} field. */
     public XrSpatialGraphNodeBindingPropertiesGetInfoMSFT type$Default() { return type(MSFTSpatialGraphBridge.XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpatialGraphNodeBindingPropertiesGetInfoMSFT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -147,8 +131,7 @@ public class XrSpatialGraphNodeBindingPropertiesGetInfoMSFT extends Struct<XrSpa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialGraphNodeBindingPropertiesGetInfoMSFT createSafe(long address) {
+    public static @Nullable XrSpatialGraphNodeBindingPropertiesGetInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSpatialGraphNodeBindingPropertiesGetInfoMSFT(address, null);
     }
 
@@ -191,8 +174,7 @@ public class XrSpatialGraphNodeBindingPropertiesGetInfoMSFT extends Struct<XrSpa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,12 +219,12 @@ public class XrSpatialGraphNodeBindingPropertiesGetInfoMSFT extends Struct<XrSpa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.NEXT, value); }
 
@@ -280,22 +262,27 @@ public class XrSpatialGraphNodeBindingPropertiesGetInfoMSFT extends Struct<XrSpa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpatialGraphNodeBindingPropertiesGetInfoMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.ntype(address()); }
-        /** @return the value of the {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTSpatialGraphBridge#XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT} value to the {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT#type} field. */
+        /** Sets the {@link MSFTSpatialGraphBridge#XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT} value to the {@code type} field. */
         public XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.Buffer type$Default() { return type(MSFTSpatialGraphBridge.XR_TYPE_SPATIAL_GRAPH_NODE_BINDING_PROPERTIES_GET_INFO_MSFT); }
-        /** Sets the specified value to the {@link XrSpatialGraphNodeBindingPropertiesGetInfoMSFT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.Buffer next(@NativeType("void const *") long value) { XrSpatialGraphNodeBindingPropertiesGetInfoMSFT.nnext(address(), value); return this; }
 
     }

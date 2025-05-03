@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,61 +16,22 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the  data used to build a micromap.
- * 
- * <h5>Description</h5>
- * 
- * <p>Only one of {@code pUsageCounts} or {@code ppUsageCounts} <b>can</b> be a valid pointer, the other <b>must</b> be {@code NULL}. The elements of the non-{@code NULL} array describe the total counts used to build each micromap. Each element contains a {@code count} which is the number of micromap triangles of that {@code format} and {@code subdivisionLevel} contained in the micromap. Multiple elements with the same {@code format} and {@code subdivisionLevel} are allowed and the total count for that {@code format} and {@code subdivisionLevel} is the sum of the {@code count} for each element.</p>
- * 
- * <p>Each micromap triangle refers to one element in {@code triangleArray} which contains the {@code format} and {@code subdivisionLevel} for that particular triangle as well as a {@code dataOffset} in bytes which is the location relative to {@code data} where that triangle’s micromap data begins. The data at {@code triangleArray} is laid out as a 4 byte unsigned integer for the {@code dataOffset} followed by a 2 byte unsigned integer for the subdivision level then a 2 byte unsigned integer for the format. In practice, compilers compile {@link VkMicromapTriangleEXT} to match this pattern.</p>
- * 
- * <p>For opacity micromaps, the data at {@code data} is packed as either one bit per element for {@link EXTOpacityMicromap#VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT OPACITY_MICROMAP_FORMAT_2_STATE_EXT} or two bits per element for {@link EXTOpacityMicromap#VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT OPACITY_MICROMAP_FORMAT_4_STATE_EXT} and is packed from LSB to MSB in each byte. The data at each index in those bytes is interpreted as discussed in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>.</p>
- * 
- * <p>For displacement micromaps, the data at {@code data} is interpreted as discussed in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#displacement-micromap-encoding">Displacement Micromap Encoding</a>.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>Only one of {@code pUsageCounts} or {@code ppUsageCounts} <b>can</b> be a valid pointer, the other <b>must</b> be {@code NULL}</li>
- * <li>If {@code type} is {@link EXTOpacityMicromap#VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT MICROMAP_TYPE_OPACITY_MICROMAP_EXT} the {@code format} member of {@link VkMicromapUsageEXT} <b>must</b> be a valid value from {@code VkOpacityMicromapFormatEXT}</li>
- * <li>If {@code type} is {@link EXTOpacityMicromap#VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT MICROMAP_TYPE_OPACITY_MICROMAP_EXT} the {@code format} member of {@link VkMicromapTriangleEXT} <b>must</b> be a valid value from {@code VkOpacityMicromapFormatEXT}</li>
- * <li>If {@code type} is {@link NVDisplacementMicromap#VK_MICROMAP_TYPE_DISPLACEMENT_MICROMAP_NV MICROMAP_TYPE_DISPLACEMENT_MICROMAP_NV} the {@code format} member of {@link VkMicromapUsageEXT} <b>must</b> be a valid value from {@code VkDisplacementMicromapFormatNV}</li>
- * <li>If {@code type} is {@link NVDisplacementMicromap#VK_MICROMAP_TYPE_DISPLACEMENT_MICROMAP_NV MICROMAP_TYPE_DISPLACEMENT_MICROMAP_NV} the {@code format} member of {@link VkMicromapTriangleEXT} <b>must</b> be a valid value from {@code VkDisplacementMicromapFormatNV}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code type} <b>must</b> be a valid {@code VkMicromapTypeEXT} value</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkBuildMicromapFlagBitsEXT} values</li>
- * <li>If {@code usageCountsCount} is not 0, and {@code pUsageCounts} is not {@code NULL}, {@code pUsageCounts} <b>must</b> be a valid pointer to an array of {@code usageCountsCount} {@link VkMicromapUsageEXT} structures</li>
- * <li>If {@code usageCountsCount} is not 0, and {@code ppUsageCounts} is not {@code NULL}, {@code ppUsageCounts} <b>must</b> be a valid pointer to an array of {@code usageCountsCount} valid pointers to {@link VkMicromapUsageEXT} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDeviceOrHostAddressConstKHR}, {@link VkDeviceOrHostAddressKHR}, {@link VkMicromapUsageEXT}, {@link EXTOpacityMicromap#vkBuildMicromapsEXT BuildMicromapsEXT}, {@link EXTOpacityMicromap#vkCmdBuildMicromapsEXT CmdBuildMicromapsEXT}, {@link EXTOpacityMicromap#vkGetMicromapBuildSizesEXT GetMicromapBuildSizesEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMicromapBuildInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkMicromapTypeEXT {@link #type};
- *     VkBuildMicromapFlagsEXT {@link #flags};
- *     VkBuildMicromapModeEXT {@link #mode};
- *     VkMicromapEXT {@link #dstMicromap};
- *     uint32_t {@link #usageCountsCount};
- *     {@link VkMicromapUsageEXT VkMicromapUsageEXT} const * {@link #pUsageCounts};
- *     {@link VkMicromapUsageEXT VkMicromapUsageEXT} const * const * {@link #ppUsageCounts};
- *     {@link VkDeviceOrHostAddressConstKHR VkDeviceOrHostAddressConstKHR} {@link #data};
- *     {@link VkDeviceOrHostAddressKHR VkDeviceOrHostAddressKHR} {@link #scratchData};
- *     {@link VkDeviceOrHostAddressConstKHR VkDeviceOrHostAddressConstKHR} {@link #triangleArray};
- *     VkDeviceSize {@link #triangleArrayStride};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkMicromapTypeEXT type;
+ *     VkBuildMicromapFlagsEXT flags;
+ *     VkBuildMicromapModeEXT mode;
+ *     VkMicromapEXT dstMicromap;
+ *     uint32_t usageCountsCount;
+ *     {@link VkMicromapUsageEXT VkMicromapUsageEXT} const * pUsageCounts;
+ *     {@link VkMicromapUsageEXT VkMicromapUsageEXT} const * const * ppUsageCounts;
+ *     {@link VkDeviceOrHostAddressConstKHR VkDeviceOrHostAddressConstKHR} data;
+ *     {@link VkDeviceOrHostAddressKHR VkDeviceOrHostAddressKHR} scratchData;
+ *     {@link VkDeviceOrHostAddressConstKHR VkDeviceOrHostAddressConstKHR} triangleArray;
+ *     VkDeviceSize triangleArrayStride;
+ * }}</pre>
  */
 public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> implements NativeResource {
 
@@ -153,78 +114,76 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkMicromapTypeEXT} value specifying the type of micromap being built. */
+    /** @return the value of the {@code type} field. */
     @NativeType("VkMicromapTypeEXT")
     public int type() { return ntype(address()); }
-    /** a bitmask of {@code VkBuildMicromapFlagBitsEXT} specifying additional parameters of the micromap. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkBuildMicromapFlagsEXT")
     public int flags() { return nflags(address()); }
-    /** a {@code VkBuildMicromapModeEXT} value specifying the type of operation to perform. */
+    /** @return the value of the {@code mode} field. */
     @NativeType("VkBuildMicromapModeEXT")
     public int mode() { return nmode(address()); }
-    /** a pointer to the target micromap for the build. */
+    /** @return the value of the {@code dstMicromap} field. */
     @NativeType("VkMicromapEXT")
     public long dstMicromap() { return ndstMicromap(address()); }
-    /** specifies the number of usage counts structures that will be used to determine the size of this micromap. */
+    /** @return the value of the {@code usageCountsCount} field. */
     @NativeType("uint32_t")
     public int usageCountsCount() { return nusageCountsCount(address()); }
-    /** a pointer to an array of {@link VkMicromapUsageEXT} structures. */
-    @Nullable
+    /** @return a {@link VkMicromapUsageEXT.Buffer} view of the struct array pointed to by the {@code pUsageCounts} field. */
     @NativeType("VkMicromapUsageEXT const *")
-    public VkMicromapUsageEXT.Buffer pUsageCounts() { return npUsageCounts(address()); }
-    /** a pointer to an array of pointers to {@link VkMicromapUsageEXT} structures. */
-    @Nullable
+    public VkMicromapUsageEXT.@Nullable Buffer pUsageCounts() { return npUsageCounts(address()); }
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code ppUsageCounts} field. */
     @NativeType("VkMicromapUsageEXT const * const *")
-    public PointerBuffer ppUsageCounts() { return nppUsageCounts(address()); }
-    /** the device or host address to memory which contains the data for the micromap. */
+    public @Nullable PointerBuffer ppUsageCounts() { return nppUsageCounts(address()); }
+    /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@code data} field. */
     public VkDeviceOrHostAddressConstKHR data() { return ndata(address()); }
-    /** the device or host address to memory that will be used as scratch memory for the build. */
+    /** @return a {@link VkDeviceOrHostAddressKHR} view of the {@code scratchData} field. */
     public VkDeviceOrHostAddressKHR scratchData() { return nscratchData(address()); }
-    /** the device or host address to memory containing the {@link VkMicromapTriangleEXT} data */
+    /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@code triangleArray} field. */
     public VkDeviceOrHostAddressConstKHR triangleArray() { return ntriangleArray(address()); }
-    /** the stride in bytes between each element of {@code triangleArray} */
+    /** @return the value of the {@code triangleArrayStride} field. */
     @NativeType("VkDeviceSize")
     public long triangleArrayStride() { return ntriangleArrayStride(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMicromapBuildInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT} value to the {@code sType} field. */
     public VkMicromapBuildInfoEXT sType$Default() { return sType(EXTOpacityMicromap.VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMicromapBuildInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public VkMicromapBuildInfoEXT type(@NativeType("VkMicromapTypeEXT") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkMicromapBuildInfoEXT flags(@NativeType("VkBuildMicromapFlagsEXT") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #mode} field. */
+    /** Sets the specified value to the {@code mode} field. */
     public VkMicromapBuildInfoEXT mode(@NativeType("VkBuildMicromapModeEXT") int value) { nmode(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstMicromap} field. */
+    /** Sets the specified value to the {@code dstMicromap} field. */
     public VkMicromapBuildInfoEXT dstMicromap(@NativeType("VkMicromapEXT") long value) { ndstMicromap(address(), value); return this; }
-    /** Sets the specified value to the {@link #usageCountsCount} field. */
+    /** Sets the specified value to the {@code usageCountsCount} field. */
     public VkMicromapBuildInfoEXT usageCountsCount(@NativeType("uint32_t") int value) { nusageCountsCount(address(), value); return this; }
-    /** Sets the address of the specified {@link VkMicromapUsageEXT.Buffer} to the {@link #pUsageCounts} field. */
-    public VkMicromapBuildInfoEXT pUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.Buffer value) { npUsageCounts(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #ppUsageCounts} field. */
+    /** Sets the address of the specified {@link VkMicromapUsageEXT.Buffer} to the {@code pUsageCounts} field. */
+    public VkMicromapBuildInfoEXT pUsageCounts(@NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.@Nullable Buffer value) { npUsageCounts(address(), value); return this; }
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code ppUsageCounts} field. */
     public VkMicromapBuildInfoEXT ppUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const * const *") PointerBuffer value) { nppUsageCounts(address(), value); return this; }
-    /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link #data} field. */
+    /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@code data} field. */
     public VkMicromapBuildInfoEXT data(VkDeviceOrHostAddressConstKHR value) { ndata(address(), value); return this; }
-    /** Passes the {@link #data} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code data} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkMicromapBuildInfoEXT data(java.util.function.Consumer<VkDeviceOrHostAddressConstKHR> consumer) { consumer.accept(data()); return this; }
-    /** Copies the specified {@link VkDeviceOrHostAddressKHR} to the {@link #scratchData} field. */
+    /** Copies the specified {@link VkDeviceOrHostAddressKHR} to the {@code scratchData} field. */
     public VkMicromapBuildInfoEXT scratchData(VkDeviceOrHostAddressKHR value) { nscratchData(address(), value); return this; }
-    /** Passes the {@link #scratchData} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code scratchData} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkMicromapBuildInfoEXT scratchData(java.util.function.Consumer<VkDeviceOrHostAddressKHR> consumer) { consumer.accept(scratchData()); return this; }
-    /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link #triangleArray} field. */
+    /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@code triangleArray} field. */
     public VkMicromapBuildInfoEXT triangleArray(VkDeviceOrHostAddressConstKHR value) { ntriangleArray(address(), value); return this; }
-    /** Passes the {@link #triangleArray} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code triangleArray} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkMicromapBuildInfoEXT triangleArray(java.util.function.Consumer<VkDeviceOrHostAddressConstKHR> consumer) { consumer.accept(triangleArray()); return this; }
-    /** Sets the specified value to the {@link #triangleArrayStride} field. */
+    /** Sets the specified value to the {@code triangleArrayStride} field. */
     public VkMicromapBuildInfoEXT triangleArrayStride(@NativeType("VkDeviceSize") long value) { ntriangleArrayStride(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -236,7 +195,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
         int mode,
         long dstMicromap,
         int usageCountsCount,
-        @Nullable VkMicromapUsageEXT.Buffer pUsageCounts,
+        VkMicromapUsageEXT.@Nullable Buffer pUsageCounts,
         @Nullable PointerBuffer ppUsageCounts,
         VkDeviceOrHostAddressConstKHR data,
         VkDeviceOrHostAddressKHR scratchData,
@@ -296,8 +255,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildInfoEXT createSafe(long address) {
+    public static @Nullable VkMicromapBuildInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapBuildInfoEXT(address, null);
     }
 
@@ -340,8 +298,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapBuildInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -386,23 +343,23 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMicromapBuildInfoEXT.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.TYPE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.FLAGS); }
     /** Unsafe version of {@link #mode}. */
-    public static int nmode(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.MODE); }
+    public static int nmode(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.MODE); }
     /** Unsafe version of {@link #dstMicromap}. */
-    public static long ndstMicromap(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildInfoEXT.DSTMICROMAP); }
+    public static long ndstMicromap(long struct) { return memGetLong(struct + VkMicromapBuildInfoEXT.DSTMICROMAP); }
     /** Unsafe version of {@link #usageCountsCount}. */
-    public static int nusageCountsCount(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT); }
+    public static int nusageCountsCount(long struct) { return memGetInt(struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT); }
     /** Unsafe version of {@link #pUsageCounts}. */
-    @Nullable public static VkMicromapUsageEXT.Buffer npUsageCounts(long struct) { return VkMicromapUsageEXT.createSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS), nusageCountsCount(struct)); }
+    public static VkMicromapUsageEXT.@Nullable Buffer npUsageCounts(long struct) { return VkMicromapUsageEXT.createSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS), nusageCountsCount(struct)); }
     /** Unsafe version of {@link #ppUsageCounts() ppUsageCounts}. */
-    @Nullable public static PointerBuffer nppUsageCounts(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PPUSAGECOUNTS), nusageCountsCount(struct)); }
+    public static @Nullable PointerBuffer nppUsageCounts(long struct) { return memPointerBufferSafe(memGetAddress(struct + VkMicromapBuildInfoEXT.PPUSAGECOUNTS), nusageCountsCount(struct)); }
     /** Unsafe version of {@link #data}. */
     public static VkDeviceOrHostAddressConstKHR ndata(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkMicromapBuildInfoEXT.DATA); }
     /** Unsafe version of {@link #scratchData}. */
@@ -410,24 +367,24 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     /** Unsafe version of {@link #triangleArray}. */
     public static VkDeviceOrHostAddressConstKHR ntriangleArray(long struct) { return VkDeviceOrHostAddressConstKHR.create(struct + VkMicromapBuildInfoEXT.TRIANGLEARRAY); }
     /** Unsafe version of {@link #triangleArrayStride}. */
-    public static long ntriangleArrayStride(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE); }
+    public static long ntriangleArrayStride(long struct) { return memGetLong(struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.TYPE, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #mode(int) mode}. */
-    public static void nmode(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.MODE, value); }
+    public static void nmode(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.MODE, value); }
     /** Unsafe version of {@link #dstMicromap(long) dstMicromap}. */
-    public static void ndstMicromap(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildInfoEXT.DSTMICROMAP, value); }
+    public static void ndstMicromap(long struct, long value) { memPutLong(struct + VkMicromapBuildInfoEXT.DSTMICROMAP, value); }
     /** Sets the specified value to the {@code usageCountsCount} field of the specified {@code struct}. */
-    public static void nusageCountsCount(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT, value); }
+    public static void nusageCountsCount(long struct, int value) { memPutInt(struct + VkMicromapBuildInfoEXT.USAGECOUNTSCOUNT, value); }
     /** Unsafe version of {@link #pUsageCounts(VkMicromapUsageEXT.Buffer) pUsageCounts}. */
-    public static void npUsageCounts(long struct, @Nullable VkMicromapUsageEXT.Buffer value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS, memAddressSafe(value)); }
+    public static void npUsageCounts(long struct, VkMicromapUsageEXT.@Nullable Buffer value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PUSAGECOUNTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #ppUsageCounts(PointerBuffer) ppUsageCounts}. */
     public static void nppUsageCounts(long struct, @Nullable PointerBuffer value) { memPutAddress(struct + VkMicromapBuildInfoEXT.PPUSAGECOUNTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #data(VkDeviceOrHostAddressConstKHR) data}. */
@@ -437,7 +394,7 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
     /** Unsafe version of {@link #triangleArray(VkDeviceOrHostAddressConstKHR) triangleArray}. */
     public static void ntriangleArray(long struct, VkDeviceOrHostAddressConstKHR value) { memCopy(value.address(), struct + VkMicromapBuildInfoEXT.TRIANGLEARRAY, VkDeviceOrHostAddressConstKHR.SIZEOF); }
     /** Unsafe version of {@link #triangleArrayStride(long) triangleArrayStride}. */
-    public static void ntriangleArrayStride(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE, value); }
+    public static void ntriangleArrayStride(long struct, long value) { memPutLong(struct + VkMicromapBuildInfoEXT.TRIANGLEARRAYSTRIDE, value); }
 
     // -----------------------------------
 
@@ -473,82 +430,85 @@ public class VkMicromapBuildInfoEXT extends Struct<VkMicromapBuildInfoEXT> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMicromapBuildInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMicromapBuildInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMicromapBuildInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("VkMicromapTypeEXT")
         public int type() { return VkMicromapBuildInfoEXT.ntype(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkBuildMicromapFlagsEXT")
         public int flags() { return VkMicromapBuildInfoEXT.nflags(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#mode} field. */
+        /** @return the value of the {@code mode} field. */
         @NativeType("VkBuildMicromapModeEXT")
         public int mode() { return VkMicromapBuildInfoEXT.nmode(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#dstMicromap} field. */
+        /** @return the value of the {@code dstMicromap} field. */
         @NativeType("VkMicromapEXT")
         public long dstMicromap() { return VkMicromapBuildInfoEXT.ndstMicromap(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#usageCountsCount} field. */
+        /** @return the value of the {@code usageCountsCount} field. */
         @NativeType("uint32_t")
         public int usageCountsCount() { return VkMicromapBuildInfoEXT.nusageCountsCount(address()); }
-        /** @return a {@link VkMicromapUsageEXT.Buffer} view of the struct array pointed to by the {@link VkMicromapBuildInfoEXT#pUsageCounts} field. */
-        @Nullable
+        /** @return a {@link VkMicromapUsageEXT.Buffer} view of the struct array pointed to by the {@code pUsageCounts} field. */
         @NativeType("VkMicromapUsageEXT const *")
-        public VkMicromapUsageEXT.Buffer pUsageCounts() { return VkMicromapBuildInfoEXT.npUsageCounts(address()); }
-        /** @return a {@link PointerBuffer} view of the data pointed to by the {@link VkMicromapBuildInfoEXT#ppUsageCounts} field. */
-        @Nullable
+        public VkMicromapUsageEXT.@Nullable Buffer pUsageCounts() { return VkMicromapBuildInfoEXT.npUsageCounts(address()); }
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code ppUsageCounts} field. */
         @NativeType("VkMicromapUsageEXT const * const *")
-        public PointerBuffer ppUsageCounts() { return VkMicromapBuildInfoEXT.nppUsageCounts(address()); }
-        /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@link VkMicromapBuildInfoEXT#data} field. */
+        public @Nullable PointerBuffer ppUsageCounts() { return VkMicromapBuildInfoEXT.nppUsageCounts(address()); }
+        /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@code data} field. */
         public VkDeviceOrHostAddressConstKHR data() { return VkMicromapBuildInfoEXT.ndata(address()); }
-        /** @return a {@link VkDeviceOrHostAddressKHR} view of the {@link VkMicromapBuildInfoEXT#scratchData} field. */
+        /** @return a {@link VkDeviceOrHostAddressKHR} view of the {@code scratchData} field. */
         public VkDeviceOrHostAddressKHR scratchData() { return VkMicromapBuildInfoEXT.nscratchData(address()); }
-        /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@link VkMicromapBuildInfoEXT#triangleArray} field. */
+        /** @return a {@link VkDeviceOrHostAddressConstKHR} view of the {@code triangleArray} field. */
         public VkDeviceOrHostAddressConstKHR triangleArray() { return VkMicromapBuildInfoEXT.ntriangleArray(address()); }
-        /** @return the value of the {@link VkMicromapBuildInfoEXT#triangleArrayStride} field. */
+        /** @return the value of the {@code triangleArrayStride} field. */
         @NativeType("VkDeviceSize")
         public long triangleArrayStride() { return VkMicromapBuildInfoEXT.ntriangleArrayStride(address()); }
 
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMicromapBuildInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkMicromapBuildInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT} value to the {@link VkMicromapBuildInfoEXT#sType} field. */
+        /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT} value to the {@code sType} field. */
         public VkMicromapBuildInfoEXT.Buffer sType$Default() { return sType(EXTOpacityMicromap.VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT); }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMicromapBuildInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkMicromapBuildInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public VkMicromapBuildInfoEXT.Buffer type(@NativeType("VkMicromapTypeEXT") int value) { VkMicromapBuildInfoEXT.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkMicromapBuildInfoEXT.Buffer flags(@NativeType("VkBuildMicromapFlagsEXT") int value) { VkMicromapBuildInfoEXT.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#mode} field. */
+        /** Sets the specified value to the {@code mode} field. */
         public VkMicromapBuildInfoEXT.Buffer mode(@NativeType("VkBuildMicromapModeEXT") int value) { VkMicromapBuildInfoEXT.nmode(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#dstMicromap} field. */
+        /** Sets the specified value to the {@code dstMicromap} field. */
         public VkMicromapBuildInfoEXT.Buffer dstMicromap(@NativeType("VkMicromapEXT") long value) { VkMicromapBuildInfoEXT.ndstMicromap(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#usageCountsCount} field. */
+        /** Sets the specified value to the {@code usageCountsCount} field. */
         public VkMicromapBuildInfoEXT.Buffer usageCountsCount(@NativeType("uint32_t") int value) { VkMicromapBuildInfoEXT.nusageCountsCount(address(), value); return this; }
-        /** Sets the address of the specified {@link VkMicromapUsageEXT.Buffer} to the {@link VkMicromapBuildInfoEXT#pUsageCounts} field. */
-        public VkMicromapBuildInfoEXT.Buffer pUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.Buffer value) { VkMicromapBuildInfoEXT.npUsageCounts(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link VkMicromapBuildInfoEXT#ppUsageCounts} field. */
+        /** Sets the address of the specified {@link VkMicromapUsageEXT.Buffer} to the {@code pUsageCounts} field. */
+        public VkMicromapBuildInfoEXT.Buffer pUsageCounts(@NativeType("VkMicromapUsageEXT const *") VkMicromapUsageEXT.@Nullable Buffer value) { VkMicromapBuildInfoEXT.npUsageCounts(address(), value); return this; }
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code ppUsageCounts} field. */
         public VkMicromapBuildInfoEXT.Buffer ppUsageCounts(@Nullable @NativeType("VkMicromapUsageEXT const * const *") PointerBuffer value) { VkMicromapBuildInfoEXT.nppUsageCounts(address(), value); return this; }
-        /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link VkMicromapBuildInfoEXT#data} field. */
+        /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@code data} field. */
         public VkMicromapBuildInfoEXT.Buffer data(VkDeviceOrHostAddressConstKHR value) { VkMicromapBuildInfoEXT.ndata(address(), value); return this; }
-        /** Passes the {@link VkMicromapBuildInfoEXT#data} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code data} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkMicromapBuildInfoEXT.Buffer data(java.util.function.Consumer<VkDeviceOrHostAddressConstKHR> consumer) { consumer.accept(data()); return this; }
-        /** Copies the specified {@link VkDeviceOrHostAddressKHR} to the {@link VkMicromapBuildInfoEXT#scratchData} field. */
+        /** Copies the specified {@link VkDeviceOrHostAddressKHR} to the {@code scratchData} field. */
         public VkMicromapBuildInfoEXT.Buffer scratchData(VkDeviceOrHostAddressKHR value) { VkMicromapBuildInfoEXT.nscratchData(address(), value); return this; }
-        /** Passes the {@link VkMicromapBuildInfoEXT#scratchData} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code scratchData} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkMicromapBuildInfoEXT.Buffer scratchData(java.util.function.Consumer<VkDeviceOrHostAddressKHR> consumer) { consumer.accept(scratchData()); return this; }
-        /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@link VkMicromapBuildInfoEXT#triangleArray} field. */
+        /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@code triangleArray} field. */
         public VkMicromapBuildInfoEXT.Buffer triangleArray(VkDeviceOrHostAddressConstKHR value) { VkMicromapBuildInfoEXT.ntriangleArray(address(), value); return this; }
-        /** Passes the {@link VkMicromapBuildInfoEXT#triangleArray} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code triangleArray} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkMicromapBuildInfoEXT.Buffer triangleArray(java.util.function.Consumer<VkDeviceOrHostAddressConstKHR> consumer) { consumer.accept(triangleArray()); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildInfoEXT#triangleArrayStride} field. */
+        /** Sets the specified value to the {@code triangleArrayStride} field. */
         public VkMicromapBuildInfoEXT.Buffer triangleArrayStride(@NativeType("VkDeviceSize") long value) { VkMicromapBuildInfoEXT.ntriangleArrayStride(address(), value); return this; }
 
     }

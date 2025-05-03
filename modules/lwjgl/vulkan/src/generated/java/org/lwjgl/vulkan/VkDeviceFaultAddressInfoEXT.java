@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,39 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying GPU virtual address information.
- * 
- * <h5>Description</h5>
- * 
- * <p>The combination of {@code reportedAddress} and {@code addressPrecision} allow the possible range of addresses to be calculated, such that:</p>
- * 
- * <pre><code>
- * lower_address = (pInfo-&gt;reportedAddress &amp; ~(pInfo-&gt;addressPrecision-1))
- * upper_address = (pInfo-&gt;reportedAddress |  (pInfo-&gt;addressPrecision-1))</code></pre>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>It is valid for the {@code reportedAddress} to contain a more precise address than indicated by {@code addressPrecision}. In this case, the value of {@code reportedAddress} should be treated as an additional hint as to the value of the address that triggered the page fault, or to the value of an instruction pointer.</p>
- * </div>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code addressType} <b>must</b> be a valid {@code VkDeviceFaultAddressTypeEXT} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDeviceFaultInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceFaultAddressInfoEXT {
- *     VkDeviceFaultAddressTypeEXT {@link #addressType};
- *     VkDeviceAddress {@link #reportedAddress};
- *     VkDeviceSize {@link #addressPrecision};
- * }</code></pre>
+ *     VkDeviceFaultAddressTypeEXT addressType;
+ *     VkDeviceAddress reportedAddress;
+ *     VkDeviceSize addressPrecision;
+ * }}</pre>
  */
 public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfoEXT> implements NativeResource {
 
@@ -101,21 +74,21 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** either the type of memory operation that triggered a page fault, or the type of association between an instruction pointer and a fault. */
+    /** @return the value of the {@code addressType} field. */
     @NativeType("VkDeviceFaultAddressTypeEXT")
     public int addressType() { return naddressType(address()); }
-    /** the GPU virtual address recorded by the device. */
+    /** @return the value of the {@code reportedAddress} field. */
     @NativeType("VkDeviceAddress")
     public long reportedAddress() { return nreportedAddress(address()); }
-    /** a power of two value that specifies how precisely the device can report the address. */
+    /** @return the value of the {@code addressPrecision} field. */
     @NativeType("VkDeviceSize")
     public long addressPrecision() { return naddressPrecision(address()); }
 
-    /** Sets the specified value to the {@link #addressType} field. */
+    /** Sets the specified value to the {@code addressType} field. */
     public VkDeviceFaultAddressInfoEXT addressType(@NativeType("VkDeviceFaultAddressTypeEXT") int value) { naddressType(address(), value); return this; }
-    /** Sets the specified value to the {@link #reportedAddress} field. */
+    /** Sets the specified value to the {@code reportedAddress} field. */
     public VkDeviceFaultAddressInfoEXT reportedAddress(@NativeType("VkDeviceAddress") long value) { nreportedAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #addressPrecision} field. */
+    /** Sets the specified value to the {@code addressPrecision} field. */
     public VkDeviceFaultAddressInfoEXT addressPrecision(@NativeType("VkDeviceSize") long value) { naddressPrecision(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +140,7 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceFaultAddressInfoEXT createSafe(long address) {
+    public static @Nullable VkDeviceFaultAddressInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDeviceFaultAddressInfoEXT(address, null);
     }
 
@@ -211,8 +183,7 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceFaultAddressInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceFaultAddressInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +228,18 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #addressType}. */
-    public static int naddressType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE); }
+    public static int naddressType(long struct) { return memGetInt(struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE); }
     /** Unsafe version of {@link #reportedAddress}. */
-    public static long nreportedAddress(long struct) { return UNSAFE.getLong(null, struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS); }
+    public static long nreportedAddress(long struct) { return memGetLong(struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS); }
     /** Unsafe version of {@link #addressPrecision}. */
-    public static long naddressPrecision(long struct) { return UNSAFE.getLong(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION); }
+    public static long naddressPrecision(long struct) { return memGetLong(struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION); }
 
     /** Unsafe version of {@link #addressType(int) addressType}. */
-    public static void naddressType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE, value); }
+    public static void naddressType(long struct, int value) { memPutInt(struct + VkDeviceFaultAddressInfoEXT.ADDRESSTYPE, value); }
     /** Unsafe version of {@link #reportedAddress(long) reportedAddress}. */
-    public static void nreportedAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS, value); }
+    public static void nreportedAddress(long struct, long value) { memPutLong(struct + VkDeviceFaultAddressInfoEXT.REPORTEDADDRESS, value); }
     /** Unsafe version of {@link #addressPrecision(long) addressPrecision}. */
-    public static void naddressPrecision(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION, value); }
+    public static void naddressPrecision(long struct, long value) { memPutLong(struct + VkDeviceFaultAddressInfoEXT.ADDRESSPRECISION, value); }
 
     // -----------------------------------
 
@@ -304,25 +275,30 @@ public class VkDeviceFaultAddressInfoEXT extends Struct<VkDeviceFaultAddressInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceFaultAddressInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceFaultAddressInfoEXT#addressType} field. */
+        /** @return the value of the {@code addressType} field. */
         @NativeType("VkDeviceFaultAddressTypeEXT")
         public int addressType() { return VkDeviceFaultAddressInfoEXT.naddressType(address()); }
-        /** @return the value of the {@link VkDeviceFaultAddressInfoEXT#reportedAddress} field. */
+        /** @return the value of the {@code reportedAddress} field. */
         @NativeType("VkDeviceAddress")
         public long reportedAddress() { return VkDeviceFaultAddressInfoEXT.nreportedAddress(address()); }
-        /** @return the value of the {@link VkDeviceFaultAddressInfoEXT#addressPrecision} field. */
+        /** @return the value of the {@code addressPrecision} field. */
         @NativeType("VkDeviceSize")
         public long addressPrecision() { return VkDeviceFaultAddressInfoEXT.naddressPrecision(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceFaultAddressInfoEXT#addressType} field. */
+        /** Sets the specified value to the {@code addressType} field. */
         public VkDeviceFaultAddressInfoEXT.Buffer addressType(@NativeType("VkDeviceFaultAddressTypeEXT") int value) { VkDeviceFaultAddressInfoEXT.naddressType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceFaultAddressInfoEXT#reportedAddress} field. */
+        /** Sets the specified value to the {@code reportedAddress} field. */
         public VkDeviceFaultAddressInfoEXT.Buffer reportedAddress(@NativeType("VkDeviceAddress") long value) { VkDeviceFaultAddressInfoEXT.nreportedAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceFaultAddressInfoEXT#addressPrecision} field. */
+        /** Sets the specified value to the {@code addressPrecision} field. */
         public VkDeviceFaultAddressInfoEXT.Buffer addressPrecision(@NativeType("VkDeviceSize") long value) { VkDeviceFaultAddressInfoEXT.naddressPrecision(address(), value); return this; }
 
     }

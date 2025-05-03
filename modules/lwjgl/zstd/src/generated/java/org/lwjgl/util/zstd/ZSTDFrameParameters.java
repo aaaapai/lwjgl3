@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_frameParameters {
- *     int {@link #contentSizeFlag};
- *     int {@link #checksumFlag};
- *     int {@link #noDictIDFlag};
- * }</code></pre>
+ *     int contentSizeFlag;
+ *     int checksumFlag;
+ *     int noDictIDFlag;
+ * }}</pre>
  */
 @NativeType("struct ZSTD_frameParameters")
 public class ZSTDFrameParameters extends Struct<ZSTDFrameParameters> implements NativeResource {
@@ -77,18 +75,18 @@ public class ZSTDFrameParameters extends Struct<ZSTDFrameParameters> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** 1: content size will be in frame header (when known) */
+    /** @return the value of the {@code contentSizeFlag} field. */
     public int contentSizeFlag() { return ncontentSizeFlag(address()); }
-    /** 1: generate a 32-bits checksum using XXH64 algorithm at end of frame, for error detection */
+    /** @return the value of the {@code checksumFlag} field. */
     public int checksumFlag() { return nchecksumFlag(address()); }
-    /** 1: no {@code dictID} will be saved into frame header ({@code dictID} is only useful for dictionary compression) */
+    /** @return the value of the {@code noDictIDFlag} field. */
     public int noDictIDFlag() { return nnoDictIDFlag(address()); }
 
-    /** Sets the specified value to the {@link #contentSizeFlag} field. */
+    /** Sets the specified value to the {@code contentSizeFlag} field. */
     public ZSTDFrameParameters contentSizeFlag(int value) { ncontentSizeFlag(address(), value); return this; }
-    /** Sets the specified value to the {@link #checksumFlag} field. */
+    /** Sets the specified value to the {@code checksumFlag} field. */
     public ZSTDFrameParameters checksumFlag(int value) { nchecksumFlag(address(), value); return this; }
-    /** Sets the specified value to the {@link #noDictIDFlag} field. */
+    /** Sets the specified value to the {@code noDictIDFlag} field. */
     public ZSTDFrameParameters noDictIDFlag(int value) { nnoDictIDFlag(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -140,8 +138,7 @@ public class ZSTDFrameParameters extends Struct<ZSTDFrameParameters> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDFrameParameters createSafe(long address) {
+    public static @Nullable ZSTDFrameParameters createSafe(long address) {
         return address == NULL ? null : new ZSTDFrameParameters(address, null);
     }
 
@@ -184,8 +181,7 @@ public class ZSTDFrameParameters extends Struct<ZSTDFrameParameters> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDFrameParameters.Buffer createSafe(long address, int capacity) {
+    public static ZSTDFrameParameters.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +245,18 @@ public class ZSTDFrameParameters extends Struct<ZSTDFrameParameters> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #contentSizeFlag}. */
-    public static int ncontentSizeFlag(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameParameters.CONTENTSIZEFLAG); }
+    public static int ncontentSizeFlag(long struct) { return memGetInt(struct + ZSTDFrameParameters.CONTENTSIZEFLAG); }
     /** Unsafe version of {@link #checksumFlag}. */
-    public static int nchecksumFlag(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameParameters.CHECKSUMFLAG); }
+    public static int nchecksumFlag(long struct) { return memGetInt(struct + ZSTDFrameParameters.CHECKSUMFLAG); }
     /** Unsafe version of {@link #noDictIDFlag}. */
-    public static int nnoDictIDFlag(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameParameters.NODICTIDFLAG); }
+    public static int nnoDictIDFlag(long struct) { return memGetInt(struct + ZSTDFrameParameters.NODICTIDFLAG); }
 
     /** Unsafe version of {@link #contentSizeFlag(int) contentSizeFlag}. */
-    public static void ncontentSizeFlag(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDFrameParameters.CONTENTSIZEFLAG, value); }
+    public static void ncontentSizeFlag(long struct, int value) { memPutInt(struct + ZSTDFrameParameters.CONTENTSIZEFLAG, value); }
     /** Unsafe version of {@link #checksumFlag(int) checksumFlag}. */
-    public static void nchecksumFlag(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDFrameParameters.CHECKSUMFLAG, value); }
+    public static void nchecksumFlag(long struct, int value) { memPutInt(struct + ZSTDFrameParameters.CHECKSUMFLAG, value); }
     /** Unsafe version of {@link #noDictIDFlag(int) noDictIDFlag}. */
-    public static void nnoDictIDFlag(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDFrameParameters.NODICTIDFLAG, value); }
+    public static void nnoDictIDFlag(long struct, int value) { memPutInt(struct + ZSTDFrameParameters.NODICTIDFLAG, value); }
 
     // -----------------------------------
 
@@ -296,22 +292,27 @@ public class ZSTDFrameParameters extends Struct<ZSTDFrameParameters> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ZSTDFrameParameters getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZSTDFrameParameters#contentSizeFlag} field. */
+        /** @return the value of the {@code contentSizeFlag} field. */
         public int contentSizeFlag() { return ZSTDFrameParameters.ncontentSizeFlag(address()); }
-        /** @return the value of the {@link ZSTDFrameParameters#checksumFlag} field. */
+        /** @return the value of the {@code checksumFlag} field. */
         public int checksumFlag() { return ZSTDFrameParameters.nchecksumFlag(address()); }
-        /** @return the value of the {@link ZSTDFrameParameters#noDictIDFlag} field. */
+        /** @return the value of the {@code noDictIDFlag} field. */
         public int noDictIDFlag() { return ZSTDFrameParameters.nnoDictIDFlag(address()); }
 
-        /** Sets the specified value to the {@link ZSTDFrameParameters#contentSizeFlag} field. */
+        /** Sets the specified value to the {@code contentSizeFlag} field. */
         public ZSTDFrameParameters.Buffer contentSizeFlag(int value) { ZSTDFrameParameters.ncontentSizeFlag(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDFrameParameters#checksumFlag} field. */
+        /** Sets the specified value to the {@code checksumFlag} field. */
         public ZSTDFrameParameters.Buffer checksumFlag(int value) { ZSTDFrameParameters.nchecksumFlag(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDFrameParameters#noDictIDFlag} field. */
+        /** Sets the specified value to the {@code noDictIDFlag} field. */
         public ZSTDFrameParameters.Buffer noDictIDFlag(int value) { ZSTDFrameParameters.nnoDictIDFlag(address(), value); return this; }
 
     }

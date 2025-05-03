@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Used to retrieve query results.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSpaceQueryResultsFB} structure is used by the {@link FBSpatialEntityQuery#xrRetrieveSpaceQueryResultsFB RetrieveSpaceQueryResultsFB} function to retrieve query results.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityQuery XR_FB_spatial_entity_query} extension <b>must</b> be enabled prior to using {@link XrSpaceQueryResultsFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_RESULTS_FB TYPE_SPACE_QUERY_RESULTS_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code resultCapacityInput} is not 0, {@code results} <b>must</b> be a pointer to an array of {@code resultCapacityInput} {@link XrSpaceQueryResultFB} structures</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSpaceQueryResultFB}, {@link FBSpatialEntityQuery#xrRetrieveSpaceQueryResultsFB RetrieveSpaceQueryResultsFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceQueryResultsFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #resultCapacityInput};
- *     uint32_t {@link #resultCountOutput};
- *     {@link XrSpaceQueryResultFB XrSpaceQueryResultFB} * {@link #results};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t resultCapacityInput;
+ *     uint32_t resultCountOutput;
+ *     {@link XrSpaceQueryResultFB XrSpaceQueryResultFB} * results;
+ * }}</pre>
  */
 public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> implements NativeResource {
 
@@ -103,35 +82,34 @@ public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the capacity of the {@code results} array, or 0 to indicate a request to retrieve the required capacity. */
+    /** @return the value of the {@code resultCapacityInput} field. */
     @NativeType("uint32_t")
     public int resultCapacityInput() { return nresultCapacityInput(address()); }
-    /** an output parameter containing the count of results retrieved, or returns the required capacity in the case that {@code resultCapacityInput} is insufficient. */
+    /** @return the value of the {@code resultCountOutput} field. */
     @NativeType("uint32_t")
     public int resultCountOutput() { return nresultCountOutput(address()); }
-    /** a pointer to an array of results, but <b>can</b> be {@code NULL} if {@code resultCapacityInput} is 0. */
-    @Nullable
+    /** @return a {@link XrSpaceQueryResultFB.Buffer} view of the struct array pointed to by the {@code results} field. */
     @NativeType("XrSpaceQueryResultFB *")
-    public XrSpaceQueryResultFB.Buffer results() { return nresults(address()); }
+    public XrSpaceQueryResultFB.@Nullable Buffer results() { return nresults(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceQueryResultsFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_RESULTS_FB TYPE_SPACE_QUERY_RESULTS_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_RESULTS_FB TYPE_SPACE_QUERY_RESULTS_FB} value to the {@code type} field. */
     public XrSpaceQueryResultsFB type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_SPACE_QUERY_RESULTS_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceQueryResultsFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #resultCapacityInput} field. */
+    /** Sets the specified value to the {@code resultCapacityInput} field. */
     public XrSpaceQueryResultsFB resultCapacityInput(@NativeType("uint32_t") int value) { nresultCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #resultCountOutput} field. */
+    /** Sets the specified value to the {@code resultCountOutput} field. */
     public XrSpaceQueryResultsFB resultCountOutput(@NativeType("uint32_t") int value) { nresultCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link XrSpaceQueryResultFB.Buffer} to the {@link #results} field. */
-    public XrSpaceQueryResultsFB results(@Nullable @NativeType("XrSpaceQueryResultFB *") XrSpaceQueryResultFB.Buffer value) { nresults(address(), value); return this; }
+    /** Sets the address of the specified {@link XrSpaceQueryResultFB.Buffer} to the {@code results} field. */
+    public XrSpaceQueryResultsFB results(@NativeType("XrSpaceQueryResultFB *") XrSpaceQueryResultFB.@Nullable Buffer value) { nresults(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrSpaceQueryResultsFB set(
@@ -139,7 +117,7 @@ public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> impleme
         long next,
         int resultCapacityInput,
         int resultCountOutput,
-        @Nullable XrSpaceQueryResultFB.Buffer results
+        XrSpaceQueryResultFB.@Nullable Buffer results
     ) {
         type(type);
         next(next);
@@ -186,8 +164,7 @@ public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceQueryResultsFB createSafe(long address) {
+    public static @Nullable XrSpaceQueryResultsFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceQueryResultsFB(address, null);
     }
 
@@ -230,8 +207,7 @@ public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceQueryResultsFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceQueryResultsFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -276,26 +252,26 @@ public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceQueryResultsFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceQueryResultsFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceQueryResultsFB.NEXT); }
     /** Unsafe version of {@link #resultCapacityInput}. */
-    public static int nresultCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrSpaceQueryResultsFB.RESULTCAPACITYINPUT); }
+    public static int nresultCapacityInput(long struct) { return memGetInt(struct + XrSpaceQueryResultsFB.RESULTCAPACITYINPUT); }
     /** Unsafe version of {@link #resultCountOutput}. */
-    public static int nresultCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrSpaceQueryResultsFB.RESULTCOUNTOUTPUT); }
+    public static int nresultCountOutput(long struct) { return memGetInt(struct + XrSpaceQueryResultsFB.RESULTCOUNTOUTPUT); }
     /** Unsafe version of {@link #results}. */
-    @Nullable public static XrSpaceQueryResultFB.Buffer nresults(long struct) { return XrSpaceQueryResultFB.createSafe(memGetAddress(struct + XrSpaceQueryResultsFB.RESULTS), nresultCapacityInput(struct)); }
+    public static XrSpaceQueryResultFB.@Nullable Buffer nresults(long struct) { return XrSpaceQueryResultFB.createSafe(memGetAddress(struct + XrSpaceQueryResultsFB.RESULTS), nresultCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceQueryResultsFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceQueryResultsFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceQueryResultsFB.NEXT, value); }
     /** Sets the specified value to the {@code resultCapacityInput} field of the specified {@code struct}. */
-    public static void nresultCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceQueryResultsFB.RESULTCAPACITYINPUT, value); }
+    public static void nresultCapacityInput(long struct, int value) { memPutInt(struct + XrSpaceQueryResultsFB.RESULTCAPACITYINPUT, value); }
     /** Unsafe version of {@link #resultCountOutput(int) resultCountOutput}. */
-    public static void nresultCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceQueryResultsFB.RESULTCOUNTOUTPUT, value); }
+    public static void nresultCountOutput(long struct, int value) { memPutInt(struct + XrSpaceQueryResultsFB.RESULTCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #results(XrSpaceQueryResultFB.Buffer) results}. */
-    public static void nresults(long struct, @Nullable XrSpaceQueryResultFB.Buffer value) { memPutAddress(struct + XrSpaceQueryResultsFB.RESULTS, memAddressSafe(value)); if (value != null) { nresultCapacityInput(struct, value.remaining()); } }
+    public static void nresults(long struct, XrSpaceQueryResultFB.@Nullable Buffer value) { memPutAddress(struct + XrSpaceQueryResultsFB.RESULTS, memAddressSafe(value)); if (value != null) { nresultCapacityInput(struct, value.remaining()); } }
 
     // -----------------------------------
 
@@ -331,39 +307,43 @@ public class XrSpaceQueryResultsFB extends Struct<XrSpaceQueryResultsFB> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceQueryResultsFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceQueryResultsFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceQueryResultsFB.ntype(address()); }
-        /** @return the value of the {@link XrSpaceQueryResultsFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSpaceQueryResultsFB.nnext(address()); }
-        /** @return the value of the {@link XrSpaceQueryResultsFB#resultCapacityInput} field. */
+        /** @return the value of the {@code resultCapacityInput} field. */
         @NativeType("uint32_t")
         public int resultCapacityInput() { return XrSpaceQueryResultsFB.nresultCapacityInput(address()); }
-        /** @return the value of the {@link XrSpaceQueryResultsFB#resultCountOutput} field. */
+        /** @return the value of the {@code resultCountOutput} field. */
         @NativeType("uint32_t")
         public int resultCountOutput() { return XrSpaceQueryResultsFB.nresultCountOutput(address()); }
-        /** @return a {@link XrSpaceQueryResultFB.Buffer} view of the struct array pointed to by the {@link XrSpaceQueryResultsFB#results} field. */
-        @Nullable
+        /** @return a {@link XrSpaceQueryResultFB.Buffer} view of the struct array pointed to by the {@code results} field. */
         @NativeType("XrSpaceQueryResultFB *")
-        public XrSpaceQueryResultFB.Buffer results() { return XrSpaceQueryResultsFB.nresults(address()); }
+        public XrSpaceQueryResultFB.@Nullable Buffer results() { return XrSpaceQueryResultsFB.nresults(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceQueryResultsFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceQueryResultsFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceQueryResultsFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_RESULTS_FB TYPE_SPACE_QUERY_RESULTS_FB} value to the {@link XrSpaceQueryResultsFB#type} field. */
+        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_QUERY_RESULTS_FB TYPE_SPACE_QUERY_RESULTS_FB} value to the {@code type} field. */
         public XrSpaceQueryResultsFB.Buffer type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_SPACE_QUERY_RESULTS_FB); }
-        /** Sets the specified value to the {@link XrSpaceQueryResultsFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceQueryResultsFB.Buffer next(@NativeType("void *") long value) { XrSpaceQueryResultsFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceQueryResultsFB#resultCapacityInput} field. */
+        /** Sets the specified value to the {@code resultCapacityInput} field. */
         public XrSpaceQueryResultsFB.Buffer resultCapacityInput(@NativeType("uint32_t") int value) { XrSpaceQueryResultsFB.nresultCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceQueryResultsFB#resultCountOutput} field. */
+        /** Sets the specified value to the {@code resultCountOutput} field. */
         public XrSpaceQueryResultsFB.Buffer resultCountOutput(@NativeType("uint32_t") int value) { XrSpaceQueryResultsFB.nresultCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link XrSpaceQueryResultFB.Buffer} to the {@link XrSpaceQueryResultsFB#results} field. */
-        public XrSpaceQueryResultsFB.Buffer results(@Nullable @NativeType("XrSpaceQueryResultFB *") XrSpaceQueryResultFB.Buffer value) { XrSpaceQueryResultsFB.nresults(address(), value); return this; }
+        /** Sets the address of the specified {@link XrSpaceQueryResultFB.Buffer} to the {@code results} field. */
+        public XrSpaceQueryResultsFB.Buffer results(@NativeType("XrSpaceQueryResultFB *") XrSpaceQueryResultFB.@Nullable Buffer value) { XrSpaceQueryResultsFB.nresults(address(), value); return this; }
 
     }
 

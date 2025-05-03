@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing shading rate image limits that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceShadingRateImagePropertiesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>These properties are related to the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-shading-rate-image">shading rate image</a> feature.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVShadingRateImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShadingRateImagePropertiesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkExtent2D VkExtent2D} {@link #shadingRateTexelSize};
- *     uint32_t {@link #shadingRatePaletteSize};
- *     uint32_t {@link #shadingRateMaxCoarseSamples};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkExtent2D VkExtent2D} shadingRateTexelSize;
+ *     uint32_t shadingRatePaletteSize;
+ *     uint32_t shadingRateMaxCoarseSamples;
+ * }}</pre>
  */
 public class VkPhysicalDeviceShadingRateImagePropertiesNV extends Struct<VkPhysicalDeviceShadingRateImagePropertiesNV> implements NativeResource {
 
@@ -102,26 +82,26 @@ public class VkPhysicalDeviceShadingRateImagePropertiesNV extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates the width and height of the portion of the framebuffer corresponding to each texel in the shading rate image. */
+    /** @return a {@link VkExtent2D} view of the {@code shadingRateTexelSize} field. */
     public VkExtent2D shadingRateTexelSize() { return nshadingRateTexelSize(address()); }
-    /** indicates the maximum number of palette entries supported for the shading rate image. */
+    /** @return the value of the {@code shadingRatePaletteSize} field. */
     @NativeType("uint32_t")
     public int shadingRatePaletteSize() { return nshadingRatePaletteSize(address()); }
-    /** specifies the maximum number of coverage samples supported in a single fragment. If the product of the fragment size derived from the base shading rate and the number of coverage samples per pixel exceeds this limit, the final shading rate will be adjusted so that its product does not exceed the limit. */
+    /** @return the value of the {@code shadingRateMaxCoarseSamples} field. */
     @NativeType("uint32_t")
     public int shadingRateMaxCoarseSamples() { return nshadingRateMaxCoarseSamples(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceShadingRateImagePropertiesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVShadingRateImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVShadingRateImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceShadingRateImagePropertiesNV sType$Default() { return sType(NVShadingRateImage.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceShadingRateImagePropertiesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -171,8 +151,7 @@ public class VkPhysicalDeviceShadingRateImagePropertiesNV extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShadingRateImagePropertiesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShadingRateImagePropertiesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShadingRateImagePropertiesNV(address, null);
     }
 
@@ -215,8 +194,7 @@ public class VkPhysicalDeviceShadingRateImagePropertiesNV extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShadingRateImagePropertiesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShadingRateImagePropertiesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,18 +258,18 @@ public class VkPhysicalDeviceShadingRateImagePropertiesNV extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShadingRateImagePropertiesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.PNEXT); }
     /** Unsafe version of {@link #shadingRateTexelSize}. */
     public static VkExtent2D nshadingRateTexelSize(long struct) { return VkExtent2D.create(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.SHADINGRATETEXELSIZE); }
     /** Unsafe version of {@link #shadingRatePaletteSize}. */
-    public static int nshadingRatePaletteSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShadingRateImagePropertiesNV.SHADINGRATEPALETTESIZE); }
+    public static int nshadingRatePaletteSize(long struct) { return memGetInt(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.SHADINGRATEPALETTESIZE); }
     /** Unsafe version of {@link #shadingRateMaxCoarseSamples}. */
-    public static int nshadingRateMaxCoarseSamples(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShadingRateImagePropertiesNV.SHADINGRATEMAXCOARSESAMPLES); }
+    public static int nshadingRateMaxCoarseSamples(long struct) { return memGetInt(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.SHADINGRATEMAXCOARSESAMPLES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShadingRateImagePropertiesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShadingRateImagePropertiesNV.PNEXT, value); }
 
@@ -329,30 +307,35 @@ public class VkPhysicalDeviceShadingRateImagePropertiesNV extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceShadingRateImagePropertiesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceShadingRateImagePropertiesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceShadingRateImagePropertiesNV.npNext(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#shadingRateTexelSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code shadingRateTexelSize} field. */
         public VkExtent2D shadingRateTexelSize() { return VkPhysicalDeviceShadingRateImagePropertiesNV.nshadingRateTexelSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#shadingRatePaletteSize} field. */
+        /** @return the value of the {@code shadingRatePaletteSize} field. */
         @NativeType("uint32_t")
         public int shadingRatePaletteSize() { return VkPhysicalDeviceShadingRateImagePropertiesNV.nshadingRatePaletteSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#shadingRateMaxCoarseSamples} field. */
+        /** @return the value of the {@code shadingRateMaxCoarseSamples} field. */
         @NativeType("uint32_t")
         public int shadingRateMaxCoarseSamples() { return VkPhysicalDeviceShadingRateImagePropertiesNV.nshadingRateMaxCoarseSamples(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceShadingRateImagePropertiesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceShadingRateImagePropertiesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVShadingRateImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV} value to the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#sType} field. */
+        /** Sets the {@link NVShadingRateImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceShadingRateImagePropertiesNV.Buffer sType$Default() { return sType(NVShadingRateImage.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShadingRateImagePropertiesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceShadingRateImagePropertiesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShadingRateImagePropertiesNV.npNext(address(), value); return this; }
 
     }

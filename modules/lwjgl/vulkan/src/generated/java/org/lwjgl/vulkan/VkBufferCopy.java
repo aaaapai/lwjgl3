@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a buffer copy operation.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The {@code size} <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK10#vkCmdCopyBuffer CmdCopyBuffer}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBufferCopy {
- *     VkDeviceSize {@link #srcOffset};
- *     VkDeviceSize {@link #dstOffset};
- *     VkDeviceSize {@link #size};
- * }</code></pre>
+ *     VkDeviceSize srcOffset;
+ *     VkDeviceSize dstOffset;
+ *     VkDeviceSize size;
+ * }}</pre>
  */
 public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource {
 
@@ -88,21 +74,21 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the starting offset in bytes from the start of {@code srcBuffer}. */
+    /** @return the value of the {@code srcOffset} field. */
     @NativeType("VkDeviceSize")
     public long srcOffset() { return nsrcOffset(address()); }
-    /** the starting offset in bytes from the start of {@code dstBuffer}. */
+    /** @return the value of the {@code dstOffset} field. */
     @NativeType("VkDeviceSize")
     public long dstOffset() { return ndstOffset(address()); }
-    /** the number of bytes to copy. */
+    /** @return the value of the {@code size} field. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
 
-    /** Sets the specified value to the {@link #srcOffset} field. */
+    /** Sets the specified value to the {@code srcOffset} field. */
     public VkBufferCopy srcOffset(@NativeType("VkDeviceSize") long value) { nsrcOffset(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstOffset} field. */
+    /** Sets the specified value to the {@code dstOffset} field. */
     public VkBufferCopy dstOffset(@NativeType("VkDeviceSize") long value) { ndstOffset(address(), value); return this; }
-    /** Sets the specified value to the {@link #size} field. */
+    /** Sets the specified value to the {@code size} field. */
     public VkBufferCopy size(@NativeType("VkDeviceSize") long value) { nsize(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -154,8 +140,7 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy createSafe(long address) {
+    public static @Nullable VkBufferCopy createSafe(long address) {
         return address == NULL ? null : new VkBufferCopy(address, null);
     }
 
@@ -198,8 +183,7 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy.Buffer createSafe(long address, int capacity) {
+    public static VkBufferCopy.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,18 +247,18 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #srcOffset}. */
-    public static long nsrcOffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy.SRCOFFSET); }
+    public static long nsrcOffset(long struct) { return memGetLong(struct + VkBufferCopy.SRCOFFSET); }
     /** Unsafe version of {@link #dstOffset}. */
-    public static long ndstOffset(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy.DSTOFFSET); }
+    public static long ndstOffset(long struct) { return memGetLong(struct + VkBufferCopy.DSTOFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkBufferCopy.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkBufferCopy.SIZE); }
 
     /** Unsafe version of {@link #srcOffset(long) srcOffset}. */
-    public static void nsrcOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy.SRCOFFSET, value); }
+    public static void nsrcOffset(long struct, long value) { memPutLong(struct + VkBufferCopy.SRCOFFSET, value); }
     /** Unsafe version of {@link #dstOffset(long) dstOffset}. */
-    public static void ndstOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy.DSTOFFSET, value); }
+    public static void ndstOffset(long struct, long value) { memPutLong(struct + VkBufferCopy.DSTOFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCopy.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkBufferCopy.SIZE, value); }
 
     // -----------------------------------
 
@@ -310,25 +294,30 @@ public class VkBufferCopy extends Struct<VkBufferCopy> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBufferCopy getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBufferCopy#srcOffset} field. */
+        /** @return the value of the {@code srcOffset} field. */
         @NativeType("VkDeviceSize")
         public long srcOffset() { return VkBufferCopy.nsrcOffset(address()); }
-        /** @return the value of the {@link VkBufferCopy#dstOffset} field. */
+        /** @return the value of the {@code dstOffset} field. */
         @NativeType("VkDeviceSize")
         public long dstOffset() { return VkBufferCopy.ndstOffset(address()); }
-        /** @return the value of the {@link VkBufferCopy#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VkBufferCopy.nsize(address()); }
 
-        /** Sets the specified value to the {@link VkBufferCopy#srcOffset} field. */
+        /** Sets the specified value to the {@code srcOffset} field. */
         public VkBufferCopy.Buffer srcOffset(@NativeType("VkDeviceSize") long value) { VkBufferCopy.nsrcOffset(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBufferCopy#dstOffset} field. */
+        /** Sets the specified value to the {@code dstOffset} field. */
         public VkBufferCopy.Buffer dstOffset(@NativeType("VkDeviceSize") long value) { VkBufferCopy.ndstOffset(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBufferCopy#size} field. */
+        /** Sets the specified value to the {@code size} field. */
         public VkBufferCopy.Buffer size(@NativeType("VkDeviceSize") long value) { VkBufferCopy.nsize(address(), value); return this; }
 
     }

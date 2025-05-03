@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Parameters of an existing virtual allocation, returned by {@link Vma#vmaGetVirtualAllocationInfo GetVirtualAllocationInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaVirtualAllocationInfo {
- *     VkDeviceSize {@link #offset};
- *     VkDeviceSize {@link #size};
- *     void * {@link #pUserData};
- * }</code></pre>
+ *     VkDeviceSize offset;
+ *     VkDeviceSize size;
+ *     void * pUserData;
+ * }}</pre>
  */
 public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> implements NativeResource {
 
@@ -78,25 +74,13 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * offset of the allocation.
-     * 
-     * <p>Offset at which the allocation was made.</p>
-     */
+    /** @return the value of the {@code offset} field. */
     @NativeType("VkDeviceSize")
     public long offset() { return noffset(address()); }
-    /**
-     * size of the allocation.
-     * 
-     * <p>Same value as passed in {@link VmaVirtualAllocationCreateInfo}{@code ::size}.</p>
-     */
+    /** @return the value of the {@code size} field. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
-    /**
-     * custom pointer associated with the allocation.
-     * 
-     * <p>Same value as passed in {@link VmaVirtualAllocationCreateInfo}{@code ::pUserData} or to {@link Vma#vmaSetVirtualAllocationUserData SetVirtualAllocationUserData}.</p>
-     */
+    /** @return the value of the {@code pUserData} field. */
     @NativeType("void *")
     public long pUserData() { return npUserData(address()); }
 
@@ -124,8 +108,7 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualAllocationInfo createSafe(long address) {
+    public static @Nullable VmaVirtualAllocationInfo createSafe(long address) {
         return address == NULL ? null : new VmaVirtualAllocationInfo(address, null);
     }
 
@@ -168,8 +151,7 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaVirtualAllocationInfo.Buffer createSafe(long address, int capacity) {
+    public static VmaVirtualAllocationInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -214,9 +196,9 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualAllocationInfo.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VmaVirtualAllocationInfo.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VmaVirtualAllocationInfo.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VmaVirtualAllocationInfo.SIZE); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VmaVirtualAllocationInfo.PUSERDATA); }
 
@@ -254,17 +236,22 @@ public class VmaVirtualAllocationInfo extends Struct<VmaVirtualAllocationInfo> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaVirtualAllocationInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VmaVirtualAllocationInfo#offset} field. */
+        /** @return the value of the {@code offset} field. */
         @NativeType("VkDeviceSize")
         public long offset() { return VmaVirtualAllocationInfo.noffset(address()); }
-        /** @return the value of the {@link VmaVirtualAllocationInfo#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VmaVirtualAllocationInfo.nsize(address()); }
-        /** @return the value of the {@link VmaVirtualAllocationInfo#pUserData} field. */
+        /** @return the value of the {@code pUserData} field. */
         @NativeType("void *")
         public long pUserData() { return VmaVirtualAllocationInfo.npUserData(address()); }
 

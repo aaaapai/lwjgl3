@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,21 +19,19 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH265.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoDecodeH265PictureInfo {
  *     {@link StdVideoDecodeH265PictureInfoFlags StdVideoDecodeH265PictureInfoFlags} flags;
  *     uint8_t sps_seq_parameter_set_id;
  *     uint8_t pps_pic_parameter_set_id;
  *     uint8_t NumDeltaPocsOfRefRpsIdx;
  *     int32_t PicOrderCntVal;
- *     uint16_t {@link #NumBitsForSTRefPicSetInSlice};
+ *     uint16_t NumBitsForSTRefPicSetInSlice;
  *     uint16_t reserved;
- *     uint8_t {@link #RefPicSetStCurrBefore}[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE];
- *     uint8_t {@link #RefPicSetStCurrAfter}[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE];
- *     uint8_t {@link #RefPicSetLtCurr}[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE];
- * }</code></pre>
+ *     uint8_t RefPicSetStCurrBefore[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE];
+ *     uint8_t RefPicSetStCurrAfter[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE];
+ *     uint8_t RefPicSetLtCurr[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE];
+ * }}</pre>
  */
 public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265PictureInfo> implements NativeResource {
 
@@ -121,25 +119,25 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     /** @return the value of the {@code PicOrderCntVal} field. */
     @NativeType("int32_t")
     public int PicOrderCntVal() { return nPicOrderCntVal(address()); }
-    /** number of bits used in st_ref_pic_set() when short_term_ref_pic_set_sps_flag is 0; otherwise set to 0 */
+    /** @return the value of the {@code NumBitsForSTRefPicSetInSlice} field. */
     @NativeType("uint16_t")
     public short NumBitsForSTRefPicSetInSlice() { return nNumBitsForSTRefPicSetInSlice(address()); }
-    /** slotIndex as used in VkVideoReferenceSlotKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
+    /** @return a {@link ByteBuffer} view of the {@code RefPicSetStCurrBefore} field. */
     @NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]")
     public ByteBuffer RefPicSetStCurrBefore() { return nRefPicSetStCurrBefore(address()); }
-    /** slotIndex as used in VkVideoReferenceSlotKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
+    /** @return the value at the specified index of the {@code RefPicSetStCurrBefore} field. */
     @NativeType("uint8_t")
     public byte RefPicSetStCurrBefore(int index) { return nRefPicSetStCurrBefore(address(), index); }
-    /** slotIndex as used in VkVideoReferenceSlotKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
+    /** @return a {@link ByteBuffer} view of the {@code RefPicSetStCurrAfter} field. */
     @NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]")
     public ByteBuffer RefPicSetStCurrAfter() { return nRefPicSetStCurrAfter(address()); }
-    /** slotIndex as used in VkVideoReferenceSlotKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
+    /** @return the value at the specified index of the {@code RefPicSetStCurrAfter} field. */
     @NativeType("uint8_t")
     public byte RefPicSetStCurrAfter(int index) { return nRefPicSetStCurrAfter(address(), index); }
-    /** slotIndex as used in VkVideoReferenceSlotKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
+    /** @return a {@link ByteBuffer} view of the {@code RefPicSetLtCurr} field. */
     @NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]")
     public ByteBuffer RefPicSetLtCurr() { return nRefPicSetLtCurr(address()); }
-    /** slotIndex as used in VkVideoReferenceSlotKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
+    /** @return the value at the specified index of the {@code RefPicSetLtCurr} field. */
     @NativeType("uint8_t")
     public byte RefPicSetLtCurr(int index) { return nRefPicSetLtCurr(address(), index); }
 
@@ -155,19 +153,19 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     public StdVideoDecodeH265PictureInfo NumDeltaPocsOfRefRpsIdx(@NativeType("uint8_t") byte value) { nNumDeltaPocsOfRefRpsIdx(address(), value); return this; }
     /** Sets the specified value to the {@code PicOrderCntVal} field. */
     public StdVideoDecodeH265PictureInfo PicOrderCntVal(@NativeType("int32_t") int value) { nPicOrderCntVal(address(), value); return this; }
-    /** Sets the specified value to the {@link #NumBitsForSTRefPicSetInSlice} field. */
+    /** Sets the specified value to the {@code NumBitsForSTRefPicSetInSlice} field. */
     public StdVideoDecodeH265PictureInfo NumBitsForSTRefPicSetInSlice(@NativeType("uint16_t") short value) { nNumBitsForSTRefPicSetInSlice(address(), value); return this; }
-    /** Copies the specified {@link ByteBuffer} to the {@link #RefPicSetStCurrBefore} field. */
+    /** Copies the specified {@link ByteBuffer} to the {@code RefPicSetStCurrBefore} field. */
     public StdVideoDecodeH265PictureInfo RefPicSetStCurrBefore(@NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]") ByteBuffer value) { nRefPicSetStCurrBefore(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #RefPicSetStCurrBefore} field. */
+    /** Sets the specified value at the specified index of the {@code RefPicSetStCurrBefore} field. */
     public StdVideoDecodeH265PictureInfo RefPicSetStCurrBefore(int index, @NativeType("uint8_t") byte value) { nRefPicSetStCurrBefore(address(), index, value); return this; }
-    /** Copies the specified {@link ByteBuffer} to the {@link #RefPicSetStCurrAfter} field. */
+    /** Copies the specified {@link ByteBuffer} to the {@code RefPicSetStCurrAfter} field. */
     public StdVideoDecodeH265PictureInfo RefPicSetStCurrAfter(@NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]") ByteBuffer value) { nRefPicSetStCurrAfter(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #RefPicSetStCurrAfter} field. */
+    /** Sets the specified value at the specified index of the {@code RefPicSetStCurrAfter} field. */
     public StdVideoDecodeH265PictureInfo RefPicSetStCurrAfter(int index, @NativeType("uint8_t") byte value) { nRefPicSetStCurrAfter(address(), index, value); return this; }
-    /** Copies the specified {@link ByteBuffer} to the {@link #RefPicSetLtCurr} field. */
+    /** Copies the specified {@link ByteBuffer} to the {@code RefPicSetLtCurr} field. */
     public StdVideoDecodeH265PictureInfo RefPicSetLtCurr(@NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]") ByteBuffer value) { nRefPicSetLtCurr(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #RefPicSetLtCurr} field. */
+    /** Sets the specified value at the specified index of the {@code RefPicSetLtCurr} field. */
     public StdVideoDecodeH265PictureInfo RefPicSetLtCurr(int index, @NativeType("uint8_t") byte value) { nRefPicSetLtCurr(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -231,8 +229,7 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH265PictureInfo createSafe(long address) {
+    public static @Nullable StdVideoDecodeH265PictureInfo createSafe(long address) {
         return address == NULL ? null : new StdVideoDecodeH265PictureInfo(address, null);
     }
 
@@ -275,8 +272,7 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoDecodeH265PictureInfo.Buffer createSafe(long address, int capacity) {
+    public static StdVideoDecodeH265PictureInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,48 +319,48 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     /** Unsafe version of {@link #flags}. */
     public static StdVideoDecodeH265PictureInfoFlags nflags(long struct) { return StdVideoDecodeH265PictureInfoFlags.create(struct + StdVideoDecodeH265PictureInfo.FLAGS); }
     /** Unsafe version of {@link #sps_seq_parameter_set_id}. */
-    public static byte nsps_seq_parameter_set_id(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH265PictureInfo.SPS_SEQ_PARAMETER_SET_ID); }
+    public static byte nsps_seq_parameter_set_id(long struct) { return memGetByte(struct + StdVideoDecodeH265PictureInfo.SPS_SEQ_PARAMETER_SET_ID); }
     /** Unsafe version of {@link #pps_pic_parameter_set_id}. */
-    public static byte npps_pic_parameter_set_id(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH265PictureInfo.PPS_PIC_PARAMETER_SET_ID); }
+    public static byte npps_pic_parameter_set_id(long struct) { return memGetByte(struct + StdVideoDecodeH265PictureInfo.PPS_PIC_PARAMETER_SET_ID); }
     /** Unsafe version of {@link #NumDeltaPocsOfRefRpsIdx}. */
-    public static byte nNumDeltaPocsOfRefRpsIdx(long struct) { return UNSAFE.getByte(null, struct + StdVideoDecodeH265PictureInfo.NUMDELTAPOCSOFREFRPSIDX); }
+    public static byte nNumDeltaPocsOfRefRpsIdx(long struct) { return memGetByte(struct + StdVideoDecodeH265PictureInfo.NUMDELTAPOCSOFREFRPSIDX); }
     /** Unsafe version of {@link #PicOrderCntVal}. */
-    public static int nPicOrderCntVal(long struct) { return UNSAFE.getInt(null, struct + StdVideoDecodeH265PictureInfo.PICORDERCNTVAL); }
+    public static int nPicOrderCntVal(long struct) { return memGetInt(struct + StdVideoDecodeH265PictureInfo.PICORDERCNTVAL); }
     /** Unsafe version of {@link #NumBitsForSTRefPicSetInSlice}. */
-    public static short nNumBitsForSTRefPicSetInSlice(long struct) { return UNSAFE.getShort(null, struct + StdVideoDecodeH265PictureInfo.NUMBITSFORSTREFPICSETINSLICE); }
-    public static short nreserved(long struct) { return UNSAFE.getShort(null, struct + StdVideoDecodeH265PictureInfo.RESERVED); }
+    public static short nNumBitsForSTRefPicSetInSlice(long struct) { return memGetShort(struct + StdVideoDecodeH265PictureInfo.NUMBITSFORSTREFPICSETINSLICE); }
+    public static short nreserved(long struct) { return memGetShort(struct + StdVideoDecodeH265PictureInfo.RESERVED); }
     /** Unsafe version of {@link #RefPicSetStCurrBefore}. */
     public static ByteBuffer nRefPicSetStCurrBefore(long struct) { return memByteBuffer(struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRBEFORE, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE); }
     /** Unsafe version of {@link #RefPicSetStCurrBefore(int) RefPicSetStCurrBefore}. */
     public static byte nRefPicSetStCurrBefore(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRBEFORE + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1);
+        return memGetByte(struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRBEFORE + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1);
     }
     /** Unsafe version of {@link #RefPicSetStCurrAfter}. */
     public static ByteBuffer nRefPicSetStCurrAfter(long struct) { return memByteBuffer(struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRAFTER, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE); }
     /** Unsafe version of {@link #RefPicSetStCurrAfter(int) RefPicSetStCurrAfter}. */
     public static byte nRefPicSetStCurrAfter(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRAFTER + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1);
+        return memGetByte(struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRAFTER + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1);
     }
     /** Unsafe version of {@link #RefPicSetLtCurr}. */
     public static ByteBuffer nRefPicSetLtCurr(long struct) { return memByteBuffer(struct + StdVideoDecodeH265PictureInfo.REFPICSETLTCURR, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE); }
     /** Unsafe version of {@link #RefPicSetLtCurr(int) RefPicSetLtCurr}. */
     public static byte nRefPicSetLtCurr(long struct, int index) {
-        return UNSAFE.getByte(null, struct + StdVideoDecodeH265PictureInfo.REFPICSETLTCURR + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1);
+        return memGetByte(struct + StdVideoDecodeH265PictureInfo.REFPICSETLTCURR + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1);
     }
 
     /** Unsafe version of {@link #flags(StdVideoDecodeH265PictureInfoFlags) flags}. */
     public static void nflags(long struct, StdVideoDecodeH265PictureInfoFlags value) { memCopy(value.address(), struct + StdVideoDecodeH265PictureInfo.FLAGS, StdVideoDecodeH265PictureInfoFlags.SIZEOF); }
     /** Unsafe version of {@link #sps_seq_parameter_set_id(byte) sps_seq_parameter_set_id}. */
-    public static void nsps_seq_parameter_set_id(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH265PictureInfo.SPS_SEQ_PARAMETER_SET_ID, value); }
+    public static void nsps_seq_parameter_set_id(long struct, byte value) { memPutByte(struct + StdVideoDecodeH265PictureInfo.SPS_SEQ_PARAMETER_SET_ID, value); }
     /** Unsafe version of {@link #pps_pic_parameter_set_id(byte) pps_pic_parameter_set_id}. */
-    public static void npps_pic_parameter_set_id(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH265PictureInfo.PPS_PIC_PARAMETER_SET_ID, value); }
+    public static void npps_pic_parameter_set_id(long struct, byte value) { memPutByte(struct + StdVideoDecodeH265PictureInfo.PPS_PIC_PARAMETER_SET_ID, value); }
     /** Unsafe version of {@link #NumDeltaPocsOfRefRpsIdx(byte) NumDeltaPocsOfRefRpsIdx}. */
-    public static void nNumDeltaPocsOfRefRpsIdx(long struct, byte value) { UNSAFE.putByte(null, struct + StdVideoDecodeH265PictureInfo.NUMDELTAPOCSOFREFRPSIDX, value); }
+    public static void nNumDeltaPocsOfRefRpsIdx(long struct, byte value) { memPutByte(struct + StdVideoDecodeH265PictureInfo.NUMDELTAPOCSOFREFRPSIDX, value); }
     /** Unsafe version of {@link #PicOrderCntVal(int) PicOrderCntVal}. */
-    public static void nPicOrderCntVal(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoDecodeH265PictureInfo.PICORDERCNTVAL, value); }
+    public static void nPicOrderCntVal(long struct, int value) { memPutInt(struct + StdVideoDecodeH265PictureInfo.PICORDERCNTVAL, value); }
     /** Unsafe version of {@link #NumBitsForSTRefPicSetInSlice(short) NumBitsForSTRefPicSetInSlice}. */
-    public static void nNumBitsForSTRefPicSetInSlice(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoDecodeH265PictureInfo.NUMBITSFORSTREFPICSETINSLICE, value); }
-    public static void nreserved(long struct, short value) { UNSAFE.putShort(null, struct + StdVideoDecodeH265PictureInfo.RESERVED, value); }
+    public static void nNumBitsForSTRefPicSetInSlice(long struct, short value) { memPutShort(struct + StdVideoDecodeH265PictureInfo.NUMBITSFORSTREFPICSETINSLICE, value); }
+    public static void nreserved(long struct, short value) { memPutShort(struct + StdVideoDecodeH265PictureInfo.RESERVED, value); }
     /** Unsafe version of {@link #RefPicSetStCurrBefore(ByteBuffer) RefPicSetStCurrBefore}. */
     public static void nRefPicSetStCurrBefore(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE); }
@@ -372,7 +368,7 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     }
     /** Unsafe version of {@link #RefPicSetStCurrBefore(int, byte) RefPicSetStCurrBefore}. */
     public static void nRefPicSetStCurrBefore(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRBEFORE + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1, value);
+        memPutByte(struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRBEFORE + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1, value);
     }
     /** Unsafe version of {@link #RefPicSetStCurrAfter(ByteBuffer) RefPicSetStCurrAfter}. */
     public static void nRefPicSetStCurrAfter(long struct, ByteBuffer value) {
@@ -381,7 +377,7 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     }
     /** Unsafe version of {@link #RefPicSetStCurrAfter(int, byte) RefPicSetStCurrAfter}. */
     public static void nRefPicSetStCurrAfter(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRAFTER + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1, value);
+        memPutByte(struct + StdVideoDecodeH265PictureInfo.REFPICSETSTCURRAFTER + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1, value);
     }
     /** Unsafe version of {@link #RefPicSetLtCurr(ByteBuffer) RefPicSetLtCurr}. */
     public static void nRefPicSetLtCurr(long struct, ByteBuffer value) {
@@ -390,7 +386,7 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
     }
     /** Unsafe version of {@link #RefPicSetLtCurr(int, byte) RefPicSetLtCurr}. */
     public static void nRefPicSetLtCurr(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + StdVideoDecodeH265PictureInfo.REFPICSETLTCURR + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1, value);
+        memPutByte(struct + StdVideoDecodeH265PictureInfo.REFPICSETLTCURR + check(index, STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE) * 1, value);
     }
 
     // -----------------------------------
@@ -427,6 +423,11 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected StdVideoDecodeH265PictureInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -445,25 +446,25 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
         /** @return the value of the {@code PicOrderCntVal} field. */
         @NativeType("int32_t")
         public int PicOrderCntVal() { return StdVideoDecodeH265PictureInfo.nPicOrderCntVal(address()); }
-        /** @return the value of the {@link StdVideoDecodeH265PictureInfo#NumBitsForSTRefPicSetInSlice} field. */
+        /** @return the value of the {@code NumBitsForSTRefPicSetInSlice} field. */
         @NativeType("uint16_t")
         public short NumBitsForSTRefPicSetInSlice() { return StdVideoDecodeH265PictureInfo.nNumBitsForSTRefPicSetInSlice(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrBefore} field. */
+        /** @return a {@link ByteBuffer} view of the {@code RefPicSetStCurrBefore} field. */
         @NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]")
         public ByteBuffer RefPicSetStCurrBefore() { return StdVideoDecodeH265PictureInfo.nRefPicSetStCurrBefore(address()); }
-        /** @return the value at the specified index of the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrBefore} field. */
+        /** @return the value at the specified index of the {@code RefPicSetStCurrBefore} field. */
         @NativeType("uint8_t")
         public byte RefPicSetStCurrBefore(int index) { return StdVideoDecodeH265PictureInfo.nRefPicSetStCurrBefore(address(), index); }
-        /** @return a {@link ByteBuffer} view of the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrAfter} field. */
+        /** @return a {@link ByteBuffer} view of the {@code RefPicSetStCurrAfter} field. */
         @NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]")
         public ByteBuffer RefPicSetStCurrAfter() { return StdVideoDecodeH265PictureInfo.nRefPicSetStCurrAfter(address()); }
-        /** @return the value at the specified index of the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrAfter} field. */
+        /** @return the value at the specified index of the {@code RefPicSetStCurrAfter} field. */
         @NativeType("uint8_t")
         public byte RefPicSetStCurrAfter(int index) { return StdVideoDecodeH265PictureInfo.nRefPicSetStCurrAfter(address(), index); }
-        /** @return a {@link ByteBuffer} view of the {@link StdVideoDecodeH265PictureInfo#RefPicSetLtCurr} field. */
+        /** @return a {@link ByteBuffer} view of the {@code RefPicSetLtCurr} field. */
         @NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]")
         public ByteBuffer RefPicSetLtCurr() { return StdVideoDecodeH265PictureInfo.nRefPicSetLtCurr(address()); }
-        /** @return the value at the specified index of the {@link StdVideoDecodeH265PictureInfo#RefPicSetLtCurr} field. */
+        /** @return the value at the specified index of the {@code RefPicSetLtCurr} field. */
         @NativeType("uint8_t")
         public byte RefPicSetLtCurr(int index) { return StdVideoDecodeH265PictureInfo.nRefPicSetLtCurr(address(), index); }
 
@@ -479,19 +480,19 @@ public class StdVideoDecodeH265PictureInfo extends Struct<StdVideoDecodeH265Pict
         public StdVideoDecodeH265PictureInfo.Buffer NumDeltaPocsOfRefRpsIdx(@NativeType("uint8_t") byte value) { StdVideoDecodeH265PictureInfo.nNumDeltaPocsOfRefRpsIdx(address(), value); return this; }
         /** Sets the specified value to the {@code PicOrderCntVal} field. */
         public StdVideoDecodeH265PictureInfo.Buffer PicOrderCntVal(@NativeType("int32_t") int value) { StdVideoDecodeH265PictureInfo.nPicOrderCntVal(address(), value); return this; }
-        /** Sets the specified value to the {@link StdVideoDecodeH265PictureInfo#NumBitsForSTRefPicSetInSlice} field. */
+        /** Sets the specified value to the {@code NumBitsForSTRefPicSetInSlice} field. */
         public StdVideoDecodeH265PictureInfo.Buffer NumBitsForSTRefPicSetInSlice(@NativeType("uint16_t") short value) { StdVideoDecodeH265PictureInfo.nNumBitsForSTRefPicSetInSlice(address(), value); return this; }
-        /** Copies the specified {@link ByteBuffer} to the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrBefore} field. */
+        /** Copies the specified {@link ByteBuffer} to the {@code RefPicSetStCurrBefore} field. */
         public StdVideoDecodeH265PictureInfo.Buffer RefPicSetStCurrBefore(@NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]") ByteBuffer value) { StdVideoDecodeH265PictureInfo.nRefPicSetStCurrBefore(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrBefore} field. */
+        /** Sets the specified value at the specified index of the {@code RefPicSetStCurrBefore} field. */
         public StdVideoDecodeH265PictureInfo.Buffer RefPicSetStCurrBefore(int index, @NativeType("uint8_t") byte value) { StdVideoDecodeH265PictureInfo.nRefPicSetStCurrBefore(address(), index, value); return this; }
-        /** Copies the specified {@link ByteBuffer} to the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrAfter} field. */
+        /** Copies the specified {@link ByteBuffer} to the {@code RefPicSetStCurrAfter} field. */
         public StdVideoDecodeH265PictureInfo.Buffer RefPicSetStCurrAfter(@NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]") ByteBuffer value) { StdVideoDecodeH265PictureInfo.nRefPicSetStCurrAfter(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link StdVideoDecodeH265PictureInfo#RefPicSetStCurrAfter} field. */
+        /** Sets the specified value at the specified index of the {@code RefPicSetStCurrAfter} field. */
         public StdVideoDecodeH265PictureInfo.Buffer RefPicSetStCurrAfter(int index, @NativeType("uint8_t") byte value) { StdVideoDecodeH265PictureInfo.nRefPicSetStCurrAfter(address(), index, value); return this; }
-        /** Copies the specified {@link ByteBuffer} to the {@link StdVideoDecodeH265PictureInfo#RefPicSetLtCurr} field. */
+        /** Copies the specified {@link ByteBuffer} to the {@code RefPicSetLtCurr} field. */
         public StdVideoDecodeH265PictureInfo.Buffer RefPicSetLtCurr(@NativeType("uint8_t[STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE]") ByteBuffer value) { StdVideoDecodeH265PictureInfo.nRefPicSetLtCurr(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link StdVideoDecodeH265PictureInfo#RefPicSetLtCurr} field. */
+        /** Sets the specified value at the specified index of the {@code RefPicSetLtCurr} field. */
         public StdVideoDecodeH265PictureInfo.Buffer RefPicSetLtCurr(int index, @NativeType("uint8_t") byte value) { StdVideoDecodeH265PictureInfo.nRefPicSetLtCurr(address(), index, value); return this; }
 
     }

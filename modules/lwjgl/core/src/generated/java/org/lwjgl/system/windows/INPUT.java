@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Used by {@link User32#SendInput} to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct INPUT {
- *     DWORD {@link #type};
+ *     DWORD type;
  *     union {
- *         {@link MOUSEINPUT MOUSEINPUT} {@link #DUMMYUNIONNAME_mi mi};
- *         {@link KEYBDINPUT KEYBDINPUT} {@link #DUMMYUNIONNAME_ki ki};
- *         {@link HARDWAREINPUT HARDWAREINPUT} {@link #DUMMYUNIONNAME_hi hi};
+ *         {@link MOUSEINPUT MOUSEINPUT} mi;
+ *         {@link KEYBDINPUT KEYBDINPUT} ki;
+ *         {@link HARDWAREINPUT HARDWAREINPUT} hi;
  *     } DUMMYUNIONNAME;
- * }</code></pre>
+ * }}</pre>
  */
 public class INPUT extends Struct<INPUT> implements NativeResource {
 
@@ -88,29 +84,29 @@ public class INPUT extends Struct<INPUT> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of the input event. One of:<br><table><tr><td>{@link User32#INPUT_MOUSE}</td><td>{@link User32#INPUT_KEYBOARD}</td><td>{@link User32#INPUT_HARDWARE}</td></tr></table> */
+    /** @return the value of the {@code type} field. */
     @NativeType("DWORD")
     public int type() { return ntype(address()); }
-    /** the information about a simulated mouse event */
+    /** @return a {@link MOUSEINPUT} view of the {@code DUMMYUNIONNAME.mi} field. */
     public MOUSEINPUT DUMMYUNIONNAME_mi() { return nDUMMYUNIONNAME_mi(address()); }
-    /** the information about a simulated keyboard event */
+    /** @return a {@link KEYBDINPUT} view of the {@code DUMMYUNIONNAME.ki} field. */
     public KEYBDINPUT DUMMYUNIONNAME_ki() { return nDUMMYUNIONNAME_ki(address()); }
-    /** the information about a simulated hardware event */
+    /** @return a {@link HARDWAREINPUT} view of the {@code DUMMYUNIONNAME.hi} field. */
     public HARDWAREINPUT DUMMYUNIONNAME_hi() { return nDUMMYUNIONNAME_hi(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public INPUT type(@NativeType("DWORD") int value) { ntype(address(), value); return this; }
-    /** Copies the specified {@link MOUSEINPUT} to the {@link #DUMMYUNIONNAME_mi} field. */
+    /** Copies the specified {@link MOUSEINPUT} to the {@code mi} field. */
     public INPUT DUMMYUNIONNAME_mi(MOUSEINPUT value) { nDUMMYUNIONNAME_mi(address(), value); return this; }
-    /** Passes the {@link #DUMMYUNIONNAME_mi} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code mi} field to the specified {@link java.util.function.Consumer Consumer}. */
     public INPUT DUMMYUNIONNAME_mi(java.util.function.Consumer<MOUSEINPUT> consumer) { consumer.accept(DUMMYUNIONNAME_mi()); return this; }
-    /** Copies the specified {@link KEYBDINPUT} to the {@link #DUMMYUNIONNAME_ki} field. */
+    /** Copies the specified {@link KEYBDINPUT} to the {@code ki} field. */
     public INPUT DUMMYUNIONNAME_ki(KEYBDINPUT value) { nDUMMYUNIONNAME_ki(address(), value); return this; }
-    /** Passes the {@link #DUMMYUNIONNAME_ki} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code ki} field to the specified {@link java.util.function.Consumer Consumer}. */
     public INPUT DUMMYUNIONNAME_ki(java.util.function.Consumer<KEYBDINPUT> consumer) { consumer.accept(DUMMYUNIONNAME_ki()); return this; }
-    /** Copies the specified {@link HARDWAREINPUT} to the {@link #DUMMYUNIONNAME_hi} field. */
+    /** Copies the specified {@link HARDWAREINPUT} to the {@code hi} field. */
     public INPUT DUMMYUNIONNAME_hi(HARDWAREINPUT value) { nDUMMYUNIONNAME_hi(address(), value); return this; }
-    /** Passes the {@link #DUMMYUNIONNAME_hi} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code hi} field to the specified {@link java.util.function.Consumer Consumer}. */
     public INPUT DUMMYUNIONNAME_hi(java.util.function.Consumer<HARDWAREINPUT> consumer) { consumer.accept(DUMMYUNIONNAME_hi()); return this; }
 
     /**
@@ -149,8 +145,7 @@ public class INPUT extends Struct<INPUT> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static INPUT createSafe(long address) {
+    public static @Nullable INPUT createSafe(long address) {
         return address == NULL ? null : new INPUT(address, null);
     }
 
@@ -193,8 +188,7 @@ public class INPUT extends Struct<INPUT> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static INPUT.Buffer createSafe(long address, int capacity) {
+    public static INPUT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,7 +252,7 @@ public class INPUT extends Struct<INPUT> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + INPUT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + INPUT.TYPE); }
     /** Unsafe version of {@link #DUMMYUNIONNAME_mi}. */
     public static MOUSEINPUT nDUMMYUNIONNAME_mi(long struct) { return MOUSEINPUT.create(struct + INPUT.DUMMYUNIONNAME_MI); }
     /** Unsafe version of {@link #DUMMYUNIONNAME_ki}. */
@@ -267,7 +261,7 @@ public class INPUT extends Struct<INPUT> implements NativeResource {
     public static HARDWAREINPUT nDUMMYUNIONNAME_hi(long struct) { return HARDWAREINPUT.create(struct + INPUT.DUMMYUNIONNAME_HI); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + INPUT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + INPUT.TYPE, value); }
     /** Unsafe version of {@link #DUMMYUNIONNAME_mi(MOUSEINPUT) DUMMYUNIONNAME_mi}. */
     public static void nDUMMYUNIONNAME_mi(long struct, MOUSEINPUT value) { memCopy(value.address(), struct + INPUT.DUMMYUNIONNAME_MI, MOUSEINPUT.SIZEOF); }
     /** Unsafe version of {@link #DUMMYUNIONNAME_ki(KEYBDINPUT) DUMMYUNIONNAME_ki}. */
@@ -309,33 +303,38 @@ public class INPUT extends Struct<INPUT> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected INPUT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link INPUT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("DWORD")
         public int type() { return INPUT.ntype(address()); }
-        /** @return a {@link MOUSEINPUT} view of the {@link INPUT#DUMMYUNIONNAME_mi} field. */
+        /** @return a {@link MOUSEINPUT} view of the {@code DUMMYUNIONNAME.mi} field. */
         public MOUSEINPUT DUMMYUNIONNAME_mi() { return INPUT.nDUMMYUNIONNAME_mi(address()); }
-        /** @return a {@link KEYBDINPUT} view of the {@link INPUT#DUMMYUNIONNAME_ki} field. */
+        /** @return a {@link KEYBDINPUT} view of the {@code DUMMYUNIONNAME.ki} field. */
         public KEYBDINPUT DUMMYUNIONNAME_ki() { return INPUT.nDUMMYUNIONNAME_ki(address()); }
-        /** @return a {@link HARDWAREINPUT} view of the {@link INPUT#DUMMYUNIONNAME_hi} field. */
+        /** @return a {@link HARDWAREINPUT} view of the {@code DUMMYUNIONNAME.hi} field. */
         public HARDWAREINPUT DUMMYUNIONNAME_hi() { return INPUT.nDUMMYUNIONNAME_hi(address()); }
 
-        /** Sets the specified value to the {@link INPUT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public INPUT.Buffer type(@NativeType("DWORD") int value) { INPUT.ntype(address(), value); return this; }
-        /** Copies the specified {@link MOUSEINPUT} to the {@link INPUT#DUMMYUNIONNAME_mi} field. */
+        /** Copies the specified {@link MOUSEINPUT} to the {@code mi} field. */
         public INPUT.Buffer DUMMYUNIONNAME_mi(MOUSEINPUT value) { INPUT.nDUMMYUNIONNAME_mi(address(), value); return this; }
-        /** Passes the {@link INPUT#DUMMYUNIONNAME_mi} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code mi} field to the specified {@link java.util.function.Consumer Consumer}. */
         public INPUT.Buffer DUMMYUNIONNAME_mi(java.util.function.Consumer<MOUSEINPUT> consumer) { consumer.accept(DUMMYUNIONNAME_mi()); return this; }
-        /** Copies the specified {@link KEYBDINPUT} to the {@link INPUT#DUMMYUNIONNAME_ki} field. */
+        /** Copies the specified {@link KEYBDINPUT} to the {@code ki} field. */
         public INPUT.Buffer DUMMYUNIONNAME_ki(KEYBDINPUT value) { INPUT.nDUMMYUNIONNAME_ki(address(), value); return this; }
-        /** Passes the {@link INPUT#DUMMYUNIONNAME_ki} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code ki} field to the specified {@link java.util.function.Consumer Consumer}. */
         public INPUT.Buffer DUMMYUNIONNAME_ki(java.util.function.Consumer<KEYBDINPUT> consumer) { consumer.accept(DUMMYUNIONNAME_ki()); return this; }
-        /** Copies the specified {@link HARDWAREINPUT} to the {@link INPUT#DUMMYUNIONNAME_hi} field. */
+        /** Copies the specified {@link HARDWAREINPUT} to the {@code hi} field. */
         public INPUT.Buffer DUMMYUNIONNAME_hi(HARDWAREINPUT value) { INPUT.nDUMMYUNIONNAME_hi(address(), value); return this; }
-        /** Passes the {@link INPUT#DUMMYUNIONNAME_hi} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code hi} field to the specified {@link java.util.function.Consumer Consumer}. */
         public INPUT.Buffer DUMMYUNIONNAME_hi(java.util.function.Consumer<HARDWAREINPUT> consumer) { consumer.accept(DUMMYUNIONNAME_hi()); return this; }
 
     }

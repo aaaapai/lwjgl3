@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A single influence of a bone on a vertex.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiVertexWeight {
- *     unsigned int {@link #mVertexId};
- *     float {@link #mWeight};
- * }</code></pre>
+ *     unsigned int mVertexId;
+ *     float mWeight;
+ * }}</pre>
  */
 @NativeType("struct aiVertexWeight")
 public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeResource {
@@ -75,15 +71,15 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Index of the vertex which is influenced by the bone. */
+    /** @return the value of the {@code mVertexId} field. */
     @NativeType("unsigned int")
     public int mVertexId() { return nmVertexId(address()); }
-    /** The strength of the influence in the range (0...1). The influence from all bones at one vertex amounts to 1. */
+    /** @return the value of the {@code mWeight} field. */
     public float mWeight() { return nmWeight(address()); }
 
-    /** Sets the specified value to the {@link #mVertexId} field. */
+    /** Sets the specified value to the {@code mVertexId} field. */
     public AIVertexWeight mVertexId(@NativeType("unsigned int") int value) { nmVertexId(address(), value); return this; }
-    /** Sets the specified value to the {@link #mWeight} field. */
+    /** Sets the specified value to the {@code mWeight} field. */
     public AIVertexWeight mWeight(float value) { nmWeight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -133,8 +129,7 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVertexWeight createSafe(long address) {
+    public static @Nullable AIVertexWeight createSafe(long address) {
         return address == NULL ? null : new AIVertexWeight(address, null);
     }
 
@@ -177,8 +172,7 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIVertexWeight.Buffer createSafe(long address, int capacity) {
+    public static AIVertexWeight.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +236,14 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #mVertexId}. */
-    public static int nmVertexId(long struct) { return UNSAFE.getInt(null, struct + AIVertexWeight.MVERTEXID); }
+    public static int nmVertexId(long struct) { return memGetInt(struct + AIVertexWeight.MVERTEXID); }
     /** Unsafe version of {@link #mWeight}. */
-    public static float nmWeight(long struct) { return UNSAFE.getFloat(null, struct + AIVertexWeight.MWEIGHT); }
+    public static float nmWeight(long struct) { return memGetFloat(struct + AIVertexWeight.MWEIGHT); }
 
     /** Unsafe version of {@link #mVertexId(int) mVertexId}. */
-    public static void nmVertexId(long struct, int value) { UNSAFE.putInt(null, struct + AIVertexWeight.MVERTEXID, value); }
+    public static void nmVertexId(long struct, int value) { memPutInt(struct + AIVertexWeight.MVERTEXID, value); }
     /** Unsafe version of {@link #mWeight(float) mWeight}. */
-    public static void nmWeight(long struct, float value) { UNSAFE.putFloat(null, struct + AIVertexWeight.MWEIGHT, value); }
+    public static void nmWeight(long struct, float value) { memPutFloat(struct + AIVertexWeight.MWEIGHT, value); }
 
     // -----------------------------------
 
@@ -285,19 +279,24 @@ public class AIVertexWeight extends Struct<AIVertexWeight> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIVertexWeight getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIVertexWeight#mVertexId} field. */
+        /** @return the value of the {@code mVertexId} field. */
         @NativeType("unsigned int")
         public int mVertexId() { return AIVertexWeight.nmVertexId(address()); }
-        /** @return the value of the {@link AIVertexWeight#mWeight} field. */
+        /** @return the value of the {@code mWeight} field. */
         public float mWeight() { return AIVertexWeight.nmWeight(address()); }
 
-        /** Sets the specified value to the {@link AIVertexWeight#mVertexId} field. */
+        /** Sets the specified value to the {@code mVertexId} field. */
         public AIVertexWeight.Buffer mVertexId(@NativeType("unsigned int") int value) { AIVertexWeight.nmVertexId(address(), value); return this; }
-        /** Sets the specified value to the {@link AIVertexWeight#mWeight} field. */
+        /** Sets the specified value to the {@code mWeight} field. */
         public AIVertexWeight.Buffer mWeight(float value) { AIVertexWeight.nmWeight(address(), value); return this; }
 
     }

@@ -103,15 +103,17 @@ private class AutoSizeBytesTransform(
                     val s = (if (factor.operator == ">>") f else -f) - b
                     if (s < 0)
                         "$expression << ${-s}"
-                    else
+                    else if (0 < s)
                         "$expression >> $s"
+                    else
+                        expression
                 }
-            } catch(e: NumberFormatException) {
+            } catch(_: NumberFormatException) {
                 // non-numeric expressions
                 expression = if (type.mapping.let { it === PrimitiveMapping.POINTER || it === PrimitiveMapping.LONG })
-                    "($expression << $byteShift) ${factor.operator} ${factor.expression}"
+                    "($expression << $byteShift) ${factor.operator} ${if (factor.expression.contains(' ')) "(${factor.expression})" else factor.expression}"
                 else
-                    "(${type.javaMethodType})(((long)$expression << $byteShift) ${factor.operator} ${factor.expression})"
+                    "(${type.javaMethodType})(((long)$expression << $byteShift) ${factor.operator} ${if (factor.expression.contains(' ')) "(${factor.expression})" else factor.expression})"
             }
         }
 
@@ -313,7 +315,7 @@ internal class StringAutoSizeStackTransform(private val autoSizeParam: Parameter
     override fun transformCall(param: Parameter, original: String) = "memAddress(${param.name})" // Replace with address of allocated buffer
     override fun setupStack(func: Func, qtype: Parameter, writer: PrintWriter) {
         val len = "${if (4 < (autoSizeParam.nativeType.mapping as PrimitiveMapping).bytes) "(int)" else ""}${autoSizeParam.name}"
-        writer.println("$t$t${t}ByteBuffer ${qtype.name} = stack.malloc($len);")
+        writer.println("$t$t${t}ByteBuffer ${qtype.name} = stack.malloc($len${if ((qtype.nativeType as CharSequenceType).charMapping == CharMapping.UTF16) " << 1" else ""});")
     }
 }
 

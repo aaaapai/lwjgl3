@@ -5,24 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link ClangIndex#clang_visitChildren visitChildren} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * enum CXChildVisitResult (*{@link #invoke}) (
- *     CXCursor cursor,
- *     CXCursor parent,
- *     CXClientData client_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CXCursorVisitor extends Callback implements CXCursorVisitorI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class CXCursorVisitor extends Callback implements CXCursorVisito
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CXCursorVisitor createSafe(long functionPointer) {
+    public static @Nullable CXCursorVisitor createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

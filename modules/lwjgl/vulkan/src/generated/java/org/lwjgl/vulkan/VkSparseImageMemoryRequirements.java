@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying sparse image memory requirements.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSparseImageFormatProperties}, {@link VkSparseImageMemoryRequirements2}, {@link VK10#vkGetImageSparseMemoryRequirements GetImageSparseMemoryRequirements}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSparseImageMemoryRequirements {
- *     {@link VkSparseImageFormatProperties VkSparseImageFormatProperties} {@link #formatProperties};
- *     uint32_t {@link #imageMipTailFirstLod};
- *     VkDeviceSize {@link #imageMipTailSize};
- *     VkDeviceSize {@link #imageMipTailOffset};
- *     VkDeviceSize {@link #imageMipTailStride};
- * }</code></pre>
+ *     {@link VkSparseImageFormatProperties VkSparseImageFormatProperties} formatProperties;
+ *     uint32_t imageMipTailFirstLod;
+ *     VkDeviceSize imageMipTailSize;
+ *     VkDeviceSize imageMipTailOffset;
+ *     VkDeviceSize imageMipTailStride;
+ * }}</pre>
  */
 public class VkSparseImageMemoryRequirements extends Struct<VkSparseImageMemoryRequirements> implements NativeResource {
 
@@ -90,18 +82,18 @@ public class VkSparseImageMemoryRequirements extends Struct<VkSparseImageMemoryR
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@link VkSparseImageFormatProperties} structure specifying properties of the image format. */
+    /** @return a {@link VkSparseImageFormatProperties} view of the {@code formatProperties} field. */
     public VkSparseImageFormatProperties formatProperties() { return nformatProperties(address()); }
-    /** the first mip level at which image subresources are included in the mip tail region. */
+    /** @return the value of the {@code imageMipTailFirstLod} field. */
     @NativeType("uint32_t")
     public int imageMipTailFirstLod() { return nimageMipTailFirstLod(address()); }
-    /** the memory size (in bytes) of the mip tail region. If {@code formatProperties.flags} contains {@link VK10#VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT}, this is the size of the whole mip tail, otherwise this is the size of the mip tail of a single array layer. This value is guaranteed to be a multiple of the sparse block size in bytes. */
+    /** @return the value of the {@code imageMipTailSize} field. */
     @NativeType("VkDeviceSize")
     public long imageMipTailSize() { return nimageMipTailSize(address()); }
-    /** the opaque memory offset used with {@link VkSparseImageOpaqueMemoryBindInfo} to bind the mip tail region(s). */
+    /** @return the value of the {@code imageMipTailOffset} field. */
     @NativeType("VkDeviceSize")
     public long imageMipTailOffset() { return nimageMipTailOffset(address()); }
-    /** the offset stride between each array-layer’s mip tail, if {@code formatProperties.flags} does not contain {@link VK10#VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT} (otherwise the value is undefined). */
+    /** @return the value of the {@code imageMipTailStride} field. */
     @NativeType("VkDeviceSize")
     public long imageMipTailStride() { return nimageMipTailStride(address()); }
 
@@ -129,8 +121,7 @@ public class VkSparseImageMemoryRequirements extends Struct<VkSparseImageMemoryR
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageMemoryRequirements createSafe(long address) {
+    public static @Nullable VkSparseImageMemoryRequirements createSafe(long address) {
         return address == NULL ? null : new VkSparseImageMemoryRequirements(address, null);
     }
 
@@ -173,8 +164,7 @@ public class VkSparseImageMemoryRequirements extends Struct<VkSparseImageMemoryR
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageMemoryRequirements.Buffer createSafe(long address, int capacity) {
+    public static VkSparseImageMemoryRequirements.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,13 +230,13 @@ public class VkSparseImageMemoryRequirements extends Struct<VkSparseImageMemoryR
     /** Unsafe version of {@link #formatProperties}. */
     public static VkSparseImageFormatProperties nformatProperties(long struct) { return VkSparseImageFormatProperties.create(struct + VkSparseImageMemoryRequirements.FORMATPROPERTIES); }
     /** Unsafe version of {@link #imageMipTailFirstLod}. */
-    public static int nimageMipTailFirstLod(long struct) { return UNSAFE.getInt(null, struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILFIRSTLOD); }
+    public static int nimageMipTailFirstLod(long struct) { return memGetInt(struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILFIRSTLOD); }
     /** Unsafe version of {@link #imageMipTailSize}. */
-    public static long nimageMipTailSize(long struct) { return UNSAFE.getLong(null, struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILSIZE); }
+    public static long nimageMipTailSize(long struct) { return memGetLong(struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILSIZE); }
     /** Unsafe version of {@link #imageMipTailOffset}. */
-    public static long nimageMipTailOffset(long struct) { return UNSAFE.getLong(null, struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILOFFSET); }
+    public static long nimageMipTailOffset(long struct) { return memGetLong(struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILOFFSET); }
     /** Unsafe version of {@link #imageMipTailStride}. */
-    public static long nimageMipTailStride(long struct) { return UNSAFE.getLong(null, struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILSTRIDE); }
+    public static long nimageMipTailStride(long struct) { return memGetLong(struct + VkSparseImageMemoryRequirements.IMAGEMIPTAILSTRIDE); }
 
     // -----------------------------------
 
@@ -282,22 +272,27 @@ public class VkSparseImageMemoryRequirements extends Struct<VkSparseImageMemoryR
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSparseImageMemoryRequirements getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkSparseImageFormatProperties} view of the {@link VkSparseImageMemoryRequirements#formatProperties} field. */
+        /** @return a {@link VkSparseImageFormatProperties} view of the {@code formatProperties} field. */
         public VkSparseImageFormatProperties formatProperties() { return VkSparseImageMemoryRequirements.nformatProperties(address()); }
-        /** @return the value of the {@link VkSparseImageMemoryRequirements#imageMipTailFirstLod} field. */
+        /** @return the value of the {@code imageMipTailFirstLod} field. */
         @NativeType("uint32_t")
         public int imageMipTailFirstLod() { return VkSparseImageMemoryRequirements.nimageMipTailFirstLod(address()); }
-        /** @return the value of the {@link VkSparseImageMemoryRequirements#imageMipTailSize} field. */
+        /** @return the value of the {@code imageMipTailSize} field. */
         @NativeType("VkDeviceSize")
         public long imageMipTailSize() { return VkSparseImageMemoryRequirements.nimageMipTailSize(address()); }
-        /** @return the value of the {@link VkSparseImageMemoryRequirements#imageMipTailOffset} field. */
+        /** @return the value of the {@code imageMipTailOffset} field. */
         @NativeType("VkDeviceSize")
         public long imageMipTailOffset() { return VkSparseImageMemoryRequirements.nimageMipTailOffset(address()); }
-        /** @return the value of the {@link VkSparseImageMemoryRequirements#imageMipTailStride} field. */
+        /** @return the value of the {@code imageMipTailStride} field. */
         @NativeType("VkDeviceSize")
         public long imageMipTailStride() { return VkSparseImageMemoryRequirements.nimageMipTailStride(address()); }
 

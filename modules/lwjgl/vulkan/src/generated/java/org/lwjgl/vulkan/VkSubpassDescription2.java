@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,101 +17,22 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a subpass description.
- * 
- * <h5>Description</h5>
- * 
- * <p>Parameters defined by this structure with the same name as those in {@link VkSubpassDescription} have the identical effect to those parameters.</p>
- * 
- * <p>{@code viewMask} has the same effect for the described subpass as {@link VkRenderPassMultiviewCreateInfo}{@code ::pViewMasks} has on each corresponding subpass.</p>
- * 
- * <p>If a {@link VkFragmentShadingRateAttachmentInfoKHR} structure is included in the {@code pNext} chain, {@code pFragmentShadingRateAttachment} is not {@code NULL}, and its {@code attachment} member is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the identified attachment defines a fragment shading rate attachment for that subpass.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the {@code attachment} member of an element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pColorAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pResolveAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL}</li>
- * <li>If the {@code attachment} member of {@code pDepthStencilAttachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, ts {@code layout} member <b>must</b> not be {@link VK10#VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL} or {@link VK10#VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pColorAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK11#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL} or {@link VK11#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pResolveAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK11#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL} or {@link VK11#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL} or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pColorAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}, or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pResolveAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL}, {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL}, or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL}</li>
- * <li>If the {@code attachment} member of an element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link KHRSynchronization2#VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR IMAGE_LAYOUT_ATTACHMENT_OPTIMAL_KHR}</li>
- * <li>If the {@code attachment} member of an element of {@code pColorAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link KHRSynchronization2#VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR}</li>
- * <li>If the {@code attachment} member of an element of {@code pResolveAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, its {@code layout} member <b>must</b> not be {@link KHRSynchronization2#VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR IMAGE_LAYOUT_READ_ONLY_OPTIMAL_KHR}</li>
- * <li>If the {@code attachment} member of {@code pDepthStencilAttachment} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} and its {@code pNext} chain includes a {@link VkAttachmentReferenceStencilLayout} structure, the {@code layout} member of {@code pDepthStencilAttachment} <b>must</b> not be {@link VK12#VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL} or {@link VK12#VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL}</li>
- * <li>{@code pipelineBindPoint} <b>must</b> be {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} or {@link HUAWEISubpassShading#VK_PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI}</li>
- * <li>{@code colorAttachmentCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxColorAttachments}</li>
- * <li>If the first use of an attachment in this render pass is as an input attachment, and the attachment is not also used as a color or depth/stencil attachment in the same subpass, then {@code loadOp} <b>must</b> not be {@link VK10#VK_ATTACHMENT_LOAD_OP_CLEAR ATTACHMENT_LOAD_OP_CLEAR}</li>
- * <li>If {@code pResolveAttachments} is not {@code NULL}, for each resolve attachment that does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the corresponding color attachment <b>must</b> not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}</li>
- * <li>If {@code pResolveAttachments} is not {@code NULL}, for each resolve attachment that is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, the corresponding color attachment <b>must</b> not have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
- * <li>If {@code pResolveAttachments} is not {@code NULL}, each resolve attachment that is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}</li>
- * <li>Each element of {@code pResolveAttachments} <b>must</b> have the same {@code VkFormat} as its corresponding color attachment</li>
- * <li>If none of the {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} extension, the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multisampledRenderToSingleSampled">{@code multisampledRenderToSingleSampled}</a> feature are enabled, all attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have the same sample count</li>
- * <li>All attachments in {@code pInputAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain at least {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT} or {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
- * <li>All attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
- * <li>All attachments in {@code pResolveAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT FORMAT_FEATURE_COLOR_ATTACHMENT_BIT}</li>
- * <li>If {@code pDepthStencilAttachment} is not {@code NULL} and the attachment is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} then it <b>must</b> have an image format whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> contain {@link VK10#VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pInputAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-linearColorAttachment">{@code linearColorAttachment}</a> feature is enabled and the image is created with {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}, all attachments in {@code pResolveAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have image formats whose <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#potential-format-features">potential format features</a> <b>must</b> contain {@link NVLinearColorAttachment#VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV}</li>
- * <li>If the {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} extension is enabled, all attachments in {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have a sample count that is smaller than or equal to the sample count of {@code pDepthStencilAttachment} if it is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}</li>
- * <li>If the {@code pNext} chain includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure with {@code multisampledRenderToSingleSampledEnable} equal to {@link VK10#VK_TRUE TRUE}, then all attachments in {@code pColorAttachments} and {@code pDepthStencilAttachment} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have a sample count that is either {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT} or equal to {@link VkMultisampledRenderToSingleSampledInfoEXT}{@code ::rasterizationSamples}</li>
- * <li>If the {@code pNext} chain includes a {@link VkMultisampledRenderToSingleSampledInfoEXT} structure with {@code multisampledRenderToSingleSampledEnable} equal to {@link VK10#VK_TRUE TRUE}, and {@code pDepthStencilAttachment} is not {@code NULL}, does not have the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, and has a sample count of {@link VK10#VK_SAMPLE_COUNT_1_BIT SAMPLE_COUNT_1_BIT}, the {@code pNext} chain <b>must</b> also include a {@link VkSubpassDescriptionDepthStencilResolve} structure with {@code pDepthStencilResolveAttachment} that is either {@code NULL} or has the value {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}</li>
- * <li>If none of the {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} extension, the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension, or the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multisampledRenderToSingleSampled">{@code multisampledRenderToSingleSampled}</a> feature are enabled, all attachments in {@code pDepthStencilAttachment} or {@code pColorAttachments} that are not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED} <b>must</b> have the same sample count</li>
- * <li>Each element of {@code pPreserveAttachments} <b>must</b> not be {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}</li>
- * <li>Each element of {@code pPreserveAttachments} <b>must</b> not also be an element of any other member of the subpass description</li>
- * <li>If any attachment is used by more than one {@link VkAttachmentReference2} member, then each use <b>must</b> use the same {@code layout}</li>
- * <li>If {@code flags} includes {@link NVXMultiviewPerViewAttributes#VK_SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX SUBPASS_DESCRIPTION_PER_VIEW_POSITION_X_ONLY_BIT_NVX}, it <b>must</b> also include {@link NVXMultiviewPerViewAttributes#VK_SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX SUBPASS_DESCRIPTION_PER_VIEW_ATTRIBUTES_BIT_NVX}</li>
- * <li>If the {@code attachment} member of any element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, then the {@code aspectMask} member <b>must</b> be a valid combination of {@code VkImageAspectFlagBits}</li>
- * <li>If the {@code attachment} member of any element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, then the {@code aspectMask} member <b>must</b> not be 0</li>
- * <li>If the {@code attachment} member of any element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, then the {@code aspectMask} member <b>must</b> not include {@link VK10#VK_IMAGE_ASPECT_METADATA_BIT IMAGE_ASPECT_METADATA_BIT}</li>
- * <li>If the {@code attachment} member of any element of {@code pInputAttachments} is not {@link VK10#VK_ATTACHMENT_UNUSED ATTACHMENT_UNUSED}, then the {@code aspectMask} member <b>must</b> not include <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></li>
- * <li>An attachment <b>must</b> not be used in both {@code pDepthStencilAttachment} and {@code pColorAttachments}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-multiview">{@code multiview}</a> feature is not enabled, {@code viewMask} <b>must</b> be 0</li>
- * <li>The index of the most significant bit in {@code viewMask} <b>must</b> be less than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxMultiviewViewCount">{@code maxMultiviewViewCount}</a></li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkFragmentShadingRateAttachmentInfoKHR}, {@link VkMultisampledRenderToSingleSampledInfoEXT}, {@link VkRenderPassCreationControlEXT}, {@link VkRenderPassSubpassFeedbackCreateInfoEXT}, or {@link VkSubpassDescriptionDepthStencilResolve}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkSubpassDescriptionFlagBits} values</li>
- * <li>{@code pipelineBindPoint} <b>must</b> be a valid {@code VkPipelineBindPoint} value</li>
- * <li>If {@code inputAttachmentCount} is not 0, {@code pInputAttachments} <b>must</b> be a valid pointer to an array of {@code inputAttachmentCount} valid {@link VkAttachmentReference2} structures</li>
- * <li>If {@code colorAttachmentCount} is not 0, {@code pColorAttachments} <b>must</b> be a valid pointer to an array of {@code colorAttachmentCount} valid {@link VkAttachmentReference2} structures</li>
- * <li>If {@code colorAttachmentCount} is not 0, and {@code pResolveAttachments} is not {@code NULL}, {@code pResolveAttachments} <b>must</b> be a valid pointer to an array of {@code colorAttachmentCount} valid {@link VkAttachmentReference2} structures</li>
- * <li>If {@code pDepthStencilAttachment} is not {@code NULL}, {@code pDepthStencilAttachment} <b>must</b> be a valid pointer to a valid {@link VkAttachmentReference2} structure</li>
- * <li>If {@code preserveAttachmentCount} is not 0, {@code pPreserveAttachments} <b>must</b> be a valid pointer to an array of {@code preserveAttachmentCount} {@code uint32_t} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAttachmentReference2}, {@link VkRenderPassCreateInfo2}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSubpassDescription2 {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkSubpassDescriptionFlags {@link #flags};
- *     VkPipelineBindPoint {@link #pipelineBindPoint};
- *     uint32_t {@link #viewMask};
- *     uint32_t {@link #inputAttachmentCount};
- *     {@link VkAttachmentReference2 VkAttachmentReference2} const * {@link #pInputAttachments};
- *     uint32_t {@link #colorAttachmentCount};
- *     {@link VkAttachmentReference2 VkAttachmentReference2} const * {@link #pColorAttachments};
- *     {@link VkAttachmentReference2 VkAttachmentReference2} const * {@link #pResolveAttachments};
- *     {@link VkAttachmentReference2 VkAttachmentReference2} const * {@link #pDepthStencilAttachment};
- *     uint32_t {@link #preserveAttachmentCount};
- *     uint32_t const * {@link #pPreserveAttachments};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkSubpassDescriptionFlags flags;
+ *     VkPipelineBindPoint pipelineBindPoint;
+ *     uint32_t viewMask;
+ *     uint32_t inputAttachmentCount;
+ *     {@link VkAttachmentReference2 VkAttachmentReference2} const * pInputAttachments;
+ *     uint32_t colorAttachmentCount;
+ *     {@link VkAttachmentReference2 VkAttachmentReference2} const * pColorAttachments;
+ *     {@link VkAttachmentReference2 VkAttachmentReference2} const * pResolveAttachments;
+ *     {@link VkAttachmentReference2 VkAttachmentReference2} const * pDepthStencilAttachment;
+ *     uint32_t preserveAttachmentCount;
+ *     uint32_t const * pPreserveAttachments;
+ * }}</pre>
  */
 public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> implements NativeResource {
 
@@ -194,56 +115,51 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkSubpassDescriptionFlagBits} specifying usage of the subpass. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkSubpassDescriptionFlags")
     public int flags() { return nflags(address()); }
-    /** a {@code VkPipelineBindPoint} value specifying the pipeline type supported for this subpass. */
+    /** @return the value of the {@code pipelineBindPoint} field. */
     @NativeType("VkPipelineBindPoint")
     public int pipelineBindPoint() { return npipelineBindPoint(address()); }
-    /** a bitfield of view indices describing which views rendering is broadcast to in this subpass, when multiview is enabled. */
+    /** @return the value of the {@code viewMask} field. */
     @NativeType("uint32_t")
     public int viewMask() { return nviewMask(address()); }
-    /** the number of input attachments. */
+    /** @return the value of the {@code inputAttachmentCount} field. */
     @NativeType("uint32_t")
     public int inputAttachmentCount() { return ninputAttachmentCount(address()); }
-    /** a pointer to an array of {@link VkAttachmentReference2} structures defining the input attachments for this subpass and their layouts. */
-    @Nullable
+    /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@code pInputAttachments} field. */
     @NativeType("VkAttachmentReference2 const *")
-    public VkAttachmentReference2.Buffer pInputAttachments() { return npInputAttachments(address()); }
-    /** the number of color attachments. */
+    public VkAttachmentReference2.@Nullable Buffer pInputAttachments() { return npInputAttachments(address()); }
+    /** @return the value of the {@code colorAttachmentCount} field. */
     @NativeType("uint32_t")
     public int colorAttachmentCount() { return ncolorAttachmentCount(address()); }
-    /** a pointer to an array of {@code colorAttachmentCount} {@link VkAttachmentReference2} structures defining the color attachments for this subpass and their layouts. */
-    @Nullable
+    /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@code pColorAttachments} field. */
     @NativeType("VkAttachmentReference2 const *")
-    public VkAttachmentReference2.Buffer pColorAttachments() { return npColorAttachments(address()); }
-    /** {@code NULL} or a pointer to an array of {@code colorAttachmentCount} {@link VkAttachmentReference2} structures defining the resolve attachments for this subpass and their layouts. */
-    @Nullable
+    public VkAttachmentReference2.@Nullable Buffer pColorAttachments() { return npColorAttachments(address()); }
+    /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@code pResolveAttachments} field. */
     @NativeType("VkAttachmentReference2 const *")
-    public VkAttachmentReference2.Buffer pResolveAttachments() { return npResolveAttachments(address()); }
-    /** a pointer to a {@link VkAttachmentReference2} structure specifying the depth/stencil attachment for this subpass and its layout. */
-    @Nullable
+    public VkAttachmentReference2.@Nullable Buffer pResolveAttachments() { return npResolveAttachments(address()); }
+    /** @return a {@link VkAttachmentReference2} view of the struct pointed to by the {@code pDepthStencilAttachment} field. */
     @NativeType("VkAttachmentReference2 const *")
-    public VkAttachmentReference2 pDepthStencilAttachment() { return npDepthStencilAttachment(address()); }
-    /** the number of preserved attachments. */
+    public @Nullable VkAttachmentReference2 pDepthStencilAttachment() { return npDepthStencilAttachment(address()); }
+    /** @return the value of the {@code preserveAttachmentCount} field. */
     @NativeType("uint32_t")
     public int preserveAttachmentCount() { return npreserveAttachmentCount(address()); }
-    /** a pointer to an array of {@code preserveAttachmentCount} render pass attachment indices identifying attachments that are not used by this subpass, but whose contents <b>must</b> be preserved throughout the subpass. */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code pPreserveAttachments} field. */
     @NativeType("uint32_t const *")
-    public IntBuffer pPreserveAttachments() { return npPreserveAttachments(address()); }
+    public @Nullable IntBuffer pPreserveAttachments() { return npPreserveAttachments(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSubpassDescription2 sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2} value to the {@code sType} field. */
     public VkSubpassDescription2 sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSubpassDescription2 pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkFragmentShadingRateAttachmentInfoKHR} value to the {@code pNext} chain. */
     public VkSubpassDescription2 pNext(VkFragmentShadingRateAttachmentInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
@@ -257,23 +173,23 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
     public VkSubpassDescription2 pNext(VkSubpassDescriptionDepthStencilResolve value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSubpassDescriptionDepthStencilResolveKHR} value to the {@code pNext} chain. */
     public VkSubpassDescription2 pNext(VkSubpassDescriptionDepthStencilResolveKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkSubpassDescription2 flags(@NativeType("VkSubpassDescriptionFlags") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #pipelineBindPoint} field. */
+    /** Sets the specified value to the {@code pipelineBindPoint} field. */
     public VkSubpassDescription2 pipelineBindPoint(@NativeType("VkPipelineBindPoint") int value) { npipelineBindPoint(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewMask} field. */
+    /** Sets the specified value to the {@code viewMask} field. */
     public VkSubpassDescription2 viewMask(@NativeType("uint32_t") int value) { nviewMask(address(), value); return this; }
-    /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@link #pInputAttachments} field. */
-    public VkSubpassDescription2 pInputAttachments(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.Buffer value) { npInputAttachments(address(), value); return this; }
-    /** Sets the specified value to the {@link #colorAttachmentCount} field. */
+    /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@code pInputAttachments} field. */
+    public VkSubpassDescription2 pInputAttachments(@NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.@Nullable Buffer value) { npInputAttachments(address(), value); return this; }
+    /** Sets the specified value to the {@code colorAttachmentCount} field. */
     public VkSubpassDescription2 colorAttachmentCount(@NativeType("uint32_t") int value) { ncolorAttachmentCount(address(), value); return this; }
-    /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@link #pColorAttachments} field. */
-    public VkSubpassDescription2 pColorAttachments(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.Buffer value) { npColorAttachments(address(), value); return this; }
-    /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@link #pResolveAttachments} field. */
-    public VkSubpassDescription2 pResolveAttachments(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.Buffer value) { npResolveAttachments(address(), value); return this; }
-    /** Sets the address of the specified {@link VkAttachmentReference2} to the {@link #pDepthStencilAttachment} field. */
+    /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@code pColorAttachments} field. */
+    public VkSubpassDescription2 pColorAttachments(@NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.@Nullable Buffer value) { npColorAttachments(address(), value); return this; }
+    /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@code pResolveAttachments} field. */
+    public VkSubpassDescription2 pResolveAttachments(@NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.@Nullable Buffer value) { npResolveAttachments(address(), value); return this; }
+    /** Sets the address of the specified {@link VkAttachmentReference2} to the {@code pDepthStencilAttachment} field. */
     public VkSubpassDescription2 pDepthStencilAttachment(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2 value) { npDepthStencilAttachment(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #pPreserveAttachments} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code pPreserveAttachments} field. */
     public VkSubpassDescription2 pPreserveAttachments(@Nullable @NativeType("uint32_t const *") IntBuffer value) { npPreserveAttachments(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -283,10 +199,10 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
         int flags,
         int pipelineBindPoint,
         int viewMask,
-        @Nullable VkAttachmentReference2.Buffer pInputAttachments,
+        VkAttachmentReference2.@Nullable Buffer pInputAttachments,
         int colorAttachmentCount,
-        @Nullable VkAttachmentReference2.Buffer pColorAttachments,
-        @Nullable VkAttachmentReference2.Buffer pResolveAttachments,
+        VkAttachmentReference2.@Nullable Buffer pColorAttachments,
+        VkAttachmentReference2.@Nullable Buffer pResolveAttachments,
         @Nullable VkAttachmentReference2 pDepthStencilAttachment,
         @Nullable IntBuffer pPreserveAttachments
     ) {
@@ -341,8 +257,7 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDescription2 createSafe(long address) {
+    public static @Nullable VkSubpassDescription2 createSafe(long address) {
         return address == NULL ? null : new VkSubpassDescription2(address, null);
     }
 
@@ -385,8 +300,7 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassDescription2.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassDescription2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -431,56 +345,56 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassDescription2.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassDescription2.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSubpassDescription2.FLAGS); }
     /** Unsafe version of {@link #pipelineBindPoint}. */
-    public static int npipelineBindPoint(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.PIPELINEBINDPOINT); }
+    public static int npipelineBindPoint(long struct) { return memGetInt(struct + VkSubpassDescription2.PIPELINEBINDPOINT); }
     /** Unsafe version of {@link #viewMask}. */
-    public static int nviewMask(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.VIEWMASK); }
+    public static int nviewMask(long struct) { return memGetInt(struct + VkSubpassDescription2.VIEWMASK); }
     /** Unsafe version of {@link #inputAttachmentCount}. */
-    public static int ninputAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.INPUTATTACHMENTCOUNT); }
+    public static int ninputAttachmentCount(long struct) { return memGetInt(struct + VkSubpassDescription2.INPUTATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pInputAttachments}. */
-    @Nullable public static VkAttachmentReference2.Buffer npInputAttachments(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PINPUTATTACHMENTS), ninputAttachmentCount(struct)); }
+    public static VkAttachmentReference2.@Nullable Buffer npInputAttachments(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PINPUTATTACHMENTS), ninputAttachmentCount(struct)); }
     /** Unsafe version of {@link #colorAttachmentCount}. */
-    public static int ncolorAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.COLORATTACHMENTCOUNT); }
+    public static int ncolorAttachmentCount(long struct) { return memGetInt(struct + VkSubpassDescription2.COLORATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pColorAttachments}. */
-    @Nullable public static VkAttachmentReference2.Buffer npColorAttachments(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PCOLORATTACHMENTS), ncolorAttachmentCount(struct)); }
+    public static VkAttachmentReference2.@Nullable Buffer npColorAttachments(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PCOLORATTACHMENTS), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #pResolveAttachments}. */
-    @Nullable public static VkAttachmentReference2.Buffer npResolveAttachments(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PRESOLVEATTACHMENTS), ncolorAttachmentCount(struct)); }
+    public static VkAttachmentReference2.@Nullable Buffer npResolveAttachments(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PRESOLVEATTACHMENTS), ncolorAttachmentCount(struct)); }
     /** Unsafe version of {@link #pDepthStencilAttachment}. */
-    @Nullable public static VkAttachmentReference2 npDepthStencilAttachment(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PDEPTHSTENCILATTACHMENT)); }
+    public static @Nullable VkAttachmentReference2 npDepthStencilAttachment(long struct) { return VkAttachmentReference2.createSafe(memGetAddress(struct + VkSubpassDescription2.PDEPTHSTENCILATTACHMENT)); }
     /** Unsafe version of {@link #preserveAttachmentCount}. */
-    public static int npreserveAttachmentCount(long struct) { return UNSAFE.getInt(null, struct + VkSubpassDescription2.PRESERVEATTACHMENTCOUNT); }
+    public static int npreserveAttachmentCount(long struct) { return memGetInt(struct + VkSubpassDescription2.PRESERVEATTACHMENTCOUNT); }
     /** Unsafe version of {@link #pPreserveAttachments() pPreserveAttachments}. */
-    @Nullable public static IntBuffer npPreserveAttachments(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSubpassDescription2.PPRESERVEATTACHMENTS), npreserveAttachmentCount(struct)); }
+    public static @Nullable IntBuffer npPreserveAttachments(long struct) { return memIntBufferSafe(memGetAddress(struct + VkSubpassDescription2.PPRESERVEATTACHMENTS), npreserveAttachmentCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassDescription2.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassDescription2.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSubpassDescription2.FLAGS, value); }
     /** Unsafe version of {@link #pipelineBindPoint(int) pipelineBindPoint}. */
-    public static void npipelineBindPoint(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.PIPELINEBINDPOINT, value); }
+    public static void npipelineBindPoint(long struct, int value) { memPutInt(struct + VkSubpassDescription2.PIPELINEBINDPOINT, value); }
     /** Unsafe version of {@link #viewMask(int) viewMask}. */
-    public static void nviewMask(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.VIEWMASK, value); }
+    public static void nviewMask(long struct, int value) { memPutInt(struct + VkSubpassDescription2.VIEWMASK, value); }
     /** Sets the specified value to the {@code inputAttachmentCount} field of the specified {@code struct}. */
-    public static void ninputAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.INPUTATTACHMENTCOUNT, value); }
+    public static void ninputAttachmentCount(long struct, int value) { memPutInt(struct + VkSubpassDescription2.INPUTATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pInputAttachments(VkAttachmentReference2.Buffer) pInputAttachments}. */
-    public static void npInputAttachments(long struct, @Nullable VkAttachmentReference2.Buffer value) { memPutAddress(struct + VkSubpassDescription2.PINPUTATTACHMENTS, memAddressSafe(value)); ninputAttachmentCount(struct, value == null ? 0 : value.remaining()); }
+    public static void npInputAttachments(long struct, VkAttachmentReference2.@Nullable Buffer value) { memPutAddress(struct + VkSubpassDescription2.PINPUTATTACHMENTS, memAddressSafe(value)); ninputAttachmentCount(struct, value == null ? 0 : value.remaining()); }
     /** Sets the specified value to the {@code colorAttachmentCount} field of the specified {@code struct}. */
-    public static void ncolorAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.COLORATTACHMENTCOUNT, value); }
+    public static void ncolorAttachmentCount(long struct, int value) { memPutInt(struct + VkSubpassDescription2.COLORATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pColorAttachments(VkAttachmentReference2.Buffer) pColorAttachments}. */
-    public static void npColorAttachments(long struct, @Nullable VkAttachmentReference2.Buffer value) { memPutAddress(struct + VkSubpassDescription2.PCOLORATTACHMENTS, memAddressSafe(value)); }
+    public static void npColorAttachments(long struct, VkAttachmentReference2.@Nullable Buffer value) { memPutAddress(struct + VkSubpassDescription2.PCOLORATTACHMENTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #pResolveAttachments(VkAttachmentReference2.Buffer) pResolveAttachments}. */
-    public static void npResolveAttachments(long struct, @Nullable VkAttachmentReference2.Buffer value) { memPutAddress(struct + VkSubpassDescription2.PRESOLVEATTACHMENTS, memAddressSafe(value)); }
+    public static void npResolveAttachments(long struct, VkAttachmentReference2.@Nullable Buffer value) { memPutAddress(struct + VkSubpassDescription2.PRESOLVEATTACHMENTS, memAddressSafe(value)); }
     /** Unsafe version of {@link #pDepthStencilAttachment(VkAttachmentReference2) pDepthStencilAttachment}. */
     public static void npDepthStencilAttachment(long struct, @Nullable VkAttachmentReference2 value) { memPutAddress(struct + VkSubpassDescription2.PDEPTHSTENCILATTACHMENT, memAddressSafe(value)); }
     /** Sets the specified value to the {@code preserveAttachmentCount} field of the specified {@code struct}. */
-    public static void npreserveAttachmentCount(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassDescription2.PRESERVEATTACHMENTCOUNT, value); }
+    public static void npreserveAttachmentCount(long struct, int value) { memPutInt(struct + VkSubpassDescription2.PRESERVEATTACHMENTCOUNT, value); }
     /** Unsafe version of {@link #pPreserveAttachments(IntBuffer) pPreserveAttachments}. */
     public static void npPreserveAttachments(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkSubpassDescription2.PPRESERVEATTACHMENTS, memAddressSafe(value)); npreserveAttachmentCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -535,60 +449,60 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSubpassDescription2 getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSubpassDescription2#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSubpassDescription2.nsType(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkSubpassDescription2.npNext(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkSubpassDescriptionFlags")
         public int flags() { return VkSubpassDescription2.nflags(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#pipelineBindPoint} field. */
+        /** @return the value of the {@code pipelineBindPoint} field. */
         @NativeType("VkPipelineBindPoint")
         public int pipelineBindPoint() { return VkSubpassDescription2.npipelineBindPoint(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#viewMask} field. */
+        /** @return the value of the {@code viewMask} field. */
         @NativeType("uint32_t")
         public int viewMask() { return VkSubpassDescription2.nviewMask(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#inputAttachmentCount} field. */
+        /** @return the value of the {@code inputAttachmentCount} field. */
         @NativeType("uint32_t")
         public int inputAttachmentCount() { return VkSubpassDescription2.ninputAttachmentCount(address()); }
-        /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@link VkSubpassDescription2#pInputAttachments} field. */
-        @Nullable
+        /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@code pInputAttachments} field. */
         @NativeType("VkAttachmentReference2 const *")
-        public VkAttachmentReference2.Buffer pInputAttachments() { return VkSubpassDescription2.npInputAttachments(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#colorAttachmentCount} field. */
+        public VkAttachmentReference2.@Nullable Buffer pInputAttachments() { return VkSubpassDescription2.npInputAttachments(address()); }
+        /** @return the value of the {@code colorAttachmentCount} field. */
         @NativeType("uint32_t")
         public int colorAttachmentCount() { return VkSubpassDescription2.ncolorAttachmentCount(address()); }
-        /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@link VkSubpassDescription2#pColorAttachments} field. */
-        @Nullable
+        /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@code pColorAttachments} field. */
         @NativeType("VkAttachmentReference2 const *")
-        public VkAttachmentReference2.Buffer pColorAttachments() { return VkSubpassDescription2.npColorAttachments(address()); }
-        /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@link VkSubpassDescription2#pResolveAttachments} field. */
-        @Nullable
+        public VkAttachmentReference2.@Nullable Buffer pColorAttachments() { return VkSubpassDescription2.npColorAttachments(address()); }
+        /** @return a {@link VkAttachmentReference2.Buffer} view of the struct array pointed to by the {@code pResolveAttachments} field. */
         @NativeType("VkAttachmentReference2 const *")
-        public VkAttachmentReference2.Buffer pResolveAttachments() { return VkSubpassDescription2.npResolveAttachments(address()); }
-        /** @return a {@link VkAttachmentReference2} view of the struct pointed to by the {@link VkSubpassDescription2#pDepthStencilAttachment} field. */
-        @Nullable
+        public VkAttachmentReference2.@Nullable Buffer pResolveAttachments() { return VkSubpassDescription2.npResolveAttachments(address()); }
+        /** @return a {@link VkAttachmentReference2} view of the struct pointed to by the {@code pDepthStencilAttachment} field. */
         @NativeType("VkAttachmentReference2 const *")
-        public VkAttachmentReference2 pDepthStencilAttachment() { return VkSubpassDescription2.npDepthStencilAttachment(address()); }
-        /** @return the value of the {@link VkSubpassDescription2#preserveAttachmentCount} field. */
+        public @Nullable VkAttachmentReference2 pDepthStencilAttachment() { return VkSubpassDescription2.npDepthStencilAttachment(address()); }
+        /** @return the value of the {@code preserveAttachmentCount} field. */
         @NativeType("uint32_t")
         public int preserveAttachmentCount() { return VkSubpassDescription2.npreserveAttachmentCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkSubpassDescription2#pPreserveAttachments} field. */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code pPreserveAttachments} field. */
         @NativeType("uint32_t const *")
-        public IntBuffer pPreserveAttachments() { return VkSubpassDescription2.npPreserveAttachments(address()); }
+        public @Nullable IntBuffer pPreserveAttachments() { return VkSubpassDescription2.npPreserveAttachments(address()); }
 
-        /** Sets the specified value to the {@link VkSubpassDescription2#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSubpassDescription2.Buffer sType(@NativeType("VkStructureType") int value) { VkSubpassDescription2.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2} value to the {@link VkSubpassDescription2#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2 STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2} value to the {@code sType} field. */
         public VkSubpassDescription2.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2); }
-        /** Sets the specified value to the {@link VkSubpassDescription2#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSubpassDescription2.Buffer pNext(@NativeType("void const *") long value) { VkSubpassDescription2.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkFragmentShadingRateAttachmentInfoKHR} value to the {@code pNext} chain. */
         public VkSubpassDescription2.Buffer pNext(VkFragmentShadingRateAttachmentInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
@@ -602,23 +516,23 @@ public class VkSubpassDescription2 extends Struct<VkSubpassDescription2> impleme
         public VkSubpassDescription2.Buffer pNext(VkSubpassDescriptionDepthStencilResolve value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSubpassDescriptionDepthStencilResolveKHR} value to the {@code pNext} chain. */
         public VkSubpassDescription2.Buffer pNext(VkSubpassDescriptionDepthStencilResolveKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Sets the specified value to the {@link VkSubpassDescription2#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkSubpassDescription2.Buffer flags(@NativeType("VkSubpassDescriptionFlags") int value) { VkSubpassDescription2.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSubpassDescription2#pipelineBindPoint} field. */
+        /** Sets the specified value to the {@code pipelineBindPoint} field. */
         public VkSubpassDescription2.Buffer pipelineBindPoint(@NativeType("VkPipelineBindPoint") int value) { VkSubpassDescription2.npipelineBindPoint(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSubpassDescription2#viewMask} field. */
+        /** Sets the specified value to the {@code viewMask} field. */
         public VkSubpassDescription2.Buffer viewMask(@NativeType("uint32_t") int value) { VkSubpassDescription2.nviewMask(address(), value); return this; }
-        /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@link VkSubpassDescription2#pInputAttachments} field. */
-        public VkSubpassDescription2.Buffer pInputAttachments(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.Buffer value) { VkSubpassDescription2.npInputAttachments(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSubpassDescription2#colorAttachmentCount} field. */
+        /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@code pInputAttachments} field. */
+        public VkSubpassDescription2.Buffer pInputAttachments(@NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.@Nullable Buffer value) { VkSubpassDescription2.npInputAttachments(address(), value); return this; }
+        /** Sets the specified value to the {@code colorAttachmentCount} field. */
         public VkSubpassDescription2.Buffer colorAttachmentCount(@NativeType("uint32_t") int value) { VkSubpassDescription2.ncolorAttachmentCount(address(), value); return this; }
-        /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@link VkSubpassDescription2#pColorAttachments} field. */
-        public VkSubpassDescription2.Buffer pColorAttachments(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.Buffer value) { VkSubpassDescription2.npColorAttachments(address(), value); return this; }
-        /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@link VkSubpassDescription2#pResolveAttachments} field. */
-        public VkSubpassDescription2.Buffer pResolveAttachments(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.Buffer value) { VkSubpassDescription2.npResolveAttachments(address(), value); return this; }
-        /** Sets the address of the specified {@link VkAttachmentReference2} to the {@link VkSubpassDescription2#pDepthStencilAttachment} field. */
+        /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@code pColorAttachments} field. */
+        public VkSubpassDescription2.Buffer pColorAttachments(@NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.@Nullable Buffer value) { VkSubpassDescription2.npColorAttachments(address(), value); return this; }
+        /** Sets the address of the specified {@link VkAttachmentReference2.Buffer} to the {@code pResolveAttachments} field. */
+        public VkSubpassDescription2.Buffer pResolveAttachments(@NativeType("VkAttachmentReference2 const *") VkAttachmentReference2.@Nullable Buffer value) { VkSubpassDescription2.npResolveAttachments(address(), value); return this; }
+        /** Sets the address of the specified {@link VkAttachmentReference2} to the {@code pDepthStencilAttachment} field. */
         public VkSubpassDescription2.Buffer pDepthStencilAttachment(@Nullable @NativeType("VkAttachmentReference2 const *") VkAttachmentReference2 value) { VkSubpassDescription2.npDepthStencilAttachment(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link VkSubpassDescription2#pPreserveAttachments} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code pPreserveAttachments} field. */
         public VkSubpassDescription2.Buffer pPreserveAttachments(@Nullable @NativeType("uint32_t const *") IntBuffer value) { VkSubpassDescription2.npPreserveAttachments(address(), value); return this; }
 
     }

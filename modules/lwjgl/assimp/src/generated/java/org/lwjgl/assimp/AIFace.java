@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,22 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A single face in a mesh, referring to multiple vertices.
- * 
- * <p>If {@code mNumIndices} is 3, we call the face 'triangle', for {@code mNumIndices > 3} it's called 'polygon' (hey, that's just a definition!).</p>
- * 
- * <p>{@link AIMesh}{@code ::mPrimitiveTypes} can be queried to quickly examine which types of primitive are actually present in a mesh. The {@link Assimp#aiProcess_SortByPType Process_SortByPType}
- * flag executes a special post-processing algorithm which splits meshes with *different* primitive types mixed up (e.g. lines and triangles) in several
- * 'clean' submeshes. Furthermore there is a configuration option ({@link Assimp#AI_CONFIG_PP_SBP_REMOVE}) to force {@link Assimp#aiProcess_SortByPType Process_SortByPType} to remove specific kinds of
- * primitives from the imported scene, completely and forever.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiFace {
- *     unsigned int {@link #mNumIndices};
- *     unsigned int * {@link #mIndices};
- * }</code></pre>
+ *     unsigned int mNumIndices;
+ *     unsigned int * mIndices;
+ * }}</pre>
  */
 @NativeType("struct aiFace")
 public class AIFace extends Struct<AIFace> implements NativeResource {
@@ -83,14 +72,14 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Number of indices defining this face. The maximum value for this member is {@link Assimp#AI_MAX_FACE_INDICES}. */
+    /** @return the value of the {@code mNumIndices} field. */
     @NativeType("unsigned int")
     public int mNumIndices() { return nmNumIndices(address()); }
-    /** Pointer to the indices array. Size of the array is given in {@code numIndices}. */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code mIndices} field. */
     @NativeType("unsigned int *")
     public IntBuffer mIndices() { return nmIndices(address()); }
 
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #mIndices} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code mIndices} field. */
     public AIFace mIndices(@NativeType("unsigned int *") IntBuffer value) { nmIndices(address(), value); return this; }
 
     /**
@@ -129,8 +118,7 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIFace createSafe(long address) {
+    public static @Nullable AIFace createSafe(long address) {
         return address == NULL ? null : new AIFace(address, null);
     }
 
@@ -173,8 +161,7 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIFace.Buffer createSafe(long address, int capacity) {
+    public static AIFace.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,12 +225,12 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #mNumIndices}. */
-    public static int nmNumIndices(long struct) { return UNSAFE.getInt(null, struct + AIFace.MNUMINDICES); }
+    public static int nmNumIndices(long struct) { return memGetInt(struct + AIFace.MNUMINDICES); }
     /** Unsafe version of {@link #mIndices() mIndices}. */
     public static IntBuffer nmIndices(long struct) { return memIntBuffer(memGetAddress(struct + AIFace.MINDICES), nmNumIndices(struct)); }
 
     /** Sets the specified value to the {@code mNumIndices} field of the specified {@code struct}. */
-    public static void nmNumIndices(long struct, int value) { UNSAFE.putInt(null, struct + AIFace.MNUMINDICES, value); }
+    public static void nmNumIndices(long struct, int value) { memPutInt(struct + AIFace.MNUMINDICES, value); }
     /** Unsafe version of {@link #mIndices(IntBuffer) mIndices}. */
     public static void nmIndices(long struct, IntBuffer value) { memPutAddress(struct + AIFace.MINDICES, memAddress(value)); nmNumIndices(struct, value.remaining()); }
 
@@ -290,18 +277,23 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIFace getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIFace#mNumIndices} field. */
+        /** @return the value of the {@code mNumIndices} field. */
         @NativeType("unsigned int")
         public int mNumIndices() { return AIFace.nmNumIndices(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link AIFace#mIndices} field. */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code mIndices} field. */
         @NativeType("unsigned int *")
         public IntBuffer mIndices() { return AIFace.nmIndices(address()); }
 
-        /** Sets the address of the specified {@link IntBuffer} to the {@link AIFace#mIndices} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code mIndices} field. */
         public AIFace.Buffer mIndices(@NativeType("unsigned int *") IntBuffer value) { AIFace.nmIndices(address(), value); return this; }
 
     }

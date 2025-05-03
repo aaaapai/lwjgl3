@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Container for value and types of parameters that can be queried.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be a valid {@code VkPerformanceValueTypeINTEL} value</li>
- * <li>If {@code type} is {@link INTELPerformanceQuery#VK_PERFORMANCE_VALUE_TYPE_STRING_INTEL PERFORMANCE_VALUE_TYPE_STRING_INTEL}, the {@code valueString} member of {@code data} <b>must</b> be a null-terminated UTF-8 string</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPerformanceValueDataINTEL}, {@link INTELPerformanceQuery#vkGetPerformanceParameterINTEL GetPerformanceParameterINTEL}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPerformanceValueINTEL {
- *     VkPerformanceValueTypeINTEL {@link #type};
- *     {@link VkPerformanceValueDataINTEL VkPerformanceValueDataINTEL} {@link #data};
- * }</code></pre>
+ *     VkPerformanceValueTypeINTEL type;
+ *     {@link VkPerformanceValueDataINTEL VkPerformanceValueDataINTEL} data;
+ * }}</pre>
  */
 public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> implements NativeResource {
 
@@ -85,41 +70,11 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkPerformanceValueTypeINTEL} value specifying the type of the returned data. */
+    /** @return the value of the {@code type} field. */
     @NativeType("VkPerformanceValueTypeINTEL")
     public int type() { return ntype(address()); }
-    /** a {@link VkPerformanceValueDataINTEL} union specifying the value of the returned data. */
+    /** @return a {@link VkPerformanceValueDataINTEL} view of the {@code data} field. */
     public VkPerformanceValueDataINTEL data() { return ndata(address()); }
-
-    /** Sets the specified value to the {@link #type} field. */
-    public VkPerformanceValueINTEL type(@NativeType("VkPerformanceValueTypeINTEL") int value) { ntype(address(), value); return this; }
-    /** Copies the specified {@link VkPerformanceValueDataINTEL} to the {@link #data} field. */
-    public VkPerformanceValueINTEL data(VkPerformanceValueDataINTEL value) { ndata(address(), value); return this; }
-    /** Passes the {@link #data} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public VkPerformanceValueINTEL data(java.util.function.Consumer<VkPerformanceValueDataINTEL> consumer) { consumer.accept(data()); return this; }
-
-    /** Initializes this struct with the specified values. */
-    public VkPerformanceValueINTEL set(
-        int type,
-        VkPerformanceValueDataINTEL data
-    ) {
-        type(type);
-        data(data);
-
-        return this;
-    }
-
-    /**
-     * Copies the specified struct data to this struct.
-     *
-     * @param src the source struct
-     *
-     * @return this struct
-     */
-    public VkPerformanceValueINTEL set(VkPerformanceValueINTEL src) {
-        memCopy(src.address(), address(), SIZEOF);
-        return this;
-    }
 
     // -----------------------------------
 
@@ -145,8 +100,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceValueINTEL createSafe(long address) {
+    public static @Nullable VkPerformanceValueINTEL createSafe(long address) {
         return address == NULL ? null : new VkPerformanceValueINTEL(address, null);
     }
 
@@ -189,8 +143,7 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceValueINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceValueINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,14 +207,9 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceValueINTEL.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkPerformanceValueINTEL.TYPE); }
     /** Unsafe version of {@link #data}. */
     public static VkPerformanceValueDataINTEL ndata(long struct) { return VkPerformanceValueDataINTEL.create(struct + VkPerformanceValueINTEL.DATA); }
-
-    /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceValueINTEL.TYPE, value); }
-    /** Unsafe version of {@link #data(VkPerformanceValueDataINTEL) data}. */
-    public static void ndata(long struct, VkPerformanceValueDataINTEL value) { memCopy(value.address(), struct + VkPerformanceValueINTEL.DATA, VkPerformanceValueDataINTEL.SIZEOF); }
 
     // -----------------------------------
 
@@ -297,22 +245,20 @@ public class VkPerformanceValueINTEL extends Struct<VkPerformanceValueINTEL> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPerformanceValueINTEL getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPerformanceValueINTEL#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("VkPerformanceValueTypeINTEL")
         public int type() { return VkPerformanceValueINTEL.ntype(address()); }
-        /** @return a {@link VkPerformanceValueDataINTEL} view of the {@link VkPerformanceValueINTEL#data} field. */
+        /** @return a {@link VkPerformanceValueDataINTEL} view of the {@code data} field. */
         public VkPerformanceValueDataINTEL data() { return VkPerformanceValueINTEL.ndata(address()); }
-
-        /** Sets the specified value to the {@link VkPerformanceValueINTEL#type} field. */
-        public VkPerformanceValueINTEL.Buffer type(@NativeType("VkPerformanceValueTypeINTEL") int value) { VkPerformanceValueINTEL.ntype(address(), value); return this; }
-        /** Copies the specified {@link VkPerformanceValueDataINTEL} to the {@link VkPerformanceValueINTEL#data} field. */
-        public VkPerformanceValueINTEL.Buffer data(VkPerformanceValueDataINTEL value) { VkPerformanceValueINTEL.ndata(address(), value); return this; }
-        /** Passes the {@link VkPerformanceValueINTEL#data} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public VkPerformanceValueINTEL.Buffer data(java.util.function.Consumer<VkPerformanceValueDataINTEL> consumer) { consumer.accept(data()); return this; }
 
     }
 

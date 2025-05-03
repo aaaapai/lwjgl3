@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying external image creation parameters.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code handleType} is 0, {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} will behave as if {@link VkPhysicalDeviceExternalImageFormatInfo} was not present, and {@link VkExternalImageFormatProperties} will be ignored.</p>
- * 
- * <p>If {@code handleType} is not compatible with the {@code format}, {@code type}, {@code tiling}, {@code usage}, and {@code flags} specified in {@link VkPhysicalDeviceImageFormatInfo2}, then {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} returns {@link VK10#VK_ERROR_FORMAT_NOT_SUPPORTED ERROR_FORMAT_NOT_SUPPORTED}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO}</li>
- * <li>If {@code handleType} is not 0, {@code handleType} <b>must</b> be a valid {@code VkExternalMemoryHandleTypeFlagBits} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceExternalImageFormatInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkExternalMemoryHandleTypeFlagBits {@link #handleType};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkExternalMemoryHandleTypeFlagBits handleType;
+ * }}</pre>
  */
 public class VkPhysicalDeviceExternalImageFormatInfo extends Struct<VkPhysicalDeviceExternalImageFormatInfo> implements NativeResource {
 
@@ -91,23 +74,23 @@ public class VkPhysicalDeviceExternalImageFormatInfo extends Struct<VkPhysicalDe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkExternalMemoryHandleTypeFlagBits} value specifying the memory handle type that will be used with the memory associated with the image. */
+    /** @return the value of the {@code handleType} field. */
     @NativeType("VkExternalMemoryHandleTypeFlagBits")
     public int handleType() { return nhandleType(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceExternalImageFormatInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO} value to the {@code sType} field. */
     public VkPhysicalDeviceExternalImageFormatInfo sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceExternalImageFormatInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #handleType} field. */
+    /** Sets the specified value to the {@code handleType} field. */
     public VkPhysicalDeviceExternalImageFormatInfo handleType(@NativeType("VkExternalMemoryHandleTypeFlagBits") int value) { nhandleType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -159,8 +142,7 @@ public class VkPhysicalDeviceExternalImageFormatInfo extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalImageFormatInfo createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExternalImageFormatInfo createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExternalImageFormatInfo(address, null);
     }
 
@@ -203,8 +185,7 @@ public class VkPhysicalDeviceExternalImageFormatInfo extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalImageFormatInfo.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExternalImageFormatInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,18 +249,18 @@ public class VkPhysicalDeviceExternalImageFormatInfo extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalImageFormatInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalImageFormatInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExternalImageFormatInfo.PNEXT); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalImageFormatInfo.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalImageFormatInfo.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalImageFormatInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalImageFormatInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExternalImageFormatInfo.PNEXT, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalImageFormatInfo.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalImageFormatInfo.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -315,27 +296,32 @@ public class VkPhysicalDeviceExternalImageFormatInfo extends Struct<VkPhysicalDe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceExternalImageFormatInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceExternalImageFormatInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceExternalImageFormatInfo.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceExternalImageFormatInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPhysicalDeviceExternalImageFormatInfo.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceExternalImageFormatInfo#handleType} field. */
+        /** @return the value of the {@code handleType} field. */
         @NativeType("VkExternalMemoryHandleTypeFlagBits")
         public int handleType() { return VkPhysicalDeviceExternalImageFormatInfo.nhandleType(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceExternalImageFormatInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceExternalImageFormatInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceExternalImageFormatInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO} value to the {@link VkPhysicalDeviceExternalImageFormatInfo#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO} value to the {@code sType} field. */
         public VkPhysicalDeviceExternalImageFormatInfo.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExternalImageFormatInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceExternalImageFormatInfo.Buffer pNext(@NativeType("void const *") long value) { VkPhysicalDeviceExternalImageFormatInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExternalImageFormatInfo#handleType} field. */
+        /** Sets the specified value to the {@code handleType} field. */
         public VkPhysicalDeviceExternalImageFormatInfo.Buffer handleType(@NativeType("VkExternalMemoryHandleTypeFlagBits") int value) { VkPhysicalDeviceExternalImageFormatInfo.nhandleType(address(), value); return this; }
 
     }

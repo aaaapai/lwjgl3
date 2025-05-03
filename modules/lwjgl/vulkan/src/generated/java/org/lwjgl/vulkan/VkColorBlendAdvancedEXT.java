@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,37 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the advanced blend operation parameters for an attachment.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-advancedBlendNonPremultipliedSrcColor">non-premultiplied source color</a> property is not supported, {@code srcPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-advancedBlendNonPremultipliedDstColor">non-premultiplied destination color</a> property is not supported, {@code dstPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-advancedBlendCorrelatedOverlap">correlated overlap</a> property is not supported, {@code blendOverlap} <b>must</b> be {@link EXTBlendOperationAdvanced#VK_BLEND_OVERLAP_UNCORRELATED_EXT BLEND_OVERLAP_UNCORRELATED_EXT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code advancedBlendOp} <b>must</b> be a valid {@code VkBlendOp} value</li>
- * <li>{@code blendOverlap} <b>must</b> be a valid {@code VkBlendOverlapEXT} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTShaderObject#vkCmdSetColorBlendAdvancedEXT CmdSetColorBlendAdvancedEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkColorBlendAdvancedEXT {
- *     VkBlendOp {@link #advancedBlendOp};
- *     VkBool32 {@link #srcPremultiplied};
- *     VkBool32 {@link #dstPremultiplied};
- *     VkBlendOverlapEXT {@link #blendOverlap};
- *     VkBool32 {@link #clampResults};
- * }</code></pre>
+ *     VkBlendOp advancedBlendOp;
+ *     VkBool32 srcPremultiplied;
+ *     VkBool32 dstPremultiplied;
+ *     VkBlendOverlapEXT blendOverlap;
+ *     VkBool32 clampResults;
+ * }}</pre>
  */
 public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> implements NativeResource {
 
@@ -105,31 +82,31 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** selects which blend operation is used to calculate the RGB values to write to the color attachment. */
+    /** @return the value of the {@code advancedBlendOp} field. */
     @NativeType("VkBlendOp")
     public int advancedBlendOp() { return nadvancedBlendOp(address()); }
-    /** specifies whether the source color of the blend operation is treated as premultiplied. */
+    /** @return the value of the {@code srcPremultiplied} field. */
     @NativeType("VkBool32")
     public boolean srcPremultiplied() { return nsrcPremultiplied(address()) != 0; }
-    /** specifies whether the destination color of the blend operation is treated as premultiplied. */
+    /** @return the value of the {@code dstPremultiplied} field. */
     @NativeType("VkBool32")
     public boolean dstPremultiplied() { return ndstPremultiplied(address()) != 0; }
-    /** a {@code VkBlendOverlapEXT} value specifying how the source and destination sample’s coverage is correlated. */
+    /** @return the value of the {@code blendOverlap} field. */
     @NativeType("VkBlendOverlapEXT")
     public int blendOverlap() { return nblendOverlap(address()); }
-    /** specifies the results must be clamped to the [0,1] range before writing to the attachment, which is useful when the attachment format is not normalized fixed-point. */
+    /** @return the value of the {@code clampResults} field. */
     @NativeType("VkBool32")
     public boolean clampResults() { return nclampResults(address()) != 0; }
 
-    /** Sets the specified value to the {@link #advancedBlendOp} field. */
+    /** Sets the specified value to the {@code advancedBlendOp} field. */
     public VkColorBlendAdvancedEXT advancedBlendOp(@NativeType("VkBlendOp") int value) { nadvancedBlendOp(address(), value); return this; }
-    /** Sets the specified value to the {@link #srcPremultiplied} field. */
+    /** Sets the specified value to the {@code srcPremultiplied} field. */
     public VkColorBlendAdvancedEXT srcPremultiplied(@NativeType("VkBool32") boolean value) { nsrcPremultiplied(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #dstPremultiplied} field. */
+    /** Sets the specified value to the {@code dstPremultiplied} field. */
     public VkColorBlendAdvancedEXT dstPremultiplied(@NativeType("VkBool32") boolean value) { ndstPremultiplied(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #blendOverlap} field. */
+    /** Sets the specified value to the {@code blendOverlap} field. */
     public VkColorBlendAdvancedEXT blendOverlap(@NativeType("VkBlendOverlapEXT") int value) { nblendOverlap(address(), value); return this; }
-    /** Sets the specified value to the {@link #clampResults} field. */
+    /** Sets the specified value to the {@code clampResults} field. */
     public VkColorBlendAdvancedEXT clampResults(@NativeType("VkBool32") boolean value) { nclampResults(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -185,8 +162,7 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkColorBlendAdvancedEXT createSafe(long address) {
+    public static @Nullable VkColorBlendAdvancedEXT createSafe(long address) {
         return address == NULL ? null : new VkColorBlendAdvancedEXT(address, null);
     }
 
@@ -229,8 +205,7 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkColorBlendAdvancedEXT.Buffer createSafe(long address, int capacity) {
+    public static VkColorBlendAdvancedEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +250,26 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #advancedBlendOp}. */
-    public static int nadvancedBlendOp(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP); }
+    public static int nadvancedBlendOp(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP); }
     /** Unsafe version of {@link #srcPremultiplied}. */
-    public static int nsrcPremultiplied(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED); }
+    public static int nsrcPremultiplied(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED); }
     /** Unsafe version of {@link #dstPremultiplied}. */
-    public static int ndstPremultiplied(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED); }
+    public static int ndstPremultiplied(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED); }
     /** Unsafe version of {@link #blendOverlap}. */
-    public static int nblendOverlap(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.BLENDOVERLAP); }
+    public static int nblendOverlap(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.BLENDOVERLAP); }
     /** Unsafe version of {@link #clampResults}. */
-    public static int nclampResults(long struct) { return UNSAFE.getInt(null, struct + VkColorBlendAdvancedEXT.CLAMPRESULTS); }
+    public static int nclampResults(long struct) { return memGetInt(struct + VkColorBlendAdvancedEXT.CLAMPRESULTS); }
 
     /** Unsafe version of {@link #advancedBlendOp(int) advancedBlendOp}. */
-    public static void nadvancedBlendOp(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP, value); }
+    public static void nadvancedBlendOp(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.ADVANCEDBLENDOP, value); }
     /** Unsafe version of {@link #srcPremultiplied(boolean) srcPremultiplied}. */
-    public static void nsrcPremultiplied(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED, value); }
+    public static void nsrcPremultiplied(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.SRCPREMULTIPLIED, value); }
     /** Unsafe version of {@link #dstPremultiplied(boolean) dstPremultiplied}. */
-    public static void ndstPremultiplied(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED, value); }
+    public static void ndstPremultiplied(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.DSTPREMULTIPLIED, value); }
     /** Unsafe version of {@link #blendOverlap(int) blendOverlap}. */
-    public static void nblendOverlap(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.BLENDOVERLAP, value); }
+    public static void nblendOverlap(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.BLENDOVERLAP, value); }
     /** Unsafe version of {@link #clampResults(boolean) clampResults}. */
-    public static void nclampResults(long struct, int value) { UNSAFE.putInt(null, struct + VkColorBlendAdvancedEXT.CLAMPRESULTS, value); }
+    public static void nclampResults(long struct, int value) { memPutInt(struct + VkColorBlendAdvancedEXT.CLAMPRESULTS, value); }
 
     // -----------------------------------
 
@@ -330,35 +305,40 @@ public class VkColorBlendAdvancedEXT extends Struct<VkColorBlendAdvancedEXT> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkColorBlendAdvancedEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkColorBlendAdvancedEXT#advancedBlendOp} field. */
+        /** @return the value of the {@code advancedBlendOp} field. */
         @NativeType("VkBlendOp")
         public int advancedBlendOp() { return VkColorBlendAdvancedEXT.nadvancedBlendOp(address()); }
-        /** @return the value of the {@link VkColorBlendAdvancedEXT#srcPremultiplied} field. */
+        /** @return the value of the {@code srcPremultiplied} field. */
         @NativeType("VkBool32")
         public boolean srcPremultiplied() { return VkColorBlendAdvancedEXT.nsrcPremultiplied(address()) != 0; }
-        /** @return the value of the {@link VkColorBlendAdvancedEXT#dstPremultiplied} field. */
+        /** @return the value of the {@code dstPremultiplied} field. */
         @NativeType("VkBool32")
         public boolean dstPremultiplied() { return VkColorBlendAdvancedEXT.ndstPremultiplied(address()) != 0; }
-        /** @return the value of the {@link VkColorBlendAdvancedEXT#blendOverlap} field. */
+        /** @return the value of the {@code blendOverlap} field. */
         @NativeType("VkBlendOverlapEXT")
         public int blendOverlap() { return VkColorBlendAdvancedEXT.nblendOverlap(address()); }
-        /** @return the value of the {@link VkColorBlendAdvancedEXT#clampResults} field. */
+        /** @return the value of the {@code clampResults} field. */
         @NativeType("VkBool32")
         public boolean clampResults() { return VkColorBlendAdvancedEXT.nclampResults(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkColorBlendAdvancedEXT#advancedBlendOp} field. */
+        /** Sets the specified value to the {@code advancedBlendOp} field. */
         public VkColorBlendAdvancedEXT.Buffer advancedBlendOp(@NativeType("VkBlendOp") int value) { VkColorBlendAdvancedEXT.nadvancedBlendOp(address(), value); return this; }
-        /** Sets the specified value to the {@link VkColorBlendAdvancedEXT#srcPremultiplied} field. */
+        /** Sets the specified value to the {@code srcPremultiplied} field. */
         public VkColorBlendAdvancedEXT.Buffer srcPremultiplied(@NativeType("VkBool32") boolean value) { VkColorBlendAdvancedEXT.nsrcPremultiplied(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkColorBlendAdvancedEXT#dstPremultiplied} field. */
+        /** Sets the specified value to the {@code dstPremultiplied} field. */
         public VkColorBlendAdvancedEXT.Buffer dstPremultiplied(@NativeType("VkBool32") boolean value) { VkColorBlendAdvancedEXT.ndstPremultiplied(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkColorBlendAdvancedEXT#blendOverlap} field. */
+        /** Sets the specified value to the {@code blendOverlap} field. */
         public VkColorBlendAdvancedEXT.Buffer blendOverlap(@NativeType("VkBlendOverlapEXT") int value) { VkColorBlendAdvancedEXT.nblendOverlap(address(), value); return this; }
-        /** Sets the specified value to the {@link VkColorBlendAdvancedEXT#clampResults} field. */
+        /** Sets the specified value to the {@code clampResults} field. */
         public VkColorBlendAdvancedEXT.Buffer clampResults(@NativeType("VkBool32") boolean value) { VkColorBlendAdvancedEXT.nclampResults(address(), value ? 1 : 0); return this; }
 
     }

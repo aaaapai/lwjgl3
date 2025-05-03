@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Identifies a specific source location within a translation unit.
- * 
- * <p>Use {@link ClangIndex#clang_getExpansionLocation getExpansionLocation} or {@link ClangIndex#clang_getSpellingLocation getSpellingLocation} to map a source location to a particular file, line, and column.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXSourceLocation {
  *     void const * ptr_data[2];
  *     unsigned int_data;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXSourceLocation extends Struct<CXSourceLocation> implements NativeResource {
 
@@ -111,8 +105,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceLocation createSafe(long address) {
+    public static @Nullable CXSourceLocation createSafe(long address) {
         return address == NULL ? null : new CXSourceLocation(address, null);
     }
 
@@ -155,8 +148,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceLocation.Buffer createSafe(long address, int capacity) {
+    public static CXSourceLocation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -226,7 +218,7 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
         return memGetAddress(struct + CXSourceLocation.PTR_DATA + check(index, 2) * POINTER_SIZE);
     }
     /** Unsafe version of {@link #int_data}. */
-    public static int nint_data(long struct) { return UNSAFE.getInt(null, struct + CXSourceLocation.INT_DATA); }
+    public static int nint_data(long struct) { return memGetInt(struct + CXSourceLocation.INT_DATA); }
 
     // -----------------------------------
 
@@ -259,6 +251,11 @@ public class CXSourceLocation extends Struct<CXSourceLocation> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

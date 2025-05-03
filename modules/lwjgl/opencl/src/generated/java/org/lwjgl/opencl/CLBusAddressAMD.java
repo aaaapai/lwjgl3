@@ -5,7 +5,7 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Bus address information used in {@link AMDBusAddressableMemory#clEnqueueMakeBuffersResidentAMD EnqueueMakeBuffersResidentAMD}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct cl_bus_address_amd {
- *     cl_long {@link #surfbusaddress};
- *     cl_long {@link #signalbusaddress};
- * }</code></pre>
+ *     cl_long surfbusaddress;
+ *     cl_long signalbusaddress;
+ * }}</pre>
  */
 @NativeType("struct cl_bus_address_amd")
 public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeResource {
@@ -75,16 +71,16 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** contains the page aligned physical starting address of the backing store preallocated by the application on a remote device */
+    /** @return the value of the {@code surfbusaddress} field. */
     @NativeType("cl_long")
     public long surfbusaddress() { return nsurfbusaddress(address()); }
-    /** contains the page aligned physical starting address of preallocated signaling surface */
+    /** @return the value of the {@code signalbusaddress} field. */
     @NativeType("cl_long")
     public long signalbusaddress() { return nsignalbusaddress(address()); }
 
-    /** Sets the specified value to the {@link #surfbusaddress} field. */
+    /** Sets the specified value to the {@code surfbusaddress} field. */
     public CLBusAddressAMD surfbusaddress(@NativeType("cl_long") long value) { nsurfbusaddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #signalbusaddress} field. */
+    /** Sets the specified value to the {@code signalbusaddress} field. */
     public CLBusAddressAMD signalbusaddress(@NativeType("cl_long") long value) { nsignalbusaddress(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -134,8 +130,7 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLBusAddressAMD createSafe(long address) {
+    public static @Nullable CLBusAddressAMD createSafe(long address) {
         return address == NULL ? null : new CLBusAddressAMD(address, null);
     }
 
@@ -178,8 +173,7 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CLBusAddressAMD.Buffer createSafe(long address, int capacity) {
+    public static CLBusAddressAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,14 +237,14 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #surfbusaddress}. */
-    public static long nsurfbusaddress(long struct) { return UNSAFE.getLong(null, struct + CLBusAddressAMD.SURFBUSADDRESS); }
+    public static long nsurfbusaddress(long struct) { return memGetLong(struct + CLBusAddressAMD.SURFBUSADDRESS); }
     /** Unsafe version of {@link #signalbusaddress}. */
-    public static long nsignalbusaddress(long struct) { return UNSAFE.getLong(null, struct + CLBusAddressAMD.SIGNALBUSADDRESS); }
+    public static long nsignalbusaddress(long struct) { return memGetLong(struct + CLBusAddressAMD.SIGNALBUSADDRESS); }
 
     /** Unsafe version of {@link #surfbusaddress(long) surfbusaddress}. */
-    public static void nsurfbusaddress(long struct, long value) { UNSAFE.putLong(null, struct + CLBusAddressAMD.SURFBUSADDRESS, value); }
+    public static void nsurfbusaddress(long struct, long value) { memPutLong(struct + CLBusAddressAMD.SURFBUSADDRESS, value); }
     /** Unsafe version of {@link #signalbusaddress(long) signalbusaddress}. */
-    public static void nsignalbusaddress(long struct, long value) { UNSAFE.putLong(null, struct + CLBusAddressAMD.SIGNALBUSADDRESS, value); }
+    public static void nsignalbusaddress(long struct, long value) { memPutLong(struct + CLBusAddressAMD.SIGNALBUSADDRESS, value); }
 
     // -----------------------------------
 
@@ -286,20 +280,25 @@ public class CLBusAddressAMD extends Struct<CLBusAddressAMD> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CLBusAddressAMD getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CLBusAddressAMD#surfbusaddress} field. */
+        /** @return the value of the {@code surfbusaddress} field. */
         @NativeType("cl_long")
         public long surfbusaddress() { return CLBusAddressAMD.nsurfbusaddress(address()); }
-        /** @return the value of the {@link CLBusAddressAMD#signalbusaddress} field. */
+        /** @return the value of the {@code signalbusaddress} field. */
         @NativeType("cl_long")
         public long signalbusaddress() { return CLBusAddressAMD.nsignalbusaddress(address()); }
 
-        /** Sets the specified value to the {@link CLBusAddressAMD#surfbusaddress} field. */
+        /** Sets the specified value to the {@code surfbusaddress} field. */
         public CLBusAddressAMD.Buffer surfbusaddress(@NativeType("cl_long") long value) { CLBusAddressAMD.nsurfbusaddress(address(), value); return this; }
-        /** Sets the specified value to the {@link CLBusAddressAMD#signalbusaddress} field. */
+        /** Sets the specified value to the {@code signalbusaddress} field. */
         public CLBusAddressAMD.Buffer signalbusaddress(@NativeType("cl_long") long value) { CLBusAddressAMD.nsignalbusaddress(address(), value); return this; }
 
     }

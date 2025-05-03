@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,56 +16,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created display plane surface object.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>Creating a display surface <b>must</b> not modify the state of the displays, planes, or other resources it names. For example, it <b>must</b> not apply the specified mode to be set on the associated display. Application of display configuration occurs as a side effect of presenting to a display surface.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code planeIndex} <b>must</b> be less than the number of display planes supported by the device as determined by calling {@code vkGetPhysicalDeviceDisplayPlanePropertiesKHR}</li>
- * <li>If the {@code planeReorderPossible} member of the {@link VkDisplayPropertiesKHR} structure returned by {@code vkGetPhysicalDeviceDisplayPropertiesKHR} for the display corresponding to {@code displayMode} is {@link VK10#VK_TRUE TRUE} then {@code planeStackIndex} <b>must</b> be less than the number of display planes supported by the device as determined by calling {@code vkGetPhysicalDeviceDisplayPlanePropertiesKHR}; otherwise {@code planeStackIndex} <b>must</b> equal the {@code currentStackIndex} member of {@link VkDisplayPlanePropertiesKHR} returned by {@code vkGetPhysicalDeviceDisplayPlanePropertiesKHR} for the display plane corresponding to {@code displayMode}</li>
- * <li>If {@code alphaMode} is {@link KHRDisplay#VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR} then {@code globalAlpha} <b>must</b> be between 0 and 1, inclusive</li>
- * <li>{@code alphaMode} <b>must</b> be one of the bits present in the {@code supportedAlpha} member of {@link VkDisplayPlaneCapabilitiesKHR} for the display plane corresponding to {@code displayMode}</li>
- * <li>{@code transform} <b>must</b> be one of the bits present in the {@code supportedTransforms} member of {@link VkDisplayPropertiesKHR} for the display corresponding to {@code displayMode}</li>
- * <li>The {@code width} and {@code height} members of {@code imageExtent} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxImageDimension2D}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRDisplay#VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * <li>{@code displayMode} <b>must</b> be a valid {@code VkDisplayModeKHR} handle</li>
- * <li>{@code transform} <b>must</b> be a valid {@code VkSurfaceTransformFlagBitsKHR} value</li>
- * <li>{@code alphaMode} <b>must</b> be a valid {@code VkDisplayPlaneAlphaFlagBitsKHR} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}, {@link KHRDisplay#vkCreateDisplayPlaneSurfaceKHR CreateDisplayPlaneSurfaceKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplaySurfaceCreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDisplaySurfaceCreateFlagsKHR {@link #flags};
- *     VkDisplayModeKHR {@link #displayMode};
- *     uint32_t {@link #planeIndex};
- *     uint32_t {@link #planeStackIndex};
- *     VkSurfaceTransformFlagBitsKHR {@link #transform};
- *     float {@link #globalAlpha};
- *     VkDisplayPlaneAlphaFlagBitsKHR {@link #alphaMode};
- *     {@link VkExtent2D VkExtent2D} {@link #imageExtent};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDisplaySurfaceCreateFlagsKHR flags;
+ *     VkDisplayModeKHR displayMode;
+ *     uint32_t planeIndex;
+ *     uint32_t planeStackIndex;
+ *     VkSurfaceTransformFlagBitsKHR transform;
+ *     float globalAlpha;
+ *     VkDisplayPlaneAlphaFlagBitsKHR alphaMode;
+ *     {@link VkExtent2D VkExtent2D} imageExtent;
+ * }}</pre>
  */
 public class VkDisplaySurfaceCreateInfoKHR extends Struct<VkDisplaySurfaceCreateInfoKHR> implements NativeResource {
 
@@ -139,58 +102,60 @@ public class VkDisplaySurfaceCreateInfoKHR extends Struct<VkDisplaySurfaceCreate
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use, and <b>must</b> be zero. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkDisplaySurfaceCreateFlagsKHR")
     public int flags() { return nflags(address()); }
-    /** a {@code VkDisplayModeKHR} handle specifying the mode to use when displaying this surface. */
+    /** @return the value of the {@code displayMode} field. */
     @NativeType("VkDisplayModeKHR")
     public long displayMode() { return ndisplayMode(address()); }
-    /** the plane on which this surface appears. */
+    /** @return the value of the {@code planeIndex} field. */
     @NativeType("uint32_t")
     public int planeIndex() { return nplaneIndex(address()); }
-    /** the z-order of the plane. */
+    /** @return the value of the {@code planeStackIndex} field. */
     @NativeType("uint32_t")
     public int planeStackIndex() { return nplaneStackIndex(address()); }
-    /** a {@code VkSurfaceTransformFlagBitsKHR} value specifying the transformation to apply to images as part of the scanout operation. */
+    /** @return the value of the {@code transform} field. */
     @NativeType("VkSurfaceTransformFlagBitsKHR")
     public int transform() { return ntransform(address()); }
-    /** the global alpha value. This value is ignored if {@code alphaMode} is not {@link KHRDisplay#VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR}. */
+    /** @return the value of the {@code globalAlpha} field. */
     public float globalAlpha() { return nglobalAlpha(address()); }
-    /** a {@code VkDisplayPlaneAlphaFlagBitsKHR} value specifying the type of alpha blending to use. */
+    /** @return the value of the {@code alphaMode} field. */
     @NativeType("VkDisplayPlaneAlphaFlagBitsKHR")
     public int alphaMode() { return nalphaMode(address()); }
-    /** the size of the presentable images to use with the surface. */
+    /** @return a {@link VkExtent2D} view of the {@code imageExtent} field. */
     public VkExtent2D imageExtent() { return nimageExtent(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDisplaySurfaceCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRDisplay#VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRDisplay#VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR} value to the {@code sType} field. */
     public VkDisplaySurfaceCreateInfoKHR sType$Default() { return sType(KHRDisplay.VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDisplaySurfaceCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Prepends the specified {@link VkDisplaySurfaceStereoCreateInfoNV} value to the {@code pNext} chain. */
+    public VkDisplaySurfaceCreateInfoKHR pNext(VkDisplaySurfaceStereoCreateInfoNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Sets the specified value to the {@code flags} field. */
     public VkDisplaySurfaceCreateInfoKHR flags(@NativeType("VkDisplaySurfaceCreateFlagsKHR") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #displayMode} field. */
+    /** Sets the specified value to the {@code displayMode} field. */
     public VkDisplaySurfaceCreateInfoKHR displayMode(@NativeType("VkDisplayModeKHR") long value) { ndisplayMode(address(), value); return this; }
-    /** Sets the specified value to the {@link #planeIndex} field. */
+    /** Sets the specified value to the {@code planeIndex} field. */
     public VkDisplaySurfaceCreateInfoKHR planeIndex(@NativeType("uint32_t") int value) { nplaneIndex(address(), value); return this; }
-    /** Sets the specified value to the {@link #planeStackIndex} field. */
+    /** Sets the specified value to the {@code planeStackIndex} field. */
     public VkDisplaySurfaceCreateInfoKHR planeStackIndex(@NativeType("uint32_t") int value) { nplaneStackIndex(address(), value); return this; }
-    /** Sets the specified value to the {@link #transform} field. */
+    /** Sets the specified value to the {@code transform} field. */
     public VkDisplaySurfaceCreateInfoKHR transform(@NativeType("VkSurfaceTransformFlagBitsKHR") int value) { ntransform(address(), value); return this; }
-    /** Sets the specified value to the {@link #globalAlpha} field. */
+    /** Sets the specified value to the {@code globalAlpha} field. */
     public VkDisplaySurfaceCreateInfoKHR globalAlpha(float value) { nglobalAlpha(address(), value); return this; }
-    /** Sets the specified value to the {@link #alphaMode} field. */
+    /** Sets the specified value to the {@code alphaMode} field. */
     public VkDisplaySurfaceCreateInfoKHR alphaMode(@NativeType("VkDisplayPlaneAlphaFlagBitsKHR") int value) { nalphaMode(address(), value); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #imageExtent} field. */
+    /** Copies the specified {@link VkExtent2D} to the {@code imageExtent} field. */
     public VkDisplaySurfaceCreateInfoKHR imageExtent(VkExtent2D value) { nimageExtent(address(), value); return this; }
-    /** Passes the {@link #imageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code imageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkDisplaySurfaceCreateInfoKHR imageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(imageExtent()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -256,8 +221,7 @@ public class VkDisplaySurfaceCreateInfoKHR extends Struct<VkDisplaySurfaceCreate
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplaySurfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkDisplaySurfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDisplaySurfaceCreateInfoKHR(address, null);
     }
 
@@ -300,8 +264,7 @@ public class VkDisplaySurfaceCreateInfoKHR extends Struct<VkDisplaySurfaceCreate
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplaySurfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDisplaySurfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -365,44 +328,44 @@ public class VkDisplaySurfaceCreateInfoKHR extends Struct<VkDisplaySurfaceCreate
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplaySurfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplaySurfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplaySurfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDisplaySurfaceCreateInfoKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDisplaySurfaceCreateInfoKHR.FLAGS); }
     /** Unsafe version of {@link #displayMode}. */
-    public static long ndisplayMode(long struct) { return UNSAFE.getLong(null, struct + VkDisplaySurfaceCreateInfoKHR.DISPLAYMODE); }
+    public static long ndisplayMode(long struct) { return memGetLong(struct + VkDisplaySurfaceCreateInfoKHR.DISPLAYMODE); }
     /** Unsafe version of {@link #planeIndex}. */
-    public static int nplaneIndex(long struct) { return UNSAFE.getInt(null, struct + VkDisplaySurfaceCreateInfoKHR.PLANEINDEX); }
+    public static int nplaneIndex(long struct) { return memGetInt(struct + VkDisplaySurfaceCreateInfoKHR.PLANEINDEX); }
     /** Unsafe version of {@link #planeStackIndex}. */
-    public static int nplaneStackIndex(long struct) { return UNSAFE.getInt(null, struct + VkDisplaySurfaceCreateInfoKHR.PLANESTACKINDEX); }
+    public static int nplaneStackIndex(long struct) { return memGetInt(struct + VkDisplaySurfaceCreateInfoKHR.PLANESTACKINDEX); }
     /** Unsafe version of {@link #transform}. */
-    public static int ntransform(long struct) { return UNSAFE.getInt(null, struct + VkDisplaySurfaceCreateInfoKHR.TRANSFORM); }
+    public static int ntransform(long struct) { return memGetInt(struct + VkDisplaySurfaceCreateInfoKHR.TRANSFORM); }
     /** Unsafe version of {@link #globalAlpha}. */
-    public static float nglobalAlpha(long struct) { return UNSAFE.getFloat(null, struct + VkDisplaySurfaceCreateInfoKHR.GLOBALALPHA); }
+    public static float nglobalAlpha(long struct) { return memGetFloat(struct + VkDisplaySurfaceCreateInfoKHR.GLOBALALPHA); }
     /** Unsafe version of {@link #alphaMode}. */
-    public static int nalphaMode(long struct) { return UNSAFE.getInt(null, struct + VkDisplaySurfaceCreateInfoKHR.ALPHAMODE); }
+    public static int nalphaMode(long struct) { return memGetInt(struct + VkDisplaySurfaceCreateInfoKHR.ALPHAMODE); }
     /** Unsafe version of {@link #imageExtent}. */
     public static VkExtent2D nimageExtent(long struct) { return VkExtent2D.create(struct + VkDisplaySurfaceCreateInfoKHR.IMAGEEXTENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplaySurfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplaySurfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplaySurfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplaySurfaceCreateInfoKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDisplaySurfaceCreateInfoKHR.FLAGS, value); }
     /** Unsafe version of {@link #displayMode(long) displayMode}. */
-    public static void ndisplayMode(long struct, long value) { UNSAFE.putLong(null, struct + VkDisplaySurfaceCreateInfoKHR.DISPLAYMODE, value); }
+    public static void ndisplayMode(long struct, long value) { memPutLong(struct + VkDisplaySurfaceCreateInfoKHR.DISPLAYMODE, value); }
     /** Unsafe version of {@link #planeIndex(int) planeIndex}. */
-    public static void nplaneIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplaySurfaceCreateInfoKHR.PLANEINDEX, value); }
+    public static void nplaneIndex(long struct, int value) { memPutInt(struct + VkDisplaySurfaceCreateInfoKHR.PLANEINDEX, value); }
     /** Unsafe version of {@link #planeStackIndex(int) planeStackIndex}. */
-    public static void nplaneStackIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplaySurfaceCreateInfoKHR.PLANESTACKINDEX, value); }
+    public static void nplaneStackIndex(long struct, int value) { memPutInt(struct + VkDisplaySurfaceCreateInfoKHR.PLANESTACKINDEX, value); }
     /** Unsafe version of {@link #transform(int) transform}. */
-    public static void ntransform(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplaySurfaceCreateInfoKHR.TRANSFORM, value); }
+    public static void ntransform(long struct, int value) { memPutInt(struct + VkDisplaySurfaceCreateInfoKHR.TRANSFORM, value); }
     /** Unsafe version of {@link #globalAlpha(float) globalAlpha}. */
-    public static void nglobalAlpha(long struct, float value) { UNSAFE.putFloat(null, struct + VkDisplaySurfaceCreateInfoKHR.GLOBALALPHA, value); }
+    public static void nglobalAlpha(long struct, float value) { memPutFloat(struct + VkDisplaySurfaceCreateInfoKHR.GLOBALALPHA, value); }
     /** Unsafe version of {@link #alphaMode(int) alphaMode}. */
-    public static void nalphaMode(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplaySurfaceCreateInfoKHR.ALPHAMODE, value); }
+    public static void nalphaMode(long struct, int value) { memPutInt(struct + VkDisplaySurfaceCreateInfoKHR.ALPHAMODE, value); }
     /** Unsafe version of {@link #imageExtent(VkExtent2D) imageExtent}. */
     public static void nimageExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkDisplaySurfaceCreateInfoKHR.IMAGEEXTENT, VkExtent2D.SIZEOF); }
 
@@ -440,62 +403,69 @@ public class VkDisplaySurfaceCreateInfoKHR extends Struct<VkDisplaySurfaceCreate
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplaySurfaceCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDisplaySurfaceCreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDisplaySurfaceCreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkDisplaySurfaceCreateFlagsKHR")
         public int flags() { return VkDisplaySurfaceCreateInfoKHR.nflags(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#displayMode} field. */
+        /** @return the value of the {@code displayMode} field. */
         @NativeType("VkDisplayModeKHR")
         public long displayMode() { return VkDisplaySurfaceCreateInfoKHR.ndisplayMode(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#planeIndex} field. */
+        /** @return the value of the {@code planeIndex} field. */
         @NativeType("uint32_t")
         public int planeIndex() { return VkDisplaySurfaceCreateInfoKHR.nplaneIndex(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#planeStackIndex} field. */
+        /** @return the value of the {@code planeStackIndex} field. */
         @NativeType("uint32_t")
         public int planeStackIndex() { return VkDisplaySurfaceCreateInfoKHR.nplaneStackIndex(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#transform} field. */
+        /** @return the value of the {@code transform} field. */
         @NativeType("VkSurfaceTransformFlagBitsKHR")
         public int transform() { return VkDisplaySurfaceCreateInfoKHR.ntransform(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#globalAlpha} field. */
+        /** @return the value of the {@code globalAlpha} field. */
         public float globalAlpha() { return VkDisplaySurfaceCreateInfoKHR.nglobalAlpha(address()); }
-        /** @return the value of the {@link VkDisplaySurfaceCreateInfoKHR#alphaMode} field. */
+        /** @return the value of the {@code alphaMode} field. */
         @NativeType("VkDisplayPlaneAlphaFlagBitsKHR")
         public int alphaMode() { return VkDisplaySurfaceCreateInfoKHR.nalphaMode(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkDisplaySurfaceCreateInfoKHR#imageExtent} field. */
+        /** @return a {@link VkExtent2D} view of the {@code imageExtent} field. */
         public VkExtent2D imageExtent() { return VkDisplaySurfaceCreateInfoKHR.nimageExtent(address()); }
 
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkDisplaySurfaceCreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRDisplay#VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR} value to the {@link VkDisplaySurfaceCreateInfoKHR#sType} field. */
+        /** Sets the {@link KHRDisplay#VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR} value to the {@code sType} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer sType$Default() { return sType(KHRDisplay.VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkDisplaySurfaceCreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#flags} field. */
+        /** Prepends the specified {@link VkDisplaySurfaceStereoCreateInfoNV} value to the {@code pNext} chain. */
+        public VkDisplaySurfaceCreateInfoKHR.Buffer pNext(VkDisplaySurfaceStereoCreateInfoNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Sets the specified value to the {@code flags} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer flags(@NativeType("VkDisplaySurfaceCreateFlagsKHR") int value) { VkDisplaySurfaceCreateInfoKHR.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#displayMode} field. */
+        /** Sets the specified value to the {@code displayMode} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer displayMode(@NativeType("VkDisplayModeKHR") long value) { VkDisplaySurfaceCreateInfoKHR.ndisplayMode(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#planeIndex} field. */
+        /** Sets the specified value to the {@code planeIndex} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer planeIndex(@NativeType("uint32_t") int value) { VkDisplaySurfaceCreateInfoKHR.nplaneIndex(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#planeStackIndex} field. */
+        /** Sets the specified value to the {@code planeStackIndex} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer planeStackIndex(@NativeType("uint32_t") int value) { VkDisplaySurfaceCreateInfoKHR.nplaneStackIndex(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#transform} field. */
+        /** Sets the specified value to the {@code transform} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer transform(@NativeType("VkSurfaceTransformFlagBitsKHR") int value) { VkDisplaySurfaceCreateInfoKHR.ntransform(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#globalAlpha} field. */
+        /** Sets the specified value to the {@code globalAlpha} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer globalAlpha(float value) { VkDisplaySurfaceCreateInfoKHR.nglobalAlpha(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDisplaySurfaceCreateInfoKHR#alphaMode} field. */
+        /** Sets the specified value to the {@code alphaMode} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer alphaMode(@NativeType("VkDisplayPlaneAlphaFlagBitsKHR") int value) { VkDisplaySurfaceCreateInfoKHR.nalphaMode(address(), value); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkDisplaySurfaceCreateInfoKHR#imageExtent} field. */
+        /** Copies the specified {@link VkExtent2D} to the {@code imageExtent} field. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer imageExtent(VkExtent2D value) { VkDisplaySurfaceCreateInfoKHR.nimageExtent(address(), value); return this; }
-        /** Passes the {@link VkDisplaySurfaceCreateInfoKHR#imageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code imageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkDisplaySurfaceCreateInfoKHR.Buffer imageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(imageExtent()); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,21 +17,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XExposeEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     int x;
  *     int y;
  *     int width;
  *     int height;
- *     int {@link #count};
- * }</code></pre>
+ *     int count;
+ * }}</pre>
  */
 public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource {
 
@@ -107,16 +105,16 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return the value of the {@code x} field. */
@@ -127,18 +125,18 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
     public int width() { return nwidth(address()); }
     /** @return the value of the {@code height} field. */
     public int height() { return nheight(address()); }
-    /** if non-zero, at least this many more */
+    /** @return the value of the {@code count} field. */
     public int count() { return ncount(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XExposeEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XExposeEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XExposeEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XExposeEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XExposeEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Sets the specified value to the {@code x} field. */
     public XExposeEvent x(int value) { nx(address(), value); return this; }
@@ -148,7 +146,7 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
     public XExposeEvent width(int value) { nwidth(address(), value); return this; }
     /** Sets the specified value to the {@code height} field. */
     public XExposeEvent height(int value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #count} field. */
+    /** Sets the specified value to the {@code count} field. */
     public XExposeEvent count(int value) { ncount(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -214,8 +212,7 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XExposeEvent createSafe(long address) {
+    public static @Nullable XExposeEvent createSafe(long address) {
         return address == NULL ? null : new XExposeEvent(address, null);
     }
 
@@ -258,8 +255,7 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XExposeEvent.Buffer createSafe(long address, int capacity) {
+    public static XExposeEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,46 +319,46 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XExposeEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XExposeEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XExposeEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XExposeEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XExposeEvent.WINDOW); }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.X); }
+    public static int nx(long struct) { return memGetInt(struct + XExposeEvent.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XExposeEvent.Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XExposeEvent.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XExposeEvent.HEIGHT); }
     /** Unsafe version of {@link #count}. */
-    public static int ncount(long struct) { return UNSAFE.getInt(null, struct + XExposeEvent.COUNT); }
+    public static int ncount(long struct) { return memGetInt(struct + XExposeEvent.COUNT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XExposeEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XExposeEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XExposeEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XExposeEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XExposeEvent.WINDOW, value); }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XExposeEvent.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XExposeEvent.Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XExposeEvent.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XExposeEvent.HEIGHT, value); }
     /** Unsafe version of {@link #count(int) count}. */
-    public static void ncount(long struct, int value) { UNSAFE.putInt(null, struct + XExposeEvent.COUNT, value); }
+    public static void ncount(long struct, int value) { memPutInt(struct + XExposeEvent.COUNT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -407,22 +403,27 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XExposeEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XExposeEvent.ntype(address()); }
-        /** @return the value of the {@link XExposeEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XExposeEvent.nserial(address()); }
-        /** @return the value of the {@link XExposeEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XExposeEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XExposeEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XExposeEvent.ndisplay(address()); }
-        /** @return the value of the {@link XExposeEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XExposeEvent.nwindow(address()); }
         /** @return the value of the {@code x} field. */
@@ -433,18 +434,18 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
         public int width() { return XExposeEvent.nwidth(address()); }
         /** @return the value of the {@code height} field. */
         public int height() { return XExposeEvent.nheight(address()); }
-        /** @return the value of the {@link XExposeEvent#count} field. */
+        /** @return the value of the {@code count} field. */
         public int count() { return XExposeEvent.ncount(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XExposeEvent.Buffer type(int value) { XExposeEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XExposeEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XExposeEvent.Buffer serial(@NativeType("unsigned long") long value) { XExposeEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XExposeEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XExposeEvent.Buffer send_event(@NativeType("Bool") boolean value) { XExposeEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XExposeEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XExposeEvent.Buffer display(@NativeType("Display *") long value) { XExposeEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XExposeEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XExposeEvent.Buffer window(@NativeType("Window") long value) { XExposeEvent.nwindow(address(), value); return this; }
         /** Sets the specified value to the {@code x} field. */
         public XExposeEvent.Buffer x(int value) { XExposeEvent.nx(address(), value); return this; }
@@ -454,7 +455,7 @@ public class XExposeEvent extends Struct<XExposeEvent> implements NativeResource
         public XExposeEvent.Buffer width(int value) { XExposeEvent.nwidth(address(), value); return this; }
         /** Sets the specified value to the {@code height} field. */
         public XExposeEvent.Buffer height(int value) { XExposeEvent.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@link XExposeEvent#count} field. */
+        /** Sets the specified value to the {@code count} field. */
         public XExposeEvent.Buffer count(int value) { XExposeEvent.ncount(address(), value); return this; }
 
     }
