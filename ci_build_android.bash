@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 export LIBFFI_VERSION=3.4.6
-export ANDROID=1 LWJGL_BUILD_OFFLINE=1
-export SKIP_FREETYPE=1
+export ANDROID=1 LWJGL_BUILD_OFFLINE=1 SKIP_FREETYPE=1
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
@@ -28,12 +27,13 @@ mkdir -p $LWJGL_NATIVE
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
   if [ ! -d libffi ]; then
-    git clone --depth 1 https://github.com/aaaapai/libffi
+    git clone --depth 1 https://github.com/aaaapai/libffi ${PWD}/libffi
   fi
   cd libffi
 
   # Build libffi
-  bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}24-clang CXX=${TARGET}24-clang++
+  ./autogen.sh
+  bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
   make -j4
   cd ..
 
@@ -74,11 +74,11 @@ if [ "$SKIP_FREETYPE" != "1" ]; then
 fi
 
 # Download libraries
-POJAV_NATIVES="https://github.com/aaaapai/FoldCraftLauncher/blob/启动器跳槽计划/FCLauncher/src/main/jniLibs/$NDK_ABI"
+POJAV_NATIVES="https://github.com/aaaapai/PojavLauncher-Beta-Zink/raw/refs/heads/man_v3/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
-cd $LWJGL_NATIVE/shaderc
-wget -nc "https://github.com/aaaapai/PojavLauncher-Beta-Zink/raw/refs/heads/man_v3/app_pojavlauncher/src/main/jniLibs/arm64-v8a/libshaderc.so"
-cd ../../../../../../../..
+wget -nc "https://github.com/PojavLauncherTeam/shaderc/releases/download/v2024.2-pojav/libshaderc-$NDK_ABI.zip"
+unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
+
 # HACK: Skip compiling and running the generator to save time and keep LWJGLX functions
 mkdir -p bin/classes/{generator,templates/META-INF}
 touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generated-touch.txt
@@ -90,6 +90,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
+  -Dbinding.ktx=false \
   -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
   -Dbinding.hwloc=false \
@@ -119,6 +120,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
+  -Dbinding.msdfgen=false \
   -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
