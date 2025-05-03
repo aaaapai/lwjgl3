@@ -93,6 +93,9 @@ public final class GL {
         // intentionally empty to trigger static initializer
     }
 
+    private static native long getGraphicsBufferAddr();
+    private static native int[] getNativeWidthHeight();
+
     /** Loads the OpenGL native library, using the default library name. */
     public static void create() {
         SharedLibrary GL;
@@ -287,13 +290,41 @@ public final class GL {
         }
     }
 
-    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
-    private static void fixPojavGLContext() throws Exception {
+    private static void IsUseBuffer(boolean buffer) throws Exception {
+        if (!buffer) System.out.println("[LWJGL] Frame buffers are not used");
+
+        System.out.println("[LWJGL] Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit");
         long currentContext;
-        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
         Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
         currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
         glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+    }
+
+    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
+    private static void fixGLContext() throws Exception {
+        String libName = System.getProperty("org.lwjgl.opengl.libname");
+
+        if (Platform.get() == Platform.LINUX
+           && libName.startsWith("libOSMesa")
+           && System.getenv("GL_WORKAROUND_FRAMEBUFFER") != null
+           && System.getenv("ALLOW_GL_EXP") != null)
+        {
+
+            System.out.println("[LWJGL] Experimental settings found, tried to workaround framebuffer");
+
+            if (!"default".equals(System.getenv("BRIDGE_CONFIG")) || System.getenv("DCLAT_FRAMEBUFFER") != null)
+            {
+
+                System.out.println("[LWJGL] Repair GL Context for Mesa renderer, workaround frame buffer");
+                long currentContext;
+                int[] dims = getNativeWidthHeight();
+                currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
+                callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
+
+            } else IsUseBuffer(false);
+
+        } else IsUseBuffer(true);
+
     }
 
     /**
@@ -358,13 +389,14 @@ public final class GL {
     @SuppressWarnings("AssignmentToMethodParameter")
     public static GLCapabilities createCapabilities(boolean forwardCompatible, @Nullable IntFunction<PointerBuffer> bufferFactory) {
         FunctionProvider functionProvider = GL.functionProvider;
+        String TAG = System.getProperty("org.lwjgl.opengl.renderertag");
         if (functionProvider == null) {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
+        if (Platform.get() == Platform.LINUX && TAG != null) {
             try {
-                fixPojavGLContext();
+                fixGLContext();
             } catch (Exception e) {
                 e.printStackTrace();
             }
