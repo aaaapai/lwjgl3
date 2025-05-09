@@ -431,12 +431,11 @@ public final class GL {
     @SuppressWarnings("AssignmentToMethodParameter")
     public static GLCapabilities createCapabilities(boolean forwardCompatible, @Nullable IntFunction<PointerBuffer> bufferFactory) {
         FunctionProvider functionProvider = GL.functionProvider;
-        String TAG = System.getProperty("org.lwjgl.opengl.renderertag");
         if (functionProvider == null) {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && TAG != null) {
+        if (Platform.get() == Platform.LINUX && System.getenv("TAG_RENDERER") != null) {
             try {
                 fixGLContext();
             } catch (Exception e) {
