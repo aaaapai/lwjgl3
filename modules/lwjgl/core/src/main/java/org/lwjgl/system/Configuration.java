@@ -560,6 +560,9 @@ public class Configuration<T> {
         throw new IllegalStateException();
     }
 
+    /** Similar to {@link #LIBRARY_NAME} for the OSMesa library (<b>org.lwjgl.opengl.osmesa.libname</b>). */
+    public static final Configuration<String> OPENGL_OSMESA_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengl.osmesa.libname", StateInit.STRING);
+
     /** Returns the default OSMEsa library names for the current platform. */
     public static String[] OPENGL_OSMESA_LIBRARY_NAME_DEFAULTS() {
         switch (Platform.get()) {
