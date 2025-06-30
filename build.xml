@@ -491,6 +491,19 @@
             <include name="**"/>
         </lwjgl.javac17>
 
+        <mkdir dir="${bin.lwjgl}/core/META-INF/versions/24" if:set="jdk24"/>
+        <lwjgl.javac24 destdir="${bin.lwjgl}/core/META-INF/versions/24" taskname="javac: Core - Java 24" if:set="jdk24">
+            <classpath>
+                <pathelement path="${bin.lwjgl}/core"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
+            </classpath>
+            <src>
+                <pathelement path="${module.lwjgl}/core24/src/main/java"/>
+                <pathelement path="${module.lwjgl}/core24/src/generated/java/"/>
+            </src>
+            <include name="**"/>
+        </lwjgl.javac24>
+
         <parallel threadsPerProcessor="1">
             <compileBinding binding="assimp"/>
             <compileBinding binding="bgfx"/>
@@ -588,6 +601,7 @@
         <mkdir dir="${bin.extract}"/>
         <kotlinc moduleName="extract" output="${bin.extract}" printVersion="true" unless:set="extract-uptodate">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
                 <pathelement path="${module.classpath}"/>
@@ -614,6 +628,7 @@
     <target name="extract" description="Runs the LWJGL Template Extraction tool" depends="compile-native, -compile-extract">
         <java classname="org.lwjgl.extract.MainKt" fork="true" spawn="true" taskname="LWJGL Template Extraction Tool">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
                 <pathelement path="${module.classpath}"/>
@@ -874,9 +889,85 @@
         </lwjgl.javac>
     </target>
 
+    <macrodef name="do-compile-tests">
+        <element name="body" implicit="yes"/>
+        <sequential>
+            <javac sourcepath="" destdir="${bin.samples}" debug="yes" encoding="UTF-8" taskname="javac: Samples">
+                <compilerarg line="-proc:full" if:set="jdk24"/>
+
+                <body/>
+
+                <classpath>
+                    <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="jdk24"/>
+                    <pathelement path="${module.classpath}"/>
+                    <pathelement path="${bin.test}"/>
+                    <pathelement path="${lib}/java/jspecify.jar"/>
+                    <pathelement path="${lib}/java/jmh-core.jar"/>
+                    <pathelement path="${lib}/java/jmh-generator-annprocess.jar"/>
+                    <pathelement path="${lib}/java/joml.jar"/>
+                    <pathelement path="${lib}/java/testng.jar"/>
+                </classpath>
+
+                <!-- Demos -->
+                <include name="org/lwjgl/demo/assimp/**" if:true="${binding.assimp}"/>
+                <include name="org/lwjgl/demo/bgfx/**" if:set="test.bgfx"/>
+                <include name="org/lwjgl/demo/egl/**" if:set="test.egl"/>
+                <include name="org/lwjgl/demo/fmod/**" if:true="${binding.fmod}"/>
+                <include name="org/lwjgl/demo/glfw/**" if:set="test.glfw"/>
+                <include name="org/lwjgl/demo/llvm/**" if:true="${binding.llvm}"/>
+                <include name="org/lwjgl/demo/nanovg/**" if:set="test.nanovg"/>
+                <include name="org/lwjgl/demo/nuklear/**" if:set="test.nuklear"/>
+
+                <include name="org/lwjgl/demo/openal/**" if:true="${binding.openal}"/>
+                <exclude name="org/lwjgl/demo/openal/ALCDemo.java" unless:set="test.openal"/>
+                <exclude name="org/lwjgl/demo/openal/EFXTest.java" unless:set="test.openal"/>
+                <exclude name="org/lwjgl/demo/openal/HRTFDemo.java" unless:set="test.openal"/>
+
+                <include name="org/lwjgl/demo/opencl/**" if:set="test.opencl"/>
+                <include name="org/lwjgl/demo/opencl/CLDemo.java" if:true="${binding.opencl}"/>
+
+                <include name="org/lwjgl/demo/opengl/**" if:true="${binding.opengl}"/>
+
+                <include name="org/lwjgl/demo/openxr/**" if:set="test.openxr"/>
+                <include name="org/lwjgl/demo/stb/**" if:set="test.stb"/>
+
+                <include name="org/lwjgl/demo/system/jawt/**" if:set="test.jawt"/>
+                <include name="org/lwjgl/demo/system/linux/**"/>
+                <include name="org/lwjgl/demo/system/windows/**"/>
+
+                <include name="org/lwjgl/demo/util/*.java"/>
+                <include name="org/lwjgl/demo/util/freetype/**" if:true="${binding.freetype}"/>
+                <include name="org/lwjgl/demo/util/harfbuzz/**" if:true="${binding.harfbuzz}"/>
+                <include name="org/lwjgl/demo/util/hwloc/**" if:true="${binding.hwloc}"/>
+                <include name="org/lwjgl/demo/util/ktx/**" if:true="${binding.ktx}"/>
+                <include name="org/lwjgl/demo/util/lmdb/**" if:true="${binding.lmdb}"/>
+                <include name="org/lwjgl/demo/util/lz4/**" if:true="${binding.lz4}"/>
+	            <include name="org/lwjgl/demo/util/meshoptimizer/**" if:true="${binding.meshoptimizer}"/>
+	            <exclude name="org/lwjgl/demo/util/meshoptimizer/MeshOptimizerDemo.java" unless:set="test.meshoptimizer"/>
+                <include name="org/lwjgl/demo/util/msdfgen/**" if:set="test.msdfgen"/>
+                <include name="org/lwjgl/demo/util/nfd/**" if:set="test.nfd"/>
+                <include name="org/lwjgl/demo/util/par/**" if:set="test.par"/>
+                <include name="org/lwjgl/demo/util/remotery/**" if:true="${binding.remotery}"/>
+                <include name="org/lwjgl/demo/util/tinyexr/**" if:set="test.tinyexr"/>
+                <include name="org/lwjgl/demo/util/tinyfd/**" if:set="test.tinyfd"/>
+                <include name="org/lwjgl/demo/util/xxhash/**" if:true="${binding.xxhash}"/>
+                <include name="org/lwjgl/demo/util/yoga/**" if:set="test.yoga"/>
+                <include name="org/lwjgl/demo/util/zstd/**" if:true="${binding.zstd}"/>
+
+                <include name="org/lwjgl/demo/vulkan/**" if:set="test.vulkan"/>
+
+                <!-- Benchmarks -->
+                <include name="org/lwjgl/jmh/**"/>
+                <exclude name="org/lwjgl/jmh/Hashing*" unless:true="${binding.xxhash}"/>
+                <exclude name="org/lwjgl/jmh/VarHandle*" unless:set="jdk11"/>
+            </javac>
+        </sequential>
+    </macrodef>
+
     <target name="tests" description="Runs the LWJGL test suite" depends="compile-tests, compile-native">
         <testng haltonfailure="true" outputDir="${bin.test.html}" taskname="Tests">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
                 <pathelement path="${module.classpath}"/>
@@ -917,6 +1008,7 @@
 
         <java classname="${class}" fork="true" failonerror="${failonerror}" spawn="${spawn}" taskname="Demo">
             <classpath>
+                <pathelement path="${bin.lwjgl}/core/META-INF/versions/24" if:set="core.java24"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/17" if:set="core.java17"/>
                 <pathelement path="${bin.lwjgl}/core/META-INF/versions/11" if:set="core.java11"/>
                 <pathelement path="${module.classpath}"/>
@@ -933,6 +1025,7 @@
 
             <jvmarg value="-server"/>
             <jvmarg line="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8"/>
+            <jvmarg line="--enable-preview --enable-native-access=ALL-UNNAMED" if:set="core.java24"/>
             <jvmarg value="-XstartOnFirstThread" if:set="platform.macos"/>
             <!--<jvmarg value="-Xcheck:jni"/>-->
 
@@ -1526,6 +1619,9 @@
                 </copy>
                 <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/17" if:set="jdk17">
                     <fileset dir="${module.lwjgl}/core17/src/main/java" includes="**"/>
+                </copy>
+                <copy todir="${module.lwjgl}/core/src/generated/java/META-INF/versions/24" if:set="jdk24">
+                    <fileset dir="${module.lwjgl}/core24/src/main/java" includes="**"/>
                 </copy>
                 <copy todir="${bin.lwjgl}/core/META-INF/native-image/org.lwjgl/lwjgl">
                     <fileset dir="config/native-image/META-INF/native-image" includes="**" excludes="resource-config.json"/>
