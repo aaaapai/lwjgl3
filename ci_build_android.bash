@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.4.6
 export ANDROID=1 LWJGL_BUILD_OFFLINE=1 SKIP_FREETYPE=1
 #export LWJGL_BUILD_ARCH=arm64
 
