@@ -1940,6 +1940,7 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
     EnumConstantLong(
         "LOCAL_NUMANODE_FLAG_LARGER_LOCALITY".enumLong("1L<<0"),
         "LOCAL_NUMANODE_FLAG_SMALLER_LOCALITY".enumLong("1L<<1"),
+        "LOCAL_NUMANODE_FLAG_INTERSECT_LOCALITY".enumLong("1L<<3"),
         "LOCAL_NUMANODE_FLAG_ALL".enumLong("1L<<2")
     )
 
@@ -1964,6 +1965,14 @@ val hwloc = "HWLoc".nativeClass(Module.HWLOC, prefix = "HWLOC", prefixMethod = "
         hwloc_location.p("location"),
         AutoSize("nodes")..Check(1)..unsigned_int.p("nr"),
         hwloc_obj_t.p("nodes"),
+        unsigned_long("flags")
+    )
+
+    int(
+        "topology_get_default_nodeset",
+
+        hwloc_topology_t("topology"),
+        hwloc_nodeset_t("nodeset"),
         unsigned_long("flags")
     )
 

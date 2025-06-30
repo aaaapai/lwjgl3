@@ -57,7 +57,8 @@ public class LibIOURing {
         IORING_SETUP_DEFER_TASKRUN      = 1 << 13,
         IORING_SETUP_NO_MMAP            = 1 << 14,
         IORING_SETUP_REGISTERED_FD_ONLY = 1 << 15,
-        IORING_SETUP_NO_SQARRAY         = 1 << 16;
+        IORING_SETUP_NO_SQARRAY         = 1 << 16,
+        IORING_SETUP_HYBRID_IOPOLL      = 1 << 17;
 
     public static final byte
         IORING_OP_NOP              = 0,
@@ -118,7 +119,11 @@ public class LibIOURing {
         IORING_OP_FTRUNCATE        = 55,
         IORING_OP_BIND             = 56,
         IORING_OP_LISTEN           = 57,
-        IORING_OP_LAST             = 58;
+        IORING_OP_RECV_ZC          = 58,
+        IORING_OP_EPOLL_WAIT       = 59,
+        IORING_OP_READV_FIXED      = 60,
+        IORING_OP_WRITEV_FIXED     = 61,
+        IORING_OP_LAST             = 62;
 
     public static final int
         IORING_URING_CMD_FIXED = 1 << 0,
@@ -209,7 +214,9 @@ public class LibIOURing {
         IORING_ENTER_SQ_WAIT         = 1 << 2,
         IORING_ENTER_EXT_ARG         = 1 << 3,
         IORING_ENTER_REGISTERED_RING = 1 << 4,
-        IORING_ENTER_ABS_TIMER       = 1 << 5;
+        IORING_ENTER_ABS_TIMER       = 1 << 5,
+        IORING_ENTER_EXT_ARG_REG     = 1 << 6,
+        IORING_ENTER_NO_IOWAIT       = 1 << 7;
 
     public static final int
         IORING_FEAT_SINGLE_MMAP     = 1 << 0,
@@ -227,7 +234,9 @@ public class LibIOURing {
         IORING_FEAT_LINKED_FILE     = 1 << 12,
         IORING_FEAT_REG_REG_RING    = 1 << 13,
         IORING_FEAT_RECVSEND_BUNDLE = 1 << 14,
-        IORING_FEAT_MIN_TIMEOUT     = 1 << 15;
+        IORING_FEAT_MIN_TIMEOUT     = 1 << 15,
+        IORING_FEAT_RW_ATTR         = 1 << 16,
+        IORING_FEAT_NO_IOWAIT       = 1 << 17;
 
     public static final int
         IORING_REGISTER_BUFFERS             = 0,
@@ -261,20 +270,30 @@ public class LibIOURing {
         IORING_UNREGISTER_NAPI              = 28,
         IORING_REGISTER_CLOCK               = 29,
         IORING_REGISTER_CLONE_BUFFERS       = 30,
-        IORING_REGISTER_LAST                = 31,
+        IORING_REGISTER_SEND_MSG_RING       = 31,
+        IORING_REGISTER_ZCRX_IFQ            = 32,
+        IORING_REGISTER_RESIZE_RINGS        = 33,
+        IORING_REGISTER_MEM_REGION          = 34,
+        IORING_REGISTER_LAST                = 35,
         IORING_REGISTER_USE_REGISTERED_RING = 1 << 31;
-
-    public static final int IORING_RSRC_REGISTER_SPARSE = 1 << 0;
 
     public static final int
         IO_WQ_BOUND   = 0,
         IO_WQ_UNBOUND = 1;
 
+    public static final int IORING_MEM_REGION_TYPE_USER = 1;
+
+    public static final int IORING_MEM_REGION_REG_WAIT_ARG = 1;
+
+    public static final int IORING_RSRC_REGISTER_SPARSE = 1 << 0;
+
     public static final int IORING_REGISTER_FILES_SKIP = -2;
 
     public static final int IO_URING_OP_SUPPORTED = 1 << 0;
 
-    public static final int IORING_REGISTER_SRC_REGISTERED = 1;
+    public static final int
+        IORING_REGISTER_SRC_REGISTERED = 1 << 0,
+        IORING_REGISTER_DST_REPLACE    = 1 << 1;
 
     public static final int
         IOU_PBUF_RING_MMAP = 1,
@@ -287,11 +306,19 @@ public class LibIOURing {
         IORING_RESTRICTION_SQE_FLAGS_REQUIRED = 3,
         IORING_RESTRICTION_LAST               = 4;
 
+    public static final int IORING_REG_WAIT_TS = 1 << 0;
+
     public static final int
         SOCKET_URING_OP_SIOCINQ    = 0,
         SOCKET_URING_OP_SIOCOUTQ   = 1,
         SOCKET_URING_OP_GETSOCKOPT = 2,
         SOCKET_URING_OP_SETSOCKOPT = 3;
+
+    public static final int IORING_ZCRX_AREA_SHIFT = 48;
+
+    public static final long IORING_ZCRX_AREA_MASK = ~((1L << IORING_ZCRX_AREA_SHIFT) - 1);
+
+    public static final int IORING_ZCRX_AREA_DMABUF = 1;
 
     protected LibIOURing() {
         throw new UnsupportedOperationException();

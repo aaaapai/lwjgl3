@@ -65,7 +65,7 @@ val SDL_tray = "SDLTray".nativeClassSDL("SDL_tray") {
         "GetTrayEntries",
 
         SDL_TrayMenu.p("menu"),
-        AutoSizeResult..int.p("size")
+        AutoSizeResult..int.p("count")
     )
 
     void(
@@ -158,5 +158,11 @@ val SDL_tray = "SDLTray".nativeClassSDL("SDL_tray") {
         "GetTrayMenuParentTray",
 
         SDL_TrayMenu.p("menu")
+    )
+
+    void(
+        "UpdateTrays",
+
+        void()
     )
 }

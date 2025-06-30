@@ -531,6 +531,7 @@
             <compileBinding binding="remotery"/>
             <compileBinding binding="rpmalloc"/>
             <compileBinding binding="shaderc"/>
+            <compileBinding binding="spng"/>
             <compileBinding binding="spvc"/>
             <compileBinding binding="stb"/>
             <compileBinding binding="tinyexr"/>
@@ -568,9 +569,11 @@
             <exclude name="org/lwjgl/glfw/GLFWVulkan.java" unless:true="${binding.vulkan}"/>
         </compileBinding>
 
-        <compileBinding binding="ktx">
+        <compileBinding binding="lwjglx">
             <classpath>
-                <pathelement path="${bin.lwjgl}/vulkan"/>
+                <pathelement path="${bin.lwjgl}/glfw"/>
+                <pathelement path="${bin.lwjgl}/openal"/>
+                <pathelement path="${bin.lwjgl}/opengl"/>
             </classpath>
         </compileBinding>
 
@@ -819,16 +822,71 @@
         </condition>
 
         <mkdir dir="${bin.samples}"/>
-        <do-compile-tests>
-            <compilerarg line="-source 8 -target 8"/>
-            <compilerarg line='--boot-class-path "${env.JAVA8_HOME}/jre/lib/rt.jar"' if:set="set-boot-class-path"/>
-            <src path="modules/samples/src/test/java"/>
-        </do-compile-tests>
+        <lwjgl.javac srcdir="modules/samples/src/test/java" destdir="${bin.samples}" taskname="javac: Samples">
+            <classpath>
+                <pathelement path="${module.classpath}"/>
+                <pathelement path="${bin.test}"/>
+                <pathelement path="${lib}/java/jspecify.jar"/>
+                <pathelement path="${lib}/java/jmh-core.jar"/>
+                <pathelement path="${lib}/java/jmh-generator-annprocess.jar"/>
+                <pathelement path="${lib}/java/joml.jar"/>
+                <pathelement path="${lib}/java/testng.jar"/>
+            </classpath>
 
-        <do-compile-tests if:set="jdk24">
-            <compilerarg line="--release 24 --enable-preview"/>
-            <src path="modules/samples/src/test/java24" if:set="jdk24"/>
-        </do-compile-tests>
+            <!-- Demos -->
+            <include name="org/lwjgl/demo/assimp/**" if:true="${binding.assimp}"/>
+            <include name="org/lwjgl/demo/bgfx/**" if:set="test.bgfx"/>
+            <include name="org/lwjgl/demo/egl/**" if:set="test.egl"/>
+            <include name="org/lwjgl/demo/fmod/**" if:true="${binding.fmod}"/>
+            <include name="org/lwjgl/demo/glfw/**" if:set="test.glfw"/>
+            <include name="org/lwjgl/demo/llvm/**" if:true="${binding.llvm}"/>
+            <include name="org/lwjgl/demo/nanovg/**" if:set="test.nanovg"/>
+            <include name="org/lwjgl/demo/nuklear/**" if:set="test.nuklear"/>
+
+            <include name="org/lwjgl/demo/openal/**" if:true="${binding.openal}"/>
+            <exclude name="org/lwjgl/demo/openal/ALCDemo.java" unless:set="test.openal"/>
+            <exclude name="org/lwjgl/demo/openal/EFXTest.java" unless:set="test.openal"/>
+            <exclude name="org/lwjgl/demo/openal/HRTFDemo.java" unless:set="test.openal"/>
+
+            <include name="org/lwjgl/demo/opencl/**" if:set="test.opencl"/>
+            <include name="org/lwjgl/demo/opencl/CLDemo.java" if:true="${binding.opencl}"/>
+
+            <include name="org/lwjgl/demo/opengl/**" if:true="${binding.opengl}"/>
+
+            <include name="org/lwjgl/demo/openxr/**" if:set="test.openxr"/>
+            <include name="org/lwjgl/demo/sdl/**" if:true="${binding.sdl}"/>
+            <include name="org/lwjgl/demo/stb/**" if:set="test.stb"/>
+
+            <include name="org/lwjgl/demo/system/jawt/**" if:set="test.jawt"/>
+            <include name="org/lwjgl/demo/system/linux/liburing/**"/>
+
+            <include name="org/lwjgl/demo/util/*.java"/>
+            <include name="org/lwjgl/demo/util/freetype/**" if:true="${binding.freetype}"/>
+            <include name="org/lwjgl/demo/util/harfbuzz/**" if:true="${binding.harfbuzz}"/>
+            <include name="org/lwjgl/demo/util/hwloc/**" if:true="${binding.hwloc}"/>
+            
+            <include name="org/lwjgl/demo/util/lmdb/**" if:true="${binding.lmdb}"/>
+            <include name="org/lwjgl/demo/util/lz4/**" if:true="${binding.lz4}"/>
+            <include name="org/lwjgl/demo/util/meshoptimizer/**" if:true="${binding.meshoptimizer}"/>
+            <exclude name="org/lwjgl/demo/util/meshoptimizer/MeshOptimizerDemo.java" unless:set="test.meshoptimizer"/>
+            <include name="org/lwjgl/demo/util/msdfgen/**" if:set="test.msdfgen"/>
+            <include name="org/lwjgl/demo/util/nfd/**" if:set="test.nfd"/>
+            <include name="org/lwjgl/demo/util/par/**" if:set="test.par"/>
+            <include name="org/lwjgl/demo/util/remotery/**" if:true="${binding.remotery}"/>
+            <include name="org/lwjgl/demo/util/spng/**" if:true="${binding.spng}"/>
+            <include name="org/lwjgl/demo/util/tinyexr/**" if:set="test.tinyexr"/>
+            <include name="org/lwjgl/demo/util/tinyfd/**" if:set="test.tinyfd"/>
+            <include name="org/lwjgl/demo/util/xxhash/**" if:true="${binding.xxhash}"/>
+            <include name="org/lwjgl/demo/util/yoga/**" if:set="test.yoga"/>
+            <include name="org/lwjgl/demo/util/zstd/**" if:true="${binding.zstd}"/>
+
+            <include name="org/lwjgl/demo/vulkan/**" if:set="test.vulkan"/>
+
+            <!-- Benchmarks -->
+            <include name="org/lwjgl/jmh/**"/>
+            <exclude name="org/lwjgl/jmh/Hashing*" unless:true="${binding.xxhash}"/>
+            <exclude name="org/lwjgl/jmh/VarHandle*" unless:set="jdk11"/>
+        </lwjgl.javac>
     </target>
 
     <macrodef name="do-compile-tests">
@@ -1747,6 +1805,9 @@
         <!-- LMDB -->
         <release-module name="lmdb" native-library="lwjgl_lmdb" title="LMDB" if:true="${binding.lmdb}"/>
 
+        <!-- LWJGLX -->
+        <release-module name="lwjglx" title="LWJGLX" if:true="${binding.lwjglx}"/>
+
         <!-- lz4 -->
         <release-module name="lz4" native-library="lwjgl_lz4" title="lz4" if:true="${binding.lz4}"/>
 
@@ -1890,6 +1951,9 @@
 
         <!-- shaderc -->
         <release-module name="shaderc" native-library="shaderc" title="Shaderc" if:true="${binding.shaderc}"/>
+
+        <!-- spng -->
+        <release-module name="spng" native-library="lwjgl_spng" title="spng" if:true="${binding.spng}"/>
 
         <!-- SPIRV-Cross -->
         <release-module name="spvc" native-library="spirv-cross" title="SPIRV-Cross" if:true="${binding.spvc}"/>

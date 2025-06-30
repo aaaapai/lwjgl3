@@ -62,7 +62,8 @@ ENABLE_WARNINGS()""")
         "SETUP_DEFER_TASKRUN".enum("1 << 13"),
         "SETUP_NO_MMAP".enum("1 << 14"),
         "SETUP_REGISTERED_FD_ONLY".enum("1 << 15"),
-        "SETUP_NO_SQARRAY".enum("1 << 16")
+        "SETUP_NO_SQARRAY".enum("1 << 16"),
+        "SETUP_HYBRID_IOPOLL".enum("1 << 17")
     )
 
     EnumConstantByte(
@@ -124,6 +125,10 @@ ENABLE_WARNINGS()""")
         "OP_FTRUNCATE".enumByte,
         "OP_BIND".enumByte,
         "OP_LISTEN".enumByte,
+        "OP_RECV_ZC".enumByte,
+        "OP_EPOLL_WAIT".enumByte,
+        "OP_READV_FIXED".enumByte,
+        "OP_WRITEV_FIXED".enumByte,
         "OP_LAST".enumByte
     )
 
@@ -239,7 +244,9 @@ ENABLE_WARNINGS()""")
         "ENTER_SQ_WAIT".enum("1 << 2"),
         "ENTER_EXT_ARG".enum("1 << 3"),
         "ENTER_REGISTERED_RING".enum("1 << 4"),
-        "ENTER_ABS_TIMER".enum("1 << 5")
+        "ENTER_ABS_TIMER".enum("1 << 5"),
+        "ENTER_EXT_ARG_REG".enum("1 << 6"),
+        "ENTER_NO_IOWAIT".enum("1 << 7")
     )
 
     EnumConstant(
@@ -258,7 +265,9 @@ ENABLE_WARNINGS()""")
         "FEAT_LINKED_FILE".enum("1 << 12"),
         "FEAT_REG_REG_RING".enum("1 << 13"),
         "FEAT_RECVSEND_BUNDLE".enum("1 << 14"),
-        "FEAT_MIN_TIMEOUT".enum("1 << 15")
+        "FEAT_MIN_TIMEOUT".enum("1 << 15"),
+        "FEAT_RW_ATTR".enum("1 << 16"),
+        "FEAT_NO_IOWAIT".enum("1 << 17")
     )
 
     EnumConstant(
@@ -293,6 +302,10 @@ ENABLE_WARNINGS()""")
         "UNREGISTER_NAPI".enum,
         "REGISTER_CLOCK".enum,
         "REGISTER_CLONE_BUFFERS".enum,
+        "REGISTER_SEND_MSG_RING".enum,
+        "REGISTER_ZCRX_IFQ".enum,
+        "REGISTER_RESIZE_RINGS".enum,
+        "REGISTER_MEM_REGION".enum,
 
         "REGISTER_LAST".enum,
 
@@ -300,13 +313,21 @@ ENABLE_WARNINGS()""")
     )
 
     EnumConstant(
-        "RSRC_REGISTER_SPARSE".enum("1 << 0")
-    )
-
-    EnumConstant(
         "IO_WQ_BOUND".enum("0"),
         "IO_WQ_UNBOUND".enum
     ).noPrefix()
+
+    EnumConstant(
+        "MEM_REGION_TYPE_USER".enum("1")
+    )
+
+    EnumConstant(
+        "MEM_REGION_REG_WAIT_ARG".enum("1")
+    )
+
+    EnumConstant(
+        "RSRC_REGISTER_SPARSE".enum("1 << 0")
+    )
 
     IntConstant(
         "REGISTER_FILES_SKIP".."-2"
@@ -317,7 +338,8 @@ ENABLE_WARNINGS()""")
     ).noPrefix()
 
     EnumConstant(
-        "REGISTER_SRC_REGISTERED".enum("1")
+        "REGISTER_SRC_REGISTERED".enum("1 << 0"),
+        "REGISTER_DST_REPLACE".enum("1 << 1")
     )
 
     EnumConstant(
@@ -334,11 +356,22 @@ ENABLE_WARNINGS()""")
     )
 
     EnumConstant(
+        "REG_WAIT_TS".enum("1 << 0")
+    )
+
+    EnumConstant(
         "SOCKET_URING_OP_SIOCINQ".enum("0"),
         "SOCKET_URING_OP_SIOCOUTQ".enum,
         "SOCKET_URING_OP_GETSOCKOPT".enum,
         "SOCKET_URING_OP_SETSOCKOPT".enum,
     ).noPrefix()
+
+    IntConstant("ZCRX_AREA_SHIFT".."48")
+    LongConstant("ZCRX_AREA_MASK".."~((1L << IORING_ZCRX_AREA_SHIFT) - 1)")
+
+    EnumConstant(
+        "ZCRX_AREA_DMABUF".enum("1")
+    )
 
     NativeName("__sys_io_uring_setup")..int(
         "setup",

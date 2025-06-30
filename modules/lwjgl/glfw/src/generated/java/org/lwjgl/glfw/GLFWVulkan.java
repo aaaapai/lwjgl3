@@ -18,26 +18,14 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.vulkan.EXTMetalSurface.*;
+import static org.lwjgl.vulkan.KHRAndroidSurface.*;
 
 import org.lwjgl.vulkan.*;
 
 public class GLFWVulkan {
 
-    /** Contains the function pointers loaded from {@code GLFW.getLibrary()}. */
-    public static final class Functions {
-
-        private Functions() {}
-
-        /** Function address. */
-        public static final long
-            InitVulkanLoader                     = apiGetFunctionAddress(GLFW.getLibrary(), "glfwInitVulkanLoader"),
-            VulkanSupported                      = apiGetFunctionAddress(GLFW.getLibrary(), "glfwVulkanSupported"),
-            GetRequiredInstanceExtensions        = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetRequiredInstanceExtensions"),
-            GetInstanceProcAddress               = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetInstanceProcAddress"),
-            GetPhysicalDevicePresentationSupport = apiGetFunctionAddress(GLFW.getLibrary(), "glfwGetPhysicalDevicePresentationSupport"),
-            CreateWindowSurface                  = apiGetFunctionAddress(GLFW.getLibrary(), "glfwCreateWindowSurface");
-
-    }
+     /** PojavLauncher: stub or wrap all functions to equivalent Vulkan functions */
 
     static {
         if (Platform.get() == Platform.MACOSX) {
@@ -53,8 +41,8 @@ public class GLFWVulkan {
 
     /** {@code void glfwInitVulkanLoader(PFN_vkGetInstanceProcAddr loader)} */
     public static void glfwInitVulkanLoader(@NativeType("PFN_vkGetInstanceProcAddr") long loader) {
-        long __functionAddress = Functions.InitVulkanLoader;
-        invokePV(loader, __functionAddress);
+        //long __functionAddress = Functions.InitVulkanLoader;
+        //invokePV(loader, __functionAddress);
     }
 
     // --- [ glfwVulkanSupported ] ---
@@ -62,59 +50,65 @@ public class GLFWVulkan {
     /** {@code int glfwVulkanSupported(void)} */
     @NativeType("int")
     public static boolean glfwVulkanSupported() {
-        long __functionAddress = Functions.VulkanSupported;
-        return invokeI(__functionAddress) != 0;
+        return true;
     }
 
     // --- [ glfwGetRequiredInstanceExtensions ] ---
 
-    /** {@code char const ** glfwGetRequiredInstanceExtensions(uint32_t * count)} */
-    public static long nglfwGetRequiredInstanceExtensions(long count) {
-        long __functionAddress = Functions.GetRequiredInstanceExtensions;
-        return invokePP(count, __functionAddress);
-    }
-
-    /** {@code char const ** glfwGetRequiredInstanceExtensions(uint32_t * count)} */
-    @NativeType("char const **")
-    public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        IntBuffer count = stack.callocInt(1);
-        try {
-            long __result = nglfwGetRequiredInstanceExtensions(memAddress(count));
-            return memPointerBufferSafe(__result, count.get(0));
-        } finally {
-            stack.setPointer(stackPointer);
-        }
-    }
 
     // --- [ glfwGetInstanceProcAddress ] ---
-
-    /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
-    public static long nglfwGetInstanceProcAddress(long instance, long procname) {
-        long __functionAddress = Functions.GetInstanceProcAddress;
-        return invokePPP(instance, procname, __functionAddress);
+    /**
+     * Returns an array of names of Vulkan instance extensions required by GLFW for creating Vulkan surfaces for GLFW windows. If successful, the list will
+     * always contain {@code VK_KHR_surface}, so if you don't require any additional extensions you can pass this list directly to the {@link VkInstanceCreateInfo}
+     * struct.
+     * 
+     * <p>If Vulkan is not available on the machine, this function returns {@code NULL} and generates a {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} error. Call {@link #glfwVulkanSupported VulkanSupported} to check whether
+     * Vulkan is available.</p>
+     * 
+     * <p>If Vulkan is available but no set of extensions allowing window surface creation was found, this function returns {@code NULL}. You may still use Vulkan for
+     * off-screen rendering and compute work.</p>
+     * 
+     * <p>Additional extensions may be required by future versions of GLFW. You should check if any extensions you wish to enable are already in the returned
+     * array, as it is an error to specify an extension more than once in the {@code VkInstanceCreateInfo} struct.</p>
+     * 
+     * <p>The returned array is allocated and freed by GLFW. You should not free it yourself. It is guaranteed to be valid only until the library is terminated.</p>
+     * 
+     * <p>This function may be called from any thread.</p>
+     * 
+     * <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED} and {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE}.</p>
+     *
+     * @return an array of ASCII encoded extension names, or {@code NULL} if an error occurred
+     *
+     * @since version 3.2
+     */
+    @NativeType("char const **")
+    public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
+        MemoryStack stack = stackGet();
+        int stackPointer = stack.getPointer();
+        IntBuffer count = stack.callocInt(1);
+        String platformSurface;
+        if (Platform.get() == Platform.MACOSX) {
+            platformSurface = "VK_EXT_metal_surface";
+        } else {
+            platformSurface = "VK_KHR_android_surface";
+        }
+        return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
+     
     /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
     @NativeType("GLFWvkproc")
     public static long glfwGetInstanceProcAddress(@NativeType("VkInstance") @Nullable VkInstance instance, @NativeType("char const *") ByteBuffer procname) {
         if (CHECKS) {
             checkNT1(procname);
         }
-        return nglfwGetInstanceProcAddress(memAddressSafe(instance), memAddress(procname));
+        return VK10.vkGetInstanceProcAddr(instance, procname);
     }
 
     /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
     @NativeType("GLFWvkproc")
-    public static long glfwGetInstanceProcAddress(@NativeType("VkInstance") @Nullable VkInstance instance, @NativeType("char const *") CharSequence procname) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
-        try {
-            stack.nASCII(procname, true);
-            long procnameEncoded = stack.getPointerAddress();
-            return nglfwGetInstanceProcAddress(memAddressSafe(instance), procnameEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+    public static long glfwGetInstanceProcAddress(@Nullable VkInstance instance, @NativeType("char const *") CharSequence procname) {
+        return VK10.vkGetInstanceProcAddr(instance, procname);
     }
 
     // --- [ glfwGetPhysicalDevicePresentationSupport ] ---
@@ -122,39 +116,83 @@ public class GLFWVulkan {
     /** {@code int glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily)} */
     @NativeType("int")
     public static boolean glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, @NativeType("uint32_t") int queuefamily) {
-        long __functionAddress = Functions.GetPhysicalDevicePresentationSupport;
-        return invokePPI(instance.address(), device.address(), queuefamily, __functionAddress) != 0;
+        return true;
     }
 
     // --- [ glfwCreateWindowSurface ] ---
 
     /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
-    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        long __functionAddress = Functions.CreateWindowSurface;
-        if (CHECKS) {
-            check(window);
-        }
-        return invokePPPPI(instance, window, allocator, surface, __functionAddress);
-    }
-
-    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
+    /**
+     * Creates a Vulkan surface for the specified window.
+     * 
+     * <p>If the Vulkan loader was not found at initialization, this function returns {@link VK10#VK_ERROR_INITIALIZATION_FAILED} and generates a {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} error.
+     * Call {@link #glfwVulkanSupported VulkanSupported} to check whether the Vulkan loader was found.</p>
+     * 
+     * <p>If the required window surface creation instance extensions are not available or if the specified instance was not created with these extensions
+     * enabled, this function returns {@link VK10#VK_ERROR_EXTENSION_NOT_PRESENT} and generates a {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} error. Call {@link #glfwGetRequiredInstanceExtensions GetRequiredInstanceExtensions} to
+     * check what instance extensions are required.</p>
+     * 
+     * <p>The window surface cannot be shared with another API so the window must have been created with the client api hint set to {@link GLFW#GLFW_NO_API NO_API} otherwise it
+     * generates a {@link GLFW#GLFW_INVALID_VALUE INVALID_VALUE} error and returns {@link KHRSurface#VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}.</p>
+     * 
+     * <p>The window surface must be destroyed before the specified Vulkan instance. It is the responsibility of the caller to destroy the window surface. GLFW
+     * does not destroy it for you. Call {@link KHRSurface#vkDestroySurfaceKHR} to destroy the surface.</p>
+     * 
+     * <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}, {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE}, {@link GLFW#GLFW_PLATFORM_ERROR PLATFORM_ERROR} and {@link GLFW#GLFW_INVALID_VALUE INVALID_VALUE}.</p>
+     * 
+     * <p>If an error occurs before the creation call is made, GLFW returns the Vulkan error code most appropriate for the error. Appropriate use of
+     * {@link #glfwVulkanSupported VulkanSupported} and {@code glfwGetRequiredInstanceExtensions} should eliminate almost all occurrences of these errors.</p>
+     * 
+     * <p>Notes:</p>
+     * 
+     * <ul>
+     * <li>This function may be called from any thread. For synchronization details of Vulkan objects, see the Vulkan specification.</li>
+     * <li><b>macOS</b>: GLFW prefers the {@code VK_EXT_metal_surface} extension, with the {@code VK_MVK_macos_surface} extension as a fallback. The name of
+     * the selected extension, if any, is included in the array returned by {@code glfwGetRequiredInstanceExtensions}.</li>
+     * <li><b>macOS</b>: This function creates and sets a {@code CAMetalLayer} instance for the window content view, which is required for MoltenVK to
+     * function.</li>
+     * <li><b>x11</b>: By default GLFW prefers the {@code VK_KHR_xcb_surface} extension, with the {@code VK_KHR_xlib_surface} extension as a fallback. You can
+     * make {@code VK_KHR_xlib_surface} the preferred extension by setting the {@link GLFW#GLFW_X11_XCB_VULKAN_SURFACE X11_XCB_VULKAN_SURFACE} init hint. The name of the selected extension, if
+     * any, is included in the array returned by {@code glfwGetRequiredInstanceExtensions}.</li>
+     * </ul>
+     *
+     * @param instance  the Vulkan instance to create the surface in
+     * @param window    the window to create the surface for
+     * @param allocator the allocator to use, or {@code NULL} to use the default allocator.
+     * @param surface   where to store the handle of the surface. This is set to {@link VK10#VK_NULL_HANDLE} if an error occurred.
+     *
+     * @return {@link VK10#VK_SUCCESS} if successful, or a Vulkan error code if an error occurred
+     *
+     * @since version 3.2
+     */
     @NativeType("VkResult")
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
         if (CHECKS) {
             check(surface, 1);
         }
-        return nglfwCreateWindowSurface(instance.address(), window, memAddressSafe(allocator), memAddress(surface));
-    }
-
-    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
-    @NativeType("VkResult")
-    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
-        long __functionAddress = Functions.CreateWindowSurface;
-        if (CHECKS) {
-            check(window);
-            check(surface, 1);
+        if (Platform.get() == Platform.MACOSX) {
+            VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
+                .calloc()
+                .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
+                .pLayer(PointerBuffer.create(window, 1));
+            return vkCreateMetalSurfaceEXT(instance, pCreateInfo, null, surface);
+        } else if (Platform.get() == Platform.LINUX) {
+            VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
+                .calloc()
+                .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
+                .window(window);
+            return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
         }
-        return invokePPPPI(instance.address(), window, memAddressSafe(allocator), surface, __functionAddress);
+        return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
+    }
+     
+    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
+    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+        MemoryStack stack = stackGet();
+        LongBuffer pSurface = stack.mallocLong(1);
+        int result = glfwCreateWindowSurface(instance, window, allocator, pSurface);
+        surface[0] = pSurface.get(0);
+        return result;
     }
 
     /**

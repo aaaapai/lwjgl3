@@ -178,7 +178,10 @@ public class HarfBuzz {
             face_count                                    = apiGetFunctionAddress(HARFBUZZ, "hb_face_count"),
             face_create                                   = apiGetFunctionAddress(HARFBUZZ, "hb_face_create"),
             face_create_or_fail                           = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_or_fail"),
+            face_create_or_fail_using                     = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_or_fail_using"),
             face_create_from_file_or_fail                 = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_from_file_or_fail"),
+            face_create_from_file_or_fail_using           = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_from_file_or_fail_using"),
+            face_list_loaders                             = apiGetFunctionAddress(HARFBUZZ, "hb_face_list_loaders"),
             face_create_for_tables                        = apiGetFunctionAddress(HARFBUZZ, "hb_face_create_for_tables"),
             face_get_empty                                = apiGetFunctionAddress(HARFBUZZ, "hb_face_get_empty"),
             face_reference                                = apiGetFunctionAddress(HARFBUZZ, "hb_face_reference"),
@@ -229,7 +232,9 @@ public class HarfBuzz {
             font_funcs_set_glyph_name_func                = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_name_func"),
             font_funcs_set_glyph_from_name_func           = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_from_name_func"),
             font_funcs_set_draw_glyph_func                = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_draw_glyph_func"),
+            font_funcs_set_draw_glyph_or_fail_func        = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_draw_glyph_or_fail_func"),
             font_funcs_set_paint_glyph_func               = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_paint_glyph_func"),
+            font_funcs_set_paint_glyph_or_fail_func       = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_paint_glyph_or_fail_func"),
             font_get_h_extents                            = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_h_extents"),
             font_get_v_extents                            = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_v_extents"),
             font_get_nominal_glyph                        = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_nominal_glyph"),
@@ -247,7 +252,9 @@ public class HarfBuzz {
             font_get_glyph_name                           = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_name"),
             font_get_glyph_from_name                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_from_name"),
             font_draw_glyph                               = apiGetFunctionAddress(HARFBUZZ, "hb_font_draw_glyph"),
+            font_draw_glyph_or_fail                       = apiGetFunctionAddress(HARFBUZZ, "hb_font_draw_glyph_or_fail"),
             font_paint_glyph                              = apiGetFunctionAddress(HARFBUZZ, "hb_font_paint_glyph"),
+            font_paint_glyph_or_fail                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_paint_glyph_or_fail"),
             font_get_glyph                                = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph"),
             font_get_extents_for_direction                = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_extents_for_direction"),
             font_get_glyph_advance_for_direction          = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_advance_for_direction"),
@@ -277,12 +284,15 @@ public class HarfBuzz {
             font_get_face                                 = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_face"),
             font_set_funcs                                = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_funcs"),
             font_set_funcs_data                           = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_funcs_data"),
+            font_set_funcs_using                          = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_funcs_using"),
+            font_list_funcs                               = apiGetFunctionAddress(HARFBUZZ, "hb_font_list_funcs"),
             font_set_scale                                = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_scale"),
             font_get_scale                                = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_scale"),
             font_set_ppem                                 = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_ppem"),
             font_get_ppem                                 = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_ppem"),
             font_set_ptem                                 = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_ptem"),
             font_get_ptem                                 = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_ptem"),
+            font_is_synthetic                             = apiGetFunctionAddress(HARFBUZZ, "hb_font_is_synthetic"),
             font_set_synthetic_bold                       = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_synthetic_bold"),
             font_get_synthetic_bold                       = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_synthetic_bold"),
             font_set_synthetic_slant                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_set_synthetic_slant"),
@@ -299,9 +309,10 @@ public class HarfBuzz {
             ft_face_create_cached                         = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_cached"),
             ft_face_create_referenced                     = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_referenced"),
             ft_face_create_from_file_or_fail              = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_from_file_or_fail"),
+            ft_face_create_from_blob_or_fail              = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_face_create_from_blob_or_fail"),
             ft_font_create                                = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_create"),
             ft_font_create_referenced                     = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_create_referenced"),
-            ft_font_get_face                              = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_get_face"),
+            ft_font_get_ft_face                           = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_get_ft_face"),
             ft_font_lock_face                             = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_lock_face"),
             ft_font_unlock_face                           = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_unlock_face"),
             ft_font_set_load_flags                        = apiGetFunctionAddressOptional(HARFBUZZ, "hb_ft_font_set_load_flags"),
@@ -355,6 +366,8 @@ public class HarfBuzz {
             paint_funcs_set_pop_group_func                = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_pop_group_func"),
             paint_funcs_set_custom_palette_color_func     = apiGetFunctionAddress(HARFBUZZ, "hb_paint_funcs_set_custom_palette_color_func"),
             paint_push_transform                          = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_transform"),
+            paint_push_font_transform                     = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_font_transform"),
+            paint_push_inverse_font_transform             = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_inverse_font_transform"),
             paint_pop_transform                           = apiGetFunctionAddress(HARFBUZZ, "hb_paint_pop_transform"),
             paint_color_glyph                             = apiGetFunctionAddress(HARFBUZZ, "hb_paint_color_glyph"),
             paint_push_clip_glyph                         = apiGetFunctionAddress(HARFBUZZ, "hb_paint_push_clip_glyph"),
@@ -680,6 +693,7 @@ public class HarfBuzz {
         HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES  = 0,
         HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS = 1,
         HB_BUFFER_CLUSTER_LEVEL_CHARACTERS          = 2,
+        HB_BUFFER_CLUSTER_LEVEL_GRAPHEMES           = 3,
         HB_BUFFER_CLUSTER_LEVEL_DEFAULT             = HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES;
 
     public static final int HB_BUFFER_REPLACEMENT_CODEPOINT_DEFAULT = 0xFFFD;
@@ -857,13 +871,13 @@ public class HarfBuzz {
         HB_UNICODE_COMBINING_CLASS_IOTA_SUBSCRIPT       = 240,
         HB_UNICODE_COMBINING_CLASS_INVALID              = 255;
 
-    public static final int HB_VERSION_MAJOR = 10;
+    public static final int HB_VERSION_MAJOR = 11;
 
-    public static final int HB_VERSION_MINOR = 1;
+    public static final int HB_VERSION_MINOR = 2;
 
-    public static final int HB_VERSION_MICRO = 0;
+    public static final int HB_VERSION_MICRO = 1;
 
-    public static final String HB_VERSION_STRING = "10.1.0";
+    public static final String HB_VERSION_STRING = "11.2.1";
 
     protected HarfBuzz() {
         throw new UnsupportedOperationException();
@@ -2688,6 +2702,39 @@ public class HarfBuzz {
         return invokePP(blob, index, __functionAddress);
     }
 
+    // --- [ hb_face_create_or_fail_using ] ---
+
+    /** {@code hb_face_t * hb_face_create_or_fail_using(hb_blob_t * blob, unsigned int index, char const * loader_name)} */
+    public static long nhb_face_create_or_fail_using(long blob, int index, long loader_name) {
+        long __functionAddress = Functions.face_create_or_fail_using;
+        if (CHECKS) {
+            check(blob);
+        }
+        return invokePPP(blob, index, loader_name, __functionAddress);
+    }
+
+    /** {@code hb_face_t * hb_face_create_or_fail_using(hb_blob_t * blob, unsigned int index, char const * loader_name)} */
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_or_fail_using(@NativeType("hb_blob_t *") long blob, @NativeType("unsigned int") int index, @NativeType("char const *") @Nullable ByteBuffer loader_name) {
+        if (CHECKS) {
+            checkNT1Safe(loader_name);
+        }
+        return nhb_face_create_or_fail_using(blob, index, memAddressSafe(loader_name));
+    }
+
+    /** {@code hb_face_t * hb_face_create_or_fail_using(hb_blob_t * blob, unsigned int index, char const * loader_name)} */
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_or_fail_using(@NativeType("hb_blob_t *") long blob, @NativeType("unsigned int") int index, @NativeType("char const *") @Nullable CharSequence loader_name) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8Safe(loader_name, true);
+            long loader_nameEncoded = loader_name == null ? NULL : stack.getPointerAddress();
+            return nhb_face_create_or_fail_using(blob, index, loader_nameEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ hb_face_create_from_file_or_fail ] ---
 
     /** {@code hb_face_t * hb_face_create_from_file_or_fail(char const * file_name, unsigned int index)} */
@@ -2716,6 +2763,61 @@ public class HarfBuzz {
         } finally {
             stack.setPointer(stackPointer);
         }
+    }
+
+    // --- [ hb_face_create_from_file_or_fail_using ] ---
+
+    /** {@code hb_face_t * hb_face_create_from_file_or_fail_using(char const * file_name, unsigned int index, char const * loader_name)} */
+    public static long nhb_face_create_from_file_or_fail_using(long file_name, int index, long loader_name) {
+        long __functionAddress = Functions.face_create_from_file_or_fail_using;
+        return invokePPP(file_name, index, loader_name, __functionAddress);
+    }
+
+    /** {@code hb_face_t * hb_face_create_from_file_or_fail_using(char const * file_name, unsigned int index, char const * loader_name)} */
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_from_file_or_fail_using(@NativeType("char const *") ByteBuffer file_name, @NativeType("unsigned int") int index, @NativeType("char const *") @Nullable ByteBuffer loader_name) {
+        if (CHECKS) {
+            checkNT1(file_name);
+            checkNT1Safe(loader_name);
+        }
+        return nhb_face_create_from_file_or_fail_using(memAddress(file_name), index, memAddressSafe(loader_name));
+    }
+
+    /** {@code hb_face_t * hb_face_create_from_file_or_fail_using(char const * file_name, unsigned int index, char const * loader_name)} */
+    @NativeType("hb_face_t *")
+    public static long hb_face_create_from_file_or_fail_using(@NativeType("char const *") CharSequence file_name, @NativeType("unsigned int") int index, @NativeType("char const *") @Nullable CharSequence loader_name) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(file_name, true);
+            long file_nameEncoded = stack.getPointerAddress();
+            stack.nUTF8Safe(loader_name, true);
+            long loader_nameEncoded = loader_name == null ? NULL : stack.getPointerAddress();
+            return nhb_face_create_from_file_or_fail_using(file_nameEncoded, index, loader_nameEncoded);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ hb_face_list_loaders ] ---
+
+    /** {@code char const ** hb_face_list_loaders(void)} */
+    public static long nhb_face_list_loaders() {
+        long __functionAddress = Functions.face_list_loaders;
+        return invokeP(__functionAddress);
+    }
+
+    /** {@code char const ** hb_face_list_loaders(void)} */
+    @NativeType("char const **")
+    public static @Nullable PointerBuffer hb_face_list_loaders() {
+        long __result = nhb_face_list_loaders();
+        return memPointerBufferSafe(__result, face_list_loaders_COUNT);
+    }
+
+    /** {@code char const ** hb_face_list_loaders(void)} */
+    @NativeType("char const **")
+    public static @Nullable PointerBuffer hb_face_list_loaders(long length) {
+        long __result = nhb_face_list_loaders();
+        return memPointerBufferSafe(__result, (int)length);
     }
 
     // --- [ hb_face_create_for_tables ] ---
@@ -2811,9 +2913,9 @@ public class HarfBuzz {
 
     // --- [ hb_face_is_immutable ] ---
 
-    /** {@code hb_bool_t hb_face_is_immutable(hb_face_t const * face)} */
+    /** {@code hb_bool_t hb_face_is_immutable(hb_face_t * face)} */
     @NativeType("hb_bool_t")
-    public static boolean hb_face_is_immutable(@NativeType("hb_face_t const *") long face) {
+    public static boolean hb_face_is_immutable(@NativeType("hb_face_t *") long face) {
         long __functionAddress = Functions.face_is_immutable;
         if (CHECKS) {
             check(face);
@@ -3419,6 +3521,22 @@ public class HarfBuzz {
         nhb_font_funcs_set_draw_glyph_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
+    // --- [ hb_font_funcs_set_draw_glyph_or_fail_func ] ---
+
+    /** {@code void hb_font_funcs_set_draw_glyph_or_fail_func(hb_font_funcs_t * ffuncs, hb_font_draw_glyph_or_fail_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void nhb_font_funcs_set_draw_glyph_or_fail_func(long ffuncs, long func, long user_data, long destroy) {
+        long __functionAddress = Functions.font_funcs_set_draw_glyph_or_fail_func;
+        if (CHECKS) {
+            check(ffuncs);
+        }
+        invokePPPPV(ffuncs, func, user_data, destroy, __functionAddress);
+    }
+
+    /** {@code void hb_font_funcs_set_draw_glyph_or_fail_func(hb_font_funcs_t * ffuncs, hb_font_draw_glyph_or_fail_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void hb_font_funcs_set_draw_glyph_or_fail_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_draw_glyph_or_fail_func_t") hb_font_draw_glyph_or_fail_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
+        nhb_font_funcs_set_draw_glyph_or_fail_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
+    }
+
     // --- [ hb_font_funcs_set_paint_glyph_func ] ---
 
     /** {@code void hb_font_funcs_set_paint_glyph_func(hb_font_funcs_t * ffuncs, hb_font_paint_glyph_func_t func, void * user_data, hb_destroy_func_t destroy)} */
@@ -3433,6 +3551,22 @@ public class HarfBuzz {
     /** {@code void hb_font_funcs_set_paint_glyph_func(hb_font_funcs_t * ffuncs, hb_font_paint_glyph_func_t func, void * user_data, hb_destroy_func_t destroy)} */
     public static void hb_font_funcs_set_paint_glyph_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_paint_glyph_func_t") hb_font_paint_glyph_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
         nhb_font_funcs_set_paint_glyph_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
+    }
+
+    // --- [ hb_font_funcs_set_paint_glyph_or_fail_func ] ---
+
+    /** {@code void hb_font_funcs_set_paint_glyph_or_fail_func(hb_font_funcs_t * ffuncs, hb_font_paint_glyph_or_fail_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void nhb_font_funcs_set_paint_glyph_or_fail_func(long ffuncs, long func, long user_data, long destroy) {
+        long __functionAddress = Functions.font_funcs_set_paint_glyph_or_fail_func;
+        if (CHECKS) {
+            check(ffuncs);
+        }
+        invokePPPPV(ffuncs, func, user_data, destroy, __functionAddress);
+    }
+
+    /** {@code void hb_font_funcs_set_paint_glyph_or_fail_func(hb_font_funcs_t * ffuncs, hb_font_paint_glyph_or_fail_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void hb_font_funcs_set_paint_glyph_or_fail_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_paint_glyph_or_fail_func_t") hb_font_paint_glyph_or_fail_func_tI func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
+        nhb_font_funcs_set_paint_glyph_or_fail_func(ffuncs, func.address(), user_data, memAddressSafe(destroy));
     }
 
     // --- [ hb_font_get_h_extents ] ---
@@ -3751,6 +3885,19 @@ public class HarfBuzz {
         invokePPPV(font, glyph, dfuncs, draw_data, __functionAddress);
     }
 
+    // --- [ hb_font_draw_glyph_or_fail ] ---
+
+    /** {@code hb_bool_t hb_font_draw_glyph_or_fail(hb_font_t * font, hb_codepoint_t glyph, hb_draw_funcs_t * dfuncs, void * draw_data)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_draw_glyph_or_fail(@NativeType("hb_font_t *") long font, @NativeType("hb_codepoint_t") int glyph, @NativeType("hb_draw_funcs_t *") long dfuncs, @NativeType("void *") long draw_data) {
+        long __functionAddress = Functions.font_draw_glyph_or_fail;
+        if (CHECKS) {
+            check(font);
+            check(dfuncs);
+        }
+        return invokePPPI(font, glyph, dfuncs, draw_data, __functionAddress) != 0;
+    }
+
     // --- [ hb_font_paint_glyph ] ---
 
     /** {@code void hb_font_paint_glyph(hb_font_t * font, hb_codepoint_t glyph, hb_draw_funcs_t * pfuncs, void * paint_data, unsigned int palette_index, hb_color_t foreground)} */
@@ -3761,6 +3908,19 @@ public class HarfBuzz {
             check(pfuncs);
         }
         invokePPPV(font, glyph, pfuncs, paint_data, palette_index, foreground, __functionAddress);
+    }
+
+    // --- [ hb_font_paint_glyph_or_fail ] ---
+
+    /** {@code hb_bool_t hb_font_paint_glyph_or_fail(hb_font_t * font, hb_codepoint_t glyph, hb_draw_funcs_t * pfuncs, void * paint_data, unsigned int palette_index, hb_color_t foreground)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_paint_glyph_or_fail(@NativeType("hb_font_t *") long font, @NativeType("hb_codepoint_t") int glyph, @NativeType("hb_draw_funcs_t *") long pfuncs, @NativeType("void *") long paint_data, @NativeType("unsigned int") int palette_index, @NativeType("hb_color_t") int foreground) {
+        long __functionAddress = Functions.font_paint_glyph_or_fail;
+        if (CHECKS) {
+            check(font);
+            check(pfuncs);
+        }
+        return invokePPPI(font, glyph, pfuncs, paint_data, palette_index, foreground, __functionAddress) != 0;
     }
 
     // --- [ hb_font_get_glyph ] ---
@@ -4223,6 +4383,61 @@ public class HarfBuzz {
         nhb_font_set_funcs_data(font, font_data, memAddressSafe(destroy));
     }
 
+    // --- [ hb_font_set_funcs_using ] ---
+
+    /** {@code hb_bool_t hb_font_set_funcs_using(hb_font_t * font, char const * name)} */
+    public static int nhb_font_set_funcs_using(long font, long name) {
+        long __functionAddress = Functions.font_set_funcs_using;
+        if (CHECKS) {
+            check(font);
+        }
+        return invokePPI(font, name, __functionAddress);
+    }
+
+    /** {@code hb_bool_t hb_font_set_funcs_using(hb_font_t * font, char const * name)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_set_funcs_using(@NativeType("hb_font_t *") long font, @NativeType("char const *") @Nullable ByteBuffer name) {
+        if (CHECKS) {
+            checkNT1Safe(name);
+        }
+        return nhb_font_set_funcs_using(font, memAddressSafe(name)) != 0;
+    }
+
+    /** {@code hb_bool_t hb_font_set_funcs_using(hb_font_t * font, char const * name)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_set_funcs_using(@NativeType("hb_font_t *") long font, @NativeType("char const *") @Nullable CharSequence name) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8Safe(name, true);
+            long nameEncoded = name == null ? NULL : stack.getPointerAddress();
+            return nhb_font_set_funcs_using(font, nameEncoded) != 0;
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
+    // --- [ hb_font_list_funcs ] ---
+
+    /** {@code char const ** hb_font_list_funcs(void)} */
+    public static long nhb_font_list_funcs() {
+        long __functionAddress = Functions.font_list_funcs;
+        return invokeP(__functionAddress);
+    }
+
+    /** {@code char const ** hb_font_list_funcs(void)} */
+    @NativeType("char const **")
+    public static @Nullable PointerBuffer hb_font_list_funcs() {
+        long __result = nhb_font_list_funcs();
+        return memPointerBufferSafe(__result, font_list_funcs_COUNT);
+    }
+
+    /** {@code char const ** hb_font_list_funcs(void)} */
+    @NativeType("char const **")
+    public static @Nullable PointerBuffer hb_font_list_funcs(long length) {
+        long __result = nhb_font_list_funcs();
+        return memPointerBufferSafe(__result, (int)length);
+    }
+
     // --- [ hb_font_set_scale ] ---
 
     /** {@code void hb_font_set_scale(hb_font_t * font, int x_scale, int y_scale)} */
@@ -4305,6 +4520,18 @@ public class HarfBuzz {
             check(font);
         }
         return invokePF(font, __functionAddress);
+    }
+
+    // --- [ hb_font_is_synthetic ] ---
+
+    /** {@code hb_bool_t hb_font_is_synthetic(hb_font_t * font)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_is_synthetic(@NativeType("hb_font_t *") long font) {
+        long __functionAddress = Functions.font_is_synthetic;
+        if (CHECKS) {
+            check(font);
+        }
+        return invokePI(font, __functionAddress) != 0;
     }
 
     // --- [ hb_font_set_synthetic_bold ] ---
@@ -4568,6 +4795,19 @@ public class HarfBuzz {
         }
     }
 
+    // --- [ hb_ft_face_create_from_blob_or_fail ] ---
+
+    /** {@code hb_face_t * hb_ft_face_create_from_blob_or_fail(hb_blob_t * blob, unsigned int index)} */
+    @NativeType("hb_face_t *")
+    public static long hb_ft_face_create_from_blob_or_fail(@NativeType("hb_blob_t *") long blob, @NativeType("unsigned int") int index) {
+        long __functionAddress = Functions.ft_face_create_from_blob_or_fail;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(blob);
+        }
+        return invokePP(blob, index, __functionAddress);
+    }
+
     // --- [ hb_ft_font_create ] ---
 
     /** {@code hb_font_t * hb_ft_font_create(FT_Face ft_face, hb_destroy_func_t destroy)} */
@@ -4599,12 +4839,12 @@ public class HarfBuzz {
         return invokePP(ft_face, __functionAddress);
     }
 
-    // --- [ hb_ft_font_get_face ] ---
+    // --- [ hb_ft_font_get_ft_face ] ---
 
-    /** {@code FT_Face hb_ft_font_get_face(hb_font_t * font)} */
+    /** {@code FT_Face hb_ft_font_get_ft_face(hb_font_t * font)} */
     @NativeType("FT_Face")
-    public static long hb_ft_font_get_face(@NativeType("hb_font_t *") long font) {
-        long __functionAddress = Functions.ft_font_get_face;
+    public static long hb_ft_font_get_ft_face(@NativeType("hb_font_t *") long font) {
+        long __functionAddress = Functions.ft_font_get_ft_face;
         if (CHECKS) {
             check(__functionAddress);
             check(font);
@@ -5323,6 +5563,30 @@ public class HarfBuzz {
             check(funcs);
         }
         invokePPV(funcs, paint_data, xx, yx, xy, yy, dx, dy, __functionAddress);
+    }
+
+    // --- [ hb_paint_push_font_transform ] ---
+
+    /** {@code void hb_paint_push_font_transform(hb_paint_funcs_t * funcs, void * paint_data, hb_font_t const * font)} */
+    public static void hb_paint_push_font_transform(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("void *") long paint_data, @NativeType("hb_font_t const *") long font) {
+        long __functionAddress = Functions.paint_push_font_transform;
+        if (CHECKS) {
+            check(funcs);
+            check(font);
+        }
+        invokePPPV(funcs, paint_data, font, __functionAddress);
+    }
+
+    // --- [ hb_paint_push_inverse_font_transform ] ---
+
+    /** {@code void hb_paint_push_inverse_font_transform(hb_paint_funcs_t * funcs, void * paint_data, hb_font_t const * font)} */
+    public static void hb_paint_push_inverse_font_transform(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("void *") long paint_data, @NativeType("hb_font_t const *") long font) {
+        long __functionAddress = Functions.paint_push_inverse_font_transform;
+        if (CHECKS) {
+            check(funcs);
+            check(font);
+        }
+        invokePPPV(funcs, paint_data, font, __functionAddress);
     }
 
     // --- [ hb_paint_pop_transform ] ---
@@ -6604,6 +6868,21 @@ public class HarfBuzz {
         return HB_TAG(b, g, r, a);
     }
 
+    @NativeType("bool")
+    public static boolean HB_BUFFER_CLUSTER_LEVEL_IS_MONOTONE(@NativeType("hb_buffer_cluster_level_t") int level) {
+        return ((1 << level) & ((1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES) | (1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS))) != 0;
+    }
+
+    @NativeType("bool")
+    public static boolean HB_BUFFER_CLUSTER_LEVEL_IS_GRAPHEMES(@NativeType("hb_buffer_cluster_level_t") int level) {
+        return ((1 << level) & ((1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES) | (1 << HB_BUFFER_CLUSTER_LEVEL_GRAPHEMES))) != 0;
+    }
+
+    @NativeType("bool")
+    public static boolean HB_BUFFER_CLUSTER_LEVEL_IS_CHARACTERS(@NativeType("hb_buffer_cluster_level_t") int level) {
+        return ((1 << level) & ((1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS) | (1 << HB_BUFFER_CLUSTER_LEVEL_CHARACTERS))) != 0;
+    }
+
     @NativeType("hb_glyph_flags_t")
     public static int hb_glyph_info_get_glyph_flags(@NativeType("hb_glyph_info_t const *") hb_glyph_info_t info) {
         return info.mask() & HB_GLYPH_FLAG_DEFINED;
@@ -6628,6 +6907,28 @@ public class HarfBuzz {
     }
 
     public static final hb_draw_state_t HB_DRAW_STATE_DEFAULT = hb_draw_state_t.create();
+
+    private static final int face_list_loaders_COUNT;
+    static {
+        long loaders = nhb_face_list_loaders();
+        int count = 0;
+        while (memGetAddress(loaders) != NULL) {
+            count++;
+            loaders += POINTER_SIZE;
+        }
+        face_list_loaders_COUNT = count;
+    }
+
+    private static final int font_list_funcs_COUNT;
+    static {
+        long funcs = nhb_font_list_funcs();
+        int count = 0;
+        while (memGetAddress(funcs) != NULL) {
+            count++;
+            funcs += POINTER_SIZE;
+        }
+        font_list_funcs_COUNT = count;
+    }
 
     private static final int shape_list_shapers_COUNT;
     static {

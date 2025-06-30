@@ -1,3 +1,36 @@
+LWJGL 3.3.3 modified for PojavLauncher Android and iOS.
+This branch also integrates [lwjglx](https://github.com/grum/lwjglx), allowing Minecraft 1.12.2 and older to run on this LWJGL version.
+
+![Build lwjgl3](https://github.com/PojavLauncherTeam/lwjgl3/workflows/Build%20lwjgl3/badge.svg)
+
+### Building
+
+Output: `bin/RELEASE` (Java); `bin/out` (natives)
+
+#### Android
+
+Dependencies:
+
+- ant
+
+Your default `java` version should be java 8.
+
+```bash
+export ANDROID_NDK_HOME=/path/to/ndk-bundle
+
+# Valid archs: arm64, arm32, x64, x86. Only set one at a time
+export LWJGL_BUILD_ARCH=arm64
+export JAVA8_HOME=/path/to/java8
+
+bash ci_build_android.bash
+```
+
+#### iOS
+
+Just run `bash ci_build_ios.bash` on macOS
+
+---
+
 [![Maven Central](https://img.shields.io/maven-central/v/org.lwjgl/lwjgl.svg?label=maven%20central)](https://search.maven.org/search?q=g:org.lwjgl)
 [![API Javadoc](https://img.shields.io/badge/API-docs-blue.svg)](https://javadoc.lwjgl.org/)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg?colorB=lightgray)](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md)
@@ -24,7 +57,7 @@ LWJGL is open source software and freely available at no charge.
 Useful links:
 
 - [Wiki](https://github.com/LWJGL/lwjgl3-wiki/wiki)
-- [Release Notes](https://github.com/LWJGL/lwjgl3/tree/master/doc/notes)  
+- [Release Notes](https://github.com/LWJGL/lwjgl3/tree/master/doc/notes)
 - [JavaDoc](https://javadoc.lwjgl.org)
 - [Blog](https://blog.lwjgl.org)
 
@@ -52,10 +85,10 @@ developing.
 LWJGL can also be downloaded as a simple set of JAR files. Each module
 consists of the following files:
 
-* lwjgl-&lt;module&gt;.jar
-* lwjgl-&lt;module&gt;-sources.jar
-* lwjgl-&lt;module&gt;-javadoc.jar
-* lwjgl-&lt;module&gt;-natives-&lt;platform&gt;.jar (for some bindings)
+- lwjgl-&lt;module&gt;.jar
+- lwjgl-&lt;module&gt;-sources.jar
+- lwjgl-&lt;module&gt;-javadoc.jar
+- lwjgl-&lt;module&gt;-natives-&lt;platform&gt;.jar (for some bindings)
 
 To compile and run an LWJGL application, the base and natives JAR files of
 the core module and each binding used should be added to the classpath. LWJGL
@@ -180,6 +213,7 @@ improve the chances of a quick and useful response.
 | [hwloc](https://www.open-mpi.org/projects/hwloc/)| A portable abstraction of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.|
 | [jemalloc](https://jemalloc.net/)| A general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.|
 | [libffi](https://sourceware.org)| A portable, high level programming interface to various calling conventions.|
+| [libspng](https://libspng.org/)| libspng (simple png) is a C library for reading and writing Portable Network Graphics (PNG) format files with a focus on security and ease of use.|
 | [LLVM](https://llvm.org/)| A collection of modular and reusable compiler and toolchain technologies.|
 | [LMDB](https://www.symas.com/lmdb)| An extraordinarily fast, memory-efficient database. With memory-mapped files, it has the read performance of a pure in-memory database while retaining the persistence of standard disk-based databases.|
 | [LZ4](https://lz4.org/)| A lossless data compression algorithm that is focused on compression and decompression speed.|

@@ -566,8 +566,26 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         "BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES".enum("0"),
         "BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS".enum,
         "BUFFER_CLUSTER_LEVEL_CHARACTERS".enum,
+        "BUFFER_CLUSTER_LEVEL_GRAPHEMES".enum,
         "BUFFER_CLUSTER_LEVEL_DEFAULT".enum("HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES")
     )
+
+    customMethod("""
+    @NativeType("bool")
+    public static boolean HB_BUFFER_CLUSTER_LEVEL_IS_MONOTONE(@NativeType("hb_buffer_cluster_level_t") int level) {
+        return ((1 << level) & ((1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES) | (1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS))) != 0;
+    }
+
+    @NativeType("bool")
+    public static boolean HB_BUFFER_CLUSTER_LEVEL_IS_GRAPHEMES(@NativeType("hb_buffer_cluster_level_t") int level) {
+        return ((1 << level) & ((1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES) | (1 << HB_BUFFER_CLUSTER_LEVEL_GRAPHEMES))) != 0;
+    }
+
+    @NativeType("bool")
+    public static boolean HB_BUFFER_CLUSTER_LEVEL_IS_CHARACTERS(@NativeType("hb_buffer_cluster_level_t") int level) {
+        return ((1 << level) & ((1 << HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS) | (1 << HB_BUFFER_CLUSTER_LEVEL_CHARACTERS))) != 0;
+    }
+    """)
 
     IntConstant(
         "BUFFER_REPLACEMENT_CODEPOINT_DEFAULT".."0xFFFD"
@@ -1302,10 +1320,43 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     )
 
     hb_face_t.p(
+        "face_create_or_fail_using",
+
+        hb_blob_t.p("blob"),
+        unsigned_int("index"),
+        nullable..charUTF8.const.p("loader_name")
+    )
+
+    hb_face_t.p(
         "face_create_from_file_or_fail",
 
         charUTF8.const.p("file_name"),
         unsigned_int("index")
+    )
+
+    hb_face_t.p(
+        "face_create_from_file_or_fail_using",
+
+        charUTF8.const.p("file_name"),
+        unsigned_int("index"),
+        nullable..charUTF8.const.p("loader_name")
+    )
+
+    customMethod("""
+    private static final int face_list_loaders_COUNT;
+    static {
+        long loaders = nhb_face_list_loaders();
+        int count = 0;
+        while (memGetAddress(loaders) != NULL) {
+            count++;
+            loaders += POINTER_SIZE;
+        }
+        face_list_loaders_COUNT = count;
+    }""")
+    MapPointer("face_list_loaders_COUNT")..charASCII.const.p.p(
+        "face_list_loaders",
+
+        void()
     )
 
     hb_face_t.p(
@@ -1360,7 +1411,7 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     hb_bool_t(
         "face_is_immutable",
 
-        hb_face_t.const.p("face")
+        hb_face_t.p("face")
     )
 
     hb_blob_t.p(
@@ -1687,6 +1738,7 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         nullable..hb_destroy_func_t("destroy")
     )
 
+    // TODO: remove in LWJGL 4
     void(
         "font_funcs_set_draw_glyph_func",
 
@@ -1697,10 +1749,29 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     )
 
     void(
+        "font_funcs_set_draw_glyph_or_fail_func",
+
+        hb_font_funcs_t.p("ffuncs"),
+        hb_font_draw_glyph_or_fail_func_t("func"),
+        nullable..opaque_p("user_data"),
+        nullable..hb_destroy_func_t("destroy")
+    )
+
+    // TODO: remove in LWJGL 4
+    void(
         "font_funcs_set_paint_glyph_func",
 
         hb_font_funcs_t.p("ffuncs"),
         hb_font_paint_glyph_func_t("func"),
+        nullable..opaque_p("user_data"),
+        nullable..hb_destroy_func_t("destroy")
+    )
+
+    void(
+        "font_funcs_set_paint_glyph_or_fail_func",
+
+        hb_font_funcs_t.p("ffuncs"),
+        hb_font_paint_glyph_or_fail_func_t("func"),
         nullable..opaque_p("user_data"),
         nullable..hb_destroy_func_t("destroy")
     )
@@ -1854,8 +1925,28 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         nullable..opaque_p("draw_data")
     )
 
+    hb_bool_t(
+        "font_draw_glyph_or_fail",
+
+        hb_font_t.p("font"),
+        hb_codepoint_t("glyph"),
+        hb_draw_funcs_t.p("dfuncs"),
+        nullable..opaque_p("draw_data")
+    )
+
     void(
         "font_paint_glyph",
+
+        hb_font_t.p("font"),
+        hb_codepoint_t("glyph"),
+        hb_draw_funcs_t.p("pfuncs"),
+        nullable..opaque_p("paint_data"),
+        unsigned_int("palette_index"),
+        hb_color_t("foreground")
+    )
+
+    hb_bool_t(
+        "font_paint_glyph_or_fail",
 
         hb_font_t.p("font"),
         hb_codepoint_t("glyph"),
@@ -2097,6 +2188,30 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         nullable..hb_destroy_func_t("destroy")
     )
 
+    hb_bool_t(
+        "font_set_funcs_using",
+
+        hb_font_t.p("font"),
+        nullable..charUTF8.const.p("name")
+    )
+
+    customMethod("""
+    private static final int font_list_funcs_COUNT;
+    static {
+        long funcs = nhb_font_list_funcs();
+        int count = 0;
+        while (memGetAddress(funcs) != NULL) {
+            count++;
+            funcs += POINTER_SIZE;
+        }
+        font_list_funcs_COUNT = count;
+    }""")
+    MapPointer("font_list_funcs_COUNT")..charASCII.const.p.p(
+        "font_list_funcs",
+
+        void()
+    )
+
     void(
         "font_set_scale",
 
@@ -2138,6 +2253,12 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
 
     float(
         "font_get_ptem",
+
+        hb_font_t.p("font")
+    )
+
+    hb_bool_t(
+        "font_is_synthetic",
 
         hb_font_t.p("font")
     )
@@ -2260,6 +2381,13 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         unsigned_int("index")
     )
 
+    IgnoreMissing..hb_face_t.p(
+        "ft_face_create_from_blob_or_fail",
+
+        hb_blob_t.p("blob"),
+        unsigned_int("index")
+    )
+
     IgnoreMissing..hb_font_t.p(
         "ft_font_create",
 
@@ -2274,7 +2402,7 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
     )
 
     IgnoreMissing..FT_Face(
-        "ft_font_get_face",
+        "ft_font_get_ft_face",
 
         hb_font_t.p("font")
     )
@@ -2720,6 +2848,22 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
         float("yy"),
         float("dx"),
         float("dy")
+    )
+
+    void(
+        "paint_push_font_transform",
+
+        hb_paint_funcs_t.p("funcs"),
+        nullable..opaque_p("paint_data"),
+        hb_font_t.const.p("font")
+    )
+
+    void(
+        "paint_push_inverse_font_transform",
+
+        hb_paint_funcs_t.p("funcs"),
+        nullable..opaque_p("paint_data"),
+        hb_font_t.const.p("font")
     )
 
     void(
@@ -3522,11 +3666,11 @@ val hb = "HarfBuzz".nativeClass(Module.HARFBUZZ, prefix = "HB", prefixMethod = "
 
     // hb-version.h
 
-    IntConstant("VERSION_MAJOR".."10")
-    IntConstant("VERSION_MINOR".."1")
-    IntConstant("VERSION_MICRO".."0")
+    IntConstant("VERSION_MAJOR".."11")
+    IntConstant("VERSION_MINOR".."2")
+    IntConstant("VERSION_MICRO".."1")
 
-    StringConstant("VERSION_STRING".."10.1.0")
+    StringConstant("VERSION_STRING".."11.2.1")
 
     customMethod("""
     public static boolean HB_VERSION_ATLEAST(int major, int minor, int micro) {

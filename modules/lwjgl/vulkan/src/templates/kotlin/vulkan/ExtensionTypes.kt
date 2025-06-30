@@ -32,9 +32,13 @@ val VkPrivateDataSlotEXT = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkPrivateDataSlotE
 val VkCudaModuleNV = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkCudaModuleNV")
 val VkCudaFunctionNV = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkCudaFunctionNV")
 val VkMicromapEXT = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkMicromapEXT")
+val VkTensorARM = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkTensorARM")
+val VkTensorViewARM = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkTensorViewARM")
 val VkOpticalFlowSessionNV = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkOpticalFlowSessionNV")
 val VkShaderEXT = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkShaderEXT")
 val VkPipelineBinaryKHR = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkPipelineBinaryKHR")
+val VkDataGraphPipelineSessionARM = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkDataGraphPipelineSessionARM")
+val VkExternalComputeQueueNV = VK_DEFINE_HANDLE("VkExternalComputeQueueNV")
 val VkIndirectExecutionSetEXT = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkIndirectExecutionSetEXT")
 val VkIndirectCommandsLayoutEXT = VK_DEFINE_NON_DISPATCHABLE_HANDLE("VkIndirectCommandsLayoutEXT")
 
@@ -178,6 +182,7 @@ val VkVideoEncodeContentFlagBitsKHR = "VkVideoEncodeContentFlagBitsKHR".enumType
 val VkVideoEncodeTuningModeKHR = "VkVideoEncodeTuningModeKHR".enumType
 val VkVideoEncodeRateControlModeFlagBitsKHR = "VkVideoEncodeRateControlModeFlagBitsKHR".enumType
 val VkDeviceDiagnosticsConfigFlagBitsNV = "VkDeviceDiagnosticsConfigFlagBitsNV".enumType
+val VkTileShadingRenderPassFlagBitsQCOM = "VkTileShadingRenderPassFlagBitsQCOM".enumType
 val VkExportMetalObjectTypeFlagBitsEXT = "VkExportMetalObjectTypeFlagBitsEXT".enumType
 val VkPipelineStageFlagBits2KHR = "VkPipelineStageFlagBits2KHR".enumType
 val VkAccessFlagBits2KHR = "VkAccessFlagBits2KHR".enumType
@@ -205,8 +210,14 @@ val VkOpacityMicromapSpecialIndexEXT = "VkOpacityMicromapSpecialIndexEXT".enumTy
 val VkDisplacementMicromapFormatNV = "VkDisplacementMicromapFormatNV".enumType
 val VkPhysicalDeviceSchedulingControlsFlagBitsARM = "VkPhysicalDeviceSchedulingControlsFlagBitsARM".enumType
 val VkMemoryDecompressionMethodFlagBitsNV = "VkMemoryDecompressionMethodFlagBitsNV".enumType
+val VkRayTracingLssIndexingModeNV = "VkRayTracingLssIndexingModeNV".enumType
+val VkRayTracingLssPrimitiveEndCapsModeNV = "VkRayTracingLssPrimitiveEndCapsModeNV".enumType
 val VkSubpassMergeStatusEXT = "VkSubpassMergeStatusEXT".enumType
 val VkDirectDriverLoadingModeLUNARG = "VkDirectDriverLoadingModeLUNARG".enumType
+val VkTensorCreateFlagBitsARM = "VkTensorCreateFlagBitsARM".enumType
+val VkTensorViewCreateFlagBitsARM = "VkTensorViewCreateFlagBitsARM".enumType
+val VkTensorUsageFlagBitsARM = "VkTensorUsageFlagBitsARM".enumType
+val VkTensorTilingARM = "VkTensorTilingARM".enumType
 val VkPipelineColorBlendStateCreateFlagBits = "VkPipelineColorBlendStateCreateFlagBits".enumType
 val VkPipelineDepthStencilStateCreateFlagBits = "VkPipelineDepthStencilStateCreateFlagBits".enumType
 val VkOpticalFlowUsageFlagBitsNV = "VkOpticalFlowUsageFlagBitsNV".enumType
@@ -223,11 +234,19 @@ val VkShaderCreateFlagBitsEXT = "VkShaderCreateFlagBitsEXT".enumType
 val VkShaderCodeTypeEXT = "VkShaderCodeTypeEXT".enumType
 val VkDepthClampModeEXT = "VkDepthClampModeEXT".enumType
 val VkRayTracingInvocationReorderModeNV = "VkRayTracingInvocationReorderModeNV".enumType
+val VkCooperativeVectorMatrixLayoutNV = "VkCooperativeVectorMatrixLayoutNV".enumType
 val VkLayerSettingTypeEXT = "VkLayerSettingTypeEXT".enumType
 val VkLatencyMarkerNV = "VkLatencyMarkerNV".enumType
 val VkOutOfBandQueueTypeNV = "VkOutOfBandQueueTypeNV".enumType
 val VkComponentTypeKHR = "VkComponentTypeKHR".enumType
 val VkScopeKHR = "VkScopeKHR".enumType
+val VkDataGraphPipelineSessionBindPointARM = "VkDataGraphPipelineSessionBindPointARM".enumType
+val VkDataGraphPipelineSessionBindPointTypeARM = "VkDataGraphPipelineSessionBindPointTypeARM".enumType
+val VkDataGraphPipelineSessionCreateFlagBitsARM = "VkDataGraphPipelineSessionCreateFlagBitsARM".enumType
+val VkDataGraphPipelinePropertyARM = "VkDataGraphPipelinePropertyARM".enumType
+val VkDataGraphPipelineDispatchFlagBitsARM = "VkDataGraphPipelineDispatchFlagBitsARM".enumType
+val VkPhysicalDeviceDataGraphProcessingEngineTypeARM = "VkPhysicalDeviceDataGraphProcessingEngineTypeARM".enumType
+val VkPhysicalDeviceDataGraphOperationTypeARM = "VkPhysicalDeviceDataGraphOperationTypeARM".enumType
 val VkVideoEncodeAV1PredictionModeKHR = "VkVideoEncodeAV1PredictionModeKHR".enumType
 val VkVideoEncodeAV1RateControlGroupKHR = "VkVideoEncodeAV1RateControlGroupKHR".enumType
 val VkVideoEncodeAV1CapabilityFlagBitsKHR = "VkVideoEncodeAV1CapabilityFlagBitsKHR".enumType
@@ -242,11 +261,21 @@ val VkDisplaySurfaceStereoTypeNV = "VkDisplaySurfaceStereoTypeNV".enumType
 val VkVideoEncodeFlagBitsKHR = "VkVideoEncodeFlagBitsKHR".enumType
 val VkVideoSessionParametersCreateFlagBitsKHR = "VkVideoSessionParametersCreateFlagBitsKHR".enumType
 val VkPhysicalDeviceLayeredApiKHR = "VkPhysicalDeviceLayeredApiKHR".enumType
+val VkClusterAccelerationStructureTypeNV = "VkClusterAccelerationStructureTypeNV".enumType
+val VkClusterAccelerationStructureOpTypeNV = "VkClusterAccelerationStructureOpTypeNV".enumType
+val VkClusterAccelerationStructureOpModeNV = "VkClusterAccelerationStructureOpModeNV".enumType
+val VkClusterAccelerationStructureClusterFlagBitsNV = "VkClusterAccelerationStructureClusterFlagBitsNV".enumType
+val VkClusterAccelerationStructureGeometryFlagBitsNV = "VkClusterAccelerationStructureGeometryFlagBitsNV".enumType
+val VkClusterAccelerationStructureAddressResolutionFlagBitsNV = "VkClusterAccelerationStructureAddressResolutionFlagBitsNV".enumType
+val VkClusterAccelerationStructureIndexFormatFlagBitsNV = "VkClusterAccelerationStructureIndexFormatFlagBitsNV".enumType
+val VkPartitionedAccelerationStructureOpTypeNV = "VkPartitionedAccelerationStructureOpTypeNV".enumType
+val VkPartitionedAccelerationStructureInstanceFlagBitsNV = "VkPartitionedAccelerationStructureInstanceFlagBitsNV".enumType
 val VkIndirectExecutionSetInfoTypeEXT = "VkIndirectExecutionSetInfoTypeEXT".enumType
 val VkIndirectCommandsTokenTypeEXT = "VkIndirectCommandsTokenTypeEXT".enumType
 val VkIndirectCommandsInputModeFlagBitsEXT = "VkIndirectCommandsInputModeFlagBitsEXT".enumType
 val VkIndirectCommandsLayoutUsageFlagBitsEXT = "VkIndirectCommandsLayoutUsageFlagBitsEXT".enumType
 val VkAccessFlagBits3KHR = "VkAccessFlagBits3KHR".enumType
+val VkDefaultVertexAttributeValueKHR = "VkDefaultVertexAttributeValueKHR".enumType
 
 // Bitmask types
 val VkCompositeAlphaFlagsKHR = typedef(VkFlags, "VkCompositeAlphaFlagsKHR")
@@ -348,6 +377,7 @@ val VkVideoEncodeUsageFlagsKHR = typedef(VkFlags, "VkVideoEncodeUsageFlagsKHR")
 val VkVideoEncodeContentFlagsKHR = typedef(VkFlags, "VkVideoEncodeContentFlagsKHR")
 val VkVideoEncodeRateControlFlagsKHR = typedef(VkFlags, "VkVideoEncodeRateControlFlagsKHR")
 val VkDeviceDiagnosticsConfigFlagsNV = typedef(VkFlags, "VkDeviceDiagnosticsConfigFlagsNV")
+val VkTileShadingRenderPassFlagsQCOM = typedef(VkFlags, "VkTileShadingRenderPassFlagsQCOM")
 val VkExportMetalObjectTypeFlagsEXT = typedef(VkFlags, "VkExportMetalObjectTypeFlagsEXT")
 val VkPipelineStageFlags2KHR = typedef(VkFlags64, "VkPipelineStageFlags2KHR")
 val VkAccessFlags2KHR = typedef(VkFlags64, "VkAccessFlags2KHR")
@@ -366,6 +396,9 @@ val VkMicromapCreateFlagsEXT = typedef(VkFlags, "VkMicromapCreateFlagsEXT")
 val VkPhysicalDeviceSchedulingControlsFlagsARM = typedef(VkFlags64, "VkPhysicalDeviceSchedulingControlsFlagsARM")
 val VkMemoryDecompressionMethodFlagsNV = typedef(VkFlags64, "VkMemoryDecompressionMethodFlagsNV")
 val VkDirectDriverLoadingFlagsLUNARG = typedef(VkFlags, "VkDirectDriverLoadingFlagsLUNARG")
+val VkTensorCreateFlagsARM = typedef(VkFlags64, "VkTensorCreateFlagsARM")
+val VkTensorViewCreateFlagsARM = typedef(VkFlags64, "VkTensorViewCreateFlagsARM")
+val VkTensorUsageFlagsARM = typedef(VkFlags64, "VkTensorUsageFlagsARM")
 val VkOpticalFlowGridSizeFlagsNV = typedef(VkFlags, "VkOpticalFlowGridSizeFlagsNV")
 val VkOpticalFlowUsageFlagsNV = typedef(VkFlags, "VkOpticalFlowUsageFlagsNV")
 val VkOpticalFlowSessionCreateFlagsNV = typedef(VkFlags, "VkOpticalFlowSessionCreateFlagsNV")
@@ -373,10 +406,17 @@ val VkOpticalFlowExecuteFlagsNV = typedef(VkFlags, "VkOpticalFlowExecuteFlagsNV"
 val VkPipelineCreateFlags2KHR = typedef(VkFlags64, "VkPipelineCreateFlags2KHR")
 val VkBufferUsageFlags2KHR = typedef(VkFlags64, "VkBufferUsageFlags2KHR")
 val VkShaderCreateFlagsEXT = typedef(VkFlags, "VkShaderCreateFlagsEXT")
+val VkDataGraphPipelineSessionCreateFlagsARM = typedef(VkFlags64, "VkDataGraphPipelineSessionCreateFlagsARM")
+val VkDataGraphPipelineDispatchFlagsARM = typedef(VkFlags64, "VkDataGraphPipelineDispatchFlagsARM")
 val VkVideoEncodeAV1CapabilityFlagsKHR = typedef(VkFlags, "VkVideoEncodeAV1CapabilityFlagsKHR")
 val VkVideoEncodeAV1StdFlagsKHR = typedef(VkFlags, "VkVideoEncodeAV1StdFlagsKHR")
 val VkVideoEncodeAV1SuperblockSizeFlagsKHR = typedef(VkFlags, "VkVideoEncodeAV1SuperblockSizeFlagsKHR")
 val VkVideoEncodeAV1RateControlFlagsKHR = typedef(VkFlags, "VkVideoEncodeAV1RateControlFlagsKHR")
+val VkClusterAccelerationStructureAddressResolutionFlagsNV = typedef(VkFlags, "VkClusterAccelerationStructureAddressResolutionFlagsNV")
+val VkClusterAccelerationStructureClusterFlagsNV = typedef(VkFlags, "VkClusterAccelerationStructureClusterFlagsNV")
+val VkClusterAccelerationStructureGeometryFlagsNV = typedef(VkFlags, "VkClusterAccelerationStructureGeometryFlagsNV")
+val VkClusterAccelerationStructureIndexFormatFlagsNV = typedef(VkFlags, "VkClusterAccelerationStructureIndexFormatFlagsNV")
+val VkPartitionedAccelerationStructureInstanceFlagsNV = typedef(VkFlags, "VkPartitionedAccelerationStructureInstanceFlagsNV")
 val VkIndirectCommandsInputModeFlagsEXT = typedef(VkFlags, "VkIndirectCommandsInputModeFlagsEXT")
 val VkIndirectCommandsLayoutUsageFlagsEXT = typedef(VkFlags, "VkIndirectCommandsLayoutUsageFlagsEXT")
 val VkAccessFlags3KHR = typedef(VkFlags64, "VkAccessFlags3KHR")
@@ -471,7 +511,7 @@ val VkSwapchainCreateInfoKHR = struct(Module.VULKAN, "VkSwapchainCreateInfoKHR")
 val VkPresentInfoKHR = struct(Module.VULKAN, "VkPresentInfoKHR") {
     Expression("#STRUCTURE_TYPE_PRESENT_INFO_KHR")..VkStructureType("sType")
     PointerSetter(
-        "VkDeviceGroupPresentInfoKHR", "VkDisplayPresentInfoKHR", "VkFrameBoundaryEXT", "VkPresentIdKHR", "VkPresentRegionsKHR", "VkPresentTimesInfoGOOGLE", "VkSwapchainPresentFenceInfoEXT", "VkSwapchainPresentModeInfoEXT",
+        "VkDeviceGroupPresentInfoKHR", "VkDisplayPresentInfoKHR", "VkFrameBoundaryEXT", "VkFrameBoundaryTensorsARM", "VkPresentId2KHR", "VkPresentIdKHR", "VkPresentRegionsKHR", "VkPresentTimesInfoGOOGLE", "VkSetPresentConfigNV", "VkSwapchainPresentFenceInfoEXT", "VkSwapchainPresentModeInfoEXT",
         prepend = true
     )..nullable..opaque_const_p("pNext")
     AutoSize("pWaitSemaphores", optional = true)..uint32_t("waitSemaphoreCount")
@@ -691,7 +731,7 @@ val VkQueueFamilyVideoPropertiesKHR = struct(Module.VULKAN, "VkQueueFamilyVideoP
 val VkVideoProfileInfoKHR = struct(Module.VULKAN, "VkVideoProfileInfoKHR") {
     Expression("#STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR")..VkStructureType("sType")
     PointerSetter(
-        "VkVideoDecodeAV1ProfileInfoKHR", "VkVideoDecodeH264ProfileInfoKHR", "VkVideoDecodeH265ProfileInfoKHR", "VkVideoDecodeUsageInfoKHR", "VkVideoEncodeAV1ProfileInfoKHR", "VkVideoEncodeH264ProfileInfoKHR", "VkVideoEncodeH265ProfileInfoKHR", "VkVideoEncodeUsageInfoKHR",
+        "VkVideoDecodeAV1ProfileInfoKHR", "VkVideoDecodeH264ProfileInfoKHR", "VkVideoDecodeH265ProfileInfoKHR", "VkVideoDecodeUsageInfoKHR", "VkVideoDecodeVP9ProfileInfoKHR", "VkVideoEncodeAV1ProfileInfoKHR", "VkVideoEncodeH264ProfileInfoKHR", "VkVideoEncodeH265ProfileInfoKHR", "VkVideoEncodeUsageInfoKHR",
         prepend = true
     )..nullable..opaque_const_p("pNext")
     VkVideoCodecOperationFlagBitsKHR("videoCodecOperation")
@@ -710,7 +750,7 @@ val VkVideoProfileListInfoKHR = struct(Module.VULKAN, "VkVideoProfileListInfoKHR
 val VkVideoCapabilitiesKHR = struct(Module.VULKAN, "VkVideoCapabilitiesKHR", mutable = false) {
     Expression("#STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR")..VkStructureType("sType").mutable()
     PointerSetter(
-        "VkVideoDecodeAV1CapabilitiesKHR", "VkVideoDecodeCapabilitiesKHR", "VkVideoDecodeH264CapabilitiesKHR", "VkVideoDecodeH265CapabilitiesKHR", "VkVideoEncodeAV1CapabilitiesKHR", "VkVideoEncodeAV1QuantizationMapCapabilitiesKHR", "VkVideoEncodeCapabilitiesKHR", "VkVideoEncodeH264CapabilitiesKHR", "VkVideoEncodeH264QuantizationMapCapabilitiesKHR", "VkVideoEncodeH265CapabilitiesKHR", "VkVideoEncodeH265QuantizationMapCapabilitiesKHR", "VkVideoEncodeQuantizationMapCapabilitiesKHR",
+        "VkVideoDecodeAV1CapabilitiesKHR", "VkVideoDecodeCapabilitiesKHR", "VkVideoDecodeH264CapabilitiesKHR", "VkVideoDecodeH265CapabilitiesKHR", "VkVideoDecodeVP9CapabilitiesKHR", "VkVideoEncodeAV1CapabilitiesKHR", "VkVideoEncodeAV1QuantizationMapCapabilitiesKHR", "VkVideoEncodeCapabilitiesKHR", "VkVideoEncodeH264CapabilitiesKHR", "VkVideoEncodeH264QuantizationMapCapabilitiesKHR", "VkVideoEncodeH265CapabilitiesKHR", "VkVideoEncodeH265QuantizationMapCapabilitiesKHR", "VkVideoEncodeQuantizationMapCapabilitiesKHR",
         prepend = true
     )..nullable..opaque_p("pNext").mutable()
     VkVideoCapabilityFlagsKHR("flags")
@@ -862,7 +902,7 @@ val VkVideoDecodeUsageInfoKHR = struct(Module.VULKAN, "VkVideoDecodeUsageInfoKHR
 val VkVideoDecodeInfoKHR = struct(Module.VULKAN, "VkVideoDecodeInfoKHR") {
     Expression("#STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR")..VkStructureType("sType")
     PointerSetter(
-        "VkVideoDecodeAV1PictureInfoKHR", "VkVideoDecodeH264PictureInfoKHR", "VkVideoDecodeH265PictureInfoKHR", "VkVideoInlineQueryInfoKHR",
+        "VkVideoDecodeAV1InlineSessionParametersInfoKHR", "VkVideoDecodeAV1PictureInfoKHR", "VkVideoDecodeH264InlineSessionParametersInfoKHR", "VkVideoDecodeH264PictureInfoKHR", "VkVideoDecodeH265InlineSessionParametersInfoKHR", "VkVideoDecodeH265PictureInfoKHR", "VkVideoDecodeVP9PictureInfoKHR", "VkVideoInlineQueryInfoKHR",
         prepend = true
     )..nullable..opaque_const_p("pNext")
     VkVideoDecodeFlagsKHR("flags")
@@ -2424,7 +2464,7 @@ val VkPhysicalDeviceSurfaceInfo2KHR = struct(Module.VULKAN, "VkPhysicalDeviceSur
 val VkSurfaceCapabilities2KHR = struct(Module.VULKAN, "VkSurfaceCapabilities2KHR", mutable = false) {
     Expression("#STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR")..VkStructureType("sType").mutable()
     PointerSetter(
-        "VkDisplayNativeHdrSurfaceCapabilitiesAMD", "VkLatencySurfaceCapabilitiesNV", "VkSharedPresentSurfaceCapabilitiesKHR", "VkSurfaceCapabilitiesFullScreenExclusiveEXT", "VkSurfaceCapabilitiesPresentBarrierNV", "VkSurfacePresentModeCompatibilityEXT", "VkSurfacePresentScalingCapabilitiesEXT", "VkSurfaceProtectedCapabilitiesKHR",
+        "VkDisplayNativeHdrSurfaceCapabilitiesAMD", "VkLatencySurfaceCapabilitiesNV", "VkSharedPresentSurfaceCapabilitiesKHR", "VkSurfaceCapabilitiesFullScreenExclusiveEXT", "VkSurfaceCapabilitiesPresentBarrierNV", "VkSurfaceCapabilitiesPresentId2KHR", "VkSurfaceCapabilitiesPresentWait2KHR", "VkSurfacePresentModeCompatibilityEXT", "VkSurfacePresentScalingCapabilitiesEXT", "VkSurfaceProtectedCapabilitiesKHR",
         prepend = true
     )..nullable..opaque_p("pNext").mutable()
     VkSurfaceCapabilitiesKHR("surfaceCapabilities")
@@ -2641,9 +2681,9 @@ val VkPhysicalDeviceShaderEnqueueFeaturesAMDX = struct(Module.VULKAN, "VkPhysica
     VkBool32("shaderMeshEnqueue")
 }
 
-val VkPhysicalDeviceShaderEnqueuePropertiesAMDX = struct(Module.VULKAN, "VkPhysicalDeviceShaderEnqueuePropertiesAMDX") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceShaderEnqueuePropertiesAMDX = struct(Module.VULKAN, "VkPhysicalDeviceShaderEnqueuePropertiesAMDX", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     uint32_t("maxExecutionGraphDepth")
     uint32_t("maxExecutionGraphShaderOutputNodes")
     uint32_t("maxExecutionGraphShaderPayloadSize")
@@ -2744,6 +2784,14 @@ val VkDescriptorPoolInlineUniformBlockCreateInfoEXT = struct(Module.VULKAN, "VkD
     Expression("#STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO")..VkStructureType("sType")
     nullable..opaque_const_p("pNext")
     uint32_t("maxInlineUniformBlockBindings")
+}
+
+val VkPhysicalDeviceShaderBfloat16FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceShaderBfloat16FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("shaderBFloat16Type")
+    VkBool32("shaderBFloat16DotProduct")
+    VkBool32("shaderBFloat16CooperativeMatrix")
 }
 
 val VkSampleLocationEXT = struct(Module.VULKAN, "VkSampleLocationEXT") {
@@ -2939,7 +2987,10 @@ val VkAccelerationStructureGeometryDataKHR = union(Module.VULKAN, "VkAcceleratio
 
 val VkAccelerationStructureGeometryKHR = struct(Module.VULKAN, "VkAccelerationStructureGeometryKHR") {
     Expression("#STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR")..VkStructureType("sType")
-    nullable..opaque_const_p("pNext")
+    PointerSetter(
+        "VkAccelerationStructureGeometryLinearSweptSpheresDataNV", "VkAccelerationStructureGeometrySpheresDataNV",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
     VkGeometryTypeKHR("geometryType")
     VkAccelerationStructureGeometryDataKHR("geometry")
     VkGeometryFlagsKHR("flags")
@@ -3077,7 +3128,7 @@ val VkRayTracingPipelineInterfaceCreateInfoKHR = struct(Module.VULKAN, "VkRayTra
 val VkRayTracingPipelineCreateInfoKHR = struct(Module.VULKAN, "VkRayTracingPipelineCreateInfoKHR") {
     Expression("#STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR")..VkStructureType("sType")
     PointerSetter(
-        "VkPipelineBinaryInfoKHR", "VkPipelineCreateFlags2CreateInfo", "VkPipelineCreateFlags2CreateInfoKHR", "VkPipelineCreationFeedbackCreateInfo", "VkPipelineCreationFeedbackCreateInfoEXT", "VkPipelineRobustnessCreateInfo", "VkPipelineRobustnessCreateInfoEXT",
+        "VkPipelineBinaryInfoKHR", "VkPipelineCreateFlags2CreateInfo", "VkPipelineCreateFlags2CreateInfoKHR", "VkPipelineCreationFeedbackCreateInfo", "VkPipelineCreationFeedbackCreateInfoEXT", "VkPipelineRobustnessCreateInfo", "VkPipelineRobustnessCreateInfoEXT", "VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV",
         prepend = true
     )..nullable..opaque_const_p("pNext")
     VkPipelineCreateFlags("flags")
@@ -3388,9 +3439,9 @@ val VkPhysicalDevicePortabilitySubsetFeaturesKHR = struct(Module.VULKAN, "VkPhys
     VkBool32("vertexAttributeAccessBeyondStride")
 }
 
-val VkPhysicalDevicePortabilitySubsetPropertiesKHR = struct(Module.VULKAN, "VkPhysicalDevicePortabilitySubsetPropertiesKHR") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDevicePortabilitySubsetPropertiesKHR = struct(Module.VULKAN, "VkPhysicalDevicePortabilitySubsetPropertiesKHR", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     uint32_t("minVertexInputBindingStrideAlignment")
 }
 
@@ -5152,16 +5203,18 @@ val VkDeviceDeviceMemoryReportCreateInfoEXT = struct(Module.VULKAN, "VkDeviceDev
     opaque_p("pUserData")
 }
 
-val VkPhysicalDeviceRobustness2FeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2FeaturesEXT") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT")..VkStructureType("sType")
+val _VkPhysicalDeviceRobustness2FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2FeaturesKHR")
+val VkPhysicalDeviceRobustness2FeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2FeaturesEXT", alias = _VkPhysicalDeviceRobustness2FeaturesKHR) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR")..VkStructureType("sType")
     nullable..opaque_p("pNext")
     VkBool32("robustBufferAccess2")
     VkBool32("robustImageAccess2")
     VkBool32("nullDescriptor")
 }
 
-val VkPhysicalDeviceRobustness2PropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2PropertiesEXT", mutable = false) {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+val _VkPhysicalDeviceRobustness2PropertiesKHR = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2PropertiesKHR")
+val VkPhysicalDeviceRobustness2PropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2PropertiesEXT", mutable = false, alias = _VkPhysicalDeviceRobustness2PropertiesKHR) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR")..VkStructureType("sType").mutable()
     nullable..opaque_p("pNext").mutable()
     VkDeviceSize("robustStorageBufferAccessSizeAlignment")
     VkDeviceSize("robustUniformBufferAccessSizeAlignment")
@@ -5403,6 +5456,56 @@ val VkPhysicalDeviceCudaKernelLaunchPropertiesNV = struct(Module.VULKAN, "VkPhys
     nullable..opaque_p("pNext").mutable()
     uint32_t("computeCapabilityMinor")
     uint32_t("computeCapabilityMajor")
+}
+
+val VkPhysicalDeviceTileShadingFeaturesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceTileShadingFeaturesQCOM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("tileShading")
+    VkBool32("tileShadingFragmentStage")
+    VkBool32("tileShadingColorAttachments")
+    VkBool32("tileShadingDepthAttachments")
+    VkBool32("tileShadingStencilAttachments")
+    VkBool32("tileShadingInputAttachments")
+    VkBool32("tileShadingSampledAttachments")
+    VkBool32("tileShadingPerTileDraw")
+    VkBool32("tileShadingPerTileDispatch")
+    VkBool32("tileShadingDispatchTile")
+    VkBool32("tileShadingApron")
+    VkBool32("tileShadingAnisotropicApron")
+    VkBool32("tileShadingAtomicOps")
+    VkBool32("tileShadingImageProcessing")
+}
+
+val VkPhysicalDeviceTileShadingPropertiesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceTileShadingPropertiesQCOM", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("maxApronSize")
+    VkBool32("preferNonCoherent")
+    VkExtent2D("tileGranularity")
+    VkExtent2D("maxTileShadingRate")
+}
+
+val VkRenderPassTileShadingCreateInfoQCOM = struct(Module.VULKAN, "VkRenderPassTileShadingCreateInfoQCOM") {
+    Expression("#STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTileShadingRenderPassFlagsQCOM("flags")
+    VkExtent2D("tileApronSize")
+}
+
+val VkPerTileBeginInfoQCOM = struct(Module.VULKAN, "VkPerTileBeginInfoQCOM") {
+    Expression("#STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+}
+
+val VkPerTileEndInfoQCOM = struct(Module.VULKAN, "VkPerTileEndInfoQCOM") {
+    Expression("#STRUCTURE_TYPE_PER_TILE_END_INFO_QCOM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+}
+
+val VkDispatchTileInfoQCOM = struct(Module.VULKAN, "VkDispatchTileInfoQCOM") {
+    Expression("#STRUCTURE_TYPE_DISPATCH_TILE_INFO_QCOM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
 }
 
 val VkQueryLowLatencySupportNV = struct(Module.VULKAN, "VkQueryLowLatencySupportNV") {
@@ -5671,7 +5774,10 @@ val VkDescriptorDataEXT = union(Module.VULKAN, "VkDescriptorDataEXT") {
 
 val VkDescriptorGetInfoEXT = struct(Module.VULKAN, "VkDescriptorGetInfoEXT") {
     Expression("#STRUCTURE_TYPE_DESCRIPTOR_GET_INFO_EXT")..VkStructureType("sType")
-    nullable..opaque_const_p("pNext")
+    PointerSetter(
+        "VkDescriptorGetTensorInfoARM",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
     VkDescriptorType("type")
     VkDescriptorDataEXT("data")
 }
@@ -5719,9 +5825,9 @@ val VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT = struct(Module.VULKAN, "
     VkBool32("graphicsPipelineLibrary")
 }
 
-val VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     VkBool32("graphicsPipelineLibraryFastLinking")
     VkBool32("graphicsPipelineLibraryIndependentInterpolationDecoration")
 }
@@ -5770,9 +5876,9 @@ val VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV = struct(Module.VULKAN, "
     VkBool32("noInvocationFragmentShadingRates")
 }
 
-val VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV = struct(Module.VULKAN, "VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV = struct(Module.VULKAN, "VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     VkSampleCountFlagBits("maxFragmentShadingRateInvocationCount")
 }
 
@@ -6732,9 +6838,9 @@ val VkPhysicalDeviceSchedulingControlsFeaturesARM = struct(Module.VULKAN, "VkPhy
     VkBool32("schedulingControls")
 }
 
-val VkPhysicalDeviceSchedulingControlsPropertiesARM = struct(Module.VULKAN, "VkPhysicalDeviceSchedulingControlsPropertiesARM") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceSchedulingControlsPropertiesARM = struct(Module.VULKAN, "VkPhysicalDeviceSchedulingControlsPropertiesARM", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     VkPhysicalDeviceSchedulingControlsFlagsARM("schedulingControlsFlags")
 }
 
@@ -6817,20 +6923,23 @@ val VkRenderPassStripeSubmitInfoARM = struct(Module.VULKAN, "VkRenderPassStripeS
     VkSemaphoreSubmitInfo.const.p("pStripeSemaphoreInfos")
 }
 
-val VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM")..VkStructureType("sType")
+val _VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT")
+val VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM", alias = _VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT")..VkStructureType("sType")
     nullable..opaque_p("pNext")
     VkBool32("fragmentDensityMapOffset")
 }
 
-val VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM", mutable = false) {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM")..VkStructureType("sType").mutable()
+val _VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT")
+val VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM", mutable = false, alias = _VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT")..VkStructureType("sType").mutable()
     nullable..opaque_p("pNext").mutable()
     VkExtent2D("fragmentDensityOffsetGranularity")
 }
 
-val VkSubpassFragmentDensityMapOffsetEndInfoQCOM = struct(Module.VULKAN, "VkSubpassFragmentDensityMapOffsetEndInfoQCOM") {
-    Expression("#STRUCTURE_TYPE_SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM")..VkStructureType("sType")
+val _VkRenderPassFragmentDensityMapOffsetEndInfoEXT = struct(Module.VULKAN, "VkRenderPassFragmentDensityMapOffsetEndInfoEXT")
+val VkSubpassFragmentDensityMapOffsetEndInfoQCOM = struct(Module.VULKAN, "VkSubpassFragmentDensityMapOffsetEndInfoQCOM", alias = _VkRenderPassFragmentDensityMapOffsetEndInfoEXT) {
+    Expression("#STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT")..VkStructureType("sType")
     nullable..opaque_const_p("pNext")
     AutoSize("pFragmentDensityOffsets", optional = true)..uint32_t("fragmentDensityOffsetCount")
     VkOffset2D.const.p("pFragmentDensityOffsets")
@@ -6911,6 +7020,43 @@ val VkBindPipelineIndirectCommandNV = struct(Module.VULKAN, "VkBindPipelineIndir
     VkDeviceAddress("pipelineAddress")
 }
 
+val VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("spheres")
+    VkBool32("linearSweptSpheres")
+}
+
+val VkAccelerationStructureGeometryLinearSweptSpheresDataNV = struct(Module.VULKAN, "VkAccelerationStructureGeometryLinearSweptSpheresDataNV") {
+    Expression("#STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkFormat("vertexFormat")
+    VkDeviceOrHostAddressConstKHR("vertexData")
+    VkDeviceSize("vertexStride")
+    VkFormat("radiusFormat")
+    VkDeviceOrHostAddressConstKHR("radiusData")
+    VkDeviceSize("radiusStride")
+    VkIndexType("indexType")
+    VkDeviceOrHostAddressConstKHR("indexData")
+    VkDeviceSize("indexStride")
+    VkRayTracingLssIndexingModeNV("indexingMode")
+    VkRayTracingLssPrimitiveEndCapsModeNV("endCapsMode")
+}
+
+val VkAccelerationStructureGeometrySpheresDataNV = struct(Module.VULKAN, "VkAccelerationStructureGeometrySpheresDataNV") {
+    Expression("#STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkFormat("vertexFormat")
+    VkDeviceOrHostAddressConstKHR("vertexData")
+    VkDeviceSize("vertexStride")
+    VkFormat("radiusFormat")
+    VkDeviceOrHostAddressConstKHR("radiusData")
+    VkDeviceSize("radiusStride")
+    VkIndexType("indexType")
+    VkDeviceOrHostAddressConstKHR("indexData")
+    VkDeviceSize("indexStride")
+}
+
 val VkPhysicalDeviceLinearColorAttachmentFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceLinearColorAttachmentFeaturesNV") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -6962,9 +7108,9 @@ val VkPhysicalDeviceNestedCommandBufferFeaturesEXT = struct(Module.VULKAN, "VkPh
     VkBool32("nestedCommandBufferSimultaneousUse")
 }
 
-val VkPhysicalDeviceNestedCommandBufferPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceNestedCommandBufferPropertiesEXT") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceNestedCommandBufferPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceNestedCommandBufferPropertiesEXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     uint32_t("maxCommandBufferNestingLevel")
 }
 
@@ -7010,9 +7156,9 @@ val VkPhysicalDeviceExtendedDynamicState3FeaturesEXT = struct(Module.VULKAN, "Vk
     VkBool32("extendedDynamicState3ShadingRateImageEnable")
 }
 
-val VkPhysicalDeviceExtendedDynamicState3PropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceExtendedDynamicState3PropertiesEXT") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceExtendedDynamicState3PropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceExtendedDynamicState3PropertiesEXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     VkBool32("dynamicPrimitiveTopologyUnrestricted")
 }
 
@@ -7081,6 +7227,206 @@ val VkDirectDriverLoadingListLUNARG = struct(Module.VULKAN, "VkDirectDriverLoadi
     VkDirectDriverLoadingModeLUNARG("mode")
     AutoSize("pDrivers")..uint32_t("driverCount")
     VkDirectDriverLoadingInfoLUNARG.const.p("pDrivers")
+}
+
+val VkTensorDescriptionARM = struct(Module.VULKAN, "VkTensorDescriptionARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorTilingARM("tiling")
+    VkFormat("format")
+    AutoSize("pDimensions", "pStrides")..uint32_t("dimensionCount")
+    int64_t.const.p("pDimensions")
+    nullable..int64_t.const.p("pStrides")
+    VkTensorUsageFlagsARM("usage")
+}
+
+val VkTensorCreateInfoARM = struct(Module.VULKAN, "VkTensorCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM")..VkStructureType("sType")
+    PointerSetter(
+        "VkExternalMemoryTensorCreateInfoARM", "VkOpaqueCaptureDescriptorDataCreateInfoEXT",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+    VkTensorCreateFlagsARM("flags")
+    VkTensorDescriptionARM.const.p("pDescription")
+    VkSharingMode("sharingMode")
+    AutoSize("pQueueFamilyIndices", optional = true)..uint32_t("queueFamilyIndexCount")
+    nullable..uint32_t.const.p("pQueueFamilyIndices")
+}
+
+val VkTensorViewCreateInfoARM = struct(Module.VULKAN, "VkTensorViewCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM")..VkStructureType("sType")
+    PointerSetter(
+        "VkOpaqueCaptureDescriptorDataCreateInfoEXT",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+    VkTensorViewCreateFlagsARM("flags")
+    VkTensorARM("tensor")
+    VkFormat("format")
+}
+
+val VkTensorMemoryRequirementsInfoARM = struct(Module.VULKAN, "VkTensorMemoryRequirementsInfoARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_MEMORY_REQUIREMENTS_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorARM("tensor")
+}
+
+val VkBindTensorMemoryInfoARM = struct(Module.VULKAN, "VkBindTensorMemoryInfoARM") {
+    Expression("#STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorARM("tensor")
+    VkDeviceMemory("memory")
+    VkDeviceSize("memoryOffset")
+}
+
+val VkWriteDescriptorSetTensorARM = struct(Module.VULKAN, "VkWriteDescriptorSetTensorARM") {
+    Expression("#STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pTensorViews")..uint32_t("tensorViewCount")
+    VkTensorViewARM.const.p("pTensorViews")
+}
+
+val VkTensorFormatPropertiesARM = struct(Module.VULKAN, "VkTensorFormatPropertiesARM", mutable = false) {
+    Expression("#STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM")..VkStructureType("sType").mutable()
+    nullable..opaque_const_p("pNext").mutable()
+    VkFormatFeatureFlags2("optimalTilingTensorFeatures")
+    VkFormatFeatureFlags2("linearTilingTensorFeatures")
+}
+
+val VkPhysicalDeviceTensorPropertiesARM = struct(Module.VULKAN, "VkPhysicalDeviceTensorPropertiesARM", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("maxTensorDimensionCount")
+    uint64_t("maxTensorElements")
+    uint64_t("maxPerDimensionTensorElements")
+    int64_t("maxTensorStride")
+    uint64_t("maxTensorSize")
+    uint32_t("maxTensorShaderAccessArrayLength")
+    uint32_t("maxTensorShaderAccessSize")
+    uint32_t("maxDescriptorSetStorageTensors")
+    uint32_t("maxPerStageDescriptorSetStorageTensors")
+    uint32_t("maxDescriptorSetUpdateAfterBindStorageTensors")
+    uint32_t("maxPerStageDescriptorUpdateAfterBindStorageTensors")
+    VkBool32("shaderStorageTensorArrayNonUniformIndexingNative")
+    VkShaderStageFlags("shaderTensorSupportedStages")
+}
+
+val VkTensorMemoryBarrierARM = struct(Module.VULKAN, "VkTensorMemoryBarrierARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkPipelineStageFlags2("srcStageMask")
+    VkAccessFlags2("srcAccessMask")
+    VkPipelineStageFlags2("dstStageMask")
+    VkAccessFlags2("dstAccessMask")
+    uint32_t("srcQueueFamilyIndex")
+    uint32_t("dstQueueFamilyIndex")
+    VkTensorARM("tensor")
+}
+
+val VkTensorDependencyInfoARM = struct(Module.VULKAN, "VkTensorDependencyInfoARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("tensorMemoryBarrierCount")
+    VkTensorMemoryBarrierARM.const.p("pTensorMemoryBarriers")
+}
+
+val VkPhysicalDeviceTensorFeaturesARM = struct(Module.VULKAN, "VkPhysicalDeviceTensorFeaturesARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_FEATURES_ARM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("tensorNonPacked")
+    VkBool32("shaderTensorAccess")
+    VkBool32("shaderStorageTensorArrayDynamicIndexing")
+    VkBool32("shaderStorageTensorArrayNonUniformIndexing")
+    VkBool32("descriptorBindingStorageTensorUpdateAfterBind")
+    VkBool32("tensors")
+}
+
+val VkDeviceTensorMemoryRequirementsARM = struct(Module.VULKAN, "VkDeviceTensorMemoryRequirementsARM") {
+    Expression("#STRUCTURE_TYPE_DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorCreateInfoARM.const.p("pCreateInfo")
+}
+
+val VkTensorCopyARM = struct(Module.VULKAN, "VkTensorCopyARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_COPY_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pSrcOffset", "pDstOffset", "pExtent", optional = true)..uint32_t("dimensionCount")
+    nullable..uint64_t.const.p("pSrcOffset")
+    nullable..uint64_t.const.p("pDstOffset")
+    nullable..uint64_t.const.p("pExtent")
+}
+
+val VkCopyTensorInfoARM = struct(Module.VULKAN, "VkCopyTensorInfoARM") {
+    Expression("#STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorARM("srcTensor")
+    VkTensorARM("dstTensor")
+    AutoSize("pRegions")..uint32_t("regionCount")
+    VkTensorCopyARM.const.p("pRegions")
+}
+
+val VkMemoryDedicatedAllocateInfoTensorARM = struct(Module.VULKAN, "VkMemoryDedicatedAllocateInfoTensorARM") {
+    Expression("#STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorARM("tensor")
+}
+
+val VkPhysicalDeviceExternalTensorInfoARM = struct(Module.VULKAN, "VkPhysicalDeviceExternalTensorInfoARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorCreateFlagsARM("flags")
+    VkTensorDescriptionARM.const.p("pDescription")
+    VkExternalMemoryHandleTypeFlagBits("handleType")
+}
+
+val VkExternalTensorPropertiesARM = struct(Module.VULKAN, "VkExternalTensorPropertiesARM") {
+    Expression("#STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkExternalMemoryProperties("externalMemoryProperties")
+}
+
+val VkExternalMemoryTensorCreateInfoARM = struct(Module.VULKAN, "VkExternalMemoryTensorCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkExternalMemoryHandleTypeFlags("handleTypes")
+}
+
+val VkPhysicalDeviceDescriptorBufferTensorFeaturesARM = struct(Module.VULKAN, "VkPhysicalDeviceDescriptorBufferTensorFeaturesARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("descriptorBufferTensorDescriptors")
+}
+
+val VkPhysicalDeviceDescriptorBufferTensorPropertiesARM = struct(Module.VULKAN, "VkPhysicalDeviceDescriptorBufferTensorPropertiesARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    size_t("tensorCaptureReplayDescriptorDataSize")
+    size_t("tensorViewCaptureReplayDescriptorDataSize")
+    size_t("tensorDescriptorSize")
+}
+
+val VkDescriptorGetTensorInfoARM = struct(Module.VULKAN, "VkDescriptorGetTensorInfoARM") {
+    Expression("#STRUCTURE_TYPE_DESCRIPTOR_GET_TENSOR_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorViewARM("tensorView")
+}
+
+val VkTensorCaptureDescriptorDataInfoARM = struct(Module.VULKAN, "VkTensorCaptureDescriptorDataInfoARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorARM("tensor")
+}
+
+val VkTensorViewCaptureDescriptorDataInfoARM = struct(Module.VULKAN, "VkTensorViewCaptureDescriptorDataInfoARM") {
+    Expression("#STRUCTURE_TYPE_TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkTensorViewARM("tensorView")
+}
+
+val VkFrameBoundaryTensorsARM = struct(Module.VULKAN, "VkFrameBoundaryTensorsARM") {
+    Expression("#STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pTensors")..uint32_t("tensorCount")
+    VkTensorARM.const.p("pTensors")
 }
 
 val VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT") {
@@ -7297,6 +7643,44 @@ val VkAntiLagDataAMD = struct(Module.VULKAN, "VkAntiLagDataAMD") {
     nullable..VkAntiLagPresentationInfoAMD.const.p("pPresentationInfo")
 }
 
+val VkSurfaceCapabilitiesPresentId2KHR = struct(Module.VULKAN, "VkSurfaceCapabilitiesPresentId2KHR") {
+    Expression("#STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_ID_2_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("presentId2Supported")
+}
+
+val VkPresentId2KHR = struct(Module.VULKAN, "VkPresentId2KHR") {
+    Expression("#STRUCTURE_TYPE_PRESENT_ID_2_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pPresentIds", optional = true)..uint32_t("swapchainCount")
+    nullable..uint64_t.const.p("pPresentIds")
+}
+
+val VkPhysicalDevicePresentId2FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDevicePresentId2FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("presentId2")
+}
+
+val VkSurfaceCapabilitiesPresentWait2KHR = struct(Module.VULKAN, "VkSurfaceCapabilitiesPresentWait2KHR") {
+    Expression("#STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("presentWait2Supported")
+}
+
+val VkPhysicalDevicePresentWait2FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDevicePresentWait2FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("presentWait2")
+}
+
+val VkPresentWait2InfoKHR = struct(Module.VULKAN, "VkPresentWait2InfoKHR") {
+    Expression("#STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint64_t("presentId")
+    uint64_t("timeout")
+}
+
 val VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -7354,9 +7738,9 @@ val VkPhysicalDevicePipelineBinaryFeaturesKHR = struct(Module.VULKAN, "VkPhysica
     VkBool32("pipelineBinaries")
 }
 
-val VkPhysicalDevicePipelineBinaryPropertiesKHR = struct(Module.VULKAN, "VkPhysicalDevicePipelineBinaryPropertiesKHR") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDevicePipelineBinaryPropertiesKHR = struct(Module.VULKAN, "VkPhysicalDevicePipelineBinaryPropertiesKHR", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     VkBool32("pipelineBinaryInternalCache")
     VkBool32("pipelineBinaryInternalCacheControl")
     VkBool32("pipelineBinaryPrefersInternalCache")
@@ -7473,6 +7857,50 @@ val VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV = struct(Module.VULKAN
     VkBool32("rayTracingInvocationReorder")
 }
 
+val VkPhysicalDeviceCooperativeVectorPropertiesNV = struct(Module.VULKAN, "VkPhysicalDeviceCooperativeVectorPropertiesNV", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    VkShaderStageFlags("cooperativeVectorSupportedStages")
+    VkBool32("cooperativeVectorTrainingFloat16Accumulation")
+    VkBool32("cooperativeVectorTrainingFloat32Accumulation")
+    uint32_t("maxCooperativeVectorComponents")
+}
+
+val VkPhysicalDeviceCooperativeVectorFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceCooperativeVectorFeaturesNV") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("cooperativeVector")
+    VkBool32("cooperativeVectorTraining")
+}
+
+val VkCooperativeVectorPropertiesNV = struct(Module.VULKAN, "VkCooperativeVectorPropertiesNV") {
+    Expression("#STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkComponentTypeNV("inputType")
+    VkComponentTypeNV("inputInterpretation")
+    VkComponentTypeNV("matrixInterpretation")
+    VkComponentTypeNV("biasInterpretation")
+    VkComponentTypeNV("resultType")
+    VkBool32("transpose")
+}
+
+val VkConvertCooperativeVectorMatrixInfoNV = struct(Module.VULKAN, "VkConvertCooperativeVectorMatrixInfoNV") {
+    Expression("#STRUCTURE_TYPE_CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    size_t("srcSize")
+    VkDeviceOrHostAddressConstKHR("srcData")
+    nullable..size_t.p("pDstSize")
+    VkDeviceOrHostAddressKHR("dstData")
+    VkComponentTypeNV("srcComponentType")
+    VkComponentTypeNV("dstComponentType")
+    uint32_t("numRows")
+    uint32_t("numColumns")
+    VkCooperativeVectorMatrixLayoutNV("srcLayout")
+    size_t("srcStride")
+    VkCooperativeVectorMatrixLayoutNV("dstLayout")
+    size_t("dstStride")
+}
+
 val VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -7506,9 +7934,9 @@ val VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT = struct(Module.VULKAN, "V
     VkBool32("legacyVertexAttributes")
 }
 
-val VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     VkBool32("nativeUnalignedPerformance")
 }
 
@@ -7651,6 +8079,183 @@ val VkPhysicalDeviceCooperativeMatrixPropertiesKHR = struct(Module.VULKAN, "VkPh
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR")..VkStructureType("sType").mutable()
     nullable..opaque_p("pNext").mutable()
     VkShaderStageFlags("cooperativeMatrixSupportedStages")
+}
+
+val VkPhysicalDeviceDataGraphFeaturesARM = struct(Module.VULKAN, "VkPhysicalDeviceDataGraphFeaturesARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("dataGraph")
+    VkBool32("dataGraphUpdateAfterBind")
+    VkBool32("dataGraphSpecializationConstants")
+    VkBool32("dataGraphDescriptorBuffer")
+    VkBool32("dataGraphShaderModule")
+}
+
+val VkDataGraphPipelineConstantARM = struct(Module.VULKAN, "VkDataGraphPipelineConstantARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_ARM")..VkStructureType("sType")
+    PointerSetter(
+        "VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM", "VkTensorDescriptionARM",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+    uint32_t("id")
+    opaque_const_p("pConstantData")
+}
+
+val VkDataGraphPipelineResourceInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineResourceInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM")..VkStructureType("sType")
+    PointerSetter(
+        "VkTensorDescriptionARM",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+    uint32_t("descriptorSet")
+    uint32_t("binding")
+    uint32_t("arrayElement")
+}
+
+val VkDataGraphPipelineCompilerControlCreateInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineCompilerControlCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    charUTF8.const.p("pVendorOptions")
+}
+
+val VkDataGraphPipelineCreateInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CREATE_INFO_ARM")..VkStructureType("sType")
+    PointerSetter(
+        "VkDataGraphPipelineCompilerControlCreateInfoARM", "VkDataGraphPipelineIdentifierCreateInfoARM", "VkDataGraphPipelineShaderModuleCreateInfoARM", "VkDataGraphProcessingEngineCreateInfoARM", "VkPipelineCreationFeedbackCreateInfo", "VkPipelineCreationFeedbackCreateInfoEXT",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+    VkPipelineCreateFlags2KHR("flags")
+    VkPipelineLayout("layout")
+    AutoSize("pResourceInfos")..uint32_t("resourceInfoCount")
+    VkDataGraphPipelineResourceInfoARM.const.p("pResourceInfos")
+}
+
+val VkDataGraphPipelineShaderModuleCreateInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineShaderModuleCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM")..VkStructureType("sType")
+    PointerSetter(
+        "VkShaderModuleCreateInfo",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+    VkShaderModule("module")
+    charUTF8.const.p("pName")
+    nullable..VkSpecializationInfo.const.p("pSpecializationInfo")
+    AutoSize("pConstants", optional = true)..uint32_t("constantCount")
+    nullable..VkDataGraphPipelineConstantARM.const.p("pConstants")
+}
+
+val VkDataGraphPipelineSessionCreateInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineSessionCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDataGraphPipelineSessionCreateFlagsARM("flags")
+    VkPipeline("dataGraphPipeline")
+}
+
+val VkDataGraphPipelineSessionBindPointRequirementsInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineSessionBindPointRequirementsInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDataGraphPipelineSessionARM("session")
+}
+
+val VkDataGraphPipelineSessionBindPointRequirementARM = struct(Module.VULKAN, "VkDataGraphPipelineSessionBindPointRequirementARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDataGraphPipelineSessionBindPointARM("bindPoint")
+    VkDataGraphPipelineSessionBindPointTypeARM("bindPointType")
+    uint32_t("numObjects")
+}
+
+val VkDataGraphPipelineSessionMemoryRequirementsInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineSessionMemoryRequirementsInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDataGraphPipelineSessionARM("session")
+    VkDataGraphPipelineSessionBindPointARM("bindPoint")
+    uint32_t("objectIndex")
+}
+
+val VkBindDataGraphPipelineSessionMemoryInfoARM = struct(Module.VULKAN, "VkBindDataGraphPipelineSessionMemoryInfoARM") {
+    Expression("#STRUCTURE_TYPE_BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDataGraphPipelineSessionARM("session")
+    VkDataGraphPipelineSessionBindPointARM("bindPoint")
+    uint32_t("objectIndex")
+    VkDeviceMemory("memory")
+    VkDeviceSize("memoryOffset")
+}
+
+val VkDataGraphPipelineInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkPipeline("dataGraphPipeline")
+}
+
+val VkDataGraphPipelinePropertyQueryResultARM = struct(Module.VULKAN, "VkDataGraphPipelinePropertyQueryResultARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDataGraphPipelinePropertyARM("property")
+    VkBool32("isText")
+    AutoSize("pData", optional = true)..size_t("dataSize")
+    nullable..void.p("pData")
+}
+
+val VkDataGraphPipelineIdentifierCreateInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineIdentifierCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pIdentifier")..uint32_t("identifierSize")
+    uint8_t.const.p("pIdentifier")
+}
+
+val VkDataGraphPipelineDispatchInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineDispatchInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkDataGraphPipelineDispatchFlagsARM("flags")
+}
+
+val VkPhysicalDeviceDataGraphProcessingEngineARM = struct(Module.VULKAN, "VkPhysicalDeviceDataGraphProcessingEngineARM") {
+    VkPhysicalDeviceDataGraphProcessingEngineTypeARM("type")
+    VkBool32("isForeign")
+}
+
+val VkPhysicalDeviceDataGraphOperationSupportARM = struct(Module.VULKAN, "VkPhysicalDeviceDataGraphOperationSupportARM") {
+    javaImport("static org.lwjgl.vulkan.ARMDataGraph.*")
+    VkPhysicalDeviceDataGraphOperationTypeARM("operationType")
+    charUTF8("name")["VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM"]
+    uint32_t("version")
+}
+
+val VkQueueFamilyDataGraphPropertiesARM = struct(Module.VULKAN, "VkQueueFamilyDataGraphPropertiesARM") {
+    Expression("#STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkPhysicalDeviceDataGraphProcessingEngineARM("engine")
+    VkPhysicalDeviceDataGraphOperationSupportARM("operation")
+}
+
+val VkDataGraphProcessingEngineCreateInfoARM = struct(Module.VULKAN, "VkDataGraphProcessingEngineCreateInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pProcessingEngines")..uint32_t("processingEngineCount")
+    VkPhysicalDeviceDataGraphProcessingEngineARM.p("pProcessingEngines")
+}
+
+val VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM = struct(Module.VULKAN, "VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("queueFamilyIndex")
+    VkPhysicalDeviceDataGraphProcessingEngineTypeARM("engineType")
+}
+
+val VkQueueFamilyDataGraphProcessingEnginePropertiesARM = struct(Module.VULKAN, "VkQueueFamilyDataGraphProcessingEnginePropertiesARM") {
+    Expression("#STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkExternalSemaphoreHandleTypeFlags("foreignSemaphoreHandleTypes")
+    VkExternalMemoryHandleTypeFlags("foreignMemoryHandleTypes")
+}
+
+val VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM = struct(Module.VULKAN, "VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM") {
+    Expression("#STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("dimension")
+    uint32_t("zeroCount")
+    uint32_t("groupSize")
 }
 
 val VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM") {
@@ -7865,6 +8470,38 @@ val VkVideoEncodeAV1RateControlLayerInfoKHR = struct(Module.VULKAN, "VkVideoEnco
     VkVideoEncodeAV1FrameSizeKHR("maxFrameSize")
 }
 
+val VkPhysicalDeviceVideoDecodeVP9FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceVideoDecodeVP9FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("videoDecodeVP9")
+}
+
+val VkVideoDecodeVP9ProfileInfoKHR = struct(Module.VULKAN, "VkVideoDecodeVP9ProfileInfoKHR") {
+    javaImport("org.lwjgl.vulkan.video.*")
+    Expression("#STRUCTURE_TYPE_VIDEO_DECODE_VP9_PROFILE_INFO_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    StdVideoVP9Profile("stdProfile")
+}
+
+val VkVideoDecodeVP9CapabilitiesKHR = struct(Module.VULKAN, "VkVideoDecodeVP9CapabilitiesKHR", mutable = false) {
+    javaImport("org.lwjgl.vulkan.video.*")
+    Expression("#STRUCTURE_TYPE_VIDEO_DECODE_VP9_CAPABILITIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    StdVideoVP9Level("maxLevel")
+}
+
+val VkVideoDecodeVP9PictureInfoKHR = struct(Module.VULKAN, "VkVideoDecodeVP9PictureInfoKHR") {
+    javaImport("org.lwjgl.vulkan.video.*")
+    javaImport("static org.lwjgl.vulkan.KHRVideoDecodeVP9.*")
+    Expression("#STRUCTURE_TYPE_VIDEO_DECODE_VP9_PICTURE_INFO_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    StdVideoDecodeVP9PictureInfo.const.p("pStdPictureInfo")
+    int32_t("referenceNameSlotIndices")["VK_MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR"]
+    uint32_t("uncompressedHeaderOffset")
+    uint32_t("compressedHeaderOffset")
+    uint32_t("tilesOffset")
+}
+
 val VkPhysicalDeviceVideoMaintenance1FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceVideoMaintenance1FeaturesKHR") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -7972,6 +8609,19 @@ val VkPhysicalDeviceVertexAttributeDivisorFeaturesKHR = struct(Module.VULKAN, "V
     nullable..opaque_p("pNext")
     VkBool32("vertexAttributeInstanceRateDivisor")
     VkBool32("vertexAttributeInstanceRateZeroDivisor")
+}
+
+val VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("unifiedImageLayouts")
+    VkBool32("unifiedImageLayoutsVideo")
+}
+
+val VkAttachmentFeedbackLoopInfoEXT = struct(Module.VULKAN, "VkAttachmentFeedbackLoopInfoEXT") {
+    Expression("#STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkBool32("feedbackLoopEnable")
 }
 
 val VkPhysicalDeviceShaderFloatControls2FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceShaderFloatControls2FeaturesKHR", alias = VkPhysicalDeviceShaderFloatControls2Features) {
@@ -8116,6 +8766,38 @@ val VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV = struct(Module.VULKA
     VkBool32("descriptorPoolOverallocation")
 }
 
+val VkPhysicalDeviceTileMemoryHeapFeaturesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceTileMemoryHeapFeaturesQCOM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("tileMemoryHeap")
+}
+
+val VkPhysicalDeviceTileMemoryHeapPropertiesQCOM = struct(Module.VULKAN, "VkPhysicalDeviceTileMemoryHeapPropertiesQCOM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("queueSubmitBoundary")
+    VkBool32("tileBufferTransfers")
+}
+
+val VkTileMemoryRequirementsQCOM = struct(Module.VULKAN, "VkTileMemoryRequirementsQCOM") {
+    Expression("#STRUCTURE_TYPE_TILE_MEMORY_REQUIREMENTS_QCOM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkDeviceSize("size")
+    VkDeviceSize("alignment")
+}
+
+val VkTileMemoryBindInfoQCOM = struct(Module.VULKAN, "VkTileMemoryBindInfoQCOM") {
+    Expression("#STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDeviceMemory("memory")
+}
+
+val VkTileMemorySizeInfoQCOM = struct(Module.VULKAN, "VkTileMemorySizeInfoQCOM") {
+    Expression("#STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDeviceSize("size")
+}
+
 val VkDisplaySurfaceStereoCreateInfoNV = struct(Module.VULKAN, "VkDisplaySurfaceStereoCreateInfoNV") {
     Expression("#STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV")..VkStructureType("sType")
     nullable..opaque_const_p("pNext")
@@ -8198,6 +8880,31 @@ val VkPhysicalDeviceRawAccessChainsFeaturesNV = struct(Module.VULKAN, "VkPhysica
     VkBool32("shaderRawAccessChains")
 }
 
+val VkExternalComputeQueueDeviceCreateInfoNV = struct(Module.VULKAN, "VkExternalComputeQueueDeviceCreateInfoNV") {
+    Expression("#STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("reservedExternalQueues")
+}
+
+val VkExternalComputeQueueCreateInfoNV = struct(Module.VULKAN, "VkExternalComputeQueueCreateInfoNV") {
+    Expression("#STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkQueue("preferredQueue")
+}
+
+val VkExternalComputeQueueDataParamsNV = struct(Module.VULKAN, "VkExternalComputeQueueDataParamsNV") {
+    Expression("#STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("deviceIndex")
+}
+
+val VkPhysicalDeviceExternalComputeQueuePropertiesNV = struct(Module.VULKAN, "VkPhysicalDeviceExternalComputeQueuePropertiesNV", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("externalDataSize")
+    uint32_t("maxExternalQueues")
+}
+
 val VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -8267,10 +8974,251 @@ val VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT = struct(Module.VULKAN
     VkBool32("shaderReplicatedComposites")
 }
 
+val VkPhysicalDeviceShaderFloat8FeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceShaderFloat8FeaturesEXT") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("shaderFloat8")
+    VkBool32("shaderFloat8CooperativeMatrix")
+}
+
 val VkPhysicalDeviceRayTracingValidationFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceRayTracingValidationFeaturesNV") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV")..VkStructureType("sType")
     nullable..opaque_p("pNext")
     VkBool32("rayTracingValidation")
+}
+
+val VkPhysicalDeviceClusterAccelerationStructureFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceClusterAccelerationStructureFeaturesNV") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("clusterAccelerationStructure")
+}
+
+val VkPhysicalDeviceClusterAccelerationStructurePropertiesNV = struct(Module.VULKAN, "VkPhysicalDeviceClusterAccelerationStructurePropertiesNV", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("maxVerticesPerCluster")
+    uint32_t("maxTrianglesPerCluster")
+    uint32_t("clusterScratchByteAlignment")
+    uint32_t("clusterByteAlignment")
+    uint32_t("clusterTemplateByteAlignment")
+    uint32_t("clusterBottomLevelByteAlignment")
+    uint32_t("clusterTemplateBoundsByteAlignment")
+    uint32_t("maxClusterGeometryIndex")
+}
+
+val VkClusterAccelerationStructureClustersBottomLevelInputNV = struct(Module.VULKAN, "VkClusterAccelerationStructureClustersBottomLevelInputNV") {
+    Expression("#STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    uint32_t("maxTotalClusterCount")
+    uint32_t("maxClusterCountPerAccelerationStructure")
+}
+
+val VkClusterAccelerationStructureTriangleClusterInputNV = struct(Module.VULKAN, "VkClusterAccelerationStructureTriangleClusterInputNV") {
+    Expression("#STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkFormat("vertexFormat")
+    uint32_t("maxGeometryIndexValue")
+    uint32_t("maxClusterUniqueGeometryCount")
+    uint32_t("maxClusterTriangleCount")
+    uint32_t("maxClusterVertexCount")
+    uint32_t("maxTotalTriangleCount")
+    uint32_t("maxTotalVertexCount")
+    uint32_t("minPositionTruncateBitCount")
+}
+
+val VkClusterAccelerationStructureMoveObjectsInputNV = struct(Module.VULKAN, "VkClusterAccelerationStructureMoveObjectsInputNV") {
+    Expression("#STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkClusterAccelerationStructureTypeNV("type")
+    VkBool32("noMoveOverlap")
+    VkDeviceSize("maxMovedBytes")
+}
+
+val VkClusterAccelerationStructureOpInputNV = union(Module.VULKAN, "VkClusterAccelerationStructureOpInputNV") {
+    VkClusterAccelerationStructureClustersBottomLevelInputNV.p("pClustersBottomLevel")
+    VkClusterAccelerationStructureTriangleClusterInputNV.p("pTriangleClusters")
+    VkClusterAccelerationStructureMoveObjectsInputNV.p("pMoveObjects")
+}
+
+val VkClusterAccelerationStructureInputInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureInputInfoNV") {
+    Expression("#STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    uint32_t("maxAccelerationStructureCount")
+    VkBuildAccelerationStructureFlagsKHR("flags")
+    VkClusterAccelerationStructureOpTypeNV("opType")
+    VkClusterAccelerationStructureOpModeNV("opMode")
+    VkClusterAccelerationStructureOpInputNV("opInput")
+}
+
+val VkClusterAccelerationStructureCommandsInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureCommandsInfoNV") {
+    Expression("#STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkClusterAccelerationStructureInputInfoNV("input")
+    VkDeviceAddress("dstImplicitData")
+    VkDeviceAddress("scratchData")
+    VkStridedDeviceAddressRegionKHR("dstAddressesArray")
+    VkStridedDeviceAddressRegionKHR("dstSizesArray")
+    VkStridedDeviceAddressRegionKHR("srcInfosArray")
+    VkDeviceAddress("srcInfosCount")
+    VkClusterAccelerationStructureAddressResolutionFlagsNV("addressResolutionFlags")
+}
+
+val VkStridedDeviceAddressNV = struct(Module.VULKAN, "VkStridedDeviceAddressNV") {
+    VkDeviceAddress("startAddress")
+    VkDeviceSize("strideInBytes")
+}
+
+val VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV = struct(Module.VULKAN, "VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV") {
+    uint32_t("geometryIndex", bits = 24)
+    uint32_t("reserved", bits = 5)
+    uint32_t("geometryFlags", bits = 3)
+}
+
+val VkClusterAccelerationStructureMoveObjectsInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureMoveObjectsInfoNV") {
+    VkDeviceAddress("srcAccelerationStructure")
+}
+
+val VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV") {
+    uint32_t("clusterReferencesCount")
+    uint32_t("clusterReferencesStride")
+    VkDeviceAddress("clusterReferences")
+}
+
+val VkClusterAccelerationStructureBuildTriangleClusterInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureBuildTriangleClusterInfoNV") {
+    uint32_t("clusterID")
+    VkClusterAccelerationStructureClusterFlagsNV("clusterFlags")
+    uint32_t("triangleCount", bits = 9)
+    uint32_t("vertexCount", bits = 9)
+    uint32_t("positionTruncateBitCount", bits = 6)
+    uint32_t("indexType", bits = 4)
+    uint32_t("opacityMicromapIndexType", bits = 4)
+    VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV("baseGeometryIndexAndGeometryFlags")
+    uint16_t("indexBufferStride")
+    uint16_t("vertexBufferStride")
+    uint16_t("geometryIndexAndFlagsBufferStride")
+    uint16_t("opacityMicromapIndexBufferStride")
+    VkDeviceAddress("indexBuffer")
+    VkDeviceAddress("vertexBuffer")
+    VkDeviceAddress("geometryIndexAndFlagsBuffer")
+    VkDeviceAddress("opacityMicromapArray")
+    VkDeviceAddress("opacityMicromapIndexBuffer")
+}
+
+val VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV") {
+    uint32_t("clusterID")
+    VkClusterAccelerationStructureClusterFlagsNV("clusterFlags")
+    uint32_t("triangleCount", bits = 9)
+    uint32_t("vertexCount", bits = 9)
+    uint32_t("positionTruncateBitCount", bits = 6)
+    uint32_t("indexType", bits = 4)
+    uint32_t("opacityMicromapIndexType", bits = 4)
+    VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV("baseGeometryIndexAndGeometryFlags")
+    uint16_t("indexBufferStride")
+    uint16_t("vertexBufferStride")
+    uint16_t("geometryIndexAndFlagsBufferStride")
+    uint16_t("opacityMicromapIndexBufferStride")
+    VkDeviceAddress("indexBuffer")
+    VkDeviceAddress("vertexBuffer")
+    VkDeviceAddress("geometryIndexAndFlagsBuffer")
+    VkDeviceAddress("opacityMicromapArray")
+    VkDeviceAddress("opacityMicromapIndexBuffer")
+    VkDeviceAddress("instantiationBoundingBoxLimit")
+}
+
+val VkClusterAccelerationStructureInstantiateClusterInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureInstantiateClusterInfoNV") {
+    uint32_t("clusterIdOffset")
+    uint32_t("geometryIndexOffset", bits = 24)
+    uint32_t("reserved", bits = 8)
+    VkDeviceAddress("clusterTemplateAddress")
+    VkStridedDeviceAddressNV("vertexBuffer")
+}
+
+val VkClusterAccelerationStructureGetTemplateIndicesInfoNV = struct(Module.VULKAN, "VkClusterAccelerationStructureGetTemplateIndicesInfoNV") {
+    VkDeviceAddress("clusterTemplateAddress")
+}
+
+val VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV = struct(Module.VULKAN, "VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV") {
+    Expression("#STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("allowClusterAccelerationStructure")
+}
+
+val VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV = struct(Module.VULKAN, "VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("partitionedAccelerationStructure")
+}
+
+val VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV = struct(Module.VULKAN, "VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("maxPartitionCount")
+}
+
+val VkPartitionedAccelerationStructureFlagsNV = struct(Module.VULKAN, "VkPartitionedAccelerationStructureFlagsNV") {
+    Expression("#STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("enablePartitionTranslation")
+}
+
+val VkBuildPartitionedAccelerationStructureIndirectCommandNV = struct(Module.VULKAN, "VkBuildPartitionedAccelerationStructureIndirectCommandNV") {
+    VkPartitionedAccelerationStructureOpTypeNV("opType")
+    uint32_t("argCount")
+    VkStridedDeviceAddressNV("argData")
+}
+
+val VkPartitionedAccelerationStructureWriteInstanceDataNV = struct(Module.VULKAN, "VkPartitionedAccelerationStructureWriteInstanceDataNV") {
+    VkTransformMatrixKHR("transform")
+    float("explicitAABB")[6]
+    uint32_t("instanceID")
+    uint32_t("instanceMask")
+    uint32_t("instanceContributionToHitGroupIndex")
+    VkPartitionedAccelerationStructureInstanceFlagsNV("instanceFlags")
+    uint32_t("instanceIndex")
+    uint32_t("partitionIndex")
+    VkDeviceAddress("accelerationStructure")
+}
+
+val VkPartitionedAccelerationStructureUpdateInstanceDataNV = struct(Module.VULKAN, "VkPartitionedAccelerationStructureUpdateInstanceDataNV") {
+    uint32_t("instanceIndex")
+    uint32_t("instanceContributionToHitGroupIndex")
+    VkDeviceAddress("accelerationStructure")
+}
+
+val VkPartitionedAccelerationStructureWritePartitionTranslationDataNV = struct(Module.VULKAN, "VkPartitionedAccelerationStructureWritePartitionTranslationDataNV") {
+    uint32_t("partitionIndex")
+    float("partitionTranslation")[3]
+}
+
+val VkWriteDescriptorSetPartitionedAccelerationStructureNV = struct(Module.VULKAN, "VkWriteDescriptorSetPartitionedAccelerationStructureNV") {
+    Expression("#STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    AutoSize("pAccelerationStructures", optional = true)..uint32_t("accelerationStructureCount")
+    nullable..VkDeviceAddress.const.p("pAccelerationStructures")
+}
+
+val VkPartitionedAccelerationStructureInstancesInputNV = struct(Module.VULKAN, "VkPartitionedAccelerationStructureInstancesInputNV") {
+    Expression("#STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV")..VkStructureType("sType")
+    PointerSetter(
+        "VkPartitionedAccelerationStructureFlagsNV",
+        prepend = true
+    )..nullable..opaque_p("pNext")
+    VkBuildAccelerationStructureFlagsKHR("flags")
+    uint32_t("instanceCount")
+    uint32_t("maxInstancePerPartitionCount")
+    uint32_t("partitionCount")
+    uint32_t("maxInstanceInGlobalPartitionCount")
+}
+
+val VkBuildPartitionedAccelerationStructureInfoNV = struct(Module.VULKAN, "VkBuildPartitionedAccelerationStructureInfoNV") {
+    Expression("#STRUCTURE_TYPE_BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkPartitionedAccelerationStructureInstancesInputNV("input")
+    VkDeviceAddress("srcAccelerationStructureData")
+    VkDeviceAddress("dstAccelerationStructureData")
+    VkDeviceAddress("scratchData")
+    VkDeviceAddress("srcInfos")
+    VkDeviceAddress("srcInfosCount")
 }
 
 val VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT") {
@@ -8474,9 +9422,9 @@ val VkPhysicalDeviceImageAlignmentControlFeaturesMESA = struct(Module.VULKAN, "V
     VkBool32("imageAlignmentControl")
 }
 
-val VkPhysicalDeviceImageAlignmentControlPropertiesMESA = struct(Module.VULKAN, "VkPhysicalDeviceImageAlignmentControlPropertiesMESA") {
-    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkPhysicalDeviceImageAlignmentControlPropertiesMESA = struct(Module.VULKAN, "VkPhysicalDeviceImageAlignmentControlPropertiesMESA", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     uint32_t("supportedImageAlignmentMask")
 }
 
@@ -8499,6 +9447,55 @@ val VkPipelineViewportDepthClampControlCreateInfoEXT = struct(Module.VULKAN, "Vk
     nullable..VkDepthClampRangeEXT.const.p("pDepthClampRange")
 }
 
+val VkPhysicalDeviceMaintenance9FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceMaintenance9FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("maintenance9")
+}
+
+val VkPhysicalDeviceMaintenance9PropertiesKHR = struct(Module.VULKAN, "VkPhysicalDeviceMaintenance9PropertiesKHR", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    VkBool32("image2DViewOf3DSparse")
+    VkDefaultVertexAttributeValueKHR("defaultVertexAttributeValue")
+}
+
+val VkQueueFamilyOwnershipTransferPropertiesKHR = struct(Module.VULKAN, "VkQueueFamilyOwnershipTransferPropertiesKHR", mutable = false) {
+    Expression("#STRUCTURE_TYPE_QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("optimalImageTransferToQueueFamilies")
+}
+
+val VkPhysicalDeviceVideoMaintenance2FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceVideoMaintenance2FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("videoMaintenance2")
+}
+
+val VkVideoDecodeH264InlineSessionParametersInfoKHR = struct(Module.VULKAN, "VkVideoDecodeH264InlineSessionParametersInfoKHR") {
+    javaImport("org.lwjgl.vulkan.video.*")
+    Expression("#STRUCTURE_TYPE_VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    nullable..StdVideoH264SequenceParameterSet.const.p("pStdSPS")
+    nullable..StdVideoH264PictureParameterSet.const.p("pStdPPS")
+}
+
+val VkVideoDecodeH265InlineSessionParametersInfoKHR = struct(Module.VULKAN, "VkVideoDecodeH265InlineSessionParametersInfoKHR") {
+    javaImport("org.lwjgl.vulkan.video.*")
+    Expression("#STRUCTURE_TYPE_VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    nullable..StdVideoH265VideoParameterSet.const.p("pStdVPS")
+    nullable..StdVideoH265SequenceParameterSet.const.p("pStdSPS")
+    nullable..StdVideoH265PictureParameterSet.const.p("pStdPPS")
+}
+
+val VkVideoDecodeAV1InlineSessionParametersInfoKHR = struct(Module.VULKAN, "VkVideoDecodeAV1InlineSessionParametersInfoKHR") {
+    javaImport("org.lwjgl.vulkan.video.*")
+    Expression("#STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    nullable..StdVideoAV1SequenceHeader.const.p("pStdSequenceHeader")
+}
+
 val VkPhysicalDeviceHdrVividFeaturesHUAWEI = struct(Module.VULKAN, "VkPhysicalDeviceHdrVividFeaturesHUAWEI") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -8518,10 +9515,10 @@ val VkCooperativeMatrixFlexibleDimensionsPropertiesNV = struct(Module.VULKAN, "V
     uint32_t("MGranularity")
     uint32_t("NGranularity")
     uint32_t("KGranularity")
-    VkComponentTypeKHR("AType")
-    VkComponentTypeKHR("BType")
-    VkComponentTypeKHR("CType")
-    VkComponentTypeKHR("ResultType")
+    VkComponentTypeNV("AType")
+    VkComponentTypeNV("BType")
+    VkComponentTypeNV("CType")
+    VkComponentTypeNV("ResultType")
     VkBool32("saturatingAccumulation")
     VkScopeKHR("scope")
     uint32_t("workgroupInvocations")
@@ -8553,6 +9550,26 @@ val VkPhysicalDevicePipelineOpacityMicromapFeaturesARM = struct(Module.VULKAN, "
     VkBool32("pipelineOpacityMicromap")
 }
 
+val VkImportMemoryMetalHandleInfoEXT = struct(Module.VULKAN, "VkImportMemoryMetalHandleInfoEXT") {
+    Expression("#STRUCTURE_TYPE_IMPORT_MEMORY_METAL_HANDLE_INFO_EXT")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkExternalMemoryHandleTypeFlagBits("handleType")
+    nullable..opaque_p("handle")
+}
+
+val VkMemoryMetalHandlePropertiesEXT = struct(Module.VULKAN, "VkMemoryMetalHandlePropertiesEXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_MEMORY_METAL_HANDLE_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("memoryTypeBits")
+}
+
+val VkMemoryGetMetalHandleInfoEXT = struct(Module.VULKAN, "VkMemoryGetMetalHandleInfoEXT") {
+    Expression("#STRUCTURE_TYPE_MEMORY_GET_METAL_HANDLE_INFO_EXT")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkDeviceMemory("memory")
+    VkExternalMemoryHandleTypeFlagBits("handleType")
+}
+
 val VkPhysicalDeviceDepthClampZeroOneFeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceDepthClampZeroOneFeaturesKHR") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -8563,4 +9580,89 @@ val VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT = struct(Module.VULKAN,
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT")..VkStructureType("sType")
     nullable..opaque_p("pNext")
     VkBool32("vertexAttributeRobustness")
+}
+
+val VkPhysicalDeviceFormatPackFeaturesARM = struct(Module.VULKAN, "VkPhysicalDeviceFormatPackFeaturesARM") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("formatPack")
+}
+
+val VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    VkBool32("fragmentDensityMapLayered")
+}
+
+val VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("maxFragmentDensityMapLayers")
+}
+
+val VkPipelineFragmentDensityMapLayeredCreateInfoVALVE = struct(Module.VULKAN, "VkPipelineFragmentDensityMapLayeredCreateInfoVALVE") {
+    Expression("#STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("maxFragmentDensityMapLayers")
+}
+
+val VkPhysicalDeviceRobustness2FeaturesKHR = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2FeaturesKHR") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("robustBufferAccess2")
+    VkBool32("robustImageAccess2")
+    VkBool32("nullDescriptor")
+}
+
+val VkPhysicalDeviceRobustness2PropertiesKHR = struct(Module.VULKAN, "VkPhysicalDeviceRobustness2PropertiesKHR", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    VkDeviceSize("robustStorageBufferAccessSizeAlignment")
+    VkDeviceSize("robustUniformBufferAccessSizeAlignment")
+}
+
+val VkSetPresentConfigNV = struct(Module.VULKAN, "VkSetPresentConfigNV") {
+    Expression("#STRUCTURE_TYPE_SET_PRESENT_CONFIG_NV")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    uint32_t("numFramesPerBatch")
+    uint32_t("presentConfigFeedback")
+}
+
+val VkPhysicalDevicePresentMeteringFeaturesNV = struct(Module.VULKAN, "VkPhysicalDevicePresentMeteringFeaturesNV") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("presentMetering")
+}
+
+val VkRenderingEndInfoEXT = struct(Module.VULKAN, "VkRenderingEndInfoEXT") {
+    Expression("#STRUCTURE_TYPE_RENDERING_END_INFO_EXT")..VkStructureType("sType")
+    PointerSetter(
+        "VkRenderPassFragmentDensityMapOffsetEndInfoEXT", "VkSubpassFragmentDensityMapOffsetEndInfoQCOM",
+        prepend = true
+    )..nullable..opaque_const_p("pNext")
+}
+
+val VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("fragmentDensityMapOffset")
+}
+
+val VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT = struct(Module.VULKAN, "VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    VkExtent2D("fragmentDensityOffsetGranularity")
+}
+
+val VkRenderPassFragmentDensityMapOffsetEndInfoEXT = struct(Module.VULKAN, "VkRenderPassFragmentDensityMapOffsetEndInfoEXT") {
+    Expression("#STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    AutoSize("pFragmentDensityOffsets", optional = true)..uint32_t("fragmentDensityOffsetCount")
+    VkOffset2D.const.p("pFragmentDensityOffsets")
+}
+
+val VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("zeroInitializeDeviceMemory")
 }

@@ -7,7 +7,7 @@ package org.lwjgl.opencl;
 
 public final class INTELExecByLocalThread {
 
-    public static final int CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL = 1 << 31;
+    public static final long CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL = 1L << 31;
 
     private INTELExecByLocalThread() {}
 

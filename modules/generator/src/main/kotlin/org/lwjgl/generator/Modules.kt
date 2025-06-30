@@ -689,6 +689,22 @@ git branch -D @{-1}""")}"""}()}
         """,
         arrayOverloads = false
     ),
+    SPNG(
+        "spng",
+        "org.lwjgl.util.spng",
+        """
+        Contains bindings to ${url("https://libspng.org/", "libspbg")} (simple png), a C library for reading and writing Portable Network Graphics (PNG) format
+        files with a focus on security and easy of use.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://libspng.org/docs/", "Documentation"),
+            url("https://github.com/randy408/libspng/", "Source Repository"),
+        )}
+        """,
+        library = JNILibrary.create("LibSPNG", setupAllocator = true),
+        arrayOverloads = false
+    ),
     SPVC(
         "spvc",
         "org.lwjgl.util.spvc",

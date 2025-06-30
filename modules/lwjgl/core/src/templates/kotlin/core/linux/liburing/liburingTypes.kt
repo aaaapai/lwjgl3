@@ -65,6 +65,7 @@ val io_uring_sqe = struct(Module.CORE_LINUX_LIBURING, "IOURingSQE", nativeName =
     union {
         __s32("splice_fd_in")
         __u32("file_index")
+        __u32("zcrx_ifq_idx")
         __u32("optlen")
         struct {
             __u16("addr_len")
@@ -125,6 +126,21 @@ val io_uring_params = struct(Module.CORE_LINUX_LIBURING, "IOURingParams", native
     io_cqring_offsets("cq_off")
 }
 
+val io_uring_region_desc = struct(Module.CORE_LINUX_LIBURING, "IOUringRegionDesc", nativeName = "struct io_uring_region_desc") {
+    __u64("user_addr")
+    __u64("size")
+    __u32("flags")
+    __u32("id")
+    __u64("mmap_offset")
+    __u64("__resv")[4].private()
+}
+
+val io_uring_mem_region_reg = struct(Module.CORE_LINUX_LIBURING, "IOURingMemRegionReg", nativeName = "struct io_uring_mem_region_reg") {
+    __u64("region_uptr")
+    __u64("flags")
+    __u64("__resv")[2].private()
+}
+
 val io_uring_rsrc_register = struct(Module.CORE_LINUX_LIBURING, "IOURingRSRCRegister", nativeName = "struct io_uring_rsrc_register") {
     __u32("nr")
     __u32("flags")
@@ -182,7 +198,10 @@ val io_uring_clock_register = struct(Module.CORE_LINUX_LIBURING, "IOURingClockRe
 val io_uring_clone_buffers = struct(Module.CORE_LINUX_LIBURING, "IOURingCloneBuffers", nativeName = "struct io_uring_clone_buffers") {
     __u32("src_fd")
     __u32("flags")
-    __u32("pad")[6].private()
+    __u32("src_off")
+    __u32("dst_off")
+    __u32("nr")
+    __u32("pad")[3].private()
 };
 
 val io_uring_buf = struct(Module.CORE_LINUX_LIBURING, "IOURingBuf", nativeName = "struct io_uring_buf") {
@@ -225,6 +244,19 @@ val io_uring_napi = struct(Module.CORE_LINUX_LIBURING, "IOURingNAPI", nativeName
     __u64("resv").private()
 }
 
+val io_uring_reg_wait = struct(Module.CORE_LINUX_LIBURING, "IOURingRegWait", nativeName = "struct" +
+" io_uring_reg_wait") {
+    javaImport("org.lwjgl.system.linux.*")
+
+    __kernel_timespec("ts")
+    __u32("min_wait_usec")
+    __u32("flags")
+    __u64("sigmask")
+    __u32("sigmask_sz")
+    __u32("pad")[3].private()
+    __u64("pad2")[2].private()
+}
+
 val io_uring_getevents_arg = struct(Module.CORE_LINUX_LIBURING, "IOURingGeteventsArg", nativeName = "struct io_uring_getevents_arg") {
     __u64("sigmask")
     __u32("sigmask_sz")
@@ -255,6 +287,49 @@ val io_uring_recvmsg_out = struct(Module.CORE_LINUX_LIBURING, "IOURingRecvmsgOut
     __u32("controllen")
     __u32("payloadlen")
     __u32("flags")
+}
+
+val io_uring_zcrx_rqe = struct(Module.CORE_LINUX_LIBURING, "IOURingZCRXRQE", nativeName = "struct io_uring_zcrx_rqe") {
+    __u64("off")
+    __u32("len")
+    __u32("__pad").private()
+}
+
+val io_uring_zcrx_cqe = struct(Module.CORE_LINUX_LIBURING, "IOURingZCRXCQE", nativeName = "struct io_uring_zcrx_cqe") {
+    __u64("off")
+    __u64("__pad").private()
+}
+
+val io_uring_zcrx_offsets = struct(Module.CORE_LINUX_LIBURING, "IOURingZCRXOffsets", nativeName = "struct io_uring_zcrx_offsets") {
+    __u32("head")
+    __u32("tail")
+    __u32("rqes")
+    __u32("__resv2").private()
+    __u64("__resv")[2].private()
+}
+
+val io_uring_zcrx_area_reg = struct(Module.CORE_LINUX_LIBURING, "IOURingZCRXAreaReg", nativeName = "struct io_uring_zcrx_area_reg") {
+    __u64("addr")
+    __u64("len")
+    __u64("rq_area_token")
+    __u32("flags")
+    __u32("dmabuf_fd")
+    __u64("__resv2")[2].private()
+}
+
+val io_uring_zcrx_ifq_reg = struct(Module.CORE_LINUX_LIBURING, "IOURingZCRXIfqReg", nativeName = "struct io_uring_zcrx_ifq_reg") {
+    __u32("if_idx")
+    __u32("if_rxq")
+    __u32("rq_entries")
+    __u32("flags")
+
+    __u64("area_ptr")
+    __u64("region_ptr")
+
+    io_uring_zcrx_offsets("offsets")
+    __u32("zcrx_id")
+    __u32("__resv2").private()
+    __u64("__resv")[3].private()
 }
 
 // liburing.h
@@ -310,4 +385,14 @@ val io_uring = struct(Module.CORE_LINUX_LIBURING, "IOURing", nativeName = "struc
 	__u8("int_flags")
 	__u8("pad")[3].private()
     unsigned("pad2").private()
+}
+
+val io_uring_zcrx_rq = struct(Module.CORE_LINUX_LIBURING, "IOURingZCRXRQ", nativeName = "struct io_uring_zcrx_rq") {
+    __u32.p("khead")
+    __u32.p("ktail")
+    __u32("rq_tail")
+    unsigned("ring_entries")
+
+    io_uring_zcrx_rqe.p("rqes")
+    opaque_p("ring_ptr")
 }

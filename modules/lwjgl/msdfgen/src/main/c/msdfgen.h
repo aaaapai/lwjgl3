@@ -4,7 +4,7 @@
 /*
  * MULTI-CHANNEL SIGNED DISTANCE FIELD GENERATOR
  * ---------------------------------------------
- * A utility by Viktor Chlumsky, (c) 2014 - 2024
+ * A utility by Viktor Chlumsky, (c) 2014 - 2025
  *
  * The technique used to generate multi-channel distance fields in this code
  * has been developed by Viktor Chlumsky in 2014 for his master's thesis,
@@ -34,8 +34,6 @@
 #include "render-sdf.h"
 #include "rasterization.h"
 #include "sdf-error-estimation.h"
-#include "save-bmp.h"
-#include "save-tiff.h"
 #include "shape-description.h"
 
 namespace msdfgen {

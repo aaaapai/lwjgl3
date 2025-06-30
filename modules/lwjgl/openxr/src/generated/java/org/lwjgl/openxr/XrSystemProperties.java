@@ -123,6 +123,8 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(@NativeType("void *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrSystemAnchorPropertiesHTC} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemAnchorPropertiesHTC value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemBodyTrackingPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemBodyTrackingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemBodyTrackingPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemBodyTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemBodyTrackingPropertiesHTC} value to the {@code next} chain. */
@@ -171,16 +173,32 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(XrSystemPassthroughPropertiesFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemPlaneDetectionPropertiesEXT} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemPlaneDetectionPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemPropertiesBodyTrackingFullBodyMETA} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemPropertiesBodyTrackingFullBodyMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemRenderModelPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemRenderModelPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSimultaneousHandsAndControllersPropertiesMETA} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSimultaneousHandsAndControllersPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemSpaceWarpPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemSpaceWarpPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSpatialAnchorPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSpatialAnchorPropertiesBD value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSpatialAnchorSharingPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSpatialAnchorSharingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemSpatialEntityGroupSharingPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemSpatialEntityGroupSharingPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemSpatialEntityPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemSpatialEntityPropertiesFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemSpatialEntitySharingPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemSpatialEntitySharingPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSpatialMeshPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSpatialMeshPropertiesBD value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSpatialPlanePropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSpatialPlanePropertiesBD value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSpatialScenePropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSpatialScenePropertiesBD value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSpatialSensingPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSpatialSensingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemUserPresencePropertiesEXT} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemUserPresencePropertiesEXT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemVirtualKeyboardPropertiesMETA} value to the {@code next} chain. */
@@ -416,6 +434,8 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(@NativeType("void *") long value) { XrSystemProperties.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrSystemAnchorPropertiesHTC} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemAnchorPropertiesHTC value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemBodyTrackingPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemBodyTrackingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemBodyTrackingPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemBodyTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemBodyTrackingPropertiesHTC} value to the {@code next} chain. */
@@ -464,16 +484,32 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(XrSystemPassthroughPropertiesFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemPlaneDetectionPropertiesEXT} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemPlaneDetectionPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemPropertiesBodyTrackingFullBodyMETA} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemPropertiesBodyTrackingFullBodyMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemRenderModelPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemRenderModelPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSimultaneousHandsAndControllersPropertiesMETA} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSimultaneousHandsAndControllersPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemSpaceWarpPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemSpaceWarpPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSpatialAnchorPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSpatialAnchorPropertiesBD value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSpatialAnchorSharingPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSpatialAnchorSharingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemSpatialEntityGroupSharingPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemSpatialEntityGroupSharingPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemSpatialEntityPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemSpatialEntityPropertiesFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemSpatialEntitySharingPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemSpatialEntitySharingPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSpatialMeshPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSpatialMeshPropertiesBD value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSpatialPlanePropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSpatialPlanePropertiesBD value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSpatialScenePropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSpatialScenePropertiesBD value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSpatialSensingPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSpatialSensingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemUserPresencePropertiesEXT} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemUserPresencePropertiesEXT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemVirtualKeyboardPropertiesMETA} value to the {@code next} chain. */
