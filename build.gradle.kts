@@ -36,13 +36,13 @@ data class Deployment(
 val deployment = when {
     hasProperty("release") -> Deployment(
         type = BuildType.RELEASE,
-        repo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+        repo = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
     )
     hasProperty("snapshot") -> {
         version = "$version-SNAPSHOT"
         Deployment(
             type = BuildType.SNAPSHOT,
-            repo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            repo = uri("https://central.sonatype.com/repository/maven-snapshots/")
         )
     }
     else -> {
@@ -239,6 +239,11 @@ enum class Artifacts(
     SHADERC(
         "lwjgl-shaderc", "LWJGL - Shaderc bindings",
         "A collection of libraries for shader compilation.",
+        *Platforms.ALL
+    ),
+    SPNG(
+        "lwjgl-spng", "LWJGL - spng bindings",
+        "libspng (simple png) is a C library for reading and writing Portable Network Graphics (PNG) format files with a focus on security and ease of use.",
         *Platforms.ALL
     ),
     SPVC(
