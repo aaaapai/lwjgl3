@@ -18,7 +18,7 @@ jobs:
     - name: Set up JDK25
       uses: actions/setup-java@main
       with:
-        java-version: 25
+        java-version: 25-ea
         distribution: temurin
         
     - name: Build for Android ${{matrix.arch}}
