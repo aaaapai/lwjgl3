@@ -86,6 +86,14 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 ant -version
 yes | ant -Dplatform.linux=true \
   -Dbinding.assimp=false \
+  -Dbinding.spvc=false \
+  -Dbinding.xxhash=false \
+  -Dbinding.zstd=false \
+  -Dbinding.sdl=false \
+  -Dbinding.par=false \
+  -Dbinding.spng=false \
+  -Dbinding.nuklear=false \
+  -Dbinding.tinyexr=false \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
