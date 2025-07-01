@@ -221,7 +221,7 @@ JNIEXPORT void JNICALL org_lwjgl_system_noop_params(void *param0, void *param1, 
 }
 
 DISABLE_WARNINGS()
-JNIEXPORT void noop_params0() {}
+JNIEXPORT void noop_params0(void) {}
 JNIEXPORT void noop_params1(void *param0) {}
 JNIEXPORT void noop_params2(void *param0, void *param1) {}
 JNIEXPORT void noop_params3(void *param0, void *param1, void *param2) {}
