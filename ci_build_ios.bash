@@ -38,8 +38,8 @@ fi
 # Download libraries
 #POJAV_NATIVES="https://github.com/PojavLauncherTeam/PojavLauncher_iOS/raw/main/Natives/resources/Frameworks"
 #wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
-wget -nc "https://nightly.link/PojavLauncherTeam/shaderc/workflows/ios/main/libshaderc.zip"
-unzip -o libshaderc.zip -d $LWJGL_NATIVE/shaderc
+wget -nc "https://github.com/AngelAuraMC/shaderc/releases/latest/download/libshaderc-ios.zip"
+unzip -o libshaderc-ios.zip -d $LWJGL_NATIVE/shaderc
 rm $LWJGL_NATIVE/shaderc/libshaderc_shared.1.dylib
 mv $LWJGL_NATIVE/shaderc/libshaderc_shared.dylib $LWJGL_NATIVE/shaderc/libshaderc.dylib
 
