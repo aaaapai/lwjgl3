@@ -1968,14 +1968,26 @@ public final class MemoryUtil {
     }
 
 
-    private static final ThreadLocal<ByteBuffer> BUFFER_CACHE = ThreadLocal.withInitial(() -> null);
     public static void PutInt_aaa(long ptr, int value) {
-          ByteBuffer BYTEBUFFER = BUFFER_CACHE.get();
-          if (buffer == null || MemoryUtil.memAddress(buffer) != ptr) {
-             buffer = MemoryUtil.memByteBuffer(ptr, 4);
-             BUFFER_CACHE.set(buffer);
-          }
-          buffer.putInt(0, value);
+      // Create a new ByteBuffer view of the memory at the given address
+      ByteBuffer buffer = ByteBuffer.allocateDirect(0).order(ByteOrder.nativeOrder());
+    
+      // Using reflection to access the internal address field
+      try {
+        Field addressField = Buffer.class.getDeclaredField("address");
+        addressField.setAccessible(true);
+        addressField.set(buffer, ptr);
+        
+        // Set the capacity to at least 4 bytes for an int
+        Field capacityField = Buffer.class.getDeclaredField("capacity");
+        capacityField.setAccessible(true);
+        capacityField.set(buffer, Math.max(buffer.capacity(), 4));
+        
+        // Now we can put the int
+        buffer.putInt(value);
+      } catch (Exception e) {
+        throw new RuntimeException("Failed to put int using ByteBuffer", e);
+      }
     }
     public static void memPutByte(long ptr, byte value)     { UNSAFE.putByte(null, ptr, value); }
     public static void memPutShort(long ptr, short value)   { UNSAFE.putShort(null, ptr, value); }
