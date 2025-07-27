@@ -1967,9 +1967,10 @@ public final class MemoryUtil {
             : UNSAFE.getInt(null, ptr) & 0xFFFF_FFFFL;
     }
 
+    ByteBuffer BYTEBUFFER = MemoryUtil.memByteBuffer(ptr, 4); // 4 bytes for int
     public static void memPutByte(long ptr, byte value)     { UNSAFE.putByte(null, ptr, value); }
     public static void memPutShort(long ptr, short value)   { UNSAFE.putShort(null, ptr, value); }
-    public static void memPutInt(long ptr, int value)       { putInt(null, ptr, value); }
+    public static void memPutInt(long ptr, int value)       { BYTEBUFFER.putInt(value); }
     public static void memPutLong(long ptr, long value)     { UNSAFE.putLong(null, ptr, value); }
     public static void memPutFloat(long ptr, float value)   { UNSAFE.putFloat(null, ptr, value); }
     public static void memPutDouble(long ptr, double value) { UNSAFE.putDouble(null, ptr, value); }
