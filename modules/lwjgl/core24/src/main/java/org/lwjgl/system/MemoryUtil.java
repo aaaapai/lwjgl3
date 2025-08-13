@@ -10,6 +10,7 @@ import org.lwjgl.system.MemoryManage.*;
 import org.lwjgl.system.MemoryUtil.MemoryAllocationReport.*;
 
 import java.lang.foreign.*;
+import java.lang.invoke.*;
 import java.nio.*;
 import java.nio.charset.*;
 
@@ -68,14 +69,13 @@ public final class MemoryUtil {
         ? StandardCharsets.UTF_16LE
         : StandardCharsets.UTF_16BE;
 
-    private static final MemorySegment VIRTUAL_MEMORY = MemorySegment.ofAddress(NULL)
-        .reinterpret(Long.MAX_VALUE);
-
     static {
         Library.initialize();
 
         PAGE_SIZE = 4096; // TODO: Can we do better?
         CACHE_LINE_SIZE = 64; // TODO: Can we do better?
+
+        apiLog("Java 24 MemoryUtil enabled");
     }
 
     static final class LazyInit {
@@ -1770,67 +1770,168 @@ public final class MemoryUtil {
         }
     }
 
-    private static final ValueLayout.OfByte   JAVA_BYTE   = ValueLayout.JAVA_BYTE;
+    /*
     private static final ValueLayout.OfShort  JAVA_SHORT  = DEBUG ? ValueLayout.JAVA_SHORT : ValueLayout.JAVA_SHORT_UNALIGNED;
     private static final ValueLayout.OfInt    JAVA_INT    = DEBUG ? ValueLayout.JAVA_INT : ValueLayout.JAVA_INT_UNALIGNED;
     private static final ValueLayout.OfLong   JAVA_LONG   = DEBUG ? ValueLayout.JAVA_LONG : ValueLayout.JAVA_LONG_UNALIGNED;
     private static final ValueLayout.OfFloat  JAVA_FLOAT  = DEBUG ? ValueLayout.JAVA_FLOAT : ValueLayout.JAVA_FLOAT_UNALIGNED;
     private static final ValueLayout.OfDouble JAVA_DOUBLE = DEBUG ? ValueLayout.JAVA_DOUBLE : ValueLayout.JAVA_DOUBLE_UNALIGNED;
 
-    private static final long MASK0 = BITS64
-        ? 0b00111111_11111111_11111111_11111111_11111111_11111111_11111111_11111111L
-        : 0b00000000_00000000_00000000_00000000_11111111_11111111_11111111_11111111L;
-    private static final long MASK1 = DEBUG ? MASK0 : (BITS64
-        ? 0b00111111_11111111_11111111_11111111_11111111_11111111_11111111_11111110L
-        : 0b00000000_00000000_00000000_00000000_11111111_11111111_11111111_11111110L);
-    private static final long MASK2 = DEBUG ? MASK0 : (BITS64
-        ? 0b00111111_11111111_11111111_11111111_11111111_11111111_11111111_11111100L
-        : 0b00000000_00000000_00000000_00000000_11111111_11111111_11111111_11111100L);
-    private static final long MASK3 = DEBUG ? MASK0 : (BITS64
-        ? 0b00111111_11111111_11111111_11111111_11111111_11111111_11111111_11111100L
-        : 0b00000000_00000000_00000000_00000000_11111111_11111111_11111111_11111100L);
+    public static boolean memGetBoolean(long ptr)           { return MemorySegment.ofAddress(ptr).reinterpret(1L).get(ValueLayout.JAVA_BYTE, 0L) != 0; }
+    public static byte memGetByte(long ptr)                 { return MemorySegment.ofAddress(ptr).reinterpret(1L).get(ValueLayout.JAVA_BYTE, 0L); }
+    public static short memGetShort(long ptr)               { return MemorySegment.ofAddress(ptr).reinterpret(2L).get(JAVA_SHORT, 0L); }
+    public static int memGetInt(long ptr)                   { return MemorySegment.ofAddress(ptr).reinterpret(4L).get(JAVA_INT, 0L); }
+    public static long memGetLong(long ptr)                 { return MemorySegment.ofAddress(ptr).reinterpret(8L).get(JAVA_LONG, 0L); }
+    public static float memGetFloat(long ptr)               { return MemorySegment.ofAddress(ptr).reinterpret(4L).get(JAVA_FLOAT, 0L); }
+    public static double memGetDouble(long ptr)             { return MemorySegment.ofAddress(ptr).reinterpret(8L).get(JAVA_DOUBLE, 0L); }
 
-    public static boolean memGetBoolean(long ptr) { return VIRTUAL_MEMORY.get(JAVA_BYTE, ptr & MASK0) != 0; }
-    public static byte memGetByte(long ptr)       { return VIRTUAL_MEMORY.get(JAVA_BYTE, ptr & MASK0); }
-    public static short memGetShort(long ptr)     { return VIRTUAL_MEMORY.get(JAVA_SHORT, ptr & MASK1); }
-    public static int memGetInt(long ptr)         { return VIRTUAL_MEMORY.get(JAVA_INT, ptr & MASK2); }
-    public static long memGetLong(long ptr)       { return VIRTUAL_MEMORY.get(JAVA_LONG, ptr & MASK3); }
-    public static float memGetFloat(long ptr)     { return VIRTUAL_MEMORY.get(JAVA_FLOAT, ptr & MASK2); }
-    public static double memGetDouble(long ptr)   { return VIRTUAL_MEMORY.get(JAVA_DOUBLE, ptr & MASK3); }
+    public static void memPutByte(long ptr, byte value)     { MemorySegment.ofAddress(ptr).reinterpret(1L).set(ValueLayout.JAVA_BYTE, 0L, value); }
+    public static void memPutShort(long ptr, short value)   { MemorySegment.ofAddress(ptr).reinterpret(2L).set(JAVA_SHORT, 0L, value); }
+    public static void memPutInt(long ptr, int value)       { MemorySegment.ofAddress(ptr).reinterpret(4L).set(JAVA_INT, 0L, value); }
+    public static void memPutLong(long ptr, long value)     { MemorySegment.ofAddress(ptr).reinterpret(8L).set(JAVA_LONG, 0L, value); }
+    public static void memPutFloat(long ptr, float value)   { MemorySegment.ofAddress(ptr).reinterpret(4L).set(JAVA_FLOAT, 0L, value); }
+    public static void memPutDouble(long ptr, double value) { MemorySegment.ofAddress(ptr).reinterpret(8L).set(JAVA_DOUBLE, 0L, value); }
+    */
+
+    private static final VarHandle VH_JAVA_BYTE;
+    private static final VarHandle VH_JAVA_SHORT;
+    private static final VarHandle VH_JAVA_INT;
+    private static final VarHandle VH_JAVA_LONG;
+    private static final VarHandle VH_JAVA_FLOAT;
+    private static final VarHandle VH_JAVA_DOUBLE;
+
+    private static final VarHandle VH_CLONG;
+    private static final VarHandle VH_ADDRESS;
+
+    static {
+        try {
+            var lookup = MethodHandles.lookup();
+
+            var ofAddress = lookup
+                .findStatic(MemorySegment.class, "ofAddress", MethodType.methodType(MemorySegment.class, long.class));
+
+            var reinterpret = lookup
+                .findVirtual(MemorySegment.class, "reinterpret", MethodType.methodType(MemorySegment.class, long.class));
+
+            VH_JAVA_BYTE = createMemoryAccessVH(ValueLayout.JAVA_BYTE, ofAddress, reinterpret)
+                .withInvokeExactBehavior();
+            VH_JAVA_SHORT = createMemoryAccessVH(DEBUG ? ValueLayout.JAVA_SHORT : ValueLayout.JAVA_SHORT_UNALIGNED, ofAddress, reinterpret)
+                .withInvokeExactBehavior();
+            VH_JAVA_INT = createMemoryAccessVH(DEBUG ? ValueLayout.JAVA_INT : ValueLayout.JAVA_INT_UNALIGNED, ofAddress, reinterpret)
+                .withInvokeExactBehavior();
+            VH_JAVA_LONG = createMemoryAccessVH(DEBUG ? ValueLayout.JAVA_LONG : ValueLayout.JAVA_LONG_UNALIGNED, ofAddress, reinterpret)
+                .withInvokeExactBehavior();
+            VH_JAVA_FLOAT = createMemoryAccessVH(DEBUG ? ValueLayout.JAVA_FLOAT : ValueLayout.JAVA_FLOAT_UNALIGNED, ofAddress, reinterpret)
+                .withInvokeExactBehavior();
+            VH_JAVA_DOUBLE = createMemoryAccessVH(DEBUG ? ValueLayout.JAVA_DOUBLE : ValueLayout.JAVA_DOUBLE_UNALIGNED, ofAddress, reinterpret)
+                .withInvokeExactBehavior();
+
+            var vh = createMemoryAccessVH(
+                CLONG_SIZE == 8
+                    ? (DEBUG ? ValueLayout.JAVA_LONG : ValueLayout.JAVA_LONG_UNALIGNED)
+                    : (DEBUG ? ValueLayout.JAVA_INT : ValueLayout.JAVA_INT_UNALIGNED), ofAddress, reinterpret);
+
+            if (CLONG_SIZE == 4) {
+                vh = MethodHandles.filterValue(vh,
+                    MethodHandles.explicitCastArguments(
+                        MethodHandles.identity(int.class),
+                        MethodType.methodType(int.class, long.class)
+                    ),
+                    MethodHandles.explicitCastArguments(
+                        MethodHandles.identity(long.class),
+                        MethodType.methodType(long.class, int.class)
+                    )
+                );
+            }
+
+            VH_CLONG = vh.withInvokeExactBehavior();
+
+            vh = createMemoryAccessVH(BITS64
+                ? (DEBUG ? ValueLayout.JAVA_LONG : ValueLayout.JAVA_LONG_UNALIGNED)
+                : (DEBUG ? ValueLayout.JAVA_INT : ValueLayout.JAVA_INT_UNALIGNED), ofAddress, reinterpret);
+
+            if (BITS32) {
+                vh = MethodHandles.filterValue(vh,
+                    MethodHandles.explicitCastArguments(
+                        MethodHandles.identity(int.class),
+                        MethodType.methodType(int.class, long.class)
+                    ),
+                    lookup.findStatic(
+                        MemoryUtil.class, "castAddress32",
+                        MethodType.methodType(long.class, int.class)
+                    )
+                );
+            }
+
+            VH_ADDRESS = vh.withInvokeExactBehavior();
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static VarHandle createMemoryAccessVH(ValueLayout layout, MethodHandle ofAddress, MethodHandle reinterpret) {
+        var vh = layout.varHandle();
+
+        vh = MethodHandles.insertCoordinates(vh, 1, 0L);
+        vh = MethodHandles.filterCoordinates(vh, 0, MethodHandles.filterReturnValue(
+            ofAddress,
+            MethodHandles.insertArguments(reinterpret, 1, layout.byteSize())
+        ));
+
+        return vh;
+    }
+
+    private static long castAddress32(int ptr) {
+        return ptr & 0xFFFF_FFFFL;
+    }
+
+    public static boolean memGetBoolean(long ptr)           { return (byte)VH_JAVA_BYTE.get(ptr) != 0; }
+    public static byte memGetByte(long ptr)                 { return (byte)VH_JAVA_BYTE.get(ptr); }
+    public static short memGetShort(long ptr)               { return (short)VH_JAVA_SHORT.get(ptr); }
+    public static int memGetInt(long ptr)                   { return (int)VH_JAVA_INT.get(ptr); }
+    public static long memGetLong(long ptr)                 { return (long)VH_JAVA_LONG.get(ptr); }
+    public static float memGetFloat(long ptr)               { return (float)VH_JAVA_FLOAT.get(ptr); }
+    public static double memGetDouble(long ptr)             { return (double)VH_JAVA_DOUBLE.get(ptr); }
+
+    public static void memPutByte(long ptr, byte value)     { VH_JAVA_BYTE.set(ptr, value); }
+    public static void memPutShort(long ptr, short value)   { VH_JAVA_SHORT.set(ptr, value); }
+    public static void memPutInt(long ptr, int value)       { VH_JAVA_INT.set(ptr, value); }
+    public static void memPutLong(long ptr, long value)     { VH_JAVA_LONG.set(ptr, value); }
+    public static void memPutFloat(long ptr, float value)   { VH_JAVA_FLOAT.set(ptr, value); }
+    public static void memPutDouble(long ptr, double value) { VH_JAVA_DOUBLE.set(ptr, value); }
+
     public static long memGetCLong(long ptr) {
-        return CLONG_SIZE == 8
+        return (long)VH_CLONG.get(ptr);
+        /*return CLONG_SIZE == 8
             ? memGetLong(ptr)
-            : memGetInt(ptr);
+            : memGetInt(ptr);*/
     }
 
     public static long memGetAddress(long ptr) {
-        return BITS64
+        return (long)VH_ADDRESS.get(ptr);
+        /*return BITS64
             ? memGetLong(ptr)
-            : memGetInt(ptr) & 0xFFFF_FFFFL;
+            : memGetInt(ptr) & 0xFFFF_FFFFL;*/
     }
 
-    public static void memPutByte(long ptr, byte value)     { VIRTUAL_MEMORY.set(JAVA_BYTE, ptr & MASK0, value); }
-    public static void memPutShort(long ptr, short value)   { VIRTUAL_MEMORY.set(JAVA_SHORT, ptr & MASK1, value); }
-    public static void memPutInt(long ptr, int value)       { VIRTUAL_MEMORY.set(JAVA_INT, ptr & MASK2, value); }
-    public static void memPutLong(long ptr, long value)     { VIRTUAL_MEMORY.set(JAVA_LONG, ptr & MASK3, value); }
-    public static void memPutFloat(long ptr, float value)   { VIRTUAL_MEMORY.set(JAVA_FLOAT, ptr & MASK2, value); }
-    public static void memPutDouble(long ptr, double value) { VIRTUAL_MEMORY.set(JAVA_DOUBLE, ptr & MASK3, value); }
     public static void memPutCLong(long ptr, long value) {
-        if (CLONG_SIZE == 8) {
+        VH_CLONG.set(ptr, value);
+        /*if (CLONG_SIZE == 8) {
             memPutLong(ptr, value);
         } else {
             memPutInt(ptr, (int)value);
-        }
+        }*/
     }
 
     public static void memPutAddress(long ptr, long value) {
-        if (BITS64) {
+        VH_ADDRESS.set(ptr, value);
+        /*if (BITS64) {
             memPutLong(ptr, value);
         } else {
             memPutInt(ptr, (int)value);
-        }
+        }*/
     }
-    
+
     /*  -------------------------------------
         -------------------------------------
               MemorySegment UTILITIES API

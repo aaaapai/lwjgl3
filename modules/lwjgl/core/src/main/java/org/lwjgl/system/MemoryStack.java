@@ -63,8 +63,6 @@ public class MemoryStack extends Pointer.Default implements AutoCloseable {
         this.pointer = size;
 
         this.frames = new int[DEFAULT_STACK_FRAMES];
-
-        System.err.println("CREATED MEMORY STACK IN: " + Thread.currentThread());
     }
 
     /**

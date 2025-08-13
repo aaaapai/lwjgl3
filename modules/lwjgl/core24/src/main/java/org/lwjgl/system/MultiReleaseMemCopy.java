@@ -29,6 +29,7 @@ final class MultiReleaseMemCopy {
             }
         }
 
+        // Performance depends on -Djava.lang.foreign.native.threshold.power.copy=<PoT bytes> (default: 6)
         var S = MemorySegment.ofAddress(src).reinterpret(bytes);
         var D = MemorySegment.ofAddress(dst).reinterpret(bytes);
 

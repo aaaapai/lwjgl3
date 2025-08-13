@@ -27,6 +27,11 @@ FFMUnsafeTest.t2_aligned_masked_length_alignment           2048           1024  
 
 FFMUnsafeTest.t3_newSegment                                2048           1024  avgt    3  388,440 ± 23,968  ns/op
 FFMUnsafeTest.t3_newSegmentVH                              2048           1024  avgt    3  387,813 ±  1,563  ns/op
+
+Update with new findings:
+
+The masked implementations do not perform well across the board (read vs write, bytes vs ints). The new segment
+implementation is the only consistent one.
  */
 
 /** Compares the performance of different ways to access memory via MemorySegment with the equivalent Unsafe baseline. */
