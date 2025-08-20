@@ -1,5 +1,12 @@
 #!/bin/bash
 set -e
+
+export NDK_VERSION=r28c
+
+wget https://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux.zip
+unzip android-ndk-$NDK_VERSION-linux.zip
+export ANDROID_NDK_HOME=$PWD/android-ndk-$NDK_VERSION
+
 export LIBFFI_VERSION=3.4.6
 export ANDROID=1 LWJGL_BUILD_OFFLINE=1
 #export LWJGL_BUILD_ARCH=arm64
