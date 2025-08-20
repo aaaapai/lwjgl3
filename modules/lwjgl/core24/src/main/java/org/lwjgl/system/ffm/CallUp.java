@@ -20,6 +20,7 @@ import static org.lwjgl.system.ffm.BytecodeUtil.*;
 import static org.lwjgl.system.ffm.Call.FeatureFlag.*;
 import static org.lwjgl.system.ffm.ConstantDescs.*;
 
+// TODO: optionally generate try/catch wrapper, forward exception to user-specified handler (or System.err print by default)
 final class CallUp extends Call {
 
     private final Class<?> upcallInterface;
