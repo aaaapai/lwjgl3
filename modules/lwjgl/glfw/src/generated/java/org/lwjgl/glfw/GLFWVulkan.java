@@ -195,6 +195,10 @@ public class GLFWVulkan {
         return result;
     }
 
+    public static int nglfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+        return glfwCreateWindowSurface(instance, window, allocator, surface);
+    }
+
     /**
      * Calls {@link #setPath(String)} with the path of the specified {@link SharedLibrary}.
      * 
