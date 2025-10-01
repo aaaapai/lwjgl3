@@ -195,7 +195,8 @@ public class GLFWVulkan {
         return result;
     }
 
-    public static int nglfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+     
+    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
         return glfwCreateWindowSurface(instance, window, allocator, surface);
     }
 
