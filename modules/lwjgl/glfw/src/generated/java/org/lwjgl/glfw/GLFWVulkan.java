@@ -197,25 +197,23 @@ public class GLFWVulkan {
 
      
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-      // 创建 LongBuffer 包装 surface 指针
-      LongBuffer surfaceBuffer = memLongBuffer(surface, 1);
+      // 直接使用 MemoryStack 创建临时缓冲区
+      MemoryStack stack = stackGet();
+      LongBuffer surfaceBuffer = stack.mallocLong(1);
     
-      if (Platform.get() == Platform.MACOSX) {
-         VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
-             .calloc()
-             .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
-             .pLayer(PointerBuffer.create(window, 1));
-         return vkCreateMetalSurfaceEXT(VkInstance.create(instance, null), pCreateInfo, null, surfaceBuffer);
-      } else if (Platform.get() == Platform.LINUX) {
-        VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
-            .calloc()
-            .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
-            .window(window);
-         return vkCreateAndroidSurfaceKHR(VkInstance.create(instance, null), pCreateInfo, null, surfaceBuffer);
+      // 创建 VkInstance 对象
+      VkInstance vkInstance = VkInstance.create(instance);
+    
+      // 调用现有的 glfwCreateWindowSurface 方法
+      int result = glfwCreateWindowSurface(vkInstance, window, null, surfaceBuffer);
+    
+      // 将结果写回 surface 指针
+      if (result == VK_SUCCESS) {
+          memPutLong(surface, surfaceBuffer.get(0));
       }
-         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
+    
+      return result;
     }
-
     /**
      * Calls {@link #setPath(String)} with the path of the specified {@link SharedLibrary}.
      * 
