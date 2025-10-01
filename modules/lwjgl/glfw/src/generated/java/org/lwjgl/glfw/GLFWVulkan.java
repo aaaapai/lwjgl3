@@ -197,7 +197,23 @@ public class GLFWVulkan {
 
      
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        return glfwCreateWindowSurface(instance, window, allocator, surface);
+      // 创建 LongBuffer 包装 surface 指针
+      LongBuffer surfaceBuffer = memLongBuffer(surface, 1);
+    
+      if (Platform.get() == Platform.MACOSX) {
+         VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
+             .calloc()
+             .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
+             .pLayer(PointerBuffer.create(window, 1));
+         return vkCreateMetalSurfaceEXT(VkInstance.create(instance, null), pCreateInfo, null, surfaceBuffer);
+      } else if (Platform.get() == Platform.LINUX) {
+        VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
+            .calloc()
+            .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
+            .window(window);
+         return vkCreateAndroidSurfaceKHR(VkInstance.create(instance, null), pCreateInfo, null, surfaceBuffer);
+      }
+         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
     /**
