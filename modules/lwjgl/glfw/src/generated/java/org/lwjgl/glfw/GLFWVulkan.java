@@ -195,24 +195,23 @@ public class GLFWVulkan {
         return result;
     }
 
-     
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-      // 直接使用 MemoryStack 创建临时缓冲区
-      MemoryStack stack = stackGet();
-      LongBuffer surfaceBuffer = stack.mallocLong(1);
+       // 直接使用 MemoryStack 创建临时缓冲区
+       MemoryStack stack = stackGet();
+       LongBuffer surfaceBuffer = stack.mallocLong(1);
     
-      // 创建 VkInstance 对象
-      VkInstance vkInstance = VkInstance.create(instance);
+        // 使用 VkInstance 的构造函数而不是 create 方法
+       VkInstance vkInstance = new VkInstance(instance, null);
     
-      // 调用现有的 glfwCreateWindowSurface 方法
-      int result = glfwCreateWindowSurface(vkInstance, window, null, surfaceBuffer);
+       // 调用现有的 glfwCreateWindowSurface 方法
+       int result = glfwCreateWindowSurface(vkInstance, window, null, surfaceBuffer);
     
-      // 将结果写回 surface 指针
-      if (result == VK_SUCCESS) {
-          memPutLong(surface, surfaceBuffer.get(0));
-      }
+       // 将结果写回 surface 指针
+        if (result == 0) { // VK_SUCCESS 的值通常是 0
+            memPutLong(surface, surfaceBuffer.get(0));
+        }
     
-      return result;
+        return result;
     }
     /**
      * Calls {@link #setPath(String)} with the path of the specified {@link SharedLibrary}.
