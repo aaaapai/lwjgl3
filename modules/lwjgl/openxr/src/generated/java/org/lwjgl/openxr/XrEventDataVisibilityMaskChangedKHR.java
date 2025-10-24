@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHRVisibilityMask XR_KHR_visibility_mask} extension <b>must</b> be enabled prior to using {@link XrEventDataVisibilityMaskChangedKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRVisibilityMask#XR_TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -164,8 +164,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct<XrEventDataVisib
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataVisibilityMaskChangedKHR createSafe(long address) {
+    public static @Nullable XrEventDataVisibilityMaskChangedKHR createSafe(long address) {
         return address == NULL ? null : new XrEventDataVisibilityMaskChangedKHR(address, null);
     }
 
@@ -213,8 +212,7 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct<XrEventDataVisib
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataVisibilityMaskChangedKHR.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataVisibilityMaskChangedKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,18 +262,18 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct<XrEventDataVisib
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataVisibilityMaskChangedKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataVisibilityMaskChangedKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataVisibilityMaskChangedKHR.NEXT); }
     /** Unsafe version of {@link #session}. */
     public static long nsession(long struct) { return memGetAddress(struct + XrEventDataVisibilityMaskChangedKHR.SESSION); }
     /** Unsafe version of {@link #viewConfigurationType}. */
-    public static int nviewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrEventDataVisibilityMaskChangedKHR.VIEWCONFIGURATIONTYPE); }
+    public static int nviewConfigurationType(long struct) { return memGetInt(struct + XrEventDataVisibilityMaskChangedKHR.VIEWCONFIGURATIONTYPE); }
     /** Unsafe version of {@link #viewIndex}. */
-    public static int nviewIndex(long struct) { return UNSAFE.getInt(null, struct + XrEventDataVisibilityMaskChangedKHR.VIEWINDEX); }
+    public static int nviewIndex(long struct) { return memGetInt(struct + XrEventDataVisibilityMaskChangedKHR.VIEWINDEX); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataVisibilityMaskChangedKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataVisibilityMaskChangedKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataVisibilityMaskChangedKHR.NEXT, value); }
 
@@ -310,6 +308,11 @@ public class XrEventDataVisibilityMaskChangedKHR extends Struct<XrEventDataVisib
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

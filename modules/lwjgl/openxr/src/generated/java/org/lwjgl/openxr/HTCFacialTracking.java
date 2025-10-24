@@ -14,14 +14,14 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
  * 
  * <p>This extension allows an application to track and integrate users' eye and lip movements, empowering developers to read intention and model facial expressions.</p>
  */
 public class HTCFacialTracking {
 
     /** The extension specification version. */
-    public static final int XR_HTC_facial_tracking_SPEC_VERSION = 2;
+    public static final int XR_HTC_facial_tracking_SPEC_VERSION = 3;
 
     /** The extension name. */
     public static final String XR_HTC_FACIAL_TRACKING_EXTENSION_NAME = "XR_HTC_facial_tracking";
@@ -44,6 +44,24 @@ public class HTCFacialTracking {
         XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC = 1000104000,
         XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC        = 1000104001,
         XR_TYPE_FACIAL_EXPRESSIONS_HTC                = 1000104002;
+
+    /**
+     * Extends {@code XrLipExpressionHTC}.
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC}</li>
+     * </ul>
+     */
+    public static final int
+        XR_LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC = 12,
+        XR_LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC  = 13,
+        XR_LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC   = 14,
+        XR_LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC    = 15;
 
     /**
      * XrEyeExpressionHTC - The blend shapes of eye expression
@@ -101,10 +119,10 @@ public class HTCFacialTracking {
      * <li>{@link #XR_LIP_EXPRESSION_MOUTH_UPPER_OVERTURN_HTC LIP_EXPRESSION_MOUTH_UPPER_OVERTURN_HTC}</li>
      * <li>{@link #XR_LIP_EXPRESSION_MOUTH_LOWER_OVERTURN_HTC LIP_EXPRESSION_MOUTH_LOWER_OVERTURN_HTC}</li>
      * <li>{@link #XR_LIP_EXPRESSION_MOUTH_POUT_HTC LIP_EXPRESSION_MOUTH_POUT_HTC}</li>
-     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC}</li>
-     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC}</li>
-     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC}</li>
-     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_RAISER_RIGHT_HTC LIP_EXPRESSION_MOUTH_RAISER_RIGHT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_RAISER_LEFT_HTC LIP_EXPRESSION_MOUTH_RAISER_LEFT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_STRETCHER_RIGHT_HTC LIP_EXPRESSION_MOUTH_STRETCHER_RIGHT_HTC}</li>
+     * <li>{@link #XR_LIP_EXPRESSION_MOUTH_STRETCHER_LEFT_HTC LIP_EXPRESSION_MOUTH_STRETCHER_LEFT_HTC}</li>
      * <li>{@link #XR_LIP_EXPRESSION_CHEEK_PUFF_RIGHT_HTC LIP_EXPRESSION_CHEEK_PUFF_RIGHT_HTC}</li>
      * <li>{@link #XR_LIP_EXPRESSION_CHEEK_PUFF_LEFT_HTC LIP_EXPRESSION_CHEEK_PUFF_LEFT_HTC}</li>
      * <li>{@link #XR_LIP_EXPRESSION_CHEEK_SUCK_HTC LIP_EXPRESSION_CHEEK_SUCK_HTC}</li>
@@ -141,10 +159,10 @@ public class HTCFacialTracking {
         XR_LIP_EXPRESSION_MOUTH_UPPER_OVERTURN_HTC   = 9,
         XR_LIP_EXPRESSION_MOUTH_LOWER_OVERTURN_HTC   = 10,
         XR_LIP_EXPRESSION_MOUTH_POUT_HTC             = 11,
-        XR_LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC      = 12,
-        XR_LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC       = 13,
-        XR_LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC        = 14,
-        XR_LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC         = 15,
+        XR_LIP_EXPRESSION_MOUTH_RAISER_RIGHT_HTC     = 12,
+        XR_LIP_EXPRESSION_MOUTH_RAISER_LEFT_HTC      = 13,
+        XR_LIP_EXPRESSION_MOUTH_STRETCHER_RIGHT_HTC  = 14,
+        XR_LIP_EXPRESSION_MOUTH_STRETCHER_LEFT_HTC   = 15,
         XR_LIP_EXPRESSION_CHEEK_PUFF_RIGHT_HTC       = 16,
         XR_LIP_EXPRESSION_CHEEK_PUFF_LEFT_HTC        = 17,
         XR_LIP_EXPRESSION_CHEEK_SUCK_HTC             = 18,
@@ -222,7 +240,7 @@ public class HTCFacialTracking {
      * 
      * <p>An application <b>can</b> create an {@code XrFacialTrackerHTC} handle using {@link #xrCreateFacialTrackerHTC CreateFacialTrackerHTC}.</p>
      * 
-     * <p>If the system does not support eye tracking or lip tracking, runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateFacialTrackerHTC CreateFacialTrackerHTC} according to the corresponding case. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@code supportEyeFacialTracking} or {@code supportLipFacialTracking} in {@link XrSystemFacialTrackingPropertiesHTC} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>may</b> avoid creating a facial tracker.</p>
+     * <p>If the system does not support eye tracking or lip tracking, runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link #xrCreateFacialTrackerHTC CreateFacialTrackerHTC} according to the corresponding case. In this case, the runtime <b>must</b> return {@link XR10#XR_FALSE FALSE} for {@link XrSystemFacialTrackingPropertiesHTC}{@code ::supportEyeFacialTracking} or {@link XrSystemFacialTrackingPropertiesHTC}{@code ::supportLipFacialTracking} when the function {@link XR10#xrGetSystemProperties GetSystemProperties} is called, so that the application <b>may</b> avoid creating a facial tracker.</p>
      * 
      * <h5>Valid Usage (Implicit)</h5>
      * 

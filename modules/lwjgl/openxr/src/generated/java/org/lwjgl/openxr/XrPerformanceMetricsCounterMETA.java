@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link METAPerformanceMetrics XR_META_performance_metrics} extension <b>must</b> be enabled prior to using {@link XrPerformanceMetricsCounterMETA}</li>
  * <li>{@code type} <b>must</b> be {@link METAPerformanceMetrics#XR_TYPE_PERFORMANCE_METRICS_COUNTER_META TYPE_PERFORMANCE_METRICS_COUNTER_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code counterFlags} <b>must</b> be 0 or a valid combination of {@code XrPerformanceMetricsCounterFlagBitsMETA} values</li>
  * <li>{@code counterUnit} <b>must</b> be a valid {@code XrPerformanceMetricsCounterUnitMETA} value</li>
  * </ul>
@@ -196,8 +196,7 @@ public class XrPerformanceMetricsCounterMETA extends Struct<XrPerformanceMetrics
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPerformanceMetricsCounterMETA createSafe(long address) {
+    public static @Nullable XrPerformanceMetricsCounterMETA createSafe(long address) {
         return address == NULL ? null : new XrPerformanceMetricsCounterMETA(address, null);
     }
 
@@ -240,8 +239,7 @@ public class XrPerformanceMetricsCounterMETA extends Struct<XrPerformanceMetrics
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPerformanceMetricsCounterMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPerformanceMetricsCounterMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,30 +284,30 @@ public class XrPerformanceMetricsCounterMETA extends Struct<XrPerformanceMetrics
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPerformanceMetricsCounterMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPerformanceMetricsCounterMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPerformanceMetricsCounterMETA.NEXT); }
     /** Unsafe version of {@link #counterFlags}. */
-    public static long ncounterFlags(long struct) { return UNSAFE.getLong(null, struct + XrPerformanceMetricsCounterMETA.COUNTERFLAGS); }
+    public static long ncounterFlags(long struct) { return memGetLong(struct + XrPerformanceMetricsCounterMETA.COUNTERFLAGS); }
     /** Unsafe version of {@link #counterUnit}. */
-    public static int ncounterUnit(long struct) { return UNSAFE.getInt(null, struct + XrPerformanceMetricsCounterMETA.COUNTERUNIT); }
+    public static int ncounterUnit(long struct) { return memGetInt(struct + XrPerformanceMetricsCounterMETA.COUNTERUNIT); }
     /** Unsafe version of {@link #uintValue}. */
-    public static int nuintValue(long struct) { return UNSAFE.getInt(null, struct + XrPerformanceMetricsCounterMETA.UINTVALUE); }
+    public static int nuintValue(long struct) { return memGetInt(struct + XrPerformanceMetricsCounterMETA.UINTVALUE); }
     /** Unsafe version of {@link #floatValue}. */
-    public static float nfloatValue(long struct) { return UNSAFE.getFloat(null, struct + XrPerformanceMetricsCounterMETA.FLOATVALUE); }
+    public static float nfloatValue(long struct) { return memGetFloat(struct + XrPerformanceMetricsCounterMETA.FLOATVALUE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPerformanceMetricsCounterMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPerformanceMetricsCounterMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPerformanceMetricsCounterMETA.NEXT, value); }
     /** Unsafe version of {@link #counterFlags(long) counterFlags}. */
-    public static void ncounterFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrPerformanceMetricsCounterMETA.COUNTERFLAGS, value); }
+    public static void ncounterFlags(long struct, long value) { memPutLong(struct + XrPerformanceMetricsCounterMETA.COUNTERFLAGS, value); }
     /** Unsafe version of {@link #counterUnit(int) counterUnit}. */
-    public static void ncounterUnit(long struct, int value) { UNSAFE.putInt(null, struct + XrPerformanceMetricsCounterMETA.COUNTERUNIT, value); }
+    public static void ncounterUnit(long struct, int value) { memPutInt(struct + XrPerformanceMetricsCounterMETA.COUNTERUNIT, value); }
     /** Unsafe version of {@link #uintValue(int) uintValue}. */
-    public static void nuintValue(long struct, int value) { UNSAFE.putInt(null, struct + XrPerformanceMetricsCounterMETA.UINTVALUE, value); }
+    public static void nuintValue(long struct, int value) { memPutInt(struct + XrPerformanceMetricsCounterMETA.UINTVALUE, value); }
     /** Unsafe version of {@link #floatValue(float) floatValue}. */
-    public static void nfloatValue(long struct, float value) { UNSAFE.putFloat(null, struct + XrPerformanceMetricsCounterMETA.FLOATVALUE, value); }
+    public static void nfloatValue(long struct, float value) { memPutFloat(struct + XrPerformanceMetricsCounterMETA.FLOATVALUE, value); }
 
     // -----------------------------------
 
@@ -342,6 +340,11 @@ public class XrPerformanceMetricsCounterMETA extends Struct<XrPerformanceMetrics
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

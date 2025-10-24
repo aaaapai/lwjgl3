@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -118,7 +118,6 @@ public class GLFWVulkan {
      *
      * @since version 3.2
      */
-    @Nullable
     @NativeType("char const **")
     public static PointerBuffer glfwGetRequiredInstanceExtensions() {
         MemoryStack stack = MemoryStack.stackPush();
@@ -161,7 +160,7 @@ public class GLFWVulkan {
      * @since version 3.2
      */
     @NativeType("GLFWvkproc")
-    public static long glfwGetInstanceProcAddress(@Nullable VkInstance instance, @NativeType("char const *") ByteBuffer procname) {
+    public static long glfwGetInstanceProcAddress(@NativeType("VkInstance") @Nullable VkInstance instance, @NativeType("char const *") ByteBuffer procname) {
         if (CHECKS) {
             checkNT1(procname);
         }
@@ -277,7 +276,7 @@ public class GLFWVulkan {
      * @since version 3.2
      */
     @NativeType("VkResult")
-    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
+    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
         if (CHECKS) {
             check(surface, 1);
         }
@@ -299,12 +298,13 @@ public class GLFWVulkan {
 
     /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
     @NativeType("VkResult")
-    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
-        MemoryStack stack = stackGet();
-        LongBuffer pSurface = stack.mallocLong(1);
-        int result = glfwCreateWindowSurface(instance, window, allocator, pSurface);
-        surface[0] = pSurface.get(0);
-        return result;
+    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+        long __functionAddress = Functions.CreateWindowSurface;
+        if (CHECKS) {
+            check(window);
+            check(surface, 1);
+        }
+        return invokePPPPI(instance.address(), window, memAddressSafe(allocator), surface, __functionAddress);
     }
 
     /**

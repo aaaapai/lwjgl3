@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,13 +22,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>{@link XrFrameState} describes the time at which the next frame will be displayed to the user. {@code predictedDisplayTime} <b>must</b> refer to the midpoint of the interval during which the frame is displayed. The runtime <b>may</b> report a different {@code predictedDisplayPeriod} from the hardware’s refresh cycle.</p>
  * 
- * <p>For any frame where {@code shouldRender} is {@link XR10#XR_FALSE FALSE}, the application <b>should</b> avoid heavy GPU work for that frame, for example by not rendering its layers. This typically happens when the application is transitioning into or out of a running session, or when some system UI is fully covering the application at the moment. As long as the session <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#session_running">is running</a>, the application <b>should</b> keep running the frame loop to maintain the frame synchronization to the runtime, even if this requires calling {@link XR10#xrEndFrame EndFrame} with all layers omitted.</p>
+ * <p>For any frame where {@code shouldRender} is {@link XR10#XR_FALSE FALSE}, the application <b>should</b> avoid heavy GPU work for that frame, for example by not rendering its layers. This typically happens when the application is transitioning into or out of a running session, or when some system UI is fully covering the application at the moment. As long as the session <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#session-running">is running</a>, the application <b>should</b> keep running the frame loop to maintain the frame synchronization to the runtime, even if this requires calling {@link XR10#xrEndFrame EndFrame} with all layers omitted.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_FRAME_STATE TYPE_FRAME_STATE}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSecondaryViewConfigurationFrameStateMSFT}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSecondaryViewConfigurationFrameStateMSFT}</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -187,8 +187,7 @@ public class XrFrameState extends Struct<XrFrameState> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrameState createSafe(long address) {
+    public static @Nullable XrFrameState createSafe(long address) {
         return address == NULL ? null : new XrFrameState(address, null);
     }
 
@@ -231,8 +230,7 @@ public class XrFrameState extends Struct<XrFrameState> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrameState.Buffer createSafe(long address, int capacity) {
+    public static XrFrameState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,26 +275,26 @@ public class XrFrameState extends Struct<XrFrameState> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFrameState.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFrameState.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFrameState.NEXT); }
     /** Unsafe version of {@link #predictedDisplayTime}. */
-    public static long npredictedDisplayTime(long struct) { return UNSAFE.getLong(null, struct + XrFrameState.PREDICTEDDISPLAYTIME); }
+    public static long npredictedDisplayTime(long struct) { return memGetLong(struct + XrFrameState.PREDICTEDDISPLAYTIME); }
     /** Unsafe version of {@link #predictedDisplayPeriod}. */
-    public static long npredictedDisplayPeriod(long struct) { return UNSAFE.getLong(null, struct + XrFrameState.PREDICTEDDISPLAYPERIOD); }
+    public static long npredictedDisplayPeriod(long struct) { return memGetLong(struct + XrFrameState.PREDICTEDDISPLAYPERIOD); }
     /** Unsafe version of {@link #shouldRender}. */
-    public static int nshouldRender(long struct) { return UNSAFE.getInt(null, struct + XrFrameState.SHOULDRENDER); }
+    public static int nshouldRender(long struct) { return memGetInt(struct + XrFrameState.SHOULDRENDER); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFrameState.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFrameState.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFrameState.NEXT, value); }
     /** Unsafe version of {@link #predictedDisplayTime(long) predictedDisplayTime}. */
-    public static void npredictedDisplayTime(long struct, long value) { UNSAFE.putLong(null, struct + XrFrameState.PREDICTEDDISPLAYTIME, value); }
+    public static void npredictedDisplayTime(long struct, long value) { memPutLong(struct + XrFrameState.PREDICTEDDISPLAYTIME, value); }
     /** Unsafe version of {@link #predictedDisplayPeriod(long) predictedDisplayPeriod}. */
-    public static void npredictedDisplayPeriod(long struct, long value) { UNSAFE.putLong(null, struct + XrFrameState.PREDICTEDDISPLAYPERIOD, value); }
+    public static void npredictedDisplayPeriod(long struct, long value) { memPutLong(struct + XrFrameState.PREDICTEDDISPLAYPERIOD, value); }
     /** Unsafe version of {@link #shouldRender(boolean) shouldRender}. */
-    public static void nshouldRender(long struct, int value) { UNSAFE.putInt(null, struct + XrFrameState.SHOULDRENDER, value); }
+    public static void nshouldRender(long struct, int value) { memPutInt(struct + XrFrameState.SHOULDRENDER, value); }
 
     // -----------------------------------
 
@@ -329,6 +327,11 @@ public class XrFrameState extends Struct<XrFrameState> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

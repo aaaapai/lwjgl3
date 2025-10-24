@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTActiveActionSetPriority XR_EXT_active_action_set_priority} extension <b>must</b> be enabled prior to using {@link XrActiveActionSetPrioritiesEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTActiveActionSetPriority#XR_TYPE_ACTIVE_ACTION_SET_PRIORITIES_EXT TYPE_ACTIVE_ACTION_SET_PRIORITIES_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code actionSetPriorities} <b>must</b> be a pointer to an array of {@code actionSetPriorityCount} valid {@link XrActiveActionSetPriorityEXT} structures</li>
  * <li>The {@code actionSetPriorityCount} parameter <b>must</b> be greater than 0</li>
  * </ul>
@@ -45,7 +45,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct XrActiveActionSetPrioritiesEXT {
  *     XrStructureType {@link #type};
  *     void const * {@link #next};
- *     uint32_t actionSetPriorityCount;
+ *     uint32_t {@link #actionSetPriorityCount};
  *     {@link XrActiveActionSetPriorityEXT XrActiveActionSetPriorityEXT} const * {@link #actionSetPriorities};
  * }</code></pre>
  */
@@ -109,7 +109,7 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** @return the value of the {@code actionSetPriorityCount} field. */
+    /** an integer specifying the number of valid elements in the actionSetPriorities array. */
     @NativeType("uint32_t")
     public int actionSetPriorityCount() { return nactionSetPriorityCount(address()); }
     /** a pointer to an array that maps action sets to their active priority numbers. If an action set is specified multiple times, the runtime <b>may</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE} from {@link XR10#xrSyncActions SyncActions}. */
@@ -174,8 +174,7 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSetPrioritiesEXT createSafe(long address) {
+    public static @Nullable XrActiveActionSetPrioritiesEXT createSafe(long address) {
         return address == NULL ? null : new XrActiveActionSetPrioritiesEXT(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSetPrioritiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrActiveActionSetPrioritiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,20 +262,20 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActiveActionSetPrioritiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActiveActionSetPrioritiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActiveActionSetPrioritiesEXT.NEXT); }
     /** Unsafe version of {@link #actionSetPriorityCount}. */
-    public static int nactionSetPriorityCount(long struct) { return UNSAFE.getInt(null, struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT); }
+    public static int nactionSetPriorityCount(long struct) { return memGetInt(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT); }
     /** Unsafe version of {@link #actionSetPriorities}. */
     public static XrActiveActionSetPriorityEXT.Buffer nactionSetPriorities(long struct) { return XrActiveActionSetPriorityEXT.create(memGetAddress(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITIES), nactionSetPriorityCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActiveActionSetPrioritiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActiveActionSetPrioritiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActiveActionSetPrioritiesEXT.NEXT, value); }
     /** Sets the specified value to the {@code actionSetPriorityCount} field of the specified {@code struct}. */
-    public static void nactionSetPriorityCount(long struct, int value) { UNSAFE.putInt(null, struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT, value); }
+    public static void nactionSetPriorityCount(long struct, int value) { memPutInt(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITYCOUNT, value); }
     /** Unsafe version of {@link #actionSetPriorities(XrActiveActionSetPriorityEXT.Buffer) actionSetPriorities}. */
     public static void nactionSetPriorities(long struct, XrActiveActionSetPriorityEXT.Buffer value) { memPutAddress(struct + XrActiveActionSetPrioritiesEXT.ACTIONSETPRIORITIES, value.address()); nactionSetPriorityCount(struct, value.remaining()); }
 
@@ -327,6 +325,11 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrActiveActionSetPrioritiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -337,7 +340,7 @@ public class XrActiveActionSetPrioritiesEXT extends Struct<XrActiveActionSetPrio
         /** @return the value of the {@link XrActiveActionSetPrioritiesEXT#next} field. */
         @NativeType("void const *")
         public long next() { return XrActiveActionSetPrioritiesEXT.nnext(address()); }
-        /** @return the value of the {@code actionSetPriorityCount} field. */
+        /** @return the value of the {@link XrActiveActionSetPrioritiesEXT#actionSetPriorityCount} field. */
         @NativeType("uint32_t")
         public int actionSetPriorityCount() { return XrActiveActionSetPrioritiesEXT.nactionSetPriorityCount(address()); }
         /** @return a {@link XrActiveActionSetPriorityEXT.Buffer} view of the struct array pointed to by the {@link XrActiveActionSetPrioritiesEXT#actionSetPriorities} field. */

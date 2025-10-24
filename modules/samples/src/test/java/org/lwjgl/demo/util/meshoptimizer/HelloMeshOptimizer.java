@@ -48,7 +48,8 @@ public class HelloMeshOptimizer {
 
         IntBuffer remap = memAllocInt(mesh.npoints());
 
-        int uniqueVertices = (int)meshopt_generateVertexRemapMulti(remap, indexBuffer, indexBuffer.remaining(), streams);
+        int uniqueVertices = (int)meshopt_generateVertexRemapMulti(remap, indexBuffer, mesh.npoints(), streams);
+
         remap(vertexBuffer, indexBuffer, normalBuffer, remap);
 
         if (uniqueVertices < remap.remaining()) {
@@ -76,9 +77,9 @@ public class HelloMeshOptimizer {
     }
 
     private static void remap(FloatBuffer vertexBuffer, IntBuffer indexBuffer, FloatBuffer normalBuffer, IntBuffer remap) {
-        meshopt_remapIndexBuffer(indexBuffer, indexBuffer, remap);
-        meshopt_remapVertexBuffer(memByteBuffer(vertexBuffer), memByteBuffer(vertexBuffer), 3 * Float.BYTES, remap);
-        meshopt_remapVertexBuffer(memByteBuffer(normalBuffer), memByteBuffer(normalBuffer), 3 * Float.BYTES, remap);
+        meshopt_remapIndexBuffer(indexBuffer, indexBuffer, indexBuffer.remaining(), remap);
+        meshopt_remapVertexBuffer(memByteBuffer(vertexBuffer), memByteBuffer(vertexBuffer), remap.remaining(), 3 * Float.BYTES, remap);
+        meshopt_remapVertexBuffer(memByteBuffer(normalBuffer), memByteBuffer(normalBuffer), remap.remaining(), 3 * Float.BYTES, remap);
     }
 
     private static void printStats(ParShapesMesh mesh) {

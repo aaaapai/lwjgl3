@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBSceneCapture XR_FB_scene_capture} extension <b>must</b> be enabled prior to using {@link XrSceneCaptureRequestInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBSceneCapture#XR_TYPE_SCENE_CAPTURE_REQUEST_INFO_FB TYPE_SCENE_CAPTURE_REQUEST_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>If {@code requestByteCount} is not 0, {@code request} <b>must</b> be a pointer to an array of {@code requestByteCount} char values</li>
  * </ul>
  * 
@@ -109,9 +109,8 @@ public class XrSceneCaptureRequestInfoFB extends Struct<XrSceneCaptureRequestInf
     @NativeType("uint32_t")
     public int requestByteCount() { return nrequestByteCount(address()); }
     /** a string which the application <b>can</b> use to specify which type of scene capture should be initiated by the runtime. The contents of buffer pointed to by the {@code request} parameter is runtime-specific. */
-    @Nullable
     @NativeType("char const *")
-    public ByteBuffer request() { return nrequest(address()); }
+    public @Nullable ByteBuffer request() { return nrequest(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
     public XrSceneCaptureRequestInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
@@ -175,8 +174,7 @@ public class XrSceneCaptureRequestInfoFB extends Struct<XrSceneCaptureRequestInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneCaptureRequestInfoFB createSafe(long address) {
+    public static @Nullable XrSceneCaptureRequestInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSceneCaptureRequestInfoFB(address, null);
     }
 
@@ -219,8 +217,7 @@ public class XrSceneCaptureRequestInfoFB extends Struct<XrSceneCaptureRequestInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneCaptureRequestInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSceneCaptureRequestInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,20 +262,20 @@ public class XrSceneCaptureRequestInfoFB extends Struct<XrSceneCaptureRequestInf
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneCaptureRequestInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneCaptureRequestInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneCaptureRequestInfoFB.NEXT); }
     /** Unsafe version of {@link #requestByteCount}. */
-    public static int nrequestByteCount(long struct) { return UNSAFE.getInt(null, struct + XrSceneCaptureRequestInfoFB.REQUESTBYTECOUNT); }
+    public static int nrequestByteCount(long struct) { return memGetInt(struct + XrSceneCaptureRequestInfoFB.REQUESTBYTECOUNT); }
     /** Unsafe version of {@link #request() request}. */
-    @Nullable public static ByteBuffer nrequest(long struct) { return memByteBufferSafe(memGetAddress(struct + XrSceneCaptureRequestInfoFB.REQUEST), nrequestByteCount(struct)); }
+    public static @Nullable ByteBuffer nrequest(long struct) { return memByteBufferSafe(memGetAddress(struct + XrSceneCaptureRequestInfoFB.REQUEST), nrequestByteCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneCaptureRequestInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneCaptureRequestInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneCaptureRequestInfoFB.NEXT, value); }
     /** Sets the specified value to the {@code requestByteCount} field of the specified {@code struct}. */
-    public static void nrequestByteCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneCaptureRequestInfoFB.REQUESTBYTECOUNT, value); }
+    public static void nrequestByteCount(long struct, int value) { memPutInt(struct + XrSceneCaptureRequestInfoFB.REQUESTBYTECOUNT, value); }
     /** Unsafe version of {@link #request(ByteBuffer) request}. */
     public static void nrequest(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + XrSceneCaptureRequestInfoFB.REQUEST, memAddressSafe(value)); if (value != null) { nrequestByteCount(struct, value.remaining()); } }
 
@@ -316,6 +313,11 @@ public class XrSceneCaptureRequestInfoFB extends Struct<XrSceneCaptureRequestInf
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneCaptureRequestInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -330,9 +332,8 @@ public class XrSceneCaptureRequestInfoFB extends Struct<XrSceneCaptureRequestInf
         @NativeType("uint32_t")
         public int requestByteCount() { return XrSceneCaptureRequestInfoFB.nrequestByteCount(address()); }
         /** @return a {@link ByteBuffer} view of the data pointed to by the {@link XrSceneCaptureRequestInfoFB#request} field. */
-        @Nullable
         @NativeType("char const *")
-        public ByteBuffer request() { return XrSceneCaptureRequestInfoFB.nrequest(address()); }
+        public @Nullable ByteBuffer request() { return XrSceneCaptureRequestInfoFB.nrequest(address()); }
 
         /** Sets the specified value to the {@link XrSceneCaptureRequestInfoFB#type} field. */
         public XrSceneCaptureRequestInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSceneCaptureRequestInfoFB.ntype(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class XrSceneFrustumBoundMSFT extends Struct<XrSceneFrustumBoundMSFT> imp
 
     /** an {@link XrPosef} defining the position and orientation of the tip of the frustum bound within the reference frame of the corresponding {@link XrSceneBoundsMSFT}{@code ::space}. */
     public XrPosef pose() { return npose(address()); }
-    /** an {@link XrFovf} for the four sides of the frustum bound where {@code angleLeft} and {@code angleRight} are along the X axis and {@code angleUp} and {@code angleDown} are along the Y axis of the frustum bound space. */
+    /** an {@link XrFovf} for the four sides of the frustum bound where {@link XrFovf}{@code ::angleLeft} and {@link XrFovf}{@code ::angleRight} are along the X axis and {@link XrFovf}{@code ::angleUp} and {@link XrFovf}{@code ::angleDown} are along the Y axis of the frustum bound space. */
     public XrFovf fov() { return nfov(address()); }
     /** the positive distance of the far plane of the frustum bound along the -Z direction of the frustum bound space. */
     public float farDistance() { return nfarDistance(address()); }
@@ -159,8 +159,7 @@ public class XrSceneFrustumBoundMSFT extends Struct<XrSceneFrustumBoundMSFT> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneFrustumBoundMSFT createSafe(long address) {
+    public static @Nullable XrSceneFrustumBoundMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneFrustumBoundMSFT(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrSceneFrustumBoundMSFT extends Struct<XrSceneFrustumBoundMSFT> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneFrustumBoundMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneFrustumBoundMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,14 +251,14 @@ public class XrSceneFrustumBoundMSFT extends Struct<XrSceneFrustumBoundMSFT> imp
     /** Unsafe version of {@link #fov}. */
     public static XrFovf nfov(long struct) { return XrFovf.create(struct + XrSceneFrustumBoundMSFT.FOV); }
     /** Unsafe version of {@link #farDistance}. */
-    public static float nfarDistance(long struct) { return UNSAFE.getFloat(null, struct + XrSceneFrustumBoundMSFT.FARDISTANCE); }
+    public static float nfarDistance(long struct) { return memGetFloat(struct + XrSceneFrustumBoundMSFT.FARDISTANCE); }
 
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrSceneFrustumBoundMSFT.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #fov(XrFovf) fov}. */
     public static void nfov(long struct, XrFovf value) { memCopy(value.address(), struct + XrSceneFrustumBoundMSFT.FOV, XrFovf.SIZEOF); }
     /** Unsafe version of {@link #farDistance(float) farDistance}. */
-    public static void nfarDistance(long struct, float value) { UNSAFE.putFloat(null, struct + XrSceneFrustumBoundMSFT.FARDISTANCE, value); }
+    public static void nfarDistance(long struct, float value) { memPutFloat(struct + XrSceneFrustumBoundMSFT.FARDISTANCE, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class XrSceneFrustumBoundMSFT extends Struct<XrSceneFrustumBoundMSFT> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

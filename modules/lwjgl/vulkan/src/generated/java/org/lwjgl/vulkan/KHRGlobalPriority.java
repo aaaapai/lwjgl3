@@ -10,7 +10,7 @@ package org.lwjgl.vulkan;
  * 
  * <p>Implementations can report which global priority levels are treated differently by the implementation. It is intended primarily for use in system integration along with certain platform-specific priority enforcement rules.</p>
  * 
- * <p>The driver implementation will attempt to skew hardware resource allocation in favour of the higher-priority task. Therefore, higher-priority work may retain similar latency and throughput characteristics even if the system is congested with lower priority work.</p>
+ * <p>The driver implementation will attempt to skew hardware resource allocation in favor of the higher-priority task. Therefore, higher-priority work may retain similar latency and throughput characteristics even if the system is congested with lower priority work.</p>
  * 
  * <p>The global priority level of a queue shall take precedence over the per-process queue priority ({@link VkDeviceQueueCreateInfo}{@code ::pQueuePriorities}).</p>
  * 
@@ -18,7 +18,9 @@ package org.lwjgl.vulkan;
  * 
  * <p>The driver implementation may fail the queue allocation request if resources required to complete the operation have been exhausted (either by the same process or a different process). In this scenario {@link VK10#VK_ERROR_INITIALIZATION_FAILED ERROR_INITIALIZATION_FAILED} is returned.</p>
  * 
- * <h5>VK_KHR_global_priority</h5>
+ * <h5>Promotion to Vulkan 1.4</h5>
+ * 
+ * <p>Functionality in this extension is included in core Vulkan 1.4 with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -30,7 +32,11 @@ package org.lwjgl.vulkan;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>Deprecation State</b></dt>
+ * <dd><ul>
+ * <li><em>Promoted</em> to Vulkan 1.4</li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Tobias Hector <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_global_priority]%20@tobski%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_KHR_global_priority%20extension*">tobski</a></li>
@@ -79,6 +85,24 @@ public final class KHRGlobalPriority {
 
     /** VK_MAX_GLOBAL_PRIORITY_SIZE_KHR */
     public static final int VK_MAX_GLOBAL_PRIORITY_SIZE_KHR = 16;
+
+    /**
+     * Extends {@code VkQueueGlobalPriority}.
+     * 
+     * <h5>Enum values:</h5>
+     * 
+     * <ul>
+     * <li>{@link #VK_QUEUE_GLOBAL_PRIORITY_LOW_KHR QUEUE_GLOBAL_PRIORITY_LOW_KHR}</li>
+     * <li>{@link #VK_QUEUE_GLOBAL_PRIORITY_MEDIUM_KHR QUEUE_GLOBAL_PRIORITY_MEDIUM_KHR}</li>
+     * <li>{@link #VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR QUEUE_GLOBAL_PRIORITY_HIGH_KHR}</li>
+     * <li>{@link #VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR QUEUE_GLOBAL_PRIORITY_REALTIME_KHR}</li>
+     * </ul>
+     */
+    public static final int
+        VK_QUEUE_GLOBAL_PRIORITY_LOW_KHR      = 128,
+        VK_QUEUE_GLOBAL_PRIORITY_MEDIUM_KHR   = 256,
+        VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR     = 512,
+        VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR = 1024;
 
     private KHRGlobalPriority() {}
 

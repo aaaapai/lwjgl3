@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,17 +25,17 @@ import static org.lwjgl.openxr.XR10.*;
  * 
  * <p>When multiple actions are bound to the same input source, the {@code priority} of each action set determines which bindings are suppressed. Runtimes <b>must</b> ignore input sources from action sets with a lower priority number if those specific input sources are also present in active actions within a higher priority action set. If multiple action sets with the same priority are bound to the same input source and that is the highest priority number, runtimes <b>must</b> process all those bindings at the same time.</p>
  * 
- * <p>Two actions are considered to be bound to the same input source if they use the same <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#semantic-path-input">identifier and optional location</a> path segments, even if they have different component segments.</p>
+ * <p>Two actions are considered to be bound to the same input source if they use the same <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#semantic-paths-input">identifier and optional location</a> path segments, even if they have different component segments.</p>
  * 
  * <p>When runtimes are ignoring bindings because of priority, they <b>must</b> treat the binding to that input source as though they do not exist. That means the {@code isActive} field <b>must</b> be {@link XR10#XR_FALSE FALSE} when retrieving action data, and that the runtime <b>must</b> not provide any visual, haptic, or other feedback related to the binding of that action to that input source. Other actions in the same action set which are bound to input sources that do not collide are not affected and are processed as normal.</p>
  * 
- * <p>If {@code actionSetName} or {@code localizedActionSetName} are empty strings, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_INVALID ERROR_NAME_INVALID} or {@link XR10#XR_ERROR_LOCALIZED_NAME_INVALID ERROR_LOCALIZED_NAME_INVALID} respectively. If {@code actionSetName} or {@code localizedActionSetName} are duplicates of the corresponding field for any existing action set in the specified instance, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_DUPLICATED ERROR_NAME_DUPLICATED} or {@link XR10#XR_ERROR_LOCALIZED_NAME_DUPLICATED ERROR_LOCALIZED_NAME_DUPLICATED} respectively. If the conflicting action set is destroyed, the conflicting field is no longer considered duplicated. If {@code actionSetName} contains characters which are not allowed in a single level of a <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#well-formed-path-strings">well-formed path string</a>, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID}.</p>
+ * <p>If {@code actionSetName} or {@code localizedActionSetName} are empty strings, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_INVALID ERROR_NAME_INVALID} or {@link XR10#XR_ERROR_LOCALIZED_NAME_INVALID ERROR_LOCALIZED_NAME_INVALID} respectively. If {@code actionSetName} or {@code localizedActionSetName} are duplicates of the corresponding field for any existing action set in the specified instance, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_DUPLICATED ERROR_NAME_DUPLICATED} or {@link XR10#XR_ERROR_LOCALIZED_NAME_DUPLICATED ERROR_LOCALIZED_NAME_DUPLICATED} respectively. If the conflicting action set is destroyed, the conflicting field is no longer considered duplicated. If {@code actionSetName} contains characters which are not allowed in a single level of a <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#semantic-paths-well-formed">well-formed path string</a>, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID}.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_ACTION_SET_CREATE_INFO TYPE_ACTION_SET_CREATE_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code actionSetName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link XR10#XR_MAX_ACTION_SET_NAME_SIZE MAX_ACTION_SET_NAME_SIZE}</li>
  * <li>{@code localizedActionSetName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link XR10#XR_MAX_LOCALIZED_ACTION_SET_NAME_SIZE MAX_LOCALIZED_ACTION_SET_NAME_SIZE}</li>
  * </ul>
@@ -200,8 +200,7 @@ public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSetCreateInfo createSafe(long address) {
+    public static @Nullable XrActionSetCreateInfo createSafe(long address) {
         return address == NULL ? null : new XrActionSetCreateInfo(address, null);
     }
 
@@ -244,8 +243,7 @@ public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSetCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrActionSetCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,7 +288,7 @@ public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionSetCreateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionSetCreateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionSetCreateInfo.NEXT); }
     /** Unsafe version of {@link #actionSetName}. */
@@ -302,10 +300,10 @@ public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> impleme
     /** Unsafe version of {@link #localizedActionSetNameString}. */
     public static String nlocalizedActionSetNameString(long struct) { return memUTF8(struct + XrActionSetCreateInfo.LOCALIZEDACTIONSETNAME); }
     /** Unsafe version of {@link #priority}. */
-    public static int npriority(long struct) { return UNSAFE.getInt(null, struct + XrActionSetCreateInfo.PRIORITY); }
+    public static int npriority(long struct) { return memGetInt(struct + XrActionSetCreateInfo.PRIORITY); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionSetCreateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionSetCreateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionSetCreateInfo.NEXT, value); }
     /** Unsafe version of {@link #actionSetName(ByteBuffer) actionSetName}. */
@@ -325,7 +323,7 @@ public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> impleme
         memCopy(memAddress(value), struct + XrActionSetCreateInfo.LOCALIZEDACTIONSETNAME, value.remaining());
     }
     /** Unsafe version of {@link #priority(int) priority}. */
-    public static void npriority(long struct, int value) { UNSAFE.putInt(null, struct + XrActionSetCreateInfo.PRIORITY, value); }
+    public static void npriority(long struct, int value) { memPutInt(struct + XrActionSetCreateInfo.PRIORITY, value); }
 
     // -----------------------------------
 
@@ -358,6 +356,11 @@ public class XrActionSetCreateInfo extends Struct<XrActionSetCreateInfo> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

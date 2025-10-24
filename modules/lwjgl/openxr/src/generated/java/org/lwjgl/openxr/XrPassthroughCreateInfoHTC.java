@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link HTCPassthrough XR_HTC_passthrough} extension <b>must</b> be enabled prior to using {@link XrPassthroughCreateInfoHTC}</li>
  * <li>{@code type} <b>must</b> be {@link HTCPassthrough#XR_TYPE_PASSTHROUGH_CREATE_INFO_HTC TYPE_PASSTHROUGH_CREATE_INFO_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code form} <b>must</b> be a valid {@code XrPassthroughFormHTC} value</li>
  * </ul>
  * 
@@ -159,8 +159,7 @@ public class XrPassthroughCreateInfoHTC extends Struct<XrPassthroughCreateInfoHT
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughCreateInfoHTC createSafe(long address) {
+    public static @Nullable XrPassthroughCreateInfoHTC createSafe(long address) {
         return address == NULL ? null : new XrPassthroughCreateInfoHTC(address, null);
     }
 
@@ -203,8 +202,7 @@ public class XrPassthroughCreateInfoHTC extends Struct<XrPassthroughCreateInfoHT
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughCreateInfoHTC.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughCreateInfoHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,18 +247,18 @@ public class XrPassthroughCreateInfoHTC extends Struct<XrPassthroughCreateInfoHT
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughCreateInfoHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughCreateInfoHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughCreateInfoHTC.NEXT); }
     /** Unsafe version of {@link #form}. */
-    public static int nform(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughCreateInfoHTC.FORM); }
+    public static int nform(long struct) { return memGetInt(struct + XrPassthroughCreateInfoHTC.FORM); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughCreateInfoHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughCreateInfoHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughCreateInfoHTC.NEXT, value); }
     /** Unsafe version of {@link #form(int) form}. */
-    public static void nform(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughCreateInfoHTC.FORM, value); }
+    public static void nform(long struct, int value) { memPutInt(struct + XrPassthroughCreateInfoHTC.FORM, value); }
 
     // -----------------------------------
 
@@ -293,6 +291,11 @@ public class XrPassthroughCreateInfoHTC extends Struct<XrPassthroughCreateInfoHT
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

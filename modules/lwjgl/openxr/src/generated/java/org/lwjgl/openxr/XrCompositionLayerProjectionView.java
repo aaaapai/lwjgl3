@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_COMPOSITION_LAYER_PROJECTION_VIEW TYPE_COMPOSITION_LAYER_PROJECTION_VIEW}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrCompositionLayerDepthInfoKHR}, {@link XrCompositionLayerSpaceWarpInfoFB}</li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrCompositionLayerDepthInfoKHR}, {@link XrCompositionLayerSpaceWarpInfoFB}</li>
  * <li>{@code subImage} <b>must</b> be a valid {@link XrSwapchainSubImage} structure</li>
  * </ul>
  * 
@@ -112,7 +112,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
     public XrPosef pose() { return npose(address()); }
     /** the {@link XrFovf} for this projection element. */
     public XrFovf fov() { return nfov(address()); }
-    /** the image layer {@link XrSwapchainSubImage} to use. The swapchain <b>must</b> have been created with a {@code faceCount} of 1. */
+    /** the image layer {@link XrSwapchainSubImage} to use. The swapchain <b>must</b> have been created with a {@link XrSwapchainCreateInfo}{@code ::faceCount} of 1. */
     public XrSwapchainSubImage subImage() { return nsubImage(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
@@ -191,8 +191,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerProjectionView createSafe(long address) {
+    public static @Nullable XrCompositionLayerProjectionView createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerProjectionView(address, null);
     }
 
@@ -235,8 +234,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerProjectionView.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerProjectionView.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -281,7 +279,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerProjectionView.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerProjectionView.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerProjectionView.NEXT); }
     /** Unsafe version of {@link #pose}. */
@@ -292,7 +290,7 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
     public static XrSwapchainSubImage nsubImage(long struct) { return XrSwapchainSubImage.create(struct + XrCompositionLayerProjectionView.SUBIMAGE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerProjectionView.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerProjectionView.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerProjectionView.NEXT, value); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
@@ -342,6 +340,11 @@ public class XrCompositionLayerProjectionView extends Struct<XrCompositionLayerP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemMarkerTrackingPropertiesVARJO}</li>
  * <li>{@code type} <b>must</b> be {@link VARJOMarkerTracking#XR_TYPE_SYSTEM_MARKER_TRACKING_PROPERTIES_VARJO TYPE_SYSTEM_MARKER_TRACKING_PROPERTIES_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -160,8 +160,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemMarkerTrackingPropertiesVARJO createSafe(long address) {
+    public static @Nullable XrSystemMarkerTrackingPropertiesVARJO createSafe(long address) {
         return address == NULL ? null : new XrSystemMarkerTrackingPropertiesVARJO(address, null);
     }
 
@@ -204,8 +203,7 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemMarkerTrackingPropertiesVARJO.Buffer createSafe(long address, int capacity) {
+    public static XrSystemMarkerTrackingPropertiesVARJO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,14 +248,14 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemMarkerTrackingPropertiesVARJO.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemMarkerTrackingPropertiesVARJO.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemMarkerTrackingPropertiesVARJO.NEXT); }
     /** Unsafe version of {@link #supportsMarkerTracking}. */
-    public static int nsupportsMarkerTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemMarkerTrackingPropertiesVARJO.SUPPORTSMARKERTRACKING); }
+    public static int nsupportsMarkerTracking(long struct) { return memGetInt(struct + XrSystemMarkerTrackingPropertiesVARJO.SUPPORTSMARKERTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemMarkerTrackingPropertiesVARJO.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemMarkerTrackingPropertiesVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemMarkerTrackingPropertiesVARJO.NEXT, value); }
 
@@ -292,6 +290,11 @@ public class XrSystemMarkerTrackingPropertiesVARJO extends Struct<XrSystemMarker
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

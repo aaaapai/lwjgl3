@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -34,7 +34,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkBool32 {@link #triStripVertexOrderIndependentOfProvokingVertex};
+ *     VkBool32 triStripVertexOrderIndependentOfProvokingVertex;
  * }</code></pre>
  */
 public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Struct<VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR> implements NativeResource {
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Stru
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation does not change its vertex numbering for triangle strip primitives when the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vertexpostproc-flatshading">provoking vertex mode</a> is {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT}, as shown in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#primsrast-barycentric-order-table-last-vertex">last vertex table</a>. */
+    /** @return the value of the {@code triStripVertexOrderIndependentOfProvokingVertex} field. */
     @NativeType("VkBool32")
     public boolean triStripVertexOrderIndependentOfProvokingVertex() { return ntriStripVertexOrderIndependentOfProvokingVertex(address()) != 0; }
 
@@ -152,8 +152,7 @@ public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Stru
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR(address, null);
     }
 
@@ -196,8 +195,7 @@ public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Stru
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Stru
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #triStripVertexOrderIndependentOfProvokingVertex}. */
-    public static int ntriStripVertexOrderIndependentOfProvokingVertex(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.TRISTRIPVERTEXORDERINDEPENDENTOFPROVOKINGVERTEX); }
+    public static int ntriStripVertexOrderIndependentOfProvokingVertex(long struct) { return memGetInt(struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.TRISTRIPVERTEXORDERINDEPENDENTOFPROVOKINGVERTEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.PNEXT, value); }
 
@@ -287,6 +285,11 @@ public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Stru
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -297,7 +300,7 @@ public class VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR extends Stru
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR#triStripVertexOrderIndependentOfProvokingVertex} field. */
+        /** @return the value of the {@code triStripVertexOrderIndependentOfProvokingVertex} field. */
         @NativeType("VkBool32")
         public boolean triStripVertexOrderIndependentOfProvokingVertex() { return VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR.ntriStripVertexOrderIndependentOfProvokingVertex(address()) != 0; }
 

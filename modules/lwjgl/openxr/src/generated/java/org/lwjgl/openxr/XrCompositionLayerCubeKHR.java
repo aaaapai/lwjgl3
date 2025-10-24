@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHRCompositionLayerCube XR_KHR_composition_layer_cube} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerCubeKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRCompositionLayerCube#XR_TYPE_COMPOSITION_LAYER_CUBE_KHR TYPE_COMPOSITION_LAYER_CUBE_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layerFlags} <b>must</b> be 0 or a valid combination of {@code XrCompositionLayerFlagBits} values</li>
  * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
  * <li>{@code eyeVisibility} <b>must</b> be a valid {@code XrEyeVisibility} value</li>
@@ -135,7 +135,7 @@ public class XrCompositionLayerCubeKHR extends Struct<XrCompositionLayerCubeKHR>
     /** the eye represented by this layer. */
     @NativeType("XrEyeVisibility")
     public int eyeVisibility() { return neyeVisibility(address()); }
-    /** the swapchain, which <b>must</b> have been created with a {@code faceCount} of 6. */
+    /** the swapchain, which <b>must</b> have been created with a {@link XrSwapchainCreateInfo}{@code ::faceCount} of 6. */
     @NativeType("XrSwapchain")
     public long swapchain() { return nswapchain(address()); }
     /** the image array index, with 0 meaning the first or only array element. */
@@ -224,8 +224,7 @@ public class XrCompositionLayerCubeKHR extends Struct<XrCompositionLayerCubeKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerCubeKHR createSafe(long address) {
+    public static @Nullable XrCompositionLayerCubeKHR createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerCubeKHR(address, null);
     }
 
@@ -273,8 +272,7 @@ public class XrCompositionLayerCubeKHR extends Struct<XrCompositionLayerCubeKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerCubeKHR.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerCubeKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -324,36 +322,36 @@ public class XrCompositionLayerCubeKHR extends Struct<XrCompositionLayerCubeKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerCubeKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerCubeKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerCubeKHR.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerCubeKHR.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerCubeKHR.LAYERFLAGS); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrCompositionLayerCubeKHR.SPACE); }
     /** Unsafe version of {@link #eyeVisibility}. */
-    public static int neyeVisibility(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerCubeKHR.EYEVISIBILITY); }
+    public static int neyeVisibility(long struct) { return memGetInt(struct + XrCompositionLayerCubeKHR.EYEVISIBILITY); }
     /** Unsafe version of {@link #swapchain}. */
     public static long nswapchain(long struct) { return memGetAddress(struct + XrCompositionLayerCubeKHR.SWAPCHAIN); }
     /** Unsafe version of {@link #imageArrayIndex}. */
-    public static int nimageArrayIndex(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerCubeKHR.IMAGEARRAYINDEX); }
+    public static int nimageArrayIndex(long struct) { return memGetInt(struct + XrCompositionLayerCubeKHR.IMAGEARRAYINDEX); }
     /** Unsafe version of {@link #orientation}. */
     public static XrQuaternionf norientation(long struct) { return XrQuaternionf.create(struct + XrCompositionLayerCubeKHR.ORIENTATION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerCubeKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerCubeKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerCubeKHR.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerCubeKHR.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerCubeKHR.LAYERFLAGS, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrCompositionLayerCubeKHR.SPACE, value.address()); }
     /** Unsafe version of {@link #eyeVisibility(int) eyeVisibility}. */
-    public static void neyeVisibility(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerCubeKHR.EYEVISIBILITY, value); }
+    public static void neyeVisibility(long struct, int value) { memPutInt(struct + XrCompositionLayerCubeKHR.EYEVISIBILITY, value); }
     /** Unsafe version of {@link #swapchain(XrSwapchain) swapchain}. */
     public static void nswapchain(long struct, XrSwapchain value) { memPutAddress(struct + XrCompositionLayerCubeKHR.SWAPCHAIN, value.address()); }
     /** Unsafe version of {@link #imageArrayIndex(int) imageArrayIndex}. */
-    public static void nimageArrayIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerCubeKHR.IMAGEARRAYINDEX, value); }
+    public static void nimageArrayIndex(long struct, int value) { memPutInt(struct + XrCompositionLayerCubeKHR.IMAGEARRAYINDEX, value); }
     /** Unsafe version of {@link #orientation(XrQuaternionf) orientation}. */
     public static void norientation(long struct, XrQuaternionf value) { memCopy(value.address(), struct + XrCompositionLayerCubeKHR.ORIENTATION, XrQuaternionf.SIZEOF); }
 
@@ -398,6 +396,11 @@ public class XrCompositionLayerCubeKHR extends Struct<XrCompositionLayerCubeKHR>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

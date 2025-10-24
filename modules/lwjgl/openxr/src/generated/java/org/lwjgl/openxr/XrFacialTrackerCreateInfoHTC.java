@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrFacialTrackerCreateInfoHTC}</li>
  * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC TYPE_FACIAL_TRACKER_CREATE_INFO_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code facialTrackingType} <b>must</b> be a valid {@code XrFacialTrackingTypeHTC} value</li>
  * </ul>
  * 
@@ -163,8 +163,7 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialTrackerCreateInfoHTC createSafe(long address) {
+    public static @Nullable XrFacialTrackerCreateInfoHTC createSafe(long address) {
         return address == NULL ? null : new XrFacialTrackerCreateInfoHTC(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialTrackerCreateInfoHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFacialTrackerCreateInfoHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFacialTrackerCreateInfoHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFacialTrackerCreateInfoHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFacialTrackerCreateInfoHTC.NEXT); }
     /** Unsafe version of {@link #facialTrackingType}. */
-    public static int nfacialTrackingType(long struct) { return UNSAFE.getInt(null, struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE); }
+    public static int nfacialTrackingType(long struct) { return memGetInt(struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialTrackerCreateInfoHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFacialTrackerCreateInfoHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFacialTrackerCreateInfoHTC.NEXT, value); }
     /** Unsafe version of {@link #facialTrackingType(int) facialTrackingType}. */
-    public static void nfacialTrackingType(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE, value); }
+    public static void nfacialTrackingType(long struct, int value) { memPutInt(struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

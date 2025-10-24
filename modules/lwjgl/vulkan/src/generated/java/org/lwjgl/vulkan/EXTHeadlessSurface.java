@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,11 +18,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * The {@code VK_EXT_headless_surface} extension is an instance extension. It provides a mechanism to create {@code VkSurfaceKHR} objects independently of any window system or display device. The presentation operation for a swapchain created from a headless surface is by default a no-op, resulting in no externally-visible result.
  * 
- * <p>Because there is no real presentation target, future extensions can layer on top of the headless surface to introduce arbitrary or customisable sets of restrictions or features. These could include features like saving to a file or restrictions to emulate a particular presentation target.</p>
+ * <p>Because there is no real presentation target, future extensions can layer on top of the headless surface to introduce arbitrary or customizable sets of restrictions or features. These could include features like saving to a file or restrictions to emulate a particular presentation target.</p>
  * 
- * <p>This functionality is expected to be useful for application and driver development because it allows any platform to expose an arbitrary or customisable set of restrictions and features of a presentation engine. This makes it a useful portable test target for applications targeting a wide range of presentation engines where the actual target presentation engines might be scarce, unavailable or otherwise undesirable or inconvenient to use for general Vulkan application development.</p>
- * 
- * <h5>VK_EXT_headless_surface</h5>
+ * <p>This functionality is expected to be useful for application and driver development because it allows any platform to expose an arbitrary or customizable set of restrictions and features of a presentation engine. This makes it a useful portable test target for applications targeting a wide range of presentation engines where the actual target presentation engines might be scarce, unavailable or otherwise undesirable or inconvenient to use for general Vulkan application development.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -123,11 +121,11 @@ public class EXTHeadlessSurface {
      *
      * @param instance    the instance to associate the surface with.
      * @param pCreateInfo a pointer to a {@link VkHeadlessSurfaceCreateInfoEXT} structure containing parameters affecting the creation of the surface object.
-     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      * @param pSurface    a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateHeadlessSurfaceEXT(VkInstance instance, @NativeType("VkHeadlessSurfaceCreateInfoEXT const *") VkHeadlessSurfaceCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
+    public static int vkCreateHeadlessSurfaceEXT(VkInstance instance, @NativeType("VkHeadlessSurfaceCreateInfoEXT const *") VkHeadlessSurfaceCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
         if (CHECKS) {
             check(pSurface, 1);
         }
@@ -136,7 +134,7 @@ public class EXTHeadlessSurface {
 
     /** Array version of: {@link #vkCreateHeadlessSurfaceEXT CreateHeadlessSurfaceEXT} */
     @NativeType("VkResult")
-    public static int vkCreateHeadlessSurfaceEXT(VkInstance instance, @NativeType("VkHeadlessSurfaceCreateInfoEXT const *") VkHeadlessSurfaceCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
+    public static int vkCreateHeadlessSurfaceEXT(VkInstance instance, @NativeType("VkHeadlessSurfaceCreateInfoEXT const *") VkHeadlessSurfaceCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
         long __functionAddress = instance.getCapabilities().vkCreateHeadlessSurfaceEXT;
         if (CHECKS) {
             check(__functionAddress);

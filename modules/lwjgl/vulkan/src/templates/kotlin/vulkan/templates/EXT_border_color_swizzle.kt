@@ -17,7 +17,6 @@ val EXT_border_color_swizzle = "EXTBorderColorSwizzle".nativeClassVK("EXT_border
 
         This extension also defines the behavior between samplers with an opaque black border color and image views with a non-identity component swizzle, which was previously left undefined.
 
-        <h5>VK_EXT_border_color_swizzle</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_border_color_swizzle}</dd>
@@ -36,8 +35,8 @@ val EXT_border_color_swizzle = "EXTBorderColorSwizzle".nativeClassVK("EXT_border
 
             <dt><b>Special Uses</b></dt>
             <dd><ul>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,13 +21,20 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>Importing memory from a host pointer shares ownership of the memory between the host and the Vulkan implementation. The application <b>can</b> continue to access the memory through the host pointer but it is the application’s responsibility to synchronize device and non-device access to the payload as defined in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-device-hostaccess">Host Access to Device Memory Objects</a>.</p>
+ * <p>Importing memory from a host pointer shares ownership of the memory between the host and the Vulkan implementation. The application <b>can</b> continue to access the memory through the host pointer but it is the application’s responsibility to synchronize device and non-device access to the payload as defined in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-device-hostaccess">Host Access to Device Memory Objects</a>.</p>
  * 
  * <p>Applications <b>can</b> import the same payload into multiple instances of Vulkan and multiple times into a given Vulkan instance. However, implementations <b>may</b> fail to import the same payload multiple times into a given physical device due to platform constraints.</p>
  * 
  * <p>Importing memory from a particular host pointer <b>may</b> not be possible due to additional platform-specific restrictions beyond the scope of this specification in which case the implementation <b>must</b> fail the memory import operation with the error code {@link KHRExternalMemory#VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR ERROR_INVALID_EXTERNAL_HANDLE_KHR}.</p>
  * 
  * <p>Whether device memory objects imported from a host pointer hold a reference to their payload is undefined. As such, the application <b>must</b> ensure that the imported memory range remains valid and accessible for the lifetime of the imported memory object.</p>
+ * 
+ * <p>Implementations <b>may</b> support importing host pointers for memory types which are not host-visible. In this case, after a successful call to {@link VK10#vkAllocateMemory AllocateMemory}, the memory range imported from {@code pHostPointer} <b>must</b> not be accessed by the application until the {@code VkDeviceMemory} has been destroyed. Memory contents for the host memory becomes undefined on import, and is left undefined after the {@code VkDeviceMemory} has been destroyed. Applications <b>must</b> also not access host memory which is mapped to the same physical memory as {@code pHostPointer}, but mapped to a different host pointer while the {@code VkDeviceMemory} handle is valid. Implementations running on general-purpose operating systems <b>should</b> not support importing host pointers for memory types which are not host-visible.</p>
+ * 
+ * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
+ * 
+ * <p>Using host pointers to back non-host visible allocations is a platform-specific use case, and applications should not attempt to do this unless instructed by the platform.</p>
+ * </div>
  * 
  * <h5>Valid Usage</h5>
  * 
@@ -186,8 +193,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct<VkImportMemoryHostP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMemoryHostPointerInfoEXT createSafe(long address) {
+    public static @Nullable VkImportMemoryHostPointerInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkImportMemoryHostPointerInfoEXT(address, null);
     }
 
@@ -230,8 +236,7 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct<VkImportMemoryHostP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportMemoryHostPointerInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkImportMemoryHostPointerInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,20 +300,20 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct<VkImportMemoryHostP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportMemoryHostPointerInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportMemoryHostPointerInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportMemoryHostPointerInfoEXT.PNEXT); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkImportMemoryHostPointerInfoEXT.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkImportMemoryHostPointerInfoEXT.HANDLETYPE); }
     /** Unsafe version of {@link #pHostPointer}. */
     public static long npHostPointer(long struct) { return memGetAddress(struct + VkImportMemoryHostPointerInfoEXT.PHOSTPOINTER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMemoryHostPointerInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportMemoryHostPointerInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportMemoryHostPointerInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportMemoryHostPointerInfoEXT.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkImportMemoryHostPointerInfoEXT.HANDLETYPE, value); }
     /** Unsafe version of {@link #pHostPointer(long) pHostPointer}. */
     public static void npHostPointer(long struct, long value) { memPutAddress(struct + VkImportMemoryHostPointerInfoEXT.PHOSTPOINTER, check(value)); }
 
@@ -352,6 +357,11 @@ public class VkImportMemoryHostPointerInfoEXT extends Struct<VkImportMemoryHostP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

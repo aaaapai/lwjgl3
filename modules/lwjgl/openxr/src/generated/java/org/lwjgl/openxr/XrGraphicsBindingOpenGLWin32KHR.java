@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -32,7 +32,7 @@ import org.lwjgl.system.windows.*;
  * <ul>
  * <li>The {@link KHROpenGLEnable XR_KHR_opengl_enable} extension <b>must</b> be enabled prior to using {@link XrGraphicsBindingOpenGLWin32KHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHROpenGLEnable#XR_TYPE_GRAPHICS_BINDING_OPENGL_WIN32_KHR TYPE_GRAPHICS_BINDING_OPENGL_WIN32_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code hDC} <b>must</b> be a valid {@code HDC} value</li>
  * <li>{@code hGLRC} <b>must</b> be a valid {@code HGLRC} value</li>
  * </ul>
@@ -180,8 +180,7 @@ public class XrGraphicsBindingOpenGLWin32KHR extends Struct<XrGraphicsBindingOpe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingOpenGLWin32KHR createSafe(long address) {
+    public static @Nullable XrGraphicsBindingOpenGLWin32KHR createSafe(long address) {
         return address == NULL ? null : new XrGraphicsBindingOpenGLWin32KHR(address, null);
     }
 
@@ -224,8 +223,7 @@ public class XrGraphicsBindingOpenGLWin32KHR extends Struct<XrGraphicsBindingOpe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingOpenGLWin32KHR.Buffer createSafe(long address, int capacity) {
+    public static XrGraphicsBindingOpenGLWin32KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,7 +268,7 @@ public class XrGraphicsBindingOpenGLWin32KHR extends Struct<XrGraphicsBindingOpe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingOpenGLWin32KHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGraphicsBindingOpenGLWin32KHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGraphicsBindingOpenGLWin32KHR.NEXT); }
     /** Unsafe version of {@link #hDC}. */
@@ -279,7 +277,7 @@ public class XrGraphicsBindingOpenGLWin32KHR extends Struct<XrGraphicsBindingOpe
     public static long nhGLRC(long struct) { return memGetAddress(struct + XrGraphicsBindingOpenGLWin32KHR.HGLRC); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingOpenGLWin32KHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGraphicsBindingOpenGLWin32KHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGraphicsBindingOpenGLWin32KHR.NEXT, value); }
     /** Unsafe version of {@link #hDC(long) hDC}. */
@@ -328,6 +326,11 @@ public class XrGraphicsBindingOpenGLWin32KHR extends Struct<XrGraphicsBindingOpe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

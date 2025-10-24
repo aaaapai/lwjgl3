@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -33,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBCompositionLayerSettings XR_FB_composition_layer_settings} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerSettingsFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBCompositionLayerSettings#XR_TYPE_COMPOSITION_LAYER_SETTINGS_FB TYPE_COMPOSITION_LAYER_SETTINGS_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layerFlags} <b>must</b> be a valid combination of {@code XrCompositionLayerSettingsFlagBitsFB} values</li>
  * <li>{@code layerFlags} <b>must</b> not be 0</li>
  * </ul>
@@ -48,7 +48,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct XrCompositionLayerSettingsFB {
  *     XrStructureType {@link #type};
  *     void const * {@link #next};
- *     XrCompositionLayerSettingsFlagsFB layerFlags;
+ *     XrCompositionLayerSettingsFlagsFB {@link #layerFlags};
  * }</code></pre>
  */
 public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSettingsFB> implements NativeResource {
@@ -108,7 +108,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** @return the value of the {@code layerFlags} field. */
+    /** a bitmask of {@code XrCompositionLayerSettingsFlagBitsFB}. */
     @NativeType("XrCompositionLayerSettingsFlagsFB")
     public long layerFlags() { return nlayerFlags(address()); }
 
@@ -118,7 +118,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     public XrCompositionLayerSettingsFB type$Default() { return type(FBCompositionLayerSettings.XR_TYPE_COMPOSITION_LAYER_SETTINGS_FB); }
     /** Sets the specified value to the {@link #next} field. */
     public XrCompositionLayerSettingsFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@code layerFlags} field. */
+    /** Sets the specified value to the {@link #layerFlags} field. */
     public XrCompositionLayerSettingsFB layerFlags(@NativeType("XrCompositionLayerSettingsFlagsFB") long value) { nlayerFlags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -170,8 +170,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerSettingsFB createSafe(long address) {
+    public static @Nullable XrCompositionLayerSettingsFB createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerSettingsFB(address, null);
     }
 
@@ -214,8 +213,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerSettingsFB.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerSettingsFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,18 +258,18 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerSettingsFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerSettingsFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerSettingsFB.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerSettingsFB.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerSettingsFB.LAYERFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerSettingsFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerSettingsFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerSettingsFB.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerSettingsFB.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerSettingsFB.LAYERFLAGS, value); }
 
     // -----------------------------------
 
@@ -307,6 +305,11 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrCompositionLayerSettingsFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -317,7 +320,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
         /** @return the value of the {@link XrCompositionLayerSettingsFB#next} field. */
         @NativeType("void const *")
         public long next() { return XrCompositionLayerSettingsFB.nnext(address()); }
-        /** @return the value of the {@code layerFlags} field. */
+        /** @return the value of the {@link XrCompositionLayerSettingsFB#layerFlags} field. */
         @NativeType("XrCompositionLayerSettingsFlagsFB")
         public long layerFlags() { return XrCompositionLayerSettingsFB.nlayerFlags(address()); }
 
@@ -327,7 +330,7 @@ public class XrCompositionLayerSettingsFB extends Struct<XrCompositionLayerSetti
         public XrCompositionLayerSettingsFB.Buffer type$Default() { return type(FBCompositionLayerSettings.XR_TYPE_COMPOSITION_LAYER_SETTINGS_FB); }
         /** Sets the specified value to the {@link XrCompositionLayerSettingsFB#next} field. */
         public XrCompositionLayerSettingsFB.Buffer next(@NativeType("void const *") long value) { XrCompositionLayerSettingsFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@code layerFlags} field. */
+        /** Sets the specified value to the {@link XrCompositionLayerSettingsFB#layerFlags} field. */
         public XrCompositionLayerSettingsFB.Buffer layerFlags(@NativeType("XrCompositionLayerSettingsFlagsFB") long value) { XrCompositionLayerSettingsFB.nlayerFlags(address(), value); return this; }
 
     }

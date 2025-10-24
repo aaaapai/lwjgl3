@@ -15,7 +15,7 @@ val KHR_global_priority = "KHRGlobalPriority".nativeClassVK("KHR_global_priority
 
         Implementations can report which global priority levels are treated differently by the implementation. It is intended primarily for use in system integration along with certain platform-specific priority enforcement rules.
 
-        The driver implementation will attempt to skew hardware resource allocation in favour of the higher-priority task. Therefore, higher-priority work may retain similar latency and throughput characteristics even if the system is congested with lower priority work.
+        The driver implementation will attempt to skew hardware resource allocation in favor of the higher-priority task. Therefore, higher-priority work may retain similar latency and throughput characteristics even if the system is congested with lower priority work.
 
         The global priority level of a queue shall take precedence over the per-process queue priority (##VkDeviceQueueCreateInfo{@code ::pQueuePriorities}).
 
@@ -23,7 +23,9 @@ val KHR_global_priority = "KHRGlobalPriority".nativeClassVK("KHR_global_priority
 
         The driver implementation may fail the queue allocation request if resources required to complete the operation have been exhausted (either by the same process or a different process). In this scenario #ERROR_INITIALIZATION_FAILED is returned.
 
-        <h5>VK_KHR_global_priority</h5>
+        <h5>Promotion to Vulkan 1.4</h5>
+        Functionality in this extension is included in core Vulkan 1.4 with the KHR suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_global_priority}</dd>
@@ -38,7 +40,12 @@ val KHR_global_priority = "KHRGlobalPriority".nativeClassVK("KHR_global_priority
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+
+            <dt><b>Deprecation State</b></dt>
+            <dd><ul>
+                <li><em>Promoted</em> to Vulkan 1.4</li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -90,5 +97,14 @@ val KHR_global_priority = "KHRGlobalPriority".nativeClassVK("KHR_global_priority
         "VK_MAX_GLOBAL_PRIORITY_SIZE_KHR",
 
         "MAX_GLOBAL_PRIORITY_SIZE_KHR".."16"
+    )
+
+    EnumConstant(
+        "Extends {@code VkQueueGlobalPriority}.",
+
+        "QUEUE_GLOBAL_PRIORITY_LOW_KHR".."128",
+        "QUEUE_GLOBAL_PRIORITY_MEDIUM_KHR".."256",
+        "QUEUE_GLOBAL_PRIORITY_HIGH_KHR".."512",
+        "QUEUE_GLOBAL_PRIORITY_REALTIME_KHR".."1024"
     )
 }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -41,18 +41,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * <p>Importing memory <b>must</b> not increase overall heap usage within a system. However, it <b>must</b> affect the following per-process values:</p>
  * 
  * <ul>
- * <li>{@link VkPhysicalDeviceMaintenance3Properties}{@code ::maxMemoryAllocationCount}</li>
+ * <li>{@link VkPhysicalDeviceLimits}{@code ::maxMemoryAllocationCount}</li>
  * <li>{@link VkPhysicalDeviceMemoryBudgetPropertiesEXT}{@code ::heapUsage}</li>
  * </ul>
  * 
- * <p>When performing a memory import operation, it is the responsibility of the application to ensure the external handles and their associated payloads meet all valid usage requirements. However, implementations <b>must</b> perform sufficient validation of external handles and payloads to ensure that the operation results in a valid memory object which will not cause program termination, device loss, queue stalls, or corruption of other resources when used as allowed according to its allocation parameters. If the external handle provided does not meet these requirements, the implementation <b>must</b> fail the memory import operation with the error code {@link VK11#VK_ERROR_INVALID_EXTERNAL_HANDLE ERROR_INVALID_EXTERNAL_HANDLE}. If the parameters define an export operation and the external handle type is {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID}, implementations <b>should</b> not strictly follow {@code memoryTypeIndex}. Instead, they <b>should</b> modify the allocation internally to use the required memory type for the application’s given usage. This is because for an export operation, there is currently no way for the client to know the memory type index before allocating.</p>
+ * <p>When performing a memory import operation, it is the responsibility of the application to ensure the external handles and their associated payloads meet all valid usage requirements. However, implementations <b>must</b> perform sufficient validation of external handles and payloads to ensure that the operation results in a valid memory object which will not cause program termination, device loss, queue stalls, or corruption of other resources when used as allowed according to its allocation parameters. If the external handle provided does not meet these requirements, the implementation <b>must</b> fail the memory import operation with the error code {@link VK11#VK_ERROR_INVALID_EXTERNAL_HANDLE ERROR_INVALID_EXTERNAL_HANDLE}. If the parameters define an export operation and the external handle type is {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID}, implementations <b>should</b> not strictly follow {@code memoryTypeIndex}. Instead, they <b>should</b> modify the allocation internally to use the required memory type for the application’s given usage. This is because for an export operation, there is currently no way for the application to know the memory type index before allocating.</p>
  * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The parameters <b>must</b> not define more than one <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-import-operation">import operation</a></li>
- * <li>If the parameters do not define an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-import-operation">import or export operation</a>, {@code allocationSize} <b>must</b> be greater than 0</li>
- * <li>If the parameters define an export operation and the handle type is not {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID}, {@code allocationSize} <b>must</b> be greater than 0</li>
+ * <li>If the parameters do not define an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-import-operation">import or export operation</a>, {@code allocationSize} <b>must</b> be greater than 0</li>
+ * <li>The parameters <b>must</b> not define more than one <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-import-operation">import operation</a></li>
+ * <li>If the parameters define an export operation and the handle type is not {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID} , {@code allocationSize} <b>must</b> be greater than 0</li>
  * <li>If the {@code pNext} chain includes a {@link VkExportMemoryAllocateInfo} structure, and any of the handle types specified in {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} require a dedicated allocation, as reported by {@link VK11#vkGetPhysicalDeviceImageFormatProperties2 GetPhysicalDeviceImageFormatProperties2} in {@link VkExternalImageFormatProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}, or by {@link VK11#vkGetPhysicalDeviceExternalBufferProperties GetPhysicalDeviceExternalBufferProperties} in {@link VkExternalBufferProperties}{@code ::externalMemoryProperties.externalMemoryFeatures}, the {@code pNext} chain <b>must</b> include a {@link VkMemoryDedicatedAllocateInfo} or {@link VkDedicatedAllocationMemoryAllocateInfoNV} structure with either its {@code image} or {@code buffer} member set to a value other than {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
  * <li>If the {@code pNext} chain includes a {@link VkExportMemoryAllocateInfo} structure, it <b>must</b> not include a {@link VkExportMemoryAllocateInfoNV} or {@link VkExportMemoryWin32HandleInfoNV} structure</li>
  * <li>If the {@code pNext} chain includes a {@link VkImportMemoryWin32HandleInfoKHR} structure, it <b>must</b> not include a {@link VkImportMemoryWin32HandleInfoNV} structure</li>
@@ -63,7 +63,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the parameters define an import operation, the external handle was created by the Vulkan API, and the external handle type is {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT} or {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT}, then the values of {@code allocationSize} and {@code memoryTypeIndex} <b>must</b> match those specified when the payload being imported was created</li>
  * <li>If the parameters define an import operation and the external handle type is {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT}, {@code allocationSize} <b>must</b> match the size specified when creating the Direct3D 12 heap from which the payload was extracted</li>
  * <li>If the parameters define an import operation and the external handle is a POSIX file descriptor created outside of the Vulkan API, the value of {@code memoryTypeIndex} <b>must</b> be one of those returned by {@link KHRExternalMemoryFd#vkGetMemoryFdPropertiesKHR GetMemoryFdPropertiesKHR}</li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VkMemoryAllocateInfo}{@code ::memoryTypeIndex} <b>must</b> not indicate a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-protectedMemory">{@code protectedMemory}</a> feature is not enabled, the {@link VkMemoryAllocateInfo}{@code ::memoryTypeIndex} <b>must</b> not indicate a memory type that reports {@link VK11#VK_MEMORY_PROPERTY_PROTECTED_BIT MEMORY_PROPERTY_PROTECTED_BIT}</li>
  * <li>If the parameters define an import operation and the external handle is a host pointer, the value of {@code memoryTypeIndex} <b>must</b> be one of those returned by {@link EXTExternalMemoryHost#vkGetMemoryHostPointerPropertiesEXT GetMemoryHostPointerPropertiesEXT}</li>
  * <li>If the parameters define an import operation and the external handle is a host pointer, {@code allocationSize} <b>must</b> be an integer multiple of {@link VkPhysicalDeviceExternalMemoryHostPropertiesEXT}{@code ::minImportedHostPointerAlignment}</li>
  * <li>If the parameters define an import operation and the external handle is a host pointer, the {@code pNext} chain <b>must</b> not include a {@link VkDedicatedAllocationMemoryAllocateInfoNV} structure with either its {@code image} or {@code buffer} field set to a value other than {@link VK10#VK_NULL_HANDLE NULL_HANDLE}</li>
@@ -79,10 +79,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the width, height, and array layer dimensions of {@code image} and the Android hardware buffer’s {@code AHardwareBuffer_Desc} <b>must</b> be identical</li>
  * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the Android hardware buffer’s {@code AHardwareBuffer}{@code ::usage} includes {@code AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE}, the {@code image} <b>must</b> have a complete mipmap chain</li>
  * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, and the Android hardware buffer’s {@code AHardwareBuffer}{@code ::usage} does not include {@code AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE}, the {@code image} <b>must</b> have exactly one mipmap level</li>
- * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, each bit set in the usage of {@code image} <b>must</b> be listed in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer-usage">AHardwareBuffer Usage Equivalence</a>, and if there is a corresponding {@code AHARDWAREBUFFER_USAGE} bit listed that bit <b>must</b> be included in the Android hardware buffer’s {@code AHardwareBuffer_Desc}{@code ::usage}</li>
+ * <li>If the parameters define an import operation, the external handle is an Android hardware buffer, and the {@code pNext} chain includes a {@link VkMemoryDedicatedAllocateInfo} structure with {@code image} that is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, each bit set in the usage of {@code image} <b>must</b> be listed in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-external-android-hardware-buffer-usage">AHardwareBuffer Usage Equivalence</a>, and if there is a corresponding {@code AHARDWAREBUFFER_USAGE} bit listed that bit <b>must</b> be included in the Android hardware buffer’s {@code AHardwareBuffer_Desc}{@code ::usage}</li>
  * <li>If {@link VkMemoryOpaqueCaptureAddressAllocateInfo}{@code ::opaqueCaptureAddress} is not zero, {@link VkMemoryAllocateFlagsInfo}{@code ::flags} <b>must</b> include {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}</li>
- * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressCaptureReplay">{@code bufferDeviceAddressCaptureReplay}</a> feature <b>must</b> be enabled</li>
- * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddress">{@code bufferDeviceAddress}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bufferDeviceAddressCaptureReplay">{@code bufferDeviceAddressCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@link VkMemoryAllocateFlagsInfo}{@code ::flags} includes {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bufferDeviceAddress">{@code bufferDeviceAddress}</a> feature <b>must</b> be enabled</li>
  * <li>If the {@code pNext} chain includes a {@link VkImportMemoryHostPointerInfoEXT} structure, {@link VkMemoryOpaqueCaptureAddressAllocateInfo}{@code ::opaqueCaptureAddress} <b>must</b> be zero</li>
  * <li>If the parameters define an import operation, {@link VkMemoryOpaqueCaptureAddressAllocateInfo}{@code ::opaqueCaptureAddress} <b>must</b> be zero</li>
  * <li>If the {@code pNext} chain includes a {@link VkExportMetalObjectCreateInfoEXT} structure, its {@code exportObjectType} member <b>must</b> be {@link EXTMetalObjects#VK_EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT}</li>
@@ -279,8 +279,7 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateInfo createSafe(long address) {
+    public static @Nullable VkMemoryAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkMemoryAllocateInfo(address, null);
     }
 
@@ -323,8 +322,7 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -388,22 +386,22 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #allocationSize}. */
-    public static long nallocationSize(long struct) { return UNSAFE.getLong(null, struct + VkMemoryAllocateInfo.ALLOCATIONSIZE); }
+    public static long nallocationSize(long struct) { return memGetLong(struct + VkMemoryAllocateInfo.ALLOCATIONSIZE); }
     /** Unsafe version of {@link #memoryTypeIndex}. */
-    public static int nmemoryTypeIndex(long struct) { return UNSAFE.getInt(null, struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX); }
+    public static int nmemoryTypeIndex(long struct) { return memGetInt(struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryAllocateInfo.PNEXT, value); }
     /** Unsafe version of {@link #allocationSize(long) allocationSize}. */
-    public static void nallocationSize(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryAllocateInfo.ALLOCATIONSIZE, value); }
+    public static void nallocationSize(long struct, long value) { memPutLong(struct + VkMemoryAllocateInfo.ALLOCATIONSIZE, value); }
     /** Unsafe version of {@link #memoryTypeIndex(int) memoryTypeIndex}. */
-    public static void nmemoryTypeIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX, value); }
+    public static void nmemoryTypeIndex(long struct, int value) { memPutInt(struct + VkMemoryAllocateInfo.MEMORYTYPEINDEX, value); }
 
     // -----------------------------------
 
@@ -436,6 +434,11 @@ public class VkMemoryAllocateInfo extends Struct<VkMemoryAllocateInfo> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

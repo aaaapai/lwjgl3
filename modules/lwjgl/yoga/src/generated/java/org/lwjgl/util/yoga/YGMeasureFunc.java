@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.yoga;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <pre><code>
  * YGSize (*{@link #invoke}) (
- *     YGNodeRef node,
+ *     YGNodeConstRef node,
  *     float width,
  *     YGMeasureMode widthMode,
  *     float height,
@@ -38,8 +38,7 @@ public abstract class YGMeasureFunc extends Callback implements YGMeasureFuncI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static YGMeasureFunc createSafe(long functionPointer) {
+    public static @Nullable YGMeasureFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -36,6 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t {@link #depth};
  *     uint32_t {@link #levelCount};
  *     uint32_t {@link #layerCount};
+ *     uint64_t {@link #allocationId};
  * }</code></pre>
  */
 public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements NativeResource {
@@ -59,7 +60,8 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         HEIGHT,
         DEPTH,
         LEVELCOUNT,
-        LAYERCOUNT;
+        LAYERCOUNT,
+        ALLOCATIONID;
 
     static {
         Layout layout = __struct(
@@ -74,7 +76,8 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
             __member(4),
             __member(4),
             __member(4),
-            __member(4)
+            __member(4),
+            __member(8)
         );
 
         SIZEOF = layout.getSize();
@@ -92,6 +95,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         DEPTH = layout.offsetof(9);
         LEVELCOUNT = layout.offsetof(10);
         LAYERCOUNT = layout.offsetof(11);
+        ALLOCATIONID = layout.offsetof(12);
     }
 
     protected ktxVulkanTexture(long address, @Nullable ByteBuffer container) {
@@ -131,7 +135,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     /** layout of the created image. Has the same value as {@code layout} parameter passed to the loader. */
     @NativeType("VkImageLayout")
     public int imageLayout() { return nimageLayout(address()); }
-    /** the memory allocated for the image on the Vulkan device */
+    /** the memory (sub)allocation for the image on the Vulkan device. Will not be used with suballocators. */
     @NativeType("VkDeviceMemory")
     public long deviceMemory() { return ndeviceMemory(address()); }
     /** viewType corresponding to {@code image}. Reflects the dimensionality, cubeness and arrayness of the image. */
@@ -152,6 +156,9 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     /** the number of array layers in the image */
     @NativeType("uint32_t")
     public int layerCount() { return nlayerCount(address()); }
+    /** an id referencing suballocation(s) */
+    @NativeType("uint64_t")
+    public long allocationId() { return nallocationId(address()); }
 
     // -----------------------------------
 
@@ -177,8 +184,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxVulkanTexture createSafe(long address) {
+    public static @Nullable ktxVulkanTexture createSafe(long address) {
         return address == NULL ? null : new ktxVulkanTexture(address, null);
     }
 
@@ -221,8 +227,7 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxVulkanTexture.Buffer createSafe(long address, int capacity) {
+    public static ktxVulkanTexture.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -271,25 +276,27 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
     /** Unsafe version of {@link #vkFreeMemory}. */
     public static long nvkFreeMemory(long struct) { return memGetAddress(struct + ktxVulkanTexture.VKFREEMEMORY); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + ktxVulkanTexture.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + ktxVulkanTexture.IMAGE); }
     /** Unsafe version of {@link #imageFormat}. */
-    public static int nimageFormat(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.IMAGEFORMAT); }
+    public static int nimageFormat(long struct) { return memGetInt(struct + ktxVulkanTexture.IMAGEFORMAT); }
     /** Unsafe version of {@link #imageLayout}. */
-    public static int nimageLayout(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.IMAGELAYOUT); }
+    public static int nimageLayout(long struct) { return memGetInt(struct + ktxVulkanTexture.IMAGELAYOUT); }
     /** Unsafe version of {@link #deviceMemory}. */
-    public static long ndeviceMemory(long struct) { return UNSAFE.getLong(null, struct + ktxVulkanTexture.DEVICEMEMORY); }
+    public static long ndeviceMemory(long struct) { return memGetLong(struct + ktxVulkanTexture.DEVICEMEMORY); }
     /** Unsafe version of {@link #viewType}. */
-    public static int nviewType(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.VIEWTYPE); }
+    public static int nviewType(long struct) { return memGetInt(struct + ktxVulkanTexture.VIEWTYPE); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + ktxVulkanTexture.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + ktxVulkanTexture.HEIGHT); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + ktxVulkanTexture.DEPTH); }
     /** Unsafe version of {@link #levelCount}. */
-    public static int nlevelCount(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.LEVELCOUNT); }
+    public static int nlevelCount(long struct) { return memGetInt(struct + ktxVulkanTexture.LEVELCOUNT); }
     /** Unsafe version of {@link #layerCount}. */
-    public static int nlayerCount(long struct) { return UNSAFE.getInt(null, struct + ktxVulkanTexture.LAYERCOUNT); }
+    public static int nlayerCount(long struct) { return memGetInt(struct + ktxVulkanTexture.LAYERCOUNT); }
+    /** Unsafe version of {@link #allocationId}. */
+    public static long nallocationId(long struct) { return memGetLong(struct + ktxVulkanTexture.ALLOCATIONID); }
 
     // -----------------------------------
 
@@ -322,6 +329,11 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -365,6 +377,9 @@ public class ktxVulkanTexture extends Struct<ktxVulkanTexture> implements Native
         /** @return the value of the {@link ktxVulkanTexture#layerCount} field. */
         @NativeType("uint32_t")
         public int layerCount() { return ktxVulkanTexture.nlayerCount(address()); }
+        /** @return the value of the {@link ktxVulkanTexture#allocationId} field. */
+        @NativeType("uint64_t")
+        public long allocationId() { return ktxVulkanTexture.nallocationId(address()); }
 
     }
 

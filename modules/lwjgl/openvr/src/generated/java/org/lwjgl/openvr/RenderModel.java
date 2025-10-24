@@ -5,15 +5,13 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
-import org.lwjgl.*;
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
-import static org.lwjgl.system.MemoryStack.*;
 
 /**
  * <h3>Layout</h3>
@@ -28,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * }</code></pre>
  */
 @NativeType("struct RenderModel_t")
-public class RenderModel extends Struct<RenderModel> implements NativeResource {
+public class RenderModel extends Struct<RenderModel> {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -104,59 +102,14 @@ public class RenderModel extends Struct<RenderModel> implements NativeResource {
 
     // -----------------------------------
 
-    /** Returns a new {@code RenderModel} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
-    public static RenderModel malloc() {
-        return new RenderModel(nmemAllocChecked(SIZEOF), null);
-    }
-
-    /** Returns a new {@code RenderModel} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
-    public static RenderModel calloc() {
-        return new RenderModel(nmemCallocChecked(1, SIZEOF), null);
-    }
-
-    /** Returns a new {@code RenderModel} instance allocated with {@link BufferUtils}. */
-    public static RenderModel create() {
-        ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
-        return new RenderModel(memAddress(container), container);
-    }
-
     /** Returns a new {@code RenderModel} instance for the specified memory address. */
     public static RenderModel create(long address) {
         return new RenderModel(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModel createSafe(long address) {
+    public static @Nullable RenderModel createSafe(long address) {
         return address == NULL ? null : new RenderModel(address, null);
-    }
-
-    /**
-     * Returns a new {@link RenderModel.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
-     *
-     * @param capacity the buffer capacity
-     */
-    public static RenderModel.Buffer malloc(int capacity) {
-        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
-    }
-
-    /**
-     * Returns a new {@link RenderModel.Buffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed.
-     *
-     * @param capacity the buffer capacity
-     */
-    public static RenderModel.Buffer calloc(int capacity) {
-        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
-    }
-
-    /**
-     * Returns a new {@link RenderModel.Buffer} instance allocated with {@link BufferUtils}.
-     *
-     * @param capacity the buffer capacity
-     */
-    public static RenderModel.Buffer create(int capacity) {
-        ByteBuffer container = __create(capacity, SIZEOF);
-        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -170,66 +123,8 @@ public class RenderModel extends Struct<RenderModel> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RenderModel.Buffer createSafe(long address, int capacity) {
+    public static RenderModel.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
-    }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static RenderModel mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static RenderModel callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static RenderModel mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static RenderModel callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static RenderModel.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static RenderModel.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static RenderModel.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static RenderModel.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
-    /**
-     * Returns a new {@code RenderModel} instance allocated on the specified {@link MemoryStack}.
-     *
-     * @param stack the stack from which to allocate
-     */
-    public static RenderModel malloc(MemoryStack stack) {
-        return new RenderModel(stack.nmalloc(ALIGNOF, SIZEOF), null);
-    }
-
-    /**
-     * Returns a new {@code RenderModel} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
-     *
-     * @param stack the stack from which to allocate
-     */
-    public static RenderModel calloc(MemoryStack stack) {
-        return new RenderModel(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
-    }
-
-    /**
-     * Returns a new {@link RenderModel.Buffer} instance allocated on the specified {@link MemoryStack}.
-     *
-     * @param stack    the stack from which to allocate
-     * @param capacity the buffer capacity
-     */
-    public static RenderModel.Buffer malloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
-    }
-
-    /**
-     * Returns a new {@link RenderModel.Buffer} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
-     *
-     * @param stack    the stack from which to allocate
-     * @param capacity the buffer capacity
-     */
-    public static RenderModel.Buffer calloc(int capacity, MemoryStack stack) {
-        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -237,18 +132,18 @@ public class RenderModel extends Struct<RenderModel> implements NativeResource {
     /** Unsafe version of {@link #rVertexData}. */
     public static RenderModelVertex.Buffer nrVertexData(long struct) { return RenderModelVertex.create(memGetAddress(struct + RenderModel.RVERTEXDATA), nunVertexCount(struct)); }
     /** Unsafe version of {@link #unVertexCount}. */
-    public static int nunVertexCount(long struct) { return UNSAFE.getInt(null, struct + RenderModel.UNVERTEXCOUNT); }
+    public static int nunVertexCount(long struct) { return memGetInt(struct + RenderModel.UNVERTEXCOUNT); }
     /** Unsafe version of {@link #IndexData() IndexData}. */
     public static ShortBuffer nIndexData(long struct) { return memShortBuffer(memGetAddress(struct + RenderModel.INDEXDATA), (nunTriangleCount(struct) * 3)); }
     /** Unsafe version of {@link #unTriangleCount}. */
-    public static int nunTriangleCount(long struct) { return UNSAFE.getInt(null, struct + RenderModel.UNTRIANGLECOUNT); }
+    public static int nunTriangleCount(long struct) { return memGetInt(struct + RenderModel.UNTRIANGLECOUNT); }
     /** Unsafe version of {@link #diffuseTextureId}. */
-    public static int ndiffuseTextureId(long struct) { return UNSAFE.getInt(null, struct + RenderModel.DIFFUSETEXTUREID); }
+    public static int ndiffuseTextureId(long struct) { return memGetInt(struct + RenderModel.DIFFUSETEXTUREID); }
 
     // -----------------------------------
 
     /** An array of {@link RenderModel} structs. */
-    public static class Buffer extends StructBuffer<RenderModel, Buffer> implements NativeResource {
+    public static class Buffer extends StructBuffer<RenderModel, Buffer> {
 
         private static final RenderModel ELEMENT_FACTORY = RenderModel.create(-1L);
 
@@ -276,6 +171,11 @@ public class RenderModel extends Struct<RenderModel> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

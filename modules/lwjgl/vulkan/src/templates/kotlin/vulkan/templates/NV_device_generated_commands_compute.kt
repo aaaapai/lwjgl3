@@ -13,7 +13,6 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
         """
         This extension allows the device to generate commands for binding compute pipelines, setting push constants and launching compute dispatches.
 
-        <h5>VK_NV_device_generated_commands_compute</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_device_generated_commands_compute}</dd>
@@ -102,12 +101,12 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
 ￿    VkMemoryRequirements2*                      pMemoryRequirements);</code></pre>
 
         <h5>Description</h5>
-        If {@code pCreateInfo}{@code ::pNext} chain includes a pointer to a ##VkComputePipelineIndirectBufferInfoNV structure, then the contents of that structure are ignored.
+        If {@code pCreateInfo→pNext} chain includes a pointer to a ##VkComputePipelineIndirectBufferInfoNV structure, then the contents of that structure are ignored.
 
         <h5>Valid Usage</h5>
         <ul>
-            <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-deviceGeneratedComputePipelines">##VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
-            <li>{@code pCreateInfo}{@code ::flags} <b>must</b> include #PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV</li>
+            <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#features-deviceGeneratedComputePipelines">##VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
+            <li>{@code pCreateInfo→flags} <b>must</b> include #PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -148,7 +147,7 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
             <li>{@code pipelineBindPoint} <b>must</b> be #PIPELINE_BIND_POINT_COMPUTE</li>
             <li>{@code pipeline} <b>must</b> have been created with #PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV flag set</li>
             <li>{@code pipeline} <b>must</b> have been created with ##VkComputePipelineIndirectBufferInfoNV structure specifying a valid address where its metadata will be saved</li>
-            <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#features-deviceGeneratedComputePipelines">##VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
+            <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#features-deviceGeneratedComputePipelines">##VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
         </ul>
 
         <h5>Valid Usage (Implicit)</h5>
@@ -156,7 +155,7 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
             <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
             <li>{@code pipelineBindPoint} <b>must</b> be a valid {@code VkPipelineBindPoint} value</li>
             <li>{@code pipeline} <b>must</b> be a valid {@code VkPipeline} handle</li>
-            <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
+            <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#commandbuffers-lifecycle">recording state</a></li>
             <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support transfer, graphics, or compute operations</li>
             <li>This command <b>must</b> only be called outside of a render pass instance</li>
             <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -171,7 +170,7 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
 
         <h5>Command Properties</h5>
         <table class="lwjgl">
-            <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+            <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
             <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Transfer Graphics Compute</td><td>Action</td></tr></tbody>
         </table>
         """,
@@ -194,6 +193,11 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
 ￿    VkDevice                                    device,
 ￿    const VkPipelineIndirectDeviceAddressInfoNV* pInfo);</code></pre>
 
+        <h5>Valid Usage</h5>
+        <ul>
+            <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#features-deviceGeneratedComputePipelines">##VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
+        </ul>
+
         <h5>Valid Usage (Implicit)</h5>
         <ul>
             <li>{@code device} <b>must</b> be a valid {@code VkDevice} handle</li>
@@ -204,7 +208,7 @@ val NV_device_generated_commands_compute = "NVDeviceGeneratedCommandsCompute".na
         ##VkPipelineIndirectDeviceAddressInfoNV
         """,
 
-        VkDevice("device", ""),
-        VkPipelineIndirectDeviceAddressInfoNV.const.p("pInfo", "")
+        VkDevice("device", "the logical device on which the pipeline was created."),
+        VkPipelineIndirectDeviceAddressInfoNV.const.p("pInfo", "a pointer to a ##VkPipelineIndirectDeviceAddressInfoNV structure specifying the pipeline to retrieve the address for.")
     )
 }

@@ -19,7 +19,6 @@ val EXT_mutable_descriptor_type = "EXTMutableDescriptorType".nativeClassVK("EXT_
 
         These features together allow much more efficient emulation of the raw D3D12 binding model. This extension is primarily intended to be useful for API layering efforts.
 
-        <h5>VK_EXT_mutable_descriptor_type</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_mutable_descriptor_type}</dd>
@@ -38,7 +37,7 @@ val EXT_mutable_descriptor_type = "EXTMutableDescriptorType".nativeClassVK("EXT_
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

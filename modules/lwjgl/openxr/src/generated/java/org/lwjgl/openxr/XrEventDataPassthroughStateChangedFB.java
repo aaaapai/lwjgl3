@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -31,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrEventDataPassthroughStateChangedFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code XrPassthroughStateChangedFlagBitsFB} values</li>
  * <li>{@code flags} <b>must</b> not be 0</li>
  * </ul>
@@ -164,8 +164,7 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataPassthroughStateChangedFB createSafe(long address) {
+    public static @Nullable XrEventDataPassthroughStateChangedFB createSafe(long address) {
         return address == NULL ? null : new XrEventDataPassthroughStateChangedFB(address, null);
     }
 
@@ -208,8 +207,7 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataPassthroughStateChangedFB.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataPassthroughStateChangedFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,18 +252,18 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataPassthroughStateChangedFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataPassthroughStateChangedFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataPassthroughStateChangedFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrEventDataPassthroughStateChangedFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrEventDataPassthroughStateChangedFB.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataPassthroughStateChangedFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataPassthroughStateChangedFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataPassthroughStateChangedFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrEventDataPassthroughStateChangedFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrEventDataPassthroughStateChangedFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -298,6 +296,11 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

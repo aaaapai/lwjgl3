@@ -4,6 +4,7 @@
  */
 package org.lwjgl.openal;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
@@ -155,10 +156,9 @@ public final class AL {
     }
 // -- End LWJGL2 part
 
-    @Nullable
-    private static ALCapabilities processCaps;
+    private static @Nullable ALCapabilities processCaps;
 
-    private static final ThreadLocal<ALCapabilities> capabilitiesTLS = new ThreadLocal<>();
+    private static final ThreadLocal<@Nullable ALCapabilities> capabilitiesTLS = new ThreadLocal<>();
 
     private static ICD icd = new ICDStatic();
 
@@ -353,8 +353,7 @@ public final class AL {
      */
     private static class ICDStatic implements ICD {
 
-        @Nullable
-        private static ALCapabilities tempCaps;
+        private static @Nullable ALCapabilities tempCaps;
 
         @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
         @Override

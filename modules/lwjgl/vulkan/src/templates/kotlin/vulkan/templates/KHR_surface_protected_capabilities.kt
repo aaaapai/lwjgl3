@@ -17,7 +17,6 @@ val KHR_surface_protected_capabilities = "KHRSurfaceProtectedCapabilities".nativ
 
         This extension provides a way to query if a protected swapchain created for a surface (and thus a specific windowing system) <b>can</b> be displayed on screen. It extends the existing ##VkSurfaceCapabilities2KHR structure with a new ##VkSurfaceProtectedCapabilitiesKHR structure from which the application <b>can</b> obtain information about support for protected swapchain creation through #GetPhysicalDeviceSurfaceCapabilities2KHR().
 
-        <h5>VK_KHR_surface_protected_capabilities</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_surface_protected_capabilities}</dd>
@@ -32,7 +31,7 @@ val KHR_surface_protected_capabilities = "KHRSurfaceProtectedCapabilities".nativ
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2}</dd>
+            <dd><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a> and {@link KHRGetSurfaceCapabilities2 VK_KHR_get_surface_capabilities2}</dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>

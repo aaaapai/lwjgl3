@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openvr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,6 +23,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     float {@link #x};
  *     float y;
  *     uint32_t {@link #button};
+ *     uint32_t {@link #cursorIndex};
  * }</code></pre>
  */
 @NativeType("struct VREvent_Mouse_t")
@@ -38,10 +39,12 @@ public class VREventMouse extends Struct<VREventMouse> {
     public static final int
         X,
         Y,
-        BUTTON;
+        BUTTON,
+        CURSORINDEX;
 
     static {
         Layout layout = __struct(
+            __member(4),
             __member(4),
             __member(4),
             __member(4)
@@ -53,6 +56,7 @@ public class VREventMouse extends Struct<VREventMouse> {
         X = layout.offsetof(0);
         Y = layout.offsetof(1);
         BUTTON = layout.offsetof(2);
+        CURSORINDEX = layout.offsetof(3);
     }
 
     protected VREventMouse(long address, @Nullable ByteBuffer container) {
@@ -84,6 +88,9 @@ public class VREventMouse extends Struct<VREventMouse> {
     /** one of:<br><table><tr><td>{@link VR#EVRMouseButton_VRMouseButton_Left}</td><td>{@link VR#EVRMouseButton_VRMouseButton_Right}</td></tr><tr><td>{@link VR#EVRMouseButton_VRMouseButton_Middle}</td></tr></table> */
     @NativeType("uint32_t")
     public int button() { return nbutton(address()); }
+    /** if from an event triggered by cursor input on an overlay that supports multiple cursors, this is the index of which tracked cursor the event is for */
+    @NativeType("uint32_t")
+    public int cursorIndex() { return ncursorIndex(address()); }
 
     // -----------------------------------
 
@@ -93,8 +100,7 @@ public class VREventMouse extends Struct<VREventMouse> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventMouse createSafe(long address) {
+    public static @Nullable VREventMouse createSafe(long address) {
         return address == NULL ? null : new VREventMouse(address, null);
     }
 
@@ -109,19 +115,20 @@ public class VREventMouse extends Struct<VREventMouse> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VREventMouse.Buffer createSafe(long address, int capacity) {
+    public static VREventMouse.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VREventMouse.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VREventMouse.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VREventMouse.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VREventMouse.Y); }
     /** Unsafe version of {@link #button}. */
-    public static int nbutton(long struct) { return UNSAFE.getInt(null, struct + VREventMouse.BUTTON); }
+    public static int nbutton(long struct) { return memGetInt(struct + VREventMouse.BUTTON); }
+    /** Unsafe version of {@link #cursorIndex}. */
+    public static int ncursorIndex(long struct) { return memGetInt(struct + VREventMouse.CURSORINDEX); }
 
     // -----------------------------------
 
@@ -157,6 +164,11 @@ public class VREventMouse extends Struct<VREventMouse> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VREventMouse getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -168,6 +180,9 @@ public class VREventMouse extends Struct<VREventMouse> {
         /** @return the value of the {@link VREventMouse#button} field. */
         @NativeType("uint32_t")
         public int button() { return VREventMouse.nbutton(address()); }
+        /** @return the value of the {@link VREventMouse#cursorIndex} field. */
+        @NativeType("uint32_t")
+        public int cursorIndex() { return VREventMouse.ncursorIndex(address()); }
 
     }
 

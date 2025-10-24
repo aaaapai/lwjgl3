@@ -17,7 +17,6 @@ val NV_descriptor_pool_overallocation = "NVDescriptorPoolOverallocation".nativeC
 
         The #DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV flag lets the application allocate more than ##VkDescriptorPoolCreateInfo{@code ::maxSets} descriptor sets, and the #DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV lets the application allocate more descriptors than initially specified by ##VkDescriptorPoolSize{@code ::descriptorCount} for any descriptor types.
 
-        <h5>VK_NV_descriptor_pool_overallocation</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_descriptor_pool_overallocation}</dd>
@@ -32,7 +31,7 @@ val NV_descriptor_pool_overallocation = "NVDescriptorPoolOverallocation".nativeC
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>

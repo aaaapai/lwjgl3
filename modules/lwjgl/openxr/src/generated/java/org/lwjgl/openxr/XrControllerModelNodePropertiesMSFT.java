@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,14 +27,14 @@ import static org.lwjgl.openxr.MSFTControllerModel.*;
  * 
  * <p>If there are multiple nodes in the glTF file matches the condition above, the first matching node using depth-first traversal in the glTF scene <b>should</b> be animated and the rest <b>should</b> be ignored.</p>
  * 
- * <p>The runtime <b>must</b> not return any {@code nodeName} or {@code parentName} that doesn’t match any gltTF nodes in the corresponding controller model.</p>
+ * <p>The runtime <b>must</b> not return any {@code nodeName} or {@code parentNodeName} that does not match any glTF nodes in the corresponding controller model.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>The {@link MSFTControllerModel XR_MSFT_controller_model} extension <b>must</b> be enabled prior to using {@link XrControllerModelNodePropertiesMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTControllerModel#XR_TYPE_CONTROLLER_MODEL_NODE_PROPERTIES_MSFT TYPE_CONTROLLER_MODEL_NODE_PROPERTIES_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code parentNodeName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link MSFTControllerModel#XR_MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT}</li>
  * <li>{@code nodeName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link MSFTControllerModel#XR_MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT MAX_CONTROLLER_MODEL_NODE_NAME_SIZE_MSFT}</li>
  * </ul>
@@ -188,8 +188,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelNodePropertiesMSFT createSafe(long address) {
+    public static @Nullable XrControllerModelNodePropertiesMSFT createSafe(long address) {
         return address == NULL ? null : new XrControllerModelNodePropertiesMSFT(address, null);
     }
 
@@ -232,8 +231,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelNodePropertiesMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrControllerModelNodePropertiesMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -278,7 +276,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelNodePropertiesMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrControllerModelNodePropertiesMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrControllerModelNodePropertiesMSFT.NEXT); }
     /** Unsafe version of {@link #parentNodeName}. */
@@ -291,7 +289,7 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
     public static String nnodeNameString(long struct) { return memUTF8(struct + XrControllerModelNodePropertiesMSFT.NODENAME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelNodePropertiesMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrControllerModelNodePropertiesMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrControllerModelNodePropertiesMSFT.NEXT, value); }
     /** Unsafe version of {@link #parentNodeName(ByteBuffer) parentNodeName}. */
@@ -342,6 +340,11 @@ public class XrControllerModelNodePropertiesMSFT extends Struct<XrControllerMode
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -26,9 +26,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link EXTSurfaceMaintenance1#VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT}</li>
- * <li>{@code supportedPresentScaling} <b>must</b> be a valid combination of {@code VkPresentScalingFlagBitsEXT} values</li>
- * <li>{@code supportedPresentGravityX} <b>must</b> be a valid combination of {@code VkPresentGravityFlagBitsEXT} values</li>
- * <li>{@code supportedPresentGravityY} <b>must</b> be a valid combination of {@code VkPresentGravityFlagBitsEXT} values</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -137,38 +134,14 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePres
     public VkSurfacePresentScalingCapabilitiesEXT sType$Default() { return sType(EXTSurfaceMaintenance1.VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSurfacePresentScalingCapabilitiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportedPresentScaling} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT supportedPresentScaling(@NativeType("VkPresentScalingFlagsEXT") int value) { nsupportedPresentScaling(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportedPresentGravityX} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT supportedPresentGravityX(@NativeType("VkPresentGravityFlagsEXT") int value) { nsupportedPresentGravityX(address(), value); return this; }
-    /** Sets the specified value to the {@link #supportedPresentGravityY} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT supportedPresentGravityY(@NativeType("VkPresentGravityFlagsEXT") int value) { nsupportedPresentGravityY(address(), value); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #minScaledImageExtent} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT minScaledImageExtent(VkExtent2D value) { nminScaledImageExtent(address(), value); return this; }
-    /** Passes the {@link #minScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public VkSurfacePresentScalingCapabilitiesEXT minScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(minScaledImageExtent()); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #maxScaledImageExtent} field. */
-    public VkSurfacePresentScalingCapabilitiesEXT maxScaledImageExtent(VkExtent2D value) { nmaxScaledImageExtent(address(), value); return this; }
-    /** Passes the {@link #maxScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-    public VkSurfacePresentScalingCapabilitiesEXT maxScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(maxScaledImageExtent()); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSurfacePresentScalingCapabilitiesEXT set(
         int sType,
-        long pNext,
-        int supportedPresentScaling,
-        int supportedPresentGravityX,
-        int supportedPresentGravityY,
-        VkExtent2D minScaledImageExtent,
-        VkExtent2D maxScaledImageExtent
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        supportedPresentScaling(supportedPresentScaling);
-        supportedPresentGravityX(supportedPresentGravityX);
-        supportedPresentGravityY(supportedPresentGravityY);
-        minScaledImageExtent(minScaledImageExtent);
-        maxScaledImageExtent(maxScaledImageExtent);
 
         return this;
     }
@@ -209,8 +182,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePres
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfacePresentScalingCapabilitiesEXT createSafe(long address) {
+    public static @Nullable VkSurfacePresentScalingCapabilitiesEXT createSafe(long address) {
         return address == NULL ? null : new VkSurfacePresentScalingCapabilitiesEXT(address, null);
     }
 
@@ -253,8 +225,7 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePres
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfacePresentScalingCapabilitiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSurfacePresentScalingCapabilitiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -299,34 +270,24 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePres
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfacePresentScalingCapabilitiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfacePresentScalingCapabilitiesEXT.PNEXT); }
     /** Unsafe version of {@link #supportedPresentScaling}. */
-    public static int nsupportedPresentScaling(long struct) { return UNSAFE.getInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTSCALING); }
+    public static int nsupportedPresentScaling(long struct) { return memGetInt(struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTSCALING); }
     /** Unsafe version of {@link #supportedPresentGravityX}. */
-    public static int nsupportedPresentGravityX(long struct) { return UNSAFE.getInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYX); }
+    public static int nsupportedPresentGravityX(long struct) { return memGetInt(struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYX); }
     /** Unsafe version of {@link #supportedPresentGravityY}. */
-    public static int nsupportedPresentGravityY(long struct) { return UNSAFE.getInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYY); }
+    public static int nsupportedPresentGravityY(long struct) { return memGetInt(struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYY); }
     /** Unsafe version of {@link #minScaledImageExtent}. */
     public static VkExtent2D nminScaledImageExtent(long struct) { return VkExtent2D.create(struct + VkSurfacePresentScalingCapabilitiesEXT.MINSCALEDIMAGEEXTENT); }
     /** Unsafe version of {@link #maxScaledImageExtent}. */
     public static VkExtent2D nmaxScaledImageExtent(long struct) { return VkExtent2D.create(struct + VkSurfacePresentScalingCapabilitiesEXT.MAXSCALEDIMAGEEXTENT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfacePresentScalingCapabilitiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfacePresentScalingCapabilitiesEXT.PNEXT, value); }
-    /** Unsafe version of {@link #supportedPresentScaling(int) supportedPresentScaling}. */
-    public static void nsupportedPresentScaling(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTSCALING, value); }
-    /** Unsafe version of {@link #supportedPresentGravityX(int) supportedPresentGravityX}. */
-    public static void nsupportedPresentGravityX(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYX, value); }
-    /** Unsafe version of {@link #supportedPresentGravityY(int) supportedPresentGravityY}. */
-    public static void nsupportedPresentGravityY(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfacePresentScalingCapabilitiesEXT.SUPPORTEDPRESENTGRAVITYY, value); }
-    /** Unsafe version of {@link #minScaledImageExtent(VkExtent2D) minScaledImageExtent}. */
-    public static void nminScaledImageExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkSurfacePresentScalingCapabilitiesEXT.MINSCALEDIMAGEEXTENT, VkExtent2D.SIZEOF); }
-    /** Unsafe version of {@link #maxScaledImageExtent(VkExtent2D) maxScaledImageExtent}. */
-    public static void nmaxScaledImageExtent(long struct, VkExtent2D value) { memCopy(value.address(), struct + VkSurfacePresentScalingCapabilitiesEXT.MAXSCALEDIMAGEEXTENT, VkExtent2D.SIZEOF); }
 
     // -----------------------------------
 
@@ -362,6 +323,11 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePres
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSurfacePresentScalingCapabilitiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -392,20 +358,6 @@ public class VkSurfacePresentScalingCapabilitiesEXT extends Struct<VkSurfacePres
         public VkSurfacePresentScalingCapabilitiesEXT.Buffer sType$Default() { return sType(EXTSurfaceMaintenance1.VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT); }
         /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#pNext} field. */
         public VkSurfacePresentScalingCapabilitiesEXT.Buffer pNext(@NativeType("void *") long value) { VkSurfacePresentScalingCapabilitiesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#supportedPresentScaling} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer supportedPresentScaling(@NativeType("VkPresentScalingFlagsEXT") int value) { VkSurfacePresentScalingCapabilitiesEXT.nsupportedPresentScaling(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#supportedPresentGravityX} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer supportedPresentGravityX(@NativeType("VkPresentGravityFlagsEXT") int value) { VkSurfacePresentScalingCapabilitiesEXT.nsupportedPresentGravityX(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfacePresentScalingCapabilitiesEXT#supportedPresentGravityY} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer supportedPresentGravityY(@NativeType("VkPresentGravityFlagsEXT") int value) { VkSurfacePresentScalingCapabilitiesEXT.nsupportedPresentGravityY(address(), value); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkSurfacePresentScalingCapabilitiesEXT#minScaledImageExtent} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer minScaledImageExtent(VkExtent2D value) { VkSurfacePresentScalingCapabilitiesEXT.nminScaledImageExtent(address(), value); return this; }
-        /** Passes the {@link VkSurfacePresentScalingCapabilitiesEXT#minScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer minScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(minScaledImageExtent()); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkSurfacePresentScalingCapabilitiesEXT#maxScaledImageExtent} field. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer maxScaledImageExtent(VkExtent2D value) { VkSurfacePresentScalingCapabilitiesEXT.nmaxScaledImageExtent(address(), value); return this; }
-        /** Passes the {@link VkSurfacePresentScalingCapabilitiesEXT#maxScaledImageExtent} field to the specified {@link java.util.function.Consumer Consumer}. */
-        public VkSurfacePresentScalingCapabilitiesEXT.Buffer maxScaledImageExtent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(maxScaledImageExtent()); return this; }
 
     }
 

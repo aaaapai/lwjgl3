@@ -4,10 +4,10 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.libffi.*;
 
-import javax.annotation.*;
 import java.lang.reflect.*;
 import java.util.concurrent.*;
 
@@ -191,8 +191,7 @@ public abstract class Callback implements Pointer, NativeResource {
     }
 
     /** Like {@link #get}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static <T extends CallbackI> T getSafe(long functionPointer) {
+    public static <T extends CallbackI> @Nullable T getSafe(long functionPointer) {
         return functionPointer == NULL ? null : get(functionPointer);
     }
 
@@ -206,7 +205,7 @@ public abstract class Callback implements Pointer, NativeResource {
             MemoryManage.DebugAllocator.untrack(functionPointer);
         }
 
-        FFIClosure closure = CLOSURE_REGISTRY.get(functionPointer);
+        FFIClosure closure = CLOSURE_REGISTRY.remove(functionPointer);
 
         DeleteGlobalRef(closure.user_data());
         ffi_closure_free(closure);

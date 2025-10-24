@@ -14,11 +14,10 @@ val EXT_inline_uniform_block = "EXTInlineUniformBlock".nativeClassVK("EXT_inline
         This extension introduces the ability to back uniform blocks directly with descriptor sets by storing inline uniform data within descriptor pool storage. Compared to push constants this new construct allows uniform data to be reused across multiple disjoint sets of drawing or dispatching commands and <b>may</b> enable uniform data to be accessed with fewer indirections compared to uniforms backed by buffer memory.
 
         <h5>Promotion to Vulkan 1.3</h5>
-        Functionality in this extension is included in core Vulkan 1.3, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        Vulkan APIs in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.
 
-        Vulkan 1.3 adds <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-new-features">additional functionality related to this extension</a> in the form of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#limits-maxInlineUniformTotalSize">{@code maxInlineUniformTotalSize}</a> limit.
+        Vulkan 1.3 adds <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.3-new-features">additional functionality related to this extension</a> in the form of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#limits-maxInlineUniformTotalSize">{@code maxInlineUniformTotalSize}</a> limit.
 
-        <h5>VK_EXT_inline_uniform_block</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_inline_uniform_block}</dd>
@@ -33,11 +32,18 @@ val EXT_inline_uniform_block = "EXTInlineUniformBlock".nativeClassVK("EXT_inline
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance1 VK_KHR_maintenance1}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} and {@link KHRMaintenance1 VK_KHR_maintenance1} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>API Interactions</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li>Interacts with VK_VERSION_1_2</li>
+                <li>Interacts with VK_EXT_descriptor_indexing</li>
+                <li>Interacts with VkPhysicalDeviceVulkan12Features::descriptorIndexing</li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
+            <dd><ul>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
@@ -50,11 +56,6 @@ val EXT_inline_uniform_block = "EXTInlineUniformBlock".nativeClassVK("EXT_inline
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2018-08-01</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-            </ul></dd>
 
             <dt><b>IP Status</b></dt>
             <dd>No known IP claims.</dd>

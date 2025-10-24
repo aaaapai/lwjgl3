@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The application <b>must</b> set {@code expressionCount} as described by the {@code XrFacialTrackingTypeHTC} when creating the {@code XrFacialTrackerHTC} otherwise the runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE}.</p>
  * 
- * <p>The runtime <b>must</b> update the {@code expressionWeightings} array ordered so that the application can index elements using the corresponding facial tracker enum (e.g. {@code XrEyeExpressionHTC} or {@code XrLipExpressionHTC}) as described by {@code XrFacialTrackingTypeHTC} when creating the {@code XrFacialTrackerHTC}. For example, when the {@code XrFacialTrackerHTC} is created with {@code facialTrackingType} set to {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC}, the application <b>must</b> set the {@code expressionCount} to {@link HTCFacialTracking#XR_FACIAL_EXPRESSION_EYE_COUNT_HTC FACIAL_EXPRESSION_EYE_COUNT_HTC}, and the runtime <b>must</b> fill the {@code expressionWeightings} array ordered with eye expression data so that it can be indexed by the {@code XrEyeExpressionHTC} enum.</p>
+ * <p>The runtime <b>must</b> update the {@code expressionWeightings} array ordered so that the application can index elements using the corresponding facial tracker enum (e.g. {@code XrEyeExpressionHTC} or {@code XrLipExpressionHTC}) as described by {@code XrFacialTrackingTypeHTC} when creating the {@code XrFacialTrackerHTC}. For example, when the {@code XrFacialTrackerHTC} is created with {@code XrFacialTrackerHTC}{@code ::facialTrackingType} set to {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC}, the application <b>must</b> set the {@code expressionCount} to {@link HTCFacialTracking#XR_FACIAL_EXPRESSION_EYE_COUNT_HTC FACIAL_EXPRESSION_EYE_COUNT_HTC}, and the runtime <b>must</b> fill the {@code expressionWeightings} array ordered with eye expression data so that it can be indexed by the {@code XrEyeExpressionHTC} enum.</p>
  * 
  * <p>If the returned {@code isActive} is true, the runtime <b>must</b> fill the {@code expressionWeightings} array ordered.</p>
  * 
@@ -40,7 +40,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrFacialExpressionsHTC}</li>
  * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_FACIAL_EXPRESSIONS_HTC TYPE_FACIAL_EXPRESSIONS_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code expressionWeightings} <b>must</b> be a pointer to a {@code float} value</li>
  * </ul>
  * 
@@ -213,8 +213,7 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialExpressionsHTC createSafe(long address) {
+    public static @Nullable XrFacialExpressionsHTC createSafe(long address) {
         return address == NULL ? null : new XrFacialExpressionsHTC(address, null);
     }
 
@@ -257,8 +256,7 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialExpressionsHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFacialExpressionsHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,28 +301,28 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFacialExpressionsHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFacialExpressionsHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFacialExpressionsHTC.NEXT); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrFacialExpressionsHTC.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrFacialExpressionsHTC.ISACTIVE); }
     /** Unsafe version of {@link #sampleTime}. */
-    public static long nsampleTime(long struct) { return UNSAFE.getLong(null, struct + XrFacialExpressionsHTC.SAMPLETIME); }
+    public static long nsampleTime(long struct) { return memGetLong(struct + XrFacialExpressionsHTC.SAMPLETIME); }
     /** Unsafe version of {@link #expressionCount}. */
-    public static int nexpressionCount(long struct) { return UNSAFE.getInt(null, struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT); }
+    public static int nexpressionCount(long struct) { return memGetInt(struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT); }
     /** Unsafe version of {@link #expressionWeightings(int) expressionWeightings}. */
     public static FloatBuffer nexpressionWeightings(long struct, int capacity) { return memFloatBuffer(memGetAddress(struct + XrFacialExpressionsHTC.EXPRESSIONWEIGHTINGS), capacity); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialExpressionsHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFacialExpressionsHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFacialExpressionsHTC.NEXT, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialExpressionsHTC.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrFacialExpressionsHTC.ISACTIVE, value); }
     /** Unsafe version of {@link #sampleTime(long) sampleTime}. */
-    public static void nsampleTime(long struct, long value) { UNSAFE.putLong(null, struct + XrFacialExpressionsHTC.SAMPLETIME, value); }
+    public static void nsampleTime(long struct, long value) { memPutLong(struct + XrFacialExpressionsHTC.SAMPLETIME, value); }
     /** Unsafe version of {@link #expressionCount(int) expressionCount}. */
-    public static void nexpressionCount(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT, value); }
+    public static void nexpressionCount(long struct, int value) { memPutInt(struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT, value); }
     /** Unsafe version of {@link #expressionWeightings(FloatBuffer) expressionWeightings}. */
     public static void nexpressionWeightings(long struct, FloatBuffer value) { memPutAddress(struct + XrFacialExpressionsHTC.EXPRESSIONWEIGHTINGS, memAddress(value)); }
 
@@ -368,6 +366,11 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -110,7 +110,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToI
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the starting address of the source host or device memory to copy from. */
+    /** the starting address of the source device memory to copy from. */
     @NativeType("VkDeviceAddress")
     public long srcAddress() { return nsrcAddress(address()); }
     /** {@code bufferRowLength} and {@code bufferImageHeight} specify in texels a subregion of a larger two- or three-dimensional image in buffer memory, and control the addressing calculations. If either of these values is zero, that aspect of the buffer memory is considered to be tightly packed according to the {@code imageExtent}. */
@@ -200,8 +200,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryToImageIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkCopyMemoryToImageIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkCopyMemoryToImageIndirectCommandNV(address, null);
     }
 
@@ -244,8 +243,7 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCopyMemoryToImageIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkCopyMemoryToImageIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -290,11 +288,11 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToI
     // -----------------------------------
 
     /** Unsafe version of {@link #srcAddress}. */
-    public static long nsrcAddress(long struct) { return UNSAFE.getLong(null, struct + VkCopyMemoryToImageIndirectCommandNV.SRCADDRESS); }
+    public static long nsrcAddress(long struct) { return memGetLong(struct + VkCopyMemoryToImageIndirectCommandNV.SRCADDRESS); }
     /** Unsafe version of {@link #bufferRowLength}. */
-    public static int nbufferRowLength(long struct) { return UNSAFE.getInt(null, struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERROWLENGTH); }
+    public static int nbufferRowLength(long struct) { return memGetInt(struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERROWLENGTH); }
     /** Unsafe version of {@link #bufferImageHeight}. */
-    public static int nbufferImageHeight(long struct) { return UNSAFE.getInt(null, struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERIMAGEHEIGHT); }
+    public static int nbufferImageHeight(long struct) { return memGetInt(struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERIMAGEHEIGHT); }
     /** Unsafe version of {@link #imageSubresource}. */
     public static VkImageSubresourceLayers nimageSubresource(long struct) { return VkImageSubresourceLayers.create(struct + VkCopyMemoryToImageIndirectCommandNV.IMAGESUBRESOURCE); }
     /** Unsafe version of {@link #imageOffset}. */
@@ -303,11 +301,11 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToI
     public static VkExtent3D nimageExtent(long struct) { return VkExtent3D.create(struct + VkCopyMemoryToImageIndirectCommandNV.IMAGEEXTENT); }
 
     /** Unsafe version of {@link #srcAddress(long) srcAddress}. */
-    public static void nsrcAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkCopyMemoryToImageIndirectCommandNV.SRCADDRESS, value); }
+    public static void nsrcAddress(long struct, long value) { memPutLong(struct + VkCopyMemoryToImageIndirectCommandNV.SRCADDRESS, value); }
     /** Unsafe version of {@link #bufferRowLength(int) bufferRowLength}. */
-    public static void nbufferRowLength(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERROWLENGTH, value); }
+    public static void nbufferRowLength(long struct, int value) { memPutInt(struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERROWLENGTH, value); }
     /** Unsafe version of {@link #bufferImageHeight(int) bufferImageHeight}. */
-    public static void nbufferImageHeight(long struct, int value) { UNSAFE.putInt(null, struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERIMAGEHEIGHT, value); }
+    public static void nbufferImageHeight(long struct, int value) { memPutInt(struct + VkCopyMemoryToImageIndirectCommandNV.BUFFERIMAGEHEIGHT, value); }
     /** Unsafe version of {@link #imageSubresource(VkImageSubresourceLayers) imageSubresource}. */
     public static void nimageSubresource(long struct, VkImageSubresourceLayers value) { memCopy(value.address(), struct + VkCopyMemoryToImageIndirectCommandNV.IMAGESUBRESOURCE, VkImageSubresourceLayers.SIZEOF); }
     /** Unsafe version of {@link #imageOffset(VkOffset3D) imageOffset}. */
@@ -346,6 +344,11 @@ public class VkCopyMemoryToImageIndirectCommandNV extends Struct<VkCopyMemoryToI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

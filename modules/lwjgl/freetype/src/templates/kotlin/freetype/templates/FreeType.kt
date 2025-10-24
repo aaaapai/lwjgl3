@@ -653,7 +653,7 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
 
     IntConstant("", "FREETYPE_MAJOR".."2").noPrefix()
     IntConstant("", "FREETYPE_MINOR".."13").noPrefix()
-    IntConstant("", "FREETYPE_PATCH".."2").noPrefix()
+    IntConstant("", "FREETYPE_PATCH".."3").noPrefix()
 
     void(
         "Library_Version",
@@ -1730,6 +1730,10 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
 
     // ftmm.h
 
+    IntConstant("", "T1_MAX_MM_AXIS".."4").noPrefix()
+    IntConstant("", "T1_MAX_MM_DESIGNS".."16").noPrefix()
+    IntConstant("", "T1_MAX_MM_MAP_POINTS".."20").noPrefix()
+
     FT_Error(
         "Get_Multi_Master",
         "",
@@ -1751,7 +1755,7 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
         "",
 
         FT_Library("library", ""),
-        FT_MM_Var.p("amaster", "")
+        Input..FT_MM_Var.p("amaster", "")
     )
 
     FT_Error(
@@ -1843,7 +1847,7 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
         "Get_Var_Axis_Flags",
         "",
 
-        FT_MM_Var.p("master", ""),
+        Input..FT_MM_Var.p("master", ""),
         FT_UInt("axis_index", ""),
         Check(1)..FT_UInt.p("flags", "")
     )
@@ -2639,10 +2643,6 @@ val freetype = "FreeType".nativeClass(Module.FREETYPE, prefix = "FT", prefixMeth
         "T1_BLEND_FORCE_BOLD".enum,
         "T1_BLEND_MAX".enum
     ).noPrefix()
-
-    IntConstant("", "T1_MAX_MM_DESIGNS".."16").noPrefix()
-    IntConstant("", "T1_MAX_MM_AXIS".."4").noPrefix()
-    IntConstant("", "T1_MAX_MM_MAP_POINTS".."20").noPrefix()
 
     FT_Int(
         "Has_PS_Glyph_Names",

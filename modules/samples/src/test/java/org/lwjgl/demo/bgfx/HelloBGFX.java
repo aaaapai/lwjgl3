@@ -38,7 +38,7 @@ public final class HelloBGFX {
 
         // the client (renderer) API is managed by bgfx
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-        if (Platform.get() == Platform.MACOSX) {
+        if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
             glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
         }
 
@@ -69,10 +69,18 @@ public final class HelloBGFX {
                     .reset(BGFX_RESET_VSYNC));
 
             switch (Platform.get()) {
+                case FREEBSD:
                 case LINUX:
-                    init.platformData()
-                        .ndt(GLFWNativeX11.glfwGetX11Display())
-                        .nwh(GLFWNativeX11.glfwGetX11Window(window));
+                    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+                        init.platformData()
+                            .ndt(GLFWNativeWayland.glfwGetWaylandDisplay())
+                            .nwh(GLFWNativeWayland.glfwGetWaylandWindow(window))
+                            .type(BGFX_NATIVE_WINDOW_HANDLE_TYPE_WAYLAND);
+                    } else {
+                        init.platformData()
+                            .ndt(GLFWNativeX11.glfwGetX11Display())
+                            .nwh(GLFWNativeX11.glfwGetX11Window(window));
+                    }
                     break;
                 case MACOSX:
                     init.platformData()

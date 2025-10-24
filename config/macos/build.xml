@@ -12,8 +12,6 @@
 
 <!--
     <condition property="macosx-version-min" value="11.0" else="10.9">
-        <isset property="build.arch.arm"/>
-    </condition>
 -->
     <property name="ios-version-min" value="14.0"/>
     <property name="build.arch.arm" value="true"/>
@@ -26,6 +24,7 @@
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="relative" default="true"/>
+        <attribute name="macos" default="${macosx-version-min}"/>
         <element name="source" implicit="true" optional="true"/>
         <sequential>
             <local name="cpp"/>
@@ -51,7 +50,7 @@
                 <source/>
                 <fileset dir="." includes="${src.generated}/*" if:true="@{simple}"/>
 
-                <regexpmapper from="(\w+)\.(?:c(?:c|pp)?|m)$" to="\1.o"/>
+                <regexpmapper from="([\w\-]+)\.(?:c(?:c|pp)?|m)$" to="\1.o"/>
             </apply>
         </sequential>
     </macrodef>
@@ -62,6 +61,7 @@
         <attribute name="lang" default="c"/>
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
+        <attribute name="macos" default="${macosx-version-min}"/>
         <element name="beforeCompile" optional="true"/>
         <element name="source" optional="true"/>
         <element name="beforeLink" optional="true"/>
@@ -83,7 +83,7 @@
             <property name="dest" value="${bin.native}/@{module}"/>
 
             <beforeCompile/>
-            <compile lang="@{lang}" flags="@{flags}" simple="@{simple}">
+            <compile lang="@{lang}" flags="@{flags}" simple="@{simple}" macos="@{macos}">
                 <source/>
             </compile>
 
@@ -112,7 +112,12 @@
             <beforeLink unless:set="lib-uptodate"/>
             <apply executable="${clang}" failonerror="true" parallel="true" taskname="Linker" unless:set="lib-uptodate">
                 <srcfile/>
+<<<<<<< HEAD
                 <arg line='-dynamiclib -Wl,-no_compact_unwind -miphoneos-version-min=${ios-version-min} -o ${lib.arch}/lib${name}.dylib -O3 -flto -fPIC -isysroot ${sdkroot}'/>
+=======
+                <arg line='-dynamiclib -Wl,-no_compact_unwind -mmacosx-version-min=@{macos} -o ${lib.arch}/lib${name}.dylib -O3 -flto=auto -fPIC'/>
+                <arg line="-target x64-apple-darwin -arch x86_64" unless:set="build.arch.arm"/>
+>>>>>>> upstream_3.3.6
                 <arg line="-target aarch64-apple-darwin -arch arm64" if:set="build.arch.arm"/>
                 <fileset dir="${dest}" includes="*.o"/>
                 <link/>
@@ -145,7 +150,7 @@
                 <arg value="-I${src.main.rel}/libffi"/>
                 <arg value="-I${src.main.rel}/libffi/aarch64" if:set="build.arch.arm64"/>
                 <arg value="-I${src.main.rel}/libffi/arm" if:set="build.arch.arm32"/>
-                <arg value="-I${src.main.rel}/libffi/x86" unless:set="build.arch.arm"/>
+                <arg value="-I${src.main.rel}/libffi/x86" if:set="build.arch.x64|x86"/>
                 <!-- for libffi/x86/ffitarget.h -->
                 <arg value="-DX86_64" if:set="build.arch.x64"/>
                 <fileset dir=".">
@@ -206,9 +211,19 @@
         </sequential>
 
         <!-- meshoptimizer -->
-        <build module="meshoptimizer" simple="true" linker="clang++" if:true="${binding.meshoptimizer}">
+        <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
             <beforeCompile>
                 <compile lang="c++" flags="-DMESHOPTIMIZER_NO_WRAPPERS">
+                    <arg value="-I${src.main.rel}"/>
+                    <fileset dir="." includes="${src.main}/*.cpp"/>
+                </compile>
+            </beforeCompile>
+        </build>
+
+        <!-- msdfgen -->
+        <build module="msdfgen" simple="true" linker="clang++" if:true="${binding.msdfgen}">
+            <beforeCompile>
+                <compile lang="c++">
                     <arg value="-I${src.main.rel}"/>
                     <fileset dir="." includes="${src.main}/*.cpp"/>
                 </compile>
@@ -256,6 +271,9 @@
 
         <!-- Remotery -->
         <build module="remotery" simple="true" if:true="${binding.remotery}">
+            <source>
+                <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
+            </source>
             <link>
                 <arg line="-framework Foundation"/>
             </link>
@@ -326,7 +344,7 @@
         </build>
 
         <!-- Vulkan Memory Allocator -->
-        <build module="vma" lang="c++" if:true="${binding.vma}">
+        <build module="vma" lang="c++" macos="${macosx-version-min-vma}" if:true="${binding.vma}">
             <source>
                 <arg value="-I${src.main.rel}"/>
                 <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
@@ -359,10 +377,6 @@
                     <fileset dir="." includes="${module.lwjgl}/xxhash/src/main/c/xxhash.c"/>
                 </compile>
             </beforeCompile>
-            <source>
-                <arg value="-I${src.main.rel}/common"/>
-                <arg value="-I${src.main.rel}/dictBuilder"/>
-            </source>
         </build>
 
         </parallel>

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -26,10 +26,8 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
- * <p>The example code for the this extension (like the {@link KHRSurface VK_KHR_surface} and {@code VK_GOOGLE_display_timing} extensions) is contained in the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/master/cube/cube.c</a> ).</p>
+ * <p>The example code for the this extension (like the {@link KHRSurface VK_KHR_surface} and {@code VK_GOOGLE_display_timing} extensions) is contained in the cube demo that is shipped with the official Khronos SDK, and is being kept up-to-date in that location (see: <a href="https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c">https://github.com/KhronosGroup/Vulkan-Tools/blob/main/cube/cube.c</a> ).</p>
  * </div>
- * 
- * <h5>VK_GOOGLE_display_timing</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -222,7 +220,7 @@ public class GOOGLEDisplayTiming {
      * @param pPresentationTimings     either {@code NULL} or a pointer to an array of {@link VkPastPresentationTimingGOOGLE} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetPastPresentationTimingGOOGLE(VkDevice device, @NativeType("VkSwapchainKHR") long swapchain, @NativeType("uint32_t *") IntBuffer pPresentationTimingCount, @Nullable @NativeType("VkPastPresentationTimingGOOGLE *") VkPastPresentationTimingGOOGLE.Buffer pPresentationTimings) {
+    public static int vkGetPastPresentationTimingGOOGLE(VkDevice device, @NativeType("VkSwapchainKHR") long swapchain, @NativeType("uint32_t *") IntBuffer pPresentationTimingCount, @NativeType("VkPastPresentationTimingGOOGLE *") VkPastPresentationTimingGOOGLE.@Nullable Buffer pPresentationTimings) {
         if (CHECKS) {
             check(pPresentationTimingCount, 1);
             checkSafe(pPresentationTimings, pPresentationTimingCount.get(pPresentationTimingCount.position()));
@@ -232,7 +230,7 @@ public class GOOGLEDisplayTiming {
 
     /** Array version of: {@link #vkGetPastPresentationTimingGOOGLE GetPastPresentationTimingGOOGLE} */
     @NativeType("VkResult")
-    public static int vkGetPastPresentationTimingGOOGLE(VkDevice device, @NativeType("VkSwapchainKHR") long swapchain, @NativeType("uint32_t *") int[] pPresentationTimingCount, @Nullable @NativeType("VkPastPresentationTimingGOOGLE *") VkPastPresentationTimingGOOGLE.Buffer pPresentationTimings) {
+    public static int vkGetPastPresentationTimingGOOGLE(VkDevice device, @NativeType("VkSwapchainKHR") long swapchain, @NativeType("uint32_t *") int[] pPresentationTimingCount, @NativeType("VkPastPresentationTimingGOOGLE *") VkPastPresentationTimingGOOGLE.@Nullable Buffer pPresentationTimings) {
         long __functionAddress = device.getCapabilities().vkGetPastPresentationTimingGOOGLE;
         if (CHECKS) {
             check(__functionAddress);

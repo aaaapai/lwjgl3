@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -41,6 +41,10 @@ import static org.lwjgl.system.MemoryStack.*;
  *     union {
  *         __u64 {@link #addr};
  *         __u64 splice_off_in;
+ *         struct {
+ *             __u32 level;
+ *             __u32 optname;
+ *         };
  *     };
  *     __u32 {@link #len};
  *     union {
@@ -62,7 +66,11 @@ import static org.lwjgl.system.MemoryStack.*;
  *         __u32 hardlink_flags;
  *         __u32 xattr_flags;
  *         __u32 msg_ring_flags;
- *         __u32 uring_cmd_flags;
+ *         __u32 {@link #uring_cmd_flags};
+ *         __u32 waitid_flags;
+ *         __u32 futex_flags;
+ *         __u32 install_fd_flags;
+ *         __u32 nop_flags;
  *     };
  *     __u64 {@link #user_data};
  *     union {
@@ -73,6 +81,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     union {
  *         __s32 splice_fd_in;
  *         __u32 file_index;
+ *         __u32 optlen;
  *         struct {
  *             __u16 addr_len;
  *             __u16 __pad3[1];
@@ -83,6 +92,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *             __u64 addr3;
  *             __u64 __pad2[1];
  *         };
+ *         __u64 optval;
  *         __u8 {@link #cmd}[0];
  *     };
  * }</code></pre>
@@ -108,6 +118,8 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         __PAD1,
         ADDR,
         SPLICE_OFF_IN,
+        LEVEL,
+        OPTNAME,
         LEN,
         RW_FLAGS,
         FSYNC_FLAGS,
@@ -128,16 +140,22 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         XATTR_FLAGS,
         MSG_RING_FLAGS,
         URING_CMD_FLAGS,
+        WAITID_FLAGS,
+        FUTEX_FLAGS,
+        INSTALL_FD_FLAGS,
+        NOP_FLAGS,
         USER_DATA,
         BUF_INDEX,
         BUF_GROUP,
         PERSONALITY,
         SPLICE_FD_IN,
         FILE_INDEX,
+        OPTLEN,
         ADDR_LEN,
         __PAD3,
         ADDR3,
         __PAD2,
+        OPTVAL,
         CMD;
 
     static {
@@ -156,13 +174,21 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
             ),
             __union(
                 __member(8),
-                __member(8)
+                __member(8),
+                __struct(
+                    __member(4),
+                    __member(4)
+                )
             ),
             __member(4),
             __union(
                 __member(4),
                 __member(4),
                 __member(2),
+                __member(4),
+                __member(4),
+                __member(4),
+                __member(4),
                 __member(4),
                 __member(4),
                 __member(4),
@@ -189,6 +215,7 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
             __union(
                 __member(4),
                 __member(4),
+                __member(4),
                 __struct(
                     __member(2),
                     __array(2, 1)
@@ -199,6 +226,7 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
                     __member(8),
                     __array(8, 1)
                 ),
+                __member(8),
                 __array(1, 0)
             )
         );
@@ -216,37 +244,45 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         __PAD1 = layout.offsetof(9);
         ADDR = layout.offsetof(11);
         SPLICE_OFF_IN = layout.offsetof(12);
-        LEN = layout.offsetof(13);
-        RW_FLAGS = layout.offsetof(15);
-        FSYNC_FLAGS = layout.offsetof(16);
-        POLL_EVENTS = layout.offsetof(17);
-        POLL32_EVENTS = layout.offsetof(18);
-        SYNC_RANGE_FLAGS = layout.offsetof(19);
-        MSG_FLAGS = layout.offsetof(20);
-        TIMEOUT_FLAGS = layout.offsetof(21);
-        ACCEPT_FLAGS = layout.offsetof(22);
-        CANCEL_FLAGS = layout.offsetof(23);
-        OPEN_FLAGS = layout.offsetof(24);
-        STATX_FLAGS = layout.offsetof(25);
-        FADVISE_ADVICE = layout.offsetof(26);
-        SPLICE_FLAGS = layout.offsetof(27);
-        RENAME_FLAGS = layout.offsetof(28);
-        UNLINK_FLAGS = layout.offsetof(29);
-        HARDLINK_FLAGS = layout.offsetof(30);
-        XATTR_FLAGS = layout.offsetof(31);
-        MSG_RING_FLAGS = layout.offsetof(32);
-        URING_CMD_FLAGS = layout.offsetof(33);
-        USER_DATA = layout.offsetof(34);
-        BUF_INDEX = layout.offsetof(36);
-        BUF_GROUP = layout.offsetof(37);
-        PERSONALITY = layout.offsetof(38);
-        SPLICE_FD_IN = layout.offsetof(40);
-        FILE_INDEX = layout.offsetof(41);
-        ADDR_LEN = layout.offsetof(43);
-        __PAD3 = layout.offsetof(44);
-        ADDR3 = layout.offsetof(47);
-        __PAD2 = layout.offsetof(48);
-        CMD = layout.offsetof(49);
+        LEVEL = layout.offsetof(14);
+        OPTNAME = layout.offsetof(15);
+        LEN = layout.offsetof(16);
+        RW_FLAGS = layout.offsetof(18);
+        FSYNC_FLAGS = layout.offsetof(19);
+        POLL_EVENTS = layout.offsetof(20);
+        POLL32_EVENTS = layout.offsetof(21);
+        SYNC_RANGE_FLAGS = layout.offsetof(22);
+        MSG_FLAGS = layout.offsetof(23);
+        TIMEOUT_FLAGS = layout.offsetof(24);
+        ACCEPT_FLAGS = layout.offsetof(25);
+        CANCEL_FLAGS = layout.offsetof(26);
+        OPEN_FLAGS = layout.offsetof(27);
+        STATX_FLAGS = layout.offsetof(28);
+        FADVISE_ADVICE = layout.offsetof(29);
+        SPLICE_FLAGS = layout.offsetof(30);
+        RENAME_FLAGS = layout.offsetof(31);
+        UNLINK_FLAGS = layout.offsetof(32);
+        HARDLINK_FLAGS = layout.offsetof(33);
+        XATTR_FLAGS = layout.offsetof(34);
+        MSG_RING_FLAGS = layout.offsetof(35);
+        URING_CMD_FLAGS = layout.offsetof(36);
+        WAITID_FLAGS = layout.offsetof(37);
+        FUTEX_FLAGS = layout.offsetof(38);
+        INSTALL_FD_FLAGS = layout.offsetof(39);
+        NOP_FLAGS = layout.offsetof(40);
+        USER_DATA = layout.offsetof(41);
+        BUF_INDEX = layout.offsetof(43);
+        BUF_GROUP = layout.offsetof(44);
+        PERSONALITY = layout.offsetof(45);
+        SPLICE_FD_IN = layout.offsetof(47);
+        FILE_INDEX = layout.offsetof(48);
+        OPTLEN = layout.offsetof(49);
+        ADDR_LEN = layout.offsetof(51);
+        __PAD3 = layout.offsetof(52);
+        ADDR3 = layout.offsetof(55);
+        __PAD2 = layout.offsetof(56);
+        OPTVAL = layout.offsetof(57);
+        CMD = layout.offsetof(58);
     }
 
     protected IOURingSQE(long address, @Nullable ByteBuffer container) {
@@ -301,6 +337,12 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     /** @return the value of the {@code splice_off_in} field. */
     @NativeType("__u64")
     public long splice_off_in() { return nsplice_off_in(address()); }
+    /** @return the value of the {@code level} field. */
+    @NativeType("__u32")
+    public int level() { return nlevel(address()); }
+    /** @return the value of the {@code optname} field. */
+    @NativeType("__u32")
+    public int optname() { return noptname(address()); }
     /** buffer size or number of {@code iovecs} */
     @NativeType("__u32")
     public int len() { return nlen(address()); }
@@ -362,9 +404,21 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     /** @return the value of the {@code msg_ring_flags} field. */
     @NativeType("__u32")
     public int msg_ring_flags() { return nmsg_ring_flags(address()); }
-    /** @return the value of the {@code uring_cmd_flags} field. */
+    /** top 8bits aren't available for userspace */
     @NativeType("__u32")
     public int uring_cmd_flags() { return nuring_cmd_flags(address()); }
+    /** @return the value of the {@code waitid_flags} field. */
+    @NativeType("__u32")
+    public int waitid_flags() { return nwaitid_flags(address()); }
+    /** @return the value of the {@code futex_flags} field. */
+    @NativeType("__u32")
+    public int futex_flags() { return nfutex_flags(address()); }
+    /** @return the value of the {@code install_fd_flags} field. */
+    @NativeType("__u32")
+    public int install_fd_flags() { return ninstall_fd_flags(address()); }
+    /** @return the value of the {@code nop_flags} field. */
+    @NativeType("__u32")
+    public int nop_flags() { return nnop_flags(address()); }
     /** an application-supplied value that will be copied into the completion queue entry */
     @NativeType("__u64")
     public long user_data() { return nuser_data(address()); }
@@ -387,6 +441,9 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     /** @return the value of the {@code file_index} field. */
     @NativeType("__u32")
     public int file_index() { return nfile_index(address()); }
+    /** @return the value of the {@code optlen} field. */
+    @NativeType("__u32")
+    public int optlen() { return noptlen(address()); }
     /** @return the value of the {@code addr_len} field. */
     @NativeType("__u16")
     public short addr_len() { return naddr_len(address()); }
@@ -405,6 +462,9 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     /** @return the value at the specified index of the {@code __pad2} field. */
     @NativeType("__u64")
     public long __pad2(int index) { return n__pad2(address(), index); }
+    /** @return the value of the {@code optval} field. */
+    @NativeType("__u64")
+    public long optval() { return noptval(address()); }
     /** If the ring is initialized with {@link LibIOURing#IORING_SETUP_SQE128 SETUP_SQE128}, then this field is used for 80 bytes of arbitrary command data */
     @NativeType("__u8[0]")
     public ByteBuffer cmd() { return ncmd(address()); }
@@ -432,6 +492,10 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     public IOURingSQE addr(@NativeType("__u64") long value) { naddr(address(), value); return this; }
     /** Sets the specified value to the {@code splice_off_in} field. */
     public IOURingSQE splice_off_in(@NativeType("__u64") long value) { nsplice_off_in(address(), value); return this; }
+    /** Sets the specified value to the {@code level} field. */
+    public IOURingSQE level(@NativeType("__u32") int value) { nlevel(address(), value); return this; }
+    /** Sets the specified value to the {@code optname} field. */
+    public IOURingSQE optname(@NativeType("__u32") int value) { noptname(address(), value); return this; }
     /** Sets the specified value to the {@link #len} field. */
     public IOURingSQE len(@NativeType("__u32") int value) { nlen(address(), value); return this; }
     /** Sets the specified value to the {@link #rw_flags} field. */
@@ -470,8 +534,16 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     public IOURingSQE xattr_flags(@NativeType("__u32") int value) { nxattr_flags(address(), value); return this; }
     /** Sets the specified value to the {@code msg_ring_flags} field. */
     public IOURingSQE msg_ring_flags(@NativeType("__u32") int value) { nmsg_ring_flags(address(), value); return this; }
-    /** Sets the specified value to the {@code uring_cmd_flags} field. */
+    /** Sets the specified value to the {@link #uring_cmd_flags} field. */
     public IOURingSQE uring_cmd_flags(@NativeType("__u32") int value) { nuring_cmd_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code waitid_flags} field. */
+    public IOURingSQE waitid_flags(@NativeType("__u32") int value) { nwaitid_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code futex_flags} field. */
+    public IOURingSQE futex_flags(@NativeType("__u32") int value) { nfutex_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code install_fd_flags} field. */
+    public IOURingSQE install_fd_flags(@NativeType("__u32") int value) { ninstall_fd_flags(address(), value); return this; }
+    /** Sets the specified value to the {@code nop_flags} field. */
+    public IOURingSQE nop_flags(@NativeType("__u32") int value) { nnop_flags(address(), value); return this; }
     /** Sets the specified value to the {@link #user_data} field. */
     public IOURingSQE user_data(@NativeType("__u64") long value) { nuser_data(address(), value); return this; }
     /** Sets the specified value to the {@link #buf_index} field. */
@@ -484,6 +556,8 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     public IOURingSQE splice_fd_in(@NativeType("__s32") int value) { nsplice_fd_in(address(), value); return this; }
     /** Sets the specified value to the {@code file_index} field. */
     public IOURingSQE file_index(@NativeType("__u32") int value) { nfile_index(address(), value); return this; }
+    /** Sets the specified value to the {@code optlen} field. */
+    public IOURingSQE optlen(@NativeType("__u32") int value) { noptlen(address(), value); return this; }
     /** Sets the specified value to the {@code addr_len} field. */
     public IOURingSQE addr_len(@NativeType("__u16") short value) { naddr_len(address(), value); return this; }
     /** Copies the specified {@link ShortBuffer} to the {@code __pad3} field. */
@@ -496,6 +570,8 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     public IOURingSQE __pad2(@NativeType("__u64[1]") LongBuffer value) { n__pad2(address(), value); return this; }
     /** Sets the specified value at the specified index of the {@code __pad2} field. */
     public IOURingSQE __pad2(int index, @NativeType("__u64") long value) { n__pad2(address(), index, value); return this; }
+    /** Sets the specified value to the {@code optval} field. */
+    public IOURingSQE optval(@NativeType("__u64") long value) { noptval(address(), value); return this; }
     /** Copies the specified {@link ByteBuffer} to the {@link #cmd} field. */
     public IOURingSQE cmd(@NativeType("__u8[0]") ByteBuffer value) { ncmd(address(), value); return this; }
     /** Sets the specified value at the specified index of the {@link #cmd} field. */
@@ -537,8 +613,7 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingSQE createSafe(long address) {
+    public static @Nullable IOURingSQE createSafe(long address) {
         return address == NULL ? null : new IOURingSQE(address, null);
     }
 
@@ -581,8 +656,7 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingSQE.Buffer createSafe(long address, int capacity) {
+    public static IOURingSQE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -627,184 +701,216 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #opcode}. */
-    public static byte nopcode(long struct) { return UNSAFE.getByte(null, struct + IOURingSQE.OPCODE); }
+    public static byte nopcode(long struct) { return memGetByte(struct + IOURingSQE.OPCODE); }
     /** Unsafe version of {@link #flags}. */
-    public static byte nflags(long struct) { return UNSAFE.getByte(null, struct + IOURingSQE.FLAGS); }
+    public static byte nflags(long struct) { return memGetByte(struct + IOURingSQE.FLAGS); }
     /** Unsafe version of {@link #ioprio}. */
-    public static short nioprio(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.IOPRIO); }
+    public static short nioprio(long struct) { return memGetShort(struct + IOURingSQE.IOPRIO); }
     /** Unsafe version of {@link #fd}. */
-    public static int nfd(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.FD); }
+    public static int nfd(long struct) { return memGetInt(struct + IOURingSQE.FD); }
     /** Unsafe version of {@link #off}. */
-    public static long noff(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.OFF); }
+    public static long noff(long struct) { return memGetLong(struct + IOURingSQE.OFF); }
     /** Unsafe version of {@link #addr2}. */
-    public static long naddr2(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.ADDR2); }
+    public static long naddr2(long struct) { return memGetLong(struct + IOURingSQE.ADDR2); }
     /** Unsafe version of {@link #cmd_op}. */
-    public static int ncmd_op(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.CMD_OP); }
-    public static int n__pad1(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.__PAD1); }
+    public static int ncmd_op(long struct) { return memGetInt(struct + IOURingSQE.CMD_OP); }
+    public static int n__pad1(long struct) { return memGetInt(struct + IOURingSQE.__PAD1); }
     /** Unsafe version of {@link #addr}. */
-    public static long naddr(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.ADDR); }
+    public static long naddr(long struct) { return memGetLong(struct + IOURingSQE.ADDR); }
     /** Unsafe version of {@link #splice_off_in}. */
-    public static long nsplice_off_in(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.SPLICE_OFF_IN); }
+    public static long nsplice_off_in(long struct) { return memGetLong(struct + IOURingSQE.SPLICE_OFF_IN); }
+    /** Unsafe version of {@link #level}. */
+    public static int nlevel(long struct) { return memGetInt(struct + IOURingSQE.LEVEL); }
+    /** Unsafe version of {@link #optname}. */
+    public static int noptname(long struct) { return memGetInt(struct + IOURingSQE.OPTNAME); }
     /** Unsafe version of {@link #len}. */
-    public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.LEN); }
+    public static int nlen(long struct) { return memGetInt(struct + IOURingSQE.LEN); }
     /** Unsafe version of {@link #rw_flags}. */
-    public static int nrw_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.RW_FLAGS); }
+    public static int nrw_flags(long struct) { return memGetInt(struct + IOURingSQE.RW_FLAGS); }
     /** Unsafe version of {@link #fsync_flags}. */
-    public static int nfsync_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.FSYNC_FLAGS); }
+    public static int nfsync_flags(long struct) { return memGetInt(struct + IOURingSQE.FSYNC_FLAGS); }
     /** Unsafe version of {@link #poll_events}. */
-    public static short npoll_events(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.POLL_EVENTS); }
+    public static short npoll_events(long struct) { return memGetShort(struct + IOURingSQE.POLL_EVENTS); }
     /** Unsafe version of {@link #poll32_events}. */
-    public static int npoll32_events(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.POLL32_EVENTS); }
+    public static int npoll32_events(long struct) { return memGetInt(struct + IOURingSQE.POLL32_EVENTS); }
     /** Unsafe version of {@link #sync_range_flags}. */
-    public static int nsync_range_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.SYNC_RANGE_FLAGS); }
+    public static int nsync_range_flags(long struct) { return memGetInt(struct + IOURingSQE.SYNC_RANGE_FLAGS); }
     /** Unsafe version of {@link #msg_flags}. */
-    public static int nmsg_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.MSG_FLAGS); }
+    public static int nmsg_flags(long struct) { return memGetInt(struct + IOURingSQE.MSG_FLAGS); }
     /** Unsafe version of {@link #timeout_flags}. */
-    public static int ntimeout_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.TIMEOUT_FLAGS); }
+    public static int ntimeout_flags(long struct) { return memGetInt(struct + IOURingSQE.TIMEOUT_FLAGS); }
     /** Unsafe version of {@link #accept_flags}. */
-    public static int naccept_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.ACCEPT_FLAGS); }
+    public static int naccept_flags(long struct) { return memGetInt(struct + IOURingSQE.ACCEPT_FLAGS); }
     /** Unsafe version of {@link #cancel_flags}. */
-    public static int ncancel_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.CANCEL_FLAGS); }
+    public static int ncancel_flags(long struct) { return memGetInt(struct + IOURingSQE.CANCEL_FLAGS); }
     /** Unsafe version of {@link #open_flags}. */
-    public static int nopen_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.OPEN_FLAGS); }
+    public static int nopen_flags(long struct) { return memGetInt(struct + IOURingSQE.OPEN_FLAGS); }
     /** Unsafe version of {@link #statx_flags}. */
-    public static int nstatx_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.STATX_FLAGS); }
+    public static int nstatx_flags(long struct) { return memGetInt(struct + IOURingSQE.STATX_FLAGS); }
     /** Unsafe version of {@link #fadvise_advice}. */
-    public static int nfadvise_advice(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.FADVISE_ADVICE); }
+    public static int nfadvise_advice(long struct) { return memGetInt(struct + IOURingSQE.FADVISE_ADVICE); }
     /** Unsafe version of {@link #splice_flags}. */
-    public static int nsplice_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.SPLICE_FLAGS); }
+    public static int nsplice_flags(long struct) { return memGetInt(struct + IOURingSQE.SPLICE_FLAGS); }
     /** Unsafe version of {@link #rename_flags}. */
-    public static int nrename_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.RENAME_FLAGS); }
+    public static int nrename_flags(long struct) { return memGetInt(struct + IOURingSQE.RENAME_FLAGS); }
     /** Unsafe version of {@link #unlink_flags}. */
-    public static int nunlink_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.UNLINK_FLAGS); }
+    public static int nunlink_flags(long struct) { return memGetInt(struct + IOURingSQE.UNLINK_FLAGS); }
     /** Unsafe version of {@link #hardlink_flags}. */
-    public static int nhardlink_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.HARDLINK_FLAGS); }
+    public static int nhardlink_flags(long struct) { return memGetInt(struct + IOURingSQE.HARDLINK_FLAGS); }
     /** Unsafe version of {@link #xattr_flags}. */
-    public static int nxattr_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.XATTR_FLAGS); }
+    public static int nxattr_flags(long struct) { return memGetInt(struct + IOURingSQE.XATTR_FLAGS); }
     /** Unsafe version of {@link #msg_ring_flags}. */
-    public static int nmsg_ring_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.MSG_RING_FLAGS); }
+    public static int nmsg_ring_flags(long struct) { return memGetInt(struct + IOURingSQE.MSG_RING_FLAGS); }
     /** Unsafe version of {@link #uring_cmd_flags}. */
-    public static int nuring_cmd_flags(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.URING_CMD_FLAGS); }
+    public static int nuring_cmd_flags(long struct) { return memGetInt(struct + IOURingSQE.URING_CMD_FLAGS); }
+    /** Unsafe version of {@link #waitid_flags}. */
+    public static int nwaitid_flags(long struct) { return memGetInt(struct + IOURingSQE.WAITID_FLAGS); }
+    /** Unsafe version of {@link #futex_flags}. */
+    public static int nfutex_flags(long struct) { return memGetInt(struct + IOURingSQE.FUTEX_FLAGS); }
+    /** Unsafe version of {@link #install_fd_flags}. */
+    public static int ninstall_fd_flags(long struct) { return memGetInt(struct + IOURingSQE.INSTALL_FD_FLAGS); }
+    /** Unsafe version of {@link #nop_flags}. */
+    public static int nnop_flags(long struct) { return memGetInt(struct + IOURingSQE.NOP_FLAGS); }
     /** Unsafe version of {@link #user_data}. */
-    public static long nuser_data(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.USER_DATA); }
+    public static long nuser_data(long struct) { return memGetLong(struct + IOURingSQE.USER_DATA); }
     /** Unsafe version of {@link #buf_index}. */
-    public static short nbuf_index(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.BUF_INDEX); }
+    public static short nbuf_index(long struct) { return memGetShort(struct + IOURingSQE.BUF_INDEX); }
     /** Unsafe version of {@link #buf_group}. */
-    public static short nbuf_group(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.BUF_GROUP); }
+    public static short nbuf_group(long struct) { return memGetShort(struct + IOURingSQE.BUF_GROUP); }
     /** Unsafe version of {@link #personality}. */
-    public static short npersonality(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.PERSONALITY); }
+    public static short npersonality(long struct) { return memGetShort(struct + IOURingSQE.PERSONALITY); }
     /** Unsafe version of {@link #splice_fd_in}. */
-    public static int nsplice_fd_in(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.SPLICE_FD_IN); }
+    public static int nsplice_fd_in(long struct) { return memGetInt(struct + IOURingSQE.SPLICE_FD_IN); }
     /** Unsafe version of {@link #file_index}. */
-    public static int nfile_index(long struct) { return UNSAFE.getInt(null, struct + IOURingSQE.FILE_INDEX); }
+    public static int nfile_index(long struct) { return memGetInt(struct + IOURingSQE.FILE_INDEX); }
+    /** Unsafe version of {@link #optlen}. */
+    public static int noptlen(long struct) { return memGetInt(struct + IOURingSQE.OPTLEN); }
     /** Unsafe version of {@link #addr_len}. */
-    public static short naddr_len(long struct) { return UNSAFE.getShort(null, struct + IOURingSQE.ADDR_LEN); }
+    public static short naddr_len(long struct) { return memGetShort(struct + IOURingSQE.ADDR_LEN); }
     public static ShortBuffer n__pad3(long struct) { return memShortBuffer(struct + IOURingSQE.__PAD3, 1); }
     public static short n__pad3(long struct, int index) {
-        return UNSAFE.getShort(null, struct + IOURingSQE.__PAD3 + check(index, 1) * 2);
+        return memGetShort(struct + IOURingSQE.__PAD3 + check(index, 1) * 2);
     }
     /** Unsafe version of {@link #addr3}. */
-    public static long naddr3(long struct) { return UNSAFE.getLong(null, struct + IOURingSQE.ADDR3); }
+    public static long naddr3(long struct) { return memGetLong(struct + IOURingSQE.ADDR3); }
     public static LongBuffer n__pad2(long struct) { return memLongBuffer(struct + IOURingSQE.__PAD2, 1); }
     public static long n__pad2(long struct, int index) {
-        return UNSAFE.getLong(null, struct + IOURingSQE.__PAD2 + check(index, 1) * 8);
+        return memGetLong(struct + IOURingSQE.__PAD2 + check(index, 1) * 8);
     }
+    /** Unsafe version of {@link #optval}. */
+    public static long noptval(long struct) { return memGetLong(struct + IOURingSQE.OPTVAL); }
     /** Unsafe version of {@link #cmd}. */
     public static ByteBuffer ncmd(long struct) { return memByteBuffer(struct + IOURingSQE.CMD, 0); }
     /** Unsafe version of {@link #cmd(int) cmd}. */
     public static byte ncmd(long struct, int index) {
-        return UNSAFE.getByte(null, struct + IOURingSQE.CMD + check(index, 0) * 1);
+        return memGetByte(struct + IOURingSQE.CMD + check(index, 0) * 1);
     }
 
     /** Unsafe version of {@link #opcode(byte) opcode}. */
-    public static void nopcode(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingSQE.OPCODE, value); }
+    public static void nopcode(long struct, byte value) { memPutByte(struct + IOURingSQE.OPCODE, value); }
     /** Unsafe version of {@link #flags(byte) flags}. */
-    public static void nflags(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingSQE.FLAGS, value); }
+    public static void nflags(long struct, byte value) { memPutByte(struct + IOURingSQE.FLAGS, value); }
     /** Unsafe version of {@link #ioprio(short) ioprio}. */
-    public static void nioprio(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.IOPRIO, value); }
+    public static void nioprio(long struct, short value) { memPutShort(struct + IOURingSQE.IOPRIO, value); }
     /** Unsafe version of {@link #fd(int) fd}. */
-    public static void nfd(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.FD, value); }
+    public static void nfd(long struct, int value) { memPutInt(struct + IOURingSQE.FD, value); }
     /** Unsafe version of {@link #off(long) off}. */
-    public static void noff(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.OFF, value); }
+    public static void noff(long struct, long value) { memPutLong(struct + IOURingSQE.OFF, value); }
     /** Unsafe version of {@link #addr2(long) addr2}. */
-    public static void naddr2(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.ADDR2, value); }
+    public static void naddr2(long struct, long value) { memPutLong(struct + IOURingSQE.ADDR2, value); }
     /** Unsafe version of {@link #cmd_op(int) cmd_op}. */
-    public static void ncmd_op(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.CMD_OP, value); }
-    public static void n__pad1(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.__PAD1, value); }
+    public static void ncmd_op(long struct, int value) { memPutInt(struct + IOURingSQE.CMD_OP, value); }
+    public static void n__pad1(long struct, int value) { memPutInt(struct + IOURingSQE.__PAD1, value); }
     /** Unsafe version of {@link #addr(long) addr}. */
-    public static void naddr(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.ADDR, value); }
+    public static void naddr(long struct, long value) { memPutLong(struct + IOURingSQE.ADDR, value); }
     /** Unsafe version of {@link #splice_off_in(long) splice_off_in}. */
-    public static void nsplice_off_in(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.SPLICE_OFF_IN, value); }
+    public static void nsplice_off_in(long struct, long value) { memPutLong(struct + IOURingSQE.SPLICE_OFF_IN, value); }
+    /** Unsafe version of {@link #level(int) level}. */
+    public static void nlevel(long struct, int value) { memPutInt(struct + IOURingSQE.LEVEL, value); }
+    /** Unsafe version of {@link #optname(int) optname}. */
+    public static void noptname(long struct, int value) { memPutInt(struct + IOURingSQE.OPTNAME, value); }
     /** Unsafe version of {@link #len(int) len}. */
-    public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.LEN, value); }
+    public static void nlen(long struct, int value) { memPutInt(struct + IOURingSQE.LEN, value); }
     /** Unsafe version of {@link #rw_flags(int) rw_flags}. */
-    public static void nrw_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.RW_FLAGS, value); }
+    public static void nrw_flags(long struct, int value) { memPutInt(struct + IOURingSQE.RW_FLAGS, value); }
     /** Unsafe version of {@link #fsync_flags(int) fsync_flags}. */
-    public static void nfsync_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.FSYNC_FLAGS, value); }
+    public static void nfsync_flags(long struct, int value) { memPutInt(struct + IOURingSQE.FSYNC_FLAGS, value); }
     /** Unsafe version of {@link #poll_events(short) poll_events}. */
-    public static void npoll_events(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.POLL_EVENTS, value); }
+    public static void npoll_events(long struct, short value) { memPutShort(struct + IOURingSQE.POLL_EVENTS, value); }
     /** Unsafe version of {@link #poll32_events(int) poll32_events}. */
-    public static void npoll32_events(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.POLL32_EVENTS, value); }
+    public static void npoll32_events(long struct, int value) { memPutInt(struct + IOURingSQE.POLL32_EVENTS, value); }
     /** Unsafe version of {@link #sync_range_flags(int) sync_range_flags}. */
-    public static void nsync_range_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.SYNC_RANGE_FLAGS, value); }
+    public static void nsync_range_flags(long struct, int value) { memPutInt(struct + IOURingSQE.SYNC_RANGE_FLAGS, value); }
     /** Unsafe version of {@link #msg_flags(int) msg_flags}. */
-    public static void nmsg_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.MSG_FLAGS, value); }
+    public static void nmsg_flags(long struct, int value) { memPutInt(struct + IOURingSQE.MSG_FLAGS, value); }
     /** Unsafe version of {@link #timeout_flags(int) timeout_flags}. */
-    public static void ntimeout_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.TIMEOUT_FLAGS, value); }
+    public static void ntimeout_flags(long struct, int value) { memPutInt(struct + IOURingSQE.TIMEOUT_FLAGS, value); }
     /** Unsafe version of {@link #accept_flags(int) accept_flags}. */
-    public static void naccept_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.ACCEPT_FLAGS, value); }
+    public static void naccept_flags(long struct, int value) { memPutInt(struct + IOURingSQE.ACCEPT_FLAGS, value); }
     /** Unsafe version of {@link #cancel_flags(int) cancel_flags}. */
-    public static void ncancel_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.CANCEL_FLAGS, value); }
+    public static void ncancel_flags(long struct, int value) { memPutInt(struct + IOURingSQE.CANCEL_FLAGS, value); }
     /** Unsafe version of {@link #open_flags(int) open_flags}. */
-    public static void nopen_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.OPEN_FLAGS, value); }
+    public static void nopen_flags(long struct, int value) { memPutInt(struct + IOURingSQE.OPEN_FLAGS, value); }
     /** Unsafe version of {@link #statx_flags(int) statx_flags}. */
-    public static void nstatx_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.STATX_FLAGS, value); }
+    public static void nstatx_flags(long struct, int value) { memPutInt(struct + IOURingSQE.STATX_FLAGS, value); }
     /** Unsafe version of {@link #fadvise_advice(int) fadvise_advice}. */
-    public static void nfadvise_advice(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.FADVISE_ADVICE, value); }
+    public static void nfadvise_advice(long struct, int value) { memPutInt(struct + IOURingSQE.FADVISE_ADVICE, value); }
     /** Unsafe version of {@link #splice_flags(int) splice_flags}. */
-    public static void nsplice_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.SPLICE_FLAGS, value); }
+    public static void nsplice_flags(long struct, int value) { memPutInt(struct + IOURingSQE.SPLICE_FLAGS, value); }
     /** Unsafe version of {@link #rename_flags(int) rename_flags}. */
-    public static void nrename_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.RENAME_FLAGS, value); }
+    public static void nrename_flags(long struct, int value) { memPutInt(struct + IOURingSQE.RENAME_FLAGS, value); }
     /** Unsafe version of {@link #unlink_flags(int) unlink_flags}. */
-    public static void nunlink_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.UNLINK_FLAGS, value); }
+    public static void nunlink_flags(long struct, int value) { memPutInt(struct + IOURingSQE.UNLINK_FLAGS, value); }
     /** Unsafe version of {@link #hardlink_flags(int) hardlink_flags}. */
-    public static void nhardlink_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.HARDLINK_FLAGS, value); }
+    public static void nhardlink_flags(long struct, int value) { memPutInt(struct + IOURingSQE.HARDLINK_FLAGS, value); }
     /** Unsafe version of {@link #xattr_flags(int) xattr_flags}. */
-    public static void nxattr_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.XATTR_FLAGS, value); }
+    public static void nxattr_flags(long struct, int value) { memPutInt(struct + IOURingSQE.XATTR_FLAGS, value); }
     /** Unsafe version of {@link #msg_ring_flags(int) msg_ring_flags}. */
-    public static void nmsg_ring_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.MSG_RING_FLAGS, value); }
+    public static void nmsg_ring_flags(long struct, int value) { memPutInt(struct + IOURingSQE.MSG_RING_FLAGS, value); }
     /** Unsafe version of {@link #uring_cmd_flags(int) uring_cmd_flags}. */
-    public static void nuring_cmd_flags(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.URING_CMD_FLAGS, value); }
+    public static void nuring_cmd_flags(long struct, int value) { memPutInt(struct + IOURingSQE.URING_CMD_FLAGS, value); }
+    /** Unsafe version of {@link #waitid_flags(int) waitid_flags}. */
+    public static void nwaitid_flags(long struct, int value) { memPutInt(struct + IOURingSQE.WAITID_FLAGS, value); }
+    /** Unsafe version of {@link #futex_flags(int) futex_flags}. */
+    public static void nfutex_flags(long struct, int value) { memPutInt(struct + IOURingSQE.FUTEX_FLAGS, value); }
+    /** Unsafe version of {@link #install_fd_flags(int) install_fd_flags}. */
+    public static void ninstall_fd_flags(long struct, int value) { memPutInt(struct + IOURingSQE.INSTALL_FD_FLAGS, value); }
+    /** Unsafe version of {@link #nop_flags(int) nop_flags}. */
+    public static void nnop_flags(long struct, int value) { memPutInt(struct + IOURingSQE.NOP_FLAGS, value); }
     /** Unsafe version of {@link #user_data(long) user_data}. */
-    public static void nuser_data(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.USER_DATA, value); }
+    public static void nuser_data(long struct, long value) { memPutLong(struct + IOURingSQE.USER_DATA, value); }
     /** Unsafe version of {@link #buf_index(short) buf_index}. */
-    public static void nbuf_index(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.BUF_INDEX, value); }
+    public static void nbuf_index(long struct, short value) { memPutShort(struct + IOURingSQE.BUF_INDEX, value); }
     /** Unsafe version of {@link #buf_group(short) buf_group}. */
-    public static void nbuf_group(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.BUF_GROUP, value); }
+    public static void nbuf_group(long struct, short value) { memPutShort(struct + IOURingSQE.BUF_GROUP, value); }
     /** Unsafe version of {@link #personality(short) personality}. */
-    public static void npersonality(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.PERSONALITY, value); }
+    public static void npersonality(long struct, short value) { memPutShort(struct + IOURingSQE.PERSONALITY, value); }
     /** Unsafe version of {@link #splice_fd_in(int) splice_fd_in}. */
-    public static void nsplice_fd_in(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.SPLICE_FD_IN, value); }
+    public static void nsplice_fd_in(long struct, int value) { memPutInt(struct + IOURingSQE.SPLICE_FD_IN, value); }
     /** Unsafe version of {@link #file_index(int) file_index}. */
-    public static void nfile_index(long struct, int value) { UNSAFE.putInt(null, struct + IOURingSQE.FILE_INDEX, value); }
+    public static void nfile_index(long struct, int value) { memPutInt(struct + IOURingSQE.FILE_INDEX, value); }
+    /** Unsafe version of {@link #optlen(int) optlen}. */
+    public static void noptlen(long struct, int value) { memPutInt(struct + IOURingSQE.OPTLEN, value); }
     /** Unsafe version of {@link #addr_len(short) addr_len}. */
-    public static void naddr_len(long struct, short value) { UNSAFE.putShort(null, struct + IOURingSQE.ADDR_LEN, value); }
+    public static void naddr_len(long struct, short value) { memPutShort(struct + IOURingSQE.ADDR_LEN, value); }
     public static void n__pad3(long struct, ShortBuffer value) {
         if (CHECKS) { checkGT(value, 1); }
         memCopy(memAddress(value), struct + IOURingSQE.__PAD3, value.remaining() * 2);
     }
     public static void n__pad3(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + IOURingSQE.__PAD3 + check(index, 1) * 2, value);
+        memPutShort(struct + IOURingSQE.__PAD3 + check(index, 1) * 2, value);
     }
     /** Unsafe version of {@link #addr3(long) addr3}. */
-    public static void naddr3(long struct, long value) { UNSAFE.putLong(null, struct + IOURingSQE.ADDR3, value); }
+    public static void naddr3(long struct, long value) { memPutLong(struct + IOURingSQE.ADDR3, value); }
     public static void n__pad2(long struct, LongBuffer value) {
         if (CHECKS) { checkGT(value, 1); }
         memCopy(memAddress(value), struct + IOURingSQE.__PAD2, value.remaining() * 8);
     }
     public static void n__pad2(long struct, int index, long value) {
-        UNSAFE.putLong(null, struct + IOURingSQE.__PAD2 + check(index, 1) * 8, value);
+        memPutLong(struct + IOURingSQE.__PAD2 + check(index, 1) * 8, value);
     }
+    /** Unsafe version of {@link #optval(long) optval}. */
+    public static void noptval(long struct, long value) { memPutLong(struct + IOURingSQE.OPTVAL, value); }
     /** Unsafe version of {@link #cmd(ByteBuffer) cmd}. */
     public static void ncmd(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 0); }
@@ -812,7 +918,7 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
     }
     /** Unsafe version of {@link #cmd(int, byte) cmd}. */
     public static void ncmd(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + IOURingSQE.CMD + check(index, 0) * 1, value);
+        memPutByte(struct + IOURingSQE.CMD + check(index, 0) * 1, value);
     }
 
     // -----------------------------------
@@ -846,6 +952,11 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -883,6 +994,12 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         /** @return the value of the {@code splice_off_in} field. */
         @NativeType("__u64")
         public long splice_off_in() { return IOURingSQE.nsplice_off_in(address()); }
+        /** @return the value of the {@code level} field. */
+        @NativeType("__u32")
+        public int level() { return IOURingSQE.nlevel(address()); }
+        /** @return the value of the {@code optname} field. */
+        @NativeType("__u32")
+        public int optname() { return IOURingSQE.noptname(address()); }
         /** @return the value of the {@link IOURingSQE#len} field. */
         @NativeType("__u32")
         public int len() { return IOURingSQE.nlen(address()); }
@@ -940,9 +1057,21 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         /** @return the value of the {@code msg_ring_flags} field. */
         @NativeType("__u32")
         public int msg_ring_flags() { return IOURingSQE.nmsg_ring_flags(address()); }
-        /** @return the value of the {@code uring_cmd_flags} field. */
+        /** @return the value of the {@link IOURingSQE#uring_cmd_flags} field. */
         @NativeType("__u32")
         public int uring_cmd_flags() { return IOURingSQE.nuring_cmd_flags(address()); }
+        /** @return the value of the {@code waitid_flags} field. */
+        @NativeType("__u32")
+        public int waitid_flags() { return IOURingSQE.nwaitid_flags(address()); }
+        /** @return the value of the {@code futex_flags} field. */
+        @NativeType("__u32")
+        public int futex_flags() { return IOURingSQE.nfutex_flags(address()); }
+        /** @return the value of the {@code install_fd_flags} field. */
+        @NativeType("__u32")
+        public int install_fd_flags() { return IOURingSQE.ninstall_fd_flags(address()); }
+        /** @return the value of the {@code nop_flags} field. */
+        @NativeType("__u32")
+        public int nop_flags() { return IOURingSQE.nnop_flags(address()); }
         /** @return the value of the {@link IOURingSQE#user_data} field. */
         @NativeType("__u64")
         public long user_data() { return IOURingSQE.nuser_data(address()); }
@@ -961,6 +1090,9 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         /** @return the value of the {@code file_index} field. */
         @NativeType("__u32")
         public int file_index() { return IOURingSQE.nfile_index(address()); }
+        /** @return the value of the {@code optlen} field. */
+        @NativeType("__u32")
+        public int optlen() { return IOURingSQE.noptlen(address()); }
         /** @return the value of the {@code addr_len} field. */
         @NativeType("__u16")
         public short addr_len() { return IOURingSQE.naddr_len(address()); }
@@ -979,6 +1111,9 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         /** @return the value at the specified index of the {@code __pad2} field. */
         @NativeType("__u64")
         public long __pad2(int index) { return IOURingSQE.n__pad2(address(), index); }
+        /** @return the value of the {@code optval} field. */
+        @NativeType("__u64")
+        public long optval() { return IOURingSQE.noptval(address()); }
         /** @return a {@link ByteBuffer} view of the {@link IOURingSQE#cmd} field. */
         @NativeType("__u8[0]")
         public ByteBuffer cmd() { return IOURingSQE.ncmd(address()); }
@@ -1006,6 +1141,10 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         public IOURingSQE.Buffer addr(@NativeType("__u64") long value) { IOURingSQE.naddr(address(), value); return this; }
         /** Sets the specified value to the {@code splice_off_in} field. */
         public IOURingSQE.Buffer splice_off_in(@NativeType("__u64") long value) { IOURingSQE.nsplice_off_in(address(), value); return this; }
+        /** Sets the specified value to the {@code level} field. */
+        public IOURingSQE.Buffer level(@NativeType("__u32") int value) { IOURingSQE.nlevel(address(), value); return this; }
+        /** Sets the specified value to the {@code optname} field. */
+        public IOURingSQE.Buffer optname(@NativeType("__u32") int value) { IOURingSQE.noptname(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#len} field. */
         public IOURingSQE.Buffer len(@NativeType("__u32") int value) { IOURingSQE.nlen(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#rw_flags} field. */
@@ -1044,8 +1183,16 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         public IOURingSQE.Buffer xattr_flags(@NativeType("__u32") int value) { IOURingSQE.nxattr_flags(address(), value); return this; }
         /** Sets the specified value to the {@code msg_ring_flags} field. */
         public IOURingSQE.Buffer msg_ring_flags(@NativeType("__u32") int value) { IOURingSQE.nmsg_ring_flags(address(), value); return this; }
-        /** Sets the specified value to the {@code uring_cmd_flags} field. */
+        /** Sets the specified value to the {@link IOURingSQE#uring_cmd_flags} field. */
         public IOURingSQE.Buffer uring_cmd_flags(@NativeType("__u32") int value) { IOURingSQE.nuring_cmd_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code waitid_flags} field. */
+        public IOURingSQE.Buffer waitid_flags(@NativeType("__u32") int value) { IOURingSQE.nwaitid_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code futex_flags} field. */
+        public IOURingSQE.Buffer futex_flags(@NativeType("__u32") int value) { IOURingSQE.nfutex_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code install_fd_flags} field. */
+        public IOURingSQE.Buffer install_fd_flags(@NativeType("__u32") int value) { IOURingSQE.ninstall_fd_flags(address(), value); return this; }
+        /** Sets the specified value to the {@code nop_flags} field. */
+        public IOURingSQE.Buffer nop_flags(@NativeType("__u32") int value) { IOURingSQE.nnop_flags(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#user_data} field. */
         public IOURingSQE.Buffer user_data(@NativeType("__u64") long value) { IOURingSQE.nuser_data(address(), value); return this; }
         /** Sets the specified value to the {@link IOURingSQE#buf_index} field. */
@@ -1058,6 +1205,8 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         public IOURingSQE.Buffer splice_fd_in(@NativeType("__s32") int value) { IOURingSQE.nsplice_fd_in(address(), value); return this; }
         /** Sets the specified value to the {@code file_index} field. */
         public IOURingSQE.Buffer file_index(@NativeType("__u32") int value) { IOURingSQE.nfile_index(address(), value); return this; }
+        /** Sets the specified value to the {@code optlen} field. */
+        public IOURingSQE.Buffer optlen(@NativeType("__u32") int value) { IOURingSQE.noptlen(address(), value); return this; }
         /** Sets the specified value to the {@code addr_len} field. */
         public IOURingSQE.Buffer addr_len(@NativeType("__u16") short value) { IOURingSQE.naddr_len(address(), value); return this; }
         /** Copies the specified {@link ShortBuffer} to the {@code __pad3} field. */
@@ -1070,6 +1219,8 @@ public class IOURingSQE extends Struct<IOURingSQE> implements NativeResource {
         public IOURingSQE.Buffer __pad2(@NativeType("__u64[1]") LongBuffer value) { IOURingSQE.n__pad2(address(), value); return this; }
         /** Sets the specified value at the specified index of the {@code __pad2} field. */
         public IOURingSQE.Buffer __pad2(int index, @NativeType("__u64") long value) { IOURingSQE.n__pad2(address(), index, value); return this; }
+        /** Sets the specified value to the {@code optval} field. */
+        public IOURingSQE.Buffer optval(@NativeType("__u64") long value) { IOURingSQE.noptval(address(), value); return this; }
         /** Copies the specified {@link ByteBuffer} to the {@link IOURingSQE#cmd} field. */
         public IOURingSQE.Buffer cmd(@NativeType("__u8[0]") ByteBuffer value) { IOURingSQE.ncmd(address(), value); return this; }
         /** Sets the specified value at the specified index of the {@link IOURingSQE#cmd} field. */

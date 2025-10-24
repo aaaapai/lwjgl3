@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,11 +19,19 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Event buffer.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>The {@link XrEventDataBuffer} is a structure passed to {@link XR10#xrPollEvent PollEvent} large enough to contain any returned event data element. The maximum size is specified by {@link XR10#XR_MAX_EVENT_DATA_SIZE MAX_EVENT_DATA_SIZE}.</p>
+ * 
+ * <p>An application <b>can</b> set (or reset) only the {@code type} member and clear the {@code next} member of an {@link XrEventDataBuffer} before passing it as an input to {@link XR10#xrPollEvent PollEvent}. The runtime <b>must</b> ignore the contents of the {@code varying} field and overwrite it without reading it.</p>
+ * 
+ * <p>A pointer to an {@link XrEventDataBuffer} <b>may</b> be type-cast to an {@link XrEventDataBaseHeader} pointer, or a pointer to any other appropriate event data based on the {@code type} parameter.</p>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_BUFFER TYPE_EVENT_DATA_BUFFER}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -163,8 +171,7 @@ public class XrEventDataBuffer extends Struct<XrEventDataBuffer> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataBuffer createSafe(long address) {
+    public static @Nullable XrEventDataBuffer createSafe(long address) {
         return address == NULL ? null : new XrEventDataBuffer(address, null);
     }
 
@@ -207,8 +214,7 @@ public class XrEventDataBuffer extends Struct<XrEventDataBuffer> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataBuffer.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +259,18 @@ public class XrEventDataBuffer extends Struct<XrEventDataBuffer> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataBuffer.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataBuffer.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataBuffer.NEXT); }
     /** Unsafe version of {@link #varying}. */
     public static ByteBuffer nvarying(long struct) { return memByteBuffer(struct + XrEventDataBuffer.VARYING, 4000); }
     /** Unsafe version of {@link #varying(int) varying}. */
     public static byte nvarying(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrEventDataBuffer.VARYING + check(index, 4000) * 1);
+        return memGetByte(struct + XrEventDataBuffer.VARYING + check(index, 4000) * 1);
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataBuffer.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataBuffer.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataBuffer.NEXT, value); }
     /** Unsafe version of {@link #varying(ByteBuffer) varying}. */
@@ -274,7 +280,7 @@ public class XrEventDataBuffer extends Struct<XrEventDataBuffer> implements Nati
     }
     /** Unsafe version of {@link #varying(int, byte) varying}. */
     public static void nvarying(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrEventDataBuffer.VARYING + check(index, 4000) * 1, value);
+        memPutByte(struct + XrEventDataBuffer.VARYING + check(index, 4000) * 1, value);
     }
 
     // -----------------------------------
@@ -308,6 +314,11 @@ public class XrEventDataBuffer extends Struct<XrEventDataBuffer> implements Nati
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

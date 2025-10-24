@@ -13,7 +13,6 @@ val AMD_mixed_attachment_samples = "AMDMixedAttachmentSamples".nativeClassVK("AM
         """
         This extension enables applications to use multisampled rendering with a depth/stencil sample count that is larger than the color sample count. Having a depth/stencil sample count larger than the color sample count allows maintaining geometry and coverage information at a higher sample rate than color information. All samples are depth/stencil tested, but only the first color sample count number of samples get a corresponding color output.
 
-        <h5>VK_AMD_mixed_attachment_samples</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_AMD_mixed_attachment_samples}</dd>
@@ -26,6 +25,12 @@ val AMD_mixed_attachment_samples = "AMDMixedAttachmentSamples".nativeClassVK("AM
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
+
+            <dt><b>API Interactions</b></dt>
+            <dd><ul>
+                <li>Interacts with VK_VERSION_1_3</li>
+                <li>Interacts with VK_KHR_dynamic_rendering</li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -58,5 +63,11 @@ val AMD_mixed_attachment_samples = "AMDMixedAttachmentSamples".nativeClassVK("AM
         "The extension name.",
 
         "AMD_MIXED_ATTACHMENT_SAMPLES_EXTENSION_NAME".."VK_AMD_mixed_attachment_samples"
+    )
+
+    EnumConstant(
+        "Extends {@code VkStructureType}.",
+
+        "STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD".."1000044008"
     )
 }

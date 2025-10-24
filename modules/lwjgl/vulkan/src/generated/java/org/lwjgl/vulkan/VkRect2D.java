@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link VkBindImageMemoryDeviceGroupInfo}, {@link VkClearRect}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkDeviceGroupRenderPassBeginInfo}, {@link VkDisplayPresentInfoKHR}, {@link VkExtent2D}, {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}, {@link VkOffset2D}, {@link VkOpticalFlowExecuteInfoNV}, {@link VkPipelineDiscardRectangleStateCreateInfoEXT}, {@link VkPipelineViewportExclusiveScissorStateCreateInfoNV}, {@link VkPipelineViewportStateCreateInfo}, {@link VkRenderPassBeginInfo}, {@link VkRenderingInfo}, {@link EXTDiscardRectangles#vkCmdSetDiscardRectangleEXT CmdSetDiscardRectangleEXT}, {@link NVScissorExclusive#vkCmdSetExclusiveScissorNV CmdSetExclusiveScissorNV}, {@link VK10#vkCmdSetScissor CmdSetScissor}, {@link VK13#vkCmdSetScissorWithCount CmdSetScissorWithCount}, {@link EXTShaderObject#vkCmdSetScissorWithCountEXT CmdSetScissorWithCountEXT}, {@link KHRSwapchain#vkGetPhysicalDevicePresentRectanglesKHR GetPhysicalDevicePresentRectanglesKHR}</p>
+ * <p>{@link VkBindImageMemoryDeviceGroupInfo}, {@link VkClearRect}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkDeviceGroupRenderPassBeginInfo}, {@link VkDisplayPresentInfoKHR}, {@link VkExtent2D}, {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}, {@link VkOffset2D}, {@link VkOpticalFlowExecuteInfoNV}, {@link VkPipelineDiscardRectangleStateCreateInfoEXT}, {@link VkPipelineViewportExclusiveScissorStateCreateInfoNV}, {@link VkPipelineViewportStateCreateInfo}, {@link VkRenderPassBeginInfo}, {@link VkRenderPassStripeInfoARM}, {@link VkRenderingInfo}, {@link EXTDiscardRectangles#vkCmdSetDiscardRectangleEXT CmdSetDiscardRectangleEXT}, {@link NVScissorExclusive#vkCmdSetExclusiveScissorNV CmdSetExclusiveScissorNV}, {@link VK10#vkCmdSetScissor CmdSetScissor}, {@link VK13#vkCmdSetScissorWithCount CmdSetScissorWithCount}, {@link EXTShaderObject#vkCmdSetScissorWithCountEXT CmdSetScissorWithCountEXT}, {@link KHRSwapchain#vkGetPhysicalDevicePresentRectanglesKHR GetPhysicalDevicePresentRectanglesKHR}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -139,8 +139,7 @@ public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRect2D createSafe(long address) {
+    public static @Nullable VkRect2D createSafe(long address) {
         return address == NULL ? null : new VkRect2D(address, null);
     }
 
@@ -183,8 +182,7 @@ public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRect2D.Buffer createSafe(long address, int capacity) {
+    public static VkRect2D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -288,6 +286,11 @@ public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

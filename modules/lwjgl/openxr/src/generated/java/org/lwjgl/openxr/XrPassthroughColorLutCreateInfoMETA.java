@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,14 +28,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>Runtimes <b>must</b> employ trilinear interpolation of neighboring color values if the resolution of the color LUT is smaller than the bit depth of the input colors.</p>
  * 
- * <p>The value of {@code bufferSize} in {@code data} <b>must</b> be equal to <code>resolution<sup>3</sup> * bytesPerElement</code>, where <code>bytesPerElement</code> is either 3 or 4 depending on {@code channels}. Otherwise, the runtime <b>must</b> return {@link METAPassthroughColorLut#XR_ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META}.</p>
+ * <p>The value of {@link XrPassthroughColorLutDataMETA}{@code ::bufferSize} in {@code data} <b>must</b> be equal to <code>resolution<sup>3</sup> * bytesPerElement</code>, where <code>bytesPerElement</code> is either 3 or 4 depending on {@code channels}. Otherwise, the runtime <b>must</b> return {@link METAPassthroughColorLut#XR_ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META ERROR_PASSTHROUGH_COLOR_LUT_BUFFER_SIZE_MISMATCH_META}.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>The {@link METAPassthroughColorLut XR_META_passthrough_color_lut} extension <b>must</b> be enabled prior to using {@link XrPassthroughColorLutCreateInfoMETA}</li>
  * <li>{@code type} <b>must</b> be {@link METAPassthroughColorLut#XR_TYPE_PASSTHROUGH_COLOR_LUT_CREATE_INFO_META TYPE_PASSTHROUGH_COLOR_LUT_CREATE_INFO_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code channels} <b>must</b> be a valid {@code XrPassthroughColorLutChannelsMETA} value</li>
  * <li>{@code data} <b>must</b> be a valid {@link XrPassthroughColorLutDataMETA} structure</li>
  * </ul>
@@ -195,8 +195,7 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorLutCreateInfoMETA createSafe(long address) {
+    public static @Nullable XrPassthroughColorLutCreateInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorLutCreateInfoMETA(address, null);
     }
 
@@ -239,8 +238,7 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorLutCreateInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorLutCreateInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -285,24 +283,24 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutCreateInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorLutCreateInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorLutCreateInfoMETA.NEXT); }
     /** Unsafe version of {@link #channels}. */
-    public static int nchannels(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS); }
+    public static int nchannels(long struct) { return memGetInt(struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS); }
     /** Unsafe version of {@link #resolution}. */
-    public static int nresolution(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION); }
+    public static int nresolution(long struct) { return memGetInt(struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION); }
     /** Unsafe version of {@link #data}. */
     public static XrPassthroughColorLutDataMETA ndata(long struct) { return XrPassthroughColorLutDataMETA.create(struct + XrPassthroughColorLutCreateInfoMETA.DATA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutCreateInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorLutCreateInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorLutCreateInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #channels(int) channels}. */
-    public static void nchannels(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS, value); }
+    public static void nchannels(long struct, int value) { memPutInt(struct + XrPassthroughColorLutCreateInfoMETA.CHANNELS, value); }
     /** Unsafe version of {@link #resolution(int) resolution}. */
-    public static void nresolution(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION, value); }
+    public static void nresolution(long struct, int value) { memPutInt(struct + XrPassthroughColorLutCreateInfoMETA.RESOLUTION, value); }
     /** Unsafe version of {@link #data(XrPassthroughColorLutDataMETA) data}. */
     public static void ndata(long struct, XrPassthroughColorLutDataMETA value) { memCopy(value.address(), struct + XrPassthroughColorLutCreateInfoMETA.DATA, XrPassthroughColorLutDataMETA.SIZEOF); }
 
@@ -346,6 +344,11 @@ public class XrPassthroughColorLutCreateInfoMETA extends Struct<XrPassthroughCol
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

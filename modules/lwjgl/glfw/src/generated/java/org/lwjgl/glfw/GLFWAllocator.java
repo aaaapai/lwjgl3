@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,7 +17,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A custom memory allocator that can be set with {@link GLFW#glfwInitAllocator InitAllocator}.
+ * Custom heap memory allocator.
+ * 
+ * <p>This describes a custom heap memory allocator for GLFW. To set an allocator, pass it to {@link GLFW#glfwInitAllocator InitAllocator} before initializing the library.</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -86,16 +88,16 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the memory allocation callback */
+    /** the memory allocation function */
     @NativeType("GLFWallocatefun")
     public GLFWAllocateCallback allocate() { return nallocate(address()); }
-    /** the memory reallocation callback */
+    /** the memory reallocation function */
     @NativeType("GLFWreallocatefun")
     public GLFWReallocateCallback reallocate() { return nreallocate(address()); }
-    /** the memory deallocation callback */
+    /** the memory deallocation function */
     @NativeType("GLFWdeallocatefun")
     public GLFWDeallocateCallback deallocate() { return ndeallocate(address()); }
-    /** a user-defined pointer that will be passed to the callbacks */
+    /** the user pointer for this custom allocator. This value will be passed to the allocator functions. */
     @NativeType("void *")
     public long user() { return nuser(address()); }
 
@@ -159,8 +161,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLFWAllocator createSafe(long address) {
+    public static @Nullable GLFWAllocator createSafe(long address) {
         return address == NULL ? null : new GLFWAllocator(address, null);
     }
 
@@ -203,8 +204,7 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLFWAllocator.Buffer createSafe(long address, int capacity) {
+    public static GLFWAllocator.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -308,6 +308,11 @@ public class GLFWAllocator extends Struct<GLFWAllocator> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

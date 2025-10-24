@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,6 +25,12 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>In the {@code pNext} chain of {@link VkVideoSessionParametersCreateInfoKHR} to specify the video encode quality level to use for a video session parameters object created for a video encode session. If no instance of this structure is included in the {@code pNext} chain of {@link VkVideoSessionParametersCreateInfoKHR}, then the video session parameters object is created with a video encode quality level of zero.</li>
  * <li>In the {@code pNext} chain of {@link VkVideoCodingControlInfoKHR} to change the video encode quality level state of the bound video session.</li>
+ * </ul>
+ * 
+ * <h5>Valid Usage</h5>
+ * 
+ * <ul>
+ * <li>{@code qualityLevel} <b>must</b> be less than {@link VkVideoEncodeCapabilitiesKHR}{@code ::maxQualityLevels}, as returned by {@link KHRVideoQueue#vkGetPhysicalDeviceVideoCapabilitiesKHR GetPhysicalDeviceVideoCapabilitiesKHR} for the used video profile</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -161,8 +167,7 @@ public class VkVideoEncodeQualityLevelInfoKHR extends Struct<VkVideoEncodeQualit
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeQualityLevelInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeQualityLevelInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeQualityLevelInfoKHR(address, null);
     }
 
@@ -205,8 +210,7 @@ public class VkVideoEncodeQualityLevelInfoKHR extends Struct<VkVideoEncodeQualit
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeQualityLevelInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeQualityLevelInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,18 +255,18 @@ public class VkVideoEncodeQualityLevelInfoKHR extends Struct<VkVideoEncodeQualit
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeQualityLevelInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeQualityLevelInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeQualityLevelInfoKHR.PNEXT); }
     /** Unsafe version of {@link #qualityLevel}. */
-    public static int nqualityLevel(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL); }
+    public static int nqualityLevel(long struct) { return memGetInt(struct + VkVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeQualityLevelInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeQualityLevelInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeQualityLevelInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #qualityLevel(int) qualityLevel}. */
-    public static void nqualityLevel(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL, value); }
+    public static void nqualityLevel(long struct, int value) { memPutInt(struct + VkVideoEncodeQualityLevelInfoKHR.QUALITYLEVEL, value); }
 
     // -----------------------------------
 
@@ -295,6 +299,11 @@ public class VkVideoEncodeQualityLevelInfoKHR extends Struct<VkVideoEncodeQualit
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

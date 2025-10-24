@@ -11,12 +11,12 @@ val xxhash = "XXHash".nativeClass(Module.XXHASH, prefix = "XXH", prefixMethod = 
     nativeDirective(
         """DISABLE_WARNINGS()
 #include "lwjgl_malloc.h"
-#if defined(LWJGL_arm64) || defined(LWJGL_arm32)
-    #define XXH_INLINE_ALL
-    #include "xxhash.h"
-#else
+#if defined(LWJGL_x86) || defined(LWJGL_x64)
     #include "xxh_x86dispatch.c"
     #include "xxh_x86dispatch.h"
+#else
+    #define XXH_INLINE_ALL
+    #include "xxhash.h"
 #endif
 ENABLE_WARNINGS()""")
 
@@ -148,7 +148,7 @@ hashFile(FILE* stream)
 
     IntConstant("The major version number.", "VERSION_MAJOR".."0")
     IntConstant("The minor version number.", "VERSION_MINOR".."8")
-    IntConstant("The release version number.", "VERSION_RELEASE".."2")
+    IntConstant("The release version number.", "VERSION_RELEASE".."3")
 
     IntConstant(
         "The version number",
@@ -175,6 +175,7 @@ hashFile(FILE* stream)
         """,
         "XXH3_SECRET_DEFAULT_SIZE".."192"
     ).noPrefix()
+    IntConstant("Maximum size of \"short\" key in bytes.", "XXH3_MIDSIZE_MAX".."240").noPrefix()
 
     // 32-bits hash
 
@@ -182,8 +183,6 @@ hashFile(FILE* stream)
         "32",
         """
         Calculates the 32-bit hash of {@code input} using xxHash32.
-
-        Speed on Core 2 Duo @ 3 GHz (single thread, SMHasher benchmark): 5.4 GB/s
 
         The memory between {@code input} and {@code input + length} must be valid, readable, contiguous memory. However, if {@code length} is {@code 0},
         {@code input} may be #NULL.

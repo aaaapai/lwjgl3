@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -146,7 +146,7 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
     /** @return the value of the {@code sps_range_extension_flag} field. */
     @NativeType("uint32_t")
     public boolean sps_range_extension_flag() { return nsps_range_extension_flag(address()) != 0; }
-    /** extension SPS flags, valid when {@link STDVulkanVideoCodecH265#STD_VIDEO_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSIONS VIDEO_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSIONS} is set */
+    /** extension SPS flags, valid when {@link STDVulkanVideoCodecH265#STD_VIDEO_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSIONS H265_PROFILE_IDC_FORMAT_RANGE_EXTENSIONS} is set */
     @NativeType("uint32_t")
     public boolean transform_skip_rotation_enabled_flag() { return ntransform_skip_rotation_enabled_flag(address()) != 0; }
     /** @return the value of the {@code transform_skip_context_enabled_flag} field. */
@@ -176,7 +176,7 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
     /** @return the value of the {@code sps_scc_extension_flag} field. */
     @NativeType("uint32_t")
     public boolean sps_scc_extension_flag() { return nsps_scc_extension_flag(address()) != 0; }
-    /** extension SPS flags, valid when {@link STDVulkanVideoCodecH265#STD_VIDEO_H265_PROFILE_IDC_SCC_EXTENSIONS VIDEO_H265_PROFILE_IDC_SCC_EXTENSIONS} is set */
+    /** extension SPS flags, valid when {@link STDVulkanVideoCodecH265#STD_VIDEO_H265_PROFILE_IDC_SCC_EXTENSIONS H265_PROFILE_IDC_SCC_EXTENSIONS} is set */
     @NativeType("uint32_t")
     public boolean sps_curr_pic_ref_enabled_flag() { return nsps_curr_pic_ref_enabled_flag(address()) != 0; }
     /** @return the value of the {@code palette_mode_enabled_flag} field. */
@@ -360,8 +360,7 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265SpsFlags createSafe(long address) {
+    public static @Nullable StdVideoH265SpsFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoH265SpsFlags(address, null);
     }
 
@@ -404,8 +403,7 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265SpsFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265SpsFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -449,7 +447,7 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265SpsFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoH265SpsFlags.BITFIELD0); }
     /** Unsafe version of {@link #sps_temporal_id_nesting_flag}. */
     public static int nsps_temporal_id_nesting_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #separate_colour_plane_flag}. */
@@ -513,7 +511,7 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
     /** Unsafe version of {@link #intra_boundary_filtering_disabled_flag}. */
     public static int nintra_boundary_filtering_disabled_flag(long struct) { return (nbitfield0(struct) & 0x40_00_00_00) >>> 30; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265SpsFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoH265SpsFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #sps_temporal_id_nesting_flag(boolean) sps_temporal_id_nesting_flag}. */
     public static void nsps_temporal_id_nesting_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #separate_colour_plane_flag(boolean) separate_colour_plane_flag}. */
@@ -608,6 +606,11 @@ public class StdVideoH265SpsFlags extends Struct<StdVideoH265SpsFlags> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

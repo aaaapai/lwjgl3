@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -47,7 +47,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelPathInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PATH_INFO_FB TYPE_RENDER_MODEL_PATH_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -182,8 +182,7 @@ public class XrRenderModelPathInfoFB extends Struct<XrRenderModelPathInfoFB> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelPathInfoFB createSafe(long address) {
+    public static @Nullable XrRenderModelPathInfoFB createSafe(long address) {
         return address == NULL ? null : new XrRenderModelPathInfoFB(address, null);
     }
 
@@ -226,8 +225,7 @@ public class XrRenderModelPathInfoFB extends Struct<XrRenderModelPathInfoFB> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelPathInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrRenderModelPathInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,18 +270,18 @@ public class XrRenderModelPathInfoFB extends Struct<XrRenderModelPathInfoFB> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPathInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRenderModelPathInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRenderModelPathInfoFB.NEXT); }
     /** Unsafe version of {@link #path}. */
-    public static long npath(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelPathInfoFB.PATH); }
+    public static long npath(long struct) { return memGetLong(struct + XrRenderModelPathInfoFB.PATH); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPathInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRenderModelPathInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRenderModelPathInfoFB.NEXT, value); }
     /** Unsafe version of {@link #path(long) path}. */
-    public static void npath(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelPathInfoFB.PATH, value); }
+    public static void npath(long struct, long value) { memPutLong(struct + XrRenderModelPathInfoFB.PATH, value); }
 
     // -----------------------------------
 
@@ -316,6 +314,11 @@ public class XrRenderModelPathInfoFB extends Struct<XrRenderModelPathInfoFB> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

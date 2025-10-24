@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHROpenGLEnable XR_KHR_opengl_enable} extension <b>must</b> be enabled prior to using {@link XrSwapchainImageOpenGLKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHROpenGLEnable#XR_TYPE_SWAPCHAIN_IMAGE_OPENGL_KHR TYPE_SWAPCHAIN_IMAGE_OPENGL_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -167,8 +167,7 @@ public class XrSwapchainImageOpenGLKHR extends Struct<XrSwapchainImageOpenGLKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageOpenGLKHR createSafe(long address) {
+    public static @Nullable XrSwapchainImageOpenGLKHR createSafe(long address) {
         return address == NULL ? null : new XrSwapchainImageOpenGLKHR(address, null);
     }
 
@@ -216,8 +215,7 @@ public class XrSwapchainImageOpenGLKHR extends Struct<XrSwapchainImageOpenGLKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageOpenGLKHR.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainImageOpenGLKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,14 +265,14 @@ public class XrSwapchainImageOpenGLKHR extends Struct<XrSwapchainImageOpenGLKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainImageOpenGLKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainImageOpenGLKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainImageOpenGLKHR.NEXT); }
     /** Unsafe version of {@link #image}. */
-    public static int nimage(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainImageOpenGLKHR.IMAGE); }
+    public static int nimage(long struct) { return memGetInt(struct + XrSwapchainImageOpenGLKHR.IMAGE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainImageOpenGLKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainImageOpenGLKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainImageOpenGLKHR.NEXT, value); }
 
@@ -309,6 +307,11 @@ public class XrSwapchainImageOpenGLKHR extends Struct<XrSwapchainImageOpenGLKHR>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

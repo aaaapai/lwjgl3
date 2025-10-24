@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MLCompat XR_ML_compat} extension <b>must</b> be enabled prior to using {@link XrCoordinateSpaceCreateInfoML}</li>
  * <li>{@code type} <b>must</b> be {@link MLCompat#XR_TYPE_COORDINATE_SPACE_CREATE_INFO_ML TYPE_COORDINATE_SPACE_CREATE_INFO_ML}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code cfuid} <b>must</b> be a valid {@code MLCoordinateFrameUID} value</li>
  * </ul>
  * 
@@ -174,8 +174,7 @@ public class XrCoordinateSpaceCreateInfoML extends Struct<XrCoordinateSpaceCreat
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCoordinateSpaceCreateInfoML createSafe(long address) {
+    public static @Nullable XrCoordinateSpaceCreateInfoML createSafe(long address) {
         return address == NULL ? null : new XrCoordinateSpaceCreateInfoML(address, null);
     }
 
@@ -218,8 +217,7 @@ public class XrCoordinateSpaceCreateInfoML extends Struct<XrCoordinateSpaceCreat
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCoordinateSpaceCreateInfoML.Buffer createSafe(long address, int capacity) {
+    public static XrCoordinateSpaceCreateInfoML.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,7 +262,7 @@ public class XrCoordinateSpaceCreateInfoML extends Struct<XrCoordinateSpaceCreat
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCoordinateSpaceCreateInfoML.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCoordinateSpaceCreateInfoML.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCoordinateSpaceCreateInfoML.NEXT); }
     /** Unsafe version of {@link #cfuid}. */
@@ -273,7 +271,7 @@ public class XrCoordinateSpaceCreateInfoML extends Struct<XrCoordinateSpaceCreat
     public static XrPosef nposeInCoordinateSpace(long struct) { return XrPosef.create(struct + XrCoordinateSpaceCreateInfoML.POSEINCOORDINATESPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCoordinateSpaceCreateInfoML.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCoordinateSpaceCreateInfoML.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCoordinateSpaceCreateInfoML.NEXT, value); }
     /** Unsafe version of {@link #cfuid(MLCoordinateFrameUID) cfuid}. */
@@ -312,6 +310,11 @@ public class XrCoordinateSpaceCreateInfoML extends Struct<XrCoordinateSpaceCreat
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
