@@ -110,18 +110,6 @@ public final class GL {
         }
 
         if (GL == null) {
-            GL = loadNative();
-            if (GL == null && !"native".equals(contextAPI)) {
-                if (!tryEGL) {
-                    GL = loadEGL();
-                }
-                if (GL == null && !"OSMesa".equals(contextAPI)) {
-                    GL = loadOSMesa();
-                }
-            }
-        }
-
-        if (GL == null) {
             throw new IllegalStateException("There is no OpenGL context management API available.");
         }
 
