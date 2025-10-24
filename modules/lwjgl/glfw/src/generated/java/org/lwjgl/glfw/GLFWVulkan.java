@@ -299,12 +299,23 @@ public class GLFWVulkan {
     /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
     @NativeType("VkResult")
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
-        long __functionAddress = Functions.CreateWindowSurface;
         if (CHECKS) {
-            check(window);
             check(surface, 1);
         }
-        return invokePPPPI(instance.address(), window, memAddressSafe(allocator), surface, __functionAddress);
+        if (Platform.get() == Platform.MACOSX) {
+            VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
+                .calloc()
+                .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
+                .pLayer(PointerBuffer.create(window, 1));
+            return vkCreateMetalSurfaceEXT(instance, pCreateInfo, null, surface);
+        } else if (Platform.get() == Platform.LINUX) {
+            VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
+                .calloc()
+                .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
+                .window(window);
+            return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
+        }
+        return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
     /**
