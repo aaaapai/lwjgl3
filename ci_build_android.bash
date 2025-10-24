@@ -129,6 +129,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.zstd=false \
   -Dbuild.type=release/3.3.3 \
   -Djavadoc.skip=true \
+  -Dbuild.offline=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
 
