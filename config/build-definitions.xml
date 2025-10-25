@@ -233,6 +233,14 @@ This script is included in /build.xml and /config/update-dependencies.xml.
         </javac>
     </presetdef>
 
+    <presetdef name="lwjgl.javac24">
+        <javac sourcepath="" debug="yes" encoding="UTF-8" includeantruntime="false">
+            <compilerarg line="--release 24"/>
+            <compilerarg value="-Xlint:all"/>
+            <compilerarg value="-XDignore.symbol.file"/>
+        </javac>
+    </presetdef>
+
     <macrodef name="quiet">
         <element name="body" implicit="yes"/>
         <sequential>
@@ -364,7 +372,7 @@ This script is included in /build.xml and /config/update-dependencies.xml.
                 <local name="dest"/>
                 <property name="dest" value="${lib.native}/${module.@{module}.path}"/>
                 <mkdir dir="${dest}"/>
-                <get-quiet name="@{module} :: @{artifact}" url="https://build.lwjgl.org/${build.type}/${platform.remote}/${build.arch}/@{artifact}" dest="${dest}" skipexisting="false"/>
+                <get-quiet name="@{module} :: @{artifact}" url="https://build.lwjgl.org/${build.type}/${platform.remote}/${build.arch}/@{artifact}" dest="${dest}" skipexisting="true"/>
             </sequential>
         </sequential>
     </macrodef>

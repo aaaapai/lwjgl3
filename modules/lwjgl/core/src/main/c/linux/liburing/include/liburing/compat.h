@@ -10,6 +10,7 @@
 
 typedef int __kernel_rwf_t;
 
+#ifndef __ANDROID__
 struct __kernel_timespec {
 	int64_t		tv_sec;
 	long long	tv_nsec;
@@ -23,6 +24,7 @@ struct open_how {
 	uint64_t	mode;
 	uint64_t	resolve;
 };
+#endif
 
 #ifndef BLOCK_URING_CMD_DISCARD
 #define BLOCK_URING_CMD_DISCARD                        _IO(0x12, 0)

@@ -16,9 +16,9 @@
  * define UAPI_LINUX_IO_URING_H_SKIP_LINUX_TIME_TYPES_H
  * if linux/time_types.h is not available
  */
-#ifndef UAPI_LINUX_IO_URING_H_SKIP_LINUX_TIME_TYPES_H
+//#ifndef UAPI_LINUX_IO_URING_H_SKIP_LINUX_TIME_TYPES_H
 #include <linux/time_types.h>
-#endif
+//#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -645,7 +645,7 @@ enum io_uring_register_op {
 	IORING_REGISTER_LAST,
 
 	/* flag added to the opcode to use a registered ring fd */
-	IORING_REGISTER_USE_REGISTERED_RING	= 1U << 31
+	IORING_REGISTER_USE_REGISTERED_RING	= 2147483647U
 };
 
 /* io-wq worker categories */
