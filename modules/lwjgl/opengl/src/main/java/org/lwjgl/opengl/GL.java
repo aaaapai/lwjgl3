@@ -181,28 +181,9 @@ public final class GL {
                     switch (Platform.get()) {
                         case FREEBSD:
                         case LINUX:
-                            String eglLibraryName = null;
-        
-                            String pojaveExecEgl = System.getenv("POJAVEXEC_EGL");
-                            String libglEgl = System.getenv("LIBGL_EGL");
-                            String libeglName = System.getenv("LIBEGL_NAME");
-        
-                            if (pojaveExecEgl != null && !pojaveExecEgl.trim().isEmpty()) {
-                               eglLibraryName = pojaveExecEgl;
-                            } else if (libglEgl != null && !libglEgl.trim().isEmpty()) {
-                               eglLibraryName = libglEgl;
-                            } else if (libeglName != null && !libeglName.trim().isEmpty()) {
-                               eglLibraryName = libeglName;
-                            } else {
-                               eglLibraryName = "libEGL.so";
-                            }
-        
-                            Library eglLibrary = LinuxLibrary.LinuxLibrary(eglLibraryName);
-                            long eglGetProcAddress = eglLibrary.getFunctionAddress("eglGetProcAddress");
-            
-                            if (eglGetProcAddress != null) {
-                                        GetProcAddress = eglGetProcAddress;
-                                        System.out.println("[LWJGL] Using EGL GetProcAddress from: " + eglLibraryName);
+                            GetProcAddress = library.getFunctionAddress("eglGetProcAddress");
+                            if (GetProcAddress == NULL) {
+                                GetProcAddress = library.getFunctionAddress("eglGetProcAddressARB");
                             }
                             break;
                         case WINDOWS:
@@ -210,7 +191,10 @@ public final class GL {
                             break;
                     }
                     if (GetProcAddress == NULL) {
-                        GetProcAddress = library.getFunctionAddress("eglGetProcAddress");
+                        GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
+                    }
+                    if (GetProcAddress == NULL) {
+                        GetProcAddress = library.getFunctionAddress("glXGetProcAddressARB");
                     }
                     if (GetProcAddress == NULL) {
                         GetProcAddress = library.getFunctionAddress("OSMesaGetProcAddress");
