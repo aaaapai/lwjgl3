@@ -181,9 +181,9 @@ public final class GL {
                     switch (Platform.get()) {
                         case FREEBSD:
                         case LINUX:
-                            GetProcAddress = library.getFunctionAddress("eglGetProcAddress");
+                            GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
                             if (GetProcAddress == NULL) {
-                                GetProcAddress = library.getFunctionAddress("eglGetProcAddressARB");
+                                GetProcAddress = library.getFunctionAddress("glXGetProcAddressARB");
                             }
                             break;
                         case WINDOWS:
@@ -191,10 +191,10 @@ public final class GL {
                             break;
                     }
                     if (GetProcAddress == NULL) {
-                        GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
+                        GetProcAddress = library.getFunctionAddress("eglGetProcAddress");
                     }
                     if (GetProcAddress == NULL) {
-                        GetProcAddress = library.getFunctionAddress("glXGetProcAddressARB");
+                        GetProcAddress = library.getFunctionAddress("eglGetProcAddressARB");
                     }
                     if (GetProcAddress == NULL) {
                         GetProcAddress = library.getFunctionAddress("OSMesaGetProcAddress");
