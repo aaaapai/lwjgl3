@@ -555,6 +555,7 @@ public class Configuration<T> {
 
     /** Similar to {@link #LIBRARY_NAME} for the OpenGL library (<b>org.lwjgl.opengl.libname</b>). */
     public static final Configuration<String> OPENGL_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengl.libname", StateInit.STRING);
+    public static final Configuration<String> RENDERER_TAG = new Configuration<>("org.lwjgl.opengl.renderertag", StateInit.STRING);
 
     /** Returns the default OpenGL library names for the current platform. */
     public static String[] OPENGL_LIBRARY_NAME_DEFAULTS() {

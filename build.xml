@@ -569,9 +569,11 @@
             <exclude name="org/lwjgl/glfw/GLFWVulkan.java" unless:true="${binding.vulkan}"/>
         </compileBinding>
 
-        <compileBinding binding="ktx">
+        <compileBinding binding="lwjglx">
             <classpath>
-                <pathelement path="${bin.lwjgl}/vulkan"/>
+                <pathelement path="${bin.lwjgl}/glfw"/>
+                <pathelement path="${bin.lwjgl}/openal"/>
+                <pathelement path="${bin.lwjgl}/opengl"/>
             </classpath>
         </compileBinding>
 
@@ -1809,6 +1811,9 @@
 
         <!-- LMDB -->
         <release-module name="lmdb" native-library="lwjgl_lmdb" title="LMDB" if:true="${binding.lmdb}"/>
+
+        <!-- LWJGLX -->
+        <release-module name="lwjglx" title="LWJGLX" if:true="${binding.lwjglx}"/>
 
         <!-- lz4 -->
         <release-module name="lz4" native-library="lwjgl_lz4" title="lz4" if:true="${binding.lz4}"/>
