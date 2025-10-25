@@ -15,10 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@main
 
-    - name: Set up JDK25
+    - name: Set up JDK21
       uses: actions/setup-java@main
       with:
-        java-version: 25-ea
+        java-version: 21
         distribution: temurin
         
     - name: Build for Android ${{matrix.arch}}
