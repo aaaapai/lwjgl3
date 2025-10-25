@@ -197,16 +197,12 @@ public final class GL {
                                eglLibraryName = "libEGL.so";
                             }
         
-                            try {
-                                    Library eglLibrary = Library.loadLibrary(eglLibraryName);
-                                    Function eglGetProcAddress = eglLibrary.getFunctionAddress("eglGetProcAddress");
+                            Library eglLibrary = Library.loadLibrary(eglLibraryName);
+                            Function eglGetProcAddress = eglLibrary.getFunctionAddress("eglGetProcAddress");
             
-                                    if (eglGetProcAddress != null) {
+                            if (eglGetProcAddress != null) {
                                         GetProcAddress = eglGetProcAddress;
                                         System.out.println("[LWJGL] Using EGL GetProcAddress from: " + eglLibraryName);
-                                    }
-                            } else {
-                                        System.err.println("[LWJGL] Failed to get eglGetProcAddress from " + eglLibraryName);
                             }
                             break;
                         case WINDOWS:
