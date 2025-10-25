@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 export ANDROID=1 LWJGL_BUILD_OFFLINE=1 SKIP_FREETYPE=1
+export ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
