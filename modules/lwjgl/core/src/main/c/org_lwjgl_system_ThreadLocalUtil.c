@@ -59,4 +59,20 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_system_ThreadLocalUtil_setupEnvData(JNIEn
     return (jlong)(uintptr_t)tlsCreateEnvDataWithCopy(env);
 }
 
+JNIEXPORT jobject JNICALL Java_org_lwjgl_system_ThreadLocalUtil_ngetMemoryStack(JNIEnv *env, jclass clazz, jlong RESERVED_NULLAddress) {
+    UNUSED_PARAM(clazz)
+
+    jobject stack = (jobject)(*env)->reserved2;
+
+    void * RESERVED_NULL = (void *)RESERVED_NULLAddress;
+    if (stack == RESERVED_NULL) {
+        jclass ThreadLocalUtil = (*env)->FindClass(env, "org/lwjgl/system/ThreadLocalUtil");
+        jmethodID setMemoryStack = (*env)->GetStaticMethodID(env, ThreadLocalUtil, "setMemoryStack", "()V");
+        (*env)->CallStaticVoidMethod(env, ThreadLocalUtil, setMemoryStack);
+        stack = (jobject)(*env)->reserved2;
+    }
+
+    return stack;
+}
+
 EXTERN_C_EXIT

@@ -21,39 +21,39 @@ public class CustomKernel32 {
 
     @FFMCharset(UTF16)
     public interface MyKernel32Bindings {
+        @FFMDefinition("HMODULE GetModuleHandle(LPCWSTR lpModuleName)")
         @FFMName("GetModuleHandleW")
-        @FFMSignature("HMODULE GetModuleHandle(LPCWSTR lpModuleName)")
         MemorySegment GetModuleHandle(@FFMCaptureCallState("GetLastError") MemorySegment pLastError, @FFMNullable String lpModuleName);
 
         // ----------------------------
 
+        @FFMDefinition("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         @FFMName("GetModuleFileNameW")
-        @FFMSignature("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         int GetModuleFileName(@FFMCaptureCallState("GetLastError") MemorySegment pLastError, MemorySegment hModule, MemorySegment lpFileName, @FFMReturn.Size int nSize);
 
+        @FFMDefinition("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         @FFMName("GetModuleFileNameW") @FFMReturn(1)
-        @FFMSignature("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         String GetModuleFileName(@FFMCaptureCallState("GetLastError") MemorySegment pLastError, MemorySegment hModule, @FFMReturn.Size int nSize);
 
+        @FFMDefinition("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         @FFMName("GetModuleFileNameW") @FFMReturn(1)
-        @FFMSignature("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         String GetModuleFileName(SegmentAllocator allocator, @FFMCaptureCallState("GetLastError") MemorySegment pLastError, MemorySegment hModule, @FFMReturn.Size int nSize);
 
+        @FFMDefinition("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         @FFMName("GetModuleFileNameW") @FFMReturn(1)
-        @FFMSignature("DWORD GetModuleFileNameW(HMODULE hModule, LPTSTR lpFileName, DWORD nSize)")
         String GetModuleFileName(StackAllocator<?> allocator, @FFMCaptureCallState("GetLastError") MemorySegment pLastError, MemorySegment hModule, @FFMReturn.Size int nSize);
 
         // ----------------------------
 
+        @FFMDefinition("HMODULE LoadLibrary(LPCTSTR lpLibFileName)")
         @FFMName("LoadLibraryW")
-        @FFMSignature("HMODULE LoadLibrary(LPCTSTR lpLibFileName)")
         MemorySegment LoadLibrary(@FFMCaptureCallState("GetLastError") MemorySegment pLastError, String lpLibFileName);
 
-        @FFMSignature("FARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName)")
+        @FFMDefinition("FARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName)")
         MemorySegment GetProcAddress(@FFMCaptureCallState("GetLastError") MemorySegment pLastError, MemorySegment hModule, @FFMCharset(ISO_8859_1) String lpProcName);
 
+        @FFMDefinition("BOOL FreeLibrary(HMODULE hLibModule)")
         @FFMBooleanInt(binary = true)
-        @FFMSignature("BOOL FreeLibrary(HMODULE hLibModule)")
         boolean FreeLibrary(@FFMCaptureCallState("GetLastError") MemorySegment pLastError, MemorySegment hLibModule);
     }
 

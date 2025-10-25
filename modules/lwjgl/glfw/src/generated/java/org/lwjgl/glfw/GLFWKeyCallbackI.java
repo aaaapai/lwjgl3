@@ -12,9 +12,8 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/** Callback function: {@link #invoke GLFWkeyfun} */
 @FunctionalInterface
-@NativeType("GLFWkeyfun")
+@NativeType("void (* GLFWkeyfun) (GLFWwindow * window, int key, int scancode, int action, int mods)")
 public interface GLFWKeyCallbackI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
@@ -36,7 +35,6 @@ public interface GLFWKeyCallbackI extends CallbackI {
         );
     }
 
-    /** {@code void (* GLFWkeyfun) (GLFWwindow * window, int key, int scancode, int action, int mods)} */
     void invoke(@NativeType("GLFWwindow *") long window, int key, int scancode, int action, int mods);
 
 }

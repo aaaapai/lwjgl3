@@ -235,8 +235,8 @@ This script is included in /build.xml and /config/update-dependencies.xml.
 
     <presetdef name="lwjgl.javac24">
         <javac sourcepath="" debug="yes" encoding="UTF-8" includeantruntime="false">
-            <compilerarg line="--release 24"/>
-            <compilerarg value="-Xlint:all"/>
+            <compilerarg line="--release 24 --enable-preview"/>
+            <compilerarg value="-Xlint:all,-restricted,-preview"/>
             <compilerarg value="-XDignore.symbol.file"/>
         </javac>
     </presetdef>

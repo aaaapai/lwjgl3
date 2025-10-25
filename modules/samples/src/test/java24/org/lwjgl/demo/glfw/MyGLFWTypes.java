@@ -9,135 +9,135 @@ import org.lwjgl.system.ffm.*;
 import java.lang.foreign.*;
 
 public interface MyGLFWTypes {
+    @FFMDefinition("void (* GLFWerrorfun)(int error_code, const char* description);")
     @FunctionalInterface
     interface errorfun {
-        @FFMSignature("void (* GLFWerrorfun)(int error_code, const char* description);")
         void invoke(int error_code, String description);
     }
 
+    @FFMDefinition("void (* GLFWwindowposfun)(GLFWwindow * window, int xpos, int ypos)")
     @FunctionalInterface
     interface windowposfun {
-        @FFMSignature("void (* GLFWwindowposfun)(GLFWwindow * window, int xpos, int ypos)")
         void invoke(@FFMPointer long window, int xpos, int ypos);
     }
 
+    @FFMDefinition("void (* GLFWwindowsizefun)(GLFWwindow* window, int width, int height)")
     @FunctionalInterface
     interface windowsizefun {
-        @FFMSignature("void (* GLFWwindowsizefun)(GLFWwindow* window, int width, int height)")
         void invoke(@FFMPointer long window, int width, int height);
     }
 
+    @FFMDefinition("void (* GLFWwindowclosefun)(GLFWwindow* window)")
     @FunctionalInterface
     interface windowclosefun {
-        @FFMSignature("void (* GLFWwindowclosefun)(GLFWwindow* window)")
         void invoke(@FFMPointer long window);
     }
 
+    @FFMDefinition("void (* GLFWwindowrefreshfun)(GLFWwindow* window)")
     @FunctionalInterface
     interface windowrefreshfun {
-        @FFMSignature("void (* GLFWwindowrefreshfun)(GLFWwindow* window)")
         void invoke(@FFMPointer long window);
     }
 
+    @FFMDefinition("void (* GLFWwindowfocusfun)(GLFWwindow* window, int focused)")
     @FunctionalInterface
     interface windowfocusfun {
-        @FFMSignature("void (* GLFWwindowfocusfun)(GLFWwindow* window, int focused)")
         void invoke(@FFMPointer long window, @FFMBooleanInt boolean focused);
     }
 
+    @FFMDefinition("void (* GLFWwindowiconifyfun)(GLFWwindow* window, int iconified)")
     @FunctionalInterface
     interface windowiconifyfun {
-        @FFMSignature("void (* GLFWwindowiconifyfun)(GLFWwindow* window, int iconified)")
         void invoke(@FFMPointer long window, @FFMBooleanInt boolean iconified);
     }
 
+    @FFMDefinition("void (* GLFWwindowmaximizefun)(GLFWwindow* window, int maximized)")
     @FunctionalInterface
     interface windowmaximizefun {
-        @FFMSignature("void (* GLFWwindowmaximizefun)(GLFWwindow* window, int maximized)")
         void invoke(@FFMPointer long window, @FFMBooleanInt boolean maximized);
     }
 
+    @FFMDefinition("void (* GLFWframebuffersizefun)(GLFWwindow* window, int width, int height)")
     @FunctionalInterface
     interface framebuffersizefun {
-        @FFMSignature("void (* GLFWframebuffersizefun)(GLFWwindow* window, int width, int height)")
         void invoke(@FFMPointer long window, int width, int height);
     }
 
+    @FFMDefinition("void (* GLFWwindowcontentscalefun)(GLFWwindow* window, float xscale, float yscale)")
     @FunctionalInterface
     interface windowcontentscalefun {
-        @FFMSignature("void (* GLFWwindowcontentscalefun)(GLFWwindow* window, float xscale, float yscale)")
         void invoke(@FFMPointer long window, float xscale, float yscale);
     }
 
+    @FFMDefinition("void (* GLFWmousebuttonfun)(GLFWwindow* window, int button, int action, int mods)")
     @FunctionalInterface
     interface mousebuttonfun {
-        @FFMSignature("void (* GLFWmousebuttonfun)(GLFWwindow* window, int button, int action, int mods)")
         void invoke(@FFMPointer long window, int button, int action, int mods);
     }
 
+    @FFMDefinition("void (* GLFWcursorposfun)(GLFWwindow* window, double xpos, double ypos)")
     @FunctionalInterface
     interface cursorposfun {
-        @FFMSignature("void (* GLFWcursorposfun)(GLFWwindow* window, double xpos, double ypos)")
         void invoke(@FFMPointer long window, double xpos, double ypos);
     }
 
+    @FFMDefinition("void (* GLFWcursorenterfun)(GLFWwindow* window, int entered)")
     @FunctionalInterface
     interface cursorenterfun {
-        @FFMSignature("void (* GLFWcursorenterfun)(GLFWwindow* window, int entered)")
         void invoke(@FFMPointer long window, @FFMBooleanInt boolean entered);
     }
 
+    @FFMDefinition("void (* GLFWscrollfun)(GLFWwindow* window, double xoffset, double yoffset)")
     @FunctionalInterface
     interface scrollfun {
-        @FFMSignature("void (* GLFWscrollfun)(GLFWwindow* window, double xoffset, double yoffset)")
         void invoke(@FFMPointer long window, double xoffset, double yoffset);
     }
 
+    @FFMDefinition("void (* GLFWkeyfun)(GLFWwindow* window, int key, int scancode, int action, int mods)")
     @FunctionalInterface
     interface keyfun {
-        @FFMSignature("void (* GLFWkeyfun)(GLFWwindow* window, int key, int scancode, int action, int mods)")
         void invoke(@FFMPointer long window, int key, int scancode, int action, int mods);
     }
 
+    @FFMDefinition("void (* GLFWcharfun)(GLFWwindow* window, unsigned int codepoint)")
     @FunctionalInterface
     interface charfun {
-        @FFMSignature("void (* GLFWcharfun)(GLFWwindow* window, unsigned int codepoint)")
         void invoke(@FFMPointer long window, int codepoint);
     }
 
+    @FFMDefinition("void (* GLFWcharmodsfun)(GLFWwindow* window, unsigned int codepoint, int mods)")
     @FunctionalInterface
     interface charmodsfun {
-        @FFMSignature("void (* GLFWcharmodsfun)(GLFWwindow* window, unsigned int codepoint, int mods)")
         void invoke(@FFMPointer long window, int codepoint, int mods);
     }
 
+    @FFMDefinition("void (* GLFWdropfun)(GLFWwindow* window, int path_count, const char* paths[])")
     @FunctionalInterface
     interface dropfun {
-        @FFMSignature("void (* GLFWdropfun)(GLFWwindow* window, int path_count, const char* paths[])")
         void invoke(@FFMPointer long window, int path_count, MemorySegment paths);
     }
 
+    @FFMDefinition("void (* GLFWmonitorfun)(GLFWmonitor* monitor, int event)")
     @FunctionalInterface
     public interface monitorfun {
-        @FFMSignature("void (* GLFWmonitorfun)(GLFWmonitor* monitor, int event)")
         void invoke(@FFMPointer long monitor, int event);
     }
 
+    @FFMDefinition("void (* GLFWjoystickfun)(int jid, int event)")
     @FunctionalInterface
     public interface joystickfun {
-        @FFMSignature("void (* GLFWjoystickfun)(int jid, int event)")
         void invoke(int jid, int event);
     }
 
     @FFMDefinition("""
-        struct GLFWvidmode {
-            int width;
-            int height;
-            int redBits;
-            int greenBits;
-            int blueBits;
-            int refreshRate;
-        }""")
+    struct GLFWvidmode {
+        int width;
+        int height;
+        int redBits;
+        int greenBits;
+        int blueBits;
+        int refreshRate;
+    }""")
     public record vidmode(
         int width,
         int height,
@@ -147,18 +147,12 @@ public interface MyGLFWTypes {
         int refreshRate
     ) { }
 
-    @FFMDefinition("""
-        struct GLFWgammaramp {
-            unsigned short * red;
-            unsigned short * green;
-            unsigned short * blue;
-            unsigned int size;
-        }""")
+    @FFMDefinition("struct GLFWgammaramp")
     public record gammaramp(
-        MemorySegment red,
-        MemorySegment green,
-        MemorySegment blue,
-        int size
+        @FFMDefinition("unsigned short *") MemorySegment red,
+        @FFMDefinition("unsigned short *") MemorySegment green,
+        @FFMDefinition("unsigned short *") MemorySegment blue,
+        @FFMDefinition("unsigned int") int size
     ) { }
 
     public record vector4f(float x, float y, float z, float w) { }
