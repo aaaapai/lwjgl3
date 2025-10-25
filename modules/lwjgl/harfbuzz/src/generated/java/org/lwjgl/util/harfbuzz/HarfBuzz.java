@@ -226,6 +226,8 @@ public class HarfBuzz {
             font_funcs_set_glyph_v_advances_func          = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_v_advances_func"),
             font_funcs_set_glyph_h_origin_func            = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_h_origin_func"),
             font_funcs_set_glyph_v_origin_func            = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_v_origin_func"),
+            font_funcs_set_glyph_h_origins_func           = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_h_origins_func"),
+            font_funcs_set_glyph_v_origins_func           = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_v_origins_func"),
             font_funcs_set_glyph_h_kerning_func           = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_h_kerning_func"),
             font_funcs_set_glyph_extents_func             = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_extents_func"),
             font_funcs_set_glyph_contour_point_func       = apiGetFunctionAddress(HARFBUZZ, "hb_font_funcs_set_glyph_contour_point_func"),
@@ -246,6 +248,8 @@ public class HarfBuzz {
             font_get_glyph_v_advances                     = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_v_advances"),
             font_get_glyph_h_origin                       = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_h_origin"),
             font_get_glyph_v_origin                       = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_v_origin"),
+            font_get_glyph_h_origins                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_h_origins"),
+            font_get_glyph_v_origins                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_v_origins"),
             font_get_glyph_h_kerning                      = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_h_kerning"),
             font_get_glyph_extents                        = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_extents"),
             font_get_glyph_contour_point                  = apiGetFunctionAddress(HARFBUZZ, "hb_font_get_glyph_contour_point"),
@@ -656,6 +660,10 @@ public class HarfBuzz {
         HB_SCRIPT_SUNUWAR                = HB_TAG ('S','u','n','u'),
         HB_SCRIPT_TODHRI                 = HB_TAG ('T','o','d','r'),
         HB_SCRIPT_TULU_TIGALARI          = HB_TAG ('T','u','t','g'),
+        HB_SCRIPT_BERIA_ERFE             = HB_TAG('B','e','r','f'),
+        HB_SCRIPT_SIDETIC                = HB_TAG ('S','i','d','t'),
+        HB_SCRIPT_TAI_YO                 = HB_TAG ('T','a','y','o'),
+        HB_SCRIPT_TOLONG_SIKI            = HB_TAG ('T','o','l','s'),
         HB_SCRIPT_INVALID                = HB_TAG_NONE;
 
     public static final int HB_LANGUAGE_INVALID = 0;
@@ -871,13 +879,13 @@ public class HarfBuzz {
         HB_UNICODE_COMBINING_CLASS_IOTA_SUBSCRIPT       = 240,
         HB_UNICODE_COMBINING_CLASS_INVALID              = 255;
 
-    public static final int HB_VERSION_MAJOR = 11;
+    public static final int HB_VERSION_MAJOR = 12;
 
-    public static final int HB_VERSION_MINOR = 2;
+    public static final int HB_VERSION_MINOR = 1;
 
-    public static final int HB_VERSION_MICRO = 1;
+    public static final int HB_VERSION_MICRO = 0;
 
-    public static final String HB_VERSION_STRING = "11.2.1";
+    public static final String HB_VERSION_STRING = "12.1.0";
 
     protected HarfBuzz() {
         throw new UnsupportedOperationException();
@@ -3424,6 +3432,40 @@ public class HarfBuzz {
         nhb_font_funcs_set_glyph_v_origin_func(ffuncs, func, user_data, memAddressSafe(destroy));
     }
 
+    // --- [ hb_font_funcs_set_glyph_h_origins_func ] ---
+
+    /** {@code void hb_font_funcs_set_glyph_h_origins_func(hb_font_funcs_t * ffuncs, hb_font_get_glyph_h_origins_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void nhb_font_funcs_set_glyph_h_origins_func(long ffuncs, long func, long user_data, long destroy) {
+        long __functionAddress = Functions.font_funcs_set_glyph_h_origins_func;
+        if (CHECKS) {
+            check(ffuncs);
+            check(func);
+        }
+        invokePPPPV(ffuncs, func, user_data, destroy, __functionAddress);
+    }
+
+    /** {@code void hb_font_funcs_set_glyph_h_origins_func(hb_font_funcs_t * ffuncs, hb_font_get_glyph_h_origins_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void hb_font_funcs_set_glyph_h_origins_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_h_origins_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
+        nhb_font_funcs_set_glyph_h_origins_func(ffuncs, func, user_data, memAddressSafe(destroy));
+    }
+
+    // --- [ hb_font_funcs_set_glyph_v_origins_func ] ---
+
+    /** {@code void hb_font_funcs_set_glyph_v_origins_func(hb_font_funcs_t * ffuncs, hb_font_get_glyph_v_origins_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void nhb_font_funcs_set_glyph_v_origins_func(long ffuncs, long func, long user_data, long destroy) {
+        long __functionAddress = Functions.font_funcs_set_glyph_v_origins_func;
+        if (CHECKS) {
+            check(ffuncs);
+            check(func);
+        }
+        invokePPPPV(ffuncs, func, user_data, destroy, __functionAddress);
+    }
+
+    /** {@code void hb_font_funcs_set_glyph_v_origins_func(hb_font_funcs_t * ffuncs, hb_font_get_glyph_v_origins_func_t func, void * user_data, hb_destroy_func_t destroy)} */
+    public static void hb_font_funcs_set_glyph_v_origins_func(@NativeType("hb_font_funcs_t *") long ffuncs, @NativeType("hb_font_get_glyph_v_origins_func_t") long func, @NativeType("void *") long user_data, @NativeType("hb_destroy_func_t") @Nullable hb_destroy_func_tI destroy) {
+        nhb_font_funcs_set_glyph_v_origins_func(ffuncs, func, user_data, memAddressSafe(destroy));
+    }
+
     // --- [ hb_font_funcs_set_glyph_h_kerning_func ] ---
 
     /** {@code void hb_font_funcs_set_glyph_h_kerning_func(hb_font_funcs_t * ffuncs, hb_font_get_glyph_h_kerning_func_t func, void * user_data, hb_destroy_func_t destroy)} */
@@ -3768,6 +3810,50 @@ public class HarfBuzz {
             check(y, 1);
         }
         return nhb_font_get_glyph_v_origin(font, glyph, memAddress(x), memAddress(y)) != 0;
+    }
+
+    // --- [ hb_font_get_glyph_h_origins ] ---
+
+    /** {@code hb_bool_t hb_font_get_glyph_h_origins(hb_font_t * font, unsigned int count, hb_codepoint_t const * first_glyph, unsigned glyph_stride, hb_position_t * first_x, unsigned x_stride, hb_position_t * first_y, unsigned y_stride)} */
+    public static int nhb_font_get_glyph_h_origins(long font, int count, long first_glyph, int glyph_stride, long first_x, int x_stride, long first_y, int y_stride) {
+        long __functionAddress = Functions.font_get_glyph_h_origins;
+        if (CHECKS) {
+            check(font);
+        }
+        return invokePPPPI(font, count, first_glyph, glyph_stride, first_x, x_stride, first_y, y_stride, __functionAddress);
+    }
+
+    /** {@code hb_bool_t hb_font_get_glyph_h_origins(hb_font_t * font, unsigned int count, hb_codepoint_t const * first_glyph, unsigned glyph_stride, hb_position_t * first_x, unsigned x_stride, hb_position_t * first_y, unsigned y_stride)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_get_glyph_h_origins(@NativeType("hb_font_t *") long font, @NativeType("unsigned int") int count, @NativeType("hb_codepoint_t const *") IntBuffer first_glyph, @NativeType("unsigned") int glyph_stride, @NativeType("hb_position_t *") IntBuffer first_x, @NativeType("unsigned") int x_stride, @NativeType("hb_position_t *") IntBuffer first_y, @NativeType("unsigned") int y_stride) {
+        if (CHECKS) {
+            check(first_glyph, (count * glyph_stride) >> 2);
+            check(first_x, (count * x_stride) >> 2);
+            check(first_y, (count * y_stride) >> 2);
+        }
+        return nhb_font_get_glyph_h_origins(font, count, memAddress(first_glyph), glyph_stride, memAddress(first_x), x_stride, memAddress(first_y), y_stride) != 0;
+    }
+
+    // --- [ hb_font_get_glyph_v_origins ] ---
+
+    /** {@code hb_bool_t hb_font_get_glyph_v_origins(hb_font_t * font, unsigned int count, hb_codepoint_t const * first_glyph, unsigned glyph_stride, hb_position_t * first_x, unsigned x_stride, hb_position_t * first_y, unsigned y_stride)} */
+    public static int nhb_font_get_glyph_v_origins(long font, int count, long first_glyph, int glyph_stride, long first_x, int x_stride, long first_y, int y_stride) {
+        long __functionAddress = Functions.font_get_glyph_v_origins;
+        if (CHECKS) {
+            check(font);
+        }
+        return invokePPPPI(font, count, first_glyph, glyph_stride, first_x, x_stride, first_y, y_stride, __functionAddress);
+    }
+
+    /** {@code hb_bool_t hb_font_get_glyph_v_origins(hb_font_t * font, unsigned int count, hb_codepoint_t const * first_glyph, unsigned glyph_stride, hb_position_t * first_x, unsigned x_stride, hb_position_t * first_y, unsigned y_stride)} */
+    @NativeType("hb_bool_t")
+    public static boolean hb_font_get_glyph_v_origins(@NativeType("hb_font_t *") long font, @NativeType("unsigned int") int count, @NativeType("hb_codepoint_t const *") IntBuffer first_glyph, @NativeType("unsigned") int glyph_stride, @NativeType("hb_position_t *") IntBuffer first_x, @NativeType("unsigned") int x_stride, @NativeType("hb_position_t *") IntBuffer first_y, @NativeType("unsigned") int y_stride) {
+        if (CHECKS) {
+            check(first_glyph, (count * glyph_stride) >> 2);
+            check(first_x, (count * x_stride) >> 2);
+            check(first_y, (count * y_stride) >> 2);
+        }
+        return nhb_font_get_glyph_v_origins(font, count, memAddress(first_glyph), glyph_stride, memAddress(first_x), x_stride, memAddress(first_y), y_stride) != 0;
     }
 
     // --- [ hb_font_get_glyph_h_kerning ] ---

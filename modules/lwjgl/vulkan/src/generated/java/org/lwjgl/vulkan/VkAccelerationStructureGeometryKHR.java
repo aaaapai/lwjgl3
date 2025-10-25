@@ -16,14 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <pre>{@code
+ * <pre><code>
  * struct VkAccelerationStructureGeometryKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkGeometryTypeKHR geometryType;
  *     {@link VkAccelerationStructureGeometryDataKHR VkAccelerationStructureGeometryDataKHR} geometry;
  *     VkGeometryFlagsKHR flags;
- * }}</pre>
+ * }</code></pre>
  */
 public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStructureGeometryKHR> implements NativeResource {
 
@@ -103,6 +103,8 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
     public VkAccelerationStructureGeometryKHR sType$Default() { return sType(KHRAccelerationStructure.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkAccelerationStructureGeometryKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
+    /** Prepends the specified {@link VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX} value to the {@code pNext} chain. */
+    public VkAccelerationStructureGeometryKHR pNext(VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkAccelerationStructureGeometryLinearSweptSpheresDataNV} value to the {@code pNext} chain. */
     public VkAccelerationStructureGeometryKHR pNext(VkAccelerationStructureGeometryLinearSweptSpheresDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkAccelerationStructureGeometrySpheresDataNV} value to the {@code pNext} chain. */
@@ -342,6 +344,8 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
         public VkAccelerationStructureGeometryKHR.Buffer sType$Default() { return sType(KHRAccelerationStructure.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkAccelerationStructureGeometryKHR.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureGeometryKHR.npNext(address(), value); return this; }
+        /** Prepends the specified {@link VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX} value to the {@code pNext} chain. */
+        public VkAccelerationStructureGeometryKHR.Buffer pNext(VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkAccelerationStructureGeometryLinearSweptSpheresDataNV} value to the {@code pNext} chain. */
         public VkAccelerationStructureGeometryKHR.Buffer pNext(VkAccelerationStructureGeometryLinearSweptSpheresDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkAccelerationStructureGeometrySpheresDataNV} value to the {@code pNext} chain. */
