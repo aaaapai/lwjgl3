@@ -181,9 +181,32 @@ public final class GL {
                     switch (Platform.get()) {
                         case FREEBSD:
                         case LINUX:
-                            GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
-                            if (GetProcAddress == NULL) {
-                                GetProcAddress = library.getFunctionAddress("glXGetProcAddressARB");
+                            String eglLibraryName = null;
+        
+                            String pojaveExecEgl = System.getenv("POJAVEXEC_EGL");
+                            String libglEgl = System.getenv("LIBGL_EGL");
+                            String libeglName = System.getenv("LIBEGL_NAME");
+        
+                            if (pojaveExecEgl != null && !pojaveExecEgl.trim().isEmpty()) {
+                               eglLibraryName = pojaveExecEgl;
+                            } else if (libglEgl != null && !libglEgl.trim().isEmpty()) {
+                               eglLibraryName = libglEgl;
+                            } else if (libeglName != null && !libeglName.trim().isEmpty()) {
+                               eglLibraryName = libeglName;
+                            } else {
+                               eglLibraryName = "libEGL.so";
+                            }
+        
+                            try {
+                                    Library eglLibrary = Library.loadLibrary(eglLibraryName);
+                                    Function eglGetProcAddress = eglLibrary.getFunctionAddress("eglGetProcAddress");
+            
+                                    if (eglGetProcAddress != null) {
+                                        GetProcAddress = eglGetProcAddress;
+                                        System.out.println("[LWJGL] Using EGL GetProcAddress from: " + eglLibraryName);
+                                    }
+                            } else {
+                                        System.err.println("[LWJGL] Failed to get eglGetProcAddress from " + eglLibraryName);
                             }
                             break;
                         case WINDOWS:
