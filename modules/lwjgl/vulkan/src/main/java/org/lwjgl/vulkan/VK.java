@@ -270,4 +270,5 @@ public final class VK {
         apiLog("[Vulkan] Detected unsupported Vulkan version: " + majorVersion + '.' + minorVersion);
     }
 
+    public static native long getVulkanDriverHandle();
 }
