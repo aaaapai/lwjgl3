@@ -197,8 +197,8 @@ public final class GL {
                                eglLibraryName = "libEGL.so";
                             }
         
-                            Library eglLibrary = Library.loadLibrary(eglLibraryName);
-                            Function eglGetProcAddress = eglLibrary.getFunctionAddress("eglGetProcAddress");
+                            Library eglLibrary = LinuxLibrary.LinuxLibrary(eglLibraryName);
+                            long eglGetProcAddress = eglLibrary.getFunctionAddress("eglGetProcAddress");
             
                             if (eglGetProcAddress != null) {
                                         GetProcAddress = eglGetProcAddress;
