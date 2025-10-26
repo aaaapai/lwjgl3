@@ -45,7 +45,7 @@ if [ "$SKIP_FREETYPE" != "1" ]; then
   git clone --depth 1 https://github.com/LWJGL-CI/freetype
   cd freetype
 
-  autogen.sh
+  ./autogen.sh
   export CC=$NDK_TARGET-linux-android${NDK_SUFFIX}21-clang
 
   ./configure \
