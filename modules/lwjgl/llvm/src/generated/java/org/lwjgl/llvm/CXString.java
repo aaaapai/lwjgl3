@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A character string.
- * 
- * <p>The {@code CXString} type is used to return strings from the interface when the ownership of that string might differ from one call to the next. Use
- * {@link ClangIndex#clang_getCString getCString} to retrieve the string data and, once finished with the string data, call {@link ClangIndex#clang_disposeString disposeString} to free the string.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXString {
  *     void const * data;
  *     unsigned private_flags;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXString extends Struct<CXString> implements NativeResource {
 
@@ -77,11 +70,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("void const *")
     public ByteBuffer data(int capacity) { return ndata(address(), capacity); }
     /** @return the value of the {@code private_flags} field. */
@@ -112,8 +101,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXString createSafe(long address) {
+    public static @Nullable CXString createSafe(long address) {
         return address == NULL ? null : new CXString(address, null);
     }
 
@@ -156,8 +144,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXString.Buffer createSafe(long address, int capacity) {
+    public static CXString.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,7 +210,7 @@ public class CXString extends Struct<CXString> implements NativeResource {
     /** Unsafe version of {@link #data(int) data}. */
     public static ByteBuffer ndata(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + CXString.DATA), capacity); }
     /** Unsafe version of {@link #private_flags}. */
-    public static int nprivate_flags(long struct) { return UNSAFE.getInt(null, struct + CXString.PRIVATE_FLAGS); }
+    public static int nprivate_flags(long struct) { return memGetInt(struct + CXString.PRIVATE_FLAGS); }
 
     // -----------------------------------
 
@@ -259,15 +246,16 @@ public class CXString extends Struct<CXString> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CXString getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("void const *")
         public ByteBuffer data(int capacity) { return CXString.ndata(address(), capacity); }
         /** @return the value of the {@code private_flags} field. */

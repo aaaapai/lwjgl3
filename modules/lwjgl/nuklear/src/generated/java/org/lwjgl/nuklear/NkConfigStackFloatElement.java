@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,13 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_config_stack_float_element {
  *     float * pValues;
  *     float old_value;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_config_stack_float_element")
 class NkConfigStackFloatElement extends Struct<NkConfigStackFloatElement> {
@@ -71,11 +69,7 @@ class NkConfigStackFloatElement extends Struct<NkConfigStackFloatElement> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link FloatBuffer} view of the data pointed to by the {@code pValues} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link FloatBuffer} view of the data pointed to by the {@code pValues} field. */
     @NativeType("float *")
     public FloatBuffer pValues(int capacity) { return npValues(address(), capacity); }
     /** @return the value of the {@code old_value} field. */
@@ -89,8 +83,7 @@ class NkConfigStackFloatElement extends Struct<NkConfigStackFloatElement> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackFloatElement createSafe(long address) {
+    public static @Nullable NkConfigStackFloatElement createSafe(long address) {
         return address == NULL ? null : new NkConfigStackFloatElement(address, null);
     }
 
@@ -105,8 +98,7 @@ class NkConfigStackFloatElement extends Struct<NkConfigStackFloatElement> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigStackFloatElement.Buffer createSafe(long address, int capacity) {
+    public static NkConfigStackFloatElement.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -115,7 +107,7 @@ class NkConfigStackFloatElement extends Struct<NkConfigStackFloatElement> {
     /** Unsafe version of {@link #pValues(int) pValues}. */
     public static FloatBuffer npValues(long struct, int capacity) { return memFloatBuffer(memGetAddress(struct + NkConfigStackFloatElement.PVALUES), capacity); }
     /** Unsafe version of {@link #old_value}. */
-    public static float nold_value(long struct) { return UNSAFE.getFloat(null, struct + NkConfigStackFloatElement.OLD_VALUE); }
+    public static float nold_value(long struct) { return memGetFloat(struct + NkConfigStackFloatElement.OLD_VALUE); }
 
     // -----------------------------------
 
@@ -151,15 +143,16 @@ class NkConfigStackFloatElement extends Struct<NkConfigStackFloatElement> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkConfigStackFloatElement getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link FloatBuffer} view of the data pointed to by the {@code pValues} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link FloatBuffer} view of the data pointed to by the {@code pValues} field. */
         @NativeType("float *")
         public FloatBuffer pValues(int capacity) { return NkConfigStackFloatElement.npValues(address(), capacity); }
         /** @return the value of the {@code old_value} field. */

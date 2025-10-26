@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Data type to hold math-variant information for a glyph.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_ot_math_glyph_variant_t {
- *     hb_codepoint_t {@link #glyph};
- *     hb_position_t {@link #advance};
- * }</code></pre>
+ *     hb_codepoint_t glyph;
+ *     hb_position_t advance;
+ * }}</pre>
  */
 public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_t> implements NativeResource {
 
@@ -74,16 +70,16 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the glyph index of the variant */
+    /** @return the value of the {@code glyph} field. */
     @NativeType("hb_codepoint_t")
     public int glyph() { return nglyph(address()); }
-    /** the advance width of the variant */
+    /** @return the value of the {@code advance} field. */
     @NativeType("hb_position_t")
     public int advance() { return nadvance(address()); }
 
-    /** Sets the specified value to the {@link #glyph} field. */
+    /** Sets the specified value to the {@code glyph} field. */
     public hb_ot_math_glyph_variant_t glyph(@NativeType("hb_codepoint_t") int value) { nglyph(address(), value); return this; }
-    /** Sets the specified value to the {@link #advance} field. */
+    /** Sets the specified value to the {@code advance} field. */
     public hb_ot_math_glyph_variant_t advance(@NativeType("hb_position_t") int value) { nadvance(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -133,8 +129,7 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_glyph_variant_t createSafe(long address) {
+    public static @Nullable hb_ot_math_glyph_variant_t createSafe(long address) {
         return address == NULL ? null : new hb_ot_math_glyph_variant_t(address, null);
     }
 
@@ -177,8 +172,7 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_ot_math_glyph_variant_t.Buffer createSafe(long address, int capacity) {
+    public static hb_ot_math_glyph_variant_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -223,14 +217,14 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
     // -----------------------------------
 
     /** Unsafe version of {@link #glyph}. */
-    public static int nglyph(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_variant_t.GLYPH); }
+    public static int nglyph(long struct) { return memGetInt(struct + hb_ot_math_glyph_variant_t.GLYPH); }
     /** Unsafe version of {@link #advance}. */
-    public static int nadvance(long struct) { return UNSAFE.getInt(null, struct + hb_ot_math_glyph_variant_t.ADVANCE); }
+    public static int nadvance(long struct) { return memGetInt(struct + hb_ot_math_glyph_variant_t.ADVANCE); }
 
     /** Unsafe version of {@link #glyph(int) glyph}. */
-    public static void nglyph(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_variant_t.GLYPH, value); }
+    public static void nglyph(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_variant_t.GLYPH, value); }
     /** Unsafe version of {@link #advance(int) advance}. */
-    public static void nadvance(long struct, int value) { UNSAFE.putInt(null, struct + hb_ot_math_glyph_variant_t.ADVANCE, value); }
+    public static void nadvance(long struct, int value) { memPutInt(struct + hb_ot_math_glyph_variant_t.ADVANCE, value); }
 
     // -----------------------------------
 
@@ -266,20 +260,25 @@ public class hb_ot_math_glyph_variant_t extends Struct<hb_ot_math_glyph_variant_
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_ot_math_glyph_variant_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_ot_math_glyph_variant_t#glyph} field. */
+        /** @return the value of the {@code glyph} field. */
         @NativeType("hb_codepoint_t")
         public int glyph() { return hb_ot_math_glyph_variant_t.nglyph(address()); }
-        /** @return the value of the {@link hb_ot_math_glyph_variant_t#advance} field. */
+        /** @return the value of the {@code advance} field. */
         @NativeType("hb_position_t")
         public int advance() { return hb_ot_math_glyph_variant_t.nadvance(address()); }
 
-        /** Sets the specified value to the {@link hb_ot_math_glyph_variant_t#glyph} field. */
+        /** Sets the specified value to the {@code glyph} field. */
         public hb_ot_math_glyph_variant_t.Buffer glyph(@NativeType("hb_codepoint_t") int value) { hb_ot_math_glyph_variant_t.nglyph(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_ot_math_glyph_variant_t#advance} field. */
+        /** Sets the specified value to the {@code advance} field. */
         public hb_ot_math_glyph_variant_t.Buffer advance(@NativeType("hb_position_t") int value) { hb_ot_math_glyph_variant_t.nadvance(address(), value); return this; }
 
     }

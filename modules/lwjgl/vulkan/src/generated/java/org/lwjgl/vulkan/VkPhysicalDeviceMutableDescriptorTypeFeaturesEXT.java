@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether the mutable descriptor type is supported.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMutableDescriptorType#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #mutableDescriptorType};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 mutableDescriptorType;
+ * }}</pre>
  */
 public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT> implements NativeResource {
 
@@ -88,44 +74,23 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /**
-     * indicates that the implementation <b>must</b> support using the {@code VkDescriptorType} of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} with at least the following descriptor types, where any combination of the types <b>must</b> be supported:
-     * 
-     * <ul>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE DESCRIPTOR_TYPE_SAMPLED_IMAGE}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_IMAGE DESCRIPTOR_TYPE_STORAGE_IMAGE}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}</li>
-     * </ul>
-     * 
-     * <p>Additionally, {@code mutableDescriptorType} indicates that:</p>
-     * 
-     * <ul>
-     * <li>Non-uniform descriptor indexing <b>must</b> be supported if all descriptor types in a {@link VkMutableDescriptorTypeListEXT} for {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} have the corresponding non-uniform indexing features enabled in {@link VkPhysicalDeviceDescriptorIndexingFeatures}.</li>
-     * <li>{@link VK12#VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT} with {@code descriptorType} of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} relaxes the list of required descriptor types to the descriptor types which have the corresponding update-after-bind feature enabled in {@link VkPhysicalDeviceDescriptorIndexingFeatures}.</li>
-     * <li>Dynamically uniform descriptor indexing <b>must</b> be supported if all descriptor types in a {@link VkMutableDescriptorTypeListEXT} for {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} have the corresponding dynamic indexing features enabled.</li>
-     * <li>{@link EXTMutableDescriptorType#VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT} <b>must</b> be supported.</li>
-     * <li>{@link EXTMutableDescriptorType#VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT} <b>must</b> be supported.</li>
-     * </ul>
-     */
+    /** @return the value of the {@code mutableDescriptorType} field. */
     @NativeType("VkBool32")
     public boolean mutableDescriptorType() { return nmutableDescriptorType(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMutableDescriptorType#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMutableDescriptorType#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT sType$Default() { return sType(EXTMutableDescriptorType.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #mutableDescriptorType} field. */
+    /** Sets the specified value to the {@code mutableDescriptorType} field. */
     public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT mutableDescriptorType(@NativeType("VkBool32") boolean value) { nmutableDescriptorType(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -177,8 +142,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(address, null);
     }
 
@@ -221,8 +185,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +230,18 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #mutableDescriptorType}. */
-    public static int nmutableDescriptorType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE); }
+    public static int nmutableDescriptorType(long struct) { return memGetInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #mutableDescriptorType(boolean) mutableDescriptorType}. */
-    public static void nmutableDescriptorType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE, value); }
+    public static void nmutableDescriptorType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE, value); }
 
     // -----------------------------------
 
@@ -314,27 +277,32 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#mutableDescriptorType} field. */
+        /** @return the value of the {@code mutableDescriptorType} field. */
         @NativeType("VkBool32")
         public boolean mutableDescriptorType() { return VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.nmutableDescriptorType(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMutableDescriptorType#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT} value to the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTMutableDescriptorType#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer sType$Default() { return sType(EXTMutableDescriptorType.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT#mutableDescriptorType} field. */
+        /** Sets the specified value to the {@code mutableDescriptorType} field. */
         public VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer mutableDescriptorType(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.nmutableDescriptorType(address(), value ? 1 : 0); return this; }
 
     }

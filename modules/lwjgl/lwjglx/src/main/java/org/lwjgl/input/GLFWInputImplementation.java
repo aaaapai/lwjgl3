@@ -18,6 +18,7 @@ public class GLFWInputImplementation implements InputImplementation {
     public final byte[] mouse_buffer = new byte[3];
     public int mouseX = 0, lastPhysicalX = 0;
     public int mouseY = 0, lastPhysicalY = 0;
+    public int mouseZ = 0;
     public int mouseLastX = 0;
     public int mouseLastY = 0;
     public boolean grab;
@@ -46,10 +47,12 @@ public class GLFWInputImplementation implements InputImplementation {
         coord_buffer.put(0, grab? mouseX - mouseLastX: mouseX);
         coord_buffer.put(1, grab? mouseY - mouseLastY: mouseY);
         //System.out.println("Poll Call: Buffer length="+buttons.capacity()+"; Pos="+buttons.position());
+        coord_buffer.put(2, mouseZ);
         buttons.rewind();
         buttons.put(mouse_buffer);
         mouseLastX = mouseX;
         mouseLastY = mouseY;
+        mouseZ = 0;
     }
 
     @Override
@@ -167,6 +170,7 @@ public class GLFWInputImplementation implements InputImplementation {
         last_event_nanos = nanos;
         lastPhysicalX = px;
         lastPhysicalY = py;
+        mouseZ += dz;
     }
 
     public void setMouseButtonInGrabMode(byte button, byte state) {

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters controlling shading rate image usage.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code pixelX} <b>must</b> be less than the width (in pixels) of the fragment</li>
- * <li>{@code pixelY} <b>must</b> be less than the height (in pixels) of the fragment</li>
- * <li>{@code sample} <b>must</b> be less than the number of coverage samples in each pixel belonging to the fragment</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkCoarseSampleOrderCustomNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkCoarseSampleLocationNV {
- *     uint32_t {@link #pixelX};
- *     uint32_t {@link #pixelY};
- *     uint32_t {@link #sample};
- * }</code></pre>
+ *     uint32_t pixelX;
+ *     uint32_t pixelY;
+ *     uint32_t sample;
+ * }}</pre>
  */
 public class VkCoarseSampleLocationNV extends Struct<VkCoarseSampleLocationNV> implements NativeResource {
 
@@ -90,21 +74,21 @@ public class VkCoarseSampleLocationNV extends Struct<VkCoarseSampleLocationNV> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** added to the x coordinate of the upper-leftmost pixel of each fragment to identify the pixel containing the coverage sample. */
+    /** @return the value of the {@code pixelX} field. */
     @NativeType("uint32_t")
     public int pixelX() { return npixelX(address()); }
-    /** added to the y coordinate of the upper-leftmost pixel of each fragment to identify the pixel containing the coverage sample. */
+    /** @return the value of the {@code pixelY} field. */
     @NativeType("uint32_t")
     public int pixelY() { return npixelY(address()); }
-    /** the number of the coverage sample in the pixel identified by {@code pixelX} and {@code pixelY}. */
+    /** @return the value of the {@code sample} field. */
     @NativeType("uint32_t")
     public int sample() { return nsample(address()); }
 
-    /** Sets the specified value to the {@link #pixelX} field. */
+    /** Sets the specified value to the {@code pixelX} field. */
     public VkCoarseSampleLocationNV pixelX(@NativeType("uint32_t") int value) { npixelX(address(), value); return this; }
-    /** Sets the specified value to the {@link #pixelY} field. */
+    /** Sets the specified value to the {@code pixelY} field. */
     public VkCoarseSampleLocationNV pixelY(@NativeType("uint32_t") int value) { npixelY(address(), value); return this; }
-    /** Sets the specified value to the {@link #sample} field. */
+    /** Sets the specified value to the {@code sample} field. */
     public VkCoarseSampleLocationNV sample(@NativeType("uint32_t") int value) { nsample(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +140,7 @@ public class VkCoarseSampleLocationNV extends Struct<VkCoarseSampleLocationNV> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCoarseSampleLocationNV createSafe(long address) {
+    public static @Nullable VkCoarseSampleLocationNV createSafe(long address) {
         return address == NULL ? null : new VkCoarseSampleLocationNV(address, null);
     }
 
@@ -200,8 +183,7 @@ public class VkCoarseSampleLocationNV extends Struct<VkCoarseSampleLocationNV> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCoarseSampleLocationNV.Buffer createSafe(long address, int capacity) {
+    public static VkCoarseSampleLocationNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +247,18 @@ public class VkCoarseSampleLocationNV extends Struct<VkCoarseSampleLocationNV> i
     // -----------------------------------
 
     /** Unsafe version of {@link #pixelX}. */
-    public static int npixelX(long struct) { return UNSAFE.getInt(null, struct + VkCoarseSampleLocationNV.PIXELX); }
+    public static int npixelX(long struct) { return memGetInt(struct + VkCoarseSampleLocationNV.PIXELX); }
     /** Unsafe version of {@link #pixelY}. */
-    public static int npixelY(long struct) { return UNSAFE.getInt(null, struct + VkCoarseSampleLocationNV.PIXELY); }
+    public static int npixelY(long struct) { return memGetInt(struct + VkCoarseSampleLocationNV.PIXELY); }
     /** Unsafe version of {@link #sample}. */
-    public static int nsample(long struct) { return UNSAFE.getInt(null, struct + VkCoarseSampleLocationNV.SAMPLE); }
+    public static int nsample(long struct) { return memGetInt(struct + VkCoarseSampleLocationNV.SAMPLE); }
 
     /** Unsafe version of {@link #pixelX(int) pixelX}. */
-    public static void npixelX(long struct, int value) { UNSAFE.putInt(null, struct + VkCoarseSampleLocationNV.PIXELX, value); }
+    public static void npixelX(long struct, int value) { memPutInt(struct + VkCoarseSampleLocationNV.PIXELX, value); }
     /** Unsafe version of {@link #pixelY(int) pixelY}. */
-    public static void npixelY(long struct, int value) { UNSAFE.putInt(null, struct + VkCoarseSampleLocationNV.PIXELY, value); }
+    public static void npixelY(long struct, int value) { memPutInt(struct + VkCoarseSampleLocationNV.PIXELY, value); }
     /** Unsafe version of {@link #sample(int) sample}. */
-    public static void nsample(long struct, int value) { UNSAFE.putInt(null, struct + VkCoarseSampleLocationNV.SAMPLE, value); }
+    public static void nsample(long struct, int value) { memPutInt(struct + VkCoarseSampleLocationNV.SAMPLE, value); }
 
     // -----------------------------------
 
@@ -312,25 +294,30 @@ public class VkCoarseSampleLocationNV extends Struct<VkCoarseSampleLocationNV> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkCoarseSampleLocationNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkCoarseSampleLocationNV#pixelX} field. */
+        /** @return the value of the {@code pixelX} field. */
         @NativeType("uint32_t")
         public int pixelX() { return VkCoarseSampleLocationNV.npixelX(address()); }
-        /** @return the value of the {@link VkCoarseSampleLocationNV#pixelY} field. */
+        /** @return the value of the {@code pixelY} field. */
         @NativeType("uint32_t")
         public int pixelY() { return VkCoarseSampleLocationNV.npixelY(address()); }
-        /** @return the value of the {@link VkCoarseSampleLocationNV#sample} field. */
+        /** @return the value of the {@code sample} field. */
         @NativeType("uint32_t")
         public int sample() { return VkCoarseSampleLocationNV.nsample(address()); }
 
-        /** Sets the specified value to the {@link VkCoarseSampleLocationNV#pixelX} field. */
+        /** Sets the specified value to the {@code pixelX} field. */
         public VkCoarseSampleLocationNV.Buffer pixelX(@NativeType("uint32_t") int value) { VkCoarseSampleLocationNV.npixelX(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCoarseSampleLocationNV#pixelY} field. */
+        /** Sets the specified value to the {@code pixelY} field. */
         public VkCoarseSampleLocationNV.Buffer pixelY(@NativeType("uint32_t") int value) { VkCoarseSampleLocationNV.npixelY(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCoarseSampleLocationNV#sample} field. */
+        /** Sets the specified value to the {@code sample} field. */
         public VkCoarseSampleLocationNV.Buffer sample(@NativeType("uint32_t") int value) { VkCoarseSampleLocationNV.nsample(address(), value); return this; }
 
     }

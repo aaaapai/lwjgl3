@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,56 +16,42 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing what extended dynamic state is supported by the implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTExtendedDynamicState3#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceExtendedDynamicState3FeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #extendedDynamicState3TessellationDomainOrigin};
- *     VkBool32 {@link #extendedDynamicState3DepthClampEnable};
- *     VkBool32 {@link #extendedDynamicState3PolygonMode};
- *     VkBool32 {@link #extendedDynamicState3RasterizationSamples};
- *     VkBool32 {@link #extendedDynamicState3SampleMask};
- *     VkBool32 {@link #extendedDynamicState3AlphaToCoverageEnable};
- *     VkBool32 {@link #extendedDynamicState3AlphaToOneEnable};
- *     VkBool32 {@link #extendedDynamicState3LogicOpEnable};
- *     VkBool32 {@link #extendedDynamicState3ColorBlendEnable};
- *     VkBool32 {@link #extendedDynamicState3ColorBlendEquation};
- *     VkBool32 {@link #extendedDynamicState3ColorWriteMask};
- *     VkBool32 {@link #extendedDynamicState3RasterizationStream};
- *     VkBool32 {@link #extendedDynamicState3ConservativeRasterizationMode};
- *     VkBool32 {@link #extendedDynamicState3ExtraPrimitiveOverestimationSize};
- *     VkBool32 {@link #extendedDynamicState3DepthClipEnable};
- *     VkBool32 {@link #extendedDynamicState3SampleLocationsEnable};
- *     VkBool32 {@link #extendedDynamicState3ColorBlendAdvanced};
- *     VkBool32 {@link #extendedDynamicState3ProvokingVertexMode};
- *     VkBool32 {@link #extendedDynamicState3LineRasterizationMode};
- *     VkBool32 {@link #extendedDynamicState3LineStippleEnable};
- *     VkBool32 {@link #extendedDynamicState3DepthClipNegativeOneToOne};
- *     VkBool32 {@link #extendedDynamicState3ViewportWScalingEnable};
- *     VkBool32 {@link #extendedDynamicState3ViewportSwizzle};
- *     VkBool32 {@link #extendedDynamicState3CoverageToColorEnable};
- *     VkBool32 {@link #extendedDynamicState3CoverageToColorLocation};
- *     VkBool32 {@link #extendedDynamicState3CoverageModulationMode};
- *     VkBool32 {@link #extendedDynamicState3CoverageModulationTableEnable};
- *     VkBool32 {@link #extendedDynamicState3CoverageModulationTable};
- *     VkBool32 {@link #extendedDynamicState3CoverageReductionMode};
- *     VkBool32 {@link #extendedDynamicState3RepresentativeFragmentTestEnable};
- *     VkBool32 {@link #extendedDynamicState3ShadingRateImageEnable};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 extendedDynamicState3TessellationDomainOrigin;
+ *     VkBool32 extendedDynamicState3DepthClampEnable;
+ *     VkBool32 extendedDynamicState3PolygonMode;
+ *     VkBool32 extendedDynamicState3RasterizationSamples;
+ *     VkBool32 extendedDynamicState3SampleMask;
+ *     VkBool32 extendedDynamicState3AlphaToCoverageEnable;
+ *     VkBool32 extendedDynamicState3AlphaToOneEnable;
+ *     VkBool32 extendedDynamicState3LogicOpEnable;
+ *     VkBool32 extendedDynamicState3ColorBlendEnable;
+ *     VkBool32 extendedDynamicState3ColorBlendEquation;
+ *     VkBool32 extendedDynamicState3ColorWriteMask;
+ *     VkBool32 extendedDynamicState3RasterizationStream;
+ *     VkBool32 extendedDynamicState3ConservativeRasterizationMode;
+ *     VkBool32 extendedDynamicState3ExtraPrimitiveOverestimationSize;
+ *     VkBool32 extendedDynamicState3DepthClipEnable;
+ *     VkBool32 extendedDynamicState3SampleLocationsEnable;
+ *     VkBool32 extendedDynamicState3ColorBlendAdvanced;
+ *     VkBool32 extendedDynamicState3ProvokingVertexMode;
+ *     VkBool32 extendedDynamicState3LineRasterizationMode;
+ *     VkBool32 extendedDynamicState3LineStippleEnable;
+ *     VkBool32 extendedDynamicState3DepthClipNegativeOneToOne;
+ *     VkBool32 extendedDynamicState3ViewportWScalingEnable;
+ *     VkBool32 extendedDynamicState3ViewportSwizzle;
+ *     VkBool32 extendedDynamicState3CoverageToColorEnable;
+ *     VkBool32 extendedDynamicState3CoverageToColorLocation;
+ *     VkBool32 extendedDynamicState3CoverageModulationMode;
+ *     VkBool32 extendedDynamicState3CoverageModulationTableEnable;
+ *     VkBool32 extendedDynamicState3CoverageModulationTable;
+ *     VkBool32 extendedDynamicState3CoverageReductionMode;
+ *     VkBool32 extendedDynamicState3RepresentativeFragmentTestEnable;
+ *     VkBool32 extendedDynamicState3ShadingRateImageEnable;
+ * }}</pre>
  */
 public class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends Struct<VkPhysicalDeviceExtendedDynamicState3FeaturesEXT> implements NativeResource {
 
@@ -208,359 +194,173 @@ public class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends Struct<VkP
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3TessellationDomainOrigin} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3TessellationDomainOrigin() { return nextendedDynamicState3TessellationDomainOrigin(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3DepthClampEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3DepthClampEnable() { return nextendedDynamicState3DepthClampEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_POLYGON_MODE_EXT DYNAMIC_STATE_POLYGON_MODE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3PolygonMode} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3PolygonMode() { return nextendedDynamicState3PolygonMode(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3RasterizationSamples} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3RasterizationSamples() { return nextendedDynamicState3RasterizationSamples(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_MASK_EXT DYNAMIC_STATE_SAMPLE_MASK_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3SampleMask} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3SampleMask() { return nextendedDynamicState3SampleMask(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3AlphaToCoverageEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3AlphaToCoverageEnable() { return nextendedDynamicState3AlphaToCoverageEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3AlphaToOneEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3AlphaToOneEnable() { return nextendedDynamicState3AlphaToOneEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3LogicOpEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3LogicOpEnable() { return nextendedDynamicState3LogicOpEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ColorBlendEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ColorBlendEnable() { return nextendedDynamicState3ColorBlendEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ColorBlendEquation} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ColorBlendEquation() { return nextendedDynamicState3ColorBlendEquation(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT DYNAMIC_STATE_COLOR_WRITE_MASK_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ColorWriteMask} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ColorWriteMask() { return nextendedDynamicState3ColorWriteMask(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT DYNAMIC_STATE_RASTERIZATION_STREAM_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3RasterizationStream} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3RasterizationStream() { return nextendedDynamicState3RasterizationStream(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ConservativeRasterizationMode} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ConservativeRasterizationMode() { return nextendedDynamicState3ConservativeRasterizationMode(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ExtraPrimitiveOverestimationSize() { return nextendedDynamicState3ExtraPrimitiveOverestimationSize(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3DepthClipEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3DepthClipEnable() { return nextendedDynamicState3DepthClipEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3SampleLocationsEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3SampleLocationsEnable() { return nextendedDynamicState3SampleLocationsEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ColorBlendAdvanced} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ColorBlendAdvanced() { return nextendedDynamicState3ColorBlendAdvanced(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ProvokingVertexMode} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ProvokingVertexMode() { return nextendedDynamicState3ProvokingVertexMode(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3LineRasterizationMode} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3LineRasterizationMode() { return nextendedDynamicState3LineRasterizationMode(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3LineStippleEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3LineStippleEnable() { return nextendedDynamicState3LineStippleEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3DepthClipNegativeOneToOne} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3DepthClipNegativeOneToOne() { return nextendedDynamicState3DepthClipNegativeOneToOne(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ViewportWScalingEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ViewportWScalingEnable() { return nextendedDynamicState3ViewportWScalingEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ViewportSwizzle} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ViewportSwizzle() { return nextendedDynamicState3ViewportSwizzle(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3CoverageToColorEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3CoverageToColorEnable() { return nextendedDynamicState3CoverageToColorEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3CoverageToColorLocation} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3CoverageToColorLocation() { return nextendedDynamicState3CoverageToColorLocation(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3CoverageModulationMode} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3CoverageModulationMode() { return nextendedDynamicState3CoverageModulationMode(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3CoverageModulationTableEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3CoverageModulationTableEnable() { return nextendedDynamicState3CoverageModulationTableEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3CoverageModulationTable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3CoverageModulationTable() { return nextendedDynamicState3CoverageModulationTable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3CoverageReductionMode} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3CoverageReductionMode() { return nextendedDynamicState3CoverageReductionMode(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3RepresentativeFragmentTestEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3RepresentativeFragmentTestEnable() { return nextendedDynamicState3RepresentativeFragmentTestEnable(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following dynamic state:
-     * 
-     * <ul>
-     * <li>{@link EXTExtendedDynamicState3#VK_DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code extendedDynamicState3ShadingRateImageEnable} field. */
     @NativeType("VkBool32")
     public boolean extendedDynamicState3ShadingRateImageEnable() { return nextendedDynamicState3ShadingRateImageEnable(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTExtendedDynamicState3#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTExtendedDynamicState3#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT sType$Default() { return sType(EXTExtendedDynamicState3.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3TessellationDomainOrigin} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3TessellationDomainOrigin} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3TessellationDomainOrigin(@NativeType("VkBool32") boolean value) { nextendedDynamicState3TessellationDomainOrigin(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3DepthClampEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3DepthClampEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3DepthClampEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3DepthClampEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3PolygonMode} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3PolygonMode} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3PolygonMode(@NativeType("VkBool32") boolean value) { nextendedDynamicState3PolygonMode(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3RasterizationSamples} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3RasterizationSamples} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3RasterizationSamples(@NativeType("VkBool32") boolean value) { nextendedDynamicState3RasterizationSamples(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3SampleMask} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3SampleMask} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3SampleMask(@NativeType("VkBool32") boolean value) { nextendedDynamicState3SampleMask(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3AlphaToCoverageEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3AlphaToCoverageEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3AlphaToCoverageEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3AlphaToCoverageEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3AlphaToOneEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3AlphaToOneEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3AlphaToOneEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3AlphaToOneEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3LogicOpEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3LogicOpEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3LogicOpEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3LogicOpEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ColorBlendEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ColorBlendEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ColorBlendEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ColorBlendEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ColorBlendEquation} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ColorBlendEquation} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ColorBlendEquation(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ColorBlendEquation(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ColorWriteMask} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ColorWriteMask} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ColorWriteMask(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ColorWriteMask(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3RasterizationStream} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3RasterizationStream} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3RasterizationStream(@NativeType("VkBool32") boolean value) { nextendedDynamicState3RasterizationStream(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ConservativeRasterizationMode} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ConservativeRasterizationMode} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ConservativeRasterizationMode(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ConservativeRasterizationMode(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ExtraPrimitiveOverestimationSize(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ExtraPrimitiveOverestimationSize(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3DepthClipEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3DepthClipEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3DepthClipEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3DepthClipEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3SampleLocationsEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3SampleLocationsEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3SampleLocationsEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3SampleLocationsEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ColorBlendAdvanced} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ColorBlendAdvanced} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ColorBlendAdvanced(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ColorBlendAdvanced(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ProvokingVertexMode} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ProvokingVertexMode} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ProvokingVertexMode(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ProvokingVertexMode(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3LineRasterizationMode} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3LineRasterizationMode} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3LineRasterizationMode(@NativeType("VkBool32") boolean value) { nextendedDynamicState3LineRasterizationMode(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3LineStippleEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3LineStippleEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3LineStippleEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3LineStippleEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3DepthClipNegativeOneToOne} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3DepthClipNegativeOneToOne} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3DepthClipNegativeOneToOne(@NativeType("VkBool32") boolean value) { nextendedDynamicState3DepthClipNegativeOneToOne(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ViewportWScalingEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ViewportWScalingEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ViewportWScalingEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ViewportWScalingEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ViewportSwizzle} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ViewportSwizzle} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ViewportSwizzle(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ViewportSwizzle(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3CoverageToColorEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3CoverageToColorEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3CoverageToColorEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3CoverageToColorEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3CoverageToColorLocation} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3CoverageToColorLocation} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3CoverageToColorLocation(@NativeType("VkBool32") boolean value) { nextendedDynamicState3CoverageToColorLocation(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3CoverageModulationMode} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3CoverageModulationMode} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3CoverageModulationMode(@NativeType("VkBool32") boolean value) { nextendedDynamicState3CoverageModulationMode(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3CoverageModulationTableEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3CoverageModulationTableEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3CoverageModulationTableEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3CoverageModulationTableEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3CoverageModulationTable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3CoverageModulationTable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3CoverageModulationTable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3CoverageModulationTable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3CoverageReductionMode} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3CoverageReductionMode} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3CoverageReductionMode(@NativeType("VkBool32") boolean value) { nextendedDynamicState3CoverageReductionMode(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3RepresentativeFragmentTestEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3RepresentativeFragmentTestEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3RepresentativeFragmentTestEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3RepresentativeFragmentTestEnable(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #extendedDynamicState3ShadingRateImageEnable} field. */
+    /** Sets the specified value to the {@code extendedDynamicState3ShadingRateImageEnable} field. */
     public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extendedDynamicState3ShadingRateImageEnable(@NativeType("VkBool32") boolean value) { nextendedDynamicState3ShadingRateImageEnable(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -672,8 +472,7 @@ public class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedDynamicState3FeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExtendedDynamicState3FeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExtendedDynamicState3FeaturesEXT(address, null);
     }
 
@@ -716,8 +515,7 @@ public class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -762,138 +560,138 @@ public class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends Struct<VkP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #extendedDynamicState3TessellationDomainOrigin}. */
-    public static int nextendedDynamicState3TessellationDomainOrigin(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3TESSELLATIONDOMAINORIGIN); }
+    public static int nextendedDynamicState3TessellationDomainOrigin(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3TESSELLATIONDOMAINORIGIN); }
     /** Unsafe version of {@link #extendedDynamicState3DepthClampEnable}. */
-    public static int nextendedDynamicState3DepthClampEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLAMPENABLE); }
+    public static int nextendedDynamicState3DepthClampEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLAMPENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3PolygonMode}. */
-    public static int nextendedDynamicState3PolygonMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3POLYGONMODE); }
+    public static int nextendedDynamicState3PolygonMode(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3POLYGONMODE); }
     /** Unsafe version of {@link #extendedDynamicState3RasterizationSamples}. */
-    public static int nextendedDynamicState3RasterizationSamples(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSAMPLES); }
+    public static int nextendedDynamicState3RasterizationSamples(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSAMPLES); }
     /** Unsafe version of {@link #extendedDynamicState3SampleMask}. */
-    public static int nextendedDynamicState3SampleMask(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLEMASK); }
+    public static int nextendedDynamicState3SampleMask(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLEMASK); }
     /** Unsafe version of {@link #extendedDynamicState3AlphaToCoverageEnable}. */
-    public static int nextendedDynamicState3AlphaToCoverageEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOCOVERAGEENABLE); }
+    public static int nextendedDynamicState3AlphaToCoverageEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOCOVERAGEENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3AlphaToOneEnable}. */
-    public static int nextendedDynamicState3AlphaToOneEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOONEENABLE); }
+    public static int nextendedDynamicState3AlphaToOneEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOONEENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3LogicOpEnable}. */
-    public static int nextendedDynamicState3LogicOpEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LOGICOPENABLE); }
+    public static int nextendedDynamicState3LogicOpEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LOGICOPENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3ColorBlendEnable}. */
-    public static int nextendedDynamicState3ColorBlendEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDENABLE); }
+    public static int nextendedDynamicState3ColorBlendEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3ColorBlendEquation}. */
-    public static int nextendedDynamicState3ColorBlendEquation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDEQUATION); }
+    public static int nextendedDynamicState3ColorBlendEquation(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDEQUATION); }
     /** Unsafe version of {@link #extendedDynamicState3ColorWriteMask}. */
-    public static int nextendedDynamicState3ColorWriteMask(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORWRITEMASK); }
+    public static int nextendedDynamicState3ColorWriteMask(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORWRITEMASK); }
     /** Unsafe version of {@link #extendedDynamicState3RasterizationStream}. */
-    public static int nextendedDynamicState3RasterizationStream(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSTREAM); }
+    public static int nextendedDynamicState3RasterizationStream(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSTREAM); }
     /** Unsafe version of {@link #extendedDynamicState3ConservativeRasterizationMode}. */
-    public static int nextendedDynamicState3ConservativeRasterizationMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3CONSERVATIVERASTERIZATIONMODE); }
+    public static int nextendedDynamicState3ConservativeRasterizationMode(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3CONSERVATIVERASTERIZATIONMODE); }
     /** Unsafe version of {@link #extendedDynamicState3ExtraPrimitiveOverestimationSize}. */
-    public static int nextendedDynamicState3ExtraPrimitiveOverestimationSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3EXTRAPRIMITIVEOVERESTIMATIONSIZE); }
+    public static int nextendedDynamicState3ExtraPrimitiveOverestimationSize(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3EXTRAPRIMITIVEOVERESTIMATIONSIZE); }
     /** Unsafe version of {@link #extendedDynamicState3DepthClipEnable}. */
-    public static int nextendedDynamicState3DepthClipEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPENABLE); }
+    public static int nextendedDynamicState3DepthClipEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3SampleLocationsEnable}. */
-    public static int nextendedDynamicState3SampleLocationsEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLELOCATIONSENABLE); }
+    public static int nextendedDynamicState3SampleLocationsEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLELOCATIONSENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3ColorBlendAdvanced}. */
-    public static int nextendedDynamicState3ColorBlendAdvanced(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDADVANCED); }
+    public static int nextendedDynamicState3ColorBlendAdvanced(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDADVANCED); }
     /** Unsafe version of {@link #extendedDynamicState3ProvokingVertexMode}. */
-    public static int nextendedDynamicState3ProvokingVertexMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3PROVOKINGVERTEXMODE); }
+    public static int nextendedDynamicState3ProvokingVertexMode(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3PROVOKINGVERTEXMODE); }
     /** Unsafe version of {@link #extendedDynamicState3LineRasterizationMode}. */
-    public static int nextendedDynamicState3LineRasterizationMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINERASTERIZATIONMODE); }
+    public static int nextendedDynamicState3LineRasterizationMode(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINERASTERIZATIONMODE); }
     /** Unsafe version of {@link #extendedDynamicState3LineStippleEnable}. */
-    public static int nextendedDynamicState3LineStippleEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINESTIPPLEENABLE); }
+    public static int nextendedDynamicState3LineStippleEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINESTIPPLEENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3DepthClipNegativeOneToOne}. */
-    public static int nextendedDynamicState3DepthClipNegativeOneToOne(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPNEGATIVEONETOONE); }
+    public static int nextendedDynamicState3DepthClipNegativeOneToOne(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPNEGATIVEONETOONE); }
     /** Unsafe version of {@link #extendedDynamicState3ViewportWScalingEnable}. */
-    public static int nextendedDynamicState3ViewportWScalingEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTWSCALINGENABLE); }
+    public static int nextendedDynamicState3ViewportWScalingEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTWSCALINGENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3ViewportSwizzle}. */
-    public static int nextendedDynamicState3ViewportSwizzle(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTSWIZZLE); }
+    public static int nextendedDynamicState3ViewportSwizzle(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTSWIZZLE); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageToColorEnable}. */
-    public static int nextendedDynamicState3CoverageToColorEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORENABLE); }
+    public static int nextendedDynamicState3CoverageToColorEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageToColorLocation}. */
-    public static int nextendedDynamicState3CoverageToColorLocation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORLOCATION); }
+    public static int nextendedDynamicState3CoverageToColorLocation(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORLOCATION); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageModulationMode}. */
-    public static int nextendedDynamicState3CoverageModulationMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONMODE); }
+    public static int nextendedDynamicState3CoverageModulationMode(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONMODE); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageModulationTableEnable}. */
-    public static int nextendedDynamicState3CoverageModulationTableEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLEENABLE); }
+    public static int nextendedDynamicState3CoverageModulationTableEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLEENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageModulationTable}. */
-    public static int nextendedDynamicState3CoverageModulationTable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLE); }
+    public static int nextendedDynamicState3CoverageModulationTable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLE); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageReductionMode}. */
-    public static int nextendedDynamicState3CoverageReductionMode(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEREDUCTIONMODE); }
+    public static int nextendedDynamicState3CoverageReductionMode(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEREDUCTIONMODE); }
     /** Unsafe version of {@link #extendedDynamicState3RepresentativeFragmentTestEnable}. */
-    public static int nextendedDynamicState3RepresentativeFragmentTestEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3REPRESENTATIVEFRAGMENTTESTENABLE); }
+    public static int nextendedDynamicState3RepresentativeFragmentTestEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3REPRESENTATIVEFRAGMENTTESTENABLE); }
     /** Unsafe version of {@link #extendedDynamicState3ShadingRateImageEnable}. */
-    public static int nextendedDynamicState3ShadingRateImageEnable(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SHADINGRATEIMAGEENABLE); }
+    public static int nextendedDynamicState3ShadingRateImageEnable(long struct) { return memGetInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SHADINGRATEIMAGEENABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #extendedDynamicState3TessellationDomainOrigin(boolean) extendedDynamicState3TessellationDomainOrigin}. */
-    public static void nextendedDynamicState3TessellationDomainOrigin(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3TESSELLATIONDOMAINORIGIN, value); }
+    public static void nextendedDynamicState3TessellationDomainOrigin(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3TESSELLATIONDOMAINORIGIN, value); }
     /** Unsafe version of {@link #extendedDynamicState3DepthClampEnable(boolean) extendedDynamicState3DepthClampEnable}. */
-    public static void nextendedDynamicState3DepthClampEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLAMPENABLE, value); }
+    public static void nextendedDynamicState3DepthClampEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLAMPENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3PolygonMode(boolean) extendedDynamicState3PolygonMode}. */
-    public static void nextendedDynamicState3PolygonMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3POLYGONMODE, value); }
+    public static void nextendedDynamicState3PolygonMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3POLYGONMODE, value); }
     /** Unsafe version of {@link #extendedDynamicState3RasterizationSamples(boolean) extendedDynamicState3RasterizationSamples}. */
-    public static void nextendedDynamicState3RasterizationSamples(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSAMPLES, value); }
+    public static void nextendedDynamicState3RasterizationSamples(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSAMPLES, value); }
     /** Unsafe version of {@link #extendedDynamicState3SampleMask(boolean) extendedDynamicState3SampleMask}. */
-    public static void nextendedDynamicState3SampleMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLEMASK, value); }
+    public static void nextendedDynamicState3SampleMask(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLEMASK, value); }
     /** Unsafe version of {@link #extendedDynamicState3AlphaToCoverageEnable(boolean) extendedDynamicState3AlphaToCoverageEnable}. */
-    public static void nextendedDynamicState3AlphaToCoverageEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOCOVERAGEENABLE, value); }
+    public static void nextendedDynamicState3AlphaToCoverageEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOCOVERAGEENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3AlphaToOneEnable(boolean) extendedDynamicState3AlphaToOneEnable}. */
-    public static void nextendedDynamicState3AlphaToOneEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOONEENABLE, value); }
+    public static void nextendedDynamicState3AlphaToOneEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3ALPHATOONEENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3LogicOpEnable(boolean) extendedDynamicState3LogicOpEnable}. */
-    public static void nextendedDynamicState3LogicOpEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LOGICOPENABLE, value); }
+    public static void nextendedDynamicState3LogicOpEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LOGICOPENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ColorBlendEnable(boolean) extendedDynamicState3ColorBlendEnable}. */
-    public static void nextendedDynamicState3ColorBlendEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDENABLE, value); }
+    public static void nextendedDynamicState3ColorBlendEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ColorBlendEquation(boolean) extendedDynamicState3ColorBlendEquation}. */
-    public static void nextendedDynamicState3ColorBlendEquation(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDEQUATION, value); }
+    public static void nextendedDynamicState3ColorBlendEquation(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDEQUATION, value); }
     /** Unsafe version of {@link #extendedDynamicState3ColorWriteMask(boolean) extendedDynamicState3ColorWriteMask}. */
-    public static void nextendedDynamicState3ColorWriteMask(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORWRITEMASK, value); }
+    public static void nextendedDynamicState3ColorWriteMask(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORWRITEMASK, value); }
     /** Unsafe version of {@link #extendedDynamicState3RasterizationStream(boolean) extendedDynamicState3RasterizationStream}. */
-    public static void nextendedDynamicState3RasterizationStream(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSTREAM, value); }
+    public static void nextendedDynamicState3RasterizationStream(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3RASTERIZATIONSTREAM, value); }
     /** Unsafe version of {@link #extendedDynamicState3ConservativeRasterizationMode(boolean) extendedDynamicState3ConservativeRasterizationMode}. */
-    public static void nextendedDynamicState3ConservativeRasterizationMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3CONSERVATIVERASTERIZATIONMODE, value); }
+    public static void nextendedDynamicState3ConservativeRasterizationMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3CONSERVATIVERASTERIZATIONMODE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ExtraPrimitiveOverestimationSize(boolean) extendedDynamicState3ExtraPrimitiveOverestimationSize}. */
-    public static void nextendedDynamicState3ExtraPrimitiveOverestimationSize(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3EXTRAPRIMITIVEOVERESTIMATIONSIZE, value); }
+    public static void nextendedDynamicState3ExtraPrimitiveOverestimationSize(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3EXTRAPRIMITIVEOVERESTIMATIONSIZE, value); }
     /** Unsafe version of {@link #extendedDynamicState3DepthClipEnable(boolean) extendedDynamicState3DepthClipEnable}. */
-    public static void nextendedDynamicState3DepthClipEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPENABLE, value); }
+    public static void nextendedDynamicState3DepthClipEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3SampleLocationsEnable(boolean) extendedDynamicState3SampleLocationsEnable}. */
-    public static void nextendedDynamicState3SampleLocationsEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLELOCATIONSENABLE, value); }
+    public static void nextendedDynamicState3SampleLocationsEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SAMPLELOCATIONSENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ColorBlendAdvanced(boolean) extendedDynamicState3ColorBlendAdvanced}. */
-    public static void nextendedDynamicState3ColorBlendAdvanced(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDADVANCED, value); }
+    public static void nextendedDynamicState3ColorBlendAdvanced(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COLORBLENDADVANCED, value); }
     /** Unsafe version of {@link #extendedDynamicState3ProvokingVertexMode(boolean) extendedDynamicState3ProvokingVertexMode}. */
-    public static void nextendedDynamicState3ProvokingVertexMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3PROVOKINGVERTEXMODE, value); }
+    public static void nextendedDynamicState3ProvokingVertexMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3PROVOKINGVERTEXMODE, value); }
     /** Unsafe version of {@link #extendedDynamicState3LineRasterizationMode(boolean) extendedDynamicState3LineRasterizationMode}. */
-    public static void nextendedDynamicState3LineRasterizationMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINERASTERIZATIONMODE, value); }
+    public static void nextendedDynamicState3LineRasterizationMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINERASTERIZATIONMODE, value); }
     /** Unsafe version of {@link #extendedDynamicState3LineStippleEnable(boolean) extendedDynamicState3LineStippleEnable}. */
-    public static void nextendedDynamicState3LineStippleEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINESTIPPLEENABLE, value); }
+    public static void nextendedDynamicState3LineStippleEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3LINESTIPPLEENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3DepthClipNegativeOneToOne(boolean) extendedDynamicState3DepthClipNegativeOneToOne}. */
-    public static void nextendedDynamicState3DepthClipNegativeOneToOne(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPNEGATIVEONETOONE, value); }
+    public static void nextendedDynamicState3DepthClipNegativeOneToOne(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3DEPTHCLIPNEGATIVEONETOONE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ViewportWScalingEnable(boolean) extendedDynamicState3ViewportWScalingEnable}. */
-    public static void nextendedDynamicState3ViewportWScalingEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTWSCALINGENABLE, value); }
+    public static void nextendedDynamicState3ViewportWScalingEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTWSCALINGENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ViewportSwizzle(boolean) extendedDynamicState3ViewportSwizzle}. */
-    public static void nextendedDynamicState3ViewportSwizzle(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTSWIZZLE, value); }
+    public static void nextendedDynamicState3ViewportSwizzle(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3VIEWPORTSWIZZLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageToColorEnable(boolean) extendedDynamicState3CoverageToColorEnable}. */
-    public static void nextendedDynamicState3CoverageToColorEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORENABLE, value); }
+    public static void nextendedDynamicState3CoverageToColorEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageToColorLocation(boolean) extendedDynamicState3CoverageToColorLocation}. */
-    public static void nextendedDynamicState3CoverageToColorLocation(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORLOCATION, value); }
+    public static void nextendedDynamicState3CoverageToColorLocation(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGETOCOLORLOCATION, value); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageModulationMode(boolean) extendedDynamicState3CoverageModulationMode}. */
-    public static void nextendedDynamicState3CoverageModulationMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONMODE, value); }
+    public static void nextendedDynamicState3CoverageModulationMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONMODE, value); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageModulationTableEnable(boolean) extendedDynamicState3CoverageModulationTableEnable}. */
-    public static void nextendedDynamicState3CoverageModulationTableEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLEENABLE, value); }
+    public static void nextendedDynamicState3CoverageModulationTableEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLEENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageModulationTable(boolean) extendedDynamicState3CoverageModulationTable}. */
-    public static void nextendedDynamicState3CoverageModulationTable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLE, value); }
+    public static void nextendedDynamicState3CoverageModulationTable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEMODULATIONTABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3CoverageReductionMode(boolean) extendedDynamicState3CoverageReductionMode}. */
-    public static void nextendedDynamicState3CoverageReductionMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEREDUCTIONMODE, value); }
+    public static void nextendedDynamicState3CoverageReductionMode(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3COVERAGEREDUCTIONMODE, value); }
     /** Unsafe version of {@link #extendedDynamicState3RepresentativeFragmentTestEnable(boolean) extendedDynamicState3RepresentativeFragmentTestEnable}. */
-    public static void nextendedDynamicState3RepresentativeFragmentTestEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3REPRESENTATIVEFRAGMENTTESTENABLE, value); }
+    public static void nextendedDynamicState3RepresentativeFragmentTestEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3REPRESENTATIVEFRAGMENTTESTENABLE, value); }
     /** Unsafe version of {@link #extendedDynamicState3ShadingRateImageEnable(boolean) extendedDynamicState3ShadingRateImageEnable}. */
-    public static void nextendedDynamicState3ShadingRateImageEnable(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SHADINGRATEIMAGEENABLE, value); }
+    public static void nextendedDynamicState3ShadingRateImageEnable(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.EXTENDEDDYNAMICSTATE3SHADINGRATEIMAGEENABLE, value); }
 
     // -----------------------------------
 
@@ -929,177 +727,182 @@ public class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends Struct<VkP
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceExtendedDynamicState3FeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3TessellationDomainOrigin} field. */
+        /** @return the value of the {@code extendedDynamicState3TessellationDomainOrigin} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3TessellationDomainOrigin() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3TessellationDomainOrigin(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3DepthClampEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3DepthClampEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3DepthClampEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3DepthClampEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3PolygonMode} field. */
+        /** @return the value of the {@code extendedDynamicState3PolygonMode} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3PolygonMode() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3PolygonMode(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3RasterizationSamples} field. */
+        /** @return the value of the {@code extendedDynamicState3RasterizationSamples} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3RasterizationSamples() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3RasterizationSamples(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3SampleMask} field. */
+        /** @return the value of the {@code extendedDynamicState3SampleMask} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3SampleMask() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3SampleMask(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3AlphaToCoverageEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3AlphaToCoverageEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3AlphaToCoverageEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3AlphaToCoverageEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3AlphaToOneEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3AlphaToOneEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3AlphaToOneEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3AlphaToOneEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3LogicOpEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3LogicOpEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3LogicOpEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3LogicOpEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorBlendEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3ColorBlendEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ColorBlendEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorBlendEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorBlendEquation} field. */
+        /** @return the value of the {@code extendedDynamicState3ColorBlendEquation} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ColorBlendEquation() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorBlendEquation(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorWriteMask} field. */
+        /** @return the value of the {@code extendedDynamicState3ColorWriteMask} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ColorWriteMask() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorWriteMask(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3RasterizationStream} field. */
+        /** @return the value of the {@code extendedDynamicState3RasterizationStream} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3RasterizationStream() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3RasterizationStream(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ConservativeRasterizationMode} field. */
+        /** @return the value of the {@code extendedDynamicState3ConservativeRasterizationMode} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ConservativeRasterizationMode() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ConservativeRasterizationMode(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
+        /** @return the value of the {@code extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ExtraPrimitiveOverestimationSize() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ExtraPrimitiveOverestimationSize(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3DepthClipEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3DepthClipEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3DepthClipEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3DepthClipEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3SampleLocationsEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3SampleLocationsEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3SampleLocationsEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3SampleLocationsEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorBlendAdvanced} field. */
+        /** @return the value of the {@code extendedDynamicState3ColorBlendAdvanced} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ColorBlendAdvanced() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorBlendAdvanced(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ProvokingVertexMode} field. */
+        /** @return the value of the {@code extendedDynamicState3ProvokingVertexMode} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ProvokingVertexMode() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ProvokingVertexMode(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3LineRasterizationMode} field. */
+        /** @return the value of the {@code extendedDynamicState3LineRasterizationMode} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3LineRasterizationMode() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3LineRasterizationMode(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3LineStippleEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3LineStippleEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3LineStippleEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3LineStippleEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3DepthClipNegativeOneToOne} field. */
+        /** @return the value of the {@code extendedDynamicState3DepthClipNegativeOneToOne} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3DepthClipNegativeOneToOne() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3DepthClipNegativeOneToOne(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ViewportWScalingEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3ViewportWScalingEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ViewportWScalingEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ViewportWScalingEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ViewportSwizzle} field. */
+        /** @return the value of the {@code extendedDynamicState3ViewportSwizzle} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ViewportSwizzle() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ViewportSwizzle(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageToColorEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3CoverageToColorEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3CoverageToColorEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageToColorEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageToColorLocation} field. */
+        /** @return the value of the {@code extendedDynamicState3CoverageToColorLocation} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3CoverageToColorLocation() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageToColorLocation(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageModulationMode} field. */
+        /** @return the value of the {@code extendedDynamicState3CoverageModulationMode} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3CoverageModulationMode() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageModulationMode(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageModulationTableEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3CoverageModulationTableEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3CoverageModulationTableEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageModulationTableEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageModulationTable} field. */
+        /** @return the value of the {@code extendedDynamicState3CoverageModulationTable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3CoverageModulationTable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageModulationTable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageReductionMode} field. */
+        /** @return the value of the {@code extendedDynamicState3CoverageReductionMode} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3CoverageReductionMode() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageReductionMode(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3RepresentativeFragmentTestEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3RepresentativeFragmentTestEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3RepresentativeFragmentTestEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3RepresentativeFragmentTestEnable(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ShadingRateImageEnable} field. */
+        /** @return the value of the {@code extendedDynamicState3ShadingRateImageEnable} field. */
         @NativeType("VkBool32")
         public boolean extendedDynamicState3ShadingRateImageEnable() { return VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ShadingRateImageEnable(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTExtendedDynamicState3#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT} value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#sType} field. */
+        /** Sets the {@link EXTExtendedDynamicState3#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer sType$Default() { return sType(EXTExtendedDynamicState3.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3TessellationDomainOrigin} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3TessellationDomainOrigin} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3TessellationDomainOrigin(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3TessellationDomainOrigin(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3DepthClampEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3DepthClampEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3DepthClampEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3DepthClampEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3PolygonMode} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3PolygonMode} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3PolygonMode(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3PolygonMode(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3RasterizationSamples} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3RasterizationSamples} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3RasterizationSamples(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3RasterizationSamples(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3SampleMask} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3SampleMask} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3SampleMask(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3SampleMask(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3AlphaToCoverageEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3AlphaToCoverageEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3AlphaToCoverageEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3AlphaToCoverageEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3AlphaToOneEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3AlphaToOneEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3AlphaToOneEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3AlphaToOneEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3LogicOpEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3LogicOpEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3LogicOpEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3LogicOpEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorBlendEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ColorBlendEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ColorBlendEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorBlendEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorBlendEquation} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ColorBlendEquation} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ColorBlendEquation(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorBlendEquation(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorWriteMask} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ColorWriteMask} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ColorWriteMask(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorWriteMask(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3RasterizationStream} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3RasterizationStream} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3RasterizationStream(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3RasterizationStream(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ConservativeRasterizationMode} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ConservativeRasterizationMode} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ConservativeRasterizationMode(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ConservativeRasterizationMode(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ExtraPrimitiveOverestimationSize} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ExtraPrimitiveOverestimationSize(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ExtraPrimitiveOverestimationSize(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3DepthClipEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3DepthClipEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3DepthClipEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3DepthClipEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3SampleLocationsEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3SampleLocationsEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3SampleLocationsEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3SampleLocationsEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ColorBlendAdvanced} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ColorBlendAdvanced} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ColorBlendAdvanced(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ColorBlendAdvanced(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ProvokingVertexMode} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ProvokingVertexMode} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ProvokingVertexMode(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ProvokingVertexMode(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3LineRasterizationMode} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3LineRasterizationMode} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3LineRasterizationMode(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3LineRasterizationMode(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3LineStippleEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3LineStippleEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3LineStippleEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3LineStippleEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3DepthClipNegativeOneToOne} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3DepthClipNegativeOneToOne} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3DepthClipNegativeOneToOne(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3DepthClipNegativeOneToOne(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ViewportWScalingEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ViewportWScalingEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ViewportWScalingEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ViewportWScalingEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ViewportSwizzle} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ViewportSwizzle} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ViewportSwizzle(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ViewportSwizzle(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageToColorEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3CoverageToColorEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3CoverageToColorEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageToColorEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageToColorLocation} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3CoverageToColorLocation} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3CoverageToColorLocation(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageToColorLocation(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageModulationMode} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3CoverageModulationMode} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3CoverageModulationMode(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageModulationMode(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageModulationTableEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3CoverageModulationTableEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3CoverageModulationTableEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageModulationTableEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageModulationTable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3CoverageModulationTable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3CoverageModulationTable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageModulationTable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3CoverageReductionMode} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3CoverageReductionMode} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3CoverageReductionMode(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3CoverageReductionMode(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3RepresentativeFragmentTestEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3RepresentativeFragmentTestEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3RepresentativeFragmentTestEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3RepresentativeFragmentTestEnable(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExtendedDynamicState3FeaturesEXT#extendedDynamicState3ShadingRateImageEnable} field. */
+        /** Sets the specified value to the {@code extendedDynamicState3ShadingRateImageEnable} field. */
         public VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.Buffer extendedDynamicState3ShadingRateImageEnable(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.nextendedDynamicState3ShadingRateImageEnable(address(), value ? 1 : 0); return this; }
 
     }

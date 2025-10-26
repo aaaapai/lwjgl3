@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,43 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying swapchain image memory to bind to.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code swapchain} is not {@code NULL}, the {@code swapchain} and {@code imageIndex} are used to determine the memory that the image is bound to, instead of {@code memory} and {@code memoryOffset}.</p>
- * 
- * <p>Memory <b>can</b> be bound to a swapchain and use the {@code pDeviceIndices} or {@code pSplitInstanceBindRegions} members of {@link VkBindImageMemoryDeviceGroupInfo}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code imageIndex} <b>must</b> be less than the number of images in {@code swapchain}</li>
- * <li>If the {@code swapchain} has been created with {@link EXTSwapchainMaintenance1#VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT}, {@code imageIndex} <b>must</b> be one that has previously been returned by {@link KHRSwapchain#vkAcquireNextImageKHR AcquireNextImageKHR} or {@link KHRSwapchain#vkAcquireNextImage2KHR AcquireNextImage2KHR}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRSwapchain#VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR}</li>
- * <li>{@code swapchain} <b>must</b> be a valid {@code VkSwapchainKHR} handle</li>
- * </ul>
- * 
- * <h5>Host Synchronization</h5>
- * 
- * <ul>
- * <li>Host access to {@code swapchain} <b>must</b> be externally synchronized</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBindImageMemorySwapchainInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkSwapchainKHR {@link #swapchain};
- *     uint32_t {@link #imageIndex};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkSwapchainKHR swapchain;
+ *     uint32_t imageIndex;
+ * }}</pre>
  */
 public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemorySwapchainInfoKHR> implements NativeResource {
 
@@ -108,28 +78,28 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a swapchain handle. */
+    /** @return the value of the {@code swapchain} field. */
     @NativeType("VkSwapchainKHR")
     public long swapchain() { return nswapchain(address()); }
-    /** an image index within {@code swapchain}. */
+    /** @return the value of the {@code imageIndex} field. */
     @NativeType("uint32_t")
     public int imageIndex() { return nimageIndex(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkBindImageMemorySwapchainInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR} value to the {@code sType} field. */
     public VkBindImageMemorySwapchainInfoKHR sType$Default() { return sType(KHRSwapchain.VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkBindImageMemorySwapchainInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #swapchain} field. */
+    /** Sets the specified value to the {@code swapchain} field. */
     public VkBindImageMemorySwapchainInfoKHR swapchain(@NativeType("VkSwapchainKHR") long value) { nswapchain(address(), value); return this; }
-    /** Sets the specified value to the {@link #imageIndex} field. */
+    /** Sets the specified value to the {@code imageIndex} field. */
     public VkBindImageMemorySwapchainInfoKHR imageIndex(@NativeType("uint32_t") int value) { nimageIndex(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -183,8 +153,7 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemorySwapchainInfoKHR createSafe(long address) {
+    public static @Nullable VkBindImageMemorySwapchainInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkBindImageMemorySwapchainInfoKHR(address, null);
     }
 
@@ -227,8 +196,7 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindImageMemorySwapchainInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkBindImageMemorySwapchainInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,22 +260,22 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBindImageMemorySwapchainInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBindImageMemorySwapchainInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBindImageMemorySwapchainInfoKHR.PNEXT); }
     /** Unsafe version of {@link #swapchain}. */
-    public static long nswapchain(long struct) { return UNSAFE.getLong(null, struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN); }
+    public static long nswapchain(long struct) { return memGetLong(struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN); }
     /** Unsafe version of {@link #imageIndex}. */
-    public static int nimageIndex(long struct) { return UNSAFE.getInt(null, struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX); }
+    public static int nimageIndex(long struct) { return memGetInt(struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImageMemorySwapchainInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBindImageMemorySwapchainInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBindImageMemorySwapchainInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #swapchain(long) swapchain}. */
-    public static void nswapchain(long struct, long value) { UNSAFE.putLong(null, struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN, value); }
+    public static void nswapchain(long struct, long value) { memPutLong(struct + VkBindImageMemorySwapchainInfoKHR.SWAPCHAIN, value); }
     /** Unsafe version of {@link #imageIndex(int) imageIndex}. */
-    public static void nimageIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX, value); }
+    public static void nimageIndex(long struct, int value) { memPutInt(struct + VkBindImageMemorySwapchainInfoKHR.IMAGEINDEX, value); }
 
     // -----------------------------------
 
@@ -343,32 +311,37 @@ public class VkBindImageMemorySwapchainInfoKHR extends Struct<VkBindImageMemoryS
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBindImageMemorySwapchainInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBindImageMemorySwapchainInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkBindImageMemorySwapchainInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkBindImageMemorySwapchainInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkBindImageMemorySwapchainInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkBindImageMemorySwapchainInfoKHR#swapchain} field. */
+        /** @return the value of the {@code swapchain} field. */
         @NativeType("VkSwapchainKHR")
         public long swapchain() { return VkBindImageMemorySwapchainInfoKHR.nswapchain(address()); }
-        /** @return the value of the {@link VkBindImageMemorySwapchainInfoKHR#imageIndex} field. */
+        /** @return the value of the {@code imageIndex} field. */
         @NativeType("uint32_t")
         public int imageIndex() { return VkBindImageMemorySwapchainInfoKHR.nimageIndex(address()); }
 
-        /** Sets the specified value to the {@link VkBindImageMemorySwapchainInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkBindImageMemorySwapchainInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkBindImageMemorySwapchainInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR} value to the {@link VkBindImageMemorySwapchainInfoKHR#sType} field. */
+        /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR} value to the {@code sType} field. */
         public VkBindImageMemorySwapchainInfoKHR.Buffer sType$Default() { return sType(KHRSwapchain.VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR); }
-        /** Sets the specified value to the {@link VkBindImageMemorySwapchainInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkBindImageMemorySwapchainInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkBindImageMemorySwapchainInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBindImageMemorySwapchainInfoKHR#swapchain} field. */
+        /** Sets the specified value to the {@code swapchain} field. */
         public VkBindImageMemorySwapchainInfoKHR.Buffer swapchain(@NativeType("VkSwapchainKHR") long value) { VkBindImageMemorySwapchainInfoKHR.nswapchain(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBindImageMemorySwapchainInfoKHR#imageIndex} field. */
+        /** Sets the specified value to the {@code imageIndex} field. */
         public VkBindImageMemorySwapchainInfoKHR.Buffer imageIndex(@NativeType("uint32_t") int value) { VkBindImageMemorySwapchainInfoKHR.nimageIndex(address(), value); return this; }
 
     }

@@ -12,22 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * hb_paint_extend_t (*{@link #invoke}) (
- *     hb_color_line_t *color_line,
- *     void *color_line_data,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_color_line_get_extend_func_t} */
 @FunctionalInterface
 @NativeType("hb_color_line_get_extend_func_t")
 public interface hb_color_line_get_extend_func_tI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_uint32,
         ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
     );
@@ -45,6 +35,7 @@ public interface hb_color_line_get_extend_func_tI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code hb_paint_extend_t (* hb_color_line_get_extend_func_t) (hb_color_line_t * color_line, void * color_line_data, void * user_data)} */
     @NativeType("hb_paint_extend_t") int invoke(@NativeType("hb_color_line_t *") long color_line, @NativeType("void *") long color_line_data, @NativeType("void *") long user_data);
 
 }

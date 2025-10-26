@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openal;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,6 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Native bindings to the <a href="https://openal-soft.org/openal-extensions/SOFT_reopen_device.txt">SOFT_reopen_device</a> extension.
- * 
- * <p>This extension provides a mechanism for applications to move the output of a device from one endpoint to another. Standard OpenAL devices are
- * associated with an output on the system upon being opened, but if the endpoint should no longer be the desired output, there is no method for the
- * application to easily change it. The only option for the application is to delete all AL objects, destroy the context, close the device handle, open a
- * new device, and reload/recreate the necessary resources. A method to more simply move the device with its existing resources to a different output is
- * easier, requiring less management from the application.</p>
- */
 public class SOFTReopenDevice {
 
     protected SOFTReopenDevice() {
@@ -33,7 +24,7 @@ public class SOFTReopenDevice {
 
     // --- [ alcReopenDeviceSOFT ] ---
 
-    /** Unsafe version of: {@link #alcReopenDeviceSOFT ReopenDeviceSOFT} */
+    /** {@code ALCboolean alcReopenDeviceSOFT(ALCdevice * device, ALCchar const * deviceName, ALCint const * attribs)} */
     public static boolean nalcReopenDeviceSOFT(long device, long deviceName, long attribs) {
 		long __functionAddress = ALC.getICD().alcReopenDeviceSOFT;
         if (CHECKS) {
@@ -43,16 +34,9 @@ public class SOFTReopenDevice {
         return invokePPPZ(device, deviceName, attribs, __functionAddress);
     }
 
-    /**
-     * Once a playback device is opened, it becomes associated with a particular output endpoint. When this output is no longer the desired output, the
-     * playback device can be reopened to re-associate it with a potentially different output endpoint using {@code alcReopenDeviceSOFT}.
-     *
-     * @param device     a non-{@code NULL} handle for an existing device
-     * @param deviceName the device name to open, or {@code NULL} for the default (same as would be passed to {@link ALC10#alcOpenDevice OpenDevice})
-     * @param attribs    an attribute list to configure the device with, with the same attribute list that would be passed to {@link ALC10#alcCreateContext CreateContext}.
-     */
+    /** {@code ALCboolean alcReopenDeviceSOFT(ALCdevice * device, ALCchar const * deviceName, ALCint const * attribs)} */
     @NativeType("ALCboolean")
-    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @Nullable @NativeType("ALCchar const *") ByteBuffer deviceName, @Nullable @NativeType("ALCint const *") IntBuffer attribs) {
+    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @NativeType("ALCchar const *") @Nullable ByteBuffer deviceName, @NativeType("ALCint const *") @Nullable IntBuffer attribs) {
         if (CHECKS) {
             checkNT1Safe(deviceName);
             checkNTSafe(attribs);
@@ -60,16 +44,9 @@ public class SOFTReopenDevice {
         return nalcReopenDeviceSOFT(device, memAddressSafe(deviceName), memAddressSafe(attribs));
     }
 
-    /**
-     * Once a playback device is opened, it becomes associated with a particular output endpoint. When this output is no longer the desired output, the
-     * playback device can be reopened to re-associate it with a potentially different output endpoint using {@code alcReopenDeviceSOFT}.
-     *
-     * @param device     a non-{@code NULL} handle for an existing device
-     * @param deviceName the device name to open, or {@code NULL} for the default (same as would be passed to {@link ALC10#alcOpenDevice OpenDevice})
-     * @param attribs    an attribute list to configure the device with, with the same attribute list that would be passed to {@link ALC10#alcCreateContext CreateContext}.
-     */
+    /** {@code ALCboolean alcReopenDeviceSOFT(ALCdevice * device, ALCchar const * deviceName, ALCint const * attribs)} */
     @NativeType("ALCboolean")
-    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @Nullable @NativeType("ALCchar const *") CharSequence deviceName, @Nullable @NativeType("ALCint const *") IntBuffer attribs) {
+    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @NativeType("ALCchar const *") @Nullable CharSequence deviceName, @NativeType("ALCint const *") @Nullable IntBuffer attribs) {
         if (CHECKS) {
             checkNTSafe(attribs);
         }
@@ -83,9 +60,9 @@ public class SOFTReopenDevice {
         }
     }
 
-    /** Array version of: {@link #alcReopenDeviceSOFT ReopenDeviceSOFT} */
+    /** {@code ALCboolean alcReopenDeviceSOFT(ALCdevice * device, ALCchar const * deviceName, ALCint const * attribs)} */
     @NativeType("ALCboolean")
-    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @Nullable @NativeType("ALCchar const *") ByteBuffer deviceName, @Nullable @NativeType("ALCint const *") int[] attribs) {
+    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @NativeType("ALCchar const *") @Nullable ByteBuffer deviceName, @NativeType("ALCint const *") int @Nullable [] attribs) {
 		long __functionAddress = ALC.getICD().alcReopenDeviceSOFT;
         if (CHECKS) {
             check(__functionAddress);
@@ -96,9 +73,9 @@ public class SOFTReopenDevice {
         return invokePPPZ(device, memAddressSafe(deviceName), attribs, __functionAddress);
     }
 
-    /** Array version of: {@link #alcReopenDeviceSOFT ReopenDeviceSOFT} */
+    /** {@code ALCboolean alcReopenDeviceSOFT(ALCdevice * device, ALCchar const * deviceName, ALCint const * attribs)} */
     @NativeType("ALCboolean")
-    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @Nullable @NativeType("ALCchar const *") CharSequence deviceName, @Nullable @NativeType("ALCint const *") int[] attribs) {
+    public static boolean alcReopenDeviceSOFT(@NativeType("ALCdevice *") long device, @NativeType("ALCchar const *") @Nullable CharSequence deviceName, @NativeType("ALCint const *") int @Nullable [] attribs) {
 		long __functionAddress = ALC.getICD().alcReopenDeviceSOFT;
         if (CHECKS) {
             check(__functionAddress);

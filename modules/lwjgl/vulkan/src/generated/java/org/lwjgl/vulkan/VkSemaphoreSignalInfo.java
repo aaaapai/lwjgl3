@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,38 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing information about a semaphore signal operation.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code semaphore} <b>must</b> have been created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}</li>
- * <li>{@code value} <b>must</b> have a value greater than the current value of the semaphore</li>
- * <li>{@code value} <b>must</b> be less than the value of any pending semaphore signal operations</li>
- * <li>{@code value} <b>must</b> have a value which does not differ from the current value of the semaphore or the value of any outstanding semaphore wait or signal operation on {@code semaphore} by more than <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-maxTimelineSemaphoreValueDifference">{@code maxTimelineSemaphoreValueDifference}</a></li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code semaphore} <b>must</b> be a valid {@code VkSemaphore} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK12#vkSignalSemaphore SignalSemaphore}, {@link KHRTimelineSemaphore#vkSignalSemaphoreKHR SignalSemaphoreKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSemaphoreSignalInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkSemaphore {@link #semaphore};
- *     uint64_t {@link #value};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkSemaphore semaphore;
+ *     uint64_t value;
+ * }}</pre>
  */
 public class VkSemaphoreSignalInfo extends Struct<VkSemaphoreSignalInfo> implements NativeResource {
 
@@ -103,28 +78,28 @@ public class VkSemaphoreSignalInfo extends Struct<VkSemaphoreSignalInfo> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the handle of the semaphore to signal. */
+    /** @return the value of the {@code semaphore} field. */
     @NativeType("VkSemaphore")
     public long semaphore() { return nsemaphore(address()); }
-    /** the value to signal. */
+    /** @return the value of the {@code value} field. */
     @NativeType("uint64_t")
     public long value() { return nvalue(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSemaphoreSignalInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO} value to the {@code sType} field. */
     public VkSemaphoreSignalInfo sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSemaphoreSignalInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #semaphore} field. */
+    /** Sets the specified value to the {@code semaphore} field. */
     public VkSemaphoreSignalInfo semaphore(@NativeType("VkSemaphore") long value) { nsemaphore(address(), value); return this; }
-    /** Sets the specified value to the {@link #value} field. */
+    /** Sets the specified value to the {@code value} field. */
     public VkSemaphoreSignalInfo value(@NativeType("uint64_t") long value) { nvalue(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +153,7 @@ public class VkSemaphoreSignalInfo extends Struct<VkSemaphoreSignalInfo> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSignalInfo createSafe(long address) {
+    public static @Nullable VkSemaphoreSignalInfo createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreSignalInfo(address, null);
     }
 
@@ -222,8 +196,7 @@ public class VkSemaphoreSignalInfo extends Struct<VkSemaphoreSignalInfo> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSignalInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreSignalInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,22 +241,22 @@ public class VkSemaphoreSignalInfo extends Struct<VkSemaphoreSignalInfo> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSemaphoreSignalInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSemaphoreSignalInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSemaphoreSignalInfo.PNEXT); }
     /** Unsafe version of {@link #semaphore}. */
-    public static long nsemaphore(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSignalInfo.SEMAPHORE); }
+    public static long nsemaphore(long struct) { return memGetLong(struct + VkSemaphoreSignalInfo.SEMAPHORE); }
     /** Unsafe version of {@link #value}. */
-    public static long nvalue(long struct) { return UNSAFE.getLong(null, struct + VkSemaphoreSignalInfo.VALUE); }
+    public static long nvalue(long struct) { return memGetLong(struct + VkSemaphoreSignalInfo.VALUE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSemaphoreSignalInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSemaphoreSignalInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSemaphoreSignalInfo.PNEXT, value); }
     /** Unsafe version of {@link #semaphore(long) semaphore}. */
-    public static void nsemaphore(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSignalInfo.SEMAPHORE, value); }
+    public static void nsemaphore(long struct, long value) { memPutLong(struct + VkSemaphoreSignalInfo.SEMAPHORE, value); }
     /** Unsafe version of {@link #value(long) value}. */
-    public static void nvalue(long struct, long value) { UNSAFE.putLong(null, struct + VkSemaphoreSignalInfo.VALUE, value); }
+    public static void nvalue(long struct, long value) { memPutLong(struct + VkSemaphoreSignalInfo.VALUE, value); }
 
     // -----------------------------------
 
@@ -319,32 +292,37 @@ public class VkSemaphoreSignalInfo extends Struct<VkSemaphoreSignalInfo> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSemaphoreSignalInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSemaphoreSignalInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSemaphoreSignalInfo.nsType(address()); }
-        /** @return the value of the {@link VkSemaphoreSignalInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkSemaphoreSignalInfo.npNext(address()); }
-        /** @return the value of the {@link VkSemaphoreSignalInfo#semaphore} field. */
+        /** @return the value of the {@code semaphore} field. */
         @NativeType("VkSemaphore")
         public long semaphore() { return VkSemaphoreSignalInfo.nsemaphore(address()); }
-        /** @return the value of the {@link VkSemaphoreSignalInfo#value} field. */
+        /** @return the value of the {@code value} field. */
         @NativeType("uint64_t")
         public long value() { return VkSemaphoreSignalInfo.nvalue(address()); }
 
-        /** Sets the specified value to the {@link VkSemaphoreSignalInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSemaphoreSignalInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkSemaphoreSignalInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO} value to the {@link VkSemaphoreSignalInfo#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO} value to the {@code sType} field. */
         public VkSemaphoreSignalInfo.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO); }
-        /** Sets the specified value to the {@link VkSemaphoreSignalInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSemaphoreSignalInfo.Buffer pNext(@NativeType("void const *") long value) { VkSemaphoreSignalInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSemaphoreSignalInfo#semaphore} field. */
+        /** Sets the specified value to the {@code semaphore} field. */
         public VkSemaphoreSignalInfo.Buffer semaphore(@NativeType("VkSemaphore") long value) { VkSemaphoreSignalInfo.nsemaphore(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSemaphoreSignalInfo#value} field. */
+        /** Sets the specified value to the {@code value} field. */
         public VkSemaphoreSignalInfo.Buffer value(@NativeType("uint64_t") long value) { VkSemaphoreSignalInfo.nvalue(address(), value); return this; }
 
     }

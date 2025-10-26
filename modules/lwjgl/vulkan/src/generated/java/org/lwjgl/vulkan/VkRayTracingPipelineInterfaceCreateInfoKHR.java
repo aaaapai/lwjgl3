@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,43 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying additional interface information when using libraries.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@code maxPipelineRayPayloadSize} is calculated as the maximum number of bytes used by any block declared in the {@code RayPayloadKHR} or {@code IncomingRayPayloadKHR} storage classes. {@code maxPipelineRayHitAttributeSize} is calculated as the maximum number of bytes used by any block declared in the {@code HitAttributeKHR} storage class. As variables in these storage classes do not have explicit offsets, the size should be calculated as if each variable has a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-alignment-requirements">scalar alignment</a> equal to the largest scalar alignment of any of the block’s members.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>There is no explicit upper limit for {@code maxPipelineRayPayloadSize}, but in practice it should be kept as small as possible. Similar to invocation local memory, it must be allocated for each shader invocation and for devices which support many simultaneous invocations, this storage can rapidly be exhausted, resulting in failure.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code maxPipelineRayHitAttributeSize} <b>must</b> be less than or equal to {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR}{@code ::maxRayHitAttributeSize}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRayTracingPipelineCreateInfoKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRayTracingPipelineInterfaceCreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #maxPipelineRayPayloadSize};
- *     uint32_t {@link #maxPipelineRayHitAttributeSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t maxPipelineRayPayloadSize;
+ *     uint32_t maxPipelineRayHitAttributeSize;
+ * }}</pre>
  */
 public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTracingPipelineInterfaceCreateInfoKHR> implements NativeResource {
 
@@ -108,28 +78,28 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the maximum payload size in bytes used by any shader in the pipeline. */
+    /** @return the value of the {@code maxPipelineRayPayloadSize} field. */
     @NativeType("uint32_t")
     public int maxPipelineRayPayloadSize() { return nmaxPipelineRayPayloadSize(address()); }
-    /** the maximum attribute structure size in bytes used by any shader in the pipeline. */
+    /** @return the value of the {@code maxPipelineRayHitAttributeSize} field. */
     @NativeType("uint32_t")
     public int maxPipelineRayHitAttributeSize() { return nmaxPipelineRayHitAttributeSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkRayTracingPipelineInterfaceCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR} value to the {@code sType} field. */
     public VkRayTracingPipelineInterfaceCreateInfoKHR sType$Default() { return sType(KHRRayTracingPipeline.VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkRayTracingPipelineInterfaceCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxPipelineRayPayloadSize} field. */
+    /** Sets the specified value to the {@code maxPipelineRayPayloadSize} field. */
     public VkRayTracingPipelineInterfaceCreateInfoKHR maxPipelineRayPayloadSize(@NativeType("uint32_t") int value) { nmaxPipelineRayPayloadSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxPipelineRayHitAttributeSize} field. */
+    /** Sets the specified value to the {@code maxPipelineRayHitAttributeSize} field. */
     public VkRayTracingPipelineInterfaceCreateInfoKHR maxPipelineRayHitAttributeSize(@NativeType("uint32_t") int value) { nmaxPipelineRayHitAttributeSize(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -183,8 +153,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingPipelineInterfaceCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkRayTracingPipelineInterfaceCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRayTracingPipelineInterfaceCreateInfoKHR(address, null);
     }
 
@@ -227,8 +196,7 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRayTracingPipelineInterfaceCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,22 +241,22 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #maxPipelineRayPayloadSize}. */
-    public static int nmaxPipelineRayPayloadSize(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE); }
+    public static int nmaxPipelineRayPayloadSize(long struct) { return memGetInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE); }
     /** Unsafe version of {@link #maxPipelineRayHitAttributeSize}. */
-    public static int nmaxPipelineRayHitAttributeSize(long struct) { return UNSAFE.getInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE); }
+    public static int nmaxPipelineRayHitAttributeSize(long struct) { return memGetInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #maxPipelineRayPayloadSize(int) maxPipelineRayPayloadSize}. */
-    public static void nmaxPipelineRayPayloadSize(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE, value); }
+    public static void nmaxPipelineRayPayloadSize(long struct, int value) { memPutInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYPAYLOADSIZE, value); }
     /** Unsafe version of {@link #maxPipelineRayHitAttributeSize(int) maxPipelineRayHitAttributeSize}. */
-    public static void nmaxPipelineRayHitAttributeSize(long struct, int value) { UNSAFE.putInt(null, struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE, value); }
+    public static void nmaxPipelineRayHitAttributeSize(long struct, int value) { memPutInt(struct + VkRayTracingPipelineInterfaceCreateInfoKHR.MAXPIPELINERAYHITATTRIBUTESIZE, value); }
 
     // -----------------------------------
 
@@ -324,32 +292,37 @@ public class VkRayTracingPipelineInterfaceCreateInfoKHR extends Struct<VkRayTrac
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRayTracingPipelineInterfaceCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkRayTracingPipelineInterfaceCreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkRayTracingPipelineInterfaceCreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#maxPipelineRayPayloadSize} field. */
+        /** @return the value of the {@code maxPipelineRayPayloadSize} field. */
         @NativeType("uint32_t")
         public int maxPipelineRayPayloadSize() { return VkRayTracingPipelineInterfaceCreateInfoKHR.nmaxPipelineRayPayloadSize(address()); }
-        /** @return the value of the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#maxPipelineRayHitAttributeSize} field. */
+        /** @return the value of the {@code maxPipelineRayHitAttributeSize} field. */
         @NativeType("uint32_t")
         public int maxPipelineRayHitAttributeSize() { return VkRayTracingPipelineInterfaceCreateInfoKHR.nmaxPipelineRayHitAttributeSize(address()); }
 
-        /** Sets the specified value to the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkRayTracingPipelineInterfaceCreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR} value to the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#sType} field. */
+        /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR} value to the {@code sType} field. */
         public VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer sType$Default() { return sType(KHRRayTracingPipeline.VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkRayTracingPipelineInterfaceCreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#maxPipelineRayPayloadSize} field. */
+        /** Sets the specified value to the {@code maxPipelineRayPayloadSize} field. */
         public VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer maxPipelineRayPayloadSize(@NativeType("uint32_t") int value) { VkRayTracingPipelineInterfaceCreateInfoKHR.nmaxPipelineRayPayloadSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkRayTracingPipelineInterfaceCreateInfoKHR#maxPipelineRayHitAttributeSize} field. */
+        /** Sets the specified value to the {@code maxPipelineRayHitAttributeSize} field. */
         public VkRayTracingPipelineInterfaceCreateInfoKHR.Buffer maxPipelineRayHitAttributeSize(@NativeType("uint32_t") int value) { VkRayTracingPipelineInterfaceCreateInfoKHR.nmaxPipelineRayHitAttributeSize(address(), value); return this; }
 
     }

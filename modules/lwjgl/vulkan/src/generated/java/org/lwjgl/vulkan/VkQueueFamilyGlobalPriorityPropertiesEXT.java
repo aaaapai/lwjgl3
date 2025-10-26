@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,18 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
-import static org.lwjgl.vulkan.KHRGlobalPriority.*;
+import static org.lwjgl.vulkan.VK14.*;
 
 /**
- * See {@link VkQueueFamilyGlobalPriorityPropertiesKHR}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkQueueFamilyGlobalPriorityPropertiesEXT {
  *     VkStructureType sType;
  *     void * pNext;
  *     uint32_t priorityCount;
- *     VkQueueGlobalPriorityKHR priorities[VK_MAX_GLOBAL_PRIORITY_SIZE_KHR];
- * }</code></pre>
+ *     VkQueueGlobalPriority priorities[VK_MAX_GLOBAL_PRIORITY_SIZE];
+ * }}</pre>
  */
-public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGlobalPriorityPropertiesKHR {
+public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGlobalPriorityProperties {
 
     protected VkQueueFamilyGlobalPriorityPropertiesEXT(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -55,34 +51,21 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
     /** Sets the specified value to the {@code sType} field. */
     @Override
     public VkQueueFamilyGlobalPriorityPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRGlobalPriority#VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR} value to the {@code sType} field. */
+    /** Sets the {@link VK14#VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES} value to the {@code sType} field. */
     @Override
-    public VkQueueFamilyGlobalPriorityPropertiesEXT sType$Default() { return sType(KHRGlobalPriority.VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR); }
+    public VkQueueFamilyGlobalPriorityPropertiesEXT sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES); }
     /** Sets the specified value to the {@code pNext} field. */
     @Override
     public VkQueueFamilyGlobalPriorityPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code priorityCount} field. */
-    @Override
-    public VkQueueFamilyGlobalPriorityPropertiesEXT priorityCount(@NativeType("uint32_t") int value) { npriorityCount(address(), value); return this; }
-    /** Copies the specified {@link IntBuffer} to the {@code priorities} field. */
-    @Override
-    public VkQueueFamilyGlobalPriorityPropertiesEXT priorities(@NativeType("VkQueueGlobalPriorityKHR[VK_MAX_GLOBAL_PRIORITY_SIZE_KHR]") IntBuffer value) { npriorities(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@code priorities} field. */
-    @Override
-    public VkQueueFamilyGlobalPriorityPropertiesEXT priorities(int index, @NativeType("VkQueueGlobalPriorityKHR") int value) { npriorities(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
     @Override
     public VkQueueFamilyGlobalPriorityPropertiesEXT set(
         int sType,
-        long pNext,
-        int priorityCount,
-        IntBuffer priorities
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        priorityCount(priorityCount);
-        priorities(priorities);
 
         return this;
     }
@@ -123,8 +106,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyGlobalPriorityPropertiesEXT createSafe(long address) {
+    public static @Nullable VkQueueFamilyGlobalPriorityPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkQueueFamilyGlobalPriorityPropertiesEXT(address, null);
     }
 
@@ -167,8 +149,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkQueueFamilyGlobalPriorityPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -213,7 +194,7 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
     // -----------------------------------
 
     /** An array of {@link VkQueueFamilyGlobalPriorityPropertiesEXT} structs. */
-    public static class Buffer extends VkQueueFamilyGlobalPriorityPropertiesKHR.Buffer {
+    public static class Buffer extends VkQueueFamilyGlobalPriorityProperties.Buffer {
 
         private static final VkQueueFamilyGlobalPriorityPropertiesEXT ELEMENT_FACTORY = VkQueueFamilyGlobalPriorityPropertiesEXT.create(-1L);
 
@@ -244,6 +225,11 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkQueueFamilyGlobalPriorityPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -251,21 +237,12 @@ public class VkQueueFamilyGlobalPriorityPropertiesEXT extends VkQueueFamilyGloba
         /** Sets the specified value to the {@code sType} field. */
         @Override
         public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkQueueFamilyGlobalPriorityPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link KHRGlobalPriority#VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR} value to the {@code sType} field. */
+        /** Sets the {@link VK14#VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES} value to the {@code sType} field. */
         @Override
-        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer sType$Default() { return sType(KHRGlobalPriority.VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR); }
+        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer sType$Default() { return sType(VK14.VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES); }
         /** Sets the specified value to the {@code pNext} field. */
         @Override
         public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code priorityCount} field. */
-        @Override
-        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer priorityCount(@NativeType("uint32_t") int value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npriorityCount(address(), value); return this; }
-        /** Copies the specified {@link IntBuffer} to the {@code priorities} field. */
-        @Override
-        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer priorities(@NativeType("VkQueueGlobalPriorityKHR[VK_MAX_GLOBAL_PRIORITY_SIZE_KHR]") IntBuffer value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npriorities(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@code priorities} field. */
-        @Override
-        public VkQueueFamilyGlobalPriorityPropertiesEXT.Buffer priorities(int index, @NativeType("VkQueueGlobalPriorityKHR") int value) { VkQueueFamilyGlobalPriorityPropertiesEXT.npriorities(address(), index, value); return this; }
 
     }
 

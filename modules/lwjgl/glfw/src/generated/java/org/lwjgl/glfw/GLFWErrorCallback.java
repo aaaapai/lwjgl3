@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -16,19 +16,7 @@ import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetErrorCallback SetErrorCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     int error,
- *     char *description
- * )</code></pre>
- *
- * @since version 3.0
- */
+/** Callback function: {@link #invoke GLFWerrorfun} */
 public abstract class GLFWErrorCallback extends Callback implements GLFWErrorCallbackI {
 
     /**
@@ -44,8 +32,7 @@ public abstract class GLFWErrorCallback extends Callback implements GLFWErrorCal
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWErrorCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWErrorCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

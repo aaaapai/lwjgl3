@@ -4,10 +4,10 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.libffi.*;
 
-import javax.annotation.*;
 import java.lang.reflect.*;
 import java.util.concurrent.*;
 
@@ -27,6 +27,8 @@ public abstract class Callback implements Pointer, NativeResource {
 
     private static final boolean DEBUG_ALLOCATOR = Configuration.DEBUG_MEMORY_ALLOCATOR.get(false);
 
+    private static final int CLOSURE_SIZE = (int)ffi_get_closure_size();
+
     private static final ClosureRegistry CLOSURE_REGISTRY;
 
     private interface ClosureRegistry {
@@ -40,7 +42,7 @@ public abstract class Callback implements Pointer, NativeResource {
         try (MemoryStack stack = stackPush()) {
             PointerBuffer code = stack.mallocPointer(1);
 
-            FFIClosure closure = ffi_closure_alloc(FFIClosure.SIZEOF, code);
+            FFIClosure closure = ffi_closure_alloc(CLOSURE_SIZE, code);
             if (closure == null) {
                 throw new OutOfMemoryError();
             }
@@ -109,6 +111,7 @@ public abstract class Callback implements Pointer, NativeResource {
      *
      * @param cif the libffi CIF
      */
+    @SuppressWarnings("this-escape")
     protected Callback(FFICIF cif) {
         this.address = create(cif, this);
     }
@@ -154,13 +157,13 @@ public abstract class Callback implements Pointer, NativeResource {
         try (MemoryStack stack = stackPush()) {
             PointerBuffer code = stack.mallocPointer(1);
 
-            closure = ffi_closure_alloc(FFIClosure.SIZEOF, code);
+            closure = ffi_closure_alloc(CLOSURE_SIZE, code);
             if (closure == null) {
                 throw new OutOfMemoryError();
             }
             executableAddress = code.get(0);
             if (DEBUG_ALLOCATOR) {
-                MemoryManage.DebugAllocator.track(executableAddress, FFIClosure.SIZEOF);
+                MemoryManage.DebugAllocator.track(executableAddress, CLOSURE_SIZE);
             }
         }
 
@@ -191,8 +194,7 @@ public abstract class Callback implements Pointer, NativeResource {
     }
 
     /** Like {@link #get}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static <T extends CallbackI> T getSafe(long functionPointer) {
+    public static <T extends CallbackI> @Nullable T getSafe(long functionPointer) {
         return functionPointer == NULL ? null : get(functionPointer);
     }
 
@@ -206,7 +208,7 @@ public abstract class Callback implements Pointer, NativeResource {
             MemoryManage.DebugAllocator.untrack(functionPointer);
         }
 
-        FFIClosure closure = CLOSURE_REGISTRY.get(functionPointer);
+        FFIClosure closure = CLOSURE_REGISTRY.remove(functionPointer);
 
         DeleteGlobalRef(closure.user_data());
         ffi_closure_free(closure);

@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *opaqueState,
- *     void *address
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LZ4F_FreeFunction} */
 public abstract class LZ4FFreeFunction extends Callback implements LZ4FFreeFunctionI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class LZ4FFreeFunction extends Callback implements LZ4FFreeFunct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LZ4FFreeFunction createSafe(long functionPointer) {
+    public static @Nullable LZ4FFreeFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

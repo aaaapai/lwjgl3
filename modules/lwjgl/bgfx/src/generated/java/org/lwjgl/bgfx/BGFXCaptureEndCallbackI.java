@@ -12,22 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Called when video capture ends.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     bgfx_callback_interface_t *_this
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void (*) (bgfx_callback_interface_t *)")
 public interface BGFXCaptureEndCallbackI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -42,11 +32,7 @@ public interface BGFXCaptureEndCallbackI extends CallbackI {
         );
     }
 
-    /**
-     * Will be called when video capture ends.
-     *
-     * @param _this the callback interface
-     */
+    /** {@code void (*) (bgfx_callback_interface_t * _this)} */
     void invoke(@NativeType("bgfx_callback_interface_t *") long _this);
 
 }

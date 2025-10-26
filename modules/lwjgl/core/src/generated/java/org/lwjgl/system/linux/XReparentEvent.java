@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,21 +17,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XReparentEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window event;
  *     Window window;
  *     Window parent;
  *     int x;
  *     int y;
  *     int override_redirect;
- * }</code></pre>
+ * }}</pre>
  */
 public class XReparentEvent extends Struct<XReparentEvent> implements NativeResource {
 
@@ -107,13 +105,13 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code event} field. */
@@ -134,11 +132,11 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
 
     /** Sets the specified value to the {@code type} field. */
     public XReparentEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XReparentEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XReparentEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XReparentEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code event} field. */
     public XReparentEvent event(@NativeType("Window") long value) { nevent(address(), value); return this; }
@@ -216,8 +214,7 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XReparentEvent createSafe(long address) {
+    public static @Nullable XReparentEvent createSafe(long address) {
         return address == NULL ? null : new XReparentEvent(address, null);
     }
 
@@ -260,8 +257,7 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XReparentEvent.Buffer createSafe(long address, int capacity) {
+    public static XReparentEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -325,11 +321,11 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XReparentEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XReparentEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XReparentEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XReparentEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XReparentEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XReparentEvent.DISPLAY); }
     /** Unsafe version of {@link #event}. */
@@ -339,18 +335,18 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
     /** Unsafe version of {@link #parent}. */
     public static long nparent(long struct) { return memGetCLong(struct + XReparentEvent.PARENT); }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XReparentEvent.X); }
+    public static int nx(long struct) { return memGetInt(struct + XReparentEvent.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XReparentEvent.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XReparentEvent.Y); }
     /** Unsafe version of {@link #override_redirect}. */
-    public static int noverride_redirect(long struct) { return UNSAFE.getInt(null, struct + XReparentEvent.OVERRIDE_REDIRECT); }
+    public static int noverride_redirect(long struct) { return memGetInt(struct + XReparentEvent.OVERRIDE_REDIRECT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XReparentEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XReparentEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XReparentEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XReparentEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XReparentEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XReparentEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #event(long) event}. */
@@ -360,11 +356,11 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
     /** Unsafe version of {@link #parent(long) parent}. */
     public static void nparent(long struct, long value) { memPutCLong(struct + XReparentEvent.PARENT, value); }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XReparentEvent.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XReparentEvent.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XReparentEvent.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XReparentEvent.Y, value); }
     /** Unsafe version of {@link #override_redirect(int) override_redirect}. */
-    public static void noverride_redirect(long struct, int value) { UNSAFE.putInt(null, struct + XReparentEvent.OVERRIDE_REDIRECT, value); }
+    public static void noverride_redirect(long struct, int value) { memPutInt(struct + XReparentEvent.OVERRIDE_REDIRECT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -409,19 +405,24 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XReparentEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XReparentEvent.ntype(address()); }
-        /** @return the value of the {@link XReparentEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XReparentEvent.nserial(address()); }
-        /** @return the value of the {@link XReparentEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XReparentEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XReparentEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XReparentEvent.ndisplay(address()); }
         /** @return the value of the {@code event} field. */
@@ -442,11 +443,11 @@ public class XReparentEvent extends Struct<XReparentEvent> implements NativeReso
 
         /** Sets the specified value to the {@code type} field. */
         public XReparentEvent.Buffer type(int value) { XReparentEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XReparentEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XReparentEvent.Buffer serial(@NativeType("unsigned long") long value) { XReparentEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XReparentEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XReparentEvent.Buffer send_event(@NativeType("Bool") boolean value) { XReparentEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XReparentEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XReparentEvent.Buffer display(@NativeType("Display *") long value) { XReparentEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code event} field. */
         public XReparentEvent.Buffer event(@NativeType("Window") long value) { XReparentEvent.nevent(address(), value); return this; }

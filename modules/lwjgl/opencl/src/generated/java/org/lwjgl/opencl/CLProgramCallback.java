@@ -5,23 +5,13 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CL10#clBuildProgram BuildProgram}, {@link CL12#clCompileProgram CompileProgram} and {@link CL12#clLinkProgram LinkProgram} methods.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     cl_program program,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CLProgramCallback extends Callback implements CLProgramCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class CLProgramCallback extends Callback implements CLProgramCal
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CLProgramCallback createSafe(long functionPointer) {
+    public static @Nullable CLProgramCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

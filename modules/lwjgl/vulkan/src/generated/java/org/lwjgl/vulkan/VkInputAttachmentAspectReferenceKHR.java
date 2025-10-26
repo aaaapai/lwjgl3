@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkInputAttachmentAspectReference}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkInputAttachmentAspectReferenceKHR {
  *     uint32_t subpass;
  *     uint32_t inputAttachmentIndex;
  *     VkImageAspectFlags aspectMask;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkInputAttachmentAspectReferenceKHR extends VkInputAttachmentAspectReference {
 
@@ -108,8 +104,7 @@ public class VkInputAttachmentAspectReferenceKHR extends VkInputAttachmentAspect
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkInputAttachmentAspectReferenceKHR createSafe(long address) {
+    public static @Nullable VkInputAttachmentAspectReferenceKHR createSafe(long address) {
         return address == NULL ? null : new VkInputAttachmentAspectReferenceKHR(address, null);
     }
 
@@ -152,8 +147,7 @@ public class VkInputAttachmentAspectReferenceKHR extends VkInputAttachmentAspect
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkInputAttachmentAspectReferenceKHR.Buffer createSafe(long address, int capacity) {
+    public static VkInputAttachmentAspectReferenceKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,6 +239,11 @@ public class VkInputAttachmentAspectReferenceKHR extends VkInputAttachmentAspect
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

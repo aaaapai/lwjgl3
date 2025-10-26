@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,21 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Stores the memory requirements for different components (e.g. meshes, materials, animations) of an import. All sizes are in bytes.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiMemoryInfo {
- *     unsigned int {@link #textures};
- *     unsigned int {@link #materials};
- *     unsigned int {@link #meshes};
- *     unsigned int {@link #nodes};
- *     unsigned int {@link #animations};
- *     unsigned int {@link #cameras};
- *     unsigned int {@link #lights};
- *     unsigned int {@link #total};
- * }</code></pre>
+ *     unsigned int textures;
+ *     unsigned int materials;
+ *     unsigned int meshes;
+ *     unsigned int nodes;
+ *     unsigned int animations;
+ *     unsigned int cameras;
+ *     unsigned int lights;
+ *     unsigned int total;
+ * }}</pre>
  */
 @NativeType("struct aiMemoryInfo")
 public class AIMemoryInfo extends Struct<AIMemoryInfo> implements NativeResource {
@@ -99,28 +95,28 @@ public class AIMemoryInfo extends Struct<AIMemoryInfo> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Storage allocated for texture data */
+    /** @return the value of the {@code textures} field. */
     @NativeType("unsigned int")
     public int textures() { return ntextures(address()); }
-    /** Storage allocated for material data */
+    /** @return the value of the {@code materials} field. */
     @NativeType("unsigned int")
     public int materials() { return nmaterials(address()); }
-    /** Storage allocated for mesh data */
+    /** @return the value of the {@code meshes} field. */
     @NativeType("unsigned int")
     public int meshes() { return nmeshes(address()); }
-    /** Storage allocated for node data */
+    /** @return the value of the {@code nodes} field. */
     @NativeType("unsigned int")
     public int nodes() { return nnodes(address()); }
-    /** Storage allocated for animation data */
+    /** @return the value of the {@code animations} field. */
     @NativeType("unsigned int")
     public int animations() { return nanimations(address()); }
-    /** Storage allocated for camera data */
+    /** @return the value of the {@code cameras} field. */
     @NativeType("unsigned int")
     public int cameras() { return ncameras(address()); }
-    /** Storage allocated for light data */
+    /** @return the value of the {@code lights} field. */
     @NativeType("unsigned int")
     public int lights() { return nlights(address()); }
-    /** Total storage allocated for the full import. */
+    /** @return the value of the {@code total} field. */
     @NativeType("unsigned int")
     public int total() { return ntotal(address()); }
 
@@ -148,8 +144,7 @@ public class AIMemoryInfo extends Struct<AIMemoryInfo> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMemoryInfo createSafe(long address) {
+    public static @Nullable AIMemoryInfo createSafe(long address) {
         return address == NULL ? null : new AIMemoryInfo(address, null);
     }
 
@@ -192,8 +187,7 @@ public class AIMemoryInfo extends Struct<AIMemoryInfo> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMemoryInfo.Buffer createSafe(long address, int capacity) {
+    public static AIMemoryInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,21 +251,21 @@ public class AIMemoryInfo extends Struct<AIMemoryInfo> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #textures}. */
-    public static int ntextures(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.TEXTURES); }
+    public static int ntextures(long struct) { return memGetInt(struct + AIMemoryInfo.TEXTURES); }
     /** Unsafe version of {@link #materials}. */
-    public static int nmaterials(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.MATERIALS); }
+    public static int nmaterials(long struct) { return memGetInt(struct + AIMemoryInfo.MATERIALS); }
     /** Unsafe version of {@link #meshes}. */
-    public static int nmeshes(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.MESHES); }
+    public static int nmeshes(long struct) { return memGetInt(struct + AIMemoryInfo.MESHES); }
     /** Unsafe version of {@link #nodes}. */
-    public static int nnodes(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.NODES); }
+    public static int nnodes(long struct) { return memGetInt(struct + AIMemoryInfo.NODES); }
     /** Unsafe version of {@link #animations}. */
-    public static int nanimations(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.ANIMATIONS); }
+    public static int nanimations(long struct) { return memGetInt(struct + AIMemoryInfo.ANIMATIONS); }
     /** Unsafe version of {@link #cameras}. */
-    public static int ncameras(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.CAMERAS); }
+    public static int ncameras(long struct) { return memGetInt(struct + AIMemoryInfo.CAMERAS); }
     /** Unsafe version of {@link #lights}. */
-    public static int nlights(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.LIGHTS); }
+    public static int nlights(long struct) { return memGetInt(struct + AIMemoryInfo.LIGHTS); }
     /** Unsafe version of {@link #total}. */
-    public static int ntotal(long struct) { return UNSAFE.getInt(null, struct + AIMemoryInfo.TOTAL); }
+    public static int ntotal(long struct) { return memGetInt(struct + AIMemoryInfo.TOTAL); }
 
     // -----------------------------------
 
@@ -307,32 +301,37 @@ public class AIMemoryInfo extends Struct<AIMemoryInfo> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIMemoryInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIMemoryInfo#textures} field. */
+        /** @return the value of the {@code textures} field. */
         @NativeType("unsigned int")
         public int textures() { return AIMemoryInfo.ntextures(address()); }
-        /** @return the value of the {@link AIMemoryInfo#materials} field. */
+        /** @return the value of the {@code materials} field. */
         @NativeType("unsigned int")
         public int materials() { return AIMemoryInfo.nmaterials(address()); }
-        /** @return the value of the {@link AIMemoryInfo#meshes} field. */
+        /** @return the value of the {@code meshes} field. */
         @NativeType("unsigned int")
         public int meshes() { return AIMemoryInfo.nmeshes(address()); }
-        /** @return the value of the {@link AIMemoryInfo#nodes} field. */
+        /** @return the value of the {@code nodes} field. */
         @NativeType("unsigned int")
         public int nodes() { return AIMemoryInfo.nnodes(address()); }
-        /** @return the value of the {@link AIMemoryInfo#animations} field. */
+        /** @return the value of the {@code animations} field. */
         @NativeType("unsigned int")
         public int animations() { return AIMemoryInfo.nanimations(address()); }
-        /** @return the value of the {@link AIMemoryInfo#cameras} field. */
+        /** @return the value of the {@code cameras} field. */
         @NativeType("unsigned int")
         public int cameras() { return AIMemoryInfo.ncameras(address()); }
-        /** @return the value of the {@link AIMemoryInfo#lights} field. */
+        /** @return the value of the {@code lights} field. */
         @NativeType("unsigned int")
         public int lights() { return AIMemoryInfo.nlights(address()); }
-        /** @return the value of the {@link AIMemoryInfo#total} field. */
+        /** @return the value of the {@code total} field. */
         @NativeType("unsigned int")
         public int total() { return AIMemoryInfo.ntotal(address()); }
 

@@ -5,22 +5,13 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * struct aiFile * (*{@link #invoke}) (
- *     struct aiFileIO *pFileIO,
- *     char const *fileName,
- *     char const *openMode
- * )</code></pre>
- */
+/** Callback function: {@link #invoke aiFileOpenProc} */
 public abstract class AIFileOpenProc extends Callback implements AIFileOpenProcI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class AIFileOpenProc extends Callback implements AIFileOpenProcI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static AIFileOpenProc createSafe(long functionPointer) {
+    public static @Nullable AIFileOpenProc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify that a buffer is bound to a dedicated memory resource.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDedicatedAllocationBufferCreateInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBool32 {@link #dedicatedAllocation};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBool32 dedicatedAllocation;
+ * }}</pre>
  */
 public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedAllocationBufferCreateInfoNV> implements NativeResource {
 
@@ -84,23 +74,23 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether the buffer will have a dedicated allocation bound to it. */
+    /** @return the value of the {@code dedicatedAllocation} field. */
     @NativeType("VkBool32")
     public boolean dedicatedAllocation() { return ndedicatedAllocation(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDedicatedAllocationBufferCreateInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV} value to the {@code sType} field. */
     public VkDedicatedAllocationBufferCreateInfoNV sType$Default() { return sType(NVDedicatedAllocation.VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDedicatedAllocationBufferCreateInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #dedicatedAllocation} field. */
+    /** Sets the specified value to the {@code dedicatedAllocation} field. */
     public VkDedicatedAllocationBufferCreateInfoNV dedicatedAllocation(@NativeType("VkBool32") boolean value) { ndedicatedAllocation(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +142,7 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDedicatedAllocationBufferCreateInfoNV createSafe(long address) {
+    public static @Nullable VkDedicatedAllocationBufferCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkDedicatedAllocationBufferCreateInfoNV(address, null);
     }
 
@@ -196,8 +185,7 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDedicatedAllocationBufferCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkDedicatedAllocationBufferCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,18 +249,18 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDedicatedAllocationBufferCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #dedicatedAllocation}. */
-    public static int ndedicatedAllocation(long struct) { return UNSAFE.getInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION); }
+    public static int ndedicatedAllocation(long struct) { return memGetInt(struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDedicatedAllocationBufferCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDedicatedAllocationBufferCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #dedicatedAllocation(boolean) dedicatedAllocation}. */
-    public static void ndedicatedAllocation(long struct, int value) { UNSAFE.putInt(null, struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION, value); }
+    public static void ndedicatedAllocation(long struct, int value) { memPutInt(struct + VkDedicatedAllocationBufferCreateInfoNV.DEDICATEDALLOCATION, value); }
 
     // -----------------------------------
 
@@ -308,27 +296,32 @@ public class VkDedicatedAllocationBufferCreateInfoNV extends Struct<VkDedicatedA
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDedicatedAllocationBufferCreateInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDedicatedAllocationBufferCreateInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDedicatedAllocationBufferCreateInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkDedicatedAllocationBufferCreateInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDedicatedAllocationBufferCreateInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkDedicatedAllocationBufferCreateInfoNV#dedicatedAllocation} field. */
+        /** @return the value of the {@code dedicatedAllocation} field. */
         @NativeType("VkBool32")
         public boolean dedicatedAllocation() { return VkDedicatedAllocationBufferCreateInfoNV.ndedicatedAllocation(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkDedicatedAllocationBufferCreateInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDedicatedAllocationBufferCreateInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkDedicatedAllocationBufferCreateInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV} value to the {@link VkDedicatedAllocationBufferCreateInfoNV#sType} field. */
+        /** Sets the {@link NVDedicatedAllocation#VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV} value to the {@code sType} field. */
         public VkDedicatedAllocationBufferCreateInfoNV.Buffer sType$Default() { return sType(NVDedicatedAllocation.VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV); }
-        /** Sets the specified value to the {@link VkDedicatedAllocationBufferCreateInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDedicatedAllocationBufferCreateInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkDedicatedAllocationBufferCreateInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDedicatedAllocationBufferCreateInfoNV#dedicatedAllocation} field. */
+        /** Sets the specified value to the {@code dedicatedAllocation} field. */
         public VkDedicatedAllocationBufferCreateInfoNV.Buffer dedicatedAllocation(@NativeType("VkBool32") boolean value) { VkDedicatedAllocationBufferCreateInfoNV.ndedicatedAllocation(address(), value ? 1 : 0); return this; }
 
     }

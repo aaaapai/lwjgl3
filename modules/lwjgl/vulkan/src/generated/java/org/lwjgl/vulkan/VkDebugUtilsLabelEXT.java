@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,29 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify parameters of a label region.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDebugUtils#VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code pLabelName} <b>must</b> be a null-terminated UTF-8 string</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDebugUtilsMessengerCallbackDataEXT}, {@link EXTDebugUtils#vkCmdBeginDebugUtilsLabelEXT CmdBeginDebugUtilsLabelEXT}, {@link EXTDebugUtils#vkCmdInsertDebugUtilsLabelEXT CmdInsertDebugUtilsLabelEXT}, {@link EXTDebugUtils#vkQueueBeginDebugUtilsLabelEXT QueueBeginDebugUtilsLabelEXT}, {@link EXTDebugUtils#vkQueueInsertDebugUtilsLabelEXT QueueInsertDebugUtilsLabelEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDebugUtilsLabelEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     char const * {@link #pLabelName};
- *     float {@link #color}[4];
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     char const * pLabelName;
+ *     float color[4];
+ * }}</pre>
  */
 public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implements NativeResource {
 
@@ -95,35 +79,35 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a pointer to a null-terminated UTF-8 string containing the name of the label. */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code pLabelName} field. */
     @NativeType("char const *")
     public ByteBuffer pLabelName() { return npLabelName(address()); }
-    /** a pointer to a null-terminated UTF-8 string containing the name of the label. */
+    /** @return the null-terminated string pointed to by the {@code pLabelName} field. */
     @NativeType("char const *")
     public String pLabelNameString() { return npLabelNameString(address()); }
-    /** an optional RGBA color value that can be associated with the label. A particular implementation <b>may</b> choose to ignore this color value. The values contain RGBA values in order, in the range 0.0 to 1.0. If all elements in {@code color} are set to 0.0 then it is ignored. */
+    /** @return a {@link FloatBuffer} view of the {@code color} field. */
     @NativeType("float[4]")
     public FloatBuffer color() { return ncolor(address()); }
-    /** an optional RGBA color value that can be associated with the label. A particular implementation <b>may</b> choose to ignore this color value. The values contain RGBA values in order, in the range 0.0 to 1.0. If all elements in {@code color} are set to 0.0 then it is ignored. */
+    /** @return the value at the specified index of the {@code color} field. */
     public float color(int index) { return ncolor(address(), index); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDebugUtilsLabelEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDebugUtils#VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDebugUtils#VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@code sType} field. */
     public VkDebugUtilsLabelEXT sType$Default() { return sType(EXTDebugUtils.VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDebugUtilsLabelEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the address of the specified encoded string to the {@link #pLabelName} field. */
+    /** Sets the address of the specified encoded string to the {@code pLabelName} field. */
     public VkDebugUtilsLabelEXT pLabelName(@NativeType("char const *") ByteBuffer value) { npLabelName(address(), value); return this; }
-    /** Copies the specified {@link FloatBuffer} to the {@link #color} field. */
+    /** Copies the specified {@link FloatBuffer} to the {@code color} field. */
     public VkDebugUtilsLabelEXT color(@NativeType("float[4]") FloatBuffer value) { ncolor(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #color} field. */
+    /** Sets the specified value at the specified index of the {@code color} field. */
     public VkDebugUtilsLabelEXT color(int index, float value) { ncolor(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -177,8 +161,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugUtilsLabelEXT createSafe(long address) {
+    public static @Nullable VkDebugUtilsLabelEXT createSafe(long address) {
         return address == NULL ? null : new VkDebugUtilsLabelEXT(address, null);
     }
 
@@ -221,8 +204,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDebugUtilsLabelEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDebugUtilsLabelEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,7 +268,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDebugUtilsLabelEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDebugUtilsLabelEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDebugUtilsLabelEXT.PNEXT); }
     /** Unsafe version of {@link #pLabelName}. */
@@ -297,11 +279,11 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     public static FloatBuffer ncolor(long struct) { return memFloatBuffer(struct + VkDebugUtilsLabelEXT.COLOR, 4); }
     /** Unsafe version of {@link #color(int) color}. */
     public static float ncolor(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4);
+        return memGetFloat(struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDebugUtilsLabelEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDebugUtilsLabelEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDebugUtilsLabelEXT.PNEXT, value); }
     /** Unsafe version of {@link #pLabelName(ByteBuffer) pLabelName}. */
@@ -316,7 +298,7 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
     }
     /** Unsafe version of {@link #color(int, float) color}. */
     public static void ncolor(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4, value);
+        memPutFloat(struct + VkDebugUtilsLabelEXT.COLOR + check(index, 4) * 4, value);
     }
 
     /**
@@ -362,39 +344,44 @@ public class VkDebugUtilsLabelEXT extends Struct<VkDebugUtilsLabelEXT> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDebugUtilsLabelEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDebugUtilsLabelEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDebugUtilsLabelEXT.nsType(address()); }
-        /** @return the value of the {@link VkDebugUtilsLabelEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDebugUtilsLabelEXT.npNext(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VkDebugUtilsLabelEXT#pLabelName} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code pLabelName} field. */
         @NativeType("char const *")
         public ByteBuffer pLabelName() { return VkDebugUtilsLabelEXT.npLabelName(address()); }
-        /** @return the null-terminated string pointed to by the {@link VkDebugUtilsLabelEXT#pLabelName} field. */
+        /** @return the null-terminated string pointed to by the {@code pLabelName} field. */
         @NativeType("char const *")
         public String pLabelNameString() { return VkDebugUtilsLabelEXT.npLabelNameString(address()); }
-        /** @return a {@link FloatBuffer} view of the {@link VkDebugUtilsLabelEXT#color} field. */
+        /** @return a {@link FloatBuffer} view of the {@code color} field. */
         @NativeType("float[4]")
         public FloatBuffer color() { return VkDebugUtilsLabelEXT.ncolor(address()); }
-        /** @return the value at the specified index of the {@link VkDebugUtilsLabelEXT#color} field. */
+        /** @return the value at the specified index of the {@code color} field. */
         public float color(int index) { return VkDebugUtilsLabelEXT.ncolor(address(), index); }
 
-        /** Sets the specified value to the {@link VkDebugUtilsLabelEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDebugUtilsLabelEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkDebugUtilsLabelEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDebugUtils#VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@link VkDebugUtilsLabelEXT#sType} field. */
+        /** Sets the {@link EXTDebugUtils#VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@code sType} field. */
         public VkDebugUtilsLabelEXT.Buffer sType$Default() { return sType(EXTDebugUtils.VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT); }
-        /** Sets the specified value to the {@link VkDebugUtilsLabelEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDebugUtilsLabelEXT.Buffer pNext(@NativeType("void const *") long value) { VkDebugUtilsLabelEXT.npNext(address(), value); return this; }
-        /** Sets the address of the specified encoded string to the {@link VkDebugUtilsLabelEXT#pLabelName} field. */
+        /** Sets the address of the specified encoded string to the {@code pLabelName} field. */
         public VkDebugUtilsLabelEXT.Buffer pLabelName(@NativeType("char const *") ByteBuffer value) { VkDebugUtilsLabelEXT.npLabelName(address(), value); return this; }
-        /** Copies the specified {@link FloatBuffer} to the {@link VkDebugUtilsLabelEXT#color} field. */
+        /** Copies the specified {@link FloatBuffer} to the {@code color} field. */
         public VkDebugUtilsLabelEXT.Buffer color(@NativeType("float[4]") FloatBuffer value) { VkDebugUtilsLabelEXT.ncolor(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link VkDebugUtilsLabelEXT#color} field. */
+        /** Sets the specified value at the specified index of the {@code color} field. */
         public VkDebugUtilsLabelEXT.Buffer color(int index, float value) { VkDebugUtilsLabelEXT.ncolor(address(), index, value); return this; }
 
     }

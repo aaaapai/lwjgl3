@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing cubic weight selection features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceCubicWeightsFeaturesQCOM} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceCubicWeightsFeaturesQCOM} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMFilterCubicWeights#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceCubicWeightsFeaturesQCOM {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkBool32 {@link #selectableCubicWeights};
- * }</code></pre>
+ *     VkBool32 selectableCubicWeights;
+ * }}</pre>
  */
 public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalDeviceCubicWeightsFeaturesQCOM> implements NativeResource {
 
@@ -94,7 +80,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the selection of filter cubic weights. */
+    /** @return the value of the {@code selectableCubicWeights} field. */
     @NativeType("VkBool32")
     public boolean selectableCubicWeights() { return nselectableCubicWeights(address()) != 0; }
 
@@ -104,7 +90,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     public VkPhysicalDeviceCubicWeightsFeaturesQCOM sType$Default() { return sType(QCOMFilterCubicWeights.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceCubicWeightsFeaturesQCOM pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #selectableCubicWeights} field. */
+    /** Sets the specified value to the {@code selectableCubicWeights} field. */
     public VkPhysicalDeviceCubicWeightsFeaturesQCOM selectableCubicWeights(@NativeType("VkBool32") boolean value) { nselectableCubicWeights(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCubicWeightsFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCubicWeightsFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCubicWeightsFeaturesQCOM(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCubicWeightsFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCubicWeightsFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #selectableCubicWeights}. */
-    public static int nselectableCubicWeights(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS); }
+    public static int nselectableCubicWeights(long struct) { return memGetInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #selectableCubicWeights(boolean) selectableCubicWeights}. */
-    public static void nselectableCubicWeights(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS, value); }
+    public static void nselectableCubicWeights(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCubicWeightsFeaturesQCOM.SELECTABLECUBICWEIGHTS, value); }
 
     // -----------------------------------
 
@@ -293,6 +277,11 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceCubicWeightsFeaturesQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -303,7 +292,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceCubicWeightsFeaturesQCOM.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCubicWeightsFeaturesQCOM#selectableCubicWeights} field. */
+        /** @return the value of the {@code selectableCubicWeights} field. */
         @NativeType("VkBool32")
         public boolean selectableCubicWeights() { return VkPhysicalDeviceCubicWeightsFeaturesQCOM.nselectableCubicWeights(address()) != 0; }
 
@@ -313,7 +302,7 @@ public class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends Struct<VkPhysicalD
         public VkPhysicalDeviceCubicWeightsFeaturesQCOM.Buffer sType$Default() { return sType(QCOMFilterCubicWeights.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceCubicWeightsFeaturesQCOM.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceCubicWeightsFeaturesQCOM.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCubicWeightsFeaturesQCOM#selectableCubicWeights} field. */
+        /** Sets the specified value to the {@code selectableCubicWeights} field. */
         public VkPhysicalDeviceCubicWeightsFeaturesQCOM.Buffer selectableCubicWeights(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceCubicWeightsFeaturesQCOM.nselectableCubicWeights(address(), value ? 1 : 0); return this; }
 
     }

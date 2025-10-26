@@ -5,22 +5,13 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link ParShapes#par_shapes_create_lsystem create_lsystem} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     void *context
- * )</code></pre>
- */
+/** Callback function: {@link #invoke par_shapes_rand_fn} */
 public abstract class ParShapesRandFn extends Callback implements ParShapesRandFnI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class ParShapesRandFn extends Callback implements ParShapesRandF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static ParShapesRandFn createSafe(long functionPointer) {
+    public static @Nullable ParShapesRandFn createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

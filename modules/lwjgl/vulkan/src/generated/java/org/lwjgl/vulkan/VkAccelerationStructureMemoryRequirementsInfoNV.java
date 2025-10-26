@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying acceleration to query for memory requirements.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVRayTracing#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code type} <b>must</b> be a valid {@code VkAccelerationStructureMemoryRequirementsTypeNV} value</li>
- * <li>{@code accelerationStructure} <b>must</b> be a valid {@code VkAccelerationStructureNV} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link NVRayTracing#vkGetAccelerationStructureMemoryRequirementsNV GetAccelerationStructureMemoryRequirementsNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAccelerationStructureMemoryRequirementsInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkAccelerationStructureMemoryRequirementsTypeNV {@link #type};
- *     VkAccelerationStructureNV {@link #accelerationStructure};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkAccelerationStructureMemoryRequirementsTypeNV type;
+ *     VkAccelerationStructureNV accelerationStructure;
+ * }}</pre>
  */
 public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAccelerationStructureMemoryRequirementsInfoNV> implements NativeResource {
 
@@ -95,28 +78,28 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** selects the type of memory requirement being queried. {@link NVRayTracing#VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_OBJECT_NV ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_OBJECT_NV} returns the memory requirements for the object itself. {@link NVRayTracing#VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_BUILD_SCRATCH_NV ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_BUILD_SCRATCH_NV} returns the memory requirements for the scratch memory when doing a build. {@link NVRayTracing#VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_UPDATE_SCRATCH_NV ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_UPDATE_SCRATCH_NV} returns the memory requirements for the scratch memory when doing an update. */
+    /** @return the value of the {@code type} field. */
     @NativeType("VkAccelerationStructureMemoryRequirementsTypeNV")
     public int type() { return ntype(address()); }
-    /** the acceleration structure to be queried for memory requirements. */
+    /** @return the value of the {@code accelerationStructure} field. */
     @NativeType("VkAccelerationStructureNV")
     public long accelerationStructure() { return naccelerationStructure(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkAccelerationStructureMemoryRequirementsInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVRayTracing#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVRayTracing#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV} value to the {@code sType} field. */
     public VkAccelerationStructureMemoryRequirementsInfoNV sType$Default() { return sType(NVRayTracing.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkAccelerationStructureMemoryRequirementsInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public VkAccelerationStructureMemoryRequirementsInfoNV type(@NativeType("VkAccelerationStructureMemoryRequirementsTypeNV") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #accelerationStructure} field. */
+    /** Sets the specified value to the {@code accelerationStructure} field. */
     public VkAccelerationStructureMemoryRequirementsInfoNV accelerationStructure(@NativeType("VkAccelerationStructureNV") long value) { naccelerationStructure(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -170,8 +153,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMemoryRequirementsInfoNV createSafe(long address) {
+    public static @Nullable VkAccelerationStructureMemoryRequirementsInfoNV createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureMemoryRequirementsInfoNV(address, null);
     }
 
@@ -214,8 +196,7 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureMemoryRequirementsInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureMemoryRequirementsInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,22 +260,22 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureMemoryRequirementsInfoNV.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE); }
     /** Unsafe version of {@link #accelerationStructure}. */
-    public static long naccelerationStructure(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE); }
+    public static long naccelerationStructure(long struct) { return memGetLong(struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureMemoryRequirementsInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkAccelerationStructureMemoryRequirementsInfoNV.TYPE, value); }
     /** Unsafe version of {@link #accelerationStructure(long) accelerationStructure}. */
-    public static void naccelerationStructure(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE, value); }
+    public static void naccelerationStructure(long struct, long value) { memPutLong(struct + VkAccelerationStructureMemoryRequirementsInfoNV.ACCELERATIONSTRUCTURE, value); }
 
     // -----------------------------------
 
@@ -330,32 +311,37 @@ public class VkAccelerationStructureMemoryRequirementsInfoNV extends Struct<VkAc
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAccelerationStructureMemoryRequirementsInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAccelerationStructureMemoryRequirementsInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkAccelerationStructureMemoryRequirementsInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkAccelerationStructureMemoryRequirementsInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkAccelerationStructureMemoryRequirementsInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkAccelerationStructureMemoryRequirementsInfoNV#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("VkAccelerationStructureMemoryRequirementsTypeNV")
         public int type() { return VkAccelerationStructureMemoryRequirementsInfoNV.ntype(address()); }
-        /** @return the value of the {@link VkAccelerationStructureMemoryRequirementsInfoNV#accelerationStructure} field. */
+        /** @return the value of the {@code accelerationStructure} field. */
         @NativeType("VkAccelerationStructureNV")
         public long accelerationStructure() { return VkAccelerationStructureMemoryRequirementsInfoNV.naccelerationStructure(address()); }
 
-        /** Sets the specified value to the {@link VkAccelerationStructureMemoryRequirementsInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkAccelerationStructureMemoryRequirementsInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkAccelerationStructureMemoryRequirementsInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVRayTracing#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV} value to the {@link VkAccelerationStructureMemoryRequirementsInfoNV#sType} field. */
+        /** Sets the {@link NVRayTracing#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV} value to the {@code sType} field. */
         public VkAccelerationStructureMemoryRequirementsInfoNV.Buffer sType$Default() { return sType(NVRayTracing.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV); }
-        /** Sets the specified value to the {@link VkAccelerationStructureMemoryRequirementsInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkAccelerationStructureMemoryRequirementsInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureMemoryRequirementsInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAccelerationStructureMemoryRequirementsInfoNV#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public VkAccelerationStructureMemoryRequirementsInfoNV.Buffer type(@NativeType("VkAccelerationStructureMemoryRequirementsTypeNV") int value) { VkAccelerationStructureMemoryRequirementsInfoNV.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAccelerationStructureMemoryRequirementsInfoNV#accelerationStructure} field. */
+        /** Sets the specified value to the {@code accelerationStructure} field. */
         public VkAccelerationStructureMemoryRequirementsInfoNV.Buffer accelerationStructure(@NativeType("VkAccelerationStructureNV") long value) { VkAccelerationStructureMemoryRequirementsInfoNV.naccelerationStructure(address(), value); return this; }
 
     }

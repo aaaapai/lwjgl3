@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Quad used for drawing a baked character, returned by {@link STBTruetype#stbtt_GetBakedQuad GetBakedQuad}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stbtt_aligned_quad {
  *     float x0;
  *     float y0;
@@ -30,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float y1;
  *     float s1;
  *     float t1;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct stbtt_aligned_quad")
 public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements NativeResource {
@@ -140,8 +136,7 @@ public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTAlignedQuad createSafe(long address) {
+    public static @Nullable STBTTAlignedQuad createSafe(long address) {
         return address == NULL ? null : new STBTTAlignedQuad(address, null);
     }
 
@@ -184,8 +179,7 @@ public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTAlignedQuad.Buffer createSafe(long address, int capacity) {
+    public static STBTTAlignedQuad.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,21 +243,21 @@ public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #x0}. */
-    public static float nx0(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.X0); }
+    public static float nx0(long struct) { return memGetFloat(struct + STBTTAlignedQuad.X0); }
     /** Unsafe version of {@link #y0}. */
-    public static float ny0(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.Y0); }
+    public static float ny0(long struct) { return memGetFloat(struct + STBTTAlignedQuad.Y0); }
     /** Unsafe version of {@link #s0}. */
-    public static float ns0(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.S0); }
+    public static float ns0(long struct) { return memGetFloat(struct + STBTTAlignedQuad.S0); }
     /** Unsafe version of {@link #t0}. */
-    public static float nt0(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.T0); }
+    public static float nt0(long struct) { return memGetFloat(struct + STBTTAlignedQuad.T0); }
     /** Unsafe version of {@link #x1}. */
-    public static float nx1(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.X1); }
+    public static float nx1(long struct) { return memGetFloat(struct + STBTTAlignedQuad.X1); }
     /** Unsafe version of {@link #y1}. */
-    public static float ny1(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.Y1); }
+    public static float ny1(long struct) { return memGetFloat(struct + STBTTAlignedQuad.Y1); }
     /** Unsafe version of {@link #s1}. */
-    public static float ns1(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.S1); }
+    public static float ns1(long struct) { return memGetFloat(struct + STBTTAlignedQuad.S1); }
     /** Unsafe version of {@link #t1}. */
-    public static float nt1(long struct) { return UNSAFE.getFloat(null, struct + STBTTAlignedQuad.T1); }
+    public static float nt1(long struct) { return memGetFloat(struct + STBTTAlignedQuad.T1); }
 
     // -----------------------------------
 
@@ -296,6 +290,11 @@ public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements Native
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

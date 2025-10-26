@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Vertex attribute stream.
- * 
- * <p>Each element takes size bytes, beginning at data, with stride controlling the spacing between successive elements ({@code stride} &ge; {@code size}).</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct meshopt_Stream {
  *     void const * data;
  *     size_t size;
  *     size_t stride;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct meshopt_Stream")
 public class MeshoptStream extends Struct<MeshoptStream> implements NativeResource {
@@ -82,11 +76,7 @@ public class MeshoptStream extends Struct<MeshoptStream> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("void const *")
     public ByteBuffer data(int capacity) { return ndata(address(), capacity); }
     /** @return the value of the {@code size} field. */
@@ -152,8 +142,7 @@ public class MeshoptStream extends Struct<MeshoptStream> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptStream createSafe(long address) {
+    public static @Nullable MeshoptStream createSafe(long address) {
         return address == NULL ? null : new MeshoptStream(address, null);
     }
 
@@ -196,8 +185,7 @@ public class MeshoptStream extends Struct<MeshoptStream> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptStream.Buffer createSafe(long address, int capacity) {
+    public static MeshoptStream.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -298,15 +286,16 @@ public class MeshoptStream extends Struct<MeshoptStream> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MeshoptStream getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("void const *")
         public ByteBuffer data(int capacity) { return MeshoptStream.ndata(address(), capacity); }
         /** @return the value of the {@code size} field. */

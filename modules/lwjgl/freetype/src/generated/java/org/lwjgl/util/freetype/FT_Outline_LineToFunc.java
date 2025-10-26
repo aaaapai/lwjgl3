@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     FT_Vector const *to,
- *     void *user
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Outline_LineToFunc} */
 public abstract class FT_Outline_LineToFunc extends Callback implements FT_Outline_LineToFuncI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class FT_Outline_LineToFunc extends Callback implements FT_Outli
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FT_Outline_LineToFunc createSafe(long functionPointer) {
+    public static @Nullable FT_Outline_LineToFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

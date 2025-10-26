@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,41 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * specifies blend factors for composition layers.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrCompositionLayerAlphaBlendFB} provides applications with explicit control over source and destination blend factors.</p>
- * 
- * <p>The {@link XrCompositionLayerAlphaBlendFB} structure <b>must</b> be provided in the {@code next} chain of the {@link XrCompositionLayerBaseHeader} structure.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBCompositionLayerAlphaBlend XR_FB_composition_layer_alpha_blend} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerAlphaBlendFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBCompositionLayerAlphaBlend#XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code srcFactorColor} <b>must</b> be a valid {@code XrBlendFactorFB} value</li>
- * <li>{@code dstFactorColor} <b>must</b> be a valid {@code XrBlendFactorFB} value</li>
- * <li>{@code srcFactorAlpha} <b>must</b> be a valid {@code XrBlendFactorFB} value</li>
- * <li>{@code dstFactorAlpha} <b>must</b> be a valid {@code XrBlendFactorFB} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrCompositionLayerBaseHeader}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrCompositionLayerAlphaBlendFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrBlendFactorFB {@link #srcFactorColor};
- *     XrBlendFactorFB {@link #dstFactorColor};
- *     XrBlendFactorFB {@link #srcFactorAlpha};
- *     XrBlendFactorFB {@link #dstFactorAlpha};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrBlendFactorFB srcFactorColor;
+ *     XrBlendFactorFB dstFactorColor;
+ *     XrBlendFactorFB srcFactorAlpha;
+ *     XrBlendFactorFB dstFactorAlpha;
+ * }}</pre>
  */
 public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlphaBlendFB> implements NativeResource {
 
@@ -112,38 +86,38 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** specifies the source color blend factor. */
+    /** @return the value of the {@code srcFactorColor} field. */
     @NativeType("XrBlendFactorFB")
     public int srcFactorColor() { return nsrcFactorColor(address()); }
-    /** specifies the destination color blend factor. */
+    /** @return the value of the {@code dstFactorColor} field. */
     @NativeType("XrBlendFactorFB")
     public int dstFactorColor() { return ndstFactorColor(address()); }
-    /** specifies the source alpha blend factor. */
+    /** @return the value of the {@code srcFactorAlpha} field. */
     @NativeType("XrBlendFactorFB")
     public int srcFactorAlpha() { return nsrcFactorAlpha(address()); }
-    /** specifies the destination alpha blend factor. */
+    /** @return the value of the {@code dstFactorAlpha} field. */
     @NativeType("XrBlendFactorFB")
     public int dstFactorAlpha() { return ndstFactorAlpha(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrCompositionLayerAlphaBlendFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBCompositionLayerAlphaBlend#XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBCompositionLayerAlphaBlend#XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB} value to the {@code type} field. */
     public XrCompositionLayerAlphaBlendFB type$Default() { return type(FBCompositionLayerAlphaBlend.XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrCompositionLayerAlphaBlendFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #srcFactorColor} field. */
+    /** Sets the specified value to the {@code srcFactorColor} field. */
     public XrCompositionLayerAlphaBlendFB srcFactorColor(@NativeType("XrBlendFactorFB") int value) { nsrcFactorColor(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstFactorColor} field. */
+    /** Sets the specified value to the {@code dstFactorColor} field. */
     public XrCompositionLayerAlphaBlendFB dstFactorColor(@NativeType("XrBlendFactorFB") int value) { ndstFactorColor(address(), value); return this; }
-    /** Sets the specified value to the {@link #srcFactorAlpha} field. */
+    /** Sets the specified value to the {@code srcFactorAlpha} field. */
     public XrCompositionLayerAlphaBlendFB srcFactorAlpha(@NativeType("XrBlendFactorFB") int value) { nsrcFactorAlpha(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstFactorAlpha} field. */
+    /** Sets the specified value to the {@code dstFactorAlpha} field. */
     public XrCompositionLayerAlphaBlendFB dstFactorAlpha(@NativeType("XrBlendFactorFB") int value) { ndstFactorAlpha(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -201,8 +175,7 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerAlphaBlendFB createSafe(long address) {
+    public static @Nullable XrCompositionLayerAlphaBlendFB createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerAlphaBlendFB(address, null);
     }
 
@@ -245,8 +218,7 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerAlphaBlendFB.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerAlphaBlendFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -291,30 +263,30 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerAlphaBlendFB.NEXT); }
     /** Unsafe version of {@link #srcFactorColor}. */
-    public static int nsrcFactorColor(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR); }
+    public static int nsrcFactorColor(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR); }
     /** Unsafe version of {@link #dstFactorColor}. */
-    public static int ndstFactorColor(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR); }
+    public static int ndstFactorColor(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR); }
     /** Unsafe version of {@link #srcFactorAlpha}. */
-    public static int nsrcFactorAlpha(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA); }
+    public static int nsrcFactorAlpha(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA); }
     /** Unsafe version of {@link #dstFactorAlpha}. */
-    public static int ndstFactorAlpha(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA); }
+    public static int ndstFactorAlpha(long struct) { return memGetInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerAlphaBlendFB.NEXT, value); }
     /** Unsafe version of {@link #srcFactorColor(int) srcFactorColor}. */
-    public static void nsrcFactorColor(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR, value); }
+    public static void nsrcFactorColor(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORCOLOR, value); }
     /** Unsafe version of {@link #dstFactorColor(int) dstFactorColor}. */
-    public static void ndstFactorColor(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR, value); }
+    public static void ndstFactorColor(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORCOLOR, value); }
     /** Unsafe version of {@link #srcFactorAlpha(int) srcFactorAlpha}. */
-    public static void nsrcFactorAlpha(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA, value); }
+    public static void nsrcFactorAlpha(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.SRCFACTORALPHA, value); }
     /** Unsafe version of {@link #dstFactorAlpha(int) dstFactorAlpha}. */
-    public static void ndstFactorAlpha(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA, value); }
+    public static void ndstFactorAlpha(long struct, int value) { memPutInt(struct + XrCompositionLayerAlphaBlendFB.DSTFACTORALPHA, value); }
 
     // -----------------------------------
 
@@ -350,42 +322,47 @@ public class XrCompositionLayerAlphaBlendFB extends Struct<XrCompositionLayerAlp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrCompositionLayerAlphaBlendFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrCompositionLayerAlphaBlendFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrCompositionLayerAlphaBlendFB.ntype(address()); }
-        /** @return the value of the {@link XrCompositionLayerAlphaBlendFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrCompositionLayerAlphaBlendFB.nnext(address()); }
-        /** @return the value of the {@link XrCompositionLayerAlphaBlendFB#srcFactorColor} field. */
+        /** @return the value of the {@code srcFactorColor} field. */
         @NativeType("XrBlendFactorFB")
         public int srcFactorColor() { return XrCompositionLayerAlphaBlendFB.nsrcFactorColor(address()); }
-        /** @return the value of the {@link XrCompositionLayerAlphaBlendFB#dstFactorColor} field. */
+        /** @return the value of the {@code dstFactorColor} field. */
         @NativeType("XrBlendFactorFB")
         public int dstFactorColor() { return XrCompositionLayerAlphaBlendFB.ndstFactorColor(address()); }
-        /** @return the value of the {@link XrCompositionLayerAlphaBlendFB#srcFactorAlpha} field. */
+        /** @return the value of the {@code srcFactorAlpha} field. */
         @NativeType("XrBlendFactorFB")
         public int srcFactorAlpha() { return XrCompositionLayerAlphaBlendFB.nsrcFactorAlpha(address()); }
-        /** @return the value of the {@link XrCompositionLayerAlphaBlendFB#dstFactorAlpha} field. */
+        /** @return the value of the {@code dstFactorAlpha} field. */
         @NativeType("XrBlendFactorFB")
         public int dstFactorAlpha() { return XrCompositionLayerAlphaBlendFB.ndstFactorAlpha(address()); }
 
-        /** Sets the specified value to the {@link XrCompositionLayerAlphaBlendFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer type(@NativeType("XrStructureType") int value) { XrCompositionLayerAlphaBlendFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBCompositionLayerAlphaBlend#XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB} value to the {@link XrCompositionLayerAlphaBlendFB#type} field. */
+        /** Sets the {@link FBCompositionLayerAlphaBlend#XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB} value to the {@code type} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer type$Default() { return type(FBCompositionLayerAlphaBlend.XR_TYPE_COMPOSITION_LAYER_ALPHA_BLEND_FB); }
-        /** Sets the specified value to the {@link XrCompositionLayerAlphaBlendFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer next(@NativeType("void *") long value) { XrCompositionLayerAlphaBlendFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerAlphaBlendFB#srcFactorColor} field. */
+        /** Sets the specified value to the {@code srcFactorColor} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer srcFactorColor(@NativeType("XrBlendFactorFB") int value) { XrCompositionLayerAlphaBlendFB.nsrcFactorColor(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerAlphaBlendFB#dstFactorColor} field. */
+        /** Sets the specified value to the {@code dstFactorColor} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer dstFactorColor(@NativeType("XrBlendFactorFB") int value) { XrCompositionLayerAlphaBlendFB.ndstFactorColor(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerAlphaBlendFB#srcFactorAlpha} field. */
+        /** Sets the specified value to the {@code srcFactorAlpha} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer srcFactorAlpha(@NativeType("XrBlendFactorFB") int value) { XrCompositionLayerAlphaBlendFB.nsrcFactorAlpha(address(), value); return this; }
-        /** Sets the specified value to the {@link XrCompositionLayerAlphaBlendFB#dstFactorAlpha} field. */
+        /** Sets the specified value to the {@code dstFactorAlpha} field. */
         public XrCompositionLayerAlphaBlendFB.Buffer dstFactorAlpha(@NativeType("XrBlendFactorFB") int value) { XrCompositionLayerAlphaBlendFB.ndstFactorAlpha(address(), value); return this; }
 
     }

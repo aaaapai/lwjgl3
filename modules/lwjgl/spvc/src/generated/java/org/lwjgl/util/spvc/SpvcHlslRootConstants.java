@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specifying a root constant (d3d12) or push constant range (vulkan).
- * 
- * <p>{@code start} and {@code end} denotes the range of the root constant in bytes. Both values need to be multiple of 4.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_hlsl_root_constants {
  *     unsigned int start;
  *     unsigned int end;
  *     unsigned int binding;
  *     unsigned int space;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct spvc_hlsl_root_constants")
 public class SpvcHlslRootConstants extends Struct<SpvcHlslRootConstants> implements NativeResource {
@@ -158,8 +152,7 @@ public class SpvcHlslRootConstants extends Struct<SpvcHlslRootConstants> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcHlslRootConstants createSafe(long address) {
+    public static @Nullable SpvcHlslRootConstants createSafe(long address) {
         return address == NULL ? null : new SpvcHlslRootConstants(address, null);
     }
 
@@ -202,8 +195,7 @@ public class SpvcHlslRootConstants extends Struct<SpvcHlslRootConstants> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcHlslRootConstants.Buffer createSafe(long address, int capacity) {
+    public static SpvcHlslRootConstants.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,22 +240,22 @@ public class SpvcHlslRootConstants extends Struct<SpvcHlslRootConstants> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #start}. */
-    public static int nstart(long struct) { return UNSAFE.getInt(null, struct + SpvcHlslRootConstants.START); }
+    public static int nstart(long struct) { return memGetInt(struct + SpvcHlslRootConstants.START); }
     /** Unsafe version of {@link #end}. */
-    public static int nend(long struct) { return UNSAFE.getInt(null, struct + SpvcHlslRootConstants.END); }
+    public static int nend(long struct) { return memGetInt(struct + SpvcHlslRootConstants.END); }
     /** Unsafe version of {@link #binding}. */
-    public static int nbinding(long struct) { return UNSAFE.getInt(null, struct + SpvcHlslRootConstants.BINDING); }
+    public static int nbinding(long struct) { return memGetInt(struct + SpvcHlslRootConstants.BINDING); }
     /** Unsafe version of {@link #space}. */
-    public static int nspace(long struct) { return UNSAFE.getInt(null, struct + SpvcHlslRootConstants.SPACE); }
+    public static int nspace(long struct) { return memGetInt(struct + SpvcHlslRootConstants.SPACE); }
 
     /** Unsafe version of {@link #start(int) start}. */
-    public static void nstart(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHlslRootConstants.START, value); }
+    public static void nstart(long struct, int value) { memPutInt(struct + SpvcHlslRootConstants.START, value); }
     /** Unsafe version of {@link #end(int) end}. */
-    public static void nend(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHlslRootConstants.END, value); }
+    public static void nend(long struct, int value) { memPutInt(struct + SpvcHlslRootConstants.END, value); }
     /** Unsafe version of {@link #binding(int) binding}. */
-    public static void nbinding(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHlslRootConstants.BINDING, value); }
+    public static void nbinding(long struct, int value) { memPutInt(struct + SpvcHlslRootConstants.BINDING, value); }
     /** Unsafe version of {@link #space(int) space}. */
-    public static void nspace(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHlslRootConstants.SPACE, value); }
+    public static void nspace(long struct, int value) { memPutInt(struct + SpvcHlslRootConstants.SPACE, value); }
 
     // -----------------------------------
 
@@ -296,6 +288,11 @@ public class SpvcHlslRootConstants extends Struct<SpvcHlslRootConstants> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,23 +5,13 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Returns the size of a cached item. Returns 0 if no cached item was found.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * uint32_t (*{@link #invoke}) (
- *     bgfx_callback_interface_t *_this,
- *     uint64_t _id
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class BGFXCacheReadSizeCallback extends Callback implements BGFXCacheReadSizeCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class BGFXCacheReadSizeCallback extends Callback implements BGFX
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static BGFXCacheReadSizeCallback createSafe(long functionPointer) {
+    public static @Nullable BGFXCacheReadSizeCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

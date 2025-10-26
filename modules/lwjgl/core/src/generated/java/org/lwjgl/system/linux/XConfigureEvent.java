@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Motion event.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XConfigureEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     int x;
  *     int y;
  *     int width;
@@ -35,7 +31,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int border_width;
  *     Window above;
  *     Bool override_redirect;
- * }</code></pre>
+ * }}</pre>
  */
 public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeResource {
 
@@ -117,16 +113,16 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return the value of the {@code x} field. */
@@ -148,13 +144,13 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
 
     /** Sets the specified value to the {@code type} field. */
     public XConfigureEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XConfigureEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XConfigureEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XConfigureEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XConfigureEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Sets the specified value to the {@code x} field. */
     public XConfigureEvent x(int value) { nx(address(), value); return this; }
@@ -238,8 +234,7 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XConfigureEvent createSafe(long address) {
+    public static @Nullable XConfigureEvent createSafe(long address) {
         return address == NULL ? null : new XConfigureEvent(address, null);
     }
 
@@ -282,8 +277,7 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XConfigureEvent.Buffer createSafe(long address, int capacity) {
+    public static XConfigureEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -347,54 +341,54 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XConfigureEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XConfigureEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XConfigureEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XConfigureEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XConfigureEvent.WINDOW); }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.X); }
+    public static int nx(long struct) { return memGetInt(struct + XConfigureEvent.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XConfigureEvent.Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XConfigureEvent.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XConfigureEvent.HEIGHT); }
     /** Unsafe version of {@link #border_width}. */
-    public static int nborder_width(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.BORDER_WIDTH); }
+    public static int nborder_width(long struct) { return memGetInt(struct + XConfigureEvent.BORDER_WIDTH); }
     /** Unsafe version of {@link #above}. */
     public static long nabove(long struct) { return memGetCLong(struct + XConfigureEvent.ABOVE); }
     /** Unsafe version of {@link #override_redirect}. */
-    public static int noverride_redirect(long struct) { return UNSAFE.getInt(null, struct + XConfigureEvent.OVERRIDE_REDIRECT); }
+    public static int noverride_redirect(long struct) { return memGetInt(struct + XConfigureEvent.OVERRIDE_REDIRECT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XConfigureEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XConfigureEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XConfigureEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XConfigureEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XConfigureEvent.WINDOW, value); }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XConfigureEvent.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XConfigureEvent.Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XConfigureEvent.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XConfigureEvent.HEIGHT, value); }
     /** Unsafe version of {@link #border_width(int) border_width}. */
-    public static void nborder_width(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.BORDER_WIDTH, value); }
+    public static void nborder_width(long struct, int value) { memPutInt(struct + XConfigureEvent.BORDER_WIDTH, value); }
     /** Unsafe version of {@link #above(long) above}. */
     public static void nabove(long struct, long value) { memPutCLong(struct + XConfigureEvent.ABOVE, value); }
     /** Unsafe version of {@link #override_redirect(boolean) override_redirect}. */
-    public static void noverride_redirect(long struct, int value) { UNSAFE.putInt(null, struct + XConfigureEvent.OVERRIDE_REDIRECT, value); }
+    public static void noverride_redirect(long struct, int value) { memPutInt(struct + XConfigureEvent.OVERRIDE_REDIRECT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -439,22 +433,27 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XConfigureEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XConfigureEvent.ntype(address()); }
-        /** @return the value of the {@link XConfigureEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XConfigureEvent.nserial(address()); }
-        /** @return the value of the {@link XConfigureEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XConfigureEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XConfigureEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XConfigureEvent.ndisplay(address()); }
-        /** @return the value of the {@link XConfigureEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XConfigureEvent.nwindow(address()); }
         /** @return the value of the {@code x} field. */
@@ -476,13 +475,13 @@ public class XConfigureEvent extends Struct<XConfigureEvent> implements NativeRe
 
         /** Sets the specified value to the {@code type} field. */
         public XConfigureEvent.Buffer type(int value) { XConfigureEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XConfigureEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XConfigureEvent.Buffer serial(@NativeType("unsigned long") long value) { XConfigureEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XConfigureEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XConfigureEvent.Buffer send_event(@NativeType("Bool") boolean value) { XConfigureEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XConfigureEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XConfigureEvent.Buffer display(@NativeType("Display *") long value) { XConfigureEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XConfigureEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XConfigureEvent.Buffer window(@NativeType("Window") long value) { XConfigureEvent.nwindow(address(), value); return this; }
         /** Sets the specified value to the {@code x} field. */
         public XConfigureEvent.Buffer x(int value) { XConfigureEvent.nx(address(), value); return this; }

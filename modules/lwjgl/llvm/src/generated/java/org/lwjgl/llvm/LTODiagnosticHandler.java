@@ -5,24 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMLTO#lto_codegen_set_diagnostic_handler codegen_set_diagnostic_handler} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     lto_codegen_diagnostic_severity_t severity,
- *     char const *diag,
- *     void *ctxt
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class LTODiagnosticHandler extends Callback implements LTODiagnosticHandlerI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class LTODiagnosticHandler extends Callback implements LTODiagno
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LTODiagnosticHandler createSafe(long functionPointer) {
+    public static @Nullable LTODiagnosticHandler createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

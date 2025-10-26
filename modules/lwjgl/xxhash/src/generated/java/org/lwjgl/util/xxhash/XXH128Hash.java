@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.xxhash;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The return value from 128-bit hashes.
- * 
- * <p>Stored in little endian order, although the fields themselves are in native endianness.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XXH128_hash_t {
- *     XXH64_hash_t {@link #low64};
- *     XXH64_hash_t {@link #high64};
- * }</code></pre>
+ *     XXH64_hash_t low64;
+ *     XXH64_hash_t high64;
+ * }}</pre>
  */
 @NativeType("struct XXH128_hash_t")
 public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
@@ -77,10 +71,10 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@code value & 0xFFFFFFFFFFFFFFFF} */
+    /** @return the value of the {@code low64} field. */
     @NativeType("XXH64_hash_t")
     public long low64() { return nlow64(address()); }
-    /** {@code value >> 64} */
+    /** @return the value of the {@code high64} field. */
     @NativeType("XXH64_hash_t")
     public long high64() { return nhigh64(address()); }
 
@@ -108,8 +102,7 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH128Hash createSafe(long address) {
+    public static @Nullable XXH128Hash createSafe(long address) {
         return address == NULL ? null : new XXH128Hash(address, null);
     }
 
@@ -152,8 +145,7 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH128Hash.Buffer createSafe(long address, int capacity) {
+    public static XXH128Hash.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -217,9 +209,9 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #low64}. */
-    public static long nlow64(long struct) { return UNSAFE.getLong(null, struct + XXH128Hash.LOW64); }
+    public static long nlow64(long struct) { return memGetLong(struct + XXH128Hash.LOW64); }
     /** Unsafe version of {@link #high64}. */
-    public static long nhigh64(long struct) { return UNSAFE.getLong(null, struct + XXH128Hash.HIGH64); }
+    public static long nhigh64(long struct) { return memGetLong(struct + XXH128Hash.HIGH64); }
 
     // -----------------------------------
 
@@ -255,14 +247,19 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XXH128Hash getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XXH128Hash#low64} field. */
+        /** @return the value of the {@code low64} field. */
         @NativeType("XXH64_hash_t")
         public long low64() { return XXH128Hash.nlow64(address()); }
-        /** @return the value of the {@link XXH128Hash#high64} field. */
+        /** @return the value of the {@code high64} field. */
         @NativeType("XXH64_hash_t")
         public long high64() { return XXH128Hash.nhigh64(address()); }
 

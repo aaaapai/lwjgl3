@@ -5,25 +5,13 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to {@link STBImageWrite#stbi_zlib_compress}.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * unsigned char * (*{@link #invoke}) (
- *     unsigned char *data,
- *     int data_len,
- *     int *out_len,
- *     int quality
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class STBIZlibCompress extends Callback implements STBIZlibCompressI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class STBIZlibCompress extends Callback implements STBIZlibCompr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static STBIZlibCompress createSafe(long functionPointer) {
+    public static @Nullable STBIZlibCompress createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

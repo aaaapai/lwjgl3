@@ -12,21 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     char const *message,
- *     char *user
- * )</code></pre>
- */
+/** Callback function: {@link #invoke aiLogStreamCallback} */
 @FunctionalInterface
 @NativeType("aiLogStreamCallback")
 public interface AILogStreamCallbackI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer, ffi_type_pointer
     );
@@ -42,12 +33,7 @@ public interface AILogStreamCallbackI extends CallbackI {
         );
     }
 
-    /**
-     * Callback to be called for log stream messages
-     *
-     * @param message The message to be logged
-     * @param user    The user data from the log stream
-     */
+    /** {@code void (* aiLogStreamCallback) (char const * message, char * user)} */
     void invoke(@NativeType("char const *") long message, @NativeType("char *") long user);
 
 }

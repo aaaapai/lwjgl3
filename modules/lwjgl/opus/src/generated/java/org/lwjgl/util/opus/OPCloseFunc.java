@@ -5,22 +5,13 @@
  */
 package org.lwjgl.util.opus;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to {@link OpusFileCallbacks}.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *_stream
- * )</code></pre>
- */
+/** Callback function: {@link #invoke op_close_func} */
 public abstract class OPCloseFunc extends Callback implements OPCloseFuncI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class OPCloseFunc extends Callback implements OPCloseFuncI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static OPCloseFunc createSafe(long functionPointer) {
+    public static @Nullable OPCloseFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

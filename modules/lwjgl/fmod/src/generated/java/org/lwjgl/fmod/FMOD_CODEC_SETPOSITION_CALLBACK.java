@@ -5,23 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_CODEC_STATE *codec_state,
- *     int subsound,
- *     unsigned int position,
- *     FMOD_TIMEUNIT postype
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_SETPOSITION_CALLBACK} */
 public abstract class FMOD_CODEC_SETPOSITION_CALLBACK extends Callback implements FMOD_CODEC_SETPOSITION_CALLBACKI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class FMOD_CODEC_SETPOSITION_CALLBACK extends Callback implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CODEC_SETPOSITION_CALLBACK createSafe(long functionPointer) {
+    public static @Nullable FMOD_CODEC_SETPOSITION_CALLBACK createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

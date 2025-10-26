@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,7 +15,6 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** Remotery profiling for OpenGL. */
 public class RemoteryGL {
 
     static { LibRemotery.initialize(); }
@@ -26,17 +25,21 @@ public class RemoteryGL {
 
     // --- [ rmt_BindOpenGL ] ---
 
+    /** {@code void rmt_BindOpenGL(void)} */
     public static native void rmt_BindOpenGL();
 
     // --- [ rmt_UnbindOpenGL ] ---
 
+    /** {@code void rmt_UnbindOpenGL(void)} */
     public static native void rmt_UnbindOpenGL();
 
     // --- [ rmt_BeginOpenGLSample ] ---
 
+    /** {@code void rmt_BeginOpenGLSample(rmtPStr name, rmtU32 * hash_cache)} */
     public static native void nrmt_BeginOpenGLSample(long name, long hash_cache);
 
-    public static void rmt_BeginOpenGLSample(@NativeType("rmtPStr") ByteBuffer name, @Nullable @NativeType("rmtU32 *") IntBuffer hash_cache) {
+    /** {@code void rmt_BeginOpenGLSample(rmtPStr name, rmtU32 * hash_cache)} */
+    public static void rmt_BeginOpenGLSample(@NativeType("rmtPStr") ByteBuffer name, @NativeType("rmtU32 *") @Nullable IntBuffer hash_cache) {
         if (CHECKS) {
             checkNT1(name);
             checkSafe(hash_cache, 1);
@@ -44,7 +47,8 @@ public class RemoteryGL {
         nrmt_BeginOpenGLSample(memAddress(name), memAddressSafe(hash_cache));
     }
 
-    public static void rmt_BeginOpenGLSample(@NativeType("rmtPStr") CharSequence name, @Nullable @NativeType("rmtU32 *") IntBuffer hash_cache) {
+    /** {@code void rmt_BeginOpenGLSample(rmtPStr name, rmtU32 * hash_cache)} */
+    public static void rmt_BeginOpenGLSample(@NativeType("rmtPStr") CharSequence name, @NativeType("rmtU32 *") @Nullable IntBuffer hash_cache) {
         if (CHECKS) {
             checkSafe(hash_cache, 1);
         }
@@ -60,6 +64,7 @@ public class RemoteryGL {
 
     // --- [ rmt_EndOpenGLSample ] ---
 
+    /** {@code void rmt_EndOpenGLSample(void)} */
     public static native void rmt_EndOpenGLSample();
 
 }

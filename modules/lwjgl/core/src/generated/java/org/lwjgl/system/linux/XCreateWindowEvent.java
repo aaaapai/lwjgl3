@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,23 +17,21 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XCreateWindowEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #parent};
- *     Window {@link #window};
- *     int {@link #x};
- *     int {@link #y};
- *     int {@link #width};
- *     int {@link #height};
- *     int {@link #border_width};
- *     int {@link #override_redirect};
- * }</code></pre>
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window parent;
+ *     Window window;
+ *     int x;
+ *     int y;
+ *     int width;
+ *     int height;
+ *     int border_width;
+ *     int override_redirect;
+ * }}</pre>
  */
 public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements NativeResource {
 
@@ -115,57 +113,57 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** parent of the window */
+    /** @return the value of the {@code parent} field. */
     @NativeType("Window")
     public long parent() { return nparent(address()); }
-    /** window id of window created */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
-    /** window location */
+    /** @return the value of the {@code x} field. */
     public int x() { return nx(address()); }
-    /** window location */
+    /** @return the value of the {@code y} field. */
     public int y() { return ny(address()); }
-    /** size of window */
+    /** @return the value of the {@code width} field. */
     public int width() { return nwidth(address()); }
-    /** size of window */
+    /** @return the value of the {@code height} field. */
     public int height() { return nheight(address()); }
-    /** border width */
+    /** @return the value of the {@code border_width} field. */
     public int border_width() { return nborder_width(address()); }
-    /** creation should be overridden */
+    /** @return the value of the {@code override_redirect} field. */
     public int override_redirect() { return noverride_redirect(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XCreateWindowEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XCreateWindowEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XCreateWindowEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XCreateWindowEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #parent} field. */
+    /** Sets the specified value to the {@code parent} field. */
     public XCreateWindowEvent parent(@NativeType("Window") long value) { nparent(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XCreateWindowEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public XCreateWindowEvent x(int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public XCreateWindowEvent y(int value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public XCreateWindowEvent width(int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public XCreateWindowEvent height(int value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #border_width} field. */
+    /** Sets the specified value to the {@code border_width} field. */
     public XCreateWindowEvent border_width(int value) { nborder_width(address(), value); return this; }
-    /** Sets the specified value to the {@link #override_redirect} field. */
+    /** Sets the specified value to the {@code override_redirect} field. */
     public XCreateWindowEvent override_redirect(int value) { noverride_redirect(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -235,8 +233,7 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XCreateWindowEvent createSafe(long address) {
+    public static @Nullable XCreateWindowEvent createSafe(long address) {
         return address == NULL ? null : new XCreateWindowEvent(address, null);
     }
 
@@ -279,8 +276,7 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XCreateWindowEvent.Buffer createSafe(long address, int capacity) {
+    public static XCreateWindowEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -344,11 +340,11 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XCreateWindowEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XCreateWindowEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XCreateWindowEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XCreateWindowEvent.DISPLAY); }
     /** Unsafe version of {@link #parent}. */
@@ -356,24 +352,24 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
     /** Unsafe version of {@link #window}. */
     public static long nwindow(long struct) { return memGetCLong(struct + XCreateWindowEvent.WINDOW); }
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.X); }
+    public static int nx(long struct) { return memGetInt(struct + XCreateWindowEvent.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.Y); }
+    public static int ny(long struct) { return memGetInt(struct + XCreateWindowEvent.Y); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + XCreateWindowEvent.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + XCreateWindowEvent.HEIGHT); }
     /** Unsafe version of {@link #border_width}. */
-    public static int nborder_width(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.BORDER_WIDTH); }
+    public static int nborder_width(long struct) { return memGetInt(struct + XCreateWindowEvent.BORDER_WIDTH); }
     /** Unsafe version of {@link #override_redirect}. */
-    public static int noverride_redirect(long struct) { return UNSAFE.getInt(null, struct + XCreateWindowEvent.OVERRIDE_REDIRECT); }
+    public static int noverride_redirect(long struct) { return memGetInt(struct + XCreateWindowEvent.OVERRIDE_REDIRECT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XCreateWindowEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XCreateWindowEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XCreateWindowEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XCreateWindowEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #parent(long) parent}. */
@@ -381,17 +377,17 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
     /** Unsafe version of {@link #window(long) window}. */
     public static void nwindow(long struct, long value) { memPutCLong(struct + XCreateWindowEvent.WINDOW, value); }
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + XCreateWindowEvent.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + XCreateWindowEvent.Y, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + XCreateWindowEvent.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + XCreateWindowEvent.HEIGHT, value); }
     /** Unsafe version of {@link #border_width(int) border_width}. */
-    public static void nborder_width(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.BORDER_WIDTH, value); }
+    public static void nborder_width(long struct, int value) { memPutInt(struct + XCreateWindowEvent.BORDER_WIDTH, value); }
     /** Unsafe version of {@link #override_redirect(int) override_redirect}. */
-    public static void noverride_redirect(long struct, int value) { UNSAFE.putInt(null, struct + XCreateWindowEvent.OVERRIDE_REDIRECT, value); }
+    public static void noverride_redirect(long struct, int value) { memPutInt(struct + XCreateWindowEvent.OVERRIDE_REDIRECT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -436,63 +432,68 @@ public class XCreateWindowEvent extends Struct<XCreateWindowEvent> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XCreateWindowEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XCreateWindowEvent.ntype(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XCreateWindowEvent.nserial(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XCreateWindowEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XCreateWindowEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XCreateWindowEvent.ndisplay(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#parent} field. */
+        /** @return the value of the {@code parent} field. */
         @NativeType("Window")
         public long parent() { return XCreateWindowEvent.nparent(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XCreateWindowEvent.nwindow(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#x} field. */
+        /** @return the value of the {@code x} field. */
         public int x() { return XCreateWindowEvent.nx(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#y} field. */
+        /** @return the value of the {@code y} field. */
         public int y() { return XCreateWindowEvent.ny(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#width} field. */
+        /** @return the value of the {@code width} field. */
         public int width() { return XCreateWindowEvent.nwidth(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#height} field. */
+        /** @return the value of the {@code height} field. */
         public int height() { return XCreateWindowEvent.nheight(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#border_width} field. */
+        /** @return the value of the {@code border_width} field. */
         public int border_width() { return XCreateWindowEvent.nborder_width(address()); }
-        /** @return the value of the {@link XCreateWindowEvent#override_redirect} field. */
+        /** @return the value of the {@code override_redirect} field. */
         public int override_redirect() { return XCreateWindowEvent.noverride_redirect(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XCreateWindowEvent.Buffer type(int value) { XCreateWindowEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XCreateWindowEvent.Buffer serial(@NativeType("unsigned long") long value) { XCreateWindowEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XCreateWindowEvent.Buffer send_event(@NativeType("Bool") boolean value) { XCreateWindowEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XCreateWindowEvent.Buffer display(@NativeType("Display *") long value) { XCreateWindowEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#parent} field. */
+        /** Sets the specified value to the {@code parent} field. */
         public XCreateWindowEvent.Buffer parent(@NativeType("Window") long value) { XCreateWindowEvent.nparent(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XCreateWindowEvent.Buffer window(@NativeType("Window") long value) { XCreateWindowEvent.nwindow(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public XCreateWindowEvent.Buffer x(int value) { XCreateWindowEvent.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public XCreateWindowEvent.Buffer y(int value) { XCreateWindowEvent.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public XCreateWindowEvent.Buffer width(int value) { XCreateWindowEvent.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public XCreateWindowEvent.Buffer height(int value) { XCreateWindowEvent.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#border_width} field. */
+        /** Sets the specified value to the {@code border_width} field. */
         public XCreateWindowEvent.Buffer border_width(int value) { XCreateWindowEvent.nborder_width(address(), value); return this; }
-        /** Sets the specified value to the {@link XCreateWindowEvent#override_redirect} field. */
+        /** Sets the specified value to the {@code override_redirect} field. */
         public XCreateWindowEvent.Buffer override_redirect(int value) { XCreateWindowEvent.noverride_redirect(address(), value); return this; }
 
     }

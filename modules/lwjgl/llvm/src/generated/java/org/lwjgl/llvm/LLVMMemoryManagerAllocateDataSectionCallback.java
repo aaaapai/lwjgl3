@@ -5,27 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMExecutionEngine#LLVMCreateSimpleMCJITMemoryManager CreateSimpleMCJITMemoryManager} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * uint8_t * (*{@link #invoke}) (
- *     void *Opaque,
- *     uintptr_t Size,
- *     unsigned int Alignment,
- *     unsigned int SectionID,
- *     char const *SectionName,
- *     LLVMBool IsReadOnly
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class LLVMMemoryManagerAllocateDataSectionCallback extends Callback implements LLVMMemoryManagerAllocateDataSectionCallbackI {
 
     /**
@@ -41,8 +27,7 @@ public abstract class LLVMMemoryManagerAllocateDataSectionCallback extends Callb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LLVMMemoryManagerAllocateDataSectionCallback createSafe(long functionPointer) {
+    public static @Nullable LLVMMemoryManagerAllocateDataSectionCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

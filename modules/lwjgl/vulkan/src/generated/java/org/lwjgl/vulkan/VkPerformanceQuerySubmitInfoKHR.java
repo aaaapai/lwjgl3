@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure indicating which counter pass index is active for performance queries.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkSubmitInfo}{@code ::pNext} chain does not include this structure, the batch defaults to use counter pass index 0.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code counterPassIndex} <b>must</b> be less than the number of counter passes required by any queries within the batch. The required number of counter passes for a performance query is obtained by calling {@link KHRPerformanceQuery#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPerformanceQuerySubmitInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #counterPassIndex};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t counterPassIndex;
+ * }}</pre>
  */
 public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySubmitInfoKHR> implements NativeResource {
 
@@ -94,23 +74,23 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** specifies which counter pass index is active. */
+    /** @return the value of the {@code counterPassIndex} field. */
     @NativeType("uint32_t")
     public int counterPassIndex() { return ncounterPassIndex(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPerformanceQuerySubmitInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR} value to the {@code sType} field. */
     public VkPerformanceQuerySubmitInfoKHR sType$Default() { return sType(KHRPerformanceQuery.VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPerformanceQuerySubmitInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #counterPassIndex} field. */
+    /** Sets the specified value to the {@code counterPassIndex} field. */
     public VkPerformanceQuerySubmitInfoKHR counterPassIndex(@NativeType("uint32_t") int value) { ncounterPassIndex(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceQuerySubmitInfoKHR createSafe(long address) {
+    public static @Nullable VkPerformanceQuerySubmitInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPerformanceQuerySubmitInfoKHR(address, null);
     }
 
@@ -206,8 +185,7 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceQuerySubmitInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceQuerySubmitInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceQuerySubmitInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPerformanceQuerySubmitInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPerformanceQuerySubmitInfoKHR.PNEXT); }
     /** Unsafe version of {@link #counterPassIndex}. */
-    public static int ncounterPassIndex(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX); }
+    public static int ncounterPassIndex(long struct) { return memGetInt(struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceQuerySubmitInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPerformanceQuerySubmitInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPerformanceQuerySubmitInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #counterPassIndex(int) counterPassIndex}. */
-    public static void ncounterPassIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX, value); }
+    public static void ncounterPassIndex(long struct, int value) { memPutInt(struct + VkPerformanceQuerySubmitInfoKHR.COUNTERPASSINDEX, value); }
 
     // -----------------------------------
 
@@ -299,27 +277,32 @@ public class VkPerformanceQuerySubmitInfoKHR extends Struct<VkPerformanceQuerySu
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPerformanceQuerySubmitInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPerformanceQuerySubmitInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPerformanceQuerySubmitInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkPerformanceQuerySubmitInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPerformanceQuerySubmitInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkPerformanceQuerySubmitInfoKHR#counterPassIndex} field. */
+        /** @return the value of the {@code counterPassIndex} field. */
         @NativeType("uint32_t")
         public int counterPassIndex() { return VkPerformanceQuerySubmitInfoKHR.ncounterPassIndex(address()); }
 
-        /** Sets the specified value to the {@link VkPerformanceQuerySubmitInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPerformanceQuerySubmitInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPerformanceQuerySubmitInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR} value to the {@link VkPerformanceQuerySubmitInfoKHR#sType} field. */
+        /** Sets the {@link KHRPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR} value to the {@code sType} field. */
         public VkPerformanceQuerySubmitInfoKHR.Buffer sType$Default() { return sType(KHRPerformanceQuery.VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR); }
-        /** Sets the specified value to the {@link VkPerformanceQuerySubmitInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPerformanceQuerySubmitInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkPerformanceQuerySubmitInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPerformanceQuerySubmitInfoKHR#counterPassIndex} field. */
+        /** Sets the specified value to the {@code counterPassIndex} field. */
         public VkPerformanceQuerySubmitInfoKHR.Buffer counterPassIndex(@NativeType("uint32_t") int value) { VkPerformanceQuerySubmitInfoKHR.ncounterPassIndex(address(), value); return this; }
 
     }

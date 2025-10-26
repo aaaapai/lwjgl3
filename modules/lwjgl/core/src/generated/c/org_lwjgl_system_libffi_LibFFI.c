@@ -6,11 +6,48 @@
 #include "common_tools.h"
 
 DISABLE_WARNINGS()
-#define FFI_BUILDING
+#define FFI_STATIC_BUILD
 #include "ffi.h"
 ENABLE_WARNINGS()
 typedef void (*FFI_FN_TYPE)(void);
 typedef void (*FFI_CLOSURE_FUN)(ffi_cif*, void*, void**, void*);
+
+#ifndef HAS_FFI_WIN64
+#define FFI_WIN64 -1
+#endif
+#ifndef HAS_FFI_GNUW64
+#define FFI_GNUW64 -1
+#endif
+#ifndef HAS_FFI_UNIX64
+#define FFI_UNIX64 -1
+#endif
+#ifndef HAS_FFI_EFI64
+#define FFI_EFI64 -1
+#endif
+#ifndef HAS_FFI_SYSV
+#define FFI_SYSV -1
+#endif
+#ifndef HAS_FFI_STDCALL
+#define FFI_STDCALL -1
+#endif
+#ifndef HAS_FFI_THISCALL
+#define FFI_THISCALL -1
+#endif
+#ifndef HAS_FFI_FASTCALL
+#define FFI_FASTCALL -1
+#endif
+#ifndef HAS_FFI_MS_CDECL
+#define FFI_MS_CDECL -1
+#endif
+#ifndef HAS_FFI_PASCAL
+#define FFI_PASCAL -1
+#endif
+#ifndef HAS_FFI_REGISTER
+#define FFI_REGISTER -1
+#endif
+#ifndef HAS_FFI_VFP
+#define FFI_VFP -1
+#endif
 
 EXTERN_C_ENTER
 
@@ -199,6 +236,21 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1type_1pointer(
     return (jlong)(uintptr_t)&ffi_type_pointer;
 }
 
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1get_1version(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)(uintptr_t)ffi_get_version();
+}
+
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_libffi_LibFFI_ffi_1get_1version_1number(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ffi_get_version_number();
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_libffi_LibFFI_ffi_1get_1default_1abi(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)ffi_get_default_abi();
+}
+
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1prep_1cif(JNIEnv *__env, jclass clazz, jlong cifAddress, jint abi, jint nargs, jlong rtypeAddress, jlong atypesAddress) {
     ffi_cif *cif = (ffi_cif *)(uintptr_t)cifAddress;
     ffi_type *rtype = (ffi_type *)(uintptr_t)rtypeAddress;
@@ -229,6 +281,11 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1get_1struct_1of
     size_t *offsets = (size_t *)(uintptr_t)offsetsAddress;
     UNUSED_PARAMS(__env, clazz)
     return (jint)ffi_get_struct_offsets((ffi_abi)abi, struct_type, offsets);
+}
+
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_libffi_LibFFI_ffi_1get_1closure_1size(JNIEnv *__env, jclass clazz) {
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ffi_get_closure_size();
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1closure_1alloc(JNIEnv *__env, jclass clazz, jlong size, jlong codeAddress) {

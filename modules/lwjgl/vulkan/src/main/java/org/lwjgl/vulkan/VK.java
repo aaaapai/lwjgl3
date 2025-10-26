@@ -4,14 +4,15 @@
  */
 package org.lwjgl.vulkan;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import javax.annotation.*;
 import java.nio.*;
 import java.util.*;
 
 import static java.lang.Math.*;
+import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -21,16 +22,33 @@ import static org.lwjgl.vulkan.VK11.*;
 /**
  * This class loads the Vulkan library into the JVM process.
  *
+ * <p><b>macOS</b>: Vulkan on macOS is emulated over the Metal API using the <a href="https://github.com/KhronosGroup/MoltenVK">MoltenVK</a> library.
+ * The {@code lwjgl-vulkan-natives-macos*} artifact includes a MoltenVK build and LWJGL will try to load it first, if available. Using MoltenVK directly is
+ * simple and efficient, but circumvents the Vulkan SDK and the validation layers it provides. During development, it is often very useful to make use of these
+ * validation layers, to verify correct API usage and avoid common pitfalls. In order to do that on macOS, LWJGL must be forced to load the Vulkan Loader
+ * library ({@code libvulkan.1.dylib}) instead of MoltenVK. There are two options:</p>
+ * <ol>
+ *     <li>
+ *     Set {@link Configuration#VULKAN_LIBRARY_NAME} to {@code libvulkan.1.dylib}. Depending on the Vulkan SDK installation, this file may not be in the
+ *     library path and an absolute path must be used instead.
+ *     </li>
+ *     <li>
+ *     Remove the {@code lwjgl-vulkan-natives} artifact from the class/module-path. LWJGL will fall back to loading {@code libvulkan.1.dylib} (if it is in the
+ *     library path).
+ *     </li>
+ * </ol>
+ *
+ * <p>Note that when using the Vulkan Loader the Vulkan implementation will be provided by the MoltenVK build shipped with the Vulkan SDK. That build may be
+ * different from the one bundled with LWJGL.</p>
+ *
  * @see Configuration#VULKAN_LIBRARY_NAME
  * @see Configuration#VULKAN_EXPLICIT_INIT
  */
 public final class VK {
 
-    @Nullable
-    private static FunctionProvider functionProvider;
+    private static @Nullable FunctionProvider functionProvider;
 
-    @Nullable
-    private static GlobalCommands globalCommands;
+    private static @Nullable GlobalCommands globalCommands;
 
     static {
         if (!Configuration.VULKAN_EXPLICIT_INIT.get(false)) {
@@ -38,7 +56,7 @@ public final class VK {
         }
     }
 
-    private VK() {}
+    private VK() { }
 
     /**
      * Loads the Vulkan shared library, using the default library name.
@@ -49,6 +67,7 @@ public final class VK {
         if(tryCreateFromEnv()) return;
         SharedLibrary VK;
         switch (Platform.get()) {
+            case FREEBSD:
             case LINUX:
                 VK = Library.loadNative(VK.class, "org.lwjgl.vulkan", Configuration.VULKAN_LIBRARY_NAME, "libvulkan.so.1");
                 break;
@@ -217,13 +236,20 @@ public final class VK {
         int minorVersion = VK_VERSION_MINOR(apiVersion);
 
         int[] VK_VERSIONS = {
-            3 // Vulkan 1.0 to 1.3
+            4 // Vulkan 1.0 to 1.4
         };
+
+        if (VK_VERSIONS.length < majorVersion) {
+            printUnsupportedVersion(majorVersion, minorVersion);
+        }
 
         int maxMajor = min(majorVersion, VK_VERSIONS.length);
         for (int M = 1; M <= maxMajor; M++) {
             int maxMinor = VK_VERSIONS[M - 1];
             if (M == majorVersion) {
+                if (maxMinor < minorVersion) {
+                    printUnsupportedVersion(majorVersion, minorVersion);
+                }
                 maxMinor = min(minorVersion, maxMinor);
             }
             for (int m = 0; m <= maxMinor; m++) {
@@ -239,5 +265,10 @@ public final class VK {
 
         return enabledExtensions;
     }
+
+    private static void printUnsupportedVersion(int majorVersion, int minorVersion) {
+        apiLog("[Vulkan] Detected unsupported Vulkan version: " + majorVersion + '.' + minorVersion);
+    }
+
     public static native long getVulkanDriverHandle();
 }

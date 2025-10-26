@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,17 +14,13 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Layout for generated vertex attributes.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct parsl_annotation {
- *     float {@link #u_along_curve};
- *     float {@link #v_across_curve};
- *     float {@link #spine_to_edge_x};
- *     float {@link #spine_to_edge_y};
- * }</code></pre>
+ *     float u_along_curve;
+ *     float v_across_curve;
+ *     float spine_to_edge_x;
+ *     float spine_to_edge_y;
+ * }}</pre>
  */
 @NativeType("struct parsl_annotation")
 public class ParSLAnnotation extends Struct<ParSLAnnotation> {
@@ -81,13 +77,13 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** longitudinal coordinate (see {@link ParStreamlines#PAR_U_MODE_NORMALIZED_DISTANCE parsl_u_mode}) */
+    /** @return the value of the {@code u_along_curve} field. */
     public float u_along_curve() { return nu_along_curve(address()); }
-    /** either + or - depending on the side */
+    /** @return the value of the {@code v_across_curve} field. */
     public float v_across_curve() { return nv_across_curve(address()); }
-    /** normalized vector from spine to edge */
+    /** @return the value of the {@code spine_to_edge_x} field. */
     public float spine_to_edge_x() { return nspine_to_edge_x(address()); }
-    /** normalized vector from spine to edge */
+    /** @return the value of the {@code spine_to_edge_y} field. */
     public float spine_to_edge_y() { return nspine_to_edge_y(address()); }
 
     // -----------------------------------
@@ -98,8 +94,7 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLAnnotation createSafe(long address) {
+    public static @Nullable ParSLAnnotation createSafe(long address) {
         return address == NULL ? null : new ParSLAnnotation(address, null);
     }
 
@@ -114,21 +109,20 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLAnnotation.Buffer createSafe(long address, int capacity) {
+    public static ParSLAnnotation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #u_along_curve}. */
-    public static float nu_along_curve(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.U_ALONG_CURVE); }
+    public static float nu_along_curve(long struct) { return memGetFloat(struct + ParSLAnnotation.U_ALONG_CURVE); }
     /** Unsafe version of {@link #v_across_curve}. */
-    public static float nv_across_curve(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.V_ACROSS_CURVE); }
+    public static float nv_across_curve(long struct) { return memGetFloat(struct + ParSLAnnotation.V_ACROSS_CURVE); }
     /** Unsafe version of {@link #spine_to_edge_x}. */
-    public static float nspine_to_edge_x(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.SPINE_TO_EDGE_X); }
+    public static float nspine_to_edge_x(long struct) { return memGetFloat(struct + ParSLAnnotation.SPINE_TO_EDGE_X); }
     /** Unsafe version of {@link #spine_to_edge_y}. */
-    public static float nspine_to_edge_y(long struct) { return UNSAFE.getFloat(null, struct + ParSLAnnotation.SPINE_TO_EDGE_Y); }
+    public static float nspine_to_edge_y(long struct) { return memGetFloat(struct + ParSLAnnotation.SPINE_TO_EDGE_Y); }
 
     // -----------------------------------
 
@@ -164,17 +158,22 @@ public class ParSLAnnotation extends Struct<ParSLAnnotation> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ParSLAnnotation getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ParSLAnnotation#u_along_curve} field. */
+        /** @return the value of the {@code u_along_curve} field. */
         public float u_along_curve() { return ParSLAnnotation.nu_along_curve(address()); }
-        /** @return the value of the {@link ParSLAnnotation#v_across_curve} field. */
+        /** @return the value of the {@code v_across_curve} field. */
         public float v_across_curve() { return ParSLAnnotation.nv_across_curve(address()); }
-        /** @return the value of the {@link ParSLAnnotation#spine_to_edge_x} field. */
+        /** @return the value of the {@code spine_to_edge_x} field. */
         public float spine_to_edge_x() { return ParSLAnnotation.nspine_to_edge_x(address()); }
-        /** @return the value of the {@link ParSLAnnotation#spine_to_edge_y} field. */
+        /** @return the value of the {@code spine_to_edge_y} field. */
         public float spine_to_edge_y() { return ParSLAnnotation.nspine_to_edge_y(address()); }
 
     }

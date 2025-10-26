@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,19 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetMonitorCallback SetMonitorCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWmonitor *monitor,
- *     int event
- * )</code></pre>
- *
- * @since version 3.0
- */
+/** Callback function: {@link #invoke GLFWmonitorfun} */
 public abstract class GLFWMonitorCallback extends Callback implements GLFWMonitorCallbackI {
 
     /**
@@ -41,8 +29,7 @@ public abstract class GLFWMonitorCallback extends Callback implements GLFWMonito
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static GLFWMonitorCallback createSafe(long functionPointer) {
+    public static @Nullable GLFWMonitorCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

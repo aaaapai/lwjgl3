@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Provides the text of a prompt and information about when and where that prompt is to be displayed when using the {@link Crypt32#CryptProtectData} and
- * {@link Crypt32#CryptUnprotectData} functions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CRYPTPROTECT_PROMPTSTRUCT {
- *     DWORD {@link #cbSize};
- *     DWORD {@link #dwPromptFlags};
- *     HWND {@link #hwndApp};
- *     LPCWSTR {@link #szPrompt};
- * }</code></pre>
+ *     DWORD cbSize;
+ *     DWORD dwPromptFlags;
+ *     HWND hwndApp;
+ *     LPCWSTR szPrompt;
+ * }}</pre>
  */
 public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT> implements NativeResource {
 
@@ -84,31 +79,31 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the size, in bytes, of this structure */
+    /** @return the value of the {@code cbSize} field. */
     @NativeType("DWORD")
     public int cbSize() { return ncbSize(address()); }
-    /** flags that indicate when prompts to the user are to be displayed. One or more of:<br><table><tr><td>{@link Crypt32#CRYPTPROTECT_PROMPT_ON_UNPROTECT}</td><td>{@link Crypt32#CRYPTPROTECT_PROMPT_ON_PROTECT}</td></tr></table> */
+    /** @return the value of the {@code dwPromptFlags} field. */
     @NativeType("DWORD")
     public int dwPromptFlags() { return ndwPromptFlags(address()); }
-    /** window handle to the parent window */
+    /** @return the value of the {@code hwndApp} field. */
     @NativeType("HWND")
     public long hwndApp() { return nhwndApp(address()); }
-    /** a string containing the text of a prompt to be displayed */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code szPrompt} field. */
     @NativeType("LPCWSTR")
     public ByteBuffer szPrompt() { return nszPrompt(address()); }
-    /** a string containing the text of a prompt to be displayed */
+    /** @return the null-terminated string pointed to by the {@code szPrompt} field. */
     @NativeType("LPCWSTR")
     public String szPromptString() { return nszPromptString(address()); }
 
-    /** Sets the specified value to the {@link #cbSize} field. */
+    /** Sets the specified value to the {@code cbSize} field. */
     public CRYPTPROTECT_PROMPTSTRUCT cbSize(@NativeType("DWORD") int value) { ncbSize(address(), value); return this; }
-    /** Sets the default value to the {@link #cbSize} field. */
+    /** Sets the default value to the {@code cbSize} field. */
     public CRYPTPROTECT_PROMPTSTRUCT cbSize$Default() { return cbSize(SIZEOF); }
-    /** Sets the specified value to the {@link #dwPromptFlags} field. */
+    /** Sets the specified value to the {@code dwPromptFlags} field. */
     public CRYPTPROTECT_PROMPTSTRUCT dwPromptFlags(@NativeType("DWORD") int value) { ndwPromptFlags(address(), value); return this; }
-    /** Sets the specified value to the {@link #hwndApp} field. */
+    /** Sets the specified value to the {@code hwndApp} field. */
     public CRYPTPROTECT_PROMPTSTRUCT hwndApp(@NativeType("HWND") long value) { nhwndApp(address(), value); return this; }
-    /** Sets the address of the specified encoded string to the {@link #szPrompt} field. */
+    /** Sets the address of the specified encoded string to the {@code szPrompt} field. */
     public CRYPTPROTECT_PROMPTSTRUCT szPrompt(@NativeType("LPCWSTR") ByteBuffer value) { nszPrompt(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +157,7 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CRYPTPROTECT_PROMPTSTRUCT createSafe(long address) {
+    public static @Nullable CRYPTPROTECT_PROMPTSTRUCT createSafe(long address) {
         return address == NULL ? null : new CRYPTPROTECT_PROMPTSTRUCT(address, null);
     }
 
@@ -188,9 +182,9 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     // -----------------------------------
 
     /** Unsafe version of {@link #cbSize}. */
-    public static int ncbSize(long struct) { return UNSAFE.getInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE); }
+    public static int ncbSize(long struct) { return memGetInt(struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE); }
     /** Unsafe version of {@link #dwPromptFlags}. */
-    public static int ndwPromptFlags(long struct) { return UNSAFE.getInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS); }
+    public static int ndwPromptFlags(long struct) { return memGetInt(struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS); }
     /** Unsafe version of {@link #hwndApp}. */
     public static long nhwndApp(long struct) { return memGetAddress(struct + CRYPTPROTECT_PROMPTSTRUCT.HWNDAPP); }
     /** Unsafe version of {@link #szPrompt}. */
@@ -199,9 +193,9 @@ public class CRYPTPROTECT_PROMPTSTRUCT extends Struct<CRYPTPROTECT_PROMPTSTRUCT>
     public static String nszPromptString(long struct) { return memUTF16(memGetAddress(struct + CRYPTPROTECT_PROMPTSTRUCT.SZPROMPT)); }
 
     /** Unsafe version of {@link #cbSize(int) cbSize}. */
-    public static void ncbSize(long struct, int value) { UNSAFE.putInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE, value); }
+    public static void ncbSize(long struct, int value) { memPutInt(struct + CRYPTPROTECT_PROMPTSTRUCT.CBSIZE, value); }
     /** Unsafe version of {@link #dwPromptFlags(int) dwPromptFlags}. */
-    public static void ndwPromptFlags(long struct, int value) { UNSAFE.putInt(null, struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS, value); }
+    public static void ndwPromptFlags(long struct, int value) { memPutInt(struct + CRYPTPROTECT_PROMPTSTRUCT.DWPROMPTFLAGS, value); }
     /** Unsafe version of {@link #hwndApp(long) hwndApp}. */
     public static void nhwndApp(long struct, long value) { memPutAddress(struct + CRYPTPROTECT_PROMPTSTRUCT.HWNDAPP, check(value)); }
     /** Unsafe version of {@link #szPrompt(ByteBuffer) szPrompt}. */

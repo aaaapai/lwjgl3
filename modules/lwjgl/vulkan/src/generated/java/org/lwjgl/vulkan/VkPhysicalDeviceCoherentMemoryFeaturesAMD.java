@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether device coherent memory can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link AMDDeviceCoherentMemory#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceCoherentMemoryFeaturesAMD {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #deviceCoherentMemory};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 deviceCoherentMemory;
+ * }}</pre>
  */
 public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysicalDeviceCoherentMemoryFeaturesAMD> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports device coherent memory ({@code VkMemoryPropertyFlagBits}). */
+    /** @return the value of the {@code deviceCoherentMemory} field. */
     @NativeType("VkBool32")
     public boolean deviceCoherentMemory() { return ndeviceCoherentMemory(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceCoherentMemoryFeaturesAMD sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link AMDDeviceCoherentMemory#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD} value to the {@link #sType} field. */
+    /** Sets the {@link AMDDeviceCoherentMemory#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD} value to the {@code sType} field. */
     public VkPhysicalDeviceCoherentMemoryFeaturesAMD sType$Default() { return sType(AMDDeviceCoherentMemory.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceCoherentMemoryFeaturesAMD pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #deviceCoherentMemory} field. */
+    /** Sets the specified value to the {@code deviceCoherentMemory} field. */
     public VkPhysicalDeviceCoherentMemoryFeaturesAMD deviceCoherentMemory(@NativeType("VkBool32") boolean value) { ndeviceCoherentMemory(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCoherentMemoryFeaturesAMD createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCoherentMemoryFeaturesAMD createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCoherentMemoryFeaturesAMD(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCoherentMemoryFeaturesAMD.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCoherentMemoryFeaturesAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +249,18 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.PNEXT); }
     /** Unsafe version of {@link #deviceCoherentMemory}. */
-    public static int ndeviceCoherentMemory(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY); }
+    public static int ndeviceCoherentMemory(long struct) { return memGetInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.PNEXT, value); }
     /** Unsafe version of {@link #deviceCoherentMemory(boolean) deviceCoherentMemory}. */
-    public static void ndeviceCoherentMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY, value); }
+    public static void ndeviceCoherentMemory(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCoherentMemoryFeaturesAMD.DEVICECOHERENTMEMORY, value); }
 
     // -----------------------------------
 
@@ -312,27 +296,32 @@ public class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends Struct<VkPhysical
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceCoherentMemoryFeaturesAMD getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceCoherentMemoryFeaturesAMD.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceCoherentMemoryFeaturesAMD.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#deviceCoherentMemory} field. */
+        /** @return the value of the {@code deviceCoherentMemory} field. */
         @NativeType("VkBool32")
         public boolean deviceCoherentMemory() { return VkPhysicalDeviceCoherentMemoryFeaturesAMD.ndeviceCoherentMemory(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceCoherentMemoryFeaturesAMD.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceCoherentMemoryFeaturesAMD.nsType(address(), value); return this; }
-        /** Sets the {@link AMDDeviceCoherentMemory#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD} value to the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#sType} field. */
+        /** Sets the {@link AMDDeviceCoherentMemory#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD} value to the {@code sType} field. */
         public VkPhysicalDeviceCoherentMemoryFeaturesAMD.Buffer sType$Default() { return sType(AMDDeviceCoherentMemory.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceCoherentMemoryFeaturesAMD.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceCoherentMemoryFeaturesAMD.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCoherentMemoryFeaturesAMD#deviceCoherentMemory} field. */
+        /** Sets the specified value to the {@code deviceCoherentMemory} field. */
         public VkPhysicalDeviceCoherentMemoryFeaturesAMD.Buffer deviceCoherentMemory(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceCoherentMemoryFeaturesAMD.ndeviceCoherentMemory(address(), value ? 1 : 0); return this; }
 
     }

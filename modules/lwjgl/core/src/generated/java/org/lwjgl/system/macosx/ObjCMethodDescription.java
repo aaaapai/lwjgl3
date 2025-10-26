@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.macosx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines a method.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct objc_method_description {
- *     SEL {@link #name};
- *     char * {@link #types};
- * }</code></pre>
+ *     SEL name;
+ *     char * types;
+ * }}</pre>
  */
 @NativeType("struct objc_method_description")
 public class ObjCMethodDescription extends Struct<ObjCMethodDescription> implements NativeResource {
@@ -75,13 +71,13 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the name of the method at runtime */
+    /** @return the value of the {@code name} field. */
     @NativeType("SEL")
     public long name() { return nname(address()); }
-    /** the types of the method arguments */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code types} field. */
     @NativeType("char *")
     public ByteBuffer types() { return ntypes(address()); }
-    /** the types of the method arguments */
+    /** @return the null-terminated string pointed to by the {@code types} field. */
     @NativeType("char *")
     public String typesString() { return ntypesString(address()); }
 
@@ -109,8 +105,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ObjCMethodDescription createSafe(long address) {
+    public static @Nullable ObjCMethodDescription createSafe(long address) {
         return address == NULL ? null : new ObjCMethodDescription(address, null);
     }
 
@@ -153,8 +148,7 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ObjCMethodDescription.Buffer createSafe(long address, int capacity) {
+    public static ObjCMethodDescription.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,17 +252,22 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ObjCMethodDescription getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ObjCMethodDescription#name} field. */
+        /** @return the value of the {@code name} field. */
         @NativeType("SEL")
         public long name() { return ObjCMethodDescription.nname(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link ObjCMethodDescription#types} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code types} field. */
         @NativeType("char *")
         public ByteBuffer types() { return ObjCMethodDescription.ntypes(address()); }
-        /** @return the null-terminated string pointed to by the {@link ObjCMethodDescription#types} field. */
+        /** @return the null-terminated string pointed to by the {@code types} field. */
         @NativeType("char *")
         public String typesString() { return ObjCMethodDescription.ntypesString(address()); }
 

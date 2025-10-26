@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether pipeline executable properties are available.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRPipelineExecutableProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #pipelineExecutableInfo};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 pipelineExecutableInfo;
+ * }}</pre>
  */
 public class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Struct<VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Str
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports reporting properties and statistics about the pipeline executables associated with a compiled pipeline. */
+    /** @return the value of the {@code pipelineExecutableInfo} field. */
     @NativeType("VkBool32")
     public boolean pipelineExecutableInfo() { return npipelineExecutableInfo(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRPipelineExecutableProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRPipelineExecutableProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR} value to the {@code sType} field. */
     public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR sType$Default() { return sType(KHRPipelineExecutableProperties.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #pipelineExecutableInfo} field. */
+    /** Sets the specified value to the {@code pipelineExecutableInfo} field. */
     public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR pipelineExecutableInfo(@NativeType("VkBool32") boolean value) { npipelineExecutableInfo(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Str
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Str
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,18 +249,18 @@ public class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Str
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #pipelineExecutableInfo}. */
-    public static int npipelineExecutableInfo(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.PIPELINEEXECUTABLEINFO); }
+    public static int npipelineExecutableInfo(long struct) { return memGetInt(struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.PIPELINEEXECUTABLEINFO); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #pipelineExecutableInfo(boolean) pipelineExecutableInfo}. */
-    public static void npipelineExecutableInfo(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.PIPELINEEXECUTABLEINFO, value); }
+    public static void npipelineExecutableInfo(long struct, int value) { memPutInt(struct + VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.PIPELINEEXECUTABLEINFO, value); }
 
     // -----------------------------------
 
@@ -312,27 +296,32 @@ public class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Str
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#pipelineExecutableInfo} field. */
+        /** @return the value of the {@code pipelineExecutableInfo} field. */
         @NativeType("VkBool32")
         public boolean pipelineExecutableInfo() { return VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.npipelineExecutableInfo(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRPipelineExecutableProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR} value to the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#sType} field. */
+        /** Sets the {@link KHRPipelineExecutableProperties#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR} value to the {@code sType} field. */
         public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.Buffer sType$Default() { return sType(KHRPipelineExecutableProperties.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR#pipelineExecutableInfo} field. */
+        /** Sets the specified value to the {@code pipelineExecutableInfo} field. */
         public VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.Buffer pipelineExecutableInfo(@NativeType("VkBool32") boolean value) { VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.npipelineExecutableInfo(address(), value ? 1 : 0); return this; }
 
     }

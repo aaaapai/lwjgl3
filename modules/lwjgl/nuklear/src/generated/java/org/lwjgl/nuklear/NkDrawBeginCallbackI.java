@@ -12,23 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@code nk_style_*} structs.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     struct nk_command_buffer *buffer,
- *     nk_handle userdata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_draw_begin} */
 @FunctionalInterface
 @NativeType("nk_draw_begin")
 public interface NkDrawBeginCallbackI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_float,
         ffi_type_pointer, ffi_type_pointer
     );
@@ -45,6 +34,7 @@ public interface NkDrawBeginCallbackI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code float (* nk_draw_begin) (struct nk_command_buffer * buffer, nk_handle userdata)} */
     float invoke(@NativeType("struct nk_command_buffer *") long buffer, @NativeType("nk_handle") long userdata);
 
 }

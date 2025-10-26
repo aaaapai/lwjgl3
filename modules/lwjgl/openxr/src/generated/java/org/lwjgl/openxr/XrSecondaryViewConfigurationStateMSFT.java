@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,38 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Returns the state of an enabled secondary view configuration.
- * 
- * <h5>Description</h5>
- * 
- * <p>When a secondary view configuration becomes active, the application <b>should</b> render its secondary views as soon as possible, by getting their view transforms and FOV using {@link XR10#xrLocateViews LocateViews} and then submitting composition layers to {@link XR10#xrEndFrame EndFrame} through the {@link XrSecondaryViewConfigurationFrameEndInfoMSFT} extension structure. When a secondary view configuration changes from inactive to active, the runtime <b>may</b> change {@link XrViewConfigurationView} of the given view configuration such as the recommended image width or height. An application <b>should</b> query for latest {@link XrViewConfigurationView} through {@link XR10#xrEnumerateViewConfigurationViews EnumerateViewConfigurationViews} function for the secondary view configuration and consider recreating swapchain images if necessary. The runtime <b>must</b> not change the {@link XrViewConfigurationView}, including recommended image width and height of a secondary view configuration when {@code active} remains true until the secondary view configuration deactivated or the session has ended.</p>
- * 
- * <p>If necessary, the application <b>can</b> take longer than a frame duration to prepare by calling {@link XR10#xrEndFrame EndFrame} without submitting layers for that secondary view configuration until ready. The runtime <b>should</b> delay the underlying scenario managed by the secondary view configuration until the application begins submitting frames with layers for that configuration. The active secondary view configuration composed output is undefined if the application stops submitting frames with layers for a secondary view configuration while {@code active} remains true.</p>
- * 
- * <p>When the runtime intends to conclude a secondary view configuration, for example when user stops video capture, the runtime makes the view configuration inactive by setting the corresponding {@code active} in the {@link XrSecondaryViewConfigurationStateMSFT} structure to false.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSecondaryViewConfiguration XR_MSFT_secondary_view_configuration} extension <b>must</b> be enabled prior to using {@link XrSecondaryViewConfigurationStateMSFT}</li>
- * <li>{@code type} <b>must</b> be {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code viewConfigurationType} <b>must</b> be a valid {@code XrViewConfigurationType} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrFrameState}, {@link XrSecondaryViewConfigurationFrameStateMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSecondaryViewConfigurationStateMSFT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrViewConfigurationType {@link #viewConfigurationType};
- *     XrBool32 {@link #active};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrViewConfigurationType viewConfigurationType;
+ *     XrBool32 active;
+ * }}</pre>
  */
 public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryViewConfigurationStateMSFT> implements NativeResource {
 
@@ -103,28 +78,28 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** an {@code XrViewConfigurationType} that represents the returned state. */
+    /** @return the value of the {@code viewConfigurationType} field. */
     @NativeType("XrViewConfigurationType")
     public int viewConfigurationType() { return nviewConfigurationType(address()); }
-    /** an {@code XrBool32} returns whether the secondary view configuration is active and displaying frames to users. */
+    /** @return the value of the {@code active} field. */
     @NativeType("XrBool32")
     public boolean active() { return nactive(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSecondaryViewConfigurationStateMSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT} value to the {@link #type} field. */
+    /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT} value to the {@code type} field. */
     public XrSecondaryViewConfigurationStateMSFT type$Default() { return type(MSFTSecondaryViewConfiguration.XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSecondaryViewConfigurationStateMSFT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewConfigurationType} field. */
+    /** Sets the specified value to the {@code viewConfigurationType} field. */
     public XrSecondaryViewConfigurationStateMSFT viewConfigurationType(@NativeType("XrViewConfigurationType") int value) { nviewConfigurationType(address(), value); return this; }
-    /** Sets the specified value to the {@link #active} field. */
+    /** Sets the specified value to the {@code active} field. */
     public XrSecondaryViewConfigurationStateMSFT active(@NativeType("XrBool32") boolean value) { nactive(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +153,7 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationStateMSFT createSafe(long address) {
+    public static @Nullable XrSecondaryViewConfigurationStateMSFT createSafe(long address) {
         return address == NULL ? null : new XrSecondaryViewConfigurationStateMSFT(address, null);
     }
 
@@ -222,8 +196,7 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSecondaryViewConfigurationStateMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSecondaryViewConfigurationStateMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,22 +241,22 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationStateMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationStateMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSecondaryViewConfigurationStateMSFT.NEXT); }
     /** Unsafe version of {@link #viewConfigurationType}. */
-    public static int nviewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE); }
+    public static int nviewConfigurationType(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE); }
     /** Unsafe version of {@link #active}. */
-    public static int nactive(long struct) { return UNSAFE.getInt(null, struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE); }
+    public static int nactive(long struct) { return memGetInt(struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationStateMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationStateMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSecondaryViewConfigurationStateMSFT.NEXT, value); }
     /** Unsafe version of {@link #viewConfigurationType(int) viewConfigurationType}. */
-    public static void nviewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE, value); }
+    public static void nviewConfigurationType(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationStateMSFT.VIEWCONFIGURATIONTYPE, value); }
     /** Unsafe version of {@link #active(boolean) active}. */
-    public static void nactive(long struct, int value) { UNSAFE.putInt(null, struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE, value); }
+    public static void nactive(long struct, int value) { memPutInt(struct + XrSecondaryViewConfigurationStateMSFT.ACTIVE, value); }
 
     // -----------------------------------
 
@@ -319,32 +292,37 @@ public class XrSecondaryViewConfigurationStateMSFT extends Struct<XrSecondaryVie
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSecondaryViewConfigurationStateMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSecondaryViewConfigurationStateMSFT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSecondaryViewConfigurationStateMSFT.ntype(address()); }
-        /** @return the value of the {@link XrSecondaryViewConfigurationStateMSFT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSecondaryViewConfigurationStateMSFT.nnext(address()); }
-        /** @return the value of the {@link XrSecondaryViewConfigurationStateMSFT#viewConfigurationType} field. */
+        /** @return the value of the {@code viewConfigurationType} field. */
         @NativeType("XrViewConfigurationType")
         public int viewConfigurationType() { return XrSecondaryViewConfigurationStateMSFT.nviewConfigurationType(address()); }
-        /** @return the value of the {@link XrSecondaryViewConfigurationStateMSFT#active} field. */
+        /** @return the value of the {@code active} field. */
         @NativeType("XrBool32")
         public boolean active() { return XrSecondaryViewConfigurationStateMSFT.nactive(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrSecondaryViewConfigurationStateMSFT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSecondaryViewConfigurationStateMSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSecondaryViewConfigurationStateMSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT} value to the {@link XrSecondaryViewConfigurationStateMSFT#type} field. */
+        /** Sets the {@link MSFTSecondaryViewConfiguration#XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT} value to the {@code type} field. */
         public XrSecondaryViewConfigurationStateMSFT.Buffer type$Default() { return type(MSFTSecondaryViewConfiguration.XR_TYPE_SECONDARY_VIEW_CONFIGURATION_STATE_MSFT); }
-        /** Sets the specified value to the {@link XrSecondaryViewConfigurationStateMSFT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSecondaryViewConfigurationStateMSFT.Buffer next(@NativeType("void *") long value) { XrSecondaryViewConfigurationStateMSFT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSecondaryViewConfigurationStateMSFT#viewConfigurationType} field. */
+        /** Sets the specified value to the {@code viewConfigurationType} field. */
         public XrSecondaryViewConfigurationStateMSFT.Buffer viewConfigurationType(@NativeType("XrViewConfigurationType") int value) { XrSecondaryViewConfigurationStateMSFT.nviewConfigurationType(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSecondaryViewConfigurationStateMSFT#active} field. */
+        /** Sets the specified value to the {@code active} field. */
         public XrSecondaryViewConfigurationStateMSFT.Buffer active(@NativeType("XrBool32") boolean value) { XrSecondaryViewConfigurationStateMSFT.nactive(address(), value ? 1 : 0); return this; }
 
     }

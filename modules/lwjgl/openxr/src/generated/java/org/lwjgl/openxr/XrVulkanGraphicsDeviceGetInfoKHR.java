@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,30 +19,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.*;
 
 /**
- * Vulkan Graphics Device Get Info.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link KHRVulkanEnable2 XR_KHR_vulkan_enable2} extension <b>must</b> be enabled prior to using {@link XrVulkanGraphicsDeviceGetInfoKHR}</li>
- * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable2#XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code vulkanInstance} <b>must</b> be a valid {@code VkInstance} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRVulkanEnable2#xrGetVulkanGraphicsDevice2KHR GetVulkanGraphicsDevice2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVulkanGraphicsDeviceGetInfoKHR {
  *     XrStructureType type;
  *     void const * next;
- *     XrSystemId {@link #systemId};
- *     VkInstance {@link #vulkanInstance};
- * }</code></pre>
+ *     XrSystemId systemId;
+ *     VkInstance vulkanInstance;
+ * }}</pre>
  */
 public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDeviceGetInfoKHR> implements NativeResource {
 
@@ -104,10 +87,10 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrSystemId} handle for the system which will be used to create a session. */
+    /** @return the value of the {@code systemId} field. */
     @NativeType("XrSystemId")
     public long systemId() { return nsystemId(address()); }
-    /** a valid Vulkan {@code VkInstance}. */
+    /** @return the value of the {@code vulkanInstance} field. */
     @NativeType("VkInstance")
     public long vulkanInstance() { return nvulkanInstance(address()); }
 
@@ -117,9 +100,9 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     public XrVulkanGraphicsDeviceGetInfoKHR type$Default() { return type(KHRVulkanEnable2.XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR); }
     /** Sets the specified value to the {@code next} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #systemId} field. */
+    /** Sets the specified value to the {@code systemId} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR systemId(@NativeType("XrSystemId") long value) { nsystemId(address(), value); return this; }
-    /** Sets the specified value to the {@link #vulkanInstance} field. */
+    /** Sets the specified value to the {@code vulkanInstance} field. */
     public XrVulkanGraphicsDeviceGetInfoKHR vulkanInstance(VkInstance value) { nvulkanInstance(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -173,8 +156,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanGraphicsDeviceGetInfoKHR createSafe(long address) {
+    public static @Nullable XrVulkanGraphicsDeviceGetInfoKHR createSafe(long address) {
         return address == NULL ? null : new XrVulkanGraphicsDeviceGetInfoKHR(address, null);
     }
 
@@ -217,8 +199,7 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanGraphicsDeviceGetInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static XrVulkanGraphicsDeviceGetInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,20 +244,20 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.NEXT); }
     /** Unsafe version of {@link #systemId}. */
-    public static long nsystemId(long struct) { return UNSAFE.getLong(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID); }
+    public static long nsystemId(long struct) { return memGetLong(struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID); }
     /** Unsafe version of {@link #vulkanInstance}. */
     public static long nvulkanInstance(long struct) { return memGetAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.VULKANINSTANCE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVulkanGraphicsDeviceGetInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.NEXT, value); }
     /** Unsafe version of {@link #systemId(long) systemId}. */
-    public static void nsystemId(long struct, long value) { UNSAFE.putLong(null, struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID, value); }
+    public static void nsystemId(long struct, long value) { memPutLong(struct + XrVulkanGraphicsDeviceGetInfoKHR.SYSTEMID, value); }
     /** Unsafe version of {@link #vulkanInstance(VkInstance) vulkanInstance}. */
     public static void nvulkanInstance(long struct, VkInstance value) { memPutAddress(struct + XrVulkanGraphicsDeviceGetInfoKHR.VULKANINSTANCE, value.address()); }
 
@@ -323,6 +304,11 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVulkanGraphicsDeviceGetInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -333,10 +319,10 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
         /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrVulkanGraphicsDeviceGetInfoKHR.nnext(address()); }
-        /** @return the value of the {@link XrVulkanGraphicsDeviceGetInfoKHR#systemId} field. */
+        /** @return the value of the {@code systemId} field. */
         @NativeType("XrSystemId")
         public long systemId() { return XrVulkanGraphicsDeviceGetInfoKHR.nsystemId(address()); }
-        /** @return the value of the {@link XrVulkanGraphicsDeviceGetInfoKHR#vulkanInstance} field. */
+        /** @return the value of the {@code vulkanInstance} field. */
         @NativeType("VkInstance")
         public long vulkanInstance() { return XrVulkanGraphicsDeviceGetInfoKHR.nvulkanInstance(address()); }
 
@@ -346,9 +332,9 @@ public class XrVulkanGraphicsDeviceGetInfoKHR extends Struct<XrVulkanGraphicsDev
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer type$Default() { return type(KHRVulkanEnable2.XR_TYPE_VULKAN_GRAPHICS_DEVICE_GET_INFO_KHR); }
         /** Sets the specified value to the {@code next} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer next(@NativeType("void const *") long value) { XrVulkanGraphicsDeviceGetInfoKHR.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVulkanGraphicsDeviceGetInfoKHR#systemId} field. */
+        /** Sets the specified value to the {@code systemId} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer systemId(@NativeType("XrSystemId") long value) { XrVulkanGraphicsDeviceGetInfoKHR.nsystemId(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVulkanGraphicsDeviceGetInfoKHR#vulkanInstance} field. */
+        /** Sets the specified value to the {@code vulkanInstance} field. */
         public XrVulkanGraphicsDeviceGetInfoKHR.Buffer vulkanInstance(VkInstance value) { XrVulkanGraphicsDeviceGetInfoKHR.nvulkanInstance(address(), value); return this; }
 
     }

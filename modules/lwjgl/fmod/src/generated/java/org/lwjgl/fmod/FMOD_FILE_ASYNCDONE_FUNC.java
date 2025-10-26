@@ -5,21 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     struct FMOD_ASYNCREADINFO *info,
- *     FMOD_RESULT result
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_FILE_ASYNCDONE_FUNC} */
 public abstract class FMOD_FILE_ASYNCDONE_FUNC extends Callback implements FMOD_FILE_ASYNCDONE_FUNCI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class FMOD_FILE_ASYNCDONE_FUNC extends Callback implements FMOD_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_FILE_ASYNCDONE_FUNC createSafe(long functionPointer) {
+    public static @Nullable FMOD_FILE_ASYNCDONE_FUNC createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

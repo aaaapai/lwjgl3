@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing advanced blending limits that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTBlendOperationAdvanced#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #advancedBlendMaxColorAttachments};
- *     VkBool32 {@link #advancedBlendIndependentBlend};
- *     VkBool32 {@link #advancedBlendNonPremultipliedSrcColor};
- *     VkBool32 {@link #advancedBlendNonPremultipliedDstColor};
- *     VkBool32 {@link #advancedBlendCorrelatedOverlap};
- *     VkBool32 {@link #advancedBlendAllOperations};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t advancedBlendMaxColorAttachments;
+ *     VkBool32 advancedBlendIndependentBlend;
+ *     VkBool32 advancedBlendNonPremultipliedSrcColor;
+ *     VkBool32 advancedBlendNonPremultipliedDstColor;
+ *     VkBool32 advancedBlendCorrelatedOverlap;
+ *     VkBool32 advancedBlendAllOperations;
+ * }}</pre>
  */
 public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT> implements NativeResource {
 
@@ -108,36 +94,36 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** one greater than the highest color attachment index that <b>can</b> be used in a subpass, for a pipeline that uses an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#framebuffer-blend-advanced">advanced blend operation</a>. */
+    /** @return the value of the {@code advancedBlendMaxColorAttachments} field. */
     @NativeType("uint32_t")
     public int advancedBlendMaxColorAttachments() { return nadvancedBlendMaxColorAttachments(address()); }
-    /** specifies whether advanced blend operations <b>can</b> vary per-attachment. */
+    /** @return the value of the {@code advancedBlendIndependentBlend} field. */
     @NativeType("VkBool32")
     public boolean advancedBlendIndependentBlend() { return nadvancedBlendIndependentBlend(address()) != 0; }
-    /** specifies whether the source color <b>can</b> be treated as non-premultiplied. If this is {@link VK10#VK_FALSE FALSE}, then {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::srcPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}. */
+    /** @return the value of the {@code advancedBlendNonPremultipliedSrcColor} field. */
     @NativeType("VkBool32")
     public boolean advancedBlendNonPremultipliedSrcColor() { return nadvancedBlendNonPremultipliedSrcColor(address()) != 0; }
-    /** specifies whether the destination color <b>can</b> be treated as non-premultiplied. If this is {@link VK10#VK_FALSE FALSE}, then {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::dstPremultiplied} <b>must</b> be {@link VK10#VK_TRUE TRUE}. */
+    /** @return the value of the {@code advancedBlendNonPremultipliedDstColor} field. */
     @NativeType("VkBool32")
     public boolean advancedBlendNonPremultipliedDstColor() { return nadvancedBlendNonPremultipliedDstColor(address()) != 0; }
-    /** specifies whether the overlap mode <b>can</b> be treated as correlated. If this is {@link VK10#VK_FALSE FALSE}, then {@link VkPipelineColorBlendAdvancedStateCreateInfoEXT}{@code ::blendOverlap} <b>must</b> be {@link EXTBlendOperationAdvanced#VK_BLEND_OVERLAP_UNCORRELATED_EXT BLEND_OVERLAP_UNCORRELATED_EXT}. */
+    /** @return the value of the {@code advancedBlendCorrelatedOverlap} field. */
     @NativeType("VkBool32")
     public boolean advancedBlendCorrelatedOverlap() { return nadvancedBlendCorrelatedOverlap(address()) != 0; }
-    /** specifies whether all advanced blend operation enums are supported. See the valid usage of {@link VkPipelineColorBlendAttachmentState}. */
+    /** @return the value of the {@code advancedBlendAllOperations} field. */
     @NativeType("VkBool32")
     public boolean advancedBlendAllOperations() { return nadvancedBlendAllOperations(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTBlendOperationAdvanced#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTBlendOperationAdvanced#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT sType$Default() { return sType(EXTBlendOperationAdvanced.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -187,8 +173,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT(address, null);
     }
 
@@ -231,8 +216,7 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,24 +280,24 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #advancedBlendMaxColorAttachments}. */
-    public static int nadvancedBlendMaxColorAttachments(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDMAXCOLORATTACHMENTS); }
+    public static int nadvancedBlendMaxColorAttachments(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDMAXCOLORATTACHMENTS); }
     /** Unsafe version of {@link #advancedBlendIndependentBlend}. */
-    public static int nadvancedBlendIndependentBlend(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDINDEPENDENTBLEND); }
+    public static int nadvancedBlendIndependentBlend(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDINDEPENDENTBLEND); }
     /** Unsafe version of {@link #advancedBlendNonPremultipliedSrcColor}. */
-    public static int nadvancedBlendNonPremultipliedSrcColor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDSRCCOLOR); }
+    public static int nadvancedBlendNonPremultipliedSrcColor(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDSRCCOLOR); }
     /** Unsafe version of {@link #advancedBlendNonPremultipliedDstColor}. */
-    public static int nadvancedBlendNonPremultipliedDstColor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDDSTCOLOR); }
+    public static int nadvancedBlendNonPremultipliedDstColor(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDNONPREMULTIPLIEDDSTCOLOR); }
     /** Unsafe version of {@link #advancedBlendCorrelatedOverlap}. */
-    public static int nadvancedBlendCorrelatedOverlap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDCORRELATEDOVERLAP); }
+    public static int nadvancedBlendCorrelatedOverlap(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDCORRELATEDOVERLAP); }
     /** Unsafe version of {@link #advancedBlendAllOperations}. */
-    public static int nadvancedBlendAllOperations(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDALLOPERATIONS); }
+    public static int nadvancedBlendAllOperations(long struct) { return memGetInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.ADVANCEDBLENDALLOPERATIONS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.PNEXT, value); }
 
@@ -351,40 +335,45 @@ public class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends Struct<
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#advancedBlendMaxColorAttachments} field. */
+        /** @return the value of the {@code advancedBlendMaxColorAttachments} field. */
         @NativeType("uint32_t")
         public int advancedBlendMaxColorAttachments() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nadvancedBlendMaxColorAttachments(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#advancedBlendIndependentBlend} field. */
+        /** @return the value of the {@code advancedBlendIndependentBlend} field. */
         @NativeType("VkBool32")
         public boolean advancedBlendIndependentBlend() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nadvancedBlendIndependentBlend(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#advancedBlendNonPremultipliedSrcColor} field. */
+        /** @return the value of the {@code advancedBlendNonPremultipliedSrcColor} field. */
         @NativeType("VkBool32")
         public boolean advancedBlendNonPremultipliedSrcColor() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nadvancedBlendNonPremultipliedSrcColor(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#advancedBlendNonPremultipliedDstColor} field. */
+        /** @return the value of the {@code advancedBlendNonPremultipliedDstColor} field. */
         @NativeType("VkBool32")
         public boolean advancedBlendNonPremultipliedDstColor() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nadvancedBlendNonPremultipliedDstColor(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#advancedBlendCorrelatedOverlap} field. */
+        /** @return the value of the {@code advancedBlendCorrelatedOverlap} field. */
         @NativeType("VkBool32")
         public boolean advancedBlendCorrelatedOverlap() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nadvancedBlendCorrelatedOverlap(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#advancedBlendAllOperations} field. */
+        /** @return the value of the {@code advancedBlendAllOperations} field. */
         @NativeType("VkBool32")
         public boolean advancedBlendAllOperations() { return VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nadvancedBlendAllOperations(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTBlendOperationAdvanced#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT} value to the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#sType} field. */
+        /** Sets the {@link EXTBlendOperationAdvanced#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.Buffer sType$Default() { return sType(EXTBlendOperationAdvanced.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.npNext(address(), value); return this; }
 
     }

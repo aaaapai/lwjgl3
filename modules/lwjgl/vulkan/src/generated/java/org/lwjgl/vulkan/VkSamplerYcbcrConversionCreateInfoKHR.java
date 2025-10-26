@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkSamplerYcbcrConversionCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkSamplerYcbcrConversionCreateInfoKHR {
  *     VkStructureType sType;
@@ -156,8 +152,7 @@ public class VkSamplerYcbcrConversionCreateInfoKHR extends VkSamplerYcbcrConvers
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkSamplerYcbcrConversionCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkSamplerYcbcrConversionCreateInfoKHR(address, null);
     }
 
@@ -200,8 +195,7 @@ public class VkSamplerYcbcrConversionCreateInfoKHR extends VkSamplerYcbcrConvers
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSamplerYcbcrConversionCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSamplerYcbcrConversionCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,6 +287,11 @@ public class VkSamplerYcbcrConversionCreateInfoKHR extends VkSamplerYcbcrConvers
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

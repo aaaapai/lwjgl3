@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,38 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying an identifier for a shader module.
- * 
- * <h5>Description</h5>
- * 
- * <p>Any identifier <b>can</b> be used. If the pipeline being created with identifier requires compilation to complete the pipeline creation call, pipeline compilation <b>must</b> fail as defined by {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT}.</p>
- * 
- * <p>{@code pIdentifier} and {@code identifierSize} <b>can</b> be obtained from an {@link VkShaderModuleIdentifierEXT} queried earlier.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If this structure is included in a {@code pNext} chain and {@code identifierSize} is not equal to 0, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-shaderModuleIdentifier">{@code shaderModuleIdentifier}</a> feature <b>must</b> be enabled</li>
- * <li>If this struct is included in a {@code pNext} chain of {@link VkPipelineShaderStageCreateInfo} and {@code identifierSize} is not equal to 0, the pipeline <b>must</b> be created with the {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT} flag set</li>
- * <li>{@code identifierSize} <b>must</b> be less-or-equal to {@link EXTShaderModuleIdentifier#VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT}</li>
- * <li>If {@code identifierSize} is not 0, {@code pIdentifier} <b>must</b> be a valid pointer to an array of {@code identifierSize} {@code uint8_t} values</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineShaderStageModuleIdentifierCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #identifierSize};
- *     uint8_t const * {@link #pIdentifier};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t identifierSize;
+ *     uint8_t const * pIdentifier;
+ * }}</pre>
  */
 public class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends Struct<VkPipelineShaderStageModuleIdentifierCreateInfoEXT> implements NativeResource {
 
@@ -104,27 +79,26 @@ public class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends Struct<V
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the size, in bytes, of the buffer pointed to by {@code pIdentifier}. */
+    /** @return the value of the {@code identifierSize} field. */
     @NativeType("uint32_t")
     public int identifierSize() { return nidentifierSize(address()); }
-    /** a pointer to a buffer of opaque data specifying an identifier. */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pIdentifier} field. */
     @NativeType("uint8_t const *")
-    public ByteBuffer pIdentifier() { return npIdentifier(address()); }
+    public @Nullable ByteBuffer pIdentifier() { return npIdentifier(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineShaderStageModuleIdentifierCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkPipelineShaderStageModuleIdentifierCreateInfoEXT sType$Default() { return sType(EXTShaderModuleIdentifier.VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineShaderStageModuleIdentifierCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #pIdentifier} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code pIdentifier} field. */
     public VkPipelineShaderStageModuleIdentifierCreateInfoEXT pIdentifier(@Nullable @NativeType("uint8_t const *") ByteBuffer value) { npIdentifier(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -176,8 +150,7 @@ public class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineShaderStageModuleIdentifierCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineShaderStageModuleIdentifierCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineShaderStageModuleIdentifierCreateInfoEXT(address, null);
     }
 
@@ -220,8 +193,7 @@ public class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineShaderStageModuleIdentifierCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineShaderStageModuleIdentifierCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,20 +238,20 @@ public class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #identifierSize}. */
-    public static int nidentifierSize(long struct) { return UNSAFE.getInt(null, struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.IDENTIFIERSIZE); }
+    public static int nidentifierSize(long struct) { return memGetInt(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.IDENTIFIERSIZE); }
     /** Unsafe version of {@link #pIdentifier() pIdentifier}. */
-    @Nullable public static ByteBuffer npIdentifier(long struct) { return memByteBufferSafe(memGetAddress(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.PIDENTIFIER), nidentifierSize(struct)); }
+    public static @Nullable ByteBuffer npIdentifier(long struct) { return memByteBufferSafe(memGetAddress(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.PIDENTIFIER), nidentifierSize(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.PNEXT, value); }
     /** Sets the specified value to the {@code identifierSize} field of the specified {@code struct}. */
-    public static void nidentifierSize(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.IDENTIFIERSIZE, value); }
+    public static void nidentifierSize(long struct, int value) { memPutInt(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.IDENTIFIERSIZE, value); }
     /** Unsafe version of {@link #pIdentifier(ByteBuffer) pIdentifier}. */
     public static void npIdentifier(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + VkPipelineShaderStageModuleIdentifierCreateInfoEXT.PIDENTIFIER, memAddressSafe(value)); nidentifierSize(struct, value == null ? 0 : value.remaining()); }
 
@@ -328,31 +300,35 @@ public class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends Struct<V
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineShaderStageModuleIdentifierCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineShaderStageModuleIdentifierCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineShaderStageModuleIdentifierCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#identifierSize} field. */
+        /** @return the value of the {@code identifierSize} field. */
         @NativeType("uint32_t")
         public int identifierSize() { return VkPipelineShaderStageModuleIdentifierCreateInfoEXT.nidentifierSize(address()); }
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#pIdentifier} field. */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pIdentifier} field. */
         @NativeType("uint8_t const *")
-        public ByteBuffer pIdentifier() { return VkPipelineShaderStageModuleIdentifierCreateInfoEXT.npIdentifier(address()); }
+        public @Nullable ByteBuffer pIdentifier() { return VkPipelineShaderStageModuleIdentifierCreateInfoEXT.npIdentifier(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineShaderStageModuleIdentifierCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineShaderStageModuleIdentifierCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT} value to the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkPipelineShaderStageModuleIdentifierCreateInfoEXT.Buffer sType$Default() { return sType(EXTShaderModuleIdentifier.VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineShaderStageModuleIdentifierCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkPipelineShaderStageModuleIdentifierCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT#pIdentifier} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code pIdentifier} field. */
         public VkPipelineShaderStageModuleIdentifierCreateInfoEXT.Buffer pIdentifier(@Nullable @NativeType("uint8_t const *") ByteBuffer value) { VkPipelineShaderStageModuleIdentifierCreateInfoEXT.npIdentifier(address(), value); return this; }
 
     }

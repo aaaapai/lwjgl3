@@ -5,23 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code startedTranslationUnit} field of the {@link IndexerCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * CXIdxClientContainer (*{@link #invoke}) (
- *     CXClientData client_data,
- *     void *reserved
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class IndexerStartedTranslationUnit extends Callback implements IndexerStartedTranslationUnitI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class IndexerStartedTranslationUnit extends Callback implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static IndexerStartedTranslationUnit createSafe(long functionPointer) {
+    public static @Nullable IndexerStartedTranslationUnit createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

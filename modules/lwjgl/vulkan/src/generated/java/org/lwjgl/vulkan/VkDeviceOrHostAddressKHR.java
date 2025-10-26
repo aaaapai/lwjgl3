@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Union specifying a device or host address.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAccelerationStructureBuildGeometryInfoKHR}, {@link VkCopyAccelerationStructureToMemoryInfoKHR}, {@link VkCopyMicromapToMemoryInfoEXT}, {@link VkMicromapBuildInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union VkDeviceOrHostAddressKHR {
- *     VkDeviceAddress {@link #deviceAddress};
- *     void * {@link #hostAddress};
- * }</code></pre>
+ *     VkDeviceAddress deviceAddress;
+ *     void * hostAddress;
+ * }}</pre>
  */
 public class VkDeviceOrHostAddressKHR extends Struct<VkDeviceOrHostAddressKHR> implements NativeResource {
 
@@ -78,16 +70,16 @@ public class VkDeviceOrHostAddressKHR extends Struct<VkDeviceOrHostAddressKHR> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a buffer device address as returned by the {@link KHRBufferDeviceAddress#vkGetBufferDeviceAddressKHR GetBufferDeviceAddressKHR} command. */
+    /** @return the value of the {@code deviceAddress} field. */
     @NativeType("VkDeviceAddress")
     public long deviceAddress() { return ndeviceAddress(address()); }
-    /** a host memory address. */
+    /** @return the value of the {@code hostAddress} field. */
     @NativeType("void *")
     public long hostAddress() { return nhostAddress(address()); }
 
-    /** Sets the specified value to the {@link #deviceAddress} field. */
+    /** Sets the specified value to the {@code deviceAddress} field. */
     public VkDeviceOrHostAddressKHR deviceAddress(@NativeType("VkDeviceAddress") long value) { ndeviceAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #hostAddress} field. */
+    /** Sets the specified value to the {@code hostAddress} field. */
     public VkDeviceOrHostAddressKHR hostAddress(@NativeType("void *") long value) { nhostAddress(address(), value); return this; }
 
     /**
@@ -126,8 +118,7 @@ public class VkDeviceOrHostAddressKHR extends Struct<VkDeviceOrHostAddressKHR> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceOrHostAddressKHR createSafe(long address) {
+    public static @Nullable VkDeviceOrHostAddressKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceOrHostAddressKHR(address, null);
     }
 
@@ -170,8 +161,7 @@ public class VkDeviceOrHostAddressKHR extends Struct<VkDeviceOrHostAddressKHR> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceOrHostAddressKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceOrHostAddressKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -216,12 +206,12 @@ public class VkDeviceOrHostAddressKHR extends Struct<VkDeviceOrHostAddressKHR> i
     // -----------------------------------
 
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkDeviceOrHostAddressKHR.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkDeviceOrHostAddressKHR.DEVICEADDRESS); }
     /** Unsafe version of {@link #hostAddress}. */
     public static long nhostAddress(long struct) { return memGetAddress(struct + VkDeviceOrHostAddressKHR.HOSTADDRESS); }
 
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceOrHostAddressKHR.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkDeviceOrHostAddressKHR.DEVICEADDRESS, value); }
     /** Unsafe version of {@link #hostAddress(long) hostAddress}. */
     public static void nhostAddress(long struct, long value) { memPutAddress(struct + VkDeviceOrHostAddressKHR.HOSTADDRESS, value); }
 
@@ -259,20 +249,25 @@ public class VkDeviceOrHostAddressKHR extends Struct<VkDeviceOrHostAddressKHR> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceOrHostAddressKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceOrHostAddressKHR#deviceAddress} field. */
+        /** @return the value of the {@code deviceAddress} field. */
         @NativeType("VkDeviceAddress")
         public long deviceAddress() { return VkDeviceOrHostAddressKHR.ndeviceAddress(address()); }
-        /** @return the value of the {@link VkDeviceOrHostAddressKHR#hostAddress} field. */
+        /** @return the value of the {@code hostAddress} field. */
         @NativeType("void *")
         public long hostAddress() { return VkDeviceOrHostAddressKHR.nhostAddress(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceOrHostAddressKHR#deviceAddress} field. */
+        /** Sets the specified value to the {@code deviceAddress} field. */
         public VkDeviceOrHostAddressKHR.Buffer deviceAddress(@NativeType("VkDeviceAddress") long value) { VkDeviceOrHostAddressKHR.ndeviceAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceOrHostAddressKHR#hostAddress} field. */
+        /** Sets the specified value to the {@code hostAddress} field. */
         public VkDeviceOrHostAddressKHR.Buffer hostAddress(@NativeType("void *") long value) { VkDeviceOrHostAddressKHR.nhostAddress(address(), value); return this; }
 
     }

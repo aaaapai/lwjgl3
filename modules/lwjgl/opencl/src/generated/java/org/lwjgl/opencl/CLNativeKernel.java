@@ -5,22 +5,13 @@
  */
 package org.lwjgl.opencl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CL10#clEnqueueNativeKernel EnqueueNativeKernel} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *args
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CLNativeKernel extends Callback implements CLNativeKernelI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class CLNativeKernel extends Callback implements CLNativeKernelI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CLNativeKernel createSafe(long functionPointer) {
+    public static @Nullable CLNativeKernel createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

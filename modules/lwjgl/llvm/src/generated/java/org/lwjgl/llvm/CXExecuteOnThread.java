@@ -5,22 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link ClangIndex#clang_executeOnThread executeOnThread} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CXExecuteOnThread extends Callback implements CXExecuteOnThreadI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class CXExecuteOnThread extends Callback implements CXExecuteOnT
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CXExecuteOnThread createSafe(long functionPointer) {
+    public static @Nullable CXExecuteOnThread createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

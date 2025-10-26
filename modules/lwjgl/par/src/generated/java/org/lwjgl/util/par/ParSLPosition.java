@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.par;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The simple two-tuple math type used for mesh and spine vertices.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct parsl_position {
  *     float x;
  *     float y;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct parsl_position")
 public class ParSLPosition extends Struct<ParSLPosition> implements NativeResource {
@@ -132,8 +128,7 @@ public class ParSLPosition extends Struct<ParSLPosition> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLPosition createSafe(long address) {
+    public static @Nullable ParSLPosition createSafe(long address) {
         return address == NULL ? null : new ParSLPosition(address, null);
     }
 
@@ -176,8 +171,7 @@ public class ParSLPosition extends Struct<ParSLPosition> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ParSLPosition.Buffer createSafe(long address, int capacity) {
+    public static ParSLPosition.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +235,14 @@ public class ParSLPosition extends Struct<ParSLPosition> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + ParSLPosition.X); }
+    public static float nx(long struct) { return memGetFloat(struct + ParSLPosition.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + ParSLPosition.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + ParSLPosition.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + ParSLPosition.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + ParSLPosition.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + ParSLPosition.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + ParSLPosition.Y, value); }
 
     // -----------------------------------
 
@@ -281,6 +275,11 @@ public class ParSLPosition extends Struct<ParSLPosition> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -84,4 +84,9 @@ public class Sys {
 	public static String getClipboard() {
 		return GLFW.glfwGetClipboardString(GLFW.glfwGetPrimaryMonitor());
 	}
+
+	public static boolean is64Bit() {
+        String osArch = System.getProperty("os.arch");
+        return osArch.contains("64") || osArch.startsWith("armv8");
+    }
 }

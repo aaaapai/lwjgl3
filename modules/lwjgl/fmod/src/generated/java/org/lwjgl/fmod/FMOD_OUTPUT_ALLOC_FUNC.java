@@ -5,23 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     unsigned int size,
- *     unsigned int align,
- *     char const *file,
- *     int line
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_ALLOC_FUNC} */
 public abstract class FMOD_OUTPUT_ALLOC_FUNC extends Callback implements FMOD_OUTPUT_ALLOC_FUNCI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class FMOD_OUTPUT_ALLOC_FUNC extends Callback implements FMOD_OU
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_ALLOC_FUNC createSafe(long functionPointer) {
+    public static @Nullable FMOD_OUTPUT_ALLOC_FUNC createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

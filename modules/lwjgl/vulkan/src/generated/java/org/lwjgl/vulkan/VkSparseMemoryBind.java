@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,58 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a sparse memory bind operation.
- * 
- * <h5>Description</h5>
- * 
- * <p>The <em>binding range</em> <code>[resourceOffset, resourceOffset + size)</code> has different constraints based on {@code flags}. If {@code flags} contains {@link VK10#VK_SPARSE_MEMORY_BIND_METADATA_BIT SPARSE_MEMORY_BIND_METADATA_BIT}, the binding range <b>must</b> be within the mip tail region of the metadata aspect. This metadata region is defined by:</p>
- * 
- * <dl>
- * <dd><code>metadataRegion = [base, base + imageMipTailSize)</code></dd>
- * <dd><code>base = imageMipTailOffset + imageMipTailStride × n</code></dd>
- * </dl>
- * 
- * <p>and {@code imageMipTailOffset}, {@code imageMipTailSize}, and {@code imageMipTailStride} values are from the {@link VkSparseImageMemoryRequirements} corresponding to the metadata aspect of the image, and <code>n</code> is a valid array layer index for the image,</p>
- * 
- * <p>{@code imageMipTailStride} is considered to be zero for aspects where {@link VkSparseImageMemoryRequirements}{@code ::formatProperties.flags} contains {@link VK10#VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT}.</p>
- * 
- * <p>If {@code flags} does not contain {@link VK10#VK_SPARSE_MEMORY_BIND_METADATA_BIT SPARSE_MEMORY_BIND_METADATA_BIT}, the binding range <b>must</b> be within the range <code>[0,{@link VkMemoryRequirements}::size)</code>.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code memory} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the resource, as described in section <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-association">Resource Memory Association</a></li>
- * <li>If {@code memory} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code memory} <b>must</b> not have been created with a memory type that reports {@link VK10#VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT} bit set</li>
- * <li>{@code size} <b>must</b> be greater than 0</li>
- * <li>{@code resourceOffset} <b>must</b> be less than the size of the resource</li>
- * <li>{@code size} <b>must</b> be less than or equal to the size of the resource minus {@code resourceOffset}</li>
- * <li>{@code memoryOffset} <b>must</b> be less than the size of {@code memory}</li>
- * <li>{@code size} <b>must</b> be less than or equal to the size of {@code memory} minus {@code memoryOffset}</li>
- * <li>If {@code memory} was created with {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} not equal to 0, at least one handle type it contained <b>must</b> also have been set in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} or {@link VkExternalMemoryImageCreateInfo}{@code ::handleTypes} when the resource was created</li>
- * <li>If {@code memory} was created by a memory import operation, the external handle type of the imported memory <b>must</b> also have been set in {@link VkExternalMemoryBufferCreateInfo}{@code ::handleTypes} or {@link VkExternalMemoryImageCreateInfo}{@code ::handleTypes} when the resource was created</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>If {@code memory} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkSparseMemoryBindFlagBits} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSparseBufferMemoryBindInfo}, {@link VkSparseImageOpaqueMemoryBindInfo}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSparseMemoryBind {
- *     VkDeviceSize {@link #resourceOffset};
- *     VkDeviceSize {@link #size};
- *     VkDeviceMemory {@link #memory};
- *     VkDeviceSize {@link #memoryOffset};
- *     VkSparseMemoryBindFlags {@link #flags};
- * }</code></pre>
+ *     VkDeviceSize resourceOffset;
+ *     VkDeviceSize size;
+ *     VkDeviceMemory memory;
+ *     VkDeviceSize memoryOffset;
+ *     VkSparseMemoryBindFlags flags;
+ * }}</pre>
  */
 public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements NativeResource {
 
@@ -126,31 +82,31 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the offset into the resource. */
+    /** @return the value of the {@code resourceOffset} field. */
     @NativeType("VkDeviceSize")
     public long resourceOffset() { return nresourceOffset(address()); }
-    /** the size of the memory region to be bound. */
+    /** @return the value of the {@code size} field. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
-    /** the {@code VkDeviceMemory} object that the range of the resource is bound to. If {@code memory} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, the range is unbound. */
+    /** @return the value of the {@code memory} field. */
     @NativeType("VkDeviceMemory")
     public long memory() { return nmemory(address()); }
-    /** the offset into the {@code VkDeviceMemory} object to bind the resource range to. If {@code memory} is {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, this value is ignored. */
+    /** @return the value of the {@code memoryOffset} field. */
     @NativeType("VkDeviceSize")
     public long memoryOffset() { return nmemoryOffset(address()); }
-    /** a bitmask of {@code VkSparseMemoryBindFlagBits} specifying usage of the binding operation. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkSparseMemoryBindFlags")
     public int flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #resourceOffset} field. */
+    /** Sets the specified value to the {@code resourceOffset} field. */
     public VkSparseMemoryBind resourceOffset(@NativeType("VkDeviceSize") long value) { nresourceOffset(address(), value); return this; }
-    /** Sets the specified value to the {@link #size} field. */
+    /** Sets the specified value to the {@code size} field. */
     public VkSparseMemoryBind size(@NativeType("VkDeviceSize") long value) { nsize(address(), value); return this; }
-    /** Sets the specified value to the {@link #memory} field. */
+    /** Sets the specified value to the {@code memory} field. */
     public VkSparseMemoryBind memory(@NativeType("VkDeviceMemory") long value) { nmemory(address(), value); return this; }
-    /** Sets the specified value to the {@link #memoryOffset} field. */
+    /** Sets the specified value to the {@code memoryOffset} field. */
     public VkSparseMemoryBind memoryOffset(@NativeType("VkDeviceSize") long value) { nmemoryOffset(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkSparseMemoryBind flags(@NativeType("VkSparseMemoryBindFlags") int value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -206,8 +162,7 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseMemoryBind createSafe(long address) {
+    public static @Nullable VkSparseMemoryBind createSafe(long address) {
         return address == NULL ? null : new VkSparseMemoryBind(address, null);
     }
 
@@ -250,8 +205,7 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseMemoryBind.Buffer createSafe(long address, int capacity) {
+    public static VkSparseMemoryBind.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -315,26 +269,26 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #resourceOffset}. */
-    public static long nresourceOffset(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.RESOURCEOFFSET); }
+    public static long nresourceOffset(long struct) { return memGetLong(struct + VkSparseMemoryBind.RESOURCEOFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkSparseMemoryBind.SIZE); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkSparseMemoryBind.MEMORY); }
     /** Unsafe version of {@link #memoryOffset}. */
-    public static long nmemoryOffset(long struct) { return UNSAFE.getLong(null, struct + VkSparseMemoryBind.MEMORYOFFSET); }
+    public static long nmemoryOffset(long struct) { return memGetLong(struct + VkSparseMemoryBind.MEMORYOFFSET); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSparseMemoryBind.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSparseMemoryBind.FLAGS); }
 
     /** Unsafe version of {@link #resourceOffset(long) resourceOffset}. */
-    public static void nresourceOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.RESOURCEOFFSET, value); }
+    public static void nresourceOffset(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.RESOURCEOFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.SIZE, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.MEMORY, value); }
     /** Unsafe version of {@link #memoryOffset(long) memoryOffset}. */
-    public static void nmemoryOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseMemoryBind.MEMORYOFFSET, value); }
+    public static void nmemoryOffset(long struct, long value) { memPutLong(struct + VkSparseMemoryBind.MEMORYOFFSET, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSparseMemoryBind.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSparseMemoryBind.FLAGS, value); }
 
     // -----------------------------------
 
@@ -370,35 +324,40 @@ public class VkSparseMemoryBind extends Struct<VkSparseMemoryBind> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSparseMemoryBind getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSparseMemoryBind#resourceOffset} field. */
+        /** @return the value of the {@code resourceOffset} field. */
         @NativeType("VkDeviceSize")
         public long resourceOffset() { return VkSparseMemoryBind.nresourceOffset(address()); }
-        /** @return the value of the {@link VkSparseMemoryBind#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VkSparseMemoryBind.nsize(address()); }
-        /** @return the value of the {@link VkSparseMemoryBind#memory} field. */
+        /** @return the value of the {@code memory} field. */
         @NativeType("VkDeviceMemory")
         public long memory() { return VkSparseMemoryBind.nmemory(address()); }
-        /** @return the value of the {@link VkSparseMemoryBind#memoryOffset} field. */
+        /** @return the value of the {@code memoryOffset} field. */
         @NativeType("VkDeviceSize")
         public long memoryOffset() { return VkSparseMemoryBind.nmemoryOffset(address()); }
-        /** @return the value of the {@link VkSparseMemoryBind#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkSparseMemoryBindFlags")
         public int flags() { return VkSparseMemoryBind.nflags(address()); }
 
-        /** Sets the specified value to the {@link VkSparseMemoryBind#resourceOffset} field. */
+        /** Sets the specified value to the {@code resourceOffset} field. */
         public VkSparseMemoryBind.Buffer resourceOffset(@NativeType("VkDeviceSize") long value) { VkSparseMemoryBind.nresourceOffset(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSparseMemoryBind#size} field. */
+        /** Sets the specified value to the {@code size} field. */
         public VkSparseMemoryBind.Buffer size(@NativeType("VkDeviceSize") long value) { VkSparseMemoryBind.nsize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSparseMemoryBind#memory} field. */
+        /** Sets the specified value to the {@code memory} field. */
         public VkSparseMemoryBind.Buffer memory(@NativeType("VkDeviceMemory") long value) { VkSparseMemoryBind.nmemory(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSparseMemoryBind#memoryOffset} field. */
+        /** Sets the specified value to the {@code memoryOffset} field. */
         public VkSparseMemoryBind.Buffer memoryOffset(@NativeType("VkDeviceSize") long value) { VkSparseMemoryBind.nmemoryOffset(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSparseMemoryBind#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkSparseMemoryBind.Buffer flags(@NativeType("VkSparseMemoryBindFlags") int value) { VkSparseMemoryBind.nflags(address(), value); return this; }
 
     }

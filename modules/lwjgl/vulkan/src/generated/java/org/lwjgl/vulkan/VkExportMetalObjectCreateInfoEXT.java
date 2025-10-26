@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure that identifies the Metal objects that can be exported from Vulkan objects.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT}</li>
- * <li>If {@code exportObjectType} is not 0, {@code exportObjectType} <b>must</b> be a valid {@code VkExportMetalObjectTypeFlagBitsEXT} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExportMetalObjectCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkExportMetalObjectTypeFlagBitsEXT {@link #exportObjectType};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkExportMetalObjectTypeFlagBitsEXT exportObjectType;
+ * }}</pre>
  */
 public class VkExportMetalObjectCreateInfoEXT extends Struct<VkExportMetalObjectCreateInfoEXT> implements NativeResource {
 
@@ -85,23 +74,23 @@ public class VkExportMetalObjectCreateInfoEXT extends Struct<VkExportMetalObject
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkExportMetalObjectTypeFlagBitsEXT} indicating the type of Metal object that the application may request to be exported from the Vulkan object. */
+    /** @return the value of the {@code exportObjectType} field. */
     @NativeType("VkExportMetalObjectTypeFlagBitsEXT")
     public int exportObjectType() { return nexportObjectType(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkExportMetalObjectCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkExportMetalObjectCreateInfoEXT sType$Default() { return sType(EXTMetalObjects.VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkExportMetalObjectCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #exportObjectType} field. */
+    /** Sets the specified value to the {@code exportObjectType} field. */
     public VkExportMetalObjectCreateInfoEXT exportObjectType(@NativeType("VkExportMetalObjectTypeFlagBitsEXT") int value) { nexportObjectType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -153,8 +142,7 @@ public class VkExportMetalObjectCreateInfoEXT extends Struct<VkExportMetalObject
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalObjectCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalObjectCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalObjectCreateInfoEXT(address, null);
     }
 
@@ -197,8 +185,7 @@ public class VkExportMetalObjectCreateInfoEXT extends Struct<VkExportMetalObject
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalObjectCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalObjectCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,18 +230,18 @@ public class VkExportMetalObjectCreateInfoEXT extends Struct<VkExportMetalObject
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalObjectCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalObjectCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalObjectCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #exportObjectType}. */
-    public static int nexportObjectType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalObjectCreateInfoEXT.EXPORTOBJECTTYPE); }
+    public static int nexportObjectType(long struct) { return memGetInt(struct + VkExportMetalObjectCreateInfoEXT.EXPORTOBJECTTYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalObjectCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalObjectCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalObjectCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #exportObjectType(int) exportObjectType}. */
-    public static void nexportObjectType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalObjectCreateInfoEXT.EXPORTOBJECTTYPE, value); }
+    public static void nexportObjectType(long struct, int value) { memPutInt(struct + VkExportMetalObjectCreateInfoEXT.EXPORTOBJECTTYPE, value); }
 
     // -----------------------------------
 
@@ -290,27 +277,32 @@ public class VkExportMetalObjectCreateInfoEXT extends Struct<VkExportMetalObject
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExportMetalObjectCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExportMetalObjectCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkExportMetalObjectCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkExportMetalObjectCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkExportMetalObjectCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkExportMetalObjectCreateInfoEXT#exportObjectType} field. */
+        /** @return the value of the {@code exportObjectType} field. */
         @NativeType("VkExportMetalObjectTypeFlagBitsEXT")
         public int exportObjectType() { return VkExportMetalObjectCreateInfoEXT.nexportObjectType(address()); }
 
-        /** Sets the specified value to the {@link VkExportMetalObjectCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkExportMetalObjectCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkExportMetalObjectCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT} value to the {@link VkExportMetalObjectCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkExportMetalObjectCreateInfoEXT.Buffer sType$Default() { return sType(EXTMetalObjects.VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkExportMetalObjectCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkExportMetalObjectCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkExportMetalObjectCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalObjectCreateInfoEXT#exportObjectType} field. */
+        /** Sets the specified value to the {@code exportObjectType} field. */
         public VkExportMetalObjectCreateInfoEXT.Buffer exportObjectType(@NativeType("VkExportMetalObjectTypeFlagBitsEXT") int value) { VkExportMetalObjectCreateInfoEXT.nexportObjectType(address(), value); return this; }
 
     }

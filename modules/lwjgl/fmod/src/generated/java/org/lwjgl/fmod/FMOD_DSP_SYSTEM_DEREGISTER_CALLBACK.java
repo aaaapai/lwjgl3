@@ -5,20 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_SYSTEM_DEREGISTER_CALLBACK} */
 public abstract class FMOD_DSP_SYSTEM_DEREGISTER_CALLBACK extends Callback implements FMOD_DSP_SYSTEM_DEREGISTER_CALLBACKI {
 
     /**
@@ -34,8 +27,7 @@ public abstract class FMOD_DSP_SYSTEM_DEREGISTER_CALLBACK extends Callback imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_DSP_SYSTEM_DEREGISTER_CALLBACK createSafe(long functionPointer) {
+    public static @Nullable FMOD_DSP_SYSTEM_DEREGISTER_CALLBACK createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

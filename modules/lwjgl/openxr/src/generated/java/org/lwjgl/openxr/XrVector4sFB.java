@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,36 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A four component short integer vector.
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code x} is the {@code x} component of the vector.</li>
- * <li>{@code y} is the {@code y} component of the vector.</li>
- * <li>{@code z} is the {@code z} component of the vector.</li>
- * <li>{@code w} is the {@code w} component of the vector.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBHandTrackingMesh XR_FB_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrVector4sFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrHandTrackingMeshFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVector4sFB {
  *     int16_t x;
  *     int16_t y;
  *     int16_t z;
  *     int16_t w;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrVector4sFB extends Struct<XrVector4sFB> implements NativeResource {
 
@@ -174,8 +151,7 @@ public class XrVector4sFB extends Struct<XrVector4sFB> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector4sFB createSafe(long address) {
+    public static @Nullable XrVector4sFB createSafe(long address) {
         return address == NULL ? null : new XrVector4sFB(address, null);
     }
 
@@ -218,8 +194,7 @@ public class XrVector4sFB extends Struct<XrVector4sFB> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector4sFB.Buffer createSafe(long address, int capacity) {
+    public static XrVector4sFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +239,22 @@ public class XrVector4sFB extends Struct<XrVector4sFB> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + XrVector4sFB.X); }
+    public static short nx(long struct) { return memGetShort(struct + XrVector4sFB.X); }
     /** Unsafe version of {@link #y}. */
-    public static short ny(long struct) { return UNSAFE.getShort(null, struct + XrVector4sFB.Y); }
+    public static short ny(long struct) { return memGetShort(struct + XrVector4sFB.Y); }
     /** Unsafe version of {@link #z}. */
-    public static short nz(long struct) { return UNSAFE.getShort(null, struct + XrVector4sFB.Z); }
+    public static short nz(long struct) { return memGetShort(struct + XrVector4sFB.Z); }
     /** Unsafe version of {@link #w}. */
-    public static short nw(long struct) { return UNSAFE.getShort(null, struct + XrVector4sFB.W); }
+    public static short nw(long struct) { return memGetShort(struct + XrVector4sFB.W); }
 
     /** Unsafe version of {@link #x(short) x}. */
-    public static void nx(long struct, short value) { UNSAFE.putShort(null, struct + XrVector4sFB.X, value); }
+    public static void nx(long struct, short value) { memPutShort(struct + XrVector4sFB.X, value); }
     /** Unsafe version of {@link #y(short) y}. */
-    public static void ny(long struct, short value) { UNSAFE.putShort(null, struct + XrVector4sFB.Y, value); }
+    public static void ny(long struct, short value) { memPutShort(struct + XrVector4sFB.Y, value); }
     /** Unsafe version of {@link #z(short) z}. */
-    public static void nz(long struct, short value) { UNSAFE.putShort(null, struct + XrVector4sFB.Z, value); }
+    public static void nz(long struct, short value) { memPutShort(struct + XrVector4sFB.Z, value); }
     /** Unsafe version of {@link #w(short) w}. */
-    public static void nw(long struct, short value) { UNSAFE.putShort(null, struct + XrVector4sFB.W, value); }
+    public static void nw(long struct, short value) { memPutShort(struct + XrVector4sFB.W, value); }
 
     // -----------------------------------
 
@@ -312,6 +287,11 @@ public class XrVector4sFB extends Struct<XrVector4sFB> implements NativeResource
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

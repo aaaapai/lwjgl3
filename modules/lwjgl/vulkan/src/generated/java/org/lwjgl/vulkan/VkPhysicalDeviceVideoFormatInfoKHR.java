@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the codec video format.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoQueue#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkVideoProfileListInfoKHR}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * <li>{@code imageUsage} <b>must</b> be a valid combination of {@code VkImageUsageFlagBits} values</li>
- * <li>{@code imageUsage} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRVideoQueue#vkGetPhysicalDeviceVideoFormatPropertiesKHR GetPhysicalDeviceVideoFormatPropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceVideoFormatInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkImageUsageFlags {@link #imageUsage};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkImageUsageFlags imageUsage;
+ * }}</pre>
  */
 public class VkPhysicalDeviceVideoFormatInfoKHR extends Struct<VkPhysicalDeviceVideoFormatInfoKHR> implements NativeResource {
 
@@ -92,25 +74,25 @@ public class VkPhysicalDeviceVideoFormatInfoKHR extends Struct<VkPhysicalDeviceV
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkImageUsageFlagBits} specifying the intended usage of the video images. */
+    /** @return the value of the {@code imageUsage} field. */
     @NativeType("VkImageUsageFlags")
     public int imageUsage() { return nimageUsage(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceVideoFormatInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR} value to the {@code sType} field. */
     public VkPhysicalDeviceVideoFormatInfoKHR sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceVideoFormatInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkVideoProfileListInfoKHR} value to the {@code pNext} chain. */
     public VkPhysicalDeviceVideoFormatInfoKHR pNext(VkVideoProfileListInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Sets the specified value to the {@link #imageUsage} field. */
+    /** Sets the specified value to the {@code imageUsage} field. */
     public VkPhysicalDeviceVideoFormatInfoKHR imageUsage(@NativeType("VkImageUsageFlags") int value) { nimageUsage(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +144,7 @@ public class VkPhysicalDeviceVideoFormatInfoKHR extends Struct<VkPhysicalDeviceV
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVideoFormatInfoKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVideoFormatInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVideoFormatInfoKHR(address, null);
     }
 
@@ -206,8 +187,7 @@ public class VkPhysicalDeviceVideoFormatInfoKHR extends Struct<VkPhysicalDeviceV
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVideoFormatInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVideoFormatInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +232,18 @@ public class VkPhysicalDeviceVideoFormatInfoKHR extends Struct<VkPhysicalDeviceV
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVideoFormatInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVideoFormatInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVideoFormatInfoKHR.PNEXT); }
     /** Unsafe version of {@link #imageUsage}. */
-    public static int nimageUsage(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVideoFormatInfoKHR.IMAGEUSAGE); }
+    public static int nimageUsage(long struct) { return memGetInt(struct + VkPhysicalDeviceVideoFormatInfoKHR.IMAGEUSAGE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVideoFormatInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVideoFormatInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVideoFormatInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #imageUsage(int) imageUsage}. */
-    public static void nimageUsage(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVideoFormatInfoKHR.IMAGEUSAGE, value); }
+    public static void nimageUsage(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVideoFormatInfoKHR.IMAGEUSAGE, value); }
 
     // -----------------------------------
 
@@ -299,29 +279,34 @@ public class VkPhysicalDeviceVideoFormatInfoKHR extends Struct<VkPhysicalDeviceV
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceVideoFormatInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceVideoFormatInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceVideoFormatInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVideoFormatInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPhysicalDeviceVideoFormatInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVideoFormatInfoKHR#imageUsage} field. */
+        /** @return the value of the {@code imageUsage} field. */
         @NativeType("VkImageUsageFlags")
         public int imageUsage() { return VkPhysicalDeviceVideoFormatInfoKHR.nimageUsage(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceVideoFormatInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceVideoFormatInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceVideoFormatInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR} value to the {@link VkPhysicalDeviceVideoFormatInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoQueue#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR} value to the {@code sType} field. */
         public VkPhysicalDeviceVideoFormatInfoKHR.Buffer sType$Default() { return sType(KHRVideoQueue.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVideoFormatInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceVideoFormatInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkPhysicalDeviceVideoFormatInfoKHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkVideoProfileListInfoKHR} value to the {@code pNext} chain. */
         public VkPhysicalDeviceVideoFormatInfoKHR.Buffer pNext(VkVideoProfileListInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVideoFormatInfoKHR#imageUsage} field. */
+        /** Sets the specified value to the {@code imageUsage} field. */
         public VkPhysicalDeviceVideoFormatInfoKHR.Buffer imageUsage(@NativeType("VkImageUsageFlags") int value) { VkPhysicalDeviceVideoFormatInfoKHR.nimageUsage(address(), value); return this; }
 
     }

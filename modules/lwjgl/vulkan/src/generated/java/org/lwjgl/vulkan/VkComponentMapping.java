@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a color component mapping.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code r} <b>must</b> be a valid {@code VkComponentSwizzle} value</li>
- * <li>{@code g} <b>must</b> be a valid {@code VkComponentSwizzle} value</li>
- * <li>{@code b} <b>must</b> be a valid {@code VkComponentSwizzle} value</li>
- * <li>{@code a} <b>must</b> be a valid {@code VkComponentSwizzle} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAndroidHardwareBufferFormatProperties2ANDROID}, {@link VkAndroidHardwareBufferFormatPropertiesANDROID}, {@link VkImageViewCreateInfo}, {@link VkSamplerBorderColorComponentMappingCreateInfoEXT}, {@link VkSamplerYcbcrConversionCreateInfo}, {@link VkVideoFormatPropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkComponentMapping {
- *     VkComponentSwizzle {@link #r};
- *     VkComponentSwizzle {@link #g};
- *     VkComponentSwizzle {@link #b};
- *     VkComponentSwizzle {@link #a};
- * }</code></pre>
+ *     VkComponentSwizzle r;
+ *     VkComponentSwizzle g;
+ *     VkComponentSwizzle b;
+ *     VkComponentSwizzle a;
+ * }}</pre>
  */
 public class VkComponentMapping extends Struct<VkComponentMapping> implements NativeResource {
 
@@ -95,26 +78,26 @@ public class VkComponentMapping extends Struct<VkComponentMapping> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkComponentSwizzle} specifying the component value placed in the R component of the output vector. */
+    /** @return the value of the {@code r} field. */
     @NativeType("VkComponentSwizzle")
     public int r() { return nr(address()); }
-    /** a {@code VkComponentSwizzle} specifying the component value placed in the G component of the output vector. */
+    /** @return the value of the {@code g} field. */
     @NativeType("VkComponentSwizzle")
     public int g() { return ng(address()); }
-    /** a {@code VkComponentSwizzle} specifying the component value placed in the B component of the output vector. */
+    /** @return the value of the {@code b} field. */
     @NativeType("VkComponentSwizzle")
     public int b() { return nb(address()); }
-    /** a {@code VkComponentSwizzle} specifying the component value placed in the A component of the output vector. */
+    /** @return the value of the {@code a} field. */
     @NativeType("VkComponentSwizzle")
     public int a() { return na(address()); }
 
-    /** Sets the specified value to the {@link #r} field. */
+    /** Sets the specified value to the {@code r} field. */
     public VkComponentMapping r(@NativeType("VkComponentSwizzle") int value) { nr(address(), value); return this; }
-    /** Sets the specified value to the {@link #g} field. */
+    /** Sets the specified value to the {@code g} field. */
     public VkComponentMapping g(@NativeType("VkComponentSwizzle") int value) { ng(address(), value); return this; }
-    /** Sets the specified value to the {@link #b} field. */
+    /** Sets the specified value to the {@code b} field. */
     public VkComponentMapping b(@NativeType("VkComponentSwizzle") int value) { nb(address(), value); return this; }
-    /** Sets the specified value to the {@link #a} field. */
+    /** Sets the specified value to the {@code a} field. */
     public VkComponentMapping a(@NativeType("VkComponentSwizzle") int value) { na(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -168,8 +151,7 @@ public class VkComponentMapping extends Struct<VkComponentMapping> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkComponentMapping createSafe(long address) {
+    public static @Nullable VkComponentMapping createSafe(long address) {
         return address == NULL ? null : new VkComponentMapping(address, null);
     }
 
@@ -212,8 +194,7 @@ public class VkComponentMapping extends Struct<VkComponentMapping> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkComponentMapping.Buffer createSafe(long address, int capacity) {
+    public static VkComponentMapping.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,22 +258,22 @@ public class VkComponentMapping extends Struct<VkComponentMapping> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static int nr(long struct) { return UNSAFE.getInt(null, struct + VkComponentMapping.R); }
+    public static int nr(long struct) { return memGetInt(struct + VkComponentMapping.R); }
     /** Unsafe version of {@link #g}. */
-    public static int ng(long struct) { return UNSAFE.getInt(null, struct + VkComponentMapping.G); }
+    public static int ng(long struct) { return memGetInt(struct + VkComponentMapping.G); }
     /** Unsafe version of {@link #b}. */
-    public static int nb(long struct) { return UNSAFE.getInt(null, struct + VkComponentMapping.B); }
+    public static int nb(long struct) { return memGetInt(struct + VkComponentMapping.B); }
     /** Unsafe version of {@link #a}. */
-    public static int na(long struct) { return UNSAFE.getInt(null, struct + VkComponentMapping.A); }
+    public static int na(long struct) { return memGetInt(struct + VkComponentMapping.A); }
 
     /** Unsafe version of {@link #r(int) r}. */
-    public static void nr(long struct, int value) { UNSAFE.putInt(null, struct + VkComponentMapping.R, value); }
+    public static void nr(long struct, int value) { memPutInt(struct + VkComponentMapping.R, value); }
     /** Unsafe version of {@link #g(int) g}. */
-    public static void ng(long struct, int value) { UNSAFE.putInt(null, struct + VkComponentMapping.G, value); }
+    public static void ng(long struct, int value) { memPutInt(struct + VkComponentMapping.G, value); }
     /** Unsafe version of {@link #b(int) b}. */
-    public static void nb(long struct, int value) { UNSAFE.putInt(null, struct + VkComponentMapping.B, value); }
+    public static void nb(long struct, int value) { memPutInt(struct + VkComponentMapping.B, value); }
     /** Unsafe version of {@link #a(int) a}. */
-    public static void na(long struct, int value) { UNSAFE.putInt(null, struct + VkComponentMapping.A, value); }
+    public static void na(long struct, int value) { memPutInt(struct + VkComponentMapping.A, value); }
 
     // -----------------------------------
 
@@ -328,30 +309,35 @@ public class VkComponentMapping extends Struct<VkComponentMapping> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkComponentMapping getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkComponentMapping#r} field. */
+        /** @return the value of the {@code r} field. */
         @NativeType("VkComponentSwizzle")
         public int r() { return VkComponentMapping.nr(address()); }
-        /** @return the value of the {@link VkComponentMapping#g} field. */
+        /** @return the value of the {@code g} field. */
         @NativeType("VkComponentSwizzle")
         public int g() { return VkComponentMapping.ng(address()); }
-        /** @return the value of the {@link VkComponentMapping#b} field. */
+        /** @return the value of the {@code b} field. */
         @NativeType("VkComponentSwizzle")
         public int b() { return VkComponentMapping.nb(address()); }
-        /** @return the value of the {@link VkComponentMapping#a} field. */
+        /** @return the value of the {@code a} field. */
         @NativeType("VkComponentSwizzle")
         public int a() { return VkComponentMapping.na(address()); }
 
-        /** Sets the specified value to the {@link VkComponentMapping#r} field. */
+        /** Sets the specified value to the {@code r} field. */
         public VkComponentMapping.Buffer r(@NativeType("VkComponentSwizzle") int value) { VkComponentMapping.nr(address(), value); return this; }
-        /** Sets the specified value to the {@link VkComponentMapping#g} field. */
+        /** Sets the specified value to the {@code g} field. */
         public VkComponentMapping.Buffer g(@NativeType("VkComponentSwizzle") int value) { VkComponentMapping.ng(address(), value); return this; }
-        /** Sets the specified value to the {@link VkComponentMapping#b} field. */
+        /** Sets the specified value to the {@code b} field. */
         public VkComponentMapping.Buffer b(@NativeType("VkComponentSwizzle") int value) { VkComponentMapping.nb(address(), value); return this; }
-        /** Sets the specified value to the {@link VkComponentMapping#a} field. */
+        /** Sets the specified value to the {@code a} field. */
         public VkComponentMapping.Buffer a(@NativeType("VkComponentSwizzle") int value) { VkComponentMapping.na(address(), value); return this; }
 
     }

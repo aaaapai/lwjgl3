@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure used to hold an outline's bounding box, i.e., the coordinates of its extrema in the horizontal and vertical directions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_BBox {
  *     FT_Pos xMin;
  *     FT_Pos yMin;
  *     FT_Pos xMax;
  *     FT_Pos yMax;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_BBox extends Struct<FT_BBox> implements NativeResource {
 
@@ -155,8 +151,7 @@ public class FT_BBox extends Struct<FT_BBox> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_BBox createSafe(long address) {
+    public static @Nullable FT_BBox createSafe(long address) {
         return address == NULL ? null : new FT_BBox(address, null);
     }
 
@@ -199,8 +194,7 @@ public class FT_BBox extends Struct<FT_BBox> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_BBox.Buffer createSafe(long address, int capacity) {
+    public static FT_BBox.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,6 +287,11 @@ public class FT_BBox extends Struct<FT_BBox> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

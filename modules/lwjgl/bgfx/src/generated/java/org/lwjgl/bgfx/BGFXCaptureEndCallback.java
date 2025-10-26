@@ -5,22 +5,13 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Called when video capture ends.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     bgfx_callback_interface_t *_this
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class BGFXCaptureEndCallback extends Callback implements BGFXCaptureEndCallbackI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class BGFXCaptureEndCallback extends Callback implements BGFXCap
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static BGFXCaptureEndCallback createSafe(long functionPointer) {
+    public static @Nullable BGFXCaptureEndCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

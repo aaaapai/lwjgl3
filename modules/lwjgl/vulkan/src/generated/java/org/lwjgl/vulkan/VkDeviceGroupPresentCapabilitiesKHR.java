@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,39 +16,16 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK11.*;
 
 /**
- * Present capabilities from other physical devices.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@code modes} always has {@link KHRSwapchain#VK_DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR} set.</p>
- * 
- * <p>The present mode flags are also used when presenting an image, in {@link VkDeviceGroupPresentInfoKHR}{@code ::mode}.</p>
- * 
- * <p>If a device group only includes a single physical device, then {@code modes} <b>must</b> equal {@link KHRSwapchain#VK_DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRSwapchain#vkGetDeviceGroupPresentCapabilitiesKHR GetDeviceGroupPresentCapabilitiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceGroupPresentCapabilitiesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #presentMask}[VK_MAX_DEVICE_GROUP_SIZE];
- *     VkDeviceGroupPresentModeFlagsKHR {@link #modes};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t presentMask[VK_MAX_DEVICE_GROUP_SIZE];
+ *     VkDeviceGroupPresentModeFlagsKHR modes;
+ * }}</pre>
  */
 public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPresentCapabilitiesKHR> implements NativeResource {
 
@@ -104,27 +81,27 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** an array of {@link VK10#VK_MAX_DEVICE_GROUP_SIZE MAX_DEVICE_GROUP_SIZE} {@code uint32_t} masks, where the mask at element <code>i</code> is non-zero if physical device <code>i</code> has a presentation engine, and where bit <code>j</code> is set in element <code>i</code> if physical device <code>i</code> <b>can</b> present swapchain images from physical device <code>j</code>. If element <code>i</code> is non-zero, then bit <code>i</code> <b>must</b> be set. */
+    /** @return a {@link IntBuffer} view of the {@code presentMask} field. */
     @NativeType("uint32_t[VK_MAX_DEVICE_GROUP_SIZE]")
     public IntBuffer presentMask() { return npresentMask(address()); }
-    /** an array of {@link VK10#VK_MAX_DEVICE_GROUP_SIZE MAX_DEVICE_GROUP_SIZE} {@code uint32_t} masks, where the mask at element <code>i</code> is non-zero if physical device <code>i</code> has a presentation engine, and where bit <code>j</code> is set in element <code>i</code> if physical device <code>i</code> <b>can</b> present swapchain images from physical device <code>j</code>. If element <code>i</code> is non-zero, then bit <code>i</code> <b>must</b> be set. */
+    /** @return the value at the specified index of the {@code presentMask} field. */
     @NativeType("uint32_t")
     public int presentMask(int index) { return npresentMask(address(), index); }
-    /** a bitmask of {@code VkDeviceGroupPresentModeFlagBitsKHR} indicating which device group presentation modes are supported. */
+    /** @return the value of the {@code modes} field. */
     @NativeType("VkDeviceGroupPresentModeFlagsKHR")
     public int modes() { return nmodes(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDeviceGroupPresentCapabilitiesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR} value to the {@code sType} field. */
     public VkDeviceGroupPresentCapabilitiesKHR sType$Default() { return sType(KHRSwapchain.VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDeviceGroupPresentCapabilitiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -174,8 +151,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupPresentCapabilitiesKHR createSafe(long address) {
+    public static @Nullable VkDeviceGroupPresentCapabilitiesKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupPresentCapabilitiesKHR(address, null);
     }
 
@@ -218,8 +194,7 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupPresentCapabilitiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupPresentCapabilitiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -283,20 +258,20 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupPresentCapabilitiesKHR.PNEXT); }
     /** Unsafe version of {@link #presentMask}. */
     public static IntBuffer npresentMask(long struct) { return memIntBuffer(struct + VkDeviceGroupPresentCapabilitiesKHR.PRESENTMASK, VK_MAX_DEVICE_GROUP_SIZE); }
     /** Unsafe version of {@link #presentMask(int) presentMask}. */
     public static int npresentMask(long struct, int index) {
-        return UNSAFE.getInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.PRESENTMASK + check(index, VK_MAX_DEVICE_GROUP_SIZE) * 4);
+        return memGetInt(struct + VkDeviceGroupPresentCapabilitiesKHR.PRESENTMASK + check(index, VK_MAX_DEVICE_GROUP_SIZE) * 4);
     }
     /** Unsafe version of {@link #modes}. */
-    public static int nmodes(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.MODES); }
+    public static int nmodes(long struct) { return memGetInt(struct + VkDeviceGroupPresentCapabilitiesKHR.MODES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupPresentCapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupPresentCapabilitiesKHR.PNEXT, value); }
 
@@ -334,31 +309,36 @@ public class VkDeviceGroupPresentCapabilitiesKHR extends Struct<VkDeviceGroupPre
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceGroupPresentCapabilitiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceGroupPresentCapabilitiesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDeviceGroupPresentCapabilitiesKHR.nsType(address()); }
-        /** @return the value of the {@link VkDeviceGroupPresentCapabilitiesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkDeviceGroupPresentCapabilitiesKHR.npNext(address()); }
-        /** @return a {@link IntBuffer} view of the {@link VkDeviceGroupPresentCapabilitiesKHR#presentMask} field. */
+        /** @return a {@link IntBuffer} view of the {@code presentMask} field. */
         @NativeType("uint32_t[VK_MAX_DEVICE_GROUP_SIZE]")
         public IntBuffer presentMask() { return VkDeviceGroupPresentCapabilitiesKHR.npresentMask(address()); }
-        /** @return the value at the specified index of the {@link VkDeviceGroupPresentCapabilitiesKHR#presentMask} field. */
+        /** @return the value at the specified index of the {@code presentMask} field. */
         @NativeType("uint32_t")
         public int presentMask(int index) { return VkDeviceGroupPresentCapabilitiesKHR.npresentMask(address(), index); }
-        /** @return the value of the {@link VkDeviceGroupPresentCapabilitiesKHR#modes} field. */
+        /** @return the value of the {@code modes} field. */
         @NativeType("VkDeviceGroupPresentModeFlagsKHR")
         public int modes() { return VkDeviceGroupPresentCapabilitiesKHR.nmodes(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceGroupPresentCapabilitiesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDeviceGroupPresentCapabilitiesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceGroupPresentCapabilitiesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR} value to the {@link VkDeviceGroupPresentCapabilitiesKHR#sType} field. */
+        /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR} value to the {@code sType} field. */
         public VkDeviceGroupPresentCapabilitiesKHR.Buffer sType$Default() { return sType(KHRSwapchain.VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR); }
-        /** Sets the specified value to the {@link VkDeviceGroupPresentCapabilitiesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDeviceGroupPresentCapabilitiesKHR.Buffer pNext(@NativeType("void *") long value) { VkDeviceGroupPresentCapabilitiesKHR.npNext(address(), value); return this; }
 
     }

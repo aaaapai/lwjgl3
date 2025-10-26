@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct __kernel_timespec {
- *     int64_t {@link #tv_sec};
- *     long long {@link #tv_nsec};
- * }</code></pre>
+ *     int64_t tv_sec;
+ *     long long tv_nsec;
+ * }}</pre>
  */
 @NativeType("struct __kernel_timespec")
 public class KernelTimespec extends Struct<KernelTimespec> implements NativeResource {
@@ -73,16 +71,16 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** seconds */
+    /** @return the value of the {@code tv_sec} field. */
     @NativeType("int64_t")
     public long tv_sec() { return ntv_sec(address()); }
-    /** nanoseconds */
+    /** @return the value of the {@code tv_nsec} field. */
     @NativeType("long long")
     public long tv_nsec() { return ntv_nsec(address()); }
 
-    /** Sets the specified value to the {@link #tv_sec} field. */
+    /** Sets the specified value to the {@code tv_sec} field. */
     public KernelTimespec tv_sec(@NativeType("int64_t") long value) { ntv_sec(address(), value); return this; }
-    /** Sets the specified value to the {@link #tv_nsec} field. */
+    /** Sets the specified value to the {@code tv_nsec} field. */
     public KernelTimespec tv_nsec(@NativeType("long long") long value) { ntv_nsec(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -132,8 +130,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static KernelTimespec createSafe(long address) {
+    public static @Nullable KernelTimespec createSafe(long address) {
         return address == NULL ? null : new KernelTimespec(address, null);
     }
 
@@ -176,8 +173,7 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static KernelTimespec.Buffer createSafe(long address, int capacity) {
+    public static KernelTimespec.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,14 +218,14 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #tv_sec}. */
-    public static long ntv_sec(long struct) { return UNSAFE.getLong(null, struct + KernelTimespec.TV_SEC); }
+    public static long ntv_sec(long struct) { return memGetLong(struct + KernelTimespec.TV_SEC); }
     /** Unsafe version of {@link #tv_nsec}. */
-    public static long ntv_nsec(long struct) { return UNSAFE.getLong(null, struct + KernelTimespec.TV_NSEC); }
+    public static long ntv_nsec(long struct) { return memGetLong(struct + KernelTimespec.TV_NSEC); }
 
     /** Unsafe version of {@link #tv_sec(long) tv_sec}. */
-    public static void ntv_sec(long struct, long value) { UNSAFE.putLong(null, struct + KernelTimespec.TV_SEC, value); }
+    public static void ntv_sec(long struct, long value) { memPutLong(struct + KernelTimespec.TV_SEC, value); }
     /** Unsafe version of {@link #tv_nsec(long) tv_nsec}. */
-    public static void ntv_nsec(long struct, long value) { UNSAFE.putLong(null, struct + KernelTimespec.TV_NSEC, value); }
+    public static void ntv_nsec(long struct, long value) { memPutLong(struct + KernelTimespec.TV_NSEC, value); }
 
     // -----------------------------------
 
@@ -265,20 +261,25 @@ public class KernelTimespec extends Struct<KernelTimespec> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected KernelTimespec getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link KernelTimespec#tv_sec} field. */
+        /** @return the value of the {@code tv_sec} field. */
         @NativeType("int64_t")
         public long tv_sec() { return KernelTimespec.ntv_sec(address()); }
-        /** @return the value of the {@link KernelTimespec#tv_nsec} field. */
+        /** @return the value of the {@code tv_nsec} field. */
         @NativeType("long long")
         public long tv_nsec() { return KernelTimespec.ntv_nsec(address()); }
 
-        /** Sets the specified value to the {@link KernelTimespec#tv_sec} field. */
+        /** Sets the specified value to the {@code tv_sec} field. */
         public KernelTimespec.Buffer tv_sec(@NativeType("int64_t") long value) { KernelTimespec.ntv_sec(address(), value); return this; }
-        /** Sets the specified value to the {@link KernelTimespec#tv_nsec} field. */
+        /** Sets the specified value to the {@code tv_nsec} field. */
         public KernelTimespec.Buffer tv_nsec(@NativeType("long long") long value) { KernelTimespec.ntv_nsec(address(), value); return this; }
 
     }

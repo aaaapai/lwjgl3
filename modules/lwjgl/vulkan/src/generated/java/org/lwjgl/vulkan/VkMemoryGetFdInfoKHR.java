@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,46 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing a POSIX FD memory export operation.
- * 
- * <h5>Description</h5>
- * 
- * <p>The properties of the file descriptor exported depend on the value of {@code handleType}. See {@code VkExternalMemoryHandleTypeFlagBits} for a description of the properties of the defined external memory handle types.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>The size of the exported file <b>may</b> be larger than the size requested by {@link VkMemoryAllocateInfo}{@code ::allocationSize}. If {@code handleType} is {@link EXTExternalMemoryDmaBuf#VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT}, then the application <b>can</b> query the file’s actual size with <a href="https://man7.org/linux/man-pages/man2/lseek.2.html">{@code lseek}</a>.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code handleType} <b>must</b> have been included in {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} when {@code memory} was created</li>
- * <li>{@code handleType} <b>must</b> be {@link VK11#VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT} or {@link EXTExternalMemoryDmaBuf#VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRExternalMemoryFd#VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
- * <li>{@code handleType} <b>must</b> be a valid {@code VkExternalMemoryHandleTypeFlagBits} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRExternalMemoryFd#vkGetMemoryFdKHR GetMemoryFdKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryGetFdInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDeviceMemory {@link #memory};
- *     VkExternalMemoryHandleTypeFlagBits {@link #handleType};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDeviceMemory memory;
+ *     VkExternalMemoryHandleTypeFlagBits handleType;
+ * }}</pre>
  */
 public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implements NativeResource {
 
@@ -111,28 +78,28 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the memory object from which the handle will be exported. */
+    /** @return the value of the {@code memory} field. */
     @NativeType("VkDeviceMemory")
     public long memory() { return nmemory(address()); }
-    /** a {@code VkExternalMemoryHandleTypeFlagBits} value specifying the type of handle requested. */
+    /** @return the value of the {@code handleType} field. */
     @NativeType("VkExternalMemoryHandleTypeFlagBits")
     public int handleType() { return nhandleType(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryGetFdInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRExternalMemoryFd#VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRExternalMemoryFd#VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR} value to the {@code sType} field. */
     public VkMemoryGetFdInfoKHR sType$Default() { return sType(KHRExternalMemoryFd.VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryGetFdInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #memory} field. */
+    /** Sets the specified value to the {@code memory} field. */
     public VkMemoryGetFdInfoKHR memory(@NativeType("VkDeviceMemory") long value) { nmemory(address(), value); return this; }
-    /** Sets the specified value to the {@link #handleType} field. */
+    /** Sets the specified value to the {@code handleType} field. */
     public VkMemoryGetFdInfoKHR handleType(@NativeType("VkExternalMemoryHandleTypeFlagBits") int value) { nhandleType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -186,8 +153,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryGetFdInfoKHR createSafe(long address) {
+    public static @Nullable VkMemoryGetFdInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryGetFdInfoKHR(address, null);
     }
 
@@ -230,8 +196,7 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryGetFdInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryGetFdInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -295,22 +260,22 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryGetFdInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryGetFdInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryGetFdInfoKHR.PNEXT); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkMemoryGetFdInfoKHR.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkMemoryGetFdInfoKHR.MEMORY); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryGetFdInfoKHR.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkMemoryGetFdInfoKHR.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryGetFdInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryGetFdInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryGetFdInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryGetFdInfoKHR.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkMemoryGetFdInfoKHR.MEMORY, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryGetFdInfoKHR.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkMemoryGetFdInfoKHR.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -346,32 +311,37 @@ public class VkMemoryGetFdInfoKHR extends Struct<VkMemoryGetFdInfoKHR> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryGetFdInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryGetFdInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryGetFdInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkMemoryGetFdInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMemoryGetFdInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkMemoryGetFdInfoKHR#memory} field. */
+        /** @return the value of the {@code memory} field. */
         @NativeType("VkDeviceMemory")
         public long memory() { return VkMemoryGetFdInfoKHR.nmemory(address()); }
-        /** @return the value of the {@link VkMemoryGetFdInfoKHR#handleType} field. */
+        /** @return the value of the {@code handleType} field. */
         @NativeType("VkExternalMemoryHandleTypeFlagBits")
         public int handleType() { return VkMemoryGetFdInfoKHR.nhandleType(address()); }
 
-        /** Sets the specified value to the {@link VkMemoryGetFdInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryGetFdInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryGetFdInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRExternalMemoryFd#VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR} value to the {@link VkMemoryGetFdInfoKHR#sType} field. */
+        /** Sets the {@link KHRExternalMemoryFd#VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR} value to the {@code sType} field. */
         public VkMemoryGetFdInfoKHR.Buffer sType$Default() { return sType(KHRExternalMemoryFd.VK_STRUCTURE_TYPE_MEMORY_GET_FD_INFO_KHR); }
-        /** Sets the specified value to the {@link VkMemoryGetFdInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryGetFdInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkMemoryGetFdInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryGetFdInfoKHR#memory} field. */
+        /** Sets the specified value to the {@code memory} field. */
         public VkMemoryGetFdInfoKHR.Buffer memory(@NativeType("VkDeviceMemory") long value) { VkMemoryGetFdInfoKHR.nmemory(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryGetFdInfoKHR#handleType} field. */
+        /** Sets the specified value to the {@code handleType} field. */
         public VkMemoryGetFdInfoKHR.Buffer handleType(@NativeType("VkExternalMemoryHandleTypeFlagBits") int value) { VkMemoryGetFdInfoKHR.nhandleType(address(), value); return this; }
 
     }

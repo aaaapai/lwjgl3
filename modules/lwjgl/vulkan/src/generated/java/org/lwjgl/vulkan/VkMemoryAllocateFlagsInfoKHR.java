@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkMemoryAllocateFlagsInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryAllocateFlagsInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkMemoryAllocateFlags flags;
  *     uint32_t deviceMask;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkMemoryAllocateFlagsInfoKHR extends VkMemoryAllocateFlagsInfo {
 
@@ -117,8 +113,7 @@ public class VkMemoryAllocateFlagsInfoKHR extends VkMemoryAllocateFlagsInfo {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateFlagsInfoKHR createSafe(long address) {
+    public static @Nullable VkMemoryAllocateFlagsInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryAllocateFlagsInfoKHR(address, null);
     }
 
@@ -161,8 +156,7 @@ public class VkMemoryAllocateFlagsInfoKHR extends VkMemoryAllocateFlagsInfo {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryAllocateFlagsInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryAllocateFlagsInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,6 +248,11 @@ public class VkMemoryAllocateFlagsInfoKHR extends VkMemoryAllocateFlagsInfo {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

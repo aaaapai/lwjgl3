@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,23 +17,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * SelectionRequest event structure.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XSelectionRequestEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window owner;
  *     Window requestor;
  *     Atom selection;
  *     Atom target;
  *     Atom property;
  *     Time time;
- * }</code></pre>
+ * }}</pre>
  */
 public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> implements NativeResource {
 
@@ -109,13 +105,13 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code owner} field. */
@@ -139,11 +135,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
     /** Sets the specified value to the {@code type} field. */
     public XSelectionRequestEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XSelectionRequestEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XSelectionRequestEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XSelectionRequestEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code owner} field. */
     public XSelectionRequestEvent owner(@NativeType("Window") long value) { nowner(address(), value); return this; }
@@ -221,8 +217,7 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionRequestEvent createSafe(long address) {
+    public static @Nullable XSelectionRequestEvent createSafe(long address) {
         return address == NULL ? null : new XSelectionRequestEvent(address, null);
     }
 
@@ -265,8 +260,7 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSelectionRequestEvent.Buffer createSafe(long address, int capacity) {
+    public static XSelectionRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -330,11 +324,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XSelectionRequestEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XSelectionRequestEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XSelectionRequestEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XSelectionRequestEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XSelectionRequestEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XSelectionRequestEvent.DISPLAY); }
     /** Unsafe version of {@link #owner}. */
@@ -351,11 +345,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     public static long ntime(long struct) { return memGetCLong(struct + XSelectionRequestEvent.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionRequestEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XSelectionRequestEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XSelectionRequestEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XSelectionRequestEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XSelectionRequestEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XSelectionRequestEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #owner(long) owner}. */
@@ -414,19 +408,24 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XSelectionRequestEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XSelectionRequestEvent.ntype(address()); }
-        /** @return the value of the {@link XSelectionRequestEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XSelectionRequestEvent.nserial(address()); }
-        /** @return the value of the {@link XSelectionRequestEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XSelectionRequestEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XSelectionRequestEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XSelectionRequestEvent.ndisplay(address()); }
         /** @return the value of the {@code owner} field. */
@@ -450,11 +449,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
         /** Sets the specified value to the {@code type} field. */
         public XSelectionRequestEvent.Buffer type(int value) { XSelectionRequestEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionRequestEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XSelectionRequestEvent.Buffer serial(@NativeType("unsigned long") long value) { XSelectionRequestEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionRequestEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XSelectionRequestEvent.Buffer send_event(@NativeType("Bool") boolean value) { XSelectionRequestEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XSelectionRequestEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XSelectionRequestEvent.Buffer display(@NativeType("Display *") long value) { XSelectionRequestEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code owner} field. */
         public XSelectionRequestEvent.Buffer owner(@NativeType("Window") long value) { XSelectionRequestEvent.nowner(address(), value); return this; }

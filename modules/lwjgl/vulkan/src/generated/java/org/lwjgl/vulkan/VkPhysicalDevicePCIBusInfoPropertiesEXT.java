@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing PCI bus information of a physical device.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>These are properties of the PCI bus information of a physical device.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTPciBusInfo#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDevicePCIBusInfoPropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #pciDomain};
- *     uint32_t {@link #pciBus};
- *     uint32_t {@link #pciDevice};
- *     uint32_t {@link #pciFunction};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t pciDomain;
+ *     uint32_t pciBus;
+ *     uint32_t pciDevice;
+ *     uint32_t pciFunction;
+ * }}</pre>
  */
 public class VkPhysicalDevicePCIBusInfoPropertiesEXT extends Struct<VkPhysicalDevicePCIBusInfoPropertiesEXT> implements NativeResource {
 
@@ -102,30 +86,30 @@ public class VkPhysicalDevicePCIBusInfoPropertiesEXT extends Struct<VkPhysicalDe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the PCI bus domain. */
+    /** @return the value of the {@code pciDomain} field. */
     @NativeType("uint32_t")
     public int pciDomain() { return npciDomain(address()); }
-    /** the PCI bus identifier. */
+    /** @return the value of the {@code pciBus} field. */
     @NativeType("uint32_t")
     public int pciBus() { return npciBus(address()); }
-    /** the PCI device identifier. */
+    /** @return the value of the {@code pciDevice} field. */
     @NativeType("uint32_t")
     public int pciDevice() { return npciDevice(address()); }
-    /** the PCI device function identifier. */
+    /** @return the value of the {@code pciFunction} field. */
     @NativeType("uint32_t")
     public int pciFunction() { return npciFunction(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDevicePCIBusInfoPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTPciBusInfo#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTPciBusInfo#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkPhysicalDevicePCIBusInfoPropertiesEXT sType$Default() { return sType(EXTPciBusInfo.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDevicePCIBusInfoPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +159,7 @@ public class VkPhysicalDevicePCIBusInfoPropertiesEXT extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePCIBusInfoPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePCIBusInfoPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePCIBusInfoPropertiesEXT(address, null);
     }
 
@@ -219,8 +202,7 @@ public class VkPhysicalDevicePCIBusInfoPropertiesEXT extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePCIBusInfoPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePCIBusInfoPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,20 +266,20 @@ public class VkPhysicalDevicePCIBusInfoPropertiesEXT extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #pciDomain}. */
-    public static int npciDomain(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIDOMAIN); }
+    public static int npciDomain(long struct) { return memGetInt(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIDOMAIN); }
     /** Unsafe version of {@link #pciBus}. */
-    public static int npciBus(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIBUS); }
+    public static int npciBus(long struct) { return memGetInt(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIBUS); }
     /** Unsafe version of {@link #pciDevice}. */
-    public static int npciDevice(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIDEVICE); }
+    public static int npciDevice(long struct) { return memGetInt(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIDEVICE); }
     /** Unsafe version of {@link #pciFunction}. */
-    public static int npciFunction(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIFUNCTION); }
+    public static int npciFunction(long struct) { return memGetInt(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PCIFUNCTION); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePCIBusInfoPropertiesEXT.PNEXT, value); }
 
@@ -335,34 +317,39 @@ public class VkPhysicalDevicePCIBusInfoPropertiesEXT extends Struct<VkPhysicalDe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDevicePCIBusInfoPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDevicePCIBusInfoPropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDevicePCIBusInfoPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#pciDomain} field. */
+        /** @return the value of the {@code pciDomain} field. */
         @NativeType("uint32_t")
         public int pciDomain() { return VkPhysicalDevicePCIBusInfoPropertiesEXT.npciDomain(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#pciBus} field. */
+        /** @return the value of the {@code pciBus} field. */
         @NativeType("uint32_t")
         public int pciBus() { return VkPhysicalDevicePCIBusInfoPropertiesEXT.npciBus(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#pciDevice} field. */
+        /** @return the value of the {@code pciDevice} field. */
         @NativeType("uint32_t")
         public int pciDevice() { return VkPhysicalDevicePCIBusInfoPropertiesEXT.npciDevice(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#pciFunction} field. */
+        /** @return the value of the {@code pciFunction} field. */
         @NativeType("uint32_t")
         public int pciFunction() { return VkPhysicalDevicePCIBusInfoPropertiesEXT.npciFunction(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDevicePCIBusInfoPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDevicePCIBusInfoPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTPciBusInfo#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT} value to the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#sType} field. */
+        /** Sets the {@link EXTPciBusInfo#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkPhysicalDevicePCIBusInfoPropertiesEXT.Buffer sType$Default() { return sType(EXTPciBusInfo.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDevicePCIBusInfoPropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDevicePCIBusInfoPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDevicePCIBusInfoPropertiesEXT.npNext(address(), value); return this; }
 
     }

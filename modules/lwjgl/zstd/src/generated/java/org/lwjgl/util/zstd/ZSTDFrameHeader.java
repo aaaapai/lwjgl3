@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,20 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
- * struct ZSTD_frameHeader {
- *     unsigned long long {@link #frameContentSize};
- *     unsigned long long {@link #windowSize};
+ * <pre>{@code
+ * struct ZSTD_FrameHeader {
+ *     unsigned long long frameContentSize;
+ *     unsigned long long windowSize;
  *     unsigned int blockSizeMax;
- *     ZSTD_frameType_e {@link #frameType};
+ *     ZSTD_FrameType_e frameType;
  *     unsigned int headerSize;
  *     unsigned int dictID;
  *     unsigned int checksumFlag;
  *     unsigned _reserved1;
  *     unsigned _reserved2;
- * }</code></pre>
+ * }}</pre>
  */
-@NativeType("struct ZSTD_frameHeader")
+@NativeType("struct ZSTD_FrameHeader")
 public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeResource {
 
     /** The struct size in bytes. */
@@ -101,17 +99,17 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** if == {@link Zstd#ZSTD_CONTENTSIZE_UNKNOWN CONTENTSIZE_UNKNOWN}, it means this field is not available. 0 means "empty" */
+    /** @return the value of the {@code frameContentSize} field. */
     @NativeType("unsigned long long")
     public long frameContentSize() { return nframeContentSize(address()); }
-    /** can be very large, up to &le; {@code frameContentSize} */
+    /** @return the value of the {@code windowSize} field. */
     @NativeType("unsigned long long")
     public long windowSize() { return nwindowSize(address()); }
     /** @return the value of the {@code blockSizeMax} field. */
     @NativeType("unsigned int")
     public int blockSizeMax() { return nblockSizeMax(address()); }
-    /** if == {@link ZstdX#ZSTD_skippableFrame skippableFrame}, {@code frameContentSize} is the size of skippable content */
-    @NativeType("ZSTD_frameType_e")
+    /** @return the value of the {@code frameType} field. */
+    @NativeType("ZSTD_FrameType_e")
     public int frameType() { return nframeType(address()); }
     /** @return the value of the {@code headerSize} field. */
     @NativeType("unsigned int")
@@ -147,8 +145,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDFrameHeader createSafe(long address) {
+    public static @Nullable ZSTDFrameHeader createSafe(long address) {
         return address == NULL ? null : new ZSTDFrameHeader(address, null);
     }
 
@@ -191,8 +188,7 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDFrameHeader.Buffer createSafe(long address, int capacity) {
+    public static ZSTDFrameHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,21 +252,21 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #frameContentSize}. */
-    public static long nframeContentSize(long struct) { return UNSAFE.getLong(null, struct + ZSTDFrameHeader.FRAMECONTENTSIZE); }
+    public static long nframeContentSize(long struct) { return memGetLong(struct + ZSTDFrameHeader.FRAMECONTENTSIZE); }
     /** Unsafe version of {@link #windowSize}. */
-    public static long nwindowSize(long struct) { return UNSAFE.getLong(null, struct + ZSTDFrameHeader.WINDOWSIZE); }
+    public static long nwindowSize(long struct) { return memGetLong(struct + ZSTDFrameHeader.WINDOWSIZE); }
     /** Unsafe version of {@link #blockSizeMax}. */
-    public static int nblockSizeMax(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.BLOCKSIZEMAX); }
+    public static int nblockSizeMax(long struct) { return memGetInt(struct + ZSTDFrameHeader.BLOCKSIZEMAX); }
     /** Unsafe version of {@link #frameType}. */
-    public static int nframeType(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.FRAMETYPE); }
+    public static int nframeType(long struct) { return memGetInt(struct + ZSTDFrameHeader.FRAMETYPE); }
     /** Unsafe version of {@link #headerSize}. */
-    public static int nheaderSize(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.HEADERSIZE); }
+    public static int nheaderSize(long struct) { return memGetInt(struct + ZSTDFrameHeader.HEADERSIZE); }
     /** Unsafe version of {@link #dictID}. */
-    public static int ndictID(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.DICTID); }
+    public static int ndictID(long struct) { return memGetInt(struct + ZSTDFrameHeader.DICTID); }
     /** Unsafe version of {@link #checksumFlag}. */
-    public static int nchecksumFlag(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader.CHECKSUMFLAG); }
-    public static int n_reserved1(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader._RESERVED1); }
-    public static int n_reserved2(long struct) { return UNSAFE.getInt(null, struct + ZSTDFrameHeader._RESERVED2); }
+    public static int nchecksumFlag(long struct) { return memGetInt(struct + ZSTDFrameHeader.CHECKSUMFLAG); }
+    public static int n_reserved1(long struct) { return memGetInt(struct + ZSTDFrameHeader._RESERVED1); }
+    public static int n_reserved2(long struct) { return memGetInt(struct + ZSTDFrameHeader._RESERVED2); }
 
     // -----------------------------------
 
@@ -306,21 +302,26 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ZSTDFrameHeader getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZSTDFrameHeader#frameContentSize} field. */
+        /** @return the value of the {@code frameContentSize} field. */
         @NativeType("unsigned long long")
         public long frameContentSize() { return ZSTDFrameHeader.nframeContentSize(address()); }
-        /** @return the value of the {@link ZSTDFrameHeader#windowSize} field. */
+        /** @return the value of the {@code windowSize} field. */
         @NativeType("unsigned long long")
         public long windowSize() { return ZSTDFrameHeader.nwindowSize(address()); }
         /** @return the value of the {@code blockSizeMax} field. */
         @NativeType("unsigned int")
         public int blockSizeMax() { return ZSTDFrameHeader.nblockSizeMax(address()); }
-        /** @return the value of the {@link ZSTDFrameHeader#frameType} field. */
-        @NativeType("ZSTD_frameType_e")
+        /** @return the value of the {@code frameType} field. */
+        @NativeType("ZSTD_FrameType_e")
         public int frameType() { return ZSTDFrameHeader.nframeType(address()); }
         /** @return the value of the {@code headerSize} field. */
         @NativeType("unsigned int")

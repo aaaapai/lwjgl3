@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkAttachmentDescriptionStencilLayout}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAttachmentDescriptionStencilLayoutKHR {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkImageLayout stencilInitialLayout;
  *     VkImageLayout stencilFinalLayout;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkAttachmentDescriptionStencilLayoutKHR extends VkAttachmentDescriptionStencilLayout {
 
@@ -117,8 +113,7 @@ public class VkAttachmentDescriptionStencilLayoutKHR extends VkAttachmentDescrip
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentDescriptionStencilLayoutKHR createSafe(long address) {
+    public static @Nullable VkAttachmentDescriptionStencilLayoutKHR createSafe(long address) {
         return address == NULL ? null : new VkAttachmentDescriptionStencilLayoutKHR(address, null);
     }
 
@@ -161,8 +156,7 @@ public class VkAttachmentDescriptionStencilLayoutKHR extends VkAttachmentDescrip
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAttachmentDescriptionStencilLayoutKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAttachmentDescriptionStencilLayoutKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,6 +229,11 @@ public class VkAttachmentDescriptionStencilLayoutKHR extends VkAttachmentDescrip
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

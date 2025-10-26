@@ -5,20 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FT_Module module
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Module_Constructor} */
 public abstract class FT_Module_Constructor extends Callback implements FT_Module_ConstructorI {
 
     /**
@@ -34,8 +27,7 @@ public abstract class FT_Module_Constructor extends Callback implements FT_Modul
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FT_Module_Constructor createSafe(long functionPointer) {
+    public static @Nullable FT_Module_Constructor createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

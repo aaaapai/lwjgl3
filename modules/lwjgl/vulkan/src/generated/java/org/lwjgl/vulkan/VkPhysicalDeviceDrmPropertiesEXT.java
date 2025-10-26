@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing DRM information of a physical device.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceDrmPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>These are properties of the DRM information of a physical device.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTPhysicalDeviceDrm#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDrmPropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #hasPrimary};
- *     VkBool32 {@link #hasRender};
- *     int64_t {@link #primaryMajor};
- *     int64_t {@link #primaryMinor};
- *     int64_t {@link #renderMajor};
- *     int64_t {@link #renderMinor};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 hasPrimary;
+ *     VkBool32 hasRender;
+ *     int64_t primaryMajor;
+ *     int64_t primaryMinor;
+ *     int64_t renderMajor;
+ *     int64_t renderMinor;
+ * }}</pre>
  */
 public class VkPhysicalDeviceDrmPropertiesEXT extends Struct<VkPhysicalDeviceDrmPropertiesEXT> implements NativeResource {
 
@@ -110,36 +94,36 @@ public class VkPhysicalDeviceDrmPropertiesEXT extends Struct<VkPhysicalDeviceDrm
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a boolean indicating whether the physical device has a DRM primary node. */
+    /** @return the value of the {@code hasPrimary} field. */
     @NativeType("VkBool32")
     public boolean hasPrimary() { return nhasPrimary(address()) != 0; }
-    /** a boolean indicating whether the physical device has a DRM render node. */
+    /** @return the value of the {@code hasRender} field. */
     @NativeType("VkBool32")
     public boolean hasRender() { return nhasRender(address()) != 0; }
-    /** the DRM primary node major number, if any. */
+    /** @return the value of the {@code primaryMajor} field. */
     @NativeType("int64_t")
     public long primaryMajor() { return nprimaryMajor(address()); }
-    /** the DRM primary node minor number, if any. */
+    /** @return the value of the {@code primaryMinor} field. */
     @NativeType("int64_t")
     public long primaryMinor() { return nprimaryMinor(address()); }
-    /** the DRM render node major number, if any. */
+    /** @return the value of the {@code renderMajor} field. */
     @NativeType("int64_t")
     public long renderMajor() { return nrenderMajor(address()); }
-    /** the DRM render node minor number, if any. */
+    /** @return the value of the {@code renderMinor} field. */
     @NativeType("int64_t")
     public long renderMinor() { return nrenderMinor(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceDrmPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTPhysicalDeviceDrm#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTPhysicalDeviceDrm#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceDrmPropertiesEXT sType$Default() { return sType(EXTPhysicalDeviceDrm.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceDrmPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -189,8 +173,7 @@ public class VkPhysicalDeviceDrmPropertiesEXT extends Struct<VkPhysicalDeviceDrm
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDrmPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDrmPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDrmPropertiesEXT(address, null);
     }
 
@@ -233,8 +216,7 @@ public class VkPhysicalDeviceDrmPropertiesEXT extends Struct<VkPhysicalDeviceDrm
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDrmPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDrmPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,24 +261,24 @@ public class VkPhysicalDeviceDrmPropertiesEXT extends Struct<VkPhysicalDeviceDrm
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDrmPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDrmPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDrmPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #hasPrimary}. */
-    public static int nhasPrimary(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDrmPropertiesEXT.HASPRIMARY); }
+    public static int nhasPrimary(long struct) { return memGetInt(struct + VkPhysicalDeviceDrmPropertiesEXT.HASPRIMARY); }
     /** Unsafe version of {@link #hasRender}. */
-    public static int nhasRender(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDrmPropertiesEXT.HASRENDER); }
+    public static int nhasRender(long struct) { return memGetInt(struct + VkPhysicalDeviceDrmPropertiesEXT.HASRENDER); }
     /** Unsafe version of {@link #primaryMajor}. */
-    public static long nprimaryMajor(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDrmPropertiesEXT.PRIMARYMAJOR); }
+    public static long nprimaryMajor(long struct) { return memGetLong(struct + VkPhysicalDeviceDrmPropertiesEXT.PRIMARYMAJOR); }
     /** Unsafe version of {@link #primaryMinor}. */
-    public static long nprimaryMinor(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDrmPropertiesEXT.PRIMARYMINOR); }
+    public static long nprimaryMinor(long struct) { return memGetLong(struct + VkPhysicalDeviceDrmPropertiesEXT.PRIMARYMINOR); }
     /** Unsafe version of {@link #renderMajor}. */
-    public static long nrenderMajor(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDrmPropertiesEXT.RENDERMAJOR); }
+    public static long nrenderMajor(long struct) { return memGetLong(struct + VkPhysicalDeviceDrmPropertiesEXT.RENDERMAJOR); }
     /** Unsafe version of {@link #renderMinor}. */
-    public static long nrenderMinor(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceDrmPropertiesEXT.RENDERMINOR); }
+    public static long nrenderMinor(long struct) { return memGetLong(struct + VkPhysicalDeviceDrmPropertiesEXT.RENDERMINOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDrmPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDrmPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDrmPropertiesEXT.PNEXT, value); }
 
@@ -334,40 +316,45 @@ public class VkPhysicalDeviceDrmPropertiesEXT extends Struct<VkPhysicalDeviceDrm
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceDrmPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceDrmPropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceDrmPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#hasPrimary} field. */
+        /** @return the value of the {@code hasPrimary} field. */
         @NativeType("VkBool32")
         public boolean hasPrimary() { return VkPhysicalDeviceDrmPropertiesEXT.nhasPrimary(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#hasRender} field. */
+        /** @return the value of the {@code hasRender} field. */
         @NativeType("VkBool32")
         public boolean hasRender() { return VkPhysicalDeviceDrmPropertiesEXT.nhasRender(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#primaryMajor} field. */
+        /** @return the value of the {@code primaryMajor} field. */
         @NativeType("int64_t")
         public long primaryMajor() { return VkPhysicalDeviceDrmPropertiesEXT.nprimaryMajor(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#primaryMinor} field. */
+        /** @return the value of the {@code primaryMinor} field. */
         @NativeType("int64_t")
         public long primaryMinor() { return VkPhysicalDeviceDrmPropertiesEXT.nprimaryMinor(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#renderMajor} field. */
+        /** @return the value of the {@code renderMajor} field. */
         @NativeType("int64_t")
         public long renderMajor() { return VkPhysicalDeviceDrmPropertiesEXT.nrenderMajor(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDrmPropertiesEXT#renderMinor} field. */
+        /** @return the value of the {@code renderMinor} field. */
         @NativeType("int64_t")
         public long renderMinor() { return VkPhysicalDeviceDrmPropertiesEXT.nrenderMinor(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceDrmPropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceDrmPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceDrmPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTPhysicalDeviceDrm#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT} value to the {@link VkPhysicalDeviceDrmPropertiesEXT#sType} field. */
+        /** Sets the {@link EXTPhysicalDeviceDrm#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceDrmPropertiesEXT.Buffer sType$Default() { return sType(EXTPhysicalDeviceDrm.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRM_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDrmPropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceDrmPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceDrmPropertiesEXT.npNext(address(), value); return this; }
 
     }

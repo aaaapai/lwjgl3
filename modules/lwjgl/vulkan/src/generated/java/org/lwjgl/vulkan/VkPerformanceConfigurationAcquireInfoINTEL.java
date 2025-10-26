@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Acquire a configuration to capture performance data.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code type} <b>must</b> be a valid {@code VkPerformanceConfigurationTypeINTEL} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link INTELPerformanceQuery#vkAcquirePerformanceConfigurationINTEL AcquirePerformanceConfigurationINTEL}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPerformanceConfigurationAcquireInfoINTEL {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkPerformanceConfigurationTypeINTEL {@link #type};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkPerformanceConfigurationTypeINTEL type;
+ * }}</pre>
  */
 public class VkPerformanceConfigurationAcquireInfoINTEL extends Struct<VkPerformanceConfigurationAcquireInfoINTEL> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkPerformanceConfigurationAcquireInfoINTEL extends Struct<VkPerform
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** one of the {@code VkPerformanceConfigurationTypeINTEL} type of performance configuration that will be acquired. */
+    /** @return the value of the {@code type} field. */
     @NativeType("VkPerformanceConfigurationTypeINTEL")
     public int type() { return ntype(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPerformanceConfigurationAcquireInfoINTEL sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL} value to the {@link #sType} field. */
+    /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL} value to the {@code sType} field. */
     public VkPerformanceConfigurationAcquireInfoINTEL sType$Default() { return sType(INTELPerformanceQuery.VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPerformanceConfigurationAcquireInfoINTEL pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public VkPerformanceConfigurationAcquireInfoINTEL type(@NativeType("VkPerformanceConfigurationTypeINTEL") int value) { ntype(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkPerformanceConfigurationAcquireInfoINTEL extends Struct<VkPerform
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceConfigurationAcquireInfoINTEL createSafe(long address) {
+    public static @Nullable VkPerformanceConfigurationAcquireInfoINTEL createSafe(long address) {
         return address == NULL ? null : new VkPerformanceConfigurationAcquireInfoINTEL(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkPerformanceConfigurationAcquireInfoINTEL extends Struct<VkPerform
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPerformanceConfigurationAcquireInfoINTEL.Buffer createSafe(long address, int capacity) {
+    public static VkPerformanceConfigurationAcquireInfoINTEL.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +249,18 @@ public class VkPerformanceConfigurationAcquireInfoINTEL extends Struct<VkPerform
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceConfigurationAcquireInfoINTEL.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPerformanceConfigurationAcquireInfoINTEL.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPerformanceConfigurationAcquireInfoINTEL.PNEXT); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkPerformanceConfigurationAcquireInfoINTEL.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkPerformanceConfigurationAcquireInfoINTEL.TYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceConfigurationAcquireInfoINTEL.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPerformanceConfigurationAcquireInfoINTEL.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPerformanceConfigurationAcquireInfoINTEL.PNEXT, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkPerformanceConfigurationAcquireInfoINTEL.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkPerformanceConfigurationAcquireInfoINTEL.TYPE, value); }
 
     // -----------------------------------
 
@@ -314,27 +296,32 @@ public class VkPerformanceConfigurationAcquireInfoINTEL extends Struct<VkPerform
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPerformanceConfigurationAcquireInfoINTEL getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPerformanceConfigurationAcquireInfoINTEL#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPerformanceConfigurationAcquireInfoINTEL.nsType(address()); }
-        /** @return the value of the {@link VkPerformanceConfigurationAcquireInfoINTEL#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPerformanceConfigurationAcquireInfoINTEL.npNext(address()); }
-        /** @return the value of the {@link VkPerformanceConfigurationAcquireInfoINTEL#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("VkPerformanceConfigurationTypeINTEL")
         public int type() { return VkPerformanceConfigurationAcquireInfoINTEL.ntype(address()); }
 
-        /** Sets the specified value to the {@link VkPerformanceConfigurationAcquireInfoINTEL#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPerformanceConfigurationAcquireInfoINTEL.Buffer sType(@NativeType("VkStructureType") int value) { VkPerformanceConfigurationAcquireInfoINTEL.nsType(address(), value); return this; }
-        /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL} value to the {@link VkPerformanceConfigurationAcquireInfoINTEL#sType} field. */
+        /** Sets the {@link INTELPerformanceQuery#VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL} value to the {@code sType} field. */
         public VkPerformanceConfigurationAcquireInfoINTEL.Buffer sType$Default() { return sType(INTELPerformanceQuery.VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL); }
-        /** Sets the specified value to the {@link VkPerformanceConfigurationAcquireInfoINTEL#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPerformanceConfigurationAcquireInfoINTEL.Buffer pNext(@NativeType("void const *") long value) { VkPerformanceConfigurationAcquireInfoINTEL.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPerformanceConfigurationAcquireInfoINTEL#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public VkPerformanceConfigurationAcquireInfoINTEL.Buffer type(@NativeType("VkPerformanceConfigurationTypeINTEL") int value) { VkPerformanceConfigurationAcquireInfoINTEL.ntype(address(), value); return this; }
 
     }

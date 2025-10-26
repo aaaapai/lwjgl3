@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.opus;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,17 +14,15 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ogg_packet {
  *     unsigned char * packet;
  *     long bytes;
  *     long b_o_s;
  *     long e_o_s;
  *     ogg_int64_t granulepos;
- *     ogg_int64_t {@link #packetno};
- * }</code></pre>
+ *     ogg_int64_t packetno;
+ * }}</pre>
  */
 @NativeType("struct ogg_packet")
 public class OGGPacket extends Struct<OGGPacket> {
@@ -99,10 +97,7 @@ public class OGGPacket extends Struct<OGGPacket> {
     /** @return the value of the {@code granulepos} field. */
     @NativeType("ogg_int64_t")
     public long granulepos() { return ngranulepos(address()); }
-    /**
-     * sequence number for decode; the framing knows where there's a hole in the data, but we need coupling so that the codec (which is in a separate
-     * abstraction layer) also knows about the gap
-     */
+    /** @return the value of the {@code packetno} field. */
     @NativeType("ogg_int64_t")
     public long packetno() { return npacketno(address()); }
 
@@ -114,8 +109,7 @@ public class OGGPacket extends Struct<OGGPacket> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OGGPacket createSafe(long address) {
+    public static @Nullable OGGPacket createSafe(long address) {
         return address == NULL ? null : new OGGPacket(address, null);
     }
 
@@ -130,8 +124,7 @@ public class OGGPacket extends Struct<OGGPacket> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OGGPacket.Buffer createSafe(long address, int capacity) {
+    public static OGGPacket.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -146,9 +139,9 @@ public class OGGPacket extends Struct<OGGPacket> {
     /** Unsafe version of {@link #e_o_s}. */
     public static long ne_o_s(long struct) { return memGetCLong(struct + OGGPacket.E_O_S); }
     /** Unsafe version of {@link #granulepos}. */
-    public static long ngranulepos(long struct) { return UNSAFE.getLong(null, struct + OGGPacket.GRANULEPOS); }
+    public static long ngranulepos(long struct) { return memGetLong(struct + OGGPacket.GRANULEPOS); }
     /** Unsafe version of {@link #packetno}. */
-    public static long npacketno(long struct) { return UNSAFE.getLong(null, struct + OGGPacket.PACKETNO); }
+    public static long npacketno(long struct) { return memGetLong(struct + OGGPacket.PACKETNO); }
 
     // -----------------------------------
 
@@ -184,6 +177,11 @@ public class OGGPacket extends Struct<OGGPacket> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected OGGPacket getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -200,7 +198,7 @@ public class OGGPacket extends Struct<OGGPacket> {
         /** @return the value of the {@code granulepos} field. */
         @NativeType("ogg_int64_t")
         public long granulepos() { return OGGPacket.ngranulepos(address()); }
-        /** @return the value of the {@link OGGPacket#packetno} field. */
+        /** @return the value of the {@code packetno} field. */
         @NativeType("ogg_int64_t")
         public long packetno() { return OGGPacket.npacketno(address()); }
 

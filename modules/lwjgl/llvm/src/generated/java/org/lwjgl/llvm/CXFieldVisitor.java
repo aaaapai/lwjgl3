@@ -5,23 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link ClangIndex#clang_Type_visitFields Type_visitFields} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * enum CXVisitorResult (*{@link #invoke}) (
- *     CXCursor C,
- *     CXClientData client_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CXFieldVisitor extends Callback implements CXFieldVisitorI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class CXFieldVisitor extends Callback implements CXFieldVisitorI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CXFieldVisitor createSafe(long functionPointer) {
+    public static @Nullable CXFieldVisitor createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

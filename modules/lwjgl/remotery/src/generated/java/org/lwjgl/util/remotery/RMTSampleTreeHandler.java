@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *cbk_context,
- *     rmtSampleTree *sample_tree
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtSampleTreeHandlerPtr} */
 public abstract class RMTSampleTreeHandler extends Callback implements RMTSampleTreeHandlerI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class RMTSampleTreeHandler extends Callback implements RMTSample
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static RMTSampleTreeHandler createSafe(long functionPointer) {
+    public static @Nullable RMTSampleTreeHandler createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

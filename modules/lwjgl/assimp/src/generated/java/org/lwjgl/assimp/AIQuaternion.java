@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Represents a quaternion in a 4D vector.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiQuaternion {
- *     float {@link #w};
- *     float {@link #x};
- *     float {@link #y};
- *     float {@link #z};
- * }</code></pre>
+ *     float w;
+ *     float x;
+ *     float y;
+ *     float z;
+ * }}</pre>
  */
 @NativeType("struct aiQuaternion")
 public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource {
@@ -83,22 +79,22 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** The w component */
+    /** @return the value of the {@code w} field. */
     public float w() { return nw(address()); }
-    /** The x component */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** The y component */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
-    /** The z component */
+    /** @return the value of the {@code z} field. */
     public float z() { return nz(address()); }
 
-    /** Sets the specified value to the {@link #w} field. */
+    /** Sets the specified value to the {@code w} field. */
     public AIQuaternion w(float value) { nw(address(), value); return this; }
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public AIQuaternion x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public AIQuaternion y(float value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #z} field. */
+    /** Sets the specified value to the {@code z} field. */
     public AIQuaternion z(float value) { nz(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +148,7 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIQuaternion createSafe(long address) {
+    public static @Nullable AIQuaternion createSafe(long address) {
         return address == NULL ? null : new AIQuaternion(address, null);
     }
 
@@ -196,8 +191,7 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIQuaternion.Buffer createSafe(long address, int capacity) {
+    public static AIQuaternion.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,22 +255,22 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.W); }
+    public static float nw(long struct) { return memGetFloat(struct + AIQuaternion.W); }
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.X); }
+    public static float nx(long struct) { return memGetFloat(struct + AIQuaternion.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + AIQuaternion.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + AIQuaternion.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + AIQuaternion.Z); }
 
     /** Unsafe version of {@link #w(float) w}. */
-    public static void nw(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.W, value); }
+    public static void nw(long struct, float value) { memPutFloat(struct + AIQuaternion.W, value); }
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + AIQuaternion.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + AIQuaternion.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + AIQuaternion.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + AIQuaternion.Z, value); }
 
     // -----------------------------------
 
@@ -312,26 +306,31 @@ public class AIQuaternion extends Struct<AIQuaternion> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIQuaternion getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIQuaternion#w} field. */
+        /** @return the value of the {@code w} field. */
         public float w() { return AIQuaternion.nw(address()); }
-        /** @return the value of the {@link AIQuaternion#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return AIQuaternion.nx(address()); }
-        /** @return the value of the {@link AIQuaternion#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return AIQuaternion.ny(address()); }
-        /** @return the value of the {@link AIQuaternion#z} field. */
+        /** @return the value of the {@code z} field. */
         public float z() { return AIQuaternion.nz(address()); }
 
-        /** Sets the specified value to the {@link AIQuaternion#w} field. */
+        /** Sets the specified value to the {@code w} field. */
         public AIQuaternion.Buffer w(float value) { AIQuaternion.nw(address(), value); return this; }
-        /** Sets the specified value to the {@link AIQuaternion#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public AIQuaternion.Buffer x(float value) { AIQuaternion.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link AIQuaternion#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public AIQuaternion.Buffer y(float value) { AIQuaternion.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link AIQuaternion#z} field. */
+        /** Sets the specified value to the {@code z} field. */
         public AIQuaternion.Buffer z(float value) { AIQuaternion.nz(address(), value); return this; }
 
     }

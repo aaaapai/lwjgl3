@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiMetadataEntry {
  *     aiMetadataType mType;
  *     void * mData;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct aiMetadataEntry")
 public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeResource {
@@ -77,11 +75,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     /** @return the value of the {@code mType} field. */
     @NativeType("aiMetadataType")
     public int mType() { return nmType(address()); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field. */
     @NativeType("void *")
     public ByteBuffer mData(int capacity) { return nmData(address(), capacity); }
 
@@ -137,8 +131,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMetaDataEntry createSafe(long address) {
+    public static @Nullable AIMetaDataEntry createSafe(long address) {
         return address == NULL ? null : new AIMetaDataEntry(address, null);
     }
 
@@ -181,8 +174,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIMetaDataEntry.Buffer createSafe(long address, int capacity) {
+    public static AIMetaDataEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,12 +238,12 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #mType}. */
-    public static int nmType(long struct) { return UNSAFE.getInt(null, struct + AIMetaDataEntry.MTYPE); }
+    public static int nmType(long struct) { return memGetInt(struct + AIMetaDataEntry.MTYPE); }
     /** Unsafe version of {@link #mData(int) mData}. */
     public static ByteBuffer nmData(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + AIMetaDataEntry.MDATA), capacity); }
 
     /** Unsafe version of {@link #mType(int) mType}. */
-    public static void nmType(long struct, int value) { UNSAFE.putInt(null, struct + AIMetaDataEntry.MTYPE, value); }
+    public static void nmType(long struct, int value) { memPutInt(struct + AIMetaDataEntry.MTYPE, value); }
     /** Unsafe version of {@link #mData(ByteBuffer) mData}. */
     public static void nmData(long struct, ByteBuffer value) { memPutAddress(struct + AIMetaDataEntry.MDATA, memAddress(value)); }
 
@@ -298,6 +290,11 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIMetaDataEntry getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -305,11 +302,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
         /** @return the value of the {@code mType} field. */
         @NativeType("aiMetadataType")
         public int mType() { return AIMetaDataEntry.nmType(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field. */
         @NativeType("void *")
         public ByteBuffer mData(int capacity) { return AIMetaDataEntry.nmData(address(), capacity); }
 

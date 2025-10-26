@@ -5,28 +5,13 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *sequenceProducerState,
- *     ZSTD_Sequence *outSeqs,
- *     size_t outSeqsCapacity,
- *     void const *src,
- *     size_t srcSize,
- *     void const *dict,
- *     size_t dictSize,
- *     int compressionLevel,
- *     size_t windowSize
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ZSTD_sequenceProducer_F} */
 public abstract class ZSTDSequenceProducer extends Callback implements ZSTDSequenceProducerI {
 
     /**
@@ -42,8 +27,7 @@ public abstract class ZSTDSequenceProducer extends Callback implements ZSTDSeque
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static ZSTDSequenceProducer createSafe(long functionPointer) {
+    public static @Nullable ZSTDSequenceProducer createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

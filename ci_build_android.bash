@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.4.6
-export ANDROID=1 LWJGL_BUILD_OFFLINE=1
+export ANDROID=1 LWJGL_BUILD_OFFLINE=1 SKIP_FREETYPE=1
+export ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
@@ -27,13 +27,12 @@ mkdir -p $LWJGL_NATIVE
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
   if [ ! -d libffi ]; then
-    wget https://github.com/libffi/libffi/releases/download/v$LIBFFI_VERSION/libffi-$LIBFFI_VERSION.tar.gz
-    tar xvf libffi-$LIBFFI_VERSION.tar.gz
-    mv libffi-$LIBFFI_VERSION libffi
+    git clone --depth 1 https://github.com/aaaapai/libffi ${PWD}/libffi
   fi
   cd libffi
 
   # Build libffi
+  ./autogen.sh
   bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
   make -j4
   cd ..
@@ -75,7 +74,7 @@ if [ "$SKIP_FREETYPE" != "1" ]; then
 fi
 
 # Download libraries
-POJAV_NATIVES="https://github.com/AngelAuraMC/Amethyst-Android/raw/v3_openjdk/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
+POJAV_NATIVES="https://github.com/aaaapai/PojavLauncher-Beta-Zink/raw/refs/heads/man_v3/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
 wget -nc "https://github.com/AngelAuraMC/shaderc/releases/latest/download/libshaderc-$NDK_ABI.zip"
 unzip -o libshaderc-$NDK_ABI.zip -d $LWJGL_NATIVE/shaderc
@@ -88,14 +87,23 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 ant -version
 yes | ant -Dplatform.linux=true \
   -Dbinding.assimp=false \
+  -Dbinding.spvc=false \
+  -Dbinding.xxhash=false \
+  -Dbinding.zstd=false \
+  -Dbinding.sdl=false \
+  -Dbinding.par=false \
+  -Dbinding.spng=false \
+  -Dbinding.nuklear=false \
+  -Dbinding.tinyexr=false \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
   -Dbinding.egl=false \
+  -Dbinding.ktx=false \
   -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
   -Dbinding.hwloc=false \
   -Dbinding.jawt=false \
-  -Dbinding.jemalloc=false \
+  -Dbinding.jemalloc=true \
   -Dbinding.ktx=false \
   -Dbinding.libdivide=false \
   -Dbinding.llvm=false \
@@ -120,7 +128,8 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.3 \
+  -Dbinding.msdfgen=false \
+  -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release

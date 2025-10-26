@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing supported external fence handle features.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code handleType} is not supported by the implementation, then {@link VkExternalFenceProperties}{@code ::externalFenceFeatures} will be set to zero.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK11#vkGetPhysicalDeviceExternalFenceProperties GetPhysicalDeviceExternalFenceProperties}, {@link KHRExternalFenceCapabilities#vkGetPhysicalDeviceExternalFencePropertiesKHR GetPhysicalDeviceExternalFencePropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExternalFenceProperties {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkExternalFenceHandleTypeFlags {@link #exportFromImportedHandleTypes};
- *     VkExternalFenceHandleTypeFlags {@link #compatibleHandleTypes};
- *     VkExternalFenceFeatureFlags {@link #externalFenceFeatures};
- * }</code></pre>
+ *     VkExternalFenceHandleTypeFlags exportFromImportedHandleTypes;
+ *     VkExternalFenceHandleTypeFlags compatibleHandleTypes;
+ *     VkExternalFenceFeatureFlags externalFenceFeatures;
+ * }}</pre>
  */
 public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties> implements NativeResource {
 
@@ -107,13 +88,13 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkExternalFenceHandleTypeFlagBits} indicating which types of imported handle {@code handleType} <b>can</b> be exported from. */
+    /** @return the value of the {@code exportFromImportedHandleTypes} field. */
     @NativeType("VkExternalFenceHandleTypeFlags")
     public int exportFromImportedHandleTypes() { return nexportFromImportedHandleTypes(address()); }
-    /** a bitmask of {@code VkExternalFenceHandleTypeFlagBits} specifying handle types which <b>can</b> be specified at the same time as {@code handleType} when creating a fence. */
+    /** @return the value of the {@code compatibleHandleTypes} field. */
     @NativeType("VkExternalFenceHandleTypeFlags")
     public int compatibleHandleTypes() { return ncompatibleHandleTypes(address()); }
-    /** a bitmask of {@code VkExternalFenceFeatureFlagBits} indicating the features of {@code handleType}. */
+    /** @return the value of the {@code externalFenceFeatures} field. */
     @NativeType("VkExternalFenceFeatureFlags")
     public int externalFenceFeatures() { return nexternalFenceFeatures(address()); }
 
@@ -171,8 +152,7 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFenceProperties createSafe(long address) {
+    public static @Nullable VkExternalFenceProperties createSafe(long address) {
         return address == NULL ? null : new VkExternalFenceProperties(address, null);
     }
 
@@ -215,8 +195,7 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFenceProperties.Buffer createSafe(long address, int capacity) {
+    public static VkExternalFenceProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,18 +259,18 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalFenceProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalFenceProperties.PNEXT); }
     /** Unsafe version of {@link #exportFromImportedHandleTypes}. */
-    public static int nexportFromImportedHandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.EXPORTFROMIMPORTEDHANDLETYPES); }
+    public static int nexportFromImportedHandleTypes(long struct) { return memGetInt(struct + VkExternalFenceProperties.EXPORTFROMIMPORTEDHANDLETYPES); }
     /** Unsafe version of {@link #compatibleHandleTypes}. */
-    public static int ncompatibleHandleTypes(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.COMPATIBLEHANDLETYPES); }
+    public static int ncompatibleHandleTypes(long struct) { return memGetInt(struct + VkExternalFenceProperties.COMPATIBLEHANDLETYPES); }
     /** Unsafe version of {@link #externalFenceFeatures}. */
-    public static int nexternalFenceFeatures(long struct) { return UNSAFE.getInt(null, struct + VkExternalFenceProperties.EXTERNALFENCEFEATURES); }
+    public static int nexternalFenceFeatures(long struct) { return memGetInt(struct + VkExternalFenceProperties.EXTERNALFENCEFEATURES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalFenceProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalFenceProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalFenceProperties.PNEXT, value); }
 
@@ -329,6 +308,11 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExternalFenceProperties getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -339,13 +323,13 @@ public class VkExternalFenceProperties extends Struct<VkExternalFenceProperties>
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkExternalFenceProperties.npNext(address()); }
-        /** @return the value of the {@link VkExternalFenceProperties#exportFromImportedHandleTypes} field. */
+        /** @return the value of the {@code exportFromImportedHandleTypes} field. */
         @NativeType("VkExternalFenceHandleTypeFlags")
         public int exportFromImportedHandleTypes() { return VkExternalFenceProperties.nexportFromImportedHandleTypes(address()); }
-        /** @return the value of the {@link VkExternalFenceProperties#compatibleHandleTypes} field. */
+        /** @return the value of the {@code compatibleHandleTypes} field. */
         @NativeType("VkExternalFenceHandleTypeFlags")
         public int compatibleHandleTypes() { return VkExternalFenceProperties.ncompatibleHandleTypes(address()); }
-        /** @return the value of the {@link VkExternalFenceProperties#externalFenceFeatures} field. */
+        /** @return the value of the {@code externalFenceFeatures} field. */
         @NativeType("VkExternalFenceFeatureFlags")
         public int externalFenceFeatures() { return VkExternalFenceProperties.nexternalFenceFeatures(address()); }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,21 +17,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Property event.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XPropertyEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     Atom atom;
  *     Time time;
- *     int {@link #state};
- * }</code></pre>
+ *     int state;
+ * }}</pre>
  */
 public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeResource {
 
@@ -101,16 +97,16 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return the value of the {@code atom} field. */
@@ -119,24 +115,24 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
     /** @return the value of the {@code time} field. */
     @NativeType("Time")
     public long time() { return ntime(address()); }
-    /** one of:<br><table><tr><td>{@link X11#PropertyNewValue}</td><td>{@link X11#PropertyDelete}</td></tr></table> */
+    /** @return the value of the {@code state} field. */
     public int state() { return nstate(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XPropertyEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XPropertyEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XPropertyEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XPropertyEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XPropertyEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Sets the specified value to the {@code atom} field. */
     public XPropertyEvent atom(@NativeType("Atom") long value) { natom(address(), value); return this; }
     /** Sets the specified value to the {@code time} field. */
     public XPropertyEvent time(@NativeType("Time") long value) { ntime(address(), value); return this; }
-    /** Sets the specified value to the {@link #state} field. */
+    /** Sets the specified value to the {@code state} field. */
     public XPropertyEvent state(int value) { nstate(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -198,8 +194,7 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XPropertyEvent createSafe(long address) {
+    public static @Nullable XPropertyEvent createSafe(long address) {
         return address == NULL ? null : new XPropertyEvent(address, null);
     }
 
@@ -242,8 +237,7 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XPropertyEvent.Buffer createSafe(long address, int capacity) {
+    public static XPropertyEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,11 +301,11 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XPropertyEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XPropertyEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XPropertyEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XPropertyEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XPropertyEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XPropertyEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -321,14 +315,14 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
     /** Unsafe version of {@link #time}. */
     public static long ntime(long struct) { return memGetCLong(struct + XPropertyEvent.TIME); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XPropertyEvent.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XPropertyEvent.STATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XPropertyEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XPropertyEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XPropertyEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XPropertyEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XPropertyEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XPropertyEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -338,7 +332,7 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
     /** Unsafe version of {@link #time(long) time}. */
     public static void ntime(long struct, long value) { memPutCLong(struct + XPropertyEvent.TIME, value); }
     /** Unsafe version of {@link #state(int) state}. */
-    public static void nstate(long struct, int value) { UNSAFE.putInt(null, struct + XPropertyEvent.STATE, value); }
+    public static void nstate(long struct, int value) { memPutInt(struct + XPropertyEvent.STATE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -383,22 +377,27 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XPropertyEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XPropertyEvent.ntype(address()); }
-        /** @return the value of the {@link XPropertyEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XPropertyEvent.nserial(address()); }
-        /** @return the value of the {@link XPropertyEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XPropertyEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XPropertyEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XPropertyEvent.ndisplay(address()); }
-        /** @return the value of the {@link XPropertyEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XPropertyEvent.nwindow(address()); }
         /** @return the value of the {@code atom} field. */
@@ -407,24 +406,24 @@ public class XPropertyEvent extends Struct<XPropertyEvent> implements NativeReso
         /** @return the value of the {@code time} field. */
         @NativeType("Time")
         public long time() { return XPropertyEvent.ntime(address()); }
-        /** @return the value of the {@link XPropertyEvent#state} field. */
+        /** @return the value of the {@code state} field. */
         public int state() { return XPropertyEvent.nstate(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XPropertyEvent.Buffer type(int value) { XPropertyEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XPropertyEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XPropertyEvent.Buffer serial(@NativeType("unsigned long") long value) { XPropertyEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XPropertyEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XPropertyEvent.Buffer send_event(@NativeType("Bool") boolean value) { XPropertyEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XPropertyEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XPropertyEvent.Buffer display(@NativeType("Display *") long value) { XPropertyEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XPropertyEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XPropertyEvent.Buffer window(@NativeType("Window") long value) { XPropertyEvent.nwindow(address(), value); return this; }
         /** Sets the specified value to the {@code atom} field. */
         public XPropertyEvent.Buffer atom(@NativeType("Atom") long value) { XPropertyEvent.natom(address(), value); return this; }
         /** Sets the specified value to the {@code time} field. */
         public XPropertyEvent.Buffer time(@NativeType("Time") long value) { XPropertyEvent.ntime(address(), value); return this; }
-        /** Sets the specified value to the {@link XPropertyEvent#state} field. */
+        /** Sets the specified value to the {@code state} field. */
         public XPropertyEvent.Buffer state(int value) { XPropertyEvent.nstate(address(), value); return this; }
 
     }

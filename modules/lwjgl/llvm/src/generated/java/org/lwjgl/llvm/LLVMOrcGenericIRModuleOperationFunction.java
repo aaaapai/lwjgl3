@@ -5,23 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMOrc#LLVMOrcThreadSafeModuleWithModuleDo OrcThreadSafeModuleWithModuleDo} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * LLVMErrorRef (*{@link #invoke}) (
- *     void *Ctx,
- *     LLVMModuleRef M
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcGenericIRModuleOperationFunction} */
 public abstract class LLVMOrcGenericIRModuleOperationFunction extends Callback implements LLVMOrcGenericIRModuleOperationFunctionI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class LLVMOrcGenericIRModuleOperationFunction extends Callback i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcGenericIRModuleOperationFunction createSafe(long functionPointer) {
+    public static @Nullable LLVMOrcGenericIRModuleOperationFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

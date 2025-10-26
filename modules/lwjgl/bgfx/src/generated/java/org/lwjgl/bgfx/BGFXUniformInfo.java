@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,16 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Uniform info.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_uniform_info_t {
- *     char {@link #name}[256];
- *     bgfx_uniform_type_t {@link #type};
- *     uint16_t {@link #num};
- * }</code></pre>
+ *     char name[256];
+ *     bgfx_uniform_type_t type;
+ *     uint16_t num;
+ * }}</pre>
  */
 @NativeType("struct bgfx_uniform_info_t")
 public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeResource {
@@ -80,24 +76,24 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** uniform name */
+    /** @return a {@link ByteBuffer} view of the {@code name} field. */
     @NativeType("char[256]")
     public ByteBuffer name() { return nname(address()); }
-    /** uniform name */
+    /** @return the null-terminated string stored in the {@code name} field. */
     @NativeType("char[256]")
     public String nameString() { return nnameString(address()); }
-    /** uniform type */
+    /** @return the value of the {@code type} field. */
     @NativeType("bgfx_uniform_type_t")
     public int type() { return ntype(address()); }
-    /** number of elements in array */
+    /** @return the value of the {@code num} field. */
     @NativeType("uint16_t")
     public short num() { return nnum(address()); }
 
-    /** Copies the specified encoded string to the {@link #name} field. */
+    /** Copies the specified encoded string to the {@code name} field. */
     public BGFXUniformInfo name(@NativeType("char[256]") ByteBuffer value) { nname(address(), value); return this; }
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public BGFXUniformInfo type(@NativeType("bgfx_uniform_type_t") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #num} field. */
+    /** Sets the specified value to the {@code num} field. */
     public BGFXUniformInfo num(@NativeType("uint16_t") short value) { nnum(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -149,8 +145,7 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXUniformInfo createSafe(long address) {
+    public static @Nullable BGFXUniformInfo createSafe(long address) {
         return address == NULL ? null : new BGFXUniformInfo(address, null);
     }
 
@@ -193,8 +188,7 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXUniformInfo.Buffer createSafe(long address, int capacity) {
+    public static BGFXUniformInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -262,9 +256,9 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memASCII(struct + BGFXUniformInfo.NAME); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + BGFXUniformInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + BGFXUniformInfo.TYPE); }
     /** Unsafe version of {@link #num}. */
-    public static short nnum(long struct) { return UNSAFE.getShort(null, struct + BGFXUniformInfo.NUM); }
+    public static short nnum(long struct) { return memGetShort(struct + BGFXUniformInfo.NUM); }
 
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
@@ -275,9 +269,9 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
         memCopy(memAddress(value), struct + BGFXUniformInfo.NAME, value.remaining());
     }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + BGFXUniformInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + BGFXUniformInfo.TYPE, value); }
     /** Unsafe version of {@link #num(short) num}. */
-    public static void nnum(long struct, short value) { UNSAFE.putShort(null, struct + BGFXUniformInfo.NUM, value); }
+    public static void nnum(long struct, short value) { memPutShort(struct + BGFXUniformInfo.NUM, value); }
 
     // -----------------------------------
 
@@ -313,28 +307,33 @@ public class BGFXUniformInfo extends Struct<BGFXUniformInfo> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected BGFXUniformInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link BGFXUniformInfo#name} field. */
+        /** @return a {@link ByteBuffer} view of the {@code name} field. */
         @NativeType("char[256]")
         public ByteBuffer name() { return BGFXUniformInfo.nname(address()); }
-        /** @return the null-terminated string stored in the {@link BGFXUniformInfo#name} field. */
+        /** @return the null-terminated string stored in the {@code name} field. */
         @NativeType("char[256]")
         public String nameString() { return BGFXUniformInfo.nnameString(address()); }
-        /** @return the value of the {@link BGFXUniformInfo#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("bgfx_uniform_type_t")
         public int type() { return BGFXUniformInfo.ntype(address()); }
-        /** @return the value of the {@link BGFXUniformInfo#num} field. */
+        /** @return the value of the {@code num} field. */
         @NativeType("uint16_t")
         public short num() { return BGFXUniformInfo.nnum(address()); }
 
-        /** Copies the specified encoded string to the {@link BGFXUniformInfo#name} field. */
+        /** Copies the specified encoded string to the {@code name} field. */
         public BGFXUniformInfo.Buffer name(@NativeType("char[256]") ByteBuffer value) { BGFXUniformInfo.nname(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXUniformInfo#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public BGFXUniformInfo.Buffer type(@NativeType("bgfx_uniform_type_t") int value) { BGFXUniformInfo.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link BGFXUniformInfo#num} field. */
+        /** Sets the specified value to the {@code num} field. */
         public BGFXUniformInfo.Buffer num(@NativeType("uint16_t") short value) { BGFXUniformInfo.nnum(address(), value); return this; }
 
     }

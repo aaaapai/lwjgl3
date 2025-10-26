@@ -12,23 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Returns the size of a cached item. Returns 0 if no cached item was found.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * uint32_t (*{@link #invoke}) (
- *     bgfx_callback_interface_t *_this,
- *     uint64_t _id
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("uint32_t (*) (bgfx_callback_interface_t *, uint64_t)")
 public interface BGFXCacheReadSizeCallbackI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_uint32,
         ffi_type_pointer, ffi_type_uint64
     );
@@ -45,14 +34,7 @@ public interface BGFXCacheReadSizeCallbackI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /**
-     * Will be called to determine size of cached item.
-     *
-     * @param _this the callback interface
-     * @param _id   cache id
-     *
-     * @return number of bytes to read
-     */
+    /** {@code uint32_t (*) (bgfx_callback_interface_t * _this, uint64_t _id)} */
     @NativeType("uint32_t") int invoke(@NativeType("bgfx_callback_interface_t *") long _this, @NativeType("uint64_t") long _id);
 
 }

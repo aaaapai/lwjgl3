@@ -10,7 +10,6 @@ import java.util.Set;
 
 import static org.lwjgl.system.Checks.*;
 
-/** Defines the capabilities of an OpenXR {@code XrInstance}. */
 @SuppressWarnings("SimplifiableIfStatement")
 public class XRCapabilities {
 
@@ -68,9 +67,103 @@ public class XRCapabilities {
         xrApplyHapticFeedback,
         xrStopHapticFeedback;
 
+    // XR11
+    public final long
+        xrLocateSpaces;
+
     // ALMALENCE_digital_lens_control
     public final long
         xrSetDigitalLensControlALMALENCE;
+
+    // ANDROID_anchor_sharing_export
+    public final long
+        xrShareAnchorANDROID,
+        xrUnshareAnchorANDROID;
+
+    // ANDROID_device_anchor_persistence
+    public final long
+        xrEnumerateSupportedPersistenceAnchorTypesANDROID,
+        xrCreateDeviceAnchorPersistenceANDROID,
+        xrDestroyDeviceAnchorPersistenceANDROID,
+        xrPersistAnchorANDROID,
+        xrGetAnchorPersistStateANDROID,
+        xrCreatePersistedAnchorSpaceANDROID,
+        xrEnumeratePersistedAnchorsANDROID,
+        xrUnpersistAnchorANDROID;
+
+    // ANDROID_passthrough_camera_state
+    public final long
+        xrGetPassthroughCameraStateANDROID;
+
+    // ANDROID_raycast
+    public final long
+        xrEnumerateRaycastSupportedTrackableTypesANDROID,
+        xrRaycastANDROID;
+
+    // ANDROID_trackables
+    public final long
+        xrEnumerateSupportedTrackableTypesANDROID,
+        xrEnumerateSupportedAnchorTrackableTypesANDROID,
+        xrCreateTrackableTrackerANDROID,
+        xrDestroyTrackableTrackerANDROID,
+        xrGetAllTrackablesANDROID,
+        xrGetTrackablePlaneANDROID,
+        xrCreateAnchorSpaceANDROID;
+
+    // ANDROID_trackables_marker
+    public final long
+        xrGetTrackableMarkerANDROID;
+
+    // ANDROID_trackables_object
+    public final long
+        xrGetTrackableObjectANDROID;
+
+    // BD_body_tracking
+    public final long
+        xrCreateBodyTrackerBD,
+        xrDestroyBodyTrackerBD,
+        xrLocateBodyJointsBD;
+
+    // BD_spatial_anchor
+    public final long
+        xrCreateSpatialAnchorAsyncBD,
+        xrCreateSpatialAnchorCompleteBD,
+        xrPersistSpatialAnchorAsyncBD,
+        xrPersistSpatialAnchorCompleteBD,
+        xrUnpersistSpatialAnchorAsyncBD,
+        xrUnpersistSpatialAnchorCompleteBD;
+
+    // BD_spatial_anchor_sharing
+    public final long
+        xrShareSpatialAnchorAsyncBD,
+        xrShareSpatialAnchorCompleteBD,
+        xrDownloadSharedSpatialAnchorAsyncBD,
+        xrDownloadSharedSpatialAnchorCompleteBD;
+
+    // BD_spatial_scene
+    public final long
+        xrCaptureSceneAsyncBD,
+        xrCaptureSceneCompleteBD;
+
+    // BD_spatial_sensing
+    public final long
+        xrEnumerateSpatialEntityComponentTypesBD,
+        xrGetSpatialEntityUuidBD,
+        xrGetSpatialEntityComponentDataBD,
+        xrCreateSenseDataProviderBD,
+        xrStartSenseDataProviderAsyncBD,
+        xrStartSenseDataProviderCompleteBD,
+        xrGetSenseDataProviderStateBD,
+        xrQuerySenseDataAsyncBD,
+        xrQuerySenseDataCompleteBD,
+        xrDestroySenseDataSnapshotBD,
+        xrGetQueriedSenseDataBD,
+        xrStopSenseDataProviderBD,
+        xrDestroySenseDataProviderBD,
+        xrCreateSpatialEntityAnchorBD,
+        xrDestroyAnchorBD,
+        xrGetAnchorUuidBD,
+        xrCreateAnchorSpaceBD;
 
     // EXT_conformance_automation
     public final long
@@ -90,11 +183,22 @@ public class XRCapabilities {
         xrSessionEndDebugUtilsLabelRegionEXT,
         xrSessionInsertDebugUtilsLabelEXT;
 
+    // EXT_future
+    public final long
+        xrPollFutureEXT,
+        xrCancelFutureEXT;
+
     // EXT_hand_tracking
     public final long
         xrCreateHandTrackerEXT,
         xrDestroyHandTrackerEXT,
         xrLocateHandJointsEXT;
+
+    // EXT_interaction_render_model
+    public final long
+        xrEnumerateInteractionRenderModelIdsEXT,
+        xrEnumerateRenderModelSubactionPathsEXT,
+        xrGetRenderModelPoseTopLevelUserPathEXT;
 
     // EXT_performance_settings
     public final long
@@ -108,6 +212,59 @@ public class XRCapabilities {
         xrGetPlaneDetectionStateEXT,
         xrGetPlaneDetectionsEXT,
         xrGetPlanePolygonBufferEXT;
+
+    // EXT_render_model
+    public final long
+        xrCreateRenderModelEXT,
+        xrDestroyRenderModelEXT,
+        xrGetRenderModelPropertiesEXT,
+        xrCreateRenderModelSpaceEXT,
+        xrCreateRenderModelAssetEXT,
+        xrDestroyRenderModelAssetEXT,
+        xrGetRenderModelAssetDataEXT,
+        xrGetRenderModelAssetPropertiesEXT,
+        xrGetRenderModelStateEXT;
+
+    // EXT_spatial_anchor
+    public final long
+        xrCreateSpatialAnchorEXT;
+
+    // EXT_spatial_entity
+    public final long
+        xrEnumerateSpatialCapabilitiesEXT,
+        xrEnumerateSpatialCapabilityComponentTypesEXT,
+        xrEnumerateSpatialCapabilityFeaturesEXT,
+        xrCreateSpatialContextAsyncEXT,
+        xrCreateSpatialContextCompleteEXT,
+        xrDestroySpatialContextEXT,
+        xrCreateSpatialDiscoverySnapshotAsyncEXT,
+        xrCreateSpatialDiscoverySnapshotCompleteEXT,
+        xrQuerySpatialComponentDataEXT,
+        xrDestroySpatialSnapshotEXT,
+        xrCreateSpatialEntityFromIdEXT,
+        xrDestroySpatialEntityEXT,
+        xrCreateSpatialUpdateSnapshotEXT,
+        xrGetSpatialBufferStringEXT,
+        xrGetSpatialBufferUint8EXT,
+        xrGetSpatialBufferUint16EXT,
+        xrGetSpatialBufferUint32EXT,
+        xrGetSpatialBufferFloatEXT,
+        xrGetSpatialBufferVector2fEXT,
+        xrGetSpatialBufferVector3fEXT;
+
+    // EXT_spatial_persistence
+    public final long
+        xrEnumerateSpatialPersistenceScopesEXT,
+        xrCreateSpatialPersistenceContextAsyncEXT,
+        xrCreateSpatialPersistenceContextCompleteEXT,
+        xrDestroySpatialPersistenceContextEXT;
+
+    // EXT_spatial_persistence_operations
+    public final long
+        xrPersistSpatialEntityAsyncEXT,
+        xrPersistSpatialEntityCompleteEXT,
+        xrUnpersistSpatialEntityAsyncEXT,
+        xrUnpersistSpatialEntityCompleteEXT;
 
     // EXT_thermal_query
     public final long
@@ -142,6 +299,12 @@ public class XRCapabilities {
         xrCreateFaceTrackerFB,
         xrDestroyFaceTrackerFB,
         xrGetFaceExpressionWeightsFB;
+
+    // FB_face_tracking2
+    public final long
+        xrCreateFaceTracker2FB,
+        xrDestroyFaceTracker2FB,
+        xrGetFaceExpressionWeights2FB;
 
     // FB_foveation
     public final long
@@ -250,6 +413,18 @@ public class XRCapabilities {
         xrTriangleMeshBeginVertexBufferUpdateFB,
         xrTriangleMeshEndVertexBufferUpdateFB;
 
+    // HTC_anchor
+    public final long
+        xrCreateSpatialAnchorHTC,
+        xrGetSpatialAnchorNameHTC;
+
+    // HTC_body_tracking
+    public final long
+        xrCreateBodyTrackerHTC,
+        xrDestroyBodyTrackerHTC,
+        xrLocateBodyJointsHTC,
+        xrGetBodySkeletonHTC;
+
     // HTC_facial_tracking
     public final long
         xrCreateFacialTrackerHTC,
@@ -273,6 +448,14 @@ public class XRCapabilities {
     public final long
         xrConvertTimespecTimeToTimeKHR,
         xrConvertTimeToTimespecTimeKHR;
+
+    // KHR_extended_struct_name_lengths
+    public final long
+        xrStructureTypeToString2KHR;
+
+    // KHR_locate_spaces
+    public final long
+        xrLocateSpacesKHR;
 
     // KHR_opengl_enable
     public final long
@@ -301,6 +484,31 @@ public class XRCapabilities {
         xrConvertWin32PerformanceCounterToTimeKHR,
         xrConvertTimeToWin32PerformanceCounterKHR;
 
+    // META_body_tracking_calibration
+    public final long
+        xrSuggestBodyTrackingCalibrationOverrideMETA,
+        xrResetBodyTrackingCalibrationMETA;
+
+    // META_colocation_discovery
+    public final long
+        xrStartColocationDiscoveryMETA,
+        xrStopColocationDiscoveryMETA,
+        xrStartColocationAdvertisementMETA,
+        xrStopColocationAdvertisementMETA;
+
+    // META_environment_depth
+    public final long
+        xrCreateEnvironmentDepthProviderMETA,
+        xrDestroyEnvironmentDepthProviderMETA,
+        xrStartEnvironmentDepthProviderMETA,
+        xrStopEnvironmentDepthProviderMETA,
+        xrCreateEnvironmentDepthSwapchainMETA,
+        xrDestroyEnvironmentDepthSwapchainMETA,
+        xrEnumerateEnvironmentDepthSwapchainImagesMETA,
+        xrGetEnvironmentDepthSwapchainStateMETA,
+        xrAcquireEnvironmentDepthImageMETA,
+        xrSetEnvironmentDepthHandRemovalMETA;
+
     // META_foveation_eye_tracked
     public final long
         xrGetFoveationEyeTrackedStateMETA;
@@ -322,6 +530,33 @@ public class XRCapabilities {
         xrGetPerformanceMetricsStateMETA,
         xrQueryPerformanceMetricsCounterMETA;
 
+    // META_recommended_layer_resolution
+    public final long
+        xrGetRecommendedLayerResolutionMETA;
+
+    // META_simultaneous_hands_and_controllers
+    public final long
+        xrResumeSimultaneousHandsAndControllersTrackingMETA,
+        xrPauseSimultaneousHandsAndControllersTrackingMETA;
+
+    // META_spatial_entity_discovery
+    public final long
+        xrDiscoverSpacesMETA,
+        xrRetrieveSpaceDiscoveryResultsMETA;
+
+    // META_spatial_entity_mesh
+    public final long
+        xrGetSpaceTriangleMeshMETA;
+
+    // META_spatial_entity_persistence
+    public final long
+        xrSaveSpacesMETA,
+        xrEraseSpacesMETA;
+
+    // META_spatial_entity_sharing
+    public final long
+        xrShareSpacesMETA;
+
     // META_virtual_keyboard
     public final long
         xrCreateVirtualKeyboardMETA,
@@ -339,6 +574,74 @@ public class XRCapabilities {
     // ML_compat
     public final long
         xrCreateSpaceFromCoordinateFrameUIDML;
+
+    // ML_facial_expression
+    public final long
+        xrCreateFacialExpressionClientML,
+        xrDestroyFacialExpressionClientML,
+        xrGetFacialExpressionBlendShapePropertiesML;
+
+    // ML_localization_map
+    public final long
+        xrEnableLocalizationEventsML,
+        xrQueryLocalizationMapsML,
+        xrRequestMapLocalizationML,
+        xrImportLocalizationMapML,
+        xrCreateExportedLocalizationMapML,
+        xrDestroyExportedLocalizationMapML,
+        xrGetExportedLocalizationMapDataML;
+
+    // ML_marker_understanding
+    public final long
+        xrCreateMarkerDetectorML,
+        xrDestroyMarkerDetectorML,
+        xrSnapshotMarkerDetectorML,
+        xrGetMarkerDetectorStateML,
+        xrGetMarkersML,
+        xrGetMarkerReprojectionErrorML,
+        xrGetMarkerLengthML,
+        xrGetMarkerNumberML,
+        xrGetMarkerStringML,
+        xrCreateMarkerSpaceML;
+
+    // ML_spatial_anchors
+    public final long
+        xrCreateSpatialAnchorsAsyncML,
+        xrCreateSpatialAnchorsCompleteML,
+        xrGetSpatialAnchorStateML;
+
+    // ML_spatial_anchors_storage
+    public final long
+        xrCreateSpatialAnchorsStorageML,
+        xrDestroySpatialAnchorsStorageML,
+        xrQuerySpatialAnchorsAsyncML,
+        xrQuerySpatialAnchorsCompleteML,
+        xrPublishSpatialAnchorsAsyncML,
+        xrPublishSpatialAnchorsCompleteML,
+        xrDeleteSpatialAnchorsAsyncML,
+        xrDeleteSpatialAnchorsCompleteML,
+        xrUpdateSpatialAnchorsExpirationAsyncML,
+        xrUpdateSpatialAnchorsExpirationCompleteML;
+
+    // ML_system_notifications
+    public final long
+        xrSetSystemNotificationsML;
+
+    // ML_user_calibration
+    public final long
+        xrEnableUserCalibrationEventsML;
+
+    // ML_world_mesh_detection
+    public final long
+        xrCreateWorldMeshDetectorML,
+        xrDestroyWorldMeshDetectorML,
+        xrRequestWorldMeshStateAsyncML,
+        xrRequestWorldMeshStateCompleteML,
+        xrGetWorldMeshBufferRecommendSizeML,
+        xrAllocateWorldMeshBufferML,
+        xrFreeWorldMeshBufferML,
+        xrRequestWorldMeshAsyncML,
+        xrRequestWorldMeshCompleteML;
 
     // MNDX_force_feedback_curl
     public final long
@@ -364,6 +667,11 @@ public class XRCapabilities {
     public final long
         xrCreateSpatialAnchorFromPerceptionAnchorMSFT,
         xrTryGetPerceptionAnchorFromSpatialAnchorMSFT;
+
+    // MSFT_scene_marker
+    public final long
+        xrGetSceneMarkerRawDataMSFT,
+        xrGetSceneMarkerDecodedStringMSFT;
 
     // MSFT_scene_understanding
     public final long
@@ -438,290 +746,449 @@ public class XRCapabilities {
     /** The OpenXR API version number. */
     public final long apiVersion;
 
-    /** When true, {@link XR10} is supported. */
+    /** When true, {@code XR10} is supported. */
     public final boolean OpenXR10;
-    /** When true, {@link ALMALENCEDigitalLensControl} is supported. */
+    /** When true, {@code XR11} is supported. */
+    public final boolean OpenXR11;
+    /** When true, {@code ALMALENCE_digital_lens_control} is supported. */
     public final boolean XR_ALMALENCE_digital_lens_control;
-    /** When true, {@link BDControllerInteraction} is supported. */
+    /** When true, {@code ANDROID_anchor_sharing_export} is supported. */
+    public final boolean XR_ANDROID_anchor_sharing_export;
+    /** When true, {@code ANDROID_device_anchor_persistence} is supported. */
+    public final boolean XR_ANDROID_device_anchor_persistence;
+    /** When true, {@code ANDROID_passthrough_camera_state} is supported. */
+    public final boolean XR_ANDROID_passthrough_camera_state;
+    /** When true, {@code ANDROID_raycast} is supported. */
+    public final boolean XR_ANDROID_raycast;
+    /** When true, {@code ANDROID_trackables} is supported. */
+    public final boolean XR_ANDROID_trackables;
+    /** When true, {@code ANDROID_trackables_marker} is supported. */
+    public final boolean XR_ANDROID_trackables_marker;
+    /** When true, {@code ANDROID_trackables_object} is supported. */
+    public final boolean XR_ANDROID_trackables_object;
+    /** When true, {@code BD_body_tracking} is supported. */
+    public final boolean XR_BD_body_tracking;
+    /** When true, {@code BD_controller_interaction} is supported. */
     public final boolean XR_BD_controller_interaction;
-    /** When true, {@link EPICViewConfigurationFov} is supported. */
+    /** When true, {@code BD_future_progress} is supported. */
+    public final boolean XR_BD_future_progress;
+    /** When true, {@code BD_spatial_anchor} is supported. */
+    public final boolean XR_BD_spatial_anchor;
+    /** When true, {@code BD_spatial_anchor_sharing} is supported. */
+    public final boolean XR_BD_spatial_anchor_sharing;
+    /** When true, {@code BD_spatial_mesh} is supported. */
+    public final boolean XR_BD_spatial_mesh;
+    /** When true, {@code BD_spatial_plane} is supported. */
+    public final boolean XR_BD_spatial_plane;
+    /** When true, {@code BD_spatial_scene} is supported. */
+    public final boolean XR_BD_spatial_scene;
+    /** When true, {@code BD_spatial_sensing} is supported. */
+    public final boolean XR_BD_spatial_sensing;
+    /** When true, {@code EPIC_view_configuration_fov} is supported. */
     public final boolean XR_EPIC_view_configuration_fov;
-    /** When true, {@link EXTActiveActionSetPriority} is supported. */
+    /** When true, {@code EXT_active_action_set_priority} is supported. */
     public final boolean XR_EXT_active_action_set_priority;
-    /** When true, {@link EXTConformanceAutomation} is supported. */
+    /** When true, {@code EXT_composition_layer_inverted_alpha} is supported. */
+    public final boolean XR_EXT_composition_layer_inverted_alpha;
+    /** When true, {@code EXT_conformance_automation} is supported. */
     public final boolean XR_EXT_conformance_automation;
-    /** When true, {@link EXTDebugUtils} is supported. */
+    /** When true, {@code EXT_debug_utils} is supported. */
     public final boolean XR_EXT_debug_utils;
-    /** When true, {@link EXTDpadBinding} is supported. */
+    /** When true, {@code EXT_dpad_binding} is supported. */
     public final boolean XR_EXT_dpad_binding;
-    /** When true, {@link EXTEyeGazeInteraction} is supported. */
+    /** When true, {@code EXT_eye_gaze_interaction} is supported. */
     public final boolean XR_EXT_eye_gaze_interaction;
-    /** When true, {@link EXTHandInteraction} is supported. */
+    /** When true, {@code EXT_frame_synthesis} is supported. */
+    public final boolean XR_EXT_frame_synthesis;
+    /** When true, {@code EXT_future} is supported. */
+    public final boolean XR_EXT_future;
+    /** When true, {@code EXT_hand_interaction} is supported. */
     public final boolean XR_EXT_hand_interaction;
-    /** When true, {@link EXTHandJointsMotionRange} is supported. */
+    /** When true, {@code EXT_hand_joints_motion_range} is supported. */
     public final boolean XR_EXT_hand_joints_motion_range;
-    /** When true, {@link EXTHandTracking} is supported. */
+    /** When true, {@code EXT_hand_tracking} is supported. */
     public final boolean XR_EXT_hand_tracking;
-    /** When true, {@link EXTHandTrackingDataSource} is supported. */
+    /** When true, {@code EXT_hand_tracking_data_source} is supported. */
     public final boolean XR_EXT_hand_tracking_data_source;
-    /** When true, {@link EXTHPMixedRealityController} is supported. */
+    /** When true, {@code EXT_hp_mixed_reality_controller} is supported. */
     public final boolean XR_EXT_hp_mixed_reality_controller;
-    /** When true, {@link EXTLocalFloor} is supported. */
+    /** When true, {@code EXT_interaction_render_model} is supported. */
+    public final boolean XR_EXT_interaction_render_model;
+    /** When true, {@code EXT_loader_init_properties} is supported. */
+    public final boolean XR_EXT_loader_init_properties;
+    /** When true, {@code EXT_local_floor} is supported. */
     public final boolean XR_EXT_local_floor;
-    /** When true, {@link EXTPalmPose} is supported. */
+    /** When true, {@code EXT_palm_pose} is supported. */
     public final boolean XR_EXT_palm_pose;
-    /** When true, {@link EXTPerformanceSettings} is supported. */
+    /** When true, {@code EXT_performance_settings} is supported. */
     public final boolean XR_EXT_performance_settings;
-    /** When true, {@link EXTPlaneDetection} is supported. */
+    /** When true, {@code EXT_plane_detection} is supported. */
     public final boolean XR_EXT_plane_detection;
-    /** When true, {@link EXTSamsungOdysseyController} is supported. */
+    /** When true, {@code EXT_render_model} is supported. */
+    public final boolean XR_EXT_render_model;
+    /** When true, {@code EXT_samsung_odyssey_controller} is supported. */
     public final boolean XR_EXT_samsung_odyssey_controller;
-    /** When true, {@link EXTThermalQuery} is supported. */
+    /** When true, {@code EXT_spatial_anchor} is supported. */
+    public final boolean XR_EXT_spatial_anchor;
+    /** When true, {@code EXT_spatial_entity} is supported. */
+    public final boolean XR_EXT_spatial_entity;
+    /** When true, {@code EXT_spatial_marker_tracking} is supported. */
+    public final boolean XR_EXT_spatial_marker_tracking;
+    /** When true, {@code EXT_spatial_persistence} is supported. */
+    public final boolean XR_EXT_spatial_persistence;
+    /** When true, {@code EXT_spatial_persistence_operations} is supported. */
+    public final boolean XR_EXT_spatial_persistence_operations;
+    /** When true, {@code EXT_spatial_plane_tracking} is supported. */
+    public final boolean XR_EXT_spatial_plane_tracking;
+    /** When true, {@code EXT_thermal_query} is supported. */
     public final boolean XR_EXT_thermal_query;
-    /** When true, {@link EXTUUIUD} is supported. */
+    /** When true, {@code EXT_user_presence} is supported. */
+    public final boolean XR_EXT_user_presence;
+    /** When true, {@code EXT_uuid} is supported. */
     public final boolean XR_EXT_uuid;
-    /** When true, {@link EXTViewConfigurationDepthRange} is supported. */
+    /** When true, {@code EXT_view_configuration_depth_range} is supported. */
     public final boolean XR_EXT_view_configuration_depth_range;
-    /** When true, {@link EXTWin32AppcontainerCompatible} is supported. */
+    /** When true, {@code EXT_win32_appcontainer_compatible} is supported. */
     public final boolean XR_EXT_win32_appcontainer_compatible;
-    /** When true, {@link EXTXOverlay} is supported. */
+    /** When true, {@code EXTX_overlay} is supported. */
     public final boolean XR_EXTX_overlay;
-    /** When true, {@link FBBodyTracking} is supported. */
+    /** When true, {@code FB_body_tracking} is supported. */
     public final boolean XR_FB_body_tracking;
-    /** When true, {@link FBColorSpace} is supported. */
+    /** When true, {@code FB_color_space} is supported. */
     public final boolean XR_FB_color_space;
-    /** When true, {@link FBCompositionLayerAlphaBlend} is supported. */
+    /** When true, {@code FB_composition_layer_alpha_blend} is supported. */
     public final boolean XR_FB_composition_layer_alpha_blend;
-    /** When true, {@link FBCompositionLayerDepthTest} is supported. */
+    /** When true, {@code FB_composition_layer_depth_test} is supported. */
     public final boolean XR_FB_composition_layer_depth_test;
-    /** When true, {@link FBCompositionLayerImageLayout} is supported. */
+    /** When true, {@code FB_composition_layer_image_layout} is supported. */
     public final boolean XR_FB_composition_layer_image_layout;
-    /** When true, {@link FBCompositionLayerSecureContent} is supported. */
+    /** When true, {@code FB_composition_layer_secure_content} is supported. */
     public final boolean XR_FB_composition_layer_secure_content;
-    /** When true, {@link FBCompositionLayerSettings} is supported. */
+    /** When true, {@code FB_composition_layer_settings} is supported. */
     public final boolean XR_FB_composition_layer_settings;
-    /** When true, {@link FBDisplayRefreshRate} is supported. */
+    /** When true, {@code FB_display_refresh_rate} is supported. */
     public final boolean XR_FB_display_refresh_rate;
-    /** When true, {@link FBEyeTrackingSocial} is supported. */
+    /** When true, {@code FB_eye_tracking_social} is supported. */
     public final boolean XR_FB_eye_tracking_social;
-    /** When true, {@link FBFaceTracking} is supported. */
+    /** When true, {@code FB_face_tracking} is supported. */
     public final boolean XR_FB_face_tracking;
-    /** When true, {@link FBFoveation} is supported. */
+    /** When true, {@code FB_face_tracking2} is supported. */
+    public final boolean XR_FB_face_tracking2;
+    /** When true, {@code FB_foveation} is supported. */
     public final boolean XR_FB_foveation;
-    /** When true, {@link FBFoveationConfiguration} is supported. */
+    /** When true, {@code FB_foveation_configuration} is supported. */
     public final boolean XR_FB_foveation_configuration;
-    /** When true, {@link FBFoveationVulkan} is supported. */
+    /** When true, {@code FB_foveation_vulkan} is supported. */
     public final boolean XR_FB_foveation_vulkan;
-    /** When true, {@link FBHandTrackingAim} is supported. */
+    /** When true, {@code FB_hand_tracking_aim} is supported. */
     public final boolean XR_FB_hand_tracking_aim;
-    /** When true, {@link FBHandTrackingCapsules} is supported. */
+    /** When true, {@code FB_hand_tracking_capsules} is supported. */
     public final boolean XR_FB_hand_tracking_capsules;
-    /** When true, {@link FBHandTrackingMesh} is supported. */
+    /** When true, {@code FB_hand_tracking_mesh} is supported. */
     public final boolean XR_FB_hand_tracking_mesh;
-    /** When true, {@link FBHapticAmplitudeEnvelope} is supported. */
+    /** When true, {@code FB_haptic_amplitude_envelope} is supported. */
     public final boolean XR_FB_haptic_amplitude_envelope;
-    /** When true, {@link FBHapticPcm} is supported. */
+    /** When true, {@code FB_haptic_pcm} is supported. */
     public final boolean XR_FB_haptic_pcm;
-    /** When true, {@link FBKeyboardTracking} is supported. */
+    /** When true, {@code FB_keyboard_tracking} is supported. */
     public final boolean XR_FB_keyboard_tracking;
-    /** When true, {@link FBPassthrough} is supported. */
+    /** When true, {@code FB_passthrough} is supported. */
     public final boolean XR_FB_passthrough;
-    /** When true, {@link FBPassthroughKeyboardHands} is supported. */
+    /** When true, {@code FB_passthrough_keyboard_hands} is supported. */
     public final boolean XR_FB_passthrough_keyboard_hands;
-    /** When true, {@link FBRenderModel} is supported. */
+    /** When true, {@code FB_render_model} is supported. */
     public final boolean XR_FB_render_model;
-    /** When true, {@link FBScene} is supported. */
+    /** When true, {@code FB_scene} is supported. */
     public final boolean XR_FB_scene;
-    /** When true, {@link FBSceneCapture} is supported. */
+    /** When true, {@code FB_scene_capture} is supported. */
     public final boolean XR_FB_scene_capture;
-    /** When true, {@link FBSpaceWarp} is supported. */
+    /** When true, {@code FB_space_warp} is supported. */
     public final boolean XR_FB_space_warp;
-    /** When true, {@link FBSpatialEntity} is supported. */
+    /** When true, {@code FB_spatial_entity} is supported. */
     public final boolean XR_FB_spatial_entity;
-    /** When true, {@link FBSpatialEntityContainer} is supported. */
+    /** When true, {@code FB_spatial_entity_container} is supported. */
     public final boolean XR_FB_spatial_entity_container;
-    /** When true, {@link FBSpatialEntityQuery} is supported. */
+    /** When true, {@code FB_spatial_entity_query} is supported. */
     public final boolean XR_FB_spatial_entity_query;
-    /** When true, {@link FBSpatialEntitySharing} is supported. */
+    /** When true, {@code FB_spatial_entity_sharing} is supported. */
     public final boolean XR_FB_spatial_entity_sharing;
-    /** When true, {@link FBSpatialEntityStorage} is supported. */
+    /** When true, {@code FB_spatial_entity_storage} is supported. */
     public final boolean XR_FB_spatial_entity_storage;
-    /** When true, {@link FBSpatialEntityStorageBatch} is supported. */
+    /** When true, {@code FB_spatial_entity_storage_batch} is supported. */
     public final boolean XR_FB_spatial_entity_storage_batch;
-    /** When true, {@link FBSpatialEntityUser} is supported. */
+    /** When true, {@code FB_spatial_entity_user} is supported. */
     public final boolean XR_FB_spatial_entity_user;
-    /** When true, {@link FBSwapchainUpdateState} is supported. */
+    /** When true, {@code FB_swapchain_update_state} is supported. */
     public final boolean XR_FB_swapchain_update_state;
-    /** When true, {@link FBSwapchainUpdateStateOpenGLES} is supported. */
+    /** When true, {@code FB_swapchain_update_state_opengl_es} is supported. */
     public final boolean XR_FB_swapchain_update_state_opengl_es;
-    /** When true, {@link FBSwapchainUpdateStateVulkan} is supported. */
+    /** When true, {@code FB_swapchain_update_state_vulkan} is supported. */
     public final boolean XR_FB_swapchain_update_state_vulkan;
-    /** When true, {@link FBTouchControllerPro} is supported. */
+    /** When true, {@code FB_touch_controller_pro} is supported. */
     public final boolean XR_FB_touch_controller_pro;
-    /** When true, {@link FBTouchControllerProximity} is supported. */
+    /** When true, {@code FB_touch_controller_proximity} is supported. */
     public final boolean XR_FB_touch_controller_proximity;
-    /** When true, {@link FBTriangleMesh} is supported. */
+    /** When true, {@code FB_triangle_mesh} is supported. */
     public final boolean XR_FB_triangle_mesh;
-    /** When true, {@link HTCFacialTracking} is supported. */
+    /** When true, {@code HTC_anchor} is supported. */
+    public final boolean XR_HTC_anchor;
+    /** When true, {@code HTC_body_tracking} is supported. */
+    public final boolean XR_HTC_body_tracking;
+    /** When true, {@code HTC_facial_tracking} is supported. */
     public final boolean XR_HTC_facial_tracking;
-    /** When true, {@link HTCFoveation} is supported. */
+    /** When true, {@code HTC_foveation} is supported. */
     public final boolean XR_HTC_foveation;
-    /** When true, {@link HTCHandInteraction} is supported. */
+    /** When true, {@code HTC_hand_interaction} is supported. */
     public final boolean XR_HTC_hand_interaction;
-    /** When true, {@link HTCPassthrough} is supported. */
+    /** When true, {@code HTC_passthrough} is supported. */
     public final boolean XR_HTC_passthrough;
-    /** When true, {@link HTCViveCosmosControllerInteraction} is supported. */
+    /** When true, {@code HTC_vive_cosmos_controller_interaction} is supported. */
     public final boolean XR_HTC_vive_cosmos_controller_interaction;
-    /** When true, {@link HTCViveFocus3ControllerInteraction} is supported. */
+    /** When true, {@code HTC_vive_focus3_controller_interaction} is supported. */
     public final boolean XR_HTC_vive_focus3_controller_interaction;
-    /** When true, {@link HTCViveWristTrackerInteraction} is supported. */
+    /** When true, {@code HTC_vive_wrist_tracker_interaction} is supported. */
     public final boolean XR_HTC_vive_wrist_tracker_interaction;
-    /** When true, {@link HTCXViveTrackerInteraction} is supported. */
+    /** When true, {@code HTCX_vive_tracker_interaction} is supported. */
     public final boolean XR_HTCX_vive_tracker_interaction;
-    /** When true, {@link HUAWEIControllerInteraction} is supported. */
+    /** When true, {@code HUAWEI_controller_interaction} is supported. */
     public final boolean XR_HUAWEI_controller_interaction;
-    /** When true, {@link KHRBindingModification} is supported. */
+    /** When true, {@code KHR_binding_modification} is supported. */
     public final boolean XR_KHR_binding_modification;
-    /** When true, {@link KHRCompositionLayerColorScaleBias} is supported. */
+    /** When true, {@code KHR_composition_layer_color_scale_bias} is supported. */
     public final boolean XR_KHR_composition_layer_color_scale_bias;
-    /** When true, {@link KHRCompositionLayerCube} is supported. */
+    /** When true, {@code KHR_composition_layer_cube} is supported. */
     public final boolean XR_KHR_composition_layer_cube;
-    /** When true, {@link KHRCompositionLayerCylinder} is supported. */
+    /** When true, {@code KHR_composition_layer_cylinder} is supported. */
     public final boolean XR_KHR_composition_layer_cylinder;
-    /** When true, {@link KHRCompositionLayerDepth} is supported. */
+    /** When true, {@code KHR_composition_layer_depth} is supported. */
     public final boolean XR_KHR_composition_layer_depth;
-    /** When true, {@link KHRCompositionLayerEquirect} is supported. */
+    /** When true, {@code KHR_composition_layer_equirect} is supported. */
     public final boolean XR_KHR_composition_layer_equirect;
-    /** When true, {@link KHRCompositionLayerEquirect2} is supported. */
+    /** When true, {@code KHR_composition_layer_equirect2} is supported. */
     public final boolean XR_KHR_composition_layer_equirect2;
-    /** When true, {@link KHRConvertTimespecTime} is supported. */
+    /** When true, {@code KHR_convert_timespec_time} is supported. */
     public final boolean XR_KHR_convert_timespec_time;
-    /** When true, {@link KHRLoaderInit} is supported. */
+    /** When true, {@code KHR_extended_struct_name_lengths} is supported. */
+    public final boolean XR_KHR_extended_struct_name_lengths;
+    /** When true, {@code KHR_generic_controller} is supported. */
+    public final boolean XR_KHR_generic_controller;
+    /** When true, {@code KHR_loader_init} is supported. */
     public final boolean XR_KHR_loader_init;
-    /** When true, {@link KHROpenGLEnable} is supported. */
+    /** When true, {@code KHR_locate_spaces} is supported. */
+    public final boolean XR_KHR_locate_spaces;
+    /** When true, {@code KHR_maintenance1} is supported. */
+    public final boolean XR_KHR_maintenance1;
+    /** When true, {@code KHR_opengl_enable} is supported. */
     public final boolean XR_KHR_opengl_enable;
-    /** When true, {@link KHRSwapchainUsageInputAttachmentBit} is supported. */
+    /** When true, {@code KHR_swapchain_usage_input_attachment_bit} is supported. */
     public final boolean XR_KHR_swapchain_usage_input_attachment_bit;
-    /** When true, {@link KHRVisibilityMask} is supported. */
+    /** When true, {@code KHR_visibility_mask} is supported. */
     public final boolean XR_KHR_visibility_mask;
-    /** When true, {@link KHRVulkanEnable} is supported. */
+    /** When true, {@code KHR_vulkan_enable} is supported. */
     public final boolean XR_KHR_vulkan_enable;
-    /** When true, {@link KHRVulkanEnable2} is supported. */
+    /** When true, {@code KHR_vulkan_enable2} is supported. */
     public final boolean XR_KHR_vulkan_enable2;
-    /** When true, {@link KHRVulkanSwapchainFormatList} is supported. */
+    /** When true, {@code KHR_vulkan_swapchain_format_list} is supported. */
     public final boolean XR_KHR_vulkan_swapchain_format_list;
-    /** When true, {@link KHRWin32ConvertPerformanceCounterTime} is supported. */
+    /** When true, {@code KHR_win32_convert_performance_counter_time} is supported. */
     public final boolean XR_KHR_win32_convert_performance_counter_time;
-    /** When true, {@link METAFoveationEyeTracked} is supported. */
+    /** When true, {@code LOGITECH_mx_ink_stylus_interaction} is supported. */
+    public final boolean XR_LOGITECH_mx_ink_stylus_interaction;
+    /** When true, {@code META_automatic_layer_filter} is supported. */
+    public final boolean XR_META_automatic_layer_filter;
+    /** When true, {@code META_body_tracking_calibration} is supported. */
+    public final boolean XR_META_body_tracking_calibration;
+    /** When true, {@code META_body_tracking_full_body} is supported. */
+    public final boolean XR_META_body_tracking_full_body;
+    /** When true, {@code META_colocation_discovery} is supported. */
+    public final boolean XR_META_colocation_discovery;
+    /** When true, {@code META_detached_controllers} is supported. */
+    public final boolean XR_META_detached_controllers;
+    /** When true, {@code META_environment_depth} is supported. */
+    public final boolean XR_META_environment_depth;
+    /** When true, {@code META_foveation_eye_tracked} is supported. */
     public final boolean XR_META_foveation_eye_tracked;
-    /** When true, {@link METAHeadsetId} is supported. */
+    /** When true, {@code META_hand_tracking_microgestures} is supported. */
+    public final boolean XR_META_hand_tracking_microgestures;
+    /** When true, {@code META_headset_id} is supported. */
     public final boolean XR_META_headset_id;
-    /** When true, {@link METALocalDimming} is supported. */
+    /** When true, {@code META_local_dimming} is supported. */
     public final boolean XR_META_local_dimming;
-    /** When true, {@link METAPassthroughColorLut} is supported. */
+    /** When true, {@code META_passthrough_color_lut} is supported. */
     public final boolean XR_META_passthrough_color_lut;
-    /** When true, {@link METAPassthroughPreferences} is supported. */
+    /** When true, {@code META_passthrough_layer_resumed_event} is supported. */
+    public final boolean XR_META_passthrough_layer_resumed_event;
+    /** When true, {@code META_passthrough_preferences} is supported. */
     public final boolean XR_META_passthrough_preferences;
-    /** When true, {@link METAPerformanceMetrics} is supported. */
+    /** When true, {@code META_performance_metrics} is supported. */
     public final boolean XR_META_performance_metrics;
-    /** When true, {@link METAVirtualKeyboard} is supported. */
+    /** When true, {@code META_recommended_layer_resolution} is supported. */
+    public final boolean XR_META_recommended_layer_resolution;
+    /** When true, {@code META_simultaneous_hands_and_controllers} is supported. */
+    public final boolean XR_META_simultaneous_hands_and_controllers;
+    /** When true, {@code META_spatial_entity_discovery} is supported. */
+    public final boolean XR_META_spatial_entity_discovery;
+    /** When true, {@code META_spatial_entity_group_sharing} is supported. */
+    public final boolean XR_META_spatial_entity_group_sharing;
+    /** When true, {@code META_spatial_entity_mesh} is supported. */
+    public final boolean XR_META_spatial_entity_mesh;
+    /** When true, {@code META_spatial_entity_persistence} is supported. */
+    public final boolean XR_META_spatial_entity_persistence;
+    /** When true, {@code META_spatial_entity_sharing} is supported. */
+    public final boolean XR_META_spatial_entity_sharing;
+    /** When true, {@code META_touch_controller_plus} is supported. */
+    public final boolean XR_META_touch_controller_plus;
+    /** When true, {@code META_virtual_keyboard} is supported. */
     public final boolean XR_META_virtual_keyboard;
-    /** When true, {@link METAVulkanSwapchainCreateInfo} is supported. */
+    /** When true, {@code META_vulkan_swapchain_create_info} is supported. */
     public final boolean XR_META_vulkan_swapchain_create_info;
-    /** When true, {@link MLCompat} is supported. */
+    /** When true, {@code ML_compat} is supported. */
     public final boolean XR_ML_compat;
-    /** When true, {@link MLFrameEndInfo} is supported. */
+    /** When true, {@code ML_facial_expression} is supported. */
+    public final boolean XR_ML_facial_expression;
+    /** When true, {@code ML_frame_end_info} is supported. */
     public final boolean XR_ML_frame_end_info;
-    /** When true, {@link MLGlobalDimmer} is supported. */
+    /** When true, {@code ML_global_dimmer} is supported. */
     public final boolean XR_ML_global_dimmer;
-    /** When true, {@link MLMl2ControllerInteraction} is supported. */
+    /** When true, {@code ML_localization_map} is supported. */
+    public final boolean XR_ML_localization_map;
+    /** When true, {@code ML_marker_understanding} is supported. */
+    public final boolean XR_ML_marker_understanding;
+    /** When true, {@code ML_ml2_controller_interaction} is supported. */
     public final boolean XR_ML_ml2_controller_interaction;
-    /** When true, {@link MNDHeadless} is supported. */
+    /** When true, {@code ML_spatial_anchors} is supported. */
+    public final boolean XR_ML_spatial_anchors;
+    /** When true, {@code ML_spatial_anchors_storage} is supported. */
+    public final boolean XR_ML_spatial_anchors_storage;
+    /** When true, {@code ML_system_notifications} is supported. */
+    public final boolean XR_ML_system_notifications;
+    /** When true, {@code ML_user_calibration} is supported. */
+    public final boolean XR_ML_user_calibration;
+    /** When true, {@code ML_view_configuration_depth_range_change} is supported. */
+    public final boolean XR_ML_view_configuration_depth_range_change;
+    /** When true, {@code ML_world_mesh_detection} is supported. */
+    public final boolean XR_ML_world_mesh_detection;
+    /** When true, {@code MND_headless} is supported. */
     public final boolean XR_MND_headless;
-    /** When true, {@link MNDSwapchainUsageInputAttachmentBit} is supported. */
+    /** When true, {@code MND_swapchain_usage_input_attachment_bit} is supported. */
     public final boolean XR_MND_swapchain_usage_input_attachment_bit;
-    /** When true, {@link MNDXEGLEnable} is supported. */
+    /** When true, {@code MNDX_egl_enable} is supported. */
     public final boolean XR_MNDX_egl_enable;
-    /** When true, {@link MNDXForceFeedbackCurl} is supported. */
+    /** When true, {@code MNDX_force_feedback_curl} is supported. */
     public final boolean XR_MNDX_force_feedback_curl;
-    /** When true, {@link MSFTCompositionLayerReprojection} is supported. */
+    /** When true, {@code MSFT_composition_layer_reprojection} is supported. */
     public final boolean XR_MSFT_composition_layer_reprojection;
-    /** When true, {@link MSFTControllerModel} is supported. */
+    /** When true, {@code MSFT_controller_model} is supported. */
     public final boolean XR_MSFT_controller_model;
-    /** When true, {@link MSFTFirstPersonObserver} is supported. */
+    /** When true, {@code MSFT_first_person_observer} is supported. */
     public final boolean XR_MSFT_first_person_observer;
-    /** When true, {@link MSFTHandInteraction} is supported. */
+    /** When true, {@code MSFT_hand_interaction} is supported. */
     public final boolean XR_MSFT_hand_interaction;
-    /** When true, {@link MSFTHandTrackingMesh} is supported. */
+    /** When true, {@code MSFT_hand_tracking_mesh} is supported. */
     public final boolean XR_MSFT_hand_tracking_mesh;
-    /** When true, {@link MSFTHolographicWindowAttachment} is supported. */
+    /** When true, {@code MSFT_holographic_window_attachment} is supported. */
     public final boolean XR_MSFT_holographic_window_attachment;
-    /** When true, {@link MSFTPerceptionAnchorInterop} is supported. */
+    /** When true, {@code MSFT_perception_anchor_interop} is supported. */
     public final boolean XR_MSFT_perception_anchor_interop;
-    /** When true, {@link MSFTSceneUnderstanding} is supported. */
+    /** When true, {@code MSFT_scene_marker} is supported. */
+    public final boolean XR_MSFT_scene_marker;
+    /** When true, {@code MSFT_scene_understanding} is supported. */
     public final boolean XR_MSFT_scene_understanding;
-    /** When true, {@link MSFTSceneUnderstandingSerialization} is supported. */
+    /** When true, {@code MSFT_scene_understanding_serialization} is supported. */
     public final boolean XR_MSFT_scene_understanding_serialization;
-    /** When true, {@link MSFTSecondaryViewConfiguration} is supported. */
+    /** When true, {@code MSFT_secondary_view_configuration} is supported. */
     public final boolean XR_MSFT_secondary_view_configuration;
-    /** When true, {@link MSFTSpatialAnchor} is supported. */
+    /** When true, {@code MSFT_spatial_anchor} is supported. */
     public final boolean XR_MSFT_spatial_anchor;
-    /** When true, {@link MSFTSpatialAnchorPersistence} is supported. */
+    /** When true, {@code MSFT_spatial_anchor_persistence} is supported. */
     public final boolean XR_MSFT_spatial_anchor_persistence;
-    /** When true, {@link MSFTSpatialGraphBridge} is supported. */
+    /** When true, {@code MSFT_spatial_graph_bridge} is supported. */
     public final boolean XR_MSFT_spatial_graph_bridge;
-    /** When true, {@link MSFTUnboundedReferenceSpace} is supported. */
+    /** When true, {@code MSFT_unbounded_reference_space} is supported. */
     public final boolean XR_MSFT_unbounded_reference_space;
-    /** When true, {@link OCULUSAudioDeviceGuid} is supported. */
+    /** When true, {@code OCULUS_audio_device_guid} is supported. */
     public final boolean XR_OCULUS_audio_device_guid;
-    /** When true, {@link OCULUSExternalCamera} is supported. */
+    /** When true, {@code OCULUS_external_camera} is supported. */
     public final boolean XR_OCULUS_external_camera;
-    /** When true, {@link OPPOControllerInteraction} is supported. */
+    /** When true, {@code OPPO_controller_interaction} is supported. */
     public final boolean XR_OPPO_controller_interaction;
-    /** When true, {@link QCOMTrackingOptimizationSettings} is supported. */
+    /** When true, {@code QCOM_tracking_optimization_settings} is supported. */
     public final boolean XR_QCOM_tracking_optimization_settings;
-    /** When true, {@link ULTRALEAPHandTrackingForearm} is supported. */
+    /** When true, {@code ULTRALEAP_hand_tracking_forearm} is supported. */
     public final boolean XR_ULTRALEAP_hand_tracking_forearm;
-    /** When true, {@link VALVEAnalogThreshold} is supported. */
+    /** When true, {@code VALVE_analog_threshold} is supported. */
     public final boolean XR_VALVE_analog_threshold;
-    /** When true, {@link VARJOCompositionLayerDepthTest} is supported. */
+    /** When true, {@code VARJO_composition_layer_depth_test} is supported. */
     public final boolean XR_VARJO_composition_layer_depth_test;
-    /** When true, {@link VARJOEnvironmentDepthEstimation} is supported. */
+    /** When true, {@code VARJO_environment_depth_estimation} is supported. */
     public final boolean XR_VARJO_environment_depth_estimation;
-    /** When true, {@link VARJOFoveatedRendering} is supported. */
+    /** When true, {@code VARJO_foveated_rendering} is supported. */
     public final boolean XR_VARJO_foveated_rendering;
-    /** When true, {@link VARJOMarkerTracking} is supported. */
+    /** When true, {@code VARJO_marker_tracking} is supported. */
     public final boolean XR_VARJO_marker_tracking;
-    /** When true, {@link VARJOQuadViews} is supported. */
+    /** When true, {@code VARJO_quad_views} is supported. */
     public final boolean XR_VARJO_quad_views;
-    /** When true, {@link VARJOViewOffset} is supported. */
+    /** When true, {@code VARJO_view_offset} is supported. */
     public final boolean XR_VARJO_view_offset;
+    /** When true, {@code VARJO_xr4_controller_interaction} is supported. */
+    public final boolean XR_VARJO_xr4_controller_interaction;
+    /** When true, {@code YVR_controller_interaction} is supported. */
+    public final boolean XR_YVR_controller_interaction;
 
     XRCapabilities(FunctionProvider provider, long apiVersion, Set<String> ext) {
         this.apiVersion = apiVersion;
 
-        long[] caps = new long[232];
+        long[] caps = new long[412];
 
         OpenXR10 = check_XR10(provider, caps, ext);
+        OpenXR11 = check_XR11(provider, caps, ext);
         XR_ALMALENCE_digital_lens_control = check_ALMALENCE_digital_lens_control(provider, caps, ext);
+        XR_ANDROID_anchor_sharing_export = check_ANDROID_anchor_sharing_export(provider, caps, ext);
+        XR_ANDROID_device_anchor_persistence = check_ANDROID_device_anchor_persistence(provider, caps, ext);
+        XR_ANDROID_passthrough_camera_state = check_ANDROID_passthrough_camera_state(provider, caps, ext);
+        XR_ANDROID_raycast = check_ANDROID_raycast(provider, caps, ext);
+        XR_ANDROID_trackables = check_ANDROID_trackables(provider, caps, ext);
+        XR_ANDROID_trackables_marker = check_ANDROID_trackables_marker(provider, caps, ext);
+        XR_ANDROID_trackables_object = check_ANDROID_trackables_object(provider, caps, ext);
+        XR_BD_body_tracking = check_BD_body_tracking(provider, caps, ext);
         XR_BD_controller_interaction = ext.contains("XR_BD_controller_interaction");
+        XR_BD_future_progress = ext.contains("XR_BD_future_progress");
+        XR_BD_spatial_anchor = check_BD_spatial_anchor(provider, caps, ext);
+        XR_BD_spatial_anchor_sharing = check_BD_spatial_anchor_sharing(provider, caps, ext);
+        XR_BD_spatial_mesh = ext.contains("XR_BD_spatial_mesh");
+        XR_BD_spatial_plane = ext.contains("XR_BD_spatial_plane");
+        XR_BD_spatial_scene = check_BD_spatial_scene(provider, caps, ext);
+        XR_BD_spatial_sensing = check_BD_spatial_sensing(provider, caps, ext);
         XR_EPIC_view_configuration_fov = ext.contains("XR_EPIC_view_configuration_fov");
         XR_EXT_active_action_set_priority = ext.contains("XR_EXT_active_action_set_priority");
+        XR_EXT_composition_layer_inverted_alpha = ext.contains("XR_EXT_composition_layer_inverted_alpha");
         XR_EXT_conformance_automation = check_EXT_conformance_automation(provider, caps, ext);
         XR_EXT_debug_utils = check_EXT_debug_utils(provider, caps, ext);
         XR_EXT_dpad_binding = ext.contains("XR_EXT_dpad_binding");
         XR_EXT_eye_gaze_interaction = ext.contains("XR_EXT_eye_gaze_interaction");
+        XR_EXT_frame_synthesis = ext.contains("XR_EXT_frame_synthesis");
+        XR_EXT_future = check_EXT_future(provider, caps, ext);
         XR_EXT_hand_interaction = ext.contains("XR_EXT_hand_interaction");
         XR_EXT_hand_joints_motion_range = ext.contains("XR_EXT_hand_joints_motion_range");
         XR_EXT_hand_tracking = check_EXT_hand_tracking(provider, caps, ext);
         XR_EXT_hand_tracking_data_source = ext.contains("XR_EXT_hand_tracking_data_source");
         XR_EXT_hp_mixed_reality_controller = ext.contains("XR_EXT_hp_mixed_reality_controller");
+        XR_EXT_interaction_render_model = check_EXT_interaction_render_model(provider, caps, ext);
+        XR_EXT_loader_init_properties = ext.contains("XR_EXT_loader_init_properties");
         XR_EXT_local_floor = ext.contains("XR_EXT_local_floor");
         XR_EXT_palm_pose = ext.contains("XR_EXT_palm_pose");
         XR_EXT_performance_settings = check_EXT_performance_settings(provider, caps, ext);
         XR_EXT_plane_detection = check_EXT_plane_detection(provider, caps, ext);
+        XR_EXT_render_model = check_EXT_render_model(provider, caps, ext);
         XR_EXT_samsung_odyssey_controller = ext.contains("XR_EXT_samsung_odyssey_controller");
+        XR_EXT_spatial_anchor = check_EXT_spatial_anchor(provider, caps, ext);
+        XR_EXT_spatial_entity = check_EXT_spatial_entity(provider, caps, ext);
+        XR_EXT_spatial_marker_tracking = ext.contains("XR_EXT_spatial_marker_tracking");
+        XR_EXT_spatial_persistence = check_EXT_spatial_persistence(provider, caps, ext);
+        XR_EXT_spatial_persistence_operations = check_EXT_spatial_persistence_operations(provider, caps, ext);
+        XR_EXT_spatial_plane_tracking = ext.contains("XR_EXT_spatial_plane_tracking");
         XR_EXT_thermal_query = check_EXT_thermal_query(provider, caps, ext);
+        XR_EXT_user_presence = ext.contains("XR_EXT_user_presence");
         XR_EXT_uuid = ext.contains("XR_EXT_uuid");
         XR_EXT_view_configuration_depth_range = ext.contains("XR_EXT_view_configuration_depth_range");
         XR_EXT_win32_appcontainer_compatible = ext.contains("XR_EXT_win32_appcontainer_compatible");
@@ -736,6 +1203,7 @@ public class XRCapabilities {
         XR_FB_display_refresh_rate = check_FB_display_refresh_rate(provider, caps, ext);
         XR_FB_eye_tracking_social = check_FB_eye_tracking_social(provider, caps, ext);
         XR_FB_face_tracking = check_FB_face_tracking(provider, caps, ext);
+        XR_FB_face_tracking2 = check_FB_face_tracking2(provider, caps, ext);
         XR_FB_foveation = check_FB_foveation(provider, caps, ext);
         XR_FB_foveation_configuration = ext.contains("XR_FB_foveation_configuration");
         XR_FB_foveation_vulkan = ext.contains("XR_FB_foveation_vulkan");
@@ -764,6 +1232,8 @@ public class XRCapabilities {
         XR_FB_touch_controller_pro = ext.contains("XR_FB_touch_controller_pro");
         XR_FB_touch_controller_proximity = ext.contains("XR_FB_touch_controller_proximity");
         XR_FB_triangle_mesh = check_FB_triangle_mesh(provider, caps, ext);
+        XR_HTC_anchor = check_HTC_anchor(provider, caps, ext);
+        XR_HTC_body_tracking = check_HTC_body_tracking(provider, caps, ext);
         XR_HTC_facial_tracking = check_HTC_facial_tracking(provider, caps, ext);
         XR_HTC_foveation = check_HTC_foveation(provider, caps, ext);
         XR_HTC_hand_interaction = ext.contains("XR_HTC_hand_interaction");
@@ -781,7 +1251,11 @@ public class XRCapabilities {
         XR_KHR_composition_layer_equirect = ext.contains("XR_KHR_composition_layer_equirect");
         XR_KHR_composition_layer_equirect2 = ext.contains("XR_KHR_composition_layer_equirect2");
         XR_KHR_convert_timespec_time = check_KHR_convert_timespec_time(provider, caps, ext);
+        XR_KHR_extended_struct_name_lengths = check_KHR_extended_struct_name_lengths(provider, caps, ext);
+        XR_KHR_generic_controller = ext.contains("XR_KHR_generic_controller");
         XR_KHR_loader_init = ext.contains("XR_KHR_loader_init");
+        XR_KHR_locate_spaces = check_KHR_locate_spaces(provider, caps, ext);
+        XR_KHR_maintenance1 = ext.contains("XR_KHR_maintenance1");
         XR_KHR_opengl_enable = check_KHR_opengl_enable(provider, caps, ext);
         XR_KHR_swapchain_usage_input_attachment_bit = ext.contains("XR_KHR_swapchain_usage_input_attachment_bit");
         XR_KHR_visibility_mask = check_KHR_visibility_mask(provider, caps, ext);
@@ -789,18 +1263,44 @@ public class XRCapabilities {
         XR_KHR_vulkan_enable2 = check_KHR_vulkan_enable2(provider, caps, ext);
         XR_KHR_vulkan_swapchain_format_list = ext.contains("XR_KHR_vulkan_swapchain_format_list");
         XR_KHR_win32_convert_performance_counter_time = check_KHR_win32_convert_performance_counter_time(provider, caps, ext);
+        XR_LOGITECH_mx_ink_stylus_interaction = ext.contains("XR_LOGITECH_mx_ink_stylus_interaction");
+        XR_META_automatic_layer_filter = ext.contains("XR_META_automatic_layer_filter");
+        XR_META_body_tracking_calibration = check_META_body_tracking_calibration(provider, caps, ext);
+        XR_META_body_tracking_full_body = ext.contains("XR_META_body_tracking_full_body");
+        XR_META_colocation_discovery = check_META_colocation_discovery(provider, caps, ext);
+        XR_META_detached_controllers = ext.contains("XR_META_detached_controllers");
+        XR_META_environment_depth = check_META_environment_depth(provider, caps, ext);
         XR_META_foveation_eye_tracked = check_META_foveation_eye_tracked(provider, caps, ext);
+        XR_META_hand_tracking_microgestures = ext.contains("XR_META_hand_tracking_microgestures");
         XR_META_headset_id = ext.contains("XR_META_headset_id");
         XR_META_local_dimming = ext.contains("XR_META_local_dimming");
         XR_META_passthrough_color_lut = check_META_passthrough_color_lut(provider, caps, ext);
+        XR_META_passthrough_layer_resumed_event = ext.contains("XR_META_passthrough_layer_resumed_event");
         XR_META_passthrough_preferences = check_META_passthrough_preferences(provider, caps, ext);
         XR_META_performance_metrics = check_META_performance_metrics(provider, caps, ext);
+        XR_META_recommended_layer_resolution = check_META_recommended_layer_resolution(provider, caps, ext);
+        XR_META_simultaneous_hands_and_controllers = check_META_simultaneous_hands_and_controllers(provider, caps, ext);
+        XR_META_spatial_entity_discovery = check_META_spatial_entity_discovery(provider, caps, ext);
+        XR_META_spatial_entity_group_sharing = ext.contains("XR_META_spatial_entity_group_sharing");
+        XR_META_spatial_entity_mesh = check_META_spatial_entity_mesh(provider, caps, ext);
+        XR_META_spatial_entity_persistence = check_META_spatial_entity_persistence(provider, caps, ext);
+        XR_META_spatial_entity_sharing = check_META_spatial_entity_sharing(provider, caps, ext);
+        XR_META_touch_controller_plus = ext.contains("XR_META_touch_controller_plus");
         XR_META_virtual_keyboard = check_META_virtual_keyboard(provider, caps, ext);
         XR_META_vulkan_swapchain_create_info = ext.contains("XR_META_vulkan_swapchain_create_info");
         XR_ML_compat = check_ML_compat(provider, caps, ext);
+        XR_ML_facial_expression = check_ML_facial_expression(provider, caps, ext);
         XR_ML_frame_end_info = ext.contains("XR_ML_frame_end_info");
         XR_ML_global_dimmer = ext.contains("XR_ML_global_dimmer");
+        XR_ML_localization_map = check_ML_localization_map(provider, caps, ext);
+        XR_ML_marker_understanding = check_ML_marker_understanding(provider, caps, ext);
         XR_ML_ml2_controller_interaction = ext.contains("XR_ML_ml2_controller_interaction");
+        XR_ML_spatial_anchors = check_ML_spatial_anchors(provider, caps, ext);
+        XR_ML_spatial_anchors_storage = check_ML_spatial_anchors_storage(provider, caps, ext);
+        XR_ML_system_notifications = check_ML_system_notifications(provider, caps, ext);
+        XR_ML_user_calibration = check_ML_user_calibration(provider, caps, ext);
+        XR_ML_view_configuration_depth_range_change = ext.contains("XR_ML_view_configuration_depth_range_change");
+        XR_ML_world_mesh_detection = check_ML_world_mesh_detection(provider, caps, ext);
         XR_MND_headless = ext.contains("XR_MND_headless");
         XR_MND_swapchain_usage_input_attachment_bit = ext.contains("XR_MND_swapchain_usage_input_attachment_bit");
         XR_MNDX_egl_enable = ext.contains("XR_MNDX_egl_enable");
@@ -812,6 +1312,7 @@ public class XRCapabilities {
         XR_MSFT_hand_tracking_mesh = check_MSFT_hand_tracking_mesh(provider, caps, ext);
         XR_MSFT_holographic_window_attachment = ext.contains("XR_MSFT_holographic_window_attachment");
         XR_MSFT_perception_anchor_interop = check_MSFT_perception_anchor_interop(provider, caps, ext);
+        XR_MSFT_scene_marker = check_MSFT_scene_marker(provider, caps, ext);
         XR_MSFT_scene_understanding = check_MSFT_scene_understanding(provider, caps, ext);
         XR_MSFT_scene_understanding_serialization = check_MSFT_scene_understanding_serialization(provider, caps, ext);
         XR_MSFT_secondary_view_configuration = ext.contains("XR_MSFT_secondary_view_configuration");
@@ -831,6 +1332,8 @@ public class XRCapabilities {
         XR_VARJO_marker_tracking = check_VARJO_marker_tracking(provider, caps, ext);
         XR_VARJO_quad_views = ext.contains("XR_VARJO_quad_views");
         XR_VARJO_view_offset = check_VARJO_view_offset(provider, caps, ext);
+        XR_VARJO_xr4_controller_interaction = ext.contains("XR_VARJO_xr4_controller_interaction");
+        XR_YVR_controller_interaction = ext.contains("XR_YVR_controller_interaction");
 
         xrDestroyInstance = caps[0];
         xrGetInstanceProperties = caps[1];
@@ -883,187 +1386,367 @@ public class XRCapabilities {
         xrGetInputSourceLocalizedName = caps[48];
         xrApplyHapticFeedback = caps[49];
         xrStopHapticFeedback = caps[50];
-        xrSetDigitalLensControlALMALENCE = caps[51];
-        xrSetInputDeviceActiveEXT = caps[52];
-        xrSetInputDeviceStateBoolEXT = caps[53];
-        xrSetInputDeviceStateFloatEXT = caps[54];
-        xrSetInputDeviceStateVector2fEXT = caps[55];
-        xrSetInputDeviceLocationEXT = caps[56];
-        xrSetDebugUtilsObjectNameEXT = caps[57];
-        xrCreateDebugUtilsMessengerEXT = caps[58];
-        xrDestroyDebugUtilsMessengerEXT = caps[59];
-        xrSubmitDebugUtilsMessageEXT = caps[60];
-        xrSessionBeginDebugUtilsLabelRegionEXT = caps[61];
-        xrSessionEndDebugUtilsLabelRegionEXT = caps[62];
-        xrSessionInsertDebugUtilsLabelEXT = caps[63];
-        xrCreateHandTrackerEXT = caps[64];
-        xrDestroyHandTrackerEXT = caps[65];
-        xrLocateHandJointsEXT = caps[66];
-        xrPerfSettingsSetPerformanceLevelEXT = caps[67];
-        xrCreatePlaneDetectorEXT = caps[68];
-        xrDestroyPlaneDetectorEXT = caps[69];
-        xrBeginPlaneDetectionEXT = caps[70];
-        xrGetPlaneDetectionStateEXT = caps[71];
-        xrGetPlaneDetectionsEXT = caps[72];
-        xrGetPlanePolygonBufferEXT = caps[73];
-        xrThermalGetTemperatureTrendEXT = caps[74];
-        xrCreateBodyTrackerFB = caps[75];
-        xrDestroyBodyTrackerFB = caps[76];
-        xrLocateBodyJointsFB = caps[77];
-        xrGetBodySkeletonFB = caps[78];
-        xrEnumerateColorSpacesFB = caps[79];
-        xrSetColorSpaceFB = caps[80];
-        xrEnumerateDisplayRefreshRatesFB = caps[81];
-        xrGetDisplayRefreshRateFB = caps[82];
-        xrRequestDisplayRefreshRateFB = caps[83];
-        xrCreateEyeTrackerFB = caps[84];
-        xrDestroyEyeTrackerFB = caps[85];
-        xrGetEyeGazesFB = caps[86];
-        xrCreateFaceTrackerFB = caps[87];
-        xrDestroyFaceTrackerFB = caps[88];
-        xrGetFaceExpressionWeightsFB = caps[89];
-        xrCreateFoveationProfileFB = caps[90];
-        xrDestroyFoveationProfileFB = caps[91];
-        xrGetHandMeshFB = caps[92];
-        xrGetDeviceSampleRateFB = caps[93];
-        xrQuerySystemTrackedKeyboardFB = caps[94];
-        xrCreateKeyboardSpaceFB = caps[95];
-        xrCreatePassthroughFB = caps[96];
-        xrDestroyPassthroughFB = caps[97];
-        xrPassthroughStartFB = caps[98];
-        xrPassthroughPauseFB = caps[99];
-        xrCreatePassthroughLayerFB = caps[100];
-        xrDestroyPassthroughLayerFB = caps[101];
-        xrPassthroughLayerPauseFB = caps[102];
-        xrPassthroughLayerResumeFB = caps[103];
-        xrPassthroughLayerSetStyleFB = caps[104];
-        xrCreateGeometryInstanceFB = caps[105];
-        xrDestroyGeometryInstanceFB = caps[106];
-        xrGeometryInstanceSetTransformFB = caps[107];
-        xrPassthroughLayerSetKeyboardHandsIntensityFB = caps[108];
-        xrEnumerateRenderModelPathsFB = caps[109];
-        xrGetRenderModelPropertiesFB = caps[110];
-        xrLoadRenderModelFB = caps[111];
-        xrGetSpaceBoundingBox2DFB = caps[112];
-        xrGetSpaceBoundingBox3DFB = caps[113];
-        xrGetSpaceSemanticLabelsFB = caps[114];
-        xrGetSpaceBoundary2DFB = caps[115];
-        xrGetSpaceRoomLayoutFB = caps[116];
-        xrRequestSceneCaptureFB = caps[117];
-        xrCreateSpatialAnchorFB = caps[118];
-        xrGetSpaceUuidFB = caps[119];
-        xrEnumerateSpaceSupportedComponentsFB = caps[120];
-        xrSetSpaceComponentStatusFB = caps[121];
-        xrGetSpaceComponentStatusFB = caps[122];
-        xrGetSpaceContainerFB = caps[123];
-        xrQuerySpacesFB = caps[124];
-        xrRetrieveSpaceQueryResultsFB = caps[125];
-        xrShareSpacesFB = caps[126];
-        xrSaveSpaceFB = caps[127];
-        xrEraseSpaceFB = caps[128];
-        xrSaveSpaceListFB = caps[129];
-        xrCreateSpaceUserFB = caps[130];
-        xrGetSpaceUserIdFB = caps[131];
-        xrDestroySpaceUserFB = caps[132];
-        xrUpdateSwapchainFB = caps[133];
-        xrGetSwapchainStateFB = caps[134];
-        xrCreateTriangleMeshFB = caps[135];
-        xrDestroyTriangleMeshFB = caps[136];
-        xrTriangleMeshGetVertexBufferFB = caps[137];
-        xrTriangleMeshGetIndexBufferFB = caps[138];
-        xrTriangleMeshBeginUpdateFB = caps[139];
-        xrTriangleMeshEndUpdateFB = caps[140];
-        xrTriangleMeshBeginVertexBufferUpdateFB = caps[141];
-        xrTriangleMeshEndVertexBufferUpdateFB = caps[142];
-        xrCreateFacialTrackerHTC = caps[143];
-        xrDestroyFacialTrackerHTC = caps[144];
-        xrGetFacialExpressionsHTC = caps[145];
-        xrApplyFoveationHTC = caps[146];
-        xrCreatePassthroughHTC = caps[147];
-        xrDestroyPassthroughHTC = caps[148];
-        xrEnumerateViveTrackerPathsHTCX = caps[149];
-        xrConvertTimespecTimeToTimeKHR = caps[150];
-        xrConvertTimeToTimespecTimeKHR = caps[151];
-        xrGetOpenGLGraphicsRequirementsKHR = caps[152];
-        xrGetVisibilityMaskKHR = caps[153];
-        xrGetVulkanInstanceExtensionsKHR = caps[154];
-        xrGetVulkanDeviceExtensionsKHR = caps[155];
-        xrGetVulkanGraphicsDeviceKHR = caps[156];
-        xrGetVulkanGraphicsRequirementsKHR = caps[157];
-        xrCreateVulkanInstanceKHR = caps[158];
-        xrCreateVulkanDeviceKHR = caps[159];
-        xrGetVulkanGraphicsDevice2KHR = caps[160];
-        xrGetVulkanGraphicsRequirements2KHR = caps[161];
-        xrConvertWin32PerformanceCounterToTimeKHR = caps[162];
-        xrConvertTimeToWin32PerformanceCounterKHR = caps[163];
-        xrGetFoveationEyeTrackedStateMETA = caps[164];
-        xrCreatePassthroughColorLutMETA = caps[165];
-        xrDestroyPassthroughColorLutMETA = caps[166];
-        xrUpdatePassthroughColorLutMETA = caps[167];
-        xrGetPassthroughPreferencesMETA = caps[168];
-        xrEnumeratePerformanceMetricsCounterPathsMETA = caps[169];
-        xrSetPerformanceMetricsStateMETA = caps[170];
-        xrGetPerformanceMetricsStateMETA = caps[171];
-        xrQueryPerformanceMetricsCounterMETA = caps[172];
-        xrCreateVirtualKeyboardMETA = caps[173];
-        xrDestroyVirtualKeyboardMETA = caps[174];
-        xrCreateVirtualKeyboardSpaceMETA = caps[175];
-        xrSuggestVirtualKeyboardLocationMETA = caps[176];
-        xrGetVirtualKeyboardScaleMETA = caps[177];
-        xrSetVirtualKeyboardModelVisibilityMETA = caps[178];
-        xrGetVirtualKeyboardModelAnimationStatesMETA = caps[179];
-        xrGetVirtualKeyboardDirtyTexturesMETA = caps[180];
-        xrGetVirtualKeyboardTextureDataMETA = caps[181];
-        xrSendVirtualKeyboardInputMETA = caps[182];
-        xrChangeVirtualKeyboardTextContextMETA = caps[183];
-        xrCreateSpaceFromCoordinateFrameUIDML = caps[184];
-        xrApplyForceFeedbackCurlMNDX = caps[185];
-        xrEnumerateReprojectionModesMSFT = caps[186];
-        xrGetControllerModelKeyMSFT = caps[187];
-        xrLoadControllerModelMSFT = caps[188];
-        xrGetControllerModelPropertiesMSFT = caps[189];
-        xrGetControllerModelStateMSFT = caps[190];
-        xrCreateHandMeshSpaceMSFT = caps[191];
-        xrUpdateHandMeshMSFT = caps[192];
-        xrCreateSpatialAnchorFromPerceptionAnchorMSFT = caps[193];
-        xrTryGetPerceptionAnchorFromSpatialAnchorMSFT = caps[194];
-        xrEnumerateSceneComputeFeaturesMSFT = caps[195];
-        xrCreateSceneObserverMSFT = caps[196];
-        xrDestroySceneObserverMSFT = caps[197];
-        xrCreateSceneMSFT = caps[198];
-        xrDestroySceneMSFT = caps[199];
-        xrComputeNewSceneMSFT = caps[200];
-        xrGetSceneComputeStateMSFT = caps[201];
-        xrGetSceneComponentsMSFT = caps[202];
-        xrLocateSceneComponentsMSFT = caps[203];
-        xrGetSceneMeshBuffersMSFT = caps[204];
-        xrDeserializeSceneMSFT = caps[205];
-        xrGetSerializedSceneFragmentDataMSFT = caps[206];
-        xrCreateSpatialAnchorMSFT = caps[207];
-        xrCreateSpatialAnchorSpaceMSFT = caps[208];
-        xrDestroySpatialAnchorMSFT = caps[209];
-        xrCreateSpatialAnchorStoreConnectionMSFT = caps[210];
-        xrDestroySpatialAnchorStoreConnectionMSFT = caps[211];
-        xrPersistSpatialAnchorMSFT = caps[212];
-        xrEnumeratePersistedSpatialAnchorNamesMSFT = caps[213];
-        xrCreateSpatialAnchorFromPersistedNameMSFT = caps[214];
-        xrUnpersistSpatialAnchorMSFT = caps[215];
-        xrClearSpatialAnchorStoreMSFT = caps[216];
-        xrCreateSpatialGraphNodeSpaceMSFT = caps[217];
-        xrTryCreateSpatialGraphStaticNodeBindingMSFT = caps[218];
-        xrDestroySpatialGraphNodeBindingMSFT = caps[219];
-        xrGetSpatialGraphNodeBindingPropertiesMSFT = caps[220];
-        xrGetAudioOutputDeviceGuidOculus = caps[221];
-        xrGetAudioInputDeviceGuidOculus = caps[222];
-        xrEnumerateExternalCamerasOCULUS = caps[223];
-        xrSetTrackingOptimizationSettingsHintQCOM = caps[224];
-        xrSetEnvironmentDepthEstimationVARJO = caps[225];
-        xrSetMarkerTrackingVARJO = caps[226];
-        xrSetMarkerTrackingTimeoutVARJO = caps[227];
-        xrSetMarkerTrackingPredictionVARJO = caps[228];
-        xrGetMarkerSizeVARJO = caps[229];
-        xrCreateMarkerSpaceVARJO = caps[230];
-        xrSetViewOffsetVARJO = caps[231];
+        xrLocateSpaces = caps[51];
+        xrSetDigitalLensControlALMALENCE = caps[52];
+        xrShareAnchorANDROID = caps[53];
+        xrUnshareAnchorANDROID = caps[54];
+        xrEnumerateSupportedPersistenceAnchorTypesANDROID = caps[55];
+        xrCreateDeviceAnchorPersistenceANDROID = caps[56];
+        xrDestroyDeviceAnchorPersistenceANDROID = caps[57];
+        xrPersistAnchorANDROID = caps[58];
+        xrGetAnchorPersistStateANDROID = caps[59];
+        xrCreatePersistedAnchorSpaceANDROID = caps[60];
+        xrEnumeratePersistedAnchorsANDROID = caps[61];
+        xrUnpersistAnchorANDROID = caps[62];
+        xrGetPassthroughCameraStateANDROID = caps[63];
+        xrEnumerateRaycastSupportedTrackableTypesANDROID = caps[64];
+        xrRaycastANDROID = caps[65];
+        xrEnumerateSupportedTrackableTypesANDROID = caps[66];
+        xrEnumerateSupportedAnchorTrackableTypesANDROID = caps[67];
+        xrCreateTrackableTrackerANDROID = caps[68];
+        xrDestroyTrackableTrackerANDROID = caps[69];
+        xrGetAllTrackablesANDROID = caps[70];
+        xrGetTrackablePlaneANDROID = caps[71];
+        xrCreateAnchorSpaceANDROID = caps[72];
+        xrGetTrackableMarkerANDROID = caps[73];
+        xrGetTrackableObjectANDROID = caps[74];
+        xrCreateBodyTrackerBD = caps[75];
+        xrDestroyBodyTrackerBD = caps[76];
+        xrLocateBodyJointsBD = caps[77];
+        xrCreateSpatialAnchorAsyncBD = caps[78];
+        xrCreateSpatialAnchorCompleteBD = caps[79];
+        xrPersistSpatialAnchorAsyncBD = caps[80];
+        xrPersistSpatialAnchorCompleteBD = caps[81];
+        xrUnpersistSpatialAnchorAsyncBD = caps[82];
+        xrUnpersistSpatialAnchorCompleteBD = caps[83];
+        xrShareSpatialAnchorAsyncBD = caps[84];
+        xrShareSpatialAnchorCompleteBD = caps[85];
+        xrDownloadSharedSpatialAnchorAsyncBD = caps[86];
+        xrDownloadSharedSpatialAnchorCompleteBD = caps[87];
+        xrCaptureSceneAsyncBD = caps[88];
+        xrCaptureSceneCompleteBD = caps[89];
+        xrEnumerateSpatialEntityComponentTypesBD = caps[90];
+        xrGetSpatialEntityUuidBD = caps[91];
+        xrGetSpatialEntityComponentDataBD = caps[92];
+        xrCreateSenseDataProviderBD = caps[93];
+        xrStartSenseDataProviderAsyncBD = caps[94];
+        xrStartSenseDataProviderCompleteBD = caps[95];
+        xrGetSenseDataProviderStateBD = caps[96];
+        xrQuerySenseDataAsyncBD = caps[97];
+        xrQuerySenseDataCompleteBD = caps[98];
+        xrDestroySenseDataSnapshotBD = caps[99];
+        xrGetQueriedSenseDataBD = caps[100];
+        xrStopSenseDataProviderBD = caps[101];
+        xrDestroySenseDataProviderBD = caps[102];
+        xrCreateSpatialEntityAnchorBD = caps[103];
+        xrDestroyAnchorBD = caps[104];
+        xrGetAnchorUuidBD = caps[105];
+        xrCreateAnchorSpaceBD = caps[106];
+        xrSetInputDeviceActiveEXT = caps[107];
+        xrSetInputDeviceStateBoolEXT = caps[108];
+        xrSetInputDeviceStateFloatEXT = caps[109];
+        xrSetInputDeviceStateVector2fEXT = caps[110];
+        xrSetInputDeviceLocationEXT = caps[111];
+        xrSetDebugUtilsObjectNameEXT = caps[112];
+        xrCreateDebugUtilsMessengerEXT = caps[113];
+        xrDestroyDebugUtilsMessengerEXT = caps[114];
+        xrSubmitDebugUtilsMessageEXT = caps[115];
+        xrSessionBeginDebugUtilsLabelRegionEXT = caps[116];
+        xrSessionEndDebugUtilsLabelRegionEXT = caps[117];
+        xrSessionInsertDebugUtilsLabelEXT = caps[118];
+        xrPollFutureEXT = caps[119];
+        xrCancelFutureEXT = caps[120];
+        xrCreateHandTrackerEXT = caps[121];
+        xrDestroyHandTrackerEXT = caps[122];
+        xrLocateHandJointsEXT = caps[123];
+        xrEnumerateInteractionRenderModelIdsEXT = caps[124];
+        xrEnumerateRenderModelSubactionPathsEXT = caps[125];
+        xrGetRenderModelPoseTopLevelUserPathEXT = caps[126];
+        xrPerfSettingsSetPerformanceLevelEXT = caps[127];
+        xrCreatePlaneDetectorEXT = caps[128];
+        xrDestroyPlaneDetectorEXT = caps[129];
+        xrBeginPlaneDetectionEXT = caps[130];
+        xrGetPlaneDetectionStateEXT = caps[131];
+        xrGetPlaneDetectionsEXT = caps[132];
+        xrGetPlanePolygonBufferEXT = caps[133];
+        xrCreateRenderModelEXT = caps[134];
+        xrDestroyRenderModelEXT = caps[135];
+        xrGetRenderModelPropertiesEXT = caps[136];
+        xrCreateRenderModelSpaceEXT = caps[137];
+        xrCreateRenderModelAssetEXT = caps[138];
+        xrDestroyRenderModelAssetEXT = caps[139];
+        xrGetRenderModelAssetDataEXT = caps[140];
+        xrGetRenderModelAssetPropertiesEXT = caps[141];
+        xrGetRenderModelStateEXT = caps[142];
+        xrCreateSpatialAnchorEXT = caps[143];
+        xrEnumerateSpatialCapabilitiesEXT = caps[144];
+        xrEnumerateSpatialCapabilityComponentTypesEXT = caps[145];
+        xrEnumerateSpatialCapabilityFeaturesEXT = caps[146];
+        xrCreateSpatialContextAsyncEXT = caps[147];
+        xrCreateSpatialContextCompleteEXT = caps[148];
+        xrDestroySpatialContextEXT = caps[149];
+        xrCreateSpatialDiscoverySnapshotAsyncEXT = caps[150];
+        xrCreateSpatialDiscoverySnapshotCompleteEXT = caps[151];
+        xrQuerySpatialComponentDataEXT = caps[152];
+        xrDestroySpatialSnapshotEXT = caps[153];
+        xrCreateSpatialEntityFromIdEXT = caps[154];
+        xrDestroySpatialEntityEXT = caps[155];
+        xrCreateSpatialUpdateSnapshotEXT = caps[156];
+        xrGetSpatialBufferStringEXT = caps[157];
+        xrGetSpatialBufferUint8EXT = caps[158];
+        xrGetSpatialBufferUint16EXT = caps[159];
+        xrGetSpatialBufferUint32EXT = caps[160];
+        xrGetSpatialBufferFloatEXT = caps[161];
+        xrGetSpatialBufferVector2fEXT = caps[162];
+        xrGetSpatialBufferVector3fEXT = caps[163];
+        xrEnumerateSpatialPersistenceScopesEXT = caps[164];
+        xrCreateSpatialPersistenceContextAsyncEXT = caps[165];
+        xrCreateSpatialPersistenceContextCompleteEXT = caps[166];
+        xrDestroySpatialPersistenceContextEXT = caps[167];
+        xrPersistSpatialEntityAsyncEXT = caps[168];
+        xrPersistSpatialEntityCompleteEXT = caps[169];
+        xrUnpersistSpatialEntityAsyncEXT = caps[170];
+        xrUnpersistSpatialEntityCompleteEXT = caps[171];
+        xrThermalGetTemperatureTrendEXT = caps[172];
+        xrCreateBodyTrackerFB = caps[173];
+        xrDestroyBodyTrackerFB = caps[174];
+        xrLocateBodyJointsFB = caps[175];
+        xrGetBodySkeletonFB = caps[176];
+        xrEnumerateColorSpacesFB = caps[177];
+        xrSetColorSpaceFB = caps[178];
+        xrEnumerateDisplayRefreshRatesFB = caps[179];
+        xrGetDisplayRefreshRateFB = caps[180];
+        xrRequestDisplayRefreshRateFB = caps[181];
+        xrCreateEyeTrackerFB = caps[182];
+        xrDestroyEyeTrackerFB = caps[183];
+        xrGetEyeGazesFB = caps[184];
+        xrCreateFaceTrackerFB = caps[185];
+        xrDestroyFaceTrackerFB = caps[186];
+        xrGetFaceExpressionWeightsFB = caps[187];
+        xrCreateFaceTracker2FB = caps[188];
+        xrDestroyFaceTracker2FB = caps[189];
+        xrGetFaceExpressionWeights2FB = caps[190];
+        xrCreateFoveationProfileFB = caps[191];
+        xrDestroyFoveationProfileFB = caps[192];
+        xrGetHandMeshFB = caps[193];
+        xrGetDeviceSampleRateFB = caps[194];
+        xrQuerySystemTrackedKeyboardFB = caps[195];
+        xrCreateKeyboardSpaceFB = caps[196];
+        xrCreatePassthroughFB = caps[197];
+        xrDestroyPassthroughFB = caps[198];
+        xrPassthroughStartFB = caps[199];
+        xrPassthroughPauseFB = caps[200];
+        xrCreatePassthroughLayerFB = caps[201];
+        xrDestroyPassthroughLayerFB = caps[202];
+        xrPassthroughLayerPauseFB = caps[203];
+        xrPassthroughLayerResumeFB = caps[204];
+        xrPassthroughLayerSetStyleFB = caps[205];
+        xrCreateGeometryInstanceFB = caps[206];
+        xrDestroyGeometryInstanceFB = caps[207];
+        xrGeometryInstanceSetTransformFB = caps[208];
+        xrPassthroughLayerSetKeyboardHandsIntensityFB = caps[209];
+        xrEnumerateRenderModelPathsFB = caps[210];
+        xrGetRenderModelPropertiesFB = caps[211];
+        xrLoadRenderModelFB = caps[212];
+        xrGetSpaceBoundingBox2DFB = caps[213];
+        xrGetSpaceBoundingBox3DFB = caps[214];
+        xrGetSpaceSemanticLabelsFB = caps[215];
+        xrGetSpaceBoundary2DFB = caps[216];
+        xrGetSpaceRoomLayoutFB = caps[217];
+        xrRequestSceneCaptureFB = caps[218];
+        xrCreateSpatialAnchorFB = caps[219];
+        xrGetSpaceUuidFB = caps[220];
+        xrEnumerateSpaceSupportedComponentsFB = caps[221];
+        xrSetSpaceComponentStatusFB = caps[222];
+        xrGetSpaceComponentStatusFB = caps[223];
+        xrGetSpaceContainerFB = caps[224];
+        xrQuerySpacesFB = caps[225];
+        xrRetrieveSpaceQueryResultsFB = caps[226];
+        xrShareSpacesFB = caps[227];
+        xrSaveSpaceFB = caps[228];
+        xrEraseSpaceFB = caps[229];
+        xrSaveSpaceListFB = caps[230];
+        xrCreateSpaceUserFB = caps[231];
+        xrGetSpaceUserIdFB = caps[232];
+        xrDestroySpaceUserFB = caps[233];
+        xrUpdateSwapchainFB = caps[234];
+        xrGetSwapchainStateFB = caps[235];
+        xrCreateTriangleMeshFB = caps[236];
+        xrDestroyTriangleMeshFB = caps[237];
+        xrTriangleMeshGetVertexBufferFB = caps[238];
+        xrTriangleMeshGetIndexBufferFB = caps[239];
+        xrTriangleMeshBeginUpdateFB = caps[240];
+        xrTriangleMeshEndUpdateFB = caps[241];
+        xrTriangleMeshBeginVertexBufferUpdateFB = caps[242];
+        xrTriangleMeshEndVertexBufferUpdateFB = caps[243];
+        xrCreateSpatialAnchorHTC = caps[244];
+        xrGetSpatialAnchorNameHTC = caps[245];
+        xrCreateBodyTrackerHTC = caps[246];
+        xrDestroyBodyTrackerHTC = caps[247];
+        xrLocateBodyJointsHTC = caps[248];
+        xrGetBodySkeletonHTC = caps[249];
+        xrCreateFacialTrackerHTC = caps[250];
+        xrDestroyFacialTrackerHTC = caps[251];
+        xrGetFacialExpressionsHTC = caps[252];
+        xrApplyFoveationHTC = caps[253];
+        xrCreatePassthroughHTC = caps[254];
+        xrDestroyPassthroughHTC = caps[255];
+        xrEnumerateViveTrackerPathsHTCX = caps[256];
+        xrConvertTimespecTimeToTimeKHR = caps[257];
+        xrConvertTimeToTimespecTimeKHR = caps[258];
+        xrStructureTypeToString2KHR = caps[259];
+        xrLocateSpacesKHR = caps[260];
+        xrGetOpenGLGraphicsRequirementsKHR = caps[261];
+        xrGetVisibilityMaskKHR = caps[262];
+        xrGetVulkanInstanceExtensionsKHR = caps[263];
+        xrGetVulkanDeviceExtensionsKHR = caps[264];
+        xrGetVulkanGraphicsDeviceKHR = caps[265];
+        xrGetVulkanGraphicsRequirementsKHR = caps[266];
+        xrCreateVulkanInstanceKHR = caps[267];
+        xrCreateVulkanDeviceKHR = caps[268];
+        xrGetVulkanGraphicsDevice2KHR = caps[269];
+        xrGetVulkanGraphicsRequirements2KHR = caps[270];
+        xrConvertWin32PerformanceCounterToTimeKHR = caps[271];
+        xrConvertTimeToWin32PerformanceCounterKHR = caps[272];
+        xrSuggestBodyTrackingCalibrationOverrideMETA = caps[273];
+        xrResetBodyTrackingCalibrationMETA = caps[274];
+        xrStartColocationDiscoveryMETA = caps[275];
+        xrStopColocationDiscoveryMETA = caps[276];
+        xrStartColocationAdvertisementMETA = caps[277];
+        xrStopColocationAdvertisementMETA = caps[278];
+        xrCreateEnvironmentDepthProviderMETA = caps[279];
+        xrDestroyEnvironmentDepthProviderMETA = caps[280];
+        xrStartEnvironmentDepthProviderMETA = caps[281];
+        xrStopEnvironmentDepthProviderMETA = caps[282];
+        xrCreateEnvironmentDepthSwapchainMETA = caps[283];
+        xrDestroyEnvironmentDepthSwapchainMETA = caps[284];
+        xrEnumerateEnvironmentDepthSwapchainImagesMETA = caps[285];
+        xrGetEnvironmentDepthSwapchainStateMETA = caps[286];
+        xrAcquireEnvironmentDepthImageMETA = caps[287];
+        xrSetEnvironmentDepthHandRemovalMETA = caps[288];
+        xrGetFoveationEyeTrackedStateMETA = caps[289];
+        xrCreatePassthroughColorLutMETA = caps[290];
+        xrDestroyPassthroughColorLutMETA = caps[291];
+        xrUpdatePassthroughColorLutMETA = caps[292];
+        xrGetPassthroughPreferencesMETA = caps[293];
+        xrEnumeratePerformanceMetricsCounterPathsMETA = caps[294];
+        xrSetPerformanceMetricsStateMETA = caps[295];
+        xrGetPerformanceMetricsStateMETA = caps[296];
+        xrQueryPerformanceMetricsCounterMETA = caps[297];
+        xrGetRecommendedLayerResolutionMETA = caps[298];
+        xrResumeSimultaneousHandsAndControllersTrackingMETA = caps[299];
+        xrPauseSimultaneousHandsAndControllersTrackingMETA = caps[300];
+        xrDiscoverSpacesMETA = caps[301];
+        xrRetrieveSpaceDiscoveryResultsMETA = caps[302];
+        xrGetSpaceTriangleMeshMETA = caps[303];
+        xrSaveSpacesMETA = caps[304];
+        xrEraseSpacesMETA = caps[305];
+        xrShareSpacesMETA = caps[306];
+        xrCreateVirtualKeyboardMETA = caps[307];
+        xrDestroyVirtualKeyboardMETA = caps[308];
+        xrCreateVirtualKeyboardSpaceMETA = caps[309];
+        xrSuggestVirtualKeyboardLocationMETA = caps[310];
+        xrGetVirtualKeyboardScaleMETA = caps[311];
+        xrSetVirtualKeyboardModelVisibilityMETA = caps[312];
+        xrGetVirtualKeyboardModelAnimationStatesMETA = caps[313];
+        xrGetVirtualKeyboardDirtyTexturesMETA = caps[314];
+        xrGetVirtualKeyboardTextureDataMETA = caps[315];
+        xrSendVirtualKeyboardInputMETA = caps[316];
+        xrChangeVirtualKeyboardTextContextMETA = caps[317];
+        xrCreateSpaceFromCoordinateFrameUIDML = caps[318];
+        xrCreateFacialExpressionClientML = caps[319];
+        xrDestroyFacialExpressionClientML = caps[320];
+        xrGetFacialExpressionBlendShapePropertiesML = caps[321];
+        xrEnableLocalizationEventsML = caps[322];
+        xrQueryLocalizationMapsML = caps[323];
+        xrRequestMapLocalizationML = caps[324];
+        xrImportLocalizationMapML = caps[325];
+        xrCreateExportedLocalizationMapML = caps[326];
+        xrDestroyExportedLocalizationMapML = caps[327];
+        xrGetExportedLocalizationMapDataML = caps[328];
+        xrCreateMarkerDetectorML = caps[329];
+        xrDestroyMarkerDetectorML = caps[330];
+        xrSnapshotMarkerDetectorML = caps[331];
+        xrGetMarkerDetectorStateML = caps[332];
+        xrGetMarkersML = caps[333];
+        xrGetMarkerReprojectionErrorML = caps[334];
+        xrGetMarkerLengthML = caps[335];
+        xrGetMarkerNumberML = caps[336];
+        xrGetMarkerStringML = caps[337];
+        xrCreateMarkerSpaceML = caps[338];
+        xrCreateSpatialAnchorsAsyncML = caps[339];
+        xrCreateSpatialAnchorsCompleteML = caps[340];
+        xrGetSpatialAnchorStateML = caps[341];
+        xrCreateSpatialAnchorsStorageML = caps[342];
+        xrDestroySpatialAnchorsStorageML = caps[343];
+        xrQuerySpatialAnchorsAsyncML = caps[344];
+        xrQuerySpatialAnchorsCompleteML = caps[345];
+        xrPublishSpatialAnchorsAsyncML = caps[346];
+        xrPublishSpatialAnchorsCompleteML = caps[347];
+        xrDeleteSpatialAnchorsAsyncML = caps[348];
+        xrDeleteSpatialAnchorsCompleteML = caps[349];
+        xrUpdateSpatialAnchorsExpirationAsyncML = caps[350];
+        xrUpdateSpatialAnchorsExpirationCompleteML = caps[351];
+        xrSetSystemNotificationsML = caps[352];
+        xrEnableUserCalibrationEventsML = caps[353];
+        xrCreateWorldMeshDetectorML = caps[354];
+        xrDestroyWorldMeshDetectorML = caps[355];
+        xrRequestWorldMeshStateAsyncML = caps[356];
+        xrRequestWorldMeshStateCompleteML = caps[357];
+        xrGetWorldMeshBufferRecommendSizeML = caps[358];
+        xrAllocateWorldMeshBufferML = caps[359];
+        xrFreeWorldMeshBufferML = caps[360];
+        xrRequestWorldMeshAsyncML = caps[361];
+        xrRequestWorldMeshCompleteML = caps[362];
+        xrApplyForceFeedbackCurlMNDX = caps[363];
+        xrEnumerateReprojectionModesMSFT = caps[364];
+        xrGetControllerModelKeyMSFT = caps[365];
+        xrLoadControllerModelMSFT = caps[366];
+        xrGetControllerModelPropertiesMSFT = caps[367];
+        xrGetControllerModelStateMSFT = caps[368];
+        xrCreateHandMeshSpaceMSFT = caps[369];
+        xrUpdateHandMeshMSFT = caps[370];
+        xrCreateSpatialAnchorFromPerceptionAnchorMSFT = caps[371];
+        xrTryGetPerceptionAnchorFromSpatialAnchorMSFT = caps[372];
+        xrGetSceneMarkerRawDataMSFT = caps[373];
+        xrGetSceneMarkerDecodedStringMSFT = caps[374];
+        xrEnumerateSceneComputeFeaturesMSFT = caps[375];
+        xrCreateSceneObserverMSFT = caps[376];
+        xrDestroySceneObserverMSFT = caps[377];
+        xrCreateSceneMSFT = caps[378];
+        xrDestroySceneMSFT = caps[379];
+        xrComputeNewSceneMSFT = caps[380];
+        xrGetSceneComputeStateMSFT = caps[381];
+        xrGetSceneComponentsMSFT = caps[382];
+        xrLocateSceneComponentsMSFT = caps[383];
+        xrGetSceneMeshBuffersMSFT = caps[384];
+        xrDeserializeSceneMSFT = caps[385];
+        xrGetSerializedSceneFragmentDataMSFT = caps[386];
+        xrCreateSpatialAnchorMSFT = caps[387];
+        xrCreateSpatialAnchorSpaceMSFT = caps[388];
+        xrDestroySpatialAnchorMSFT = caps[389];
+        xrCreateSpatialAnchorStoreConnectionMSFT = caps[390];
+        xrDestroySpatialAnchorStoreConnectionMSFT = caps[391];
+        xrPersistSpatialAnchorMSFT = caps[392];
+        xrEnumeratePersistedSpatialAnchorNamesMSFT = caps[393];
+        xrCreateSpatialAnchorFromPersistedNameMSFT = caps[394];
+        xrUnpersistSpatialAnchorMSFT = caps[395];
+        xrClearSpatialAnchorStoreMSFT = caps[396];
+        xrCreateSpatialGraphNodeSpaceMSFT = caps[397];
+        xrTryCreateSpatialGraphStaticNodeBindingMSFT = caps[398];
+        xrDestroySpatialGraphNodeBindingMSFT = caps[399];
+        xrGetSpatialGraphNodeBindingPropertiesMSFT = caps[400];
+        xrGetAudioOutputDeviceGuidOculus = caps[401];
+        xrGetAudioInputDeviceGuidOculus = caps[402];
+        xrEnumerateExternalCamerasOCULUS = caps[403];
+        xrSetTrackingOptimizationSettingsHintQCOM = caps[404];
+        xrSetEnvironmentDepthEstimationVARJO = caps[405];
+        xrSetMarkerTrackingVARJO = caps[406];
+        xrSetMarkerTrackingTimeoutVARJO = caps[407];
+        xrSetMarkerTrackingPredictionVARJO = caps[408];
+        xrGetMarkerSizeVARJO = caps[409];
+        xrCreateMarkerSpaceVARJO = caps[410];
+        xrSetViewOffsetVARJO = caps[411];
     }
 
     private static boolean check_XR10(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1088,16 +1771,179 @@ public class XRCapabilities {
         ) || reportMissing("XR", "OpenXR10");
     }
 
-    private static boolean check_ALMALENCE_digital_lens_control(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
-        if (!ext.contains("XR_ALMALENCE_digital_lens_control")) {
+    private static boolean check_XR11(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("OpenXR11")) {
             return false;
         }
 
         return checkFunctions(provider, caps, new int[] {
             51
         },
+            "xrLocateSpaces"
+        ) || reportMissing("XR", "OpenXR11");
+    }
+
+    private static boolean check_ALMALENCE_digital_lens_control(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ALMALENCE_digital_lens_control")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            52
+        },
             "xrSetDigitalLensControlALMALENCE"
         ) || reportMissing("XR", "XR_ALMALENCE_digital_lens_control");
+    }
+
+    private static boolean check_ANDROID_anchor_sharing_export(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_anchor_sharing_export")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            53, 54
+        },
+            "xrShareAnchorANDROID", "xrUnshareAnchorANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_anchor_sharing_export");
+    }
+
+    private static boolean check_ANDROID_device_anchor_persistence(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_device_anchor_persistence")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            55, 56, 57, 58, 59, 60, 61, 62
+        },
+            "xrEnumerateSupportedPersistenceAnchorTypesANDROID", "xrCreateDeviceAnchorPersistenceANDROID", "xrDestroyDeviceAnchorPersistenceANDROID", 
+            "xrPersistAnchorANDROID", "xrGetAnchorPersistStateANDROID", "xrCreatePersistedAnchorSpaceANDROID", "xrEnumeratePersistedAnchorsANDROID", 
+            "xrUnpersistAnchorANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_device_anchor_persistence");
+    }
+
+    private static boolean check_ANDROID_passthrough_camera_state(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_passthrough_camera_state")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            63
+        },
+            "xrGetPassthroughCameraStateANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_passthrough_camera_state");
+    }
+
+    private static boolean check_ANDROID_raycast(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_raycast")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            64, 65
+        },
+            "xrEnumerateRaycastSupportedTrackableTypesANDROID", "xrRaycastANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_raycast");
+    }
+
+    private static boolean check_ANDROID_trackables(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_trackables")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            66, 67, 68, 69, 70, 71, 72
+        },
+            "xrEnumerateSupportedTrackableTypesANDROID", "xrEnumerateSupportedAnchorTrackableTypesANDROID", "xrCreateTrackableTrackerANDROID", 
+            "xrDestroyTrackableTrackerANDROID", "xrGetAllTrackablesANDROID", "xrGetTrackablePlaneANDROID", "xrCreateAnchorSpaceANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_trackables");
+    }
+
+    private static boolean check_ANDROID_trackables_marker(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_trackables_marker")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            73
+        },
+            "xrGetTrackableMarkerANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_trackables_marker");
+    }
+
+    private static boolean check_ANDROID_trackables_object(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ANDROID_trackables_object")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            74
+        },
+            "xrGetTrackableObjectANDROID"
+        ) || reportMissing("XR", "XR_ANDROID_trackables_object");
+    }
+
+    private static boolean check_BD_body_tracking(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_BD_body_tracking")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            75, 76, 77
+        },
+            "xrCreateBodyTrackerBD", "xrDestroyBodyTrackerBD", "xrLocateBodyJointsBD"
+        ) || reportMissing("XR", "XR_BD_body_tracking");
+    }
+
+    private static boolean check_BD_spatial_anchor(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_BD_spatial_anchor")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            78, 79, 80, 81, 82, 83
+        },
+            "xrCreateSpatialAnchorAsyncBD", "xrCreateSpatialAnchorCompleteBD", "xrPersistSpatialAnchorAsyncBD", "xrPersistSpatialAnchorCompleteBD", 
+            "xrUnpersistSpatialAnchorAsyncBD", "xrUnpersistSpatialAnchorCompleteBD"
+        ) || reportMissing("XR", "XR_BD_spatial_anchor");
+    }
+
+    private static boolean check_BD_spatial_anchor_sharing(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_BD_spatial_anchor_sharing")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            84, 85, 86, 87
+        },
+            "xrShareSpatialAnchorAsyncBD", "xrShareSpatialAnchorCompleteBD", "xrDownloadSharedSpatialAnchorAsyncBD", "xrDownloadSharedSpatialAnchorCompleteBD"
+        ) || reportMissing("XR", "XR_BD_spatial_anchor_sharing");
+    }
+
+    private static boolean check_BD_spatial_scene(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_BD_spatial_scene")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            88, 89
+        },
+            "xrCaptureSceneAsyncBD", "xrCaptureSceneCompleteBD"
+        ) || reportMissing("XR", "XR_BD_spatial_scene");
+    }
+
+    private static boolean check_BD_spatial_sensing(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_BD_spatial_sensing")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106
+        },
+            "xrEnumerateSpatialEntityComponentTypesBD", "xrGetSpatialEntityUuidBD", "xrGetSpatialEntityComponentDataBD", "xrCreateSenseDataProviderBD", 
+            "xrStartSenseDataProviderAsyncBD", "xrStartSenseDataProviderCompleteBD", "xrGetSenseDataProviderStateBD", "xrQuerySenseDataAsyncBD", 
+            "xrQuerySenseDataCompleteBD", "xrDestroySenseDataSnapshotBD", "xrGetQueriedSenseDataBD", "xrStopSenseDataProviderBD", 
+            "xrDestroySenseDataProviderBD", "xrCreateSpatialEntityAnchorBD", "xrDestroyAnchorBD", "xrGetAnchorUuidBD", "xrCreateAnchorSpaceBD"
+        ) || reportMissing("XR", "XR_BD_spatial_sensing");
     }
 
     private static boolean check_EXT_conformance_automation(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1106,7 +1952,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            52, 53, 54, 55, 56
+            107, 108, 109, 110, 111
         },
             "xrSetInputDeviceActiveEXT", "xrSetInputDeviceStateBoolEXT", "xrSetInputDeviceStateFloatEXT", "xrSetInputDeviceStateVector2fEXT", 
             "xrSetInputDeviceLocationEXT"
@@ -1119,11 +1965,23 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            57, 58, 59, 60, 61, 62, 63
+            112, 113, 114, 115, 116, 117, 118
         },
             "xrSetDebugUtilsObjectNameEXT", "xrCreateDebugUtilsMessengerEXT", "xrDestroyDebugUtilsMessengerEXT", "xrSubmitDebugUtilsMessageEXT", 
             "xrSessionBeginDebugUtilsLabelRegionEXT", "xrSessionEndDebugUtilsLabelRegionEXT", "xrSessionInsertDebugUtilsLabelEXT"
         ) || reportMissing("XR", "XR_EXT_debug_utils");
+    }
+
+    private static boolean check_EXT_future(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_future")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            119, 120
+        },
+            "xrPollFutureEXT", "xrCancelFutureEXT"
+        ) || reportMissing("XR", "XR_EXT_future");
     }
 
     private static boolean check_EXT_hand_tracking(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1132,10 +1990,22 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            64, 65, 66
+            121, 122, 123
         },
             "xrCreateHandTrackerEXT", "xrDestroyHandTrackerEXT", "xrLocateHandJointsEXT"
         ) || reportMissing("XR", "XR_EXT_hand_tracking");
+    }
+
+    private static boolean check_EXT_interaction_render_model(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_interaction_render_model")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            124, 125, 126
+        },
+            "xrEnumerateInteractionRenderModelIdsEXT", "xrEnumerateRenderModelSubactionPathsEXT", "xrGetRenderModelPoseTopLevelUserPathEXT"
+        ) || reportMissing("XR", "XR_EXT_interaction_render_model");
     }
 
     private static boolean check_EXT_performance_settings(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1144,7 +2014,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            67
+            127
         },
             "xrPerfSettingsSetPerformanceLevelEXT"
         ) || reportMissing("XR", "XR_EXT_performance_settings");
@@ -1156,11 +2026,78 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            68, 69, 70, 71, 72, 73
+            128, 129, 130, 131, 132, 133
         },
             "xrCreatePlaneDetectorEXT", "xrDestroyPlaneDetectorEXT", "xrBeginPlaneDetectionEXT", "xrGetPlaneDetectionStateEXT", "xrGetPlaneDetectionsEXT", 
             "xrGetPlanePolygonBufferEXT"
         ) || reportMissing("XR", "XR_EXT_plane_detection");
+    }
+
+    private static boolean check_EXT_render_model(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_render_model")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            134, 135, 136, 137, 138, 139, 140, 141, 142
+        },
+            "xrCreateRenderModelEXT", "xrDestroyRenderModelEXT", "xrGetRenderModelPropertiesEXT", "xrCreateRenderModelSpaceEXT", "xrCreateRenderModelAssetEXT", 
+            "xrDestroyRenderModelAssetEXT", "xrGetRenderModelAssetDataEXT", "xrGetRenderModelAssetPropertiesEXT", "xrGetRenderModelStateEXT"
+        ) || reportMissing("XR", "XR_EXT_render_model");
+    }
+
+    private static boolean check_EXT_spatial_anchor(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_spatial_anchor")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            143
+        },
+            "xrCreateSpatialAnchorEXT"
+        ) || reportMissing("XR", "XR_EXT_spatial_anchor");
+    }
+
+    private static boolean check_EXT_spatial_entity(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_spatial_entity")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163
+        },
+            "xrEnumerateSpatialCapabilitiesEXT", "xrEnumerateSpatialCapabilityComponentTypesEXT", "xrEnumerateSpatialCapabilityFeaturesEXT", 
+            "xrCreateSpatialContextAsyncEXT", "xrCreateSpatialContextCompleteEXT", "xrDestroySpatialContextEXT", "xrCreateSpatialDiscoverySnapshotAsyncEXT", 
+            "xrCreateSpatialDiscoverySnapshotCompleteEXT", "xrQuerySpatialComponentDataEXT", "xrDestroySpatialSnapshotEXT", "xrCreateSpatialEntityFromIdEXT", 
+            "xrDestroySpatialEntityEXT", "xrCreateSpatialUpdateSnapshotEXT", "xrGetSpatialBufferStringEXT", "xrGetSpatialBufferUint8EXT", 
+            "xrGetSpatialBufferUint16EXT", "xrGetSpatialBufferUint32EXT", "xrGetSpatialBufferFloatEXT", "xrGetSpatialBufferVector2fEXT", 
+            "xrGetSpatialBufferVector3fEXT"
+        ) || reportMissing("XR", "XR_EXT_spatial_entity");
+    }
+
+    private static boolean check_EXT_spatial_persistence(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_spatial_persistence")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            164, 165, 166, 167
+        },
+            "xrEnumerateSpatialPersistenceScopesEXT", "xrCreateSpatialPersistenceContextAsyncEXT", "xrCreateSpatialPersistenceContextCompleteEXT", 
+            "xrDestroySpatialPersistenceContextEXT"
+        ) || reportMissing("XR", "XR_EXT_spatial_persistence");
+    }
+
+    private static boolean check_EXT_spatial_persistence_operations(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_EXT_spatial_persistence_operations")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            168, 169, 170, 171
+        },
+            "xrPersistSpatialEntityAsyncEXT", "xrPersistSpatialEntityCompleteEXT", "xrUnpersistSpatialEntityAsyncEXT", "xrUnpersistSpatialEntityCompleteEXT"
+        ) || reportMissing("XR", "XR_EXT_spatial_persistence_operations");
     }
 
     private static boolean check_EXT_thermal_query(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1169,7 +2106,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            74
+            172
         },
             "xrThermalGetTemperatureTrendEXT"
         ) || reportMissing("XR", "XR_EXT_thermal_query");
@@ -1181,7 +2118,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            75, 76, 77, 78
+            173, 174, 175, 176
         },
             "xrCreateBodyTrackerFB", "xrDestroyBodyTrackerFB", "xrLocateBodyJointsFB", "xrGetBodySkeletonFB"
         ) || reportMissing("XR", "XR_FB_body_tracking");
@@ -1193,7 +2130,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            79, 80
+            177, 178
         },
             "xrEnumerateColorSpacesFB", "xrSetColorSpaceFB"
         ) || reportMissing("XR", "XR_FB_color_space");
@@ -1205,7 +2142,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            81, 82, 83
+            179, 180, 181
         },
             "xrEnumerateDisplayRefreshRatesFB", "xrGetDisplayRefreshRateFB", "xrRequestDisplayRefreshRateFB"
         ) || reportMissing("XR", "XR_FB_display_refresh_rate");
@@ -1217,7 +2154,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            84, 85, 86
+            182, 183, 184
         },
             "xrCreateEyeTrackerFB", "xrDestroyEyeTrackerFB", "xrGetEyeGazesFB"
         ) || reportMissing("XR", "XR_FB_eye_tracking_social");
@@ -1229,10 +2166,22 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            87, 88, 89
+            185, 186, 187
         },
             "xrCreateFaceTrackerFB", "xrDestroyFaceTrackerFB", "xrGetFaceExpressionWeightsFB"
         ) || reportMissing("XR", "XR_FB_face_tracking");
+    }
+
+    private static boolean check_FB_face_tracking2(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_FB_face_tracking2")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            188, 189, 190
+        },
+            "xrCreateFaceTracker2FB", "xrDestroyFaceTracker2FB", "xrGetFaceExpressionWeights2FB"
+        ) || reportMissing("XR", "XR_FB_face_tracking2");
     }
 
     private static boolean check_FB_foveation(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1241,7 +2190,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            90, 91
+            191, 192
         },
             "xrCreateFoveationProfileFB", "xrDestroyFoveationProfileFB"
         ) || reportMissing("XR", "XR_FB_foveation");
@@ -1253,7 +2202,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            92
+            193
         },
             "xrGetHandMeshFB"
         ) || reportMissing("XR", "XR_FB_hand_tracking_mesh");
@@ -1265,7 +2214,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            93
+            194
         },
             "xrGetDeviceSampleRateFB"
         ) || reportMissing("XR", "XR_FB_haptic_pcm");
@@ -1277,7 +2226,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            94, 95
+            195, 196
         },
             "xrQuerySystemTrackedKeyboardFB", "xrCreateKeyboardSpaceFB"
         ) || reportMissing("XR", "XR_FB_keyboard_tracking");
@@ -1289,7 +2238,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107
+            197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208
         },
             "xrCreatePassthroughFB", "xrDestroyPassthroughFB", "xrPassthroughStartFB", "xrPassthroughPauseFB", "xrCreatePassthroughLayerFB", 
             "xrDestroyPassthroughLayerFB", "xrPassthroughLayerPauseFB", "xrPassthroughLayerResumeFB", "xrPassthroughLayerSetStyleFB", 
@@ -1303,7 +2252,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            108
+            209
         },
             "xrPassthroughLayerSetKeyboardHandsIntensityFB"
         ) || reportMissing("XR", "XR_FB_passthrough_keyboard_hands");
@@ -1315,7 +2264,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            109, 110, 111
+            210, 211, 212
         },
             "xrEnumerateRenderModelPathsFB", "xrGetRenderModelPropertiesFB", "xrLoadRenderModelFB"
         ) || reportMissing("XR", "XR_FB_render_model");
@@ -1327,7 +2276,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            112, 113, 114, 115, 116
+            213, 214, 215, 216, 217
         },
             "xrGetSpaceBoundingBox2DFB", "xrGetSpaceBoundingBox3DFB", "xrGetSpaceSemanticLabelsFB", "xrGetSpaceBoundary2DFB", "xrGetSpaceRoomLayoutFB"
         ) || reportMissing("XR", "XR_FB_scene");
@@ -1339,7 +2288,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            117
+            218
         },
             "xrRequestSceneCaptureFB"
         ) || reportMissing("XR", "XR_FB_scene_capture");
@@ -1351,7 +2300,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            118, 119, 120, 121, 122
+            219, 220, 221, 222, 223
         },
             "xrCreateSpatialAnchorFB", "xrGetSpaceUuidFB", "xrEnumerateSpaceSupportedComponentsFB", "xrSetSpaceComponentStatusFB", 
             "xrGetSpaceComponentStatusFB"
@@ -1364,7 +2313,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            123
+            224
         },
             "xrGetSpaceContainerFB"
         ) || reportMissing("XR", "XR_FB_spatial_entity_container");
@@ -1376,7 +2325,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            124, 125
+            225, 226
         },
             "xrQuerySpacesFB", "xrRetrieveSpaceQueryResultsFB"
         ) || reportMissing("XR", "XR_FB_spatial_entity_query");
@@ -1388,7 +2337,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            126
+            227
         },
             "xrShareSpacesFB"
         ) || reportMissing("XR", "XR_FB_spatial_entity_sharing");
@@ -1400,7 +2349,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            127, 128
+            228, 229
         },
             "xrSaveSpaceFB", "xrEraseSpaceFB"
         ) || reportMissing("XR", "XR_FB_spatial_entity_storage");
@@ -1412,7 +2361,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            129
+            230
         },
             "xrSaveSpaceListFB"
         ) || reportMissing("XR", "XR_FB_spatial_entity_storage_batch");
@@ -1424,7 +2373,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            130, 131, 132
+            231, 232, 233
         },
             "xrCreateSpaceUserFB", "xrGetSpaceUserIdFB", "xrDestroySpaceUserFB"
         ) || reportMissing("XR", "XR_FB_spatial_entity_user");
@@ -1436,7 +2385,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            133, 134
+            234, 235
         },
             "xrUpdateSwapchainFB", "xrGetSwapchainStateFB"
         ) || reportMissing("XR", "XR_FB_swapchain_update_state");
@@ -1448,11 +2397,35 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            135, 136, 137, 138, 139, 140, 141, 142
+            236, 237, 238, 239, 240, 241, 242, 243
         },
             "xrCreateTriangleMeshFB", "xrDestroyTriangleMeshFB", "xrTriangleMeshGetVertexBufferFB", "xrTriangleMeshGetIndexBufferFB", 
             "xrTriangleMeshBeginUpdateFB", "xrTriangleMeshEndUpdateFB", "xrTriangleMeshBeginVertexBufferUpdateFB", "xrTriangleMeshEndVertexBufferUpdateFB"
         ) || reportMissing("XR", "XR_FB_triangle_mesh");
+    }
+
+    private static boolean check_HTC_anchor(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_HTC_anchor")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            244, 245
+        },
+            "xrCreateSpatialAnchorHTC", "xrGetSpatialAnchorNameHTC"
+        ) || reportMissing("XR", "XR_HTC_anchor");
+    }
+
+    private static boolean check_HTC_body_tracking(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_HTC_body_tracking")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            246, 247, 248, 249
+        },
+            "xrCreateBodyTrackerHTC", "xrDestroyBodyTrackerHTC", "xrLocateBodyJointsHTC", "xrGetBodySkeletonHTC"
+        ) || reportMissing("XR", "XR_HTC_body_tracking");
     }
 
     private static boolean check_HTC_facial_tracking(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1461,7 +2434,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            143, 144, 145
+            250, 251, 252
         },
             "xrCreateFacialTrackerHTC", "xrDestroyFacialTrackerHTC", "xrGetFacialExpressionsHTC"
         ) || reportMissing("XR", "XR_HTC_facial_tracking");
@@ -1473,7 +2446,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            146
+            253
         },
             "xrApplyFoveationHTC"
         ) || reportMissing("XR", "XR_HTC_foveation");
@@ -1485,7 +2458,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            147, 148
+            254, 255
         },
             "xrCreatePassthroughHTC", "xrDestroyPassthroughHTC"
         ) || reportMissing("XR", "XR_HTC_passthrough");
@@ -1497,7 +2470,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            149
+            256
         },
             "xrEnumerateViveTrackerPathsHTCX"
         ) || reportMissing("XR", "XR_HTCX_vive_tracker_interaction");
@@ -1509,10 +2482,34 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            150, 151
+            257, 258
         },
             "xrConvertTimespecTimeToTimeKHR", "xrConvertTimeToTimespecTimeKHR"
         ) || reportMissing("XR", "XR_KHR_convert_timespec_time");
+    }
+
+    private static boolean check_KHR_extended_struct_name_lengths(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_KHR_extended_struct_name_lengths")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            259
+        },
+            "xrStructureTypeToString2KHR"
+        ) || reportMissing("XR", "XR_KHR_extended_struct_name_lengths");
+    }
+
+    private static boolean check_KHR_locate_spaces(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_KHR_locate_spaces")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            260
+        },
+            "xrLocateSpacesKHR"
+        ) || reportMissing("XR", "XR_KHR_locate_spaces");
     }
 
     private static boolean check_KHR_opengl_enable(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1521,7 +2518,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            152
+            261
         },
             "xrGetOpenGLGraphicsRequirementsKHR"
         ) || reportMissing("XR", "XR_KHR_opengl_enable");
@@ -1533,7 +2530,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            153
+            262
         },
             "xrGetVisibilityMaskKHR"
         ) || reportMissing("XR", "XR_KHR_visibility_mask");
@@ -1545,7 +2542,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            154, 155, 156, 157
+            263, 264, 265, 266
         },
             "xrGetVulkanInstanceExtensionsKHR", "xrGetVulkanDeviceExtensionsKHR", "xrGetVulkanGraphicsDeviceKHR", "xrGetVulkanGraphicsRequirementsKHR"
         ) || reportMissing("XR", "XR_KHR_vulkan_enable");
@@ -1557,7 +2554,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            158, 159, 160, 161
+            267, 268, 269, 270
         },
             "xrCreateVulkanInstanceKHR", "xrCreateVulkanDeviceKHR", "xrGetVulkanGraphicsDevice2KHR", "xrGetVulkanGraphicsRequirements2KHR"
         ) || reportMissing("XR", "XR_KHR_vulkan_enable2");
@@ -1569,10 +2566,49 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            162, 163
+            271, 272
         },
             "xrConvertWin32PerformanceCounterToTimeKHR", "xrConvertTimeToWin32PerformanceCounterKHR"
         ) || reportMissing("XR", "XR_KHR_win32_convert_performance_counter_time");
+    }
+
+    private static boolean check_META_body_tracking_calibration(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_body_tracking_calibration")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            273, 274
+        },
+            "xrSuggestBodyTrackingCalibrationOverrideMETA", "xrResetBodyTrackingCalibrationMETA"
+        ) || reportMissing("XR", "XR_META_body_tracking_calibration");
+    }
+
+    private static boolean check_META_colocation_discovery(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_colocation_discovery")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            275, 276, 277, 278
+        },
+            "xrStartColocationDiscoveryMETA", "xrStopColocationDiscoveryMETA", "xrStartColocationAdvertisementMETA", "xrStopColocationAdvertisementMETA"
+        ) || reportMissing("XR", "XR_META_colocation_discovery");
+    }
+
+    private static boolean check_META_environment_depth(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_environment_depth")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            279, 280, 281, 282, 283, 284, 285, 286, 287, 288
+        },
+            "xrCreateEnvironmentDepthProviderMETA", "xrDestroyEnvironmentDepthProviderMETA", "xrStartEnvironmentDepthProviderMETA", 
+            "xrStopEnvironmentDepthProviderMETA", "xrCreateEnvironmentDepthSwapchainMETA", "xrDestroyEnvironmentDepthSwapchainMETA", 
+            "xrEnumerateEnvironmentDepthSwapchainImagesMETA", "xrGetEnvironmentDepthSwapchainStateMETA", "xrAcquireEnvironmentDepthImageMETA", 
+            "xrSetEnvironmentDepthHandRemovalMETA"
+        ) || reportMissing("XR", "XR_META_environment_depth");
     }
 
     private static boolean check_META_foveation_eye_tracked(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1581,7 +2617,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            164
+            289
         },
             "xrGetFoveationEyeTrackedStateMETA"
         ) || reportMissing("XR", "XR_META_foveation_eye_tracked");
@@ -1593,7 +2629,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            165, 166, 167
+            290, 291, 292
         },
             "xrCreatePassthroughColorLutMETA", "xrDestroyPassthroughColorLutMETA", "xrUpdatePassthroughColorLutMETA"
         ) || reportMissing("XR", "XR_META_passthrough_color_lut");
@@ -1605,7 +2641,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            168
+            293
         },
             "xrGetPassthroughPreferencesMETA"
         ) || reportMissing("XR", "XR_META_passthrough_preferences");
@@ -1617,11 +2653,83 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            169, 170, 171, 172
+            294, 295, 296, 297
         },
             "xrEnumeratePerformanceMetricsCounterPathsMETA", "xrSetPerformanceMetricsStateMETA", "xrGetPerformanceMetricsStateMETA", 
             "xrQueryPerformanceMetricsCounterMETA"
         ) || reportMissing("XR", "XR_META_performance_metrics");
+    }
+
+    private static boolean check_META_recommended_layer_resolution(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_recommended_layer_resolution")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            298
+        },
+            "xrGetRecommendedLayerResolutionMETA"
+        ) || reportMissing("XR", "XR_META_recommended_layer_resolution");
+    }
+
+    private static boolean check_META_simultaneous_hands_and_controllers(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_simultaneous_hands_and_controllers")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            299, 300
+        },
+            "xrResumeSimultaneousHandsAndControllersTrackingMETA", "xrPauseSimultaneousHandsAndControllersTrackingMETA"
+        ) || reportMissing("XR", "XR_META_simultaneous_hands_and_controllers");
+    }
+
+    private static boolean check_META_spatial_entity_discovery(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_spatial_entity_discovery")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            301, 302
+        },
+            "xrDiscoverSpacesMETA", "xrRetrieveSpaceDiscoveryResultsMETA"
+        ) || reportMissing("XR", "XR_META_spatial_entity_discovery");
+    }
+
+    private static boolean check_META_spatial_entity_mesh(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_spatial_entity_mesh")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            303
+        },
+            "xrGetSpaceTriangleMeshMETA"
+        ) || reportMissing("XR", "XR_META_spatial_entity_mesh");
+    }
+
+    private static boolean check_META_spatial_entity_persistence(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_spatial_entity_persistence")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            304, 305
+        },
+            "xrSaveSpacesMETA", "xrEraseSpacesMETA"
+        ) || reportMissing("XR", "XR_META_spatial_entity_persistence");
+    }
+
+    private static boolean check_META_spatial_entity_sharing(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_META_spatial_entity_sharing")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            306
+        },
+            "xrShareSpacesMETA"
+        ) || reportMissing("XR", "XR_META_spatial_entity_sharing");
     }
 
     private static boolean check_META_virtual_keyboard(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1630,7 +2738,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183
+            307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317
         },
             "xrCreateVirtualKeyboardMETA", "xrDestroyVirtualKeyboardMETA", "xrCreateVirtualKeyboardSpaceMETA", "xrSuggestVirtualKeyboardLocationMETA", 
             "xrGetVirtualKeyboardScaleMETA", "xrSetVirtualKeyboardModelVisibilityMETA", "xrGetVirtualKeyboardModelAnimationStatesMETA", 
@@ -1645,10 +2753,112 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            184
+            318
         },
             "xrCreateSpaceFromCoordinateFrameUIDML"
         ) || reportMissing("XR", "XR_ML_compat");
+    }
+
+    private static boolean check_ML_facial_expression(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_facial_expression")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            319, 320, 321
+        },
+            "xrCreateFacialExpressionClientML", "xrDestroyFacialExpressionClientML", "xrGetFacialExpressionBlendShapePropertiesML"
+        ) || reportMissing("XR", "XR_ML_facial_expression");
+    }
+
+    private static boolean check_ML_localization_map(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_localization_map")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            322, 323, 324, 325, 326, 327, 328
+        },
+            "xrEnableLocalizationEventsML", "xrQueryLocalizationMapsML", "xrRequestMapLocalizationML", "xrImportLocalizationMapML", 
+            "xrCreateExportedLocalizationMapML", "xrDestroyExportedLocalizationMapML", "xrGetExportedLocalizationMapDataML"
+        ) || reportMissing("XR", "XR_ML_localization_map");
+    }
+
+    private static boolean check_ML_marker_understanding(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_marker_understanding")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            329, 330, 331, 332, 333, 334, 335, 336, 337, 338
+        },
+            "xrCreateMarkerDetectorML", "xrDestroyMarkerDetectorML", "xrSnapshotMarkerDetectorML", "xrGetMarkerDetectorStateML", "xrGetMarkersML", 
+            "xrGetMarkerReprojectionErrorML", "xrGetMarkerLengthML", "xrGetMarkerNumberML", "xrGetMarkerStringML", "xrCreateMarkerSpaceML"
+        ) || reportMissing("XR", "XR_ML_marker_understanding");
+    }
+
+    private static boolean check_ML_spatial_anchors(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_spatial_anchors")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            339, 340, 341
+        },
+            "xrCreateSpatialAnchorsAsyncML", "xrCreateSpatialAnchorsCompleteML", "xrGetSpatialAnchorStateML"
+        ) || reportMissing("XR", "XR_ML_spatial_anchors");
+    }
+
+    private static boolean check_ML_spatial_anchors_storage(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_spatial_anchors_storage")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            342, 343, 344, 345, 346, 347, 348, 349, 350, 351
+        },
+            "xrCreateSpatialAnchorsStorageML", "xrDestroySpatialAnchorsStorageML", "xrQuerySpatialAnchorsAsyncML", "xrQuerySpatialAnchorsCompleteML", 
+            "xrPublishSpatialAnchorsAsyncML", "xrPublishSpatialAnchorsCompleteML", "xrDeleteSpatialAnchorsAsyncML", "xrDeleteSpatialAnchorsCompleteML", 
+            "xrUpdateSpatialAnchorsExpirationAsyncML", "xrUpdateSpatialAnchorsExpirationCompleteML"
+        ) || reportMissing("XR", "XR_ML_spatial_anchors_storage");
+    }
+
+    private static boolean check_ML_system_notifications(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_system_notifications")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            352
+        },
+            "xrSetSystemNotificationsML"
+        ) || reportMissing("XR", "XR_ML_system_notifications");
+    }
+
+    private static boolean check_ML_user_calibration(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_user_calibration")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            353
+        },
+            "xrEnableUserCalibrationEventsML"
+        ) || reportMissing("XR", "XR_ML_user_calibration");
+    }
+
+    private static boolean check_ML_world_mesh_detection(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_ML_world_mesh_detection")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            354, 355, 356, 357, 358, 359, 360, 361, 362
+        },
+            "xrCreateWorldMeshDetectorML", "xrDestroyWorldMeshDetectorML", "xrRequestWorldMeshStateAsyncML", "xrRequestWorldMeshStateCompleteML", 
+            "xrGetWorldMeshBufferRecommendSizeML", "xrAllocateWorldMeshBufferML", "xrFreeWorldMeshBufferML", "xrRequestWorldMeshAsyncML", 
+            "xrRequestWorldMeshCompleteML"
+        ) || reportMissing("XR", "XR_ML_world_mesh_detection");
     }
 
     private static boolean check_MNDX_force_feedback_curl(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1657,7 +2867,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            185
+            363
         },
             "xrApplyForceFeedbackCurlMNDX"
         ) || reportMissing("XR", "XR_MNDX_force_feedback_curl");
@@ -1669,7 +2879,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            186
+            364
         },
             "xrEnumerateReprojectionModesMSFT"
         ) || reportMissing("XR", "XR_MSFT_composition_layer_reprojection");
@@ -1681,7 +2891,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            187, 188, 189, 190
+            365, 366, 367, 368
         },
             "xrGetControllerModelKeyMSFT", "xrLoadControllerModelMSFT", "xrGetControllerModelPropertiesMSFT", "xrGetControllerModelStateMSFT"
         ) || reportMissing("XR", "XR_MSFT_controller_model");
@@ -1693,7 +2903,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            191, 192
+            369, 370
         },
             "xrCreateHandMeshSpaceMSFT", "xrUpdateHandMeshMSFT"
         ) || reportMissing("XR", "XR_MSFT_hand_tracking_mesh");
@@ -1705,10 +2915,22 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            193, 194
+            371, 372
         },
             "xrCreateSpatialAnchorFromPerceptionAnchorMSFT", "xrTryGetPerceptionAnchorFromSpatialAnchorMSFT"
         ) || reportMissing("XR", "XR_MSFT_perception_anchor_interop");
+    }
+
+    private static boolean check_MSFT_scene_marker(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_MSFT_scene_marker")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            373, 374
+        },
+            "xrGetSceneMarkerRawDataMSFT", "xrGetSceneMarkerDecodedStringMSFT"
+        ) || reportMissing("XR", "XR_MSFT_scene_marker");
     }
 
     private static boolean check_MSFT_scene_understanding(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -1717,7 +2939,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            195, 196, 197, 198, 199, 200, 201, 202, 203, 204
+            375, 376, 377, 378, 379, 380, 381, 382, 383, 384
         },
             "xrEnumerateSceneComputeFeaturesMSFT", "xrCreateSceneObserverMSFT", "xrDestroySceneObserverMSFT", "xrCreateSceneMSFT", "xrDestroySceneMSFT", 
             "xrComputeNewSceneMSFT", "xrGetSceneComputeStateMSFT", "xrGetSceneComponentsMSFT", "xrLocateSceneComponentsMSFT", "xrGetSceneMeshBuffersMSFT"
@@ -1730,7 +2952,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            205, 206
+            385, 386
         },
             "xrDeserializeSceneMSFT", "xrGetSerializedSceneFragmentDataMSFT"
         ) || reportMissing("XR", "XR_MSFT_scene_understanding_serialization");
@@ -1742,7 +2964,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            207, 208, 209
+            387, 388, 389
         },
             "xrCreateSpatialAnchorMSFT", "xrCreateSpatialAnchorSpaceMSFT", "xrDestroySpatialAnchorMSFT"
         ) || reportMissing("XR", "XR_MSFT_spatial_anchor");
@@ -1754,7 +2976,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            210, 211, 212, 213, 214, 215, 216
+            390, 391, 392, 393, 394, 395, 396
         },
             "xrCreateSpatialAnchorStoreConnectionMSFT", "xrDestroySpatialAnchorStoreConnectionMSFT", "xrPersistSpatialAnchorMSFT", 
             "xrEnumeratePersistedSpatialAnchorNamesMSFT", "xrCreateSpatialAnchorFromPersistedNameMSFT", "xrUnpersistSpatialAnchorMSFT", 
@@ -1768,7 +2990,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            217, 218, 219, 220
+            397, 398, 399, 400
         },
             "xrCreateSpatialGraphNodeSpaceMSFT", "xrTryCreateSpatialGraphStaticNodeBindingMSFT", "xrDestroySpatialGraphNodeBindingMSFT", 
             "xrGetSpatialGraphNodeBindingPropertiesMSFT"
@@ -1781,7 +3003,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            221, 222
+            401, 402
         },
             "xrGetAudioOutputDeviceGuidOculus", "xrGetAudioInputDeviceGuidOculus"
         ) || reportMissing("XR", "XR_OCULUS_audio_device_guid");
@@ -1793,7 +3015,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            223
+            403
         },
             "xrEnumerateExternalCamerasOCULUS"
         ) || reportMissing("XR", "XR_OCULUS_external_camera");
@@ -1805,7 +3027,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            224
+            404
         },
             "xrSetTrackingOptimizationSettingsHintQCOM"
         ) || reportMissing("XR", "XR_QCOM_tracking_optimization_settings");
@@ -1817,7 +3039,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            225
+            405
         },
             "xrSetEnvironmentDepthEstimationVARJO"
         ) || reportMissing("XR", "XR_VARJO_environment_depth_estimation");
@@ -1829,7 +3051,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            226, 227, 228, 229, 230
+            406, 407, 408, 409, 410
         },
             "xrSetMarkerTrackingVARJO", "xrSetMarkerTrackingTimeoutVARJO", "xrSetMarkerTrackingPredictionVARJO", "xrGetMarkerSizeVARJO", 
             "xrCreateMarkerSpaceVARJO"
@@ -1842,7 +3064,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            231
+            411
         },
             "xrSetViewOffsetVARJO"
         ) || reportMissing("XR", "XR_VARJO_view_offset");

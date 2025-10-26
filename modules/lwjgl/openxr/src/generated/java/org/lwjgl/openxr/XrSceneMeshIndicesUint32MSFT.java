@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Scene mesh 32-bit indices.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneMeshIndicesUint32MSFT}</li>
- * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT TYPE_SCENE_MESH_INDICES_UINT32_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code indexCapacityInput} is not 0, {@code indices} <b>must</b> be a pointer to an array of {@code indexCapacityInput} {@code uint32_t} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSceneMeshBuffersMSFT}, {@link MSFTSceneUnderstanding#xrGetSceneMeshBuffersMSFT GetSceneMeshBuffersMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSceneMeshIndicesUint32MSFT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #indexCapacityInput};
- *     uint32_t {@link #indexCountOutput};
- *     uint32_t * {@link #indices};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t indexCapacityInput;
+ *     uint32_t indexCountOutput;
+ *     uint32_t * indices;
+ * }}</pre>
  */
 public class XrSceneMeshIndicesUint32MSFT extends Struct<XrSceneMeshIndicesUint32MSFT> implements NativeResource {
 
@@ -99,34 +82,33 @@ public class XrSceneMeshIndicesUint32MSFT extends Struct<XrSceneMeshIndicesUint3
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the capacity of the array, or 0 to indicate a request to retrieve the required capacity. */
+    /** @return the value of the {@code indexCapacityInput} field. */
     @NativeType("uint32_t")
     public int indexCapacityInput() { return nindexCapacityInput(address()); }
-    /** the count of indices, or the required capacity in the case that {@code indexCapacityInput} is insufficient. */
+    /** @return the value of the {@code indexCountOutput} field. */
     @NativeType("uint32_t")
     public int indexCountOutput() { return nindexCountOutput(address()); }
-    /** an array of triangle indices filled in by the runtime, specifying the indices of the scene mesh buffer in the vertices array. The triangle indices <b>must</b> be returned in counter-clockwise order and three indices denote one triangle. */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code indices} field. */
     @NativeType("uint32_t *")
-    public IntBuffer indices() { return nindices(address()); }
+    public @Nullable IntBuffer indices() { return nindices(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSceneMeshIndicesUint32MSFT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT TYPE_SCENE_MESH_INDICES_UINT32_MSFT} value to the {@link #type} field. */
+    /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT TYPE_SCENE_MESH_INDICES_UINT32_MSFT} value to the {@code type} field. */
     public XrSceneMeshIndicesUint32MSFT type$Default() { return type(MSFTSceneUnderstanding.XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSceneMeshIndicesUint32MSFT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #indexCapacityInput} field. */
+    /** Sets the specified value to the {@code indexCapacityInput} field. */
     public XrSceneMeshIndicesUint32MSFT indexCapacityInput(@NativeType("uint32_t") int value) { nindexCapacityInput(address(), value); return this; }
-    /** Sets the specified value to the {@link #indexCountOutput} field. */
+    /** Sets the specified value to the {@code indexCountOutput} field. */
     public XrSceneMeshIndicesUint32MSFT indexCountOutput(@NativeType("uint32_t") int value) { nindexCountOutput(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #indices} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code indices} field. */
     public XrSceneMeshIndicesUint32MSFT indices(@Nullable @NativeType("uint32_t *") IntBuffer value) { nindices(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -182,8 +164,7 @@ public class XrSceneMeshIndicesUint32MSFT extends Struct<XrSceneMeshIndicesUint3
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshIndicesUint32MSFT createSafe(long address) {
+    public static @Nullable XrSceneMeshIndicesUint32MSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneMeshIndicesUint32MSFT(address, null);
     }
 
@@ -226,8 +207,7 @@ public class XrSceneMeshIndicesUint32MSFT extends Struct<XrSceneMeshIndicesUint3
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshIndicesUint32MSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneMeshIndicesUint32MSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,24 +252,24 @@ public class XrSceneMeshIndicesUint32MSFT extends Struct<XrSceneMeshIndicesUint3
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshIndicesUint32MSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneMeshIndicesUint32MSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneMeshIndicesUint32MSFT.NEXT); }
     /** Unsafe version of {@link #indexCapacityInput}. */
-    public static int nindexCapacityInput(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshIndicesUint32MSFT.INDEXCAPACITYINPUT); }
+    public static int nindexCapacityInput(long struct) { return memGetInt(struct + XrSceneMeshIndicesUint32MSFT.INDEXCAPACITYINPUT); }
     /** Unsafe version of {@link #indexCountOutput}. */
-    public static int nindexCountOutput(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshIndicesUint32MSFT.INDEXCOUNTOUTPUT); }
+    public static int nindexCountOutput(long struct) { return memGetInt(struct + XrSceneMeshIndicesUint32MSFT.INDEXCOUNTOUTPUT); }
     /** Unsafe version of {@link #indices() indices}. */
-    @Nullable public static IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrSceneMeshIndicesUint32MSFT.INDICES), nindexCapacityInput(struct)); }
+    public static @Nullable IntBuffer nindices(long struct) { return memIntBufferSafe(memGetAddress(struct + XrSceneMeshIndicesUint32MSFT.INDICES), nindexCapacityInput(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshIndicesUint32MSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneMeshIndicesUint32MSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneMeshIndicesUint32MSFT.NEXT, value); }
     /** Sets the specified value to the {@code indexCapacityInput} field of the specified {@code struct}. */
-    public static void nindexCapacityInput(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshIndicesUint32MSFT.INDEXCAPACITYINPUT, value); }
+    public static void nindexCapacityInput(long struct, int value) { memPutInt(struct + XrSceneMeshIndicesUint32MSFT.INDEXCAPACITYINPUT, value); }
     /** Unsafe version of {@link #indexCountOutput(int) indexCountOutput}. */
-    public static void nindexCountOutput(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshIndicesUint32MSFT.INDEXCOUNTOUTPUT, value); }
+    public static void nindexCountOutput(long struct, int value) { memPutInt(struct + XrSceneMeshIndicesUint32MSFT.INDEXCOUNTOUTPUT, value); }
     /** Unsafe version of {@link #indices(IntBuffer) indices}. */
     public static void nindices(long struct, @Nullable IntBuffer value) { memPutAddress(struct + XrSceneMeshIndicesUint32MSFT.INDICES, memAddressSafe(value)); if (value != null) { nindexCapacityInput(struct, value.remaining()); } }
 
@@ -327,38 +307,42 @@ public class XrSceneMeshIndicesUint32MSFT extends Struct<XrSceneMeshIndicesUint3
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneMeshIndicesUint32MSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSceneMeshIndicesUint32MSFT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSceneMeshIndicesUint32MSFT.ntype(address()); }
-        /** @return the value of the {@link XrSceneMeshIndicesUint32MSFT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSceneMeshIndicesUint32MSFT.nnext(address()); }
-        /** @return the value of the {@link XrSceneMeshIndicesUint32MSFT#indexCapacityInput} field. */
+        /** @return the value of the {@code indexCapacityInput} field. */
         @NativeType("uint32_t")
         public int indexCapacityInput() { return XrSceneMeshIndicesUint32MSFT.nindexCapacityInput(address()); }
-        /** @return the value of the {@link XrSceneMeshIndicesUint32MSFT#indexCountOutput} field. */
+        /** @return the value of the {@code indexCountOutput} field. */
         @NativeType("uint32_t")
         public int indexCountOutput() { return XrSceneMeshIndicesUint32MSFT.nindexCountOutput(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrSceneMeshIndicesUint32MSFT#indices} field. */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code indices} field. */
         @NativeType("uint32_t *")
-        public IntBuffer indices() { return XrSceneMeshIndicesUint32MSFT.nindices(address()); }
+        public @Nullable IntBuffer indices() { return XrSceneMeshIndicesUint32MSFT.nindices(address()); }
 
-        /** Sets the specified value to the {@link XrSceneMeshIndicesUint32MSFT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSceneMeshIndicesUint32MSFT.Buffer type(@NativeType("XrStructureType") int value) { XrSceneMeshIndicesUint32MSFT.ntype(address(), value); return this; }
-        /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT TYPE_SCENE_MESH_INDICES_UINT32_MSFT} value to the {@link XrSceneMeshIndicesUint32MSFT#type} field. */
+        /** Sets the {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT TYPE_SCENE_MESH_INDICES_UINT32_MSFT} value to the {@code type} field. */
         public XrSceneMeshIndicesUint32MSFT.Buffer type$Default() { return type(MSFTSceneUnderstanding.XR_TYPE_SCENE_MESH_INDICES_UINT32_MSFT); }
-        /** Sets the specified value to the {@link XrSceneMeshIndicesUint32MSFT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSceneMeshIndicesUint32MSFT.Buffer next(@NativeType("void *") long value) { XrSceneMeshIndicesUint32MSFT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSceneMeshIndicesUint32MSFT#indexCapacityInput} field. */
+        /** Sets the specified value to the {@code indexCapacityInput} field. */
         public XrSceneMeshIndicesUint32MSFT.Buffer indexCapacityInput(@NativeType("uint32_t") int value) { XrSceneMeshIndicesUint32MSFT.nindexCapacityInput(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSceneMeshIndicesUint32MSFT#indexCountOutput} field. */
+        /** Sets the specified value to the {@code indexCountOutput} field. */
         public XrSceneMeshIndicesUint32MSFT.Buffer indexCountOutput(@NativeType("uint32_t") int value) { XrSceneMeshIndicesUint32MSFT.nindexCountOutput(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link XrSceneMeshIndicesUint32MSFT#indices} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code indices} field. */
         public XrSceneMeshIndicesUint32MSFT.Buffer indices(@Nullable @NativeType("uint32_t *") IntBuffer value) { XrSceneMeshIndicesUint32MSFT.nindices(address(), value); return this; }
 
     }

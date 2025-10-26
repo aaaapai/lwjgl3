@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters controlling coverage reduction.
- * 
- * <h5>Description</h5>
- * 
- * <p>If this structure is not included in the {@code pNext} chain, or if the extension is not enabled, the default coverage reduction mode is inferred as follows:</p>
- * 
- * <ul>
- * <li>If the {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} extension is enabled, then it is as if the {@code coverageReductionMode} is {@link NVCoverageReductionMode#VK_COVERAGE_REDUCTION_MODE_MERGE_NV COVERAGE_REDUCTION_MODE_MERGE_NV}.</li>
- * <li>If the {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} extension is enabled, then it is as if the {@code coverageReductionMode} is {@link NVCoverageReductionMode#VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV COVERAGE_REDUCTION_MODE_TRUNCATE_NV}.</li>
- * <li>If both {@link NVFramebufferMixedSamples VK_NV_framebuffer_mixed_samples} and {@link AMDMixedAttachmentSamples VK_AMD_mixed_attachment_samples} are enabled, then the default coverage reduction mode is implementation-dependent.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVCoverageReductionMode#VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * <li>{@code coverageReductionMode} <b>must</b> be a valid {@code VkCoverageReductionModeNV} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineCoverageReductionStateCreateInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkPipelineCoverageReductionStateCreateFlagsNV {@link #flags};
- *     VkCoverageReductionModeNV {@link #coverageReductionMode};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkPipelineCoverageReductionStateCreateFlagsNV flags;
+ *     VkCoverageReductionModeNV coverageReductionMode;
+ * }}</pre>
  */
 public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipelineCoverageReductionStateCreateInfoNV> implements NativeResource {
 
@@ -100,28 +78,28 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkPipelineCoverageReductionStateCreateFlagsNV")
     public int flags() { return nflags(address()); }
-    /** a {@code VkCoverageReductionModeNV} value controlling how color sample coverage is generated from pixel coverage. */
+    /** @return the value of the {@code coverageReductionMode} field. */
     @NativeType("VkCoverageReductionModeNV")
     public int coverageReductionMode() { return ncoverageReductionMode(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineCoverageReductionStateCreateInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVCoverageReductionMode#VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVCoverageReductionMode#VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV} value to the {@code sType} field. */
     public VkPipelineCoverageReductionStateCreateInfoNV sType$Default() { return sType(NVCoverageReductionMode.VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineCoverageReductionStateCreateInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkPipelineCoverageReductionStateCreateInfoNV flags(@NativeType("VkPipelineCoverageReductionStateCreateFlagsNV") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #coverageReductionMode} field. */
+    /** Sets the specified value to the {@code coverageReductionMode} field. */
     public VkPipelineCoverageReductionStateCreateInfoNV coverageReductionMode(@NativeType("VkCoverageReductionModeNV") int value) { ncoverageReductionMode(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +153,7 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCoverageReductionStateCreateInfoNV createSafe(long address) {
+    public static @Nullable VkPipelineCoverageReductionStateCreateInfoNV createSafe(long address) {
         return address == NULL ? null : new VkPipelineCoverageReductionStateCreateInfoNV(address, null);
     }
 
@@ -219,8 +196,7 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCoverageReductionStateCreateInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCoverageReductionStateCreateInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,22 +260,22 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineCoverageReductionStateCreateInfoNV.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS); }
     /** Unsafe version of {@link #coverageReductionMode}. */
-    public static int ncoverageReductionMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE); }
+    public static int ncoverageReductionMode(long struct) { return memGetInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineCoverageReductionStateCreateInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.FLAGS, value); }
     /** Unsafe version of {@link #coverageReductionMode(int) coverageReductionMode}. */
-    public static void ncoverageReductionMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE, value); }
+    public static void ncoverageReductionMode(long struct, int value) { memPutInt(struct + VkPipelineCoverageReductionStateCreateInfoNV.COVERAGEREDUCTIONMODE, value); }
 
     // -----------------------------------
 
@@ -335,32 +311,37 @@ public class VkPipelineCoverageReductionStateCreateInfoNV extends Struct<VkPipel
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineCoverageReductionStateCreateInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineCoverageReductionStateCreateInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineCoverageReductionStateCreateInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkPipelineCoverageReductionStateCreateInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineCoverageReductionStateCreateInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkPipelineCoverageReductionStateCreateInfoNV#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkPipelineCoverageReductionStateCreateFlagsNV")
         public int flags() { return VkPipelineCoverageReductionStateCreateInfoNV.nflags(address()); }
-        /** @return the value of the {@link VkPipelineCoverageReductionStateCreateInfoNV#coverageReductionMode} field. */
+        /** @return the value of the {@code coverageReductionMode} field. */
         @NativeType("VkCoverageReductionModeNV")
         public int coverageReductionMode() { return VkPipelineCoverageReductionStateCreateInfoNV.ncoverageReductionMode(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineCoverageReductionStateCreateInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineCoverageReductionStateCreateInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineCoverageReductionStateCreateInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVCoverageReductionMode#VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV} value to the {@link VkPipelineCoverageReductionStateCreateInfoNV#sType} field. */
+        /** Sets the {@link NVCoverageReductionMode#VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV} value to the {@code sType} field. */
         public VkPipelineCoverageReductionStateCreateInfoNV.Buffer sType$Default() { return sType(NVCoverageReductionMode.VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV); }
-        /** Sets the specified value to the {@link VkPipelineCoverageReductionStateCreateInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineCoverageReductionStateCreateInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkPipelineCoverageReductionStateCreateInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineCoverageReductionStateCreateInfoNV#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkPipelineCoverageReductionStateCreateInfoNV.Buffer flags(@NativeType("VkPipelineCoverageReductionStateCreateFlagsNV") int value) { VkPipelineCoverageReductionStateCreateInfoNV.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineCoverageReductionStateCreateInfoNV#coverageReductionMode} field. */
+        /** Sets the specified value to the {@code coverageReductionMode} field. */
         public VkPipelineCoverageReductionStateCreateInfoNV.Buffer coverageReductionMode(@NativeType("VkCoverageReductionModeNV") int value) { VkPipelineCoverageReductionStateCreateInfoNV.ncoverageReductionMode(address(), value); return this; }
 
     }

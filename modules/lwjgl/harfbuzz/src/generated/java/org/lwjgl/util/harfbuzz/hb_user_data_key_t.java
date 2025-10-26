@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Data structure for holding user-data keys.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_user_data_key_t {
  *     char unused;
- * }</code></pre>
+ * }}</pre>
  */
 public class hb_user_data_key_t extends Struct<hb_user_data_key_t> implements NativeResource {
 
@@ -94,8 +90,7 @@ public class hb_user_data_key_t extends Struct<hb_user_data_key_t> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_user_data_key_t createSafe(long address) {
+    public static @Nullable hb_user_data_key_t createSafe(long address) {
         return address == NULL ? null : new hb_user_data_key_t(address, null);
     }
 
@@ -138,8 +133,7 @@ public class hb_user_data_key_t extends Struct<hb_user_data_key_t> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_user_data_key_t.Buffer createSafe(long address, int capacity) {
+    public static hb_user_data_key_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -183,9 +177,9 @@ public class hb_user_data_key_t extends Struct<hb_user_data_key_t> implements Na
 
     // -----------------------------------
 
-    public static byte nunused(long struct) { return UNSAFE.getByte(null, struct + hb_user_data_key_t.UNUSED); }
+    public static byte nunused(long struct) { return memGetByte(struct + hb_user_data_key_t.UNUSED); }
 
-    public static void nunused(long struct, byte value) { UNSAFE.putByte(null, struct + hb_user_data_key_t.UNUSED, value); }
+    public static void nunused(long struct, byte value) { memPutByte(struct + hb_user_data_key_t.UNUSED, value); }
 
     // -----------------------------------
 
@@ -218,6 +212,11 @@ public class hb_user_data_key_t extends Struct<hb_user_data_key_t> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

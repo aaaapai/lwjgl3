@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.macosx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure that contains a point in a two-dimensional coordinate system.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CGPoint {
- *     CGFloat {@link #x};
- *     CGFloat {@link #y};
- * }</code></pre>
+ *     CGFloat x;
+ *     CGFloat y;
+ * }}</pre>
  */
 public class CGPoint extends Struct<CGPoint> implements NativeResource {
 
@@ -74,16 +70,16 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x-coordinate of the point */
+    /** @return the value of the {@code x} field. */
     @NativeType("CGFloat")
     public double x() { return nx(address()); }
-    /** the y-coordinate of the point */
+    /** @return the value of the {@code y} field. */
     @NativeType("CGFloat")
     public double y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public CGPoint x(@NativeType("CGFloat") double value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public CGPoint y(@NativeType("CGFloat") double value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -133,8 +129,7 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CGPoint createSafe(long address) {
+    public static @Nullable CGPoint createSafe(long address) {
         return address == NULL ? null : new CGPoint(address, null);
     }
 
@@ -177,8 +172,7 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CGPoint.Buffer createSafe(long address, int capacity) {
+    public static CGPoint.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +236,14 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static double nx(long struct) { return UNSAFE.getDouble(null, struct + CGPoint.X); }
+    public static double nx(long struct) { return memGetDouble(struct + CGPoint.X); }
     /** Unsafe version of {@link #y}. */
-    public static double ny(long struct) { return UNSAFE.getDouble(null, struct + CGPoint.Y); }
+    public static double ny(long struct) { return memGetDouble(struct + CGPoint.Y); }
 
     /** Unsafe version of {@link #x(double) x}. */
-    public static void nx(long struct, double value) { UNSAFE.putDouble(null, struct + CGPoint.X, value); }
+    public static void nx(long struct, double value) { memPutDouble(struct + CGPoint.X, value); }
     /** Unsafe version of {@link #y(double) y}. */
-    public static void ny(long struct, double value) { UNSAFE.putDouble(null, struct + CGPoint.Y, value); }
+    public static void ny(long struct, double value) { memPutDouble(struct + CGPoint.Y, value); }
 
     // -----------------------------------
 
@@ -285,20 +279,25 @@ public class CGPoint extends Struct<CGPoint> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CGPoint getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CGPoint#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("CGFloat")
         public double x() { return CGPoint.nx(address()); }
-        /** @return the value of the {@link CGPoint#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("CGFloat")
         public double y() { return CGPoint.ny(address()); }
 
-        /** Sets the specified value to the {@link CGPoint#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public CGPoint.Buffer x(@NativeType("CGFloat") double value) { CGPoint.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link CGPoint#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public CGPoint.Buffer y(@NativeType("CGFloat") double value) { CGPoint.ny(address(), value); return this; }
 
     }

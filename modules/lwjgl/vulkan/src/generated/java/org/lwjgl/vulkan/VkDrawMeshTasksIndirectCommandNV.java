@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a mesh tasks draw indirect command.
- * 
- * <h5>Description</h5>
- * 
- * <p>The members of {@link VkDrawMeshTasksIndirectCommandNV} have the same meaning as the similarly named parameters of {@link NVMeshShader#vkCmdDrawMeshTasksNV CmdDrawMeshTasksNV}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code taskCount} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesNV}{@code ::maxDrawMeshTasksCount}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link NVMeshShader#vkCmdDrawMeshTasksIndirectNV CmdDrawMeshTasksIndirectNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDrawMeshTasksIndirectCommandNV {
- *     uint32_t {@link #taskCount};
- *     uint32_t {@link #firstTask};
- * }</code></pre>
+ *     uint32_t taskCount;
+ *     uint32_t firstTask;
+ * }}</pre>
  */
 public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndirectCommandNV> implements NativeResource {
 
@@ -88,16 +70,16 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of local workgroups to dispatch in the X dimension. Y and Z dimension are implicitly set to one. */
+    /** @return the value of the {@code taskCount} field. */
     @NativeType("uint32_t")
     public int taskCount() { return ntaskCount(address()); }
-    /** the X component of the first workgroup ID. */
+    /** @return the value of the {@code firstTask} field. */
     @NativeType("uint32_t")
     public int firstTask() { return nfirstTask(address()); }
 
-    /** Sets the specified value to the {@link #taskCount} field. */
+    /** Sets the specified value to the {@code taskCount} field. */
     public VkDrawMeshTasksIndirectCommandNV taskCount(@NativeType("uint32_t") int value) { ntaskCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #firstTask} field. */
+    /** Sets the specified value to the {@code firstTask} field. */
     public VkDrawMeshTasksIndirectCommandNV firstTask(@NativeType("uint32_t") int value) { nfirstTask(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -147,8 +129,7 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkDrawMeshTasksIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkDrawMeshTasksIndirectCommandNV(address, null);
     }
 
@@ -191,8 +172,7 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkDrawMeshTasksIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,14 +236,14 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
     // -----------------------------------
 
     /** Unsafe version of {@link #taskCount}. */
-    public static int ntaskCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT); }
+    public static int ntaskCount(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT); }
     /** Unsafe version of {@link #firstTask}. */
-    public static int nfirstTask(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK); }
+    public static int nfirstTask(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK); }
 
     /** Unsafe version of {@link #taskCount(int) taskCount}. */
-    public static void ntaskCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT, value); }
+    public static void ntaskCount(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandNV.TASKCOUNT, value); }
     /** Unsafe version of {@link #firstTask(int) firstTask}. */
-    public static void nfirstTask(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK, value); }
+    public static void nfirstTask(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandNV.FIRSTTASK, value); }
 
     // -----------------------------------
 
@@ -299,20 +279,25 @@ public class VkDrawMeshTasksIndirectCommandNV extends Struct<VkDrawMeshTasksIndi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDrawMeshTasksIndirectCommandNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDrawMeshTasksIndirectCommandNV#taskCount} field. */
+        /** @return the value of the {@code taskCount} field. */
         @NativeType("uint32_t")
         public int taskCount() { return VkDrawMeshTasksIndirectCommandNV.ntaskCount(address()); }
-        /** @return the value of the {@link VkDrawMeshTasksIndirectCommandNV#firstTask} field. */
+        /** @return the value of the {@code firstTask} field. */
         @NativeType("uint32_t")
         public int firstTask() { return VkDrawMeshTasksIndirectCommandNV.nfirstTask(address()); }
 
-        /** Sets the specified value to the {@link VkDrawMeshTasksIndirectCommandNV#taskCount} field. */
+        /** Sets the specified value to the {@code taskCount} field. */
         public VkDrawMeshTasksIndirectCommandNV.Buffer taskCount(@NativeType("uint32_t") int value) { VkDrawMeshTasksIndirectCommandNV.ntaskCount(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDrawMeshTasksIndirectCommandNV#firstTask} field. */
+        /** Sets the specified value to the {@code firstTask} field. */
         public VkDrawMeshTasksIndirectCommandNV.Buffer firstTask(@NativeType("uint32_t") int value) { VkDrawMeshTasksIndirectCommandNV.nfirstTask(address(), value); return this; }
 
     }

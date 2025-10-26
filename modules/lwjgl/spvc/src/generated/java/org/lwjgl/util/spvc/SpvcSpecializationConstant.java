@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_specialization_constant {
- *     spvc_constant_id {@link #id};
- *     unsigned int {@link #constant_id};
- * }</code></pre>
+ *     spvc_constant_id id;
+ *     unsigned int constant_id;
+ * }}</pre>
  */
 @NativeType("struct spvc_specialization_constant")
 public class SpvcSpecializationConstant extends Struct<SpvcSpecializationConstant> implements NativeResource {
@@ -73,16 +71,16 @@ public class SpvcSpecializationConstant extends Struct<SpvcSpecializationConstan
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the ID of the specialization constant */
+    /** @return the value of the {@code id} field. */
     @NativeType("spvc_constant_id")
     public int id() { return nid(address()); }
-    /** the constant ID of the constant, used in Vulkan during pipeline creation */
+    /** @return the value of the {@code constant_id} field. */
     @NativeType("unsigned int")
     public int constant_id() { return nconstant_id(address()); }
 
-    /** Sets the specified value to the {@link #id} field. */
+    /** Sets the specified value to the {@code id} field. */
     public SpvcSpecializationConstant id(@NativeType("spvc_constant_id") int value) { nid(address(), value); return this; }
-    /** Sets the specified value to the {@link #constant_id} field. */
+    /** Sets the specified value to the {@code constant_id} field. */
     public SpvcSpecializationConstant constant_id(@NativeType("unsigned int") int value) { nconstant_id(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -132,8 +130,7 @@ public class SpvcSpecializationConstant extends Struct<SpvcSpecializationConstan
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcSpecializationConstant createSafe(long address) {
+    public static @Nullable SpvcSpecializationConstant createSafe(long address) {
         return address == NULL ? null : new SpvcSpecializationConstant(address, null);
     }
 
@@ -176,8 +173,7 @@ public class SpvcSpecializationConstant extends Struct<SpvcSpecializationConstan
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcSpecializationConstant.Buffer createSafe(long address, int capacity) {
+    public static SpvcSpecializationConstant.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,14 +218,14 @@ public class SpvcSpecializationConstant extends Struct<SpvcSpecializationConstan
     // -----------------------------------
 
     /** Unsafe version of {@link #id}. */
-    public static int nid(long struct) { return UNSAFE.getInt(null, struct + SpvcSpecializationConstant.ID); }
+    public static int nid(long struct) { return memGetInt(struct + SpvcSpecializationConstant.ID); }
     /** Unsafe version of {@link #constant_id}. */
-    public static int nconstant_id(long struct) { return UNSAFE.getInt(null, struct + SpvcSpecializationConstant.CONSTANT_ID); }
+    public static int nconstant_id(long struct) { return memGetInt(struct + SpvcSpecializationConstant.CONSTANT_ID); }
 
     /** Unsafe version of {@link #id(int) id}. */
-    public static void nid(long struct, int value) { UNSAFE.putInt(null, struct + SpvcSpecializationConstant.ID, value); }
+    public static void nid(long struct, int value) { memPutInt(struct + SpvcSpecializationConstant.ID, value); }
     /** Unsafe version of {@link #constant_id(int) constant_id}. */
-    public static void nconstant_id(long struct, int value) { UNSAFE.putInt(null, struct + SpvcSpecializationConstant.CONSTANT_ID, value); }
+    public static void nconstant_id(long struct, int value) { memPutInt(struct + SpvcSpecializationConstant.CONSTANT_ID, value); }
 
     // -----------------------------------
 
@@ -265,20 +261,25 @@ public class SpvcSpecializationConstant extends Struct<SpvcSpecializationConstan
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected SpvcSpecializationConstant getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link SpvcSpecializationConstant#id} field. */
+        /** @return the value of the {@code id} field. */
         @NativeType("spvc_constant_id")
         public int id() { return SpvcSpecializationConstant.nid(address()); }
-        /** @return the value of the {@link SpvcSpecializationConstant#constant_id} field. */
+        /** @return the value of the {@code constant_id} field. */
         @NativeType("unsigned int")
         public int constant_id() { return SpvcSpecializationConstant.nconstant_id(address()); }
 
-        /** Sets the specified value to the {@link SpvcSpecializationConstant#id} field. */
+        /** Sets the specified value to the {@code id} field. */
         public SpvcSpecializationConstant.Buffer id(@NativeType("spvc_constant_id") int value) { SpvcSpecializationConstant.nid(address(), value); return this; }
-        /** Sets the specified value to the {@link SpvcSpecializationConstant#constant_id} field. */
+        /** Sets the specified value to the {@code constant_id} field. */
         public SpvcSpecializationConstant.Buffer constant_id(@NativeType("unsigned int") int value) { SpvcSpecializationConstant.nconstant_id(address(), value); return this; }
 
     }

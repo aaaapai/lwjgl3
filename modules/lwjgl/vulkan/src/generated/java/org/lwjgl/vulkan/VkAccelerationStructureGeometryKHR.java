@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying geometries to be built into an acceleration structure.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code geometryType} <b>must</b> be a valid {@code VkGeometryTypeKHR} value</li>
- * <li>If {@code geometryType} is {@link KHRAccelerationStructure#VK_GEOMETRY_TYPE_TRIANGLES_KHR GEOMETRY_TYPE_TRIANGLES_KHR}, the {@code triangles} member of {@code geometry} <b>must</b> be a valid {@link VkAccelerationStructureGeometryTrianglesDataKHR} structure</li>
- * <li>If {@code geometryType} is {@link KHRAccelerationStructure#VK_GEOMETRY_TYPE_AABBS_KHR GEOMETRY_TYPE_AABBS_KHR}, the {@code aabbs} member of {@code geometry} <b>must</b> be a valid {@link VkAccelerationStructureGeometryAabbsDataKHR} structure</li>
- * <li>If {@code geometryType} is {@link KHRAccelerationStructure#VK_GEOMETRY_TYPE_INSTANCES_KHR GEOMETRY_TYPE_INSTANCES_KHR}, the {@code instances} member of {@code geometry} <b>must</b> be a valid {@link VkAccelerationStructureGeometryInstancesDataKHR} structure</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code VkGeometryFlagBitsKHR} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAccelerationStructureBuildGeometryInfoKHR}, {@link VkAccelerationStructureGeometryDataKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkAccelerationStructureGeometryKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkGeometryTypeKHR {@link #geometryType};
- *     {@link VkAccelerationStructureGeometryDataKHR VkAccelerationStructureGeometryDataKHR} {@link #geometry};
- *     VkGeometryFlagsKHR {@link #flags};
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkGeometryTypeKHR geometryType;
+ *     {@link VkAccelerationStructureGeometryDataKHR VkAccelerationStructureGeometryDataKHR} geometry;
+ *     VkGeometryFlagsKHR flags;
  * }</code></pre>
  */
 public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStructureGeometryKHR> implements NativeResource {
@@ -102,34 +82,40 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** describes which type of geometry this {@link VkAccelerationStructureGeometryKHR} refers to. */
+    /** @return the value of the {@code geometryType} field. */
     @NativeType("VkGeometryTypeKHR")
     public int geometryType() { return ngeometryType(address()); }
-    /** a {@link VkAccelerationStructureGeometryDataKHR} union describing the geometry data for the relevant geometry type. */
+    /** @return a {@link VkAccelerationStructureGeometryDataKHR} view of the {@code geometry} field. */
     public VkAccelerationStructureGeometryDataKHR geometry() { return ngeometry(address()); }
-    /** a bitmask of {@code VkGeometryFlagBitsKHR} values describing additional properties of how the geometry should be built. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkGeometryFlagsKHR")
     public int flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkAccelerationStructureGeometryKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR} value to the {@code sType} field. */
     public VkAccelerationStructureGeometryKHR sType$Default() { return sType(KHRAccelerationStructure.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkAccelerationStructureGeometryKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #geometryType} field. */
+    /** Prepends the specified {@link VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX} value to the {@code pNext} chain. */
+    public VkAccelerationStructureGeometryKHR pNext(VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkAccelerationStructureGeometryLinearSweptSpheresDataNV} value to the {@code pNext} chain. */
+    public VkAccelerationStructureGeometryKHR pNext(VkAccelerationStructureGeometryLinearSweptSpheresDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkAccelerationStructureGeometrySpheresDataNV} value to the {@code pNext} chain. */
+    public VkAccelerationStructureGeometryKHR pNext(VkAccelerationStructureGeometrySpheresDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Sets the specified value to the {@code geometryType} field. */
     public VkAccelerationStructureGeometryKHR geometryType(@NativeType("VkGeometryTypeKHR") int value) { ngeometryType(address(), value); return this; }
-    /** Copies the specified {@link VkAccelerationStructureGeometryDataKHR} to the {@link #geometry} field. */
+    /** Copies the specified {@link VkAccelerationStructureGeometryDataKHR} to the {@code geometry} field. */
     public VkAccelerationStructureGeometryKHR geometry(VkAccelerationStructureGeometryDataKHR value) { ngeometry(address(), value); return this; }
-    /** Passes the {@link #geometry} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code geometry} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkAccelerationStructureGeometryKHR geometry(java.util.function.Consumer<VkAccelerationStructureGeometryDataKHR> consumer) { consumer.accept(geometry()); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkAccelerationStructureGeometryKHR flags(@NativeType("VkGeometryFlagsKHR") int value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -185,8 +171,7 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureGeometryKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureGeometryKHR(address, null);
     }
 
@@ -229,8 +214,7 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureGeometryKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureGeometryKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -275,26 +259,26 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureGeometryKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureGeometryKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureGeometryKHR.PNEXT); }
     /** Unsafe version of {@link #geometryType}. */
-    public static int ngeometryType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureGeometryKHR.GEOMETRYTYPE); }
+    public static int ngeometryType(long struct) { return memGetInt(struct + VkAccelerationStructureGeometryKHR.GEOMETRYTYPE); }
     /** Unsafe version of {@link #geometry}. */
     public static VkAccelerationStructureGeometryDataKHR ngeometry(long struct) { return VkAccelerationStructureGeometryDataKHR.create(struct + VkAccelerationStructureGeometryKHR.GEOMETRY); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureGeometryKHR.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkAccelerationStructureGeometryKHR.FLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureGeometryKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureGeometryKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureGeometryKHR.PNEXT, value); }
     /** Unsafe version of {@link #geometryType(int) geometryType}. */
-    public static void ngeometryType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureGeometryKHR.GEOMETRYTYPE, value); }
+    public static void ngeometryType(long struct, int value) { memPutInt(struct + VkAccelerationStructureGeometryKHR.GEOMETRYTYPE, value); }
     /** Unsafe version of {@link #geometry(VkAccelerationStructureGeometryDataKHR) geometry}. */
     public static void ngeometry(long struct, VkAccelerationStructureGeometryDataKHR value) { memCopy(value.address(), struct + VkAccelerationStructureGeometryKHR.GEOMETRY, VkAccelerationStructureGeometryDataKHR.SIZEOF); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureGeometryKHR.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkAccelerationStructureGeometryKHR.FLAGS, value); }
 
     // -----------------------------------
 
@@ -330,38 +314,49 @@ public class VkAccelerationStructureGeometryKHR extends Struct<VkAccelerationStr
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAccelerationStructureGeometryKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAccelerationStructureGeometryKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkAccelerationStructureGeometryKHR.nsType(address()); }
-        /** @return the value of the {@link VkAccelerationStructureGeometryKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkAccelerationStructureGeometryKHR.npNext(address()); }
-        /** @return the value of the {@link VkAccelerationStructureGeometryKHR#geometryType} field. */
+        /** @return the value of the {@code geometryType} field. */
         @NativeType("VkGeometryTypeKHR")
         public int geometryType() { return VkAccelerationStructureGeometryKHR.ngeometryType(address()); }
-        /** @return a {@link VkAccelerationStructureGeometryDataKHR} view of the {@link VkAccelerationStructureGeometryKHR#geometry} field. */
+        /** @return a {@link VkAccelerationStructureGeometryDataKHR} view of the {@code geometry} field. */
         public VkAccelerationStructureGeometryDataKHR geometry() { return VkAccelerationStructureGeometryKHR.ngeometry(address()); }
-        /** @return the value of the {@link VkAccelerationStructureGeometryKHR#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkGeometryFlagsKHR")
         public int flags() { return VkAccelerationStructureGeometryKHR.nflags(address()); }
 
-        /** Sets the specified value to the {@link VkAccelerationStructureGeometryKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkAccelerationStructureGeometryKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkAccelerationStructureGeometryKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR} value to the {@link VkAccelerationStructureGeometryKHR#sType} field. */
+        /** Sets the {@link KHRAccelerationStructure#VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR} value to the {@code sType} field. */
         public VkAccelerationStructureGeometryKHR.Buffer sType$Default() { return sType(KHRAccelerationStructure.VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR); }
-        /** Sets the specified value to the {@link VkAccelerationStructureGeometryKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkAccelerationStructureGeometryKHR.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureGeometryKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAccelerationStructureGeometryKHR#geometryType} field. */
+        /** Prepends the specified {@link VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX} value to the {@code pNext} chain. */
+        public VkAccelerationStructureGeometryKHR.Buffer pNext(VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkAccelerationStructureGeometryLinearSweptSpheresDataNV} value to the {@code pNext} chain. */
+        public VkAccelerationStructureGeometryKHR.Buffer pNext(VkAccelerationStructureGeometryLinearSweptSpheresDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkAccelerationStructureGeometrySpheresDataNV} value to the {@code pNext} chain. */
+        public VkAccelerationStructureGeometryKHR.Buffer pNext(VkAccelerationStructureGeometrySpheresDataNV value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Sets the specified value to the {@code geometryType} field. */
         public VkAccelerationStructureGeometryKHR.Buffer geometryType(@NativeType("VkGeometryTypeKHR") int value) { VkAccelerationStructureGeometryKHR.ngeometryType(address(), value); return this; }
-        /** Copies the specified {@link VkAccelerationStructureGeometryDataKHR} to the {@link VkAccelerationStructureGeometryKHR#geometry} field. */
+        /** Copies the specified {@link VkAccelerationStructureGeometryDataKHR} to the {@code geometry} field. */
         public VkAccelerationStructureGeometryKHR.Buffer geometry(VkAccelerationStructureGeometryDataKHR value) { VkAccelerationStructureGeometryKHR.ngeometry(address(), value); return this; }
-        /** Passes the {@link VkAccelerationStructureGeometryKHR#geometry} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code geometry} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkAccelerationStructureGeometryKHR.Buffer geometry(java.util.function.Consumer<VkAccelerationStructureGeometryDataKHR> consumer) { consumer.accept(geometry()); return this; }
-        /** Sets the specified value to the {@link VkAccelerationStructureGeometryKHR#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkAccelerationStructureGeometryKHR.Buffer flags(@NativeType("VkGeometryFlagsKHR") int value) { VkAccelerationStructureGeometryKHR.nflags(address(), value); return this; }
 
     }

@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * KTX_error_code (*{@link #invoke}) (
- *     ktxStream *str,
- *     ktx_size_t * const size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ktxStream_getsize} */
 public abstract class ktxStream_getsize extends Callback implements ktxStream_getsizeI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class ktxStream_getsize extends Callback implements ktxStream_ge
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static ktxStream_getsize createSafe(long functionPointer) {
+    public static @Nullable ktxStream_getsize createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

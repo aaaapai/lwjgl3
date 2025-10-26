@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure indicating support for imageless framebuffers.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceImagelessFramebufferFeatures} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceImagelessFramebufferFeatures} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceImagelessFramebufferFeatures {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #imagelessFramebuffer};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 imagelessFramebuffer;
+ * }}</pre>
  */
 public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysicalDeviceImagelessFramebufferFeatures> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports specifying the image view for attachments at render pass begin time via {@link VkRenderPassAttachmentBeginInfo}. */
+    /** @return the value of the {@code imagelessFramebuffer} field. */
     @NativeType("VkBool32")
     public boolean imagelessFramebuffer() { return nimagelessFramebuffer(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceImagelessFramebufferFeatures sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDeviceImagelessFramebufferFeatures sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceImagelessFramebufferFeatures pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #imagelessFramebuffer} field. */
+    /** Sets the specified value to the {@code imagelessFramebuffer} field. */
     public VkPhysicalDeviceImagelessFramebufferFeatures imagelessFramebuffer(@NativeType("VkBool32") boolean value) { nimagelessFramebuffer(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImagelessFramebufferFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImagelessFramebufferFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImagelessFramebufferFeatures(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImagelessFramebufferFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImagelessFramebufferFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImagelessFramebufferFeatures.PNEXT); }
     /** Unsafe version of {@link #imagelessFramebuffer}. */
-    public static int nimagelessFramebuffer(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER); }
+    public static int nimagelessFramebuffer(long struct) { return memGetInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImagelessFramebufferFeatures.PNEXT, value); }
     /** Unsafe version of {@link #imagelessFramebuffer(boolean) imagelessFramebuffer}. */
-    public static void nimagelessFramebuffer(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER, value); }
+    public static void nimagelessFramebuffer(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImagelessFramebufferFeatures.IMAGELESSFRAMEBUFFER, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceImagelessFramebufferFeatures extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceImagelessFramebufferFeatures getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceImagelessFramebufferFeatures#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceImagelessFramebufferFeatures.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImagelessFramebufferFeatures#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceImagelessFramebufferFeatures.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImagelessFramebufferFeatures#imagelessFramebuffer} field. */
+        /** @return the value of the {@code imagelessFramebuffer} field. */
         @NativeType("VkBool32")
         public boolean imagelessFramebuffer() { return VkPhysicalDeviceImagelessFramebufferFeatures.nimagelessFramebuffer(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceImagelessFramebufferFeatures#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceImagelessFramebufferFeatures.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceImagelessFramebufferFeatures.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES} value to the {@link VkPhysicalDeviceImagelessFramebufferFeatures#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDeviceImagelessFramebufferFeatures.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImagelessFramebufferFeatures#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceImagelessFramebufferFeatures.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceImagelessFramebufferFeatures.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImagelessFramebufferFeatures#imagelessFramebuffer} field. */
+        /** Sets the specified value to the {@code imagelessFramebuffer} field. */
         public VkPhysicalDeviceImagelessFramebufferFeatures.Buffer imagelessFramebuffer(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceImagelessFramebufferFeatures.nimagelessFramebuffer(address(), value ? 1 : 0); return this; }
 
     }

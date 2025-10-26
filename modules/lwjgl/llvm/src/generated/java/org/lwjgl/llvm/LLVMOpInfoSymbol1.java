@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,25 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The initial support in LLVM MC for the most general form of a relocatable expression is "AddSymbol - SubtractSymbol + Offset". For some Darwin targets
- * this full form is encoded in the relocation information so that {@code AddSymbol} and {@code SubtractSymbol} can be link edited independent of each
- * other. Many other platforms only allow a relocatable expression of the form {@code AddSymbol + Offset} to be encoded.
- * 
- * <p>The {@code LLVMOpInfoCallback()} for the {@code TagType} value of 1 uses the struct {@code LLVMOpInfo1}. The value of the relocatable expression for
- * the operand, including any {@code PC} adjustment, is passed in to the call back in the {@code Value} field. The symbolic information about the operand
- * is returned using all the fields of the structure with the Offset of the relocatable expression returned in the {@code Value} field. It is possible
- * that some symbols in the relocatable expression were assembly temporary symbols, for example "Ldata - LpicBase + constant", and only the Values of the
- * symbols without symbol names are present in the relocation information. The {@code VariantKind} type is one of the {@code Target} specific
- * {@code #defines} below and is used to print operands like "_foo GOT ", ":lower16:_foo", etc.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct LLVMOpInfoSymbol1 {
- *     uint64_t {@link #Present};
- *     char const * {@link #Name};
- *     uint64_t {@link #Value};
- * }</code></pre>
+ *     uint64_t Present;
+ *     char const * Name;
+ *     uint64_t Value;
+ * }}</pre>
  */
 @NativeType("struct LLVMOpInfoSymbol1")
 public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements NativeResource {
@@ -89,26 +76,24 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** 1 if this symbol is present */
+    /** @return the value of the {@code Present} field. */
     @NativeType("uint64_t")
     public long Present() { return nPresent(address()); }
-    /** symbol name if not {@code NULL} */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code Name} field. */
     @NativeType("char const *")
-    public ByteBuffer Name() { return nName(address()); }
-    /** symbol name if not {@code NULL} */
-    @Nullable
+    public @Nullable ByteBuffer Name() { return nName(address()); }
+    /** @return the null-terminated string pointed to by the {@code Name} field. */
     @NativeType("char const *")
-    public String NameString() { return nNameString(address()); }
-    /** symbol value if name is {@code NULL} */
+    public @Nullable String NameString() { return nNameString(address()); }
+    /** @return the value of the {@code Value} field. */
     @NativeType("uint64_t")
     public long Value() { return nValue(address()); }
 
-    /** Sets the specified value to the {@link #Present} field. */
+    /** Sets the specified value to the {@code Present} field. */
     public LLVMOpInfoSymbol1 Present(@NativeType("uint64_t") long value) { nPresent(address(), value); return this; }
-    /** Sets the address of the specified encoded string to the {@link #Name} field. */
+    /** Sets the address of the specified encoded string to the {@code Name} field. */
     public LLVMOpInfoSymbol1 Name(@Nullable @NativeType("char const *") ByteBuffer value) { nName(address(), value); return this; }
-    /** Sets the specified value to the {@link #Value} field. */
+    /** Sets the specified value to the {@code Value} field. */
     public LLVMOpInfoSymbol1 Value(@NativeType("uint64_t") long value) { nValue(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -160,8 +145,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOpInfoSymbol1 createSafe(long address) {
+    public static @Nullable LLVMOpInfoSymbol1 createSafe(long address) {
         return address == NULL ? null : new LLVMOpInfoSymbol1(address, null);
     }
 
@@ -204,8 +188,7 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOpInfoSymbol1.Buffer createSafe(long address, int capacity) {
+    public static LLVMOpInfoSymbol1.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,23 +252,23 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #Present}. */
-    public static long nPresent(long struct) { return UNSAFE.getLong(null, struct + LLVMOpInfoSymbol1.PRESENT); }
+    public static long nPresent(long struct) { return memGetLong(struct + LLVMOpInfoSymbol1.PRESENT); }
     /** Unsafe version of {@link #Name}. */
-    @Nullable public static ByteBuffer nName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + LLVMOpInfoSymbol1.NAME)); }
+    public static @Nullable ByteBuffer nName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + LLVMOpInfoSymbol1.NAME)); }
     /** Unsafe version of {@link #NameString}. */
-    @Nullable public static String nNameString(long struct) { return memUTF8Safe(memGetAddress(struct + LLVMOpInfoSymbol1.NAME)); }
+    public static @Nullable String nNameString(long struct) { return memUTF8Safe(memGetAddress(struct + LLVMOpInfoSymbol1.NAME)); }
     /** Unsafe version of {@link #Value}. */
-    public static long nValue(long struct) { return UNSAFE.getLong(null, struct + LLVMOpInfoSymbol1.VALUE); }
+    public static long nValue(long struct) { return memGetLong(struct + LLVMOpInfoSymbol1.VALUE); }
 
     /** Unsafe version of {@link #Present(long) Present}. */
-    public static void nPresent(long struct, long value) { UNSAFE.putLong(null, struct + LLVMOpInfoSymbol1.PRESENT, value); }
+    public static void nPresent(long struct, long value) { memPutLong(struct + LLVMOpInfoSymbol1.PRESENT, value); }
     /** Unsafe version of {@link #Name(ByteBuffer) Name}. */
     public static void nName(long struct, @Nullable ByteBuffer value) {
         if (CHECKS) { checkNT1Safe(value); }
         memPutAddress(struct + LLVMOpInfoSymbol1.NAME, memAddressSafe(value));
     }
     /** Unsafe version of {@link #Value(long) Value}. */
-    public static void nValue(long struct, long value) { UNSAFE.putLong(null, struct + LLVMOpInfoSymbol1.VALUE, value); }
+    public static void nValue(long struct, long value) { memPutLong(struct + LLVMOpInfoSymbol1.VALUE, value); }
 
     // -----------------------------------
 
@@ -321,30 +304,33 @@ public class LLVMOpInfoSymbol1 extends Struct<LLVMOpInfoSymbol1> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected LLVMOpInfoSymbol1 getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link LLVMOpInfoSymbol1#Present} field. */
+        /** @return the value of the {@code Present} field. */
         @NativeType("uint64_t")
         public long Present() { return LLVMOpInfoSymbol1.nPresent(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link LLVMOpInfoSymbol1#Name} field. */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code Name} field. */
         @NativeType("char const *")
-        public ByteBuffer Name() { return LLVMOpInfoSymbol1.nName(address()); }
-        /** @return the null-terminated string pointed to by the {@link LLVMOpInfoSymbol1#Name} field. */
-        @Nullable
+        public @Nullable ByteBuffer Name() { return LLVMOpInfoSymbol1.nName(address()); }
+        /** @return the null-terminated string pointed to by the {@code Name} field. */
         @NativeType("char const *")
-        public String NameString() { return LLVMOpInfoSymbol1.nNameString(address()); }
-        /** @return the value of the {@link LLVMOpInfoSymbol1#Value} field. */
+        public @Nullable String NameString() { return LLVMOpInfoSymbol1.nNameString(address()); }
+        /** @return the value of the {@code Value} field. */
         @NativeType("uint64_t")
         public long Value() { return LLVMOpInfoSymbol1.nValue(address()); }
 
-        /** Sets the specified value to the {@link LLVMOpInfoSymbol1#Present} field. */
+        /** Sets the specified value to the {@code Present} field. */
         public LLVMOpInfoSymbol1.Buffer Present(@NativeType("uint64_t") long value) { LLVMOpInfoSymbol1.nPresent(address(), value); return this; }
-        /** Sets the address of the specified encoded string to the {@link LLVMOpInfoSymbol1#Name} field. */
+        /** Sets the address of the specified encoded string to the {@code Name} field. */
         public LLVMOpInfoSymbol1.Buffer Name(@Nullable @NativeType("char const *") ByteBuffer value) { LLVMOpInfoSymbol1.nName(address(), value); return this; }
-        /** Sets the specified value to the {@link LLVMOpInfoSymbol1#Value} field. */
+        /** Sets the specified value to the {@code Value} field. */
         public LLVMOpInfoSymbol1.Buffer Value(@NativeType("uint64_t") long value) { LLVMOpInfoSymbol1.nValue(address(), value); return this; }
 
     }

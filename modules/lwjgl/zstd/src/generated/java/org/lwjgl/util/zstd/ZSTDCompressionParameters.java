@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_compressionParameters {
- *     unsigned int {@link #windowLog};
- *     unsigned int {@link #chainLog};
- *     unsigned int {@link #hashLog};
- *     unsigned int {@link #searchLog};
- *     unsigned int {@link #minMatch};
- *     unsigned int {@link #targetLength};
- *     ZSTD_strategy {@link #strategy};
- * }</code></pre>
+ *     unsigned int windowLog;
+ *     unsigned int chainLog;
+ *     unsigned int hashLog;
+ *     unsigned int searchLog;
+ *     unsigned int minMatch;
+ *     unsigned int targetLength;
+ *     ZSTD_strategy strategy;
+ * }}</pre>
  */
 @NativeType("struct ZSTD_compressionParameters")
 public class ZSTDCompressionParameters extends Struct<ZSTDCompressionParameters> implements NativeResource {
@@ -93,41 +91,41 @@ public class ZSTDCompressionParameters extends Struct<ZSTDCompressionParameters>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** largest match distance: larger == more compression, more memory needed during decompression */
+    /** @return the value of the {@code windowLog} field. */
     @NativeType("unsigned int")
     public int windowLog() { return nwindowLog(address()); }
-    /** fully searched segment: larger == more compression, slower, more memory (useless for fast) */
+    /** @return the value of the {@code chainLog} field. */
     @NativeType("unsigned int")
     public int chainLog() { return nchainLog(address()); }
-    /** dispatch table: larger == faster, more memory */
+    /** @return the value of the {@code hashLog} field. */
     @NativeType("unsigned int")
     public int hashLog() { return nhashLog(address()); }
-    /** nb of searches: larger == more compression, slower */
+    /** @return the value of the {@code searchLog} field. */
     @NativeType("unsigned int")
     public int searchLog() { return nsearchLog(address()); }
-    /** match length searched: larger == faster decompression, sometimes less compression */
+    /** @return the value of the {@code minMatch} field. */
     @NativeType("unsigned int")
     public int minMatch() { return nminMatch(address()); }
-    /** acceptable match size for optimal parser (only): larger == more compression, slower */
+    /** @return the value of the {@code targetLength} field. */
     @NativeType("unsigned int")
     public int targetLength() { return ntargetLength(address()); }
-    /** see {@code ZSTD_strategy} definition */
+    /** @return the value of the {@code strategy} field. */
     @NativeType("ZSTD_strategy")
     public int strategy() { return nstrategy(address()); }
 
-    /** Sets the specified value to the {@link #windowLog} field. */
+    /** Sets the specified value to the {@code windowLog} field. */
     public ZSTDCompressionParameters windowLog(@NativeType("unsigned int") int value) { nwindowLog(address(), value); return this; }
-    /** Sets the specified value to the {@link #chainLog} field. */
+    /** Sets the specified value to the {@code chainLog} field. */
     public ZSTDCompressionParameters chainLog(@NativeType("unsigned int") int value) { nchainLog(address(), value); return this; }
-    /** Sets the specified value to the {@link #hashLog} field. */
+    /** Sets the specified value to the {@code hashLog} field. */
     public ZSTDCompressionParameters hashLog(@NativeType("unsigned int") int value) { nhashLog(address(), value); return this; }
-    /** Sets the specified value to the {@link #searchLog} field. */
+    /** Sets the specified value to the {@code searchLog} field. */
     public ZSTDCompressionParameters searchLog(@NativeType("unsigned int") int value) { nsearchLog(address(), value); return this; }
-    /** Sets the specified value to the {@link #minMatch} field. */
+    /** Sets the specified value to the {@code minMatch} field. */
     public ZSTDCompressionParameters minMatch(@NativeType("unsigned int") int value) { nminMatch(address(), value); return this; }
-    /** Sets the specified value to the {@link #targetLength} field. */
+    /** Sets the specified value to the {@code targetLength} field. */
     public ZSTDCompressionParameters targetLength(@NativeType("unsigned int") int value) { ntargetLength(address(), value); return this; }
-    /** Sets the specified value to the {@link #strategy} field. */
+    /** Sets the specified value to the {@code strategy} field. */
     public ZSTDCompressionParameters strategy(@NativeType("ZSTD_strategy") int value) { nstrategy(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -187,8 +185,7 @@ public class ZSTDCompressionParameters extends Struct<ZSTDCompressionParameters>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDCompressionParameters createSafe(long address) {
+    public static @Nullable ZSTDCompressionParameters createSafe(long address) {
         return address == NULL ? null : new ZSTDCompressionParameters(address, null);
     }
 
@@ -231,8 +228,7 @@ public class ZSTDCompressionParameters extends Struct<ZSTDCompressionParameters>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDCompressionParameters.Buffer createSafe(long address, int capacity) {
+    public static ZSTDCompressionParameters.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -296,34 +292,34 @@ public class ZSTDCompressionParameters extends Struct<ZSTDCompressionParameters>
     // -----------------------------------
 
     /** Unsafe version of {@link #windowLog}. */
-    public static int nwindowLog(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.WINDOWLOG); }
+    public static int nwindowLog(long struct) { return memGetInt(struct + ZSTDCompressionParameters.WINDOWLOG); }
     /** Unsafe version of {@link #chainLog}. */
-    public static int nchainLog(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.CHAINLOG); }
+    public static int nchainLog(long struct) { return memGetInt(struct + ZSTDCompressionParameters.CHAINLOG); }
     /** Unsafe version of {@link #hashLog}. */
-    public static int nhashLog(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.HASHLOG); }
+    public static int nhashLog(long struct) { return memGetInt(struct + ZSTDCompressionParameters.HASHLOG); }
     /** Unsafe version of {@link #searchLog}. */
-    public static int nsearchLog(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.SEARCHLOG); }
+    public static int nsearchLog(long struct) { return memGetInt(struct + ZSTDCompressionParameters.SEARCHLOG); }
     /** Unsafe version of {@link #minMatch}. */
-    public static int nminMatch(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.MINMATCH); }
+    public static int nminMatch(long struct) { return memGetInt(struct + ZSTDCompressionParameters.MINMATCH); }
     /** Unsafe version of {@link #targetLength}. */
-    public static int ntargetLength(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.TARGETLENGTH); }
+    public static int ntargetLength(long struct) { return memGetInt(struct + ZSTDCompressionParameters.TARGETLENGTH); }
     /** Unsafe version of {@link #strategy}. */
-    public static int nstrategy(long struct) { return UNSAFE.getInt(null, struct + ZSTDCompressionParameters.STRATEGY); }
+    public static int nstrategy(long struct) { return memGetInt(struct + ZSTDCompressionParameters.STRATEGY); }
 
     /** Unsafe version of {@link #windowLog(int) windowLog}. */
-    public static void nwindowLog(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.WINDOWLOG, value); }
+    public static void nwindowLog(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.WINDOWLOG, value); }
     /** Unsafe version of {@link #chainLog(int) chainLog}. */
-    public static void nchainLog(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.CHAINLOG, value); }
+    public static void nchainLog(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.CHAINLOG, value); }
     /** Unsafe version of {@link #hashLog(int) hashLog}. */
-    public static void nhashLog(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.HASHLOG, value); }
+    public static void nhashLog(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.HASHLOG, value); }
     /** Unsafe version of {@link #searchLog(int) searchLog}. */
-    public static void nsearchLog(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.SEARCHLOG, value); }
+    public static void nsearchLog(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.SEARCHLOG, value); }
     /** Unsafe version of {@link #minMatch(int) minMatch}. */
-    public static void nminMatch(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.MINMATCH, value); }
+    public static void nminMatch(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.MINMATCH, value); }
     /** Unsafe version of {@link #targetLength(int) targetLength}. */
-    public static void ntargetLength(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.TARGETLENGTH, value); }
+    public static void ntargetLength(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.TARGETLENGTH, value); }
     /** Unsafe version of {@link #strategy(int) strategy}. */
-    public static void nstrategy(long struct, int value) { UNSAFE.putInt(null, struct + ZSTDCompressionParameters.STRATEGY, value); }
+    public static void nstrategy(long struct, int value) { memPutInt(struct + ZSTDCompressionParameters.STRATEGY, value); }
 
     // -----------------------------------
 
@@ -359,45 +355,50 @@ public class ZSTDCompressionParameters extends Struct<ZSTDCompressionParameters>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ZSTDCompressionParameters getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZSTDCompressionParameters#windowLog} field. */
+        /** @return the value of the {@code windowLog} field. */
         @NativeType("unsigned int")
         public int windowLog() { return ZSTDCompressionParameters.nwindowLog(address()); }
-        /** @return the value of the {@link ZSTDCompressionParameters#chainLog} field. */
+        /** @return the value of the {@code chainLog} field. */
         @NativeType("unsigned int")
         public int chainLog() { return ZSTDCompressionParameters.nchainLog(address()); }
-        /** @return the value of the {@link ZSTDCompressionParameters#hashLog} field. */
+        /** @return the value of the {@code hashLog} field. */
         @NativeType("unsigned int")
         public int hashLog() { return ZSTDCompressionParameters.nhashLog(address()); }
-        /** @return the value of the {@link ZSTDCompressionParameters#searchLog} field. */
+        /** @return the value of the {@code searchLog} field. */
         @NativeType("unsigned int")
         public int searchLog() { return ZSTDCompressionParameters.nsearchLog(address()); }
-        /** @return the value of the {@link ZSTDCompressionParameters#minMatch} field. */
+        /** @return the value of the {@code minMatch} field. */
         @NativeType("unsigned int")
         public int minMatch() { return ZSTDCompressionParameters.nminMatch(address()); }
-        /** @return the value of the {@link ZSTDCompressionParameters#targetLength} field. */
+        /** @return the value of the {@code targetLength} field. */
         @NativeType("unsigned int")
         public int targetLength() { return ZSTDCompressionParameters.ntargetLength(address()); }
-        /** @return the value of the {@link ZSTDCompressionParameters#strategy} field. */
+        /** @return the value of the {@code strategy} field. */
         @NativeType("ZSTD_strategy")
         public int strategy() { return ZSTDCompressionParameters.nstrategy(address()); }
 
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#windowLog} field. */
+        /** Sets the specified value to the {@code windowLog} field. */
         public ZSTDCompressionParameters.Buffer windowLog(@NativeType("unsigned int") int value) { ZSTDCompressionParameters.nwindowLog(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#chainLog} field. */
+        /** Sets the specified value to the {@code chainLog} field. */
         public ZSTDCompressionParameters.Buffer chainLog(@NativeType("unsigned int") int value) { ZSTDCompressionParameters.nchainLog(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#hashLog} field. */
+        /** Sets the specified value to the {@code hashLog} field. */
         public ZSTDCompressionParameters.Buffer hashLog(@NativeType("unsigned int") int value) { ZSTDCompressionParameters.nhashLog(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#searchLog} field. */
+        /** Sets the specified value to the {@code searchLog} field. */
         public ZSTDCompressionParameters.Buffer searchLog(@NativeType("unsigned int") int value) { ZSTDCompressionParameters.nsearchLog(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#minMatch} field. */
+        /** Sets the specified value to the {@code minMatch} field. */
         public ZSTDCompressionParameters.Buffer minMatch(@NativeType("unsigned int") int value) { ZSTDCompressionParameters.nminMatch(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#targetLength} field. */
+        /** Sets the specified value to the {@code targetLength} field. */
         public ZSTDCompressionParameters.Buffer targetLength(@NativeType("unsigned int") int value) { ZSTDCompressionParameters.ntargetLength(address(), value); return this; }
-        /** Sets the specified value to the {@link ZSTDCompressionParameters#strategy} field. */
+        /** Sets the specified value to the {@code strategy} field. */
         public ZSTDCompressionParameters.Buffer strategy(@NativeType("ZSTD_strategy") int value) { ZSTDCompressionParameters.nstrategy(address(), value); return this; }
 
     }

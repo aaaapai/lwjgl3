@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FT_Incremental incremental,
- *     FT_UInt glyph_index,
- *     FT_Bool vertical,
- *     FT_Incremental_MetricsRec *ametrics
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Incremental_GetGlyphMetricsFunc} */
 public abstract class FT_Incremental_GetGlyphMetricsFunc extends Callback implements FT_Incremental_GetGlyphMetricsFuncI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class FT_Incremental_GetGlyphMetricsFunc extends Callback implem
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FT_Incremental_GetGlyphMetricsFunc createSafe(long functionPointer) {
+    public static @Nullable FT_Incremental_GetGlyphMetricsFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

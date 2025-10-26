@@ -12,23 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@code indexEntityReference} field of the {@link IndexerCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     CXClientData client_data,
- *     CXIdxEntityRefInfo const *info
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void (*) (CXClientData, CXIdxEntityRefInfo const *)")
 public interface IndexerIndexEntityReferenceI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer, ffi_type_pointer
     );
@@ -44,7 +33,7 @@ public interface IndexerIndexEntityReferenceI extends CallbackI {
         );
     }
 
-    /** The {@code IndexerCallbacks.indexEntityReference} callback. */
+    /** {@code void (*) (CXClientData client_data, CXIdxEntityRefInfo const * info)} */
     void invoke(@NativeType("CXClientData") long client_data, @NativeType("CXIdxEntityRefInfo const *") long info);
 
 }

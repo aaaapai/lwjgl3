@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     char const *text,
- *     void *context
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtInputHandlerPtr} */
 public abstract class RMTInputHandler extends Callback implements RMTInputHandlerI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class RMTInputHandler extends Callback implements RMTInputHandle
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static RMTInputHandler createSafe(long functionPointer) {
+    public static @Nullable RMTInputHandler createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

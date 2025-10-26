@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,37 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Request a specific address for a memory allocation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code opaqueCaptureAddress} is zero, no specific address is requested.</p>
- * 
- * <p>If {@code opaqueCaptureAddress} is not zero, it <b>should</b> be an address retrieved from {@link VK12#vkGetDeviceMemoryOpaqueCaptureAddress GetDeviceMemoryOpaqueCaptureAddress} on an identically created memory allocation on the same implementation.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>In most cases, it is expected that a non-zero {@code opaqueAddress} is an address retrieved from {@link VK12#vkGetDeviceMemoryOpaqueCaptureAddress GetDeviceMemoryOpaqueCaptureAddress} on an identically created memory allocation. If this is not the case, it is likely that {@link VK12#VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS} errors will occur.</p>
- * 
- * <p>This is, however, not a strict requirement because trace capture/replay tools may need to adjust memory allocation parameters for imported memory.</p>
- * </div>
- * 
- * <p>If this structure is not present, it is as if {@code opaqueCaptureAddress} is zero.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryOpaqueCaptureAddressAllocateInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint64_t {@link #opaqueCaptureAddress};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint64_t opaqueCaptureAddress;
+ * }}</pre>
  */
 public class VkMemoryOpaqueCaptureAddressAllocateInfo extends Struct<VkMemoryOpaqueCaptureAddressAllocateInfo> implements NativeResource {
 
@@ -99,23 +74,23 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfo extends Struct<VkMemoryOpa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the opaque capture address requested for the memory allocation. */
+    /** @return the value of the {@code opaqueCaptureAddress} field. */
     @NativeType("uint64_t")
     public long opaqueCaptureAddress() { return nopaqueCaptureAddress(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryOpaqueCaptureAddressAllocateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO} value to the {@code sType} field. */
     public VkMemoryOpaqueCaptureAddressAllocateInfo sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryOpaqueCaptureAddressAllocateInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #opaqueCaptureAddress} field. */
+    /** Sets the specified value to the {@code opaqueCaptureAddress} field. */
     public VkMemoryOpaqueCaptureAddressAllocateInfo opaqueCaptureAddress(@NativeType("uint64_t") long value) { nopaqueCaptureAddress(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +142,7 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfo extends Struct<VkMemoryOpa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryOpaqueCaptureAddressAllocateInfo createSafe(long address) {
+    public static @Nullable VkMemoryOpaqueCaptureAddressAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkMemoryOpaqueCaptureAddressAllocateInfo(address, null);
     }
 
@@ -211,8 +185,7 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfo extends Struct<VkMemoryOpa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryOpaqueCaptureAddressAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryOpaqueCaptureAddressAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +230,18 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfo extends Struct<VkMemoryOpa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryOpaqueCaptureAddressAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryOpaqueCaptureAddressAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryOpaqueCaptureAddressAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #opaqueCaptureAddress}. */
-    public static long nopaqueCaptureAddress(long struct) { return UNSAFE.getLong(null, struct + VkMemoryOpaqueCaptureAddressAllocateInfo.OPAQUECAPTUREADDRESS); }
+    public static long nopaqueCaptureAddress(long struct) { return memGetLong(struct + VkMemoryOpaqueCaptureAddressAllocateInfo.OPAQUECAPTUREADDRESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryOpaqueCaptureAddressAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryOpaqueCaptureAddressAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryOpaqueCaptureAddressAllocateInfo.PNEXT, value); }
     /** Unsafe version of {@link #opaqueCaptureAddress(long) opaqueCaptureAddress}. */
-    public static void nopaqueCaptureAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryOpaqueCaptureAddressAllocateInfo.OPAQUECAPTUREADDRESS, value); }
+    public static void nopaqueCaptureAddress(long struct, long value) { memPutLong(struct + VkMemoryOpaqueCaptureAddressAllocateInfo.OPAQUECAPTUREADDRESS, value); }
 
     // -----------------------------------
 
@@ -304,27 +277,32 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfo extends Struct<VkMemoryOpa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryOpaqueCaptureAddressAllocateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryOpaqueCaptureAddressAllocateInfo.nsType(address()); }
-        /** @return the value of the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMemoryOpaqueCaptureAddressAllocateInfo.npNext(address()); }
-        /** @return the value of the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#opaqueCaptureAddress} field. */
+        /** @return the value of the {@code opaqueCaptureAddress} field. */
         @NativeType("uint64_t")
         public long opaqueCaptureAddress() { return VkMemoryOpaqueCaptureAddressAllocateInfo.nopaqueCaptureAddress(address()); }
 
-        /** Sets the specified value to the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryOpaqueCaptureAddressAllocateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryOpaqueCaptureAddressAllocateInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO} value to the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO} value to the {@code sType} field. */
         public VkMemoryOpaqueCaptureAddressAllocateInfo.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO); }
-        /** Sets the specified value to the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryOpaqueCaptureAddressAllocateInfo.Buffer pNext(@NativeType("void const *") long value) { VkMemoryOpaqueCaptureAddressAllocateInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryOpaqueCaptureAddressAllocateInfo#opaqueCaptureAddress} field. */
+        /** Sets the specified value to the {@code opaqueCaptureAddress} field. */
         public VkMemoryOpaqueCaptureAddressAllocateInfo.Buffer opaqueCaptureAddress(@NativeType("uint64_t") long value) { VkMemoryOpaqueCaptureAddressAllocateInfo.nopaqueCaptureAddress(address(), value); return this; }
 
     }

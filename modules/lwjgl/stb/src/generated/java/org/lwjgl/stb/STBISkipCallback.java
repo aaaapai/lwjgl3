@@ -5,23 +5,13 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code skip} field of the {@link STBIIOCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user,
- *     int n
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class STBISkipCallback extends Callback implements STBISkipCallbackI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class STBISkipCallback extends Callback implements STBISkipCallb
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static STBISkipCallback createSafe(long functionPointer) {
+    public static @Nullable STBISkipCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,15 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * GPU info.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_caps_gpu_t {
- *     uint16_t {@link #vendorId};
- *     uint16_t {@link #deviceId};
- * }</code></pre>
+ *     uint16_t vendorId;
+ *     uint16_t deviceId;
+ * }}</pre>
  */
 @NativeType("struct bgfx_caps_gpu_t")
 public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
@@ -73,10 +69,10 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** vendor PCI id. One of:<br><table><tr><td>{@link BGFX#BGFX_PCI_ID_NONE PCI_ID_NONE}</td><td>{@link BGFX#BGFX_PCI_ID_SOFTWARE_RASTERIZER PCI_ID_SOFTWARE_RASTERIZER}</td><td>{@link BGFX#BGFX_PCI_ID_AMD PCI_ID_AMD}</td><td>{@link BGFX#BGFX_PCI_ID_APPLE PCI_ID_APPLE}</td><td>{@link BGFX#BGFX_PCI_ID_INTEL PCI_ID_INTEL}</td></tr><tr><td>{@link BGFX#BGFX_PCI_ID_NVIDIA PCI_ID_NVIDIA}</td><td>{@link BGFX#BGFX_PCI_ID_MICROSOFT PCI_ID_MICROSOFT}</td><td>{@link BGFX#BGFX_PCI_ID_ARM PCI_ID_ARM}</td></tr></table> */
+    /** @return the value of the {@code vendorId} field. */
     @NativeType("uint16_t")
     public short vendorId() { return nvendorId(address()); }
-    /** device id */
+    /** @return the value of the {@code deviceId} field. */
     @NativeType("uint16_t")
     public short deviceId() { return ndeviceId(address()); }
 
@@ -88,8 +84,7 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXCapsGPU createSafe(long address) {
+    public static @Nullable BGFXCapsGPU createSafe(long address) {
         return address == NULL ? null : new BGFXCapsGPU(address, null);
     }
 
@@ -104,17 +99,16 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXCapsGPU.Buffer createSafe(long address, int capacity) {
+    public static BGFXCapsGPU.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #vendorId}. */
-    public static short nvendorId(long struct) { return UNSAFE.getShort(null, struct + BGFXCapsGPU.VENDORID); }
+    public static short nvendorId(long struct) { return memGetShort(struct + BGFXCapsGPU.VENDORID); }
     /** Unsafe version of {@link #deviceId}. */
-    public static short ndeviceId(long struct) { return UNSAFE.getShort(null, struct + BGFXCapsGPU.DEVICEID); }
+    public static short ndeviceId(long struct) { return memGetShort(struct + BGFXCapsGPU.DEVICEID); }
 
     // -----------------------------------
 
@@ -150,14 +144,19 @@ public class BGFXCapsGPU extends Struct<BGFXCapsGPU> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected BGFXCapsGPU getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link BGFXCapsGPU#vendorId} field. */
+        /** @return the value of the {@code vendorId} field. */
         @NativeType("uint16_t")
         public short vendorId() { return BGFXCapsGPU.nvendorId(address()); }
-        /** @return the value of the {@link BGFXCapsGPU#deviceId} field. */
+        /** @return the value of the {@code deviceId} field. */
         @NativeType("uint16_t")
         public short deviceId() { return BGFXCapsGPU.ndeviceId(address()); }
 

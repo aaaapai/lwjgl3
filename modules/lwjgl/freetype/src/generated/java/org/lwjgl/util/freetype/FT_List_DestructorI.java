@@ -12,22 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Memory memory,
- *     void *data,
- *     void *user
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_List_Destructor} */
 @FunctionalInterface
 @NativeType("FT_List_Destructor")
 public interface FT_List_DestructorI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
     );
@@ -44,7 +34,7 @@ public interface FT_List_DestructorI extends CallbackI {
         );
     }
 
-    /** An {@code FT_List} iterator function that is called during a list finalization by {@link FreeType#FT_List_Finalize List_Finalize} to destroy all elements in a given list. */
+    /** {@code void (* FT_List_Destructor) (FT_Memory memory, void * data, void * user)} */
     void invoke(@NativeType("FT_Memory") long memory, @NativeType("void *") long data, @NativeType("void *") long user);
 
 }

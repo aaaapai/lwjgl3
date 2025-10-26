@@ -12,20 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Raster raster
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Raster_DoneFunc} */
 @FunctionalInterface
 @NativeType("FT_Raster_DoneFunc")
 public interface FT_Raster_DoneFuncI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -40,7 +32,7 @@ public interface FT_Raster_DoneFuncI extends CallbackI {
         );
     }
 
-    /** A function used to destroy a given raster object. */
+    /** {@code void (* FT_Raster_DoneFunc) (FT_Raster raster)} */
     void invoke(@NativeType("FT_Raster") long raster);
 
 }

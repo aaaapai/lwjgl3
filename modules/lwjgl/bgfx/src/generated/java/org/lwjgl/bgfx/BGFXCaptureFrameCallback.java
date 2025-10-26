@@ -5,24 +5,13 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Captured frame.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     bgfx_callback_interface_t *_this,
- *     void const *_data,
- *     uint32_t _size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class BGFXCaptureFrameCallback extends Callback implements BGFXCaptureFrameCallbackI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class BGFXCaptureFrameCallback extends Callback implements BGFXC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static BGFXCaptureFrameCallback createSafe(long functionPointer) {
+    public static @Nullable BGFXCaptureFrameCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,21 +5,13 @@
  */
 package org.lwjgl.util.remotery;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *cbk_context,
- *     rmtProperty *root
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtPropertyHandlerPtr} */
 public abstract class RMTPropertyHandler extends Callback implements RMTPropertyHandlerI {
 
     /**
@@ -35,8 +27,7 @@ public abstract class RMTPropertyHandler extends Callback implements RMTProperty
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static RMTPropertyHandler createSafe(long functionPointer) {
+    public static @Nullable RMTPropertyHandler createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

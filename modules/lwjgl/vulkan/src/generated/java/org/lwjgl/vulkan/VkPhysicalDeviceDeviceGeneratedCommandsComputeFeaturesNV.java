@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the device-generated compute features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #deviceGeneratedCompute};
- *     VkBool32 {@link #deviceGeneratedComputePipelines};
- *     VkBool32 {@link #deviceGeneratedComputeCaptureReplay};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 deviceGeneratedCompute;
+ *     VkBool32 deviceGeneratedComputePipelines;
+ *     VkBool32 deviceGeneratedComputeCaptureReplay;
+ * }}</pre>
  */
 public class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends Struct<VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends St
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports functionality to generate dispatch commands and push constants for the compute pipeline on the device. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#device-generated-commands">Device-Generated Commands</a>. */
+    /** @return the value of the {@code deviceGeneratedCompute} field. */
     @NativeType("VkBool32")
     public boolean deviceGeneratedCompute() { return ndeviceGeneratedCompute(address()) != 0; }
-    /** indicates whether the implementation supports functionality to generate commands to bind compute pipelines on the device. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#device-generated-commands">Device-Generated Commands</a>. */
+    /** @return the value of the {@code deviceGeneratedComputePipelines} field. */
     @NativeType("VkBool32")
     public boolean deviceGeneratedComputePipelines() { return ndeviceGeneratedComputePipelines(address()) != 0; }
-    /** indicates whether the implementation supports functionality to capture compute pipeline address and reuse later for replay in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#device-generated-commands">Device-Generated Commands</a>. */
+    /** @return the value of the {@code deviceGeneratedComputeCaptureReplay} field. */
     @NativeType("VkBool32")
     public boolean deviceGeneratedComputeCaptureReplay() { return ndeviceGeneratedComputeCaptureReplay(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV sType$Default() { return sType(NVDeviceGeneratedCommandsCompute.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #deviceGeneratedCompute} field. */
+    /** Sets the specified value to the {@code deviceGeneratedCompute} field. */
     public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV deviceGeneratedCompute(@NativeType("VkBool32") boolean value) { ndeviceGeneratedCompute(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #deviceGeneratedComputePipelines} field. */
+    /** Sets the specified value to the {@code deviceGeneratedComputePipelines} field. */
     public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV deviceGeneratedComputePipelines(@NativeType("VkBool32") boolean value) { ndeviceGeneratedComputePipelines(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #deviceGeneratedComputeCaptureReplay} field. */
+    /** Sets the specified value to the {@code deviceGeneratedComputeCaptureReplay} field. */
     public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV deviceGeneratedComputeCaptureReplay(@NativeType("VkBool32") boolean value) { ndeviceGeneratedComputeCaptureReplay(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends St
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends St
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +252,26 @@ public class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends St
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #deviceGeneratedCompute}. */
-    public static int ndeviceGeneratedCompute(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTE); }
+    public static int ndeviceGeneratedCompute(long struct) { return memGetInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTE); }
     /** Unsafe version of {@link #deviceGeneratedComputePipelines}. */
-    public static int ndeviceGeneratedComputePipelines(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTEPIPELINES); }
+    public static int ndeviceGeneratedComputePipelines(long struct) { return memGetInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTEPIPELINES); }
     /** Unsafe version of {@link #deviceGeneratedComputeCaptureReplay}. */
-    public static int ndeviceGeneratedComputeCaptureReplay(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTECAPTUREREPLAY); }
+    public static int ndeviceGeneratedComputeCaptureReplay(long struct) { return memGetInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTECAPTUREREPLAY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #deviceGeneratedCompute(boolean) deviceGeneratedCompute}. */
-    public static void ndeviceGeneratedCompute(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTE, value); }
+    public static void ndeviceGeneratedCompute(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTE, value); }
     /** Unsafe version of {@link #deviceGeneratedComputePipelines(boolean) deviceGeneratedComputePipelines}. */
-    public static void ndeviceGeneratedComputePipelines(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTEPIPELINES, value); }
+    public static void ndeviceGeneratedComputePipelines(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTEPIPELINES, value); }
     /** Unsafe version of {@link #deviceGeneratedComputeCaptureReplay(boolean) deviceGeneratedComputeCaptureReplay}. */
-    public static void ndeviceGeneratedComputeCaptureReplay(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTECAPTUREREPLAY, value); }
+    public static void ndeviceGeneratedComputeCaptureReplay(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.DEVICEGENERATEDCOMPUTECAPTUREREPLAY, value); }
 
     // -----------------------------------
 
@@ -323,37 +307,42 @@ public class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends St
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#deviceGeneratedCompute} field. */
+        /** @return the value of the {@code deviceGeneratedCompute} field. */
         @NativeType("VkBool32")
         public boolean deviceGeneratedCompute() { return VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.ndeviceGeneratedCompute(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#deviceGeneratedComputePipelines} field. */
+        /** @return the value of the {@code deviceGeneratedComputePipelines} field. */
         @NativeType("VkBool32")
         public boolean deviceGeneratedComputePipelines() { return VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.ndeviceGeneratedComputePipelines(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#deviceGeneratedComputeCaptureReplay} field. */
+        /** @return the value of the {@code deviceGeneratedComputeCaptureReplay} field. */
         @NativeType("VkBool32")
         public boolean deviceGeneratedComputeCaptureReplay() { return VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.ndeviceGeneratedComputeCaptureReplay(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV} value to the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#sType} field. */
+        /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer sType$Default() { return sType(NVDeviceGeneratedCommandsCompute.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#deviceGeneratedCompute} field. */
+        /** Sets the specified value to the {@code deviceGeneratedCompute} field. */
         public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer deviceGeneratedCompute(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.ndeviceGeneratedCompute(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#deviceGeneratedComputePipelines} field. */
+        /** Sets the specified value to the {@code deviceGeneratedComputePipelines} field. */
         public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer deviceGeneratedComputePipelines(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.ndeviceGeneratedComputePipelines(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV#deviceGeneratedComputeCaptureReplay} field. */
+        /** Sets the specified value to the {@code deviceGeneratedComputeCaptureReplay} field. */
         public VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.Buffer deviceGeneratedComputeCaptureReplay(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.ndeviceGeneratedComputeCaptureReplay(address(), value ? 1 : 0); return this; }
 
     }

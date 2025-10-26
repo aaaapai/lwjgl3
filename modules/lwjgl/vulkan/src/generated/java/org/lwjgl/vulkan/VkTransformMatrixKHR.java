@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,24 +17,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a 3x4 affine transformation matrix.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The first three columns of {@code matrix} <b>must</b> define an invertible 3x3 matrix</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAccelerationStructureInstanceKHR}, {@link VkAccelerationStructureMatrixMotionInstanceNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkTransformMatrixKHR {
- *     float {@link #matrix}[3][4];
- * }</code></pre>
+ *     float matrix[3][4];
+ * }}</pre>
  */
 public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implements NativeResource {
 
@@ -81,15 +67,15 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a 3x4 row-major affine transformation matrix. */
+    /** @return a {@link FloatBuffer} view of the {@code matrix} field. */
     @NativeType("float[3][4]")
     public FloatBuffer matrix() { return nmatrix(address()); }
-    /** a 3x4 row-major affine transformation matrix. */
+    /** @return the value at the specified index of the {@code matrix} field. */
     public float matrix(int index) { return nmatrix(address(), index); }
 
-    /** Copies the specified {@link FloatBuffer} to the {@link #matrix} field. */
+    /** Copies the specified {@link FloatBuffer} to the {@code matrix} field. */
     public VkTransformMatrixKHR matrix(@NativeType("float[3][4]") FloatBuffer value) { nmatrix(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #matrix} field. */
+    /** Sets the specified value at the specified index of the {@code matrix} field. */
     public VkTransformMatrixKHR matrix(int index, float value) { nmatrix(address(), index, value); return this; }
 
     /**
@@ -128,8 +114,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTransformMatrixKHR createSafe(long address) {
+    public static @Nullable VkTransformMatrixKHR createSafe(long address) {
         return address == NULL ? null : new VkTransformMatrixKHR(address, null);
     }
 
@@ -172,8 +157,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkTransformMatrixKHR.Buffer createSafe(long address, int capacity) {
+    public static VkTransformMatrixKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,7 +205,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     public static FloatBuffer nmatrix(long struct) { return memFloatBuffer(struct + VkTransformMatrixKHR.MATRIX, 3 * 4); }
     /** Unsafe version of {@link #matrix(int) matrix}. */
     public static float nmatrix(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4);
+        return memGetFloat(struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4);
     }
 
     /** Unsafe version of {@link #matrix(FloatBuffer) matrix}. */
@@ -231,7 +215,7 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
     }
     /** Unsafe version of {@link #matrix(int, float) matrix}. */
     public static void nmatrix(long struct, int index, float value) {
-        UNSAFE.putFloat(null, struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4, value);
+        memPutFloat(struct + VkTransformMatrixKHR.MATRIX + check(index, 3 * 4) * 4, value);
     }
 
     // -----------------------------------
@@ -268,19 +252,24 @@ public class VkTransformMatrixKHR extends Struct<VkTransformMatrixKHR> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkTransformMatrixKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link FloatBuffer} view of the {@link VkTransformMatrixKHR#matrix} field. */
+        /** @return a {@link FloatBuffer} view of the {@code matrix} field. */
         @NativeType("float[3][4]")
         public FloatBuffer matrix() { return VkTransformMatrixKHR.nmatrix(address()); }
-        /** @return the value at the specified index of the {@link VkTransformMatrixKHR#matrix} field. */
+        /** @return the value at the specified index of the {@code matrix} field. */
         public float matrix(int index) { return VkTransformMatrixKHR.nmatrix(address(), index); }
 
-        /** Copies the specified {@link FloatBuffer} to the {@link VkTransformMatrixKHR#matrix} field. */
+        /** Copies the specified {@link FloatBuffer} to the {@code matrix} field. */
         public VkTransformMatrixKHR.Buffer matrix(@NativeType("float[3][4]") FloatBuffer value) { VkTransformMatrixKHR.nmatrix(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link VkTransformMatrixKHR#matrix} field. */
+        /** Sets the specified value at the specified index of the {@code matrix} field. */
         public VkTransformMatrixKHR.Buffer matrix(int index, float value) { VkTransformMatrixKHR.nmatrix(address(), index, value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying enabled video encode feedback values.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR}</li>
- * <li>{@code encodeFeedbackFlags} <b>must</b> be a valid combination of {@code VkVideoEncodeFeedbackFlagBitsKHR} values</li>
- * <li>{@code encodeFeedbackFlags} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkVideoEncodeFeedbackFlagsKHR {@link #encodeFeedbackFlags};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkVideoEncodeFeedbackFlagsKHR encodeFeedbackFlags;
+ * }}</pre>
  */
 public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryPoolVideoEncodeFeedbackCreateInfoKHR> implements NativeResource {
 
@@ -86,23 +74,23 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkVideoEncodeFeedbackFlagBitsKHR} values specifying the set of enabled video encode feedback values captured by queries of the new pool. */
+    /** @return the value of the {@code encodeFeedbackFlags} field. */
     @NativeType("VkVideoEncodeFeedbackFlagsKHR")
     public int encodeFeedbackFlags() { return nencodeFeedbackFlags(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR} value to the {@code sType} field. */
     public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #encodeFeedbackFlags} field. */
+    /** Sets the specified value to the {@code encodeFeedbackFlags} field. */
     public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR encodeFeedbackFlags(@NativeType("VkVideoEncodeFeedbackFlagsKHR") int value) { nencodeFeedbackFlags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -154,8 +142,7 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolVideoEncodeFeedbackCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkQueryPoolVideoEncodeFeedbackCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkQueryPoolVideoEncodeFeedbackCreateInfoKHR(address, null);
     }
 
@@ -198,8 +185,7 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,18 +230,18 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #encodeFeedbackFlags}. */
-    public static int nencodeFeedbackFlags(long struct) { return UNSAFE.getInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS); }
+    public static int nencodeFeedbackFlags(long struct) { return memGetInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #encodeFeedbackFlags(int) encodeFeedbackFlags}. */
-    public static void nencodeFeedbackFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS, value); }
+    public static void nencodeFeedbackFlags(long struct, int value) { memPutInt(struct + VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.ENCODEFEEDBACKFLAGS, value); }
 
     // -----------------------------------
 
@@ -291,27 +277,32 @@ public class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends Struct<VkQueryP
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkQueryPoolVideoEncodeFeedbackCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#encodeFeedbackFlags} field. */
+        /** @return the value of the {@code encodeFeedbackFlags} field. */
         @NativeType("VkVideoEncodeFeedbackFlagsKHR")
         public int encodeFeedbackFlags() { return VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.nencodeFeedbackFlags(address()); }
 
-        /** Sets the specified value to the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR} value to the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR} value to the {@code sType} field. */
         public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.Buffer sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkQueryPoolVideoEncodeFeedbackCreateInfoKHR#encodeFeedbackFlags} field. */
+        /** Sets the specified value to the {@code encodeFeedbackFlags} field. */
         public VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.Buffer encodeFeedbackFlags(@NativeType("VkVideoEncodeFeedbackFlagsKHR") int value) { VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.nencodeFeedbackFlags(address(), value); return this; }
 
     }

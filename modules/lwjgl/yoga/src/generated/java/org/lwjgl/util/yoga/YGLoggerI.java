@@ -12,24 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     YGConfigRef config,
- *     YGNodeRef node,
- *     YGLogLevel level,
- *     char const *format,
- *     va_list args
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGLogger} */
 @FunctionalInterface
 @NativeType("YGLogger")
 public interface YGLoggerI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_sint32,
         ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
     );
@@ -49,6 +37,7 @@ public interface YGLoggerI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    int invoke(@NativeType("YGConfigRef") long config, @NativeType("YGNodeRef") long node, @NativeType("YGLogLevel") int level, @NativeType("char const *") long format, @NativeType("va_list") long args);
+    /** {@code int (* YGLogger) (YGConfigConstRef config, YGNodeConstRef node, YGLogLevel level, char const * format, va_list args)} */
+    int invoke(@NativeType("YGConfigConstRef") long config, @NativeType("YGNodeConstRef") long node, @NativeType("YGLogLevel") int level, @NativeType("char const *") long format, @NativeType("va_list") long args);
 
 }

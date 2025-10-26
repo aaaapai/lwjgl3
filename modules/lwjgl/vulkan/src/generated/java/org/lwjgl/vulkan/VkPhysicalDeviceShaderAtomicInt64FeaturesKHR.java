@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceShaderAtomicInt64Features}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShaderAtomicInt64FeaturesKHR {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 shaderBufferInt64Atomics;
  *     VkBool32 shaderSharedInt64Atomics;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDeviceShaderAtomicInt64Features {
 
@@ -117,8 +113,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderAtomicInt64FeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderAtomicInt64FeaturesKHR(address, null);
     }
 
@@ -161,8 +156,7 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderAtomicInt64FeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,6 +248,11 @@ public class VkPhysicalDeviceShaderAtomicInt64FeaturesKHR extends VkPhysicalDevi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

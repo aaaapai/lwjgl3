@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing max value of vertex attribute divisor that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTVertexAttributeDivisor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #maxVertexAttribDivisor};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t maxVertexAttribDivisor;
+ * }}</pre>
  */
 public class VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT extends Struct<VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT> implements NativeResource {
 
@@ -88,21 +74,21 @@ public class VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT extends Struct<
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum value of the number of instances that will repeat the value of vertex attribute data when instanced rendering is enabled. */
+    /** @return the value of the {@code maxVertexAttribDivisor} field. */
     @NativeType("uint32_t")
     public int maxVertexAttribDivisor() { return nmaxVertexAttribDivisor(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTVertexAttributeDivisor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTVertexAttributeDivisor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT sType$Default() { return sType(EXTVertexAttributeDivisor.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +138,7 @@ public class VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT(address, null);
     }
 
@@ -196,8 +181,7 @@ public class VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT extends Struct<
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,14 +245,14 @@ public class VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT extends Struct<
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxVertexAttribDivisor}. */
-    public static int nmaxVertexAttribDivisor(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.MAXVERTEXATTRIBDIVISOR); }
+    public static int nmaxVertexAttribDivisor(long struct) { return memGetInt(struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.MAXVERTEXATTRIBDIVISOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.PNEXT, value); }
 
@@ -306,25 +290,30 @@ public class VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT extends Struct<
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT#maxVertexAttribDivisor} field. */
+        /** @return the value of the {@code maxVertexAttribDivisor} field. */
         @NativeType("uint32_t")
         public int maxVertexAttribDivisor() { return VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.nmaxVertexAttribDivisor(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTVertexAttributeDivisor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT} value to the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT#sType} field. */
+        /** Sets the {@link EXTVertexAttributeDivisor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.Buffer sType$Default() { return sType(EXTVertexAttributeDivisor.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.npNext(address(), value); return this; }
 
     }

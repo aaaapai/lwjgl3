@@ -5,34 +5,13 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Application-defined memory free notification function.
- * 
- * <h5>C Specification</h5>
- * 
- * <p>The type of {@code pfnInternalFree} is:</p>
- * 
- * <pre><code>
- * typedef void (VKAPI_PTR *PFN_vkInternalFreeNotification)(
- *     void*                                       pUserData,
- *     size_t                                      size,
- *     VkInternalAllocationType                    allocationType,
- *     VkSystemAllocationScope                     allocationScope);</code></pre>
- * 
- * <h5>Description</h5>
- * 
- * <p>This is a purely informational callback.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAllocationCallbacks}</p>
- */
+/** Callback function: {@link #invoke PFN_vkInternalFreeNotification} */
 public abstract class VkInternalFreeNotification extends Callback implements VkInternalFreeNotificationI {
 
     /**
@@ -48,8 +27,7 @@ public abstract class VkInternalFreeNotification extends Callback implements VkI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static VkInternalFreeNotification createSafe(long functionPointer) {
+    public static @Nullable VkInternalFreeNotification createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

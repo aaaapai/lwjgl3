@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,16 +14,14 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_popup_buffer {
  *     nk_size begin;
  *     nk_size parent;
  *     nk_size last;
  *     nk_size end;
  *     nk_bool active;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_popup_buffer")
 public class NkPopupBuffer extends Struct<NkPopupBuffer> {
@@ -107,8 +105,7 @@ public class NkPopupBuffer extends Struct<NkPopupBuffer> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPopupBuffer createSafe(long address) {
+    public static @Nullable NkPopupBuffer createSafe(long address) {
         return address == NULL ? null : new NkPopupBuffer(address, null);
     }
 
@@ -123,8 +120,7 @@ public class NkPopupBuffer extends Struct<NkPopupBuffer> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkPopupBuffer.Buffer createSafe(long address, int capacity) {
+    public static NkPopupBuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -139,7 +135,7 @@ public class NkPopupBuffer extends Struct<NkPopupBuffer> {
     /** Unsafe version of {@link #end}. */
     public static long nend(long struct) { return memGetAddress(struct + NkPopupBuffer.END); }
     /** Unsafe version of {@link #active}. */
-    public static boolean nactive(long struct) { return UNSAFE.getByte(null, struct + NkPopupBuffer.ACTIVE) != 0; }
+    public static boolean nactive(long struct) { return memGetByte(struct + NkPopupBuffer.ACTIVE) != 0; }
 
     // -----------------------------------
 
@@ -172,6 +168,11 @@ public class NkPopupBuffer extends Struct<NkPopupBuffer> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

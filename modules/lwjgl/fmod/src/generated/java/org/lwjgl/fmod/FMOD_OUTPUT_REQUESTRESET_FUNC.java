@@ -5,20 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_OUTPUT_STATE *output_state
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_REQUESTRESET_FUNC} */
 public abstract class FMOD_OUTPUT_REQUESTRESET_FUNC extends Callback implements FMOD_OUTPUT_REQUESTRESET_FUNCI {
 
     /**
@@ -34,8 +27,7 @@ public abstract class FMOD_OUTPUT_REQUESTRESET_FUNC extends Callback implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_OUTPUT_REQUESTRESET_FUNC createSafe(long functionPointer) {
+    public static @Nullable FMOD_OUTPUT_REQUESTRESET_FUNC createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

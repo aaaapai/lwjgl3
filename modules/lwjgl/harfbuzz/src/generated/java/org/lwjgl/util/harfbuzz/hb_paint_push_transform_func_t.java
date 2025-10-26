@@ -5,28 +5,13 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     hb_paint_funcs_t *funcs,
- *     void *paint_data,
- *     float xx,
- *     float yx,
- *     float xy,
- *     float yy,
- *     float dx,
- *     float dy,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_paint_push_transform_func_t} */
 public abstract class hb_paint_push_transform_func_t extends Callback implements hb_paint_push_transform_func_tI {
 
     /**
@@ -42,8 +27,7 @@ public abstract class hb_paint_push_transform_func_t extends Callback implements
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static hb_paint_push_transform_func_t createSafe(long functionPointer) {
+    public static @Nullable hb_paint_push_transform_func_t createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

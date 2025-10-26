@@ -12,23 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * unsigned long (*{@link #invoke}) (
- *     FT_Stream stream,
- *     unsigned long offset,
- *     unsigned char *buffer,
- *     unsigned long count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Stream_IoFunc} */
 @FunctionalInterface
 @NativeType("FT_Stream_IoFunc")
 public interface FT_Stream_IoFuncI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_ulong,
         ffi_type_pointer, ffi_type_ulong, ffi_type_pointer, ffi_type_ulong
     );
@@ -47,7 +36,7 @@ public interface FT_Stream_IoFuncI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** A function used to seek and read data from a given input stream. */
+    /** {@code unsigned long (* FT_Stream_IoFunc) (FT_Stream stream, unsigned long offset, unsigned char * buffer, unsigned long count)} */
     @NativeType("unsigned long") long invoke(@NativeType("FT_Stream") long stream, @NativeType("unsigned long") long offset, @NativeType("unsigned char *") long buffer, @NativeType("unsigned long") long count);
 
 }

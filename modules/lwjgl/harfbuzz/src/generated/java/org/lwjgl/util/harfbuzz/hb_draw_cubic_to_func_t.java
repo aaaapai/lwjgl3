@@ -5,29 +5,13 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     hb_draw_funcs_t *dfuncs,
- *     void *draw_data,
- *     hb_draw_state_t *st,
- *     float control1_x,
- *     float control1_y,
- *     float control2_x,
- *     float control2_y,
- *     float to_x,
- *     float to_y,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_draw_cubic_to_func_t} */
 public abstract class hb_draw_cubic_to_func_t extends Callback implements hb_draw_cubic_to_func_tI {
 
     /**
@@ -43,8 +27,7 @@ public abstract class hb_draw_cubic_to_func_t extends Callback implements hb_dra
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static hb_draw_cubic_to_func_t createSafe(long functionPointer) {
+    public static @Nullable hb_draw_cubic_to_func_t createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XDestroyWindowEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window event;
  *     Window window;
- * }</code></pre>
+ * }}</pre>
  */
 public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements NativeResource {
 
@@ -91,13 +89,13 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code event} field. */
@@ -109,11 +107,11 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
 
     /** Sets the specified value to the {@code type} field. */
     public XDestroyWindowEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XDestroyWindowEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XDestroyWindowEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XDestroyWindowEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code event} field. */
     public XDestroyWindowEvent event(@NativeType("Window") long value) { nevent(address(), value); return this; }
@@ -175,8 +173,7 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XDestroyWindowEvent createSafe(long address) {
+    public static @Nullable XDestroyWindowEvent createSafe(long address) {
         return address == NULL ? null : new XDestroyWindowEvent(address, null);
     }
 
@@ -219,8 +216,7 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XDestroyWindowEvent.Buffer createSafe(long address, int capacity) {
+    public static XDestroyWindowEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,11 +280,11 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XDestroyWindowEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XDestroyWindowEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XDestroyWindowEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XDestroyWindowEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XDestroyWindowEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XDestroyWindowEvent.DISPLAY); }
     /** Unsafe version of {@link #event}. */
@@ -297,11 +293,11 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
     public static long nwindow(long struct) { return memGetCLong(struct + XDestroyWindowEvent.WINDOW); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XDestroyWindowEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XDestroyWindowEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XDestroyWindowEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XDestroyWindowEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XDestroyWindowEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XDestroyWindowEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #event(long) event}. */
@@ -352,19 +348,24 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XDestroyWindowEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XDestroyWindowEvent.ntype(address()); }
-        /** @return the value of the {@link XDestroyWindowEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XDestroyWindowEvent.nserial(address()); }
-        /** @return the value of the {@link XDestroyWindowEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XDestroyWindowEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XDestroyWindowEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XDestroyWindowEvent.ndisplay(address()); }
         /** @return the value of the {@code event} field. */
@@ -376,11 +377,11 @@ public class XDestroyWindowEvent extends Struct<XDestroyWindowEvent> implements 
 
         /** Sets the specified value to the {@code type} field. */
         public XDestroyWindowEvent.Buffer type(int value) { XDestroyWindowEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XDestroyWindowEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XDestroyWindowEvent.Buffer serial(@NativeType("unsigned long") long value) { XDestroyWindowEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XDestroyWindowEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XDestroyWindowEvent.Buffer send_event(@NativeType("Bool") boolean value) { XDestroyWindowEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XDestroyWindowEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XDestroyWindowEvent.Buffer display(@NativeType("Display *") long value) { XDestroyWindowEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code event} field. */
         public XDestroyWindowEvent.Buffer event(@NativeType("Window") long value) { XDestroyWindowEvent.nevent(address(), value); return this; }

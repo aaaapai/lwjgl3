@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Virtual keyboard creation info.
- * 
- * <h5>Description</h5>
- * 
- * <p>The struct is used for keyboard creation. Empty with the intention of future extension.</p>
- * 
- * <p>The runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} if {@code supportsVirtualKeyboard} is {@link XR10#XR_FALSE FALSE} when checking the device compatibility.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAVirtualKeyboard XR_META_virtual_keyboard} extension <b>must</b> be enabled prior to using {@link XrVirtualKeyboardCreateInfoMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link METAVirtualKeyboard#xrCreateVirtualKeyboardMETA CreateVirtualKeyboardMETA}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVirtualKeyboardCreateInfoMETA {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ * }}</pre>
  */
 public class XrVirtualKeyboardCreateInfoMETA extends Struct<XrVirtualKeyboardCreateInfoMETA> implements NativeResource {
 
@@ -92,18 +70,18 @@ public class XrVirtualKeyboardCreateInfoMETA extends Struct<XrVirtualKeyboardCre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVirtualKeyboardCreateInfoMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META} value to the {@link #type} field. */
+    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META} value to the {@code type} field. */
     public XrVirtualKeyboardCreateInfoMETA type$Default() { return type(METAVirtualKeyboard.XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVirtualKeyboardCreateInfoMETA next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -153,8 +131,7 @@ public class XrVirtualKeyboardCreateInfoMETA extends Struct<XrVirtualKeyboardCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardCreateInfoMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardCreateInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardCreateInfoMETA(address, null);
     }
 
@@ -197,8 +174,7 @@ public class XrVirtualKeyboardCreateInfoMETA extends Struct<XrVirtualKeyboardCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardCreateInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardCreateInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,12 +219,12 @@ public class XrVirtualKeyboardCreateInfoMETA extends Struct<XrVirtualKeyboardCre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardCreateInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardCreateInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardCreateInfoMETA.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardCreateInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardCreateInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardCreateInfoMETA.NEXT, value); }
 
@@ -286,22 +262,27 @@ public class XrVirtualKeyboardCreateInfoMETA extends Struct<XrVirtualKeyboardCre
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVirtualKeyboardCreateInfoMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVirtualKeyboardCreateInfoMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVirtualKeyboardCreateInfoMETA.ntype(address()); }
-        /** @return the value of the {@link XrVirtualKeyboardCreateInfoMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrVirtualKeyboardCreateInfoMETA.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrVirtualKeyboardCreateInfoMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVirtualKeyboardCreateInfoMETA.Buffer type(@NativeType("XrStructureType") int value) { XrVirtualKeyboardCreateInfoMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META} value to the {@link XrVirtualKeyboardCreateInfoMETA#type} field. */
+        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META} value to the {@code type} field. */
         public XrVirtualKeyboardCreateInfoMETA.Buffer type$Default() { return type(METAVirtualKeyboard.XR_TYPE_VIRTUAL_KEYBOARD_CREATE_INFO_META); }
-        /** Sets the specified value to the {@link XrVirtualKeyboardCreateInfoMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVirtualKeyboardCreateInfoMETA.Buffer next(@NativeType("void const *") long value) { XrVirtualKeyboardCreateInfoMETA.nnext(address(), value); return this; }
 
     }

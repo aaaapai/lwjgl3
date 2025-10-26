@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Information from the system about tracked keyboard support.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrSystemKeyboardTrackingPropertiesFB} is populated with information from the system about tracked keyboard support.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBKeyboardTracking XR_FB_keyboard_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemKeyboardTrackingPropertiesFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBKeyboardTracking#XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSystemProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemKeyboardTrackingPropertiesFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrBool32 {@link #supportsKeyboardTracking};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrBool32 supportsKeyboardTracking;
+ * }}</pre>
  */
 public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboardTrackingPropertiesFB> implements NativeResource {
 
@@ -94,21 +74,21 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** defines whether the system supports the tracked keyboard feature. */
+    /** @return the value of the {@code supportsKeyboardTracking} field. */
     @NativeType("XrBool32")
     public boolean supportsKeyboardTracking() { return nsupportsKeyboardTracking(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSystemKeyboardTrackingPropertiesFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBKeyboardTracking#XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBKeyboardTracking#XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB} value to the {@code type} field. */
     public XrSystemKeyboardTrackingPropertiesFB type$Default() { return type(FBKeyboardTracking.XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSystemKeyboardTrackingPropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +138,7 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemKeyboardTrackingPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemKeyboardTrackingPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemKeyboardTrackingPropertiesFB(address, null);
     }
 
@@ -202,8 +181,7 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemKeyboardTrackingPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemKeyboardTrackingPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,14 +226,14 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemKeyboardTrackingPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemKeyboardTrackingPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemKeyboardTrackingPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsKeyboardTracking}. */
-    public static int nsupportsKeyboardTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemKeyboardTrackingPropertiesFB.SUPPORTSKEYBOARDTRACKING); }
+    public static int nsupportsKeyboardTracking(long struct) { return memGetInt(struct + XrSystemKeyboardTrackingPropertiesFB.SUPPORTSKEYBOARDTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemKeyboardTrackingPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemKeyboardTrackingPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemKeyboardTrackingPropertiesFB.NEXT, value); }
 
@@ -293,25 +271,30 @@ public class XrSystemKeyboardTrackingPropertiesFB extends Struct<XrSystemKeyboar
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSystemKeyboardTrackingPropertiesFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSystemKeyboardTrackingPropertiesFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSystemKeyboardTrackingPropertiesFB.ntype(address()); }
-        /** @return the value of the {@link XrSystemKeyboardTrackingPropertiesFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSystemKeyboardTrackingPropertiesFB.nnext(address()); }
-        /** @return the value of the {@link XrSystemKeyboardTrackingPropertiesFB#supportsKeyboardTracking} field. */
+        /** @return the value of the {@code supportsKeyboardTracking} field. */
         @NativeType("XrBool32")
         public boolean supportsKeyboardTracking() { return XrSystemKeyboardTrackingPropertiesFB.nsupportsKeyboardTracking(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrSystemKeyboardTrackingPropertiesFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSystemKeyboardTrackingPropertiesFB.Buffer type(@NativeType("XrStructureType") int value) { XrSystemKeyboardTrackingPropertiesFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBKeyboardTracking#XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB} value to the {@link XrSystemKeyboardTrackingPropertiesFB#type} field. */
+        /** Sets the {@link FBKeyboardTracking#XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB} value to the {@code type} field. */
         public XrSystemKeyboardTrackingPropertiesFB.Buffer type$Default() { return type(FBKeyboardTracking.XR_TYPE_SYSTEM_KEYBOARD_TRACKING_PROPERTIES_FB); }
-        /** Sets the specified value to the {@link XrSystemKeyboardTrackingPropertiesFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSystemKeyboardTrackingPropertiesFB.Buffer next(@NativeType("void *") long value) { XrSystemKeyboardTrackingPropertiesFB.nnext(address(), value); return this; }
 
     }

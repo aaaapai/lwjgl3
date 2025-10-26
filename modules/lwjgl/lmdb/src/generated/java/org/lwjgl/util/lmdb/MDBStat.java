@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lmdb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Statistics for a database in the environment.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct MDB_stat {
- *     unsigned int {@link #ms_psize};
- *     unsigned int {@link #ms_depth};
- *     size_t {@link #ms_branch_pages};
- *     size_t {@link #ms_leaf_pages};
- *     size_t {@link #ms_overflow_pages};
- *     size_t {@link #ms_entries};
- * }</code></pre>
+ *     unsigned int ms_psize;
+ *     unsigned int ms_depth;
+ *     size_t ms_branch_pages;
+ *     size_t ms_leaf_pages;
+ *     size_t ms_overflow_pages;
+ *     size_t ms_entries;
+ * }}</pre>
  */
 @NativeType("struct MDB_stat")
 public class MDBStat extends Struct<MDBStat> implements NativeResource {
@@ -91,22 +87,22 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Size of a database page. This is currently the same for all databases. */
+    /** @return the value of the {@code ms_psize} field. */
     @NativeType("unsigned int")
     public int ms_psize() { return nms_psize(address()); }
-    /** Depth (height) of the B-tree. */
+    /** @return the value of the {@code ms_depth} field. */
     @NativeType("unsigned int")
     public int ms_depth() { return nms_depth(address()); }
-    /** Number of internal (non-leaf) pages. */
+    /** @return the value of the {@code ms_branch_pages} field. */
     @NativeType("size_t")
     public long ms_branch_pages() { return nms_branch_pages(address()); }
-    /** Number of leaf pages. */
+    /** @return the value of the {@code ms_leaf_pages} field. */
     @NativeType("size_t")
     public long ms_leaf_pages() { return nms_leaf_pages(address()); }
-    /** Number of overflow pages. */
+    /** @return the value of the {@code ms_overflow_pages} field. */
     @NativeType("size_t")
     public long ms_overflow_pages() { return nms_overflow_pages(address()); }
-    /** Number of data items. */
+    /** @return the value of the {@code ms_entries} field. */
     @NativeType("size_t")
     public long ms_entries() { return nms_entries(address()); }
 
@@ -134,8 +130,7 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MDBStat createSafe(long address) {
+    public static @Nullable MDBStat createSafe(long address) {
         return address == NULL ? null : new MDBStat(address, null);
     }
 
@@ -178,8 +173,7 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MDBStat.Buffer createSafe(long address, int capacity) {
+    public static MDBStat.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,9 +237,9 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #ms_psize}. */
-    public static int nms_psize(long struct) { return UNSAFE.getInt(null, struct + MDBStat.MS_PSIZE); }
+    public static int nms_psize(long struct) { return memGetInt(struct + MDBStat.MS_PSIZE); }
     /** Unsafe version of {@link #ms_depth}. */
-    public static int nms_depth(long struct) { return UNSAFE.getInt(null, struct + MDBStat.MS_DEPTH); }
+    public static int nms_depth(long struct) { return memGetInt(struct + MDBStat.MS_DEPTH); }
     /** Unsafe version of {@link #ms_branch_pages}. */
     public static long nms_branch_pages(long struct) { return memGetAddress(struct + MDBStat.MS_BRANCH_PAGES); }
     /** Unsafe version of {@link #ms_leaf_pages}. */
@@ -289,26 +283,31 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MDBStat getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link MDBStat#ms_psize} field. */
+        /** @return the value of the {@code ms_psize} field. */
         @NativeType("unsigned int")
         public int ms_psize() { return MDBStat.nms_psize(address()); }
-        /** @return the value of the {@link MDBStat#ms_depth} field. */
+        /** @return the value of the {@code ms_depth} field. */
         @NativeType("unsigned int")
         public int ms_depth() { return MDBStat.nms_depth(address()); }
-        /** @return the value of the {@link MDBStat#ms_branch_pages} field. */
+        /** @return the value of the {@code ms_branch_pages} field. */
         @NativeType("size_t")
         public long ms_branch_pages() { return MDBStat.nms_branch_pages(address()); }
-        /** @return the value of the {@link MDBStat#ms_leaf_pages} field. */
+        /** @return the value of the {@code ms_leaf_pages} field. */
         @NativeType("size_t")
         public long ms_leaf_pages() { return MDBStat.nms_leaf_pages(address()); }
-        /** @return the value of the {@link MDBStat#ms_overflow_pages} field. */
+        /** @return the value of the {@code ms_overflow_pages} field. */
         @NativeType("size_t")
         public long ms_overflow_pages() { return MDBStat.nms_overflow_pages(address()); }
-        /** @return the value of the {@link MDBStat#ms_entries} field. */
+        /** @return the value of the {@code ms_entries} field. */
         @NativeType("size_t")
         public long ms_entries() { return MDBStat.nms_entries(address()); }
 

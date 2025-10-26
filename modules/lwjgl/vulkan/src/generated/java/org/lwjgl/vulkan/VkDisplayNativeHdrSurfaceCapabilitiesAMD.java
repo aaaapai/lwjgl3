@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display native HDR specific capabilities of a surface.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link AMDDisplayNativeHdr#VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayNativeHdrSurfaceCapabilitiesAMD {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #localDimmingSupport};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 localDimmingSupport;
+ * }}</pre>
  */
 public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNativeHdrSurfaceCapabilitiesAMD> implements NativeResource {
 
@@ -84,21 +74,21 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether the surface supports local dimming. If this is {@link VK10#VK_TRUE TRUE}, {@link VkSwapchainDisplayNativeHdrCreateInfoAMD} <b>can</b> be used to explicitly enable or disable local dimming for the surface. Local dimming may also be overridden by {@link AMDDisplayNativeHdr#vkSetLocalDimmingAMD SetLocalDimmingAMD} during the lifetime of the swapchain. */
+    /** @return the value of the {@code localDimmingSupport} field. */
     @NativeType("VkBool32")
     public boolean localDimmingSupport() { return nlocalDimmingSupport(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDisplayNativeHdrSurfaceCapabilitiesAMD sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link AMDDisplayNativeHdr#VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD} value to the {@link #sType} field. */
+    /** Sets the {@link AMDDisplayNativeHdr#VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD} value to the {@code sType} field. */
     public VkDisplayNativeHdrSurfaceCapabilitiesAMD sType$Default() { return sType(AMDDisplayNativeHdr.VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDisplayNativeHdrSurfaceCapabilitiesAMD pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -148,8 +138,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayNativeHdrSurfaceCapabilitiesAMD createSafe(long address) {
+    public static @Nullable VkDisplayNativeHdrSurfaceCapabilitiesAMD createSafe(long address) {
         return address == NULL ? null : new VkDisplayNativeHdrSurfaceCapabilitiesAMD(address, null);
     }
 
@@ -192,8 +181,7 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer createSafe(long address, int capacity) {
+    public static VkDisplayNativeHdrSurfaceCapabilitiesAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +245,14 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.PNEXT); }
     /** Unsafe version of {@link #localDimmingSupport}. */
-    public static int nlocalDimmingSupport(long struct) { return UNSAFE.getInt(null, struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.LOCALDIMMINGSUPPORT); }
+    public static int nlocalDimmingSupport(long struct) { return memGetInt(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.LOCALDIMMINGSUPPORT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDisplayNativeHdrSurfaceCapabilitiesAMD.PNEXT, value); }
 
@@ -302,25 +290,30 @@ public class VkDisplayNativeHdrSurfaceCapabilitiesAMD extends Struct<VkDisplayNa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDisplayNativeHdrSurfaceCapabilitiesAMD getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDisplayNativeHdrSurfaceCapabilitiesAMD.nsType(address()); }
-        /** @return the value of the {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkDisplayNativeHdrSurfaceCapabilitiesAMD.npNext(address()); }
-        /** @return the value of the {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#localDimmingSupport} field. */
+        /** @return the value of the {@code localDimmingSupport} field. */
         @NativeType("VkBool32")
         public boolean localDimmingSupport() { return VkDisplayNativeHdrSurfaceCapabilitiesAMD.nlocalDimmingSupport(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer sType(@NativeType("VkStructureType") int value) { VkDisplayNativeHdrSurfaceCapabilitiesAMD.nsType(address(), value); return this; }
-        /** Sets the {@link AMDDisplayNativeHdr#VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD} value to the {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#sType} field. */
+        /** Sets the {@link AMDDisplayNativeHdr#VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD} value to the {@code sType} field. */
         public VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer sType$Default() { return sType(AMDDisplayNativeHdr.VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD); }
-        /** Sets the specified value to the {@link VkDisplayNativeHdrSurfaceCapabilitiesAMD#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDisplayNativeHdrSurfaceCapabilitiesAMD.Buffer pNext(@NativeType("void *") long value) { VkDisplayNativeHdrSurfaceCapabilitiesAMD.npNext(address(), value); return this; }
 
     }

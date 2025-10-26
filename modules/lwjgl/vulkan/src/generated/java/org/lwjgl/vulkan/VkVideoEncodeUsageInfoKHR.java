@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying video encode usage information.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR}</li>
- * <li>{@code videoUsageHints} <b>must</b> be a valid combination of {@code VkVideoEncodeUsageFlagBitsKHR} values</li>
- * <li>{@code videoContentHints} <b>must</b> be a valid combination of {@code VkVideoEncodeContentFlagBitsKHR} values</li>
- * <li>If {@code tuningMode} is not 0, {@code tuningMode} <b>must</b> be a valid {@code VkVideoEncodeTuningModeKHR} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoEncodeUsageInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkVideoEncodeUsageFlagsKHR {@link #videoUsageHints};
- *     VkVideoEncodeContentFlagsKHR {@link #videoContentHints};
- *     VkVideoEncodeTuningModeKHR {@link #tuningMode};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkVideoEncodeUsageFlagsKHR videoUsageHints;
+ *     VkVideoEncodeContentFlagsKHR videoContentHints;
+ *     VkVideoEncodeTuningModeKHR tuningMode;
+ * }}</pre>
  */
 public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR> implements NativeResource {
 
@@ -95,33 +82,33 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkVideoEncodeUsageFlagBitsKHR} specifying hints about the intended use of the video encode profile. */
+    /** @return the value of the {@code videoUsageHints} field. */
     @NativeType("VkVideoEncodeUsageFlagsKHR")
     public int videoUsageHints() { return nvideoUsageHints(address()); }
-    /** a bitmask of {@code VkVideoEncodeContentFlagBitsKHR} specifying hints about the content to be encoded using the video encode profile. */
+    /** @return the value of the {@code videoContentHints} field. */
     @NativeType("VkVideoEncodeContentFlagsKHR")
     public int videoContentHints() { return nvideoContentHints(address()); }
-    /** a {@code VkVideoEncodeTuningModeKHR} value specifying the tuning mode to use when encoding with the video profile. */
+    /** @return the value of the {@code tuningMode} field. */
     @NativeType("VkVideoEncodeTuningModeKHR")
     public int tuningMode() { return ntuningMode(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoEncodeUsageInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR} value to the {@code sType} field. */
     public VkVideoEncodeUsageInfoKHR sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoEncodeUsageInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #videoUsageHints} field. */
+    /** Sets the specified value to the {@code videoUsageHints} field. */
     public VkVideoEncodeUsageInfoKHR videoUsageHints(@NativeType("VkVideoEncodeUsageFlagsKHR") int value) { nvideoUsageHints(address(), value); return this; }
-    /** Sets the specified value to the {@link #videoContentHints} field. */
+    /** Sets the specified value to the {@code videoContentHints} field. */
     public VkVideoEncodeUsageInfoKHR videoContentHints(@NativeType("VkVideoEncodeContentFlagsKHR") int value) { nvideoContentHints(address(), value); return this; }
-    /** Sets the specified value to the {@link #tuningMode} field. */
+    /** Sets the specified value to the {@code tuningMode} field. */
     public VkVideoEncodeUsageInfoKHR tuningMode(@NativeType("VkVideoEncodeTuningModeKHR") int value) { ntuningMode(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -177,8 +164,7 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeUsageInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeUsageInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeUsageInfoKHR(address, null);
     }
 
@@ -221,8 +207,7 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeUsageInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeUsageInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,26 +252,26 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeUsageInfoKHR.PNEXT); }
     /** Unsafe version of {@link #videoUsageHints}. */
-    public static int nvideoUsageHints(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS); }
+    public static int nvideoUsageHints(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS); }
     /** Unsafe version of {@link #videoContentHints}. */
-    public static int nvideoContentHints(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS); }
+    public static int nvideoContentHints(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS); }
     /** Unsafe version of {@link #tuningMode}. */
-    public static int ntuningMode(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE); }
+    public static int ntuningMode(long struct) { return memGetInt(struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeUsageInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #videoUsageHints(int) videoUsageHints}. */
-    public static void nvideoUsageHints(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS, value); }
+    public static void nvideoUsageHints(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOUSAGEHINTS, value); }
     /** Unsafe version of {@link #videoContentHints(int) videoContentHints}. */
-    public static void nvideoContentHints(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS, value); }
+    public static void nvideoContentHints(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.VIDEOCONTENTHINTS, value); }
     /** Unsafe version of {@link #tuningMode(int) tuningMode}. */
-    public static void ntuningMode(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE, value); }
+    public static void ntuningMode(long struct, int value) { memPutInt(struct + VkVideoEncodeUsageInfoKHR.TUNINGMODE, value); }
 
     // -----------------------------------
 
@@ -322,37 +307,42 @@ public class VkVideoEncodeUsageInfoKHR extends Struct<VkVideoEncodeUsageInfoKHR>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEncodeUsageInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoEncodeUsageInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoEncodeUsageInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoEncodeUsageInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoEncodeUsageInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoEncodeUsageInfoKHR#videoUsageHints} field. */
+        /** @return the value of the {@code videoUsageHints} field. */
         @NativeType("VkVideoEncodeUsageFlagsKHR")
         public int videoUsageHints() { return VkVideoEncodeUsageInfoKHR.nvideoUsageHints(address()); }
-        /** @return the value of the {@link VkVideoEncodeUsageInfoKHR#videoContentHints} field. */
+        /** @return the value of the {@code videoContentHints} field. */
         @NativeType("VkVideoEncodeContentFlagsKHR")
         public int videoContentHints() { return VkVideoEncodeUsageInfoKHR.nvideoContentHints(address()); }
-        /** @return the value of the {@link VkVideoEncodeUsageInfoKHR#tuningMode} field. */
+        /** @return the value of the {@code tuningMode} field. */
         @NativeType("VkVideoEncodeTuningModeKHR")
         public int tuningMode() { return VkVideoEncodeUsageInfoKHR.ntuningMode(address()); }
 
-        /** Sets the specified value to the {@link VkVideoEncodeUsageInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoEncodeUsageInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoEncodeUsageInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR} value to the {@link VkVideoEncodeUsageInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR} value to the {@code sType} field. */
         public VkVideoEncodeUsageInfoKHR.Buffer sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkVideoEncodeUsageInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoEncodeUsageInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoEncodeUsageInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoEncodeUsageInfoKHR#videoUsageHints} field. */
+        /** Sets the specified value to the {@code videoUsageHints} field. */
         public VkVideoEncodeUsageInfoKHR.Buffer videoUsageHints(@NativeType("VkVideoEncodeUsageFlagsKHR") int value) { VkVideoEncodeUsageInfoKHR.nvideoUsageHints(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoEncodeUsageInfoKHR#videoContentHints} field. */
+        /** Sets the specified value to the {@code videoContentHints} field. */
         public VkVideoEncodeUsageInfoKHR.Buffer videoContentHints(@NativeType("VkVideoEncodeContentFlagsKHR") int value) { VkVideoEncodeUsageInfoKHR.nvideoContentHints(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoEncodeUsageInfoKHR#tuningMode} field. */
+        /** Sets the specified value to the {@code tuningMode} field. */
         public VkVideoEncodeUsageInfoKHR.Buffer tuningMode(@NativeType("VkVideoEncodeTuningModeKHR") int value) { VkVideoEncodeUsageInfoKHR.ntuningMode(address(), value); return this; }
 
     }

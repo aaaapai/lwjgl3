@@ -12,20 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Pointer *data_pointer
- * )</code></pre>
- */
+/** Callback function: {@link #invoke SVG_Lib_Free_Func} */
 @FunctionalInterface
 @NativeType("SVG_Lib_Free_Func")
 public interface SVG_Lib_Free_FuncI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -40,7 +32,7 @@ public interface SVG_Lib_Free_FuncI extends CallbackI {
         );
     }
 
-    /** A callback that is called when the {@code ot-svg} module is being freed. */
+    /** {@code void (* SVG_Lib_Free_Func) (FT_Pointer * data_pointer)} */
     void invoke(@NativeType("FT_Pointer *") long data_pointer);
 
 }

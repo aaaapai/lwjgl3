@@ -5,25 +5,13 @@
  */
 package org.lwjgl.system.macosx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CoreGraphics#CGEventTapCreate EventTapCreate} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * CGEventRef (*{@link #invoke}) (
- *     CGEventTapProxy proxy,
- *     CGEventType type,
- *     CGEventRef event,
- *     void *userInfo
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CGEventTapCallBack extends Callback implements CGEventTapCallBackI {
 
     /**
@@ -39,8 +27,7 @@ public abstract class CGEventTapCallBack extends Callback implements CGEventTapC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static CGEventTapCallBack createSafe(long functionPointer) {
+    public static @Nullable CGEventTapCallBack createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

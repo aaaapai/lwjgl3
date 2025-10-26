@@ -12,20 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_destroy_func_t} */
 @FunctionalInterface
 @NativeType("hb_destroy_func_t")
 public interface hb_destroy_func_tI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -40,11 +32,7 @@ public interface hb_destroy_func_tI extends CallbackI {
         );
     }
 
-    /**
-     * A virtual method for destroy user-data callbacks.
-     *
-     * @param user_data the data to be destroyed
-     */
+    /** {@code void (* hb_destroy_func_t) (void * user_data)} */
     void invoke(@NativeType("void *") long user_data);
 
 }

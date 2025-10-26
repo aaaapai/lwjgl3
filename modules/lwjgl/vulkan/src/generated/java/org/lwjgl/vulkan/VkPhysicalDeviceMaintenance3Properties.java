@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing descriptor set properties.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceMaintenance3Properties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceMaintenance3Properties {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #maxPerSetDescriptors};
- *     VkDeviceSize {@link #maxMemoryAllocationSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t maxPerSetDescriptors;
+ *     VkDeviceSize maxMemoryAllocationSize;
+ * }}</pre>
  */
 public class VkPhysicalDeviceMaintenance3Properties extends Struct<VkPhysicalDeviceMaintenance3Properties> implements NativeResource {
 
@@ -92,24 +78,24 @@ public class VkPhysicalDeviceMaintenance3Properties extends Struct<VkPhysicalDev
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a maximum number of descriptors (summed over all descriptor types) in a single descriptor set that is guaranteed to satisfy any implementation-dependent constraints on the size of a descriptor set itself. Applications <b>can</b> query whether a descriptor set that goes beyond this limit is supported using {@link VK11#vkGetDescriptorSetLayoutSupport GetDescriptorSetLayoutSupport}. */
+    /** @return the value of the {@code maxPerSetDescriptors} field. */
     @NativeType("uint32_t")
     public int maxPerSetDescriptors() { return nmaxPerSetDescriptors(address()); }
-    /** the maximum size of a memory allocation that <b>can</b> be created, even if there is more space available in the heap. */
+    /** @return the value of the {@code maxMemoryAllocationSize} field. */
     @NativeType("VkDeviceSize")
     public long maxMemoryAllocationSize() { return nmaxMemoryAllocationSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceMaintenance3Properties sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES} value to the {@code sType} field. */
     public VkPhysicalDeviceMaintenance3Properties sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceMaintenance3Properties pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -159,8 +145,7 @@ public class VkPhysicalDeviceMaintenance3Properties extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance3Properties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance3Properties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance3Properties(address, null);
     }
 
@@ -203,8 +188,7 @@ public class VkPhysicalDeviceMaintenance3Properties extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance3Properties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance3Properties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,16 +252,16 @@ public class VkPhysicalDeviceMaintenance3Properties extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance3Properties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance3Properties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance3Properties.PNEXT); }
     /** Unsafe version of {@link #maxPerSetDescriptors}. */
-    public static int nmaxPerSetDescriptors(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance3Properties.MAXPERSETDESCRIPTORS); }
+    public static int nmaxPerSetDescriptors(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance3Properties.MAXPERSETDESCRIPTORS); }
     /** Unsafe version of {@link #maxMemoryAllocationSize}. */
-    public static long nmaxMemoryAllocationSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceMaintenance3Properties.MAXMEMORYALLOCATIONSIZE); }
+    public static long nmaxMemoryAllocationSize(long struct) { return memGetLong(struct + VkPhysicalDeviceMaintenance3Properties.MAXMEMORYALLOCATIONSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance3Properties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance3Properties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance3Properties.PNEXT, value); }
 
@@ -315,28 +299,33 @@ public class VkPhysicalDeviceMaintenance3Properties extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceMaintenance3Properties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance3Properties#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceMaintenance3Properties.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance3Properties#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMaintenance3Properties.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance3Properties#maxPerSetDescriptors} field. */
+        /** @return the value of the {@code maxPerSetDescriptors} field. */
         @NativeType("uint32_t")
         public int maxPerSetDescriptors() { return VkPhysicalDeviceMaintenance3Properties.nmaxPerSetDescriptors(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance3Properties#maxMemoryAllocationSize} field. */
+        /** @return the value of the {@code maxMemoryAllocationSize} field. */
         @NativeType("VkDeviceSize")
         public long maxMemoryAllocationSize() { return VkPhysicalDeviceMaintenance3Properties.nmaxMemoryAllocationSize(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance3Properties#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceMaintenance3Properties.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceMaintenance3Properties.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES} value to the {@link VkPhysicalDeviceMaintenance3Properties#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES} value to the {@code sType} field. */
         public VkPhysicalDeviceMaintenance3Properties.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance3Properties#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceMaintenance3Properties.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceMaintenance3Properties.npNext(address(), value); return this; }
 
     }

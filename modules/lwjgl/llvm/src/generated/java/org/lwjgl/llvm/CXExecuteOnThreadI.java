@@ -12,22 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link ClangIndex#clang_executeOnThread executeOnThread} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void (*) (void *)")
 public interface CXExecuteOnThreadI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -42,6 +32,7 @@ public interface CXExecuteOnThreadI extends CallbackI {
         );
     }
 
+    /** {@code void (*) (void * user_data)} */
     void invoke(@NativeType("void *") long user_data);
 
 }

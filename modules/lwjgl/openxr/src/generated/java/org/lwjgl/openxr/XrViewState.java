@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Struct containing additional view state.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrViewState} contains additional view state from {@link XR10#xrLocateViews LocateViews} common to all views of the active view configuration.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_VIEW_STATE TYPE_VIEW_STATE}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code viewStateFlags} <b>must</b> be 0 or a valid combination of {@code XrViewStateFlagBits} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrView}, {@link XR10#xrLocateViews LocateViews}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrViewState {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrViewStateFlags {@link #viewStateFlags};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrViewStateFlags viewStateFlags;
+ * }}</pre>
  */
 public class XrViewState extends Struct<XrViewState> implements NativeResource {
 
@@ -94,23 +74,23 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a bitmask of {@code XrViewStateFlagBits} indicating state for all views. */
+    /** @return the value of the {@code viewStateFlags} field. */
     @NativeType("XrViewStateFlags")
     public long viewStateFlags() { return nviewStateFlags(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrViewState type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_VIEW_STATE TYPE_VIEW_STATE} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_VIEW_STATE TYPE_VIEW_STATE} value to the {@code type} field. */
     public XrViewState type$Default() { return type(XR10.XR_TYPE_VIEW_STATE); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrViewState next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #viewStateFlags} field. */
+    /** Sets the specified value to the {@code viewStateFlags} field. */
     public XrViewState viewStateFlags(@NativeType("XrViewStateFlags") long value) { nviewStateFlags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewState createSafe(long address) {
+    public static @Nullable XrViewState createSafe(long address) {
         return address == NULL ? null : new XrViewState(address, null);
     }
 
@@ -206,8 +185,7 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrViewState.Buffer createSafe(long address, int capacity) {
+    public static XrViewState.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrViewState.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrViewState.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrViewState.NEXT); }
     /** Unsafe version of {@link #viewStateFlags}. */
-    public static long nviewStateFlags(long struct) { return UNSAFE.getLong(null, struct + XrViewState.VIEWSTATEFLAGS); }
+    public static long nviewStateFlags(long struct) { return memGetLong(struct + XrViewState.VIEWSTATEFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrViewState.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrViewState.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrViewState.NEXT, value); }
     /** Unsafe version of {@link #viewStateFlags(long) viewStateFlags}. */
-    public static void nviewStateFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrViewState.VIEWSTATEFLAGS, value); }
+    public static void nviewStateFlags(long struct, long value) { memPutLong(struct + XrViewState.VIEWSTATEFLAGS, value); }
 
     // -----------------------------------
 
@@ -299,27 +277,32 @@ public class XrViewState extends Struct<XrViewState> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrViewState getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrViewState#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrViewState.ntype(address()); }
-        /** @return the value of the {@link XrViewState#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrViewState.nnext(address()); }
-        /** @return the value of the {@link XrViewState#viewStateFlags} field. */
+        /** @return the value of the {@code viewStateFlags} field. */
         @NativeType("XrViewStateFlags")
         public long viewStateFlags() { return XrViewState.nviewStateFlags(address()); }
 
-        /** Sets the specified value to the {@link XrViewState#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrViewState.Buffer type(@NativeType("XrStructureType") int value) { XrViewState.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_VIEW_STATE TYPE_VIEW_STATE} value to the {@link XrViewState#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_VIEW_STATE TYPE_VIEW_STATE} value to the {@code type} field. */
         public XrViewState.Buffer type$Default() { return type(XR10.XR_TYPE_VIEW_STATE); }
-        /** Sets the specified value to the {@link XrViewState#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrViewState.Buffer next(@NativeType("void *") long value) { XrViewState.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrViewState#viewStateFlags} field. */
+        /** Sets the specified value to the {@code viewStateFlags} field. */
         public XrViewState.Buffer viewStateFlags(@NativeType("XrViewStateFlags") long value) { XrViewState.nviewStateFlags(address(), value); return this; }
 
     }

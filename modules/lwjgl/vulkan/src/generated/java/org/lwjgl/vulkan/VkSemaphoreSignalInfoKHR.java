@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkSemaphoreSignalInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSemaphoreSignalInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkSemaphore semaphore;
  *     uint64_t value;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkSemaphoreSignalInfoKHR extends VkSemaphoreSignalInfo {
 
@@ -117,8 +113,7 @@ public class VkSemaphoreSignalInfoKHR extends VkSemaphoreSignalInfo {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSignalInfoKHR createSafe(long address) {
+    public static @Nullable VkSemaphoreSignalInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreSignalInfoKHR(address, null);
     }
 
@@ -161,8 +156,7 @@ public class VkSemaphoreSignalInfoKHR extends VkSemaphoreSignalInfo {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreSignalInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreSignalInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,6 +229,11 @@ public class VkSemaphoreSignalInfoKHR extends VkSemaphoreSignalInfo {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

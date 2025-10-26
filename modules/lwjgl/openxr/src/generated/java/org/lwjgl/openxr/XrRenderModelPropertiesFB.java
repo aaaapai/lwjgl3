@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,41 +19,16 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.openxr.FBRenderModel.*;
 
 /**
- * The information about the render model.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrRenderModelPropertiesFB} contains information about the render model for a device. {@link XrRenderModelPropertiesFB} <b>must</b> be provided when calling {@link FBRenderModel#xrGetRenderModelPropertiesFB GetRenderModelPropertiesFB}. The {@code XrRenderModelKeyFB} included in the properties is a unique key for each render model that is valid across multiple instances and installs.</p>
- * 
- * <p>If the application decides to cache or save the render model in any way, {@code modelVersion} can be used to determine if the render model has changed. The application <b>should</b> then update its cached or saved version.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelPropertiesFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code modelName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link FBRenderModel#XR_MAX_RENDER_MODEL_NAME_SIZE_FB MAX_RENDER_MODEL_NAME_SIZE_FB}</li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code XrRenderModelFlagBitsFB} values</li>
- * <li>{@code flags} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBRenderModel#xrGetRenderModelPropertiesFB GetRenderModelPropertiesFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrRenderModelPropertiesFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     uint32_t {@link #vendorId};
- *     char {@link #modelName}[XR_MAX_RENDER_MODEL_NAME_SIZE_FB];
- *     XrRenderModelKeyFB {@link #modelKey};
- *     uint32_t {@link #modelVersion};
- *     XrRenderModelFlagsFB {@link #flags};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     uint32_t vendorId;
+ *     char modelName[XR_MAX_RENDER_MODEL_NAME_SIZE_FB];
+ *     XrRenderModelKeyFB modelKey;
+ *     uint32_t modelVersion;
+ *     XrRenderModelFlagsFB flags;
+ * }}</pre>
  */
 public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB> implements NativeResource {
 
@@ -118,46 +93,48 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. {@link XrRenderModelCapabilitiesRequestFB} is a structure in this structure chain and <b>should</b> be linked when this structure is passed to {@link FBRenderModel#xrGetRenderModelPropertiesFB GetRenderModelPropertiesFB}. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the vendor id of the model. */
+    /** @return the value of the {@code vendorId} field. */
     @NativeType("uint32_t")
     public int vendorId() { return nvendorId(address()); }
-    /** the name of the model. */
+    /** @return a {@link ByteBuffer} view of the {@code modelName} field. */
     @NativeType("char[XR_MAX_RENDER_MODEL_NAME_SIZE_FB]")
     public ByteBuffer modelName() { return nmodelName(address()); }
-    /** the name of the model. */
+    /** @return the null-terminated string stored in the {@code modelName} field. */
     @NativeType("char[XR_MAX_RENDER_MODEL_NAME_SIZE_FB]")
     public String modelNameString() { return nmodelNameString(address()); }
-    /** the unique model key used to load the model in {@link FBRenderModel#xrLoadRenderModelFB LoadRenderModelFB}. */
+    /** @return the value of the {@code modelKey} field. */
     @NativeType("XrRenderModelKeyFB")
     public long modelKey() { return nmodelKey(address()); }
-    /** the version number of the model. */
+    /** @return the value of the {@code modelVersion} field. */
     @NativeType("uint32_t")
     public int modelVersion() { return nmodelVersion(address()); }
-    /** a bitmask of {@code XrRenderModelFlagsFB}. After a successful call to {@link FBRenderModel#xrGetRenderModelPropertiesFB GetRenderModelPropertiesFB}, flags must contain the support level of the model and no other support levels. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("XrRenderModelFlagsFB")
     public long flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrRenderModelPropertiesFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB} value to the {@code type} field. */
     public XrRenderModelPropertiesFB type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_PROPERTIES_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrRenderModelPropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #vendorId} field. */
+    /** Prepends the specified {@link XrRenderModelCapabilitiesRequestFB} value to the {@code next} chain. */
+    public XrRenderModelPropertiesFB next(XrRenderModelCapabilitiesRequestFB value) { return this.next(value.next(this.next()).address()); }
+    /** Sets the specified value to the {@code vendorId} field. */
     public XrRenderModelPropertiesFB vendorId(@NativeType("uint32_t") int value) { nvendorId(address(), value); return this; }
-    /** Copies the specified encoded string to the {@link #modelName} field. */
+    /** Copies the specified encoded string to the {@code modelName} field. */
     public XrRenderModelPropertiesFB modelName(@NativeType("char[XR_MAX_RENDER_MODEL_NAME_SIZE_FB]") ByteBuffer value) { nmodelName(address(), value); return this; }
-    /** Sets the specified value to the {@link #modelKey} field. */
+    /** Sets the specified value to the {@code modelKey} field. */
     public XrRenderModelPropertiesFB modelKey(@NativeType("XrRenderModelKeyFB") long value) { nmodelKey(address(), value); return this; }
-    /** Sets the specified value to the {@link #modelVersion} field. */
+    /** Sets the specified value to the {@code modelVersion} field. */
     public XrRenderModelPropertiesFB modelVersion(@NativeType("uint32_t") int value) { nmodelVersion(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public XrRenderModelPropertiesFB flags(@NativeType("XrRenderModelFlagsFB") long value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -217,8 +194,7 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelPropertiesFB createSafe(long address) {
+    public static @Nullable XrRenderModelPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrRenderModelPropertiesFB(address, null);
     }
 
@@ -261,8 +237,7 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrRenderModelPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,28 +282,28 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRenderModelPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRenderModelPropertiesFB.NEXT); }
     /** Unsafe version of {@link #vendorId}. */
-    public static int nvendorId(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPropertiesFB.VENDORID); }
+    public static int nvendorId(long struct) { return memGetInt(struct + XrRenderModelPropertiesFB.VENDORID); }
     /** Unsafe version of {@link #modelName}. */
     public static ByteBuffer nmodelName(long struct) { return memByteBuffer(struct + XrRenderModelPropertiesFB.MODELNAME, XR_MAX_RENDER_MODEL_NAME_SIZE_FB); }
     /** Unsafe version of {@link #modelNameString}. */
     public static String nmodelNameString(long struct) { return memUTF8(struct + XrRenderModelPropertiesFB.MODELNAME); }
     /** Unsafe version of {@link #modelKey}. */
-    public static long nmodelKey(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelPropertiesFB.MODELKEY); }
+    public static long nmodelKey(long struct) { return memGetLong(struct + XrRenderModelPropertiesFB.MODELKEY); }
     /** Unsafe version of {@link #modelVersion}. */
-    public static int nmodelVersion(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPropertiesFB.MODELVERSION); }
+    public static int nmodelVersion(long struct) { return memGetInt(struct + XrRenderModelPropertiesFB.MODELVERSION); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelPropertiesFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrRenderModelPropertiesFB.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRenderModelPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRenderModelPropertiesFB.NEXT, value); }
     /** Unsafe version of {@link #vendorId(int) vendorId}. */
-    public static void nvendorId(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPropertiesFB.VENDORID, value); }
+    public static void nvendorId(long struct, int value) { memPutInt(struct + XrRenderModelPropertiesFB.VENDORID, value); }
     /** Unsafe version of {@link #modelName(ByteBuffer) modelName}. */
     public static void nmodelName(long struct, ByteBuffer value) {
         if (CHECKS) {
@@ -338,11 +313,11 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
         memCopy(memAddress(value), struct + XrRenderModelPropertiesFB.MODELNAME, value.remaining());
     }
     /** Unsafe version of {@link #modelKey(long) modelKey}. */
-    public static void nmodelKey(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelPropertiesFB.MODELKEY, value); }
+    public static void nmodelKey(long struct, long value) { memPutLong(struct + XrRenderModelPropertiesFB.MODELKEY, value); }
     /** Unsafe version of {@link #modelVersion(int) modelVersion}. */
-    public static void nmodelVersion(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPropertiesFB.MODELVERSION, value); }
+    public static void nmodelVersion(long struct, int value) { memPutInt(struct + XrRenderModelPropertiesFB.MODELVERSION, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelPropertiesFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrRenderModelPropertiesFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -378,50 +353,57 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrRenderModelPropertiesFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrRenderModelPropertiesFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrRenderModelPropertiesFB.ntype(address()); }
-        /** @return the value of the {@link XrRenderModelPropertiesFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrRenderModelPropertiesFB.nnext(address()); }
-        /** @return the value of the {@link XrRenderModelPropertiesFB#vendorId} field. */
+        /** @return the value of the {@code vendorId} field. */
         @NativeType("uint32_t")
         public int vendorId() { return XrRenderModelPropertiesFB.nvendorId(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link XrRenderModelPropertiesFB#modelName} field. */
+        /** @return a {@link ByteBuffer} view of the {@code modelName} field. */
         @NativeType("char[XR_MAX_RENDER_MODEL_NAME_SIZE_FB]")
         public ByteBuffer modelName() { return XrRenderModelPropertiesFB.nmodelName(address()); }
-        /** @return the null-terminated string stored in the {@link XrRenderModelPropertiesFB#modelName} field. */
+        /** @return the null-terminated string stored in the {@code modelName} field. */
         @NativeType("char[XR_MAX_RENDER_MODEL_NAME_SIZE_FB]")
         public String modelNameString() { return XrRenderModelPropertiesFB.nmodelNameString(address()); }
-        /** @return the value of the {@link XrRenderModelPropertiesFB#modelKey} field. */
+        /** @return the value of the {@code modelKey} field. */
         @NativeType("XrRenderModelKeyFB")
         public long modelKey() { return XrRenderModelPropertiesFB.nmodelKey(address()); }
-        /** @return the value of the {@link XrRenderModelPropertiesFB#modelVersion} field. */
+        /** @return the value of the {@code modelVersion} field. */
         @NativeType("uint32_t")
         public int modelVersion() { return XrRenderModelPropertiesFB.nmodelVersion(address()); }
-        /** @return the value of the {@link XrRenderModelPropertiesFB#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("XrRenderModelFlagsFB")
         public long flags() { return XrRenderModelPropertiesFB.nflags(address()); }
 
-        /** Sets the specified value to the {@link XrRenderModelPropertiesFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrRenderModelPropertiesFB.Buffer type(@NativeType("XrStructureType") int value) { XrRenderModelPropertiesFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB} value to the {@link XrRenderModelPropertiesFB#type} field. */
+        /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB} value to the {@code type} field. */
         public XrRenderModelPropertiesFB.Buffer type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_PROPERTIES_FB); }
-        /** Sets the specified value to the {@link XrRenderModelPropertiesFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrRenderModelPropertiesFB.Buffer next(@NativeType("void *") long value) { XrRenderModelPropertiesFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrRenderModelPropertiesFB#vendorId} field. */
+        /** Prepends the specified {@link XrRenderModelCapabilitiesRequestFB} value to the {@code next} chain. */
+        public XrRenderModelPropertiesFB.Buffer next(XrRenderModelCapabilitiesRequestFB value) { return this.next(value.next(this.next()).address()); }
+        /** Sets the specified value to the {@code vendorId} field. */
         public XrRenderModelPropertiesFB.Buffer vendorId(@NativeType("uint32_t") int value) { XrRenderModelPropertiesFB.nvendorId(address(), value); return this; }
-        /** Copies the specified encoded string to the {@link XrRenderModelPropertiesFB#modelName} field. */
+        /** Copies the specified encoded string to the {@code modelName} field. */
         public XrRenderModelPropertiesFB.Buffer modelName(@NativeType("char[XR_MAX_RENDER_MODEL_NAME_SIZE_FB]") ByteBuffer value) { XrRenderModelPropertiesFB.nmodelName(address(), value); return this; }
-        /** Sets the specified value to the {@link XrRenderModelPropertiesFB#modelKey} field. */
+        /** Sets the specified value to the {@code modelKey} field. */
         public XrRenderModelPropertiesFB.Buffer modelKey(@NativeType("XrRenderModelKeyFB") long value) { XrRenderModelPropertiesFB.nmodelKey(address(), value); return this; }
-        /** Sets the specified value to the {@link XrRenderModelPropertiesFB#modelVersion} field. */
+        /** Sets the specified value to the {@code modelVersion} field. */
         public XrRenderModelPropertiesFB.Buffer modelVersion(@NativeType("uint32_t") int value) { XrRenderModelPropertiesFB.nmodelVersion(address(), value); return this; }
-        /** Sets the specified value to the {@link XrRenderModelPropertiesFB#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public XrRenderModelPropertiesFB.Buffer flags(@NativeType("XrRenderModelFlagsFB") long value) { XrRenderModelPropertiesFB.nflags(address(), value); return this; }
 
     }

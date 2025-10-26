@@ -5,24 +5,13 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@link NkClipboard} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     nk_handle handle,
- *     char const *text,
- *     int len
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_plugin_copy} */
 public abstract class NkPluginCopy extends Callback implements NkPluginCopyI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class NkPluginCopy extends Callback implements NkPluginCopyI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static NkPluginCopy createSafe(long functionPointer) {
+    public static @Nullable NkPluginCopy createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

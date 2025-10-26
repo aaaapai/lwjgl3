@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,34 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Import memory from an Android hardware buffer.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VK10#vkAllocateMemory AllocateMemory} command succeeds, the implementation <b>must</b> acquire a reference to the imported hardware buffer, which it <b>must</b> release when the device memory object is freed. If the command fails, the implementation <b>must</b> not retain a reference.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code buffer} is not {@code NULL}, Android hardware buffers <b>must</b> be supported for import, as reported by {@link VkExternalImageFormatProperties} or {@link VkExternalBufferProperties}</li>
- * <li>If {@code buffer} is not {@code NULL}, it <b>must</b> be a valid Android hardware buffer object with {@code AHardwareBuffer_Desc}{@code ::usage} compatible with Vulkan as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-external-android-hardware-buffer">Android Hardware Buffers</a></li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID}</li>
- * <li>{@code buffer} <b>must</b> be a valid pointer to an {@code AHardwareBuffer} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkImportAndroidHardwareBufferInfoANDROID {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     AHardwareBuffer * {@link #buffer};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     AHardwareBuffer * buffer;
+ * }}</pre>
  */
 public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAndroidHardwareBufferInfoANDROID> implements NativeResource {
 
@@ -97,23 +75,23 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the Android hardware buffer to import. */
+    /** @return the value of the {@code buffer} field. */
     @NativeType("AHardwareBuffer *")
     public long buffer() { return nbuffer(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkImportAndroidHardwareBufferInfoANDROID sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID} value to the {@link #sType} field. */
+    /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID} value to the {@code sType} field. */
     public VkImportAndroidHardwareBufferInfoANDROID sType$Default() { return sType(ANDROIDExternalMemoryAndroidHardwareBuffer.VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkImportAndroidHardwareBufferInfoANDROID pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #buffer} field. */
+    /** Sets the specified value to the {@code buffer} field. */
     public VkImportAndroidHardwareBufferInfoANDROID buffer(@NativeType("AHardwareBuffer *") long value) { nbuffer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -165,8 +143,7 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportAndroidHardwareBufferInfoANDROID createSafe(long address) {
+    public static @Nullable VkImportAndroidHardwareBufferInfoANDROID createSafe(long address) {
         return address == NULL ? null : new VkImportAndroidHardwareBufferInfoANDROID(address, null);
     }
 
@@ -209,8 +186,7 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkImportAndroidHardwareBufferInfoANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkImportAndroidHardwareBufferInfoANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,14 +231,14 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkImportAndroidHardwareBufferInfoANDROID.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
     public static long nbuffer(long struct) { return memGetAddress(struct + VkImportAndroidHardwareBufferInfoANDROID.BUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkImportAndroidHardwareBufferInfoANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkImportAndroidHardwareBufferInfoANDROID.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
@@ -311,27 +287,32 @@ public class VkImportAndroidHardwareBufferInfoANDROID extends Struct<VkImportAnd
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkImportAndroidHardwareBufferInfoANDROID getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkImportAndroidHardwareBufferInfoANDROID#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkImportAndroidHardwareBufferInfoANDROID.nsType(address()); }
-        /** @return the value of the {@link VkImportAndroidHardwareBufferInfoANDROID#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkImportAndroidHardwareBufferInfoANDROID.npNext(address()); }
-        /** @return the value of the {@link VkImportAndroidHardwareBufferInfoANDROID#buffer} field. */
+        /** @return the value of the {@code buffer} field. */
         @NativeType("AHardwareBuffer *")
         public long buffer() { return VkImportAndroidHardwareBufferInfoANDROID.nbuffer(address()); }
 
-        /** Sets the specified value to the {@link VkImportAndroidHardwareBufferInfoANDROID#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkImportAndroidHardwareBufferInfoANDROID.Buffer sType(@NativeType("VkStructureType") int value) { VkImportAndroidHardwareBufferInfoANDROID.nsType(address(), value); return this; }
-        /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID} value to the {@link VkImportAndroidHardwareBufferInfoANDROID#sType} field. */
+        /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID} value to the {@code sType} field. */
         public VkImportAndroidHardwareBufferInfoANDROID.Buffer sType$Default() { return sType(ANDROIDExternalMemoryAndroidHardwareBuffer.VK_STRUCTURE_TYPE_IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID); }
-        /** Sets the specified value to the {@link VkImportAndroidHardwareBufferInfoANDROID#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkImportAndroidHardwareBufferInfoANDROID.Buffer pNext(@NativeType("void const *") long value) { VkImportAndroidHardwareBufferInfoANDROID.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImportAndroidHardwareBufferInfoANDROID#buffer} field. */
+        /** Sets the specified value to the {@code buffer} field. */
         public VkImportAndroidHardwareBufferInfoANDROID.Buffer buffer(@NativeType("AHardwareBuffer *") long value) { VkImportAndroidHardwareBufferInfoANDROID.nbuffer(address(), value); return this; }
 
     }

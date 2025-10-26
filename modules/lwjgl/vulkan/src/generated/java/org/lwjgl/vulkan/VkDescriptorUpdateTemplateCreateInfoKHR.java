@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkDescriptorUpdateTemplateCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkDescriptorUpdateTemplateCreateInfoKHR {
  *     VkStructureType sType;
@@ -149,8 +145,7 @@ public class VkDescriptorUpdateTemplateCreateInfoKHR extends VkDescriptorUpdateT
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkDescriptorUpdateTemplateCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDescriptorUpdateTemplateCreateInfoKHR(address, null);
     }
 
@@ -193,8 +188,7 @@ public class VkDescriptorUpdateTemplateCreateInfoKHR extends VkDescriptorUpdateT
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorUpdateTemplateCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorUpdateTemplateCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -286,6 +280,11 @@ public class VkDescriptorUpdateTemplateCreateInfoKHR extends VkDescriptorUpdateT
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

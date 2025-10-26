@@ -5,27 +5,13 @@
  */
 package org.lwjgl.egl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link KHRDebug#eglDebugMessageControlKHR DebugMessageControlKHR} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     EGLenum error,
- *     char const *command,
- *     EGLint messageType,
- *     EGLLabelKHR threadLabel,
- *     EGLLabelKHR objectLabel,
- *     char const *message
- * )</code></pre>
- */
+/** Callback function: {@link #invoke EGLDEBUGPROCKHR} */
 public abstract class EGLDebugMessageKHRCallback extends Callback implements EGLDebugMessageKHRCallbackI {
 
     /**
@@ -41,8 +27,7 @@ public abstract class EGLDebugMessageKHRCallback extends Callback implements EGL
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static EGLDebugMessageKHRCallback createSafe(long functionPointer) {
+    public static @Nullable EGLDebugMessageKHRCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

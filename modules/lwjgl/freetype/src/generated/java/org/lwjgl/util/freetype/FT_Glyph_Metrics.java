@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,34 +14,17 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure to model the metrics of a single glyph.
- * 
- * <p>The values are expressed in 26.6 fractional pixel format; if the flag {@link FreeType#FT_LOAD_NO_SCALE LOAD_NO_SCALE} has been used while loading the glyph, values are expressed in
- * font units instead.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>If not disabled with {@link FreeType#FT_LOAD_NO_HINTING LOAD_NO_HINTING}, the values represent dimensions of the hinted glyph (in case hinting is applicable).</p></div>
- * 
- * <p>Stroking a glyph with an outside border does not increase {@code horiAdvance} or {@code vertAdvance}; you have to manually adjust these values to
- * account for the added width and height.</p>
- * 
- * <p>FreeType doesn't use the {@code VORG} table data for CFF fonts because it doesn't have an interface to quickly retrieve the glyph height. The
- * y~coordinate of the vertical origin can be simply computed as {@code vertBearingY + height} after loading a glyph.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Glyph_Metrics {
- *     FT_Pos {@link #width};
- *     FT_Pos {@link #height};
- *     FT_Pos {@link #horiBearingX};
- *     FT_Pos {@link #horiBearingY};
- *     FT_Pos {@link #horiAdvance};
- *     FT_Pos {@link #vertBearingX};
- *     FT_Pos {@link #vertBearingY};
- *     FT_Pos {@link #vertAdvance};
- * }</code></pre>
+ *     FT_Pos width;
+ *     FT_Pos height;
+ *     FT_Pos horiBearingX;
+ *     FT_Pos horiBearingY;
+ *     FT_Pos horiAdvance;
+ *     FT_Pos vertBearingX;
+ *     FT_Pos vertBearingY;
+ *     FT_Pos vertAdvance;
+ * }}</pre>
  */
 public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
 
@@ -109,28 +92,28 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the glyph's width */
+    /** @return the value of the {@code width} field. */
     @NativeType("FT_Pos")
     public long width() { return nwidth(address()); }
-    /** the glyph's height */
+    /** @return the value of the {@code height} field. */
     @NativeType("FT_Pos")
     public long height() { return nheight(address()); }
-    /** left side bearing for horizontal layout */
+    /** @return the value of the {@code horiBearingX} field. */
     @NativeType("FT_Pos")
     public long horiBearingX() { return nhoriBearingX(address()); }
-    /** top side bearing for horizontal layout */
+    /** @return the value of the {@code horiBearingY} field. */
     @NativeType("FT_Pos")
     public long horiBearingY() { return nhoriBearingY(address()); }
-    /** advance width for horizontal layout */
+    /** @return the value of the {@code horiAdvance} field. */
     @NativeType("FT_Pos")
     public long horiAdvance() { return nhoriAdvance(address()); }
-    /** left side bearing for vertical layout */
+    /** @return the value of the {@code vertBearingX} field. */
     @NativeType("FT_Pos")
     public long vertBearingX() { return nvertBearingX(address()); }
-    /** top side bearing for vertical layout. Larger positive values mean further below the vertical glyph origin */
+    /** @return the value of the {@code vertBearingY} field. */
     @NativeType("FT_Pos")
     public long vertBearingY() { return nvertBearingY(address()); }
-    /** advance height for vertical layout. Positive values mean the glyph has a positive advance downward */
+    /** @return the value of the {@code vertAdvance} field. */
     @NativeType("FT_Pos")
     public long vertAdvance() { return nvertAdvance(address()); }
 
@@ -142,8 +125,7 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Glyph_Metrics createSafe(long address) {
+    public static @Nullable FT_Glyph_Metrics createSafe(long address) {
         return address == NULL ? null : new FT_Glyph_Metrics(address, null);
     }
 
@@ -158,8 +140,7 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Glyph_Metrics.Buffer createSafe(long address, int capacity) {
+    public static FT_Glyph_Metrics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -216,32 +197,37 @@ public class FT_Glyph_Metrics extends Struct<FT_Glyph_Metrics> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_Glyph_Metrics getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link FT_Glyph_Metrics#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("FT_Pos")
         public long width() { return FT_Glyph_Metrics.nwidth(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("FT_Pos")
         public long height() { return FT_Glyph_Metrics.nheight(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#horiBearingX} field. */
+        /** @return the value of the {@code horiBearingX} field. */
         @NativeType("FT_Pos")
         public long horiBearingX() { return FT_Glyph_Metrics.nhoriBearingX(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#horiBearingY} field. */
+        /** @return the value of the {@code horiBearingY} field. */
         @NativeType("FT_Pos")
         public long horiBearingY() { return FT_Glyph_Metrics.nhoriBearingY(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#horiAdvance} field. */
+        /** @return the value of the {@code horiAdvance} field. */
         @NativeType("FT_Pos")
         public long horiAdvance() { return FT_Glyph_Metrics.nhoriAdvance(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#vertBearingX} field. */
+        /** @return the value of the {@code vertBearingX} field. */
         @NativeType("FT_Pos")
         public long vertBearingX() { return FT_Glyph_Metrics.nvertBearingX(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#vertBearingY} field. */
+        /** @return the value of the {@code vertBearingY} field. */
         @NativeType("FT_Pos")
         public long vertBearingY() { return FT_Glyph_Metrics.nvertBearingY(address()); }
-        /** @return the value of the {@link FT_Glyph_Metrics#vertAdvance} field. */
+        /** @return the value of the {@code vertAdvance} field. */
         @NativeType("FT_Pos")
         public long vertAdvance() { return FT_Glyph_Metrics.nvertAdvance(address()); }
 

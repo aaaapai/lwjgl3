@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure representing marker tracking information.
- * 
- * <h5>Description</h5>
- * 
- * <p>Receiving the {@link XrEventDataMarkerTrackingUpdateVARJO} event structure indicates that the tracking information has changed. The runtime <b>must</b> not send more than one event per frame per marker. The runtime <b>must</b> send an event if the marker has changed its state (active or inactive). The runtime <b>must</b> send an event if it has detected pose change of the active marker.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link VARJOMarkerTracking XR_VARJO_marker_tracking} extension <b>must</b> be enabled prior to using {@link XrEventDataMarkerTrackingUpdateVARJO}</li>
- * <li>{@code type} <b>must</b> be {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataMarkerTrackingUpdateVARJO {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint64_t {@link #markerId};
- *     XrBool32 {@link #isActive};
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint64_t markerId;
+ *     XrBool32 isActive;
  *     XrBool32 isPredicted;
- *     XrTime {@link #time};
- * }</code></pre>
+ *     XrTime time;
+ * }}</pre>
  */
 public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMarkerTrackingUpdateVARJO> implements NativeResource {
 
@@ -106,30 +86,30 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** unique identifier of the marker that has been updated. */
+    /** @return the value of the {@code markerId} field. */
     @NativeType("uint64_t")
     public long markerId() { return nmarkerId(address()); }
-    /** the tracking state of the marker. */
+    /** @return the value of the {@code isActive} field. */
     @NativeType("XrBool32")
     public boolean isActive() { return nisActive(address()) != 0; }
     /** @return the value of the {@code isPredicted} field. */
     @NativeType("XrBool32")
     public boolean isPredicted() { return nisPredicted(address()) != 0; }
-    /** the time of the marker update. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataMarkerTrackingUpdateVARJO type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO} value to the {@link #type} field. */
+    /** Sets the {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO} value to the {@code type} field. */
     public XrEventDataMarkerTrackingUpdateVARJO type$Default() { return type(VARJOMarkerTracking.XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataMarkerTrackingUpdateVARJO next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -179,8 +159,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataMarkerTrackingUpdateVARJO createSafe(long address) {
+    public static @Nullable XrEventDataMarkerTrackingUpdateVARJO createSafe(long address) {
         return address == NULL ? null : new XrEventDataMarkerTrackingUpdateVARJO(address, null);
     }
 
@@ -228,8 +207,7 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataMarkerTrackingUpdateVARJO.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataMarkerTrackingUpdateVARJO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,20 +257,20 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataMarkerTrackingUpdateVARJO.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataMarkerTrackingUpdateVARJO.NEXT); }
     /** Unsafe version of {@link #markerId}. */
-    public static long nmarkerId(long struct) { return UNSAFE.getLong(null, struct + XrEventDataMarkerTrackingUpdateVARJO.MARKERID); }
+    public static long nmarkerId(long struct) { return memGetLong(struct + XrEventDataMarkerTrackingUpdateVARJO.MARKERID); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrEventDataMarkerTrackingUpdateVARJO.ISACTIVE); }
     /** Unsafe version of {@link #isPredicted}. */
-    public static int nisPredicted(long struct) { return UNSAFE.getInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.ISPREDICTED); }
+    public static int nisPredicted(long struct) { return memGetInt(struct + XrEventDataMarkerTrackingUpdateVARJO.ISPREDICTED); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrEventDataMarkerTrackingUpdateVARJO.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrEventDataMarkerTrackingUpdateVARJO.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataMarkerTrackingUpdateVARJO.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataMarkerTrackingUpdateVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataMarkerTrackingUpdateVARJO.NEXT, value); }
 
@@ -330,34 +308,39 @@ public class XrEventDataMarkerTrackingUpdateVARJO extends Struct<XrEventDataMark
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataMarkerTrackingUpdateVARJO getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataMarkerTrackingUpdateVARJO.ntype(address()); }
-        /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataMarkerTrackingUpdateVARJO.nnext(address()); }
-        /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#markerId} field. */
+        /** @return the value of the {@code markerId} field. */
         @NativeType("uint64_t")
         public long markerId() { return XrEventDataMarkerTrackingUpdateVARJO.nmarkerId(address()); }
-        /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#isActive} field. */
+        /** @return the value of the {@code isActive} field. */
         @NativeType("XrBool32")
         public boolean isActive() { return XrEventDataMarkerTrackingUpdateVARJO.nisActive(address()) != 0; }
         /** @return the value of the {@code isPredicted} field. */
         @NativeType("XrBool32")
         public boolean isPredicted() { return XrEventDataMarkerTrackingUpdateVARJO.nisPredicted(address()) != 0; }
-        /** @return the value of the {@link XrEventDataMarkerTrackingUpdateVARJO#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrEventDataMarkerTrackingUpdateVARJO.ntime(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataMarkerTrackingUpdateVARJO#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataMarkerTrackingUpdateVARJO.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataMarkerTrackingUpdateVARJO.ntype(address(), value); return this; }
-        /** Sets the {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO} value to the {@link XrEventDataMarkerTrackingUpdateVARJO#type} field. */
+        /** Sets the {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO} value to the {@code type} field. */
         public XrEventDataMarkerTrackingUpdateVARJO.Buffer type$Default() { return type(VARJOMarkerTracking.XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO); }
-        /** Sets the specified value to the {@link XrEventDataMarkerTrackingUpdateVARJO#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataMarkerTrackingUpdateVARJO.Buffer next(@NativeType("void const *") long value) { XrEventDataMarkerTrackingUpdateVARJO.nnext(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a three-dimensional offset.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageBlit}, {@link VkImageBlit2}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopyEXT}, {@link VkMemoryToImageCopyEXT}, {@link VkSparseImageMemoryBind}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkOffset3D {
- *     int32_t {@link #x};
- *     int32_t {@link #y};
- *     int32_t {@link #z};
- * }</code></pre>
+ *     int32_t x;
+ *     int32_t y;
+ *     int32_t z;
+ * }}</pre>
  */
 public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
 
@@ -82,21 +74,21 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x offset. */
+    /** @return the value of the {@code x} field. */
     @NativeType("int32_t")
     public int x() { return nx(address()); }
-    /** the y offset. */
+    /** @return the value of the {@code y} field. */
     @NativeType("int32_t")
     public int y() { return ny(address()); }
-    /** the z offset. */
+    /** @return the value of the {@code z} field. */
     @NativeType("int32_t")
     public int z() { return nz(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkOffset3D x(@NativeType("int32_t") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkOffset3D y(@NativeType("int32_t") int value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #z} field. */
+    /** Sets the specified value to the {@code z} field. */
     public VkOffset3D z(@NativeType("int32_t") int value) { nz(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -148,8 +140,7 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOffset3D createSafe(long address) {
+    public static @Nullable VkOffset3D createSafe(long address) {
         return address == NULL ? null : new VkOffset3D(address, null);
     }
 
@@ -192,8 +183,7 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkOffset3D.Buffer createSafe(long address, int capacity) {
+    public static VkOffset3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +247,18 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkOffset3D.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkOffset3D.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkOffset3D.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkOffset3D.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + VkOffset3D.Z); }
+    public static int nz(long struct) { return memGetInt(struct + VkOffset3D.Z); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset3D.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkOffset3D.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset3D.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkOffset3D.Y, value); }
     /** Unsafe version of {@link #z(int) z}. */
-    public static void nz(long struct, int value) { UNSAFE.putInt(null, struct + VkOffset3D.Z, value); }
+    public static void nz(long struct, int value) { memPutInt(struct + VkOffset3D.Z, value); }
 
     // -----------------------------------
 
@@ -304,25 +294,30 @@ public class VkOffset3D extends Struct<VkOffset3D> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkOffset3D getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkOffset3D#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("int32_t")
         public int x() { return VkOffset3D.nx(address()); }
-        /** @return the value of the {@link VkOffset3D#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("int32_t")
         public int y() { return VkOffset3D.ny(address()); }
-        /** @return the value of the {@link VkOffset3D#z} field. */
+        /** @return the value of the {@code z} field. */
         @NativeType("int32_t")
         public int z() { return VkOffset3D.nz(address()); }
 
-        /** Sets the specified value to the {@link VkOffset3D#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkOffset3D.Buffer x(@NativeType("int32_t") int value) { VkOffset3D.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkOffset3D#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkOffset3D.Buffer y(@NativeType("int32_t") int value) { VkOffset3D.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link VkOffset3D#z} field. */
+        /** Sets the specified value to the {@code z} field. */
         public VkOffset3D.Buffer z(@NativeType("int32_t") int value) { VkOffset3D.nz(address(), value); return this; }
 
     }

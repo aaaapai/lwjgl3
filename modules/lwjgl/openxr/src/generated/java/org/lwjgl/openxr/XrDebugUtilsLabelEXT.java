@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,29 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Debug Utils Label.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTDebugUtils XR_EXT_debug_utils} extension <b>must</b> be enabled prior to using {@link XrDebugUtilsLabelEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_LABEL_EXT TYPE_DEBUG_UTILS_LABEL_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code labelName} <b>must</b> be a null-terminated UTF-8 string</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrDebugUtilsMessengerCallbackDataEXT}, {@link EXTDebugUtils#xrSessionBeginDebugUtilsLabelRegionEXT SessionBeginDebugUtilsLabelRegionEXT}, {@link EXTDebugUtils#xrSessionInsertDebugUtilsLabelEXT SessionInsertDebugUtilsLabelEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrDebugUtilsLabelEXT {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     char const * {@link #labelName};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     char const * labelName;
+ * }}</pre>
  */
 public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implements NativeResource {
 
@@ -92,26 +75,26 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** a {@code NULL} terminated UTF-8 string specifying the label name. */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code labelName} field. */
     @NativeType("char const *")
     public ByteBuffer labelName() { return nlabelName(address()); }
-    /** a {@code NULL} terminated UTF-8 string specifying the label name. */
+    /** @return the null-terminated string pointed to by the {@code labelName} field. */
     @NativeType("char const *")
     public String labelNameString() { return nlabelNameString(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrDebugUtilsLabelEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_LABEL_EXT TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_LABEL_EXT TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@code type} field. */
     public XrDebugUtilsLabelEXT type$Default() { return type(EXTDebugUtils.XR_TYPE_DEBUG_UTILS_LABEL_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrDebugUtilsLabelEXT next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the address of the specified encoded string to the {@link #labelName} field. */
+    /** Sets the address of the specified encoded string to the {@code labelName} field. */
     public XrDebugUtilsLabelEXT labelName(@NativeType("char const *") ByteBuffer value) { nlabelName(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +146,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDebugUtilsLabelEXT createSafe(long address) {
+    public static @Nullable XrDebugUtilsLabelEXT createSafe(long address) {
         return address == NULL ? null : new XrDebugUtilsLabelEXT(address, null);
     }
 
@@ -207,8 +189,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDebugUtilsLabelEXT.Buffer createSafe(long address, int capacity) {
+    public static XrDebugUtilsLabelEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,7 +234,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrDebugUtilsLabelEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrDebugUtilsLabelEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrDebugUtilsLabelEXT.NEXT); }
     /** Unsafe version of {@link #labelName}. */
@@ -262,7 +243,7 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
     public static String nlabelNameString(long struct) { return memUTF8(memGetAddress(struct + XrDebugUtilsLabelEXT.LABELNAME)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrDebugUtilsLabelEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrDebugUtilsLabelEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrDebugUtilsLabelEXT.NEXT, value); }
     /** Unsafe version of {@link #labelName(ByteBuffer) labelName}. */
@@ -314,30 +295,35 @@ public class XrDebugUtilsLabelEXT extends Struct<XrDebugUtilsLabelEXT> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrDebugUtilsLabelEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrDebugUtilsLabelEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrDebugUtilsLabelEXT.ntype(address()); }
-        /** @return the value of the {@link XrDebugUtilsLabelEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrDebugUtilsLabelEXT.nnext(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link XrDebugUtilsLabelEXT#labelName} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code labelName} field. */
         @NativeType("char const *")
         public ByteBuffer labelName() { return XrDebugUtilsLabelEXT.nlabelName(address()); }
-        /** @return the null-terminated string pointed to by the {@link XrDebugUtilsLabelEXT#labelName} field. */
+        /** @return the null-terminated string pointed to by the {@code labelName} field. */
         @NativeType("char const *")
         public String labelNameString() { return XrDebugUtilsLabelEXT.nlabelNameString(address()); }
 
-        /** Sets the specified value to the {@link XrDebugUtilsLabelEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrDebugUtilsLabelEXT.Buffer type(@NativeType("XrStructureType") int value) { XrDebugUtilsLabelEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_LABEL_EXT TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@link XrDebugUtilsLabelEXT#type} field. */
+        /** Sets the {@link EXTDebugUtils#XR_TYPE_DEBUG_UTILS_LABEL_EXT TYPE_DEBUG_UTILS_LABEL_EXT} value to the {@code type} field. */
         public XrDebugUtilsLabelEXT.Buffer type$Default() { return type(EXTDebugUtils.XR_TYPE_DEBUG_UTILS_LABEL_EXT); }
-        /** Sets the specified value to the {@link XrDebugUtilsLabelEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrDebugUtilsLabelEXT.Buffer next(@NativeType("void const *") long value) { XrDebugUtilsLabelEXT.nnext(address(), value); return this; }
-        /** Sets the address of the specified encoded string to the {@link XrDebugUtilsLabelEXT#labelName} field. */
+        /** Sets the address of the specified encoded string to the {@code labelName} field. */
         public XrDebugUtilsLabelEXT.Buffer labelName(@NativeType("char const *") ByteBuffer value) { XrDebugUtilsLabelEXT.nlabelName(address(), value); return this; }
 
     }

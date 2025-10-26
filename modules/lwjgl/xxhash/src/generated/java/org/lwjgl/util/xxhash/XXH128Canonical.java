@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.xxhash;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,14 +17,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * 128-bit canonical representation.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XXH128_canonical_t {
- *     unsigned char {@link #digest}[16];
- * }</code></pre>
+ *     unsigned char digest[16];
+ * }}</pre>
  */
 @NativeType("struct XXH128_canonical_t")
 public class XXH128Canonical extends Struct<XXH128Canonical> implements NativeResource {
@@ -72,10 +68,10 @@ public class XXH128Canonical extends Struct<XXH128Canonical> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the digest in canonical representation */
+    /** @return a {@link ByteBuffer} view of the {@code digest} field. */
     @NativeType("unsigned char[16]")
     public ByteBuffer digest() { return ndigest(address()); }
-    /** the digest in canonical representation */
+    /** @return the value at the specified index of the {@code digest} field. */
     @NativeType("unsigned char")
     public byte digest(int index) { return ndigest(address(), index); }
 
@@ -103,8 +99,7 @@ public class XXH128Canonical extends Struct<XXH128Canonical> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH128Canonical createSafe(long address) {
+    public static @Nullable XXH128Canonical createSafe(long address) {
         return address == NULL ? null : new XXH128Canonical(address, null);
     }
 
@@ -147,8 +142,7 @@ public class XXH128Canonical extends Struct<XXH128Canonical> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XXH128Canonical.Buffer createSafe(long address, int capacity) {
+    public static XXH128Canonical.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -215,7 +209,7 @@ public class XXH128Canonical extends Struct<XXH128Canonical> implements NativeRe
     public static ByteBuffer ndigest(long struct) { return memByteBuffer(struct + XXH128Canonical.DIGEST, 16); }
     /** Unsafe version of {@link #digest(int) digest}. */
     public static byte ndigest(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XXH128Canonical.DIGEST + check(index, 16) * 1);
+        return memGetByte(struct + XXH128Canonical.DIGEST + check(index, 16) * 1);
     }
 
     // -----------------------------------
@@ -252,14 +246,19 @@ public class XXH128Canonical extends Struct<XXH128Canonical> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XXH128Canonical getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link XXH128Canonical#digest} field. */
+        /** @return a {@link ByteBuffer} view of the {@code digest} field. */
         @NativeType("unsigned char[16]")
         public ByteBuffer digest() { return XXH128Canonical.ndigest(address()); }
-        /** @return the value at the specified index of the {@link XXH128Canonical#digest} field. */
+        /** @return the value at the specified index of the {@code digest} field. */
         @NativeType("unsigned char")
         public byte digest(int index) { return XXH128Canonical.ndigest(address(), index); }
 

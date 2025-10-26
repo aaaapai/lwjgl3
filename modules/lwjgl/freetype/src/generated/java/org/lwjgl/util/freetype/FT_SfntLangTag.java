@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_SfntLangTag {
  *     FT_Byte * string;
  *     FT_UInt string_len;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_SfntLangTag extends Struct<FT_SfntLangTag> implements NativeResource {
 
@@ -103,8 +101,7 @@ public class FT_SfntLangTag extends Struct<FT_SfntLangTag> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_SfntLangTag createSafe(long address) {
+    public static @Nullable FT_SfntLangTag createSafe(long address) {
         return address == NULL ? null : new FT_SfntLangTag(address, null);
     }
 
@@ -147,8 +144,7 @@ public class FT_SfntLangTag extends Struct<FT_SfntLangTag> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_SfntLangTag.Buffer createSafe(long address, int capacity) {
+    public static FT_SfntLangTag.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -195,7 +191,7 @@ public class FT_SfntLangTag extends Struct<FT_SfntLangTag> implements NativeReso
     /** Unsafe version of {@link #string() string}. */
     public static ByteBuffer nstring(long struct) { return memByteBuffer(memGetAddress(struct + FT_SfntLangTag.STRING), nstring_len(struct)); }
     /** Unsafe version of {@link #string_len}. */
-    public static int nstring_len(long struct) { return UNSAFE.getInt(null, struct + FT_SfntLangTag.STRING_LEN); }
+    public static int nstring_len(long struct) { return memGetInt(struct + FT_SfntLangTag.STRING_LEN); }
 
     // -----------------------------------
 
@@ -228,6 +224,11 @@ public class FT_SfntLangTag extends Struct<FT_SfntLangTag> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

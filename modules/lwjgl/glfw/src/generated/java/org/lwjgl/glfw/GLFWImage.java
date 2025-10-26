@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,20 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Image data.
- * 
- * <p>This describes a single 2D image. See the documentation for each related function to see what the expected pixel format is.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct GLFWimage {
- *     int {@link #width};
- *     int {@link #height};
- *     unsigned char * {@link #pixels};
- * }</code></pre>
- *
- * @since version 2.1
+ *     int width;
+ *     int height;
+ *     unsigned char * pixels;
+ * }}</pre>
  */
 @NativeType("struct GLFWimage")
 public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
@@ -84,23 +76,19 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the width, in pixels, of this image */
+    /** @return the value of the {@code width} field. */
     public int width() { return nwidth(address()); }
-    /** the height, in pixels, of this image */
+    /** @return the value of the {@code height} field. */
     public int height() { return nheight(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return the pixel data of this image, arranged left-to-right, top-to-bottom
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field. */
     @NativeType("unsigned char *")
     public ByteBuffer pixels(int capacity) { return npixels(address(), capacity); }
 
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public GLFWImage width(int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public GLFWImage height(int value) { nheight(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #pixels} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code pixels} field. */
     public GLFWImage pixels(@NativeType("unsigned char *") ByteBuffer value) { npixels(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +140,7 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLFWImage createSafe(long address) {
+    public static @Nullable GLFWImage createSafe(long address) {
         return address == NULL ? null : new GLFWImage(address, null);
     }
 
@@ -196,8 +183,7 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static GLFWImage.Buffer createSafe(long address, int capacity) {
+    public static GLFWImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,16 +247,16 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + GLFWImage.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + GLFWImage.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + GLFWImage.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + GLFWImage.HEIGHT); }
     /** Unsafe version of {@link #pixels(int) pixels}. */
     public static ByteBuffer npixels(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + GLFWImage.PIXELS), capacity); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + GLFWImage.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + GLFWImage.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + GLFWImage.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + GLFWImage.HEIGHT, value); }
     /** Unsafe version of {@link #pixels(ByteBuffer) pixels}. */
     public static void npixels(long struct, ByteBuffer value) { memPutAddress(struct + GLFWImage.PIXELS, memAddress(value)); }
 
@@ -317,27 +303,28 @@ public class GLFWImage extends Struct<GLFWImage> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected GLFWImage getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link GLFWImage#width} field. */
+        /** @return the value of the {@code width} field. */
         public int width() { return GLFWImage.nwidth(address()); }
-        /** @return the value of the {@link GLFWImage#height} field. */
+        /** @return the value of the {@code height} field. */
         public int height() { return GLFWImage.nheight(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@link GLFWImage#pixels} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field. */
         @NativeType("unsigned char *")
         public ByteBuffer pixels(int capacity) { return GLFWImage.npixels(address(), capacity); }
 
-        /** Sets the specified value to the {@link GLFWImage#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public GLFWImage.Buffer width(int value) { GLFWImage.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link GLFWImage#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public GLFWImage.Buffer height(int value) { GLFWImage.nheight(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link GLFWImage#pixels} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code pixels} field. */
         public GLFWImage.Buffer pixels(@NativeType("unsigned char *") ByteBuffer value) { GLFWImage.npixels(address(), value); return this; }
 
     }

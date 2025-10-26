@@ -5,22 +5,13 @@
  */
 package org.lwjgl.system.macosx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * A mutation handler.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     id id
- * )</code></pre>
- */
+/** Callback function: {@link #invoke EnumerationMutationHandler} */
 public abstract class EnumerationMutationHandler extends Callback implements EnumerationMutationHandlerI {
 
     /**
@@ -36,8 +27,7 @@ public abstract class EnumerationMutationHandler extends Callback implements Enu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static EnumerationMutationHandler createSafe(long functionPointer) {
+    public static @Nullable EnumerationMutationHandler createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the coordinates of a sample location.
- * 
- * <h5>Description</h5>
- * 
- * <p>The domain space of the sample location coordinates has an upper-left origin within the pixel in framebuffer space.</p>
- * 
- * <p>The values specified in a {@link VkSampleLocationEXT} structure are always clamped to the implementation-dependent sample location coordinate range <code>[sampleLocationCoordinateRange[0],sampleLocationCoordinateRange[1]]</code> that <b>can</b> be queried using {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSampleLocationsInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSampleLocationEXT {
- *     float {@link #x};
- *     float {@link #y};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ * }}</pre>
  */
 public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements NativeResource {
 
@@ -84,14 +70,14 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the horizontal coordinate of the sample’s location. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the vertical coordinate of the sample’s location. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkSampleLocationEXT x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkSampleLocationEXT y(float value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -141,8 +127,7 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSampleLocationEXT createSafe(long address) {
+    public static @Nullable VkSampleLocationEXT createSafe(long address) {
         return address == NULL ? null : new VkSampleLocationEXT(address, null);
     }
 
@@ -185,8 +170,7 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSampleLocationEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSampleLocationEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,14 +234,14 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + VkSampleLocationEXT.X); }
+    public static float nx(long struct) { return memGetFloat(struct + VkSampleLocationEXT.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + VkSampleLocationEXT.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + VkSampleLocationEXT.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + VkSampleLocationEXT.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + VkSampleLocationEXT.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + VkSampleLocationEXT.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + VkSampleLocationEXT.Y, value); }
 
     // -----------------------------------
 
@@ -293,18 +277,23 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSampleLocationEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSampleLocationEXT#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return VkSampleLocationEXT.nx(address()); }
-        /** @return the value of the {@link VkSampleLocationEXT#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return VkSampleLocationEXT.ny(address()); }
 
-        /** Sets the specified value to the {@link VkSampleLocationEXT#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkSampleLocationEXT.Buffer x(float value) { VkSampleLocationEXT.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSampleLocationEXT#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkSampleLocationEXT.Buffer y(float value) { VkSampleLocationEXT.ny(address(), value); return this; }
 
     }

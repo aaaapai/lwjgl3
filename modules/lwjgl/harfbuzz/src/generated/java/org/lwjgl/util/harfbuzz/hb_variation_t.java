@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Data type for holding variation data.
- * 
- * <p>Registered OpenType variation-axis tags are listed in
- * <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg">OpenType Axis Tag Registry</a>.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_variation_t {
- *     hb_tag_t {@link #tag};
- *     float {@link #value};
- * }</code></pre>
+ *     hb_tag_t tag;
+ *     float value;
+ * }}</pre>
  */
 public class hb_variation_t extends Struct<hb_variation_t> implements NativeResource {
 
@@ -77,15 +70,15 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code hb_tag_t} tag of the variation-axis name */
+    /** @return the value of the {@code tag} field. */
     @NativeType("hb_tag_t")
     public int tag() { return ntag(address()); }
-    /** the value of the variation axis */
+    /** @return the value of the {@code value} field. */
     public float value() { return nvalue(address()); }
 
-    /** Sets the specified value to the {@link #tag} field. */
+    /** Sets the specified value to the {@code tag} field. */
     public hb_variation_t tag(@NativeType("hb_tag_t") int value) { ntag(address(), value); return this; }
-    /** Sets the specified value to the {@link #value} field. */
+    /** Sets the specified value to the {@code value} field. */
     public hb_variation_t value(float value) { nvalue(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -135,8 +128,7 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_variation_t createSafe(long address) {
+    public static @Nullable hb_variation_t createSafe(long address) {
         return address == NULL ? null : new hb_variation_t(address, null);
     }
 
@@ -179,8 +171,7 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_variation_t.Buffer createSafe(long address, int capacity) {
+    public static hb_variation_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -225,14 +216,14 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #tag}. */
-    public static int ntag(long struct) { return UNSAFE.getInt(null, struct + hb_variation_t.TAG); }
+    public static int ntag(long struct) { return memGetInt(struct + hb_variation_t.TAG); }
     /** Unsafe version of {@link #value}. */
-    public static float nvalue(long struct) { return UNSAFE.getFloat(null, struct + hb_variation_t.VALUE); }
+    public static float nvalue(long struct) { return memGetFloat(struct + hb_variation_t.VALUE); }
 
     /** Unsafe version of {@link #tag(int) tag}. */
-    public static void ntag(long struct, int value) { UNSAFE.putInt(null, struct + hb_variation_t.TAG, value); }
+    public static void ntag(long struct, int value) { memPutInt(struct + hb_variation_t.TAG, value); }
     /** Unsafe version of {@link #value(float) value}. */
-    public static void nvalue(long struct, float value) { UNSAFE.putFloat(null, struct + hb_variation_t.VALUE, value); }
+    public static void nvalue(long struct, float value) { memPutFloat(struct + hb_variation_t.VALUE, value); }
 
     // -----------------------------------
 
@@ -268,19 +259,24 @@ public class hb_variation_t extends Struct<hb_variation_t> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_variation_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_variation_t#tag} field. */
+        /** @return the value of the {@code tag} field. */
         @NativeType("hb_tag_t")
         public int tag() { return hb_variation_t.ntag(address()); }
-        /** @return the value of the {@link hb_variation_t#value} field. */
+        /** @return the value of the {@code value} field. */
         public float value() { return hb_variation_t.nvalue(address()); }
 
-        /** Sets the specified value to the {@link hb_variation_t#tag} field. */
+        /** Sets the specified value to the {@code tag} field. */
         public hb_variation_t.Buffer tag(@NativeType("hb_tag_t") int value) { hb_variation_t.ntag(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_variation_t#value} field. */
+        /** Sets the specified value to the {@code value} field. */
         public hb_variation_t.Buffer value(float value) { hb_variation_t.nvalue(address(), value); return this; }
 
     }

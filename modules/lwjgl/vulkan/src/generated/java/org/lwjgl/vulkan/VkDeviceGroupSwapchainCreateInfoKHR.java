@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created swapchain object.
- * 
- * <h5>Description</h5>
- * 
- * <p>If this structure is not present, {@code modes} is considered to be {@link KHRSwapchain#VK_DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR DEVICE_GROUP_PRESENT_MODE_LOCAL_BIT_KHR}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR}</li>
- * <li>{@code modes} <b>must</b> be a valid combination of {@code VkDeviceGroupPresentModeFlagBitsKHR} values</li>
- * <li>{@code modes} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceGroupSwapchainCreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDeviceGroupPresentModeFlagsKHR {@link #modes};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDeviceGroupPresentModeFlagsKHR modes;
+ * }}</pre>
  */
 public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwapchainCreateInfoKHR> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a bitfield of modes that the swapchain <b>can</b> be used with. */
+    /** @return the value of the {@code modes} field. */
     @NativeType("VkDeviceGroupPresentModeFlagsKHR")
     public int modes() { return nmodes(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDeviceGroupSwapchainCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR} value to the {@code sType} field. */
     public VkDeviceGroupSwapchainCreateInfoKHR sType$Default() { return sType(KHRSwapchain.VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDeviceGroupSwapchainCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #modes} field. */
+    /** Sets the specified value to the {@code modes} field. */
     public VkDeviceGroupSwapchainCreateInfoKHR modes(@NativeType("VkDeviceGroupPresentModeFlagsKHR") int value) { nmodes(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupSwapchainCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkDeviceGroupSwapchainCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupSwapchainCreateInfoKHR(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupSwapchainCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupSwapchainCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +249,18 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceGroupSwapchainCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #modes}. */
-    public static int nmodes(long struct) { return UNSAFE.getInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES); }
+    public static int nmodes(long struct) { return memGetInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceGroupSwapchainCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #modes(int) modes}. */
-    public static void nmodes(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES, value); }
+    public static void nmodes(long struct, int value) { memPutInt(struct + VkDeviceGroupSwapchainCreateInfoKHR.MODES, value); }
 
     // -----------------------------------
 
@@ -314,27 +296,32 @@ public class VkDeviceGroupSwapchainCreateInfoKHR extends Struct<VkDeviceGroupSwa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceGroupSwapchainCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceGroupSwapchainCreateInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDeviceGroupSwapchainCreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkDeviceGroupSwapchainCreateInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDeviceGroupSwapchainCreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkDeviceGroupSwapchainCreateInfoKHR#modes} field. */
+        /** @return the value of the {@code modes} field. */
         @NativeType("VkDeviceGroupPresentModeFlagsKHR")
         public int modes() { return VkDeviceGroupSwapchainCreateInfoKHR.nmodes(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceGroupSwapchainCreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDeviceGroupSwapchainCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceGroupSwapchainCreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR} value to the {@link VkDeviceGroupSwapchainCreateInfoKHR#sType} field. */
+        /** Sets the {@link KHRSwapchain#VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR} value to the {@code sType} field. */
         public VkDeviceGroupSwapchainCreateInfoKHR.Buffer sType$Default() { return sType(KHRSwapchain.VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkDeviceGroupSwapchainCreateInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDeviceGroupSwapchainCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkDeviceGroupSwapchainCreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceGroupSwapchainCreateInfoKHR#modes} field. */
+        /** Sets the specified value to the {@code modes} field. */
         public VkDeviceGroupSwapchainCreateInfoKHR.Buffer modes(@NativeType("VkDeviceGroupPresentModeFlagsKHR") int value) { VkDeviceGroupSwapchainCreateInfoKHR.nmodes(address(), value); return this; }
 
     }

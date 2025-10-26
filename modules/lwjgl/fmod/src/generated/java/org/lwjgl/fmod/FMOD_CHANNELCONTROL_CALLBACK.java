@@ -5,24 +5,13 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     FMOD_CHANNELCONTROL *channelcontrol,
- *     FMOD_CHANNELCONTROL_TYPE controltype,
- *     FMOD_CHANNELCONTROL_CALLBACK_TYPE callbacktype,
- *     void *commanddata1,
- *     void *commanddata2
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CHANNELCONTROL_CALLBACK} */
 public abstract class FMOD_CHANNELCONTROL_CALLBACK extends Callback implements FMOD_CHANNELCONTROL_CALLBACKI {
 
     /**
@@ -38,8 +27,7 @@ public abstract class FMOD_CHANNELCONTROL_CALLBACK extends Callback implements F
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FMOD_CHANNELCONTROL_CALLBACK createSafe(long functionPointer) {
+    public static @Nullable FMOD_CHANNELCONTROL_CALLBACK createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

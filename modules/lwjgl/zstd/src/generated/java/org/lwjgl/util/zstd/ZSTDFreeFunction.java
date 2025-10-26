@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link ZSTDCustomMem} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *opaque,
- *     void *address
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ZSTD_freeFunction} */
 public abstract class ZSTDFreeFunction extends Callback implements ZSTDFreeFunctionI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class ZSTDFreeFunction extends Callback implements ZSTDFreeFunct
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static ZSTDFreeFunction createSafe(long functionPointer) {
+    public static @Nullable ZSTDFreeFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

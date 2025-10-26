@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,30 +19,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.*;
 
 /**
- * A list of Vulkan view formats.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link KHRVulkanSwapchainFormatList XR_KHR_vulkan_swapchain_format_list} extension <b>must</b> be enabled prior to using {@link XrVulkanSwapchainFormatListCreateInfoKHR}</li>
- * <li>{@code type} <b>must</b> be {@link KHRVulkanSwapchainFormatList#XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>If {@code viewFormatCount} is not 0, {@code viewFormats} <b>must</b> be a pointer to an array of {@code viewFormatCount} valid {@code VkFormat} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrCreateSwapchain CreateSwapchain}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVulkanSwapchainFormatListCreateInfoKHR {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint32_t {@link #viewFormatCount};
- *     VkFormat const * {@link #viewFormats};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint32_t viewFormatCount;
+ *     VkFormat const * viewFormats;
+ * }}</pre>
  */
 public class XrVulkanSwapchainFormatListCreateInfoKHR extends Struct<XrVulkanSwapchainFormatListCreateInfoKHR> implements NativeResource {
 
@@ -98,27 +81,26 @@ public class XrVulkanSwapchainFormatListCreateInfoKHR extends Struct<XrVulkanSwa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the number of view formats passed in {@code viewFormats}. */
+    /** @return the value of the {@code viewFormatCount} field. */
     @NativeType("uint32_t")
     public int viewFormatCount() { return nviewFormatCount(address()); }
-    /** an array of {@code VkFormat}. */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code viewFormats} field. */
     @NativeType("VkFormat const *")
-    public IntBuffer viewFormats() { return nviewFormats(address()); }
+    public @Nullable IntBuffer viewFormats() { return nviewFormats(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVulkanSwapchainFormatListCreateInfoKHR type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link KHRVulkanSwapchainFormatList#XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR} value to the {@link #type} field. */
+    /** Sets the {@link KHRVulkanSwapchainFormatList#XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR} value to the {@code type} field. */
     public XrVulkanSwapchainFormatListCreateInfoKHR type$Default() { return type(KHRVulkanSwapchainFormatList.XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVulkanSwapchainFormatListCreateInfoKHR next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #viewFormats} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code viewFormats} field. */
     public XrVulkanSwapchainFormatListCreateInfoKHR viewFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { nviewFormats(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -170,8 +152,7 @@ public class XrVulkanSwapchainFormatListCreateInfoKHR extends Struct<XrVulkanSwa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanSwapchainFormatListCreateInfoKHR createSafe(long address) {
+    public static @Nullable XrVulkanSwapchainFormatListCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new XrVulkanSwapchainFormatListCreateInfoKHR(address, null);
     }
 
@@ -214,8 +195,7 @@ public class XrVulkanSwapchainFormatListCreateInfoKHR extends Struct<XrVulkanSwa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanSwapchainFormatListCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static XrVulkanSwapchainFormatListCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,20 +240,20 @@ public class XrVulkanSwapchainFormatListCreateInfoKHR extends Struct<XrVulkanSwa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVulkanSwapchainFormatListCreateInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVulkanSwapchainFormatListCreateInfoKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVulkanSwapchainFormatListCreateInfoKHR.NEXT); }
     /** Unsafe version of {@link #viewFormatCount}. */
-    public static int nviewFormatCount(long struct) { return UNSAFE.getInt(null, struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATCOUNT); }
+    public static int nviewFormatCount(long struct) { return memGetInt(struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATCOUNT); }
     /** Unsafe version of {@link #viewFormats() viewFormats}. */
-    @Nullable public static IntBuffer nviewFormats(long struct) { return memIntBufferSafe(memGetAddress(struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATS), nviewFormatCount(struct)); }
+    public static @Nullable IntBuffer nviewFormats(long struct) { return memIntBufferSafe(memGetAddress(struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATS), nviewFormatCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanSwapchainFormatListCreateInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVulkanSwapchainFormatListCreateInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVulkanSwapchainFormatListCreateInfoKHR.NEXT, value); }
     /** Sets the specified value to the {@code viewFormatCount} field of the specified {@code struct}. */
-    public static void nviewFormatCount(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATCOUNT, value); }
+    public static void nviewFormatCount(long struct, int value) { memPutInt(struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATCOUNT, value); }
     /** Unsafe version of {@link #viewFormats(IntBuffer) viewFormats}. */
     public static void nviewFormats(long struct, @Nullable IntBuffer value) { memPutAddress(struct + XrVulkanSwapchainFormatListCreateInfoKHR.VIEWFORMATS, memAddressSafe(value)); nviewFormatCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -322,31 +302,35 @@ public class XrVulkanSwapchainFormatListCreateInfoKHR extends Struct<XrVulkanSwa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVulkanSwapchainFormatListCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVulkanSwapchainFormatListCreateInfoKHR#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVulkanSwapchainFormatListCreateInfoKHR.ntype(address()); }
-        /** @return the value of the {@link XrVulkanSwapchainFormatListCreateInfoKHR#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrVulkanSwapchainFormatListCreateInfoKHR.nnext(address()); }
-        /** @return the value of the {@link XrVulkanSwapchainFormatListCreateInfoKHR#viewFormatCount} field. */
+        /** @return the value of the {@code viewFormatCount} field. */
         @NativeType("uint32_t")
         public int viewFormatCount() { return XrVulkanSwapchainFormatListCreateInfoKHR.nviewFormatCount(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link XrVulkanSwapchainFormatListCreateInfoKHR#viewFormats} field. */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code viewFormats} field. */
         @NativeType("VkFormat const *")
-        public IntBuffer viewFormats() { return XrVulkanSwapchainFormatListCreateInfoKHR.nviewFormats(address()); }
+        public @Nullable IntBuffer viewFormats() { return XrVulkanSwapchainFormatListCreateInfoKHR.nviewFormats(address()); }
 
-        /** Sets the specified value to the {@link XrVulkanSwapchainFormatListCreateInfoKHR#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVulkanSwapchainFormatListCreateInfoKHR.Buffer type(@NativeType("XrStructureType") int value) { XrVulkanSwapchainFormatListCreateInfoKHR.ntype(address(), value); return this; }
-        /** Sets the {@link KHRVulkanSwapchainFormatList#XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR} value to the {@link XrVulkanSwapchainFormatListCreateInfoKHR#type} field. */
+        /** Sets the {@link KHRVulkanSwapchainFormatList#XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR} value to the {@code type} field. */
         public XrVulkanSwapchainFormatListCreateInfoKHR.Buffer type$Default() { return type(KHRVulkanSwapchainFormatList.XR_TYPE_VULKAN_SWAPCHAIN_FORMAT_LIST_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link XrVulkanSwapchainFormatListCreateInfoKHR#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVulkanSwapchainFormatListCreateInfoKHR.Buffer next(@NativeType("void const *") long value) { XrVulkanSwapchainFormatListCreateInfoKHR.nnext(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link XrVulkanSwapchainFormatListCreateInfoKHR#viewFormats} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code viewFormats} field. */
         public XrVulkanSwapchainFormatListCreateInfoKHR.Buffer viewFormats(@Nullable @NativeType("VkFormat const *") IntBuffer value) { XrVulkanSwapchainFormatListCreateInfoKHR.nviewFormats(address(), value); return this; }
 
     }

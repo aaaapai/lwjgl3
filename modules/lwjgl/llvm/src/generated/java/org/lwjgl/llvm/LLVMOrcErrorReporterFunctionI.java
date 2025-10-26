@@ -12,23 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link LLVMOrc#LLVMOrcExecutionSessionSetErrorReporter OrcExecutionSessionSetErrorReporter} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *Ctx,
- *     LLVMErrorRef Err
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcErrorReporterFunction} */
 @FunctionalInterface
 @NativeType("LLVMOrcErrorReporterFunction")
 public interface LLVMOrcErrorReporterFunctionI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer, ffi_type_pointer
     );
@@ -44,7 +33,7 @@ public interface LLVMOrcErrorReporterFunctionI extends CallbackI {
         );
     }
 
-    /** Error reporter function. */
+    /** {@code void (* LLVMOrcErrorReporterFunction) (void * Ctx, LLVMErrorRef Err)} */
     void invoke(@NativeType("void *") long Ctx, @NativeType("LLVMErrorRef") long Err);
 
 }

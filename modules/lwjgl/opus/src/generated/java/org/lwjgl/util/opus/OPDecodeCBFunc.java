@@ -5,29 +5,13 @@
  */
 package org.lwjgl.util.opus;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link OpusFile#op_set_decode_callback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *_ctx,
- *     OpusMSDecoder *_decoder,
- *     void *_pcm,
- *     ogg_packet const *_op,
- *     int _nsamples,
- *     int _nchannels,
- *     int _format,
- *     int _li
- * )</code></pre>
- */
+/** Callback function: {@link #invoke op_decode_cb_func} */
 public abstract class OPDecodeCBFunc extends Callback implements OPDecodeCBFuncI {
 
     /**
@@ -43,8 +27,7 @@ public abstract class OPDecodeCBFunc extends Callback implements OPDecodeCBFuncI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static OPDecodeCBFunc createSafe(long functionPointer) {
+    public static @Nullable OPDecodeCBFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

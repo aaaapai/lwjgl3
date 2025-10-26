@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,17 +14,13 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A framebuffer object.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct NVGLUframebuffer {
- *     GLuint {@link #fbo};
- *     GLuint {@link #rbo};
- *     GLuint {@link #texture};
- *     int {@link #image};
- * }</code></pre>
+ *     GLuint fbo;
+ *     GLuint rbo;
+ *     GLuint texture;
+ *     int image;
+ * }}</pre>
  */
 @NativeType("struct NVGLUframebuffer")
 public class NVGLUFramebuffer extends Struct<NVGLUFramebuffer> {
@@ -81,16 +77,16 @@ public class NVGLUFramebuffer extends Struct<NVGLUFramebuffer> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the OpenGL framebuffer object handle */
+    /** @return the value of the {@code fbo} field. */
     @NativeType("GLuint")
     public int fbo() { return nfbo(address()); }
-    /** the OpenGL renderbuffer handle */
+    /** @return the value of the {@code rbo} field. */
     @NativeType("GLuint")
     public int rbo() { return nrbo(address()); }
-    /** the OpenGL texture handle */
+    /** @return the value of the {@code texture} field. */
     @NativeType("GLuint")
     public int texture() { return ntexture(address()); }
-    /** the NanoVG image handle */
+    /** @return the value of the {@code image} field. */
     public int image() { return nimage(address()); }
 
     // -----------------------------------
@@ -101,8 +97,7 @@ public class NVGLUFramebuffer extends Struct<NVGLUFramebuffer> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGLUFramebuffer createSafe(long address) {
+    public static @Nullable NVGLUFramebuffer createSafe(long address) {
         return address == NULL ? null : new NVGLUFramebuffer(address, null);
     }
 
@@ -117,21 +112,20 @@ public class NVGLUFramebuffer extends Struct<NVGLUFramebuffer> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NVGLUFramebuffer.Buffer createSafe(long address, int capacity) {
+    public static NVGLUFramebuffer.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #fbo}. */
-    public static int nfbo(long struct) { return UNSAFE.getInt(null, struct + NVGLUFramebuffer.FBO); }
+    public static int nfbo(long struct) { return memGetInt(struct + NVGLUFramebuffer.FBO); }
     /** Unsafe version of {@link #rbo}. */
-    public static int nrbo(long struct) { return UNSAFE.getInt(null, struct + NVGLUFramebuffer.RBO); }
+    public static int nrbo(long struct) { return memGetInt(struct + NVGLUFramebuffer.RBO); }
     /** Unsafe version of {@link #texture}. */
-    public static int ntexture(long struct) { return UNSAFE.getInt(null, struct + NVGLUFramebuffer.TEXTURE); }
+    public static int ntexture(long struct) { return memGetInt(struct + NVGLUFramebuffer.TEXTURE); }
     /** Unsafe version of {@link #image}. */
-    public static int nimage(long struct) { return UNSAFE.getInt(null, struct + NVGLUFramebuffer.IMAGE); }
+    public static int nimage(long struct) { return memGetInt(struct + NVGLUFramebuffer.IMAGE); }
 
     // -----------------------------------
 
@@ -167,20 +161,25 @@ public class NVGLUFramebuffer extends Struct<NVGLUFramebuffer> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NVGLUFramebuffer getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NVGLUFramebuffer#fbo} field. */
+        /** @return the value of the {@code fbo} field. */
         @NativeType("GLuint")
         public int fbo() { return NVGLUFramebuffer.nfbo(address()); }
-        /** @return the value of the {@link NVGLUFramebuffer#rbo} field. */
+        /** @return the value of the {@code rbo} field. */
         @NativeType("GLuint")
         public int rbo() { return NVGLUFramebuffer.nrbo(address()); }
-        /** @return the value of the {@link NVGLUFramebuffer#texture} field. */
+        /** @return the value of the {@code texture} field. */
         @NativeType("GLuint")
         public int texture() { return NVGLUFramebuffer.ntexture(address()); }
-        /** @return the value of the {@link NVGLUFramebuffer#image} field. */
+        /** @return the value of the {@code image} field. */
         public int image() { return NVGLUFramebuffer.nimage(address()); }
 
     }

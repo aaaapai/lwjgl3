@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,15 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Represents a list of {@code LLVMOrcSymbolStringPoolEntryRef} and the associated length.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct LLVMOrcCSymbolsList {
  *     LLVMOrcSymbolStringPoolEntryRef * Symbols;
  *     size_t Length;
- * }</code></pre>
+ * }}</pre>
  */
 public class LLVMOrcCSymbolsList extends Struct<LLVMOrcCSymbolsList> implements NativeResource {
 
@@ -121,8 +117,7 @@ public class LLVMOrcCSymbolsList extends Struct<LLVMOrcCSymbolsList> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCSymbolsList createSafe(long address) {
+    public static @Nullable LLVMOrcCSymbolsList createSafe(long address) {
         return address == NULL ? null : new LLVMOrcCSymbolsList(address, null);
     }
 
@@ -165,8 +160,7 @@ public class LLVMOrcCSymbolsList extends Struct<LLVMOrcCSymbolsList> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcCSymbolsList.Buffer createSafe(long address, int capacity) {
+    public static LLVMOrcCSymbolsList.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,6 +254,11 @@ public class LLVMOrcCSymbolsList extends Struct<LLVMOrcCSymbolsList> implements 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct meshopt_Bounds {
- *     float {@link #center}[3];
+ *     float center[3];
  *     float radius;
- *     float {@link #cone_apex}[3];
+ *     float cone_apex[3];
  *     float cone_axis[3];
- *     float {@link #cone_cutoff};
- *     char {@link #cone_axis_s8}[3];
+ *     float cone_cutoff;
+ *     char cone_axis_s8[3];
  *     char cone_cutoff_s8;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct meshopt_Bounds")
 public class MeshoptBounds extends Struct<MeshoptBounds> implements NativeResource {
@@ -94,29 +92,29 @@ public class MeshoptBounds extends Struct<MeshoptBounds> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** bounding sphere, useful for frustum and occlusion culling */
+    /** @return a {@link FloatBuffer} view of the {@code center} field. */
     @NativeType("float[3]")
     public FloatBuffer center() { return ncenter(address()); }
-    /** bounding sphere, useful for frustum and occlusion culling */
+    /** @return the value at the specified index of the {@code center} field. */
     public float center(int index) { return ncenter(address(), index); }
     /** @return the value of the {@code radius} field. */
     public float radius() { return nradius(address()); }
-    /** normal cone, useful for backface culling */
+    /** @return a {@link FloatBuffer} view of the {@code cone_apex} field. */
     @NativeType("float[3]")
     public FloatBuffer cone_apex() { return ncone_apex(address()); }
-    /** normal cone, useful for backface culling */
+    /** @return the value at the specified index of the {@code cone_apex} field. */
     public float cone_apex(int index) { return ncone_apex(address(), index); }
     /** @return a {@link FloatBuffer} view of the {@code cone_axis} field. */
     @NativeType("float[3]")
     public FloatBuffer cone_axis() { return ncone_axis(address()); }
     /** @return the value at the specified index of the {@code cone_axis} field. */
     public float cone_axis(int index) { return ncone_axis(address(), index); }
-    /** {@code cos(angle/2)} */
+    /** @return the value of the {@code cone_cutoff} field. */
     public float cone_cutoff() { return ncone_cutoff(address()); }
-    /** normal cone axis and cutoff, stored in 8-bit {@code SNORM} format; decode using {@code x/127.0} */
+    /** @return a {@link ByteBuffer} view of the {@code cone_axis_s8} field. */
     @NativeType("char[3]")
     public ByteBuffer cone_axis_s8() { return ncone_axis_s8(address()); }
-    /** normal cone axis and cutoff, stored in 8-bit {@code SNORM} format; decode using {@code x/127.0} */
+    /** @return the value at the specified index of the {@code cone_axis_s8} field. */
     @NativeType("char")
     public byte cone_axis_s8(int index) { return ncone_axis_s8(address(), index); }
     /** @return the value of the {@code cone_cutoff_s8} field. */
@@ -147,8 +145,7 @@ public class MeshoptBounds extends Struct<MeshoptBounds> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptBounds createSafe(long address) {
+    public static @Nullable MeshoptBounds createSafe(long address) {
         return address == NULL ? null : new MeshoptBounds(address, null);
     }
 
@@ -191,8 +188,7 @@ public class MeshoptBounds extends Struct<MeshoptBounds> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptBounds.Buffer createSafe(long address, int capacity) {
+    public static MeshoptBounds.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,32 +236,32 @@ public class MeshoptBounds extends Struct<MeshoptBounds> implements NativeResour
     public static FloatBuffer ncenter(long struct) { return memFloatBuffer(struct + MeshoptBounds.CENTER, 3); }
     /** Unsafe version of {@link #center(int) center}. */
     public static float ncenter(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + MeshoptBounds.CENTER + check(index, 3) * 4);
+        return memGetFloat(struct + MeshoptBounds.CENTER + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + MeshoptBounds.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + MeshoptBounds.RADIUS); }
     /** Unsafe version of {@link #cone_apex}. */
     public static FloatBuffer ncone_apex(long struct) { return memFloatBuffer(struct + MeshoptBounds.CONE_APEX, 3); }
     /** Unsafe version of {@link #cone_apex(int) cone_apex}. */
     public static float ncone_apex(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + MeshoptBounds.CONE_APEX + check(index, 3) * 4);
+        return memGetFloat(struct + MeshoptBounds.CONE_APEX + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #cone_axis}. */
     public static FloatBuffer ncone_axis(long struct) { return memFloatBuffer(struct + MeshoptBounds.CONE_AXIS, 3); }
     /** Unsafe version of {@link #cone_axis(int) cone_axis}. */
     public static float ncone_axis(long struct, int index) {
-        return UNSAFE.getFloat(null, struct + MeshoptBounds.CONE_AXIS + check(index, 3) * 4);
+        return memGetFloat(struct + MeshoptBounds.CONE_AXIS + check(index, 3) * 4);
     }
     /** Unsafe version of {@link #cone_cutoff}. */
-    public static float ncone_cutoff(long struct) { return UNSAFE.getFloat(null, struct + MeshoptBounds.CONE_CUTOFF); }
+    public static float ncone_cutoff(long struct) { return memGetFloat(struct + MeshoptBounds.CONE_CUTOFF); }
     /** Unsafe version of {@link #cone_axis_s8}. */
     public static ByteBuffer ncone_axis_s8(long struct) { return memByteBuffer(struct + MeshoptBounds.CONE_AXIS_S8, 3); }
     /** Unsafe version of {@link #cone_axis_s8(int) cone_axis_s8}. */
     public static byte ncone_axis_s8(long struct, int index) {
-        return UNSAFE.getByte(null, struct + MeshoptBounds.CONE_AXIS_S8 + check(index, 3) * 1);
+        return memGetByte(struct + MeshoptBounds.CONE_AXIS_S8 + check(index, 3) * 1);
     }
     /** Unsafe version of {@link #cone_cutoff_s8}. */
-    public static byte ncone_cutoff_s8(long struct) { return UNSAFE.getByte(null, struct + MeshoptBounds.CONE_CUTOFF_S8); }
+    public static byte ncone_cutoff_s8(long struct) { return memGetByte(struct + MeshoptBounds.CONE_CUTOFF_S8); }
 
     // -----------------------------------
 
@@ -301,33 +297,38 @@ public class MeshoptBounds extends Struct<MeshoptBounds> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MeshoptBounds getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link FloatBuffer} view of the {@link MeshoptBounds#center} field. */
+        /** @return a {@link FloatBuffer} view of the {@code center} field. */
         @NativeType("float[3]")
         public FloatBuffer center() { return MeshoptBounds.ncenter(address()); }
-        /** @return the value at the specified index of the {@link MeshoptBounds#center} field. */
+        /** @return the value at the specified index of the {@code center} field. */
         public float center(int index) { return MeshoptBounds.ncenter(address(), index); }
         /** @return the value of the {@code radius} field. */
         public float radius() { return MeshoptBounds.nradius(address()); }
-        /** @return a {@link FloatBuffer} view of the {@link MeshoptBounds#cone_apex} field. */
+        /** @return a {@link FloatBuffer} view of the {@code cone_apex} field. */
         @NativeType("float[3]")
         public FloatBuffer cone_apex() { return MeshoptBounds.ncone_apex(address()); }
-        /** @return the value at the specified index of the {@link MeshoptBounds#cone_apex} field. */
+        /** @return the value at the specified index of the {@code cone_apex} field. */
         public float cone_apex(int index) { return MeshoptBounds.ncone_apex(address(), index); }
         /** @return a {@link FloatBuffer} view of the {@code cone_axis} field. */
         @NativeType("float[3]")
         public FloatBuffer cone_axis() { return MeshoptBounds.ncone_axis(address()); }
         /** @return the value at the specified index of the {@code cone_axis} field. */
         public float cone_axis(int index) { return MeshoptBounds.ncone_axis(address(), index); }
-        /** @return the value of the {@link MeshoptBounds#cone_cutoff} field. */
+        /** @return the value of the {@code cone_cutoff} field. */
         public float cone_cutoff() { return MeshoptBounds.ncone_cutoff(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link MeshoptBounds#cone_axis_s8} field. */
+        /** @return a {@link ByteBuffer} view of the {@code cone_axis_s8} field. */
         @NativeType("char[3]")
         public ByteBuffer cone_axis_s8() { return MeshoptBounds.ncone_axis_s8(address()); }
-        /** @return the value at the specified index of the {@link MeshoptBounds#cone_axis_s8} field. */
+        /** @return the value at the specified index of the {@code cone_axis_s8} field. */
         @NativeType("char")
         public byte cone_axis_s8(int index) { return MeshoptBounds.ncone_axis_s8(address(), index); }
         /** @return the value of the {@code cone_cutoff_s8} field. */

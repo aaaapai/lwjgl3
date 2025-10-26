@@ -12,21 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *cbk_context,
- *     rmtProperty *root
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtPropertyHandlerPtr} */
 @FunctionalInterface
 @NativeType("rmtPropertyHandlerPtr")
 public interface RMTPropertyHandlerI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer, ffi_type_pointer
     );
@@ -42,6 +33,7 @@ public interface RMTPropertyHandlerI extends CallbackI {
         );
     }
 
+    /** {@code void (* rmtPropertyHandlerPtr) (void * cbk_context, rmtProperty * root)} */
     void invoke(@NativeType("void *") long cbk_context, @NativeType("rmtProperty *") long root);
 
 }

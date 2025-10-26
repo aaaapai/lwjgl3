@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Parameters of {@code VmaAllocation} objects, that can be retrieved using function {@link Vma#vmaGetAllocationInfo GetAllocationInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaAllocationInfo {
- *     uint32_t {@link #memoryType};
- *     VkDeviceMemory {@link #deviceMemory};
- *     VkDeviceSize {@link #offset};
- *     VkDeviceSize {@link #size};
- *     void * {@link #pMappedData};
- *     void * {@link #pUserData};
- *     char const * {@link #pName};
- * }</code></pre>
+ *     uint32_t memoryType;
+ *     VkDeviceMemory deviceMemory;
+ *     VkDeviceSize offset;
+ *     VkDeviceSize size;
+ *     void * pMappedData;
+ *     void * pUserData;
+ *     char const * pName;
+ * }}</pre>
  */
 public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements NativeResource {
 
@@ -94,84 +90,30 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * memory type index that this allocation was allocated from.
-     * 
-     * <p>It never changes.</p>
-     */
+    /** @return the value of the {@code memoryType} field. */
     @NativeType("uint32_t")
     public int memoryType() { return nmemoryType(address()); }
-    /**
-     * handle to Vulkan memory object.
-     * 
-     * <p>Same memory object can be shared by multiple allocations.</p>
-     * 
-     * <p>It can change after the allocation is moved during defragmentation.</p>
-     */
+    /** @return the value of the {@code deviceMemory} field. */
     @NativeType("VkDeviceMemory")
     public long deviceMemory() { return ndeviceMemory(address()); }
-    /**
-     * offset in {@code VkDeviceMemory} object to the beginning of this allocation, in bytes. {@code (deviceMemory, offset)} pair is unique to this allocation.
-     * 
-     * <p>You usually don't need to use this offset. If you create a buffer or an image together with the allocation using e.g. function {@link Vma#vmaCreateBuffer CreateBuffer},
-     * {@link Vma#vmaCreateImage CreateImage}, functions that operate on these resources refer to the beginning of the buffer or image, not entire device memory block. Functions like
-     * {@link Vma#vmaMapMemory MapMemory}, {@link Vma#vmaBindBufferMemory BindBufferMemory} also refer to the beginning of the allocation and apply this offset automatically.</p>
-     * 
-     * <p>It can change after the allocation is moved during defragmentation.</p>
-     */
+    /** @return the value of the {@code offset} field. */
     @NativeType("VkDeviceSize")
     public long offset() { return noffset(address()); }
-    /**
-     * size of this allocation, in bytes.
-     * 
-     * <p>It never changes.</p>
-     * 
-     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
-     * 
-     * <p>Allocation size returned in this variable may be greater than the size requested for the resource e.g. as {@code VkBufferCreateInfo::size}. Whole size
-     * of the allocation is accessible for operations on memory e.g. using a pointer after mapping with {@link Vma#vmaMapMemory MapMemory}, but operations on the resource e.g.
-     * using {@code vkCmdCopyBuffer} must be limited to the size of the resource.</p></div>
-     */
+    /** @return the value of the {@code size} field. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
-    /**
-     * pointer to the beginning of this allocation as mapped data.
-     * 
-     * <p>If the allocation hasn't been mapped using {@link Vma#vmaMapMemory MapMemory} and hasn't been created with {@link Vma#VMA_ALLOCATION_CREATE_MAPPED_BIT ALLOCATION_CREATE_MAPPED_BIT} flag, this value is null.</p>
-     * 
-     * <p>It can change after call to {@link Vma#vmaMapMemory MapMemory}, {@link Vma#vmaUnmapMemory UnmapMemory}. It can also change after the allocation is moved during defragmentation.</p>
-     */
+    /** @return the value of the {@code pMappedData} field. */
     @NativeType("void *")
     public long pMappedData() { return npMappedData(address()); }
-    /**
-     * custom general-purpose pointer that was passed as {@link VmaAllocationCreateInfo}{@code ::pUserData} or set using {@link Vma#vmaSetAllocationUserData SetAllocationUserData}.
-     * 
-     * <p>It can change after call to {@link Vma#vmaSetAllocationUserData SetAllocationUserData} for this allocation.</p>
-     */
+    /** @return the value of the {@code pUserData} field. */
     @NativeType("void *")
     public long pUserData() { return npUserData(address()); }
-    /**
-     * Custom allocation name that was set with {@link Vma#vmaSetAllocationName SetAllocationName}.
-     * 
-     * <p>It can change after call to {@code vmaSetAllocationName()} for this allocation.</p>
-     * 
-     * <p>Another way to set custom name is to pass it in {@link VmaAllocationCreateInfo}{@code ::pUserData} with additional flag
-     * {@link Vma#VMA_ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT} set (DEPRECATED).</p>
-     */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code pName} field. */
     @NativeType("char const *")
-    public ByteBuffer pName() { return npName(address()); }
-    /**
-     * Custom allocation name that was set with {@link Vma#vmaSetAllocationName SetAllocationName}.
-     * 
-     * <p>It can change after call to {@code vmaSetAllocationName()} for this allocation.</p>
-     * 
-     * <p>Another way to set custom name is to pass it in {@link VmaAllocationCreateInfo}{@code ::pUserData} with additional flag
-     * {@link Vma#VMA_ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT} set (DEPRECATED).</p>
-     */
-    @Nullable
+    public @Nullable ByteBuffer pName() { return npName(address()); }
+    /** @return the null-terminated string pointed to by the {@code pName} field. */
     @NativeType("char const *")
-    public String pNameString() { return npNameString(address()); }
+    public @Nullable String pNameString() { return npNameString(address()); }
 
     // -----------------------------------
 
@@ -197,8 +139,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaAllocationInfo createSafe(long address) {
+    public static @Nullable VmaAllocationInfo createSafe(long address) {
         return address == NULL ? null : new VmaAllocationInfo(address, null);
     }
 
@@ -241,8 +182,7 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaAllocationInfo.Buffer createSafe(long address, int capacity) {
+    public static VmaAllocationInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -306,21 +246,21 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #memoryType}. */
-    public static int nmemoryType(long struct) { return UNSAFE.getInt(null, struct + VmaAllocationInfo.MEMORYTYPE); }
+    public static int nmemoryType(long struct) { return memGetInt(struct + VmaAllocationInfo.MEMORYTYPE); }
     /** Unsafe version of {@link #deviceMemory}. */
-    public static long ndeviceMemory(long struct) { return UNSAFE.getLong(null, struct + VmaAllocationInfo.DEVICEMEMORY); }
+    public static long ndeviceMemory(long struct) { return memGetLong(struct + VmaAllocationInfo.DEVICEMEMORY); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VmaAllocationInfo.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VmaAllocationInfo.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VmaAllocationInfo.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VmaAllocationInfo.SIZE); }
     /** Unsafe version of {@link #pMappedData}. */
     public static long npMappedData(long struct) { return memGetAddress(struct + VmaAllocationInfo.PMAPPEDDATA); }
     /** Unsafe version of {@link #pUserData}. */
     public static long npUserData(long struct) { return memGetAddress(struct + VmaAllocationInfo.PUSERDATA); }
     /** Unsafe version of {@link #pName}. */
-    @Nullable public static ByteBuffer npName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VmaAllocationInfo.PNAME)); }
+    public static @Nullable ByteBuffer npName(long struct) { return memByteBufferNT1Safe(memGetAddress(struct + VmaAllocationInfo.PNAME)); }
     /** Unsafe version of {@link #pNameString}. */
-    @Nullable public static String npNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VmaAllocationInfo.PNAME)); }
+    public static @Nullable String npNameString(long struct) { return memUTF8Safe(memGetAddress(struct + VmaAllocationInfo.PNAME)); }
 
     // -----------------------------------
 
@@ -356,36 +296,39 @@ public class VmaAllocationInfo extends Struct<VmaAllocationInfo> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaAllocationInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VmaAllocationInfo#memoryType} field. */
+        /** @return the value of the {@code memoryType} field. */
         @NativeType("uint32_t")
         public int memoryType() { return VmaAllocationInfo.nmemoryType(address()); }
-        /** @return the value of the {@link VmaAllocationInfo#deviceMemory} field. */
+        /** @return the value of the {@code deviceMemory} field. */
         @NativeType("VkDeviceMemory")
         public long deviceMemory() { return VmaAllocationInfo.ndeviceMemory(address()); }
-        /** @return the value of the {@link VmaAllocationInfo#offset} field. */
+        /** @return the value of the {@code offset} field. */
         @NativeType("VkDeviceSize")
         public long offset() { return VmaAllocationInfo.noffset(address()); }
-        /** @return the value of the {@link VmaAllocationInfo#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VmaAllocationInfo.nsize(address()); }
-        /** @return the value of the {@link VmaAllocationInfo#pMappedData} field. */
+        /** @return the value of the {@code pMappedData} field. */
         @NativeType("void *")
         public long pMappedData() { return VmaAllocationInfo.npMappedData(address()); }
-        /** @return the value of the {@link VmaAllocationInfo#pUserData} field. */
+        /** @return the value of the {@code pUserData} field. */
         @NativeType("void *")
         public long pUserData() { return VmaAllocationInfo.npUserData(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link VmaAllocationInfo#pName} field. */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code pName} field. */
         @NativeType("char const *")
-        public ByteBuffer pName() { return VmaAllocationInfo.npName(address()); }
-        /** @return the null-terminated string pointed to by the {@link VmaAllocationInfo#pName} field. */
-        @Nullable
+        public @Nullable ByteBuffer pName() { return VmaAllocationInfo.npName(address()); }
+        /** @return the null-terminated string pointed to by the {@code pName} field. */
         @NativeType("char const *")
-        public String pNameString() { return VmaAllocationInfo.npNameString(address()); }
+        public @Nullable String pNameString() { return VmaAllocationInfo.npNameString(address()); }
 
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkExportSemaphoreCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExportSemaphoreCreateInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkExternalSemaphoreHandleTypeFlags handleTypes;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkExportSemaphoreCreateInfoKHR extends VkExportSemaphoreCreateInfo {
 
@@ -111,8 +107,7 @@ public class VkExportSemaphoreCreateInfoKHR extends VkExportSemaphoreCreateInfo 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportSemaphoreCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkExportSemaphoreCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkExportSemaphoreCreateInfoKHR(address, null);
     }
 
@@ -155,8 +150,7 @@ public class VkExportSemaphoreCreateInfoKHR extends VkExportSemaphoreCreateInfo 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportSemaphoreCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkExportSemaphoreCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +242,11 @@ public class VkExportSemaphoreCreateInfoKHR extends VkExportSemaphoreCreateInfo 
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -36,7 +36,7 @@ static inline void detachCurrentThread(void) {
 }
 
 static inline EnvData* createEnvData(jboolean async, JNIEnv* env) {
-    EnvData* data = (EnvData*)calloc(sizeof(EnvData), 1);
+    EnvData* data = (EnvData*)calloc(1, sizeof(EnvData));
 
     data->async = async;
     data->env = env;
@@ -59,6 +59,10 @@ static inline void linkEnvData(EnvData* data, JNIEnv *env) {
         if (fdwReason == DLL_THREAD_DETACH && lpvReserved == NULL/* see: https://docs.microsoft.com/en-us/windows/win32/dlls/dllmain */) {
             EnvData* data = (EnvData*)TlsGetValue(envTLS);
             if (data != NULL) {
+                if (data->async && getThreadEnv() != NULL) {
+                    detachCurrentThread();
+                }
+
                 TlsSetValue(envTLS, NULL);
 
                 JNIEnv env = data->envCopy;
@@ -66,10 +70,6 @@ static inline void linkEnvData(EnvData* data, JNIEnv *env) {
                     free((void *)env);
                 }
                 free(data);
-            }
-
-            if (getThreadEnv() != NULL) {
-                detachCurrentThread();
             }
         }
 
@@ -105,10 +105,13 @@ static inline void linkEnvData(EnvData* data, JNIEnv *env) {
     }
 
     EnvData* tlsCreateEnvDataWithCopy(JNIEnv *env) {
-        EnvData* data = createEnvData(0, env);
-        linkEnvData(data, env);
+        EnvData* data = (EnvData*)TlsGetValue(envTLS);
+        if (data == NULL) {
+            data = createEnvData(0, env);
+            TlsSetValue(envTLS, (LPVOID)data);
+        }
 
-        TlsSetValue(envTLS, (LPVOID)data);
+        linkEnvData(data, env);
 
         return data;
     }
@@ -127,16 +130,16 @@ static inline void linkEnvData(EnvData* data, JNIEnv *env) {
     static void autoDetach(void* value) {
         EnvData* data = (EnvData *)value;
 
+        if (data->async && getThreadEnv() != NULL) {
+            detachCurrentThread();
+        }
+
         JNIEnv env = data->envCopy;
         if (env != NULL) {
             free((void *)env);
         }
 
         free(data);
-
-        if (getThreadEnv() != NULL) {
-            detachCurrentThread();
-        }
     }
 
     static inline void tlsInit(void) {
@@ -201,6 +204,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
     jvm = vm;
 
     tlsInit();
+
     return JNI_VERSION_1_6;
 }
 
@@ -208,5 +212,21 @@ JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
     UNUSED_PARAMS(vm, reserved);
     tlsDestroy();
 }
+
+// Intentionally empty functions for benchmarking purposes
+JNIEXPORT void JNICALL org_lwjgl_system_noop(void) {}
+JNIEXPORT void JNICALL org_lwjgl_system_noop_params(void *param0, void *param1, int param2) {
+    UNUSED_PARAMS(param0, param1);
+    UNUSED_PARAM(param2);
+}
+
+DISABLE_WARNINGS()
+JNIEXPORT void noop_params0(void) {}
+JNIEXPORT void noop_params1(void *param0) {}
+JNIEXPORT void noop_params2(void *param0, void *param1) {}
+JNIEXPORT void noop_params3(void *param0, void *param1, void *param2) {}
+JNIEXPORT void noop_params4(void *param0, void *param1, void *param2, void *param3) {}
+JNIEXPORT void noop_params5(int param0, int param1, void *param2, void *param3, void *param4) {}
+ENABLE_WARNINGS()
 
 EXTERN_C_EXIT

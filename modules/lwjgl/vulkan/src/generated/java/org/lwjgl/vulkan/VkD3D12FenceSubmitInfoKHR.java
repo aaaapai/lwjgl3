@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,43 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying values for Direct3D 12 fence-backed semaphores.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the semaphore in {@link VkSubmitInfo}{@code ::pWaitSemaphores} or {@link VkSubmitInfo}{@code ::pSignalSemaphores} corresponding to an entry in {@code pWaitSemaphoreValues} or {@code pSignalSemaphoreValues} respectively does not currently have a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-semaphores-payloads">payload</a> referring to a Direct3D 12 fence, the implementation <b>must</b> ignore the value in the {@code pWaitSemaphoreValues} or {@code pSignalSemaphoreValues} entry.</p>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>As the introduction of the external semaphore handle type {@link VK11#VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT} predates that of timeline semaphores, support for importing semaphore payloads from external handles of that type into semaphores created (implicitly or explicitly) with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_BINARY SEMAPHORE_TYPE_BINARY} is preserved for backwards compatibility. However, applications <b>should</b> prefer importing such handle types into semaphores created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE}, and use the {@link VkTimelineSemaphoreSubmitInfo} structure instead of the {@link VkD3D12FenceSubmitInfoKHR} structure to specify the values to use when waiting for and signaling such semaphores.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code waitSemaphoreValuesCount} <b>must</b> be the same value as {@link VkSubmitInfo}{@code ::waitSemaphoreCount}, where this structure is in the {@code pNext} chain of a {@link VkSubmitInfo} structure</li>
- * <li>{@code signalSemaphoreValuesCount} <b>must</b> be the same value as {@link VkSubmitInfo}{@code ::signalSemaphoreCount}, where this structure is in the {@code pNext} chain of a {@link VkSubmitInfo} structure</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRExternalSemaphoreWin32#VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR}</li>
- * <li>If {@code waitSemaphoreValuesCount} is not 0, and {@code pWaitSemaphoreValues} is not {@code NULL}, {@code pWaitSemaphoreValues} <b>must</b> be a valid pointer to an array of {@code waitSemaphoreValuesCount} {@code uint64_t} values</li>
- * <li>If {@code signalSemaphoreValuesCount} is not 0, and {@code pSignalSemaphoreValues} is not {@code NULL}, {@code pSignalSemaphoreValues} <b>must</b> be a valid pointer to an array of {@code signalSemaphoreValuesCount} {@code uint64_t} values</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkD3D12FenceSubmitInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #waitSemaphoreValuesCount};
- *     uint64_t const * {@link #pWaitSemaphoreValues};
- *     uint32_t {@link #signalSemaphoreValuesCount};
- *     uint64_t const * {@link #pSignalSemaphoreValues};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t waitSemaphoreValuesCount;
+ *     uint64_t const * pWaitSemaphoreValues;
+ *     uint32_t signalSemaphoreValuesCount;
+ *     uint64_t const * pSignalSemaphoreValues;
+ * }}</pre>
  */
 public class VkD3D12FenceSubmitInfoKHR extends Struct<VkD3D12FenceSubmitInfoKHR> implements NativeResource {
 
@@ -114,40 +86,38 @@ public class VkD3D12FenceSubmitInfoKHR extends Struct<VkD3D12FenceSubmitInfoKHR>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the number of semaphore wait values specified in {@code pWaitSemaphoreValues}. */
+    /** @return the value of the {@code waitSemaphoreValuesCount} field. */
     @NativeType("uint32_t")
     public int waitSemaphoreValuesCount() { return nwaitSemaphoreValuesCount(address()); }
-    /** a pointer to an array of {@code waitSemaphoreValuesCount} values for the corresponding semaphores in {@link VkSubmitInfo}{@code ::pWaitSemaphores} to wait for. */
-    @Nullable
+    /** @return a {@link LongBuffer} view of the data pointed to by the {@code pWaitSemaphoreValues} field. */
     @NativeType("uint64_t const *")
-    public LongBuffer pWaitSemaphoreValues() { return npWaitSemaphoreValues(address()); }
-    /** the number of semaphore signal values specified in {@code pSignalSemaphoreValues}. */
+    public @Nullable LongBuffer pWaitSemaphoreValues() { return npWaitSemaphoreValues(address()); }
+    /** @return the value of the {@code signalSemaphoreValuesCount} field. */
     @NativeType("uint32_t")
     public int signalSemaphoreValuesCount() { return nsignalSemaphoreValuesCount(address()); }
-    /** a pointer to an array of {@code signalSemaphoreValuesCount} values for the corresponding semaphores in {@link VkSubmitInfo}{@code ::pSignalSemaphores} to set when signaled. */
-    @Nullable
+    /** @return a {@link LongBuffer} view of the data pointed to by the {@code pSignalSemaphoreValues} field. */
     @NativeType("uint64_t const *")
-    public LongBuffer pSignalSemaphoreValues() { return npSignalSemaphoreValues(address()); }
+    public @Nullable LongBuffer pSignalSemaphoreValues() { return npSignalSemaphoreValues(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkD3D12FenceSubmitInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRExternalSemaphoreWin32#VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRExternalSemaphoreWin32#VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR} value to the {@code sType} field. */
     public VkD3D12FenceSubmitInfoKHR sType$Default() { return sType(KHRExternalSemaphoreWin32.VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkD3D12FenceSubmitInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #waitSemaphoreValuesCount} field. */
+    /** Sets the specified value to the {@code waitSemaphoreValuesCount} field. */
     public VkD3D12FenceSubmitInfoKHR waitSemaphoreValuesCount(@NativeType("uint32_t") int value) { nwaitSemaphoreValuesCount(address(), value); return this; }
-    /** Sets the address of the specified {@link LongBuffer} to the {@link #pWaitSemaphoreValues} field. */
+    /** Sets the address of the specified {@link LongBuffer} to the {@code pWaitSemaphoreValues} field. */
     public VkD3D12FenceSubmitInfoKHR pWaitSemaphoreValues(@Nullable @NativeType("uint64_t const *") LongBuffer value) { npWaitSemaphoreValues(address(), value); return this; }
-    /** Sets the specified value to the {@link #signalSemaphoreValuesCount} field. */
+    /** Sets the specified value to the {@code signalSemaphoreValuesCount} field. */
     public VkD3D12FenceSubmitInfoKHR signalSemaphoreValuesCount(@NativeType("uint32_t") int value) { nsignalSemaphoreValuesCount(address(), value); return this; }
-    /** Sets the address of the specified {@link LongBuffer} to the {@link #pSignalSemaphoreValues} field. */
+    /** Sets the address of the specified {@link LongBuffer} to the {@code pSignalSemaphoreValues} field. */
     public VkD3D12FenceSubmitInfoKHR pSignalSemaphoreValues(@Nullable @NativeType("uint64_t const *") LongBuffer value) { npSignalSemaphoreValues(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -205,8 +175,7 @@ public class VkD3D12FenceSubmitInfoKHR extends Struct<VkD3D12FenceSubmitInfoKHR>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkD3D12FenceSubmitInfoKHR createSafe(long address) {
+    public static @Nullable VkD3D12FenceSubmitInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkD3D12FenceSubmitInfoKHR(address, null);
     }
 
@@ -249,8 +218,7 @@ public class VkD3D12FenceSubmitInfoKHR extends Struct<VkD3D12FenceSubmitInfoKHR>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkD3D12FenceSubmitInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkD3D12FenceSubmitInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -314,28 +282,28 @@ public class VkD3D12FenceSubmitInfoKHR extends Struct<VkD3D12FenceSubmitInfoKHR>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkD3D12FenceSubmitInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkD3D12FenceSubmitInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkD3D12FenceSubmitInfoKHR.PNEXT); }
     /** Unsafe version of {@link #waitSemaphoreValuesCount}. */
-    public static int nwaitSemaphoreValuesCount(long struct) { return UNSAFE.getInt(null, struct + VkD3D12FenceSubmitInfoKHR.WAITSEMAPHOREVALUESCOUNT); }
+    public static int nwaitSemaphoreValuesCount(long struct) { return memGetInt(struct + VkD3D12FenceSubmitInfoKHR.WAITSEMAPHOREVALUESCOUNT); }
     /** Unsafe version of {@link #pWaitSemaphoreValues() pWaitSemaphoreValues}. */
-    @Nullable public static LongBuffer npWaitSemaphoreValues(long struct) { return memLongBufferSafe(memGetAddress(struct + VkD3D12FenceSubmitInfoKHR.PWAITSEMAPHOREVALUES), nwaitSemaphoreValuesCount(struct)); }
+    public static @Nullable LongBuffer npWaitSemaphoreValues(long struct) { return memLongBufferSafe(memGetAddress(struct + VkD3D12FenceSubmitInfoKHR.PWAITSEMAPHOREVALUES), nwaitSemaphoreValuesCount(struct)); }
     /** Unsafe version of {@link #signalSemaphoreValuesCount}. */
-    public static int nsignalSemaphoreValuesCount(long struct) { return UNSAFE.getInt(null, struct + VkD3D12FenceSubmitInfoKHR.SIGNALSEMAPHOREVALUESCOUNT); }
+    public static int nsignalSemaphoreValuesCount(long struct) { return memGetInt(struct + VkD3D12FenceSubmitInfoKHR.SIGNALSEMAPHOREVALUESCOUNT); }
     /** Unsafe version of {@link #pSignalSemaphoreValues() pSignalSemaphoreValues}. */
-    @Nullable public static LongBuffer npSignalSemaphoreValues(long struct) { return memLongBufferSafe(memGetAddress(struct + VkD3D12FenceSubmitInfoKHR.PSIGNALSEMAPHOREVALUES), nsignalSemaphoreValuesCount(struct)); }
+    public static @Nullable LongBuffer npSignalSemaphoreValues(long struct) { return memLongBufferSafe(memGetAddress(struct + VkD3D12FenceSubmitInfoKHR.PSIGNALSEMAPHOREVALUES), nsignalSemaphoreValuesCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkD3D12FenceSubmitInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkD3D12FenceSubmitInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkD3D12FenceSubmitInfoKHR.PNEXT, value); }
     /** Sets the specified value to the {@code waitSemaphoreValuesCount} field of the specified {@code struct}. */
-    public static void nwaitSemaphoreValuesCount(long struct, int value) { UNSAFE.putInt(null, struct + VkD3D12FenceSubmitInfoKHR.WAITSEMAPHOREVALUESCOUNT, value); }
+    public static void nwaitSemaphoreValuesCount(long struct, int value) { memPutInt(struct + VkD3D12FenceSubmitInfoKHR.WAITSEMAPHOREVALUESCOUNT, value); }
     /** Unsafe version of {@link #pWaitSemaphoreValues(LongBuffer) pWaitSemaphoreValues}. */
     public static void npWaitSemaphoreValues(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkD3D12FenceSubmitInfoKHR.PWAITSEMAPHOREVALUES, memAddressSafe(value)); if (value != null) { nwaitSemaphoreValuesCount(struct, value.remaining()); } }
     /** Sets the specified value to the {@code signalSemaphoreValuesCount} field of the specified {@code struct}. */
-    public static void nsignalSemaphoreValuesCount(long struct, int value) { UNSAFE.putInt(null, struct + VkD3D12FenceSubmitInfoKHR.SIGNALSEMAPHOREVALUESCOUNT, value); }
+    public static void nsignalSemaphoreValuesCount(long struct, int value) { memPutInt(struct + VkD3D12FenceSubmitInfoKHR.SIGNALSEMAPHOREVALUESCOUNT, value); }
     /** Unsafe version of {@link #pSignalSemaphoreValues(LongBuffer) pSignalSemaphoreValues}. */
     public static void npSignalSemaphoreValues(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkD3D12FenceSubmitInfoKHR.PSIGNALSEMAPHOREVALUES, memAddressSafe(value)); if (value != null) { nsignalSemaphoreValuesCount(struct, value.remaining()); } }
 
@@ -373,44 +341,47 @@ public class VkD3D12FenceSubmitInfoKHR extends Struct<VkD3D12FenceSubmitInfoKHR>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkD3D12FenceSubmitInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkD3D12FenceSubmitInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkD3D12FenceSubmitInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkD3D12FenceSubmitInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkD3D12FenceSubmitInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkD3D12FenceSubmitInfoKHR#waitSemaphoreValuesCount} field. */
+        /** @return the value of the {@code waitSemaphoreValuesCount} field. */
         @NativeType("uint32_t")
         public int waitSemaphoreValuesCount() { return VkD3D12FenceSubmitInfoKHR.nwaitSemaphoreValuesCount(address()); }
-        /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkD3D12FenceSubmitInfoKHR#pWaitSemaphoreValues} field. */
-        @Nullable
+        /** @return a {@link LongBuffer} view of the data pointed to by the {@code pWaitSemaphoreValues} field. */
         @NativeType("uint64_t const *")
-        public LongBuffer pWaitSemaphoreValues() { return VkD3D12FenceSubmitInfoKHR.npWaitSemaphoreValues(address()); }
-        /** @return the value of the {@link VkD3D12FenceSubmitInfoKHR#signalSemaphoreValuesCount} field. */
+        public @Nullable LongBuffer pWaitSemaphoreValues() { return VkD3D12FenceSubmitInfoKHR.npWaitSemaphoreValues(address()); }
+        /** @return the value of the {@code signalSemaphoreValuesCount} field. */
         @NativeType("uint32_t")
         public int signalSemaphoreValuesCount() { return VkD3D12FenceSubmitInfoKHR.nsignalSemaphoreValuesCount(address()); }
-        /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkD3D12FenceSubmitInfoKHR#pSignalSemaphoreValues} field. */
-        @Nullable
+        /** @return a {@link LongBuffer} view of the data pointed to by the {@code pSignalSemaphoreValues} field. */
         @NativeType("uint64_t const *")
-        public LongBuffer pSignalSemaphoreValues() { return VkD3D12FenceSubmitInfoKHR.npSignalSemaphoreValues(address()); }
+        public @Nullable LongBuffer pSignalSemaphoreValues() { return VkD3D12FenceSubmitInfoKHR.npSignalSemaphoreValues(address()); }
 
-        /** Sets the specified value to the {@link VkD3D12FenceSubmitInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkD3D12FenceSubmitInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRExternalSemaphoreWin32#VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR} value to the {@link VkD3D12FenceSubmitInfoKHR#sType} field. */
+        /** Sets the {@link KHRExternalSemaphoreWin32#VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR} value to the {@code sType} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer sType$Default() { return sType(KHRExternalSemaphoreWin32.VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR); }
-        /** Sets the specified value to the {@link VkD3D12FenceSubmitInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkD3D12FenceSubmitInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkD3D12FenceSubmitInfoKHR#waitSemaphoreValuesCount} field. */
+        /** Sets the specified value to the {@code waitSemaphoreValuesCount} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer waitSemaphoreValuesCount(@NativeType("uint32_t") int value) { VkD3D12FenceSubmitInfoKHR.nwaitSemaphoreValuesCount(address(), value); return this; }
-        /** Sets the address of the specified {@link LongBuffer} to the {@link VkD3D12FenceSubmitInfoKHR#pWaitSemaphoreValues} field. */
+        /** Sets the address of the specified {@link LongBuffer} to the {@code pWaitSemaphoreValues} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer pWaitSemaphoreValues(@Nullable @NativeType("uint64_t const *") LongBuffer value) { VkD3D12FenceSubmitInfoKHR.npWaitSemaphoreValues(address(), value); return this; }
-        /** Sets the specified value to the {@link VkD3D12FenceSubmitInfoKHR#signalSemaphoreValuesCount} field. */
+        /** Sets the specified value to the {@code signalSemaphoreValuesCount} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer signalSemaphoreValuesCount(@NativeType("uint32_t") int value) { VkD3D12FenceSubmitInfoKHR.nsignalSemaphoreValuesCount(address(), value); return this; }
-        /** Sets the address of the specified {@link LongBuffer} to the {@link VkD3D12FenceSubmitInfoKHR#pSignalSemaphoreValues} field. */
+        /** Sets the address of the specified {@link LongBuffer} to the {@code pSignalSemaphoreValues} field. */
         public VkD3D12FenceSubmitInfoKHR.Buffer pSignalSemaphoreValues(@Nullable @NativeType("uint64_t const *") LongBuffer value) { VkD3D12FenceSubmitInfoKHR.npSignalSemaphoreValues(address(), value); return this; }
 
     }

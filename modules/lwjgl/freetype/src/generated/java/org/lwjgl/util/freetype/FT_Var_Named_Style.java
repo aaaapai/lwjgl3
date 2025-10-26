@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,16 +15,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure to model a named instance in a TrueType GX or OpenType variation font.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Var_Named_Style {
  *     FT_Fixed * coords;
  *     FT_UInt strid;
  *     FT_UInt psid;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Var_Named_Style extends Struct<FT_Var_Named_Style> {
 
@@ -77,11 +73,7 @@ public class FT_Var_Named_Style extends Struct<FT_Var_Named_Style> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link CLongBuffer} view of the data pointed to by the {@code coords} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link CLongBuffer} view of the data pointed to by the {@code coords} field. */
     @NativeType("FT_Fixed *")
     public CLongBuffer coords(int capacity) { return ncoords(address(), capacity); }
     /** @return the value of the {@code strid} field. */
@@ -99,8 +91,7 @@ public class FT_Var_Named_Style extends Struct<FT_Var_Named_Style> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Var_Named_Style createSafe(long address) {
+    public static @Nullable FT_Var_Named_Style createSafe(long address) {
         return address == NULL ? null : new FT_Var_Named_Style(address, null);
     }
 
@@ -115,8 +106,7 @@ public class FT_Var_Named_Style extends Struct<FT_Var_Named_Style> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Var_Named_Style.Buffer createSafe(long address, int capacity) {
+    public static FT_Var_Named_Style.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -125,9 +115,9 @@ public class FT_Var_Named_Style extends Struct<FT_Var_Named_Style> {
     /** Unsafe version of {@link #coords(int) coords}. */
     public static CLongBuffer ncoords(long struct, int capacity) { return memCLongBuffer(memGetAddress(struct + FT_Var_Named_Style.COORDS), capacity); }
     /** Unsafe version of {@link #strid}. */
-    public static int nstrid(long struct) { return UNSAFE.getInt(null, struct + FT_Var_Named_Style.STRID); }
+    public static int nstrid(long struct) { return memGetInt(struct + FT_Var_Named_Style.STRID); }
     /** Unsafe version of {@link #psid}. */
-    public static int npsid(long struct) { return UNSAFE.getInt(null, struct + FT_Var_Named_Style.PSID); }
+    public static int npsid(long struct) { return memGetInt(struct + FT_Var_Named_Style.PSID); }
 
     // -----------------------------------
 
@@ -163,15 +153,16 @@ public class FT_Var_Named_Style extends Struct<FT_Var_Named_Style> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_Var_Named_Style getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link CLongBuffer} view of the data pointed to by the {@code coords} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link CLongBuffer} view of the data pointed to by the {@code coords} field. */
         @NativeType("FT_Fixed *")
         public CLongBuffer coords(int capacity) { return FT_Var_Named_Style.ncoords(address(), capacity); }
         /** @return the value of the {@code strid} field. */

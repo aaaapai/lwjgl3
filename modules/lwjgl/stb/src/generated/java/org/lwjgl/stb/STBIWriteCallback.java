@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -13,18 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.*;
 
-/**
- * Instances of this class may be used with the {@link STBImageWrite} {@code write_type_to_func} functions.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *context,
- *     void *data,
- *     int size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke stbi_write_func *} */
 public abstract class STBIWriteCallback extends Callback implements STBIWriteCallbackI {
 
     /**
@@ -40,8 +29,7 @@ public abstract class STBIWriteCallback extends Callback implements STBIWriteCal
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static STBIWriteCallback createSafe(long functionPointer) {
+    public static @Nullable STBIWriteCallback createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

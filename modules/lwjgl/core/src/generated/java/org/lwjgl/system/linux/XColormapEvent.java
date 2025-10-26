@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,19 +17,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XColormapEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
- *     Colormap {@link #colormap};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
+ *     Colormap colormap;
  *     int new;
- *     int {@link #state};
- * }</code></pre>
+ *     int state;
+ * }}</pre>
  */
 public class XColormapEvent extends Struct<XColormapEvent> implements NativeResource {
 
@@ -99,41 +97,41 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
-    /** colormap or {@link X11#None} */
+    /** @return the value of the {@code colormap} field. */
     @NativeType("Colormap")
     public long colormap() { return ncolormap(address()); }
     /** @return the value of the {@code new} field. */
     public int new$() { return nnew$(address()); }
-    /** one of:<br><table><tr><td>{@link X11#ColormapInstalled}</td><td>{@link X11#ColormapUninstalled}</td></tr></table> */
+    /** @return the value of the {@code state} field. */
     public int state() { return nstate(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XColormapEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XColormapEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XColormapEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XColormapEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XColormapEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
-    /** Sets the specified value to the {@link #colormap} field. */
+    /** Sets the specified value to the {@code colormap} field. */
     public XColormapEvent colormap(@NativeType("Colormap") long value) { ncolormap(address(), value); return this; }
     /** Sets the specified value to the {@code new} field. */
     public XColormapEvent new$(int value) { nnew$(address(), value); return this; }
-    /** Sets the specified value to the {@link #state} field. */
+    /** Sets the specified value to the {@code state} field. */
     public XColormapEvent state(int value) { nstate(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -195,8 +193,7 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XColormapEvent createSafe(long address) {
+    public static @Nullable XColormapEvent createSafe(long address) {
         return address == NULL ? null : new XColormapEvent(address, null);
     }
 
@@ -239,8 +236,7 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XColormapEvent.Buffer createSafe(long address, int capacity) {
+    public static XColormapEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -304,11 +300,11 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XColormapEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XColormapEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XColormapEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XColormapEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XColormapEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XColormapEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -316,16 +312,16 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
     /** Unsafe version of {@link #colormap}. */
     public static long ncolormap(long struct) { return memGetCLong(struct + XColormapEvent.COLORMAP); }
     /** Unsafe version of {@link #new$}. */
-    public static int nnew$(long struct) { return UNSAFE.getInt(null, struct + XColormapEvent.NEW); }
+    public static int nnew$(long struct) { return memGetInt(struct + XColormapEvent.NEW); }
     /** Unsafe version of {@link #state}. */
-    public static int nstate(long struct) { return UNSAFE.getInt(null, struct + XColormapEvent.STATE); }
+    public static int nstate(long struct) { return memGetInt(struct + XColormapEvent.STATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XColormapEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XColormapEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XColormapEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XColormapEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XColormapEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XColormapEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -333,9 +329,9 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
     /** Unsafe version of {@link #colormap(long) colormap}. */
     public static void ncolormap(long struct, long value) { memPutCLong(struct + XColormapEvent.COLORMAP, value); }
     /** Unsafe version of {@link #new$(int) new$}. */
-    public static void nnew$(long struct, int value) { UNSAFE.putInt(null, struct + XColormapEvent.NEW, value); }
+    public static void nnew$(long struct, int value) { memPutInt(struct + XColormapEvent.NEW, value); }
     /** Unsafe version of {@link #state(int) state}. */
-    public static void nstate(long struct, int value) { UNSAFE.putInt(null, struct + XColormapEvent.STATE, value); }
+    public static void nstate(long struct, int value) { memPutInt(struct + XColormapEvent.STATE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -380,47 +376,52 @@ public class XColormapEvent extends Struct<XColormapEvent> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XColormapEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XColormapEvent.ntype(address()); }
-        /** @return the value of the {@link XColormapEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XColormapEvent.nserial(address()); }
-        /** @return the value of the {@link XColormapEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XColormapEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XColormapEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XColormapEvent.ndisplay(address()); }
-        /** @return the value of the {@link XColormapEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XColormapEvent.nwindow(address()); }
-        /** @return the value of the {@link XColormapEvent#colormap} field. */
+        /** @return the value of the {@code colormap} field. */
         @NativeType("Colormap")
         public long colormap() { return XColormapEvent.ncolormap(address()); }
         /** @return the value of the {@code new} field. */
         public int new$() { return XColormapEvent.nnew$(address()); }
-        /** @return the value of the {@link XColormapEvent#state} field. */
+        /** @return the value of the {@code state} field. */
         public int state() { return XColormapEvent.nstate(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XColormapEvent.Buffer type(int value) { XColormapEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XColormapEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XColormapEvent.Buffer serial(@NativeType("unsigned long") long value) { XColormapEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XColormapEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XColormapEvent.Buffer send_event(@NativeType("Bool") boolean value) { XColormapEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XColormapEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XColormapEvent.Buffer display(@NativeType("Display *") long value) { XColormapEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XColormapEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XColormapEvent.Buffer window(@NativeType("Window") long value) { XColormapEvent.nwindow(address(), value); return this; }
-        /** Sets the specified value to the {@link XColormapEvent#colormap} field. */
+        /** Sets the specified value to the {@code colormap} field. */
         public XColormapEvent.Buffer colormap(@NativeType("Colormap") long value) { XColormapEvent.ncolormap(address(), value); return this; }
         /** Sets the specified value to the {@code new} field. */
         public XColormapEvent.Buffer new$(int value) { XColormapEvent.nnew$(address(), value); return this; }
-        /** Sets the specified value to the {@link XColormapEvent#state} field. */
+        /** Sets the specified value to the {@code state} field. */
         public XColormapEvent.Buffer state(int value) { XColormapEvent.nstate(address(), value); return this; }
 
     }

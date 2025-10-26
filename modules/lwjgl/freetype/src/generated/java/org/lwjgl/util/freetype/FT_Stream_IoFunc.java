@@ -5,23 +5,13 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * unsigned long (*{@link #invoke}) (
- *     FT_Stream stream,
- *     unsigned long offset,
- *     unsigned char *buffer,
- *     unsigned long count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Stream_IoFunc} */
 public abstract class FT_Stream_IoFunc extends Callback implements FT_Stream_IoFuncI {
 
     /**
@@ -37,8 +27,7 @@ public abstract class FT_Stream_IoFunc extends Callback implements FT_Stream_IoF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static FT_Stream_IoFunc createSafe(long functionPointer) {
+    public static @Nullable FT_Stream_IoFunc createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

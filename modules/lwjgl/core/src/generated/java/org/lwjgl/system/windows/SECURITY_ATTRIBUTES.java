@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure
- * provides security settings for objects created by various functions, such as {@code CreateFile}, {@code CreatePipe}, {@code CreateProcess},
- * {@code RegCreateKeyEx}, or {@code RegSaveKeyEx}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct SECURITY_ATTRIBUTES {
- *     DWORD {@link #nLength};
- *     LPVOID {@link #lpSecurityDescriptor};
- *     BOOL {@link #bInheritHandle};
- * }</code></pre>
+ *     DWORD nLength;
+ *     LPVOID lpSecurityDescriptor;
+ *     BOOL bInheritHandle;
+ * }}</pre>
  */
 public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements NativeResource {
 
@@ -81,26 +75,21 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the size, in bytes, of this structure. Set this value to {@link #SIZEOF}. */
+    /** @return the value of the {@code nLength} field. */
     @NativeType("DWORD")
     public int nLength() { return nnLength(address()); }
-    /**
-     * a pointer to a {@code SECURITY_DESCRIPTOR} structure that controls access to the object. If the value of this member is {@code NULL}, the object is assigned
-     * the default security descriptor associated with the access token of the calling process. This is not the same as granting access to everyone by
-     * assigning a {@code NULL} discretionary access control list (DACL). By default, the default DACL in the access token of a process allows access only to the
-     * user represented by the access token.
-     */
+    /** @return the value of the {@code lpSecurityDescriptor} field. */
     @NativeType("LPVOID")
     public long lpSecurityDescriptor() { return nlpSecurityDescriptor(address()); }
-    /** specifies whether the returned handle is inherited when a new process is created. If this member is {@code TRUE}, the new process inherits the handle. */
+    /** @return the value of the {@code bInheritHandle} field. */
     @NativeType("BOOL")
     public boolean bInheritHandle() { return nbInheritHandle(address()) != 0; }
 
-    /** Sets the specified value to the {@link #nLength} field. */
+    /** Sets the specified value to the {@code nLength} field. */
     public SECURITY_ATTRIBUTES nLength(@NativeType("DWORD") int value) { nnLength(address(), value); return this; }
-    /** Sets the specified value to the {@link #lpSecurityDescriptor} field. */
+    /** Sets the specified value to the {@code lpSecurityDescriptor} field. */
     public SECURITY_ATTRIBUTES lpSecurityDescriptor(@NativeType("LPVOID") long value) { nlpSecurityDescriptor(address(), value); return this; }
-    /** Sets the specified value to the {@link #bInheritHandle} field. */
+    /** Sets the specified value to the {@code bInheritHandle} field. */
     public SECURITY_ATTRIBUTES bInheritHandle(@NativeType("BOOL") boolean value) { nbInheritHandle(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +141,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SECURITY_ATTRIBUTES createSafe(long address) {
+    public static @Nullable SECURITY_ATTRIBUTES createSafe(long address) {
         return address == NULL ? null : new SECURITY_ATTRIBUTES(address, null);
     }
 
@@ -196,8 +184,7 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SECURITY_ATTRIBUTES.Buffer createSafe(long address, int capacity) {
+    public static SECURITY_ATTRIBUTES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,18 +248,18 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #nLength}. */
-    public static int nnLength(long struct) { return UNSAFE.getInt(null, struct + SECURITY_ATTRIBUTES.NLENGTH); }
+    public static int nnLength(long struct) { return memGetInt(struct + SECURITY_ATTRIBUTES.NLENGTH); }
     /** Unsafe version of {@link #lpSecurityDescriptor}. */
     public static long nlpSecurityDescriptor(long struct) { return memGetAddress(struct + SECURITY_ATTRIBUTES.LPSECURITYDESCRIPTOR); }
     /** Unsafe version of {@link #bInheritHandle}. */
-    public static int nbInheritHandle(long struct) { return UNSAFE.getInt(null, struct + SECURITY_ATTRIBUTES.BINHERITHANDLE); }
+    public static int nbInheritHandle(long struct) { return memGetInt(struct + SECURITY_ATTRIBUTES.BINHERITHANDLE); }
 
     /** Unsafe version of {@link #nLength(int) nLength}. */
-    public static void nnLength(long struct, int value) { UNSAFE.putInt(null, struct + SECURITY_ATTRIBUTES.NLENGTH, value); }
+    public static void nnLength(long struct, int value) { memPutInt(struct + SECURITY_ATTRIBUTES.NLENGTH, value); }
     /** Unsafe version of {@link #lpSecurityDescriptor(long) lpSecurityDescriptor}. */
     public static void nlpSecurityDescriptor(long struct, long value) { memPutAddress(struct + SECURITY_ATTRIBUTES.LPSECURITYDESCRIPTOR, check(value)); }
     /** Unsafe version of {@link #bInheritHandle(boolean) bInheritHandle}. */
-    public static void nbInheritHandle(long struct, int value) { UNSAFE.putInt(null, struct + SECURITY_ATTRIBUTES.BINHERITHANDLE, value); }
+    public static void nbInheritHandle(long struct, int value) { memPutInt(struct + SECURITY_ATTRIBUTES.BINHERITHANDLE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -317,25 +304,30 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected SECURITY_ATTRIBUTES getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link SECURITY_ATTRIBUTES#nLength} field. */
+        /** @return the value of the {@code nLength} field. */
         @NativeType("DWORD")
         public int nLength() { return SECURITY_ATTRIBUTES.nnLength(address()); }
-        /** @return the value of the {@link SECURITY_ATTRIBUTES#lpSecurityDescriptor} field. */
+        /** @return the value of the {@code lpSecurityDescriptor} field. */
         @NativeType("LPVOID")
         public long lpSecurityDescriptor() { return SECURITY_ATTRIBUTES.nlpSecurityDescriptor(address()); }
-        /** @return the value of the {@link SECURITY_ATTRIBUTES#bInheritHandle} field. */
+        /** @return the value of the {@code bInheritHandle} field. */
         @NativeType("BOOL")
         public boolean bInheritHandle() { return SECURITY_ATTRIBUTES.nbInheritHandle(address()) != 0; }
 
-        /** Sets the specified value to the {@link SECURITY_ATTRIBUTES#nLength} field. */
+        /** Sets the specified value to the {@code nLength} field. */
         public SECURITY_ATTRIBUTES.Buffer nLength(@NativeType("DWORD") int value) { SECURITY_ATTRIBUTES.nnLength(address(), value); return this; }
-        /** Sets the specified value to the {@link SECURITY_ATTRIBUTES#lpSecurityDescriptor} field. */
+        /** Sets the specified value to the {@code lpSecurityDescriptor} field. */
         public SECURITY_ATTRIBUTES.Buffer lpSecurityDescriptor(@NativeType("LPVOID") long value) { SECURITY_ATTRIBUTES.nlpSecurityDescriptor(address(), value); return this; }
-        /** Sets the specified value to the {@link SECURITY_ATTRIBUTES#bInheritHandle} field. */
+        /** Sets the specified value to the {@code bInheritHandle} field. */
         public SECURITY_ATTRIBUTES.Buffer bInheritHandle(@NativeType("BOOL") boolean value) { SECURITY_ATTRIBUTES.nbInheritHandle(address(), value ? 1 : 0); return this; }
 
     }

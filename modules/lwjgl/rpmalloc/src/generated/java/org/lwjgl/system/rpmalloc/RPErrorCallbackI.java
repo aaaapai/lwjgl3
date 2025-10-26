@@ -12,22 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@link RPMallocConfig} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     char const *message
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void (*) (char const *)")
 public interface RPErrorCallbackI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -42,7 +32,7 @@ public interface RPErrorCallbackI extends CallbackI {
         );
     }
 
-    /** Called when an assert fails, if asserts are enabled. Will use the standard {@code assert()} if this is not set. */
+    /** {@code void (*) (char const * message)} */
     void invoke(@NativeType("char const *") long message);
 
 }

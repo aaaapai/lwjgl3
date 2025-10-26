@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether querying shader group handles from a pipeline library is supported by the implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTPipelineLibraryGroupHandles#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkBool32 {@link #pipelineLibraryGroupHandles};
- * }</code></pre>
+ *     VkBool32 pipelineLibraryGroupHandles;
+ * }}</pre>
  */
 public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Struct<VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT> implements NativeResource {
 
@@ -94,7 +80,7 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports querying group handles directly from a ray tracing pipeline library, and guarantees bitwise identical group handles for such libraries when linked into other pipelines. */
+    /** @return the value of the {@code pipelineLibraryGroupHandles} field. */
     @NativeType("VkBool32")
     public boolean pipelineLibraryGroupHandles() { return npipelineLibraryGroupHandles(address()) != 0; }
 
@@ -104,7 +90,7 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
     public VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT sType$Default() { return sType(EXTPipelineLibraryGroupHandles.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #pipelineLibraryGroupHandles} field. */
+    /** Sets the specified value to the {@code pipelineLibraryGroupHandles} field. */
     public VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT pipelineLibraryGroupHandles(@NativeType("VkBool32") boolean value) { npipelineLibraryGroupHandles(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #pipelineLibraryGroupHandles}. */
-    public static int npipelineLibraryGroupHandles(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.PIPELINELIBRARYGROUPHANDLES); }
+    public static int npipelineLibraryGroupHandles(long struct) { return memGetInt(struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.PIPELINELIBRARYGROUPHANDLES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #pipelineLibraryGroupHandles(boolean) pipelineLibraryGroupHandles}. */
-    public static void npipelineLibraryGroupHandles(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.PIPELINELIBRARYGROUPHANDLES, value); }
+    public static void npipelineLibraryGroupHandles(long struct, int value) { memPutInt(struct + VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.PIPELINELIBRARYGROUPHANDLES, value); }
 
     // -----------------------------------
 
@@ -293,6 +277,11 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -303,7 +292,7 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT#pipelineLibraryGroupHandles} field. */
+        /** @return the value of the {@code pipelineLibraryGroupHandles} field. */
         @NativeType("VkBool32")
         public boolean pipelineLibraryGroupHandles() { return VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.npipelineLibraryGroupHandles(address()) != 0; }
 
@@ -313,7 +302,7 @@ public class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT extends Stru
         public VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.Buffer sType$Default() { return sType(EXTPipelineLibraryGroupHandles.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT#pipelineLibraryGroupHandles} field. */
+        /** Sets the specified value to the {@code pipelineLibraryGroupHandles} field. */
         public VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.Buffer pipelineLibraryGroupHandles(@NativeType("VkBool32") boolean value) { VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT.npipelineLibraryGroupHandles(address(), value ? 1 : 0); return this; }
 
     }

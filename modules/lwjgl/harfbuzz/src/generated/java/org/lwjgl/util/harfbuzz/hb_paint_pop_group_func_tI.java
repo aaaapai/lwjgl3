@@ -12,23 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     hb_paint_funcs_t *funcs,
- *     void *paint_data,
- *     hb_paint_composite_mode_t mode,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_paint_pop_group_func_t} */
 @FunctionalInterface
 @NativeType("hb_paint_pop_group_func_t")
 public interface hb_paint_pop_group_func_tI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_pointer
     );
@@ -46,6 +35,7 @@ public interface hb_paint_pop_group_func_tI extends CallbackI {
         );
     }
 
+    /** {@code void (* hb_paint_pop_group_func_t) (hb_paint_funcs_t * funcs, void * paint_data, hb_paint_composite_mode_t mode, void * user_data)} */
     void invoke(@NativeType("hb_paint_funcs_t *") long funcs, @NativeType("void *") long paint_data, @NativeType("hb_paint_composite_mode_t") int mode, @NativeType("void *") long user_data);
 
 }

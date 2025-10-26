@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a indirect drawing command.
- * 
- * <h5>Description</h5>
- * 
- * <p>The members of {@link VkDrawIndirectCommand} have the same meaning as the similarly named parameters of {@link VK10#vkCmdDraw CmdDraw}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>For a given vertex buffer binding, any attribute data fetched <b>must</b> be entirely contained within the corresponding vertex buffer binding, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fxvertex-input">Vertex Input Description</a></li>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-drawIndirectFirstInstance">{@code drawIndirectFirstInstance}</a> feature is not enabled, {@code firstInstance} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK10#vkCmdDrawIndirect CmdDrawIndirect}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDrawIndirectCommand {
- *     uint32_t {@link #vertexCount};
- *     uint32_t {@link #instanceCount};
- *     uint32_t {@link #firstVertex};
- *     uint32_t {@link #firstInstance};
- * }</code></pre>
+ *     uint32_t vertexCount;
+ *     uint32_t instanceCount;
+ *     uint32_t firstVertex;
+ *     uint32_t firstInstance;
+ * }}</pre>
  */
 public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> implements NativeResource {
 
@@ -97,26 +78,26 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of vertices to draw. */
+    /** @return the value of the {@code vertexCount} field. */
     @NativeType("uint32_t")
     public int vertexCount() { return nvertexCount(address()); }
-    /** the number of instances to draw. */
+    /** @return the value of the {@code instanceCount} field. */
     @NativeType("uint32_t")
     public int instanceCount() { return ninstanceCount(address()); }
-    /** the index of the first vertex to draw. */
+    /** @return the value of the {@code firstVertex} field. */
     @NativeType("uint32_t")
     public int firstVertex() { return nfirstVertex(address()); }
-    /** the instance ID of the first instance to draw. */
+    /** @return the value of the {@code firstInstance} field. */
     @NativeType("uint32_t")
     public int firstInstance() { return nfirstInstance(address()); }
 
-    /** Sets the specified value to the {@link #vertexCount} field. */
+    /** Sets the specified value to the {@code vertexCount} field. */
     public VkDrawIndirectCommand vertexCount(@NativeType("uint32_t") int value) { nvertexCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #instanceCount} field. */
+    /** Sets the specified value to the {@code instanceCount} field. */
     public VkDrawIndirectCommand instanceCount(@NativeType("uint32_t") int value) { ninstanceCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #firstVertex} field. */
+    /** Sets the specified value to the {@code firstVertex} field. */
     public VkDrawIndirectCommand firstVertex(@NativeType("uint32_t") int value) { nfirstVertex(address(), value); return this; }
-    /** Sets the specified value to the {@link #firstInstance} field. */
+    /** Sets the specified value to the {@code firstInstance} field. */
     public VkDrawIndirectCommand firstInstance(@NativeType("uint32_t") int value) { nfirstInstance(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -170,8 +151,7 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndirectCommand createSafe(long address) {
+    public static @Nullable VkDrawIndirectCommand createSafe(long address) {
         return address == NULL ? null : new VkDrawIndirectCommand(address, null);
     }
 
@@ -214,8 +194,7 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawIndirectCommand.Buffer createSafe(long address, int capacity) {
+    public static VkDrawIndirectCommand.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,22 +258,22 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #vertexCount}. */
-    public static int nvertexCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.VERTEXCOUNT); }
+    public static int nvertexCount(long struct) { return memGetInt(struct + VkDrawIndirectCommand.VERTEXCOUNT); }
     /** Unsafe version of {@link #instanceCount}. */
-    public static int ninstanceCount(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.INSTANCECOUNT); }
+    public static int ninstanceCount(long struct) { return memGetInt(struct + VkDrawIndirectCommand.INSTANCECOUNT); }
     /** Unsafe version of {@link #firstVertex}. */
-    public static int nfirstVertex(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.FIRSTVERTEX); }
+    public static int nfirstVertex(long struct) { return memGetInt(struct + VkDrawIndirectCommand.FIRSTVERTEX); }
     /** Unsafe version of {@link #firstInstance}. */
-    public static int nfirstInstance(long struct) { return UNSAFE.getInt(null, struct + VkDrawIndirectCommand.FIRSTINSTANCE); }
+    public static int nfirstInstance(long struct) { return memGetInt(struct + VkDrawIndirectCommand.FIRSTINSTANCE); }
 
     /** Unsafe version of {@link #vertexCount(int) vertexCount}. */
-    public static void nvertexCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.VERTEXCOUNT, value); }
+    public static void nvertexCount(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.VERTEXCOUNT, value); }
     /** Unsafe version of {@link #instanceCount(int) instanceCount}. */
-    public static void ninstanceCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.INSTANCECOUNT, value); }
+    public static void ninstanceCount(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.INSTANCECOUNT, value); }
     /** Unsafe version of {@link #firstVertex(int) firstVertex}. */
-    public static void nfirstVertex(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.FIRSTVERTEX, value); }
+    public static void nfirstVertex(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.FIRSTVERTEX, value); }
     /** Unsafe version of {@link #firstInstance(int) firstInstance}. */
-    public static void nfirstInstance(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawIndirectCommand.FIRSTINSTANCE, value); }
+    public static void nfirstInstance(long struct, int value) { memPutInt(struct + VkDrawIndirectCommand.FIRSTINSTANCE, value); }
 
     // -----------------------------------
 
@@ -330,30 +309,35 @@ public class VkDrawIndirectCommand extends Struct<VkDrawIndirectCommand> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDrawIndirectCommand getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDrawIndirectCommand#vertexCount} field. */
+        /** @return the value of the {@code vertexCount} field. */
         @NativeType("uint32_t")
         public int vertexCount() { return VkDrawIndirectCommand.nvertexCount(address()); }
-        /** @return the value of the {@link VkDrawIndirectCommand#instanceCount} field. */
+        /** @return the value of the {@code instanceCount} field. */
         @NativeType("uint32_t")
         public int instanceCount() { return VkDrawIndirectCommand.ninstanceCount(address()); }
-        /** @return the value of the {@link VkDrawIndirectCommand#firstVertex} field. */
+        /** @return the value of the {@code firstVertex} field. */
         @NativeType("uint32_t")
         public int firstVertex() { return VkDrawIndirectCommand.nfirstVertex(address()); }
-        /** @return the value of the {@link VkDrawIndirectCommand#firstInstance} field. */
+        /** @return the value of the {@code firstInstance} field. */
         @NativeType("uint32_t")
         public int firstInstance() { return VkDrawIndirectCommand.nfirstInstance(address()); }
 
-        /** Sets the specified value to the {@link VkDrawIndirectCommand#vertexCount} field. */
+        /** Sets the specified value to the {@code vertexCount} field. */
         public VkDrawIndirectCommand.Buffer vertexCount(@NativeType("uint32_t") int value) { VkDrawIndirectCommand.nvertexCount(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDrawIndirectCommand#instanceCount} field. */
+        /** Sets the specified value to the {@code instanceCount} field. */
         public VkDrawIndirectCommand.Buffer instanceCount(@NativeType("uint32_t") int value) { VkDrawIndirectCommand.ninstanceCount(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDrawIndirectCommand#firstVertex} field. */
+        /** Sets the specified value to the {@code firstVertex} field. */
         public VkDrawIndirectCommand.Buffer firstVertex(@NativeType("uint32_t") int value) { VkDrawIndirectCommand.nfirstVertex(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDrawIndirectCommand#firstInstance} field. */
+        /** Sets the specified value to the {@code firstInstance} field. */
         public VkDrawIndirectCommand.Buffer firstInstance(@NativeType("uint32_t") int value) { VkDrawIndirectCommand.nfirstInstance(address(), value); return this; }
 
     }

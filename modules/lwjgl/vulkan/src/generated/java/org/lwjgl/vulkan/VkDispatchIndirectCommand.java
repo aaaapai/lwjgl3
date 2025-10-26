@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a indirect dispatching command.
- * 
- * <h5>Description</h5>
- * 
- * <p>The members of {@link VkDispatchIndirectCommand} have the same meaning as the corresponding parameters of {@link VK10#vkCmdDispatch CmdDispatch}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code x} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[0]</li>
- * <li>{@code y} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[1]</li>
- * <li>{@code z} <b>must</b> be less than or equal to {@link VkPhysicalDeviceLimits}{@code ::maxComputeWorkGroupCount}[2]</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK10#vkCmdDispatchIndirect CmdDispatchIndirect}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDispatchIndirectCommand {
- *     uint32_t {@link #x};
- *     uint32_t {@link #y};
- *     uint32_t {@link #z};
- * }</code></pre>
+ *     uint32_t x;
+ *     uint32_t y;
+ *     uint32_t z;
+ * }}</pre>
  */
 public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand> implements NativeResource {
 
@@ -94,21 +74,21 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of local workgroups to dispatch in the X dimension. */
+    /** @return the value of the {@code x} field. */
     @NativeType("uint32_t")
     public int x() { return nx(address()); }
-    /** the number of local workgroups to dispatch in the Y dimension. */
+    /** @return the value of the {@code y} field. */
     @NativeType("uint32_t")
     public int y() { return ny(address()); }
-    /** the number of local workgroups to dispatch in the Z dimension. */
+    /** @return the value of the {@code z} field. */
     @NativeType("uint32_t")
     public int z() { return nz(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkDispatchIndirectCommand x(@NativeType("uint32_t") int value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkDispatchIndirectCommand y(@NativeType("uint32_t") int value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #z} field. */
+    /** Sets the specified value to the {@code z} field. */
     public VkDispatchIndirectCommand z(@NativeType("uint32_t") int value) { nz(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -160,8 +140,7 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDispatchIndirectCommand createSafe(long address) {
+    public static @Nullable VkDispatchIndirectCommand createSafe(long address) {
         return address == NULL ? null : new VkDispatchIndirectCommand(address, null);
     }
 
@@ -204,8 +183,7 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDispatchIndirectCommand.Buffer createSafe(long address, int capacity) {
+    public static VkDispatchIndirectCommand.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,18 +247,18 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + VkDispatchIndirectCommand.X); }
+    public static int nx(long struct) { return memGetInt(struct + VkDispatchIndirectCommand.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + VkDispatchIndirectCommand.Y); }
+    public static int ny(long struct) { return memGetInt(struct + VkDispatchIndirectCommand.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + VkDispatchIndirectCommand.Z); }
+    public static int nz(long struct) { return memGetInt(struct + VkDispatchIndirectCommand.Z); }
 
     /** Unsafe version of {@link #x(int) x}. */
-    public static void nx(long struct, int value) { UNSAFE.putInt(null, struct + VkDispatchIndirectCommand.X, value); }
+    public static void nx(long struct, int value) { memPutInt(struct + VkDispatchIndirectCommand.X, value); }
     /** Unsafe version of {@link #y(int) y}. */
-    public static void ny(long struct, int value) { UNSAFE.putInt(null, struct + VkDispatchIndirectCommand.Y, value); }
+    public static void ny(long struct, int value) { memPutInt(struct + VkDispatchIndirectCommand.Y, value); }
     /** Unsafe version of {@link #z(int) z}. */
-    public static void nz(long struct, int value) { UNSAFE.putInt(null, struct + VkDispatchIndirectCommand.Z, value); }
+    public static void nz(long struct, int value) { memPutInt(struct + VkDispatchIndirectCommand.Z, value); }
 
     // -----------------------------------
 
@@ -316,25 +294,30 @@ public class VkDispatchIndirectCommand extends Struct<VkDispatchIndirectCommand>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDispatchIndirectCommand getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDispatchIndirectCommand#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("uint32_t")
         public int x() { return VkDispatchIndirectCommand.nx(address()); }
-        /** @return the value of the {@link VkDispatchIndirectCommand#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("uint32_t")
         public int y() { return VkDispatchIndirectCommand.ny(address()); }
-        /** @return the value of the {@link VkDispatchIndirectCommand#z} field. */
+        /** @return the value of the {@code z} field. */
         @NativeType("uint32_t")
         public int z() { return VkDispatchIndirectCommand.nz(address()); }
 
-        /** Sets the specified value to the {@link VkDispatchIndirectCommand#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkDispatchIndirectCommand.Buffer x(@NativeType("uint32_t") int value) { VkDispatchIndirectCommand.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDispatchIndirectCommand#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkDispatchIndirectCommand.Buffer y(@NativeType("uint32_t") int value) { VkDispatchIndirectCommand.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDispatchIndirectCommand#z} field. */
+        /** Sets the specified value to the {@code z} field. */
         public VkDispatchIndirectCommand.Buffer z(@NativeType("uint32_t") int value) { VkDispatchIndirectCommand.nz(address(), value); return this; }
 
     }

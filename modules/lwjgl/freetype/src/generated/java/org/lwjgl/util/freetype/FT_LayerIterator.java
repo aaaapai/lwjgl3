@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * This iterator object is needed for {@link FreeType#FT_Get_Color_Glyph_Layer Get_Color_Glyph_Layer}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_LayerIterator {
  *     FT_UInt num_layers;
  *     FT_UInt layer;
  *     FT_Byte * p;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_LayerIterator extends Struct<FT_LayerIterator> implements NativeResource {
 
@@ -84,14 +80,9 @@ public class FT_LayerIterator extends Struct<FT_LayerIterator> implements Native
     /** @return the value of the {@code layer} field. */
     @NativeType("FT_UInt")
     public int layer() { return nlayer(address()); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code p} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code p} field. */
     @NativeType("FT_Byte *")
-    public ByteBuffer p(int capacity) { return np(address(), capacity); }
+    public @Nullable ByteBuffer p(int capacity) { return np(address(), capacity); }
 
     // -----------------------------------
 
@@ -117,8 +108,7 @@ public class FT_LayerIterator extends Struct<FT_LayerIterator> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_LayerIterator createSafe(long address) {
+    public static @Nullable FT_LayerIterator createSafe(long address) {
         return address == NULL ? null : new FT_LayerIterator(address, null);
     }
 
@@ -161,8 +151,7 @@ public class FT_LayerIterator extends Struct<FT_LayerIterator> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_LayerIterator.Buffer createSafe(long address, int capacity) {
+    public static FT_LayerIterator.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -207,11 +196,11 @@ public class FT_LayerIterator extends Struct<FT_LayerIterator> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #num_layers}. */
-    public static int nnum_layers(long struct) { return UNSAFE.getInt(null, struct + FT_LayerIterator.NUM_LAYERS); }
+    public static int nnum_layers(long struct) { return memGetInt(struct + FT_LayerIterator.NUM_LAYERS); }
     /** Unsafe version of {@link #layer}. */
-    public static int nlayer(long struct) { return UNSAFE.getInt(null, struct + FT_LayerIterator.LAYER); }
+    public static int nlayer(long struct) { return memGetInt(struct + FT_LayerIterator.LAYER); }
     /** Unsafe version of {@link #p(int) p}. */
-    @Nullable public static ByteBuffer np(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_LayerIterator.P), capacity); }
+    public static @Nullable ByteBuffer np(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_LayerIterator.P), capacity); }
 
     // -----------------------------------
 
@@ -247,6 +236,11 @@ public class FT_LayerIterator extends Struct<FT_LayerIterator> implements Native
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_LayerIterator getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -257,14 +251,9 @@ public class FT_LayerIterator extends Struct<FT_LayerIterator> implements Native
         /** @return the value of the {@code layer} field. */
         @NativeType("FT_UInt")
         public int layer() { return FT_LayerIterator.nlayer(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code p} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code p} field. */
         @NativeType("FT_Byte *")
-        public ByteBuffer p(int capacity) { return FT_LayerIterator.np(address(), capacity); }
+        public @Nullable ByteBuffer p(int capacity) { return FT_LayerIterator.np(address(), capacity); }
 
     }
 

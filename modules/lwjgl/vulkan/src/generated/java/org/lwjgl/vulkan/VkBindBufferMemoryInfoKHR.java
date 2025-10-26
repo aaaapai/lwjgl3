@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkBindBufferMemoryInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBindBufferMemoryInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkBuffer buffer;
  *     VkDeviceMemory memory;
  *     VkDeviceSize memoryOffset;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkBindBufferMemoryInfoKHR extends VkBindBufferMemoryInfo {
 
@@ -123,8 +119,7 @@ public class VkBindBufferMemoryInfoKHR extends VkBindBufferMemoryInfo {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindBufferMemoryInfoKHR createSafe(long address) {
+    public static @Nullable VkBindBufferMemoryInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkBindBufferMemoryInfoKHR(address, null);
     }
 
@@ -167,8 +162,7 @@ public class VkBindBufferMemoryInfoKHR extends VkBindBufferMemoryInfo {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindBufferMemoryInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkBindBufferMemoryInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -260,6 +254,11 @@ public class VkBindBufferMemoryInfoKHR extends VkBindBufferMemoryInfo {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.bgfx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,20 +14,16 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * View stats.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_view_stats_t {
- *     char {@link #name}[256];
- *     bgfx_view_id_t {@link #view};
- *     int64_t {@link #cpuTimeBegin};
- *     int64_t {@link #cpuTimeEnd};
- *     int64_t {@link #gpuTimeBegin};
- *     int64_t {@link #gpuTimeEnd};
- *     uint32_t {@link #gpuFrameNum};
- * }</code></pre>
+ *     char name[256];
+ *     bgfx_view_id_t view;
+ *     int64_t cpuTimeBegin;
+ *     int64_t cpuTimeEnd;
+ *     int64_t gpuTimeBegin;
+ *     int64_t gpuTimeEnd;
+ *     uint32_t gpuFrameNum;
+ * }}</pre>
  */
 @NativeType("struct bgfx_view_stats_t")
 public class BGFXViewStats extends Struct<BGFXViewStats> {
@@ -93,28 +89,28 @@ public class BGFXViewStats extends Struct<BGFXViewStats> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** view name */
+    /** @return a {@link ByteBuffer} view of the {@code name} field. */
     @NativeType("char[256]")
     public ByteBuffer name() { return nname(address()); }
-    /** view name */
+    /** @return the null-terminated string stored in the {@code name} field. */
     @NativeType("char[256]")
     public String nameString() { return nnameString(address()); }
-    /** view id */
+    /** @return the value of the {@code view} field. */
     @NativeType("bgfx_view_id_t")
     public short view() { return nview(address()); }
-    /** CPU (submit) begin time */
+    /** @return the value of the {@code cpuTimeBegin} field. */
     @NativeType("int64_t")
     public long cpuTimeBegin() { return ncpuTimeBegin(address()); }
-    /** CPU (submit) end time */
+    /** @return the value of the {@code cpuTimeEnd} field. */
     @NativeType("int64_t")
     public long cpuTimeEnd() { return ncpuTimeEnd(address()); }
-    /** GPU begin time */
+    /** @return the value of the {@code gpuTimeBegin} field. */
     @NativeType("int64_t")
     public long gpuTimeBegin() { return ngpuTimeBegin(address()); }
-    /** GPU end time */
+    /** @return the value of the {@code gpuTimeEnd} field. */
     @NativeType("int64_t")
     public long gpuTimeEnd() { return ngpuTimeEnd(address()); }
-    /** frame which generated {@code gpuTimeBegin}, {@code gpuTimeEnd} */
+    /** @return the value of the {@code gpuFrameNum} field. */
     @NativeType("uint32_t")
     public int gpuFrameNum() { return ngpuFrameNum(address()); }
 
@@ -126,8 +122,7 @@ public class BGFXViewStats extends Struct<BGFXViewStats> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXViewStats createSafe(long address) {
+    public static @Nullable BGFXViewStats createSafe(long address) {
         return address == NULL ? null : new BGFXViewStats(address, null);
     }
 
@@ -142,8 +137,7 @@ public class BGFXViewStats extends Struct<BGFXViewStats> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static BGFXViewStats.Buffer createSafe(long address, int capacity) {
+    public static BGFXViewStats.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -154,17 +148,17 @@ public class BGFXViewStats extends Struct<BGFXViewStats> {
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memASCII(struct + BGFXViewStats.NAME); }
     /** Unsafe version of {@link #view}. */
-    public static short nview(long struct) { return UNSAFE.getShort(null, struct + BGFXViewStats.VIEW); }
+    public static short nview(long struct) { return memGetShort(struct + BGFXViewStats.VIEW); }
     /** Unsafe version of {@link #cpuTimeBegin}. */
-    public static long ncpuTimeBegin(long struct) { return UNSAFE.getLong(null, struct + BGFXViewStats.CPUTIMEBEGIN); }
+    public static long ncpuTimeBegin(long struct) { return memGetLong(struct + BGFXViewStats.CPUTIMEBEGIN); }
     /** Unsafe version of {@link #cpuTimeEnd}. */
-    public static long ncpuTimeEnd(long struct) { return UNSAFE.getLong(null, struct + BGFXViewStats.CPUTIMEEND); }
+    public static long ncpuTimeEnd(long struct) { return memGetLong(struct + BGFXViewStats.CPUTIMEEND); }
     /** Unsafe version of {@link #gpuTimeBegin}. */
-    public static long ngpuTimeBegin(long struct) { return UNSAFE.getLong(null, struct + BGFXViewStats.GPUTIMEBEGIN); }
+    public static long ngpuTimeBegin(long struct) { return memGetLong(struct + BGFXViewStats.GPUTIMEBEGIN); }
     /** Unsafe version of {@link #gpuTimeEnd}. */
-    public static long ngpuTimeEnd(long struct) { return UNSAFE.getLong(null, struct + BGFXViewStats.GPUTIMEEND); }
+    public static long ngpuTimeEnd(long struct) { return memGetLong(struct + BGFXViewStats.GPUTIMEEND); }
     /** Unsafe version of {@link #gpuFrameNum}. */
-    public static int ngpuFrameNum(long struct) { return UNSAFE.getInt(null, struct + BGFXViewStats.GPUFRAMENUM); }
+    public static int ngpuFrameNum(long struct) { return memGetInt(struct + BGFXViewStats.GPUFRAMENUM); }
 
     // -----------------------------------
 
@@ -200,32 +194,37 @@ public class BGFXViewStats extends Struct<BGFXViewStats> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected BGFXViewStats getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link BGFXViewStats#name} field. */
+        /** @return a {@link ByteBuffer} view of the {@code name} field. */
         @NativeType("char[256]")
         public ByteBuffer name() { return BGFXViewStats.nname(address()); }
-        /** @return the null-terminated string stored in the {@link BGFXViewStats#name} field. */
+        /** @return the null-terminated string stored in the {@code name} field. */
         @NativeType("char[256]")
         public String nameString() { return BGFXViewStats.nnameString(address()); }
-        /** @return the value of the {@link BGFXViewStats#view} field. */
+        /** @return the value of the {@code view} field. */
         @NativeType("bgfx_view_id_t")
         public short view() { return BGFXViewStats.nview(address()); }
-        /** @return the value of the {@link BGFXViewStats#cpuTimeBegin} field. */
+        /** @return the value of the {@code cpuTimeBegin} field. */
         @NativeType("int64_t")
         public long cpuTimeBegin() { return BGFXViewStats.ncpuTimeBegin(address()); }
-        /** @return the value of the {@link BGFXViewStats#cpuTimeEnd} field. */
+        /** @return the value of the {@code cpuTimeEnd} field. */
         @NativeType("int64_t")
         public long cpuTimeEnd() { return BGFXViewStats.ncpuTimeEnd(address()); }
-        /** @return the value of the {@link BGFXViewStats#gpuTimeBegin} field. */
+        /** @return the value of the {@code gpuTimeBegin} field. */
         @NativeType("int64_t")
         public long gpuTimeBegin() { return BGFXViewStats.ngpuTimeBegin(address()); }
-        /** @return the value of the {@link BGFXViewStats#gpuTimeEnd} field. */
+        /** @return the value of the {@code gpuTimeEnd} field. */
         @NativeType("int64_t")
         public long gpuTimeEnd() { return BGFXViewStats.ngpuTimeEnd(address()); }
-        /** @return the value of the {@link BGFXViewStats#gpuFrameNum} field. */
+        /** @return the value of the {@code gpuFrameNum} field. */
         @NativeType("uint32_t")
         public int gpuFrameNum() { return BGFXViewStats.ngpuFrameNum(address()); }
 

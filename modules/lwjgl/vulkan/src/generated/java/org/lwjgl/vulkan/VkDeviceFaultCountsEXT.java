@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying device fault information.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDeviceFault#VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTDeviceFault#vkGetDeviceFaultInfoEXT GetDeviceFaultInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceFaultCountsEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #addressInfoCount};
- *     uint32_t {@link #vendorInfoCount};
- *     VkDeviceSize {@link #vendorBinarySize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t addressInfoCount;
+ *     uint32_t vendorInfoCount;
+ *     VkDeviceSize vendorBinarySize;
+ * }}</pre>
  */
 public class VkDeviceFaultCountsEXT extends Struct<VkDeviceFaultCountsEXT> implements NativeResource {
 
@@ -97,33 +82,33 @@ public class VkDeviceFaultCountsEXT extends Struct<VkDeviceFaultCountsEXT> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the number of {@link VkDeviceFaultAddressInfoEXT} structures describing either memory accesses which <b>may</b> have caused a page fault, or the addresses of active instructions at the time of the fault. */
+    /** @return the value of the {@code addressInfoCount} field. */
     @NativeType("uint32_t")
     public int addressInfoCount() { return naddressInfoCount(address()); }
-    /** the number of {@link VkDeviceFaultVendorInfoEXT} structures describing vendor-specific fault information. */
+    /** @return the value of the {@code vendorInfoCount} field. */
     @NativeType("uint32_t")
     public int vendorInfoCount() { return nvendorInfoCount(address()); }
-    /** the size in bytes of a vendor-specific binary crash dump, which may provide additional information when imported into external tools. */
+    /** @return the value of the {@code vendorBinarySize} field. */
     @NativeType("VkDeviceSize")
     public long vendorBinarySize() { return nvendorBinarySize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDeviceFaultCountsEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDeviceFault#VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDeviceFault#VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT} value to the {@code sType} field. */
     public VkDeviceFaultCountsEXT sType$Default() { return sType(EXTDeviceFault.VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDeviceFaultCountsEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #addressInfoCount} field. */
+    /** Sets the specified value to the {@code addressInfoCount} field. */
     public VkDeviceFaultCountsEXT addressInfoCount(@NativeType("uint32_t") int value) { naddressInfoCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #vendorInfoCount} field. */
+    /** Sets the specified value to the {@code vendorInfoCount} field. */
     public VkDeviceFaultCountsEXT vendorInfoCount(@NativeType("uint32_t") int value) { nvendorInfoCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #vendorBinarySize} field. */
+    /** Sets the specified value to the {@code vendorBinarySize} field. */
     public VkDeviceFaultCountsEXT vendorBinarySize(@NativeType("VkDeviceSize") long value) { nvendorBinarySize(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -179,8 +164,7 @@ public class VkDeviceFaultCountsEXT extends Struct<VkDeviceFaultCountsEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceFaultCountsEXT createSafe(long address) {
+    public static @Nullable VkDeviceFaultCountsEXT createSafe(long address) {
         return address == NULL ? null : new VkDeviceFaultCountsEXT(address, null);
     }
 
@@ -223,8 +207,7 @@ public class VkDeviceFaultCountsEXT extends Struct<VkDeviceFaultCountsEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceFaultCountsEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceFaultCountsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +252,26 @@ public class VkDeviceFaultCountsEXT extends Struct<VkDeviceFaultCountsEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDeviceFaultCountsEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDeviceFaultCountsEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDeviceFaultCountsEXT.PNEXT); }
     /** Unsafe version of {@link #addressInfoCount}. */
-    public static int naddressInfoCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceFaultCountsEXT.ADDRESSINFOCOUNT); }
+    public static int naddressInfoCount(long struct) { return memGetInt(struct + VkDeviceFaultCountsEXT.ADDRESSINFOCOUNT); }
     /** Unsafe version of {@link #vendorInfoCount}. */
-    public static int nvendorInfoCount(long struct) { return UNSAFE.getInt(null, struct + VkDeviceFaultCountsEXT.VENDORINFOCOUNT); }
+    public static int nvendorInfoCount(long struct) { return memGetInt(struct + VkDeviceFaultCountsEXT.VENDORINFOCOUNT); }
     /** Unsafe version of {@link #vendorBinarySize}. */
-    public static long nvendorBinarySize(long struct) { return UNSAFE.getLong(null, struct + VkDeviceFaultCountsEXT.VENDORBINARYSIZE); }
+    public static long nvendorBinarySize(long struct) { return memGetLong(struct + VkDeviceFaultCountsEXT.VENDORBINARYSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceFaultCountsEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDeviceFaultCountsEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDeviceFaultCountsEXT.PNEXT, value); }
     /** Unsafe version of {@link #addressInfoCount(int) addressInfoCount}. */
-    public static void naddressInfoCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceFaultCountsEXT.ADDRESSINFOCOUNT, value); }
+    public static void naddressInfoCount(long struct, int value) { memPutInt(struct + VkDeviceFaultCountsEXT.ADDRESSINFOCOUNT, value); }
     /** Unsafe version of {@link #vendorInfoCount(int) vendorInfoCount}. */
-    public static void nvendorInfoCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDeviceFaultCountsEXT.VENDORINFOCOUNT, value); }
+    public static void nvendorInfoCount(long struct, int value) { memPutInt(struct + VkDeviceFaultCountsEXT.VENDORINFOCOUNT, value); }
     /** Unsafe version of {@link #vendorBinarySize(long) vendorBinarySize}. */
-    public static void nvendorBinarySize(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceFaultCountsEXT.VENDORBINARYSIZE, value); }
+    public static void nvendorBinarySize(long struct, long value) { memPutLong(struct + VkDeviceFaultCountsEXT.VENDORBINARYSIZE, value); }
 
     // -----------------------------------
 
@@ -324,37 +307,42 @@ public class VkDeviceFaultCountsEXT extends Struct<VkDeviceFaultCountsEXT> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceFaultCountsEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceFaultCountsEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDeviceFaultCountsEXT.nsType(address()); }
-        /** @return the value of the {@link VkDeviceFaultCountsEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkDeviceFaultCountsEXT.npNext(address()); }
-        /** @return the value of the {@link VkDeviceFaultCountsEXT#addressInfoCount} field. */
+        /** @return the value of the {@code addressInfoCount} field. */
         @NativeType("uint32_t")
         public int addressInfoCount() { return VkDeviceFaultCountsEXT.naddressInfoCount(address()); }
-        /** @return the value of the {@link VkDeviceFaultCountsEXT#vendorInfoCount} field. */
+        /** @return the value of the {@code vendorInfoCount} field. */
         @NativeType("uint32_t")
         public int vendorInfoCount() { return VkDeviceFaultCountsEXT.nvendorInfoCount(address()); }
-        /** @return the value of the {@link VkDeviceFaultCountsEXT#vendorBinarySize} field. */
+        /** @return the value of the {@code vendorBinarySize} field. */
         @NativeType("VkDeviceSize")
         public long vendorBinarySize() { return VkDeviceFaultCountsEXT.nvendorBinarySize(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceFaultCountsEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDeviceFaultCountsEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceFaultCountsEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDeviceFault#VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT} value to the {@link VkDeviceFaultCountsEXT#sType} field. */
+        /** Sets the {@link EXTDeviceFault#VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT} value to the {@code sType} field. */
         public VkDeviceFaultCountsEXT.Buffer sType$Default() { return sType(EXTDeviceFault.VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT); }
-        /** Sets the specified value to the {@link VkDeviceFaultCountsEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDeviceFaultCountsEXT.Buffer pNext(@NativeType("void *") long value) { VkDeviceFaultCountsEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceFaultCountsEXT#addressInfoCount} field. */
+        /** Sets the specified value to the {@code addressInfoCount} field. */
         public VkDeviceFaultCountsEXT.Buffer addressInfoCount(@NativeType("uint32_t") int value) { VkDeviceFaultCountsEXT.naddressInfoCount(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceFaultCountsEXT#vendorInfoCount} field. */
+        /** Sets the specified value to the {@code vendorInfoCount} field. */
         public VkDeviceFaultCountsEXT.Buffer vendorInfoCount(@NativeType("uint32_t") int value) { VkDeviceFaultCountsEXT.nvendorInfoCount(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceFaultCountsEXT#vendorBinarySize} field. */
+        /** Sets the specified value to the {@code vendorBinarySize} field. */
         public VkDeviceFaultCountsEXT.Buffer vendorBinarySize(@NativeType("VkDeviceSize") long value) { VkDeviceFaultCountsEXT.nvendorBinarySize(address(), value); return this; }
 
     }

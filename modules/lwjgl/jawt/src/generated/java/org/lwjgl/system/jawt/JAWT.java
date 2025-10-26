@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jawt;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for containing native AWT functions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct JAWT {
- *     jint {@link #version};
+ *     jint version;
  *     void * GetDrawingSurface;
  *     void * FreeDrawingSurface;
  *     void * Lock;
@@ -31,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * CreateEmbeddedFrame;
  *     void * SetBounds;
  *     void * SynthesizeWindowActivation;
- * }</code></pre>
+ * }}</pre>
  */
 public class JAWT extends Struct<JAWT> implements NativeResource {
 
@@ -102,7 +98,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Version of this structure. This must always be set before calling JAWT_GetAWT() */
+    /** @return the value of the {@code version} field. */
     @NativeType("jint")
     public int version() { return nversion(address()); }
     /** @return the value of the {@code GetDrawingSurface} field. */
@@ -130,7 +126,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     @NativeType("void *")
     public long SynthesizeWindowActivation() { return nSynthesizeWindowActivation(address()); }
 
-    /** Sets the specified value to the {@link #version} field. */
+    /** Sets the specified value to the {@code version} field. */
     public JAWT version(@NativeType("jint") int value) { nversion(address(), value); return this; }
 
     /**
@@ -169,8 +165,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWT createSafe(long address) {
+    public static @Nullable JAWT createSafe(long address) {
         return address == NULL ? null : new JAWT(address, null);
     }
 
@@ -184,7 +179,6 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     @Deprecated public static JAWT mallocStack(MemoryStack stack) { return malloc(stack); }
     /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
     @Deprecated public static JAWT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code JAWT} instance allocated on the specified {@link MemoryStack}.
@@ -207,7 +201,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #version}. */
-    public static int nversion(long struct) { return UNSAFE.getInt(null, struct + JAWT.VERSION); }
+    public static int nversion(long struct) { return memGetInt(struct + JAWT.VERSION); }
     /** Unsafe version of {@link #GetDrawingSurface}. */
     public static long nGetDrawingSurface(long struct) { return memGetAddress(struct + JAWT.GETDRAWINGSURFACE); }
     /** Unsafe version of {@link #FreeDrawingSurface}. */
@@ -226,6 +220,6 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     public static long nSynthesizeWindowActivation(long struct) { return memGetAddress(struct + JAWT.SYNTHESIZEWINDOWACTIVATION); }
 
     /** Unsafe version of {@link #version(int) version}. */
-    public static void nversion(long struct, int value) { UNSAFE.putInt(null, struct + JAWT.VERSION, value); }
+    public static void nversion(long struct, int value) { memPutInt(struct + JAWT.VERSION, value); }
 
 }

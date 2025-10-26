@@ -12,22 +12,12 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link LLVMOrc#LLVMOrcCreateCustomMaterializationUnit OrcCreateCustomMaterializationUnit} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *Ctx
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcMaterializationUnitDestroyFunction} */
 @FunctionalInterface
 @NativeType("LLVMOrcMaterializationUnitDestroyFunction")
 public interface LLVMOrcMaterializationUnitDestroyFunctionI extends CallbackI {
 
     FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
         ffi_type_void,
         ffi_type_pointer
     );
@@ -42,12 +32,7 @@ public interface LLVMOrcMaterializationUnitDestroyFunctionI extends CallbackI {
         );
     }
 
-    /**
-     * A {@code MaterializationUnit} destruction callback.
-     * 
-     * <p>If a custom {@code MaterializationUnit} is destroyed before its {@code Materialize} function is called then this function will be called to provide an
-     * opportunity for the underlying program representation to be destroyed.</p>
-     */
+    /** {@code void (* LLVMOrcMaterializationUnitDestroyFunction) (void * Ctx)} */
     void invoke(@NativeType("void *") long Ctx);
 
 }

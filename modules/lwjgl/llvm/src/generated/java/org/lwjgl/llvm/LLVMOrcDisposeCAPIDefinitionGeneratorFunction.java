@@ -5,20 +5,13 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *Ctx
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcDisposeCAPIDefinitionGeneratorFunction} */
 public abstract class LLVMOrcDisposeCAPIDefinitionGeneratorFunction extends Callback implements LLVMOrcDisposeCAPIDefinitionGeneratorFunctionI {
 
     /**
@@ -34,8 +27,7 @@ public abstract class LLVMOrcDisposeCAPIDefinitionGeneratorFunction extends Call
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static LLVMOrcDisposeCAPIDefinitionGeneratorFunction createSafe(long functionPointer) {
+    public static @Nullable LLVMOrcDisposeCAPIDefinitionGeneratorFunction createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

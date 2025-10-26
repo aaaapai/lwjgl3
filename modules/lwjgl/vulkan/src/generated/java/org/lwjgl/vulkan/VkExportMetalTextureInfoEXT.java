@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,31 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure that identifies a VkImage, VkImageView, or VkBufferView object and corresponding Metal MTLTexture object.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT}</li>
- * <li>If {@code image} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code image} <b>must</b> be a valid {@code VkImage} handle</li>
- * <li>If {@code imageView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code imageView} <b>must</b> be a valid {@code VkImageView} handle</li>
- * <li>If {@code bufferView} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, {@code bufferView} <b>must</b> be a valid {@code VkBufferView} handle</li>
- * <li>{@code plane} <b>must</b> be a valid {@code VkImageAspectFlagBits} value</li>
- * <li>Each of {@code bufferView}, {@code image}, and {@code imageView} that are valid handles of non-ignored parameters <b>must</b> have been created, allocated, or retrieved from the same {@code VkDevice}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExportMetalTextureInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkImage {@link #image};
- *     VkImageView {@link #imageView};
- *     VkBufferView {@link #bufferView};
- *     VkImageAspectFlagBits {@link #plane};
- *     MTLTexture_id {@link #mtlTexture};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkImage image;
+ *     VkImageView imageView;
+ *     VkBufferView bufferView;
+ *     VkImageAspectFlagBits plane;
+ *     MTLTexture_id mtlTexture;
+ * }}</pre>
  */
 public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfoEXT> implements NativeResource {
 
@@ -106,43 +91,43 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a {@code VkImage}. */
+    /** @return the value of the {@code image} field. */
     @NativeType("VkImage")
     public long image() { return nimage(address()); }
-    /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a {@code VkImageView}. */
+    /** @return the value of the {@code imageView} field. */
     @NativeType("VkImageView")
     public long imageView() { return nimageView(address()); }
-    /** {@link VK10#VK_NULL_HANDLE NULL_HANDLE} or a {@code VkBufferView}. */
+    /** @return the value of the {@code bufferView} field. */
     @NativeType("VkBufferView")
     public long bufferView() { return nbufferView(address()); }
-    /** indicates the plane of a multi-planar {@code VkImage} or {@code VkImageView}. */
+    /** @return the value of the {@code plane} field. */
     @NativeType("VkImageAspectFlagBits")
     public int plane() { return nplane(address()); }
-    /** the Metal {@code id&lt;MTLTexture&gt;} object underlying the {@code VkImage}, {@code VkImageView}, or {@code VkBufferView} object in {@code image}, {@code imageView}, or {@code bufferView}, respectively, at the plane indicated in {@code aspectMask}. The implementation will return the {@code MTLTexture} in this member, or it will return {@code NULL} if no {@code MTLTexture} could be found underlying the {@code VkImage}, {@code VkImageView}, or {@code VkBufferView} object, at the plane indicated in {@code aspectMask}. */
+    /** @return the value of the {@code mtlTexture} field. */
     @NativeType("MTLTexture_id")
     public long mtlTexture() { return nmtlTexture(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkExportMetalTextureInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT} value to the {@code sType} field. */
     public VkExportMetalTextureInfoEXT sType$Default() { return sType(EXTMetalObjects.VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkExportMetalTextureInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #image} field. */
+    /** Sets the specified value to the {@code image} field. */
     public VkExportMetalTextureInfoEXT image(@NativeType("VkImage") long value) { nimage(address(), value); return this; }
-    /** Sets the specified value to the {@link #imageView} field. */
+    /** Sets the specified value to the {@code imageView} field. */
     public VkExportMetalTextureInfoEXT imageView(@NativeType("VkImageView") long value) { nimageView(address(), value); return this; }
-    /** Sets the specified value to the {@link #bufferView} field. */
+    /** Sets the specified value to the {@code bufferView} field. */
     public VkExportMetalTextureInfoEXT bufferView(@NativeType("VkBufferView") long value) { nbufferView(address(), value); return this; }
-    /** Sets the specified value to the {@link #plane} field. */
+    /** Sets the specified value to the {@code plane} field. */
     public VkExportMetalTextureInfoEXT plane(@NativeType("VkImageAspectFlagBits") int value) { nplane(address(), value); return this; }
-    /** Sets the specified value to the {@link #mtlTexture} field. */
+    /** Sets the specified value to the {@code mtlTexture} field. */
     public VkExportMetalTextureInfoEXT mtlTexture(@NativeType("MTLTexture_id") long value) { nmtlTexture(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -202,8 +187,7 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalTextureInfoEXT createSafe(long address) {
+    public static @Nullable VkExportMetalTextureInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkExportMetalTextureInfoEXT(address, null);
     }
 
@@ -246,8 +230,7 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExportMetalTextureInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkExportMetalTextureInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -292,32 +275,32 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalTextureInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExportMetalTextureInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExportMetalTextureInfoEXT.PNEXT); }
     /** Unsafe version of {@link #image}. */
-    public static long nimage(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalTextureInfoEXT.IMAGE); }
+    public static long nimage(long struct) { return memGetLong(struct + VkExportMetalTextureInfoEXT.IMAGE); }
     /** Unsafe version of {@link #imageView}. */
-    public static long nimageView(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalTextureInfoEXT.IMAGEVIEW); }
+    public static long nimageView(long struct) { return memGetLong(struct + VkExportMetalTextureInfoEXT.IMAGEVIEW); }
     /** Unsafe version of {@link #bufferView}. */
-    public static long nbufferView(long struct) { return UNSAFE.getLong(null, struct + VkExportMetalTextureInfoEXT.BUFFERVIEW); }
+    public static long nbufferView(long struct) { return memGetLong(struct + VkExportMetalTextureInfoEXT.BUFFERVIEW); }
     /** Unsafe version of {@link #plane}. */
-    public static int nplane(long struct) { return UNSAFE.getInt(null, struct + VkExportMetalTextureInfoEXT.PLANE); }
+    public static int nplane(long struct) { return memGetInt(struct + VkExportMetalTextureInfoEXT.PLANE); }
     /** Unsafe version of {@link #mtlTexture}. */
     public static long nmtlTexture(long struct) { return memGetAddress(struct + VkExportMetalTextureInfoEXT.MTLTEXTURE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalTextureInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExportMetalTextureInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExportMetalTextureInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #image(long) image}. */
-    public static void nimage(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalTextureInfoEXT.IMAGE, value); }
+    public static void nimage(long struct, long value) { memPutLong(struct + VkExportMetalTextureInfoEXT.IMAGE, value); }
     /** Unsafe version of {@link #imageView(long) imageView}. */
-    public static void nimageView(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalTextureInfoEXT.IMAGEVIEW, value); }
+    public static void nimageView(long struct, long value) { memPutLong(struct + VkExportMetalTextureInfoEXT.IMAGEVIEW, value); }
     /** Unsafe version of {@link #bufferView(long) bufferView}. */
-    public static void nbufferView(long struct, long value) { UNSAFE.putLong(null, struct + VkExportMetalTextureInfoEXT.BUFFERVIEW, value); }
+    public static void nbufferView(long struct, long value) { memPutLong(struct + VkExportMetalTextureInfoEXT.BUFFERVIEW, value); }
     /** Unsafe version of {@link #plane(int) plane}. */
-    public static void nplane(long struct, int value) { UNSAFE.putInt(null, struct + VkExportMetalTextureInfoEXT.PLANE, value); }
+    public static void nplane(long struct, int value) { memPutInt(struct + VkExportMetalTextureInfoEXT.PLANE, value); }
     /** Unsafe version of {@link #mtlTexture(long) mtlTexture}. */
     public static void nmtlTexture(long struct, long value) { memPutAddress(struct + VkExportMetalTextureInfoEXT.MTLTEXTURE, check(value)); }
 
@@ -364,47 +347,52 @@ public class VkExportMetalTextureInfoEXT extends Struct<VkExportMetalTextureInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExportMetalTextureInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkExportMetalTextureInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkExportMetalTextureInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#image} field. */
+        /** @return the value of the {@code image} field. */
         @NativeType("VkImage")
         public long image() { return VkExportMetalTextureInfoEXT.nimage(address()); }
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#imageView} field. */
+        /** @return the value of the {@code imageView} field. */
         @NativeType("VkImageView")
         public long imageView() { return VkExportMetalTextureInfoEXT.nimageView(address()); }
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#bufferView} field. */
+        /** @return the value of the {@code bufferView} field. */
         @NativeType("VkBufferView")
         public long bufferView() { return VkExportMetalTextureInfoEXT.nbufferView(address()); }
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#plane} field. */
+        /** @return the value of the {@code plane} field. */
         @NativeType("VkImageAspectFlagBits")
         public int plane() { return VkExportMetalTextureInfoEXT.nplane(address()); }
-        /** @return the value of the {@link VkExportMetalTextureInfoEXT#mtlTexture} field. */
+        /** @return the value of the {@code mtlTexture} field. */
         @NativeType("MTLTexture_id")
         public long mtlTexture() { return VkExportMetalTextureInfoEXT.nmtlTexture(address()); }
 
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkExportMetalTextureInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkExportMetalTextureInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT} value to the {@link VkExportMetalTextureInfoEXT#sType} field. */
+        /** Sets the {@link EXTMetalObjects#VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT} value to the {@code sType} field. */
         public VkExportMetalTextureInfoEXT.Buffer sType$Default() { return sType(EXTMetalObjects.VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkExportMetalTextureInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkExportMetalTextureInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#image} field. */
+        /** Sets the specified value to the {@code image} field. */
         public VkExportMetalTextureInfoEXT.Buffer image(@NativeType("VkImage") long value) { VkExportMetalTextureInfoEXT.nimage(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#imageView} field. */
+        /** Sets the specified value to the {@code imageView} field. */
         public VkExportMetalTextureInfoEXT.Buffer imageView(@NativeType("VkImageView") long value) { VkExportMetalTextureInfoEXT.nimageView(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#bufferView} field. */
+        /** Sets the specified value to the {@code bufferView} field. */
         public VkExportMetalTextureInfoEXT.Buffer bufferView(@NativeType("VkBufferView") long value) { VkExportMetalTextureInfoEXT.nbufferView(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#plane} field. */
+        /** Sets the specified value to the {@code plane} field. */
         public VkExportMetalTextureInfoEXT.Buffer plane(@NativeType("VkImageAspectFlagBits") int value) { VkExportMetalTextureInfoEXT.nplane(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExportMetalTextureInfoEXT#mtlTexture} field. */
+        /** Sets the specified value to the {@code mtlTexture} field. */
         public VkExportMetalTextureInfoEXT.Buffer mtlTexture(@NativeType("MTLTexture_id") long value) { VkExportMetalTextureInfoEXT.nmtlTexture(address(), value); return this; }
 
     }

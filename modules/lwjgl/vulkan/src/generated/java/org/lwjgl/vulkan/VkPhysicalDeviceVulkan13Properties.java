@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,74 +16,56 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying physical device properties for functionality promoted to Vulkan 1.3.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceVulkan13Properties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>These properties correspond to Vulkan 1.3 functionality.</p>
- * 
- * <p>The members of {@link VkPhysicalDeviceVulkan13Properties} <b>must</b> have the same values as the corresponding members of {@link VkPhysicalDeviceInlineUniformBlockProperties} and {@link VkPhysicalDeviceSubgroupSizeControlProperties}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceVulkan13Properties {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #minSubgroupSize};
- *     uint32_t {@link #maxSubgroupSize};
- *     uint32_t {@link #maxComputeWorkgroupSubgroups};
- *     VkShaderStageFlags {@link #requiredSubgroupSizeStages};
- *     uint32_t {@link #maxInlineUniformBlockSize};
- *     uint32_t {@link #maxPerStageDescriptorInlineUniformBlocks};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks};
- *     uint32_t {@link #maxDescriptorSetInlineUniformBlocks};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindInlineUniformBlocks};
- *     uint32_t {@link #maxInlineUniformTotalSize};
- *     VkBool32 {@link #integerDotProduct8BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProduct8BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProduct8BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProduct4x8BitPackedUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProduct4x8BitPackedSignedAccelerated};
- *     VkBool32 {@link #integerDotProduct4x8BitPackedMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProduct16BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProduct16BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProduct16BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProduct32BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProduct32BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProduct32BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProduct64BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProduct64BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProduct64BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating8BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating8BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating16BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating16BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating32BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating32BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating64BitUnsignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating64BitSignedAccelerated};
- *     VkBool32 {@link #integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated};
- *     VkDeviceSize {@link #storageTexelBufferOffsetAlignmentBytes};
- *     VkBool32 {@link #storageTexelBufferOffsetSingleTexelAlignment};
- *     VkDeviceSize {@link #uniformTexelBufferOffsetAlignmentBytes};
- *     VkBool32 {@link #uniformTexelBufferOffsetSingleTexelAlignment};
- *     VkDeviceSize {@link #maxBufferSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t minSubgroupSize;
+ *     uint32_t maxSubgroupSize;
+ *     uint32_t maxComputeWorkgroupSubgroups;
+ *     VkShaderStageFlags requiredSubgroupSizeStages;
+ *     uint32_t maxInlineUniformBlockSize;
+ *     uint32_t maxPerStageDescriptorInlineUniformBlocks;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks;
+ *     uint32_t maxDescriptorSetInlineUniformBlocks;
+ *     uint32_t maxDescriptorSetUpdateAfterBindInlineUniformBlocks;
+ *     uint32_t maxInlineUniformTotalSize;
+ *     VkBool32 integerDotProduct8BitUnsignedAccelerated;
+ *     VkBool32 integerDotProduct8BitSignedAccelerated;
+ *     VkBool32 integerDotProduct8BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProduct4x8BitPackedUnsignedAccelerated;
+ *     VkBool32 integerDotProduct4x8BitPackedSignedAccelerated;
+ *     VkBool32 integerDotProduct4x8BitPackedMixedSignednessAccelerated;
+ *     VkBool32 integerDotProduct16BitUnsignedAccelerated;
+ *     VkBool32 integerDotProduct16BitSignedAccelerated;
+ *     VkBool32 integerDotProduct16BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProduct32BitUnsignedAccelerated;
+ *     VkBool32 integerDotProduct32BitSignedAccelerated;
+ *     VkBool32 integerDotProduct32BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProduct64BitUnsignedAccelerated;
+ *     VkBool32 integerDotProduct64BitSignedAccelerated;
+ *     VkBool32 integerDotProduct64BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating8BitUnsignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating8BitSignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating16BitUnsignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating16BitSignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating32BitUnsignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating32BitSignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating64BitUnsignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating64BitSignedAccelerated;
+ *     VkBool32 integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated;
+ *     VkDeviceSize storageTexelBufferOffsetAlignmentBytes;
+ *     VkBool32 storageTexelBufferOffsetSingleTexelAlignment;
+ *     VkDeviceSize uniformTexelBufferOffsetAlignmentBytes;
+ *     VkBool32 uniformTexelBufferOffsetSingleTexelAlignment;
+ *     VkDeviceSize maxBufferSize;
+ * }}</pre>
  */
 public class VkPhysicalDeviceVulkan13Properties extends Struct<VkPhysicalDeviceVulkan13Properties> implements NativeResource {
 
@@ -268,153 +250,153 @@ public class VkPhysicalDeviceVulkan13Properties extends Struct<VkPhysicalDeviceV
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the minimum subgroup size supported by this device. {@code minSubgroupSize} is at least one if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code minSubgroupSize} is a power-of-two. {@code minSubgroupSize} is less than or equal to {@code maxSubgroupSize}. {@code minSubgroupSize} is less than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-subgroup-size">{@code subgroupSize}</a>. */
+    /** @return the value of the {@code minSubgroupSize} field. */
     @NativeType("uint32_t")
     public int minSubgroupSize() { return nminSubgroupSize(address()); }
-    /** the maximum subgroup size supported by this device. {@code maxSubgroupSize} is at least one if any of the physical device’s queues support {@link VK10#VK_QUEUE_GRAPHICS_BIT QUEUE_GRAPHICS_BIT} or {@link VK10#VK_QUEUE_COMPUTE_BIT QUEUE_COMPUTE_BIT}. {@code maxSubgroupSize} is a power-of-two. {@code maxSubgroupSize} is greater than or equal to {@code minSubgroupSize}. {@code maxSubgroupSize} is greater than or equal to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-subgroup-size">{@code subgroupSize}</a>. */
+    /** @return the value of the {@code maxSubgroupSize} field. */
     @NativeType("uint32_t")
     public int maxSubgroupSize() { return nmaxSubgroupSize(address()); }
-    /** the maximum number of subgroups supported by the implementation within a workgroup. */
+    /** @return the value of the {@code maxComputeWorkgroupSubgroups} field. */
     @NativeType("uint32_t")
     public int maxComputeWorkgroupSubgroups() { return nmaxComputeWorkgroupSubgroups(address()); }
-    /** a bitfield of what shader stages support having a required subgroup size specified. */
+    /** @return the value of the {@code requiredSubgroupSizeStages} field. */
     @NativeType("VkShaderStageFlags")
     public int requiredSubgroupSizeStages() { return nrequiredSubgroupSizeStages(address()); }
-    /** the maximum size in bytes of an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#descriptorsets-inlineuniformblock">inline uniform block</a> binding. */
+    /** @return the value of the {@code maxInlineUniformBlockSize} field. */
     @NativeType("uint32_t")
     public int maxInlineUniformBlockSize() { return nmaxInlineUniformBlockSize(address()); }
-    /** the maximum number of inline uniform block bindings that <b>can</b> be accessible to a single shader stage in a pipeline layout. Descriptor bindings with a descriptor type of {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} count against this limit. Only descriptor bindings in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. */
+    /** @return the value of the {@code maxPerStageDescriptorInlineUniformBlocks} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorInlineUniformBlocks() { return nmaxPerStageDescriptorInlineUniformBlocks(address()); }
-    /** similar to {@code maxPerStageDescriptorInlineUniformBlocks} but counts descriptor bindings from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks() { return nmaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks(address()); }
-    /** the maximum number of inline uniform block bindings that <b>can</b> be included in descriptor bindings in a pipeline layout across all pipeline shader stages and descriptor set numbers. Descriptor bindings with a descriptor type of {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} count against this limit. Only descriptor bindings in descriptor set layouts created without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set count against this limit. */
+    /** @return the value of the {@code maxDescriptorSetInlineUniformBlocks} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetInlineUniformBlocks() { return nmaxDescriptorSetInlineUniformBlocks(address()); }
-    /** similar to {@code maxDescriptorSetInlineUniformBlocks} but counts descriptor bindings from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindInlineUniformBlocks} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindInlineUniformBlocks() { return nmaxDescriptorSetUpdateAfterBindInlineUniformBlocks(address()); }
-    /** the maximum total size in bytes of all inline uniform block bindings, across all pipeline shader stages and descriptor set numbers, that <b>can</b> be included in a pipeline layout. Descriptor bindings with a descriptor type of {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} count against this limit. */
+    /** @return the value of the {@code maxInlineUniformTotalSize} field. */
     @NativeType("uint32_t")
     public int maxInlineUniformTotalSize() { return nmaxInlineUniformTotalSize(address()); }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit unsigned dot product operations using the {@code OpUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct8BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct8BitUnsignedAccelerated() { return nintegerDotProduct8BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit signed dot product operations using the {@code OpSDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct8BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct8BitSignedAccelerated() { return nintegerDotProduct8BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit mixed signedness dot product operations using the {@code OpSUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct8BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct8BitMixedSignednessAccelerated() { return nintegerDotProduct8BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit unsigned dot product operations from operands packed into 32-bit integers using the {@code OpUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct4x8BitPackedUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct4x8BitPackedUnsignedAccelerated() { return nintegerDotProduct4x8BitPackedUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit signed dot product operations from operands packed into 32-bit integers using the {@code OpSDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct4x8BitPackedSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct4x8BitPackedSignedAccelerated() { return nintegerDotProduct4x8BitPackedSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit mixed signedness dot product operations from operands packed into 32-bit integers using the {@code OpSUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct4x8BitPackedMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct4x8BitPackedMixedSignednessAccelerated() { return nintegerDotProduct4x8BitPackedMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 16-bit unsigned dot product operations using the {@code OpUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct16BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct16BitUnsignedAccelerated() { return nintegerDotProduct16BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 16-bit signed dot product operations using the {@code OpSDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct16BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct16BitSignedAccelerated() { return nintegerDotProduct16BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 16-bit mixed signedness dot product operations using the {@code OpSUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct16BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct16BitMixedSignednessAccelerated() { return nintegerDotProduct16BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 32-bit unsigned dot product operations using the {@code OpUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct32BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct32BitUnsignedAccelerated() { return nintegerDotProduct32BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 32-bit signed dot product operations using the {@code OpSDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct32BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct32BitSignedAccelerated() { return nintegerDotProduct32BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 32-bit mixed signedness dot product operations using the {@code OpSUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct32BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct32BitMixedSignednessAccelerated() { return nintegerDotProduct32BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 64-bit unsigned dot product operations using the {@code OpUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct64BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct64BitUnsignedAccelerated() { return nintegerDotProduct64BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 64-bit signed dot product operations using the {@code OpSDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct64BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct64BitSignedAccelerated() { return nintegerDotProduct64BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 64-bit mixed signedness dot product operations using the {@code OpSUDotKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProduct64BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProduct64BitMixedSignednessAccelerated() { return nintegerDotProduct64BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit unsigned accumulating saturating dot product operations using the {@code OpUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating8BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating8BitUnsignedAccelerated() { return nintegerDotProductAccumulatingSaturating8BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit signed accumulating saturating dot product operations using the {@code OpSDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating8BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating8BitSignedAccelerated() { return nintegerDotProductAccumulatingSaturating8BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit mixed signedness accumulating saturating dot product operations using the {@code OpSUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated() { return nintegerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit unsigned accumulating saturating dot product operations from operands packed into 32-bit integers using the {@code OpUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated() { return nintegerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit signed accumulating saturating dot product operations from operands packed into 32-bit integers using the {@code OpSDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated() { return nintegerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 8-bit mixed signedness accumulating saturating dot product operations from operands packed into 32-bit integers using the {@code OpSUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated() { return nintegerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 16-bit unsigned accumulating saturating dot product operations using the {@code OpUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating16BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating16BitUnsignedAccelerated() { return nintegerDotProductAccumulatingSaturating16BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 16-bit signed accumulating saturating dot product operations using the {@code OpSDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating16BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating16BitSignedAccelerated() { return nintegerDotProductAccumulatingSaturating16BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 16-bit mixed signedness accumulating saturating dot product operations using the {@code OpSUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated() { return nintegerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 32-bit unsigned accumulating saturating dot product operations using the {@code OpUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating32BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating32BitUnsignedAccelerated() { return nintegerDotProductAccumulatingSaturating32BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 32-bit signed accumulating saturating dot product operations using the {@code OpSDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating32BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating32BitSignedAccelerated() { return nintegerDotProductAccumulatingSaturating32BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 32-bit mixed signedness accumulating saturating dot product operations using the {@code OpSUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated() { return nintegerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 64-bit unsigned accumulating saturating dot product operations using the {@code OpUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating64BitUnsignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating64BitUnsignedAccelerated() { return nintegerDotProductAccumulatingSaturating64BitUnsignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 64-bit signed accumulating saturating dot product operations using the {@code OpSDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating64BitSignedAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating64BitSignedAccelerated() { return nintegerDotProductAccumulatingSaturating64BitSignedAccelerated(address()) != 0; }
-    /** a boolean that will be {@link VK10#VK_TRUE TRUE} if the support for 64-bit mixed signedness accumulating saturating dot product operations using the {@code OpSUDotAccSatKHR} SPIR-V instruction is accelerated <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-integer-dot-product-accelerated">as defined below</a>. */
+    /** @return the value of the {@code integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated} field. */
     @NativeType("VkBool32")
     public boolean integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated() { return nintegerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(address()) != 0; }
-    /** a byte alignment that is sufficient for a storage texel buffer of any format. The value <b>must</b> be a power of two. */
+    /** @return the value of the {@code storageTexelBufferOffsetAlignmentBytes} field. */
     @NativeType("VkDeviceSize")
     public long storageTexelBufferOffsetAlignmentBytes() { return nstorageTexelBufferOffsetAlignmentBytes(address()); }
-    /** indicates whether single texel alignment is sufficient for a storage texel buffer of any format. */
+    /** @return the value of the {@code storageTexelBufferOffsetSingleTexelAlignment} field. */
     @NativeType("VkBool32")
     public boolean storageTexelBufferOffsetSingleTexelAlignment() { return nstorageTexelBufferOffsetSingleTexelAlignment(address()) != 0; }
-    /** a byte alignment that is sufficient for a uniform texel buffer of any format. The value <b>must</b> be a power of two. */
+    /** @return the value of the {@code uniformTexelBufferOffsetAlignmentBytes} field. */
     @NativeType("VkDeviceSize")
     public long uniformTexelBufferOffsetAlignmentBytes() { return nuniformTexelBufferOffsetAlignmentBytes(address()); }
-    /** indicates whether single texel alignment is sufficient for a uniform texel buffer of any format. */
+    /** @return the value of the {@code uniformTexelBufferOffsetSingleTexelAlignment} field. */
     @NativeType("VkBool32")
     public boolean uniformTexelBufferOffsetSingleTexelAlignment() { return nuniformTexelBufferOffsetSingleTexelAlignment(address()) != 0; }
-    /** the maximum size {@code VkBuffer} that <b>can</b> be created. */
+    /** @return the value of the {@code maxBufferSize} field. */
     @NativeType("VkDeviceSize")
     public long maxBufferSize() { return nmaxBufferSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceVulkan13Properties sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES} value to the {@code sType} field. */
     public VkPhysicalDeviceVulkan13Properties sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceVulkan13Properties pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -464,8 +446,7 @@ public class VkPhysicalDeviceVulkan13Properties extends Struct<VkPhysicalDeviceV
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkan13Properties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVulkan13Properties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVulkan13Properties(address, null);
     }
 
@@ -508,8 +489,7 @@ public class VkPhysicalDeviceVulkan13Properties extends Struct<VkPhysicalDeviceV
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkan13Properties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVulkan13Properties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -554,102 +534,102 @@ public class VkPhysicalDeviceVulkan13Properties extends Struct<VkPhysicalDeviceV
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVulkan13Properties.PNEXT); }
     /** Unsafe version of {@link #minSubgroupSize}. */
-    public static int nminSubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MINSUBGROUPSIZE); }
+    public static int nminSubgroupSize(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MINSUBGROUPSIZE); }
     /** Unsafe version of {@link #maxSubgroupSize}. */
-    public static int nmaxSubgroupSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXSUBGROUPSIZE); }
+    public static int nmaxSubgroupSize(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXSUBGROUPSIZE); }
     /** Unsafe version of {@link #maxComputeWorkgroupSubgroups}. */
-    public static int nmaxComputeWorkgroupSubgroups(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXCOMPUTEWORKGROUPSUBGROUPS); }
+    public static int nmaxComputeWorkgroupSubgroups(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXCOMPUTEWORKGROUPSUBGROUPS); }
     /** Unsafe version of {@link #requiredSubgroupSizeStages}. */
-    public static int nrequiredSubgroupSizeStages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.REQUIREDSUBGROUPSIZESTAGES); }
+    public static int nrequiredSubgroupSizeStages(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.REQUIREDSUBGROUPSIZESTAGES); }
     /** Unsafe version of {@link #maxInlineUniformBlockSize}. */
-    public static int nmaxInlineUniformBlockSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXINLINEUNIFORMBLOCKSIZE); }
+    public static int nmaxInlineUniformBlockSize(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXINLINEUNIFORMBLOCKSIZE); }
     /** Unsafe version of {@link #maxPerStageDescriptorInlineUniformBlocks}. */
-    public static int nmaxPerStageDescriptorInlineUniformBlocks(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXPERSTAGEDESCRIPTORINLINEUNIFORMBLOCKS); }
+    public static int nmaxPerStageDescriptorInlineUniformBlocks(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXPERSTAGEDESCRIPTORINLINEUNIFORMBLOCKS); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDINLINEUNIFORMBLOCKS); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDINLINEUNIFORMBLOCKS); }
     /** Unsafe version of {@link #maxDescriptorSetInlineUniformBlocks}. */
-    public static int nmaxDescriptorSetInlineUniformBlocks(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXDESCRIPTORSETINLINEUNIFORMBLOCKS); }
+    public static int nmaxDescriptorSetInlineUniformBlocks(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXDESCRIPTORSETINLINEUNIFORMBLOCKS); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindInlineUniformBlocks}. */
-    public static int nmaxDescriptorSetUpdateAfterBindInlineUniformBlocks(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXDESCRIPTORSETUPDATEAFTERBINDINLINEUNIFORMBLOCKS); }
+    public static int nmaxDescriptorSetUpdateAfterBindInlineUniformBlocks(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXDESCRIPTORSETUPDATEAFTERBINDINLINEUNIFORMBLOCKS); }
     /** Unsafe version of {@link #maxInlineUniformTotalSize}. */
-    public static int nmaxInlineUniformTotalSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.MAXINLINEUNIFORMTOTALSIZE); }
+    public static int nmaxInlineUniformTotalSize(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.MAXINLINEUNIFORMTOTALSIZE); }
     /** Unsafe version of {@link #integerDotProduct8BitUnsignedAccelerated}. */
-    public static int nintegerDotProduct8BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT8BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProduct8BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT8BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct8BitSignedAccelerated}. */
-    public static int nintegerDotProduct8BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT8BITSIGNEDACCELERATED); }
+    public static int nintegerDotProduct8BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT8BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct8BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProduct8BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT8BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProduct8BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT8BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct4x8BitPackedUnsignedAccelerated}. */
-    public static int nintegerDotProduct4x8BitPackedUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT4X8BITPACKEDUNSIGNEDACCELERATED); }
+    public static int nintegerDotProduct4x8BitPackedUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT4X8BITPACKEDUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct4x8BitPackedSignedAccelerated}. */
-    public static int nintegerDotProduct4x8BitPackedSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT4X8BITPACKEDSIGNEDACCELERATED); }
+    public static int nintegerDotProduct4x8BitPackedSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT4X8BITPACKEDSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct4x8BitPackedMixedSignednessAccelerated}. */
-    public static int nintegerDotProduct4x8BitPackedMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT4X8BITPACKEDMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProduct4x8BitPackedMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT4X8BITPACKEDMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct16BitUnsignedAccelerated}. */
-    public static int nintegerDotProduct16BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT16BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProduct16BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT16BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct16BitSignedAccelerated}. */
-    public static int nintegerDotProduct16BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT16BITSIGNEDACCELERATED); }
+    public static int nintegerDotProduct16BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT16BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct16BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProduct16BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT16BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProduct16BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT16BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct32BitUnsignedAccelerated}. */
-    public static int nintegerDotProduct32BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT32BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProduct32BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT32BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct32BitSignedAccelerated}. */
-    public static int nintegerDotProduct32BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT32BITSIGNEDACCELERATED); }
+    public static int nintegerDotProduct32BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT32BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct32BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProduct32BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT32BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProduct32BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT32BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct64BitUnsignedAccelerated}. */
-    public static int nintegerDotProduct64BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT64BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProduct64BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT64BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct64BitSignedAccelerated}. */
-    public static int nintegerDotProduct64BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT64BITSIGNEDACCELERATED); }
+    public static int nintegerDotProduct64BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT64BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProduct64BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProduct64BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT64BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProduct64BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCT64BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating8BitUnsignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating8BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING8BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating8BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING8BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating8BitSignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating8BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING8BITSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating8BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING8BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING8BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING8BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING4X8BITPACKEDUNSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING4X8BITPACKEDUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING4X8BITPACKEDSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING4X8BITPACKEDSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING4X8BITPACKEDMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING4X8BITPACKEDMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating16BitUnsignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating16BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING16BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating16BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING16BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating16BitSignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating16BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING16BITSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating16BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING16BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING16BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING16BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating32BitUnsignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating32BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING32BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating32BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING32BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating32BitSignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating32BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING32BITSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating32BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING32BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING32BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING32BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating64BitUnsignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating64BitUnsignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING64BITUNSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating64BitUnsignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING64BITUNSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating64BitSignedAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating64BitSignedAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING64BITSIGNEDACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating64BitSignedAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING64BITSIGNEDACCELERATED); }
     /** Unsafe version of {@link #integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated}. */
-    public static int nintegerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING64BITMIXEDSIGNEDNESSACCELERATED); }
+    public static int nintegerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.INTEGERDOTPRODUCTACCUMULATINGSATURATING64BITMIXEDSIGNEDNESSACCELERATED); }
     /** Unsafe version of {@link #storageTexelBufferOffsetAlignmentBytes}. */
-    public static long nstorageTexelBufferOffsetAlignmentBytes(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceVulkan13Properties.STORAGETEXELBUFFEROFFSETALIGNMENTBYTES); }
+    public static long nstorageTexelBufferOffsetAlignmentBytes(long struct) { return memGetLong(struct + VkPhysicalDeviceVulkan13Properties.STORAGETEXELBUFFEROFFSETALIGNMENTBYTES); }
     /** Unsafe version of {@link #storageTexelBufferOffsetSingleTexelAlignment}. */
-    public static int nstorageTexelBufferOffsetSingleTexelAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.STORAGETEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
+    public static int nstorageTexelBufferOffsetSingleTexelAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.STORAGETEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
     /** Unsafe version of {@link #uniformTexelBufferOffsetAlignmentBytes}. */
-    public static long nuniformTexelBufferOffsetAlignmentBytes(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceVulkan13Properties.UNIFORMTEXELBUFFEROFFSETALIGNMENTBYTES); }
+    public static long nuniformTexelBufferOffsetAlignmentBytes(long struct) { return memGetLong(struct + VkPhysicalDeviceVulkan13Properties.UNIFORMTEXELBUFFEROFFSETALIGNMENTBYTES); }
     /** Unsafe version of {@link #uniformTexelBufferOffsetSingleTexelAlignment}. */
-    public static int nuniformTexelBufferOffsetSingleTexelAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Properties.UNIFORMTEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
+    public static int nuniformTexelBufferOffsetSingleTexelAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Properties.UNIFORMTEXELBUFFEROFFSETSINGLETEXELALIGNMENT); }
     /** Unsafe version of {@link #maxBufferSize}. */
-    public static long nmaxBufferSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceVulkan13Properties.MAXBUFFERSIZE); }
+    public static long nmaxBufferSize(long struct) { return memGetLong(struct + VkPhysicalDeviceVulkan13Properties.MAXBUFFERSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Properties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Properties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVulkan13Properties.PNEXT, value); }
 
@@ -687,157 +667,162 @@ public class VkPhysicalDeviceVulkan13Properties extends Struct<VkPhysicalDeviceV
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceVulkan13Properties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceVulkan13Properties.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceVulkan13Properties.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#minSubgroupSize} field. */
+        /** @return the value of the {@code minSubgroupSize} field. */
         @NativeType("uint32_t")
         public int minSubgroupSize() { return VkPhysicalDeviceVulkan13Properties.nminSubgroupSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxSubgroupSize} field. */
+        /** @return the value of the {@code maxSubgroupSize} field. */
         @NativeType("uint32_t")
         public int maxSubgroupSize() { return VkPhysicalDeviceVulkan13Properties.nmaxSubgroupSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxComputeWorkgroupSubgroups} field. */
+        /** @return the value of the {@code maxComputeWorkgroupSubgroups} field. */
         @NativeType("uint32_t")
         public int maxComputeWorkgroupSubgroups() { return VkPhysicalDeviceVulkan13Properties.nmaxComputeWorkgroupSubgroups(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#requiredSubgroupSizeStages} field. */
+        /** @return the value of the {@code requiredSubgroupSizeStages} field. */
         @NativeType("VkShaderStageFlags")
         public int requiredSubgroupSizeStages() { return VkPhysicalDeviceVulkan13Properties.nrequiredSubgroupSizeStages(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxInlineUniformBlockSize} field. */
+        /** @return the value of the {@code maxInlineUniformBlockSize} field. */
         @NativeType("uint32_t")
         public int maxInlineUniformBlockSize() { return VkPhysicalDeviceVulkan13Properties.nmaxInlineUniformBlockSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxPerStageDescriptorInlineUniformBlocks} field. */
+        /** @return the value of the {@code maxPerStageDescriptorInlineUniformBlocks} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorInlineUniformBlocks() { return VkPhysicalDeviceVulkan13Properties.nmaxPerStageDescriptorInlineUniformBlocks(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks() { return VkPhysicalDeviceVulkan13Properties.nmaxPerStageDescriptorUpdateAfterBindInlineUniformBlocks(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxDescriptorSetInlineUniformBlocks} field. */
+        /** @return the value of the {@code maxDescriptorSetInlineUniformBlocks} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetInlineUniformBlocks() { return VkPhysicalDeviceVulkan13Properties.nmaxDescriptorSetInlineUniformBlocks(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxDescriptorSetUpdateAfterBindInlineUniformBlocks} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindInlineUniformBlocks} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindInlineUniformBlocks() { return VkPhysicalDeviceVulkan13Properties.nmaxDescriptorSetUpdateAfterBindInlineUniformBlocks(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxInlineUniformTotalSize} field. */
+        /** @return the value of the {@code maxInlineUniformTotalSize} field. */
         @NativeType("uint32_t")
         public int maxInlineUniformTotalSize() { return VkPhysicalDeviceVulkan13Properties.nmaxInlineUniformTotalSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct8BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct8BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct8BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct8BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct8BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct8BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct8BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct8BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct8BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct8BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct8BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct8BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct4x8BitPackedUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct4x8BitPackedUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct4x8BitPackedUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct4x8BitPackedUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct4x8BitPackedSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct4x8BitPackedSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct4x8BitPackedSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct4x8BitPackedSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct4x8BitPackedMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct4x8BitPackedMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct4x8BitPackedMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct4x8BitPackedMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct16BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct16BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct16BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct16BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct16BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct16BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct16BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct16BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct16BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct16BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct16BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct16BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct32BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct32BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct32BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct32BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct32BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct32BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct32BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct32BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct32BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct32BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct32BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct32BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct64BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct64BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct64BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct64BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct64BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct64BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct64BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct64BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProduct64BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProduct64BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProduct64BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProduct64BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating8BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating8BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating8BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating8BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating8BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating8BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating8BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating8BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating16BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating16BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating16BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating16BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating16BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating16BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating16BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating16BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating32BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating32BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating32BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating32BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating32BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating32BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating32BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating32BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating64BitUnsignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating64BitUnsignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating64BitUnsignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating64BitUnsignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating64BitSignedAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating64BitSignedAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating64BitSignedAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating64BitSignedAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated} field. */
+        /** @return the value of the {@code integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated} field. */
         @NativeType("VkBool32")
         public boolean integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated() { return VkPhysicalDeviceVulkan13Properties.nintegerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#storageTexelBufferOffsetAlignmentBytes} field. */
+        /** @return the value of the {@code storageTexelBufferOffsetAlignmentBytes} field. */
         @NativeType("VkDeviceSize")
         public long storageTexelBufferOffsetAlignmentBytes() { return VkPhysicalDeviceVulkan13Properties.nstorageTexelBufferOffsetAlignmentBytes(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#storageTexelBufferOffsetSingleTexelAlignment} field. */
+        /** @return the value of the {@code storageTexelBufferOffsetSingleTexelAlignment} field. */
         @NativeType("VkBool32")
         public boolean storageTexelBufferOffsetSingleTexelAlignment() { return VkPhysicalDeviceVulkan13Properties.nstorageTexelBufferOffsetSingleTexelAlignment(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#uniformTexelBufferOffsetAlignmentBytes} field. */
+        /** @return the value of the {@code uniformTexelBufferOffsetAlignmentBytes} field. */
         @NativeType("VkDeviceSize")
         public long uniformTexelBufferOffsetAlignmentBytes() { return VkPhysicalDeviceVulkan13Properties.nuniformTexelBufferOffsetAlignmentBytes(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#uniformTexelBufferOffsetSingleTexelAlignment} field. */
+        /** @return the value of the {@code uniformTexelBufferOffsetSingleTexelAlignment} field. */
         @NativeType("VkBool32")
         public boolean uniformTexelBufferOffsetSingleTexelAlignment() { return VkPhysicalDeviceVulkan13Properties.nuniformTexelBufferOffsetSingleTexelAlignment(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Properties#maxBufferSize} field. */
+        /** @return the value of the {@code maxBufferSize} field. */
         @NativeType("VkDeviceSize")
         public long maxBufferSize() { return VkPhysicalDeviceVulkan13Properties.nmaxBufferSize(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Properties#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceVulkan13Properties.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceVulkan13Properties.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES} value to the {@link VkPhysicalDeviceVulkan13Properties#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES} value to the {@code sType} field. */
         public VkPhysicalDeviceVulkan13Properties.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Properties#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceVulkan13Properties.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceVulkan13Properties.npNext(address(), value); return this; }
 
     }

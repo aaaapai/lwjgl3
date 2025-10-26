@@ -5,7 +5,7 @@
  */
 package org.lwjgl.glfw;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,6 @@ import static org.lwjgl.vulkan.KHRAndroidSurface.*;
 
 import org.lwjgl.vulkan.*;
 
-/** Native bindings to the GLFW library's Vulkan functions. */
 public class GLFWVulkan {
 
      /** PojavLauncher: stub or wrap all functions to equivalent Vulkan functions */
@@ -40,31 +39,7 @@ public class GLFWVulkan {
 
     // --- [ glfwInitVulkanLoader ] ---
 
-    /**
-     * Sets the desired Vulkan {@code vkGetInstanceProcAddr} function.
-     * 
-     * <p>This function sets the {@code vkGetInstanceProcAddr} function that GLFW will use for all Vulkan related entry point queries.</p>
-     * 
-     * <p>This feature is mostly useful on macOS, if your copy of the Vulkan loader is in a location where GLFW cannot find it through dynamic loading, or if you
-     * are still using the static library version of the loader.</p>
-     * 
-     * <p>If set to {@code NULL}, GLFW will try to load the Vulkan loader dynamically by its standard name and get this function from there. This is the default
-     * behavior.</p>
-     * 
-     * <p>The standard name of the loader is {@code vulkan-1.dll} on Windows, {@code libvulkan.so.1} on Linux and other Unix-like systems and
-     * {@code libvulkan.1.dylib} on macOS. If your code is also loading it via these names then you probably don't need to use this function.</p>
-     * 
-     * <p>The function address you set is never reset by GLFW, but it only takes effect during initialization. Once GLFW has been initialized, any updates will
-     * be ignored until the library is terminated and initialized again.</p>
-     * 
-     * <p>This function may be called before {@link GLFW#glfwInit Init}.</p>
-     * 
-     * <p>This function must only be called from the main thread.</p>
-     *
-     * @param loader the address of the function to use, or {@code NULL}
-     *
-     * @since version 3.4
-     */
+    /** {@code void glfwInitVulkanLoader(PFN_vkGetInstanceProcAddr loader)} */
     public static void glfwInitVulkanLoader(@NativeType("PFN_vkGetInstanceProcAddr") long loader) {
         //long __functionAddress = Functions.InitVulkanLoader;
         //invokePV(loader, __functionAddress);
@@ -72,21 +47,7 @@ public class GLFWVulkan {
 
     // --- [ glfwVulkanSupported ] ---
 
-    /**
-     * Returns whether the Vulkan loader has been found. This check is performed by {@link GLFW#glfwInit Init}.
-     * 
-     * <p>The availability of a Vulkan loader and even an ICD does not by itself guarantee that surface creation or even instance creation is possible. Call
-     * {@link #glfwGetRequiredInstanceExtensions GetRequiredInstanceExtensions} to check whether the extensions necessary for Vulkan surface creation are available and
-     * {@link #glfwGetPhysicalDevicePresentationSupport GetPhysicalDevicePresentationSupport} to check whether a queue family of a physical device supports image presentation.</p>
-     * 
-     * <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
-     * 
-     * <p>This function may be called from any thread.</p>
-     *
-     * @return {@link GLFW#GLFW_TRUE TRUE} if Vulkan is available, or {@link GLFW#GLFW_FALSE FALSE} otherwise
-     *
-     * @since version 3.2
-     */
+    /** {@code int glfwVulkanSupported(void)} */
     @NativeType("int")
     public static boolean glfwVulkanSupported() {
         return true;
@@ -94,6 +55,8 @@ public class GLFWVulkan {
 
     // --- [ glfwGetRequiredInstanceExtensions ] ---
 
+
+    // --- [ glfwGetInstanceProcAddress ] ---
     /**
      * Returns an array of names of Vulkan instance extensions required by GLFW for creating Vulkan surfaces for GLFW windows. If successful, the list will
      * always contain {@code VK_KHR_surface}, so if you don't require any additional extensions you can pass this list directly to the {@link VkInstanceCreateInfo}
@@ -118,10 +81,11 @@ public class GLFWVulkan {
      *
      * @since version 3.2
      */
-    @Nullable
     @NativeType("char const **")
-    public static PointerBuffer glfwGetRequiredInstanceExtensions() {
-        MemoryStack stack = MemoryStack.stackPush();
+    public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
+        MemoryStack stack = stackGet();
+        int stackPointer = stack.getPointer();
+        IntBuffer count = stack.callocInt(1);
         String platformSurface;
         if (Platform.get() == Platform.MACOSX) {
             platformSurface = "VK_EXT_metal_surface";
@@ -131,72 +95,17 @@ public class GLFWVulkan {
         return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
-    /**
-     * Returns the address of the specified Vulkan core or extension function for the specified instance. If instance is set to {@code NULL} it can return any
-     * function exported from the Vulkan loader, including at least the following functions:
-     * 
-     * <ul>
-     * <li>{@link VK10#vkEnumerateInstanceExtensionProperties}</li>
-     * <li>{@link VK10#vkEnumerateInstanceLayerProperties}</li>
-     * <li>{@link VK10#vkCreateInstance}</li>
-     * <li>{@link VK10#vkGetInstanceProcAddr}</li>
-     * </ul>
-     * 
-     * <p>If Vulkan is not available on the machine, this function returns {@code NULL} and generates a {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} error. Call {@link #glfwVulkanSupported VulkanSupported} to check whether
-     * Vulkan is available.</p>
-     * 
-     * <p>This function is equivalent to calling {@link VK10#vkGetInstanceProcAddr} with a platform-specific query of the Vulkan loader as a fallback.</p>
-     * 
-     * <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED} and {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE}.</p>
-     * 
-     * <p>The returned function pointer is valid until the library is terminated.</p>
-     * 
-     * <p>This function may be called from any thread.</p>
-     *
-     * @param instance the Vulkan instance to query, or {@code NULL} to retrieve functions related to instance creation
-     * @param procname the ASCII encoded name of the function
-     *
-     * @return the address of the function, or {@code NULL} if an error occurred
-     *
-     * @since version 3.2
-     */
+     
+    /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
     @NativeType("GLFWvkproc")
-    public static long glfwGetInstanceProcAddress(@Nullable VkInstance instance, @NativeType("char const *") ByteBuffer procname) {
+    public static long glfwGetInstanceProcAddress(@NativeType("VkInstance") @Nullable VkInstance instance, @NativeType("char const *") ByteBuffer procname) {
         if (CHECKS) {
             checkNT1(procname);
         }
         return VK10.vkGetInstanceProcAddr(instance, procname);
     }
 
-    /**
-     * Returns the address of the specified Vulkan core or extension function for the specified instance. If instance is set to {@code NULL} it can return any
-     * function exported from the Vulkan loader, including at least the following functions:
-     * 
-     * <ul>
-     * <li>{@link VK10#vkEnumerateInstanceExtensionProperties}</li>
-     * <li>{@link VK10#vkEnumerateInstanceLayerProperties}</li>
-     * <li>{@link VK10#vkCreateInstance}</li>
-     * <li>{@link VK10#vkGetInstanceProcAddr}</li>
-     * </ul>
-     * 
-     * <p>If Vulkan is not available on the machine, this function returns {@code NULL} and generates a {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} error. Call {@link #glfwVulkanSupported VulkanSupported} to check whether
-     * Vulkan is available.</p>
-     * 
-     * <p>This function is equivalent to calling {@link VK10#vkGetInstanceProcAddr} with a platform-specific query of the Vulkan loader as a fallback.</p>
-     * 
-     * <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED} and {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE}.</p>
-     * 
-     * <p>The returned function pointer is valid until the library is terminated.</p>
-     * 
-     * <p>This function may be called from any thread.</p>
-     *
-     * @param instance the Vulkan instance to query, or {@code NULL} to retrieve functions related to instance creation
-     * @param procname the ASCII encoded name of the function
-     *
-     * @return the address of the function, or {@code NULL} if an error occurred
-     *
-     * @since version 3.2
-     */
+    /** {@code GLFWvkproc glfwGetInstanceProcAddress(VkInstance instance, char const * procname)} */
     @NativeType("GLFWvkproc")
     public static long glfwGetInstanceProcAddress(@Nullable VkInstance instance, @NativeType("char const *") CharSequence procname) {
         return VK10.vkGetInstanceProcAddr(instance, procname);
@@ -204,28 +113,7 @@ public class GLFWVulkan {
 
     // --- [ glfwGetPhysicalDevicePresentationSupport ] ---
 
-    /**
-     * Returns whether the specified queue family of the specified physical device supports presentation to the platform GLFW was built for.
-     * 
-     * <p>If Vulkan or the required window surface creation instance extensions are not available on the machine, or if the specified instance was not created
-     * with the required extensions, this function returns {@link GLFW#GLFW_FALSE FALSE} and generates a {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} error. Call {@link #glfwVulkanSupported VulkanSupported} to check whether Vulkan is
-     * available and {@link #glfwGetRequiredInstanceExtensions GetRequiredInstanceExtensions} to check what instance extensions are required.</p>
-     * 
-     * <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}, {@link GLFW#GLFW_API_UNAVAILABLE API_UNAVAILABLE} and {@link GLFW#GLFW_PLATFORM_ERROR PLATFORM_ERROR}.</p>
-     * 
-     * <p>macOS: This function currently always returns {@link GLFW#GLFW_TRUE TRUE}, as the {@code VK_MVK_macos_surface} and {@code VK_EXT_metal_surface} extensions do not provide a
-     * {@code vkGetPhysicalDevice*PresentationSupport} type function.</p>
-     * 
-     * <p>This function may be called from any thread. For synchronization details of Vulkan objects, see the Vulkan specification.</p>
-     *
-     * @param instance    the instance that the physical device belongs to
-     * @param device      the physical device that the queue family belongs to
-     * @param queuefamily the index of the queue family to query
-     *
-     * @return {@link GLFW#GLFW_TRUE TRUE} if the queue family supports presentation, or {@link GLFW#GLFW_FALSE FALSE} otherwise
-     *
-     * @since version 3.2
-     */
+    /** {@code int glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily)} */
     @NativeType("int")
     public static boolean glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, @NativeType("uint32_t") int queuefamily) {
         return true;
@@ -233,6 +121,7 @@ public class GLFWVulkan {
 
     // --- [ glfwCreateWindowSurface ] ---
 
+    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
     /**
      * Creates a Vulkan surface for the specified window.
      * 
@@ -277,7 +166,7 @@ public class GLFWVulkan {
      * @since version 3.2
      */
     @NativeType("VkResult")
-    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
+    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
         if (CHECKS) {
             check(surface, 1);
         }
@@ -296,10 +185,9 @@ public class GLFWVulkan {
         }
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
-
-    /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
-    @NativeType("VkResult")
-    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+     
+    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
+    public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
         MemoryStack stack = stackGet();
         LongBuffer pSurface = stack.mallocLong(1);
         int result = glfwCreateWindowSurface(instance, window, allocator, pSurface);
@@ -307,10 +195,28 @@ public class GLFWVulkan {
         return result;
     }
 
+    public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
+       // 直接使用 MemoryStack 创建临时缓冲区
+       MemoryStack stack = stackGet();
+       LongBuffer surfaceBuffer = stack.mallocLong(1);
+    
+        // 使用 VkInstance 的构造函数而不是 create 方法
+       VkInstance vkInstance = new VkInstance(instance, null);
+    
+       // 调用现有的 glfwCreateWindowSurface 方法
+       int result = glfwCreateWindowSurface(vkInstance, window, null, surfaceBuffer);
+    
+       // 将结果写回 surface 指针
+        if (result == 0) { // VK_SUCCESS 的值通常是 0
+            memPutLong(surface, surfaceBuffer.get(0));
+        }
+    
+        return result;
+    }
     /**
      * Calls {@link #setPath(String)} with the path of the specified {@link SharedLibrary}.
      * 
-     * <p>Example usage: <code>GLFWVulkan.setPath(VK.getFunctionProvider());</code></p> 
+     * <p>Example usage: {@code GLFWVulkan.setPath(VK.getFunctionProvider());}</p> 
      *
      * @param sharedLibrary a {@code FunctionProvider} instance that will be cast to {@code SharedLibrary}
      */

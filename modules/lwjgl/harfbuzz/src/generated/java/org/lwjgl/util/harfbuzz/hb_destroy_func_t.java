@@ -5,20 +5,13 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_destroy_func_t} */
 public abstract class hb_destroy_func_t extends Callback implements hb_destroy_func_tI {
 
     /**
@@ -34,8 +27,7 @@ public abstract class hb_destroy_func_t extends Callback implements hb_destroy_f
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static hb_destroy_func_t createSafe(long functionPointer) {
+    public static @Nullable hb_destroy_func_t createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 
