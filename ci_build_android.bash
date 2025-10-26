@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export ANDROID=1 LWJGL_BUILD_OFFLINE=1 SKIP_FREETYPE=1
+export ANDROID=1 LWJGL_BUILD_OFFLINE=1
 export ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME
 #export LWJGL_BUILD_ARCH=arm64
 
@@ -34,7 +34,7 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   # Build libffi
   ./autogen.sh
   bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
-  make -j4
+  make -j6
   cd ..
 
   # Copy libffi
@@ -42,13 +42,10 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
 fi
 
 if [ "$SKIP_FREETYPE" != "1" ]; then
-  #!/bin/bash
-  export BUILD_FREETYPE_VERSION=2.13.2
-  wget https://downloads.sourceforge.net/project/freetype/freetype2/$BUILD_FREETYPE_VERSION/freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  tar xf freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  rm  freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  cd freetype-$BUILD_FREETYPE_VERSION
+  git clone --depth 1 https://github.com/LWJGL-CI/freetype
+  cd freetype
 
+  autogen.sh
   export CC=$NDK_TARGET-linux-android${NDK_SUFFIX}21-clang
 
   ./configure \
@@ -62,13 +59,13 @@ if [ "$SKIP_FREETYPE" != "1" ]; then
     --enable-static=no \
     --enable-shared=yes 
 
-  make -j4
+  make -j6
   make install
   llvm-strip ./build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so
   
   cd ..
-  cp   freetype-$BUILD_FREETYPE_VERSION/build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so $LWJGL_NATIVE/
-  rm -rf freetype-$BUILD_FREETYPE_VERSION
+  cp   freetype/build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so $LWJGL_NATIVE/
+  rm -rf freetype
   unset BUILD_FREETYPE_VERSION
   unset CC
 fi
