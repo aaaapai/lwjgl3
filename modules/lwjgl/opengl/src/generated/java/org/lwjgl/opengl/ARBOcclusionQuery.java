@@ -228,4 +228,27 @@ public class ARBOcclusionQuery {
         callPV(id, pname, params, __functionAddress);
     }
 
+
+    /** {@code void glGetQueryObjectuivARB(GLuint id, GLenum pname, GLuint * params)} */
+    public static void glGetQueryObjectuARB(@NativeType("GLuint") int id, @NativeType("GLenum") int pname, @NativeType("GLuint *") int[] params) {
+        long __functionAddress = GL.getICD().glGetQueryObjectuivARB;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(params, 1);
+        }
+        callPV(id, pname, params, __functionAddress);
+    }
+
+    public static void glGetQueryObjectuARB(@NativeType("GLuint") int id, @NativeType("GLenum") int pname, @NativeType("GLuint *") IntBuffer params) {
+        if (CHECKS) {
+            check(params, 1);
+        }
+        nglGetQueryObjectuivARB(id, pname, memAddress(params));
+    }
+
+        /** {@code void glGetQueryObjectuivARB(GLuint id, GLenum pname, GLuint * params)} */
+    public static void glGetQueryObjectuARB(@NativeType("GLuint") int id, @NativeType("GLenum") int pname, @NativeType("GLuint *") long params) {
+        nglGetQueryObjectuivARB(id, pname, params);
+    }
+
 }
