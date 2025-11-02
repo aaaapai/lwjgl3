@@ -123,6 +123,20 @@ public class STBImageResize {
         return memByteBufferSafe(__result, (int)length);
     }
 
+    // --- [ stbir_resize_uint8 ] ---
+
+    /** Unsafe version of: {@link #stbir_resize_uint8 resize_uint8} */
+    public static native int nstbir_resize_uint8(long input_pixels, int input_w, int input_h, int input_stride_in_bytes, long output_pixels, int output_w, int output_h, int output_stride_in_bytes, int num_channels);
+
+    @NativeType("int")
+    public static boolean stbir_resize_uint8(@NativeType("unsigned char const *") ByteBuffer input_pixels, int input_w, int input_h, int input_stride_in_bytes, @NativeType("unsigned char *") ByteBuffer output_pixels, int output_w, int output_h, int output_stride_in_bytes, int num_channels) {
+        if (CHECKS) {
+           check(input_pixels, input_h * (input_stride_in_bytes == 0 ? input_w * num_channels : input_stride_in_bytes));
+           check(output_pixels, output_h * (output_stride_in_bytes == 0 ? output_w * num_channels : output_stride_in_bytes));
+        }
+        return nstbir_resize_uint8(memAddress(input_pixels), input_w, input_h, input_stride_in_bytes, memAddress(output_pixels), output_w, output_h, output_stride_in_bytes, num_channels) != 0;
+    }
+
     // --- [ stbir_resize_float_linear ] ---
 
     /** {@code float * stbir_resize_float_linear(float const * input_pixels, int input_w, int input_h, int input_stride_in_bytes, float * output_pixels, int output_w, int output_h, int output_stride_in_bytes, stbir_pixel_layout pixel_type)} */
