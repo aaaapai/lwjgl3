@@ -468,6 +468,10 @@ STBIRDEF unsigned char * stbir_resize_uint8_linear( const unsigned char *input_p
                                                           unsigned char *output_pixels, int output_w, int output_h, int output_stride_in_bytes,
                                                           stbir_pixel_layout pixel_type );
 
+STBIRDEF int stbir_resize_uint8( const unsigned char *input_pixels , int input_w , int input_h , int input_stride_in_bytes,
+                                           unsigned char *output_pixels, int output_w, int output_h, int output_stride_in_bytes,
+                                     int num_channels);
+
 STBIRDEF float * stbir_resize_float_linear( const float *input_pixels , int input_w , int input_h, int input_stride_in_bytes,
                                                   float *output_pixels, int output_w, int output_h, int output_stride_in_bytes,
                                                   stbir_pixel_layout pixel_type );
