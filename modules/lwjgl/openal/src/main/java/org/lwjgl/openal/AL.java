@@ -91,6 +91,11 @@ public final class AL {
 
             attribs.put(ALC10.ALC_REFRESH);
             attribs.put(contextRefresh);
+            // 4 is the default for old OpenAL
+            // 6 is the max, setting it higher just makes it 6.
+            // https://github.com/kcat/openal-soft/commit/d3cc867bd42759cb8e294d691354187984f96ff4
+            attribs.put(131075); // EFX10.ALC_MAX_AUXILIARY_SENDS, inaccessable from here because we use lwjglx, sorry for the magic number!
+            attribs.put(4);
 
             attribs.put(ALC10.ALC_SYNC);
             attribs.put(contextSynchronized ? ALC10.ALC_TRUE : ALC10.ALC_FALSE);
@@ -125,6 +130,11 @@ public final class AL {
 
             attribs.put(ALC10.ALC_REFRESH);
             attribs.put(60);
+            // 4 is the default for old OpenAL
+            // 6 is the max, setting it higher just makes it 6.
+            // https://github.com/kcat/openal-soft/commit/d3cc867bd42759cb8e294d691354187984f96ff4
+            attribs.put(131075); // EFX10.ALC_MAX_AUXILIARY_SENDS, inaccessable from here because we use lwjglx, sorry for the magic number!
+            attribs.put(4);
 
             attribs.put(ALC10.ALC_SYNC);
             attribs.put(ALC10.ALC_FALSE);
