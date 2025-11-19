@@ -53,7 +53,7 @@ public final class AL {
     static ALCdevice alcDevice;
     static ALCCapabilities alContextCaps;
     static ALCapabilities alCaps;
-    
+
     private static boolean created_lwjgl2 = false;
 
     /**
@@ -98,10 +98,9 @@ public final class AL {
             attribs.put(0);
             attribs.flip();
 
-            long contextHandle = ALC10.alcCreateContext(alDevice, attribs);
-            ALC10.alcMakeContextCurrent(contextHandle);
             //alContext = new ALContext(alDevice, contextHandle);
-            alContext = ALC10.alcCreateContext(contextHandle, (IntBuffer)null);
+            alContext = ALC10.alcCreateContext(alDevice, attribs);
+            ALC10.alcMakeContextCurrent(alContext);
             alContextCaps = ALC.createCapabilities(alDevice);
 
             alCaps = AL.createCapabilities(alContextCaps);
@@ -133,10 +132,9 @@ public final class AL {
             attribs.put(0);
             attribs.flip();
 
-            long contextHandle = ALC10.alcCreateContext(alDevice, attribs);
-            ALC10.alcMakeContextCurrent(contextHandle);
             //alContext = new ALContext(alDevice, contextHandle);
-            alContext = ALC10.alcCreateContext(contextHandle, (IntBuffer)null);
+            alContext = ALC10.alcCreateContext(alDevice, attribs);
+            ALC10.alcMakeContextCurrent(alContext);
             alContextCaps = ALC.createCapabilities(alDevice);
 
             alCaps = AL.createCapabilities(alContextCaps);
@@ -173,7 +171,7 @@ public final class AL {
             ALC10.alcMakeContextCurrent(MemoryUtil.NULL);
             ALC10.alcDestroyContext(alContext);
             ALC10.alcCloseDevice(alcDevice.device);
-            alContext = -1;
+            alContext = MemoryUtil.NULL;
             alcDevice = null;
             created_lwjgl2 = false;
         }
