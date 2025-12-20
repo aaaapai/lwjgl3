@@ -47,6 +47,8 @@
 #include "../zdict.h"
 #include "cover.h"
 
+#include <threads.h>
+
 /*-*************************************
 *  Constants
 ***************************************/
@@ -323,32 +325,62 @@ static int COVER_strict_cmp8(const void *lp, const void *rp) {
  * Hopefully when C11 become the norm, we will be able
  * to clean it up.
  */
+/* 在文件顶部添加线程局部变量声明 */
+#if defined(__GNUC__) || defined(__clang__)
+  #define THREAD_LOCAL __thread
+#elif defined(_MSC_VER)
+  #define THREAD_LOCAL __declspec(thread)
+#else
+  /* C11标准 */
+  #define THREAD_LOCAL _Thread_local
+#endif
+
+/* 线程局部上下文变量 */
+static THREAD_LOCAL COVER_ctx_t *g_coverCtx = NULL;
+
+/* 包装器函数 - 用于不支持qsort_r的平台 */
+static int COVER_strict_cmp8_wrapper(const void *lhs, const void *rhs) {
+    return COVER_strict_cmp8(lhs, rhs, g_coverCtx);
+}
+
+static int COVER_strict_cmp_wrapper(const void *lhs, const void *rhs) {
+    return COVER_strict_cmp(lhs, rhs, g_coverCtx);
+}
+
+/* 主排序函数 */
 static void stableSort(COVER_ctx_t *ctx) {
 #if defined(__APPLE__)
+    /* macOS的qsort_r参数顺序与GNU不同 */
     qsort_r(ctx->suffix, ctx->suffixSize, sizeof(U32),
             ctx,
             (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
-#elif defined(_GNU_SOURCE)
-    /* Android (Bionic) 没有 qsort_r，使用全局变量 */
-    g_coverCtx = ctx;
-    /* TODO(cavalcanti): implement a reentrant qsort() when is not available. */
-    qsort(ctx->suffix, ctx->suffixSize, sizeof(U32),
-          (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
-    g_coverCtx = NULL;
+#elif defined(_GNU_SOURCE) && !defined(__ANDROID__)
+    /* GNU/Linux (非Android) 使用qsort_r */
+    qsort_r(ctx->suffix, ctx->suffixSize, sizeof(U32),
+            (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp),
+            ctx);
 #elif defined(_WIN32) && defined(_MSC_VER)
+    /* Windows 使用 qsort_s */
     qsort_s(ctx->suffix, ctx->suffixSize, sizeof(U32),
             (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp),
             ctx);
+#elif defined(__ANDROID__) || defined(ANDROID)
+    /* Android (Bionic) 没有 qsort_r，使用线程局部变量和包装器 */
+    g_coverCtx = ctx;
+    qsort(ctx->suffix, ctx->suffixSize, sizeof(U32),
+          (ctx->d <= 8 ? &COVER_strict_cmp8_wrapper : &COVER_strict_cmp_wrapper));
+    g_coverCtx = NULL;
 #elif defined(__OpenBSD__)
+    /* OpenBSD 使用 mergesort */
     g_coverCtx = ctx;
     mergesort(ctx->suffix, ctx->suffixSize, sizeof(U32),
-          (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
+              (ctx->d <= 8 ? &COVER_strict_cmp8_wrapper : &COVER_strict_cmp_wrapper));
     g_coverCtx = NULL;
-#else /* C90 fallback.*/
+#else
+    /* 其他平台回退到线程局部变量和包装器 */
     g_coverCtx = ctx;
-    /* TODO(cavalcanti): implement a reentrant qsort() when is not available. */
     qsort(ctx->suffix, ctx->suffixSize, sizeof(U32),
-          (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
+          (ctx->d <= 8 ? &COVER_strict_cmp8_wrapper : &COVER_strict_cmp_wrapper));
     g_coverCtx = NULL;
 #endif
 }
