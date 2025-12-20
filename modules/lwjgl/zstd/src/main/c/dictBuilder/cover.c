@@ -329,20 +329,16 @@ static void stableSort(COVER_ctx_t *ctx) {
             ctx,
             (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
 #elif defined(_GNU_SOURCE)
-    qsort_r(ctx->suffix, ctx->suffixSize, sizeof(U32),
-            (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp),
-            ctx);
-#elif defined(_WIN32) && defined(_MSC_VER)
-    qsort_s(ctx->suffix, ctx->suffixSize, sizeof(U32),
-            (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp),
-            ctx);
-#elif defined(__ANDROID__)
     /* Android (Bionic) 没有 qsort_r，使用全局变量 */
     g_coverCtx = ctx;
     /* TODO(cavalcanti): implement a reentrant qsort() when is not available. */
     qsort(ctx->suffix, ctx->suffixSize, sizeof(U32),
           (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
     g_coverCtx = NULL;
+#elif defined(_WIN32) && defined(_MSC_VER)
+    qsort_s(ctx->suffix, ctx->suffixSize, sizeof(U32),
+            (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp),
+            ctx);
 #elif defined(__OpenBSD__)
     g_coverCtx = ctx;
     mergesort(ctx->suffix, ctx->suffixSize, sizeof(U32),
