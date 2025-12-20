@@ -124,7 +124,6 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.tootle=false \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
-  -Dbinding.zstd=false \
   -Dbinding.msdfgen=false \
   -Dbuild.type=nightly \
   -Djavadoc.skip=true \
