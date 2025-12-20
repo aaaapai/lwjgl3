@@ -47,29 +47,6 @@
 #include "../zdict.h"
 #include "cover.h"
 
-#if defined(__ANDROID__) || !defined(__GLIBC__)
-// Android 或其他没有 qsort_r 的平台
-typedef int (*qsort_r_compar_t)(const void *a, const void *b, void *arg);
-
-struct qsort_r_context {
-    void *arg;
-    qsort_r_compar_t compar;
-};
-
-static int qsort_r_wrapper(const void *a, const void *b, void *ctx) {
-    struct qsort_r_context *context = (struct qsort_r_context *)ctx;
-    return context->compar(a, b, context->arg);
-}
-
-void qsort_r(void *base, size_t nmemb, size_t size,
-             int (*compar)(const void *, const void *, void *),
-             void *arg) {
-    struct qsort_r_context context = {arg, compar};
-    qsort(base, nmemb, size, qsort_r_wrapper, &context);
-}
-#endif
-
-
 /*-*************************************
 *  Constants
 ***************************************/
@@ -359,15 +336,24 @@ static void stableSort(COVER_ctx_t *ctx) {
     qsort_s(ctx->suffix, ctx->suffixSize, sizeof(U32),
             (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp),
             ctx);
+#elif defined(__ANDROID__)
+    /* Android (Bionic) 没有 qsort_r，使用全局变量 */
+    g_coverCtx = ctx;
+    /* TODO(cavalcanti): implement a reentrant qsort() when is not available. */
+    qsort(ctx->suffix, ctx->suffixSize, sizeof(U32),
+          (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
+    g_coverCtx = NULL;
 #elif defined(__OpenBSD__)
     g_coverCtx = ctx;
     mergesort(ctx->suffix, ctx->suffixSize, sizeof(U32),
           (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
+    g_coverCtx = NULL;
 #else /* C90 fallback.*/
     g_coverCtx = ctx;
     /* TODO(cavalcanti): implement a reentrant qsort() when is not available. */
     qsort(ctx->suffix, ctx->suffixSize, sizeof(U32),
           (ctx->d <= 8 ? &COVER_strict_cmp8 : &COVER_strict_cmp));
+    g_coverCtx = NULL;
 #endif
 }
 
