@@ -47,6 +47,29 @@
 #include "../zdict.h"
 #include "cover.h"
 
+#if defined(__ANDROID__) || !defined(__GLIBC__)
+// Android 或其他没有 qsort_r 的平台
+typedef int (*qsort_r_compar_t)(const void *a, const void *b, void *arg);
+
+struct qsort_r_context {
+    void *arg;
+    qsort_r_compar_t compar;
+};
+
+static int qsort_r_wrapper(const void *a, const void *b, void *ctx) {
+    struct qsort_r_context *context = (struct qsort_r_context *)ctx;
+    return context->compar(a, b, context->arg);
+}
+
+void qsort_r(void *base, size_t nmemb, size_t size,
+             int (*compar)(const void *, const void *, void *),
+             void *arg) {
+    struct qsort_r_context context = {arg, compar};
+    qsort(base, nmemb, size, qsort_r_wrapper, &context);
+}
+#endif
+
+
 /*-*************************************
 *  Constants
 ***************************************/
