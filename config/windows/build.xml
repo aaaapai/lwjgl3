@@ -158,6 +158,14 @@ EXPORTS
 
     <target name="compile-native-platform">
         <mkdir dir="${bin.native}/build"/>
+        <sequential if:set="cl.version.print">
+            <exec executable="cmd" logError="true" failonerror="false">
+                <arg line="/c cl.exe 2>&amp;1 | findstr Version"/>
+            </exec>
+            <exec executable="cmd" logError="true" failonerror="false" >
+                <arg line='/c clang --version | findstr "clang version"'/>
+            </exec>
+        </sequential>
 
         <parallel threadsPerProcessor="1">
 
@@ -244,9 +252,10 @@ EXPORTS
         <!-- msdfgen -->
         <build module="msdfgen" simple="true" if:true="${binding.msdfgen}">
             <beforeCompile>
-                <compile>
+                <compile flags="/DMSDFGEN_DYNAMIC_FREETYPE">
                     <arg value="/I${src.main}"/>
-                    <fileset dir="." includes="${src.main}/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/core/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/ext/*.cpp"/>
                 </compile>
             </beforeCompile>
         </build>

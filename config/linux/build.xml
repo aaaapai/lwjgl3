@@ -173,12 +173,13 @@
     </macrodef>
 
     <target name="compile-native-platform">
-        <local name="gcc.version.string"/>
-        <exec executable="bash" outputproperty="gcc.version.string" logError="true" failonerror="true">
-            <arg line="-o pipefail -c"/>
-            <arg value="${gcc.prefix}clang --version | grep ^.*clang"/>
-        </exec>
-        <echo message='${gcc.prefix}clang --version: "${gcc.version.string}"' taskname="Compiler"/>
+        <sequential if:set="gcc.version.print">
+            <echo message="Clang executable: ${gcc.prefix}clang${gcc.suffix}"/>
+            <exec executable="bash" logError="true" failonerror="false" taskname="Compiler">
+                <arg line="-o pipefail -c"/>
+                <arg value="${gcc.prefix}clang${gcc.suffix} --version | grep ^.*clang"/>
+            </exec>
+        </sequential>
 
         <parallel threadsPerProcessor="2">
 
@@ -262,9 +263,10 @@
         <!-- msdfgen -->
         <build module="msdfgen" simple="true" linker="g++" if:true="${binding.msdfgen}">
             <beforeCompile>
-                <compile lang="c++">
+                <compile flags="-DMSDFGEN_DYNAMIC_FREETYPE" lang="c++">
                     <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/core/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/ext/*.cpp"/>
                 </compile>
             </beforeCompile>
             <link>
