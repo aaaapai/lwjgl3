@@ -32,6 +32,7 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.ktx" value="true"/>
     <property name="binding.llvm" value="true"/>
     <property name="binding.lmdb" value="true"/>
+    <property name="binding.lwjglx" value="true"/>
     <property name="binding.lz4" value="true"/>
     <property name="binding.meshoptimizer" value="true"/>
     <property name="binding.msdfgen" value="true"/>
@@ -71,6 +72,7 @@ This script is included in /config/build-definitions.xml.
     <property name="java-only.binding.egl" value="true"/>
     <property name="java-only.binding.fmod" value="true"/>
     <property name="java-only.binding.jawt" value="true"/>
+    <property name="java-only.binding.lwjglx" value="true"/>
     <property name="java-only.binding.odbc" value="true"/>
     <property name="java-only.binding.opencl" value="true"/>
     <property name="java-only.binding.renderdoc" value="true"/>
@@ -94,6 +96,7 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.ktx}"><local name="module"/><property name="module" value="ktx"/><body/></sequential>
                 <sequential if:true="${binding.llvm}"><local name="module"/><property name="module" value="llvm"/><body/></sequential>
                 <sequential if:true="${binding.lmdb}"><local name="module"/><property name="module" value="lmdb"/><body/></sequential>
+                <sequential if:true="${binding.lwjglx}"><local name="module"/><property name="module" value="lwjglx"/><body/></sequential>
                 <sequential if:true="${binding.lz4}"><local name="module"/><property name="module" value="lz4"/><body/></sequential>
                 <sequential if:true="${binding.meshoptimizer}"><local name="module"/><property name="module" value="meshoptimizer"/><body/></sequential>
                 <sequential if:true="${binding.msdfgen}"><local name="module"/><property name="module" value="msdfgen"/><body/></sequential>

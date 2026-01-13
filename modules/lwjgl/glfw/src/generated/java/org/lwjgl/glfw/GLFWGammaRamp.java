@@ -16,16 +16,12 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
-/**
- * <pre>{@code
- * struct GLFWgammaramp {
- *     unsigned short * red;
- *     unsigned short * green;
- *     unsigned short * blue;
- *     unsigned int size;
- * }}</pre>
- */
-@NativeType("struct GLFWgammaramp")
+@NativeType("struct GLFWgammaramp {\n" +
+    "    unsigned short * red;\n" +
+    "    unsigned short * green;\n" +
+    "    unsigned short * blue;\n" +
+    "    unsigned int size;\n" +
+    "}")
 public class GLFWGammaRamp extends Struct<GLFWGammaRamp> implements NativeResource {
 
     /** The struct size in bytes. */

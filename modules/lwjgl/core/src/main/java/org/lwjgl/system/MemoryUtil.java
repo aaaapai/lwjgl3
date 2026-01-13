@@ -403,6 +403,14 @@ public final class MemoryUtil {
         }
     }
 
+    // from LWJGL 3.2.2
+    /** {@code PointerBuffer} version of {@link #memFree}. */
+    public static void memFree(@Nullable PointerBuffer ptr) {
+        if (ptr != null) {
+            nmemFree(ptr.address);
+        }
+    }
+
     // --- [ memCalloc ] ---
 
     /** Unsafe version of {@link #memCalloc}. May return {@link #NULL} if {@code num} or {@code size} are zero or the allocation failed. */
@@ -2424,6 +2432,23 @@ public final class MemoryUtil {
             throw new IllegalArgumentException();
         }
         memset(ptr, value, bytes);
+    }
+
+    // Bit from a where mask bit is 0, bit from b where mask bit is 1.
+    private static long merge(long a, long b, long mask) {
+        return a ^ ((a ^ b) & mask);
+    }
+
+    // from LWJGL 3.1.2
+    /**
+     * Sets all bytes in a specified block of memory to a copy of another block.
+     *
+     * @param src   the source memory address
+     * @param dst   the destination memory address
+     * @param bytes the number of bytes to copy
+     */
+    public static void memCopy(long src, long dst, int bytes) {
+        memCopy(src, dst, (long)bytes);
     }
 
     /**
