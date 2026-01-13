@@ -270,47 +270,6 @@ public class GLFWVulkan {
     }
 
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-        Platform platform = Platform.get();
-
-        MemoryStack stack = stackGet();
-        int stackPointer = stack.getPointer();
-
-        try {
-            if (platform == Platform.MACOSX) {
-                long pCreateInfo = stack.ncalloc(VkMetalSurfaceCreateInfoEXT.SIZEOF, 1, VkMetalSurfaceCreateInfoEXT.ALIGNOF);
-                memPutInt(pCreateInfo, EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT); // sType
-                memPutAddress(pCreateInfo + 8, 0L); // pNext
-                memPutInt(pCreateInfo + 16, 0); // flags
-            
-                long pLayerPtr = stack.nmalloc(POINTER_SIZE, POINTER_SIZE);
-                memPutAddress(pLayerPtr, window);
-                memPutAddress(pCreateInfo + 24, pLayerPtr); // pLayer
-            
-                VkInstance vkInstance = VkInstance.create(instance, null);
-                try {
-                    return EXTMetalSurface.nvkCreateMetalSurfaceEXT(vkInstance, pCreateInfo, allocator, surface);
-                } finally {
-                    vkInstance.free();
-                }
-            
-            } else if (platform == Platform.LINUX) {
-                long pCreateInfo = stack.ncalloc(VkAndroidSurfaceCreateInfoKHR.SIZEOF, 1, VkAndroidSurfaceCreateInfoKHR.ALIGNOF);
-                memPutInt(pCreateInfo, KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR); // sType
-                memPutAddress(pCreateInfo + 8, 0L); // pNext
-                memPutInt(pCreateInfo + 16, 0); // flags
-                memPutAddress(pCreateInfo + 24, window); // window
-            
-                VkInstance vkInstance = VkInstance.create(instance, null);
-                try {
-                    return KHRAndroidSurface.nvkCreateAndroidSurfaceKHR(vkInstance, pCreateInfo, allocator, surface);
-                } finally {
-                    vkInstance.free();
-                }
-            }
-        } finally {
-            stack.setPointer(stackPointer);
-        }
-
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
