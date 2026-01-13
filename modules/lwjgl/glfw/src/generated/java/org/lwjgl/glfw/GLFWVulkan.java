@@ -190,7 +190,7 @@ public class GLFWVulkan {
     // --- [ glfwCreateWindowSurface ] ---
 
     /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
-@NativeType("VkResult")
+    @NativeType("VkResult")
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
         if (CHECKS) {
             check(surface, 1);
@@ -277,37 +277,40 @@ public class GLFWVulkan {
 
         try {
             if (platform == Platform.MACOSX) {
-                long __functionAddress = EXTMetalSurface.vkCreateMetalSurfaceEXT;
-                if (__functionAddress == 0L) {
-                    return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
-                }
-            
                 long pCreateInfo = stack.ncalloc(VkMetalSurfaceCreateInfoEXT.SIZEOF, 1, VkMetalSurfaceCreateInfoEXT.ALIGNOF);
-                memPutInt(pCreateInfo, EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT);
-                memPutAddress(pCreateInfo + 8, 0L);
-                memPutInt(pCreateInfo + 16, 0);
-                memPutAddress(pCreateInfo + 24, window);
+                memPutInt(pCreateInfo, EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT); // sType
+                memPutAddress(pCreateInfo + 8, 0L); // pNext
+                memPutInt(pCreateInfo + 16, 0); // flags
             
-                return invokePPPPI(instance, pCreateInfo, allocator, surface, __functionAddress);
+                long pLayerPtr = stack.nmalloc(POINTER_SIZE, POINTER_SIZE);
+                memPutAddress(pLayerPtr, window);
+                memPutAddress(pCreateInfo + 24, pLayerPtr); // pLayer
+            
+                VkInstance vkInstance = VkInstance.create(instance, null);
+                try {
+                    return EXTMetalSurface.nvkCreateMetalSurfaceEXT(vkInstance, pCreateInfo, allocator, surface);
+                } finally {
+                    vkInstance.free();
+                }
             
             } else if (platform == Platform.LINUX) {
-                long __functionAddress = KHRAndroidSurface.vkCreateAndroidSurfaceKHR;
-                if (__functionAddress == 0L) {
-                    return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
-                }
-            
                 long pCreateInfo = stack.ncalloc(VkAndroidSurfaceCreateInfoKHR.SIZEOF, 1, VkAndroidSurfaceCreateInfoKHR.ALIGNOF);
-                memPutInt(pCreateInfo, KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR);
-                memPutAddress(pCreateInfo + 8, 0L);
-                memPutInt(pCreateInfo + 16, 0);
-                memPutAddress(pCreateInfo + 24, window);
+                memPutInt(pCreateInfo, KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR); // sType
+                memPutAddress(pCreateInfo + 8, 0L); // pNext
+                memPutInt(pCreateInfo + 16, 0); // flags
+                memPutAddress(pCreateInfo + 24, window); // window
             
-                return invokePPPPI(instance, pCreateInfo, allocator, surface, __functionAddress);
+                VkInstance vkInstance = VkInstance.create(instance, null);
+                try {
+                    return KHRAndroidSurface.nvkCreateAndroidSurfaceKHR(vkInstance, pCreateInfo, allocator, surface);
+                } finally {
+                    vkInstance.free();
+                }
             }
         } finally {
             stack.setPointer(stackPointer);
         }
-    
+
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
