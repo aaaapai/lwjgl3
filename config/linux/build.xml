@@ -5,26 +5,26 @@
 <project name="native-linux" basedir="../.." xmlns:if="ant:if" xmlns:unless="ant:unless">
     <import file="../build-definitions.xml"/>
 
-    <condition property="linux.triplet" value="arm-linux-gnueabihf"><isset property="build.arch.arm32"/></condition>
-    <condition property="linux.triplet" value="aarch64-linux-gnu"><isset property="build.arch.arm64"/></condition>
-    <condition property="linux.triplet" value="powerpc64le-linux-gnu"><isset property="build.arch.ppc64le"/></condition>
-    <condition property="linux.triplet" value="riscv64-linux-gnu"><isset property="build.arch.riscv64"/></condition>
-    <condition property="linux.triplet" value="x86_64-linux-gnu"><isset property="build.arch.x64|x86"/></condition>
+    <property name="ndk.abi" value="21"/>
+    <property name="ndk.home" value="${env.ANDROID_NDK_HOME}"/>
+    <property name="ndk.bin" value="${ndk.home}/toolchains/llvm/prebuilt/linux-x86_64/bin"/>
 
-    <condition property="gcc.prefix" value="${linux.triplet}-" else="">
-        <isset property="env.LWJGL_BUILD_ARCH"/>
-    </condition>
-    <condition property="gcc.suffix" value="-${gcc.version}" else="">
-        <isset property="gcc.version"/>
-    </condition>
+    <property name="ndk.prefix" value="${ndk.bin}/aarch64-linux-android" if:set="build.arch.arm64"/>
+    <property name="ndk.prefix" value="${ndk.bin}/armv7a-linux-androideabi" if:set="build.arch.arm32"/>
+    <property name="ndk.prefix" value="${ndk.bin}/i686-linux-android" if:set="build.arch.x86"/>
+    <property name="ndk.prefix" value="${ndk.bin}/x86_64-linux-android" if:set="build.arch.x64"/>
+
+    <property name="gcc.prefix" value="${ndk.prefix}${ndk.abi}-"/>
+    <property name="llvm.prefix" value="${ndk.bin}/llvm-"/>
 
     <property name="module.lwjgl.rel" value="../../../../${module.lwjgl}"/>
 
     <macrodef name="compile">
         <attribute name="dest" default="${dest}"/>
         <attribute name="lang" default="c"/>
-        <attribute name="gcc.exec" default="${gcc.prefix}gcc${gcc.suffix}"/>
-        <attribute name="gpp.exec" default="${gcc.prefix}g++${gcc.suffix}"/>
+        <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
+        <attribute name="gpp.exec" default="${gcc.prefix}clang++"/>
+        <attribute name="lto" default="-flto"/>
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="relative" default="true"/>
@@ -42,7 +42,8 @@
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
                 <arg line="-mcpu=powerpc64le" if:set="build.arch.ppc64le"/>
                 <arg line="-march=rv64g" if:set="build.arch.riscv64"/>
-                <arg line="-O3 -flto=auto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
+                <arg line="-march=armv8-a+simd" if:set="build.arch.arm64"/>
+                <arg line="-O3 -flto -fPIC @{flags} -DPIC @{flags} -pthread -pipe -integrated-as -mllvm -polly -fdata-sections -ffunction-sections -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
                 <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
                 <arg line="-D_FILE_OFFSET_BITS=64"/>
 
@@ -67,9 +68,9 @@
         <attribute name="suffix" default=""/>
         <attribute name="linker" default="gcc"/>
         <attribute name="lang" default="c"/>
-        <attribute name="gcc.exec" default="${gcc.prefix}gcc${gcc.suffix}"/>
-        <attribute name="gpp.exec" default="${gcc.prefix}g++${gcc.suffix}"/>
-        <attribute name="flags" default="-Werror -Wfatal-errors"/>
+        <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
+        <attribute name="gpp.exec" default="${gcc.prefix}clang++"/>
+        <attribute name="flags" default="-Wno-nullability-completeness"/>
         <attribute name="simple" default="false"/>
         <element name="beforeCompile" optional="true"/>
         <element name="source" optional="true"/>
@@ -116,11 +117,24 @@
             <property name="version.script" location="config/${platform}/version.script"/>
 
             <local name="gcc"/>
+            <property name="gcc" value="@{gcc.exec}"/>
+<!--
             <condition property="gcc" value="@{gcc.exec}" else="@{gpp.exec}">
                 <and>
                     <equals arg1="@{lang}" arg2="c"/>
                     <equals arg1="@{linker}" arg2="gcc"/>
                 </and>
+            </condition>
+-->
+
+            <local name="force-cpp-static-linking"/>
+            <condition property="force-cpp-static-linking" value="true">
+                <not>
+                    <and>
+                        <equals arg1="@{lang}" arg2="c"/>
+                        <equals arg1="@{linker}" arg2="gcc"/>
+                    </and>
+                </not>
             </condition>
 
             <echo message="Linking ${name}" taskname="${gcc}" unless:set="lib-uptodate"/>
@@ -132,8 +146,9 @@
                 <arg value="-m64" if:set="build.arch.x64"/>
                 <arg value="-m32" if:set="build.arch.x86"/>
 
+                <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
-                <arg line="-O3 -flto=auto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-O3 -flto -pthread -fPIC -DPIC -pipe -integrated-as -mllvm -polly -fdata-sections -ffunction-sections -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
@@ -141,7 +156,7 @@
                 <link/>
             </apply>
 
-            <apply executable="${gcc.prefix}strip" failonerror="true" taskname="Symbol strip" unless:set="lib-uptodate">
+            <apply executable="${llvm.prefix}strip" failonerror="true" taskname="Symbol strip" unless:set="lib-uptodate">
                 <filelist dir="${lib.arch}" files="lib${name}.so"/>
             </apply>
             <delete file="${lib.native}/touch.txt" quiet="true" unless:set="lib-uptodate"/>
@@ -150,8 +165,8 @@
 
     <macrodef name="build_simple">
         <attribute name="module"/>
-        <attribute name="gcc.exec" default="${gcc.prefix}gcc${gcc.suffix}"/>
-        <attribute name="gpp.exec" default="${gcc.prefix}g++${gcc.suffix}"/>
+        <attribute name="gcc.exec" default="${gcc.prefix}clang"/>
+        <attribute name="gpp.exec" default="${gcc.prefix}clang++"/>
         <sequential>
             <build module="@{module}" gcc.exec="@{gcc.exec}" gpp.exec="@{gpp.exec}" simple="true" if:true="${binding.@{module}}"/>
         </sequential>
@@ -159,19 +174,20 @@
 
     <target name="compile-native-platform">
         <sequential if:set="gcc.version.print">
-            <echo message="GCC executable: ${gcc.prefix}gcc${gcc.suffix}"/>
+            <echo message="Clang executable: ${gcc.prefix}clang${gcc.suffix}"/>
             <exec executable="bash" logError="true" failonerror="false" taskname="Compiler">
                 <arg line="-o pipefail -c"/>
-                <arg value="${gcc.prefix}gcc${gcc.suffix} --version | grep ^.*gcc"/>
+                <arg value="${gcc.prefix}clang${gcc.suffix} --version | grep ^.*clang"/>
             </exec>
         </sequential>
 
         <parallel threadsPerProcessor="2">
 
         <!-- CORE -->
-        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic">
+        <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression">
             <beforeCompile>
                 <compile>
+                    
                     <arg value="-I${src.main.rel}/${platform}/liburing"/>
                     <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
                     <arg value="-DCONFIG_HAVE_MEMFD_CREATE"/>

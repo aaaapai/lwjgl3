@@ -30,6 +30,48 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8_
     return (jlong)(uintptr_t)stbir_resize_uint8_linear(input_pixels, input_w, input_h, input_stride_in_bytes, output_pixels, output_w, output_h, output_stride_in_bytes, (stbir_pixel_layout)pixel_type);
 }
 
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8(JNIEnv *__env, jclass clazz, 
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes, 
+    jint num_channels) {
+    
+    unsigned char const *input_pixels = (unsigned char const *)(uintptr_t)input_pixelsAddress;
+    unsigned char *output_pixels = (unsigned char *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    // 通道数到像素布局的映射
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1:
+            pixel_type = STBIR_1CHANNEL;
+            break;
+        case 2:
+            pixel_type = STBIR_2CHANNEL;
+            break;
+        case 3:
+            pixel_type = STBIR_RGB;
+            break;
+        case 4:
+            pixel_type = STBIR_RGBA;
+            break;
+        default:
+            // 对于不认识的通道数，使用4通道布局
+            // 实际使用时可能需要更合适的默认值
+            pixel_type = STBIR_4CHANNEL;
+            break;
+    }
+    
+    // 使用线性色彩空间进行缩放
+    unsigned char *result = stbir_resize_uint8_linear(
+        input_pixels, input_w, input_h, input_stride_in_bytes,
+        output_pixels, output_w, output_h, output_stride_in_bytes,
+        pixel_type
+    );
+    
+    // 返回布尔值：非NULL表示成功，NULL表示失败
+    return (jint)(result != NULL);
+}
+
 JNIEXPORT jlong JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float_1linear(JNIEnv *__env, jclass clazz, jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes, jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes, jint pixel_type) {
     float const *input_pixels = (float const *)(uintptr_t)input_pixelsAddress;
     float *output_pixels = (float *)(uintptr_t)output_pixelsAddress;

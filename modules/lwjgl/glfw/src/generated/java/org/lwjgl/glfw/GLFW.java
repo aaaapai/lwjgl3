@@ -20,6 +20,11 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class GLFW {
+// -- Begin overrride stubs --
+    public static long nglfwCreateContext(long share) {
+        throw new RuntimeException("stub function called");
+    }
+// -- End override stubs --
 
     private static final SharedLibrary GLFW = Library.loadNative(GLFW.class, "org.lwjgl.glfw", Configuration.GLFW_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("glfw")), true);
 
@@ -1007,9 +1012,8 @@ public class GLFW {
         return invokePPPP(width, height, title, monitor, share, __functionAddress);
     }
 
-    /** {@code GLFWwindow * glfwCreateWindow(int width, int height, char const * title, GLFWmonitor * monitor, GLFWwindow * share)} */
-    @NativeType("GLFWwindow *")
-    public static long glfwCreateWindow(int width, int height, @NativeType("char const *") ByteBuffer title, @NativeType("GLFWmonitor *") long monitor, @NativeType("GLFWwindow *") long share) {
+    @NativeType("GLFWwindow * glfwCreateWindow(int width, int height, char const * title, GLFWmonitor * monitor, GLFWwindow * share)")
+    public static long glfwCreateWindow(int width, int height, ByteBuffer title, long monitor, long share) {
         if (CHECKS) {
             checkNT1(title);
         }

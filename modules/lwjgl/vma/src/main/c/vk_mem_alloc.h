@@ -4168,6 +4168,12 @@ static void* VmaMalloc(const VkAllocationCallbacks* pAllocationCallbacks, size_t
     }
     else
     {
+        // HACK: enforce at least pointer alignment for system malloc
+        // LWJGL installs its own malloc callbacks, one of which calls aligned_alloc straight
+        // from the VMA_SYSTEM_ALIGNED_ALLOC define. The problem is that aligned_alloc
+        // uses posix_memalign for memory allocation on Android, which leads to a crash since sometimes
+        // VMA attempts to allocate pages with an alignment of 2 (not supported by posix_memalign)
+        if(alignment <= sizeof(void*)) alignment = sizeof(void*);
         result = VMA_SYSTEM_ALIGNED_MALLOC(size, alignment);
     }
     VMA_ASSERT(result != VMA_NULL && "CPU memory allocation failed.");

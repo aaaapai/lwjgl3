@@ -28,7 +28,7 @@ final class StackWalkUtil {
             .toArray(StackTraceElement[]::new);
     }
 
-    static Object stackWalkGetMethod(Class<?> after) {
+    public static Object stackWalkGetMethod(Class<?> after) {
         return STACKWALKER.walk(s -> {
             var iter = s.iterator();
             iter.next(); // skip this method

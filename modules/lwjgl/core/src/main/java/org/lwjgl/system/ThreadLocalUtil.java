@@ -7,6 +7,7 @@ package org.lwjgl.system;
 import org.lwjgl.*;
 
 import static org.lwjgl.system.APIUtil.*;
+import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.Pointer.*;
 import static org.lwjgl.system.jni.JNINativeInterface.*;
@@ -84,6 +85,10 @@ public final class ThreadLocalUtil {
     be easy to workaround (attaching the agent at startup, making sure no contexts are current when the agent is attached, clearing and setting again the
     capabilities instance).
     */
+
+    static {
+        Library.initialize();
+    }
 
     /** The global JNIEnv. */
     private static final long JNI_NATIVE_INTERFACE = memGetAddress(getThreadJNIEnv());
@@ -170,6 +175,27 @@ public final class ThreadLocalUtil {
     private static native long getFunctionMissingAbort();
 
     private static native long setupEnvData(int functionCount);
+
+    public static void setMemoryStack() {
+        System.err.println("IN setMemoryStack: " + Thread.currentThread());
+
+        // Get thread's JNIEnv
+        long env_pp = getThreadJNIEnv();
+        long env_p  = memGetAddress(env_pp);
+
+        if (env_p == JNI_NATIVE_INTERFACE) {
+            setupEnvData(JNI_NATIVE_INTERFACE_FUNCTION_COUNT);
+            env_p = memGetAddress(env_pp);
+        }
+
+        memPutAddress(env_p + CAPABILITIES_OFFSET - POINTER_SIZE, NewGlobalRef(MemoryStack.create()));
+    }
+
+    private static native MemoryStack ngetMemoryStack(long RESERVED_NULL);
+
+    public static MemoryStack getMemoryStack() {
+        return ngetMemoryStack(RESERVED_NULL);
+    }
 
     public static void setCapabilities(long capabilities) {
         // Get thread's JNIEnv
