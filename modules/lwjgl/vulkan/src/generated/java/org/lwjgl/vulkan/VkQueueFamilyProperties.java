@@ -118,6 +118,24 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
         return address == NULL ? null : new VkQueueFamilyProperties(address, null);
     }
 
+
+        /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties mallocStack() { return malloc(stackGet()); }
+        /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties callocStack() { return calloc(stackGet()); }
+        /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties mallocStack(MemoryStack stack) { return malloc(stack); }
+        /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties callocStack(MemoryStack stack) { return calloc(stack); }
+        /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
+        /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
+        /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
+        /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
+        @Deprecated public static VkQueueFamilyProperties.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
+
     /**
      * Returns a new {@link VkQueueFamilyProperties.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
      *
@@ -264,24 +282,6 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
         public int timestampValidBits() { return VkQueueFamilyProperties.ntimestampValidBits(address()); }
         /** @return a {@link VkExtent3D} view of the {@code minImageTransferGranularity} field. */
         public VkExtent3D minImageTransferGranularity() { return VkQueueFamilyProperties.nminImageTransferGranularity(address()); }
-
-
-        /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties mallocStack() { return malloc(stackGet()); }
-        /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties callocStack() { return calloc(stackGet()); }
-        /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties mallocStack(MemoryStack stack) { return malloc(stack); }
-        /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties callocStack(MemoryStack stack) { return calloc(stack); }
-        /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-        /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-        /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-        /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-        @Deprecated public static VkQueueFamilyProperties.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
     
     }
 
