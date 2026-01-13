@@ -43,12 +43,14 @@ val XrRenderModelAssetEXT = XR_DEFINE_HANDLE("XrRenderModelAssetEXT")
 val XrPassthroughHTC = XR_DEFINE_HANDLE("XrPassthroughHTC")
 val XrBodyTrackerHTC = XR_DEFINE_HANDLE("XrBodyTrackerHTC")
 val XrBodyTrackerBD = XR_DEFINE_HANDLE("XrBodyTrackerBD")
+val XrFaceTrackerBD = XR_DEFINE_HANDLE("XrFaceTrackerBD")
 val XrSenseDataProviderBD = XR_DEFINE_HANDLE("XrSenseDataProviderBD")
 val XrSenseDataSnapshotBD = XR_DEFINE_HANDLE("XrSenseDataSnapshotBD")
 val XrAnchorBD = XR_DEFINE_HANDLE("XrAnchorBD")
 val XrPlaneDetectorEXT = XR_DEFINE_HANDLE("XrPlaneDetectorEXT")
 val XrTrackableTrackerANDROID = XR_DEFINE_HANDLE("XrTrackableTrackerANDROID")
 val XrDeviceAnchorPersistenceANDROID = XR_DEFINE_HANDLE("XrDeviceAnchorPersistenceANDROID")
+val XrFaceTrackerANDROID = XR_DEFINE_HANDLE("XrFaceTrackerANDROID")
 val XrWorldMeshDetectorML = XR_DEFINE_HANDLE("XrWorldMeshDetectorML")
 val XrFacialExpressionClientML = XR_DEFINE_HANDLE("XrFacialExpressionClientML")
 val XrSpatialEntityEXT = XR_DEFINE_HANDLE("XrSpatialEntityEXT")
@@ -146,6 +148,9 @@ val XrBodyJointConfidenceHTC = "XrBodyJointConfidenceHTC".enumType
 val XrForceFeedbackCurlLocationMNDX = "XrForceFeedbackCurlLocationMNDX".enumType
 val XrBodyJointBD = "XrBodyJointBD".enumType
 val XrBodyJointSetBD = "XrBodyJointSetBD".enumType
+val XrFacialSimulationModeBD = "XrFacialSimulationModeBD".enumType
+val XrFaceExpressionBD = "XrFaceExpressionBD".enumType
+val XrLipExpressionBD = "XrLipExpressionBD".enumType
 val XrSpatialEntityComponentTypeBD = "XrSpatialEntityComponentTypeBD".enumType
 val XrSemanticLabelBD = "XrSemanticLabelBD".enumType
 val XrSenseDataProviderTypeBD = "XrSenseDataProviderTypeBD".enumType
@@ -163,6 +168,9 @@ val XrTrackableTypeANDROID = "XrTrackableTypeANDROID".enumType
 val XrPlaneTypeANDROID = "XrPlaneTypeANDROID".enumType
 val XrPlaneLabelANDROID = "XrPlaneLabelANDROID".enumType
 val XrAnchorPersistStateANDROID = "XrAnchorPersistStateANDROID".enumType
+val XrFaceParameterIndicesANDROID = "XrFaceParameterIndicesANDROID".enumType
+val XrFaceTrackingStateANDROID = "XrFaceTrackingStateANDROID".enumType
+val XrFaceConfidenceRegionsANDROID = "XrFaceConfidenceRegionsANDROID".enumType
 val XrPassthroughCameraStateANDROID = "XrPassthroughCameraStateANDROID".enumType
 val XrObjectLabelANDROID = "XrObjectLabelANDROID".enumType
 val XrFutureStateEXT = "XrFutureStateEXT".enumType
@@ -1116,7 +1124,10 @@ val XrSceneMeshBuffersGetInfoMSFT = struct(Module.OPENXR, "XrSceneMeshBuffersGet
 
 val XrSceneMeshBuffersMSFT = struct(Module.OPENXR, "XrSceneMeshBuffersMSFT") {
     Expression("#TYPE_SCENE_MESH_BUFFERS_MSFT")..XrStructureType("type")
-    nullable..opaque_p("next")
+    PointerSetter(
+        "XrSceneMeshIndicesUint16MSFT", "XrSceneMeshIndicesUint32MSFT", "XrSceneMeshVertexBufferMSFT",
+        prepend = true
+    )..nullable..opaque_p("next")
 }
 
 val XrSceneMeshVertexBufferMSFT = struct(Module.OPENXR, "XrSceneMeshVertexBufferMSFT") {
@@ -1932,7 +1943,10 @@ val XrSceneMarkerQRCodesMSFT = struct(Module.OPENXR, "XrSceneMarkerQRCodesMSFT")
 
 val XrSpaceQueryInfoBaseHeaderFB = struct(Module.OPENXR, "XrSpaceQueryInfoBaseHeaderFB") {
     XrStructureType("type")
-    nullable..opaque_const_p("next")
+    PointerSetter(
+        "XrSpaceGroupUuidFilterInfoMETA",
+        prepend = true
+    )..nullable..opaque_const_p("next")
 }
 
 val XrSpaceFilterInfoBaseHeaderFB = struct(Module.OPENXR, "XrSpaceFilterInfoBaseHeaderFB") {
@@ -2138,7 +2152,10 @@ val XrRect3DfFB = struct(Module.OPENXR, "XrRect3DfFB") {
 
 val XrSemanticLabelsFB = struct(Module.OPENXR, "XrSemanticLabelsFB") {
     Expression("#TYPE_SEMANTIC_LABELS_FB")..XrStructureType("type")
-    nullable..opaque_const_p("next")
+    PointerSetter(
+        "XrSemanticLabelsSupportInfoFB",
+        prepend = true
+    )..nullable..opaque_const_p("next")
     AutoSize("buffer", optional = true)..uint32_t("bufferCapacityInput")
     uint32_t("bufferCountOutput")
     nullable..char.p("buffer")
@@ -2827,11 +2844,20 @@ val XrEnvironmentDepthImageViewMETA = struct(Module.OPENXR, "XrEnvironmentDepthI
 
 val XrEnvironmentDepthImageMETA = struct(Module.OPENXR, "XrEnvironmentDepthImageMETA") {
     Expression("#TYPE_ENVIRONMENT_DEPTH_IMAGE_META")..XrStructureType("type")
-    nullable..opaque_const_p("next")
+    PointerSetter(
+        "XrEnvironmentDepthImageTimestampMETA",
+        prepend = true
+    )..nullable..opaque_const_p("next")
     uint32_t("swapchainIndex")
     float("nearZ")
     float("farZ")
     XrEnvironmentDepthImageViewMETA("views")[2]
+}
+
+val XrEnvironmentDepthImageTimestampMETA = struct(Module.OPENXR, "XrEnvironmentDepthImageTimestampMETA") {
+    Expression("#TYPE_ENVIRONMENT_DEPTH_IMAGE_TIMESTAMP_META")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+    XrTime("captureTime")
 }
 
 val XrEnvironmentDepthHandRemovalSetInfoMETA = struct(Module.OPENXR, "XrEnvironmentDepthHandRemovalSetInfoMETA") {
@@ -3142,6 +3168,44 @@ val XrBodyJointLocationsBD = struct(Module.OPENXR, "XrBodyJointLocationsBD") {
     XrBodyJointLocationBD.p("jointLocations")
 }
 
+val XrSystemFacialSimulationPropertiesBD = struct(Module.OPENXR, "XrSystemFacialSimulationPropertiesBD", mutable = false) {
+    Expression("#TYPE_SYSTEM_FACIAL_SIMULATION_PROPERTIES_BD")..XrStructureType("type").mutable()
+    nullable..opaque_p("next").mutable()
+    XrBool32("supportsFaceTracking")
+}
+
+val XrFaceTrackerCreateInfoBD = struct(Module.OPENXR, "XrFaceTrackerCreateInfoBD") {
+    Expression("#TYPE_FACE_TRACKER_CREATE_INFO_BD")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+    XrFacialSimulationModeBD("mode")
+}
+
+val XrFacialSimulationDataGetInfoBD = struct(Module.OPENXR, "XrFacialSimulationDataGetInfoBD") {
+    Expression("#TYPE_FACIAL_SIMULATION_DATA_GET_INFO_BD")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+    XrTime("time")
+}
+
+val XrFacialSimulationDataBD = struct(Module.OPENXR, "XrFacialSimulationDataBD") {
+    Expression("#TYPE_FACIAL_SIMULATION_DATA_BD")..XrStructureType("type")
+    PointerSetter(
+        "XrLipExpressionDataBD",
+        prepend = true
+    )..nullable..opaque_p("next")
+    AutoSize("faceExpressionWeights")..uint32_t("faceExpressionWeightCount")
+    float.p("faceExpressionWeights")
+    XrBool32("isUpperFaceDataValid")
+    XrBool32("isLowerFaceDataValid")
+    XrTime("time")
+}
+
+val XrLipExpressionDataBD = struct(Module.OPENXR, "XrLipExpressionDataBD") {
+    Expression("#TYPE_LIP_EXPRESSION_DATA_BD")..XrStructureType("type")
+    nullable..opaque_p("next")
+    AutoSize("lipsyncExpressionWeights")..uint32_t("lipsyncExpressionWeightCount")
+    float.p("lipsyncExpressionWeights")
+}
+
 val XrSystemSpatialSensingPropertiesBD = struct(Module.OPENXR, "XrSystemSpatialSensingPropertiesBD", mutable = false) {
     Expression("#TYPE_SYSTEM_SPATIAL_SENSING_PROPERTIES_BD")..XrStructureType("type").mutable()
     nullable..opaque_p("next").mutable()
@@ -3150,7 +3214,10 @@ val XrSystemSpatialSensingPropertiesBD = struct(Module.OPENXR, "XrSystemSpatialS
 
 val XrSpatialEntityComponentGetInfoBD = struct(Module.OPENXR, "XrSpatialEntityComponentGetInfoBD") {
     Expression("#TYPE_SPATIAL_ENTITY_COMPONENT_GET_INFO_BD")..XrStructureType("type")
-    nullable..opaque_const_p("next")
+    PointerSetter(
+        "XrSpatialEntityLocationGetInfoBD",
+        prepend = true
+    )..nullable..opaque_const_p("next")
     XrSpatialEntityIdBD("entityId")
     XrSpatialEntityComponentTypeBD("componentType")
 }
@@ -3566,6 +3633,37 @@ val XrSystemDeviceAnchorPersistencePropertiesANDROID = struct(Module.OPENXR, "Xr
     Expression("#TYPE_SYSTEM_DEVICE_ANCHOR_PERSISTENCE_PROPERTIES_ANDROID")..XrStructureType("type").mutable()
     nullable..opaque_p("next").mutable()
     XrBool32("supportsAnchorPersistence")
+}
+
+val XrFaceTrackerCreateInfoANDROID = struct(Module.OPENXR, "XrFaceTrackerCreateInfoANDROID") {
+    Expression("#TYPE_FACE_TRACKER_CREATE_INFO_ANDROID")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+}
+
+val XrFaceStateGetInfoANDROID = struct(Module.OPENXR, "XrFaceStateGetInfoANDROID") {
+    Expression("#TYPE_FACE_STATE_GET_INFO_ANDROID")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+    XrTime("time")
+}
+
+val XrFaceStateANDROID = struct(Module.OPENXR, "XrFaceStateANDROID") {
+    Expression("#TYPE_FACE_STATE_ANDROID")..XrStructureType("type")
+    nullable..opaque_p("next")
+    AutoSize("parameters", optional = true)..uint32_t("parametersCapacityInput")
+    uint32_t("parametersCountOutput")
+    nullable..float.p("parameters")
+    XrFaceTrackingStateANDROID("faceTrackingState")
+    XrTime("sampleTime")
+    XrBool32("isValid")
+    AutoSize("regionConfidences", optional = true)..uint32_t("regionConfidencesCapacityInput")
+    uint32_t("regionConfidencesCountOutput")
+    nullable..float.p("regionConfidences")
+}
+
+val XrSystemFaceTrackingPropertiesANDROID = struct(Module.OPENXR, "XrSystemFaceTrackingPropertiesANDROID", mutable = false) {
+    Expression("#TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_ANDROID")..XrStructureType("type").mutable()
+    nullable..opaque_p("next").mutable()
+    XrBool32("supportsFaceTracking")
 }
 
 val XrSystemPassthroughCameraStatePropertiesANDROID = struct(Module.OPENXR, "XrSystemPassthroughCameraStatePropertiesANDROID", mutable = false) {

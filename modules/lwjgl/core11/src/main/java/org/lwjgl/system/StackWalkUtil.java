@@ -10,8 +10,8 @@ import java.util.*;
 
 import static org.lwjgl.system.APIUtil.*;
 
-/** Java 9 version of {@code {@link StackWalkUtil}}. */
-public final class StackWalkUtil {
+/** JDK 11+ version of {@code {@link StackWalkUtil}}. */
+final class StackWalkUtil {
 
     private static final StackWalker STACKWALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
@@ -30,7 +30,7 @@ public final class StackWalkUtil {
 
     public static Object stackWalkGetMethod(Class<?> after) {
         return STACKWALKER.walk(s -> {
-            Iterator<StackWalker.StackFrame> iter = s.iterator();
+            var iter = s.iterator();
             iter.next(); // skip this method
             iter.next(); // skip MemoryStack::pop
 
@@ -66,11 +66,11 @@ public final class StackWalkUtil {
         return false;
     }
 
-    public static @Nullable Object stackWalkCheckPop(Class<?> after, Object pushedObj) {
-        StackWalker.StackFrame pushed = (StackWalker.StackFrame)pushedObj;
+    static @Nullable Object stackWalkCheckPop(Class<?> after, Object pushedObj) {
+        var pushed = (StackWalker.StackFrame)pushedObj;
 
         return StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).walk(s -> {
-            Iterator<StackWalker.StackFrame> iter = s.iterator();
+            var iter = s.iterator();
             iter.next();
             iter.next();
 

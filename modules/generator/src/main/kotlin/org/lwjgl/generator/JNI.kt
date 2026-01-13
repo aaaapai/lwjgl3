@@ -106,19 +106,15 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
             "org.lwjgl.system.ffm.*",
             "java.lang.foreign.*",
             "java.lang.invoke.*",
-            "java.util.*"
+            "static org.lwjgl.system.ffm.FFM.*",
         )
         generateJavaPreamble()
         print("""public final class JNI {
 
-    static final class LazyInit {
-        static final SharedLibrary LWJGL = Library.loadNative(JNI.class, "org.lwjgl", "lwjgl");
-    }
-
     @FFMFunctionAddress
     private interface JNIBindings {""")
         sortedSignatures.forEach {
-            print("\n$t${t}${if (it.returnType.isPointer) "@FFMPointer " else ""}public ${it.returnType.nativeMethodType} ${it.signature}(MemorySegment __functionAddress")
+            print("\n$t${t}${if (it.returnType.isPointer) "@FFMPointer " else ""}${it.returnType.nativeMethodType} ${it.signature}(MemorySegment __functionAddress")
             if (it.arguments.isNotEmpty()) {
                 print(it.arguments.asSequence()
                     .mapIndexed { i, param -> "${if (param.isPointer) "@FFMNullable @FFMPointer " else ""}${param.nativeMethodType} param$i" }
@@ -129,7 +125,8 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
     print("""
     }
 
-    /*private static final TraceConsumer TRACER = (method, returnValue, args) -> {
+    /*
+    private static final TraceConsumer TRACER = (method, returnValue, args) -> {
         var prefix = method.getDeclaringClass().getAnnotation(FFMPrefix.class);
         if (prefix != null) {
             System.err.print(prefix.value());
@@ -160,11 +157,11 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
         }
     };*/
 
-    private static final JNIBindings jni = BindingGenerator.generate(
-        MethodHandles.lookup(),
+    private static final JNIBindings jni = ffmGenerate(
         JNIBindings.class,
-        BindingConfig.builder()
-            .withLookup((SymbolLookup)name -> Optional.of(MemorySegment.ofAddress(LazyInit.LWJGL.getFunctionAddress(name))))
+        ffmConfigBuilder(MethodHandles.lookup())
+            .withChecks(false)
+            //.withCriticalOverride(_ -> true)
             //.withTracing(TRACER)
             .build()
     );
@@ -199,7 +196,7 @@ object JNI : GeneratorTargetNative(Module.CORE, "JNI") {
             print("${t}public static native ${it.returnType.nativeMethodType} ${it.signature}(")
             if (it.arguments.isNotEmpty())
                 print(it.arguments.asSequence()
-                    .mapIndexed { i, param -> if (param is ArrayType<*>) "@Nullable ${param.mapping.primitive}[] param$i" else "${param.nativeMethodType} param$i" }
+                    .mapIndexed { i, param -> if (param is ArrayType<*>) "${param.mapping.primitive} @Nullable [] param$i" else "${param.nativeMethodType} param$i" }
                     .joinToString(", ", postfix = ", "))
             println("long $FUNCTION_ADDRESS);")
         }

@@ -113,7 +113,7 @@ fun main(args: Array<String>) {
 
                 submit {
                     generateSimple(JNI) { it.generateJava() }
-                    generateSimple(JNI, version = "24", forceSkipNative = true) { it.generateJavaFFM() }
+                    generateSimple(JNI, version = "25", forceSkipNative = true) { it.generateJavaFFM() }
                 }
 
                 latch.await()
