@@ -83,50 +83,37 @@ public class GLFWVulkan {
      */
     @NativeType("char const **")
     public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
+        Platform platform = Platform.get();
+        
         MemoryStack stack = stackGet();
         int stackPointer = stack.getPointer();
+    
         try {
-            // 获取GLFW所需的扩展
-            IntBuffer count = stack.callocInt(1);
-            long extensionsPtr = nglfwGetRequiredInstanceExtensions(memAddress(count));
+            int baseExtensions = 1;
         
-            if (extensionsPtr == NULL || count.get(0) == 0) {
+            String platformExtension = null;
+            if (platform == Platform.MACOSX) {
+                platformExtension = "VK_EXT_metal_surface";
+            } else if (platform == Platform.LINUX) {
+                platformExtension = "VK_KHR_android_surface";
+            } else {
                 return null;
             }
         
-            // 根据平台添加额外的扩展
-            Platform platform = Platform.get();
-            int extraCount = 2; // VK_KHR_surface + 平台特定surface
-        
-            PointerBuffer allExtensions = stack.mallocPointer(count.get(0) + extraCount);
-        
-            // 复制GLFW返回的扩展
-            PointerBuffer requiredExtensions = memPointerBuffer(extensionsPtr, count.get(0));
-            for (int i = 0; i < count.get(0); i++) {
-                allExtensions.put(i, requiredExtensions.get(i));
-            }
-        
-            // 添加Vulkan surface扩展
-            allExtensions.put(count.get(0), stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
-        
-            // 添加平台特定的surface扩展
-            String platformSurface;
-            if (platform == Platform.MACOSX) {
-                platformSurface = "VK_EXT_metal_surface";
-            } else if (platform == Platform.LINUX) {
-                platformSurface = "VK_KHR_android_surface";
+            PointerBuffer extensions;
+            if (platformExtension != null) {
+                extensions = stack.mallocPointer(baseExtensions + 1);
+                extensions.put(0, stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
+                extensions.put(1, stack.UTF8(platformExtension));
             } else {
-                platformSurface = null;
+                extensions = stack.mallocPointer(baseExtensions);
+                extensions.put(0, stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
             }
         
-            if (platformSurface != null) {
-                allExtensions.put(count.get(0) + 1, stack.UTF8(platformSurface));
-                return allExtensions;
-            } else {
-                return allExtensions.position(0).limit(count.get(0) + 1);
-            }
+            return extensions;
+        
         } finally {
-            stack.setPointer(stackPointer);
+        stack.setPointer(stackPointer);
         }
     }
 
