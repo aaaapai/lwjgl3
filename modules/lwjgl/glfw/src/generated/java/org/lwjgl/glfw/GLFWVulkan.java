@@ -277,27 +277,37 @@ public class GLFWVulkan {
 
         try {
             if (platform == Platform.MACOSX) {
+                long __functionAddress = EXTMetalSurface.vkCreateMetalSurfaceEXT;
+                if (__functionAddress == 0L) {
+                    return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
+                }
+            
                 long pCreateInfo = stack.ncalloc(VkMetalSurfaceCreateInfoEXT.SIZEOF, 1, VkMetalSurfaceCreateInfoEXT.ALIGNOF);
-                memPutInt(pCreateInfo, EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT); // sType
+                memPutInt(pCreateInfo, EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT);
                 memPutAddress(pCreateInfo + 8, 0L);
                 memPutInt(pCreateInfo + 16, 0);
                 memPutAddress(pCreateInfo + 24, window);
             
-                return EXTMetalSurface.nvkCreateMetalSurfaceEXT(instance, pCreateInfo, allocator, surface);
+                return invokePPPPI(instance, pCreateInfo, allocator, surface, __functionAddress);
             
             } else if (platform == Platform.LINUX) {
-                long pCreateInfo = stack.ncalloc(VkAndroidSurfaceCreateInfoKHR.SIZEOF, 1, VkAndroidSurfaceCreateInfoKHR.ALIGNOF);
-                memPutInt(pCreateInfo, KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR); // sType
-                memPutAddress(pCreateInfo + 8, 0L); // pNext
-                memPutInt(pCreateInfo + 16, 0); // flags
-                memPutAddress(pCreateInfo + 24, window); // window
+                long __functionAddress = KHRAndroidSurface.vkCreateAndroidSurfaceKHR;
+                if (__functionAddress == 0L) {
+                    return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
+                }
             
-                return KHRAndroidSurface.nvkCreateAndroidSurfaceKHR(instance, pCreateInfo, allocator, surface);
+                long pCreateInfo = stack.ncalloc(VkAndroidSurfaceCreateInfoKHR.SIZEOF, 1, VkAndroidSurfaceCreateInfoKHR.ALIGNOF);
+                memPutInt(pCreateInfo, KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR);
+                memPutAddress(pCreateInfo + 8, 0L);
+                memPutInt(pCreateInfo + 16, 0);
+                memPutAddress(pCreateInfo + 24, window);
+            
+                return invokePPPPI(instance, pCreateInfo, allocator, surface, __functionAddress);
             }
         } finally {
             stack.setPointer(stackPointer);
         }
-
+    
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
