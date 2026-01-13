@@ -207,7 +207,6 @@ public class GLFWVulkan {
             return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
         }
 
-        return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 
     /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
