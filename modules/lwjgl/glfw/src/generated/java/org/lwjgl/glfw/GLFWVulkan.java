@@ -85,14 +85,49 @@ public class GLFWVulkan {
     public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
         MemoryStack stack = stackGet();
         int stackPointer = stack.getPointer();
-        IntBuffer count = stack.callocInt(1);
-        String platformSurface;
-        if (Platform.get() == Platform.MACOSX) {
-            platformSurface = "VK_EXT_metal_surface";
-        } else {
-            platformSurface = "VK_KHR_android_surface";
+        try {
+            // 获取GLFW所需的扩展
+            IntBuffer count = stack.callocInt(1);
+            long extensionsPtr = nglfwGetRequiredInstanceExtensions(memAddress(count));
+        
+            if (extensionsPtr == NULL || count.get(0) == 0) {
+                return null;
+            }
+        
+            // 根据平台添加额外的扩展
+            Platform platform = Platform.get();
+            int extraCount = 2; // VK_KHR_surface + 平台特定surface
+        
+            PointerBuffer allExtensions = stack.mallocPointer(count.get(0) + extraCount);
+        
+            // 复制GLFW返回的扩展
+            PointerBuffer requiredExtensions = memPointerBuffer(extensionsPtr, count.get(0));
+            for (int i = 0; i < count.get(0); i++) {
+                allExtensions.put(i, requiredExtensions.get(i));
+            }
+        
+            // 添加Vulkan surface扩展
+            allExtensions.put(count.get(0), stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
+        
+            // 添加平台特定的surface扩展
+            String platformSurface;
+            if (platform == Platform.MACOSX) {
+                platformSurface = "VK_EXT_metal_surface";
+            } else if (platform == Platform.LINUX) {
+                platformSurface = "VK_KHR_android_surface";
+            } else {
+                platformSurface = null;
+            }
+        
+            if (platformSurface != null) {
+                allExtensions.put(count.get(0) + 1, stack.UTF8(platformSurface));
+                return allExtensions;
+            } else {
+                return allExtensions.position(0).limit(count.get(0) + 1);
+            }
+        } finally {
+            stack.setPointer(stackPointer);
         }
-        return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
      
@@ -165,34 +200,77 @@ public class GLFWVulkan {
      *
      * @since version 3.2
      */
+    // --- [ glfwCreateWindowSurface ] ---
+
+    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
     @NativeType("VkResult")
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") LongBuffer surface) {
         if (CHECKS) {
             check(surface, 1);
         }
-        if (Platform.get() == Platform.MACOSX) {
-            VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
-                .calloc()
-                .sType(VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
-                .pLayer(PointerBuffer.create(window, 1));
-            return vkCreateMetalSurfaceEXT(instance, pCreateInfo, null, surface);
-        } else if (Platform.get() == Platform.LINUX) {
-            VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
-                .calloc()
-                .sType(VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
-                .window(window);
-            return vkCreateAndroidSurfaceKHR(instance, pCreateInfo, null, surface);
+    
+        Platform platform = Platform.get();
+    
+        try {
+            if (platform == Platform.MACOSX) {
+                VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
+                    .calloc()
+                    .sType(EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
+                    .pNext(NULL)
+                    .flags(0)
+                    .pLayer(window);
+            
+                return EXTMetalSurface.vkCreateMetalSurfaceEXT(
+                    instance, 
+                    pCreateInfo, 
+                    memAddressSafe(allocator), 
+                    memAddress(surface)
+                );
+            
+            } else if (platform == Platform.LINUX) {
+                VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
+                    .calloc()
+                    .sType(KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
+                    .pNext(NULL)
+                    .flags(0)
+                    .window(window);
+            
+                return KHRAndroidSurface.vkCreateAndroidSurfaceKHR(
+                    instance, 
+                    pCreateInfo, 
+                    memAddressSafe(allocator), 
+                    memAddress(surface)
+                );
+            }
+        } catch (UnsatisfiedLinkError e) {
+            return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
         }
+    
         return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
-     
-    /** {@code VkResult glfwCreateWindowSurface(VkInstance instance, GLFWwindow * window, VkAllocationCallbacks const * allocator, VkSurfaceKHR * surface)} */
+
+    /** Array version of: {@link #glfwCreateWindowSurface CreateWindowSurface} */
+    @NativeType("VkResult")
     public static int glfwCreateWindowSurface(VkInstance instance, @NativeType("GLFWwindow *") long window, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks allocator, @NativeType("VkSurfaceKHR *") long[] surface) {
+        if (CHECKS) {
+            check(surface, 1);
+        }
+    
         MemoryStack stack = stackGet();
-        LongBuffer pSurface = stack.mallocLong(1);
-        int result = glfwCreateWindowSurface(instance, window, allocator, pSurface);
-        surface[0] = pSurface.get(0);
-        return result;
+        int stackPointer = stack.getPointer();
+    
+        try {
+            LongBuffer surfaceBuffer = stack.mallocLong(1);
+            int result = glfwCreateWindowSurface(instance, window, allocator, surfaceBuffer);
+        
+            if (result == VK10.VK_SUCCESS) {
+                surface[0] = surfaceBuffer.get(0);
+            }
+        
+            return result;
+        } finally {
+            stack.setPointer(stackPointer);
+        }
     }
 
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
