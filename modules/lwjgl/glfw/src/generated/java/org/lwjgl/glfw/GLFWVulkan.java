@@ -274,23 +274,33 @@ public class GLFWVulkan {
     }
 
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
-       // 直接使用 MemoryStack 创建临时缓冲区
-       MemoryStack stack = stackGet();
-       LongBuffer surfaceBuffer = stack.mallocLong(1);
+        Platform platform = Platform.get();
     
-        // 使用 VkInstance 的构造函数而不是 create 方法
-       VkInstance vkInstance = new VkInstance(instance, null);
+        MemoryStack stack = stackGet();
+        int stackPointer = stack.getPointer();
     
-       // 调用现有的 glfwCreateWindowSurface 方法
-       int result = glfwCreateWindowSurface(vkInstance, window, null, surfaceBuffer);
-    
-       // 将结果写回 surface 指针
-        if (result == 0) { // VK_SUCCESS 的值通常是 0
-            memPutLong(surface, surfaceBuffer.get(0));
+        try {
+            if (platform == Platform.MACOSX) {
+                long pCreateInfo = stack.ncalloc(VkMetalSurfaceCreateInfoEXT.SIZEOF, 1, VkMetalSurfaceCreateInfoEXT.ALIGNOF);
+                memPutInt(pCreateInfo, EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT);
+                memPutAddress(pCreateInfo + VkMetalSurfaceCreateInfoEXT.PLAYER, window);
+            
+                return EXTMetalSurface.nvkCreateMetalSurfaceEXT(instance, pCreateInfo, allocator, surface);
+            
+            } else if (platform == Platform.LINUX) {
+                long pCreateInfo = stack.ncalloc(VkAndroidSurfaceCreateInfoKHR.SIZEOF, 1, VkAndroidSurfaceCreateInfoKHR.ALIGNOF);
+                memPutInt(pCreateInfo, KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR);
+                memPutAddress(pCreateInfo + VkAndroidSurfaceCreateInfoKHR.WINDOW, window);
+            
+                return KHRAndroidSurface.nvkCreateAndroidSurfaceKHR(instance, pCreateInfo, allocator, surface);
+            }
+        } finally {
+            stack.setPointer(stackPointer);
         }
     
-        return result;
+        return VK10.VK_ERROR_EXTENSION_NOT_PRESENT;
     }
+
     /**
      * Calls {@link #setPath(String)} with the path of the specified {@link SharedLibrary}.
      * 
