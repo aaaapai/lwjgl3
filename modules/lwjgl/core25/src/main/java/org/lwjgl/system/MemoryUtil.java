@@ -330,7 +330,7 @@ public final class MemoryUtil {
     /** {@code PointerBuffer} version of {@link #memFree(Buffer)}. */
     public static void memFree(@Nullable PointerBuffer ptr) {
         if (ptr != null) {
-            nmemFree(MemorySegment.ofBuffer(ptr).address() - ((long)ptr.position() << POINTER_SHIFT));
+            nmemFree(ptr.address);
         }
     }
 
