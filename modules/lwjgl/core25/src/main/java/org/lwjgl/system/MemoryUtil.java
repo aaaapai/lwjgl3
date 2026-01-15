@@ -327,6 +327,13 @@ public final class MemoryUtil {
         }
     }
 
+    /** {@code PointerBuffer} version of {@link #memFree(Buffer)}. */
+    public static void memFree(@Nullable PointerBuffer ptr) {
+        if (ptr != null) {
+            nmemFree(MemorySegment.ofBuffer(ptr).address() - ((long)ptr.position() << POINTER_SHIFT));
+        }
+    }
+
     // --- [ memCalloc ] ---
 
     /** Unsafe version of {@link #memCalloc}. May return {@link #NULL} if {@code num} or {@code size} are zero or the allocation failed. */
@@ -1521,6 +1528,12 @@ public final class MemoryUtil {
      * @param src the source memory address
      * @param dst the destination memory address
      */
+
+    // Bit from a where mask bit is 0, bit from b where mask bit is 1.
+    private static long merge(long a, long b, long mask) {
+        return a ^ ((a ^ b) & mask);
+    }
+
     public static void memCopy(ByteBuffer src, ByteBuffer dst) {
         if (CHECKS) {
             check(dst, src.remaining());
