@@ -2265,6 +2265,17 @@ public final class MemoryUtil {
         memcpy(src, dst, bytes);
     }
 
+    /**
+     * Sets all bytes in a specified block of memory to a copy of another block.
+     *
+     * @param src   the source memory address
+     * @param dst   the destination memory address
+     * @param bytes the number of bytes to copy
+     */
+    public static void memCopy(long src, long dst, int bytes) {
+        memCopy(src, dst, (long)bytes);
+    }
+
     public static void memCopy(byte[] src, long dst)                         { memcpy(src, dst, 0, src.length); }
     public static void memCopy(short[] src, long dst)                        { memcpy(src, dst, 0, src.length); }
     public static void memCopy(int[] src, long dst)                          { memcpy(src, dst, 0, src.length); }
