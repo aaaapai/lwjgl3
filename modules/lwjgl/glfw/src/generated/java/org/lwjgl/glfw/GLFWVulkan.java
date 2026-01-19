@@ -83,33 +83,14 @@ public class GLFWVulkan {
      */
     @NativeType("char const **")
     public static @Nullable PointerBuffer glfwGetRequiredInstanceExtensions() {
-        Platform platform = Platform.get();
-        
-        MemoryStack stack = stackGet();
-        int stackPointer = stack.getPointer();
-    
-        try {
-            int baseExtensions = 1;
-        
-            String platformExtension = null;
-            if (platform == Platform.MACOSX) {
-                platformExtension = "VK_EXT_metal_surface";
-            } else {
-                platformExtension = "VK_KHR_android_surface";
-            }
-        
-            PointerBuffer extensions = null;
-            if (platformExtension != null) {
-                extensions = stack.mallocPointer(baseExtensions + 1);
-                extensions.put(0, stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
-                extensions.put(1, stack.UTF8(platformExtension));
-            }
-        
-            return extensions;
-        
-        } finally {
-        stack.setPointer(stackPointer);
+        MemoryStack stack = MemoryStack.stackPush();
+        String platformSurface;
+        if (Platform.get() == Platform.MACOSX) {
+            platformSurface = "VK_EXT_metal_surface";
+        } else {
+            platformSurface = "VK_KHR_android_surface";
         }
+        return stack.pointers(stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME), stack.UTF8(platformSurface));
     }
 
      
@@ -196,17 +177,11 @@ public class GLFWVulkan {
         try {
             if (platform == Platform.MACOSX) {
                 MemoryStack stack = stackGet();
-                int stackPointer = stack.getPointer();
-                try {
-                    PointerBuffer pLayer = stack.mallocPointer(1);
-                    pLayer.put(0, window);
-                
+               
                     VkMetalSurfaceCreateInfoEXT pCreateInfo = VkMetalSurfaceCreateInfoEXT
                         .calloc(stack)
                         .sType(EXTMetalSurface.VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT)
-                        .pNext(NULL)
-                        .flags(0)
-                        .pLayer(pLayer);
+                        .pLayer(PointerBuffer.create(window, 1));
             
                     return EXTMetalSurface.vkCreateMetalSurfaceEXT(
                         instance, 
@@ -214,16 +189,11 @@ public class GLFWVulkan {
                         allocator,
                         surface
                     );
-                } finally {
-                    stack.setPointer(stackPointer);
-                }
             
             } else {
                 VkAndroidSurfaceCreateInfoKHR pCreateInfo = VkAndroidSurfaceCreateInfoKHR
                     .calloc()
                     .sType(KHRAndroidSurface.VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR)
-                    .pNext(NULL)
-                    .flags(0)
                     .window(window);
         
                 return KHRAndroidSurface.vkCreateAndroidSurfaceKHR(
@@ -247,20 +217,13 @@ public class GLFWVulkan {
         }
 
         MemoryStack stack = stackGet();
-        int stackPointer = stack.getPointer();
 
-        try {
             LongBuffer surfaceBuffer = stack.mallocLong(1);
             int result = glfwCreateWindowSurface(instance, window, allocator, surfaceBuffer);
     
-            if (result == VK10.VK_SUCCESS) {
                 surface[0] = surfaceBuffer.get(0);
-            }
     
             return result;
-        } finally {
-            stack.setPointer(stackPointer);
-        }
     }
 
     public static int nglfwCreateWindowSurface(long instance, long window, long allocator, long surface) {
@@ -313,4 +276,4 @@ public class GLFWVulkan {
         memPutAddress(override, path == null ? NULL : memAddress(memUTF8(path)));
     }
 
-}
+     }
