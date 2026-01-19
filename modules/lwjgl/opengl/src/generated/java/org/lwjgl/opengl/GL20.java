@@ -35,21 +35,23 @@ public class GL20 extends GL15 {
     }
 
     public static String glGetActiveAttrib(int program, int index, int maxLength,
-                                           IntBuffer sizeType) {
-        //TODO check if correct
+                                       IntBuffer sizeType) {
+        IntBuffer size = BufferUtils.createIntBuffer(1);
         IntBuffer type = BufferUtils.createIntBuffer(1);
-        String s = GL20.glGetActiveAttrib(program, index, maxLength, sizeType, type);
-        sizeType.put(type.get(0));
-        return s;
-    }
+        String result = GL20.glGetActiveAttrib(program, index, maxLength, size, type);
+        sizeType.put(0, size.get(0));
+        sizeType.put(1, type.get(0));
+        return result;
+	}
 
     public static String glGetActiveUniform(int program, int index, int maxLength,
-                                            IntBuffer sizeType) {
-        //TODO if correct
+                                        IntBuffer sizeType) {
+        IntBuffer size = BufferUtils.createIntBuffer(1);
         IntBuffer type = BufferUtils.createIntBuffer(1);
-        String s = GL20.glGetActiveUniform(program, index, maxLength, sizeType, type);
-        sizeType.put(type.get(0));
-        return s;
+        String result = GL20.glGetActiveUniform(program, index, maxLength, size, type);
+        sizeType.put(0, size.get(0));
+        sizeType.put(1, type.get(0));
+        return result;
     }
 
     public static void glShaderSource(int shader, ByteBuffer string) {
