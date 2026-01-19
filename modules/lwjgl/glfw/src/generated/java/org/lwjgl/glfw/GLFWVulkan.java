@@ -96,8 +96,6 @@ public class GLFWVulkan {
                 platformExtension = "VK_EXT_metal_surface";
             } else {
                 platformExtension = "VK_KHR_android_surface";
-            } else {
-                return null;
             }
         
             PointerBuffer extensions;
@@ -105,9 +103,6 @@ public class GLFWVulkan {
                 extensions = stack.mallocPointer(baseExtensions + 1);
                 extensions.put(0, stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
                 extensions.put(1, stack.UTF8(platformExtension));
-            } else {
-                extensions = stack.mallocPointer(baseExtensions);
-                extensions.put(0, stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
             }
         
             return extensions;
