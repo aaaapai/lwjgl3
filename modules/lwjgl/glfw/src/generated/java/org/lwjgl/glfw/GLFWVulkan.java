@@ -98,7 +98,7 @@ public class GLFWVulkan {
                 platformExtension = "VK_KHR_android_surface";
             }
         
-            PointerBuffer extensions;
+            PointerBuffer extensions = null;
             if (platformExtension != null) {
                 extensions = stack.mallocPointer(baseExtensions + 1);
                 extensions.put(0, stack.UTF8(KHRSurface.VK_KHR_SURFACE_EXTENSION_NAME));
