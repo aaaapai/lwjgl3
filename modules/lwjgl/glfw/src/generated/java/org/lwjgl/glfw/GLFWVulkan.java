@@ -276,4 +276,4 @@ public class GLFWVulkan {
         memPutAddress(override, path == null ? NULL : memAddress(memUTF8(path)));
     }
 
-     }
+}
