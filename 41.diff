@@ -1,14 +1,3 @@
-diff --git a/doc/notes/3.4.0.md b/doc/notes/3.4.0.md
-index 509b76bf69..87cee17983 100644
---- a/doc/notes/3.4.0.md
-+++ b/doc/notes/3.4.0.md
-@@ -67,5 +67,6 @@ LWJGL no longer includes the following bindings:
- 
- #### Breaking Changes
- 
--- Generator: Removed deprecated `mallocStack`/`callocStack` methods from structs.
- - OpenCL: Fixed the carrier type of `cl_ulong` constants. (#1087)
-   * Now mapped to `long` to avoid unintentional sign extension for negative values.
 diff --git a/modules/generator/src/main/kotlin/org/lwjgl/generator/Structs.kt b/modules/generator/src/main/kotlin/org/lwjgl/generator/Structs.kt
 index db76e286ef..6db97233ca 100644
 --- a/modules/generator/src/main/kotlin/org/lwjgl/generator/Structs.kt
