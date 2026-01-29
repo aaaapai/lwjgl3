@@ -12,8 +12,7 @@ jobs:
         
     - name: Update all submodules
       run: |
-        git reset --hard
-        git apply --reject --whitespace=fix ./41.diff || echo "git apply failed (Android patch set)"
+        git revert 334fa3266fdb95256a133e66f5bcf83c770fc9fd
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
         git add .
