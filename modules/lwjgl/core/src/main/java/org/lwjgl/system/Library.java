@@ -41,6 +41,9 @@ public final class Library {
 
     private static final Pattern NATIVES_JAR = Pattern.compile("/[\\w-]+?-natives-\\w+.jar!/");
 
+    private static final String EXPECTED_MANIFEST_PLATFORM =
+        Platform.get().name().toLowerCase() + '/' + Platform.getArchitecture().name().toLowerCase();
+
     static {
         if (DEBUG) {
             DEBUG_STREAM.print(
@@ -512,7 +515,6 @@ public final class Library {
         return null;
     }
 
-    private static final String EXPECTED_MANIFEST_PLATFORM = Platform.get().name().toLowerCase() + '/' + Platform.getArchitecture().name().toLowerCase();
     private static void detectPlatformMismatch(Class<?> context, String module) {
         if (!module.startsWith("org.lwjgl")) {
             return;

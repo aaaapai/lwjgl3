@@ -207,6 +207,8 @@ public class VkImageCreateInfo extends Struct<VkImageCreateInfo> implements Nati
     public VkImageCreateInfo pNext(VkImportMetalIOSurfaceInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkImportMetalTextureInfoEXT} value to the {@code pNext} chain. */
     public VkImageCreateInfo pNext(VkImportMetalTextureInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkOpaqueCaptureDataCreateInfoEXT} value to the {@code pNext} chain. */
+    public VkImageCreateInfo pNext(VkOpaqueCaptureDataCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} value to the {@code pNext} chain. */
     public VkImageCreateInfo pNext(VkOpaqueCaptureDescriptorDataCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkOpticalFlowImageFormatInfoNV} value to the {@code pNext} chain. */
@@ -611,6 +613,8 @@ public class VkImageCreateInfo extends Struct<VkImageCreateInfo> implements Nati
         public VkImageCreateInfo.Buffer pNext(VkImportMetalIOSurfaceInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkImportMetalTextureInfoEXT} value to the {@code pNext} chain. */
         public VkImageCreateInfo.Buffer pNext(VkImportMetalTextureInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkOpaqueCaptureDataCreateInfoEXT} value to the {@code pNext} chain. */
+        public VkImageCreateInfo.Buffer pNext(VkOpaqueCaptureDataCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} value to the {@code pNext} chain. */
         public VkImageCreateInfo.Buffer pNext(VkOpaqueCaptureDescriptorDataCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkOpticalFlowImageFormatInfoNV} value to the {@code pNext} chain. */
