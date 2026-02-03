@@ -50,12 +50,17 @@ public final class MemoryUtil {
     private static final int MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8; // see jdk.internal.util.ArraysSupport.SOFT_MAX_ARRAY_LENGTH
 
     static {
-        Library.initialize();
+       Library.initialize();
 
-        PAGE_SIZE = 4096; // TODO: Can we do better?
-        CACHE_LINE_SIZE = 64; // TODO: Can we do better?
+       try {
+           PAGE_SIZE = java.nio.Bits.pageSize();
+       } catch (Exception e) {
+           PAGE_SIZE = 4096;
+       }
 
-        apiLog("Java 25 MemoryUtil enabled");
+       CACHE_LINE_SIZE = 64;
+
+       apiLog("Java 25 MemoryUtil enabled");
     }
 
     static final class LazyInit {
