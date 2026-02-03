@@ -55,8 +55,6 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8(J
             pixel_type = STBIR_RGBA;
             break;
         default:
-            // 对于不认识的通道数，使用4通道布局
-            // 实际使用时可能需要更合适的默认值
             pixel_type = STBIR_4CHANNEL;
             break;
     }
@@ -68,7 +66,6 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8(J
         pixel_type
     );
     
-    // 返回布尔值：非NULL表示成功，NULL表示失败
     return (jint)(result != NULL);
 }
 
@@ -203,6 +200,328 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1extende
     STBIR_RESIZE *resize = (STBIR_RESIZE *)(uintptr_t)resizeAddress;
     UNUSED_PARAMS(__env, clazz)
     return (jint)stbir_resize_extended_split(resize, split_start, split_count);
+}
+
+// ==============================
+// 兼容层函数实现（保持旧API）
+// ==============================
+
+// 1. stbir_resize_float (旧版本)
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float__JIIIJIIII(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels) {
+    
+    float const *input_pixels = (float const *)(uintptr_t)input_pixelsAddress;
+    float *output_pixels = (float *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    // 将通道数转换为像素布局
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1: pixel_type = STBIR_1CHANNEL; break;
+        case 2: pixel_type = STBIR_2CHANNEL; break;
+        case 3: pixel_type = STBIR_RGB; break;
+        case 4: pixel_type = STBIR_RGBA; break;
+        default: pixel_type = STBIR_4CHANNEL; break;
+    }
+    
+    // 调用新的float_linear函数
+    float *result = stbir_resize_float_linear(
+        input_pixels, input_w, input_h, input_stride_in_bytes,
+        output_pixels, output_w, output_h, output_stride_in_bytes,
+        pixel_type
+    );
+    
+    return (jint)(result != NULL);
+}
+
+// 2. stbir_resize_uint8_srgb_edgemode
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8_1srgb_1edgemode(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels, jint alpha_channel, jint flags, jint edge_wrap_mode) {
+    
+    unsigned char const *input_pixels = (unsigned char const *)(uintptr_t)input_pixelsAddress;
+    unsigned char *output_pixels = (unsigned char *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    // 将通道数转换为像素布局
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1: pixel_type = STBIR_1CHANNEL; break;
+        case 2: pixel_type = STBIR_2CHANNEL; break;
+        case 3: pixel_type = STBIR_RGB; break;
+        case 4: pixel_type = STBIR_RGBA; break;
+        default: pixel_type = STBIR_4CHANNEL; break;
+    }
+    
+    // 注意：新版本可能不支持edge_wrap_mode参数，这里忽略
+    unsigned char *result = stbir_resize_uint8_srgb(
+        input_pixels, input_w, input_h, input_stride_in_bytes,
+        output_pixels, output_w, output_h, output_stride_in_bytes,
+        pixel_type
+    );
+    
+    return (jint)(result != NULL);
+}
+
+// 3. stbir_resize_uint8_generic
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8_1generic(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels, jint alpha_channel, jint flags, jint edge_wrap_mode,
+    jint filter, jint space, jlong alloc_contextAddress) {
+    
+    unsigned char const *input_pixels = (unsigned char const *)(uintptr_t)input_pixelsAddress;
+    unsigned char *output_pixels = (unsigned char *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    // 将通道数转换为像素布局
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1: pixel_type = STBIR_1CHANNEL; break;
+        case 2: pixel_type = STBIR_2CHANNEL; break;
+        case 3: pixel_type = STBIR_RGB; break;
+        case 4: pixel_type = STBIR_RGBA; break;
+        default: pixel_type = STBIR_4CHANNEL; break;
+    }
+    
+    // 根据色彩空间选择函数
+    unsigned char *result;
+    if (space == 1) { // STBIR_COLORSPACE_SRGB
+        result = stbir_resize_uint8_srgb(
+            input_pixels, input_w, input_h, input_stride_in_bytes,
+            output_pixels, output_w, output_h, output_stride_in_bytes,
+            pixel_type
+        );
+    } else { // STBIR_COLORSPACE_LINEAR
+        result = stbir_resize_uint8_linear(
+            input_pixels, input_w, input_h, input_stride_in_bytes,
+            output_pixels, output_w, output_h, output_stride_in_bytes,
+            pixel_type
+        );
+    }
+    
+    return (jint)(result != NULL);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint16_1generic__JIIIJIIIIIIIIIJ(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels, jint alpha_channel, jint flags, jint edge_wrap_mode,
+    jint filter, jint space, jlong alloc_contextAddress) {
+    
+    stbir_uint16 const *input_pixels = (stbir_uint16 const *)(uintptr_t)input_pixelsAddress;
+    stbir_uint16 *output_pixels = (stbir_uint16 *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1: pixel_type = STBIR_1CHANNEL; break;
+        case 2: pixel_type = STBIR_2CHANNEL; break;
+        case 3: pixel_type = STBIR_RGB; break;
+        case 4: pixel_type = STBIR_RGBA; break;
+        default: pixel_type = STBIR_4CHANNEL; break;
+    }
+    
+    void *result = stbir_resize(
+        input_pixels, input_w, input_h, input_stride_in_bytes,
+        output_pixels, output_w, output_h, output_stride_in_bytes,
+        pixel_type, STBIR_TYPE_UINT16, STBIR_EDGE_CLAMP, STBIR_FILTER_DEFAULT
+    );
+    
+    return (jint)(result != NULL);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float_1generic__JIIIJIIIIIIIIIJ(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels, jint alpha_channel, jint flags, jint edge_wrap_mode,
+    jint filter, jint space, jlong alloc_contextAddress) {
+    
+    float const *input_pixels = (float const *)(uintptr_t)input_pixelsAddress;
+    float *output_pixels = (float *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1: pixel_type = STBIR_1CHANNEL; break;
+        case 2: pixel_type = STBIR_2CHANNEL; break;
+        case 3: pixel_type = STBIR_RGB; break;
+        case 4: pixel_type = STBIR_RGBA; break;
+        default: pixel_type = STBIR_4CHANNEL; break;
+    }
+    
+    void *result = stbir_resize(
+        input_pixels, input_w, input_h, input_stride_in_bytes,
+        output_pixels, output_w, output_h, output_stride_in_bytes,
+        pixel_type, STBIR_TYPE_FLOAT, STBIR_EDGE_CLAMP, STBIR_FILTER_DEFAULT
+    );
+    
+    return (jint)(result != NULL);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize__JIIIJIIIIIIIIIJ(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint datatype, jint num_channels, jint alpha_channel, jint flags,
+    jint edge_mode_horizontal, jint edge_mode_vertical,
+    jint filter_horizontal, jint filter_vertical, jint space, jlong alloc_contextAddress) {
+    
+    void const *input_pixels = (void const *)(uintptr_t)input_pixelsAddress;
+    void *output_pixels = (void *)(uintptr_t)output_pixelsAddress;
+    UNUSED_PARAMS(__env, clazz)
+    
+    stbir_pixel_layout pixel_type;
+    switch (num_channels) {
+        case 1: pixel_type = STBIR_1CHANNEL; break;
+        case 2: pixel_type = STBIR_2CHANNEL; break;
+        case 3: pixel_type = STBIR_RGB; break;
+        case 4: pixel_type = STBIR_RGBA; break;
+        default: pixel_type = STBIR_4CHANNEL; break;
+    }
+    
+    stbir_datatype data_type;
+    switch (datatype) {
+        case 0: data_type = STBIR_TYPE_UINT8; break;
+        case 1: data_type = STBIR_TYPE_UINT16; break;
+        case 2: data_type = STBIR_TYPE_UINT32; break;
+        case 3: data_type = STBIR_TYPE_FLOAT; break;
+        default: data_type = STBIR_TYPE_UINT8; break;
+    }
+    
+    void *result = stbir_resize(
+        input_pixels, input_w, input_h, input_stride_in_bytes,
+        output_pixels, output_w, output_h, output_stride_in_bytes,
+        pixel_type, data_type, edge_mode_horizontal, filter_horizontal
+    );
+    
+    return (jint)(result != NULL);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1subpixel(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint datatype, jint num_channels, jint alpha_channel, jint flags,
+    jint edge_mode_horizontal, jint edge_mode_vertical,
+    jint filter_horizontal, jint filter_vertical, jint space,
+    jlong alloc_contextAddress, jfloat x_scale, jfloat y_scale,
+    jfloat x_offset, jfloat y_offset) {
+    
+    return Java_org_lwjgl_stb_STBImageResize_nstbir_1resize__JIIIJIIIIIIIIIJ(
+        __env, clazz,
+        input_pixelsAddress, input_w, input_h, input_stride_in_bytes,
+        output_pixelsAddress, output_w, output_h, output_stride_in_bytes,
+        datatype, num_channels, alpha_channel, flags,
+        edge_mode_horizontal, edge_mode_vertical,
+        filter_horizontal, filter_vertical, space, alloc_contextAddress
+    );
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1region(
+    JNIEnv *__env, jclass clazz,
+    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint datatype, jint num_channels, jint alpha_channel, jint flags,
+    jint edge_mode_horizontal, jint edge_mode_vertical,
+    jint filter_horizontal, jint filter_vertical, jint space,
+    jlong alloc_contextAddress, jfloat s0, jfloat t0, jfloat s1, jfloat t1) {
+    
+    return Java_org_lwjgl_stb_STBImageResize_nstbir_1resize__JIIIJIIIIIIIIIJ(
+        __env, clazz,
+        input_pixelsAddress, input_w, input_h, input_stride_in_bytes,
+        output_pixelsAddress, output_w, output_h, output_stride_in_bytes,
+        datatype, num_channels, alpha_channel, flags,
+        edge_mode_horizontal, edge_mode_vertical,
+        filter_horizontal, filter_vertical, space, alloc_contextAddress
+    );
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float___3FIII_3FIIII(
+    JNIEnv *__env, jclass clazz,
+    jfloatArray input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jfloatArray output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels) {
+    
+    jint __result;
+    jfloat *input_pixels = (*__env)->GetFloatArrayElements(__env, input_pixelsAddress, NULL);
+    jfloat *output_pixels = (*__env)->GetFloatArrayElements(__env, output_pixelsAddress, NULL);
+    
+    UNUSED_PARAMS(__env, clazz)
+    
+    __result = Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float__JIIIJIIII(
+        __env, clazz,
+        (jlong)(uintptr_t)input_pixels, input_w, input_h, input_stride_in_bytes,
+        (jlong)(uintptr_t)output_pixels, output_w, output_h, output_stride_in_bytes,
+        num_channels
+    );
+    
+    (*__env)->ReleaseFloatArrayElements(__env, output_pixelsAddress, output_pixels, 0);
+    (*__env)->ReleaseFloatArrayElements(__env, input_pixelsAddress, input_pixels, 0);
+    
+    return __result;
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint16_1generic___3SIII_3SIIIIIIIIIJ(
+    JNIEnv *__env, jclass clazz,
+    jshortArray input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jshortArray output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels, jint alpha_channel, jint flags, jint edge_wrap_mode,
+    jint filter, jint space, jlong alloc_contextAddress) {
+    
+    jint __result;
+    jshort *input_pixels = (*__env)->GetShortArrayElements(__env, input_pixelsAddress, NULL);
+    jshort *output_pixels = (*__env)->GetShortArrayElements(__env, output_pixelsAddress, NULL);
+    
+    UNUSED_PARAMS(__env, clazz)
+    
+    __result = Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint16_1generic__JIIIJIIIIIIIIIJ(
+        __env, clazz,
+        (jlong)(uintptr_t)input_pixels, input_w, input_h, input_stride_in_bytes,
+        (jlong)(uintptr_t)output_pixels, output_w, output_h, output_stride_in_bytes,
+        num_channels, alpha_channel, flags, edge_wrap_mode,
+        filter, space, alloc_contextAddress
+    );
+    
+    (*__env)->ReleaseShortArrayElements(__env, output_pixelsAddress, output_pixels, 0);
+    (*__env)->ReleaseShortArrayElements(__env, input_pixelsAddress, input_pixels, 0);
+    
+    return __result;
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float_1generic___3FIII_3FIIIIIIIIIJ(
+    JNIEnv *__env, jclass clazz,
+    jfloatArray input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
+    jfloatArray output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes,
+    jint num_channels, jint alpha_channel, jint flags, jint edge_wrap_mode,
+    jint filter, jint space, jlong alloc_contextAddress) {
+    
+    jint __result;
+    jfloat *input_pixels = (*__env)->GetFloatArrayElements(__env, input_pixelsAddress, NULL);
+    jfloat *output_pixels = (*__env)->GetFloatArrayElements(__env, output_pixelsAddress, NULL);
+    
+    UNUSED_PARAMS(__env, clazz)
+    
+    __result = Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float_1generic__JIIIJIIIIIIIIIJ(
+        __env, clazz,
+        (jlong)(uintptr_t)input_pixels, input_w, input_h, input_stride_in_bytes,
+        (jlong)(uintptr_t)output_pixels, output_w, output_h, output_stride_in_bytes,
+        num_channels, alpha_channel, flags, edge_wrap_mode,
+        filter, space, alloc_contextAddress
+    );
+    
+    (*__env)->ReleaseFloatArrayElements(__env, output_pixelsAddress, output_pixels, 0);
+    (*__env)->ReleaseFloatArrayElements(__env, input_pixelsAddress, input_pixels, 0);
+    
+    return __result;
 }
 
 EXTERN_C_EXIT
