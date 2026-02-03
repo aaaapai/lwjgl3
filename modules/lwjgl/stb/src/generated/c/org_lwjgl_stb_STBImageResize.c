@@ -392,7 +392,7 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize__JIIIJII
     switch (datatype) {
         case 0: data_type = STBIR_TYPE_UINT8; break;
         case 1: data_type = STBIR_TYPE_UINT16; break;
-        case 2: data_type = STBIR_TYPE_UINT32; break;
+        case 2: data_type = /*STBIR_TYPE_UINT32*/ STBIR_TYPE_UINT16; break;
         case 3: data_type = STBIR_TYPE_FLOAT; break;
         default: data_type = STBIR_TYPE_UINT8; break;
     }
