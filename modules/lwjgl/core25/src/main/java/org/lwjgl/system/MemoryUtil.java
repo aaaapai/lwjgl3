@@ -53,7 +53,7 @@ public final class MemoryUtil {
        Library.initialize();
 
        try {
-           PAGE_SIZE = java.nio.Bits.pageSize();
+           PAGE_SIZE = Bits.pageSize();
        } catch (Exception e) {
            PAGE_SIZE = 4096;
        }
