@@ -52,12 +52,7 @@ public final class MemoryUtil {
     static {
        Library.initialize();
 
-       try {
-           PAGE_SIZE = Bits.pageSize();
-       } catch (Exception e) {
-           PAGE_SIZE = 4096;
-       }
-
+       PAGE_SIZE = 4096;
        CACHE_LINE_SIZE = 64;
 
        apiLog("Java 25 MemoryUtil enabled");
