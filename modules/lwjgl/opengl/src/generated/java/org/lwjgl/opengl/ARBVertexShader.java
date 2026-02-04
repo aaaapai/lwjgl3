@@ -18,6 +18,8 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import static org.lwjgl.opengl.GL11.*;
+
 public class ARBVertexShader {
 
     static { GL.initialize(); }
