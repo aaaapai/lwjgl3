@@ -457,6 +457,11 @@ public class ARBVertexShader {
         nglVertexAttribPointerARB(index, size, type, normalized, stride, memAddress(pointer));
     }
 
+    public static void glVertexAttribPointerARB(int index, int size, boolean unsigned, boolean normalized, int stride, ShortBuffer pointer) {
+      int type = unsigned ? GL_UNSIGNED_SHORT : GL_SHORT;
+      glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
+    }
+
     // --- [ glEnableVertexAttribArrayARB ] ---
 
     /** {@code void glEnableVertexAttribArrayARB(GLuint index)} */
