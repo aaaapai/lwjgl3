@@ -2257,12 +2257,28 @@ public final class MemoryUtil {
      * @param value the value to set (memSet will convert it to unsigned byte)
      * @param bytes the number of bytes to set
      */
-    public static void memSet(long ptr, int value, long bytes) {
+    /*public static void memSet(long ptr, int value, long bytes) {
         if (DEBUG && (ptr == NULL || bytes < 0)) {
             throw new IllegalArgumentException();
         }
         memset(ptr, value, bytes);
+    }*/
+    public static void memSet(long ptr, int value, long bytes) {
+        if (DEBUG && (ptr == NULL || bytes < 0)) {
+            throw new IllegalArgumentException();
+        }
+        
+        try {
+            memset(ptr, value, bytes);
+        } catch (Exception e) {
+            //logFfmWarning("memSet", e);
+            byte byteValue = (byte)value;
+            for (long i = 0; i < bytes; i++) {
+                memPutByte(ptr + i, byteValue);
+            }
+        }
     }
+
 
     /**
      * Sets all bytes in a specified block of memory to a copy of another block.
@@ -2271,12 +2287,28 @@ public final class MemoryUtil {
      * @param dst   the destination memory address
      * @param bytes the number of bytes to copy
      */
-    public static void memCopy(long src, long dst, long bytes) {
+    /*public static void memCopy(long src, long dst, long bytes) {
         if (DEBUG && (src == NULL || dst == NULL || bytes < 0)) {
             throw new IllegalArgumentException();
         }
         memcpy(src, dst, bytes);
+    }*/
+    public static void memCopy(long src, long dst, long bytes) {
+        if (DEBUG && (src == NULL || dst == NULL || bytes < 0)) {
+            throw new IllegalArgumentException();
+        }
+        
+        try {
+            memcpy(src, dst, bytes);
+        } catch (Exception e) {
+            //logFfmWarning("memCopy", e);
+            // 回退到字节级复制
+            for (long i = 0; i < bytes; i++) {
+                memPutByte(dst + i, memGetByte(src + i));
+            }
+        }
     }
+
 
     /**
      * Sets all bytes in a specified block of memory to a copy of another block.
@@ -2436,49 +2468,229 @@ public final class MemoryUtil {
 
     public static boolean memGetBoolean(long ptr)           { return (byte)VH_JAVA_BYTE.get(ptr) != 0; }
     public static byte memGetByte(long ptr)                 { return (byte)VH_JAVA_BYTE.get(ptr); }
-    public static short memGetShort(long ptr)               { return (short)VH_JAVA_SHORT.get(ptr); }
-    public static int memGetInt(long ptr)                   { return (int)VH_JAVA_INT.get(ptr); }
-    public static long memGetLong(long ptr)                 { return (long)VH_JAVA_LONG.get(ptr); }
-    public static float memGetFloat(long ptr)               { return (float)VH_JAVA_FLOAT.get(ptr); }
-    public static double memGetDouble(long ptr)             { return (double)VH_JAVA_DOUBLE.get(ptr); }
+    //public static short memGetShort(long ptr)               { return (short)VH_JAVA_SHORT.get(ptr); }
+    public static short memGetShort(long ptr) {
+        try {
+            return (short)VH_JAVA_SHORT.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                return (short)((memGetByte(ptr) & 0xFF) | ((memGetByte(ptr + 1) & 0xFF) << 8));
+            }
+            throw e;
+        }
+    }
+    //public static int memGetInt(long ptr)                   { return (int)VH_JAVA_INT.get(ptr); }
+    public static int memGetInt(long ptr) {
+        try {
+            return (int)VH_JAVA_INT.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                return (memGetByte(ptr) & 0xFF) |
+                       ((memGetByte(ptr + 1) & 0xFF) << 8) |
+                       ((memGetByte(ptr + 2) & 0xFF) << 16) |
+                       ((memGetByte(ptr + 3) & 0xFF) << 24);
+            }
+            throw e;
+        }
+    }
+    //public static long memGetLong(long ptr)                 { return (long)VH_JAVA_LONG.get(ptr); }
+    public static long memGetLong(long ptr) {
+        try {
+            return (long)VH_JAVA_LONG.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                long result = 0;
+                for (int i = 0; i < 8; i++) {
+                    result |= ((long)(memGetByte(ptr + i) & 0xFF) << (i * 8));
+                }
+                return result;
+            }
+            throw e;
+        }
+    }
+    //public static float memGetFloat(long ptr)               { return (float)VH_JAVA_FLOAT.get(ptr); }
+    public static float memGetFloat(long ptr) {
+        try {
+            return (float)VH_JAVA_FLOAT.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                int intBits = memGetInt(ptr);
+                return Float.intBitsToFloat(intBits);
+            }
+            throw e;
+        }
+    }
+    //public static double memGetDouble(long ptr)             { return (double)VH_JAVA_DOUBLE.get(ptr); }
+    public static double memGetDouble(long ptr) {
+        try {
+            return (double)VH_JAVA_DOUBLE.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                long longBits = memGetLong(ptr);
+                return Double.longBitsToDouble(longBits);
+            }
+            throw e;
+        }
+    }
 
     public static void memPutByte(long ptr, byte value)     { VH_JAVA_BYTE.set(ptr, value); }
-    public static void memPutShort(long ptr, short value)   { VH_JAVA_SHORT.set(ptr, value); }
-    public static void memPutInt(long ptr, int value)       { VH_JAVA_INT.set(ptr, value); }
-    public static void memPutLong(long ptr, long value)     { VH_JAVA_LONG.set(ptr, value); }
-    public static void memPutFloat(long ptr, float value)   { VH_JAVA_FLOAT.set(ptr, value); }
-    public static void memPutDouble(long ptr, double value) { VH_JAVA_DOUBLE.set(ptr, value); }
+    //public static void memPutShort(long ptr, short value)   { VH_JAVA_SHORT.set(ptr, value); }
+    public static void memPutShort(long ptr, short value) {
+        try {
+            VH_JAVA_SHORT.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                memPutByte(ptr, (byte)value);
+                memPutByte(ptr + 1, (byte)(value >> 8));
+                return;
+            }
+            throw e;
+        }
+    }
+    //public static void memPutInt(long ptr, int value)       { VH_JAVA_INT.set(ptr, value); }
+    public static void memPutInt(long ptr, int value) {
+        try {
+            VH_JAVA_INT.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                memPutByte(ptr, (byte)value);
+                memPutByte(ptr + 1, (byte)(value >> 8));
+                memPutByte(ptr + 2, (byte)(value >> 16));
+                memPutByte(ptr + 3, (byte)(value >> 24));
+                return;
+            }
+            throw e;
+        }
+    }
+    //public static void memPutLong(long ptr, long value)     { VH_JAVA_LONG.set(ptr, value); }
+    public static void memPutLong(long ptr, long value) {
+        try {
+            VH_JAVA_LONG.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                for (int i = 0; i < 8; i++) {
+                    memPutByte(ptr + i, (byte)(value >> (i * 8)));
+                }
+                return;
+            }
+            throw e;
+        }
+    }
+    //public static void memPutFloat(long ptr, float value)   { VH_JAVA_FLOAT.set(ptr, value); }
+     public static void memPutFloat(long ptr, float value) {
+        try {
+            VH_JAVA_FLOAT.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                int intBits = Float.floatToIntBits(value);
+                memPutInt(ptr, intBits);
+                return;
+            }
+            throw e;
+        }
+    }
+    //public static void memPutDouble(long ptr, double value) { VH_JAVA_DOUBLE.set(ptr, value); }
+    public static void memPutDouble(long ptr, double value) {
+        try {
+            VH_JAVA_DOUBLE.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                long longBits = Double.doubleToLongBits(value);
+                memPutLong(ptr, longBits);
+                return;
+            }
+            throw e;
+        }
+    }
 
-    public static long memGetCLong(long ptr) {
+    /*public static long memGetCLong(long ptr) {
         return (long)VH_CLONG.get(ptr);
-        /*return CLONG_SIZE == 8
-            ? memGetLong(ptr)
-            : memGetInt(ptr);*/
+        //return CLONG_SIZE == 8
+        //    ? memGetLong(ptr)
+        //    : memGetInt(ptr);
+    }*/
+    public static long memGetCLong(long ptr) {
+        try {
+            return (long)VH_CLONG.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                if (CLONG_SIZE == 8) {
+                    return memGetLong(ptr);
+                } else {
+                    return memGetInt(ptr);
+                }
+            }
+            throw e;
+        }
     }
 
-    public static long memGetAddress(long ptr) {
+    /*public static long memGetAddress(long ptr) {
         return (long)VH_ADDRESS.get(ptr);
-        /*return BITS64
-            ? memGetLong(ptr)
-            : memGetInt(ptr) & 0xFFFF_FFFFL;*/
+        //return BITS64
+          //  ? memGetLong(ptr)
+           // : memGetInt(ptr) & 0xFFFF_FFFFL;
+    }*/
+    public static long memGetAddress(long ptr) {
+        try {
+            return (long)VH_ADDRESS.get(ptr);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                if (BITS64) {
+                    return memGetLong(ptr);
+                } else {
+                    return memGetInt(ptr) & 0xFFFF_FFFFL;
+                }
+            }
+            throw e;
+        }
     }
 
-    public static void memPutCLong(long ptr, long value) {
+    /*public static void memPutCLong(long ptr, long value) {
         VH_CLONG.set(ptr, value);
-        /*if (CLONG_SIZE == 8) {
-            memPutLong(ptr, value);
-        } else {
-            memPutInt(ptr, (int)value);
-        }*/
+        //if (CLONG_SIZE == 8) {
+        //    memPutLong(ptr, value);
+        //} else {
+        //    memPutInt(ptr, (int)value);
+        //}
+    }*/
+    public static void memPutCLong(long ptr, long value) {
+        try {
+            VH_CLONG.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                if (CLONG_SIZE == 8) {
+                    memPutLong(ptr, value);
+                } else {
+                    memPutInt(ptr, (int)value);
+                }
+                return;
+            }
+            throw e;
+        }
     }
 
-    public static void memPutAddress(long ptr, long value) {
+    /*public static void memPutAddress(long ptr, long value) {
         VH_ADDRESS.set(ptr, value);
-        /*if (BITS64) {
-            memPutLong(ptr, value);
-        } else {
-            memPutInt(ptr, (int)value);
-        }*/
+        //if (BITS64) {
+        //    memPutLong(ptr, value);
+        //} else {
+        //    memPutInt(ptr, (int)value);
+        //}
+    }*/
+    public static void memPutAddress(long ptr, long value) {
+        try {
+            VH_ADDRESS.set(ptr, value);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null && e.getMessage().contains("alignment constraint")) {
+                if (BITS64) {
+                    memPutLong(ptr, value);
+                } else {
+                    memPutInt(ptr, (int)value);
+                }
+                return;
+            }
+            throw e;
+        }
     }
 
     /*  -------------------------------------
