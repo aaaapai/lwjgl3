@@ -464,28 +464,6 @@ public class ARBVertexShader {
       glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
     }
 
-    // 兼容旧版：FloatBuffer（不带type参数）
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") FloatBuffer pointer) {
-    glVertexAttribPointerARB(index, size, GL_FLOAT, normalized, stride, pointer);
-}
-
-// 兼容旧版：DoubleBuffer（不带type参数）
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") DoubleBuffer pointer) {
-    glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, pointer);
-}
-
-// 兼容旧版：ByteBuffer（带unsigned参数）
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean unsigned, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") ByteBuffer pointer) {
-    int type = unsigned ? GL_UNSIGNED_BYTE : GL_BYTE;
-    glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
-}
-
-// 兼容旧版：IntBuffer（带unsigned参数）
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean unsigned, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") IntBuffer pointer) {
-    int type = unsigned ? GL_UNSIGNED_INT : GL_INT;
-    glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
-}
-
     // --- [ glEnableVertexAttribArrayARB ] ---
 
     /** {@code void glEnableVertexAttribArrayARB(GLuint index)} */
@@ -559,19 +537,6 @@ public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @Na
     public static String glGetActiveAttribARB(@NativeType("GLhandleARB") int programObj, @NativeType("GLuint") int index, @NativeType("GLint *") IntBuffer size, @NativeType("GLenum *") IntBuffer type) {
         return glGetActiveAttribARB(programObj, index, ARBShaderObjects.glGetObjectParameteriARB(programObj, GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB), size, type);
     }
-
-// 兼容旧版：统一名称的glGetVertexAttribARB方法
-public static void glGetVertexAttribARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLfloat *") FloatBuffer params) {
-    glGetVertexAttribfvARB(index, pname, params);
-}
-
-public static void glGetVertexAttribARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLdouble *") DoubleBuffer params) {
-    glGetVertexAttribdvARB(index, pname, params);
-}
-
-public static void glGetVertexAttribARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLint *") IntBuffer params) {
-    glGetVertexAttribivARB(index, pname, params);
-}
 
     // --- [ glGetAttribLocationARB ] ---
 
@@ -907,45 +872,6 @@ public static void glGetVertexAttribARB(@NativeType("GLuint") int index, @Native
         callPPPPV(programObj, index, name.remaining(), length, size, type, memAddress(name), __functionAddress);
     }
 
-    // 兼容旧版：只返回attrib名字
-@NativeType("GLchar *")
-public static String glGetActiveAttribARB(@NativeType("GLhandleARB") int programObj, @NativeType("GLuint") int index, @NativeType("GLsizei") int maxLength) {
-    IntBuffer size = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    IntBuffer type = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    return glGetActiveAttribARB(programObj, index, maxLength, size, type);
-}
-
-// 兼容旧版：返回size和type
-@NativeType("GLchar *")
-public static String glGetActiveAttribARB(@NativeType("GLhandleARB") int programObj, @NativeType("GLuint") int index, @NativeType("GLsizei") int maxLength, @NativeType("GLint *") IntBuffer sizeType) {
-    if (CHECKS) {
-        check(sizeType, 2);
-    }
-    IntBuffer size = sizeType;
-    IntBuffer type = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    String result = glGetActiveAttribARB(programObj, index, maxLength, size, type);
-    sizeType.put(1, type.get(0));
-    return result;
-}
-
-// 兼容旧版：只返回size
-@NativeType("GLint")
-public static int glGetActiveAttribSizeARB(@NativeType("GLhandleARB") int programObj, @NativeType("GLuint") int index) {
-    IntBuffer size = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    IntBuffer type = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    glGetActiveAttribARB(programObj, index, 0, (IntBuffer)null, size, type, (ByteBuffer)null);
-    return size.get(0);
-}
-
-// 兼容旧版：只返回type
-@NativeType("GLenum")
-public static int glGetActiveAttribTypeARB(@NativeType("GLhandleARB") int programObj, @NativeType("GLuint") int index) {
-    IntBuffer size = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    IntBuffer type = org.lwjgl.system.MemoryStack.stackGet().mallocInt(1);
-    glGetActiveAttribARB(programObj, index, 0, (IntBuffer)null, size, type, (ByteBuffer)null);
-    return type.get(0);
-}
-
     /** {@code void glGetVertexAttribivARB(GLuint index, GLenum pname, GLint * params)} */
     public static void glGetVertexAttribivARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLint *") int[] params) {
         long __functionAddress = GL.getICD().glGetVertexAttribivARB;
@@ -975,74 +901,5 @@ public static int glGetActiveAttribTypeARB(@NativeType("GLhandleARB") int progra
         }
         callPV(index, pname, params, __functionAddress);
     }
-
-// ============= 兼容旧版的数组版本方法 =============
-
-// --- 缺失的 glVertexAttribPointerARB 数组版本 ---
-
-/** 兼容旧版：glVertexAttribPointerARB 数组版本 */
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") float[] pointer) {
-    glVertexAttribPointerARB(index, size, GL_FLOAT, normalized, stride, pointer);
-}
-
-/** 兼容旧版：glVertexAttribPointerARB 数组版本 */
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") double[] pointer) {
-    glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, pointer);
-}
-
-// --- 缺失的 glVertexAttribNubARB 方法（旧版有单独方法） ---
-
-/** 兼容旧版：glVertexAttrib4NubARB 的数组版本 */
-public static void glVertexAttrib4NubARB(@NativeType("GLuint") int index, @NativeType("GLubyte const *") byte[] v) {
-    long __functionAddress = GL.getICD().glVertexAttrib4NubARB;
-    if (CHECKS) {
-        check(__functionAddress);
-        check(v, 4);
-    }
-    callPV(index, v, __functionAddress);
-}
-
-// --- 缺失的 glVertexAttrib4NubvARB 方法 ---
-
-/** 兼容旧版：glVertexAttrib4NubvARB 的数组版本 */
-public static void glVertexAttrib4NubvARB(@NativeType("GLuint") int index, @NativeType("GLubyte const *") byte[] v) {
-    glVertexAttrib4NubvARB(index, v);
-}
-
-// --- 缺失的 glVertexAttrib4bvARB 数组版本 ---
-
-/** 兼容旧版：glVertexAttrib4bvARB 的数组版本 */
-public static void glVertexAttrib4bvARB(@NativeType("GLuint") int index, @NativeType("GLbyte const *") byte[] v) {
-    long __functionAddress = GL.getICD().glVertexAttrib4bvARB;
-    if (CHECKS) {
-        check(__functionAddress);
-        check(v, 4);
-    }
-    callPV(index, v, __functionAddress);
-}
-
-// --- 缺失的 glVertexAttrib4ubvARB 数组版本 ---
-
-/** 兼容旧版：glVertexAttrib4ubvARB 的数组版本 */
-public static void glVertexAttrib4ubvARB(@NativeType("GLuint") int index, @NativeType("GLubyte const *") byte[] v) {
-    long __functionAddress = GL.getICD().glVertexAttrib4ubvARB;
-    if (CHECKS) {
-        check(__functionAddress);
-        check(v, 4);
-    }
-    callPV(index, v, __functionAddress);
-}
-
-// --- 缺失的 glVertexAttrib4NbvARB 数组版本 ---
-
-/** 兼容旧版：glVertexAttrib4NbvARB 的数组版本 */
-public static void glVertexAttrib4NbvARB(@NativeType("GLuint") int index, @NativeType("GLbyte const *") byte[] v) {
-    long __functionAddress = GL.getICD().glVertexAttrib4NbvARB;
-    if (CHECKS) {
-        check(__functionAddress);
-        check(v, 4);
-    }
-    callPV(index, v, __functionAddress);
-}
 
 }
