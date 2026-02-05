@@ -912,14 +912,6 @@ public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @Na
 }
 
 /**
- * DoubleBuffer版本的顶点属性指针设置（自动使用GL_DOUBLE类型）
- */
-public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") DoubleBuffer pointer) {
-    // 调用现有的通用方法
-    glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, pointer);
-}
-
-/**
  * ByteBuffer版本的顶点属性指针设置（带unsigned参数，自动选择GL_BYTE或GL_UNSIGNED_BYTE类型）
  */
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean unsigned, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") ByteBuffer pointer) {
