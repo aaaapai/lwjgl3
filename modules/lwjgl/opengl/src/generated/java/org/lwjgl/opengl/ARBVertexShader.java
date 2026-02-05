@@ -903,54 +903,50 @@ public class ARBVertexShader {
     }
 
 
-
 /**
- * FloatBuffer版本的顶点属性指针设置
+ * FloatBuffer版本的顶点属性指针设置（自动使用GL_FLOAT类型）
  */
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") FloatBuffer pointer) {
+    // 调用现有的通用方法
     glVertexAttribPointerARB(index, size, GL_FLOAT, normalized, stride, pointer);
 }
 
 /**
- * DoubleBuffer版本的顶点属性指针设置
+ * DoubleBuffer版本的顶点属性指针设置（自动使用GL_DOUBLE类型）
  */
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") DoubleBuffer pointer) {
+    // 调用现有的通用方法
     glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, pointer);
 }
 
 /**
- * ByteBuffer版本的顶点属性指针设置（带unsigned参数）
+ * ByteBuffer版本的顶点属性指针设置（带unsigned参数，自动选择GL_BYTE或GL_UNSIGNED_BYTE类型）
  */
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean unsigned, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") ByteBuffer pointer) {
     int type = unsigned ? GL_UNSIGNED_BYTE : GL_BYTE;
+    // 调用现有的通用方法
     glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
 }
 
 /**
- * IntBuffer版本的顶点属性指针设置（带unsigned参数）
+ * IntBuffer版本的顶点属性指针设置（带unsigned参数，自动选择GL_INT或GL_UNSIGNED_INT类型）
  */
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean unsigned, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") IntBuffer pointer) {
     int type = unsigned ? GL_UNSIGNED_INT : GL_INT;
+    // 调用现有的通用方法
     glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
 }
 
-/**
- * FloatBuffer版本的获取顶点属性
- */
+// 使用现有的glGetVertexAttribfvARB和glGetVertexAttribdvARB方法，只是提供别名
 public static void glGetVertexAttribARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLfloat *") FloatBuffer params) {
     glGetVertexAttribfvARB(index, pname, params);
 }
 
-/**
- * DoubleBuffer版本的获取顶点属性
- */
 public static void glGetVertexAttribARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLdouble *") DoubleBuffer params) {
     glGetVertexAttribdvARB(index, pname, params);
 }
 
-/**
- * float数组版本的顶点属性指针设置
- */
+// float数组版本
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") float[] pointer) {
     long __functionAddress = GL.getICD().glVertexAttribPointerARB;
     if (CHECKS) {
@@ -959,15 +955,17 @@ public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @Na
     callPV(index, size, GL_FLOAT, normalized, stride, pointer, __functionAddress);
 }
 
-/**
- * double数组版本的顶点属性指针设置
- */
 public static void glVertexAttribPointerARB(@NativeType("GLuint") int index, @NativeType("GLint") int size, @NativeType("GLboolean") boolean normalized, @NativeType("GLsizei") int stride, @NativeType("void const *") double[] pointer) {
-    long __functionAddress = GL.getICD().glVertexAttribPointerARB;
-    if (CHECKS) {
-        check(__functionAddress);
+    MemoryStack stack = stackGet();
+    long pointerAddress = 0;
+    try {
+        DoubleBuffer buffer = stack.mallocDouble(pointer.length);
+        buffer.put(pointer).flip();
+        pointerAddress = memAddress(buffer);
+        nglVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, pointerAddress);
+    } finally {
+        stack.setPointer(stack.getPointer());
     }
-    callPV(index, size, GL_DOUBLE, normalized, stride, pointer, __functionAddress);
 }
 
 
