@@ -84,7 +84,7 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 # Build LWJGL 3
 ant -version
 yes | ant -Dplatform.linux=true \
-  -Dbuild.version=3.4.1 \
+  -Dbuild.version=3.4.2 \
   -Dbinding.assimp=false \
   -Dbinding.spvc=true \
   -Dbinding.xxhash=false \
@@ -127,7 +127,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.msdfgen=false \
-  -Dbuild.type=release/3.4.1 \
+  -Dbuild.type=release/3.4.2 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
