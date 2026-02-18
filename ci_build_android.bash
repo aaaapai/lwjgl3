@@ -127,7 +127,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.msdfgen=false \
-  -Dbuild.type=release/3.4.2 \
+  -Dbuild.type=release/3.4.1 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
