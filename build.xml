@@ -1257,7 +1257,7 @@
             <lwjgl-jar destfile="${release}/${module}/${module}-natives-@{platform}.jar" platform="@{path}" title="@{title}" unless:set="platform.skip">
                 <fileset dir="${release}/${module}" includes="META-INF/@{path}/${module.path}/*.@{type}*"/>
                 <fileset dir="${release}/${module}/native" includes="@{path}/${module.path}/*.@{type}*"/>
-                <fileset dir="${release}/${module}/native/@{path}" includes="META-INF/versions/11/module-info.class" if:set="jdk11"/>
+                <fileset dir="${release}/core/native/@{path}" includes="META-INF/versions/11/module-info.class" if:set="jdk11"/>
                 <content/>
             </lwjgl-jar>
         </sequential>
