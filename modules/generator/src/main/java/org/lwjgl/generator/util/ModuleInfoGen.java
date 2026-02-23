@@ -146,17 +146,19 @@ public final class ModuleInfoGen implements AutoCloseable {
                 module.compile(gen, moduleVersion);
             }
 
-            // Move module-info classes to <module>/META-INF/versions/11
+            // Move module-info classes to <module>/META-INF/versions/11 (only for core module)
             for (String module : moduleNames) {
-                Path source = Paths.get("bin", "classes", "lwjgl", module, "module-info.class");
-                Path target = source.resolveSibling(METAINF);
-
-                Files.createDirectories(target);
-                Files.move(
-                    source,
-                    target.resolve(source.getFileName()),
-                    StandardCopyOption.REPLACE_EXISTING
-                );
+              if ("core".equals(module)) {
+                 Path source = Paths.get("bin", "classes", "lwjgl", module, "module-info.class");
+                 Path target = source.resolveSibling(METAINF);
+        
+                 Files.createDirectories(target);
+                 Files.move(
+                     source,
+                     target.resolve(source.getFileName()),
+                     StandardCopyOption.REPLACE_EXISTING
+                 );
+              }
             }
         }
     }
