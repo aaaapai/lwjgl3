@@ -190,6 +190,16 @@ public class TinyFileDialogs {
         }
     }
 
+@NativeType("int")
+public static boolean tinyfd_messageBox(@NativeType("char const *") @Nullable ByteBuffer aTitle, @NativeType("char const *") @Nullable ByteBuffer aMessage, @NativeType("char const *") ByteBuffer aDialogType, @NativeType("char const *") ByteBuffer aIconType, @NativeType("int") boolean aDefaultButton) {
+    return tinyfd_messageBox(aTitle, aMessage, aDialogType, aIconType, aDefaultButton ? 1 : 0) != 0;
+}
+
+@NativeType("int")
+public static boolean tinyfd_messageBox(@NativeType("char const *") @Nullable CharSequence aTitle, @NativeType("char const *") @Nullable CharSequence aMessage, @NativeType("char const *") CharSequence aDialogType, @NativeType("char const *") CharSequence aIconType, @NativeType("int") boolean aDefaultButton) {
+    return tinyfd_messageBox(aTitle, aMessage, aDialogType, aIconType, aDefaultButton ? 1 : 0) != 0;
+}
+
     // --- [ tinyfd_inputBox ] ---
 
     /** {@code char const * tinyfd_inputBox(char const * aTitle, char const * aMessage, char const * aDefaultInput)} */
