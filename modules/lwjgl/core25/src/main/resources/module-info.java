@@ -22,4 +22,9 @@ module org.lwjgl {
     exports org.lwjgl.opengl;
     exports org.lwjgl.util.tinyfd;
     exports org.lwjgl.stb;
+
+    exports org.lwjgl.util.glu;
+    exports org.lwjgl.util.glu.tessellation;
+    exports org.lwjgl.util.vector;
+    exports org.lwjgl.util.mapped;
 }
