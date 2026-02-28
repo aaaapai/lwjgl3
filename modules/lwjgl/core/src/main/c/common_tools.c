@@ -9,11 +9,13 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#define JNI_VERSION_1_8 0x00010008
+
 JavaVM *jvm;
 
 static inline JNIEnv* getThreadEnv(void) {
     JNIEnv *env;
-    (*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_6);
+    (*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_8);
     return env;
 }
 
@@ -205,7 +207,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
     tlsInit();
 
-    return JNI_VERSION_1_6;
+    return JNI_VERSION_1_8;
 }
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
