@@ -1050,7 +1050,8 @@ public class ARBVertexProgram {
     // --- glVertexAttribPointerARB 便捷重载 ---
 
     public static void glVertexAttribPointerARB(int index, int size, boolean normalized, int stride, DoubleBuffer buffer) {
-        ARBVertexShader.glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, buffer);
+        // DoubleBuffer 没有直接重载，使用 long 地址版本
+        glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, memAddress(buffer));
     }
 
     public static void glVertexAttribPointerARB(int index, int size, boolean normalized, int stride, FloatBuffer buffer) {
