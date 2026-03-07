@@ -83,6 +83,7 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 
 # Build LWJGL 3
 ant -version
+yes | ant init
 yes | ant -Dplatform.linux=true \
   -Dbuild.version=3.4.2 \
   -Dbinding.assimp=false \
