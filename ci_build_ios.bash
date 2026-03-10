@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 export LIBFFI_VERSION=3.4.6
-export LWJGL_BUILD_OFFLINE=1
 export LWJGL_BUILD_ARCH=arm64
 
 LWJGL_NATIVE=bin/libs/native/macos/$LWJGL_BUILD_ARCH/org/lwjgl
@@ -49,6 +48,7 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 
 # Build LWJGL 3
 ant -version
+yes | ant init # Needed to download deps like kotlinc. Has to run first else jspecify fails to compile the kotlin properly and the missing annotations cause compile errors.
 yes | ant -Dplatform.macos=true \
   -Dbinding.assimp=false \
   -Dbinding.bgfx=false \
@@ -83,7 +83,7 @@ yes | ant -Dplatform.macos=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.3 \
+  -Dbuild.type=release/3.3.6 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release

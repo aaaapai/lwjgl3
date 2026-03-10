@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 export LIBFFI_VERSION=3.4.6
-export ANDROID=1 LWJGL_BUILD_OFFLINE=1
+export ANDROID=1
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
@@ -44,7 +44,7 @@ fi
 
 if [ "$SKIP_FREETYPE" != "1" ]; then
   #!/bin/bash
-  export BUILD_FREETYPE_VERSION=2.13.2
+  export BUILD_FREETYPE_VERSION=2.13.3
   wget https://downloads.sourceforge.net/project/freetype/freetype2/$BUILD_FREETYPE_VERSION/freetype-$BUILD_FREETYPE_VERSION.tar.gz
   tar xf freetype-$BUILD_FREETYPE_VERSION.tar.gz
   rm  freetype-$BUILD_FREETYPE_VERSION.tar.gz
@@ -86,6 +86,8 @@ touch bin/classes/{generator,templates}/touch.txt bin/classes/generator/generate
 
 # Build LWJGL 3
 ant -version
+yes | ant init # Needed to download deps like kotlinc. We can't have this run offline, else jspecify fails to compile the kotlin properly and the missing annotations cause compile errors.
+export LWJGL_BUILD_OFFLINE=true
 yes | ant -Dplatform.linux=true \
   -Dbinding.assimp=false \
   -Dbinding.bgfx=false \
@@ -120,7 +122,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.3 \
+  -Dbuild.type=release/3.3.6 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   compile compile-native release
