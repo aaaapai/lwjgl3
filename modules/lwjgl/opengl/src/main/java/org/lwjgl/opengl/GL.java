@@ -4,12 +4,11 @@
  */
 package org.lwjgl.opengl;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
-import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
 
-import javax.annotation.*;
 import java.nio.*;
 import java.util.*;
 import java.util.function.*;
@@ -58,23 +57,18 @@ import static org.lwjgl.system.windows.WindowsUtil.*;
  */
 public final class GL {
 
-    @Nullable
-    private static final APIVersion MAX_VERSION;
+    private static final @Nullable APIVersion MAX_VERSION;
 
-    @Nullable
-    private static FunctionProvider functionProvider;
+    private static @Nullable FunctionProvider functionProvider;
 
-    private static final ThreadLocal<GLCapabilities> capabilitiesTLS = new ThreadLocal<>();
+    private static final ThreadLocal<@Nullable GLCapabilities> capabilitiesTLS = new ThreadLocal<>();
 
     private static ICD icd = new ICDStatic();
 
-    @Nullable
-    private static WGLCapabilities capabilitiesWGL;
+    private static @Nullable WGLCapabilities capabilitiesWGL;
 
-    @Nullable
-    private static GLXCapabilities capabilitiesGLXClient;
-    @Nullable
-    private static GLXCapabilities capabilitiesGLX;
+    private static @Nullable GLXCapabilities capabilitiesGLXClient;
+    private static @Nullable GLXCapabilities capabilitiesGLX;
 
     static {
         Library.loadSystem(System::load, System::loadLibrary, GL.class, "org.lwjgl.opengl", Platform.mapLibraryNameBundled("lwjgl_opengl"));
@@ -114,7 +108,63 @@ public final class GL {
             default:
                 throw new IllegalStateException();
         }
+
+        if (GL == null) {
+            GL = loadNative();
+            if (GL == null && !"native".equals(contextAPI)) {
+                if (!tryEGL) {
+                    GL = loadEGL();
+                }
+                if (GL == null && !"OSMesa".equals(contextAPI)) {
+                    GL = loadOSMesa();
+                }
+            }
+        }
+
+        if (GL == null) {
+            throw new IllegalStateException("There is no OpenGL context management API available.");
+        }
+
         create(GL);
+    }
+
+    private static boolean isWayland() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                // The following matches the test GLFW does to enable the Wayland backend.
+                if ("wayland".equals(System.getenv("XDG_SESSION_TYPE")) && System.getenv("WAYLAND_DISPLAY") != null) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    private static @Nullable SharedLibrary loadNative() {
+        try {
+            return Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, Configuration.OPENGL_LIBRARY_NAME_DEFAULTS());
+        } catch (Throwable ignored) {
+            apiLog("[GL] Failed to initialize context management based on native OpenGL platform API");
+            return null;
+        }
+    }
+
+    private static @Nullable SharedLibrary loadEGL() {
+        try {
+            return Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.EGL_LIBRARY_NAME, Configuration.EGL_LIBRARY_NAME_DEFAULTS());
+        } catch (Throwable ignored) {
+            apiLog("[GL] Failed to initialize context management based on EGL");
+            return null;
+        }
+    }
+
+    private static @Nullable SharedLibrary loadOSMesa() {
+        try {
+            return Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_OSMESA_LIBRARY_NAME, Configuration.OPENGL_OSMESA_LIBRARY_NAME_DEFAULTS());
+        } catch (Throwable ignored) {
+            apiLog("[GL] Failed to initialize context management based on OSMesa");
+            return null;
+        }
     }
 
     /**
@@ -135,6 +185,7 @@ public final class GL {
                     long GetProcAddress = NULL;
 
                     switch (Platform.get()) {
+                        case FREEBSD:
                         case LINUX:
                             GetProcAddress = library.getFunctionAddress("glXGetProcAddress");
                             if (GetProcAddress == NULL) {
@@ -146,6 +197,9 @@ public final class GL {
                             break;
                     }
                     if (GetProcAddress == NULL) {
+                        GetProcAddress = library.getFunctionAddress("eglGetProcAddress");
+                    }
+                    if (GetProcAddress == NULL) {
                         GetProcAddress = library.getFunctionAddress("OSMesaGetProcAddress");
                     }
 
@@ -154,9 +208,7 @@ public final class GL {
 
                 @Override
                 public long getFunctionAddress(ByteBuffer functionName) {
-                    long address = GetProcAddress == NULL ? NULL : Platform.get() == Platform.WINDOWS
-                        ? nwglGetProcAddress(memAddress(functionName), GetProcAddress) // save LastError
-                        : callPP(memAddress(functionName), GetProcAddress);
+                    long address = GetProcAddress == NULL ? NULL : callPP(memAddress(functionName), GetProcAddress);
                     if (address == NULL) {
                         address = library.getFunctionAddress(functionName);
                         if (address == NULL && DEBUG_FUNCTIONS) {
@@ -205,8 +257,7 @@ public final class GL {
     }
 
     /** Returns the {@link FunctionProvider} for the OpenGL native library. */
-    @Nullable
-    public static FunctionProvider getFunctionProvider() {
+    public static @Nullable FunctionProvider getFunctionProvider() {
         return functionProvider;
     }
 
@@ -510,6 +561,8 @@ public final class GL {
         long  hwnd      = NULL;
         long  hglrc     = NULL;
         try (MemoryStack stack = stackPush()) {
+            IntBuffer pi = stack.mallocInt(1);
+
             WNDCLASSEX wc = WNDCLASSEX.calloc(stack)
                 .cbSize(WNDCLASSEX.SIZEOF)
                 .style(CS_HREDRAW | CS_VREDRAW)
@@ -521,17 +574,21 @@ public final class GL {
                 User32.Functions.DefWindowProc
             );
 
-            classAtom = RegisterClassEx(wc);
+            classAtom = RegisterClassEx(pi, wc);
             if (classAtom == 0) {
-                throw new IllegalStateException("Failed to register WGL window class");
+                windowsThrowException("Failed to register WGL window class", pi);
             }
 
-            hwnd = check(nCreateWindowEx(
+            hwnd = nCreateWindowEx(
+                memAddress(pi),
                 0, classAtom & 0xFFFF, NULL,
                 WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
                 0, 0, 1, 1,
                 NULL, NULL, NULL, NULL
-            ));
+            );
+            if (hwnd == NULL) {
+                windowsThrowException("Failed to create WGL window", pi);
+            }
 
             hdc = check(GetDC(hwnd));
 
@@ -540,35 +597,37 @@ public final class GL {
                 .nVersion((short)1)
                 .dwFlags(PFD_SUPPORT_OPENGL); // we don't care about anything else
 
-            int pixelFormat = ChoosePixelFormat(hdc, pfd);
+            int pixelFormat = ChoosePixelFormat(pi, hdc, pfd);
             if (pixelFormat == 0) {
-                windowsThrowException("Failed to choose an OpenGL-compatible pixel format");
+                windowsThrowException("Failed to choose an OpenGL-compatible pixel format", pi);
             }
 
-            if (DescribePixelFormat(hdc, pixelFormat, pfd) == 0) {
-                windowsThrowException("Failed to obtain pixel format information");
+            if (DescribePixelFormat(pi, hdc, pixelFormat, pfd) == 0) {
+                windowsThrowException("Failed to obtain pixel format information", pi);
             }
 
-            if (!SetPixelFormat(hdc, pixelFormat, pfd)) {
-                windowsThrowException("Failed to set the pixel format");
+            if (!SetPixelFormat(pi, hdc, pixelFormat, pfd)) {
+                windowsThrowException("Failed to set the pixel format", pi);
             }
 
-            hglrc = check(wglCreateContext(hdc));
-            wglMakeCurrent(hdc, hglrc);
+            hglrc = check(wglCreateContext(null, hdc));
+            if (!wglMakeCurrent(pi, hdc, hglrc)) {
+                windowsThrowException("Failed to make context current", pi);
+            }
 
             return createCapabilitiesWGL(hdc);
         } finally {
             if (hglrc != NULL) {
-                wglMakeCurrent(NULL, NULL);
-                wglDeleteContext(hglrc);
+                wglMakeCurrent(null, NULL, NULL);
+                wglDeleteContext(null, hglrc);
             }
 
             if (hwnd != NULL) {
-                DestroyWindow(hwnd);
+                DestroyWindow(null, hwnd);
             }
 
             if (classAtom != 0) {
-                nUnregisterClass(classAtom & 0xFFFF, WindowsLibrary.HINSTANCE);
+                nUnregisterClass(NULL, classAtom & 0xFFFF, WindowsLibrary.HINSTANCE);
             }
         }
     }
@@ -725,8 +784,7 @@ public final class GL {
      */
     private static class ICDStatic implements ICD {
 
-        @Nullable
-        private static GLCapabilities tempCaps;
+        private static @Nullable GLCapabilities tempCaps;
 
         @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
         @Override

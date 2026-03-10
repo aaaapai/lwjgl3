@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_OCULUS_external_camera">XR_OCULUS_external_camera</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_OCULUS_external_camera">XR_OCULUS_external_camera</a> extension.
  * 
  * <p>This extension enables the querying of external camera information for a session. This extension is intended to enable mixed reality capture support for applications.</p>
  * 
@@ -161,7 +161,7 @@ public class OCULUSExternalCamera {
      * @param cameras           an array of {@link XrExternalCameraOCULUS} filled in by the runtime which contains all the available external cameras, but <b>can</b> be {@code NULL} if {@code cameraCapacityInput} is 0.
      */
     @NativeType("XrResult")
-    public static int xrEnumerateExternalCamerasOCULUS(XrSession session, @NativeType("uint32_t *") IntBuffer cameraCountOutput, @Nullable @NativeType("XrExternalCameraOCULUS *") XrExternalCameraOCULUS.Buffer cameras) {
+    public static int xrEnumerateExternalCamerasOCULUS(XrSession session, @NativeType("uint32_t *") IntBuffer cameraCountOutput, @NativeType("XrExternalCameraOCULUS *") XrExternalCameraOCULUS.@Nullable Buffer cameras) {
         if (CHECKS) {
             check(cameraCountOutput, 1);
         }

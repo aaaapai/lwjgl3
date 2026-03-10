@@ -13,7 +13,6 @@ val EXT_image_compression_control = "EXTImageCompressionControl".nativeClassVK("
         """
         This extension enables fixed-rate image compression and adds the ability to control when this kind of compression can be applied. Many implementations support some form of framebuffer compression. This is typically transparent to applications as lossless compression schemes are used. With fixed-rate compression, the compression is done at a defined bitrate. Such compression algorithms generally produce results that are visually lossless, but the results are typically not bit-exact when compared to a non-compressed result. The implementation may not be able to use the requested compression rate in all cases. This extension adds a query that can be used to determine the compression scheme and rate that was applied to an image.
 
-        <h5>VK_EXT_image_compression_control</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_image_compression_control}</dd>
@@ -28,7 +27,7 @@ val EXT_image_compression_control = "EXTImageCompressionControl".nativeClassVK("
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -170,11 +169,11 @@ val EXT_image_compression_control = "EXTImageCompressionControl".nativeClassVK("
 
     void(
         "GetImageSubresourceLayout2EXT",
-        "See #GetImageSubresourceLayout2KHR().",
+        "See #GetImageSubresourceLayout2().",
 
         VkDevice("device", "the logical device that owns the image."),
         VkImage("image", "the image whose layout is being queried."),
-        VkImageSubresource2KHR.const.p("pSubresource", "a pointer to a ##VkImageSubresource2KHR structure selecting a specific image for the image subresource."),
-        VkSubresourceLayout2KHR.p("pLayout", "a pointer to a ##VkSubresourceLayout2KHR structure in which the layout is returned.")
+        VkImageSubresource2.const.p("pSubresource", "a pointer to a ##VkImageSubresource2 structure selecting a specific image for the image subresource."),
+        VkSubresourceLayout2.p("pLayout", "a pointer to a ##VkSubresourceLayout2 structure in which the layout is returned.")
     )
 }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrGeometryInstanceCreateInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB TYPE_GEOMETRY_INSTANCE_CREATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layer} <b>must</b> be a valid {@code XrPassthroughLayerFB} handle</li>
  * <li>{@code mesh} <b>must</b> be a valid {@code XrTriangleMeshFB} handle</li>
  * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
@@ -221,8 +221,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGeometryInstanceCreateInfoFB createSafe(long address) {
+    public static @Nullable XrGeometryInstanceCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrGeometryInstanceCreateInfoFB(address, null);
     }
 
@@ -265,8 +264,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGeometryInstanceCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrGeometryInstanceCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -311,7 +309,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGeometryInstanceCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGeometryInstanceCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGeometryInstanceCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #layer}. */
@@ -326,7 +324,7 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
     public static XrVector3f nscale(long struct) { return XrVector3f.create(struct + XrGeometryInstanceCreateInfoFB.SCALE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGeometryInstanceCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGeometryInstanceCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGeometryInstanceCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #layer(XrPassthroughLayerFB) layer}. */
@@ -382,6 +380,11 @@ public class XrGeometryInstanceCreateInfoFB extends Struct<XrGeometryInstanceCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

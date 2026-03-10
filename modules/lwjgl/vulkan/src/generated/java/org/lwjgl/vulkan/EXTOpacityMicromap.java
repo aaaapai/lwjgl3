@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,9 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * When adding adding transparency to a ray traced scene, an application can choose between further tessellating the geometry or using an any hit shader to allow the ray through specific parts of the geometry. These options have the downside of either significantly increasing memory consumption or adding runtime overhead to run shader code in the middle of traversal, respectively.
+ * When adding transparency to a ray traced scene, an application can choose between further tessellating the geometry or using an any-hit shader to allow the ray through specific parts of the geometry. These options have the downside of either significantly increasing memory consumption or adding runtime overhead to run shader code in the middle of traversal, respectively.
  * 
- * <p>This extension adds the ability to add an <em>opacity micromap</em> to geometry when building an acceleration structure. The opacity micromap compactly encodes opacity information which can be read by the implementation to mark parts of triangles as opaque or transparent. The format is externally visible to allow the application to compress its internal geometry and surface representations into the compressed format ahead of time. The compressed format subdivides each triangle into a set of subtriangles, each of which can be assigned either two or four opacity values. These opacity values can control if a ray hitting that subtriangle is treated as an opaque hit, complete miss, or possible hit, depending on the controls described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>.</p>
+ * <p>This extension adds the ability to add an <em>opacity micromap</em> to geometry when building an acceleration structure. The opacity micromap compactly encodes opacity information which can be read by the implementation to mark parts of triangles as opaque or transparent. The format is externally visible to allow the application to compress its internal geometry and surface representations into the compressed format ahead of time. The compressed format subdivides each triangle into a set of subtriangles, each of which can be assigned either two or four opacity values. These opacity values can control if a ray hitting that subtriangle is treated as an opaque hit, complete miss, or possible hit, depending on the controls described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#ray-opacity-micromap">Ray Opacity Micromap</a>.</p>
  * 
  * <p>This extension provides:</p>
  * 
@@ -84,8 +84,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     return b0 | (b1 &lt;&lt; 1u);
  * }</code></pre>
  * 
- * <h5>VK_EXT_opacity_micromap</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_opacity_micromap}</dd>
@@ -96,7 +94,11 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRAccelerationStructure VK_KHR_acceleration_structure} and {@link KHRSynchronization2 VK_KHR_synchronization2}</dd>
+ * <dd>{@link KHRAccelerationStructure VK_KHR_acceleration_structure} and {@link KHRSynchronization2 VK_KHR_synchronization2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.3">Version 1.3</a></dd>
+ * <dt><b>SPIR-V Dependencies</b></dt>
+ * <dd><ul>
+ * <li><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_opacity_micromap.html">SPV_EXT_opacity_micromap</a></li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Christoph Kubisch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_opacity_micromap]%20@pixeljetstream%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_opacity_micromap%20extension*">pixeljetstream</a></li>
@@ -113,8 +115,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dd>2022-08-24</dd>
  * <dt><b>Interactions and External Dependencies</b></dt>
  * <dd><ul>
- * <li>This extension requires <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_opacity_micromap.html">{@code SPV_EXT_opacity_micromap}</a></li>
- * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_opacity_micromap.txt">{@code GLSL_EXT_opacity_micromap}</a></li>
+ * <li>This extension provides API support for <a href="https://github.com/KhronosGroup/GLSL/blob/main/extensions/ext/GLSL_EXT_opacity_micromap.txt">{@code GLSL_EXT_opacity_micromap}</a></li>
  * </ul></dd>
  * <dt><b>Contributors</b></dt>
  * <dd><ul>
@@ -266,8 +267,8 @@ public class EXTOpacityMicromap {
      * <h5>Description</h5>
      * 
      * <ul>
-     * <li>{@link #VK_BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT} indicates that the given micromap build <b>should</b> prioritize trace performance over build time.</li>
-     * <li>{@link #VK_BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT} indicates that the given micromap build <b>should</b> prioritize build time over trace performance.</li>
+     * <li>{@link #VK_BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT} specifies that the given micromap build <b>should</b> prioritize trace performance over build time.</li>
+     * <li>{@link #VK_BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT} specifies that the given micromap build <b>should</b> prioritize build time over trace performance.</li>
      * </ul>
      * 
      * <h5>Enum values:</h5>
@@ -335,8 +336,8 @@ public class EXTOpacityMicromap {
      * <h5>Description</h5>
      * 
      * <ul>
-     * <li>{@link #VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT OPACITY_MICROMAP_FORMAT_2_STATE_EXT} indicates that the given micromap format has one bit per subtriangle encoding either fully opaque or fully transparent.</li>
-     * <li>{@link #VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT OPACITY_MICROMAP_FORMAT_4_STATE_EXT} indicates that the given micromap format has two bits per subtriangle encoding four modes which can be interpreted as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#ray-opacity-micromap">ray traversal</a>.</li>
+     * <li>{@link #VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT OPACITY_MICROMAP_FORMAT_2_STATE_EXT} specifies that the given micromap format has one bit per subtriangle encoding either fully opaque or fully transparent.</li>
+     * <li>{@link #VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT OPACITY_MICROMAP_FORMAT_4_STATE_EXT} specifies that the given micromap format has two bits per subtriangle encoding four modes which can be interpreted as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#ray-opacity-micromap">ray traversal</a>.</li>
      * </ul>
      * 
      * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
@@ -411,9 +412,9 @@ public class EXTOpacityMicromap {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
-     * <li>If {@link VkMicromapCreateInfoEXT}{@code ::deviceAddress} is not zero, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapCaptureReplay">{@code micromapCaptureReplay}</a> feature <b>must</b> be enabled</li>
-     * <li>If {@code device} was created with multiple physical devices, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressMultiDevice">{@code bufferDeviceAddressMultiDevice}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@link VkMicromapCreateInfoEXT}{@code ::deviceAddress} is not zero, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapCaptureReplay">{@code micromapCaptureReplay}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@code device} was created with multiple physical devices, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bufferDeviceAddressMultiDevice">{@code bufferDeviceAddressMultiDevice}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -445,11 +446,11 @@ public class EXTOpacityMicromap {
      *
      * @param device      the logical device that creates the acceleration structure object.
      * @param pCreateInfo a pointer to a {@link VkMicromapCreateInfoEXT} structure containing parameters affecting creation of the micromap.
-     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator  controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pMicromap   a pointer to a {@code VkMicromapEXT} handle in which the resulting micromap object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateMicromapEXT(VkDevice device, @NativeType("VkMicromapCreateInfoEXT const *") VkMicromapCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkMicromapEXT *") LongBuffer pMicromap) {
+    public static int vkCreateMicromapEXT(VkDevice device, @NativeType("VkMicromapCreateInfoEXT const *") VkMicromapCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkMicromapEXT *") LongBuffer pMicromap) {
         if (CHECKS) {
             check(pMicromap, 1);
         }
@@ -483,6 +484,7 @@ public class EXTOpacityMicromap {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
      * <li>All submitted commands that refer to {@code micromap} <b>must</b> have completed execution</li>
      * <li>If {@link VkAllocationCallbacks} were provided when {@code micromap} was created, a compatible set of callbacks <b>must</b> be provided here</li>
      * <li>If no {@link VkAllocationCallbacks} were provided when {@code micromap} was created, {@code pAllocator} <b>must</b> be {@code NULL}</li>
@@ -509,9 +511,9 @@ public class EXTOpacityMicromap {
      *
      * @param device     the logical device that destroys the micromap.
      * @param micromap   the micromap to destroy.
-     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyMicromapEXT(VkDevice device, @NativeType("VkMicromapEXT") long micromap, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyMicromapEXT(VkDevice device, @NativeType("VkMicromapEXT") long micromap, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyMicromapEXT(device, micromap, memAddressSafe(pAllocator));
     }
 
@@ -552,9 +554,9 @@ public class EXTOpacityMicromap {
      * <p>This means that there <b>cannot</b> be any memory aliasing between any micromap memories or scratch memories being used by any of the builds.</p>
      * </div>
      * 
-     * <p>Accesses to the micromap scratch buffers as identified by the {@link VkMicromapBuildInfoEXT}{@code ::scratchData} buffer device addresses <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of ({@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT} | {@link #VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT ACCESS_2_MICROMAP_WRITE_BIT_EXT}). Accesses to {@link VkMicromapBuildInfoEXT}{@code ::dstMicromap} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT ACCESS_2_MICROMAP_WRITE_BIT_EXT}.</p>
+     * <p>Accesses to the micromap scratch buffers as identified by the {@link VkMicromapBuildInfoEXT}{@code ::scratchData} buffer device addresses <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of ({@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT} | {@link #VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT ACCESS_2_MICROMAP_WRITE_BIT_EXT}). Accesses to {@link VkMicromapBuildInfoEXT}{@code ::dstMicromap} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT ACCESS_2_MICROMAP_WRITE_BIT_EXT}.</p>
      * 
-     * <p>Accesses to other input buffers as identified by any used values of {@link VkMicromapBuildInfoEXT}{@code ::data} or {@link VkMicromapBuildInfoEXT}{@code ::triangleArray} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of {@link VK10#VK_ACCESS_SHADER_READ_BIT ACCESS_SHADER_READ_BIT}.</p>
+     * <p>Accesses to other input buffers as identified by any used values of {@link VkMicromapBuildInfoEXT}{@code ::data} or {@link VkMicromapBuildInfoEXT}{@code ::triangleArray} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of {@link VK10#VK_ACCESS_SHADER_READ_BIT ACCESS_SHADER_READ_BIT}.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -584,7 +586,7 @@ public class EXTOpacityMicromap {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pInfos} <b>must</b> be a valid pointer to an array of {@code infoCount} valid {@link VkMicromapBuildInfoEXT} structures</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support compute operations</li>
      * <li>This command <b>must</b> only be called outside of a render pass instance</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -601,7 +603,7 @@ public class EXTOpacityMicromap {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -672,7 +674,7 @@ public class EXTOpacityMicromap {
      * <li>For each element of {@code pInfos}, the {@code buffer} used to create its {@code dstMicromap} member <b>must</b> be bound to host-visible device memory</li>
      * <li>For each element of {@code pInfos}, all referenced addresses of {@code pInfos}[i].{@code data.hostAddress} <b>must</b> be valid host memory</li>
      * <li>For each element of {@code pInfos}, all referenced addresses of {@code pInfos}[i].{@code triangleArray.hostAddress} <b>must</b> be valid host memory</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
      * <li>If {@code pInfos}[i].{@code mode} is {@link #VK_BUILD_MICROMAP_MODE_BUILD_EXT BUILD_MICROMAP_MODE_BUILD_EXT}, all addresses between {@code pInfos}[i].{@code scratchData.hostAddress} and {@code pInfos}[i].{@code scratchData.hostAddress} + N - 1 <b>must</b> be valid host memory, where N is given by the {@code buildScratchSize} member of the {@link VkMicromapBuildSizesInfoEXT} structure returned from a call to {@link #vkGetMicromapBuildSizesEXT GetMicromapBuildSizesEXT} with an identical {@link VkMicromapBuildInfoEXT} structure and primitive count</li>
      * <li>For each element of {@code pInfos}, the {@code buffer} used to create its {@code dstMicromap} member <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * </ul>
@@ -708,7 +710,7 @@ public class EXTOpacityMicromap {
      * <p>{@link VkMicromapBuildInfoEXT}</p>
      *
      * @param device            the {@code VkDevice} for which the micromaps are being built.
-     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
+     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
      * @param pInfos            a pointer to an array of {@code infoCount} {@link VkMicromapBuildInfoEXT} structures defining the geometry used to build each micromap.
      */
     @NativeType("VkResult")
@@ -747,11 +749,10 @@ public class EXTOpacityMicromap {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to host-visible device memory</li>
      * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to host-visible device memory</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * </ul>
@@ -786,7 +787,7 @@ public class EXTOpacityMicromap {
      * <p>{@link VkCopyMicromapInfoEXT}</p>
      *
      * @param device            the device which owns the micromaps.
-     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
+     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
      * @param pInfo             a pointer to a {@link VkCopyMicromapInfoEXT} structure defining the copy operation.
      */
     @NativeType("VkResult")
@@ -827,12 +828,11 @@ public class EXTOpacityMicromap {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to host-visible device memory</li>
      * <li>{@code pInfo→dst.hostAddress} <b>must</b> be a valid host pointer</li>
      * <li>{@code pInfo→dst.hostAddress} <b>must</b> be aligned to 16 bytes</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code buffer} used to create {@code pInfo→src} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * </ul>
      * 
@@ -866,7 +866,7 @@ public class EXTOpacityMicromap {
      * <p>{@link VkCopyMicromapToMemoryInfoEXT}</p>
      *
      * @param device            the device which owns {@code pInfo→src}.
-     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
+     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
      * @param pInfo             a pointer to a {@link VkCopyMicromapToMemoryInfoEXT} structure defining the copy operation.
      */
     @NativeType("VkResult")
@@ -907,12 +907,11 @@ public class EXTOpacityMicromap {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>If {@code deferredOperation} is not {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, it <b>must</b> be a valid {@code VkDeferredOperationKHR} object</li>
      * <li>Any previous deferred operation that was associated with {@code deferredOperation} <b>must</b> be complete</li>
      * <li>{@code pInfo→src.hostAddress} <b>must</b> be a valid host pointer</li>
      * <li>{@code pInfo→src.hostAddress} <b>must</b> be aligned to 16 bytes</li>
      * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to host-visible device memory</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code buffer} used to create {@code pInfo→dst} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * </ul>
      * 
@@ -946,7 +945,7 @@ public class EXTOpacityMicromap {
      * <p>{@link VkCopyMemoryToMicromapInfoEXT}</p>
      *
      * @param device            the device which owns {@code pInfo→dst}.
-     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
+     * @param deferredOperation an optional {@code VkDeferredOperationKHR} to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#deferred-host-operations-requesting">request deferral</a> for this command.
      * @param pInfo             a pointer to a {@link VkCopyMemoryToMicromapInfoEXT} structure defining the copy operation.
      */
     @NativeType("VkResult")
@@ -997,12 +996,11 @@ public class EXTOpacityMicromap {
      * <li>All micromaps in {@code pMicromaps} <b>must</b> have been constructed prior to the execution of this command</li>
      * <li>All micromaps in {@code pMicromaps} <b>must</b> have been constructed with {@link #VK_BUILD_MICROMAP_ALLOW_COMPACTION_BIT_EXT BUILD_MICROMAP_ALLOW_COMPACTION_BIT_EXT} if {@code queryType} is {@link #VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT}</li>
      * <li>{@code queryType} <b>must</b> be {@link #VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT} or {@link #VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT}</li>
-     * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT}, then {@code stride} <b>must</b> be a multiple of the size of {@code VkDeviceSize}</li>
-     * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT}, then {@code pData} <b>must</b> point to a {@code VkDeviceSize}</li>
-     * <li>If {@code queryType} is</li>
+     * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT} or {@link #VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT} then {@code stride} <b>must</b> be a multiple of the size of {@code VkDeviceSize}</li>
+     * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT} or {@link #VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT} then {@code pData} <b>must</b> point to a {@code VkDeviceSize}</li>
      * <li>{@code dataSize} <b>must</b> be greater than or equal to <code>micromapCount*stride</code></li>
      * <li>The {@code buffer} used to create each micromap in {@code pMicromaps} <b>must</b> be bound to host-visible device memory</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromapHostCommands">{@link VkPhysicalDeviceOpacityMicromapFeaturesEXT}{@code ::micromapHostCommands}</a> feature <b>must</b> be enabled</li>
      * <li>The {@code buffer} used to create each micromap in {@code pMicromaps} <b>must</b> be bound to memory that was not allocated with multiple instances</li>
      * </ul>
      * 
@@ -1035,7 +1033,7 @@ public class EXTOpacityMicromap {
      * @param device     the device which owns the micromaps in {@code pMicromaps}.
      * @param pMicromaps a pointer to an array of existing previously built micromaps.
      * @param queryType  a {@code VkQueryType} value specifying the property to be queried.
-     * @param pData      a pointer to a user-allocated buffer where the results will be written.
+     * @param pData      a pointer to an application-allocated buffer where the results will be written.
      * @param stride     the stride in bytes between results for individual queries within {@code pData}.
      */
     @NativeType("VkResult")
@@ -1070,7 +1068,7 @@ public class EXTOpacityMicromap {
      * 
      * <p>This command copies the {@code pInfo→src} micromap to the {@code pInfo→dst} micromap in the manner specified by {@code pInfo→mode}.</p>
      * 
-     * <p>Accesses to {@code pInfo→src} and {@code pInfo→dst} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT} or {@link #VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT ACCESS_2_MICROMAP_WRITE_BIT_EXT} as appropriate.</p>
+     * <p>Accesses to {@code pInfo→src} and {@code pInfo→dst} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT} or {@link #VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT ACCESS_2_MICROMAP_WRITE_BIT_EXT} as appropriate.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
@@ -1084,7 +1082,7 @@ public class EXTOpacityMicromap {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pInfo} <b>must</b> be a valid pointer to a valid {@link VkCopyMicromapInfoEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support compute operations</li>
      * <li>This command <b>must</b> only be called outside of a render pass instance</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -1100,7 +1098,7 @@ public class EXTOpacityMicromap {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -1140,7 +1138,7 @@ public class EXTOpacityMicromap {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Accesses to {@code pInfo→src} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT}. Accesses to the buffer indicated by {@code pInfo→dst.deviceAddress} <b>must</b> be synchronized with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} pipeline stage and an access type of {@link VK10#VK_ACCESS_TRANSFER_WRITE_BIT ACCESS_TRANSFER_WRITE_BIT}.</p>
+     * <p>Accesses to {@code pInfo→src} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT}. Accesses to the buffer indicated by {@code pInfo→dst.deviceAddress} <b>must</b> be synchronized with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} pipeline stage and an access type of {@link VK10#VK_ACCESS_TRANSFER_WRITE_BIT ACCESS_TRANSFER_WRITE_BIT}.</p>
      * 
      * <p>This command produces the same results as {@link #vkCopyMicromapToMemoryEXT CopyMicromapToMemoryEXT}, but writes its result to a device address, and is executed on the device rather than the host. The output <b>may</b> not necessarily be bit-for-bit identical, but it can be equally used by either {@link #vkCmdCopyMemoryToMicromapEXT CmdCopyMemoryToMicromapEXT} or {@link #vkCopyMemoryToMicromapEXT CopyMemoryToMicromapEXT}.</p>
      * 
@@ -1165,7 +1163,7 @@ public class EXTOpacityMicromap {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pInfo} <b>must</b> be a valid pointer to a valid {@link VkCopyMicromapToMemoryInfoEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support compute operations</li>
      * <li>This command <b>must</b> only be called outside of a render pass instance</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -1181,7 +1179,7 @@ public class EXTOpacityMicromap {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -1221,7 +1219,7 @@ public class EXTOpacityMicromap {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Accesses to {@code pInfo→dst} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT}. Accesses to the buffer indicated by {@code pInfo→src.deviceAddress} <b>must</b> be synchronized with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} pipeline stage and an access type of {@link VK10#VK_ACCESS_TRANSFER_READ_BIT ACCESS_TRANSFER_READ_BIT}.</p>
+     * <p>Accesses to {@code pInfo→dst} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT}. Accesses to the buffer indicated by {@code pInfo→src.deviceAddress} <b>must</b> be synchronized with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} pipeline stage and an access type of {@link VK10#VK_ACCESS_TRANSFER_READ_BIT ACCESS_TRANSFER_READ_BIT}.</p>
      * 
      * <p>This command can accept micromaps produced by either {@link #vkCmdCopyMicromapToMemoryEXT CmdCopyMicromapToMemoryEXT} or {@link #vkCopyMicromapToMemoryEXT CopyMicromapToMemoryEXT}.</p>
      * 
@@ -1239,7 +1237,7 @@ public class EXTOpacityMicromap {
      * <ul>
      * <li>{@code commandBuffer} <b>must</b> be a valid {@code VkCommandBuffer} handle</li>
      * <li>{@code pInfo} <b>must</b> be a valid pointer to a valid {@link VkCopyMemoryToMicromapInfoEXT} structure</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support compute operations</li>
      * <li>This command <b>must</b> only be called outside of a render pass instance</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -1255,7 +1253,7 @@ public class EXTOpacityMicromap {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Compute</td><td>Action</td></tr></tbody>
      * </table>
      * 
@@ -1264,7 +1262,7 @@ public class EXTOpacityMicromap {
      * <p>{@link VkCopyMemoryToMicromapInfoEXT}</p>
      *
      * @param commandBuffer the command buffer into which the command will be recorded.
-     * @param pInfo         a pointer to a {@link VkCopyMicromapToMemoryInfoEXT} structure defining the copy operation.
+     * @param pInfo         a pointer to a {@link VkCopyMemoryToMicromapInfoEXT} structure defining the copy operation.
      */
     public static void vkCmdCopyMemoryToMicromapEXT(VkCommandBuffer commandBuffer, @NativeType("VkCopyMemoryToMicromapInfoEXT const *") VkCopyMemoryToMicromapInfoEXT pInfo) {
         nvkCmdCopyMemoryToMicromapEXT(commandBuffer, pInfo.address());
@@ -1303,7 +1301,7 @@ public class EXTOpacityMicromap {
      * 
      * <h5>Description</h5>
      * 
-     * <p>Accesses to any of the micromaps listed in {@code pMicromaps} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT}.</p>
+     * <p>Accesses to any of the micromaps listed in {@code pMicromaps} <b>must</b> be <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-dependencies">synchronized</a> with the {@link #VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT} <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-pipeline-stages">pipeline stage</a> and an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#synchronization-access-types">access type</a> of {@link #VK_ACCESS_2_MICROMAP_READ_BIT_EXT ACCESS_2_MICROMAP_READ_BIT_EXT}.</p>
      * 
      * <ul>
      * <li>If {@code queryType} is {@link #VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT}, then the value written out is the number of bytes required by a serialized micromap.</li>
@@ -1332,7 +1330,7 @@ public class EXTOpacityMicromap {
      * <li>{@code pMicromaps} <b>must</b> be a valid pointer to an array of {@code micromapCount} valid {@code VkMicromapEXT} handles</li>
      * <li>{@code queryType} <b>must</b> be a valid {@code VkQueryType} value</li>
      * <li>{@code queryPool} <b>must</b> be a valid {@code VkQueryPool} handle</li>
-     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
+     * <li>{@code commandBuffer} <b>must</b> be in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#commandbuffers-lifecycle">recording state</a></li>
      * <li>The {@code VkCommandPool} that {@code commandBuffer} was allocated from <b>must</b> support compute operations</li>
      * <li>This command <b>must</b> only be called outside of a render pass instance</li>
      * <li>This command <b>must</b> only be called outside of a video coding scope</li>
@@ -1350,7 +1348,7 @@ public class EXTOpacityMicromap {
      * <h5>Command Properties</h5>
      * 
      * <table class="lwjgl">
-     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
+     * <thead><tr><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkCommandBufferLevel">Command Buffer Levels</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginRenderPass">Render Pass Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCmdBeginVideoCodingKHR">Video Coding Scope</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkQueueFlagBits">Supported Queue Types</a></th><th><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-queueoperation-command-types">Command Type</a></th></tr></thead>
      * <tbody><tr><td>Primary Secondary</td><td>Outside</td><td>Outside</td><td>Compute</td><td>Action</td></tr></tbody>
      * </table>
      *
@@ -1392,7 +1390,7 @@ public class EXTOpacityMicromap {
      * <h5>Valid Usage</h5>
      * 
      * <ul>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -1467,8 +1465,8 @@ public class EXTOpacityMicromap {
      * 
      * <ul>
      * <li>{@link VkMicromapBuildInfoEXT}{@code ::dstMicromap} <b>must</b> have been created from {@code device}</li>
-     * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
-     * <li>If {@code device} was created with multiple physical devices, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-bufferDeviceAddressMultiDevice">{@code bufferDeviceAddressMultiDevice}</a> feature <b>must</b> be enabled</li>
+     * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-micromap">{@code micromap}</a> feature <b>must</b> be enabled</li>
+     * <li>If {@code device} was created with multiple physical devices, then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-bufferDeviceAddressMultiDevice">{@code bufferDeviceAddressMultiDevice}</a> feature <b>must</b> be enabled</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -1495,7 +1493,7 @@ public class EXTOpacityMicromap {
 
     /** Array version of: {@link #vkCreateMicromapEXT CreateMicromapEXT} */
     @NativeType("VkResult")
-    public static int vkCreateMicromapEXT(VkDevice device, @NativeType("VkMicromapCreateInfoEXT const *") VkMicromapCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkMicromapEXT *") long[] pMicromap) {
+    public static int vkCreateMicromapEXT(VkDevice device, @NativeType("VkMicromapCreateInfoEXT const *") VkMicromapCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkMicromapEXT *") long[] pMicromap) {
         long __functionAddress = device.getCapabilities().vkCreateMicromapEXT;
         if (CHECKS) {
             check(__functionAddress);

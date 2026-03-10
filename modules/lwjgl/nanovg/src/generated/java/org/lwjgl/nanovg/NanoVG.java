@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nanovg;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,7 +102,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * const char* txt = "Text me up.";
  * nvgTextBounds(vg, x,y, txt, NULL, bounds);
  * nvgBeginPath(vg);
- * nvgRoundedRect(vg, bounds[0],bounds[1], bounds[2]-bounds[0], bounds[3]-bounds[1]);
+ * nvgRect(vg, bounds[0],bounds[1], bounds[2]-bounds[0], bounds[3]-bounds[1]);
  * nvgFill(vg);</code></pre>
  * 
  * <p>Note: currently only solid color fill is supported for text.</p>
@@ -2468,7 +2468,7 @@ public class NanoVG {
      *
      * @return the horizontal advance of the measured text (i.e. where the next character should drawn)
      */
-    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") ByteBuffer string, @Nullable @NativeType("float *") FloatBuffer bounds) {
+    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") ByteBuffer string, @NativeType("float *") @Nullable FloatBuffer bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2492,7 +2492,7 @@ public class NanoVG {
      *
      * @return the horizontal advance of the measured text (i.e. where the next character should drawn)
      */
-    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") CharSequence string, @Nullable @NativeType("float *") FloatBuffer bounds) {
+    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") CharSequence string, @NativeType("float *") @Nullable FloatBuffer bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2531,7 +2531,7 @@ public class NanoVG {
      * @param string        the text string to measure
      * @param bounds        returns the bounding box of the text box
      */
-    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") ByteBuffer string, @Nullable @NativeType("float *") FloatBuffer bounds) {
+    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") ByteBuffer string, @NativeType("float *") @Nullable FloatBuffer bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2554,7 +2554,7 @@ public class NanoVG {
      * @param string        the text string to measure
      * @param bounds        returns the bounding box of the text box
      */
-    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") CharSequence string, @Nullable @NativeType("float *") FloatBuffer bounds) {
+    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") CharSequence string, @NativeType("float *") @Nullable FloatBuffer bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2637,7 +2637,7 @@ public class NanoVG {
      * @param descender the line descend
      * @param lineh     the line height
      */
-    public static void nvgTextMetrics(@NativeType("NVGcontext *") long ctx, @Nullable @NativeType("float *") FloatBuffer ascender, @Nullable @NativeType("float *") FloatBuffer descender, @Nullable @NativeType("float *") FloatBuffer lineh) {
+    public static void nvgTextMetrics(@NativeType("NVGcontext *") long ctx, @NativeType("float *") @Nullable FloatBuffer ascender, @NativeType("float *") @Nullable FloatBuffer descender, @NativeType("float *") @Nullable FloatBuffer lineh) {
         if (CHECKS) {
             check(ctx);
             checkSafe(ascender, 1);
@@ -2866,7 +2866,7 @@ public class NanoVG {
     public static native float nnvgTextBounds(long ctx, float x, float y, long string, long end, float[] bounds);
 
     /** Array version of: {@link #nvgTextBounds TextBounds} */
-    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") ByteBuffer string, @Nullable @NativeType("float *") float[] bounds) {
+    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") ByteBuffer string, @NativeType("float *") float @Nullable [] bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2875,7 +2875,7 @@ public class NanoVG {
     }
 
     /** Array version of: {@link #nvgTextBounds TextBounds} */
-    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") CharSequence string, @Nullable @NativeType("float *") float[] bounds) {
+    public static float nvgTextBounds(@NativeType("NVGcontext *") long ctx, float x, float y, @NativeType("char const *") CharSequence string, @NativeType("float *") float @Nullable [] bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2894,7 +2894,7 @@ public class NanoVG {
     public static native void nnvgTextBoxBounds(long ctx, float x, float y, float breakRowWidth, long string, long end, float[] bounds);
 
     /** Array version of: {@link #nvgTextBoxBounds TextBoxBounds} */
-    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") ByteBuffer string, @Nullable @NativeType("float *") float[] bounds) {
+    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") ByteBuffer string, @NativeType("float *") float @Nullable [] bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2903,7 +2903,7 @@ public class NanoVG {
     }
 
     /** Array version of: {@link #nvgTextBoxBounds TextBoxBounds} */
-    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") CharSequence string, @Nullable @NativeType("float *") float[] bounds) {
+    public static void nvgTextBoxBounds(@NativeType("NVGcontext *") long ctx, float x, float y, float breakRowWidth, @NativeType("char const *") CharSequence string, @NativeType("float *") float @Nullable [] bounds) {
         if (CHECKS) {
             check(ctx);
             checkSafe(bounds, 4);
@@ -2922,7 +2922,7 @@ public class NanoVG {
     public static native void nnvgTextMetrics(long ctx, float[] ascender, float[] descender, float[] lineh);
 
     /** Array version of: {@link #nvgTextMetrics TextMetrics} */
-    public static void nvgTextMetrics(@NativeType("NVGcontext *") long ctx, @Nullable @NativeType("float *") float[] ascender, @Nullable @NativeType("float *") float[] descender, @Nullable @NativeType("float *") float[] lineh) {
+    public static void nvgTextMetrics(@NativeType("NVGcontext *") long ctx, @NativeType("float *") float @Nullable [] ascender, @NativeType("float *") float @Nullable [] descender, @NativeType("float *") float @Nullable [] lineh) {
         if (CHECKS) {
             check(ctx);
             checkSafe(ascender, 1);

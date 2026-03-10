@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The runtime <b>must</b> return {@code jointLocations} representing the range of human body motion, without any obstructions. Input systems that either obstruct the movement of the user’s body (for example, a held controller preventing the user from making a fist) or input systems that have only limited ability to track finger positions <b>must</b> use the information available to them to emulate an unobstructed range of motion.</p>
  * 
- * <p>The runtime <b>must</b> update the {@code jointLocations} array ordered so that the application can index elements using the corresponding body joint enum (e.g. {@code XrBodyJointFB}) as described by {@code XrBodyJointSetFB} when creating the {@code XrBodyTrackerFB}. For example, when the {@code XrBodyTrackerFB} is created with {@link FBBodyTracking#XR_BODY_JOINT_SET_DEFAULT_FB BODY_JOINT_SET_DEFAULT_FB}, the application <b>must</b> set the {@code jointCount} to {@link FBBodyTracking#XR_BODY_JOINT_COUNT_FB BODY_JOINT_COUNT_FB}, and the runtime <b>must</b> fill the {@code jointLocations} array ordered so that it is indexed by the {@code XrBodyJointFB} enum.</p>
+ * <p>The runtime <b>must</b> update the {@code jointLocations} array ordered so that it is indexed using the corresponding body joint enum (e.g. {@code XrBodyJointFB}) as described by {@code XrBodyJointSetFB} when creating the {@code XrBodyTrackerFB}. For example, when the {@code XrBodyTrackerFB} is created with {@link FBBodyTracking#XR_BODY_JOINT_SET_DEFAULT_FB BODY_JOINT_SET_DEFAULT_FB}, the application <b>must</b> set the {@code jointCount} to {@link FBBodyTracking#XR_BODY_JOINT_COUNT_FB BODY_JOINT_COUNT_FB}, and the runtime <b>must</b> fill the {@code jointLocations} array ordered so that it is indexed by the {@code XrBodyJointFB} enum.</p>
  * 
  * <p>If the returned {@code isActive} is true, the runtime <b>must</b> return all joint locations with both {@link XR10#XR_SPACE_LOCATION_POSITION_VALID_BIT SPACE_LOCATION_POSITION_VALID_BIT} and {@link XR10#XR_SPACE_LOCATION_ORIENTATION_VALID_BIT SPACE_LOCATION_ORIENTATION_VALID_BIT} set. However, in this case, some joint space locations <b>may</b> be untracked (i.e. {@link XR10#XR_SPACE_LOCATION_POSITION_TRACKED_BIT SPACE_LOCATION_POSITION_TRACKED_BIT} or {@link XR10#XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT SPACE_LOCATION_ORIENTATION_TRACKED_BIT} is unset).</p>
  * 
@@ -36,7 +36,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBBodyTracking XR_FB_body_tracking} extension <b>must</b> be enabled prior to using {@link XrBodyJointLocationsFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBBodyTracking#XR_TYPE_BODY_JOINT_LOCATIONS_FB TYPE_BODY_JOINT_LOCATIONS_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code jointLocations} <b>must</b> be a pointer to an array of {@code jointCount} {@link XrBodyJointLocationFB} structures</li>
  * <li>The {@code jointCount} parameter <b>must</b> be greater than 0</li>
  * </ul>
@@ -223,8 +223,7 @@ public class XrBodyJointLocationsFB extends Struct<XrBodyJointLocationsFB> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationsFB createSafe(long address) {
+    public static @Nullable XrBodyJointLocationsFB createSafe(long address) {
         return address == NULL ? null : new XrBodyJointLocationsFB(address, null);
     }
 
@@ -267,8 +266,7 @@ public class XrBodyJointLocationsFB extends Struct<XrBodyJointLocationsFB> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointLocationsFB.Buffer createSafe(long address, int capacity) {
+    public static XrBodyJointLocationsFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -313,38 +311,38 @@ public class XrBodyJointLocationsFB extends Struct<XrBodyJointLocationsFB> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBodyJointLocationsFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrBodyJointLocationsFB.NEXT); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsFB.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrBodyJointLocationsFB.ISACTIVE); }
     /** Unsafe version of {@link #confidence}. */
-    public static float nconfidence(long struct) { return UNSAFE.getFloat(null, struct + XrBodyJointLocationsFB.CONFIDENCE); }
+    public static float nconfidence(long struct) { return memGetFloat(struct + XrBodyJointLocationsFB.CONFIDENCE); }
     /** Unsafe version of {@link #jointCount}. */
-    public static int njointCount(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsFB.JOINTCOUNT); }
+    public static int njointCount(long struct) { return memGetInt(struct + XrBodyJointLocationsFB.JOINTCOUNT); }
     /** Unsafe version of {@link #jointLocations}. */
     public static XrBodyJointLocationFB.Buffer njointLocations(long struct) { return XrBodyJointLocationFB.create(memGetAddress(struct + XrBodyJointLocationsFB.JOINTLOCATIONS), njointCount(struct)); }
     /** Unsafe version of {@link #skeletonChangedCount}. */
-    public static int nskeletonChangedCount(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointLocationsFB.SKELETONCHANGEDCOUNT); }
+    public static int nskeletonChangedCount(long struct) { return memGetInt(struct + XrBodyJointLocationsFB.SKELETONCHANGEDCOUNT); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrBodyJointLocationsFB.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrBodyJointLocationsFB.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBodyJointLocationsFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrBodyJointLocationsFB.NEXT, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsFB.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrBodyJointLocationsFB.ISACTIVE, value); }
     /** Unsafe version of {@link #confidence(float) confidence}. */
-    public static void nconfidence(long struct, float value) { UNSAFE.putFloat(null, struct + XrBodyJointLocationsFB.CONFIDENCE, value); }
+    public static void nconfidence(long struct, float value) { memPutFloat(struct + XrBodyJointLocationsFB.CONFIDENCE, value); }
     /** Sets the specified value to the {@code jointCount} field of the specified {@code struct}. */
-    public static void njointCount(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsFB.JOINTCOUNT, value); }
+    public static void njointCount(long struct, int value) { memPutInt(struct + XrBodyJointLocationsFB.JOINTCOUNT, value); }
     /** Unsafe version of {@link #jointLocations(XrBodyJointLocationFB.Buffer) jointLocations}. */
     public static void njointLocations(long struct, XrBodyJointLocationFB.Buffer value) { memPutAddress(struct + XrBodyJointLocationsFB.JOINTLOCATIONS, value.address()); njointCount(struct, value.remaining()); }
     /** Unsafe version of {@link #skeletonChangedCount(int) skeletonChangedCount}. */
-    public static void nskeletonChangedCount(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointLocationsFB.SKELETONCHANGEDCOUNT, value); }
+    public static void nskeletonChangedCount(long struct, int value) { memPutInt(struct + XrBodyJointLocationsFB.SKELETONCHANGEDCOUNT, value); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrBodyJointLocationsFB.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrBodyJointLocationsFB.TIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -386,6 +384,11 @@ public class XrBodyJointLocationsFB extends Struct<XrBodyJointLocationsFB> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

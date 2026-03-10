@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>The runtime <b>may</b> report a different UUID to some applications for compatibility purposes.</p>
  * 
- * <p>This is in contrast to the {@code systemName} field in {@link XrSystemProperties} which is not required to be consistent across product renames.</p>
+ * <p>This is in contrast to the {@link XrSystemProperties}{@code ::systemName} field which is not required to be consistent across product renames.</p>
  * 
  * <p>This is intended to be a temporary feature that will be deprecated along with its extension as soon as motivating use cases are resolved in a better way. See the disclaimer at the start of the {@link METAHeadsetId XR_META_headset_id} extension documentation for more details.</p>
  * 
@@ -37,7 +37,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link METAHeadsetId XR_META_headset_id} extension <b>must</b> be enabled prior to using {@link XrSystemHeadsetIdPropertiesMETA}</li>
  * <li>{@code type} <b>must</b> be {@link METAHeadsetId#XR_TYPE_SYSTEM_HEADSET_ID_PROPERTIES_META TYPE_SYSTEM_HEADSET_ID_PROPERTIES_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -167,8 +167,7 @@ public class XrSystemHeadsetIdPropertiesMETA extends Struct<XrSystemHeadsetIdPro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemHeadsetIdPropertiesMETA createSafe(long address) {
+    public static @Nullable XrSystemHeadsetIdPropertiesMETA createSafe(long address) {
         return address == NULL ? null : new XrSystemHeadsetIdPropertiesMETA(address, null);
     }
 
@@ -211,8 +210,7 @@ public class XrSystemHeadsetIdPropertiesMETA extends Struct<XrSystemHeadsetIdPro
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemHeadsetIdPropertiesMETA.Buffer createSafe(long address, int capacity) {
+    public static XrSystemHeadsetIdPropertiesMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +255,14 @@ public class XrSystemHeadsetIdPropertiesMETA extends Struct<XrSystemHeadsetIdPro
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemHeadsetIdPropertiesMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemHeadsetIdPropertiesMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemHeadsetIdPropertiesMETA.NEXT); }
     /** Unsafe version of {@link #id}. */
     public static XrUuidEXT nid(long struct) { return XrUuidEXT.create(struct + XrSystemHeadsetIdPropertiesMETA.ID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemHeadsetIdPropertiesMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemHeadsetIdPropertiesMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemHeadsetIdPropertiesMETA.NEXT, value); }
 
@@ -299,6 +297,11 @@ public class XrSystemHeadsetIdPropertiesMETA extends Struct<XrSystemHeadsetIdPro
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

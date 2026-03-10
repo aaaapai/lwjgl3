@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -94,7 +94,7 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports binding graphics pipelines within a render pass instance where any pipeline {@link VkPipelineRenderingCreateInfo}{@code ::pColorAttachmentFormats} element with a format other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a corresponding {@link VkRenderingInfo}{@code ::pColorAttachments} element with a {@code imageView} equal to {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, or any pipeline {@link VkPipelineRenderingCreateInfo}{@code ::pColorAttachmentFormats} element with a {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} format is allowed with a corresponding {@link VkRenderingInfo}{@code ::pColorAttachments} element with a non-{@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@code imageView}. Also a {@link VkPipelineRenderingCreateInfo}{@code ::depthAttachmentFormat} other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a {@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pDepthAttachment}, or a {@link VkPipelineRenderingCreateInfo}{@code ::depthAttachmentFormat} of {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a non-{@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pDepthAttachment}. Also a {@link VkPipelineRenderingCreateInfo}{@code ::stencilAttachmentFormat} other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a {@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pStencilAttachment}, or a {@link VkPipelineRenderingCreateInfo}{@code ::stencilAttachmentFormat} of {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a non-{@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pStencilAttachment}. Any writes to a {@link VkRenderingInfo}{@code ::pColorAttachments}, {@link VkRenderingInfo}{@code ::pDepthAttachment}, or {@link VkRenderingInfo}{@code ::pStencilAttachment} with {@link VK10#VK_NULL_HANDLE NULL_HANDLE} are discarded. */
+    /** indicates that the implementation supports binding graphics pipelines within a render pass instance where any pipeline {@link VkPipelineRenderingCreateInfo}{@code ::pColorAttachmentFormats} element with a format other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a corresponding {@link VkRenderingInfo}{@code ::pColorAttachments} element with an {@code imageView} equal to {@link VK10#VK_NULL_HANDLE NULL_HANDLE}, or any pipeline {@link VkPipelineRenderingCreateInfo}{@code ::pColorAttachmentFormats} element with a {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} format is allowed with a corresponding {@link VkRenderingInfo}{@code ::pColorAttachments} element with a non-{@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@code imageView}. Also a {@link VkPipelineRenderingCreateInfo}{@code ::depthAttachmentFormat} other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a {@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pDepthAttachment}, or a {@link VkPipelineRenderingCreateInfo}{@code ::depthAttachmentFormat} of {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a non-{@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pDepthAttachment}. Also a {@link VkPipelineRenderingCreateInfo}{@code ::stencilAttachmentFormat} other than {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a {@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pStencilAttachment}, or a {@link VkPipelineRenderingCreateInfo}{@code ::stencilAttachmentFormat} of {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED} is allowed with a non-{@link VK10#VK_NULL_HANDLE NULL_HANDLE} {@link VkRenderingInfo}{@code ::pStencilAttachment}. Any writes to a {@link VkRenderingInfo}{@code ::pColorAttachments}, {@link VkRenderingInfo}{@code ::pDepthAttachment}, or {@link VkRenderingInfo}{@code ::pStencilAttachment} with {@link VK10#VK_NULL_HANDLE NULL_HANDLE} are discarded. */
     @NativeType("VkBool32")
     public boolean dynamicRenderingUnusedAttachments() { return ndynamicRenderingUnusedAttachments(address()) != 0; }
 
@@ -156,8 +156,7 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT(address, null);
     }
 
@@ -200,8 +199,7 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +244,18 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #dynamicRenderingUnusedAttachments}. */
-    public static int ndynamicRenderingUnusedAttachments(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS); }
+    public static int ndynamicRenderingUnusedAttachments(long struct) { return memGetInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #dynamicRenderingUnusedAttachments(boolean) dynamicRenderingUnusedAttachments}. */
-    public static void ndynamicRenderingUnusedAttachments(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS, value); }
+    public static void ndynamicRenderingUnusedAttachments(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.DYNAMICRENDERINGUNUSEDATTACHMENTS, value); }
 
     // -----------------------------------
 
@@ -290,6 +288,11 @@ public class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extend
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

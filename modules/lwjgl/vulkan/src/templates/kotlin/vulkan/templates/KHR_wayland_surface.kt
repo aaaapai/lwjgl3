@@ -15,7 +15,6 @@ val KHR_wayland_surface = "KHRWaylandSurface".nativeClassVK("KHR_wayland_surface
         """
         The {@code VK_KHR_wayland_surface} extension is an instance extension. It provides a mechanism to create a {@code VkSurfaceKHR} object (defined by the {@link KHRSurface VK_KHR_surface} extension) that refers to a Wayland {@code wl_surface}, as well as a query to determine support for rendering to a Wayland compositor.
 
-        <h5>VK_KHR_wayland_surface</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_wayland_surface}</dd>
@@ -130,7 +129,7 @@ val KHR_wayland_surface = "KHRWaylandSurface".nativeClassVK("KHR_wayland_surface
 
         VkInstance("instance", "the instance to associate the surface with."),
         VkWaylandSurfaceCreateInfoKHR.const.p("pCreateInfo", "a pointer to a ##VkWaylandSurfaceCreateInfoKHR structure containing parameters affecting the creation of the surface object."),
-        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href=\"https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
+        nullable..VkAllocationCallbacks.const.p("pAllocator", "the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href=\"https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\\#memory-allocation\">Memory Allocation</a>)."),
         Check(1)..VkSurfaceKHR.p("pSurface", "a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.")
     )
 

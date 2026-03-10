@@ -33,6 +33,7 @@ val Shaderc = "Shaderc".nativeClass(Module.SHADERC, prefix = "shaderc_", prefixM
         "env_version_vulkan_1_1".enum("", "((1 << 22) | (1 << 12))"),
         "env_version_vulkan_1_2".enum("", "((1 << 22) | (2 << 12))"),
         "env_version_vulkan_1_3".enum("", "((1 << 22) | (3 << 12))"),
+        "env_version_vulkan_1_4".enum("", "((1 << 22) | (4 << 12))"),
         "env_version_opengl_4_5".enum("", "450"),
         "env_version_webgpu".enum("deprecated, WebGPU env never defined versions")
     )
@@ -631,6 +632,18 @@ val Shaderc = "Shaderc".nativeClass(Module.SHADERC, prefix = "shaderc_", prefixM
     )
 
     void(
+        "compile_options_set_vulkan_rules_relaxed",
+        """
+        Enables or disables relaxed Vulkan rules.
+
+        This allows most OpenGL shaders to compile under Vulkan semantics.
+        """,
+
+        shaderc_compile_options_t("options", ""),
+        bool("enable", "")
+    )
+
+    void(
         "compile_options_set_invert_y",
         "Sets whether the compiler should invert {@code position.Y} output in vertex shader.",
 
@@ -642,7 +655,7 @@ val Shaderc = "Shaderc".nativeClass(Module.SHADERC, prefix = "shaderc_", prefixM
         "compile_options_set_nan_clamp",
         """
         Sets whether the compiler generates code for {@code max} and {@code min} builtins which, if given a {@code NaN} operand, will return the other operand.
-        
+
         Similarly, the {@code clamp} builtin will favour the non-{@code NaN} operands, as if {@code clamp} were implemented as a composition of {@code max} and
         {@code min}.
         """,

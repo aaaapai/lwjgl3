@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,18 +20,18 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The {@link XrSwapchainImageBaseHeader} is a base structure that can be overridden by a graphics API-specific stext:XrSwapchainImage* child structure.</p>
+ * <p>The {@link XrSwapchainImageBaseHeader} is a base structure that is extended by graphics API-specific stext:XrSwapchainImage* child structures.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link KHROpenGLEnable#XR_TYPE_SWAPCHAIN_IMAGE_OPENGL_KHR TYPE_SWAPCHAIN_IMAGE_OPENGL_KHR}, {@link KHRVulkanEnable#XR_TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XR10#xrEnumerateSwapchainImages EnumerateSwapchainImages}</p>
+ * <p>{@link METAEnvironmentDepth#xrEnumerateEnvironmentDepthSwapchainImagesMETA EnumerateEnvironmentDepthSwapchainImagesMETA}, {@link XR10#xrEnumerateSwapchainImages EnumerateSwapchainImages}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -148,8 +148,7 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageBaseHeader createSafe(long address) {
+    public static @Nullable XrSwapchainImageBaseHeader createSafe(long address) {
         return address == NULL ? null : new XrSwapchainImageBaseHeader(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageBaseHeader.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainImageBaseHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,12 +256,12 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainImageBaseHeader.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainImageBaseHeader.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainImageBaseHeader.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainImageBaseHeader.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainImageBaseHeader.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainImageBaseHeader.NEXT, value); }
 
@@ -298,6 +296,11 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

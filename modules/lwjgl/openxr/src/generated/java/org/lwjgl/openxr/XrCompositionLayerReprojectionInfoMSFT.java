@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,11 +23,11 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTCompositionLayerReprojection XR_MSFT_composition_layer_reprojection} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerReprojectionInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTCompositionLayerReprojection#XR_TYPE_COMPOSITION_LAYER_REPROJECTION_INFO_MSFT TYPE_COMPOSITION_LAYER_REPROJECTION_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code reprojectionMode} <b>must</b> be a valid {@code XrReprojectionModeMSFT} value</li>
  * </ul>
  * 
- * <p>When the application chained this structure when calling {@link XR10#xrEndFrame EndFrame}, the {@code mode} <b>must</b> be one of the supported {@code XrReprojectionModeMSFT} returned by {@link MSFTCompositionLayerReprojection#xrEnumerateReprojectionModesMSFT EnumerateReprojectionModesMSFT} function for the corresponding {@code XrViewConfigurationType}. Otherwise, the runtime <b>must</b> return error {@link MSFTCompositionLayerReprojection#XR_ERROR_REPROJECTION_MODE_UNSUPPORTED_MSFT ERROR_REPROJECTION_MODE_UNSUPPORTED_MSFT} on the {@link XR10#xrEndFrame EndFrame} function.</p>
+ * <p>When the application chained this structure when calling {@link XR10#xrEndFrame EndFrame}, the {@code reprojectionMode} <b>must</b> be one of the supported {@code XrReprojectionModeMSFT} returned by {@link MSFTCompositionLayerReprojection#xrEnumerateReprojectionModesMSFT EnumerateReprojectionModesMSFT} function for the corresponding {@code XrViewConfigurationType}. Otherwise, the runtime <b>must</b> return error {@link MSFTCompositionLayerReprojection#XR_ERROR_REPROJECTION_MODE_UNSUPPORTED_MSFT ERROR_REPROJECTION_MODE_UNSUPPORTED_MSFT} on the {@link XR10#xrEndFrame EndFrame} function.</p>
  * 
  * <p>The runtime <b>must</b> only use the given information for the corresponding frame in {@link XR10#xrEndFrame EndFrame} function, and it <b>must</b> not affect other frames.</p>
  * 
@@ -163,8 +163,7 @@ public class XrCompositionLayerReprojectionInfoMSFT extends Struct<XrComposition
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerReprojectionInfoMSFT createSafe(long address) {
+    public static @Nullable XrCompositionLayerReprojectionInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerReprojectionInfoMSFT(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrCompositionLayerReprojectionInfoMSFT extends Struct<XrComposition
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerReprojectionInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerReprojectionInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +251,18 @@ public class XrCompositionLayerReprojectionInfoMSFT extends Struct<XrComposition
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerReprojectionInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerReprojectionInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerReprojectionInfoMSFT.NEXT); }
     /** Unsafe version of {@link #reprojectionMode}. */
-    public static int nreprojectionMode(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerReprojectionInfoMSFT.REPROJECTIONMODE); }
+    public static int nreprojectionMode(long struct) { return memGetInt(struct + XrCompositionLayerReprojectionInfoMSFT.REPROJECTIONMODE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerReprojectionInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerReprojectionInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerReprojectionInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #reprojectionMode(int) reprojectionMode}. */
-    public static void nreprojectionMode(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerReprojectionInfoMSFT.REPROJECTIONMODE, value); }
+    public static void nreprojectionMode(long struct, int value) { memPutInt(struct + XrCompositionLayerReprojectionInfoMSFT.REPROJECTIONMODE, value); }
 
     // -----------------------------------
 
@@ -297,6 +295,11 @@ public class XrCompositionLayerReprojectionInfoMSFT extends Struct<XrComposition
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

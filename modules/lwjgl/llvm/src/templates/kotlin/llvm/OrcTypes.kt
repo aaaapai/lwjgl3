@@ -111,6 +111,14 @@ val LLVMOrcCDependenceMapPair = struct(Module.LLVM, "LLVMOrcCDependenceMapPair")
 }
 val LLVMOrcCDependenceMapPairs = typedef(LLVMOrcCDependenceMapPair.p, "LLVMOrcCDependenceMapPairs")
 
+val LLVMOrcCSymbolDependenceGroup = struct(Module.LLVM, "LLVMOrcCSymbolDependenceGroup") {
+    documentation = "A set of symbols that share dependencies."
+
+    LLVMOrcCSymbolsList("Symbols", "")
+    LLVMOrcCDependenceMapPairs("Dependencies", "")
+    AutoSize("Dependencies")..size_t("NumDependencies", "")
+}
+
 val LLVMOrcCJITDylibSearchOrderElement = struct(Module.LLVM, "LLVMOrcCJITDylibSearchOrderElement") {
     documentation = "An element type for a JITDylib search order."
 
@@ -190,7 +198,7 @@ val LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction = Module.LLVM.callback {
         "LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction",
         """
         A custom generator function.
-        
+
         This can be used to create a custom generator object using #OrcCreateCustomCAPIDefinitionGenerator(). The resulting object can be attached to a
         {@code JITDylib}, via #OrcJITDylibAddGenerator(), to receive callbacks when lookups fail to match existing definitions.
         """,
@@ -201,7 +209,7 @@ val LLVMOrcCAPIDefinitionGeneratorTryToGenerateFunction = Module.LLVM.callback {
             "LookupState",
             """
             will contain a pointer to an {@code LLVMOrcLookupStateRef} object.
-            
+
             This can optionally be modified to make the definition generation process asynchronous: If the {@code LookupStateRef} value is copied, and the
             original {@code LLVMOrcLookupStateRef} set to null, the lookup will be suspended. Once the asynchronous definition process has been completed
             clients must call {@code LLVMOrcLookupStateContinueLookup} to continue the lookup (this should be done unconditionally, even if errors have

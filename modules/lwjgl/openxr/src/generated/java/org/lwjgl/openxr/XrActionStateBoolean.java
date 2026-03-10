@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,13 +20,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>When multiple input sources are bound to this action, the {@code currentState} follows <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#multiple_inputs">the previously defined rule to resolve ambiguity</a>.</p>
+ * <p>When multiple input sources are bound to this action, the {@code currentState} follows <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#input-multiple">the previously defined rule to resolve ambiguity</a>.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_ACTION_STATE_BOOLEAN TYPE_ACTION_STATE_BOOLEAN}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -117,7 +117,7 @@ public class XrActionStateBoolean extends Struct<XrActionStateBoolean> implement
     /** {@link XR10#XR_TRUE TRUE} if the value of {@code currentState} is different than it was before the most recent call to {@link XR10#xrSyncActions SyncActions}. This parameter can be combined with {@code currentState} to detect rising and falling edges since the previous call to {@link XR10#xrSyncActions SyncActions}. E.g. if both {@code changedSinceLastSync} and {@code currentState} are {@link XR10#XR_TRUE TRUE} then a rising edge ({@link XR10#XR_FALSE FALSE} to {@link XR10#XR_TRUE TRUE}) has taken place. */
     @NativeType("XrBool32")
     public boolean changedSinceLastSync() { return nchangedSinceLastSync(address()) != 0; }
-    /** the {@code XrTime} when this action’s value last changed. */
+    /** the {@code XrTime} associated with the most recent change to this action’s state. */
     @NativeType("XrTime")
     public long lastChangeTime() { return nlastChangeTime(address()); }
     /** {@link XR10#XR_TRUE TRUE} if and only if there exists an input source that is contributing to the current state of this action. */
@@ -194,8 +194,7 @@ public class XrActionStateBoolean extends Struct<XrActionStateBoolean> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStateBoolean createSafe(long address) {
+    public static @Nullable XrActionStateBoolean createSafe(long address) {
         return address == NULL ? null : new XrActionStateBoolean(address, null);
     }
 
@@ -238,8 +237,7 @@ public class XrActionStateBoolean extends Struct<XrActionStateBoolean> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStateBoolean.Buffer createSafe(long address, int capacity) {
+    public static XrActionStateBoolean.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -284,30 +282,30 @@ public class XrActionStateBoolean extends Struct<XrActionStateBoolean> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionStateBoolean.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionStateBoolean.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionStateBoolean.NEXT); }
     /** Unsafe version of {@link #currentState}. */
-    public static int ncurrentState(long struct) { return UNSAFE.getInt(null, struct + XrActionStateBoolean.CURRENTSTATE); }
+    public static int ncurrentState(long struct) { return memGetInt(struct + XrActionStateBoolean.CURRENTSTATE); }
     /** Unsafe version of {@link #changedSinceLastSync}. */
-    public static int nchangedSinceLastSync(long struct) { return UNSAFE.getInt(null, struct + XrActionStateBoolean.CHANGEDSINCELASTSYNC); }
+    public static int nchangedSinceLastSync(long struct) { return memGetInt(struct + XrActionStateBoolean.CHANGEDSINCELASTSYNC); }
     /** Unsafe version of {@link #lastChangeTime}. */
-    public static long nlastChangeTime(long struct) { return UNSAFE.getLong(null, struct + XrActionStateBoolean.LASTCHANGETIME); }
+    public static long nlastChangeTime(long struct) { return memGetLong(struct + XrActionStateBoolean.LASTCHANGETIME); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrActionStateBoolean.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrActionStateBoolean.ISACTIVE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateBoolean.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionStateBoolean.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionStateBoolean.NEXT, value); }
     /** Unsafe version of {@link #currentState(boolean) currentState}. */
-    public static void ncurrentState(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateBoolean.CURRENTSTATE, value); }
+    public static void ncurrentState(long struct, int value) { memPutInt(struct + XrActionStateBoolean.CURRENTSTATE, value); }
     /** Unsafe version of {@link #changedSinceLastSync(boolean) changedSinceLastSync}. */
-    public static void nchangedSinceLastSync(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateBoolean.CHANGEDSINCELASTSYNC, value); }
+    public static void nchangedSinceLastSync(long struct, int value) { memPutInt(struct + XrActionStateBoolean.CHANGEDSINCELASTSYNC, value); }
     /** Unsafe version of {@link #lastChangeTime(long) lastChangeTime}. */
-    public static void nlastChangeTime(long struct, long value) { UNSAFE.putLong(null, struct + XrActionStateBoolean.LASTCHANGETIME, value); }
+    public static void nlastChangeTime(long struct, long value) { memPutLong(struct + XrActionStateBoolean.LASTCHANGETIME, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStateBoolean.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrActionStateBoolean.ISACTIVE, value); }
 
     // -----------------------------------
 
@@ -340,6 +338,11 @@ public class XrActionStateBoolean extends Struct<XrActionStateBoolean> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

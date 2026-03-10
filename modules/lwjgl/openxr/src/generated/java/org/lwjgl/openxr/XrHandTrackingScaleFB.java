@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBHandTrackingMesh XR_FB_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandTrackingScaleFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBHandTrackingMesh#XR_TYPE_HAND_TRACKING_SCALE_FB TYPE_HAND_TRACKING_SCALE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -104,14 +104,14 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** an output value: the currently measured scale as would be applied without passing this structure. */
+    /** an output value: the currently measured scale as otherwise applied without passing this structure. */
     public float sensorOutput() { return nsensorOutput(address()); }
-    /** an output value: the effective output that the bind skeleton is getting on the current call, which may be subject to filtering, scaling, or validation. */
+    /** an output value: the effective output that the bind skeleton is getting on the current call, which <b>may</b> be subject to filtering, scaling, or validation. */
     public float currentOutput() { return ncurrentOutput(address()); }
-    /** indicates whether the runtime should scale the output of this {@link EXTHandTracking#xrLocateHandJointsEXT LocateHandJointsEXT} call according to {@code overrideValueInput} */
+    /** indicates whether the runtime <b>must</b> scale the output of this {@link EXTHandTracking#xrLocateHandJointsEXT LocateHandJointsEXT} call according to {@code overrideValueInput} */
     @NativeType("XrBool32")
     public boolean overrideHandScale() { return noverrideHandScale(address()) != 0; }
-    /** an optional input value, enabled only when the {@code overrideHandScale} parameter is set. Setting this to 1.0 and setting {@code overrideHandScale} to {@code true} will give the joints in mesh binding scale. */
+    /** an <b>optional</b> input value, enabled only when the {@code overrideHandScale} parameter is set. Setting this to 1.0 and setting {@code overrideHandScale} to {@code true} will give the joints in mesh binding scale. */
     public float overrideValueInput() { return noverrideValueInput(address()); }
 
     /** Sets the specified value to the {@link #type} field. */
@@ -168,8 +168,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingScaleFB createSafe(long address) {
+    public static @Nullable XrHandTrackingScaleFB createSafe(long address) {
         return address == NULL ? null : new XrHandTrackingScaleFB(address, null);
     }
 
@@ -212,8 +211,7 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandTrackingScaleFB.Buffer createSafe(long address, int capacity) {
+    public static XrHandTrackingScaleFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,20 +256,20 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingScaleFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandTrackingScaleFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandTrackingScaleFB.NEXT); }
     /** Unsafe version of {@link #sensorOutput}. */
-    public static float nsensorOutput(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingScaleFB.SENSOROUTPUT); }
+    public static float nsensorOutput(long struct) { return memGetFloat(struct + XrHandTrackingScaleFB.SENSOROUTPUT); }
     /** Unsafe version of {@link #currentOutput}. */
-    public static float ncurrentOutput(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingScaleFB.CURRENTOUTPUT); }
+    public static float ncurrentOutput(long struct) { return memGetFloat(struct + XrHandTrackingScaleFB.CURRENTOUTPUT); }
     /** Unsafe version of {@link #overrideHandScale}. */
-    public static int noverrideHandScale(long struct) { return UNSAFE.getInt(null, struct + XrHandTrackingScaleFB.OVERRIDEHANDSCALE); }
+    public static int noverrideHandScale(long struct) { return memGetInt(struct + XrHandTrackingScaleFB.OVERRIDEHANDSCALE); }
     /** Unsafe version of {@link #overrideValueInput}. */
-    public static float noverrideValueInput(long struct) { return UNSAFE.getFloat(null, struct + XrHandTrackingScaleFB.OVERRIDEVALUEINPUT); }
+    public static float noverrideValueInput(long struct) { return memGetFloat(struct + XrHandTrackingScaleFB.OVERRIDEVALUEINPUT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandTrackingScaleFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandTrackingScaleFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandTrackingScaleFB.NEXT, value); }
 
@@ -306,6 +304,11 @@ public class XrHandTrackingScaleFB extends Struct<XrHandTrackingScaleFB> impleme
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

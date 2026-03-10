@@ -5,9 +5,9 @@
 package org.lwjgl.system.linux;
 
 import org.lwjgl.*;
+import org.jspecify.annotations.*;
 import org.lwjgl.system.*;
 
-import javax.annotation.*;
 import java.nio.*;
 
 import static org.lwjgl.system.MemoryStack.*;
@@ -36,9 +36,8 @@ public class LinuxLibrary extends SharedLibrary.Default {
         return handle;
     }
 
-    @Nullable
     @Override
-    public String getPath() {
+    public @Nullable String getPath() {
         return SharedLibraryUtil.getLibraryPath(address());
     }
 

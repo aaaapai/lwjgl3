@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshSpaceCreateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_SPACE_CREATE_INFO_MSFT TYPE_HAND_MESH_SPACE_CREATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code handPoseType} <b>must</b> be a valid {@code XrHandPoseTypeMSFT} value</li>
  * </ul>
  * 
@@ -171,8 +171,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshSpaceCreateInfoMSFT createSafe(long address) {
+    public static @Nullable XrHandMeshSpaceCreateInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrHandMeshSpaceCreateInfoMSFT(address, null);
     }
 
@@ -215,8 +214,7 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshSpaceCreateInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrHandMeshSpaceCreateInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,20 +259,20 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshSpaceCreateInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandMeshSpaceCreateInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandMeshSpaceCreateInfoMSFT.NEXT); }
     /** Unsafe version of {@link #handPoseType}. */
-    public static int nhandPoseType(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshSpaceCreateInfoMSFT.HANDPOSETYPE); }
+    public static int nhandPoseType(long struct) { return memGetInt(struct + XrHandMeshSpaceCreateInfoMSFT.HANDPOSETYPE); }
     /** Unsafe version of {@link #poseInHandMeshSpace}. */
     public static XrPosef nposeInHandMeshSpace(long struct) { return XrPosef.create(struct + XrHandMeshSpaceCreateInfoMSFT.POSEINHANDMESHSPACE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshSpaceCreateInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandMeshSpaceCreateInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandMeshSpaceCreateInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #handPoseType(int) handPoseType}. */
-    public static void nhandPoseType(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshSpaceCreateInfoMSFT.HANDPOSETYPE, value); }
+    public static void nhandPoseType(long struct, int value) { memPutInt(struct + XrHandMeshSpaceCreateInfoMSFT.HANDPOSETYPE, value); }
     /** Unsafe version of {@link #poseInHandMeshSpace(XrPosef) poseInHandMeshSpace}. */
     public static void nposeInHandMeshSpace(long struct, XrPosef value) { memCopy(value.address(), struct + XrHandMeshSpaceCreateInfoMSFT.POSEINHANDMESHSPACE, XrPosef.SIZEOF); }
 
@@ -309,6 +307,11 @@ public class XrHandMeshSpaceCreateInfoMSFT extends Struct<XrHandMeshSpaceCreateI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

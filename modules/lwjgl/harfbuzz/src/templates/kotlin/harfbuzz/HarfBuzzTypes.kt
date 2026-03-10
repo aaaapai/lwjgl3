@@ -8,8 +8,9 @@ import org.lwjgl.generator.*
 import java.io.*
 
 val HARFBUZZ_BINDING = object : SimpleBinding(Module.HARFBUZZ, "HARFBUZZ") {
-    override fun PrintWriter.generateFunctionSetup(nativeClass: NativeClass) {
-        println(
+    override fun generateFunctionSetup(writer: PrintWriter, nativeClass: NativeClass) {
+        with(writer) {
+            println(
             """
 ${t}private static final SharedLibrary HARFBUZZ;
 ${t}static {
@@ -36,12 +37,13 @@ $t$t}
 
 $t${t}HARFBUZZ = library;
 $t}""")
-        generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */")
-        println("""
+            generateFunctionsClass(nativeClass, "\n$t/** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */")
+            println("""
     /** Returns the harfbuzz {@link SharedLibrary}. */
     public static SharedLibrary getLibrary() {
         return HARFBUZZ;
     }""")
+        }
     }
 }
 val HARFBUZZ_BINDING_DELEGATE = HARFBUZZ_BINDING.delegate("HarfBuzz.getLibrary()")
@@ -1084,5 +1086,28 @@ val hb_buffer_message_func_t = Module.HARFBUZZ.callback {
         nullable..opaque_p("user_data", ""),
 
         nativeType = "hb_buffer_message_func_t"
+    )
+}
+
+val hb_get_table_tags_func_t = Module.HARFBUZZ.callback {
+    unsigned_int(
+        "hb_get_table_tags_func_t",
+        """
+        Callback function for #face_get_table_tags().
+
+        Return value: Total number of tables, or zero if it is not possible to list.
+        """,
+
+        hb_face_t.const.p("face", "a face object"),
+        unsigned_int("start_offset", "the index of first table tag to retrieve"),
+        Check(1)..unsigned_int.p(
+            "table_count",
+            "Input = the maximum number of table tags to return; Output = the actual number of table tags returned (may be zero)"
+        ),
+        hb_tag_t.p("table_tags", "(out) (array length={@code table_count}): The array of table tags found"),
+        nullable..opaque_p("user_data", "user data pointer passed by the caller"),
+
+        nativeType = "hb_get_table_tags_func_t",
+        since = "10.0.0"
     )
 }

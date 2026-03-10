@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,8 +18,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 /**
  * This extension allows an application to query the tile properties. This extension supports both renderpasses and dynamic rendering.
  * 
- * <h5>VK_QCOM_tile_properties</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_QCOM_tile_properties}</dd>
@@ -30,10 +28,15 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
+ * <dt><b>API Interactions</b></dt>
+ * <dd><ul>
+ * <li>Interacts with VK_VERSION_1_3</li>
+ * <li>Interacts with VK_KHR_dynamic_rendering</li>
+ * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
- * <li>Jeff Leger <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_tile_properties]%20@jackohound%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_tile_properties%20extension*">jackohound</a></li>
+ * <li>Matthew Netsch <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_QCOM_tile_properties]%20@mnetsch%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_QCOM_tile_properties%20extension*">mnetsch</a></li>
  * </ul></dd>
  * <dt><b>Extension Proposal</b></dt>
  * <dd><a href="https://github.com/KhronosGroup/Vulkan-Docs/tree/main/proposals/VK_QCOM_tile_properties.adoc">VK_QCOM_tile_properties</a></dd>
@@ -114,7 +117,7 @@ public class QCOMTileProperties {
      * 
      * <h5>Description</h5>
      * 
-     * <p>If {@code pProperties} is {@code NULL}, then the number of tile properties available is returned in {@code pPropertiesCount}. Otherwise, {@code pPropertiesCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of properties actually written to {@code pProperties}. If {@code pPropertiesCount} is less than the number of tile properties available, at most {@code pPropertiesCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available properties were returned.</p>
+     * <p>If {@code pProperties} is {@code NULL}, then the number of tile properties available is returned in {@code pPropertiesCount}. Otherwise, {@code pPropertiesCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pProperties} array, and on return the variable is overwritten with the number of properties actually written to {@code pProperties}. If {@code pPropertiesCount} is less than the number of tile properties available, at most {@code pPropertiesCount} structures will be written, and {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available properties were returned.</p>
      * 
      * <p>The number of tile properties available is determined by the number of merged subpasses, and each tile property is associated with a merged subpass. There will be at most as many properties as there are subpasses within the render pass. To obtain the tile properties for a given merged subpass, the {@code pProperties} array can be indexed using the {@code postMergeIndex} value provided in {@link VkRenderPassSubpassFeedbackInfoEXT}.</p>
      * 
@@ -148,7 +151,7 @@ public class QCOMTileProperties {
      * @param pProperties      either {@code NULL} or a pointer to an array of {@link VkTilePropertiesQCOM} structures.
      */
     @NativeType("VkResult")
-    public static int vkGetFramebufferTilePropertiesQCOM(VkDevice device, @NativeType("VkFramebuffer") long framebuffer, @NativeType("uint32_t *") IntBuffer pPropertiesCount, @Nullable @NativeType("VkTilePropertiesQCOM *") VkTilePropertiesQCOM.Buffer pProperties) {
+    public static int vkGetFramebufferTilePropertiesQCOM(VkDevice device, @NativeType("VkFramebuffer") long framebuffer, @NativeType("uint32_t *") IntBuffer pPropertiesCount, @NativeType("VkTilePropertiesQCOM *") VkTilePropertiesQCOM.@Nullable Buffer pProperties) {
         if (CHECKS) {
             check(pPropertiesCount, 1);
             checkSafe(pProperties, pPropertiesCount.get(pPropertiesCount.position()));
@@ -213,7 +216,7 @@ public class QCOMTileProperties {
 
     /** Array version of: {@link #vkGetFramebufferTilePropertiesQCOM GetFramebufferTilePropertiesQCOM} */
     @NativeType("VkResult")
-    public static int vkGetFramebufferTilePropertiesQCOM(VkDevice device, @NativeType("VkFramebuffer") long framebuffer, @NativeType("uint32_t *") int[] pPropertiesCount, @Nullable @NativeType("VkTilePropertiesQCOM *") VkTilePropertiesQCOM.Buffer pProperties) {
+    public static int vkGetFramebufferTilePropertiesQCOM(VkDevice device, @NativeType("VkFramebuffer") long framebuffer, @NativeType("uint32_t *") int[] pPropertiesCount, @NativeType("VkTilePropertiesQCOM *") VkTilePropertiesQCOM.@Nullable Buffer pProperties) {
         long __functionAddress = device.getCapabilities().vkGetFramebufferTilePropertiesQCOM;
         if (CHECKS) {
             check(__functionAddress);

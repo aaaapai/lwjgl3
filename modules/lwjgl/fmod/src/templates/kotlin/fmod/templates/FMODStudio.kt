@@ -11,7 +11,15 @@ val FMODStudio = "FMODStudio".nativeClass(
     Module.FMOD,
     prefix = "FMOD_STUDIO",
     prefixMethod = "FMOD_Studio_",
-    binding = simpleBinding(Module.FMOD, libraryName = "FMODSTUDIO", libraryExpression = "Configuration.FMOD_STUDIO_LIBRARY_NAME, \"fmodstudio\"")
+    binding = simpleBinding(
+        Module.FMOD,
+        libraryName = "FMODSTUDIO",
+        libraryExpression = "Configuration.FMOD_STUDIO_LIBRARY_NAME, \"fmodstudio\"",
+        preamble = """
+    static {
+        // Make sure fmod is loaded first, fmodstudio depends on it.
+        FMOD.getLibrary();
+    }""")
 ) {
 
     IntConstant("", "LOAD_MEMORY_ALIGNMENT".."32")
@@ -973,6 +981,16 @@ val FMODStudio = "FMODStudio".nativeClass(
 
         FMOD_STUDIO_EVENTINSTANCE.p("eventinstance", ""),
         Check(1)..FMOD_STUDIO_EVENTDESCRIPTION.p.p("description", "")
+    )
+
+    FMOD_RESULT(
+        "EventInstance_GetSystem",
+        "",
+
+        FMOD_STUDIO_EVENTINSTANCE.p("eventinstance", ""),
+        Check(1)..FMOD_STUDIO_SYSTEM.p.p("system", ""),
+
+        since = "2.03"
     )
 
     FMOD_RESULT(

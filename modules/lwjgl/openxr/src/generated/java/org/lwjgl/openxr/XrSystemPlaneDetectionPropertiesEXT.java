@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTPlaneDetection XR_EXT_plane_detection} extension <b>must</b> be enabled prior to using {@link XrSystemPlaneDetectionPropertiesEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTPlaneDetection#XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -154,8 +154,7 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemPlaneDetectionPropertiesEXT createSafe(long address) {
+    public static @Nullable XrSystemPlaneDetectionPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new XrSystemPlaneDetectionPropertiesEXT(address, null);
     }
 
@@ -198,8 +197,7 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemPlaneDetectionPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrSystemPlaneDetectionPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +242,14 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemPlaneDetectionPropertiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemPlaneDetectionPropertiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemPlaneDetectionPropertiesEXT.NEXT); }
     /** Unsafe version of {@link #supportedFeatures}. */
-    public static long nsupportedFeatures(long struct) { return UNSAFE.getLong(null, struct + XrSystemPlaneDetectionPropertiesEXT.SUPPORTEDFEATURES); }
+    public static long nsupportedFeatures(long struct) { return memGetLong(struct + XrSystemPlaneDetectionPropertiesEXT.SUPPORTEDFEATURES); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemPlaneDetectionPropertiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemPlaneDetectionPropertiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemPlaneDetectionPropertiesEXT.NEXT, value); }
 
@@ -286,6 +284,11 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

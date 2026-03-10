@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -24,16 +24,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>At least one entry in the list <b>must</b> have power of two values for all of {@code MSize}, {@code KSize}, and {@code NSize}.</p>
  * 
+ * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-cooperativeMatrixWorkgroupScope">{@code cooperativeMatrixWorkgroupScope}</a> feature is not supported, {@code scope} <b>must</b> be {@link KHRCooperativeMatrix#VK_SCOPE_SUBGROUP_KHR SCOPE_SUBGROUP_KHR}.</p>
+ * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link KHRCooperativeMatrix#VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR}</li>
  * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code AType} <b>must</b> be a valid {@code VkComponentTypeKHR} value</li>
- * <li>{@code BType} <b>must</b> be a valid {@code VkComponentTypeKHR} value</li>
- * <li>{@code CType} <b>must</b> be a valid {@code VkComponentTypeKHR} value</li>
- * <li>{@code ResultType} <b>must</b> be a valid {@code VkComponentTypeKHR} value</li>
- * <li>{@code scope} <b>must</b> be a valid {@code VkScopeKHR} value</li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -159,7 +156,7 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
     /** the component type of matrix {@code Result}, of type {@code VkComponentTypeKHR}. */
     @NativeType("VkComponentTypeKHR")
     public int ResultType() { return nResultType(address()); }
-    /** indicates whether the {@code SaturatingAccumulation} operand to {@code OpCooperativeMatrixMulAddKHR} <b>must</b> be present. */
+    /** indicates whether the {@code SaturatingAccumulation} operand to {@code OpCooperativeMatrixMulAddKHR} <b>must</b> be present or not. If it is {@link VK10#VK_TRUE TRUE}, the {@code SaturatingAccumulation} operand <b>must</b> be present. If it is {@link VK10#VK_FALSE FALSE}, the {@code SaturatingAccumulation} operand <b>must</b> not be present. */
     @NativeType("VkBool32")
     public boolean saturatingAccumulation() { return nsaturatingAccumulation(address()) != 0; }
     /** the scope of all the matrix types, of type {@code VkScopeKHR}. */
@@ -172,50 +169,14 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
     public VkCooperativeMatrixPropertiesKHR sType$Default() { return sType(KHRCooperativeMatrix.VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkCooperativeMatrixPropertiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #MSize} field. */
-    public VkCooperativeMatrixPropertiesKHR MSize(@NativeType("uint32_t") int value) { nMSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #NSize} field. */
-    public VkCooperativeMatrixPropertiesKHR NSize(@NativeType("uint32_t") int value) { nNSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #KSize} field. */
-    public VkCooperativeMatrixPropertiesKHR KSize(@NativeType("uint32_t") int value) { nKSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #AType} field. */
-    public VkCooperativeMatrixPropertiesKHR AType(@NativeType("VkComponentTypeKHR") int value) { nAType(address(), value); return this; }
-    /** Sets the specified value to the {@link #BType} field. */
-    public VkCooperativeMatrixPropertiesKHR BType(@NativeType("VkComponentTypeKHR") int value) { nBType(address(), value); return this; }
-    /** Sets the specified value to the {@link #CType} field. */
-    public VkCooperativeMatrixPropertiesKHR CType(@NativeType("VkComponentTypeKHR") int value) { nCType(address(), value); return this; }
-    /** Sets the specified value to the {@link #ResultType} field. */
-    public VkCooperativeMatrixPropertiesKHR ResultType(@NativeType("VkComponentTypeKHR") int value) { nResultType(address(), value); return this; }
-    /** Sets the specified value to the {@link #saturatingAccumulation} field. */
-    public VkCooperativeMatrixPropertiesKHR saturatingAccumulation(@NativeType("VkBool32") boolean value) { nsaturatingAccumulation(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #scope} field. */
-    public VkCooperativeMatrixPropertiesKHR scope(@NativeType("VkScopeKHR") int value) { nscope(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkCooperativeMatrixPropertiesKHR set(
         int sType,
-        long pNext,
-        int MSize,
-        int NSize,
-        int KSize,
-        int AType,
-        int BType,
-        int CType,
-        int ResultType,
-        boolean saturatingAccumulation,
-        int scope
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        MSize(MSize);
-        NSize(NSize);
-        KSize(KSize);
-        AType(AType);
-        BType(BType);
-        CType(CType);
-        ResultType(ResultType);
-        saturatingAccumulation(saturatingAccumulation);
-        scope(scope);
 
         return this;
     }
@@ -256,8 +217,7 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCooperativeMatrixPropertiesKHR createSafe(long address) {
+    public static @Nullable VkCooperativeMatrixPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkCooperativeMatrixPropertiesKHR(address, null);
     }
 
@@ -300,8 +260,7 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCooperativeMatrixPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkCooperativeMatrixPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -346,50 +305,32 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCooperativeMatrixPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #MSize}. */
-    public static int nMSize(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.MSIZE); }
+    public static int nMSize(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.MSIZE); }
     /** Unsafe version of {@link #NSize}. */
-    public static int nNSize(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.NSIZE); }
+    public static int nNSize(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.NSIZE); }
     /** Unsafe version of {@link #KSize}. */
-    public static int nKSize(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.KSIZE); }
+    public static int nKSize(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.KSIZE); }
     /** Unsafe version of {@link #AType}. */
-    public static int nAType(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.ATYPE); }
+    public static int nAType(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.ATYPE); }
     /** Unsafe version of {@link #BType}. */
-    public static int nBType(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.BTYPE); }
+    public static int nBType(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.BTYPE); }
     /** Unsafe version of {@link #CType}. */
-    public static int nCType(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.CTYPE); }
+    public static int nCType(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.CTYPE); }
     /** Unsafe version of {@link #ResultType}. */
-    public static int nResultType(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.RESULTTYPE); }
+    public static int nResultType(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.RESULTTYPE); }
     /** Unsafe version of {@link #saturatingAccumulation}. */
-    public static int nsaturatingAccumulation(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.SATURATINGACCUMULATION); }
+    public static int nsaturatingAccumulation(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.SATURATINGACCUMULATION); }
     /** Unsafe version of {@link #scope}. */
-    public static int nscope(long struct) { return UNSAFE.getInt(null, struct + VkCooperativeMatrixPropertiesKHR.SCOPE); }
+    public static int nscope(long struct) { return memGetInt(struct + VkCooperativeMatrixPropertiesKHR.SCOPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCooperativeMatrixPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCooperativeMatrixPropertiesKHR.PNEXT, value); }
-    /** Unsafe version of {@link #MSize(int) MSize}. */
-    public static void nMSize(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.MSIZE, value); }
-    /** Unsafe version of {@link #NSize(int) NSize}. */
-    public static void nNSize(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.NSIZE, value); }
-    /** Unsafe version of {@link #KSize(int) KSize}. */
-    public static void nKSize(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.KSIZE, value); }
-    /** Unsafe version of {@link #AType(int) AType}. */
-    public static void nAType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.ATYPE, value); }
-    /** Unsafe version of {@link #BType(int) BType}. */
-    public static void nBType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.BTYPE, value); }
-    /** Unsafe version of {@link #CType(int) CType}. */
-    public static void nCType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.CTYPE, value); }
-    /** Unsafe version of {@link #ResultType(int) ResultType}. */
-    public static void nResultType(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.RESULTTYPE, value); }
-    /** Unsafe version of {@link #saturatingAccumulation(boolean) saturatingAccumulation}. */
-    public static void nsaturatingAccumulation(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.SATURATINGACCUMULATION, value); }
-    /** Unsafe version of {@link #scope(int) scope}. */
-    public static void nscope(long struct, int value) { UNSAFE.putInt(null, struct + VkCooperativeMatrixPropertiesKHR.SCOPE, value); }
 
     // -----------------------------------
 
@@ -422,6 +363,11 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -469,24 +415,6 @@ public class VkCooperativeMatrixPropertiesKHR extends Struct<VkCooperativeMatrix
         public VkCooperativeMatrixPropertiesKHR.Buffer sType$Default() { return sType(KHRCooperativeMatrix.VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR); }
         /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#pNext} field. */
         public VkCooperativeMatrixPropertiesKHR.Buffer pNext(@NativeType("void *") long value) { VkCooperativeMatrixPropertiesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#MSize} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer MSize(@NativeType("uint32_t") int value) { VkCooperativeMatrixPropertiesKHR.nMSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#NSize} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer NSize(@NativeType("uint32_t") int value) { VkCooperativeMatrixPropertiesKHR.nNSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#KSize} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer KSize(@NativeType("uint32_t") int value) { VkCooperativeMatrixPropertiesKHR.nKSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#AType} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer AType(@NativeType("VkComponentTypeKHR") int value) { VkCooperativeMatrixPropertiesKHR.nAType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#BType} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer BType(@NativeType("VkComponentTypeKHR") int value) { VkCooperativeMatrixPropertiesKHR.nBType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#CType} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer CType(@NativeType("VkComponentTypeKHR") int value) { VkCooperativeMatrixPropertiesKHR.nCType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#ResultType} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer ResultType(@NativeType("VkComponentTypeKHR") int value) { VkCooperativeMatrixPropertiesKHR.nResultType(address(), value); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#saturatingAccumulation} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer saturatingAccumulation(@NativeType("VkBool32") boolean value) { VkCooperativeMatrixPropertiesKHR.nsaturatingAccumulation(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkCooperativeMatrixPropertiesKHR#scope} field. */
-        public VkCooperativeMatrixPropertiesKHR.Buffer scope(@NativeType("VkScopeKHR") int value) { VkCooperativeMatrixPropertiesKHR.nscope(address(), value); return this; }
 
     }
 

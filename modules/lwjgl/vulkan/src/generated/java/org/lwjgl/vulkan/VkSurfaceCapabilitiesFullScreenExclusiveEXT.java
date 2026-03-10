@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -106,18 +106,14 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     public VkSurfaceCapabilitiesFullScreenExclusiveEXT sType$Default() { return sType(EXTFullScreenExclusive.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT); }
     /** Sets the specified value to the {@link #pNext} field. */
     public VkSurfaceCapabilitiesFullScreenExclusiveEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code fullScreenExclusiveSupported} field. */
-    public VkSurfaceCapabilitiesFullScreenExclusiveEXT fullScreenExclusiveSupported(@NativeType("VkBool32") boolean value) { nfullScreenExclusiveSupported(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSurfaceCapabilitiesFullScreenExclusiveEXT set(
         int sType,
-        long pNext,
-        boolean fullScreenExclusiveSupported
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        fullScreenExclusiveSupported(fullScreenExclusiveSupported);
 
         return this;
     }
@@ -158,8 +154,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesFullScreenExclusiveEXT createSafe(long address) {
+    public static @Nullable VkSurfaceCapabilitiesFullScreenExclusiveEXT createSafe(long address) {
         return address == NULL ? null : new VkSurfaceCapabilitiesFullScreenExclusiveEXT(address, null);
     }
 
@@ -202,8 +197,7 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceCapabilitiesFullScreenExclusiveEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +261,16 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.PNEXT); }
     /** Unsafe version of {@link #fullScreenExclusiveSupported}. */
-    public static int nfullScreenExclusiveSupported(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.FULLSCREENEXCLUSIVESUPPORTED); }
+    public static int nfullScreenExclusiveSupported(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.FULLSCREENEXCLUSIVESUPPORTED); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.PNEXT, value); }
-    /** Unsafe version of {@link #fullScreenExclusiveSupported(boolean) fullScreenExclusiveSupported}. */
-    public static void nfullScreenExclusiveSupported(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilitiesFullScreenExclusiveEXT.FULLSCREENEXCLUSIVESUPPORTED, value); }
 
     // -----------------------------------
 
@@ -314,6 +306,11 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSurfaceCapabilitiesFullScreenExclusiveEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -334,8 +331,6 @@ public class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends Struct<VkSurfac
         public VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer sType$Default() { return sType(EXTFullScreenExclusive.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT); }
         /** Sets the specified value to the {@link VkSurfaceCapabilitiesFullScreenExclusiveEXT#pNext} field. */
         public VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer pNext(@NativeType("void *") long value) { VkSurfaceCapabilitiesFullScreenExclusiveEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code fullScreenExclusiveSupported} field. */
-        public VkSurfaceCapabilitiesFullScreenExclusiveEXT.Buffer fullScreenExclusiveSupported(@NativeType("VkBool32") boolean value) { VkSurfaceCapabilitiesFullScreenExclusiveEXT.nfullScreenExclusiveSupported(address(), value ? 1 : 0); return this; }
 
     }
 

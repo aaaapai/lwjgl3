@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneMeshBuffersGetInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTSceneUnderstanding#XR_TYPE_SCENE_MESH_BUFFERS_GET_INFO_MSFT TYPE_SCENE_MESH_BUFFERS_GET_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -158,8 +158,7 @@ public class XrSceneMeshBuffersGetInfoMSFT extends Struct<XrSceneMeshBuffersGetI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshBuffersGetInfoMSFT createSafe(long address) {
+    public static @Nullable XrSceneMeshBuffersGetInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneMeshBuffersGetInfoMSFT(address, null);
     }
 
@@ -202,8 +201,7 @@ public class XrSceneMeshBuffersGetInfoMSFT extends Struct<XrSceneMeshBuffersGetI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneMeshBuffersGetInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneMeshBuffersGetInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +246,18 @@ public class XrSceneMeshBuffersGetInfoMSFT extends Struct<XrSceneMeshBuffersGetI
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSceneMeshBuffersGetInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSceneMeshBuffersGetInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSceneMeshBuffersGetInfoMSFT.NEXT); }
     /** Unsafe version of {@link #meshBufferId}. */
-    public static long nmeshBufferId(long struct) { return UNSAFE.getLong(null, struct + XrSceneMeshBuffersGetInfoMSFT.MESHBUFFERID); }
+    public static long nmeshBufferId(long struct) { return memGetLong(struct + XrSceneMeshBuffersGetInfoMSFT.MESHBUFFERID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneMeshBuffersGetInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSceneMeshBuffersGetInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSceneMeshBuffersGetInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #meshBufferId(long) meshBufferId}. */
-    public static void nmeshBufferId(long struct, long value) { UNSAFE.putLong(null, struct + XrSceneMeshBuffersGetInfoMSFT.MESHBUFFERID, value); }
+    public static void nmeshBufferId(long struct, long value) { memPutLong(struct + XrSceneMeshBuffersGetInfoMSFT.MESHBUFFERID, value); }
 
     // -----------------------------------
 
@@ -292,6 +290,11 @@ public class XrSceneMeshBuffersGetInfoMSFT extends Struct<XrSceneMeshBuffersGetI
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

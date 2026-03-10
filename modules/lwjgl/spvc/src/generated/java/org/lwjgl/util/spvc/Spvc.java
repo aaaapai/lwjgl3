@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -56,6 +56,7 @@ public class Spvc {
             msl_shader_input_init                                 = apiGetFunctionAddress(SPVC, "spvc_msl_shader_input_init"),
             msl_shader_interface_var_init_2                       = apiGetFunctionAddress(SPVC, "spvc_msl_shader_interface_var_init_2"),
             msl_resource_binding_init                             = apiGetFunctionAddress(SPVC, "spvc_msl_resource_binding_init"),
+            msl_resource_binding_init_2                           = apiGetFunctionAddress(SPVC, "spvc_msl_resource_binding_init_2"),
             msl_get_aux_buffer_struct_version                     = apiGetFunctionAddress(SPVC, "spvc_msl_get_aux_buffer_struct_version"),
             msl_constexpr_sampler_init                            = apiGetFunctionAddress(SPVC, "spvc_msl_constexpr_sampler_init"),
             msl_sampler_ycbcr_conversion_init                     = apiGetFunctionAddress(SPVC, "spvc_msl_sampler_ycbcr_conversion_init"),
@@ -95,6 +96,7 @@ public class Spvc {
             compiler_msl_needs_input_threadgroup_mem              = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_needs_input_threadgroup_mem"),
             compiler_msl_add_vertex_attribute                     = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_vertex_attribute"),
             compiler_msl_add_resource_binding                     = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_resource_binding"),
+            compiler_msl_add_resource_binding_2                   = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_resource_binding_2"),
             compiler_msl_add_shader_input                         = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_input"),
             compiler_msl_add_shader_input_2                       = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_input_2"),
             compiler_msl_add_shader_output                        = apiGetFunctionAddress(SPVC, "spvc_compiler_msl_add_shader_output"),
@@ -194,12 +196,16 @@ public class Spvc {
             constant_get_scalar_u8                                = apiGetFunctionAddress(SPVC, "spvc_constant_get_scalar_u8"),
             constant_get_scalar_i8                                = apiGetFunctionAddress(SPVC, "spvc_constant_get_scalar_i8"),
             constant_get_subconstants                             = apiGetFunctionAddress(SPVC, "spvc_constant_get_subconstants"),
+            constant_get_scalar_u64                               = apiGetFunctionAddress(SPVC, "spvc_constant_get_scalar_u64"),
+            constant_get_scalar_i64                               = apiGetFunctionAddress(SPVC, "spvc_constant_get_scalar_i64"),
             constant_get_type                                     = apiGetFunctionAddress(SPVC, "spvc_constant_get_type"),
             constant_set_scalar_fp16                              = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_fp16"),
             constant_set_scalar_fp32                              = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_fp32"),
             constant_set_scalar_fp64                              = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_fp64"),
             constant_set_scalar_u32                               = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_u32"),
             constant_set_scalar_i32                               = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_i32"),
+            constant_set_scalar_u64                               = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_u64"),
+            constant_set_scalar_i64                               = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_i64"),
             constant_set_scalar_u16                               = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_u16"),
             constant_set_scalar_i16                               = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_i16"),
             constant_set_scalar_u8                                = apiGetFunctionAddress(SPVC, "spvc_constant_set_scalar_u8"),
@@ -221,7 +227,7 @@ public class Spvc {
 
     public static final int SPVC_C_API_VERSION_MAJOR = 0;
 
-    public static final int SPVC_C_API_VERSION_MINOR = 57;
+    public static final int SPVC_C_API_VERSION_MINOR = 64;
 
     public static final int SPVC_C_API_VERSION_PATCH = 0;
 
@@ -343,6 +349,7 @@ public class Spvc {
      * <li>{@link #SPVC_RESOURCE_TYPE_ACCELERATION_STRUCTURE RESOURCE_TYPE_ACCELERATION_STRUCTURE}</li>
      * <li>{@link #SPVC_RESOURCE_TYPE_RAY_QUERY RESOURCE_TYPE_RAY_QUERY}</li>
      * <li>{@link #SPVC_RESOURCE_TYPE_SHADER_RECORD_BUFFER RESOURCE_TYPE_SHADER_RECORD_BUFFER}</li>
+     * <li>{@link #SPVC_RESOURCE_TYPE_GL_PLAIN_UNIFORM RESOURCE_TYPE_GL_PLAIN_UNIFORM}</li>
      * </ul>
      */
     public static final int
@@ -360,7 +367,8 @@ public class Spvc {
         SPVC_RESOURCE_TYPE_SEPARATE_SAMPLERS      = 11,
         SPVC_RESOURCE_TYPE_ACCELERATION_STRUCTURE = 12,
         SPVC_RESOURCE_TYPE_RAY_QUERY              = 13,
-        SPVC_RESOURCE_TYPE_SHADER_RECORD_BUFFER   = 14;
+        SPVC_RESOURCE_TYPE_SHADER_RECORD_BUFFER   = 14,
+        SPVC_RESOURCE_TYPE_GL_PLAIN_UNIFORM       = 15;
 
     /**
      * {@code spvc_builtin_resource_type}
@@ -893,6 +901,12 @@ public class Spvc {
      * <li>{@link #SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUND COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUND}</li>
      * <li>{@link #SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIER COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIER}</li>
      * <li>{@link #SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_MSL_READWRITE_TEXTURE_FENCES COMPILER_OPTION_MSL_READWRITE_TEXTURE_FENCES}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_MSL_REPLACE_RECURSIVE_INPUTS COMPILER_OPTION_MSL_REPLACE_RECURSIVE_INPUTS}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_MSL_AGX_MANUAL_CUBE_GRAD_FIXUP COMPILER_OPTION_MSL_AGX_MANUAL_CUBE_GRAD_FIXUP}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_MSL_FORCE_FRAGMENT_WITH_SIDE_EFFECTS_EXECUTION COMPILER_OPTION_MSL_FORCE_FRAGMENT_WITH_SIDE_EFFECTS_EXECUTION}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_HLSL_USE_ENTRY_POINT_NAME COMPILER_OPTION_HLSL_USE_ENTRY_POINT_NAME}</li>
+     * <li>{@link #SPVC_COMPILER_OPTION_HLSL_PRESERVE_STRUCTURED_BUFFERS COMPILER_OPTION_HLSL_PRESERVE_STRUCTURED_BUFFERS}</li>
      * </ul>
      */
     public static final int
@@ -983,7 +997,13 @@ public class Spvc {
         SPVC_COMPILER_OPTION_MSL_CHECK_DISCARDED_FRAG_STORES                = 82 | SPVC_COMPILER_OPTION_MSL_BIT,
         SPVC_COMPILER_OPTION_GLSL_ENABLE_ROW_MAJOR_LOAD_WORKAROUND          = 83 | SPVC_COMPILER_OPTION_GLSL_BIT,
         SPVC_COMPILER_OPTION_MSL_ARGUMENT_BUFFERS_TIER                      = 84 | SPVC_COMPILER_OPTION_MSL_BIT,
-        SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD              = 85 | SPVC_COMPILER_OPTION_MSL_BIT;
+        SPVC_COMPILER_OPTION_MSL_SAMPLE_DREF_LOD_ARRAY_AS_GRAD              = 85 | SPVC_COMPILER_OPTION_MSL_BIT,
+        SPVC_COMPILER_OPTION_MSL_READWRITE_TEXTURE_FENCES                   = 86 | SPVC_COMPILER_OPTION_MSL_BIT,
+        SPVC_COMPILER_OPTION_MSL_REPLACE_RECURSIVE_INPUTS                   = 87 | SPVC_COMPILER_OPTION_MSL_BIT,
+        SPVC_COMPILER_OPTION_MSL_AGX_MANUAL_CUBE_GRAD_FIXUP                 = 88 | SPVC_COMPILER_OPTION_MSL_BIT,
+        SPVC_COMPILER_OPTION_MSL_FORCE_FRAGMENT_WITH_SIDE_EFFECTS_EXECUTION = 89 | SPVC_COMPILER_OPTION_MSL_BIT,
+        SPVC_COMPILER_OPTION_HLSL_USE_ENTRY_POINT_NAME                      = 90 | SPVC_COMPILER_OPTION_HLSL_BIT,
+        SPVC_COMPILER_OPTION_HLSL_PRESERVE_STRUCTURED_BUFFERS               = 91 | SPVC_COMPILER_OPTION_HLSL_BIT;
 
     protected Spvc() {
         throw new UnsupportedOperationException();
@@ -1016,9 +1036,8 @@ public class Spvc {
     }
 
     /** Gets a human readable version string to identify which commit a particular binary was created from. */
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_get_commit_revision_and_timestamp() {
+    public static @Nullable String spvc_get_commit_revision_and_timestamp() {
         long __result = nspvc_get_commit_revision_and_timestamp();
         return memUTF8Safe(__result);
     }
@@ -1087,9 +1106,26 @@ public class Spvc {
         invokePV(binding, __functionAddress);
     }
 
-    /** Initializes the resource binding struct. The defaults are non-zero. */
+    /**
+     * Deprecated: Use {@link #spvc_msl_resource_binding_init_2 msl_resource_binding_init_2}.
+     * 
+     * <p>Initializes the resource binding struct. The defaults are non-zero.</p>
+     */
     public static void spvc_msl_resource_binding_init(@NativeType("spvc_msl_resource_binding *") SpvcMslResourceBinding binding) {
         nspvc_msl_resource_binding_init(binding.address());
+    }
+
+    // --- [ spvc_msl_resource_binding_init_2 ] ---
+
+    /** Unsafe version of: {@link #spvc_msl_resource_binding_init_2 msl_resource_binding_init_2} */
+    public static void nspvc_msl_resource_binding_init_2(long binding) {
+        long __functionAddress = Functions.msl_resource_binding_init_2;
+        invokePV(binding, __functionAddress);
+    }
+
+    /** Initializes the resource binding struct. The defaults are non-zero. */
+    public static void spvc_msl_resource_binding_init_2(@NativeType("spvc_msl_resource_binding_2 *") SpvcMslResourceBinding2 binding) {
+        nspvc_msl_resource_binding_init_2(binding.address());
     }
 
     // --- [ spvc_msl_get_aux_buffer_struct_version ] ---
@@ -1201,9 +1237,8 @@ public class Spvc {
     }
 
     /** Get the string for the last error which was logged. */
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_context_get_last_error_string(@NativeType("spvc_context") long context) {
+    public static @Nullable String spvc_context_get_last_error_string(@NativeType("spvc_context") long context) {
         long __result = nspvc_context_get_last_error_string(context);
         return memUTF8Safe(__result);
     }
@@ -1447,9 +1482,8 @@ public class Spvc {
         return invokePPP(compiler, index, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_required_extension(@NativeType("spvc_compiler") long compiler, @NativeType("size_t") long index) {
+    public static @Nullable String spvc_compiler_get_required_extension(@NativeType("spvc_compiler") long compiler, @NativeType("size_t") long index) {
         long __result = nspvc_compiler_get_required_extension(compiler, index);
         return memUTF8Safe(__result);
     }
@@ -1663,6 +1697,7 @@ public class Spvc {
 
     // --- [ spvc_compiler_msl_add_resource_binding ] ---
 
+    /** Unsafe version of: {@link #spvc_compiler_msl_add_resource_binding compiler_msl_add_resource_binding} */
     public static int nspvc_compiler_msl_add_resource_binding(long compiler, long binding) {
         long __functionAddress = Functions.compiler_msl_add_resource_binding;
         if (CHECKS) {
@@ -1671,9 +1706,25 @@ public class Spvc {
         return invokePPI(compiler, binding, __functionAddress);
     }
 
+    /** Deprecated, use {@link #spvc_compiler_msl_add_resource_binding_2 compiler_msl_add_resource_binding_2}. */
     @NativeType("spvc_result")
     public static int spvc_compiler_msl_add_resource_binding(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_resource_binding const *") SpvcMslResourceBinding binding) {
         return nspvc_compiler_msl_add_resource_binding(compiler, binding.address());
+    }
+
+    // --- [ spvc_compiler_msl_add_resource_binding_2 ] ---
+
+    public static int nspvc_compiler_msl_add_resource_binding_2(long compiler, long binding) {
+        long __functionAddress = Functions.compiler_msl_add_resource_binding_2;
+        if (CHECKS) {
+            check(compiler);
+        }
+        return invokePPI(compiler, binding, __functionAddress);
+    }
+
+    @NativeType("spvc_result")
+    public static int spvc_compiler_msl_add_resource_binding_2(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_msl_resource_binding_2 const *") SpvcMslResourceBinding2 binding) {
+        return nspvc_compiler_msl_add_resource_binding_2(compiler, binding.address());
     }
 
     // --- [ spvc_compiler_msl_add_shader_input ] ---
@@ -1962,9 +2013,8 @@ public class Spvc {
         return invokePP(compiler, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_msl_get_combined_sampler_suffix(@NativeType("spvc_compiler") long compiler) {
+    public static @Nullable String spvc_compiler_msl_get_combined_sampler_suffix(@NativeType("spvc_compiler") long compiler) {
         long __result = nspvc_compiler_msl_get_combined_sampler_suffix(compiler);
         return memUTF8Safe(__result);
     }
@@ -2261,9 +2311,8 @@ public class Spvc {
         return invokePP(compiler, id, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_name(@NativeType("spvc_compiler") long compiler, @NativeType("SpvId") int id) {
+    public static @Nullable String spvc_compiler_get_name(@NativeType("spvc_compiler") long compiler, @NativeType("SpvId") int id) {
         long __result = nspvc_compiler_get_name(compiler, id);
         return memUTF8Safe(__result);
     }
@@ -2289,9 +2338,8 @@ public class Spvc {
         return invokePP(compiler, id, decoration, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_decoration_string(@NativeType("spvc_compiler") long compiler, @NativeType("SpvId") int id, @NativeType("SpvDecoration") int decoration) {
+    public static @Nullable String spvc_compiler_get_decoration_string(@NativeType("spvc_compiler") long compiler, @NativeType("SpvId") int id, @NativeType("SpvDecoration") int decoration) {
         long __result = nspvc_compiler_get_decoration_string(compiler, id, decoration);
         return memUTF8Safe(__result);
     }
@@ -2317,9 +2365,8 @@ public class Spvc {
         return invokePP(compiler, id, member_index, decoration, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_member_decoration_string(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_type_id") int id, @NativeType("unsigned int") int member_index, @NativeType("SpvDecoration") int decoration) {
+    public static @Nullable String spvc_compiler_get_member_decoration_string(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_type_id") int id, @NativeType("unsigned int") int member_index, @NativeType("SpvDecoration") int decoration) {
         long __result = nspvc_compiler_get_member_decoration_string(compiler, id, member_index, decoration);
         return memUTF8Safe(__result);
     }
@@ -2334,9 +2381,8 @@ public class Spvc {
         return invokePP(compiler, id, member_index, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_member_name(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_type_id") int id, @NativeType("unsigned int") int member_index) {
+    public static @Nullable String spvc_compiler_get_member_name(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_type_id") int id, @NativeType("unsigned int") int member_index) {
         long __result = nspvc_compiler_get_member_name(compiler, id, member_index);
         return memUTF8Safe(__result);
     }
@@ -2435,9 +2481,8 @@ public class Spvc {
         return invokePPP(compiler, name, model, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_cleansed_entry_point_name(@NativeType("spvc_compiler") long compiler, @NativeType("char const *") ByteBuffer name, @NativeType("SpvExecutionModel") int model) {
+    public static @Nullable String spvc_compiler_get_cleansed_entry_point_name(@NativeType("spvc_compiler") long compiler, @NativeType("char const *") ByteBuffer name, @NativeType("SpvExecutionModel") int model) {
         if (CHECKS) {
             checkNT1(name);
         }
@@ -2445,9 +2490,8 @@ public class Spvc {
         return memUTF8Safe(__result);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_cleansed_entry_point_name(@NativeType("spvc_compiler") long compiler, @NativeType("char const *") CharSequence name, @NativeType("SpvExecutionModel") int model) {
+    public static @Nullable String spvc_compiler_get_cleansed_entry_point_name(@NativeType("spvc_compiler") long compiler, @NativeType("char const *") CharSequence name, @NativeType("SpvExecutionModel") int model) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
         try {
             stack.nUTF8(name, true);
@@ -3139,6 +3183,28 @@ public class Spvc {
         nspvc_constant_get_subconstants(constant, memAddress(constituents), memAddress(count));
     }
 
+    // --- [ spvc_constant_get_scalar_u64 ] ---
+
+    @NativeType("unsigned long long")
+    public static long spvc_constant_get_scalar_u64(@NativeType("spvc_constant") long constant, @NativeType("unsigned") int column, @NativeType("unsigned") int row) {
+        long __functionAddress = Functions.constant_get_scalar_u64;
+        if (CHECKS) {
+            check(constant);
+        }
+        return invokePJ(constant, column, row, __functionAddress);
+    }
+
+    // --- [ spvc_constant_get_scalar_i64 ] ---
+
+    @NativeType("long long")
+    public static long spvc_constant_get_scalar_i64(@NativeType("spvc_constant") long constant, @NativeType("unsigned") int column, @NativeType("unsigned") int row) {
+        long __functionAddress = Functions.constant_get_scalar_i64;
+        if (CHECKS) {
+            check(constant);
+        }
+        return invokePJ(constant, column, row, __functionAddress);
+    }
+
     // --- [ spvc_constant_get_type ] ---
 
     @NativeType("spvc_type_id")
@@ -3198,6 +3264,26 @@ public class Spvc {
             check(constant);
         }
         invokePV(constant, column, row, value, __functionAddress);
+    }
+
+    // --- [ spvc_constant_set_scalar_u64 ] ---
+
+    public static void spvc_constant_set_scalar_u64(@NativeType("spvc_constant") long constant, @NativeType("unsigned") int column, @NativeType("unsigned") int row, @NativeType("unsigned long long") long value) {
+        long __functionAddress = Functions.constant_set_scalar_u64;
+        if (CHECKS) {
+            check(constant);
+        }
+        invokePJV(constant, column, row, value, __functionAddress);
+    }
+
+    // --- [ spvc_constant_set_scalar_i64 ] ---
+
+    public static void spvc_constant_set_scalar_i64(@NativeType("spvc_constant") long constant, @NativeType("unsigned") int column, @NativeType("unsigned") int row, @NativeType("long long") long value) {
+        long __functionAddress = Functions.constant_set_scalar_i64;
+        if (CHECKS) {
+            check(constant);
+        }
+        invokePJV(constant, column, row, value, __functionAddress);
     }
 
     // --- [ spvc_constant_set_scalar_u16 ] ---
@@ -3337,9 +3423,8 @@ public class Spvc {
         return invokePP(compiler, id, __functionAddress);
     }
 
-    @Nullable
     @NativeType("char const *")
-    public static String spvc_compiler_get_remapped_declared_block_name(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_variable_id") int id) {
+    public static @Nullable String spvc_compiler_get_remapped_declared_block_name(@NativeType("spvc_compiler") long compiler, @NativeType("spvc_variable_id") int id) {
         long __result = nspvc_compiler_get_remapped_declared_block_name(compiler, id);
         return memUTF8Safe(__result);
     }

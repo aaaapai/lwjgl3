@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VARJOFoveatedRendering XR_VARJO_foveated_rendering} extension <b>must</b> be enabled prior to using {@link XrSystemFoveatedRenderingPropertiesVARJO}</li>
  * <li>{@code type} <b>must</b> be {@link VARJOFoveatedRendering#XR_TYPE_SYSTEM_FOVEATED_RENDERING_PROPERTIES_VARJO TYPE_SYSTEM_FOVEATED_RENDERING_PROPERTIES_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h3>Layout</h3>
@@ -154,8 +154,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct<XrSystemFov
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFoveatedRenderingPropertiesVARJO createSafe(long address) {
+    public static @Nullable XrSystemFoveatedRenderingPropertiesVARJO createSafe(long address) {
         return address == NULL ? null : new XrSystemFoveatedRenderingPropertiesVARJO(address, null);
     }
 
@@ -198,8 +197,7 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct<XrSystemFov
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFoveatedRenderingPropertiesVARJO.Buffer createSafe(long address, int capacity) {
+    public static XrSystemFoveatedRenderingPropertiesVARJO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +242,14 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct<XrSystemFov
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemFoveatedRenderingPropertiesVARJO.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemFoveatedRenderingPropertiesVARJO.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemFoveatedRenderingPropertiesVARJO.NEXT); }
     /** Unsafe version of {@link #supportsFoveatedRendering}. */
-    public static int nsupportsFoveatedRendering(long struct) { return UNSAFE.getInt(null, struct + XrSystemFoveatedRenderingPropertiesVARJO.SUPPORTSFOVEATEDRENDERING); }
+    public static int nsupportsFoveatedRendering(long struct) { return memGetInt(struct + XrSystemFoveatedRenderingPropertiesVARJO.SUPPORTSFOVEATEDRENDERING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFoveatedRenderingPropertiesVARJO.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemFoveatedRenderingPropertiesVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemFoveatedRenderingPropertiesVARJO.NEXT, value); }
 
@@ -286,6 +284,11 @@ public class XrSystemFoveatedRenderingPropertiesVARJO extends Struct<XrSystemFov
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

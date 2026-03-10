@@ -14,8 +14,6 @@ package org.lwjgl.vulkan;
  * 
  * <p>These features together allow much more efficient emulation of the raw D3D12 binding model. This extension is primarily intended to be useful for API layering efforts.</p>
  * 
- * <h5>VK_EXT_mutable_descriptor_type</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_mutable_descriptor_type}</dd>
@@ -29,7 +27,7 @@ package org.lwjgl.vulkan;
  * <dd>{@link KHRMaintenance3 VK_KHR_maintenance3}</dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-compatibility-specialuse">D3D support</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>

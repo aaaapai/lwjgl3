@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link EXTHandTracking XR_EXT_hand_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemHandTrackingPropertiesEXT}</li>
  * <li>{@code type} <b>must</b> be {@link EXTHandTracking#XR_TYPE_SYSTEM_HAND_TRACKING_PROPERTIES_EXT TYPE_SYSTEM_HAND_TRACKING_PROPERTIES_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <p>If a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportsHandTracking}, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link EXTHandTracking#xrCreateHandTrackerEXT CreateHandTrackerEXT}.</p>
@@ -152,8 +152,7 @@ public class XrSystemHandTrackingPropertiesEXT extends Struct<XrSystemHandTracki
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemHandTrackingPropertiesEXT createSafe(long address) {
+    public static @Nullable XrSystemHandTrackingPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new XrSystemHandTrackingPropertiesEXT(address, null);
     }
 
@@ -196,8 +195,7 @@ public class XrSystemHandTrackingPropertiesEXT extends Struct<XrSystemHandTracki
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemHandTrackingPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrSystemHandTrackingPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +240,14 @@ public class XrSystemHandTrackingPropertiesEXT extends Struct<XrSystemHandTracki
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemHandTrackingPropertiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemHandTrackingPropertiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemHandTrackingPropertiesEXT.NEXT); }
     /** Unsafe version of {@link #supportsHandTracking}. */
-    public static int nsupportsHandTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemHandTrackingPropertiesEXT.SUPPORTSHANDTRACKING); }
+    public static int nsupportsHandTracking(long struct) { return memGetInt(struct + XrSystemHandTrackingPropertiesEXT.SUPPORTSHANDTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemHandTrackingPropertiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemHandTrackingPropertiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemHandTrackingPropertiesEXT.NEXT, value); }
 
@@ -284,6 +282,11 @@ public class XrSystemHandTrackingPropertiesEXT extends Struct<XrSystemHandTracki
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

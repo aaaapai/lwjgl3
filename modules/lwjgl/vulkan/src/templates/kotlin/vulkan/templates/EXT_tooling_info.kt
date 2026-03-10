@@ -18,7 +18,7 @@ val EXT_tooling_info = "EXTToolingInfo".nativeClassVK("EXT_tooling_info", type =
         Typically, the expectation is that developers will simply print out this information for visual inspection when an issue occurs, however a small amount of semantic information about what the tool is doing is provided to help identify it programmatically. For example, if the advertised limits or features of an implementation are unexpected, is there a tool active which modifies these limits? Or if an application is providing debug markers, but the implementation is not actually doing anything with that information, this can quickly point that out.
 
         <h5>Promotion to Vulkan 1.3</h5>
-        Functionality in this extension is included in core Vulkan 1.3, with the EXT suffix omitted. The original type, enum and command names are still available as aliases of the core functionality.
+        Vulkan APIs in this extension are included in core Vulkan 1.3, with the EXT suffix omitted. External interactions defined by this extension, such as SPIR-V token names, retain their original names. The original Vulkan API names are still available as aliases of the core functionality.
 
         <h5>Examples</h5>
         <pre><code>
@@ -44,7 +44,6 @@ val EXT_tooling_info = "EXTToolingInfo".nativeClassVK("EXT_tooling_info", type =
 ￿    }
 ￿}</code></pre>
 
-        <h5>VK_EXT_tooling_info</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_tooling_info}</dd>
@@ -58,9 +57,16 @@ val EXT_tooling_info = "EXTToolingInfo".nativeClassVK("EXT_tooling_info", type =
             <dt><b>Revision</b></dt>
             <dd>1</dd>
 
-            <dt><b>Deprecation state</b></dt>
+            <dt><b>API Interactions</b></dt>
             <dd><ul>
-                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
+                <li>Interacts with VK_EXT_debug_marker</li>
+                <li>Interacts with VK_EXT_debug_report</li>
+                <li>Interacts with VK_EXT_debug_utils</li>
+            </ul></dd>
+
+            <dt><b>Deprecation State</b></dt>
+            <dd><ul>
+                <li><em>Promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.3-promotions">Vulkan 1.3</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
@@ -73,11 +79,6 @@ val EXT_tooling_info = "EXTToolingInfo".nativeClassVK("EXT_tooling_info", type =
         <dl>
             <dt><b>Last Modified Date</b></dt>
             <dd>2018-11-05</dd>
-
-            <dt><b>Interactions and External Dependencies</b></dt>
-            <dd><ul>
-                <li>Promoted to Vulkan 1.3 Core</li>
-            </ul></dd>
 
             <dt><b>Contributors</b></dt>
             <dd><ul>

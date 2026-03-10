@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBSpatialEntity XR_FB_spatial_entity} extension <b>must</b> be enabled prior to using {@link XrSystemSpatialEntityPropertiesFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBSpatialEntity#XR_TYPE_SYSTEM_SPATIAL_ENTITY_PROPERTIES_FB TYPE_SYSTEM_SPATIAL_ENTITY_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -160,8 +160,7 @@ public class XrSystemSpatialEntityPropertiesFB extends Struct<XrSystemSpatialEnt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemSpatialEntityPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemSpatialEntityPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemSpatialEntityPropertiesFB(address, null);
     }
 
@@ -204,8 +203,7 @@ public class XrSystemSpatialEntityPropertiesFB extends Struct<XrSystemSpatialEnt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemSpatialEntityPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemSpatialEntityPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,14 +248,14 @@ public class XrSystemSpatialEntityPropertiesFB extends Struct<XrSystemSpatialEnt
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemSpatialEntityPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemSpatialEntityPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemSpatialEntityPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsSpatialEntity}. */
-    public static int nsupportsSpatialEntity(long struct) { return UNSAFE.getInt(null, struct + XrSystemSpatialEntityPropertiesFB.SUPPORTSSPATIALENTITY); }
+    public static int nsupportsSpatialEntity(long struct) { return memGetInt(struct + XrSystemSpatialEntityPropertiesFB.SUPPORTSSPATIALENTITY); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemSpatialEntityPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemSpatialEntityPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemSpatialEntityPropertiesFB.NEXT, value); }
 
@@ -292,6 +290,11 @@ public class XrSystemSpatialEntityPropertiesFB extends Struct<XrSystemSpatialEnt
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

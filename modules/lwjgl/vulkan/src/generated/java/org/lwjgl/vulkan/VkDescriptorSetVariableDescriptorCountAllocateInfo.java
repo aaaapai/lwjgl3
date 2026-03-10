@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,6 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code descriptorSetCount} is not zero, {@code descriptorSetCount} <b>must</b> equal {@link VkDescriptorSetAllocateInfo}{@code ::descriptorSetCount}</li>
- * <li>If {@link VkDescriptorSetAllocateInfo}{@code ::pSetLayouts}[i] has a variable-sized descriptor binding, then {@code pDescriptorCounts}[i] <b>must</b> be less than or equal to the descriptor count specified for that binding when the descriptor set layout was created</li>
  * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
@@ -111,9 +110,8 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
     @NativeType("uint32_t")
     public int descriptorSetCount() { return ndescriptorSetCount(address()); }
     /** a pointer to an array of descriptor counts, with each member specifying the number of descriptors in a variable-sized descriptor binding in the corresponding descriptor set being allocated. */
-    @Nullable
     @NativeType("uint32_t const *")
-    public IntBuffer pDescriptorCounts() { return npDescriptorCounts(address()); }
+    public @Nullable IntBuffer pDescriptorCounts() { return npDescriptorCounts(address()); }
 
     /** Sets the specified value to the {@link #sType} field. */
     public VkDescriptorSetVariableDescriptorCountAllocateInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -173,8 +171,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetVariableDescriptorCountAllocateInfo createSafe(long address) {
+    public static @Nullable VkDescriptorSetVariableDescriptorCountAllocateInfo createSafe(long address) {
         return address == NULL ? null : new VkDescriptorSetVariableDescriptorCountAllocateInfo(address, null);
     }
 
@@ -217,8 +214,7 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer createSafe(long address, int capacity) {
+    public static VkDescriptorSetVariableDescriptorCountAllocateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,20 +259,20 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.PNEXT); }
     /** Unsafe version of {@link #descriptorSetCount}. */
-    public static int ndescriptorSetCount(long struct) { return UNSAFE.getInt(null, struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.DESCRIPTORSETCOUNT); }
+    public static int ndescriptorSetCount(long struct) { return memGetInt(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.DESCRIPTORSETCOUNT); }
     /** Unsafe version of {@link #pDescriptorCounts() pDescriptorCounts}. */
-    @Nullable public static IntBuffer npDescriptorCounts(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.PDESCRIPTORCOUNTS), ndescriptorSetCount(struct)); }
+    public static @Nullable IntBuffer npDescriptorCounts(long struct) { return memIntBufferSafe(memGetAddress(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.PDESCRIPTORCOUNTS), ndescriptorSetCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.PNEXT, value); }
     /** Sets the specified value to the {@code descriptorSetCount} field of the specified {@code struct}. */
-    public static void ndescriptorSetCount(long struct, int value) { UNSAFE.putInt(null, struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.DESCRIPTORSETCOUNT, value); }
+    public static void ndescriptorSetCount(long struct, int value) { memPutInt(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.DESCRIPTORSETCOUNT, value); }
     /** Unsafe version of {@link #pDescriptorCounts(IntBuffer) pDescriptorCounts}. */
     public static void npDescriptorCounts(long struct, @Nullable IntBuffer value) { memPutAddress(struct + VkDescriptorSetVariableDescriptorCountAllocateInfo.PDESCRIPTORCOUNTS, memAddressSafe(value)); ndescriptorSetCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -325,6 +321,11 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDescriptorSetVariableDescriptorCountAllocateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -339,9 +340,8 @@ public class VkDescriptorSetVariableDescriptorCountAllocateInfo extends Struct<V
         @NativeType("uint32_t")
         public int descriptorSetCount() { return VkDescriptorSetVariableDescriptorCountAllocateInfo.ndescriptorSetCount(address()); }
         /** @return a {@link IntBuffer} view of the data pointed to by the {@link VkDescriptorSetVariableDescriptorCountAllocateInfo#pDescriptorCounts} field. */
-        @Nullable
         @NativeType("uint32_t const *")
-        public IntBuffer pDescriptorCounts() { return VkDescriptorSetVariableDescriptorCountAllocateInfo.npDescriptorCounts(address()); }
+        public @Nullable IntBuffer pDescriptorCounts() { return VkDescriptorSetVariableDescriptorCountAllocateInfo.npDescriptorCounts(address()); }
 
         /** Sets the specified value to the {@link VkDescriptorSetVariableDescriptorCountAllocateInfo#sType} field. */
         public VkDescriptorSetVariableDescriptorCountAllocateInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkDescriptorSetVariableDescriptorCountAllocateInfo.nsType(address(), value); return this; }

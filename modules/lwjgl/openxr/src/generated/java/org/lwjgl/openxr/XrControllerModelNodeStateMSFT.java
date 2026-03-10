@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The state is corresponding to the glTF node identified by the {@code nodeName} and {@code nodeParentName} of the node property at the same array index in the {@code nodeProperties} in {@link XrControllerModelPropertiesMSFT}.</p>
+ * <p>The state is corresponding to the glTF node identified by the {@link XrControllerModelNodePropertiesMSFT}{@code ::nodeName} and {@link XrControllerModelNodePropertiesMSFT}{@code ::parentNodeName} of the node property at the same array index in the {@link XrControllerModelPropertiesMSFT}{@code ::nodeProperties} in {@link XrControllerModelPropertiesMSFT}.</p>
  * 
  * <p>The {@code nodePose} is based on the user’s interaction on the controller at the latest {@link XR10#xrSyncActions SyncActions}, represented as the {@link XrPosef} of the node in it’s parent node space.</p>
  * 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTControllerModel XR_MSFT_controller_model} extension <b>must</b> be enabled prior to using {@link XrControllerModelNodeStateMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTControllerModel#XR_TYPE_CONTROLLER_MODEL_NODE_STATE_MSFT TYPE_CONTROLLER_MODEL_NODE_STATE_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -165,8 +165,7 @@ public class XrControllerModelNodeStateMSFT extends Struct<XrControllerModelNode
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelNodeStateMSFT createSafe(long address) {
+    public static @Nullable XrControllerModelNodeStateMSFT createSafe(long address) {
         return address == NULL ? null : new XrControllerModelNodeStateMSFT(address, null);
     }
 
@@ -209,8 +208,7 @@ public class XrControllerModelNodeStateMSFT extends Struct<XrControllerModelNode
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrControllerModelNodeStateMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrControllerModelNodeStateMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,14 +253,14 @@ public class XrControllerModelNodeStateMSFT extends Struct<XrControllerModelNode
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrControllerModelNodeStateMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrControllerModelNodeStateMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrControllerModelNodeStateMSFT.NEXT); }
     /** Unsafe version of {@link #nodePose}. */
     public static XrPosef nnodePose(long struct) { return XrPosef.create(struct + XrControllerModelNodeStateMSFT.NODEPOSE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrControllerModelNodeStateMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrControllerModelNodeStateMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrControllerModelNodeStateMSFT.NEXT, value); }
     /** Unsafe version of {@link #nodePose(XrPosef) nodePose}. */
@@ -299,6 +297,11 @@ public class XrControllerModelNodeStateMSFT extends Struct<XrControllerModelNode
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

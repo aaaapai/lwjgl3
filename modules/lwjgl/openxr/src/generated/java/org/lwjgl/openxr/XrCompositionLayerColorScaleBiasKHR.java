@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHRCompositionLayerColorScaleBias XR_KHR_composition_layer_color_scale_bias} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerColorScaleBiasKHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRCompositionLayerColorScaleBias#XR_TYPE_COMPOSITION_LAYER_COLOR_SCALE_BIAS_KHR TYPE_COMPOSITION_LAYER_COLOR_SCALE_BIAS_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -177,8 +177,7 @@ public class XrCompositionLayerColorScaleBiasKHR extends Struct<XrCompositionLay
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerColorScaleBiasKHR createSafe(long address) {
+    public static @Nullable XrCompositionLayerColorScaleBiasKHR createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerColorScaleBiasKHR(address, null);
     }
 
@@ -221,8 +220,7 @@ public class XrCompositionLayerColorScaleBiasKHR extends Struct<XrCompositionLay
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerColorScaleBiasKHR.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerColorScaleBiasKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,7 +265,7 @@ public class XrCompositionLayerColorScaleBiasKHR extends Struct<XrCompositionLay
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerColorScaleBiasKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerColorScaleBiasKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerColorScaleBiasKHR.NEXT); }
     /** Unsafe version of {@link #colorScale}. */
@@ -276,7 +274,7 @@ public class XrCompositionLayerColorScaleBiasKHR extends Struct<XrCompositionLay
     public static XrColor4f ncolorBias(long struct) { return XrColor4f.create(struct + XrCompositionLayerColorScaleBiasKHR.COLORBIAS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerColorScaleBiasKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerColorScaleBiasKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerColorScaleBiasKHR.NEXT, value); }
     /** Unsafe version of {@link #colorScale(XrColor4f) colorScale}. */
@@ -315,6 +313,11 @@ public class XrCompositionLayerColorScaleBiasKHR extends Struct<XrCompositionLay
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

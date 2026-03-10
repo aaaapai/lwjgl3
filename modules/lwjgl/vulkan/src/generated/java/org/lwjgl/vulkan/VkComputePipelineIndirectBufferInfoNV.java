@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,15 +18,19 @@ import static org.lwjgl.system.MemoryStack.*;
 /**
  * Structure describing the device address where pipeline’s metadata will be saved.
  * 
+ * <h5>Description</h5>
+ * 
+ * <p>If {@code pipelineDeviceAddressCaptureReplay} is zero, no specific address is requested. If {@code pipelineDeviceAddressCaptureReplay} is not zero, then it <b>must</b> be an address retrieved from an identically created pipeline on the same implementation. The pipeline metadata <b>must</b> also be placed on an identically created buffer and at the same offset using the {@link NVDeviceGeneratedCommandsCompute#vkCmdUpdatePipelineIndirectBufferNV CmdUpdatePipelineIndirectBufferNV} command.</p>
+ * 
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>The <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
+ * <li>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputePipelines}</a> feature <b>must</b> be enabled</li>
  * <li>The pipeline creation flags in {@link VkComputePipelineCreateInfo}{@code ::flags} <b>must</b> include {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
  * <li>{@code deviceAddress} <b>must</b> be aligned to the {@link VkMemoryRequirements2}{@code ::alignment}, as returned by {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</li>
  * <li>{@code deviceAddress} <b>must</b> have been allocated from a buffer that was created with usage {@link VK10#VK_BUFFER_USAGE_TRANSFER_DST_BIT BUFFER_USAGE_TRANSFER_DST_BIT} and {@link VK10#VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT BUFFER_USAGE_INDIRECT_BUFFER_BIT}</li>
  * <li>{@code size} <b>must</b> be greater than or equal to the {@link VkMemoryRequirements2}{@code ::size}, as returned by {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}</li>
- * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputeCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero then the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceGeneratedComputePipelines">{@link VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV}{@code ::deviceGeneratedComputeCaptureReplay}</a> feature <b>must</b> be enabled</li>
  * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero then that address <b>must</b> have been allocated with flag {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} set</li>
  * <li>If {@code pipelineDeviceAddressCaptureReplay} is non-zero, the {@code pipeline} <b>must</b> have been recreated for replay</li>
  * <li>{@code pipelineDeviceAddressCaptureReplay} <b>must</b> satisfy the {@code alignment} and {@code size} requirements similar to {@code deviceAddress}</li>
@@ -36,18 +40,17 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>{@code sType} <b>must</b> be {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
  * </ul>
  * 
  * <h3>Layout</h3>
  * 
  * <pre><code>
  * struct VkComputePipelineIndirectBufferInfoNV {
- *     VkStructureType sType;
- *     void const * pNext;
- *     VkDeviceAddress deviceAddress;
- *     VkDeviceSize size;
- *     VkDeviceAddress pipelineDeviceAddressCaptureReplay;
+ *     VkStructureType {@link #sType};
+ *     void const * {@link #pNext};
+ *     VkDeviceAddress {@link #deviceAddress};
+ *     VkDeviceSize {@link #size};
+ *     VkDeviceAddress {@link #pipelineDeviceAddressCaptureReplay};
  * }</code></pre>
  */
 public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipelineIndirectBufferInfoNV> implements NativeResource {
@@ -107,33 +110,33 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code sType} field. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** @return the value of the {@code pNext} field. */
+    /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** @return the value of the {@code deviceAddress} field. */
+    /** the address where the pipeline’s metadata will be stored. */
     @NativeType("VkDeviceAddress")
     public long deviceAddress() { return ndeviceAddress(address()); }
-    /** @return the value of the {@code size} field. */
+    /** the size of pipeline’s metadata that was queried using {@link NVDeviceGeneratedCommandsCompute#vkGetPipelineIndirectMemoryRequirementsNV GetPipelineIndirectMemoryRequirementsNV}. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
-    /** @return the value of the {@code pipelineDeviceAddressCaptureReplay} field. */
+    /** the device address where pipeline’s metadata was originally saved and can now be used to re-populate {@code deviceAddress} for replay. */
     @NativeType("VkDeviceAddress")
     public long pipelineDeviceAddressCaptureReplay() { return npipelineDeviceAddressCaptureReplay(address()); }
 
-    /** Sets the specified value to the {@code sType} field. */
+    /** Sets the specified value to the {@link #sType} field. */
     public VkComputePipelineIndirectBufferInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV} value to the {@code sType} field. */
+    /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV} value to the {@link #sType} field. */
     public VkComputePipelineIndirectBufferInfoNV sType$Default() { return sType(NVDeviceGeneratedCommandsCompute.VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV); }
-    /** Sets the specified value to the {@code pNext} field. */
+    /** Sets the specified value to the {@link #pNext} field. */
     public VkComputePipelineIndirectBufferInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code deviceAddress} field. */
+    /** Sets the specified value to the {@link #deviceAddress} field. */
     public VkComputePipelineIndirectBufferInfoNV deviceAddress(@NativeType("VkDeviceAddress") long value) { ndeviceAddress(address(), value); return this; }
-    /** Sets the specified value to the {@code size} field. */
+    /** Sets the specified value to the {@link #size} field. */
     public VkComputePipelineIndirectBufferInfoNV size(@NativeType("VkDeviceSize") long value) { nsize(address(), value); return this; }
-    /** Sets the specified value to the {@code pipelineDeviceAddressCaptureReplay} field. */
+    /** Sets the specified value to the {@link #pipelineDeviceAddressCaptureReplay} field. */
     public VkComputePipelineIndirectBufferInfoNV pipelineDeviceAddressCaptureReplay(@NativeType("VkDeviceAddress") long value) { npipelineDeviceAddressCaptureReplay(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -189,8 +192,7 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkComputePipelineIndirectBufferInfoNV createSafe(long address) {
+    public static @Nullable VkComputePipelineIndirectBufferInfoNV createSafe(long address) {
         return address == NULL ? null : new VkComputePipelineIndirectBufferInfoNV(address, null);
     }
 
@@ -233,8 +235,7 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkComputePipelineIndirectBufferInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkComputePipelineIndirectBufferInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,26 +280,26 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkComputePipelineIndirectBufferInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkComputePipelineIndirectBufferInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkComputePipelineIndirectBufferInfoNV.PNEXT); }
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkComputePipelineIndirectBufferInfoNV.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkComputePipelineIndirectBufferInfoNV.SIZE); }
     /** Unsafe version of {@link #pipelineDeviceAddressCaptureReplay}. */
-    public static long npipelineDeviceAddressCaptureReplay(long struct) { return UNSAFE.getLong(null, struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY); }
+    public static long npipelineDeviceAddressCaptureReplay(long struct) { return memGetLong(struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkComputePipelineIndirectBufferInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkComputePipelineIndirectBufferInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkComputePipelineIndirectBufferInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkComputePipelineIndirectBufferInfoNV.DEVICEADDRESS, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkComputePipelineIndirectBufferInfoNV.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkComputePipelineIndirectBufferInfoNV.SIZE, value); }
     /** Unsafe version of {@link #pipelineDeviceAddressCaptureReplay(long) pipelineDeviceAddressCaptureReplay}. */
-    public static void npipelineDeviceAddressCaptureReplay(long struct, long value) { UNSAFE.putLong(null, struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY, value); }
+    public static void npipelineDeviceAddressCaptureReplay(long struct, long value) { memPutLong(struct + VkComputePipelineIndirectBufferInfoNV.PIPELINEDEVICEADDRESSCAPTUREREPLAY, value); }
 
     // -----------------------------------
 
@@ -334,37 +335,42 @@ public class VkComputePipelineIndirectBufferInfoNV extends Struct<VkComputePipel
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkComputePipelineIndirectBufferInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code sType} field. */
+        /** @return the value of the {@link VkComputePipelineIndirectBufferInfoNV#sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkComputePipelineIndirectBufferInfoNV.nsType(address()); }
-        /** @return the value of the {@code pNext} field. */
+        /** @return the value of the {@link VkComputePipelineIndirectBufferInfoNV#pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkComputePipelineIndirectBufferInfoNV.npNext(address()); }
-        /** @return the value of the {@code deviceAddress} field. */
+        /** @return the value of the {@link VkComputePipelineIndirectBufferInfoNV#deviceAddress} field. */
         @NativeType("VkDeviceAddress")
         public long deviceAddress() { return VkComputePipelineIndirectBufferInfoNV.ndeviceAddress(address()); }
-        /** @return the value of the {@code size} field. */
+        /** @return the value of the {@link VkComputePipelineIndirectBufferInfoNV#size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VkComputePipelineIndirectBufferInfoNV.nsize(address()); }
-        /** @return the value of the {@code pipelineDeviceAddressCaptureReplay} field. */
+        /** @return the value of the {@link VkComputePipelineIndirectBufferInfoNV#pipelineDeviceAddressCaptureReplay} field. */
         @NativeType("VkDeviceAddress")
         public long pipelineDeviceAddressCaptureReplay() { return VkComputePipelineIndirectBufferInfoNV.npipelineDeviceAddressCaptureReplay(address()); }
 
-        /** Sets the specified value to the {@code sType} field. */
+        /** Sets the specified value to the {@link VkComputePipelineIndirectBufferInfoNV#sType} field. */
         public VkComputePipelineIndirectBufferInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkComputePipelineIndirectBufferInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV} value to the {@code sType} field. */
+        /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV} value to the {@link VkComputePipelineIndirectBufferInfoNV#sType} field. */
         public VkComputePipelineIndirectBufferInfoNV.Buffer sType$Default() { return sType(NVDeviceGeneratedCommandsCompute.VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV); }
-        /** Sets the specified value to the {@code pNext} field. */
+        /** Sets the specified value to the {@link VkComputePipelineIndirectBufferInfoNV#pNext} field. */
         public VkComputePipelineIndirectBufferInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkComputePipelineIndirectBufferInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code deviceAddress} field. */
+        /** Sets the specified value to the {@link VkComputePipelineIndirectBufferInfoNV#deviceAddress} field. */
         public VkComputePipelineIndirectBufferInfoNV.Buffer deviceAddress(@NativeType("VkDeviceAddress") long value) { VkComputePipelineIndirectBufferInfoNV.ndeviceAddress(address(), value); return this; }
-        /** Sets the specified value to the {@code size} field. */
+        /** Sets the specified value to the {@link VkComputePipelineIndirectBufferInfoNV#size} field. */
         public VkComputePipelineIndirectBufferInfoNV.Buffer size(@NativeType("VkDeviceSize") long value) { VkComputePipelineIndirectBufferInfoNV.nsize(address(), value); return this; }
-        /** Sets the specified value to the {@code pipelineDeviceAddressCaptureReplay} field. */
+        /** Sets the specified value to the {@link VkComputePipelineIndirectBufferInfoNV#pipelineDeviceAddressCaptureReplay} field. */
         public VkComputePipelineIndirectBufferInfoNV.Buffer pipelineDeviceAddressCaptureReplay(@NativeType("VkDeviceAddress") long value) { VkComputePipelineIndirectBufferInfoNV.npipelineDeviceAddressCaptureReplay(address(), value); return this; }
 
     }

@@ -204,7 +204,7 @@ val KHR_performance_query = "KHRPerformanceQuery".nativeClassVK("KHR_performance
 ￿  1,
 ￿  sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
 ￿  recordedCounters,
-￿  sizeof(VkPerformanceCounterResultKHR),
+￿  sizeof(VkPerformanceCounterResultKHR) * enabledCounterCount,
 ￿  NULL);
 ￿
 ￿// recordedCounters is filled with our counters, we will look at one for posterity
@@ -229,7 +229,6 @@ val KHR_performance_query = "KHRPerformanceQuery".nativeClassVK("KHR_performance
 ￿    break;
 ￿}</code></pre>
 
-        <h5>VK_KHR_performance_query</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_performance_query}</dd>
@@ -244,11 +243,11 @@ val KHR_performance_query = "KHRPerformanceQuery".nativeClassVK("KHR_performance
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Special Use</b></dt>
             <dd><ul>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">Developer tools</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>
@@ -434,7 +433,7 @@ val KHR_performance_query = "KHRPerformanceQuery".nativeClassVK("KHR_performance
 ￿    VkPerformanceCounterDescriptionKHR*         pCounterDescriptions);</code></pre>
 
         <h5>Description</h5>
-        If {@code pCounters} is {@code NULL} and {@code pCounterDescriptions} is {@code NULL}, then the number of counters available is returned in {@code pCounterCount}. Otherwise, {@code pCounterCount} <b>must</b> point to a variable set by the user to the number of elements in the {@code pCounters}, {@code pCounterDescriptions}, or both arrays and on return the variable is overwritten with the number of structures actually written out. If {@code pCounterCount} is less than the number of counters available, at most {@code pCounterCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available counters were returned.
+        If {@code pCounters} is {@code NULL} and {@code pCounterDescriptions} is {@code NULL}, then the number of counters available is returned in {@code pCounterCount}. Otherwise, {@code pCounterCount} <b>must</b> point to a variable set by the application to the number of elements in the {@code pCounters}, {@code pCounterDescriptions}, or both arrays and on return the variable is overwritten with the number of structures actually written out. If {@code pCounterCount} is less than the number of counters available, at most {@code pCounterCount} structures will be written, and #INCOMPLETE will be returned instead of #SUCCESS, to indicate that not all the available counters were returned.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

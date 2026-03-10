@@ -24,7 +24,6 @@ val NV_framebuffer_mixed_samples = "NVFramebufferMixedSamples".nativeClassVK("NV
             <li>A coverage reduction step is added to Fragment Operations which converts a set of covered raster/depth/stencil samples to a set of color samples that perform blending and color writes. The coverage reduction step also includes an optional coverage modulation step, multiplying color values by a fractional opacity corresponding to the number of associated raster/depth/stencil samples covered.</li>
         </ul>
 
-        <h5>VK_NV_framebuffer_mixed_samples</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_NV_framebuffer_mixed_samples}</dd>
@@ -37,6 +36,12 @@ val NV_framebuffer_mixed_samples = "NVFramebufferMixedSamples".nativeClassVK("NV
 
             <dt><b>Revision</b></dt>
             <dd>1</dd>
+
+            <dt><b>API Interactions</b></dt>
+            <dd><ul>
+                <li>Interacts with VK_VERSION_1_3</li>
+                <li>Interacts with VK_KHR_dynamic_rendering</li>
+            </ul></dd>
 
             <dt><b>Contact</b></dt>
             <dd><ul>
@@ -72,6 +77,12 @@ val NV_framebuffer_mixed_samples = "NVFramebufferMixedSamples".nativeClassVK("NV
         "Extends {@code VkStructureType}.",
 
         "STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV".."1000152000"
+    )
+
+    EnumConstant(
+        "Extends {@code VkStructureType}.",
+
+        "STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_NV".."1000044008"
     )
 
     EnumConstant(

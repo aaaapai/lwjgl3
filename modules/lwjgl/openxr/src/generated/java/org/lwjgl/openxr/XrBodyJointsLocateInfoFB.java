@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBBodyTracking XR_FB_body_tracking} extension <b>must</b> be enabled prior to using {@link XrBodyJointsLocateInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBBodyTracking#XR_TYPE_BODY_JOINTS_LOCATE_INFO_FB TYPE_BODY_JOINTS_LOCATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
  * </ul>
  * 
@@ -175,8 +175,7 @@ public class XrBodyJointsLocateInfoFB extends Struct<XrBodyJointsLocateInfoFB> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointsLocateInfoFB createSafe(long address) {
+    public static @Nullable XrBodyJointsLocateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrBodyJointsLocateInfoFB(address, null);
     }
 
@@ -219,8 +218,7 @@ public class XrBodyJointsLocateInfoFB extends Struct<XrBodyJointsLocateInfoFB> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrBodyJointsLocateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrBodyJointsLocateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,22 +263,22 @@ public class XrBodyJointsLocateInfoFB extends Struct<XrBodyJointsLocateInfoFB> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrBodyJointsLocateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrBodyJointsLocateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrBodyJointsLocateInfoFB.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrBodyJointsLocateInfoFB.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrBodyJointsLocateInfoFB.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrBodyJointsLocateInfoFB.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrBodyJointsLocateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrBodyJointsLocateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrBodyJointsLocateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrBodyJointsLocateInfoFB.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrBodyJointsLocateInfoFB.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrBodyJointsLocateInfoFB.TIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -322,6 +320,11 @@ public class XrBodyJointsLocateInfoFB extends Struct<XrBodyJointsLocateInfoFB> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

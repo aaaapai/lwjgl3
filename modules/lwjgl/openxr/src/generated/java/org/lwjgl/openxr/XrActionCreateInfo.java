@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -56,13 +56,13 @@ import static org.lwjgl.openxr.XR10.*;
  * <li>The application called {@code xrGetActionState*} or a haptic function with a subaction path that was not specified when the action was created.</li>
  * </ul>
  * 
- * <p>If {@code actionName} or {@code localizedActionName} are empty strings, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_INVALID ERROR_NAME_INVALID} or {@link XR10#XR_ERROR_LOCALIZED_NAME_INVALID ERROR_LOCALIZED_NAME_INVALID} respectively. If {@code actionName} or {@code localizedActionName} are duplicates of the corresponding field for any existing action in the specified action set, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_DUPLICATED ERROR_NAME_DUPLICATED} or {@link XR10#XR_ERROR_LOCALIZED_NAME_DUPLICATED ERROR_LOCALIZED_NAME_DUPLICATED} respectively. If the conflicting action is destroyed, the conflicting field is no longer considered duplicated. If {@code actionName} contains characters which are not allowed in a single level of a <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#well-formed-path-strings">well-formed path string</a>, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID}.</p>
+ * <p>If {@code actionName} or {@code localizedActionName} are empty strings, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_INVALID ERROR_NAME_INVALID} or {@link XR10#XR_ERROR_LOCALIZED_NAME_INVALID ERROR_LOCALIZED_NAME_INVALID} respectively. If {@code actionName} or {@code localizedActionName} are duplicates of the corresponding field for any existing action in the specified action set, the runtime <b>must</b> return {@link XR10#XR_ERROR_NAME_DUPLICATED ERROR_NAME_DUPLICATED} or {@link XR10#XR_ERROR_LOCALIZED_NAME_DUPLICATED ERROR_LOCALIZED_NAME_DUPLICATED} respectively. If the conflicting action is destroyed, the conflicting field is no longer considered duplicated. If {@code actionName} contains characters which are not allowed in a single level of a <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#semantic-paths-well-formed">well-formed path string</a>, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_FORMAT_INVALID ERROR_PATH_FORMAT_INVALID}.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_ACTION_CREATE_INFO TYPE_ACTION_CREATE_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code actionName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link XR10#XR_MAX_ACTION_NAME_SIZE MAX_ACTION_NAME_SIZE}</li>
  * <li>{@code actionType} <b>must</b> be a valid {@code XrActionType} value</li>
  * <li>If {@code countSubactionPaths} is not 0, {@code subactionPaths} <b>must</b> be a pointer to an array of {@code countSubactionPaths} valid {@code XrPath} values</li>
@@ -168,9 +168,8 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
     @NativeType("uint32_t")
     public int countSubactionPaths() { return ncountSubactionPaths(address()); }
     /** an array of {@code XrPath} or {@code NULL}. If this array is specified, it contains one or more subaction paths that the application intends to query action state for. */
-    @Nullable
     @NativeType("XrPath const *")
-    public LongBuffer subactionPaths() { return nsubactionPaths(address()); }
+    public @Nullable LongBuffer subactionPaths() { return nsubactionPaths(address()); }
     /** an array containing a {@code NULL} terminated {@code UTF}-8 string that can be presented to the user as a description of the action. This string should be in the system’s current active locale. */
     @NativeType("char[XR_MAX_LOCALIZED_ACTION_NAME_SIZE]")
     public ByteBuffer localizedActionName() { return nlocalizedActionName(address()); }
@@ -252,8 +251,7 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionCreateInfo createSafe(long address) {
+    public static @Nullable XrActionCreateInfo createSafe(long address) {
         return address == NULL ? null : new XrActionCreateInfo(address, null);
     }
 
@@ -296,8 +294,7 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static XrActionCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -342,7 +339,7 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionCreateInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionCreateInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionCreateInfo.NEXT); }
     /** Unsafe version of {@link #actionName}. */
@@ -350,18 +347,18 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
     /** Unsafe version of {@link #actionNameString}. */
     public static String nactionNameString(long struct) { return memUTF8(struct + XrActionCreateInfo.ACTIONNAME); }
     /** Unsafe version of {@link #actionType}. */
-    public static int nactionType(long struct) { return UNSAFE.getInt(null, struct + XrActionCreateInfo.ACTIONTYPE); }
+    public static int nactionType(long struct) { return memGetInt(struct + XrActionCreateInfo.ACTIONTYPE); }
     /** Unsafe version of {@link #countSubactionPaths}. */
-    public static int ncountSubactionPaths(long struct) { return UNSAFE.getInt(null, struct + XrActionCreateInfo.COUNTSUBACTIONPATHS); }
+    public static int ncountSubactionPaths(long struct) { return memGetInt(struct + XrActionCreateInfo.COUNTSUBACTIONPATHS); }
     /** Unsafe version of {@link #subactionPaths() subactionPaths}. */
-    @Nullable public static LongBuffer nsubactionPaths(long struct) { return memLongBufferSafe(memGetAddress(struct + XrActionCreateInfo.SUBACTIONPATHS), ncountSubactionPaths(struct)); }
+    public static @Nullable LongBuffer nsubactionPaths(long struct) { return memLongBufferSafe(memGetAddress(struct + XrActionCreateInfo.SUBACTIONPATHS), ncountSubactionPaths(struct)); }
     /** Unsafe version of {@link #localizedActionName}. */
     public static ByteBuffer nlocalizedActionName(long struct) { return memByteBuffer(struct + XrActionCreateInfo.LOCALIZEDACTIONNAME, XR_MAX_LOCALIZED_ACTION_NAME_SIZE); }
     /** Unsafe version of {@link #localizedActionNameString}. */
     public static String nlocalizedActionNameString(long struct) { return memUTF8(struct + XrActionCreateInfo.LOCALIZEDACTIONNAME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionCreateInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionCreateInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionCreateInfo.NEXT, value); }
     /** Unsafe version of {@link #actionName(ByteBuffer) actionName}. */
@@ -373,9 +370,9 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
         memCopy(memAddress(value), struct + XrActionCreateInfo.ACTIONNAME, value.remaining());
     }
     /** Unsafe version of {@link #actionType(int) actionType}. */
-    public static void nactionType(long struct, int value) { UNSAFE.putInt(null, struct + XrActionCreateInfo.ACTIONTYPE, value); }
+    public static void nactionType(long struct, int value) { memPutInt(struct + XrActionCreateInfo.ACTIONTYPE, value); }
     /** Sets the specified value to the {@code countSubactionPaths} field of the specified {@code struct}. */
-    public static void ncountSubactionPaths(long struct, int value) { UNSAFE.putInt(null, struct + XrActionCreateInfo.COUNTSUBACTIONPATHS, value); }
+    public static void ncountSubactionPaths(long struct, int value) { memPutInt(struct + XrActionCreateInfo.COUNTSUBACTIONPATHS, value); }
     /** Unsafe version of {@link #subactionPaths(LongBuffer) subactionPaths}. */
     public static void nsubactionPaths(long struct, @Nullable LongBuffer value) { memPutAddress(struct + XrActionCreateInfo.SUBACTIONPATHS, memAddressSafe(value)); if (value != null) { ncountSubactionPaths(struct, value.remaining()); } }
     /** Unsafe version of {@link #localizedActionName(ByteBuffer) localizedActionName}. */
@@ -421,6 +418,11 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrActionCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -444,9 +446,8 @@ public class XrActionCreateInfo extends Struct<XrActionCreateInfo> implements Na
         @NativeType("uint32_t")
         public int countSubactionPaths() { return XrActionCreateInfo.ncountSubactionPaths(address()); }
         /** @return a {@link LongBuffer} view of the data pointed to by the {@link XrActionCreateInfo#subactionPaths} field. */
-        @Nullable
         @NativeType("XrPath const *")
-        public LongBuffer subactionPaths() { return XrActionCreateInfo.nsubactionPaths(address()); }
+        public @Nullable LongBuffer subactionPaths() { return XrActionCreateInfo.nsubactionPaths(address()); }
         /** @return a {@link ByteBuffer} view of the {@link XrActionCreateInfo#localizedActionName} field. */
         @NativeType("char[XR_MAX_LOCALIZED_ACTION_NAME_SIZE]")
         public ByteBuffer localizedActionName() { return XrActionCreateInfo.nlocalizedActionName(address()); }

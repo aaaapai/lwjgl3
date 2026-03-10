@@ -11,11 +11,10 @@ import vulkan.*
 val EXT_non_seamless_cube_map = "EXTNonSeamlessCubeMap".nativeClassVK("EXT_non_seamless_cube_map", type = "device", postfix = "EXT") {
     documentation =
         """
-        This extension provides functionality to disable <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#textures-cubemapedge">cube map edge handling</a> on a per sampler level which matches the behavior of other graphics APIs.
+        This extension provides functionality to disable <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#textures-cubemapedge">cube map edge handling</a> on a per sampler level which matches the behavior of other graphics APIs.
 
         This extension may be useful for building translation layers for those APIs or for porting applications that rely on this cube map behavior.
 
-        <h5>VK_EXT_non_seamless_cube_map</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_non_seamless_cube_map}</dd>
@@ -30,12 +29,12 @@ val EXT_non_seamless_cube_map = "EXTNonSeamlessCubeMap".nativeClassVK("EXT_non_s
             <dd>1</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
-            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+            <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#versions-1.1">Version 1.1</a></dd>
 
             <dt><b>Special Uses</b></dt>
             <dd><ul>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
-                <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">D3D support</a></li>
+                <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
             </ul></dd>
 
             <dt><b>Contact</b></dt>

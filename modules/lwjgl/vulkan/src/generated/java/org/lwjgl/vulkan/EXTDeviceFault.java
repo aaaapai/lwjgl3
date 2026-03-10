@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -18,8 +18,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <p>This extension introduces a new command: {@link #vkGetDeviceFaultInfoEXT GetDeviceFaultInfoEXT}, which may be called subsequent to a {@link VK10#VK_ERROR_DEVICE_LOST ERROR_DEVICE_LOST} error code having been returned by the implementation. This command allows developers to query for additional information on GPU faults which may have caused device loss, and to generate binary crash dumps, which may be loaded into external tools for further diagnosis.</p>
  * 
- * <h5>VK_EXT_device_fault</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_device_fault}</dd>
@@ -30,7 +28,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  * <dt><b>Revision</b></dt>
  * <dd>2</dd>
  * <dt><b>Extension and Version Dependencies</b></dt>
- * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2}</dd>
+ * <dd>{@link KHRGetPhysicalDeviceProperties2 VK_KHR_get_physical_device_properties2} or <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1">Version 1.1</a></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Ralph Potter r_potter</li>
@@ -163,9 +161,9 @@ public class EXTDeviceFault {
      * 
      * <p>If {@code pFaultInfo} is {@code NULL}, then the counts of corresponding additional fault information structures available are returned in the {@code addressInfoCount} and {@code vendorInfoCount} members of {@code pFaultCounts}. Additionally, the size of any vendor-specific binary crash dump is returned in the {@code vendorBinarySize} member of {@code pFaultCounts}.</p>
      * 
-     * <p>If {@code pFaultInfo} is not {@code NULL}, {@code pFaultCounts} <b>must</b> point to a {@link VkDeviceFaultCountsEXT} structure with each structure count or size member ({@code addressInfoCount}, {@code vendorInfoCount}, {@code vendorBinarySize}) set by the user to the number of elements in the corresponding output array member of {@code pFaultInfo} ({@code pAddressInfos} and {@code pVendorInfos}), or to the size of the output buffer in bytes ({@code pVendorBinaryData}). On return, each structure count member is overwritten with the number of structures actually written to the corresponding output array member of {@code pFaultInfo}. Similarly, {@code vendorBinarySize} is overwritten with the number of bytes actually written to the {@code pVendorBinaryData} member of {@code pFaultInfo}.</p>
+     * <p>If {@code pFaultInfo} is not {@code NULL}, {@code pFaultCounts} <b>must</b> point to a {@link VkDeviceFaultCountsEXT} structure with each structure count or size member ({@code addressInfoCount}, {@code vendorInfoCount}, {@code vendorBinarySize}) set by the application to the number of elements in the corresponding output array member of {@code pFaultInfo} ({@code pAddressInfos} and {@code pVendorInfos}), or to the size of the output buffer in bytes ({@code pVendorBinaryData}). On return, each structure count member is overwritten with the number of structures actually written to the corresponding output array member of {@code pFaultInfo}. Similarly, {@code vendorBinarySize} is overwritten with the number of bytes actually written to the {@code pVendorBinaryData} member of {@code pFaultInfo}.</p>
      * 
-     * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-deviceFaultVendorBinary">vendor-specific crash dumps</a> feature is not enabled, then implementations <b>must</b> set {@code pFaultCounts}-&gt;vendorBinarySize to zero and <b>must</b> not modify {@code pFaultInfo}-&gt;pVendorBinaryData.</p>
+     * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-deviceFaultVendorBinary">vendor-specific crash dumps</a> feature is not enabled, then implementations <b>must</b> set {@code pFaultCounts}-&gt;vendorBinarySize to zero and <b>must</b> not modify {@code pFaultInfo}-&gt;pVendorBinaryData.</p>
      * 
      * <p>If any {@code pFaultCounts} structure count member is less than the number of corresponding fault properties available, at most structure count ({@code addressInfoCount}, {@code vendorInfoCount}) elements will be written to the associated {@code pFaultInfo} output array. Similarly, if {@code vendorBinarySize} is less than the size in bytes of the available crash dump data, at most {@code vendorBinarySize} elements will be written to {@code pVendorBinaryData}.</p>
      * 
@@ -175,15 +173,15 @@ public class EXTDeviceFault {
      * 
      * <p>If any {@code pFaultCounts} structure count member is smaller than the number of corresponding fault properties available, or if {@code pFaultCounts}-&gt;vendorBinarySize is smaller than the size in bytes of the generated binary crash dump data, {@link VK10#VK_INCOMPLETE INCOMPLETE} will be returned instead of {@link VK10#VK_SUCCESS SUCCESS}, to indicate that not all the available properties were returned.</p>
      * 
-     * <p>If {@code pFaultCounts}-&gt;vendorBinarySize is less than what is necessary to store the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#vendor-binary-crash-dumps">binary crash dump header</a>, nothing will be written to {@code pFaultInfo}-&gt;pVendorBinaryData and zero will be written to {@code pFaultCounts}-&gt;vendorBinarySize.</p>
+     * <p>If {@code pFaultCounts}-&gt;vendorBinarySize is less than what is necessary to store the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vendor-binary-crash-dumps">binary crash dump header</a>, nothing will be written to {@code pFaultInfo}-&gt;pVendorBinaryData and zero will be written to {@code pFaultCounts}-&gt;vendorBinarySize.</p>
      * 
      * <h5>Valid Usage</h5>
      * 
      * <ul>
      * <li>{@code device} <b>must</b> be in the <em>lost</em> state</li>
-     * <li>If the value referenced by {@code pFaultCounts→addressInfoCount} is not 0, and {@code pFaultInfo→pAddressInfos} is not {@code NULL}, {@code pFaultInfo→pAddressInfos} must be a valid pointer to an array of {@code pFaultCounts→addressInfoCount} {@link VkDeviceFaultAddressInfoEXT} structures</li>
-     * <li>If the value referenced by {@code pFaultCounts→vendorInfoCount} is not 0, and {@code pFaultInfo→pVendorInfos} is not {@code NULL}, {@code pFaultInfo→pVendorInfos} must be a valid pointer to an array of {@code pFaultCounts→vendorInfoCount} {@link VkDeviceFaultVendorInfoEXT} structures</li>
-     * <li>If the value referenced by {@code pFaultCounts→vendorBinarySize} is not 0, and {@code pFaultInfo→pVendorBinaryData} is not {@code NULL}, {@code pFaultInfo→pVendorBinaryData} must be a valid pointer to an array of {@code pFaultCounts→vendorBinarySize} bytes</li>
+     * <li>If the value referenced by {@code pFaultCounts→addressInfoCount} is not 0, and {@code pFaultInfo→pAddressInfos} is not {@code NULL}, {@code pFaultInfo→pAddressInfos} <b>must</b> be a valid pointer to an array of {@code pFaultCounts→addressInfoCount} {@link VkDeviceFaultAddressInfoEXT} structures</li>
+     * <li>If the value referenced by {@code pFaultCounts→vendorInfoCount} is not 0, and {@code pFaultInfo→pVendorInfos} is not {@code NULL}, {@code pFaultInfo→pVendorInfos} <b>must</b> be a valid pointer to an array of {@code pFaultCounts→vendorInfoCount} {@link VkDeviceFaultVendorInfoEXT} structures</li>
+     * <li>If the value referenced by {@code pFaultCounts→vendorBinarySize} is not 0, and {@code pFaultInfo→pVendorBinaryData} is not {@code NULL}, {@code pFaultInfo→pVendorBinaryData} <b>must</b> be a valid pointer to an array of {@code pFaultCounts→vendorBinarySize} bytes</li>
      * </ul>
      * 
      * <h5>Valid Usage (Implicit)</h5>
@@ -217,7 +215,7 @@ public class EXTDeviceFault {
      * @param pFaultInfo   {@code NULL} or a pointer to a {@link VkDeviceFaultInfoEXT} structure in which fault information is returned.
      */
     @NativeType("VkResult")
-    public static int vkGetDeviceFaultInfoEXT(VkDevice device, @NativeType("VkDeviceFaultCountsEXT *") VkDeviceFaultCountsEXT pFaultCounts, @Nullable @NativeType("VkDeviceFaultInfoEXT *") VkDeviceFaultInfoEXT pFaultInfo) {
+    public static int vkGetDeviceFaultInfoEXT(VkDevice device, @NativeType("VkDeviceFaultCountsEXT *") VkDeviceFaultCountsEXT pFaultCounts, @NativeType("VkDeviceFaultInfoEXT *") @Nullable VkDeviceFaultInfoEXT pFaultInfo) {
         return nvkGetDeviceFaultInfoEXT(device, pFaultCounts.address(), memAddressSafe(pFaultInfo));
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -129,6 +129,8 @@ public class KTX {
 
     public static final int KTX_GL_UNPACK_ALIGNMENT = 4;
 
+    public static final int KTX_FACESLICE_WHOLE_LEVEL = 0xFFFFFFFF;
+
     public static final int KTX_TRUE = 1;
 
     public static final int KTX_FALSE = 0;
@@ -156,8 +158,8 @@ public class KTX {
      * <li>{@link #KTX_FILE_WRITE_ERROR FILE_WRITE_ERROR} - An error occurred while writing to the file.</li>
      * <li>{@link #KTX_GL_ERROR GL_ERROR} - GL operations resulted in an error.</li>
      * <li>{@link #KTX_INVALID_OPERATION INVALID_OPERATION} - The operation is not allowed in the current state.</li>
-     * <li>{@link #KTX_INVALID_VALUE INVALID_VALUE} - A parameter value was not valid</li>
-     * <li>{@link #KTX_NOT_FOUND NOT_FOUND} - Requested key was not found</li>
+     * <li>{@link #KTX_INVALID_VALUE INVALID_VALUE} - A parameter value was not valid.</li>
+     * <li>{@link #KTX_NOT_FOUND NOT_FOUND} - Requested metadata key or required dynamically loaded GPU function was not found.</li>
      * <li>{@link #KTX_OUT_OF_MEMORY OUT_OF_MEMORY} - Not enough memory to complete the operation.</li>
      * <li>{@link #KTX_TRANSCODE_FAILED TRANSCODE_FAILED} - Transcoding of block compressed texture failed.</li>
      * <li>{@link #KTX_UNKNOWN_FILE_FORMAT UNKNOWN_FILE_FORMAT} - The file not a KTX file</li>
@@ -628,17 +630,15 @@ public class KTX {
     }
 
     /** Returns a pointer to the image data of a {@code ktxTexture} object. */
-    @Nullable
     @NativeType("ktx_uint8_t *")
-    public static ByteBuffer ktxTexture_GetData(@NativeType("ktxTexture *") ktxTexture This) {
+    public static @Nullable ByteBuffer ktxTexture_GetData(@NativeType("ktxTexture *") ktxTexture This) {
         long __result = nktxTexture_GetData(This.address());
         return memByteBufferSafe(__result, (int)ktxTexture_GetDataSize(This));
     }
 
     /** Returns a pointer to the image data of a {@code ktxTexture} object. */
-    @Nullable
     @NativeType("ktx_uint8_t *")
-    public static ByteBuffer ktxTexture_GetData(@NativeType("ktxTexture *") ktxTexture This, long length) {
+    public static @Nullable ByteBuffer ktxTexture_GetData(@NativeType("ktxTexture *") ktxTexture This, long length) {
         long __result = nktxTexture_GetData(This.address());
         return memByteBufferSafe(__result, (int)length);
     }
@@ -1169,9 +1169,8 @@ public class KTX {
     }
 
     /** Returns a string corresponding to a KTX error code. */
-    @Nullable
     @NativeType("char const *")
-    public static String ktxErrorString(@NativeType("KTX_error_code") int error) {
+    public static @Nullable String ktxErrorString(@NativeType("KTX_error_code") int error) {
         long __result = nktxErrorString(error);
         return memASCIISafe(__result);
     }
@@ -1185,9 +1184,8 @@ public class KTX {
     }
 
     /** Returns a string corresponding to a supercompression scheme. */
-    @Nullable
     @NativeType("char const *")
-    public static String ktxSupercompressionSchemeString(@NativeType("ktxSupercmpScheme") int scheme) {
+    public static @Nullable String ktxSupercompressionSchemeString(@NativeType("ktxSupercmpScheme") int scheme) {
         long __result = nktxSupercompressionSchemeString(scheme);
         return memASCIISafe(__result);
     }
@@ -1201,9 +1199,8 @@ public class KTX {
     }
 
     /** Returns a string corresponding to a transcode target format. */
-    @Nullable
     @NativeType("char const *")
-    public static String ktxTranscodeFormatString(@NativeType("ktx_transcode_fmt_e") int format) {
+    public static @Nullable String ktxTranscodeFormatString(@NativeType("ktx_transcode_fmt_e") int format) {
         long __result = nktxTranscodeFormatString(format);
         return memASCIISafe(__result);
     }

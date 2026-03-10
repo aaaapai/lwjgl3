@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBSpaceWarp XR_FB_space_warp} extension <b>must</b> be enabled prior to using {@link XrSystemSpaceWarpPropertiesFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBSpaceWarp#XR_TYPE_SYSTEM_SPACE_WARP_PROPERTIES_FB TYPE_SYSTEM_SPACE_WARP_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -161,8 +161,7 @@ public class XrSystemSpaceWarpPropertiesFB extends Struct<XrSystemSpaceWarpPrope
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemSpaceWarpPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemSpaceWarpPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemSpaceWarpPropertiesFB(address, null);
     }
 
@@ -205,8 +204,7 @@ public class XrSystemSpaceWarpPropertiesFB extends Struct<XrSystemSpaceWarpPrope
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemSpaceWarpPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemSpaceWarpPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,16 +249,16 @@ public class XrSystemSpaceWarpPropertiesFB extends Struct<XrSystemSpaceWarpPrope
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemSpaceWarpPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemSpaceWarpPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemSpaceWarpPropertiesFB.NEXT); }
     /** Unsafe version of {@link #recommendedMotionVectorImageRectWidth}. */
-    public static int nrecommendedMotionVectorImageRectWidth(long struct) { return UNSAFE.getInt(null, struct + XrSystemSpaceWarpPropertiesFB.RECOMMENDEDMOTIONVECTORIMAGERECTWIDTH); }
+    public static int nrecommendedMotionVectorImageRectWidth(long struct) { return memGetInt(struct + XrSystemSpaceWarpPropertiesFB.RECOMMENDEDMOTIONVECTORIMAGERECTWIDTH); }
     /** Unsafe version of {@link #recommendedMotionVectorImageRectHeight}. */
-    public static int nrecommendedMotionVectorImageRectHeight(long struct) { return UNSAFE.getInt(null, struct + XrSystemSpaceWarpPropertiesFB.RECOMMENDEDMOTIONVECTORIMAGERECTHEIGHT); }
+    public static int nrecommendedMotionVectorImageRectHeight(long struct) { return memGetInt(struct + XrSystemSpaceWarpPropertiesFB.RECOMMENDEDMOTIONVECTORIMAGERECTHEIGHT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemSpaceWarpPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemSpaceWarpPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemSpaceWarpPropertiesFB.NEXT, value); }
 
@@ -295,6 +293,11 @@ public class XrSystemSpaceWarpPropertiesFB extends Struct<XrSystemSpaceWarpPrope
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

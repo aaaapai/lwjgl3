@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>{@link XrPassthroughColorMapInterpolatedLutMETA} lets applications apply the interpolation between two color LUTs to a passthrough layer. Applications <b>may</b> use this feature to smoothly transition between two color LUTs. Other Passthrough style elements (such as edges) <b>must</b> not be affected by color LUTs.</p>
  * 
- * <p>The blend between {@code sourceColorLut} and {@code targetColorLut} is computed as <code>(1 - weight) * sourceColorLut[C<sub>in</sub>] + weight * targetColorLut[C<sub>in</sub>]</code>.</p>
+ * <p>The blend between {@code sourceColorLut} and {@code targetColorLut} is computed as <code>(1 - weight) * sourceColorLut [C<sub>in</sub>] + weight * targetColorLut [C<sub>in</sub>]</code>.</p>
  * 
  * <p>{@link XrPassthroughColorMapInterpolatedLutMETA} is provided in the {@code next} chain of {@link XrPassthroughStyleFB} when calling {@link FBPassthrough#xrPassthroughLayerSetStyleFB PassthroughLayerSetStyleFB}. Subsequent calls to {@link FBPassthrough#xrPassthroughLayerSetStyleFB PassthroughLayerSetStyleFB} with {@link XrPassthroughColorMapInterpolatedLutMETA} in the next chain update the color LUT for that layer. Subsequent calls to {@link FBPassthrough#xrPassthroughLayerSetStyleFB PassthroughLayerSetStyleFB} without this {@link XrPassthroughColorMapInterpolatedLutMETA} (or {@link XrPassthroughColorMapLutMETA}) in the next chain disable color LUTs for that layer.</p>
  * 
@@ -32,7 +32,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link METAPassthroughColorLut XR_META_passthrough_color_lut} extension <b>must</b> be enabled prior to using {@link XrPassthroughColorMapInterpolatedLutMETA}</li>
  * <li>{@code type} <b>must</b> be {@link METAPassthroughColorLut#XR_TYPE_PASSTHROUGH_COLOR_MAP_INTERPOLATED_LUT_META TYPE_PASSTHROUGH_COLOR_MAP_INTERPOLATED_LUT_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code sourceColorLut} <b>must</b> be a valid {@code XrPassthroughColorLutMETA} handle</li>
  * <li>{@code targetColorLut} <b>must</b> be a valid {@code XrPassthroughColorLutMETA} handle</li>
  * <li>Both of {@code sourceColorLut} and {@code targetColorLut} <b>must</b> have been created, allocated, or retrieved from the same {@code XrPassthroughFB}</li>
@@ -187,8 +187,7 @@ public class XrPassthroughColorMapInterpolatedLutMETA extends Struct<XrPassthrou
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapInterpolatedLutMETA createSafe(long address) {
+    public static @Nullable XrPassthroughColorMapInterpolatedLutMETA createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorMapInterpolatedLutMETA(address, null);
     }
 
@@ -231,8 +230,7 @@ public class XrPassthroughColorMapInterpolatedLutMETA extends Struct<XrPassthrou
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapInterpolatedLutMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorMapInterpolatedLutMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,7 +275,7 @@ public class XrPassthroughColorMapInterpolatedLutMETA extends Struct<XrPassthrou
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorMapInterpolatedLutMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorMapInterpolatedLutMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorMapInterpolatedLutMETA.NEXT); }
     /** Unsafe version of {@link #sourceColorLut}. */
@@ -285,10 +283,10 @@ public class XrPassthroughColorMapInterpolatedLutMETA extends Struct<XrPassthrou
     /** Unsafe version of {@link #targetColorLut}. */
     public static long ntargetColorLut(long struct) { return memGetAddress(struct + XrPassthroughColorMapInterpolatedLutMETA.TARGETCOLORLUT); }
     /** Unsafe version of {@link #weight}. */
-    public static float nweight(long struct) { return UNSAFE.getFloat(null, struct + XrPassthroughColorMapInterpolatedLutMETA.WEIGHT); }
+    public static float nweight(long struct) { return memGetFloat(struct + XrPassthroughColorMapInterpolatedLutMETA.WEIGHT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorMapInterpolatedLutMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorMapInterpolatedLutMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorMapInterpolatedLutMETA.NEXT, value); }
     /** Unsafe version of {@link #sourceColorLut(XrPassthroughColorLutMETA) sourceColorLut}. */
@@ -296,7 +294,7 @@ public class XrPassthroughColorMapInterpolatedLutMETA extends Struct<XrPassthrou
     /** Unsafe version of {@link #targetColorLut(XrPassthroughColorLutMETA) targetColorLut}. */
     public static void ntargetColorLut(long struct, XrPassthroughColorLutMETA value) { memPutAddress(struct + XrPassthroughColorMapInterpolatedLutMETA.TARGETCOLORLUT, value.address()); }
     /** Unsafe version of {@link #weight(float) weight}. */
-    public static void nweight(long struct, float value) { UNSAFE.putFloat(null, struct + XrPassthroughColorMapInterpolatedLutMETA.WEIGHT, value); }
+    public static void nweight(long struct, float value) { memPutFloat(struct + XrPassthroughColorMapInterpolatedLutMETA.WEIGHT, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -339,6 +337,11 @@ public class XrPassthroughColorMapInterpolatedLutMETA extends Struct<XrPassthrou
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

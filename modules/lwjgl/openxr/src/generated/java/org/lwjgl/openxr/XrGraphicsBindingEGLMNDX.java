@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -32,7 +32,7 @@ import org.lwjgl.egl.*;
  * <ul>
  * <li>The {@link MNDXEGLEnable XR_MNDX_egl_enable} extension <b>must</b> be enabled prior to using {@link XrGraphicsBindingEGLMNDX}</li>
  * <li>{@code type} <b>must</b> be {@link MNDXEGLEnable#XR_TYPE_GRAPHICS_BINDING_EGL_MNDX TYPE_GRAPHICS_BINDING_EGL_MNDX}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code getProcAddress} <b>must</b> be a valid {@code PFN_xrEglGetProcAddressMNDX} value</li>
  * <li>{@code display} <b>must</b> be a valid {@code EGLDisplay} value</li>
  * <li>{@code config} <b>must</b> be a valid {@code EGLConfig} value</li>
@@ -204,8 +204,7 @@ public class XrGraphicsBindingEGLMNDX extends Struct<XrGraphicsBindingEGLMNDX> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingEGLMNDX createSafe(long address) {
+    public static @Nullable XrGraphicsBindingEGLMNDX createSafe(long address) {
         return address == NULL ? null : new XrGraphicsBindingEGLMNDX(address, null);
     }
 
@@ -248,8 +247,7 @@ public class XrGraphicsBindingEGLMNDX extends Struct<XrGraphicsBindingEGLMNDX> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsBindingEGLMNDX.Buffer createSafe(long address, int capacity) {
+    public static XrGraphicsBindingEGLMNDX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -294,7 +292,7 @@ public class XrGraphicsBindingEGLMNDX extends Struct<XrGraphicsBindingEGLMNDX> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsBindingEGLMNDX.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGraphicsBindingEGLMNDX.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGraphicsBindingEGLMNDX.NEXT); }
     /** Unsafe version of {@link #getProcAddress}. */
@@ -307,7 +305,7 @@ public class XrGraphicsBindingEGLMNDX extends Struct<XrGraphicsBindingEGLMNDX> i
     public static long ncontext(long struct) { return memGetAddress(struct + XrGraphicsBindingEGLMNDX.CONTEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsBindingEGLMNDX.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGraphicsBindingEGLMNDX.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGraphicsBindingEGLMNDX.NEXT, value); }
     /** Unsafe version of {@link #getProcAddress(long) getProcAddress}. */
@@ -362,6 +360,11 @@ public class XrGraphicsBindingEGLMNDX extends Struct<XrGraphicsBindingEGLMNDX> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

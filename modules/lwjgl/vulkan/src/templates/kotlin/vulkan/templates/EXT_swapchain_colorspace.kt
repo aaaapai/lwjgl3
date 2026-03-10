@@ -13,7 +13,6 @@ val EXT_swapchain_colorspace = "EXTSwapchainColorspace".nativeClassVK("EXT_swapc
         """
         This extension expands {@code VkColorSpaceKHR} to add support for most standard color spaces beyond #COLOR_SPACE_SRGB_NONLINEAR_KHR. This extension also adds support for #COLOR_SPACE_PASS_THROUGH_EXT which allows applications to use color spaces not explicitly enumerated in {@code VkColorSpaceKHR}.
 
-        <h5>VK_EXT_swapchain_colorspace</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_EXT_swapchain_colorspace}</dd>
@@ -25,7 +24,7 @@ val EXT_swapchain_colorspace = "EXTSwapchainColorspace".nativeClassVK("EXT_swapc
             <dd>105</dd>
 
             <dt><b>Revision</b></dt>
-            <dd>4</dd>
+            <dd>5</dd>
 
             <dt><b>Extension and Version Dependencies</b></dt>
             <dd>{@link KHRSurface VK_KHR_surface}</dd>
@@ -54,7 +53,7 @@ val EXT_swapchain_colorspace = "EXTSwapchainColorspace".nativeClassVK("EXT_swapc
     IntConstant(
         "The extension specification version.",
 
-        "EXT_SWAPCHAIN_COLOR_SPACE_SPEC_VERSION".."4"
+        "EXT_SWAPCHAIN_COLOR_SPACE_SPEC_VERSION".."5"
     )
 
     StringConstant(

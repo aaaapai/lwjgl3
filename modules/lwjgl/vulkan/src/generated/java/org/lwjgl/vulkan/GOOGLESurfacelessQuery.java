@@ -8,8 +8,6 @@ package org.lwjgl.vulkan;
 /**
  * This extension allows the {@link KHRSurface#vkGetPhysicalDeviceSurfaceFormatsKHR GetPhysicalDeviceSurfaceFormatsKHR} and {@link KHRSurface#vkGetPhysicalDeviceSurfacePresentModesKHR GetPhysicalDeviceSurfacePresentModesKHR} functions to accept {@link VK10#VK_NULL_HANDLE NULL_HANDLE} as their {@code surface} parameter, allowing potential surface formats, color spaces and present modes to be queried without providing a surface. Identically, {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceFormats2KHR GetPhysicalDeviceSurfaceFormats2KHR}, {@link EXTFullScreenExclusive#vkGetPhysicalDeviceSurfacePresentModes2EXT GetPhysicalDeviceSurfacePresentModes2EXT}, and {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceCapabilities2KHR GetPhysicalDeviceSurfaceCapabilities2KHR} would accept {@link VK10#VK_NULL_HANDLE NULL_HANDLE} in {@link VkPhysicalDeviceSurfaceInfo2KHR}{@code ::surface}. <b>This can only be supported on platforms where the results of these queries are surface-agnostic and a single presentation engine is the implicit target of all present operations</b>.
  * 
- * <h5>VK_GOOGLE_surfaceless_query</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_GOOGLE_surfaceless_query}</dd>
@@ -23,7 +21,7 @@ package org.lwjgl.vulkan;
  * <dd>{@link KHRSurface VK_KHR_surface}</dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>

@@ -11,7 +11,7 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.system.MemoryUtil.*;
@@ -107,7 +107,7 @@ public class GLFWNativeWGL {
         if (a != NULL) {
             nmemFree(a);
         }
-        memPutAddress(override, path == null ? NULL : memAddress(memUTF16(path)));
+        memPutAddress(override, path == null ? NULL : memAddress(memUTF8(path)));
     }
 
 }

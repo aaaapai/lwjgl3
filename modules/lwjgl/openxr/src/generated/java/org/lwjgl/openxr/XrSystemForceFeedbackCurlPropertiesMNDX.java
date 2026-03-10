@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -22,14 +22,14 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <p>An application <b>may</b> inspect whether the system is capable of force feedback by chaining an {@link XrSystemForceFeedbackCurlPropertiesMNDX} structure to the {@link XrSystemProperties} structure when calling {@link XR10#xrGetSystemProperties GetSystemProperties}.</p>
  * 
- * <p>The runtime <b>should</b> return {@link XR10#XR_TRUE TRUE} for {@code supportsForceFeedback} when force feedback is available in the system, otherwise {@link XR10#XR_FALSE FALSE}. Force feedback calls <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} if force feedback is not available in the system.</p>
+ * <p>The runtime <b>should</b> return {@link XR10#XR_TRUE TRUE} for {@code supportsForceFeedbackCurl} when force feedback is available in the system, otherwise {@link XR10#XR_FALSE FALSE}. Force feedback calls <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} if force feedback is not available in the system.</p>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
  * <ul>
  * <li>The {@link MNDXForceFeedbackCurl XR_MNDX_force_feedback_curl} extension <b>must</b> be enabled prior to using {@link XrSystemForceFeedbackCurlPropertiesMNDX}</li>
  * <li>{@code type} <b>must</b> be {@link MNDXForceFeedbackCurl#XR_TYPE_SYSTEM_FORCE_FEEDBACK_CURL_PROPERTIES_MNDX TYPE_SYSTEM_FORCE_FEEDBACK_CURL_PROPERTIES_MNDX}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -160,8 +160,7 @@ public class XrSystemForceFeedbackCurlPropertiesMNDX extends Struct<XrSystemForc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemForceFeedbackCurlPropertiesMNDX createSafe(long address) {
+    public static @Nullable XrSystemForceFeedbackCurlPropertiesMNDX createSafe(long address) {
         return address == NULL ? null : new XrSystemForceFeedbackCurlPropertiesMNDX(address, null);
     }
 
@@ -204,8 +203,7 @@ public class XrSystemForceFeedbackCurlPropertiesMNDX extends Struct<XrSystemForc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemForceFeedbackCurlPropertiesMNDX.Buffer createSafe(long address, int capacity) {
+    public static XrSystemForceFeedbackCurlPropertiesMNDX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,14 +248,14 @@ public class XrSystemForceFeedbackCurlPropertiesMNDX extends Struct<XrSystemForc
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemForceFeedbackCurlPropertiesMNDX.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemForceFeedbackCurlPropertiesMNDX.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemForceFeedbackCurlPropertiesMNDX.NEXT); }
     /** Unsafe version of {@link #supportsForceFeedbackCurl}. */
-    public static int nsupportsForceFeedbackCurl(long struct) { return UNSAFE.getInt(null, struct + XrSystemForceFeedbackCurlPropertiesMNDX.SUPPORTSFORCEFEEDBACKCURL); }
+    public static int nsupportsForceFeedbackCurl(long struct) { return memGetInt(struct + XrSystemForceFeedbackCurlPropertiesMNDX.SUPPORTSFORCEFEEDBACKCURL); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemForceFeedbackCurlPropertiesMNDX.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemForceFeedbackCurlPropertiesMNDX.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemForceFeedbackCurlPropertiesMNDX.NEXT, value); }
 
@@ -292,6 +290,11 @@ public class XrSystemForceFeedbackCurlPropertiesMNDX extends Struct<XrSystemForc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

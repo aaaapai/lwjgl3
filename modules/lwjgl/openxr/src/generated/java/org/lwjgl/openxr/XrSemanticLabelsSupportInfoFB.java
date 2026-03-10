@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>The {@link XrSemanticLabelsSupportInfoFB} structure <b>may</b> be specified in the {@code next} chain of {@link XrSemanticLabelsFB} to specify additional behaviors of the {@link FBScene#xrGetSpaceSemanticLabelsFB GetSpaceSemanticLabelsFB} function. The runtime <b>must</b> follow the behaviors specified in {@code flags} according to the descriptions of {@code XrSemanticLabelsSupportFlagBitsFB}. The runtime <b>must</b> return any semantic label that is not included in {@code recognizedLabels} as "OTHER" to the application. The runtime <b>must</b> follow this direction only if the runtime reports the {@code extensionVersion} as 2 or greater, otherwise the runtime <b>must</b> ignore this as an unknown chained structure.</p>
+ * <p>The {@link XrSemanticLabelsSupportInfoFB} structure <b>may</b> be specified in the {@code next} chain of {@link XrSemanticLabelsFB} to specify additional behaviors of the {@link FBScene#xrGetSpaceSemanticLabelsFB GetSpaceSemanticLabelsFB} function. The runtime <b>must</b> follow the behaviors specified in {@code flags} according to the descriptions of {@code XrSemanticLabelsSupportFlagBitsFB}. The runtime <b>must</b> return any semantic label that is not included in {@code recognizedLabels} as "OTHER" to the application. The runtime <b>must</b> follow this direction only if the runtime reports the {@link XrExtensionProperties}{@code ::extensionVersion} as 2 or greater, otherwise the runtime <b>must</b> ignore this as an unknown chained structure.</p>
  * 
  * <p>If the {@link XrSemanticLabelsSupportInfoFB} structure is not present in the {@code next} chain of {@link XrSemanticLabelsFB}, the runtime <b>may</b> return any semantic labels to the application.</p>
  * 
@@ -30,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link FBScene XR_FB_scene} extension <b>must</b> be enabled prior to using {@link XrSemanticLabelsSupportInfoFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBScene#XR_TYPE_SEMANTIC_LABELS_SUPPORT_INFO_FB TYPE_SEMANTIC_LABELS_SUPPORT_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code flags} <b>must</b> be 0 or a valid combination of {@code XrSemanticLabelsSupportFlagBitsFB} values</li>
  * <li>{@code recognizedLabels} <b>must</b> be a null-terminated UTF-8 string</li>
  * </ul>
@@ -177,8 +177,7 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSemanticLabelsSupportInfoFB createSafe(long address) {
+    public static @Nullable XrSemanticLabelsSupportInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSemanticLabelsSupportInfoFB(address, null);
     }
 
@@ -221,8 +220,7 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSemanticLabelsSupportInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSemanticLabelsSupportInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,22 +265,22 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSemanticLabelsSupportInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSemanticLabelsSupportInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSemanticLabelsSupportInfoFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrSemanticLabelsSupportInfoFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrSemanticLabelsSupportInfoFB.FLAGS); }
     /** Unsafe version of {@link #recognizedLabels}. */
     public static ByteBuffer nrecognizedLabels(long struct) { return memByteBufferNT1(memGetAddress(struct + XrSemanticLabelsSupportInfoFB.RECOGNIZEDLABELS)); }
     /** Unsafe version of {@link #recognizedLabelsString}. */
     public static String nrecognizedLabelsString(long struct) { return memUTF8(memGetAddress(struct + XrSemanticLabelsSupportInfoFB.RECOGNIZEDLABELS)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSemanticLabelsSupportInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSemanticLabelsSupportInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSemanticLabelsSupportInfoFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrSemanticLabelsSupportInfoFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrSemanticLabelsSupportInfoFB.FLAGS, value); }
     /** Unsafe version of {@link #recognizedLabels(ByteBuffer) recognizedLabels}. */
     public static void nrecognizedLabels(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -329,6 +327,11 @@ public class XrSemanticLabelsSupportInfoFB extends Struct<XrSemanticLabelsSuppor
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

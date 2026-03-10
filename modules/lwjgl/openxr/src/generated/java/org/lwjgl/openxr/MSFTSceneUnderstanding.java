@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,7 +18,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_scene_understanding">XR_MSFT_scene_understanding</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_MSFT_scene_understanding">XR_MSFT_scene_understanding</a> extension.
  * 
  * <p>Scene understanding provides applications with a structured, high-level representation of the planes, meshes, and objects in the user’s environment, enabling the development of spatially-aware applications.</p>
  * 
@@ -328,7 +328,7 @@ public class MSFTSceneUnderstanding {
      * 
      * <p>The {@link #xrEnumerateSceneComputeFeaturesMSFT EnumerateSceneComputeFeaturesMSFT} function enumerates the supported scene compute features of the given system.</p>
      * 
-     * <p>This function follows the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#buffer-size-parameters">two-call idiom</a> for filling the {@code features} array.</p>
+     * <p>This function follows the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-buffer-size-parameters">two-call idiom</a> for filling the {@code features} array.</p>
      * 
      * <pre><code>
      * XrResult xrEnumerateSceneComputeFeaturesMSFT(
@@ -377,7 +377,7 @@ public class MSFTSceneUnderstanding {
      * @param features           an array of {@code XrSceneComputeFeatureMSFT}.
      */
     @NativeType("XrResult")
-    public static int xrEnumerateSceneComputeFeaturesMSFT(XrInstance instance, @NativeType("XrSystemId") long systemId, @NativeType("uint32_t *") IntBuffer featureCountOutput, @Nullable @NativeType("XrSceneComputeFeatureMSFT *") IntBuffer features) {
+    public static int xrEnumerateSceneComputeFeaturesMSFT(XrInstance instance, @NativeType("XrSystemId") long systemId, @NativeType("uint32_t *") IntBuffer featureCountOutput, @NativeType("XrSceneComputeFeatureMSFT *") @Nullable IntBuffer features) {
         if (CHECKS) {
             check(featureCountOutput, 1);
         }
@@ -447,7 +447,7 @@ public class MSFTSceneUnderstanding {
      * @param sceneObserver the returned {@code XrSceneObserverMSFT} handle.
      */
     @NativeType("XrResult")
-    public static int xrCreateSceneObserverMSFT(XrSession session, @Nullable @NativeType("XrSceneObserverCreateInfoMSFT const *") XrSceneObserverCreateInfoMSFT createInfo, @NativeType("XrSceneObserverMSFT *") PointerBuffer sceneObserver) {
+    public static int xrCreateSceneObserverMSFT(XrSession session, @NativeType("XrSceneObserverCreateInfoMSFT const *") @Nullable XrSceneObserverCreateInfoMSFT createInfo, @NativeType("XrSceneObserverMSFT *") PointerBuffer sceneObserver) {
         if (CHECKS) {
             check(sceneObserver, 1);
         }
@@ -577,7 +577,7 @@ public class MSFTSceneUnderstanding {
      * @param scene         the returned {@code XrSceneMSFT} handle.
      */
     @NativeType("XrResult")
-    public static int xrCreateSceneMSFT(XrSceneObserverMSFT sceneObserver, @Nullable @NativeType("XrSceneCreateInfoMSFT const *") XrSceneCreateInfoMSFT createInfo, @NativeType("XrSceneMSFT *") PointerBuffer scene) {
+    public static int xrCreateSceneMSFT(XrSceneObserverMSFT sceneObserver, @NativeType("XrSceneCreateInfoMSFT const *") @Nullable XrSceneCreateInfoMSFT createInfo, @NativeType("XrSceneMSFT *") PointerBuffer scene) {
         if (CHECKS) {
             check(scene, 1);
         }
@@ -858,7 +858,7 @@ public class MSFTSceneUnderstanding {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>Scene components are read from an {@code XrSceneMSFT} using {@link #xrGetSceneComponentsMSFT GetSceneComponentsMSFT} and passing one {@code XrSceneComponentTypeMSFT}. This function follows the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#buffer-size-parameters">two-call idiom</a> for filling multiple buffers in a struct. Different scene component types <b>may</b> have additional properties that <b>can</b> be read by chaining additional structures to {@link XrSceneComponentsMSFT}. Those additional structures <b>must</b> have an array size that is at least as large as {@link XrSceneComponentsMSFT}::componentCapacityInput, otherwise the runtime <b>must</b> return {@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT}.</p>
+     * <p>Scene components are read from an {@code XrSceneMSFT} using {@link #xrGetSceneComponentsMSFT GetSceneComponentsMSFT} and passing one {@code XrSceneComponentTypeMSFT}. This function follows the <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#fundamentals-buffer-size-parameters">two-call idiom</a> for filling multiple buffers in a struct. Different scene component types <b>may</b> have additional properties that <b>can</b> be read by chaining additional structures to {@link XrSceneComponentsMSFT}. Those additional structures <b>must</b> have an array size that is at least as large as {@link XrSceneComponentsMSFT}::componentCapacityInput, otherwise the runtime <b>must</b> return {@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT}.</p>
      * 
      * <ul>
      * <li>If {@link #XR_SCENE_COMPONENT_TYPE_OBJECT_MSFT SCENE_COMPONENT_TYPE_OBJECT_MSFT} is passed to {@link #xrGetSceneComponentsMSFT GetSceneComponentsMSFT}, then {@link XrSceneObjectsMSFT} may be included in the {@link XrSceneComponentsMSFT}{@code ::next} chain.</li>

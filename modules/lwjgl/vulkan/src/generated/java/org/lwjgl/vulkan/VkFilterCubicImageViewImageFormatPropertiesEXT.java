@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -100,10 +100,10 @@ public class VkFilterCubicImageViewImageFormatPropertiesEXT extends Struct<VkFil
     /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** tells if image format, image type and image view type <b>can</b> be used with cubic filtering. This field is set by the implementation. User-specified value is ignored. */
+    /** tells if image format, image type and image view type <b>can</b> be used with cubic filtering. This field is set by the implementation. An application-specified value is ignored. */
     @NativeType("VkBool32")
     public boolean filterCubic() { return nfilterCubic(address()) != 0; }
-    /** tells if image format, image type and image view type <b>can</b> be used with cubic filtering and minmax filtering. This field is set by the implementation. User-specified value is ignored. */
+    /** tells if image format, image type and image view type <b>can</b> be used with cubic filtering and minmax filtering. This field is set by the implementation. An application-specified value is ignored. */
     @NativeType("VkBool32")
     public boolean filterCubicMinmax() { return nfilterCubicMinmax(address()) != 0; }
 
@@ -161,8 +161,7 @@ public class VkFilterCubicImageViewImageFormatPropertiesEXT extends Struct<VkFil
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFilterCubicImageViewImageFormatPropertiesEXT createSafe(long address) {
+    public static @Nullable VkFilterCubicImageViewImageFormatPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkFilterCubicImageViewImageFormatPropertiesEXT(address, null);
     }
 
@@ -205,8 +204,7 @@ public class VkFilterCubicImageViewImageFormatPropertiesEXT extends Struct<VkFil
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFilterCubicImageViewImageFormatPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkFilterCubicImageViewImageFormatPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -270,16 +268,16 @@ public class VkFilterCubicImageViewImageFormatPropertiesEXT extends Struct<VkFil
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkFilterCubicImageViewImageFormatPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkFilterCubicImageViewImageFormatPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkFilterCubicImageViewImageFormatPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #filterCubic}. */
-    public static int nfilterCubic(long struct) { return UNSAFE.getInt(null, struct + VkFilterCubicImageViewImageFormatPropertiesEXT.FILTERCUBIC); }
+    public static int nfilterCubic(long struct) { return memGetInt(struct + VkFilterCubicImageViewImageFormatPropertiesEXT.FILTERCUBIC); }
     /** Unsafe version of {@link #filterCubicMinmax}. */
-    public static int nfilterCubicMinmax(long struct) { return UNSAFE.getInt(null, struct + VkFilterCubicImageViewImageFormatPropertiesEXT.FILTERCUBICMINMAX); }
+    public static int nfilterCubicMinmax(long struct) { return memGetInt(struct + VkFilterCubicImageViewImageFormatPropertiesEXT.FILTERCUBICMINMAX); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkFilterCubicImageViewImageFormatPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkFilterCubicImageViewImageFormatPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkFilterCubicImageViewImageFormatPropertiesEXT.PNEXT, value); }
 
@@ -314,6 +312,11 @@ public class VkFilterCubicImageViewImageFormatPropertiesEXT extends Struct<VkFil
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

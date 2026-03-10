@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.xxhash;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -159,7 +159,7 @@ public class XXHash {
     public static final int XXH_VERSION_MINOR = 8;
 
     /** The release version number. */
-    public static final int XXH_VERSION_RELEASE = 2;
+    public static final int XXH_VERSION_RELEASE = 3;
 
     /** The version number */
     public static final int XXH_VERSION_NUMBER = (XXH_VERSION_MAJOR *100*100 + XXH_VERSION_MINOR *100 + XXH_VERSION_RELEASE);
@@ -183,6 +183,9 @@ public class XXHash {
      */
     public static final int XXH3_SECRET_DEFAULT_SIZE = 192;
 
+    /** Maximum size of "short" key in bytes. */
+    public static final int XXH3_MIDSIZE_MAX = 240;
+
     protected XXHash() {
         throw new UnsupportedOperationException();
     }
@@ -199,8 +202,6 @@ public class XXHash {
     /**
      * Calculates the 32-bit hash of {@code input} using xxHash32.
      * 
-     * <p>Speed on Core 2 Duo @ 3 GHz (single thread, SMHasher benchmark): 5.4 GB/s</p>
-     * 
      * <p>The memory between {@code input} and {@code input + length} must be valid, readable, contiguous memory. However, if {@code length} is {@code 0},
      * {@code input} may be {@code NULL}.</p>
      *
@@ -210,7 +211,7 @@ public class XXHash {
      * @return the calculated 32-bit hash value
      */
     @NativeType("XXH32_hash_t")
-    public static int XXH32(@Nullable @NativeType("void const *") ByteBuffer input, @NativeType("XXH32_hash_t") int seed) {
+    public static int XXH32(@NativeType("void const *") @Nullable ByteBuffer input, @NativeType("XXH32_hash_t") int seed) {
         return nXXH32(memAddressSafe(input), remainingSafe(input), seed);
     }
 
@@ -228,9 +229,8 @@ public class XXHash {
      *
      * @return an allocated {@code XXH32_state_t} on success, {@code NULL} on failure
      */
-    @Nullable
     @NativeType("XXH32_state_t *")
-    public static XXH32State XXH32_createState() {
+    public static @Nullable XXH32State XXH32_createState() {
         long __result = nXXH32_createState();
         return XXH32State.createSafe(__result);
     }
@@ -312,7 +312,7 @@ public class XXHash {
      * @return {@link #XXH_OK OK} on success, {@link #XXH_ERROR ERROR} on failure
      */
     @NativeType("XXH_errorcode")
-    public static int XXH32_update(@NativeType("XXH32_state_t *") XXH32State statePtr, @Nullable @NativeType("void const *") ByteBuffer input) {
+    public static int XXH32_update(@NativeType("XXH32_state_t *") XXH32State statePtr, @NativeType("void const *") @Nullable ByteBuffer input) {
         return nXXH32_update(statePtr.address(), memAddressSafe(input), remainingSafe(input));
     }
 
@@ -388,7 +388,7 @@ public class XXHash {
      * @return the calculated 64-bit hash
      */
     @NativeType("XXH64_hash_t")
-    public static long XXH64(@Nullable @NativeType("void const *") ByteBuffer input, @NativeType("XXH64_hash_t") long seed) {
+    public static long XXH64(@NativeType("void const *") @Nullable ByteBuffer input, @NativeType("XXH64_hash_t") long seed) {
         return nXXH64(memAddressSafe(input), remainingSafe(input), seed);
     }
 
@@ -406,9 +406,8 @@ public class XXHash {
      *
      * @return an allocated {@code XXH64_state_t} on success, {@code NULL} on failure
      */
-    @Nullable
     @NativeType("XXH64_state_t *")
-    public static XXH64State XXH64_createState() {
+    public static @Nullable XXH64State XXH64_createState() {
         long __result = nXXH64_createState();
         return XXH64State.createSafe(__result);
     }
@@ -486,7 +485,7 @@ public class XXHash {
      * @param input    the block of data to be hashed, at least {@code length} bytes in size
      */
     @NativeType("XXH_errorcode")
-    public static int XXH64_update(@NativeType("XXH64_state_t *") XXH64State statePtr, @Nullable @NativeType("void const *") ByteBuffer input) {
+    public static int XXH64_update(@NativeType("XXH64_state_t *") XXH64State statePtr, @NativeType("void const *") @Nullable ByteBuffer input) {
         return nXXH64_update(statePtr.address(), memAddressSafe(input), remainingSafe(input));
     }
 
@@ -601,9 +600,8 @@ public class XXHash {
 
     public static native long nXXH3_createState();
 
-    @Nullable
     @NativeType("XXH3_state_t *")
-    public static XXH3State XXH3_createState() {
+    public static @Nullable XXH3State XXH3_createState() {
         long __result = nXXH3_createState();
         return XXH3State.createSafe(__result);
     }
@@ -703,7 +701,7 @@ public class XXHash {
      * @param input    the block of data to be hashed, at least {@code length} bytes in size
      */
     @NativeType("XXH_errorcode")
-    public static int XXH3_64bits_update(@NativeType("XXH3_state_t *") XXH3State statePtr, @Nullable @NativeType("void const *") ByteBuffer input) {
+    public static int XXH3_64bits_update(@NativeType("XXH3_state_t *") XXH3State statePtr, @NativeType("void const *") @Nullable ByteBuffer input) {
         return nXXH3_64bits_update(statePtr.address(), memAddressSafe(input), remainingSafe(input));
     }
 
@@ -842,7 +840,7 @@ public class XXHash {
      * @param input    the block of data to be hashed, at least {@code length} bytes in size
      */
     @NativeType("XXH_errorcode")
-    public static int XXH3_128bits_update(@NativeType("XXH3_state_t *") XXH3State statePtr, @Nullable @NativeType("void const *") ByteBuffer input) {
+    public static int XXH3_128bits_update(@NativeType("XXH3_state_t *") XXH3State statePtr, @NativeType("void const *") @Nullable ByteBuffer input) {
         return nXXH3_128bits_update(statePtr.address(), memAddressSafe(input), remainingSafe(input));
     }
 
@@ -975,7 +973,7 @@ public class XXHash {
      * <p>When {@code customSeedSize} &gt; 0, supplying {@code NULL} as {@code customSeed} is undefined behavior.</p>
      */
     @NativeType("XXH_errorcode")
-    public static int XXH3_generateSecret(@NativeType("void *") ByteBuffer secretBuffer, @Nullable @NativeType("void const *") ByteBuffer customSeed) {
+    public static int XXH3_generateSecret(@NativeType("void *") ByteBuffer secretBuffer, @NativeType("void const *") @Nullable ByteBuffer customSeed) {
         if (CHECKS) {
             check(secretBuffer, XXH3_SECRET_SIZE_MIN);
         }
@@ -1008,7 +1006,7 @@ public class XXHash {
     public static native long nXXH3_64bits_withSecretandSeed(long data, long len, long secret, long secretSize, long seed);
 
     @NativeType("XXH64_hash_t")
-    public static long XXH3_64bits_withSecretandSeed(@Nullable @NativeType("void const *") ByteBuffer data, @NativeType("void const *") ByteBuffer secret, @NativeType("XXH64_hash_t") long seed) {
+    public static long XXH3_64bits_withSecretandSeed(@NativeType("void const *") @Nullable ByteBuffer data, @NativeType("void const *") ByteBuffer secret, @NativeType("XXH64_hash_t") long seed) {
         if (CHECKS) {
             check(secret, XXH3_SECRET_SIZE_MIN);
         }
@@ -1020,7 +1018,7 @@ public class XXHash {
     public static native void nXXH3_128bits_withSecretandSeed(long input, long length, long secret, long secretSize, long seed, long __result);
 
     @NativeType("XXH128_hash_t")
-    public static XXH128Hash XXH3_128bits_withSecretandSeed(@Nullable @NativeType("void const *") ByteBuffer input, @NativeType("void const *") ByteBuffer secret, @NativeType("XXH64_hash_t") long seed, @NativeType("XXH128_hash_t") XXH128Hash __result) {
+    public static XXH128Hash XXH3_128bits_withSecretandSeed(@NativeType("void const *") @Nullable ByteBuffer input, @NativeType("void const *") ByteBuffer secret, @NativeType("XXH64_hash_t") long seed, @NativeType("XXH128_hash_t") XXH128Hash __result) {
         if (CHECKS) {
             check(secret, XXH3_SECRET_SIZE_MIN);
         }

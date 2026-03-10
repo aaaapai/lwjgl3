@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -102,7 +102,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     {
  *     case VK_SUCCESS:
  *         {
- *             // deferred operation has finished.  Query its result
+ *             // deferred operation has finished.  Query its result.
  *             result = vkGetDeferredOperationResultKHR(device, hOp);
  *         }
  *         break;
@@ -126,8 +126,6 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  *     return result;
  * }</code></pre>
- * 
- * <h5>VK_KHR_deferred_host_operations</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -249,11 +247,11 @@ public class KHRDeferredHostOperations {
      * <p>{@link VkAllocationCallbacks}</p>
      *
      * @param device             the device which owns {@code operation}.
-     * @param pAllocator         controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator         controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      * @param pDeferredOperation a pointer to a handle in which the created {@code VkDeferredOperationKHR} is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateDeferredOperationKHR(VkDevice device, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkDeferredOperationKHR *") LongBuffer pDeferredOperation) {
+    public static int vkCreateDeferredOperationKHR(VkDevice device, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkDeferredOperationKHR *") LongBuffer pDeferredOperation) {
         if (CHECKS) {
             check(pDeferredOperation, 1);
         }
@@ -313,9 +311,9 @@ public class KHRDeferredHostOperations {
      *
      * @param device     the device which owns {@code operation}.
      * @param operation  the completed operation to be destroyed.
-     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
+     * @param pAllocator controls host memory allocation as described in the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a> chapter.
      */
-    public static void vkDestroyDeferredOperationKHR(VkDevice device, @NativeType("VkDeferredOperationKHR") long operation, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator) {
+    public static void vkDestroyDeferredOperationKHR(VkDevice device, @NativeType("VkDeferredOperationKHR") long operation, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator) {
         nvkDestroyDeferredOperationKHR(device, operation, memAddressSafe(pAllocator));
     }
 
@@ -493,7 +491,7 @@ public class KHRDeferredHostOperations {
 
     /** Array version of: {@link #vkCreateDeferredOperationKHR CreateDeferredOperationKHR} */
     @NativeType("VkResult")
-    public static int vkCreateDeferredOperationKHR(VkDevice device, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkDeferredOperationKHR *") long[] pDeferredOperation) {
+    public static int vkCreateDeferredOperationKHR(VkDevice device, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkDeferredOperationKHR *") long[] pDeferredOperation) {
         long __functionAddress = device.getCapabilities().vkCreateDeferredOperationKHR;
         if (CHECKS) {
             check(__functionAddress);

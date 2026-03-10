@@ -11,7 +11,7 @@ import openxr.*
 val VARJO_quad_views = "VARJOQuadViews".nativeClassXR("VARJO_quad_views", type = "instance", postfix = "VARJO") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_VARJO_quad_views">XR_VARJO_quad_views</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_VARJO_quad_views">XR_VARJO_quad_views</a> extension.
 
         This extension adds a new view configuration type - #VIEW_CONFIGURATION_TYPE_PRIMARY_QUAD_VARJO to {@code XrViewConfigurationType} which can be returned by #EnumerateViewConfigurations() to indicate that the runtime supports 4 viewports.
 
@@ -23,13 +23,15 @@ val VARJO_quad_views = "VARJOQuadViews".nativeClassXR("VARJO_quad_views", type =
 
         The relative position of the inner views relative to the outer views can change at run-time.
 
+        The runtime <b>must</b> set {@code pose} for view 0 and 2 to be identical and <b>must</b> set {@code pose} for view 1 and 3 to be be identical when application calls #LocateViews().
+
         The runtime might blend between the views at the edges, so the application should not omit the inner field of view from being generated in the outer view.
         """
 
     IntConstant(
         "The extension specification version.",
 
-        "VARJO_quad_views_SPEC_VERSION".."1"
+        "VARJO_quad_views_SPEC_VERSION".."2"
     )
 
     StringConstant(

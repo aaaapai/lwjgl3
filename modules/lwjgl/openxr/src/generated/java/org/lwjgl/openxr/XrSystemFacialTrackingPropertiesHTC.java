@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemFacialTrackingPropertiesHTC}</li>
  * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <p>If a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportEyeFacialTracking}, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC} with {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC} set for {@code XrFacialTrackingTypeHTC} in {@link XrFacialTrackerCreateInfoHTC}. Similarly, if a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportLipFacialTracking} the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC} with {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC} set for {@code XrFacialTrackingTypeHTC} in {@link XrFacialTrackerCreateInfoHTC}.</p>
@@ -163,8 +163,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFacialTrackingPropertiesHTC createSafe(long address) {
+    public static @Nullable XrSystemFacialTrackingPropertiesHTC createSafe(long address) {
         return address == NULL ? null : new XrSystemFacialTrackingPropertiesHTC(address, null);
     }
 
@@ -207,8 +206,7 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFacialTrackingPropertiesHTC.Buffer createSafe(long address, int capacity) {
+    public static XrSystemFacialTrackingPropertiesHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,16 +251,16 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemFacialTrackingPropertiesHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemFacialTrackingPropertiesHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemFacialTrackingPropertiesHTC.NEXT); }
     /** Unsafe version of {@link #supportEyeFacialTracking}. */
-    public static int nsupportEyeFacialTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTEYEFACIALTRACKING); }
+    public static int nsupportEyeFacialTracking(long struct) { return memGetInt(struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTEYEFACIALTRACKING); }
     /** Unsafe version of {@link #supportLipFacialTracking}. */
-    public static int nsupportLipFacialTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTLIPFACIALTRACKING); }
+    public static int nsupportLipFacialTracking(long struct) { return memGetInt(struct + XrSystemFacialTrackingPropertiesHTC.SUPPORTLIPFACIALTRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFacialTrackingPropertiesHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemFacialTrackingPropertiesHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemFacialTrackingPropertiesHTC.NEXT, value); }
 
@@ -297,6 +295,11 @@ public class XrSystemFacialTrackingPropertiesHTC extends Struct<XrSystemFacialTr
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

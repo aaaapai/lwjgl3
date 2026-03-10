@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>A runtime <b>may</b> not maintain a full history of hand mesh data, therefore the returned {@link XrHandMeshMSFT} might return data that’s not exactly corresponding to the {@code time} input. If the runtime cannot return any tracking data for the given {@code time} at all, it <b>must</b> set {@code isActive} to {@link XR10#XR_FALSE FALSE} for the call to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}. Otherwise, if the runtime returns {@code isActive} as {@link XR10#XR_TRUE TRUE}, the data in {@link XrHandMeshMSFT} must be valid to use.</p>
+ * <p>A runtime <b>may</b> not maintain a full history of hand mesh data, therefore the returned {@link XrHandMeshMSFT} might return data that’s not exactly corresponding to the {@code time} input. If the runtime cannot return any tracking data for the given {@code time} at all, it <b>must</b> set {@link XrHandMeshMSFT}{@code ::isActive} to {@link XR10#XR_FALSE FALSE} for the call to {@link MSFTHandTrackingMesh#xrUpdateHandMeshMSFT UpdateHandMeshMSFT}. Otherwise, if the runtime returns {@link XrHandMeshMSFT}{@code ::isActive} as {@link XR10#XR_TRUE TRUE}, the data in {@link XrHandMeshMSFT} must be valid to use.</p>
  * 
  * <p>An application can choose different {@code handPoseType} values to query the hand mesh data. The returned hand mesh <b>must</b> be consistent to the hand joint space location on the same {@code XrHandTrackerEXT} when using the same {@code XrHandPoseTypeMSFT}.</p>
  * 
@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link MSFTHandTrackingMesh XR_MSFT_hand_tracking_mesh} extension <b>must</b> be enabled prior to using {@link XrHandMeshUpdateInfoMSFT}</li>
  * <li>{@code type} <b>must</b> be {@link MSFTHandTrackingMesh#XR_TYPE_HAND_MESH_UPDATE_INFO_MSFT TYPE_HAND_MESH_UPDATE_INFO_MSFT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code handPoseType} <b>must</b> be a valid {@code XrHandPoseTypeMSFT} value</li>
  * </ul>
  * 
@@ -176,8 +176,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshUpdateInfoMSFT createSafe(long address) {
+    public static @Nullable XrHandMeshUpdateInfoMSFT createSafe(long address) {
         return address == NULL ? null : new XrHandMeshUpdateInfoMSFT(address, null);
     }
 
@@ -220,8 +219,7 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrHandMeshUpdateInfoMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrHandMeshUpdateInfoMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,22 +264,22 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshUpdateInfoMSFT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrHandMeshUpdateInfoMSFT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrHandMeshUpdateInfoMSFT.NEXT); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrHandMeshUpdateInfoMSFT.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrHandMeshUpdateInfoMSFT.TIME); }
     /** Unsafe version of {@link #handPoseType}. */
-    public static int nhandPoseType(long struct) { return UNSAFE.getInt(null, struct + XrHandMeshUpdateInfoMSFT.HANDPOSETYPE); }
+    public static int nhandPoseType(long struct) { return memGetInt(struct + XrHandMeshUpdateInfoMSFT.HANDPOSETYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshUpdateInfoMSFT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrHandMeshUpdateInfoMSFT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrHandMeshUpdateInfoMSFT.NEXT, value); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrHandMeshUpdateInfoMSFT.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrHandMeshUpdateInfoMSFT.TIME, value); }
     /** Unsafe version of {@link #handPoseType(int) handPoseType}. */
-    public static void nhandPoseType(long struct, int value) { UNSAFE.putInt(null, struct + XrHandMeshUpdateInfoMSFT.HANDPOSETYPE, value); }
+    public static void nhandPoseType(long struct, int value) { memPutInt(struct + XrHandMeshUpdateInfoMSFT.HANDPOSETYPE, value); }
 
     // -----------------------------------
 
@@ -314,6 +312,11 @@ public class XrHandMeshUpdateInfoMSFT extends Struct<XrHandMeshUpdateInfoMSFT> i
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

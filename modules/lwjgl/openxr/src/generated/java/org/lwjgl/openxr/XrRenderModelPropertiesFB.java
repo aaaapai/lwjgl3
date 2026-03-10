@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -32,7 +32,7 @@ import static org.lwjgl.openxr.FBRenderModel.*;
  * <ul>
  * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelPropertiesFB}</li>
  * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_PROPERTIES_FB TYPE_RENDER_MODEL_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrRenderModelCapabilitiesRequestFB}</li>
  * <li>{@code modelName} <b>must</b> be a null-terminated UTF-8 string whose length is less than or equal to {@link FBRenderModel#XR_MAX_RENDER_MODEL_NAME_SIZE_FB MAX_RENDER_MODEL_NAME_SIZE_FB}</li>
  * <li>{@code flags} <b>must</b> be a valid combination of {@code XrRenderModelFlagBitsFB} values</li>
  * <li>{@code flags} <b>must</b> not be 0</li>
@@ -149,6 +149,8 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     public XrRenderModelPropertiesFB type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_PROPERTIES_FB); }
     /** Sets the specified value to the {@link #next} field. */
     public XrRenderModelPropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Prepends the specified {@link XrRenderModelCapabilitiesRequestFB} value to the {@code next} chain. */
+    public XrRenderModelPropertiesFB next(XrRenderModelCapabilitiesRequestFB value) { return this.next(value.next(this.next()).address()); }
     /** Sets the specified value to the {@link #vendorId} field. */
     public XrRenderModelPropertiesFB vendorId(@NativeType("uint32_t") int value) { nvendorId(address(), value); return this; }
     /** Copies the specified encoded string to the {@link #modelName} field. */
@@ -217,8 +219,7 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelPropertiesFB createSafe(long address) {
+    public static @Nullable XrRenderModelPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrRenderModelPropertiesFB(address, null);
     }
 
@@ -261,8 +262,7 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrRenderModelPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -307,28 +307,28 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRenderModelPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRenderModelPropertiesFB.NEXT); }
     /** Unsafe version of {@link #vendorId}. */
-    public static int nvendorId(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPropertiesFB.VENDORID); }
+    public static int nvendorId(long struct) { return memGetInt(struct + XrRenderModelPropertiesFB.VENDORID); }
     /** Unsafe version of {@link #modelName}. */
     public static ByteBuffer nmodelName(long struct) { return memByteBuffer(struct + XrRenderModelPropertiesFB.MODELNAME, XR_MAX_RENDER_MODEL_NAME_SIZE_FB); }
     /** Unsafe version of {@link #modelNameString}. */
     public static String nmodelNameString(long struct) { return memUTF8(struct + XrRenderModelPropertiesFB.MODELNAME); }
     /** Unsafe version of {@link #modelKey}. */
-    public static long nmodelKey(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelPropertiesFB.MODELKEY); }
+    public static long nmodelKey(long struct) { return memGetLong(struct + XrRenderModelPropertiesFB.MODELKEY); }
     /** Unsafe version of {@link #modelVersion}. */
-    public static int nmodelVersion(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelPropertiesFB.MODELVERSION); }
+    public static int nmodelVersion(long struct) { return memGetInt(struct + XrRenderModelPropertiesFB.MODELVERSION); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelPropertiesFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrRenderModelPropertiesFB.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRenderModelPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRenderModelPropertiesFB.NEXT, value); }
     /** Unsafe version of {@link #vendorId(int) vendorId}. */
-    public static void nvendorId(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPropertiesFB.VENDORID, value); }
+    public static void nvendorId(long struct, int value) { memPutInt(struct + XrRenderModelPropertiesFB.VENDORID, value); }
     /** Unsafe version of {@link #modelName(ByteBuffer) modelName}. */
     public static void nmodelName(long struct, ByteBuffer value) {
         if (CHECKS) {
@@ -338,11 +338,11 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
         memCopy(memAddress(value), struct + XrRenderModelPropertiesFB.MODELNAME, value.remaining());
     }
     /** Unsafe version of {@link #modelKey(long) modelKey}. */
-    public static void nmodelKey(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelPropertiesFB.MODELKEY, value); }
+    public static void nmodelKey(long struct, long value) { memPutLong(struct + XrRenderModelPropertiesFB.MODELKEY, value); }
     /** Unsafe version of {@link #modelVersion(int) modelVersion}. */
-    public static void nmodelVersion(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelPropertiesFB.MODELVERSION, value); }
+    public static void nmodelVersion(long struct, int value) { memPutInt(struct + XrRenderModelPropertiesFB.MODELVERSION, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrRenderModelPropertiesFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrRenderModelPropertiesFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -375,6 +375,11 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override
@@ -413,6 +418,8 @@ public class XrRenderModelPropertiesFB extends Struct<XrRenderModelPropertiesFB>
         public XrRenderModelPropertiesFB.Buffer type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_PROPERTIES_FB); }
         /** Sets the specified value to the {@link XrRenderModelPropertiesFB#next} field. */
         public XrRenderModelPropertiesFB.Buffer next(@NativeType("void *") long value) { XrRenderModelPropertiesFB.nnext(address(), value); return this; }
+        /** Prepends the specified {@link XrRenderModelCapabilitiesRequestFB} value to the {@code next} chain. */
+        public XrRenderModelPropertiesFB.Buffer next(XrRenderModelCapabilitiesRequestFB value) { return this.next(value.next(this.next()).address()); }
         /** Sets the specified value to the {@link XrRenderModelPropertiesFB#vendorId} field. */
         public XrRenderModelPropertiesFB.Buffer vendorId(@NativeType("uint32_t") int value) { XrRenderModelPropertiesFB.nvendorId(address(), value); return this; }
         /** Copies the specified encoded string to the {@link XrRenderModelPropertiesFB#modelName} field. */

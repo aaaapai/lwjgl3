@@ -17,8 +17,6 @@ import static org.lwjgl.system.JNI.*;
  * 
  * <p>The intent is that this extension will be advertised and supported only on implementations that are layered on top of Metal on Apple device platforms.</p>
  * 
- * <h5>VK_EXT_metal_objects</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_metal_objects}</dd>
@@ -27,7 +25,7 @@ import static org.lwjgl.system.JNI.*;
  * <dt><b>Registered Extension Number</b></dt>
  * <dd>312</dd>
  * <dt><b>Revision</b></dt>
- * <dd>1</dd>
+ * <dd>2</dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
  * <li>Bill Hollings <a href="https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_metal_objects]%20@billhollings%250A*Here%20describe%20the%20issue%20or%20question%20you%20have%20about%20the%20VK_EXT_metal_objects%20extension*">billhollings</a></li>
@@ -40,7 +38,7 @@ import static org.lwjgl.system.JNI.*;
  * 
  * <dl>
  * <dt><b>Last Modified Date</b></dt>
- * <dd>2022-05-28</dd>
+ * <dd>2024-04-04</dd>
  * <dt><b>IP Status</b></dt>
  * <dd>No known IP claims.</dd>
  * <dt><b>Contributors</b></dt>
@@ -53,7 +51,7 @@ import static org.lwjgl.system.JNI.*;
 public class EXTMetalObjects {
 
     /** The extension specification version. */
-    public static final int VK_EXT_METAL_OBJECTS_SPEC_VERSION = 1;
+    public static final int VK_EXT_METAL_OBJECTS_SPEC_VERSION = 2;
 
     /** The extension name. */
     public static final String VK_EXT_METAL_OBJECTS_EXTENSION_NAME = "VK_EXT_metal_objects";
@@ -98,12 +96,12 @@ public class EXTMetalObjects {
      * <h5>Description</h5>
      * 
      * <ul>
-     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT} indicates a Metal {@code MTLDevice} may be exported.</li>
-     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT} indicates a Metal {@code MTLCommandQueue} may be exported.</li>
-     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT} indicates a Metal {@code MTLBuffer} may be exported.</li>
-     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_TEXTURE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_TEXTURE_BIT_EXT} indicates a Metal {@code MTLTexture} may be exported.</li>
-     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_IOSURFACE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_IOSURFACE_BIT_EXT} indicates a Metal {@code IOSurface} may be exported.</li>
-     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT} indicates a Metal {@code MTLSharedEvent} may be exported.</li>
+     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_DEVICE_BIT_EXT} specifies that a Metal {@code MTLDevice} may be exported.</li>
+     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_COMMAND_QUEUE_BIT_EXT} specifies that a Metal {@code MTLCommandQueue} may be exported.</li>
+     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_BUFFER_BIT_EXT} specifies that a Metal {@code MTLBuffer} may be exported.</li>
+     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_TEXTURE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_TEXTURE_BIT_EXT} specifies that a Metal {@code MTLTexture} may be exported.</li>
+     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_IOSURFACE_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_IOSURFACE_BIT_EXT} specifies that a Metal {@code IOSurface} may be exported.</li>
+     * <li>{@link #VK_EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT} specifies that a Metal {@code MTLSharedEvent} may be exported.</li>
      * </ul>
      * 
      * <h5>See Also</h5>

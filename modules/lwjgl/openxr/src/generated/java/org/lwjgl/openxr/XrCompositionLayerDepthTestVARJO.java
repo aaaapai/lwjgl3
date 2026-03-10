@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link VARJOCompositionLayerDepthTest XR_VARJO_composition_layer_depth_test} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerDepthTestVARJO}</li>
  * <li>{@code type} <b>must</b> be {@link VARJOCompositionLayerDepthTest#XR_TYPE_COMPOSITION_LAYER_DEPTH_TEST_VARJO TYPE_COMPOSITION_LAYER_DEPTH_TEST_VARJO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -167,8 +167,7 @@ public class XrCompositionLayerDepthTestVARJO extends Struct<XrCompositionLayerD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerDepthTestVARJO createSafe(long address) {
+    public static @Nullable XrCompositionLayerDepthTestVARJO createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerDepthTestVARJO(address, null);
     }
 
@@ -211,8 +210,7 @@ public class XrCompositionLayerDepthTestVARJO extends Struct<XrCompositionLayerD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerDepthTestVARJO.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerDepthTestVARJO.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +255,22 @@ public class XrCompositionLayerDepthTestVARJO extends Struct<XrCompositionLayerD
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerDepthTestVARJO.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerDepthTestVARJO.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerDepthTestVARJO.NEXT); }
     /** Unsafe version of {@link #depthTestRangeNearZ}. */
-    public static float ndepthTestRangeNearZ(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGENEARZ); }
+    public static float ndepthTestRangeNearZ(long struct) { return memGetFloat(struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGENEARZ); }
     /** Unsafe version of {@link #depthTestRangeFarZ}. */
-    public static float ndepthTestRangeFarZ(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGEFARZ); }
+    public static float ndepthTestRangeFarZ(long struct) { return memGetFloat(struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGEFARZ); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerDepthTestVARJO.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerDepthTestVARJO.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerDepthTestVARJO.NEXT, value); }
     /** Unsafe version of {@link #depthTestRangeNearZ(float) depthTestRangeNearZ}. */
-    public static void ndepthTestRangeNearZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGENEARZ, value); }
+    public static void ndepthTestRangeNearZ(long struct, float value) { memPutFloat(struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGENEARZ, value); }
     /** Unsafe version of {@link #depthTestRangeFarZ(float) depthTestRangeFarZ}. */
-    public static void ndepthTestRangeFarZ(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGEFARZ, value); }
+    public static void ndepthTestRangeFarZ(long struct, float value) { memPutFloat(struct + XrCompositionLayerDepthTestVARJO.DEPTHTESTRANGEFARZ, value); }
 
     // -----------------------------------
 
@@ -305,6 +303,11 @@ public class XrCompositionLayerDepthTestVARJO extends Struct<XrCompositionLayerD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

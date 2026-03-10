@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,6 +17,14 @@ import static org.lwjgl.system.MemoryStack.*;
 
 /**
  * Structure specifying the pipeline to query an address for.
+ * 
+ * <h5>Valid Usage</h5>
+ * 
+ * <ul>
+ * <li>The provided {@code pipelineBindPoint} <b>must</b> be of type {@link VK10#VK_PIPELINE_BIND_POINT_COMPUTE PIPELINE_BIND_POINT_COMPUTE}</li>
+ * <li>{@code pipeline} <b>must</b> have been created with flag {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV} set</li>
+ * <li>{@code pipeline} <b>must</b> have been created with a {@link VkComputePipelineIndirectBufferInfoNV} structure specifying a valid address where its metadata will be saved</li>
+ * </ul>
  * 
  * <h5>Valid Usage (Implicit)</h5>
  * 
@@ -35,9 +43,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <pre><code>
  * struct VkPipelineIndirectDeviceAddressInfoNV {
- *     VkStructureType sType;
- *     void const * pNext;
- *     VkPipelineBindPoint pipelineBindPoint;
+ *     VkStructureType {@link #sType};
+ *     void const * {@link #pNext};
+ *     VkPipelineBindPoint {@link #pipelineBindPoint};
  *     VkPipeline {@link #pipeline};
  * }</code></pre>
  */
@@ -95,30 +103,26 @@ public class VkPipelineIndirectDeviceAddressInfoNV extends Struct<VkPipelineIndi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** @return the value of the {@code sType} field. */
+    /** a {@code VkStructureType} value identifying this structure. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** @return the value of the {@code pNext} field. */
+    /** {@code NULL} or a pointer to a structure extending this structure. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** @return the value of the {@code pipelineBindPoint} field. */
+    /** a {@code VkPipelineBindPoint} value specifying the type of pipeline whose device address is being queried. */
     @NativeType("VkPipelineBindPoint")
     public int pipelineBindPoint() { return npipelineBindPoint(address()); }
-    /**
-     * <b>must</b> have been created with flag {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV} set
-     * 
-     * <p><b>must</b> have been created with a {@link VkComputePipelineIndirectBufferInfoNV} structure specifying a valid address where its metadata will be saved</p>
-     */
+    /** specifies the pipeline whose device address is being queried. */
     @NativeType("VkPipeline")
     public long pipeline() { return npipeline(address()); }
 
-    /** Sets the specified value to the {@code sType} field. */
+    /** Sets the specified value to the {@link #sType} field. */
     public VkPipelineIndirectDeviceAddressInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV} value to the {@code sType} field. */
+    /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV} value to the {@link #sType} field. */
     public VkPipelineIndirectDeviceAddressInfoNV sType$Default() { return sType(NVDeviceGeneratedCommandsCompute.VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV); }
-    /** Sets the specified value to the {@code pNext} field. */
+    /** Sets the specified value to the {@link #pNext} field. */
     public VkPipelineIndirectDeviceAddressInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code pipelineBindPoint} field. */
+    /** Sets the specified value to the {@link #pipelineBindPoint} field. */
     public VkPipelineIndirectDeviceAddressInfoNV pipelineBindPoint(@NativeType("VkPipelineBindPoint") int value) { npipelineBindPoint(address(), value); return this; }
     /** Sets the specified value to the {@link #pipeline} field. */
     public VkPipelineIndirectDeviceAddressInfoNV pipeline(@NativeType("VkPipeline") long value) { npipeline(address(), value); return this; }
@@ -174,8 +178,7 @@ public class VkPipelineIndirectDeviceAddressInfoNV extends Struct<VkPipelineIndi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineIndirectDeviceAddressInfoNV createSafe(long address) {
+    public static @Nullable VkPipelineIndirectDeviceAddressInfoNV createSafe(long address) {
         return address == NULL ? null : new VkPipelineIndirectDeviceAddressInfoNV(address, null);
     }
 
@@ -218,8 +221,7 @@ public class VkPipelineIndirectDeviceAddressInfoNV extends Struct<VkPipelineIndi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineIndirectDeviceAddressInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineIndirectDeviceAddressInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +266,22 @@ public class VkPipelineIndirectDeviceAddressInfoNV extends Struct<VkPipelineIndi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineIndirectDeviceAddressInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineIndirectDeviceAddressInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineIndirectDeviceAddressInfoNV.PNEXT); }
     /** Unsafe version of {@link #pipelineBindPoint}. */
-    public static int npipelineBindPoint(long struct) { return UNSAFE.getInt(null, struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINEBINDPOINT); }
+    public static int npipelineBindPoint(long struct) { return memGetInt(struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINEBINDPOINT); }
     /** Unsafe version of {@link #pipeline}. */
-    public static long npipeline(long struct) { return UNSAFE.getLong(null, struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINE); }
+    public static long npipeline(long struct) { return memGetLong(struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineIndirectDeviceAddressInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineIndirectDeviceAddressInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineIndirectDeviceAddressInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #pipelineBindPoint(int) pipelineBindPoint}. */
-    public static void npipelineBindPoint(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINEBINDPOINT, value); }
+    public static void npipelineBindPoint(long struct, int value) { memPutInt(struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINEBINDPOINT, value); }
     /** Unsafe version of {@link #pipeline(long) pipeline}. */
-    public static void npipeline(long struct, long value) { UNSAFE.putLong(null, struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINE, value); }
+    public static void npipeline(long struct, long value) { memPutLong(struct + VkPipelineIndirectDeviceAddressInfoNV.PIPELINE, value); }
 
     // -----------------------------------
 
@@ -315,30 +317,35 @@ public class VkPipelineIndirectDeviceAddressInfoNV extends Struct<VkPipelineIndi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineIndirectDeviceAddressInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@code sType} field. */
+        /** @return the value of the {@link VkPipelineIndirectDeviceAddressInfoNV#sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineIndirectDeviceAddressInfoNV.nsType(address()); }
-        /** @return the value of the {@code pNext} field. */
+        /** @return the value of the {@link VkPipelineIndirectDeviceAddressInfoNV#pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineIndirectDeviceAddressInfoNV.npNext(address()); }
-        /** @return the value of the {@code pipelineBindPoint} field. */
+        /** @return the value of the {@link VkPipelineIndirectDeviceAddressInfoNV#pipelineBindPoint} field. */
         @NativeType("VkPipelineBindPoint")
         public int pipelineBindPoint() { return VkPipelineIndirectDeviceAddressInfoNV.npipelineBindPoint(address()); }
         /** @return the value of the {@link VkPipelineIndirectDeviceAddressInfoNV#pipeline} field. */
         @NativeType("VkPipeline")
         public long pipeline() { return VkPipelineIndirectDeviceAddressInfoNV.npipeline(address()); }
 
-        /** Sets the specified value to the {@code sType} field. */
+        /** Sets the specified value to the {@link VkPipelineIndirectDeviceAddressInfoNV#sType} field. */
         public VkPipelineIndirectDeviceAddressInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineIndirectDeviceAddressInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV} value to the {@code sType} field. */
+        /** Sets the {@link NVDeviceGeneratedCommandsCompute#VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV} value to the {@link VkPipelineIndirectDeviceAddressInfoNV#sType} field. */
         public VkPipelineIndirectDeviceAddressInfoNV.Buffer sType$Default() { return sType(NVDeviceGeneratedCommandsCompute.VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV); }
-        /** Sets the specified value to the {@code pNext} field. */
+        /** Sets the specified value to the {@link VkPipelineIndirectDeviceAddressInfoNV#pNext} field. */
         public VkPipelineIndirectDeviceAddressInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkPipelineIndirectDeviceAddressInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code pipelineBindPoint} field. */
+        /** Sets the specified value to the {@link VkPipelineIndirectDeviceAddressInfoNV#pipelineBindPoint} field. */
         public VkPipelineIndirectDeviceAddressInfoNV.Buffer pipelineBindPoint(@NativeType("VkPipelineBindPoint") int value) { VkPipelineIndirectDeviceAddressInfoNV.npipelineBindPoint(address(), value); return this; }
         /** Sets the specified value to the {@link VkPipelineIndirectDeviceAddressInfoNV#pipeline} field. */
         public VkPipelineIndirectDeviceAddressInfoNV.Buffer pipeline(@NativeType("VkPipeline") long value) { VkPipelineIndirectDeviceAddressInfoNV.npipeline(address(), value); return this; }

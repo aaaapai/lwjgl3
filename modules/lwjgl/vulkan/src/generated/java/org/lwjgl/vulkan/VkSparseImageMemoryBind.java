@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -21,14 +21,16 @@ import static org.lwjgl.system.MemoryStack.*;
  * <h5>Valid Usage</h5>
  * 
  * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-sparseResidencyAliased">{@code sparseResidencyAliased}</a> feature is not enabled, and if any other resources are bound to ranges of {@code memory}, the range of {@code memory} being bound <b>must</b> not overlap with those bound ranges</li>
- * <li>{@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the calling command’s {@code image}, as described in section <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-association">Resource Memory Association</a></li>
- * <li>{@code subresource} <b>must</b> be a valid image subresource for {@code image} (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#resources-image-views">Image Views</a>)</li>
+ * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-sparseResidencyAliased">{@code sparseResidencyAliased}</a> feature is not enabled, and if any other resources are bound to ranges of {@code memory}, the range of {@code memory} being bound <b>must</b> not overlap with those bound ranges</li>
+ * <li>{@code memory} and {@code memoryOffset} <b>must</b> match the memory requirements of the calling command’s {@code image}, as described in section <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#resources-association">Resource Memory Association</a></li>
  * <li>{@code offset.x} <b>must</b> be a multiple of the sparse image block width ({@link VkSparseImageFormatProperties}{@code ::imageGranularity.width}) of the image</li>
+ * <li>{@code extent.width} <b>must</b> be greater than 0</li>
  * <li>{@code extent.width} <b>must</b> either be a multiple of the sparse image block width of the image, or else <code>(extent.width + offset.x)</code> <b>must</b> equal the width of the image subresource</li>
  * <li>{@code offset.y} <b>must</b> be a multiple of the sparse image block height ({@link VkSparseImageFormatProperties}{@code ::imageGranularity.height}) of the image</li>
+ * <li>{@code extent.height} <b>must</b> be greater than 0</li>
  * <li>{@code extent.height} <b>must</b> either be a multiple of the sparse image block height of the image, or else <code>(extent.height + offset.y)</code> <b>must</b> equal the height of the image subresource</li>
  * <li>{@code offset.z} <b>must</b> be a multiple of the sparse image block depth ({@link VkSparseImageFormatProperties}{@code ::imageGranularity.depth}) of the image</li>
+ * <li>{@code extent.depth} <b>must</b> be greater than 0</li>
  * <li>{@code extent.depth} <b>must</b> either be a multiple of the sparse image block depth of the image, or else <code>(extent.depth + offset.z)</code> <b>must</b> equal the depth of the image subresource</li>
  * <li>If {@code memory} was created with {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} not equal to 0, at least one handle type it contained <b>must</b> also have been set in {@link VkExternalMemoryImageCreateInfo}{@code ::handleTypes} when the image was created</li>
  * <li>If {@code memory} was created by a memory import operation, the external handle type of the imported memory <b>must</b> also have been set in {@link VkExternalMemoryImageCreateInfo}{@code ::handleTypes} when {@code image} was created</li>
@@ -208,8 +210,7 @@ public class VkSparseImageMemoryBind extends Struct<VkSparseImageMemoryBind> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageMemoryBind createSafe(long address) {
+    public static @Nullable VkSparseImageMemoryBind createSafe(long address) {
         return address == NULL ? null : new VkSparseImageMemoryBind(address, null);
     }
 
@@ -252,8 +253,7 @@ public class VkSparseImageMemoryBind extends Struct<VkSparseImageMemoryBind> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageMemoryBind.Buffer createSafe(long address, int capacity) {
+    public static VkSparseImageMemoryBind.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -323,11 +323,11 @@ public class VkSparseImageMemoryBind extends Struct<VkSparseImageMemoryBind> imp
     /** Unsafe version of {@link #extent}. */
     public static VkExtent3D nextent(long struct) { return VkExtent3D.create(struct + VkSparseImageMemoryBind.EXTENT); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkSparseImageMemoryBind.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkSparseImageMemoryBind.MEMORY); }
     /** Unsafe version of {@link #memoryOffset}. */
-    public static long nmemoryOffset(long struct) { return UNSAFE.getLong(null, struct + VkSparseImageMemoryBind.MEMORYOFFSET); }
+    public static long nmemoryOffset(long struct) { return memGetLong(struct + VkSparseImageMemoryBind.MEMORYOFFSET); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkSparseImageMemoryBind.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkSparseImageMemoryBind.FLAGS); }
 
     /** Unsafe version of {@link #subresource(VkImageSubresource) subresource}. */
     public static void nsubresource(long struct, VkImageSubresource value) { memCopy(value.address(), struct + VkSparseImageMemoryBind.SUBRESOURCE, VkImageSubresource.SIZEOF); }
@@ -336,11 +336,11 @@ public class VkSparseImageMemoryBind extends Struct<VkSparseImageMemoryBind> imp
     /** Unsafe version of {@link #extent(VkExtent3D) extent}. */
     public static void nextent(long struct, VkExtent3D value) { memCopy(value.address(), struct + VkSparseImageMemoryBind.EXTENT, VkExtent3D.SIZEOF); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseImageMemoryBind.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkSparseImageMemoryBind.MEMORY, value); }
     /** Unsafe version of {@link #memoryOffset(long) memoryOffset}. */
-    public static void nmemoryOffset(long struct, long value) { UNSAFE.putLong(null, struct + VkSparseImageMemoryBind.MEMORYOFFSET, value); }
+    public static void nmemoryOffset(long struct, long value) { memPutLong(struct + VkSparseImageMemoryBind.MEMORYOFFSET, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkSparseImageMemoryBind.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkSparseImageMemoryBind.FLAGS, value); }
 
     // -----------------------------------
 
@@ -373,6 +373,11 @@ public class VkSparseImageMemoryBind extends Struct<VkSparseImageMemoryBind> imp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

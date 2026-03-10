@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -25,7 +25,7 @@ import static org.lwjgl.openxr.OCULUSExternalCamera.*;
  * <ul>
  * <li>The {@link OCULUSExternalCamera XR_OCULUS_external_camera} extension <b>must</b> be enabled prior to using {@link XrExternalCameraOCULUS}</li>
  * <li>{@code type} <b>must</b> be {@link OCULUSExternalCamera#XR_TYPE_EXTERNAL_CAMERA_OCULUS TYPE_EXTERNAL_CAMERA_OCULUS}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * </ul>
  * 
  * <h5>See Also</h5>
@@ -171,8 +171,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraOCULUS createSafe(long address) {
+    public static @Nullable XrExternalCameraOCULUS createSafe(long address) {
         return address == NULL ? null : new XrExternalCameraOCULUS(address, null);
     }
 
@@ -215,8 +214,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExternalCameraOCULUS.Buffer createSafe(long address, int capacity) {
+    public static XrExternalCameraOCULUS.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,7 +259,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrExternalCameraOCULUS.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrExternalCameraOCULUS.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrExternalCameraOCULUS.NEXT); }
     /** Unsafe version of {@link #name}. */
@@ -274,7 +272,7 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
     public static XrExternalCameraExtrinsicsOCULUS nextrinsics(long struct) { return XrExternalCameraExtrinsicsOCULUS.create(struct + XrExternalCameraOCULUS.EXTRINSICS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrExternalCameraOCULUS.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrExternalCameraOCULUS.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrExternalCameraOCULUS.NEXT, value); }
 
@@ -309,6 +307,11 @@ public class XrExternalCameraOCULUS extends Struct<XrExternalCameraOCULUS> imple
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

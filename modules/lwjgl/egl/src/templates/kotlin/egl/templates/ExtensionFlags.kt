@@ -7,20 +7,20 @@ package egl.templates
 import egl.*
 import org.lwjgl.generator.*
 
-val EXT = "EXT"
-val KHR = "KHR"
+const val EXT = "EXT"
+const val KHR = "KHR"
 
-val ANDROID = "ANDROID"
-val ANGLE = "ANGLE"
-val ARM = "ARM"
-val HI = "HI"
-val IMG = "IMG"
-val MESA = "MESA"
-val NOK = "NOK"
-val NV = "NV"
-val OVR = "OVR"
-val TIZEN = "TIZEN"
-val WL = "WL"
+const val ANDROID = "ANDROID"
+const val ANGLE = "ANGLE"
+const val ARM = "ARM"
+const val HI = "HI"
+const val IMG = "IMG"
+const val MESA = "MESA"
+const val NOK = "NOK"
+const val NV = "NV"
+const val OVR = "OVR"
+const val TIZEN = "TIZEN"
+const val WL = "WL"
 
 private val NativeClass.cap: String get() = "{@link #$capName $templateName}"
 
@@ -68,6 +68,18 @@ val EXT_explicit_device = EXT_FLAG.nativeClassEGL("EXT_explicit_device", postfix
         allow pixmap or window surfaces.
 
         Using {@code EGL_EXT_explicit_device} with {@code EGL_MESA_platform_surfaceless} is functionally identical to {@code EGL_EXT_platform_device}.
+        """
+}
+
+val EXT_query_reset_notification_strategy = EXT_FLAG.nativeClassEGL("EXT_query_reset_notification_strategy", postfix = EXT) {
+    documentation =
+        """
+        When true, the $registryLink extension is supported.
+
+        This extension complements {@code EXT_create_context_robustness} and enables an application or framework to retrieve an existing context's reset
+        notification strategy in order to create a compatible shared context.
+
+        Requires ${EGL14.core} and ${EXT_create_context_robustness.link}.
         """
 }
 

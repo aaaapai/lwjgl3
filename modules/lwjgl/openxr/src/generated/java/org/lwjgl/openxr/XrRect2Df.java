@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Rect in two dimensions.
+ * Rect in two dimensions, floating-point values.
  * 
  * <h5>Description</h5>
  * 
- * <p>This structure is used for component values that may be fractional (floating-point).</p>
+ * <p>This structure is used for component values that may be real numbers, represented with single-precision floating point.</p>
+ * 
+ * <p>The {@code offset} is the position of the rectangle corner with minimum value coordinates. The other three corners are computed by adding the {@link XrExtent2Df}{@code ::width} to the {@code x} offset, {@link XrExtent2Df}{@code ::height} to the {@code y} offset, or both.</p>
  * 
  * <h5>See Also</h5>
  * 
- * <p>{@link XrExtent2Df}, {@link XrOffset2Df}, {@link FBScene#xrGetSpaceBoundingBox2DFB GetSpaceBoundingBox2DFB}</p>
+ * <p>{@link XrExtent2Df}, {@link XrOffset2Df}, {@link XrRect2Di}, {@link FBScene#xrGetSpaceBoundingBox2DFB GetSpaceBoundingBox2DFB}</p>
  * 
  * <h3>Layout</h3>
  * 
@@ -143,8 +145,7 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRect2Df createSafe(long address) {
+    public static @Nullable XrRect2Df createSafe(long address) {
         return address == NULL ? null : new XrRect2Df(address, null);
     }
 
@@ -187,8 +188,7 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRect2Df.Buffer createSafe(long address, int capacity) {
+    public static XrRect2Df.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -273,6 +273,11 @@ public class XrRect2Df extends Struct<XrRect2Df> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

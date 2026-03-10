@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -20,17 +20,13 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <h5>Description</h5>
  * 
- * <p>If {@code deviceAddress} is zero, no specific address is requested.</p>
- * 
- * <p>If {@code deviceAddress} is not zero, {@code deviceAddress} <b>must</b> be an address retrieved from an identically created acceleration structure on the same implementation. The acceleration structure <b>must</b> also be placed on an identically created {@code buffer} and at the same {@code offset}.</p>
- * 
  * <p>Applications <b>should</b> avoid creating acceleration structures with application-provided addresses and implementation-provided addresses in the same process, to reduce the likelihood of {@link KHRBufferDeviceAddress#VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR} errors.</p>
  * 
  * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
  * 
  * <p>The expected usage for this is that a trace capture/replay tool will add the {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} flag to all buffers that use {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT}, and will add {@link VK12#VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT} to all buffers used as storage for an acceleration structure where {@code deviceAddress} is not zero. This also means that the tool will need to add {@link VK12#VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT} to memory allocations to allow the flag to be set where the application may not have otherwise required it. During capture the tool will save the queried opaque device addresses in the trace. During replay, the buffers will be created specifying the original address so any address values stored in the trace data will remain valid.</p>
  * 
- * <p>Implementations are expected to separate such buffers in the GPU address space so normal allocations will avoid using these addresses. Apps/tools should avoid mixing app-provided and implementation-provided addresses for buffers created with {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, to avoid address space allocation conflicts.</p>
+ * <p>Implementations are expected to separate such buffers in the GPU address space so normal allocations will avoid using these addresses. Applications and tools should avoid mixing application-provided and implementation-provided addresses for buffers created with {@link VK12#VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT}, to avoid address space allocation conflicts.</p>
  * </div>
  * 
  * <p>Applications <b>should</b> create an acceleration structure with a specific {@code VkAccelerationStructureTypeKHR} other than {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR}.</p>
@@ -48,6 +44,9 @@ import static org.lwjgl.system.MemoryStack.*;
  * 
  * <ul>
  * <li>If {@code deviceAddress} is not zero, {@code createFlags} <b>must</b> include {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR ACCELERATION_STRUCTURE_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR}</li>
+ * <li>If {@code deviceAddress} is not zero, it <b>must</b> have been retrieved from an identically created acceleration structure, except for {@code buffer} and {@code deviceAddress}</li>
+ * <li>If {@code deviceAddress} is not zero, {@code buffer} <b>must</b> have been created identically to the {@code buffer} used to create the acceleration structure from which {@code deviceAddress} was retrieved, except for {@link VkBufferOpaqueCaptureAddressCreateInfo}{@code ::opaqueCaptureAddress}</li>
+ * <li>If {@code deviceAddress} is not zero, {@code buffer} <b>must</b> have been created with a {@link VkBufferOpaqueCaptureAddressCreateInfo}{@code ::opaqueCaptureAddress} that was retrieved from {@link VK12#vkGetBufferOpaqueCaptureAddress GetBufferOpaqueCaptureAddress} for the {@code buffer} that was used to create the acceleration structure from which {@code deviceAddress} was retrieved</li>
  * <li>If {@code createFlags} includes {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR ACCELERATION_STRUCTURE_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR}, {@link VkPhysicalDeviceAccelerationStructureFeaturesKHR}{@code ::accelerationStructureCaptureReplay} <b>must</b> be {@link VK10#VK_TRUE TRUE}</li>
  * <li>{@code buffer} <b>must</b> have been created with a {@code usage} value containing {@link KHRAccelerationStructure#VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR}</li>
  * <li>{@code buffer} <b>must</b> not have been created with {@link VK10#VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT BUFFER_CREATE_SPARSE_RESIDENCY_BIT}</li>
@@ -55,7 +54,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <li>{@code offset} <b>must</b> be a multiple of 256 bytes</li>
  * <li>If {@link NVRayTracingMotionBlur#VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV} is set in {@code createFlags} and {@code type} is {@link KHRAccelerationStructure#VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR}, one member of the {@code pNext} chain <b>must</b> be a pointer to a valid instance of {@link VkAccelerationStructureMotionInfoNV}</li>
  * <li>If any geometry includes {@link VkAccelerationStructureGeometryMotionTrianglesDataNV} then {@code createFlags} <b>must</b> contain {@link NVRayTracingMotionBlur#VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV}</li>
- * <li>If {@code createFlags} includes {@link EXTDescriptorBuffer#VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
+ * <li>If {@code createFlags} includes {@link EXTDescriptorBuffer#VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}, the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-descriptorBufferCaptureReplay">{@code descriptorBufferCaptureReplay}</a> feature <b>must</b> be enabled</li>
  * <li>If the {@code pNext} chain includes a {@link VkOpaqueCaptureDescriptorDataCreateInfoEXT} structure, {@code createFlags} <b>must</b> contain {@link EXTDescriptorBuffer#VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT}</li>
  * </ul>
  * 
@@ -175,7 +174,7 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct<VkAccelerationS
     /** a {@code VkAccelerationStructureTypeKHR} value specifying the type of acceleration structure that will be created. */
     @NativeType("VkAccelerationStructureTypeKHR")
     public int type() { return ntype(address()); }
-    /** the device address requested for the acceleration structure if the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-accelerationStructureCaptureReplay">{@code accelerationStructureCaptureReplay}</a> feature is being used. */
+    /** the device address requested for the acceleration structure if the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-accelerationStructureCaptureReplay">{@code accelerationStructureCaptureReplay}</a> feature is being used. If {@code deviceAddress} is zero, no specific address is requested. */
     @NativeType("VkDeviceAddress")
     public long deviceAddress() { return ndeviceAddress(address()); }
 
@@ -261,8 +260,7 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct<VkAccelerationS
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkAccelerationStructureCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkAccelerationStructureCreateInfoKHR(address, null);
     }
 
@@ -305,8 +303,7 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct<VkAccelerationS
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAccelerationStructureCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAccelerationStructureCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -351,38 +348,38 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct<VkAccelerationS
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkAccelerationStructureCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkAccelerationStructureCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #createFlags}. */
-    public static int ncreateFlags(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureCreateInfoKHR.CREATEFLAGS); }
+    public static int ncreateFlags(long struct) { return memGetInt(struct + VkAccelerationStructureCreateInfoKHR.CREATEFLAGS); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureCreateInfoKHR.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkAccelerationStructureCreateInfoKHR.BUFFER); }
     /** Unsafe version of {@link #offset}. */
-    public static long noffset(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureCreateInfoKHR.OFFSET); }
+    public static long noffset(long struct) { return memGetLong(struct + VkAccelerationStructureCreateInfoKHR.OFFSET); }
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureCreateInfoKHR.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkAccelerationStructureCreateInfoKHR.SIZE); }
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + VkAccelerationStructureCreateInfoKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + VkAccelerationStructureCreateInfoKHR.TYPE); }
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkAccelerationStructureCreateInfoKHR.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkAccelerationStructureCreateInfoKHR.DEVICEADDRESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkAccelerationStructureCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkAccelerationStructureCreateInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #createFlags(int) createFlags}. */
-    public static void ncreateFlags(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureCreateInfoKHR.CREATEFLAGS, value); }
+    public static void ncreateFlags(long struct, int value) { memPutInt(struct + VkAccelerationStructureCreateInfoKHR.CREATEFLAGS, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureCreateInfoKHR.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkAccelerationStructureCreateInfoKHR.BUFFER, value); }
     /** Unsafe version of {@link #offset(long) offset}. */
-    public static void noffset(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureCreateInfoKHR.OFFSET, value); }
+    public static void noffset(long struct, long value) { memPutLong(struct + VkAccelerationStructureCreateInfoKHR.OFFSET, value); }
     /** Unsafe version of {@link #size(long) size}. */
-    public static void nsize(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureCreateInfoKHR.SIZE, value); }
+    public static void nsize(long struct, long value) { memPutLong(struct + VkAccelerationStructureCreateInfoKHR.SIZE, value); }
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + VkAccelerationStructureCreateInfoKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + VkAccelerationStructureCreateInfoKHR.TYPE, value); }
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkAccelerationStructureCreateInfoKHR.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkAccelerationStructureCreateInfoKHR.DEVICEADDRESS, value); }
 
     // -----------------------------------
 
@@ -415,6 +412,11 @@ public class VkAccelerationStructureCreateInfoKHR extends Struct<VkAccelerationS
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

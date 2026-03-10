@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -103,12 +103,9 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
      * <li>{@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER}</li>
      * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER}</li>
      * <li>{@link VK10#VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER DESCRIPTOR_TYPE_UNIFORM_BUFFER}</li>
-     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}</li>
-     * </ul>
-     * 
-     * <p>Additionally, {@code mutableDescriptorType} indicates that:</p>
-     * 
-     * <ul>
+     * <li>{@link VK10#VK_DESCRIPTOR_TYPE_STORAGE_BUFFER DESCRIPTOR_TYPE_STORAGE_BUFFER}
+     * Additionally, {@code mutableDescriptorType} indicates that:
+     * </li>
      * <li>Non-uniform descriptor indexing <b>must</b> be supported if all descriptor types in a {@link VkMutableDescriptorTypeListEXT} for {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} have the corresponding non-uniform indexing features enabled in {@link VkPhysicalDeviceDescriptorIndexingFeatures}.</li>
      * <li>{@link VK12#VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT} with {@code descriptorType} of {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} relaxes the list of required descriptor types to the descriptor types which have the corresponding update-after-bind feature enabled in {@link VkPhysicalDeviceDescriptorIndexingFeatures}.</li>
      * <li>Dynamically uniform descriptor indexing <b>must</b> be supported if all descriptor types in a {@link VkMutableDescriptorTypeListEXT} for {@link EXTMutableDescriptorType#VK_DESCRIPTOR_TYPE_MUTABLE_EXT DESCRIPTOR_TYPE_MUTABLE_EXT} have the corresponding dynamic indexing features enabled.</li>
@@ -177,8 +174,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT(address, null);
     }
 
@@ -221,8 +217,7 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -267,18 +262,18 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #mutableDescriptorType}. */
-    public static int nmutableDescriptorType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE); }
+    public static int nmutableDescriptorType(long struct) { return memGetInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #mutableDescriptorType(boolean) mutableDescriptorType}. */
-    public static void nmutableDescriptorType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE, value); }
+    public static void nmutableDescriptorType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.MUTABLEDESCRIPTORTYPE, value); }
 
     // -----------------------------------
 
@@ -311,6 +306,11 @@ public class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends Struct<VkP
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.yoga;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -16,8 +16,8 @@ import static org.lwjgl.system.MemoryUtil.*;
  * 
  * <pre><code>
  * int (*{@link #invoke}) (
- *     YGConfigRef config,
- *     YGNodeRef node,
+ *     YGConfigConstRef config,
+ *     YGNodeConstRef node,
  *     YGLogLevel level,
  *     char const *format,
  *     va_list args
@@ -38,8 +38,7 @@ public abstract class YGLogger extends Callback implements YGLoggerI {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code functionPointer} is {@code NULL}. */
-    @Nullable
-    public static YGLogger createSafe(long functionPointer) {
+    public static @Nullable YGLogger createSafe(long functionPointer) {
         return functionPointer == NULL ? null : create(functionPointer);
     }
 

@@ -10,7 +10,7 @@ import core.windows.*
 
 val GLFWNativeWGL = "GLFWNativeWGL".nativeClass(Module.GLFW, nativeSubPath = "windows", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
     javaImport(
-        "javax.annotation.*",
+        "org.jspecify.annotations.*",
         "org.lwjgl.opengl.GL",
         "static org.lwjgl.system.MemoryUtil.*"
     )
@@ -86,6 +86,6 @@ val GLFWNativeWGL = "GLFWNativeWGL".nativeClass(Module.GLFW, nativeSubPath = "wi
         if (a != NULL) {
             nmemFree(a);
         }
-        memPutAddress(override, path == null ? NULL : memAddress(memUTF16(path)));
+        memPutAddress(override, path == null ? NULL : memAddress(memUTF8(path)));
     }""")
 }

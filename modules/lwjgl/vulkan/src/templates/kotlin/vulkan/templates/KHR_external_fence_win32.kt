@@ -15,7 +15,6 @@ val KHR_external_fence_win32 = "KHRExternalFenceWin32".nativeClassVK("KHR_extern
         """
         An application using external memory may wish to synchronize access to that memory using fences. This extension enables an application to export fence payload to and import fence payload from Windows handles.
 
-        <h5>VK_KHR_external_fence_win32</h5>
         <dl>
             <dt><b>Name String</b></dt>
             <dd>{@code VK_KHR_external_fence_win32}</dd>
@@ -145,7 +144,7 @@ val KHR_external_fence_win32 = "KHRExternalFenceWin32".nativeClassVK("KHR_extern
         <h5>Description</h5>
         For handle types defined as NT handles, the handles returned by {@code vkGetFenceWin32HandleKHR} are owned by the application. To avoid leaking resources, the application <b>must</b> release ownership of them using the {@code CloseHandle} system call when they are no longer needed.
 
-        Exporting a Windows handle from a fence <b>may</b> have side effects depending on the transference of the specified handle type, as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html\#synchronization-fences-importing">Importing Fence Payloads</a>.
+        Exporting a Windows handle from a fence <b>may</b> have side effects depending on the transference of the specified handle type, as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html\#synchronization-fences-importing">Importing Fence Payloads</a>.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

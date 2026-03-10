@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -28,7 +28,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * <ul>
  * <li>The {@link KHRCompositionLayerEquirect2 XR_KHR_composition_layer_equirect2} extension <b>must</b> be enabled prior to using {@link XrCompositionLayerEquirect2KHR}</li>
  * <li>{@code type} <b>must</b> be {@link KHRCompositionLayerEquirect2#XR_TYPE_COMPOSITION_LAYER_EQUIRECT2_KHR TYPE_COMPOSITION_LAYER_EQUIRECT2_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
+ * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
  * <li>{@code layerFlags} <b>must</b> be 0 or a valid combination of {@code XrCompositionLayerFlagBits} values</li>
  * <li>{@code space} <b>must</b> be a valid {@code XrSpace} handle</li>
  * <li>{@code eyeVisibility} <b>must</b> be a valid {@code XrEyeVisibility} value</li>
@@ -146,7 +146,7 @@ public class XrCompositionLayerEquirect2KHR extends Struct<XrCompositionLayerEqu
     /** the eye represented by this layer. */
     @NativeType("XrEyeVisibility")
     public int eyeVisibility() { return neyeVisibility(address()); }
-    /** identifies the image {@link XrSwapchainSubImage} to use. The swapchain <b>must</b> have been created with a {@code faceCount} of 1. */
+    /** identifies the image {@link XrSwapchainSubImage} to use. The swapchain <b>must</b> have been created with a {@link XrSwapchainCreateInfo}{@code ::faceCount} of 1. */
     public XrSwapchainSubImage subImage() { return nsubImage(address()); }
     /** an {@link XrPosef} defining the position and orientation of the center point of the sphere onto which the equirect image data is mapped, relative to the reference frame of the {@code space}. */
     public XrPosef pose() { return npose(address()); }
@@ -253,8 +253,7 @@ public class XrCompositionLayerEquirect2KHR extends Struct<XrCompositionLayerEqu
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerEquirect2KHR createSafe(long address) {
+    public static @Nullable XrCompositionLayerEquirect2KHR createSafe(long address) {
         return address == NULL ? null : new XrCompositionLayerEquirect2KHR(address, null);
     }
 
@@ -302,8 +301,7 @@ public class XrCompositionLayerEquirect2KHR extends Struct<XrCompositionLayerEqu
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrCompositionLayerEquirect2KHR.Buffer createSafe(long address, int capacity) {
+    public static XrCompositionLayerEquirect2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -353,50 +351,50 @@ public class XrCompositionLayerEquirect2KHR extends Struct<XrCompositionLayerEqu
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerEquirect2KHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrCompositionLayerEquirect2KHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrCompositionLayerEquirect2KHR.NEXT); }
     /** Unsafe version of {@link #layerFlags}. */
-    public static long nlayerFlags(long struct) { return UNSAFE.getLong(null, struct + XrCompositionLayerEquirect2KHR.LAYERFLAGS); }
+    public static long nlayerFlags(long struct) { return memGetLong(struct + XrCompositionLayerEquirect2KHR.LAYERFLAGS); }
     /** Unsafe version of {@link #space}. */
     public static long nspace(long struct) { return memGetAddress(struct + XrCompositionLayerEquirect2KHR.SPACE); }
     /** Unsafe version of {@link #eyeVisibility}. */
-    public static int neyeVisibility(long struct) { return UNSAFE.getInt(null, struct + XrCompositionLayerEquirect2KHR.EYEVISIBILITY); }
+    public static int neyeVisibility(long struct) { return memGetInt(struct + XrCompositionLayerEquirect2KHR.EYEVISIBILITY); }
     /** Unsafe version of {@link #subImage}. */
     public static XrSwapchainSubImage nsubImage(long struct) { return XrSwapchainSubImage.create(struct + XrCompositionLayerEquirect2KHR.SUBIMAGE); }
     /** Unsafe version of {@link #pose}. */
     public static XrPosef npose(long struct) { return XrPosef.create(struct + XrCompositionLayerEquirect2KHR.POSE); }
     /** Unsafe version of {@link #radius}. */
-    public static float nradius(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerEquirect2KHR.RADIUS); }
+    public static float nradius(long struct) { return memGetFloat(struct + XrCompositionLayerEquirect2KHR.RADIUS); }
     /** Unsafe version of {@link #centralHorizontalAngle}. */
-    public static float ncentralHorizontalAngle(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerEquirect2KHR.CENTRALHORIZONTALANGLE); }
+    public static float ncentralHorizontalAngle(long struct) { return memGetFloat(struct + XrCompositionLayerEquirect2KHR.CENTRALHORIZONTALANGLE); }
     /** Unsafe version of {@link #upperVerticalAngle}. */
-    public static float nupperVerticalAngle(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerEquirect2KHR.UPPERVERTICALANGLE); }
+    public static float nupperVerticalAngle(long struct) { return memGetFloat(struct + XrCompositionLayerEquirect2KHR.UPPERVERTICALANGLE); }
     /** Unsafe version of {@link #lowerVerticalAngle}. */
-    public static float nlowerVerticalAngle(long struct) { return UNSAFE.getFloat(null, struct + XrCompositionLayerEquirect2KHR.LOWERVERTICALANGLE); }
+    public static float nlowerVerticalAngle(long struct) { return memGetFloat(struct + XrCompositionLayerEquirect2KHR.LOWERVERTICALANGLE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerEquirect2KHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrCompositionLayerEquirect2KHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrCompositionLayerEquirect2KHR.NEXT, value); }
     /** Unsafe version of {@link #layerFlags(long) layerFlags}. */
-    public static void nlayerFlags(long struct, long value) { UNSAFE.putLong(null, struct + XrCompositionLayerEquirect2KHR.LAYERFLAGS, value); }
+    public static void nlayerFlags(long struct, long value) { memPutLong(struct + XrCompositionLayerEquirect2KHR.LAYERFLAGS, value); }
     /** Unsafe version of {@link #space(XrSpace) space}. */
     public static void nspace(long struct, XrSpace value) { memPutAddress(struct + XrCompositionLayerEquirect2KHR.SPACE, value.address()); }
     /** Unsafe version of {@link #eyeVisibility(int) eyeVisibility}. */
-    public static void neyeVisibility(long struct, int value) { UNSAFE.putInt(null, struct + XrCompositionLayerEquirect2KHR.EYEVISIBILITY, value); }
+    public static void neyeVisibility(long struct, int value) { memPutInt(struct + XrCompositionLayerEquirect2KHR.EYEVISIBILITY, value); }
     /** Unsafe version of {@link #subImage(XrSwapchainSubImage) subImage}. */
     public static void nsubImage(long struct, XrSwapchainSubImage value) { memCopy(value.address(), struct + XrCompositionLayerEquirect2KHR.SUBIMAGE, XrSwapchainSubImage.SIZEOF); }
     /** Unsafe version of {@link #pose(XrPosef) pose}. */
     public static void npose(long struct, XrPosef value) { memCopy(value.address(), struct + XrCompositionLayerEquirect2KHR.POSE, XrPosef.SIZEOF); }
     /** Unsafe version of {@link #radius(float) radius}. */
-    public static void nradius(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerEquirect2KHR.RADIUS, value); }
+    public static void nradius(long struct, float value) { memPutFloat(struct + XrCompositionLayerEquirect2KHR.RADIUS, value); }
     /** Unsafe version of {@link #centralHorizontalAngle(float) centralHorizontalAngle}. */
-    public static void ncentralHorizontalAngle(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerEquirect2KHR.CENTRALHORIZONTALANGLE, value); }
+    public static void ncentralHorizontalAngle(long struct, float value) { memPutFloat(struct + XrCompositionLayerEquirect2KHR.CENTRALHORIZONTALANGLE, value); }
     /** Unsafe version of {@link #upperVerticalAngle(float) upperVerticalAngle}. */
-    public static void nupperVerticalAngle(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerEquirect2KHR.UPPERVERTICALANGLE, value); }
+    public static void nupperVerticalAngle(long struct, float value) { memPutFloat(struct + XrCompositionLayerEquirect2KHR.UPPERVERTICALANGLE, value); }
     /** Unsafe version of {@link #lowerVerticalAngle(float) lowerVerticalAngle}. */
-    public static void nlowerVerticalAngle(long struct, float value) { UNSAFE.putFloat(null, struct + XrCompositionLayerEquirect2KHR.LOWERVERTICALANGLE, value); }
+    public static void nlowerVerticalAngle(long struct, float value) { memPutFloat(struct + XrCompositionLayerEquirect2KHR.LOWERVERTICALANGLE, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -439,6 +437,11 @@ public class XrCompositionLayerEquirect2KHR extends Struct<XrCompositionLayerEqu
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

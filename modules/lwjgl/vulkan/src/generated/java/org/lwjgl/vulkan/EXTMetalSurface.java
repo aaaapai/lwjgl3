@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 /**
  * The {@code VK_EXT_metal_surface} extension is an instance extension. It provides a mechanism to create a {@code VkSurfaceKHR} object (defined by the {@link KHRSurface VK_KHR_surface} extension) from {@code CAMetalLayer}, which is the native rendering surface of Apple’s Metal framework.
- * 
- * <h5>VK_EXT_metal_surface</h5>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -120,11 +118,11 @@ public class EXTMetalSurface {
      *
      * @param instance    the instance with which to associate the surface.
      * @param pCreateInfo a pointer to a {@link VkMetalSurfaceCreateInfoEXT} structure specifying parameters affecting the creation of the surface object.
-     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#memory-allocation">Memory Allocation</a>).
+     * @param pAllocator  the allocator used for host memory allocated for the surface object when there is no more specific allocator available (see <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-allocation">Memory Allocation</a>).
      * @param pSurface    a pointer to a {@code VkSurfaceKHR} handle in which the created surface object is returned.
      */
     @NativeType("VkResult")
-    public static int vkCreateMetalSurfaceEXT(VkInstance instance, @NativeType("VkMetalSurfaceCreateInfoEXT const *") VkMetalSurfaceCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
+    public static int vkCreateMetalSurfaceEXT(VkInstance instance, @NativeType("VkMetalSurfaceCreateInfoEXT const *") VkMetalSurfaceCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") LongBuffer pSurface) {
         if (CHECKS) {
             check(pSurface, 1);
         }
@@ -133,7 +131,7 @@ public class EXTMetalSurface {
 
     /** Array version of: {@link #vkCreateMetalSurfaceEXT CreateMetalSurfaceEXT} */
     @NativeType("VkResult")
-    public static int vkCreateMetalSurfaceEXT(VkInstance instance, @NativeType("VkMetalSurfaceCreateInfoEXT const *") VkMetalSurfaceCreateInfoEXT pCreateInfo, @Nullable @NativeType("VkAllocationCallbacks const *") VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
+    public static int vkCreateMetalSurfaceEXT(VkInstance instance, @NativeType("VkMetalSurfaceCreateInfoEXT const *") VkMetalSurfaceCreateInfoEXT pCreateInfo, @NativeType("VkAllocationCallbacks const *") @Nullable VkAllocationCallbacks pAllocator, @NativeType("VkSurfaceKHR *") long[] pSurface) {
         long __functionAddress = instance.getCapabilities().vkCreateMetalSurfaceEXT;
         if (CHECKS) {
             check(__functionAddress);

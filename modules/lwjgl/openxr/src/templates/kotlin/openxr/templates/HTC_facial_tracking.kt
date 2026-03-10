@@ -11,7 +11,7 @@ import openxr.*
 val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking", type = "instance", postfix = "HTC") {
     documentation =
         """
-        The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html\#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
+        The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html\#XR_HTC_facial_tracking">XR_HTC_facial_tracking</a> extension.
 
         This extension allows an application to track and integrate users' eye and lip movements, empowering developers to read intention and model facial expressions.
         """
@@ -19,7 +19,7 @@ val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking
     IntConstant(
         "The extension specification version.",
 
-        "HTC_facial_tracking_SPEC_VERSION".."2"
+        "HTC_facial_tracking_SPEC_VERSION".."3"
     )
 
     StringConstant(
@@ -40,6 +40,15 @@ val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking
         "TYPE_SYSTEM_FACIAL_TRACKING_PROPERTIES_HTC".."1000104000",
         "TYPE_FACIAL_TRACKER_CREATE_INFO_HTC".."1000104001",
         "TYPE_FACIAL_EXPRESSIONS_HTC".."1000104002"
+    )
+
+    EnumConstant(
+        "Extends {@code XrLipExpressionHTC}.",
+
+        "LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC".."12",
+        "LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC".."13",
+        "LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC".."14",
+        "LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC".."15"
     )
 
     EnumConstant(
@@ -80,10 +89,10 @@ val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking
         "LIP_EXPRESSION_MOUTH_UPPER_OVERTURN_HTC".."9",
         "LIP_EXPRESSION_MOUTH_LOWER_OVERTURN_HTC".."10",
         "LIP_EXPRESSION_MOUTH_POUT_HTC".."11",
-        "LIP_EXPRESSION_MOUTH_SMILE_RIGHT_HTC".."12",
-        "LIP_EXPRESSION_MOUTH_SMILE_LEFT_HTC".."13",
-        "LIP_EXPRESSION_MOUTH_SAD_RIGHT_HTC".."14",
-        "LIP_EXPRESSION_MOUTH_SAD_LEFT_HTC".."15",
+        "LIP_EXPRESSION_MOUTH_RAISER_RIGHT_HTC".."12",
+        "LIP_EXPRESSION_MOUTH_RAISER_LEFT_HTC".."13",
+        "LIP_EXPRESSION_MOUTH_STRETCHER_RIGHT_HTC".."14",
+        "LIP_EXPRESSION_MOUTH_STRETCHER_LEFT_HTC".."15",
         "LIP_EXPRESSION_CHEEK_PUFF_RIGHT_HTC".."16",
         "LIP_EXPRESSION_CHEEK_PUFF_LEFT_HTC".."17",
         "LIP_EXPRESSION_CHEEK_SUCK_HTC".."18",
@@ -142,7 +151,7 @@ val HTC_facial_tracking = "HTCFacialTracking".nativeClassXR("HTC_facial_tracking
         <h5>Description</h5>
         An application <b>can</b> create an {@code XrFacialTrackerHTC} handle using #CreateFacialTrackerHTC().
 
-        If the system does not support eye tracking or lip tracking, runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateFacialTrackerHTC() according to the corresponding case. In this case, the runtime <b>must</b> return #FALSE for {@code supportEyeFacialTracking} or {@code supportLipFacialTracking} in ##XrSystemFacialTrackingPropertiesHTC when the function #GetSystemProperties() is called, so that the application <b>may</b> avoid creating a facial tracker.
+        If the system does not support eye tracking or lip tracking, runtime <b>must</b> return #ERROR_FEATURE_UNSUPPORTED from #CreateFacialTrackerHTC() according to the corresponding case. In this case, the runtime <b>must</b> return #FALSE for ##XrSystemFacialTrackingPropertiesHTC{@code ::supportEyeFacialTracking} or ##XrSystemFacialTrackingPropertiesHTC{@code ::supportLipFacialTracking} when the function #GetSystemProperties() is called, so that the application <b>may</b> avoid creating a facial tracker.
 
         <h5>Valid Usage (Implicit)</h5>
         <ul>

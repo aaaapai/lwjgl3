@@ -14,9 +14,7 @@ package org.lwjgl.vulkan;
  * 
  * <h5>Obsoletion by {@code VK_KHR_maintenance1} and Vulkan 1.1</h5>
  * 
- * <p>Functionality in this extension is included in {@code VK_KHR_maintenance1} and subsequently Vulkan 1.1. Due to some slight behavioral differences, this extension <b>must</b> not be enabled alongside {@code VK_KHR_maintenance1}, or in an instance created with version 1.1 or later requested in {@link VkApplicationInfo}{@code ::apiVersion}.</p>
- * 
- * <h5>VK_AMD_negative_viewport_height</h5>
+ * <p>Functionality in this extension is included in the {@link KHRMaintenance1 VK_KHR_maintenance1} extension and subsequently Vulkan 1.1. Due to some slight behavioral differences, this extension <b>must</b> not be enabled alongside {@code VK_KHR_maintenance1}, or in an instance created with version 1.1 or later requested in {@link VkApplicationInfo}{@code ::apiVersion}.</p>
  * 
  * <dl>
  * <dt><b>Name String</b></dt>
@@ -27,12 +25,12 @@ package org.lwjgl.vulkan;
  * <dd>36</dd>
  * <dt><b>Revision</b></dt>
  * <dd>1</dd>
- * <dt><b>Deprecation state</b></dt>
+ * <dt><b>Deprecation State</b></dt>
  * <dd><ul>
  * <li><em>Obsoleted</em> by {@link KHRMaintenance1 VK_KHR_maintenance1} extension
  * 
  * <ul>
- * <li>Which in turn was <em>promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
+ * <li>Which in turn was <em>promoted</em> to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#versions-1.1-promotions">Vulkan 1.1</a></li>
  * </ul>
  * </li>
  * </ul></dd>

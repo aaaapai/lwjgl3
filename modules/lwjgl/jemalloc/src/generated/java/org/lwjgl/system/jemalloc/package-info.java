@@ -15,11 +15,11 @@
  * 
  * <ul>
  * <li>--with-jemalloc-prefix=je_</li>
- * <li>--enable-lazy-lock (Linux)</li>
+ * <li>--enable-lazy-lock=no (FreeBSD)</li>
  * <li>--disable-stats</li>
  * <li>--disable-fill</li>
  * <li>--disable-cxx</li>
- * <li>--disable-initial-exec-tls (Linux &amp; macOS)</li>
+ * <li>--disable-initial-exec-tls (FreeBSD, Linux &amp; macOS)</li>
  * <li>--disable-zone-allocator (macOS)</li>
  * </ul>
  * 
@@ -28,6 +28,6 @@
  * <p>Dynamic configuration (for enabled features) is also possible, using either the {@code MALLOC_CONF} environment variable or the
  * <a href="https://jemalloc.net/jemalloc.3.html#mallctl_namespace">MALLCTL NAMESPACE</a> and the {@code mallctl*} functions.</p>
  */
-@org.lwjgl.system.NonnullDefault
+@org.jspecify.annotations.NullMarked
 package org.lwjgl.system.jemalloc;
 

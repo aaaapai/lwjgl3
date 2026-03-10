@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jawt;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import org.lwjgl.system.*;
 
@@ -57,14 +57,19 @@ public class JAWTFunctions {
         JAWT_VERSION_9   = 0x90000;
 
     /**
-     * When calling {@link #JAWT_GetAWT GetAWT} with a JAWT version less than 1.7, you must pass this flag or you will not be able to get a valid drawing surface and {@link #JAWT_GetAWT GetAWT}
-     * will return false. This is to maintain compatibility with applications that used the interface with Java 6 which had multiple rendering models. This
-     * flag is not necessary when JAWT version 1.7 or greater is used as this is the only supported rendering mode.
+     * When calling {@link #JAWT_GetAWT GetAWT} with a JAWT version less than 1.7, you must pass this flag or you will not be able to get a valid drawing surface and
+     * {@code JAWT_GetAWT} will return false. This is to maintain compatibility with applications that used the interface with Java 6 which had multiple
+     * rendering models. This flag is not necessary when JAWT version 1.7 or greater is used as this is the only supported rendering mode. Example:
+     * 
+     * <pre><code>
+     * JAWT awt;
+     * awt.version = JAWT_VERSION_1_4 | JAWT_MACOSX_USE_CALAYER;
+     * jboolean success = JAWT_GetAWT(env, &amp;awt);</code></pre>
      * 
      * <p>When the native Cocoa toolkit is in use, the pointer stored in {@code JAWT_DrawingSurfaceInfo->platformInfo} points to a {@code NSObject} that conforms
-     * to the {@code JAWT_SurfaceLayers} protocol. Setting the layer property of this object will cause the specified layer to be overlaid on the Component's
-     * rectangle. If the window the Component belongs to has a {@code CALayer} attached to it, this layer will be accessible via the {@code windowLayer}
-     * property.</p>
+     * to the {@code JAWT_SurfaceLayers} protocol. Setting the layer property of this object will cause the specified layer to be overlaid on the
+     * {@code Component}'s rectangle. If the window the {@code Component} belongs to has a {@code CALayer} attached to it, this layer will be accessible via
+     * the {@code windowLayer} property.</p>
      * 
      * <pre><code>
      * &#64;protocol JAWT_SurfaceLayers
@@ -72,7 +77,7 @@ public class JAWTFunctions {
      *     &#64;property (readonly) CALayer *windowLayer;
      * &#64;end</code></pre>
      */
-    public static final int JAWT_MACOSX_USE_CALAYER = 0x10008;
+    public static final int JAWT_MACOSX_USE_CALAYER = 0x80000000;
 
     /** Bitmask values returned by {@code Lock()}. */
     public static final int
@@ -161,9 +166,8 @@ public class JAWTFunctions {
      *
      * @return {@code NULL} if an error has occurred.
      */
-    @Nullable
     @NativeType("JAWT_DrawingSurfaceInfo *")
-    public static JAWTDrawingSurfaceInfo JAWT_DrawingSurface_GetDrawingSurfaceInfo(@NativeType("JAWT_DrawingSurface *") JAWTDrawingSurface ds, @NativeType("void *") long __functionAddress) {
+    public static @Nullable JAWTDrawingSurfaceInfo JAWT_DrawingSurface_GetDrawingSurfaceInfo(@NativeType("JAWT_DrawingSurface *") JAWTDrawingSurface ds, @NativeType("void *") long __functionAddress) {
         long __result = nJAWT_DrawingSurface_GetDrawingSurfaceInfo(ds.address(), __functionAddress);
         return JAWTDrawingSurfaceInfo.createSafe(__result);
     }
@@ -223,9 +227,8 @@ public class JAWTFunctions {
      *
      * @return {@code NULL} if an error has occurred
      */
-    @Nullable
     @NativeType("JAWT_DrawingSurface *")
-    public static JAWTDrawingSurface JAWT_GetDrawingSurface(@NativeType("jobject") Object target, @NativeType("void *") long __functionAddress) {
+    public static @Nullable JAWTDrawingSurface JAWT_GetDrawingSurface(@NativeType("jobject") Object target, @NativeType("void *") long __functionAddress) {
         if (CHECKS) {
             check(__functionAddress);
         }
@@ -290,8 +293,7 @@ public class JAWTFunctions {
     // --- [ JAWT_GetComponent ] ---
 
     /** Unsafe version of: {@link #JAWT_GetComponent GetComponent} */
-    @Nullable
-    public static native Component nJAWT_GetComponent(long platformInfo, long __functionAddress);
+    public static native @Nullable Component nJAWT_GetComponent(long platformInfo, long __functionAddress);
 
     /**
      * Returns a reference to a {@link Component} from a native platform handle. On Windows, this corresponds to an {@code HWND}; on Solaris and Linux, this is a
@@ -302,9 +304,8 @@ public class JAWTFunctions {
      * @param platformInfo      the native platform handle
      * @param __functionAddress the function address
      */
-    @Nullable
     @NativeType("jobject")
-    public static Component JAWT_GetComponent(@NativeType("void *") long platformInfo, @NativeType("void *") long __functionAddress) {
+    public static @Nullable Component JAWT_GetComponent(@NativeType("void *") long platformInfo, @NativeType("void *") long __functionAddress) {
         if (CHECKS) {
             check(platformInfo);
             check(__functionAddress);
@@ -315,8 +316,7 @@ public class JAWTFunctions {
     // --- [ JAWT_CreateEmbeddedFrame ] ---
 
     /** Unsafe version of: {@link #JAWT_CreateEmbeddedFrame CreateEmbeddedFrame} */
-    @Nullable
-    public static native Frame nJAWT_CreateEmbeddedFrame(long platformInfo, long __functionAddress);
+    public static native @Nullable Frame nJAWT_CreateEmbeddedFrame(long platformInfo, long __functionAddress);
 
     /**
      * Creates a {@link Frame} placed in a native container. Container is referenced by the native platform handle. For example on Windows this corresponds to an
@@ -329,9 +329,8 @@ public class JAWTFunctions {
      *
      * @since Java 9
      */
-    @Nullable
     @NativeType("jobject")
-    public static Frame JAWT_CreateEmbeddedFrame(@NativeType("void *") long platformInfo, @NativeType("void *") long __functionAddress) {
+    public static @Nullable Frame JAWT_CreateEmbeddedFrame(@NativeType("void *") long platformInfo, @NativeType("void *") long __functionAddress) {
         if (CHECKS) {
             check(platformInfo);
             check(__functionAddress);

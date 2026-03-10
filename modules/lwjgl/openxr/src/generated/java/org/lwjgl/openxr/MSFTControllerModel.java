@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,7 +16,7 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_MSFT_controller_model">XR_MSFT_controller_model</a> extension.
+ * The <a href="https://registry.khronos.org/OpenXR/specs/1.1/html/xrspec.html#XR_MSFT_controller_model">XR_MSFT_controller_model</a> extension.
  * 
  * <p>This extension provides a mechanism to load a GLTF model for controllers. An application <b>can</b> render the controller model using the real time pose input from controller’s grip action pose and animate controller parts representing the user’s interactions, such as pressing a button, or pulling a trigger.</p>
  * 
@@ -152,7 +152,7 @@ public class MSFTControllerModel {
      * 
      * <h5>C Specification</h5>
      * 
-     * <p>The {@link #xrLoadControllerModelMSFT LoadControllerModelMSFT} function loads the controller model as a byte buffer containing a binary form of glTF (a.k.a GLB file format) for the controller. The binary glTF data <b>must</b> conform to glTF 2.0 format defined at {uri-msft-gltf2}.</p>
+     * <p>The {@link #xrLoadControllerModelMSFT LoadControllerModelMSFT} function loads the controller model as a byte buffer containing a binary form of glTF (a.k.a GLB file format) for the controller. The binary glTF data <b>must</b> conform to glTF 2.0 format defined at <a href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html">https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html</a>.</p>
      * 
      * <pre><code>
      * XrResult xrLoadControllerModelMSFT(
@@ -204,7 +204,7 @@ public class MSFTControllerModel {
      * @param buffer            a pointer to an application-allocated array of the model for the device that will be filled with the {@code uint8_t} values by the runtime. It <b>can</b> be {@code NULL} if {@code bufferCapacityInput} is 0.
      */
     @NativeType("XrResult")
-    public static int xrLoadControllerModelMSFT(XrSession session, @NativeType("XrControllerModelKeyMSFT") long modelKey, @NativeType("uint32_t *") IntBuffer bufferCountOutput, @Nullable @NativeType("uint8_t *") ByteBuffer buffer) {
+    public static int xrLoadControllerModelMSFT(XrSession session, @NativeType("XrControllerModelKeyMSFT") long modelKey, @NativeType("uint32_t *") IntBuffer bufferCountOutput, @NativeType("uint8_t *") @Nullable ByteBuffer buffer) {
         if (CHECKS) {
             check(bufferCountOutput, 1);
         }

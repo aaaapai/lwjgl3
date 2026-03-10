@@ -8,8 +8,6 @@ package org.lwjgl.vulkan;
 /**
  * This extension adds support for a new query type to match OpenGL’s {@code GL_PRIMITIVES_GENERATED} to support layering.
  * 
- * <h5>VK_EXT_primitives_generated_query</h5>
- * 
  * <dl>
  * <dt><b>Name String</b></dt>
  * <dd>{@code VK_EXT_primitives_generated_query}</dd>
@@ -23,7 +21,7 @@ package org.lwjgl.vulkan;
  * <dd>{@link EXTTransformFeedback VK_EXT_transform_feedback}</dd>
  * <dt><b>Special Use</b></dt>
  * <dd><ul>
- * <li><a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
+ * <li><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-compatibility-specialuse">OpenGL / ES support</a></li>
  * </ul></dd>
  * <dt><b>Contact</b></dt>
  * <dd><ul>
