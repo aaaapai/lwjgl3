@@ -34,7 +34,7 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
   cd libffi
 
   # Build libffi
-  bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
+  bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++ --disable-multi-os-directory
   make -j4
   cd ..
 
