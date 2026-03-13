@@ -86,6 +86,7 @@ yes | ant -Dplatform.macos=true \
   -Dbuild.type=release/3.3.6 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
+  -Djdk21=true \
   compile compile-native release
 
 # Copy native libraries
