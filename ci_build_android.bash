@@ -98,6 +98,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.hwloc=false \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=true \
+  -Dbinding.jemalloc=true \
   -Dbinding.ktx=false \
   -Dbinding.libdivide=false \
   -Dbinding.llvm=false \
@@ -106,9 +107,11 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.meow=false \
   -Dbinding.meshoptimizer=false \
   -Dbinding.msdfgen=false \
+  -Dbinding.msdfgen=false \
   -Dbinding.nfd=false \
   -Dbinding.nuklear=false \
   -Dbinding.odbc=false \
+  -Dbinding.opengles=false \
   -Dbinding.opengles=false \
   -Dbinding.opencl=false \
   -Dbinding.openvr=false \
@@ -124,11 +127,16 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
+  -Dbinding.shaderc=false \
+  -Dbinding.vulkan=false \
+  -Dbinding.vma=false \
+  -Dbinding.spvc=false \
   -Dbuild.type=release/3.3.6 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   -Djdk21=true \
   compile compile-native release
+# shaderc, vulkan, spvc, and vma can be reenabled if needed but for now, including them just leads to conflicts and crashes cause cinnabar overrides it.
 
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
