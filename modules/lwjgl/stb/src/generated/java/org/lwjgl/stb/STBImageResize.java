@@ -440,4 +440,54 @@ public class STBImageResize {
         1, 1, 1, 2, 4, 2
     };
 
+    public static int nstbir_resize_uint8_generic(long input_pixels, int input_w, int input_h, int input_stride_in_bytes, long output_pixels, int output_w, int output_h, int output_stride_in_bytes, int num_channels, int alpha_channel, int flags, int edge_wrap_mode, int filter, int space, long alloc_context){
+        int layout;
+        if (num_channels == 1) {
+            layout = STBIR_1CHANNEL;
+        } else if (num_channels == 2) {
+            layout = STBIR_2CHANNEL;
+        } else if (num_channels == 3) {
+            layout = STBIR_RGB;
+        } else { // num_channels == 4
+            if (alpha_channel == 3) {
+                layout = (flags & 1 /*STBIR_FLAG_ALPHA_PREMULTIPLIED*/) != 0 ? STBIR_RGBA_PM : STBIR_RGBA;
+            } else if (alpha_channel == 0) {
+                layout = (flags & 1 /*STBIR_FLAG_ALPHA_PREMULTIPLIED*/) != 0 ? STBIR_ARGB_PM : STBIR_ARGB;
+            } else {
+                return 0;
+            }
+        }
+        int type;
+        if (space == 1/*STBIR_COLORSPACE_SRGB*/) {
+            type = STBIR_TYPE_UINT8_SRGB;
+        } else {
+            type = STBIR_TYPE_UINT8;
+        }
+        long l = nstbir_resize(input_pixels, input_w, input_h, input_stride_in_bytes,
+                output_pixels, output_w, output_h, output_stride_in_bytes,
+                layout,
+                type,
+                edge_wrap_mode,
+                filter);
+        return l != 0 ? 1 : 0;
+    }
+
+    public static int nstbir_resize_uint8(long input_pixels, int input_w, int input_h, int input_stride_in_bytes, long output_pixels, int output_w, int output_h, int output_stride_in_bytes, int num_channels){
+        int layout;
+        switch (num_channels) {
+            case 1: layout = STBIR_1CHANNEL; break;
+            case 2: layout = STBIR_2CHANNEL; break;
+            case 3: layout = STBIR_RGB; break;
+            case 4: layout = STBIR_RGBA; break;
+            default: return 0;
+        }
+        long l = nstbir_resize(input_pixels, input_w, input_h, input_stride_in_bytes,
+                output_pixels, output_w, output_h, output_stride_in_bytes,
+                layout,
+                STBIR_TYPE_UINT8,
+                STBIR_EDGE_CLAMP,
+                STBIR_FILTER_DEFAULT);
+        return l != 0 ? 1 : 0;
+    }
+
 }
