@@ -6,8 +6,6 @@ package org.lwjgl.system;
 
 import org.jspecify.annotations.*;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.nio.*;
 import java.util.*;
 
@@ -25,7 +23,7 @@ public abstract class Struct<SELF extends Struct<SELF>> extends Pointer.Default 
 
     static {
         Library.initialize();
-        UNSAFE = getUnsafeInstance();
+        UNSAFE = MemoryUtil.UNSAFE;
     }
 
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
@@ -281,36 +279,4 @@ public abstract class Struct<SELF extends Struct<SELF>> extends Pointer.Default 
         return ((offset - 1) | (alignment - 1)) + 1;
     }
 
-
-    private static sun.misc.Unsafe getUnsafeInstance() {
-        Field[] fields = sun.misc.Unsafe.class.getDeclaredFields();
-
-        /*
-        Different runtimes use different names for the Unsafe singleton,
-        so we cannot use .getDeclaredField and we scan instead. For example:
-
-        Oracle: theUnsafe
-        PERC : m_unsafe_instance
-        Android: THE_ONE
-        */
-        for (Field field : fields) {
-            if (!field.getType().equals(sun.misc.Unsafe.class)) {
-                continue;
-            }
-
-            int modifiers = field.getModifiers();
-            if (!(Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers))) {
-                continue;
-            }
-
-            try {
-                field.setAccessible(true);
-                return (sun.misc.Unsafe)field.get(null);
-            } catch (Exception ignored) {
-            }
-            break;
-        }
-
-        throw new UnsupportedOperationException("LWJGL requires sun.misc.Unsafe to be available.");
-    }
 }
