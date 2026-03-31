@@ -141,7 +141,7 @@ yes | ant -Dplatform.linux=true \
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
 find $LWJGL_NATIVE -name 'liblwjgl*.so' -exec cp {} bin/out/ \;
-cp $LWJGL_NATIVE/shaderc/libshaderc.so bin/out/
+# cp $LWJGL_NATIVE/shaderc/libshaderc.so bin/out/
 if [ -e "$LWJGL_NATIVE/libfreetype.so" ]; then
   cp $LWJGL_NATIVE/libfreetype.so bin/out/
 fi
