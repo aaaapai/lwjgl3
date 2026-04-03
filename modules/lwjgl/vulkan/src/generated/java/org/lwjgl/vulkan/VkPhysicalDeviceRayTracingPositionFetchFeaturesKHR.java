@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing support for fetching vertex positions of hit triangles.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRRayTracingPositionFetch#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #rayTracingPositionFetch};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 rayTracingPositionFetch;
+ * }}</pre>
  */
 public class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends Struct<VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends Struct<V
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports fetching the object space vertex positions of a hit triangle. */
+    /** @return the value of the {@code rayTracingPositionFetch} field. */
     @NativeType("VkBool32")
     public boolean rayTracingPositionFetch() { return nrayTracingPositionFetch(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRRayTracingPositionFetch#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRRayTracingPositionFetch#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR} value to the {@code sType} field. */
     public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR sType$Default() { return sType(KHRRayTracingPositionFetch.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #rayTracingPositionFetch} field. */
+    /** Sets the specified value to the {@code rayTracingPositionFetch} field. */
     public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR rayTracingPositionFetch(@NativeType("VkBool32") boolean value) { nrayTracingPositionFetch(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #rayTracingPositionFetch}. */
-    public static int nrayTracingPositionFetch(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.RAYTRACINGPOSITIONFETCH); }
+    public static int nrayTracingPositionFetch(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.RAYTRACINGPOSITIONFETCH); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #rayTracingPositionFetch(boolean) rayTracingPositionFetch}. */
-    public static void nrayTracingPositionFetch(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.RAYTRACINGPOSITIONFETCH, value); }
+    public static void nrayTracingPositionFetch(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.RAYTRACINGPOSITIONFETCH, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends Struct<V
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#rayTracingPositionFetch} field. */
+        /** @return the value of the {@code rayTracingPositionFetch} field. */
         @NativeType("VkBool32")
         public boolean rayTracingPositionFetch() { return VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.nrayTracingPositionFetch(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRRayTracingPositionFetch#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR} value to the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#sType} field. */
+        /** Sets the {@link KHRRayTracingPositionFetch#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR} value to the {@code sType} field. */
         public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.Buffer sType$Default() { return sType(KHRRayTracingPositionFetch.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR#rayTracingPositionFetch} field. */
+        /** Sets the specified value to the {@code rayTracingPositionFetch} field. */
         public VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.Buffer rayTracingPositionFetch(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR.nrayTracingPositionFetch(address(), value ? 1 : 0); return this; }
 
     }

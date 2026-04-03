@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * System Properties of the Plane Detection extension.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTPlaneDetection XR_EXT_plane_detection} extension <b>must</b> be enabled prior to using {@link XrSystemPlaneDetectionPropertiesEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTPlaneDetection#XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSystemProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemPlaneDetectionPropertiesEXT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrPlaneDetectionCapabilityFlagsEXT {@link #supportedFeatures};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrPlaneDetectionCapabilityFlagsEXT supportedFeatures;
+ * }}</pre>
  */
 public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDetectionPropertiesEXT> implements NativeResource {
 
@@ -90,21 +74,21 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a bitfield, with bit masks defined in {@code XrPlaneDetectionCapabilityFlagBitsEXT}. */
+    /** @return the value of the {@code supportedFeatures} field. */
     @NativeType("XrPlaneDetectionCapabilityFlagsEXT")
     public long supportedFeatures() { return nsupportedFeatures(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSystemPlaneDetectionPropertiesEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTPlaneDetection#XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTPlaneDetection#XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT} value to the {@code type} field. */
     public XrSystemPlaneDetectionPropertiesEXT type$Default() { return type(EXTPlaneDetection.XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSystemPlaneDetectionPropertiesEXT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -154,8 +138,7 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemPlaneDetectionPropertiesEXT createSafe(long address) {
+    public static @Nullable XrSystemPlaneDetectionPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new XrSystemPlaneDetectionPropertiesEXT(address, null);
     }
 
@@ -198,8 +181,7 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemPlaneDetectionPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static XrSystemPlaneDetectionPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +226,14 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemPlaneDetectionPropertiesEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemPlaneDetectionPropertiesEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemPlaneDetectionPropertiesEXT.NEXT); }
     /** Unsafe version of {@link #supportedFeatures}. */
-    public static long nsupportedFeatures(long struct) { return UNSAFE.getLong(null, struct + XrSystemPlaneDetectionPropertiesEXT.SUPPORTEDFEATURES); }
+    public static long nsupportedFeatures(long struct) { return memGetLong(struct + XrSystemPlaneDetectionPropertiesEXT.SUPPORTEDFEATURES); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemPlaneDetectionPropertiesEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemPlaneDetectionPropertiesEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemPlaneDetectionPropertiesEXT.NEXT, value); }
 
@@ -289,25 +271,30 @@ public class XrSystemPlaneDetectionPropertiesEXT extends Struct<XrSystemPlaneDet
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSystemPlaneDetectionPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSystemPlaneDetectionPropertiesEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSystemPlaneDetectionPropertiesEXT.ntype(address()); }
-        /** @return the value of the {@link XrSystemPlaneDetectionPropertiesEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSystemPlaneDetectionPropertiesEXT.nnext(address()); }
-        /** @return the value of the {@link XrSystemPlaneDetectionPropertiesEXT#supportedFeatures} field. */
+        /** @return the value of the {@code supportedFeatures} field. */
         @NativeType("XrPlaneDetectionCapabilityFlagsEXT")
         public long supportedFeatures() { return XrSystemPlaneDetectionPropertiesEXT.nsupportedFeatures(address()); }
 
-        /** Sets the specified value to the {@link XrSystemPlaneDetectionPropertiesEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSystemPlaneDetectionPropertiesEXT.Buffer type(@NativeType("XrStructureType") int value) { XrSystemPlaneDetectionPropertiesEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTPlaneDetection#XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT} value to the {@link XrSystemPlaneDetectionPropertiesEXT#type} field. */
+        /** Sets the {@link EXTPlaneDetection#XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT} value to the {@code type} field. */
         public XrSystemPlaneDetectionPropertiesEXT.Buffer type$Default() { return type(EXTPlaneDetection.XR_TYPE_SYSTEM_PLANE_DETECTION_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link XrSystemPlaneDetectionPropertiesEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSystemPlaneDetectionPropertiesEXT.Buffer next(@NativeType("void *") long value) { XrSystemPlaneDetectionPropertiesEXT.nnext(address(), value); return this; }
 
     }

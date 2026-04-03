@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.yoga;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct YGSize {
  *     float width;
  *     float height;
- * }</code></pre>
+ * }}</pre>
  */
 public class YGSize extends Struct<YGSize> implements NativeResource {
 
@@ -129,8 +127,7 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static YGSize createSafe(long address) {
+    public static @Nullable YGSize createSafe(long address) {
         return address == NULL ? null : new YGSize(address, null);
     }
 
@@ -173,29 +170,9 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static YGSize.Buffer createSafe(long address, int capacity) {
+    public static YGSize.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static YGSize mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static YGSize callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static YGSize mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static YGSize callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static YGSize.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static YGSize.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static YGSize.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static YGSize.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code YGSize} instance allocated on the specified {@link MemoryStack}.
@@ -238,14 +215,14 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + YGSize.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + YGSize.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + YGSize.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + YGSize.HEIGHT); }
 
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + YGSize.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + YGSize.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + YGSize.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + YGSize.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -278,6 +255,11 @@ public class YGSize extends Struct<YGSize> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

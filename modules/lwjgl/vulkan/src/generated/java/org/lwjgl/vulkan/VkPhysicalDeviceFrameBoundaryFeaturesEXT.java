@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the frame boundary features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTFrameBoundary#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceFrameBoundaryFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #frameBoundary};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 frameBoundary;
+ * }}</pre>
  */
 public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalDeviceFrameBoundaryFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports frame boundary information. */
+    /** @return the value of the {@code frameBoundary} field. */
     @NativeType("VkBool32")
     public boolean frameBoundary() { return nframeBoundary(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceFrameBoundaryFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTFrameBoundary#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTFrameBoundary#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceFrameBoundaryFeaturesEXT sType$Default() { return sType(EXTFrameBoundary.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceFrameBoundaryFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #frameBoundary} field. */
+    /** Sets the specified value to the {@code frameBoundary} field. */
     public VkPhysicalDeviceFrameBoundaryFeaturesEXT frameBoundary(@NativeType("VkBool32") boolean value) { nframeBoundary(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFrameBoundaryFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFrameBoundaryFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFrameBoundaryFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFrameBoundaryFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFrameBoundaryFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #frameBoundary}. */
-    public static int nframeBoundary(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY); }
+    public static int nframeBoundary(long struct) { return memGetInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #frameBoundary(boolean) frameBoundary}. */
-    public static void nframeBoundary(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY, value); }
+    public static void nframeBoundary(long struct, int value) { memPutInt(struct + VkPhysicalDeviceFrameBoundaryFeaturesEXT.FRAMEBOUNDARY, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends Struct<VkPhysicalD
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceFrameBoundaryFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceFrameBoundaryFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceFrameBoundaryFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#frameBoundary} field. */
+        /** @return the value of the {@code frameBoundary} field. */
         @NativeType("VkBool32")
         public boolean frameBoundary() { return VkPhysicalDeviceFrameBoundaryFeaturesEXT.nframeBoundary(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceFrameBoundaryFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceFrameBoundaryFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTFrameBoundary#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT} value to the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTFrameBoundary#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceFrameBoundaryFeaturesEXT.Buffer sType$Default() { return sType(EXTFrameBoundary.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceFrameBoundaryFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceFrameBoundaryFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFrameBoundaryFeaturesEXT#frameBoundary} field. */
+        /** Sets the specified value to the {@code frameBoundary} field. */
         public VkPhysicalDeviceFrameBoundaryFeaturesEXT.Buffer frameBoundary(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceFrameBoundaryFeaturesEXT.nframeBoundary(address(), value ? 1 : 0); return this; }
 
     }

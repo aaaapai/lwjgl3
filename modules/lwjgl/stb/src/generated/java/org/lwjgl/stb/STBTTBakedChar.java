@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Baked character data, returned by {@link STBTruetype#stbtt_BakeFontBitmap BakeFontBitmap}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stbtt_bakedchar {
  *     unsigned short x0;
  *     unsigned short y0;
@@ -29,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float xoff;
  *     float yoff;
  *     float xadvance;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct stbtt_bakedchar")
 public class STBTTBakedChar extends Struct<STBTTBakedChar> implements NativeResource {
@@ -138,8 +134,7 @@ public class STBTTBakedChar extends Struct<STBTTBakedChar> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTBakedChar createSafe(long address) {
+    public static @Nullable STBTTBakedChar createSafe(long address) {
         return address == NULL ? null : new STBTTBakedChar(address, null);
     }
 
@@ -182,29 +177,9 @@ public class STBTTBakedChar extends Struct<STBTTBakedChar> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTBakedChar.Buffer createSafe(long address, int capacity) {
+    public static STBTTBakedChar.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTBakedChar.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBTTBakedChar} instance allocated on the specified {@link MemoryStack}.
@@ -247,19 +222,19 @@ public class STBTTBakedChar extends Struct<STBTTBakedChar> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #x0}. */
-    public static short nx0(long struct) { return UNSAFE.getShort(null, struct + STBTTBakedChar.X0); }
+    public static short nx0(long struct) { return memGetShort(struct + STBTTBakedChar.X0); }
     /** Unsafe version of {@link #y0}. */
-    public static short ny0(long struct) { return UNSAFE.getShort(null, struct + STBTTBakedChar.Y0); }
+    public static short ny0(long struct) { return memGetShort(struct + STBTTBakedChar.Y0); }
     /** Unsafe version of {@link #x1}. */
-    public static short nx1(long struct) { return UNSAFE.getShort(null, struct + STBTTBakedChar.X1); }
+    public static short nx1(long struct) { return memGetShort(struct + STBTTBakedChar.X1); }
     /** Unsafe version of {@link #y1}. */
-    public static short ny1(long struct) { return UNSAFE.getShort(null, struct + STBTTBakedChar.Y1); }
+    public static short ny1(long struct) { return memGetShort(struct + STBTTBakedChar.Y1); }
     /** Unsafe version of {@link #xoff}. */
-    public static float nxoff(long struct) { return UNSAFE.getFloat(null, struct + STBTTBakedChar.XOFF); }
+    public static float nxoff(long struct) { return memGetFloat(struct + STBTTBakedChar.XOFF); }
     /** Unsafe version of {@link #yoff}. */
-    public static float nyoff(long struct) { return UNSAFE.getFloat(null, struct + STBTTBakedChar.YOFF); }
+    public static float nyoff(long struct) { return memGetFloat(struct + STBTTBakedChar.YOFF); }
     /** Unsafe version of {@link #xadvance}. */
-    public static float nxadvance(long struct) { return UNSAFE.getFloat(null, struct + STBTTBakedChar.XADVANCE); }
+    public static float nxadvance(long struct) { return memGetFloat(struct + STBTTBakedChar.XADVANCE); }
 
     // -----------------------------------
 
@@ -292,6 +267,11 @@ public class STBTTBakedChar extends Struct<STBTTBakedChar> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

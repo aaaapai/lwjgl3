@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,37 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created DirectFB surface object.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code dfb} <b>must</b> point to a valid DirectFB {@code IDirectFB}</li>
- * <li>{@code surface} <b>must</b> point to a valid DirectFB {@code IDirectFBSurface}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDirectfbSurface#VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTDirectfbSurface#vkCreateDirectFBSurfaceEXT CreateDirectFBSurfaceEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDirectFBSurfaceCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDirectFBSurfaceCreateFlagsEXT {@link #flags};
- *     IDirectFB * {@link #dfb};
- *     IDirectFBSurface * {@link #surface};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDirectFBSurfaceCreateFlagsEXT flags;
+ *     IDirectFB * dfb;
+ *     IDirectFBSurface * surface;
+ * }}</pre>
  */
 public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCreateInfoEXT> implements NativeResource {
 
@@ -105,33 +82,33 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkDirectFBSurfaceCreateFlagsEXT")
     public int flags() { return nflags(address()); }
-    /** a pointer to the {@code IDirectFB} main interface of DirectFB. */
+    /** @return the value of the {@code dfb} field. */
     @NativeType("IDirectFB *")
     public long dfb() { return ndfb(address()); }
-    /** a pointer to a {@code IDirectFBSurface} surface interface. */
+    /** @return the value of the {@code surface} field. */
     @NativeType("IDirectFBSurface *")
     public long surface() { return nsurface(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDirectFBSurfaceCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDirectfbSurface#VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDirectfbSurface#VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkDirectFBSurfaceCreateInfoEXT sType$Default() { return sType(EXTDirectfbSurface.VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDirectFBSurfaceCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkDirectFBSurfaceCreateInfoEXT flags(@NativeType("VkDirectFBSurfaceCreateFlagsEXT") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #dfb} field. */
+    /** Sets the specified value to the {@code dfb} field. */
     public VkDirectFBSurfaceCreateInfoEXT dfb(@NativeType("IDirectFB *") long value) { ndfb(address(), value); return this; }
-    /** Sets the specified value to the {@link #surface} field. */
+    /** Sets the specified value to the {@code surface} field. */
     public VkDirectFBSurfaceCreateInfoEXT surface(@NativeType("IDirectFBSurface *") long value) { nsurface(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -187,8 +164,7 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDirectFBSurfaceCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkDirectFBSurfaceCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDirectFBSurfaceCreateInfoEXT(address, null);
     }
 
@@ -231,8 +207,7 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDirectFBSurfaceCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDirectFBSurfaceCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -277,22 +252,22 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDirectFBSurfaceCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDirectFBSurfaceCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS); }
     /** Unsafe version of {@link #dfb}. */
     public static long ndfb(long struct) { return memGetAddress(struct + VkDirectFBSurfaceCreateInfoEXT.DFB); }
     /** Unsafe version of {@link #surface}. */
     public static long nsurface(long struct) { return memGetAddress(struct + VkDirectFBSurfaceCreateInfoEXT.SURFACE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDirectFBSurfaceCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDirectFBSurfaceCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + VkDirectFBSurfaceCreateInfoEXT.FLAGS, value); }
     /** Unsafe version of {@link #dfb(long) dfb}. */
     public static void ndfb(long struct, long value) { memPutAddress(struct + VkDirectFBSurfaceCreateInfoEXT.DFB, value); }
     /** Unsafe version of {@link #surface(long) surface}. */
@@ -332,37 +307,42 @@ public class VkDirectFBSurfaceCreateInfoEXT extends Struct<VkDirectFBSurfaceCrea
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDirectFBSurfaceCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDirectFBSurfaceCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDirectFBSurfaceCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkDirectFBSurfaceCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDirectFBSurfaceCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkDirectFBSurfaceCreateInfoEXT#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkDirectFBSurfaceCreateFlagsEXT")
         public int flags() { return VkDirectFBSurfaceCreateInfoEXT.nflags(address()); }
-        /** @return the value of the {@link VkDirectFBSurfaceCreateInfoEXT#dfb} field. */
+        /** @return the value of the {@code dfb} field. */
         @NativeType("IDirectFB *")
         public long dfb() { return VkDirectFBSurfaceCreateInfoEXT.ndfb(address()); }
-        /** @return the value of the {@link VkDirectFBSurfaceCreateInfoEXT#surface} field. */
+        /** @return the value of the {@code surface} field. */
         @NativeType("IDirectFBSurface *")
         public long surface() { return VkDirectFBSurfaceCreateInfoEXT.nsurface(address()); }
 
-        /** Sets the specified value to the {@link VkDirectFBSurfaceCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDirectFBSurfaceCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkDirectFBSurfaceCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDirectfbSurface#VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT} value to the {@link VkDirectFBSurfaceCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTDirectfbSurface#VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkDirectFBSurfaceCreateInfoEXT.Buffer sType$Default() { return sType(EXTDirectfbSurface.VK_STRUCTURE_TYPE_DIRECTFB_SURFACE_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkDirectFBSurfaceCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDirectFBSurfaceCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkDirectFBSurfaceCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDirectFBSurfaceCreateInfoEXT#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkDirectFBSurfaceCreateInfoEXT.Buffer flags(@NativeType("VkDirectFBSurfaceCreateFlagsEXT") int value) { VkDirectFBSurfaceCreateInfoEXT.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDirectFBSurfaceCreateInfoEXT#dfb} field. */
+        /** Sets the specified value to the {@code dfb} field. */
         public VkDirectFBSurfaceCreateInfoEXT.Buffer dfb(@NativeType("IDirectFB *") long value) { VkDirectFBSurfaceCreateInfoEXT.ndfb(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDirectFBSurfaceCreateInfoEXT#surface} field. */
+        /** Sets the specified value to the {@code surface} field. */
         public VkDirectFBSurfaceCreateInfoEXT.Buffer surface(@NativeType("IDirectFBSurface *") long value) { VkDirectFBSurfaceCreateInfoEXT.nsurface(address(), value); return this; }
 
     }

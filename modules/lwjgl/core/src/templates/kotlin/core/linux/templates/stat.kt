@@ -12,23 +12,21 @@ val sys_stat_h = "Stat".nativeClass(Module.CORE_LINUX, nativeSubPath = "linux") 
         "<sys/stat.h>",
         "<errno.h>"
     )
-    documentation = "Native bindings to &lt;sys/stat.h&gt;."
-
     // TODO:
 
-    SaveErrno..int(
+    int(
         "stat",
-        "",
 
-        charUTF8.const.p("__file", ""),
-        stat.p("__buf", "")
+        CaptureCallState.errno.param,
+        charUTF8.const.p("__file"),
+        stat.p("__buf")
     )
 
-    SaveErrno..int(
+    int(
         "fstat",
-        "",
 
-        int("__fd", ""),
-        stat.p("__buf", "")
+        CaptureCallState.errno.param,
+        int("__fd"),
+        stat.p("__buf")
     )
 }

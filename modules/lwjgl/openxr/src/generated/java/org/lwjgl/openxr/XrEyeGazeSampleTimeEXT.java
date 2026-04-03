@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,24 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Eye gaze sample time structure.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTEyeGazeInteraction XR_EXT_eye_gaze_interaction} extension <b>must</b> be enabled prior to using {@link XrEyeGazeSampleTimeEXT}</li>
- * <li>{@code type} <b>must</b> be {@link EXTEyeGazeInteraction#XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT TYPE_EYE_GAZE_SAMPLE_TIME_EXT}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEyeGazeSampleTimeEXT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrTime {@link #time};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrTime time;
+ * }}</pre>
  */
 public class XrEyeGazeSampleTimeEXT extends Struct<XrEyeGazeSampleTimeEXT> implements NativeResource {
 
@@ -86,23 +74,23 @@ public class XrEyeGazeSampleTimeEXT extends Struct<XrEyeGazeSampleTimeEXT> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** when in time the eye gaze pose is expressed. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEyeGazeSampleTimeEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link EXTEyeGazeInteraction#XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT TYPE_EYE_GAZE_SAMPLE_TIME_EXT} value to the {@link #type} field. */
+    /** Sets the {@link EXTEyeGazeInteraction#XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT TYPE_EYE_GAZE_SAMPLE_TIME_EXT} value to the {@code type} field. */
     public XrEyeGazeSampleTimeEXT type$Default() { return type(EXTEyeGazeInteraction.XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEyeGazeSampleTimeEXT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XrEyeGazeSampleTimeEXT time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -154,8 +142,7 @@ public class XrEyeGazeSampleTimeEXT extends Struct<XrEyeGazeSampleTimeEXT> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEyeGazeSampleTimeEXT createSafe(long address) {
+    public static @Nullable XrEyeGazeSampleTimeEXT createSafe(long address) {
         return address == NULL ? null : new XrEyeGazeSampleTimeEXT(address, null);
     }
 
@@ -198,8 +185,7 @@ public class XrEyeGazeSampleTimeEXT extends Struct<XrEyeGazeSampleTimeEXT> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEyeGazeSampleTimeEXT.Buffer createSafe(long address, int capacity) {
+    public static XrEyeGazeSampleTimeEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,18 +230,18 @@ public class XrEyeGazeSampleTimeEXT extends Struct<XrEyeGazeSampleTimeEXT> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEyeGazeSampleTimeEXT.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEyeGazeSampleTimeEXT.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEyeGazeSampleTimeEXT.NEXT); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrEyeGazeSampleTimeEXT.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrEyeGazeSampleTimeEXT.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEyeGazeSampleTimeEXT.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEyeGazeSampleTimeEXT.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEyeGazeSampleTimeEXT.NEXT, value); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrEyeGazeSampleTimeEXT.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrEyeGazeSampleTimeEXT.TIME, value); }
 
     // -----------------------------------
 
@@ -291,27 +277,32 @@ public class XrEyeGazeSampleTimeEXT extends Struct<XrEyeGazeSampleTimeEXT> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEyeGazeSampleTimeEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEyeGazeSampleTimeEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEyeGazeSampleTimeEXT.ntype(address()); }
-        /** @return the value of the {@link XrEyeGazeSampleTimeEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrEyeGazeSampleTimeEXT.nnext(address()); }
-        /** @return the value of the {@link XrEyeGazeSampleTimeEXT#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrEyeGazeSampleTimeEXT.ntime(address()); }
 
-        /** Sets the specified value to the {@link XrEyeGazeSampleTimeEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEyeGazeSampleTimeEXT.Buffer type(@NativeType("XrStructureType") int value) { XrEyeGazeSampleTimeEXT.ntype(address(), value); return this; }
-        /** Sets the {@link EXTEyeGazeInteraction#XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT TYPE_EYE_GAZE_SAMPLE_TIME_EXT} value to the {@link XrEyeGazeSampleTimeEXT#type} field. */
+        /** Sets the {@link EXTEyeGazeInteraction#XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT TYPE_EYE_GAZE_SAMPLE_TIME_EXT} value to the {@code type} field. */
         public XrEyeGazeSampleTimeEXT.Buffer type$Default() { return type(EXTEyeGazeInteraction.XR_TYPE_EYE_GAZE_SAMPLE_TIME_EXT); }
-        /** Sets the specified value to the {@link XrEyeGazeSampleTimeEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEyeGazeSampleTimeEXT.Buffer next(@NativeType("void *") long value) { XrEyeGazeSampleTimeEXT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEyeGazeSampleTimeEXT#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XrEyeGazeSampleTimeEXT.Buffer time(@NativeType("XrTime") long value) { XrEyeGazeSampleTimeEXT.ntime(address(), value); return this; }
 
     }

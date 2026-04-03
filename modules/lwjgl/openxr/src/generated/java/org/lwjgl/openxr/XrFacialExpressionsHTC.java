@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,48 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Returns the expression data.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrFacialExpressionsHTC} structure returns data of a lip facial expression or an eye facial expression.</p>
- * 
- * <p>An application <b>must</b> preallocate the output {@code expressionWeightings} array that can contain at least {@code expressionCount} of {@code float}. {@code expressionCount} <b>must</b> be at least {@link HTCFacialTracking#XR_FACIAL_EXPRESSION_LIP_COUNT_HTC FACIAL_EXPRESSION_LIP_COUNT_HTC} for {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC FACIAL_TRACKING_TYPE_LIP_DEFAULT_HTC}, and at least {@link HTCFacialTracking#XR_FACIAL_EXPRESSION_EYE_COUNT_HTC FACIAL_EXPRESSION_EYE_COUNT_HTC} for {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC}.</p>
- * 
- * <p>The application <b>must</b> set {@code expressionCount} as described by the {@code XrFacialTrackingTypeHTC} when creating the {@code XrFacialTrackerHTC} otherwise the runtime <b>must</b> return {@link XR10#XR_ERROR_VALIDATION_FAILURE ERROR_VALIDATION_FAILURE}.</p>
- * 
- * <p>The runtime <b>must</b> update the {@code expressionWeightings} array ordered so that the application can index elements using the corresponding facial tracker enum (e.g. {@code XrEyeExpressionHTC} or {@code XrLipExpressionHTC}) as described by {@code XrFacialTrackingTypeHTC} when creating the {@code XrFacialTrackerHTC}. For example, when the {@code XrFacialTrackerHTC} is created with {@code facialTrackingType} set to {@link HTCFacialTracking#XR_FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC FACIAL_TRACKING_TYPE_EYE_DEFAULT_HTC}, the application <b>must</b> set the {@code expressionCount} to {@link HTCFacialTracking#XR_FACIAL_EXPRESSION_EYE_COUNT_HTC FACIAL_EXPRESSION_EYE_COUNT_HTC}, and the runtime <b>must</b> fill the {@code expressionWeightings} array ordered with eye expression data so that it can be indexed by the {@code XrEyeExpressionHTC} enum.</p>
- * 
- * <p>If the returned {@code isActive} is true, the runtime <b>must</b> fill the {@code expressionWeightings} array ordered.</p>
- * 
- * <p>If the returned {@code isActive} is false, it indicates the facial tracker did not detect the corresponding facial input or the application lost input focus.</p>
- * 
- * <p>If the input {@code expressionCount} is not sufficient to contain all output indices, the runtime <b>must</b> return {@link XR10#XR_ERROR_SIZE_INSUFFICIENT ERROR_SIZE_INSUFFICIENT} on calls to {@link HTCFacialTracking#xrGetFacialExpressionsHTC GetFacialExpressionsHTC} and not change the content in {@code expressionWeightings}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrFacialExpressionsHTC}</li>
- * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_FACIAL_EXPRESSIONS_HTC TYPE_FACIAL_EXPRESSIONS_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code expressionWeightings} <b>must</b> be a pointer to a {@code float} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link HTCFacialTracking#xrGetFacialExpressionsHTC GetFacialExpressionsHTC}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFacialExpressionsHTC {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrBool32 {@link #isActive};
- *     XrTime {@link #sampleTime};
- *     uint32_t {@link #expressionCount};
- *     float * {@link #expressionWeightings};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrBool32 isActive;
+ *     XrTime sampleTime;
+ *     uint32_t expressionCount;
+ *     float * expressionWeightings;
+ * }}</pre>
  */
 public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> implements NativeResource {
 
@@ -120,42 +87,38 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrBool32} indicating if the facial tracker is active. */
+    /** @return the value of the {@code isActive} field. */
     @NativeType("XrBool32")
     public boolean isActive() { return nisActive(address()) != 0; }
-    /** when in time the expression is expressed. */
+    /** @return the value of the {@code sampleTime} field. */
     @NativeType("XrTime")
     public long sampleTime() { return nsampleTime(address()); }
-    /** a {@code uint32_t} describing the count of elements in {@code expressionWeightings} array. */
+    /** @return the value of the {@code expressionCount} field. */
     @NativeType("uint32_t")
     public int expressionCount() { return nexpressionCount(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return a {@code float} array filled in by the runtime, specifying the weightings for each blend shape.
-     */
+    /** @return a {@link FloatBuffer} view of the data pointed to by the {@code expressionWeightings} field. */
     @NativeType("float *")
     public FloatBuffer expressionWeightings(int capacity) { return nexpressionWeightings(address(), capacity); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrFacialExpressionsHTC type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_EXPRESSIONS_HTC TYPE_FACIAL_EXPRESSIONS_HTC} value to the {@link #type} field. */
+    /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_EXPRESSIONS_HTC TYPE_FACIAL_EXPRESSIONS_HTC} value to the {@code type} field. */
     public XrFacialExpressionsHTC type$Default() { return type(HTCFacialTracking.XR_TYPE_FACIAL_EXPRESSIONS_HTC); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrFacialExpressionsHTC next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #isActive} field. */
+    /** Sets the specified value to the {@code isActive} field. */
     public XrFacialExpressionsHTC isActive(@NativeType("XrBool32") boolean value) { nisActive(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #sampleTime} field. */
+    /** Sets the specified value to the {@code sampleTime} field. */
     public XrFacialExpressionsHTC sampleTime(@NativeType("XrTime") long value) { nsampleTime(address(), value); return this; }
-    /** Sets the specified value to the {@link #expressionCount} field. */
+    /** Sets the specified value to the {@code expressionCount} field. */
     public XrFacialExpressionsHTC expressionCount(@NativeType("uint32_t") int value) { nexpressionCount(address(), value); return this; }
-    /** Sets the address of the specified {@link FloatBuffer} to the {@link #expressionWeightings} field. */
+    /** Sets the address of the specified {@link FloatBuffer} to the {@code expressionWeightings} field. */
     public XrFacialExpressionsHTC expressionWeightings(@NativeType("float *") FloatBuffer value) { nexpressionWeightings(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -213,8 +176,7 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialExpressionsHTC createSafe(long address) {
+    public static @Nullable XrFacialExpressionsHTC createSafe(long address) {
         return address == NULL ? null : new XrFacialExpressionsHTC(address, null);
     }
 
@@ -257,8 +219,7 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialExpressionsHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFacialExpressionsHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -303,28 +264,28 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFacialExpressionsHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFacialExpressionsHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFacialExpressionsHTC.NEXT); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrFacialExpressionsHTC.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrFacialExpressionsHTC.ISACTIVE); }
     /** Unsafe version of {@link #sampleTime}. */
-    public static long nsampleTime(long struct) { return UNSAFE.getLong(null, struct + XrFacialExpressionsHTC.SAMPLETIME); }
+    public static long nsampleTime(long struct) { return memGetLong(struct + XrFacialExpressionsHTC.SAMPLETIME); }
     /** Unsafe version of {@link #expressionCount}. */
-    public static int nexpressionCount(long struct) { return UNSAFE.getInt(null, struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT); }
+    public static int nexpressionCount(long struct) { return memGetInt(struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT); }
     /** Unsafe version of {@link #expressionWeightings(int) expressionWeightings}. */
     public static FloatBuffer nexpressionWeightings(long struct, int capacity) { return memFloatBuffer(memGetAddress(struct + XrFacialExpressionsHTC.EXPRESSIONWEIGHTINGS), capacity); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialExpressionsHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFacialExpressionsHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFacialExpressionsHTC.NEXT, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialExpressionsHTC.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrFacialExpressionsHTC.ISACTIVE, value); }
     /** Unsafe version of {@link #sampleTime(long) sampleTime}. */
-    public static void nsampleTime(long struct, long value) { UNSAFE.putLong(null, struct + XrFacialExpressionsHTC.SAMPLETIME, value); }
+    public static void nsampleTime(long struct, long value) { memPutLong(struct + XrFacialExpressionsHTC.SAMPLETIME, value); }
     /** Unsafe version of {@link #expressionCount(int) expressionCount}. */
-    public static void nexpressionCount(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT, value); }
+    public static void nexpressionCount(long struct, int value) { memPutInt(struct + XrFacialExpressionsHTC.EXPRESSIONCOUNT, value); }
     /** Unsafe version of {@link #expressionWeightings(FloatBuffer) expressionWeightings}. */
     public static void nexpressionWeightings(long struct, FloatBuffer value) { memPutAddress(struct + XrFacialExpressionsHTC.EXPRESSIONWEIGHTINGS, memAddress(value)); }
 
@@ -371,46 +332,47 @@ public class XrFacialExpressionsHTC extends Struct<XrFacialExpressionsHTC> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrFacialExpressionsHTC getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFacialExpressionsHTC#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrFacialExpressionsHTC.ntype(address()); }
-        /** @return the value of the {@link XrFacialExpressionsHTC#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrFacialExpressionsHTC.nnext(address()); }
-        /** @return the value of the {@link XrFacialExpressionsHTC#isActive} field. */
+        /** @return the value of the {@code isActive} field. */
         @NativeType("XrBool32")
         public boolean isActive() { return XrFacialExpressionsHTC.nisActive(address()) != 0; }
-        /** @return the value of the {@link XrFacialExpressionsHTC#sampleTime} field. */
+        /** @return the value of the {@code sampleTime} field. */
         @NativeType("XrTime")
         public long sampleTime() { return XrFacialExpressionsHTC.nsampleTime(address()); }
-        /** @return the value of the {@link XrFacialExpressionsHTC#expressionCount} field. */
+        /** @return the value of the {@code expressionCount} field. */
         @NativeType("uint32_t")
         public int expressionCount() { return XrFacialExpressionsHTC.nexpressionCount(address()); }
-        /**
-         * @return a {@link FloatBuffer} view of the data pointed to by the {@link XrFacialExpressionsHTC#expressionWeightings} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link FloatBuffer} view of the data pointed to by the {@code expressionWeightings} field. */
         @NativeType("float *")
         public FloatBuffer expressionWeightings(int capacity) { return XrFacialExpressionsHTC.nexpressionWeightings(address(), capacity); }
 
-        /** Sets the specified value to the {@link XrFacialExpressionsHTC#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrFacialExpressionsHTC.Buffer type(@NativeType("XrStructureType") int value) { XrFacialExpressionsHTC.ntype(address(), value); return this; }
-        /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_EXPRESSIONS_HTC TYPE_FACIAL_EXPRESSIONS_HTC} value to the {@link XrFacialExpressionsHTC#type} field. */
+        /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_EXPRESSIONS_HTC TYPE_FACIAL_EXPRESSIONS_HTC} value to the {@code type} field. */
         public XrFacialExpressionsHTC.Buffer type$Default() { return type(HTCFacialTracking.XR_TYPE_FACIAL_EXPRESSIONS_HTC); }
-        /** Sets the specified value to the {@link XrFacialExpressionsHTC#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrFacialExpressionsHTC.Buffer next(@NativeType("void const *") long value) { XrFacialExpressionsHTC.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrFacialExpressionsHTC#isActive} field. */
+        /** Sets the specified value to the {@code isActive} field. */
         public XrFacialExpressionsHTC.Buffer isActive(@NativeType("XrBool32") boolean value) { XrFacialExpressionsHTC.nisActive(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XrFacialExpressionsHTC#sampleTime} field. */
+        /** Sets the specified value to the {@code sampleTime} field. */
         public XrFacialExpressionsHTC.Buffer sampleTime(@NativeType("XrTime") long value) { XrFacialExpressionsHTC.nsampleTime(address(), value); return this; }
-        /** Sets the specified value to the {@link XrFacialExpressionsHTC#expressionCount} field. */
+        /** Sets the specified value to the {@code expressionCount} field. */
         public XrFacialExpressionsHTC.Buffer expressionCount(@NativeType("uint32_t") int value) { XrFacialExpressionsHTC.nexpressionCount(address(), value); return this; }
-        /** Sets the address of the specified {@link FloatBuffer} to the {@link XrFacialExpressionsHTC#expressionWeightings} field. */
+        /** Sets the address of the specified {@link FloatBuffer} to the {@code expressionWeightings} field. */
         public XrFacialExpressionsHTC.Buffer expressionWeightings(@NativeType("float *") FloatBuffer value) { XrFacialExpressionsHTC.nexpressionWeightings(address(), value); return this; }
 
     }

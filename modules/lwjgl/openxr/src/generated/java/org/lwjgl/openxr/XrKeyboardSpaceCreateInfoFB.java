@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Input data needed by the system to start tracking a keyboard.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrKeyboardSpaceCreateInfoFB} describes a request for the system needed to create a trackable {@code XrSpace} associated with the keyboard.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBKeyboardTracking XR_FB_keyboard_tracking} extension <b>must</b> be enabled prior to using {@link XrKeyboardSpaceCreateInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBKeyboardTracking#XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB TYPE_KEYBOARD_SPACE_CREATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBKeyboardTracking#xrCreateKeyboardSpaceFB CreateKeyboardSpaceFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrKeyboardSpaceCreateInfoFB {
  *     XrStructureType type;
  *     void * next;
- *     uint64_t {@link #trackedKeyboardId};
- * }</code></pre>
+ *     uint64_t trackedKeyboardId;
+ * }}</pre>
  */
 public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInfoFB> implements NativeResource {
 
@@ -100,7 +80,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
     /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** abstract identifier describing the type of keyboard to track. */
+    /** @return the value of the {@code trackedKeyboardId} field. */
     @NativeType("uint64_t")
     public long trackedKeyboardId() { return ntrackedKeyboardId(address()); }
 
@@ -110,7 +90,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
     public XrKeyboardSpaceCreateInfoFB type$Default() { return type(FBKeyboardTracking.XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB); }
     /** Sets the specified value to the {@code next} field. */
     public XrKeyboardSpaceCreateInfoFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #trackedKeyboardId} field. */
+    /** Sets the specified value to the {@code trackedKeyboardId} field. */
     public XrKeyboardSpaceCreateInfoFB trackedKeyboardId(@NativeType("uint64_t") long value) { ntrackedKeyboardId(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrKeyboardSpaceCreateInfoFB createSafe(long address) {
+    public static @Nullable XrKeyboardSpaceCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrKeyboardSpaceCreateInfoFB(address, null);
     }
 
@@ -206,8 +185,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrKeyboardSpaceCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrKeyboardSpaceCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrKeyboardSpaceCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrKeyboardSpaceCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrKeyboardSpaceCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #trackedKeyboardId}. */
-    public static long ntrackedKeyboardId(long struct) { return UNSAFE.getLong(null, struct + XrKeyboardSpaceCreateInfoFB.TRACKEDKEYBOARDID); }
+    public static long ntrackedKeyboardId(long struct) { return memGetLong(struct + XrKeyboardSpaceCreateInfoFB.TRACKEDKEYBOARDID); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrKeyboardSpaceCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrKeyboardSpaceCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrKeyboardSpaceCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #trackedKeyboardId(long) trackedKeyboardId}. */
-    public static void ntrackedKeyboardId(long struct, long value) { UNSAFE.putLong(null, struct + XrKeyboardSpaceCreateInfoFB.TRACKEDKEYBOARDID, value); }
+    public static void ntrackedKeyboardId(long struct, long value) { memPutLong(struct + XrKeyboardSpaceCreateInfoFB.TRACKEDKEYBOARDID, value); }
 
     // -----------------------------------
 
@@ -299,6 +277,11 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrKeyboardSpaceCreateInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -309,7 +292,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
         /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrKeyboardSpaceCreateInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrKeyboardSpaceCreateInfoFB#trackedKeyboardId} field. */
+        /** @return the value of the {@code trackedKeyboardId} field. */
         @NativeType("uint64_t")
         public long trackedKeyboardId() { return XrKeyboardSpaceCreateInfoFB.ntrackedKeyboardId(address()); }
 
@@ -319,7 +302,7 @@ public class XrKeyboardSpaceCreateInfoFB extends Struct<XrKeyboardSpaceCreateInf
         public XrKeyboardSpaceCreateInfoFB.Buffer type$Default() { return type(FBKeyboardTracking.XR_TYPE_KEYBOARD_SPACE_CREATE_INFO_FB); }
         /** Sets the specified value to the {@code next} field. */
         public XrKeyboardSpaceCreateInfoFB.Buffer next(@NativeType("void *") long value) { XrKeyboardSpaceCreateInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrKeyboardSpaceCreateInfoFB#trackedKeyboardId} field. */
+        /** Sets the specified value to the {@code trackedKeyboardId} field. */
         public XrKeyboardSpaceCreateInfoFB.Buffer trackedKeyboardId(@NativeType("uint64_t") long value) { XrKeyboardSpaceCreateInfoFB.ntrackedKeyboardId(address(), value); return this; }
 
     }

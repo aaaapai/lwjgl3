@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A simple structure to pass more or less generic parameters to {@link FreeType#FT_Open_Face Open_Face} and {@link FreeType#FT_Face_Properties Face_Properties}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Parameter {
  *     FT_ULong tag;
  *     FT_Pointer data;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource {
 
@@ -77,14 +73,9 @@ public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource
     /** @return the value of the {@code tag} field. */
     @NativeType("FT_ULong")
     public long tag() { return ntag(address()); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("FT_Pointer")
-    public ByteBuffer data(int capacity) { return ndata(address(), capacity); }
+    public @Nullable ByteBuffer data(int capacity) { return ndata(address(), capacity); }
 
     /** Sets the specified value to the {@code tag} field. */
     public FT_Parameter tag(@NativeType("FT_ULong") long value) { ntag(address(), value); return this; }
@@ -138,8 +129,7 @@ public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Parameter createSafe(long address) {
+    public static @Nullable FT_Parameter createSafe(long address) {
         return address == NULL ? null : new FT_Parameter(address, null);
     }
 
@@ -182,8 +172,7 @@ public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Parameter.Buffer createSafe(long address, int capacity) {
+    public static FT_Parameter.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,7 +219,7 @@ public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource
     /** Unsafe version of {@link #tag}. */
     public static long ntag(long struct) { return memGetCLong(struct + FT_Parameter.TAG); }
     /** Unsafe version of {@link #data(int) data}. */
-    @Nullable public static ByteBuffer ndata(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_Parameter.DATA), capacity); }
+    public static @Nullable ByteBuffer ndata(long struct, int capacity) { return memByteBufferSafe(memGetAddress(struct + FT_Parameter.DATA), capacity); }
 
     /** Unsafe version of {@link #tag(long) tag}. */
     public static void ntag(long struct, long value) { memPutCLong(struct + FT_Parameter.TAG, value); }
@@ -271,6 +260,11 @@ public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected FT_Parameter getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -278,14 +272,9 @@ public class FT_Parameter extends Struct<FT_Parameter> implements NativeResource
         /** @return the value of the {@code tag} field. */
         @NativeType("FT_ULong")
         public long tag() { return FT_Parameter.ntag(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("FT_Pointer")
-        public ByteBuffer data(int capacity) { return FT_Parameter.ndata(address(), capacity); }
+        public @Nullable ByteBuffer data(int capacity) { return FT_Parameter.ndata(address(), capacity); }
 
         /** Sets the specified value to the {@code tag} field. */
         public FT_Parameter.Buffer tag(@NativeType("FT_ULong") long value) { FT_Parameter.ntag(address(), value); return this; }

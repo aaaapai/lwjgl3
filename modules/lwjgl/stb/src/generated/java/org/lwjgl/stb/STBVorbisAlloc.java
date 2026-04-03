@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,15 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A buffer to use for allocations by {@link STBVorbis}
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stb_vorbis_alloc {
  *     char * alloc_buffer;
  *     int alloc_buffer_length_in_bytes;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct stb_vorbis_alloc")
 public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeResource {
@@ -121,8 +117,7 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisAlloc createSafe(long address) {
+    public static @Nullable STBVorbisAlloc createSafe(long address) {
         return address == NULL ? null : new STBVorbisAlloc(address, null);
     }
 
@@ -165,29 +160,9 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBVorbisAlloc.Buffer createSafe(long address, int capacity) {
+    public static STBVorbisAlloc.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBVorbisAlloc.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBVorbisAlloc} instance allocated on the specified {@link MemoryStack}.
@@ -232,12 +207,12 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
     /** Unsafe version of {@link #alloc_buffer() alloc_buffer}. */
     public static ByteBuffer nalloc_buffer(long struct) { return memByteBuffer(memGetAddress(struct + STBVorbisAlloc.ALLOC_BUFFER), nalloc_buffer_length_in_bytes(struct)); }
     /** Unsafe version of {@link #alloc_buffer_length_in_bytes}. */
-    public static int nalloc_buffer_length_in_bytes(long struct) { return UNSAFE.getInt(null, struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES); }
+    public static int nalloc_buffer_length_in_bytes(long struct) { return memGetInt(struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES); }
 
     /** Unsafe version of {@link #alloc_buffer(ByteBuffer) alloc_buffer}. */
     public static void nalloc_buffer(long struct, ByteBuffer value) { memPutAddress(struct + STBVorbisAlloc.ALLOC_BUFFER, memAddress(value)); nalloc_buffer_length_in_bytes(struct, value.remaining()); }
     /** Sets the specified value to the {@code alloc_buffer_length_in_bytes} field of the specified {@code struct}. */
-    public static void nalloc_buffer_length_in_bytes(long struct, int value) { UNSAFE.putInt(null, struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES, value); }
+    public static void nalloc_buffer_length_in_bytes(long struct, int value) { memPutInt(struct + STBVorbisAlloc.ALLOC_BUFFER_LENGTH_IN_BYTES, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -279,6 +254,11 @@ public class STBVorbisAlloc extends Struct<STBVorbisAlloc> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

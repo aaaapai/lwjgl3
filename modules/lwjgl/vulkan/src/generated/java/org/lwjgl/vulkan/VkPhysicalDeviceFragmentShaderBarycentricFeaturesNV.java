@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 fragmentShaderBarycentric;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV extends VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {
 
@@ -111,8 +107,7 @@ public class VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV extends VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV(address, null);
     }
 
@@ -155,29 +150,9 @@ public class VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV extends VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV} instance allocated on the specified {@link MemoryStack}.
@@ -248,6 +223,11 @@ public class VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV extends VkPhysi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

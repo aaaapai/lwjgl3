@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A simple structure used to store a 2D vector; coordinates are of the {@code FT_Pos} type.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Vector {
  *     FT_Pos x;
  *     FT_Pos y;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_Vector extends Struct<FT_Vector> implements NativeResource {
 
@@ -133,8 +129,7 @@ public class FT_Vector extends Struct<FT_Vector> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Vector createSafe(long address) {
+    public static @Nullable FT_Vector createSafe(long address) {
         return address == NULL ? null : new FT_Vector(address, null);
     }
 
@@ -177,8 +172,7 @@ public class FT_Vector extends Struct<FT_Vector> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Vector.Buffer createSafe(long address, int capacity) {
+    public static FT_Vector.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,6 +257,11 @@ public class FT_Vector extends Struct<FT_Vector> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

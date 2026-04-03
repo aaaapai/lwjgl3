@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,11 +14,7 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure used to model a Type~1 or Type~2 FontInfo dictionary. Note that for Multiple Master fonts, each instance has its own FontInfo dictionary.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct PS_FontInfoRec {
  *     FT_String * version;
  *     FT_String * notice;
@@ -29,7 +25,7 @@ import static org.lwjgl.system.MemoryUtil.*;
  *     FT_Bool is_fixed_pitch;
  *     FT_Short underline_position;
  *     FT_UShort underline_thickness;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct PS_FontInfoRec")
 public class PS_FontInfo extends Struct<PS_FontInfo> {
@@ -152,8 +148,7 @@ public class PS_FontInfo extends Struct<PS_FontInfo> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static PS_FontInfo createSafe(long address) {
+    public static @Nullable PS_FontInfo createSafe(long address) {
         return address == NULL ? null : new PS_FontInfo(address, null);
     }
 
@@ -168,8 +163,7 @@ public class PS_FontInfo extends Struct<PS_FontInfo> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static PS_FontInfo.Buffer createSafe(long address, int capacity) {
+    public static PS_FontInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -198,11 +192,11 @@ public class PS_FontInfo extends Struct<PS_FontInfo> {
     /** Unsafe version of {@link #italic_angle}. */
     public static long nitalic_angle(long struct) { return memGetCLong(struct + PS_FontInfo.ITALIC_ANGLE); }
     /** Unsafe version of {@link #is_fixed_pitch}. */
-    public static boolean nis_fixed_pitch(long struct) { return UNSAFE.getByte(null, struct + PS_FontInfo.IS_FIXED_PITCH) != 0; }
+    public static boolean nis_fixed_pitch(long struct) { return memGetByte(struct + PS_FontInfo.IS_FIXED_PITCH) != 0; }
     /** Unsafe version of {@link #underline_position}. */
-    public static short nunderline_position(long struct) { return UNSAFE.getShort(null, struct + PS_FontInfo.UNDERLINE_POSITION); }
+    public static short nunderline_position(long struct) { return memGetShort(struct + PS_FontInfo.UNDERLINE_POSITION); }
     /** Unsafe version of {@link #underline_thickness}. */
-    public static short nunderline_thickness(long struct) { return UNSAFE.getShort(null, struct + PS_FontInfo.UNDERLINE_THICKNESS); }
+    public static short nunderline_thickness(long struct) { return memGetShort(struct + PS_FontInfo.UNDERLINE_THICKNESS); }
 
     // -----------------------------------
 
@@ -235,6 +229,11 @@ public class PS_FontInfo extends Struct<PS_FontInfo> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

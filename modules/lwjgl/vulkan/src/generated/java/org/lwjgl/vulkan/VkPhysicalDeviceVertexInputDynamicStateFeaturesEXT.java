@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether the dynamic vertex input state can be used.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #vertexInputDynamicState};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 vertexInputDynamicState;
+ * }}</pre>
  */
 public class VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT extends Struct<VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT> implements NativeResource {
 
@@ -88,29 +74,23 @@ public class VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT extends Struct<V
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /**
-     * indicates that the implementation supports the following dynamic states:
-     * 
-     * <ul>
-     * <li>{@link EXTVertexInputDynamicState#VK_DYNAMIC_STATE_VERTEX_INPUT_EXT DYNAMIC_STATE_VERTEX_INPUT_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code vertexInputDynamicState} field. */
     @NativeType("VkBool32")
     public boolean vertexInputDynamicState() { return nvertexInputDynamicState(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT sType$Default() { return sType(EXTVertexInputDynamicState.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #vertexInputDynamicState} field. */
+    /** Sets the specified value to the {@code vertexInputDynamicState} field. */
     public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT vertexInputDynamicState(@NativeType("VkBool32") boolean value) { nvertexInputDynamicState(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT(address, null);
     }
 
@@ -206,8 +185,7 @@ public class VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #vertexInputDynamicState}. */
-    public static int nvertexInputDynamicState(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.VERTEXINPUTDYNAMICSTATE); }
+    public static int nvertexInputDynamicState(long struct) { return memGetInt(struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.VERTEXINPUTDYNAMICSTATE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #vertexInputDynamicState(boolean) vertexInputDynamicState}. */
-    public static void nvertexInputDynamicState(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.VERTEXINPUTDYNAMICSTATE, value); }
+    public static void nvertexInputDynamicState(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.VERTEXINPUTDYNAMICSTATE, value); }
 
     // -----------------------------------
 
@@ -299,27 +277,32 @@ public class VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT extends Struct<V
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#vertexInputDynamicState} field. */
+        /** @return the value of the {@code vertexInputDynamicState} field. */
         @NativeType("VkBool32")
         public boolean vertexInputDynamicState() { return VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.nvertexInputDynamicState(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT} value to the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTVertexInputDynamicState#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.Buffer sType$Default() { return sType(EXTVertexInputDynamicState.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT#vertexInputDynamicState} field. */
+        /** Sets the specified value to the {@code vertexInputDynamicState} field. */
         public VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.Buffer vertexInputDynamicState(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.nvertexInputDynamicState(address(), value ? 1 : 0); return this; }
 
     }

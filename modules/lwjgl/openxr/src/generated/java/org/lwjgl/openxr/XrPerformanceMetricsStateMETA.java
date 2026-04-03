@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Performance metrics enable state.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrPerformanceMetricsStateMETA} is provided as input when calling {@link METAPerformanceMetrics#xrSetPerformanceMetricsStateMETA SetPerformanceMetricsStateMETA} to enable or disable the performance metrics system. {@link XrPerformanceMetricsStateMETA} is populated as an output parameter when calling {@link METAPerformanceMetrics#xrGetPerformanceMetricsStateMETA GetPerformanceMetricsStateMETA} to query if the performance metrics system is enabled.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAPerformanceMetrics XR_META_performance_metrics} extension <b>must</b> be enabled prior to using {@link XrPerformanceMetricsStateMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAPerformanceMetrics#XR_TYPE_PERFORMANCE_METRICS_STATE_META TYPE_PERFORMANCE_METRICS_STATE_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link METAPerformanceMetrics#xrGetPerformanceMetricsStateMETA GetPerformanceMetricsStateMETA}, {@link METAPerformanceMetrics#xrSetPerformanceMetricsStateMETA SetPerformanceMetricsStateMETA}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPerformanceMetricsStateMETA {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrBool32 {@link #enabled};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrBool32 enabled;
+ * }}</pre>
  */
 public class XrPerformanceMetricsStateMETA extends Struct<XrPerformanceMetricsStateMETA> implements NativeResource {
 
@@ -94,23 +74,23 @@ public class XrPerformanceMetricsStateMETA extends Struct<XrPerformanceMetricsSt
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** set to {@link XR10#XR_TRUE TRUE} to indicate the performance metrics system is enabled, {@link XR10#XR_FALSE FALSE} otherwise, when getting state. When setting state, set to {@link XR10#XR_TRUE TRUE} to enable the performance metrics system and {@link XR10#XR_FALSE FALSE} to disable it. */
+    /** @return the value of the {@code enabled} field. */
     @NativeType("XrBool32")
     public boolean enabled() { return nenabled(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrPerformanceMetricsStateMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAPerformanceMetrics#XR_TYPE_PERFORMANCE_METRICS_STATE_META TYPE_PERFORMANCE_METRICS_STATE_META} value to the {@link #type} field. */
+    /** Sets the {@link METAPerformanceMetrics#XR_TYPE_PERFORMANCE_METRICS_STATE_META TYPE_PERFORMANCE_METRICS_STATE_META} value to the {@code type} field. */
     public XrPerformanceMetricsStateMETA type$Default() { return type(METAPerformanceMetrics.XR_TYPE_PERFORMANCE_METRICS_STATE_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrPerformanceMetricsStateMETA next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #enabled} field. */
+    /** Sets the specified value to the {@code enabled} field. */
     public XrPerformanceMetricsStateMETA enabled(@NativeType("XrBool32") boolean value) { nenabled(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class XrPerformanceMetricsStateMETA extends Struct<XrPerformanceMetricsSt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPerformanceMetricsStateMETA createSafe(long address) {
+    public static @Nullable XrPerformanceMetricsStateMETA createSafe(long address) {
         return address == NULL ? null : new XrPerformanceMetricsStateMETA(address, null);
     }
 
@@ -206,8 +185,7 @@ public class XrPerformanceMetricsStateMETA extends Struct<XrPerformanceMetricsSt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPerformanceMetricsStateMETA.Buffer createSafe(long address, int capacity) {
+    public static XrPerformanceMetricsStateMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class XrPerformanceMetricsStateMETA extends Struct<XrPerformanceMetricsSt
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPerformanceMetricsStateMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPerformanceMetricsStateMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPerformanceMetricsStateMETA.NEXT); }
     /** Unsafe version of {@link #enabled}. */
-    public static int nenabled(long struct) { return UNSAFE.getInt(null, struct + XrPerformanceMetricsStateMETA.ENABLED); }
+    public static int nenabled(long struct) { return memGetInt(struct + XrPerformanceMetricsStateMETA.ENABLED); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPerformanceMetricsStateMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPerformanceMetricsStateMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPerformanceMetricsStateMETA.NEXT, value); }
     /** Unsafe version of {@link #enabled(boolean) enabled}. */
-    public static void nenabled(long struct, int value) { UNSAFE.putInt(null, struct + XrPerformanceMetricsStateMETA.ENABLED, value); }
+    public static void nenabled(long struct, int value) { memPutInt(struct + XrPerformanceMetricsStateMETA.ENABLED, value); }
 
     // -----------------------------------
 
@@ -299,27 +277,32 @@ public class XrPerformanceMetricsStateMETA extends Struct<XrPerformanceMetricsSt
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPerformanceMetricsStateMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrPerformanceMetricsStateMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrPerformanceMetricsStateMETA.ntype(address()); }
-        /** @return the value of the {@link XrPerformanceMetricsStateMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrPerformanceMetricsStateMETA.nnext(address()); }
-        /** @return the value of the {@link XrPerformanceMetricsStateMETA#enabled} field. */
+        /** @return the value of the {@code enabled} field. */
         @NativeType("XrBool32")
         public boolean enabled() { return XrPerformanceMetricsStateMETA.nenabled(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrPerformanceMetricsStateMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrPerformanceMetricsStateMETA.Buffer type(@NativeType("XrStructureType") int value) { XrPerformanceMetricsStateMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAPerformanceMetrics#XR_TYPE_PERFORMANCE_METRICS_STATE_META TYPE_PERFORMANCE_METRICS_STATE_META} value to the {@link XrPerformanceMetricsStateMETA#type} field. */
+        /** Sets the {@link METAPerformanceMetrics#XR_TYPE_PERFORMANCE_METRICS_STATE_META TYPE_PERFORMANCE_METRICS_STATE_META} value to the {@code type} field. */
         public XrPerformanceMetricsStateMETA.Buffer type$Default() { return type(METAPerformanceMetrics.XR_TYPE_PERFORMANCE_METRICS_STATE_META); }
-        /** Sets the specified value to the {@link XrPerformanceMetricsStateMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrPerformanceMetricsStateMETA.Buffer next(@NativeType("void const *") long value) { XrPerformanceMetricsStateMETA.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrPerformanceMetricsStateMETA#enabled} field. */
+        /** Sets the specified value to the {@code enabled} field. */
         public XrPerformanceMetricsStateMETA.Buffer enabled(@NativeType("XrBool32") boolean value) { XrPerformanceMetricsStateMETA.nenabled(address(), value ? 1 : 0); return this; }
 
     }

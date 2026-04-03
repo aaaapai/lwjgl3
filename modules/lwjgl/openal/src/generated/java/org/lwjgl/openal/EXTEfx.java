@@ -14,23 +14,15 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Native bindings to the {@code ALC_EXT_EFX} extension.
- * 
- * <p>The Effects Extension is designed to provide a generic, cross-platform framework for adding advanced DSP effects to OpenAL.</p>
- */
 public class EXTEfx {
 
-    /** ALC tokens. */
     public static final int
         ALC_EFX_MAJOR_VERSION   = 0x20001,
         ALC_EFX_MINOR_VERSION   = 0x20002,
         ALC_MAX_AUXILIARY_SENDS = 0x20003;
 
-    /** Listener properties. */
     public static final int AL_METERS_PER_UNIT = 0x20004;
 
-    /** Source properties. */
     public static final int
         AL_DIRECT_FILTER                     = 0x20005,
         AL_AUXILIARY_SEND_FILTER             = 0x20006,
@@ -41,14 +33,12 @@ public class EXTEfx {
         AL_AUXILIARY_SEND_FILTER_GAIN_AUTO   = 0x2000B,
         AL_AUXILIARY_SEND_FILTER_GAINHF_AUTO = 0x2000C;
 
-    /** Auxiliary effect slot properties. */
     public static final int
         AL_EFFECTSLOT_NULL                = 0x0,
         AL_EFFECTSLOT_EFFECT              = 0x1,
         AL_EFFECTSLOT_GAIN                = 0x2,
         AL_EFFECTSLOT_AUXILIARY_SEND_AUTO = 0x3;
 
-    /** Reverb effect parameters. */
     public static final int
         AL_REVERB_DENSITY               = 0x1,
         AL_REVERB_DIFFUSION             = 0x2,
@@ -64,7 +54,6 @@ public class EXTEfx {
         AL_REVERB_ROOM_ROLLOFF_FACTOR   = 0xC,
         AL_REVERB_DECAY_HFLIMIT         = 0xD;
 
-    /** EAX Reverb effect parameters. */
     public static final int
         AL_EAXREVERB_DENSITY               = 0x1,
         AL_EAXREVERB_DIFFUSION             = 0x2,
@@ -90,7 +79,6 @@ public class EXTEfx {
         AL_EAXREVERB_ROOM_ROLLOFF_FACTOR   = 0x16,
         AL_EAXREVERB_DECAY_HFLIMIT         = 0x17;
 
-    /** Chorus effect parameters. */
     public static final int
         AL_CHORUS_WAVEFORM = 0x1,
         AL_CHORUS_PHASE    = 0x2,
@@ -99,7 +87,6 @@ public class EXTEfx {
         AL_CHORUS_FEEDBACK = 0x5,
         AL_CHORUS_DELAY    = 0x6;
 
-    /** Distortion effect parameters. */
     public static final int
         AL_DISTORTION_EDGE           = 0x1,
         AL_DISTORTION_GAIN           = 0x2,
@@ -107,7 +94,6 @@ public class EXTEfx {
         AL_DISTORTION_EQCENTER       = 0x4,
         AL_DISTORTION_EQBANDWIDTH    = 0x5;
 
-    /** Echo effect parameters. */
     public static final int
         AL_ECHO_DELAY    = 0x1,
         AL_ECHO_LRDELAY  = 0x2,
@@ -115,7 +101,6 @@ public class EXTEfx {
         AL_ECHO_FEEDBACK = 0x4,
         AL_ECHO_SPREAD   = 0x5;
 
-    /** Flanger effect parameters. */
     public static final int
         AL_FLANGER_WAVEFORM = 0x1,
         AL_FLANGER_PHASE    = 0x2,
@@ -124,13 +109,11 @@ public class EXTEfx {
         AL_FLANGER_FEEDBACK = 0x5,
         AL_FLANGER_DELAY    = 0x6;
 
-    /** Frequency shifter effect parameters. */
     public static final int
         AL_FREQUENCY_SHIFTER_FREQUENCY       = 0x1,
         AL_FREQUENCY_SHIFTER_LEFT_DIRECTION  = 0x2,
         AL_FREQUENCY_SHIFTER_RIGHT_DIRECTION = 0x3;
 
-    /** Vocal morpher effect parameters. */
     public static final int
         AL_VOCMORPHER_PHONEMEA               = 0x1,
         AL_VOCMORPHER_PHONEMEA_COARSE_TUNING = 0x2,
@@ -139,28 +122,23 @@ public class EXTEfx {
         AL_VOCMORPHER_WAVEFORM               = 0x5,
         AL_VOCMORPHER_RATE                   = 0x6;
 
-    /** Pitch shifter effect parameters. */
     public static final int
         AL_PITCH_SHIFTER_COARSE_TUNE = 0x1,
         AL_PITCH_SHIFTER_FINE_TUNE   = 0x2;
 
-    /** Ring modulator effect parameters. */
     public static final int
         AL_RING_MODULATOR_FREQUENCY       = 0x1,
         AL_RING_MODULATOR_HIGHPASS_CUTOFF = 0x2,
         AL_RING_MODULATOR_WAVEFORM        = 0x3;
 
-    /** Autowah effect parameters. */
     public static final int
         AL_AUTOWAH_ATTACK_TIME  = 0x1,
         AL_AUTOWAH_RELEASE_TIME = 0x2,
         AL_AUTOWAH_RESONANCE    = 0x3,
         AL_AUTOWAH_PEAK_GAIN    = 0x4;
 
-    /** Compressor effect parameters. */
     public static final int AL_COMPRESSOR_ONOFF = 0x1;
 
-    /** Equalizer effect parameters. */
     public static final int
         AL_EQUALIZER_LOW_GAIN    = 0x1,
         AL_EQUALIZER_LOW_CUTOFF  = 0x2,
@@ -173,13 +151,11 @@ public class EXTEfx {
         AL_EQUALIZER_HIGH_GAIN   = 0x9,
         AL_EQUALIZER_HIGH_CUTOFF = 0xA;
 
-    /** Effect type effect parameters. */
     public static final int
         AL_EFFECT_FIRST_PARAMETER = 0x0,
         AL_EFFECT_LAST_PARAMETER  = 0x8000,
         AL_EFFECT_TYPE            = 0x8001;
 
-    /** Effect types */
     public static final int
         AL_EFFECT_NULL              = 0x0,
         AL_EFFECT_REVERB            = 0x1,
@@ -196,36 +172,30 @@ public class EXTEfx {
         AL_EFFECT_EQUALIZER         = 0xC,
         AL_EFFECT_EAXREVERB         = 0x8000;
 
-    /** Lowpass filter properties */
     public static final int
         AL_LOWPASS_GAIN   = 0x1,
         AL_LOWPASS_GAINHF = 0x2;
 
-    /** Highpass filter properties */
     public static final int
         AL_HIGHPASS_GAIN   = 0x1,
         AL_HIGHPASS_GAINLF = 0x2;
 
-    /** Bandpass filter properties */
     public static final int
         AL_BANDPASS_GAIN   = 0x1,
         AL_BANDPASS_GAINLF = 0x2,
         AL_BANDPASS_GAINHF = 0x3;
 
-    /** Filter type */
     public static final int
         AL_FILTER_FIRST_PARAMETER = 0x0,
         AL_FILTER_LAST_PARAMETER  = 0x8000,
         AL_FILTER_TYPE            = 0x8001;
 
-    /** Filter types. */
     public static final int
         AL_FILTER_NULL     = 0x0,
         AL_FILTER_LOWPASS  = 0x1,
         AL_FILTER_HIGHPASS = 0x2,
         AL_FILTER_BANDPASS = 0x3;
 
-    /** Source property value ranges and defaults */
     public static final float
         AL_MIN_AIR_ABSORPTION_FACTOR     = 0.0f,
         AL_MAX_AIR_ABSORPTION_FACTOR     = 10.0f,
@@ -237,7 +207,6 @@ public class EXTEfx {
         AL_MAX_CONE_OUTER_GAINHF         = 1.0f,
         AL_DEFAULT_CONE_OUTER_GAINHF     = 1.0f;
 
-    /** Source property value ranges and defaults */
     public static final int
         AL_MIN_DIRECT_FILTER_GAINHF_AUTO             = 0x0,
         AL_MAX_DIRECT_FILTER_GAINHF_AUTO             = 0x1,
@@ -249,13 +218,11 @@ public class EXTEfx {
         AL_MAX_AUXILIARY_SEND_FILTER_GAINHF_AUTO     = 0x1,
         AL_DEFAULT_AUXILIARY_SEND_FILTER_GAINHF_AUTO = 0x1;
 
-    /** Listener property value ranges and defaults. */
     public static final float
         AL_MIN_METERS_PER_UNIT     = 0x0.000002P-126f,
         AL_MAX_METERS_PER_UNIT     = 0x1.fffffeP+127f,
         AL_DEFAULT_METERS_PER_UNIT = 1.0f;
 
-    /** Reverb effect parameter ranges and defaults */
     public static final float
         AL_REVERB_MIN_DENSITY                   = 0.0f,
         AL_REVERB_MAX_DENSITY                   = 1.0f,
@@ -294,13 +261,11 @@ public class EXTEfx {
         AL_REVERB_MAX_ROOM_ROLLOFF_FACTOR       = 10.0f,
         AL_REVERB_DEFAULT_ROOM_ROLLOFF_FACTOR   = 0.0f;
 
-    /** Reverb effect parameter ranges and defaults */
     public static final int
         AL_REVERB_MIN_DECAY_HFLIMIT     = 0x0,
         AL_REVERB_MAX_DECAY_HFLIMIT     = 0x1,
         AL_REVERB_DEFAULT_DECAY_HFLIMIT = 0x1;
 
-    /** EAX reverb effect parameter ranges and defaults */
     public static final float
         AL_EAXREVERB_MIN_DENSITY                   = 0.0f,
         AL_EAXREVERB_MAX_DENSITY                   = 1.0f,
@@ -365,13 +330,11 @@ public class EXTEfx {
         AL_EAXREVERB_MAX_ROOM_ROLLOFF_FACTOR       = 10.0f,
         AL_EAXREVERB_DEFAULT_ROOM_ROLLOFF_FACTOR   = 0.0f;
 
-    /** EAX reverb effect parameter ranges and defaults */
     public static final int
         AL_EAXREVERB_MIN_DECAY_HFLIMIT     = 0x0,
         AL_EAXREVERB_MAX_DECAY_HFLIMIT     = 0x1,
         AL_EAXREVERB_DEFAULT_DECAY_HFLIMIT = 0x1;
 
-    /** Chorus effect parameter ranges and defaults */
     public static final int
         AL_CHORUS_WAVEFORM_SINUSOID = 0,
         AL_CHORUS_WAVEFORM_TRIANGLE = 1,
@@ -382,7 +345,6 @@ public class EXTEfx {
         AL_CHORUS_MAX_PHASE         = 180,
         AL_CHORUS_DEFAULT_PHASE     = 90;
 
-    /** Chorus effect parameter ranges and defaults */
     public static final float
         AL_CHORUS_MIN_RATE         = 0.0f,
         AL_CHORUS_MAX_RATE         = 10.0f,
@@ -397,7 +359,6 @@ public class EXTEfx {
         AL_CHORUS_MAX_DELAY        = 0.016f,
         AL_CHORUS_DEFAULT_DELAY    = 0.016f;
 
-    /** Distortion effect parameter ranges and defaults */
     public static final float
         AL_DISTORTION_MIN_EDGE               = 0.0f,
         AL_DISTORTION_MAX_EDGE               = 1.0f,
@@ -415,7 +376,6 @@ public class EXTEfx {
         AL_DISTORTION_MAX_EQBANDWIDTH        = 24000.0f,
         AL_DISTORTION_DEFAULT_EQBANDWIDTH    = 3600.0f;
 
-    /** Echo effect parameter ranges and defaults */
     public static final float
         AL_ECHO_MIN_DELAY        = 0.0f,
         AL_ECHO_MAX_DELAY        = 0.207f,
@@ -433,7 +393,6 @@ public class EXTEfx {
         AL_ECHO_MAX_SPREAD       = 1.0f,
         AL_ECHO_DEFAULT_SPREAD   = -1.0f;
 
-    /** Flanger effect parameter ranges and defaults */
     public static final int
         AL_FLANGER_WAVEFORM_SINUSOID = 0,
         AL_FLANGER_WAVEFORM_TRIANGLE = 1,
@@ -444,7 +403,6 @@ public class EXTEfx {
         AL_FLANGER_MAX_PHASE         = 180,
         AL_FLANGER_DEFAULT_PHASE     = 0;
 
-    /** Flanger effect parameter ranges and defaults */
     public static final float
         AL_FLANGER_MIN_RATE         = 0.0f,
         AL_FLANGER_MAX_RATE         = 10.0f,
@@ -459,13 +417,11 @@ public class EXTEfx {
         AL_FLANGER_MAX_DELAY        = 0.004f,
         AL_FLANGER_DEFAULT_DELAY    = 0.002f;
 
-    /** Frequency shifter effect parameter ranges and defaults */
     public static final float
         AL_FREQUENCY_SHIFTER_MIN_FREQUENCY     = 0.0f,
         AL_FREQUENCY_SHIFTER_MAX_FREQUENCY     = 24000.0f,
         AL_FREQUENCY_SHIFTER_DEFAULT_FREQUENCY = 0.0f;
 
-    /** Frequency shifter effect parameter ranges and defaults */
     public static final int
         AL_FREQUENCY_SHIFTER_MIN_LEFT_DIRECTION      = 0,
         AL_FREQUENCY_SHIFTER_MAX_LEFT_DIRECTION      = 2,
@@ -477,7 +433,6 @@ public class EXTEfx {
         AL_FREQUENCY_SHIFTER_MAX_RIGHT_DIRECTION     = 2,
         AL_FREQUENCY_SHIFTER_DEFAULT_RIGHT_DIRECTION = 0;
 
-    /** Vocal morpher effect parameter ranges and defaults */
     public static final int
         AL_VOCAL_MORPHER_MIN_PHONEMEA                   = 0,
         AL_VOCAL_MORPHER_MAX_PHONEMEA                   = 29,
@@ -528,13 +483,11 @@ public class EXTEfx {
         AL_VOCAL_MORPHER_MAX_WAVEFORM                   = 2,
         AL_VOCAL_MORPHER_DEFAULT_WAVEFORM               = 0;
 
-    /** Vocal morpher effect parameter ranges and defaults */
     public static final float
         AL_VOCAL_MORPHER_MIN_RATE     = 0.0f,
         AL_VOCAL_MORPHER_MAX_RATE     = 10.0f,
         AL_VOCAL_MORPHER_DEFAULT_RATE = 1.41f;
 
-    /** Pitch shifter effect parameter ranges and defaults */
     public static final int
         AL_PITCH_SHIFTER_MIN_COARSE_TUNE     = -12,
         AL_PITCH_SHIFTER_MAX_COARSE_TUNE     = 12,
@@ -543,7 +496,6 @@ public class EXTEfx {
         AL_PITCH_SHIFTER_MAX_FINE_TUNE       = 50,
         AL_PITCH_SHIFTER_DEFAULT_FINE_TUNE   = 0;
 
-    /** Ring modulator effect parameter ranges and defaults */
     public static final float
         AL_RING_MODULATOR_MIN_FREQUENCY           = 0.0f,
         AL_RING_MODULATOR_MAX_FREQUENCY           = 8000.0f,
@@ -552,7 +504,6 @@ public class EXTEfx {
         AL_RING_MODULATOR_MAX_HIGHPASS_CUTOFF     = 24000.0f,
         AL_RING_MODULATOR_DEFAULT_HIGHPASS_CUTOFF = 800.0f;
 
-    /** Ring modulator effect parameter ranges and defaults */
     public static final int
         AL_RING_MODULATOR_SINUSOID         = 0,
         AL_RING_MODULATOR_SAWTOOTH         = 1,
@@ -561,7 +512,6 @@ public class EXTEfx {
         AL_RING_MODULATOR_MAX_WAVEFORM     = 2,
         AL_RING_MODULATOR_DEFAULT_WAVEFORM = 0;
 
-    /** Autowah effect parameter ranges and defaults */
     public static final float
         AL_AUTOWAH_MIN_ATTACK_TIME      = 1.0E-4f,
         AL_AUTOWAH_MAX_ATTACK_TIME      = 1.0f,
@@ -576,13 +526,11 @@ public class EXTEfx {
         AL_AUTOWAH_MAX_PEAK_GAIN        = 31621.0f,
         AL_AUTOWAH_DEFAULT_PEAK_GAIN    = 11.22f;
 
-    /** Compressor effect parameter ranges and defaults */
     public static final int
         AL_COMPRESSOR_MIN_ONOFF     = 0,
         AL_COMPRESSOR_MAX_ONOFF     = 1,
         AL_COMPRESSOR_DEFAULT_ONOFF = 1;
 
-    /** Equalizer effect parameter ranges and defaults */
     public static final float
         AL_EQUALIZER_MIN_LOW_GAIN        = 0.126f,
         AL_EQUALIZER_MAX_LOW_GAIN        = 7.943f,
@@ -615,7 +563,6 @@ public class EXTEfx {
         AL_EQUALIZER_MAX_HIGH_CUTOFF     = 16000.0f,
         AL_EQUALIZER_DEFAULT_HIGH_CUTOFF = 6000.0f;
 
-    /** Lowpass filter parameter ranges and defaults */
     public static final float
         AL_LOWPASS_MIN_GAIN       = 0.0f,
         AL_LOWPASS_MAX_GAIN       = 1.0f,
@@ -624,7 +571,6 @@ public class EXTEfx {
         AL_LOWPASS_MAX_GAINHF     = 1.0f,
         AL_LOWPASS_DEFAULT_GAINHF = 1.0f;
 
-    /** Highpass filter parameter ranges and defaults */
     public static final float
         AL_HIGHPASS_MIN_GAIN       = 0.0f,
         AL_HIGHPASS_MAX_GAIN       = 1.0f,
@@ -633,7 +579,6 @@ public class EXTEfx {
         AL_HIGHPASS_MAX_GAINLF     = 1.0f,
         AL_HIGHPASS_DEFAULT_GAINLF = 1.0f;
 
-    /** Bandpass filter parameter ranges and defaults */
     public static final float
         AL_BANDPASS_MIN_GAIN       = 0.0f,
         AL_BANDPASS_MAX_GAIN       = 1.0f,
@@ -651,11 +596,7 @@ public class EXTEfx {
 
     // --- [ alGenEffects ] ---
 
-    /**
-     * Unsafe version of: {@link #alGenEffects GenEffects}
-     *
-     * @param n the number of effects be to generated
-     */
+    /** {@code ALvoid alGenEffects(ALsizei n, ALuint * effects)} */
     public static void nalGenEffects(int n, long effects) {
         long __functionAddress = AL.getICD().alGenEffects;
         if (CHECKS) {
@@ -664,17 +605,13 @@ public class EXTEfx {
         invokePV(n, effects, __functionAddress);
     }
 
-    /**
-     * Requests a number of effects.
-     *
-     * @param effects the buffer that will receive the effects
-     */
+    /** {@code ALvoid alGenEffects(ALsizei n, ALuint * effects)} */
     @NativeType("ALvoid")
     public static void alGenEffects(@NativeType("ALuint *") IntBuffer effects) {
         nalGenEffects(effects.remaining(), memAddress(effects));
     }
 
-    /** Requests a number of effects. */
+    /** {@code ALvoid alGenEffects(ALsizei n, ALuint * effects)} */
     @NativeType("ALvoid")
     public static int alGenEffects() {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -687,13 +624,40 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGenEffectsDirect ] ---
+
+    /** {@code ALvoid alGenEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    public static void nalGenEffectsDirect(long context, int n, long effects) {
+        long __functionAddress = AL.getICD().alGenEffectsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, n, effects, __functionAddress);
+    }
+
+    /** {@code ALvoid alGenEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    @NativeType("ALvoid")
+    public static void alGenEffectsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") IntBuffer effects) {
+        nalGenEffectsDirect(context, effects.remaining(), memAddress(effects));
+    }
+
+    /** {@code ALvoid alGenEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    @NativeType("ALvoid")
+    public static int alGenEffectsDirect(@NativeType("ALCcontext *") long context) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer effects = stack.callocInt(1);
+            nalGenEffectsDirect(context, 1, memAddress(effects));
+            return effects.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alDeleteEffects ] ---
 
-    /**
-     * Unsafe version of: {@link #alDeleteEffects DeleteEffects}
-     *
-     * @param n the number of effects be to deleted
-     */
+    /** {@code ALvoid alDeleteEffects(ALsizei n, ALuint * effects)} */
     public static void nalDeleteEffects(int n, long effects) {
         long __functionAddress = AL.getICD().alDeleteEffects;
         if (CHECKS) {
@@ -702,17 +666,13 @@ public class EXTEfx {
         invokePV(n, effects, __functionAddress);
     }
 
-    /**
-     * Deletes a number of effects.
-     *
-     * @param effects the effect to delete
-     */
+    /** {@code ALvoid alDeleteEffects(ALsizei n, ALuint * effects)} */
     @NativeType("ALvoid")
     public static void alDeleteEffects(@NativeType("ALuint *") IntBuffer effects) {
         nalDeleteEffects(effects.remaining(), memAddress(effects));
     }
 
-    /** Deletes a number of effects. */
+    /** {@code ALvoid alDeleteEffects(ALsizei n, ALuint * effects)} */
     @NativeType("ALvoid")
     public static void alDeleteEffects(@NativeType("ALuint *") int effect) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -724,13 +684,39 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alDeleteEffectsDirect ] ---
+
+    /** {@code ALvoid alDeleteEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    public static void nalDeleteEffectsDirect(long context, int n, long effects) {
+        long __functionAddress = AL.getICD().alDeleteEffectsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, n, effects, __functionAddress);
+    }
+
+    /** {@code ALvoid alDeleteEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    @NativeType("ALvoid")
+    public static void alDeleteEffectsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") IntBuffer effects) {
+        nalDeleteEffectsDirect(context, effects.remaining(), memAddress(effects));
+    }
+
+    /** {@code ALvoid alDeleteEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    @NativeType("ALvoid")
+    public static void alDeleteEffectsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int effect) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer effects = stack.ints(effect);
+            nalDeleteEffectsDirect(context, 1, memAddress(effects));
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alIsEffect ] ---
 
-    /**
-     * Verifies whether the given object name is an effect.
-     *
-     * @param effect a value that may be a effect name
-     */
+    /** {@code ALboolean alIsEffect(ALuint effect)} */
     @NativeType("ALboolean")
     public static boolean alIsEffect(@NativeType("ALuint") int effect) {
         long __functionAddress = AL.getICD().alIsEffect;
@@ -740,15 +726,22 @@ public class EXTEfx {
         return invokeZ(effect, __functionAddress);
     }
 
+    // --- [ alIsEffectDirect ] ---
+
+    /** {@code ALboolean alIsEffectDirect(ALCcontext * context, ALuint effect)} */
+    @NativeType("ALboolean")
+    public static boolean alIsEffectDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect) {
+        long __functionAddress = AL.getICD().alIsEffectDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        return invokePZ(context, effect, __functionAddress);
+    }
+
     // --- [ alEffecti ] ---
 
-    /**
-     * Sets the integer value of an effect parameter.
-     *
-     * @param effect the effect to modify
-     * @param param  the parameter to modify
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alEffecti(ALuint effect, ALenum param, ALint value)} */
     @NativeType("ALvoid")
     public static void alEffecti(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint") int value) {
         long __functionAddress = AL.getICD().alEffecti;
@@ -758,9 +751,22 @@ public class EXTEfx {
         invokeV(effect, param, value, __functionAddress);
     }
 
+    // --- [ alEffectiDirect ] ---
+
+    /** {@code ALvoid alEffectiDirect(ALCcontext * context, ALuint effect, ALenum param, ALint value)} */
+    @NativeType("ALvoid")
+    public static void alEffectiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint") int value) {
+        long __functionAddress = AL.getICD().alEffectiDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePV(context, effect, param, value, __functionAddress);
+    }
+
     // --- [ alEffectiv ] ---
 
-    /** Unsafe version of: {@link #alEffectiv Effectiv} */
+    /** {@code ALvoid alEffectiv(ALuint effect, ALenum param, ALint const * values)} */
     public static void nalEffectiv(int effect, int param, long values) {
         long __functionAddress = AL.getICD().alEffectiv;
         if (CHECKS) {
@@ -769,13 +775,7 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /**
-     * Pointer version of {@link #alEffecti Effecti}.
-     *
-     * @param effect the effect to modify
-     * @param param  the parameter to modify
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alEffectiv(ALuint effect, ALenum param, ALint const * values)} */
     @NativeType("ALvoid")
     public static void alEffectiv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint const *") IntBuffer values) {
         if (CHECKS) {
@@ -784,15 +784,30 @@ public class EXTEfx {
         nalEffectiv(effect, param, memAddress(values));
     }
 
+    // --- [ alEffectivDirect ] ---
+
+    /** {@code ALvoid alEffectivDirect(ALCcontext * context, ALuint effect, ALenum param, ALint const * values)} */
+    public static void nalEffectivDirect(long context, int effect, int param, long values) {
+        long __functionAddress = AL.getICD().alEffectivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alEffectivDirect(ALCcontext * context, ALuint effect, ALenum param, ALint const * values)} */
+    @NativeType("ALvoid")
+    public static void alEffectivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint const *") IntBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalEffectivDirect(context, effect, param, memAddress(values));
+    }
+
     // --- [ alEffectf ] ---
 
-    /**
-     * Sets the float value of an effect parameter.
-     *
-     * @param effect the effect to modify
-     * @param param  the parameter to modify
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alEffectf(ALuint effect, ALenum param, ALfloat value)} */
     @NativeType("ALvoid")
     public static void alEffectf(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat") float value) {
         long __functionAddress = AL.getICD().alEffectf;
@@ -802,9 +817,22 @@ public class EXTEfx {
         invokeV(effect, param, value, __functionAddress);
     }
 
+    // --- [ alEffectfDirect ] ---
+
+    /** {@code ALvoid alEffectfDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat value)} */
+    @NativeType("ALvoid")
+    public static void alEffectfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat") float value) {
+        long __functionAddress = AL.getICD().alEffectfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePV(context, effect, param, value, __functionAddress);
+    }
+
     // --- [ alEffectfv ] ---
 
-    /** Unsafe version of: {@link #alEffectfv Effectfv} */
+    /** {@code ALvoid alEffectfv(ALuint effect, ALenum param, ALfloat const * values)} */
     public static void nalEffectfv(int effect, int param, long values) {
         long __functionAddress = AL.getICD().alEffectfv;
         if (CHECKS) {
@@ -813,13 +841,7 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /**
-     * Pointer version of {@link #alEffectf Effectf}.
-     *
-     * @param effect the effect to modify
-     * @param param  the parameter to modify
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alEffectfv(ALuint effect, ALenum param, ALfloat const * values)} */
     @NativeType("ALvoid")
     public static void alEffectfv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat const *") FloatBuffer values) {
         if (CHECKS) {
@@ -828,9 +850,30 @@ public class EXTEfx {
         nalEffectfv(effect, param, memAddress(values));
     }
 
+    // --- [ alEffectfvDirect ] ---
+
+    /** {@code ALvoid alEffectfvDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat const * values)} */
+    public static void nalEffectfvDirect(long context, int effect, int param, long values) {
+        long __functionAddress = AL.getICD().alEffectfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alEffectfvDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat const * values)} */
+    @NativeType("ALvoid")
+    public static void alEffectfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat const *") FloatBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalEffectfvDirect(context, effect, param, memAddress(values));
+    }
+
     // --- [ alGetEffecti ] ---
 
-    /** Unsafe version of: {@link #alGetEffecti GetEffecti} */
+    /** {@code ALvoid alGetEffecti(ALuint effect, ALenum param, ALint * value)} */
     public static void nalGetEffecti(int effect, int param, long value) {
         long __functionAddress = AL.getICD().alGetEffecti;
         if (CHECKS) {
@@ -839,13 +882,7 @@ public class EXTEfx {
         invokePV(effect, param, value, __functionAddress);
     }
 
-    /**
-     * Returns the integer value of the specified effect parameter.
-     *
-     * @param effect the effect to query
-     * @param param  the parameter to query
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alGetEffecti(ALuint effect, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static void alGetEffecti(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer value) {
         if (CHECKS) {
@@ -854,12 +891,7 @@ public class EXTEfx {
         nalGetEffecti(effect, param, memAddress(value));
     }
 
-    /**
-     * Returns the integer value of the specified effect parameter.
-     *
-     * @param effect the effect to query
-     * @param param  the parameter to query
-     */
+    /** {@code ALvoid alGetEffecti(ALuint effect, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static int alGetEffecti(@NativeType("ALuint") int effect, @NativeType("ALenum") int param) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -872,9 +904,43 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGetEffectiDirect ] ---
+
+    /** {@code ALvoid alGetEffectiDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * value)} */
+    public static void nalGetEffectiDirect(long context, int effect, int param, long value) {
+        long __functionAddress = AL.getICD().alGetEffectiDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effect, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectiDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer value) {
+        if (CHECKS) {
+            check(value, 1);
+        }
+        nalGetEffectiDirect(context, effect, param, memAddress(value));
+    }
+
+    /** {@code ALvoid alGetEffectiDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static int alGetEffectiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer value = stack.callocInt(1);
+            nalGetEffectiDirect(context, effect, param, memAddress(value));
+            return value.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alGetEffectiv ] ---
 
-    /** Unsafe version of: {@link #alGetEffectiv GetEffectiv} */
+    /** {@code ALvoid alGetEffectiv(ALuint effect, ALenum param, ALint * values)} */
     public static void nalGetEffectiv(int effect, int param, long values) {
         long __functionAddress = AL.getICD().alGetEffectiv;
         if (CHECKS) {
@@ -883,13 +949,7 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /**
-     * Returns the integer values of the specified effect parameter.
-     *
-     * @param effect the effect to query
-     * @param param  the parameter to query
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alGetEffectiv(ALuint effect, ALenum param, ALint * values)} */
     @NativeType("ALvoid")
     public static void alGetEffectiv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer values) {
         if (CHECKS) {
@@ -898,9 +958,30 @@ public class EXTEfx {
         nalGetEffectiv(effect, param, memAddress(values));
     }
 
+    // --- [ alGetEffectivDirect ] ---
+
+    /** {@code ALvoid alGetEffectivDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * values)} */
+    public static void nalGetEffectivDirect(long context, int effect, int param, long values) {
+        long __functionAddress = AL.getICD().alGetEffectivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectivDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * values)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalGetEffectivDirect(context, effect, param, memAddress(values));
+    }
+
     // --- [ alGetEffectf ] ---
 
-    /** Unsafe version of: {@link #alGetEffectf GetEffectf} */
+    /** {@code ALvoid alGetEffectf(ALuint effect, ALenum param, ALfloat * value)} */
     public static void nalGetEffectf(int effect, int param, long value) {
         long __functionAddress = AL.getICD().alGetEffectf;
         if (CHECKS) {
@@ -909,13 +990,7 @@ public class EXTEfx {
         invokePV(effect, param, value, __functionAddress);
     }
 
-    /**
-     * Returns the float value of the specified effect parameter.
-     *
-     * @param effect the effect to query
-     * @param param  the parameter to query
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alGetEffectf(ALuint effect, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static void alGetEffectf(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer value) {
         if (CHECKS) {
@@ -924,12 +999,7 @@ public class EXTEfx {
         nalGetEffectf(effect, param, memAddress(value));
     }
 
-    /**
-     * Returns the float value of the specified effect parameter.
-     *
-     * @param effect the effect to query
-     * @param param  the parameter to query
-     */
+    /** {@code ALvoid alGetEffectf(ALuint effect, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static float alGetEffectf(@NativeType("ALuint") int effect, @NativeType("ALenum") int param) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -942,9 +1012,43 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGetEffectfDirect ] ---
+
+    /** {@code ALvoid alGetEffectfDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * value)} */
+    public static void nalGetEffectfDirect(long context, int effect, int param, long value) {
+        long __functionAddress = AL.getICD().alGetEffectfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effect, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectfDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer value) {
+        if (CHECKS) {
+            check(value, 1);
+        }
+        nalGetEffectfDirect(context, effect, param, memAddress(value));
+    }
+
+    /** {@code ALvoid alGetEffectfDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static float alGetEffectfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            FloatBuffer value = stack.callocFloat(1);
+            nalGetEffectfDirect(context, effect, param, memAddress(value));
+            return value.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alGetEffectfv ] ---
 
-    /** Unsafe version of: {@link #alGetEffectfv GetEffectfv} */
+    /** {@code ALvoid alGetEffectfv(ALuint effect, ALenum param, ALfloat * values)} */
     public static void nalGetEffectfv(int effect, int param, long values) {
         long __functionAddress = AL.getICD().alGetEffectfv;
         if (CHECKS) {
@@ -953,13 +1057,7 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /**
-     * Returns the float values of the specified effect parameter.
-     *
-     * @param effect the effect to query
-     * @param param  the parameter to query
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alGetEffectfv(ALuint effect, ALenum param, ALfloat * values)} */
     @NativeType("ALvoid")
     public static void alGetEffectfv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer values) {
         if (CHECKS) {
@@ -968,13 +1066,30 @@ public class EXTEfx {
         nalGetEffectfv(effect, param, memAddress(values));
     }
 
+    // --- [ alGetEffectfvDirect ] ---
+
+    /** {@code ALvoid alGetEffectfvDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * values)} */
+    public static void nalGetEffectfvDirect(long context, int effect, int param, long values) {
+        long __functionAddress = AL.getICD().alGetEffectfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectfvDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * values)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalGetEffectfvDirect(context, effect, param, memAddress(values));
+    }
+
     // --- [ alGenFilters ] ---
 
-    /**
-     * Unsafe version of: {@link #alGenFilters GenFilters}
-     *
-     * @param n the number of filters be to generated
-     */
+    /** {@code ALvoid alGenFilters(ALsizei n, ALuint * filters)} */
     public static void nalGenFilters(int n, long filters) {
         long __functionAddress = AL.getICD().alGenFilters;
         if (CHECKS) {
@@ -983,17 +1098,13 @@ public class EXTEfx {
         invokePV(n, filters, __functionAddress);
     }
 
-    /**
-     * Requests a number of filters.
-     *
-     * @param filters the buffer that will receive the filters
-     */
+    /** {@code ALvoid alGenFilters(ALsizei n, ALuint * filters)} */
     @NativeType("ALvoid")
     public static void alGenFilters(@NativeType("ALuint *") IntBuffer filters) {
         nalGenFilters(filters.remaining(), memAddress(filters));
     }
 
-    /** Requests a number of filters. */
+    /** {@code ALvoid alGenFilters(ALsizei n, ALuint * filters)} */
     @NativeType("ALvoid")
     public static int alGenFilters() {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1006,13 +1117,40 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGenFiltersDirect ] ---
+
+    /** {@code ALvoid alGenFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    public static void nalGenFiltersDirect(long context, int n, long filters) {
+        long __functionAddress = AL.getICD().alGenFiltersDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, n, filters, __functionAddress);
+    }
+
+    /** {@code ALvoid alGenFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    @NativeType("ALvoid")
+    public static void alGenFiltersDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") IntBuffer filters) {
+        nalGenFiltersDirect(context, filters.remaining(), memAddress(filters));
+    }
+
+    /** {@code ALvoid alGenFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    @NativeType("ALvoid")
+    public static int alGenFiltersDirect(@NativeType("ALCcontext *") long context) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer filters = stack.callocInt(1);
+            nalGenFiltersDirect(context, 1, memAddress(filters));
+            return filters.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alDeleteFilters ] ---
 
-    /**
-     * Unsafe version of: {@link #alDeleteFilters DeleteFilters}
-     *
-     * @param n the number of filters be to deleted
-     */
+    /** {@code ALvoid alDeleteFilters(ALsizei n, ALuint * filters)} */
     public static void nalDeleteFilters(int n, long filters) {
         long __functionAddress = AL.getICD().alDeleteFilters;
         if (CHECKS) {
@@ -1021,17 +1159,13 @@ public class EXTEfx {
         invokePV(n, filters, __functionAddress);
     }
 
-    /**
-     * Deletes a number of filters.
-     *
-     * @param filters the filter to delete
-     */
+    /** {@code ALvoid alDeleteFilters(ALsizei n, ALuint * filters)} */
     @NativeType("ALvoid")
     public static void alDeleteFilters(@NativeType("ALuint *") IntBuffer filters) {
         nalDeleteFilters(filters.remaining(), memAddress(filters));
     }
 
-    /** Deletes a number of filters. */
+    /** {@code ALvoid alDeleteFilters(ALsizei n, ALuint * filters)} */
     @NativeType("ALvoid")
     public static void alDeleteFilters(@NativeType("ALuint *") int filter) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1043,13 +1177,39 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alDeleteFiltersDirect ] ---
+
+    /** {@code ALvoid alDeleteFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    public static void nalDeleteFiltersDirect(long context, int n, long filters) {
+        long __functionAddress = AL.getICD().alDeleteFiltersDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, n, filters, __functionAddress);
+    }
+
+    /** {@code ALvoid alDeleteFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    @NativeType("ALvoid")
+    public static void alDeleteFiltersDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") IntBuffer filters) {
+        nalDeleteFiltersDirect(context, filters.remaining(), memAddress(filters));
+    }
+
+    /** {@code ALvoid alDeleteFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    @NativeType("ALvoid")
+    public static void alDeleteFiltersDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int filter) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer filters = stack.ints(filter);
+            nalDeleteFiltersDirect(context, 1, memAddress(filters));
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alIsFilter ] ---
 
-    /**
-     * Verifies whether the given object name is a filter.
-     *
-     * @param filter a value that may be a filter name
-     */
+    /** {@code ALboolean alIsFilter(ALuint filter)} */
     @NativeType("ALboolean")
     public static boolean alIsFilter(@NativeType("ALuint") int filter) {
         long __functionAddress = AL.getICD().alIsFilter;
@@ -1059,15 +1219,22 @@ public class EXTEfx {
         return invokeZ(filter, __functionAddress);
     }
 
+    // --- [ alIsFilterDirect ] ---
+
+    /** {@code ALboolean alIsFilterDirect(ALCcontext * context, ALuint filter)} */
+    @NativeType("ALboolean")
+    public static boolean alIsFilterDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter) {
+        long __functionAddress = AL.getICD().alIsFilterDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        return invokePZ(context, filter, __functionAddress);
+    }
+
     // --- [ alFilteri ] ---
 
-    /**
-     * Sets the integer value of a filter parameter.
-     *
-     * @param filter the filter to modify
-     * @param param  the parameter to modify
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alFilteri(ALuint filter, ALenum param, ALint value)} */
     @NativeType("ALvoid")
     public static void alFilteri(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint") int value) {
         long __functionAddress = AL.getICD().alFilteri;
@@ -1077,9 +1244,22 @@ public class EXTEfx {
         invokeV(filter, param, value, __functionAddress);
     }
 
+    // --- [ alFilteriDirect ] ---
+
+    /** {@code ALvoid alFilteriDirect(ALCcontext * context, ALuint filter, ALenum param, ALint value)} */
+    @NativeType("ALvoid")
+    public static void alFilteriDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint") int value) {
+        long __functionAddress = AL.getICD().alFilteriDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePV(context, filter, param, value, __functionAddress);
+    }
+
     // --- [ alFilteriv ] ---
 
-    /** Unsafe version of: {@link #alFilteriv Filteriv} */
+    /** {@code ALvoid alFilteriv(ALuint filter, ALenum param, ALint const * values)} */
     public static void nalFilteriv(int filter, int param, long values) {
         long __functionAddress = AL.getICD().alFilteriv;
         if (CHECKS) {
@@ -1088,13 +1268,7 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /**
-     * Pointer version of {@link #alFilteri Filteri}.
-     *
-     * @param filter the filter to modify
-     * @param param  the parameter to modify
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alFilteriv(ALuint filter, ALenum param, ALint const * values)} */
     @NativeType("ALvoid")
     public static void alFilteriv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint const *") IntBuffer values) {
         if (CHECKS) {
@@ -1103,15 +1277,30 @@ public class EXTEfx {
         nalFilteriv(filter, param, memAddress(values));
     }
 
+    // --- [ alFilterivDirect ] ---
+
+    /** {@code ALvoid alFilterivDirect(ALCcontext * context, ALuint filter, ALenum param, ALint const * values)} */
+    public static void nalFilterivDirect(long context, int filter, int param, long values) {
+        long __functionAddress = AL.getICD().alFilterivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alFilterivDirect(ALCcontext * context, ALuint filter, ALenum param, ALint const * values)} */
+    @NativeType("ALvoid")
+    public static void alFilterivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint const *") IntBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalFilterivDirect(context, filter, param, memAddress(values));
+    }
+
     // --- [ alFilterf ] ---
 
-    /**
-     * Sets the float value of a filter parameter.
-     *
-     * @param filter the filter to modify
-     * @param param  the parameter to modify
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alFilterf(ALuint filter, ALenum param, ALfloat value)} */
     @NativeType("ALvoid")
     public static void alFilterf(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat") float value) {
         long __functionAddress = AL.getICD().alFilterf;
@@ -1121,9 +1310,22 @@ public class EXTEfx {
         invokeV(filter, param, value, __functionAddress);
     }
 
+    // --- [ alFilterfDirect ] ---
+
+    /** {@code ALvoid alFilterfDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat value)} */
+    @NativeType("ALvoid")
+    public static void alFilterfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat") float value) {
+        long __functionAddress = AL.getICD().alFilterfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePV(context, filter, param, value, __functionAddress);
+    }
+
     // --- [ alFilterfv ] ---
 
-    /** Unsafe version of: {@link #alFilterfv Filterfv} */
+    /** {@code ALvoid alFilterfv(ALuint filter, ALenum param, ALfloat const * values)} */
     public static void nalFilterfv(int filter, int param, long values) {
         long __functionAddress = AL.getICD().alFilterfv;
         if (CHECKS) {
@@ -1132,13 +1334,7 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /**
-     * Pointer version of {@link #alFilterf Filterf}.
-     *
-     * @param filter the filter to modify
-     * @param param  the parameter to modify
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alFilterfv(ALuint filter, ALenum param, ALfloat const * values)} */
     @NativeType("ALvoid")
     public static void alFilterfv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat const *") FloatBuffer values) {
         if (CHECKS) {
@@ -1147,9 +1343,30 @@ public class EXTEfx {
         nalFilterfv(filter, param, memAddress(values));
     }
 
+    // --- [ alFilterfvDirect ] ---
+
+    /** {@code ALvoid alFilterfvDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat const * values)} */
+    public static void nalFilterfvDirect(long context, int filter, int param, long values) {
+        long __functionAddress = AL.getICD().alFilterfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alFilterfvDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat const * values)} */
+    @NativeType("ALvoid")
+    public static void alFilterfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat const *") FloatBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalFilterfvDirect(context, filter, param, memAddress(values));
+    }
+
     // --- [ alGetFilteri ] ---
 
-    /** Unsafe version of: {@link #alGetFilteri GetFilteri} */
+    /** {@code ALvoid alGetFilteri(ALuint filter, ALenum param, ALint * value)} */
     public static void nalGetFilteri(int filter, int param, long value) {
         long __functionAddress = AL.getICD().alGetFilteri;
         if (CHECKS) {
@@ -1158,13 +1375,7 @@ public class EXTEfx {
         invokePV(filter, param, value, __functionAddress);
     }
 
-    /**
-     * Returns the integer value of the specified filter parameter.
-     *
-     * @param filter the filter to query
-     * @param param  the parameter to query
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alGetFilteri(ALuint filter, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static void alGetFilteri(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer value) {
         if (CHECKS) {
@@ -1173,12 +1384,7 @@ public class EXTEfx {
         nalGetFilteri(filter, param, memAddress(value));
     }
 
-    /**
-     * Returns the integer value of the specified filter parameter.
-     *
-     * @param filter the filter to query
-     * @param param  the parameter to query
-     */
+    /** {@code ALvoid alGetFilteri(ALuint filter, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static int alGetFilteri(@NativeType("ALuint") int filter, @NativeType("ALenum") int param) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1191,9 +1397,43 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGetFilteriDirect ] ---
+
+    /** {@code ALvoid alGetFilteriDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * value)} */
+    public static void nalGetFilteriDirect(long context, int filter, int param, long value) {
+        long __functionAddress = AL.getICD().alGetFilteriDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filter, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilteriDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static void alGetFilteriDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer value) {
+        if (CHECKS) {
+            check(value, 1);
+        }
+        nalGetFilteriDirect(context, filter, param, memAddress(value));
+    }
+
+    /** {@code ALvoid alGetFilteriDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static int alGetFilteriDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer value = stack.callocInt(1);
+            nalGetFilteriDirect(context, filter, param, memAddress(value));
+            return value.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alGetFilteriv ] ---
 
-    /** Unsafe version of: {@link #alGetFilteriv GetFilteriv} */
+    /** {@code ALvoid alGetFilteriv(ALuint filter, ALenum param, ALint * values)} */
     public static void nalGetFilteriv(int filter, int param, long values) {
         long __functionAddress = AL.getICD().alGetFilteriv;
         if (CHECKS) {
@@ -1202,13 +1442,7 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /**
-     * Returns the integer values of the specified filter parameter.
-     *
-     * @param filter the filter to query
-     * @param param  the parameter to query
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alGetFilteriv(ALuint filter, ALenum param, ALint * values)} */
     @NativeType("ALvoid")
     public static void alGetFilteriv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer values) {
         if (CHECKS) {
@@ -1217,9 +1451,30 @@ public class EXTEfx {
         nalGetFilteriv(filter, param, memAddress(values));
     }
 
+    // --- [ alGetFilterivDirect ] ---
+
+    /** {@code ALvoid alGetFilterivDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * values)} */
+    public static void nalGetFilterivDirect(long context, int filter, int param, long values) {
+        long __functionAddress = AL.getICD().alGetFilterivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilterivDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * values)} */
+    @NativeType("ALvoid")
+    public static void alGetFilterivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalGetFilterivDirect(context, filter, param, memAddress(values));
+    }
+
     // --- [ alGetFilterf ] ---
 
-    /** Unsafe version of: {@link #alGetFilterf GetFilterf} */
+    /** {@code ALvoid alGetFilterf(ALuint filter, ALenum param, ALfloat * value)} */
     public static void nalGetFilterf(int filter, int param, long value) {
         long __functionAddress = AL.getICD().alGetFilterf;
         if (CHECKS) {
@@ -1228,13 +1483,7 @@ public class EXTEfx {
         invokePV(filter, param, value, __functionAddress);
     }
 
-    /**
-     * Returns the float value of the specified filter parameter.
-     *
-     * @param filter the effect to query
-     * @param param  the parameter to query
-     * @param value  the parameter value
-     */
+    /** {@code ALvoid alGetFilterf(ALuint filter, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static void alGetFilterf(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer value) {
         if (CHECKS) {
@@ -1243,12 +1492,7 @@ public class EXTEfx {
         nalGetFilterf(filter, param, memAddress(value));
     }
 
-    /**
-     * Returns the float value of the specified filter parameter.
-     *
-     * @param filter the effect to query
-     * @param param  the parameter to query
-     */
+    /** {@code ALvoid alGetFilterf(ALuint filter, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static float alGetFilterf(@NativeType("ALuint") int filter, @NativeType("ALenum") int param) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1261,9 +1505,43 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGetFilterfDirect ] ---
+
+    /** {@code ALvoid alGetFilterfDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * value)} */
+    public static void nalGetFilterfDirect(long context, int filter, int param, long value) {
+        long __functionAddress = AL.getICD().alGetFilterfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filter, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilterfDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static void alGetFilterfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer value) {
+        if (CHECKS) {
+            check(value, 1);
+        }
+        nalGetFilterfDirect(context, filter, param, memAddress(value));
+    }
+
+    /** {@code ALvoid alGetFilterfDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static float alGetFilterfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            FloatBuffer value = stack.callocFloat(1);
+            nalGetFilterfDirect(context, filter, param, memAddress(value));
+            return value.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alGetFilterfv ] ---
 
-    /** Unsafe version of: {@link #alGetFilterfv GetFilterfv} */
+    /** {@code ALvoid alGetFilterfv(ALuint filter, ALenum param, ALfloat * values)} */
     public static void nalGetFilterfv(int filter, int param, long values) {
         long __functionAddress = AL.getICD().alGetFilterfv;
         if (CHECKS) {
@@ -1272,13 +1550,7 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /**
-     * Returns the float values of the specified filter parameter.
-     *
-     * @param filter the effect to query
-     * @param param  the parameter to query
-     * @param values the parameter values
-     */
+    /** {@code ALvoid alGetFilterfv(ALuint filter, ALenum param, ALfloat * values)} */
     @NativeType("ALvoid")
     public static void alGetFilterfv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer values) {
         if (CHECKS) {
@@ -1287,13 +1559,30 @@ public class EXTEfx {
         nalGetFilterfv(filter, param, memAddress(values));
     }
 
+    // --- [ alGetFilterfvDirect ] ---
+
+    /** {@code ALvoid alGetFilterfvDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * values)} */
+    public static void nalGetFilterfvDirect(long context, int filter, int param, long values) {
+        long __functionAddress = AL.getICD().alGetFilterfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilterfvDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * values)} */
+    @NativeType("ALvoid")
+    public static void alGetFilterfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalGetFilterfvDirect(context, filter, param, memAddress(values));
+    }
+
     // --- [ alGenAuxiliaryEffectSlots ] ---
 
-    /**
-     * Unsafe version of: {@link #alGenAuxiliaryEffectSlots GenAuxiliaryEffectSlots}
-     *
-     * @param n the number of effect slots be to generated
-     */
+    /** {@code ALvoid alGenAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     public static void nalGenAuxiliaryEffectSlots(int n, long effectSlots) {
         long __functionAddress = AL.getICD().alGenAuxiliaryEffectSlots;
         if (CHECKS) {
@@ -1302,17 +1591,13 @@ public class EXTEfx {
         invokePV(n, effectSlots, __functionAddress);
     }
 
-    /**
-     * Requests a number of effect slots.
-     *
-     * @param effectSlots the buffer that will receive the effect slots
-     */
+    /** {@code ALvoid alGenAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     @NativeType("ALvoid")
     public static void alGenAuxiliaryEffectSlots(@NativeType("ALuint *") IntBuffer effectSlots) {
         nalGenAuxiliaryEffectSlots(effectSlots.remaining(), memAddress(effectSlots));
     }
 
-    /** Requests a number of effect slots. */
+    /** {@code ALvoid alGenAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     @NativeType("ALvoid")
     public static int alGenAuxiliaryEffectSlots() {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1325,13 +1610,40 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGenAuxiliaryEffectSlotsDirect ] ---
+
+    /** {@code ALvoid alGenAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    public static void nalGenAuxiliaryEffectSlotsDirect(long context, int n, long effectSlots) {
+        long __functionAddress = AL.getICD().alGenAuxiliaryEffectSlotsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, n, effectSlots, __functionAddress);
+    }
+
+    /** {@code ALvoid alGenAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    @NativeType("ALvoid")
+    public static void alGenAuxiliaryEffectSlotsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") IntBuffer effectSlots) {
+        nalGenAuxiliaryEffectSlotsDirect(context, effectSlots.remaining(), memAddress(effectSlots));
+    }
+
+    /** {@code ALvoid alGenAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    @NativeType("ALvoid")
+    public static int alGenAuxiliaryEffectSlotsDirect(@NativeType("ALCcontext *") long context) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer effectSlots = stack.callocInt(1);
+            nalGenAuxiliaryEffectSlotsDirect(context, 1, memAddress(effectSlots));
+            return effectSlots.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alDeleteAuxiliaryEffectSlots ] ---
 
-    /**
-     * Unsafe version of: {@link #alDeleteAuxiliaryEffectSlots DeleteAuxiliaryEffectSlots}
-     *
-     * @param n the number of effect slots be to deleted
-     */
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     public static void nalDeleteAuxiliaryEffectSlots(int n, long effectSlots) {
         long __functionAddress = AL.getICD().alDeleteAuxiliaryEffectSlots;
         if (CHECKS) {
@@ -1340,17 +1652,13 @@ public class EXTEfx {
         invokePV(n, effectSlots, __functionAddress);
     }
 
-    /**
-     * Deletes a number of effect slots.
-     *
-     * @param effectSlots the effectSlot to delete
-     */
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     @NativeType("ALvoid")
     public static void alDeleteAuxiliaryEffectSlots(@NativeType("ALuint *") IntBuffer effectSlots) {
         nalDeleteAuxiliaryEffectSlots(effectSlots.remaining(), memAddress(effectSlots));
     }
 
-    /** Deletes a number of effect slots. */
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     @NativeType("ALvoid")
     public static void alDeleteAuxiliaryEffectSlots(@NativeType("ALuint *") int effectSlot) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1362,13 +1670,39 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alDeleteAuxiliaryEffectSlotsDirect ] ---
+
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    public static void nalDeleteAuxiliaryEffectSlotsDirect(long context, int n, long effectSlots) {
+        long __functionAddress = AL.getICD().alDeleteAuxiliaryEffectSlotsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, n, effectSlots, __functionAddress);
+    }
+
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    @NativeType("ALvoid")
+    public static void alDeleteAuxiliaryEffectSlotsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") IntBuffer effectSlots) {
+        nalDeleteAuxiliaryEffectSlotsDirect(context, effectSlots.remaining(), memAddress(effectSlots));
+    }
+
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    @NativeType("ALvoid")
+    public static void alDeleteAuxiliaryEffectSlotsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int effectSlot) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer effectSlots = stack.ints(effectSlot);
+            nalDeleteAuxiliaryEffectSlotsDirect(context, 1, memAddress(effectSlots));
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alIsAuxiliaryEffectSlot ] ---
 
-    /**
-     * Verifies whether the given object name is an effect slot.
-     *
-     * @param effectSlot a value that may be an effect slot name
-     */
+    /** {@code ALboolean alIsAuxiliaryEffectSlot(ALuint effectSlot)} */
     @NativeType("ALboolean")
     public static boolean alIsAuxiliaryEffectSlot(@NativeType("ALuint") int effectSlot) {
         long __functionAddress = AL.getICD().alIsAuxiliaryEffectSlot;
@@ -1378,15 +1712,22 @@ public class EXTEfx {
         return invokeZ(effectSlot, __functionAddress);
     }
 
+    // --- [ alIsAuxiliaryEffectSlotDirect ] ---
+
+    /** {@code ALboolean alIsAuxiliaryEffectSlotDirect(ALCcontext * context, ALuint effectSlot)} */
+    @NativeType("ALboolean")
+    public static boolean alIsAuxiliaryEffectSlotDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot) {
+        long __functionAddress = AL.getICD().alIsAuxiliaryEffectSlotDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        return invokePZ(context, effectSlot, __functionAddress);
+    }
+
     // --- [ alAuxiliaryEffectSloti ] ---
 
-    /**
-     * Sets the integer value of an effect slot parameter.
-     *
-     * @param effectSlot the effect slot to modify
-     * @param param      the parameter to modify
-     * @param value      the parameter value
-     */
+    /** {@code ALvoid alAuxiliaryEffectSloti(ALuint effectSlot, ALenum param, ALint value)} */
     @NativeType("ALvoid")
     public static void alAuxiliaryEffectSloti(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint") int value) {
         long __functionAddress = AL.getICD().alAuxiliaryEffectSloti;
@@ -1396,9 +1737,22 @@ public class EXTEfx {
         invokeV(effectSlot, param, value, __functionAddress);
     }
 
+    // --- [ alAuxiliaryEffectSlotiDirect ] ---
+
+    /** {@code ALvoid alAuxiliaryEffectSlotiDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint value)} */
+    @NativeType("ALvoid")
+    public static void alAuxiliaryEffectSlotiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint") int value) {
+        long __functionAddress = AL.getICD().alAuxiliaryEffectSlotiDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePV(context, effectSlot, param, value, __functionAddress);
+    }
+
     // --- [ alAuxiliaryEffectSlotiv ] ---
 
-    /** Unsafe version of: {@link #alAuxiliaryEffectSlotiv AuxiliaryEffectSlotiv} */
+    /** {@code ALvoid alAuxiliaryEffectSlotiv(ALuint effectSlot, ALenum param, ALint const * values)} */
     public static void nalAuxiliaryEffectSlotiv(int effectSlot, int param, long values) {
         long __functionAddress = AL.getICD().alAuxiliaryEffectSlotiv;
         if (CHECKS) {
@@ -1407,13 +1761,7 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /**
-     * Pointer version of {@link #alAuxiliaryEffectSloti AuxiliaryEffectSloti}.
-     *
-     * @param effectSlot the effect slot to modify
-     * @param param      the parameter to modify
-     * @param values     the parameter values
-     */
+    /** {@code ALvoid alAuxiliaryEffectSlotiv(ALuint effectSlot, ALenum param, ALint const * values)} */
     @NativeType("ALvoid")
     public static void alAuxiliaryEffectSlotiv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint const *") IntBuffer values) {
         if (CHECKS) {
@@ -1422,15 +1770,30 @@ public class EXTEfx {
         nalAuxiliaryEffectSlotiv(effectSlot, param, memAddress(values));
     }
 
+    // --- [ alAuxiliaryEffectSlotivDirect ] ---
+
+    /** {@code ALvoid alAuxiliaryEffectSlotivDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint const * values)} */
+    public static void nalAuxiliaryEffectSlotivDirect(long context, int effectSlot, int param, long values) {
+        long __functionAddress = AL.getICD().alAuxiliaryEffectSlotivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alAuxiliaryEffectSlotivDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint const * values)} */
+    @NativeType("ALvoid")
+    public static void alAuxiliaryEffectSlotivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint const *") IntBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalAuxiliaryEffectSlotivDirect(context, effectSlot, param, memAddress(values));
+    }
+
     // --- [ alAuxiliaryEffectSlotf ] ---
 
-    /**
-     * Sets the float value of an effect slot parameter.
-     *
-     * @param effectSlot the effect slot to modify
-     * @param param      the parameter to modify
-     * @param value      the parameter value
-     */
+    /** {@code ALvoid alAuxiliaryEffectSlotf(ALuint effectSlot, ALenum param, ALfloat value)} */
     @NativeType("ALvoid")
     public static void alAuxiliaryEffectSlotf(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat") float value) {
         long __functionAddress = AL.getICD().alAuxiliaryEffectSlotf;
@@ -1440,9 +1803,22 @@ public class EXTEfx {
         invokeV(effectSlot, param, value, __functionAddress);
     }
 
+    // --- [ alAuxiliaryEffectSlotfDirect ] ---
+
+    /** {@code ALvoid alAuxiliaryEffectSlotfDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat value)} */
+    @NativeType("ALvoid")
+    public static void alAuxiliaryEffectSlotfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat") float value) {
+        long __functionAddress = AL.getICD().alAuxiliaryEffectSlotfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePV(context, effectSlot, param, value, __functionAddress);
+    }
+
     // --- [ alAuxiliaryEffectSlotfv ] ---
 
-    /** Unsafe version of: {@link #alAuxiliaryEffectSlotfv AuxiliaryEffectSlotfv} */
+    /** {@code ALvoid alAuxiliaryEffectSlotfv(ALuint effectSlot, ALenum param, ALfloat const * values)} */
     public static void nalAuxiliaryEffectSlotfv(int effectSlot, int param, long values) {
         long __functionAddress = AL.getICD().alAuxiliaryEffectSlotfv;
         if (CHECKS) {
@@ -1451,13 +1827,7 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /**
-     * Pointer version of {@link #alAuxiliaryEffectSlotf AuxiliaryEffectSlotf}.
-     *
-     * @param effectSlot the effect slot to modify
-     * @param param      the parameter to modify
-     * @param values     the parameter values
-     */
+    /** {@code ALvoid alAuxiliaryEffectSlotfv(ALuint effectSlot, ALenum param, ALfloat const * values)} */
     @NativeType("ALvoid")
     public static void alAuxiliaryEffectSlotfv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat const *") FloatBuffer values) {
         if (CHECKS) {
@@ -1466,9 +1836,30 @@ public class EXTEfx {
         nalAuxiliaryEffectSlotfv(effectSlot, param, memAddress(values));
     }
 
+    // --- [ alAuxiliaryEffectSlotfvDirect ] ---
+
+    /** {@code ALvoid alAuxiliaryEffectSlotfvDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat const * values)} */
+    public static void nalAuxiliaryEffectSlotfvDirect(long context, int effectSlot, int param, long values) {
+        long __functionAddress = AL.getICD().alAuxiliaryEffectSlotfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alAuxiliaryEffectSlotfvDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat const * values)} */
+    @NativeType("ALvoid")
+    public static void alAuxiliaryEffectSlotfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat const *") FloatBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalAuxiliaryEffectSlotfvDirect(context, effectSlot, param, memAddress(values));
+    }
+
     // --- [ alGetAuxiliaryEffectSloti ] ---
 
-    /** Unsafe version of: {@link #alGetAuxiliaryEffectSloti GetAuxiliaryEffectSloti} */
+    /** {@code ALvoid alGetAuxiliaryEffectSloti(ALuint effectSlot, ALenum param, ALint * value)} */
     public static void nalGetAuxiliaryEffectSloti(int effectSlot, int param, long value) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSloti;
         if (CHECKS) {
@@ -1477,13 +1868,7 @@ public class EXTEfx {
         invokePV(effectSlot, param, value, __functionAddress);
     }
 
-    /**
-     * Returns the integer value of the specified effect slot parameter.
-     *
-     * @param effectSlot the effect slot to query
-     * @param param      the parameter to query
-     * @param value      the parameter value
-     */
+    /** {@code ALvoid alGetAuxiliaryEffectSloti(ALuint effectSlot, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSloti(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer value) {
         if (CHECKS) {
@@ -1492,12 +1877,7 @@ public class EXTEfx {
         nalGetAuxiliaryEffectSloti(effectSlot, param, memAddress(value));
     }
 
-    /**
-     * Returns the integer value of the specified effect slot parameter.
-     *
-     * @param effectSlot the effect slot to query
-     * @param param      the parameter to query
-     */
+    /** {@code ALvoid alGetAuxiliaryEffectSloti(ALuint effectSlot, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static int alGetAuxiliaryEffectSloti(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1510,9 +1890,43 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGetAuxiliaryEffectSlotiDirect ] ---
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * value)} */
+    public static void nalGetAuxiliaryEffectSlotiDirect(long context, int effectSlot, int param, long value) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotiDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlot, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer value) {
+        if (CHECKS) {
+            check(value, 1);
+        }
+        nalGetAuxiliaryEffectSlotiDirect(context, effectSlot, param, memAddress(value));
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static int alGetAuxiliaryEffectSlotiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            IntBuffer value = stack.callocInt(1);
+            nalGetAuxiliaryEffectSlotiDirect(context, effectSlot, param, memAddress(value));
+            return value.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alGetAuxiliaryEffectSlotiv ] ---
 
-    /** Unsafe version of: {@link #alGetAuxiliaryEffectSlotiv GetAuxiliaryEffectSlotiv} */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiv(ALuint effectSlot, ALenum param, ALint * values)} */
     public static void nalGetAuxiliaryEffectSlotiv(int effectSlot, int param, long values) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotiv;
         if (CHECKS) {
@@ -1521,13 +1935,7 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /**
-     * Returns the integer values of the specified effect slot parameter.
-     *
-     * @param effectSlot the effect slot to query
-     * @param param      the parameter to query
-     * @param values     the parameter values
-     */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiv(ALuint effectSlot, ALenum param, ALint * values)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSlotiv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer values) {
         if (CHECKS) {
@@ -1536,9 +1944,30 @@ public class EXTEfx {
         nalGetAuxiliaryEffectSlotiv(effectSlot, param, memAddress(values));
     }
 
+    // --- [ alGetAuxiliaryEffectSlotivDirect ] ---
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotivDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * values)} */
+    public static void nalGetAuxiliaryEffectSlotivDirect(long context, int effectSlot, int param, long values) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotivDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * values)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") IntBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalGetAuxiliaryEffectSlotivDirect(context, effectSlot, param, memAddress(values));
+    }
+
     // --- [ alGetAuxiliaryEffectSlotf ] ---
 
-    /** Unsafe version of: {@link #alGetAuxiliaryEffectSlotf GetAuxiliaryEffectSlotf} */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotf(ALuint effectSlot, ALenum param, ALfloat * value)} */
     public static void nalGetAuxiliaryEffectSlotf(int effectSlot, int param, long value) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotf;
         if (CHECKS) {
@@ -1547,13 +1976,7 @@ public class EXTEfx {
         invokePV(effectSlot, param, value, __functionAddress);
     }
 
-    /**
-     * Returns the float value of the specified filter parameter.
-     *
-     * @param effectSlot the effect slot to query
-     * @param param      the parameter to query
-     * @param value      the parameter value
-     */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotf(ALuint effectSlot, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSlotf(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer value) {
         if (CHECKS) {
@@ -1562,12 +1985,7 @@ public class EXTEfx {
         nalGetAuxiliaryEffectSlotf(effectSlot, param, memAddress(value));
     }
 
-    /**
-     * Returns the float value of the specified filter parameter.
-     *
-     * @param effectSlot the effect slot to query
-     * @param param      the parameter to query
-     */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotf(ALuint effectSlot, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static float alGetAuxiliaryEffectSlotf(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param) {
         MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
@@ -1580,9 +1998,43 @@ public class EXTEfx {
         }
     }
 
+    // --- [ alGetAuxiliaryEffectSlotfDirect ] ---
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * value)} */
+    public static void nalGetAuxiliaryEffectSlotfDirect(long context, int effectSlot, int param, long value) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlot, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer value) {
+        if (CHECKS) {
+            check(value, 1);
+        }
+        nalGetAuxiliaryEffectSlotfDirect(context, effectSlot, param, memAddress(value));
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static float alGetAuxiliaryEffectSlotfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param) {
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            FloatBuffer value = stack.callocFloat(1);
+            nalGetAuxiliaryEffectSlotfDirect(context, effectSlot, param, memAddress(value));
+            return value.get(0);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ alGetAuxiliaryEffectSlotfv ] ---
 
-    /** Unsafe version of: {@link #alGetAuxiliaryEffectSlotfv GetAuxiliaryEffectSlotfv} */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfv(ALuint effectSlot, ALenum param, ALfloat * values)} */
     public static void nalGetAuxiliaryEffectSlotfv(int effectSlot, int param, long values) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotfv;
         if (CHECKS) {
@@ -1591,13 +2043,7 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /**
-     * Returns the float values of the specified effect slot parameter.
-     *
-     * @param effectSlot the effect to query
-     * @param param      the parameter to query
-     * @param values     the parameter values
-     */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfv(ALuint effectSlot, ALenum param, ALfloat * values)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSlotfv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer values) {
         if (CHECKS) {
@@ -1606,7 +2052,28 @@ public class EXTEfx {
         nalGetAuxiliaryEffectSlotfv(effectSlot, param, memAddress(values));
     }
 
-    /** Array version of: {@link #alGenEffects GenEffects} */
+    // --- [ alGetAuxiliaryEffectSlotfvDirect ] ---
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfvDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * values)} */
+    public static void nalGetAuxiliaryEffectSlotfvDirect(long context, int effectSlot, int param, long values) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfvDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * values)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") FloatBuffer values) {
+        if (CHECKS) {
+            check(values, 1);
+        }
+        nalGetAuxiliaryEffectSlotfvDirect(context, effectSlot, param, memAddress(values));
+    }
+
+    /** {@code ALvoid alGenEffects(ALsizei n, ALuint * effects)} */
     @NativeType("ALvoid")
     public static void alGenEffects(@NativeType("ALuint *") int[] effects) {
         long __functionAddress = AL.getICD().alGenEffects;
@@ -1616,7 +2083,18 @@ public class EXTEfx {
         invokePV(effects.length, effects, __functionAddress);
     }
 
-    /** Array version of: {@link #alDeleteEffects DeleteEffects} */
+    /** {@code ALvoid alGenEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    @NativeType("ALvoid")
+    public static void alGenEffectsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int[] effects) {
+        long __functionAddress = AL.getICD().alGenEffectsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effects.length, effects, __functionAddress);
+    }
+
+    /** {@code ALvoid alDeleteEffects(ALsizei n, ALuint * effects)} */
     @NativeType("ALvoid")
     public static void alDeleteEffects(@NativeType("ALuint *") int[] effects) {
         long __functionAddress = AL.getICD().alDeleteEffects;
@@ -1626,7 +2104,18 @@ public class EXTEfx {
         invokePV(effects.length, effects, __functionAddress);
     }
 
-    /** Array version of: {@link #alEffectiv Effectiv} */
+    /** {@code ALvoid alDeleteEffectsDirect(ALCcontext * context, ALsizei n, ALuint * effects)} */
+    @NativeType("ALvoid")
+    public static void alDeleteEffectsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int[] effects) {
+        long __functionAddress = AL.getICD().alDeleteEffectsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effects.length, effects, __functionAddress);
+    }
+
+    /** {@code ALvoid alEffectiv(ALuint effect, ALenum param, ALint const * values)} */
     @NativeType("ALvoid")
     public static void alEffectiv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint const *") int[] values) {
         long __functionAddress = AL.getICD().alEffectiv;
@@ -1637,7 +2126,19 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alEffectfv Effectfv} */
+    /** {@code ALvoid alEffectivDirect(ALCcontext * context, ALuint effect, ALenum param, ALint const * values)} */
+    @NativeType("ALvoid")
+    public static void alEffectivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint const *") int[] values) {
+        long __functionAddress = AL.getICD().alEffectivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alEffectfv(ALuint effect, ALenum param, ALfloat const * values)} */
     @NativeType("ALvoid")
     public static void alEffectfv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat const *") float[] values) {
         long __functionAddress = AL.getICD().alEffectfv;
@@ -1648,7 +2149,19 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetEffecti GetEffecti} */
+    /** {@code ALvoid alEffectfvDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat const * values)} */
+    @NativeType("ALvoid")
+    public static void alEffectfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat const *") float[] values) {
+        long __functionAddress = AL.getICD().alEffectfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffecti(ALuint effect, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static void alGetEffecti(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") int[] value) {
         long __functionAddress = AL.getICD().alGetEffecti;
@@ -1659,7 +2172,19 @@ public class EXTEfx {
         invokePV(effect, param, value, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetEffectiv GetEffectiv} */
+    /** {@code ALvoid alGetEffectiDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") int[] value) {
+        long __functionAddress = AL.getICD().alGetEffectiDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(value, 1);
+        }
+        invokePPV(context, effect, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectiv(ALuint effect, ALenum param, ALint * values)} */
     @NativeType("ALvoid")
     public static void alGetEffectiv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") int[] values) {
         long __functionAddress = AL.getICD().alGetEffectiv;
@@ -1670,7 +2195,19 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetEffectf GetEffectf} */
+    /** {@code ALvoid alGetEffectivDirect(ALCcontext * context, ALuint effect, ALenum param, ALint * values)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALint *") int[] values) {
+        long __functionAddress = AL.getICD().alGetEffectivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectf(ALuint effect, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static void alGetEffectf(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] value) {
         long __functionAddress = AL.getICD().alGetEffectf;
@@ -1681,7 +2218,19 @@ public class EXTEfx {
         invokePV(effect, param, value, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetEffectfv GetEffectfv} */
+    /** {@code ALvoid alGetEffectfDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] value) {
+        long __functionAddress = AL.getICD().alGetEffectfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(value, 1);
+        }
+        invokePPV(context, effect, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetEffectfv(ALuint effect, ALenum param, ALfloat * values)} */
     @NativeType("ALvoid")
     public static void alGetEffectfv(@NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] values) {
         long __functionAddress = AL.getICD().alGetEffectfv;
@@ -1692,7 +2241,19 @@ public class EXTEfx {
         invokePV(effect, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGenFilters GenFilters} */
+    /** {@code ALvoid alGetEffectfvDirect(ALCcontext * context, ALuint effect, ALenum param, ALfloat * values)} */
+    @NativeType("ALvoid")
+    public static void alGetEffectfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effect, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] values) {
+        long __functionAddress = AL.getICD().alGetEffectfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effect, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGenFilters(ALsizei n, ALuint * filters)} */
     @NativeType("ALvoid")
     public static void alGenFilters(@NativeType("ALuint *") int[] filters) {
         long __functionAddress = AL.getICD().alGenFilters;
@@ -1702,7 +2263,18 @@ public class EXTEfx {
         invokePV(filters.length, filters, __functionAddress);
     }
 
-    /** Array version of: {@link #alDeleteFilters DeleteFilters} */
+    /** {@code ALvoid alGenFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    @NativeType("ALvoid")
+    public static void alGenFiltersDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int[] filters) {
+        long __functionAddress = AL.getICD().alGenFiltersDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filters.length, filters, __functionAddress);
+    }
+
+    /** {@code ALvoid alDeleteFilters(ALsizei n, ALuint * filters)} */
     @NativeType("ALvoid")
     public static void alDeleteFilters(@NativeType("ALuint *") int[] filters) {
         long __functionAddress = AL.getICD().alDeleteFilters;
@@ -1712,7 +2284,18 @@ public class EXTEfx {
         invokePV(filters.length, filters, __functionAddress);
     }
 
-    /** Array version of: {@link #alFilteriv Filteriv} */
+    /** {@code ALvoid alDeleteFiltersDirect(ALCcontext * context, ALsizei n, ALuint * filters)} */
+    @NativeType("ALvoid")
+    public static void alDeleteFiltersDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int[] filters) {
+        long __functionAddress = AL.getICD().alDeleteFiltersDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, filters.length, filters, __functionAddress);
+    }
+
+    /** {@code ALvoid alFilteriv(ALuint filter, ALenum param, ALint const * values)} */
     @NativeType("ALvoid")
     public static void alFilteriv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint const *") int[] values) {
         long __functionAddress = AL.getICD().alFilteriv;
@@ -1723,7 +2306,19 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alFilterfv Filterfv} */
+    /** {@code ALvoid alFilterivDirect(ALCcontext * context, ALuint filter, ALenum param, ALint const * values)} */
+    @NativeType("ALvoid")
+    public static void alFilterivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint const *") int[] values) {
+        long __functionAddress = AL.getICD().alFilterivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alFilterfv(ALuint filter, ALenum param, ALfloat const * values)} */
     @NativeType("ALvoid")
     public static void alFilterfv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat const *") float[] values) {
         long __functionAddress = AL.getICD().alFilterfv;
@@ -1734,7 +2329,19 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetFilteri GetFilteri} */
+    /** {@code ALvoid alFilterfvDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat const * values)} */
+    @NativeType("ALvoid")
+    public static void alFilterfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat const *") float[] values) {
+        long __functionAddress = AL.getICD().alFilterfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilteri(ALuint filter, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static void alGetFilteri(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") int[] value) {
         long __functionAddress = AL.getICD().alGetFilteri;
@@ -1745,7 +2352,19 @@ public class EXTEfx {
         invokePV(filter, param, value, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetFilteriv GetFilteriv} */
+    /** {@code ALvoid alGetFilteriDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static void alGetFilteriDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") int[] value) {
+        long __functionAddress = AL.getICD().alGetFilteriDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(value, 1);
+        }
+        invokePPV(context, filter, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilteriv(ALuint filter, ALenum param, ALint * values)} */
     @NativeType("ALvoid")
     public static void alGetFilteriv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") int[] values) {
         long __functionAddress = AL.getICD().alGetFilteriv;
@@ -1756,7 +2375,19 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetFilterf GetFilterf} */
+    /** {@code ALvoid alGetFilterivDirect(ALCcontext * context, ALuint filter, ALenum param, ALint * values)} */
+    @NativeType("ALvoid")
+    public static void alGetFilterivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALint *") int[] values) {
+        long __functionAddress = AL.getICD().alGetFilterivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilterf(ALuint filter, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static void alGetFilterf(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] value) {
         long __functionAddress = AL.getICD().alGetFilterf;
@@ -1767,7 +2398,19 @@ public class EXTEfx {
         invokePV(filter, param, value, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetFilterfv GetFilterfv} */
+    /** {@code ALvoid alGetFilterfDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static void alGetFilterfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] value) {
+        long __functionAddress = AL.getICD().alGetFilterfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(value, 1);
+        }
+        invokePPV(context, filter, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetFilterfv(ALuint filter, ALenum param, ALfloat * values)} */
     @NativeType("ALvoid")
     public static void alGetFilterfv(@NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] values) {
         long __functionAddress = AL.getICD().alGetFilterfv;
@@ -1778,7 +2421,19 @@ public class EXTEfx {
         invokePV(filter, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGenAuxiliaryEffectSlots GenAuxiliaryEffectSlots} */
+    /** {@code ALvoid alGetFilterfvDirect(ALCcontext * context, ALuint filter, ALenum param, ALfloat * values)} */
+    @NativeType("ALvoid")
+    public static void alGetFilterfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int filter, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] values) {
+        long __functionAddress = AL.getICD().alGetFilterfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, filter, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGenAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     @NativeType("ALvoid")
     public static void alGenAuxiliaryEffectSlots(@NativeType("ALuint *") int[] effectSlots) {
         long __functionAddress = AL.getICD().alGenAuxiliaryEffectSlots;
@@ -1788,7 +2443,18 @@ public class EXTEfx {
         invokePV(effectSlots.length, effectSlots, __functionAddress);
     }
 
-    /** Array version of: {@link #alDeleteAuxiliaryEffectSlots DeleteAuxiliaryEffectSlots} */
+    /** {@code ALvoid alGenAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    @NativeType("ALvoid")
+    public static void alGenAuxiliaryEffectSlotsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int[] effectSlots) {
+        long __functionAddress = AL.getICD().alGenAuxiliaryEffectSlotsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlots.length, effectSlots, __functionAddress);
+    }
+
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlots(ALsizei n, ALuint * effectSlots)} */
     @NativeType("ALvoid")
     public static void alDeleteAuxiliaryEffectSlots(@NativeType("ALuint *") int[] effectSlots) {
         long __functionAddress = AL.getICD().alDeleteAuxiliaryEffectSlots;
@@ -1798,7 +2464,18 @@ public class EXTEfx {
         invokePV(effectSlots.length, effectSlots, __functionAddress);
     }
 
-    /** Array version of: {@link #alAuxiliaryEffectSlotiv AuxiliaryEffectSlotiv} */
+    /** {@code ALvoid alDeleteAuxiliaryEffectSlotsDirect(ALCcontext * context, ALsizei n, ALuint * effectSlots)} */
+    @NativeType("ALvoid")
+    public static void alDeleteAuxiliaryEffectSlotsDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint *") int[] effectSlots) {
+        long __functionAddress = AL.getICD().alDeleteAuxiliaryEffectSlotsDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+        }
+        invokePPV(context, effectSlots.length, effectSlots, __functionAddress);
+    }
+
+    /** {@code ALvoid alAuxiliaryEffectSlotiv(ALuint effectSlot, ALenum param, ALint const * values)} */
     @NativeType("ALvoid")
     public static void alAuxiliaryEffectSlotiv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint const *") int[] values) {
         long __functionAddress = AL.getICD().alAuxiliaryEffectSlotiv;
@@ -1809,7 +2486,19 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alAuxiliaryEffectSlotfv AuxiliaryEffectSlotfv} */
+    /** {@code ALvoid alAuxiliaryEffectSlotivDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint const * values)} */
+    @NativeType("ALvoid")
+    public static void alAuxiliaryEffectSlotivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint const *") int[] values) {
+        long __functionAddress = AL.getICD().alAuxiliaryEffectSlotivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alAuxiliaryEffectSlotfv(ALuint effectSlot, ALenum param, ALfloat const * values)} */
     @NativeType("ALvoid")
     public static void alAuxiliaryEffectSlotfv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat const *") float[] values) {
         long __functionAddress = AL.getICD().alAuxiliaryEffectSlotfv;
@@ -1820,7 +2509,19 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetAuxiliaryEffectSloti GetAuxiliaryEffectSloti} */
+    /** {@code ALvoid alAuxiliaryEffectSlotfvDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat const * values)} */
+    @NativeType("ALvoid")
+    public static void alAuxiliaryEffectSlotfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat const *") float[] values) {
+        long __functionAddress = AL.getICD().alAuxiliaryEffectSlotfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSloti(ALuint effectSlot, ALenum param, ALint * value)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSloti(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") int[] value) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSloti;
@@ -1831,7 +2532,19 @@ public class EXTEfx {
         invokePV(effectSlot, param, value, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetAuxiliaryEffectSlotiv GetAuxiliaryEffectSlotiv} */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * value)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotiDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") int[] value) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotiDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(value, 1);
+        }
+        invokePPV(context, effectSlot, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotiv(ALuint effectSlot, ALenum param, ALint * values)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSlotiv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") int[] values) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotiv;
@@ -1842,7 +2555,19 @@ public class EXTEfx {
         invokePV(effectSlot, param, values, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetAuxiliaryEffectSlotf GetAuxiliaryEffectSlotf} */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotivDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALint * values)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotivDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALint *") int[] values) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotivDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotf(ALuint effectSlot, ALenum param, ALfloat * value)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSlotf(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] value) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotf;
@@ -1853,7 +2578,19 @@ public class EXTEfx {
         invokePV(effectSlot, param, value, __functionAddress);
     }
 
-    /** Array version of: {@link #alGetAuxiliaryEffectSlotfv GetAuxiliaryEffectSlotfv} */
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * value)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotfDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] value) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotfDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(value, 1);
+        }
+        invokePPV(context, effectSlot, param, value, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfv(ALuint effectSlot, ALenum param, ALfloat * values)} */
     @NativeType("ALvoid")
     public static void alGetAuxiliaryEffectSlotfv(@NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] values) {
         long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotfv;
@@ -1862,6 +2599,18 @@ public class EXTEfx {
             check(values, 1);
         }
         invokePV(effectSlot, param, values, __functionAddress);
+    }
+
+    /** {@code ALvoid alGetAuxiliaryEffectSlotfvDirect(ALCcontext * context, ALuint effectSlot, ALenum param, ALfloat * values)} */
+    @NativeType("ALvoid")
+    public static void alGetAuxiliaryEffectSlotfvDirect(@NativeType("ALCcontext *") long context, @NativeType("ALuint") int effectSlot, @NativeType("ALenum") int param, @NativeType("ALfloat *") float[] values) {
+        long __functionAddress = AL.getICD().alGetAuxiliaryEffectSlotfvDirect;
+        if (CHECKS) {
+            check(__functionAddress);
+            check(context);
+            check(values, 1);
+        }
+        invokePPV(context, effectSlot, param, values, __functionAddress);
     }
 
 }

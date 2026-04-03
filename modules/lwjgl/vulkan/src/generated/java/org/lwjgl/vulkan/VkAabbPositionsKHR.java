@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying two opposing corners of an axis-aligned bounding box.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code minX} <b>must</b> be less than or equal to {@code maxX}</li>
- * <li>{@code minY} <b>must</b> be less than or equal to {@code maxY}</li>
- * <li>{@code minZ} <b>must</b> be less than or equal to {@code maxZ}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkAabbPositionsKHR {
- *     float {@link #minX};
- *     float {@link #minY};
- *     float {@link #minZ};
- *     float {@link #maxX};
- *     float {@link #maxY};
- *     float {@link #maxZ};
- * }</code></pre>
+ *     float minX;
+ *     float minY;
+ *     float minZ;
+ *     float maxX;
+ *     float maxY;
+ *     float maxZ;
+ * }}</pre>
  */
 public class VkAabbPositionsKHR extends Struct<VkAabbPositionsKHR> implements NativeResource {
 
@@ -98,30 +86,30 @@ public class VkAabbPositionsKHR extends Struct<VkAabbPositionsKHR> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x position of one opposing corner of a bounding box. */
+    /** @return the value of the {@code minX} field. */
     public float minX() { return nminX(address()); }
-    /** the y position of one opposing corner of a bounding box. */
+    /** @return the value of the {@code minY} field. */
     public float minY() { return nminY(address()); }
-    /** the z position of one opposing corner of a bounding box. */
+    /** @return the value of the {@code minZ} field. */
     public float minZ() { return nminZ(address()); }
-    /** the x position of the other opposing corner of a bounding box. */
+    /** @return the value of the {@code maxX} field. */
     public float maxX() { return nmaxX(address()); }
-    /** the y position of the other opposing corner of a bounding box. */
+    /** @return the value of the {@code maxY} field. */
     public float maxY() { return nmaxY(address()); }
-    /** the z position of the other opposing corner of a bounding box. */
+    /** @return the value of the {@code maxZ} field. */
     public float maxZ() { return nmaxZ(address()); }
 
-    /** Sets the specified value to the {@link #minX} field. */
+    /** Sets the specified value to the {@code minX} field. */
     public VkAabbPositionsKHR minX(float value) { nminX(address(), value); return this; }
-    /** Sets the specified value to the {@link #minY} field. */
+    /** Sets the specified value to the {@code minY} field. */
     public VkAabbPositionsKHR minY(float value) { nminY(address(), value); return this; }
-    /** Sets the specified value to the {@link #minZ} field. */
+    /** Sets the specified value to the {@code minZ} field. */
     public VkAabbPositionsKHR minZ(float value) { nminZ(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxX} field. */
+    /** Sets the specified value to the {@code maxX} field. */
     public VkAabbPositionsKHR maxX(float value) { nmaxX(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxY} field. */
+    /** Sets the specified value to the {@code maxY} field. */
     public VkAabbPositionsKHR maxY(float value) { nmaxY(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxZ} field. */
+    /** Sets the specified value to the {@code maxZ} field. */
     public VkAabbPositionsKHR maxZ(float value) { nmaxZ(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -179,8 +167,7 @@ public class VkAabbPositionsKHR extends Struct<VkAabbPositionsKHR> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAabbPositionsKHR createSafe(long address) {
+    public static @Nullable VkAabbPositionsKHR createSafe(long address) {
         return address == NULL ? null : new VkAabbPositionsKHR(address, null);
     }
 
@@ -223,8 +210,7 @@ public class VkAabbPositionsKHR extends Struct<VkAabbPositionsKHR> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkAabbPositionsKHR.Buffer createSafe(long address, int capacity) {
+    public static VkAabbPositionsKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,30 +255,30 @@ public class VkAabbPositionsKHR extends Struct<VkAabbPositionsKHR> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #minX}. */
-    public static float nminX(long struct) { return UNSAFE.getFloat(null, struct + VkAabbPositionsKHR.MINX); }
+    public static float nminX(long struct) { return memGetFloat(struct + VkAabbPositionsKHR.MINX); }
     /** Unsafe version of {@link #minY}. */
-    public static float nminY(long struct) { return UNSAFE.getFloat(null, struct + VkAabbPositionsKHR.MINY); }
+    public static float nminY(long struct) { return memGetFloat(struct + VkAabbPositionsKHR.MINY); }
     /** Unsafe version of {@link #minZ}. */
-    public static float nminZ(long struct) { return UNSAFE.getFloat(null, struct + VkAabbPositionsKHR.MINZ); }
+    public static float nminZ(long struct) { return memGetFloat(struct + VkAabbPositionsKHR.MINZ); }
     /** Unsafe version of {@link #maxX}. */
-    public static float nmaxX(long struct) { return UNSAFE.getFloat(null, struct + VkAabbPositionsKHR.MAXX); }
+    public static float nmaxX(long struct) { return memGetFloat(struct + VkAabbPositionsKHR.MAXX); }
     /** Unsafe version of {@link #maxY}. */
-    public static float nmaxY(long struct) { return UNSAFE.getFloat(null, struct + VkAabbPositionsKHR.MAXY); }
+    public static float nmaxY(long struct) { return memGetFloat(struct + VkAabbPositionsKHR.MAXY); }
     /** Unsafe version of {@link #maxZ}. */
-    public static float nmaxZ(long struct) { return UNSAFE.getFloat(null, struct + VkAabbPositionsKHR.MAXZ); }
+    public static float nmaxZ(long struct) { return memGetFloat(struct + VkAabbPositionsKHR.MAXZ); }
 
     /** Unsafe version of {@link #minX(float) minX}. */
-    public static void nminX(long struct, float value) { UNSAFE.putFloat(null, struct + VkAabbPositionsKHR.MINX, value); }
+    public static void nminX(long struct, float value) { memPutFloat(struct + VkAabbPositionsKHR.MINX, value); }
     /** Unsafe version of {@link #minY(float) minY}. */
-    public static void nminY(long struct, float value) { UNSAFE.putFloat(null, struct + VkAabbPositionsKHR.MINY, value); }
+    public static void nminY(long struct, float value) { memPutFloat(struct + VkAabbPositionsKHR.MINY, value); }
     /** Unsafe version of {@link #minZ(float) minZ}. */
-    public static void nminZ(long struct, float value) { UNSAFE.putFloat(null, struct + VkAabbPositionsKHR.MINZ, value); }
+    public static void nminZ(long struct, float value) { memPutFloat(struct + VkAabbPositionsKHR.MINZ, value); }
     /** Unsafe version of {@link #maxX(float) maxX}. */
-    public static void nmaxX(long struct, float value) { UNSAFE.putFloat(null, struct + VkAabbPositionsKHR.MAXX, value); }
+    public static void nmaxX(long struct, float value) { memPutFloat(struct + VkAabbPositionsKHR.MAXX, value); }
     /** Unsafe version of {@link #maxY(float) maxY}. */
-    public static void nmaxY(long struct, float value) { UNSAFE.putFloat(null, struct + VkAabbPositionsKHR.MAXY, value); }
+    public static void nmaxY(long struct, float value) { memPutFloat(struct + VkAabbPositionsKHR.MAXY, value); }
     /** Unsafe version of {@link #maxZ(float) maxZ}. */
-    public static void nmaxZ(long struct, float value) { UNSAFE.putFloat(null, struct + VkAabbPositionsKHR.MAXZ, value); }
+    public static void nmaxZ(long struct, float value) { memPutFloat(struct + VkAabbPositionsKHR.MAXZ, value); }
 
     // -----------------------------------
 
@@ -328,34 +314,39 @@ public class VkAabbPositionsKHR extends Struct<VkAabbPositionsKHR> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkAabbPositionsKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkAabbPositionsKHR#minX} field. */
+        /** @return the value of the {@code minX} field. */
         public float minX() { return VkAabbPositionsKHR.nminX(address()); }
-        /** @return the value of the {@link VkAabbPositionsKHR#minY} field. */
+        /** @return the value of the {@code minY} field. */
         public float minY() { return VkAabbPositionsKHR.nminY(address()); }
-        /** @return the value of the {@link VkAabbPositionsKHR#minZ} field. */
+        /** @return the value of the {@code minZ} field. */
         public float minZ() { return VkAabbPositionsKHR.nminZ(address()); }
-        /** @return the value of the {@link VkAabbPositionsKHR#maxX} field. */
+        /** @return the value of the {@code maxX} field. */
         public float maxX() { return VkAabbPositionsKHR.nmaxX(address()); }
-        /** @return the value of the {@link VkAabbPositionsKHR#maxY} field. */
+        /** @return the value of the {@code maxY} field. */
         public float maxY() { return VkAabbPositionsKHR.nmaxY(address()); }
-        /** @return the value of the {@link VkAabbPositionsKHR#maxZ} field. */
+        /** @return the value of the {@code maxZ} field. */
         public float maxZ() { return VkAabbPositionsKHR.nmaxZ(address()); }
 
-        /** Sets the specified value to the {@link VkAabbPositionsKHR#minX} field. */
+        /** Sets the specified value to the {@code minX} field. */
         public VkAabbPositionsKHR.Buffer minX(float value) { VkAabbPositionsKHR.nminX(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAabbPositionsKHR#minY} field. */
+        /** Sets the specified value to the {@code minY} field. */
         public VkAabbPositionsKHR.Buffer minY(float value) { VkAabbPositionsKHR.nminY(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAabbPositionsKHR#minZ} field. */
+        /** Sets the specified value to the {@code minZ} field. */
         public VkAabbPositionsKHR.Buffer minZ(float value) { VkAabbPositionsKHR.nminZ(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAabbPositionsKHR#maxX} field. */
+        /** Sets the specified value to the {@code maxX} field. */
         public VkAabbPositionsKHR.Buffer maxX(float value) { VkAabbPositionsKHR.nmaxX(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAabbPositionsKHR#maxY} field. */
+        /** Sets the specified value to the {@code maxY} field. */
         public VkAabbPositionsKHR.Buffer maxY(float value) { VkAabbPositionsKHR.nmaxY(address(), value); return this; }
-        /** Sets the specified value to the {@link VkAabbPositionsKHR#maxZ} field. */
+        /** Sets the specified value to the {@code maxZ} field. */
         public VkAabbPositionsKHR.Buffer maxZ(float value) { VkAabbPositionsKHR.nmaxZ(address(), value); return this; }
 
     }

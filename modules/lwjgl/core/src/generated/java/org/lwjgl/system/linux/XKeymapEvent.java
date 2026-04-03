@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,19 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Generated on {@code EnterWindow} and {@code FocusIn} when {@code KeyMapState} selected.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XKeymapEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
- *     Window {@link #window};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
+ *     Window window;
  *     char key_vector[32];
- * }</code></pre>
+ * }}</pre>
  */
 public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource {
 
@@ -93,16 +89,16 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
-    /** window it reported relative to */
+    /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
     /** @return a {@link ByteBuffer} view of the {@code key_vector} field. */
@@ -114,13 +110,13 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
 
     /** Sets the specified value to the {@code type} field. */
     public XKeymapEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XKeymapEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XKeymapEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XKeymapEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
-    /** Sets the specified value to the {@link #window} field. */
+    /** Sets the specified value to the {@code window} field. */
     public XKeymapEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
     /** Copies the specified {@link ByteBuffer} to the {@code key_vector} field. */
     public XKeymapEvent key_vector(@NativeType("char[32]") ByteBuffer value) { nkey_vector(address(), value); return this; }
@@ -182,8 +178,7 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XKeymapEvent createSafe(long address) {
+    public static @Nullable XKeymapEvent createSafe(long address) {
         return address == NULL ? null : new XKeymapEvent(address, null);
     }
 
@@ -226,29 +221,9 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XKeymapEvent.Buffer createSafe(long address, int capacity) {
+    public static XKeymapEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XKeymapEvent.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XKeymapEvent} instance allocated on the specified {@link MemoryStack}.
@@ -291,11 +266,11 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XKeymapEvent.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XKeymapEvent.TYPE); }
     /** Unsafe version of {@link #serial}. */
     public static long nserial(long struct) { return memGetCLong(struct + XKeymapEvent.SERIAL); }
     /** Unsafe version of {@link #send_event}. */
-    public static int nsend_event(long struct) { return UNSAFE.getInt(null, struct + XKeymapEvent.SEND_EVENT); }
+    public static int nsend_event(long struct) { return memGetInt(struct + XKeymapEvent.SEND_EVENT); }
     /** Unsafe version of {@link #display}. */
     public static long ndisplay(long struct) { return memGetAddress(struct + XKeymapEvent.DISPLAY); }
     /** Unsafe version of {@link #window}. */
@@ -304,15 +279,15 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
     public static ByteBuffer nkey_vector(long struct) { return memByteBuffer(struct + XKeymapEvent.KEY_VECTOR, 32); }
     /** Unsafe version of {@link #key_vector(int) key_vector}. */
     public static byte nkey_vector(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XKeymapEvent.KEY_VECTOR + check(index, 32) * 1);
+        return memGetByte(struct + XKeymapEvent.KEY_VECTOR + check(index, 32) * 1);
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XKeymapEvent.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XKeymapEvent.TYPE, value); }
     /** Unsafe version of {@link #serial(long) serial}. */
     public static void nserial(long struct, long value) { memPutCLong(struct + XKeymapEvent.SERIAL, value); }
     /** Unsafe version of {@link #send_event(boolean) send_event}. */
-    public static void nsend_event(long struct, int value) { UNSAFE.putInt(null, struct + XKeymapEvent.SEND_EVENT, value); }
+    public static void nsend_event(long struct, int value) { memPutInt(struct + XKeymapEvent.SEND_EVENT, value); }
     /** Unsafe version of {@link #display(long) display}. */
     public static void ndisplay(long struct, long value) { memPutAddress(struct + XKeymapEvent.DISPLAY, check(value)); }
     /** Unsafe version of {@link #window(long) window}. */
@@ -324,7 +299,7 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
     }
     /** Unsafe version of {@link #key_vector(int, byte) key_vector}. */
     public static void nkey_vector(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XKeymapEvent.KEY_VECTOR + check(index, 32) * 1, value);
+        memPutByte(struct + XKeymapEvent.KEY_VECTOR + check(index, 32) * 1, value);
     }
 
     /**
@@ -370,22 +345,27 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XKeymapEvent getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
         /** @return the value of the {@code type} field. */
         public int type() { return XKeymapEvent.ntype(address()); }
-        /** @return the value of the {@link XKeymapEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XKeymapEvent.nserial(address()); }
-        /** @return the value of the {@link XKeymapEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XKeymapEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XKeymapEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XKeymapEvent.ndisplay(address()); }
-        /** @return the value of the {@link XKeymapEvent#window} field. */
+        /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XKeymapEvent.nwindow(address()); }
         /** @return a {@link ByteBuffer} view of the {@code key_vector} field. */
@@ -397,13 +377,13 @@ public class XKeymapEvent extends Struct<XKeymapEvent> implements NativeResource
 
         /** Sets the specified value to the {@code type} field. */
         public XKeymapEvent.Buffer type(int value) { XKeymapEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XKeymapEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XKeymapEvent.Buffer serial(@NativeType("unsigned long") long value) { XKeymapEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XKeymapEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XKeymapEvent.Buffer send_event(@NativeType("Bool") boolean value) { XKeymapEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XKeymapEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XKeymapEvent.Buffer display(@NativeType("Display *") long value) { XKeymapEvent.ndisplay(address(), value); return this; }
-        /** Sets the specified value to the {@link XKeymapEvent#window} field. */
+        /** Sets the specified value to the {@code window} field. */
         public XKeymapEvent.Buffer window(@NativeType("Window") long value) { XKeymapEvent.nwindow(address(), value); return this; }
         /** Copies the specified {@link ByteBuffer} to the {@code key_vector} field. */
         public XKeymapEvent.Buffer key_vector(@NativeType("char[32]") ByteBuffer value) { XKeymapEvent.nkey_vector(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Extent in two dimensions.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure is used for component values that may be fractional (floating-point). If used to represent physical distances, values <b>must</b> be in meters.</p>
- * 
- * <p>The {@code width} and {@code height} value <b>must</b> be non-negative.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrCompositionLayerQuad}, {@link XrOffset2Df}, {@link XrPlaneDetectorLocationEXT}, {@link XrRect2Df}, {@link XrScenePlaneMSFT}, {@link VARJOMarkerTracking#xrGetMarkerSizeVARJO GetMarkerSizeVARJO}, {@link XR10#xrGetReferenceSpaceBoundsRect GetReferenceSpaceBoundsRect}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrExtent2Df {
- *     float {@link #width};
- *     float {@link #height};
- * }</code></pre>
+ *     float width;
+ *     float height;
+ * }}</pre>
  */
 public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
 
@@ -84,14 +70,14 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the floating-point width of the extent. */
+    /** @return the value of the {@code width} field. */
     public float width() { return nwidth(address()); }
-    /** the floating-point height of the extent. */
+    /** @return the value of the {@code height} field. */
     public float height() { return nheight(address()); }
 
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public XrExtent2Df width(float value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public XrExtent2Df height(float value) { nheight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -141,8 +127,7 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent2Df createSafe(long address) {
+    public static @Nullable XrExtent2Df createSafe(long address) {
         return address == NULL ? null : new XrExtent2Df(address, null);
     }
 
@@ -185,8 +170,7 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrExtent2Df.Buffer createSafe(long address, int capacity) {
+    public static XrExtent2Df.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -231,14 +215,14 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static float nwidth(long struct) { return UNSAFE.getFloat(null, struct + XrExtent2Df.WIDTH); }
+    public static float nwidth(long struct) { return memGetFloat(struct + XrExtent2Df.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + XrExtent2Df.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + XrExtent2Df.HEIGHT); }
 
     /** Unsafe version of {@link #width(float) width}. */
-    public static void nwidth(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent2Df.WIDTH, value); }
+    public static void nwidth(long struct, float value) { memPutFloat(struct + XrExtent2Df.WIDTH, value); }
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + XrExtent2Df.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + XrExtent2Df.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -274,18 +258,23 @@ public class XrExtent2Df extends Struct<XrExtent2Df> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrExtent2Df getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrExtent2Df#width} field. */
+        /** @return the value of the {@code width} field. */
         public float width() { return XrExtent2Df.nwidth(address()); }
-        /** @return the value of the {@link XrExtent2Df#height} field. */
+        /** @return the value of the {@code height} field. */
         public float height() { return XrExtent2Df.nheight(address()); }
 
-        /** Sets the specified value to the {@link XrExtent2Df#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public XrExtent2Df.Buffer width(float value) { XrExtent2Df.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link XrExtent2Df#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public XrExtent2Df.Buffer height(float value) { XrExtent2Df.nheight(address(), value); return this; }
 
     }

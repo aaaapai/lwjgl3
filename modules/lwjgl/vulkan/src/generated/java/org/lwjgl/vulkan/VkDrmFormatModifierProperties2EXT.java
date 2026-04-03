@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,20 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Structure specifying properties of a format when combined with a DRM format modifier.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDrmFormatModifierPropertiesList2EXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDrmFormatModifierProperties2EXT {
- *     uint64_t {@link #drmFormatModifier};
- *     uint32_t {@link #drmFormatModifierPlaneCount};
- *     VkFormatFeatureFlags2 {@link #drmFormatModifierTilingFeatures};
- * }</code></pre>
+ *     uint64_t drmFormatModifier;
+ *     uint32_t drmFormatModifierPlaneCount;
+ *     VkFormatFeatureFlags2 drmFormatModifierTilingFeatures;
+ * }}</pre>
  */
 public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifierProperties2EXT> {
 
@@ -80,13 +72,13 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a <em>Linux DRM format modifier</em>. */
+    /** @return the value of the {@code drmFormatModifier} field. */
     @NativeType("uint64_t")
     public long drmFormatModifier() { return ndrmFormatModifier(address()); }
-    /** the number of <em>memory planes</em> in any image created with {@code format} and {@code drmFormatModifier}. An image’s <em>memory planecount</em> is distinct from its <em>format planecount</em>, as explained below. */
+    /** @return the value of the {@code drmFormatModifierPlaneCount} field. */
     @NativeType("uint32_t")
     public int drmFormatModifierPlaneCount() { return ndrmFormatModifierPlaneCount(address()); }
-    /** a bitmask of {@code VkFormatFeatureFlagBits2} that are supported by any image created with {@code format} and {@code drmFormatModifier}. */
+    /** @return the value of the {@code drmFormatModifierTilingFeatures} field. */
     @NativeType("VkFormatFeatureFlags2")
     public long drmFormatModifierTilingFeatures() { return ndrmFormatModifierTilingFeatures(address()); }
 
@@ -98,8 +90,7 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierProperties2EXT createSafe(long address) {
+    public static @Nullable VkDrmFormatModifierProperties2EXT createSafe(long address) {
         return address == NULL ? null : new VkDrmFormatModifierProperties2EXT(address, null);
     }
 
@@ -114,19 +105,18 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrmFormatModifierProperties2EXT.Buffer createSafe(long address, int capacity) {
+    public static VkDrmFormatModifierProperties2EXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #drmFormatModifier}. */
-    public static long ndrmFormatModifier(long struct) { return UNSAFE.getLong(null, struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIER); }
+    public static long ndrmFormatModifier(long struct) { return memGetLong(struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIER); }
     /** Unsafe version of {@link #drmFormatModifierPlaneCount}. */
-    public static int ndrmFormatModifierPlaneCount(long struct) { return UNSAFE.getInt(null, struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERPLANECOUNT); }
+    public static int ndrmFormatModifierPlaneCount(long struct) { return memGetInt(struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERPLANECOUNT); }
     /** Unsafe version of {@link #drmFormatModifierTilingFeatures}. */
-    public static long ndrmFormatModifierTilingFeatures(long struct) { return UNSAFE.getLong(null, struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERTILINGFEATURES); }
+    public static long ndrmFormatModifierTilingFeatures(long struct) { return memGetLong(struct + VkDrmFormatModifierProperties2EXT.DRMFORMATMODIFIERTILINGFEATURES); }
 
     // -----------------------------------
 
@@ -162,17 +152,22 @@ public class VkDrmFormatModifierProperties2EXT extends Struct<VkDrmFormatModifie
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDrmFormatModifierProperties2EXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDrmFormatModifierProperties2EXT#drmFormatModifier} field. */
+        /** @return the value of the {@code drmFormatModifier} field. */
         @NativeType("uint64_t")
         public long drmFormatModifier() { return VkDrmFormatModifierProperties2EXT.ndrmFormatModifier(address()); }
-        /** @return the value of the {@link VkDrmFormatModifierProperties2EXT#drmFormatModifierPlaneCount} field. */
+        /** @return the value of the {@code drmFormatModifierPlaneCount} field. */
         @NativeType("uint32_t")
         public int drmFormatModifierPlaneCount() { return VkDrmFormatModifierProperties2EXT.ndrmFormatModifierPlaneCount(address()); }
-        /** @return the value of the {@link VkDrmFormatModifierProperties2EXT#drmFormatModifierTilingFeatures} field. */
+        /** @return the value of the {@code drmFormatModifierTilingFeatures} field. */
         @NativeType("VkFormatFeatureFlags2")
         public long drmFormatModifierTilingFeatures() { return VkDrmFormatModifierProperties2EXT.ndrmFormatModifierTilingFeatures(address()); }
 

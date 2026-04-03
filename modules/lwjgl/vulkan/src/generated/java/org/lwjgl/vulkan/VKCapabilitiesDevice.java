@@ -46,30 +46,50 @@ public class VKCapabilitiesDevice {
         vkWaitForFences,
         vkCreateSemaphore,
         vkDestroySemaphore,
-        vkCreateEvent,
-        vkDestroyEvent,
-        vkGetEventStatus,
-        vkSetEvent,
-        vkResetEvent,
         vkCreateQueryPool,
         vkDestroyQueryPool,
         vkGetQueryPoolResults,
         vkCreateBuffer,
         vkDestroyBuffer,
-        vkCreateBufferView,
-        vkDestroyBufferView,
         vkCreateImage,
         vkDestroyImage,
         vkGetImageSubresourceLayout,
         vkCreateImageView,
         vkDestroyImageView,
+        vkCreateCommandPool,
+        vkDestroyCommandPool,
+        vkResetCommandPool,
+        vkAllocateCommandBuffers,
+        vkFreeCommandBuffers,
+        vkBeginCommandBuffer,
+        vkEndCommandBuffer,
+        vkResetCommandBuffer,
+        vkCmdCopyBuffer,
+        vkCmdCopyImage,
+        vkCmdCopyBufferToImage,
+        vkCmdCopyImageToBuffer,
+        vkCmdUpdateBuffer,
+        vkCmdFillBuffer,
+        vkCmdPipelineBarrier,
+        vkCmdBeginQuery,
+        vkCmdEndQuery,
+        vkCmdResetQueryPool,
+        vkCmdWriteTimestamp,
+        vkCmdCopyQueryPoolResults,
+        vkCmdExecuteCommands,
+        vkCreateEvent,
+        vkDestroyEvent,
+        vkGetEventStatus,
+        vkSetEvent,
+        vkResetEvent,
+        vkCreateBufferView,
+        vkDestroyBufferView,
         vkCreateShaderModule,
         vkDestroyShaderModule,
         vkCreatePipelineCache,
         vkDestroyPipelineCache,
         vkGetPipelineCacheData,
         vkMergePipelineCaches,
-        vkCreateGraphicsPipelines,
         vkCreateComputePipelines,
         vkDestroyPipeline,
         vkCreatePipelineLayout,
@@ -84,20 +104,21 @@ public class VKCapabilitiesDevice {
         vkAllocateDescriptorSets,
         vkFreeDescriptorSets,
         vkUpdateDescriptorSets,
+        vkCmdBindPipeline,
+        vkCmdBindDescriptorSets,
+        vkCmdClearColorImage,
+        vkCmdDispatch,
+        vkCmdDispatchIndirect,
+        vkCmdSetEvent,
+        vkCmdResetEvent,
+        vkCmdWaitEvents,
+        vkCmdPushConstants,
+        vkCreateGraphicsPipelines,
         vkCreateFramebuffer,
         vkDestroyFramebuffer,
         vkCreateRenderPass,
         vkDestroyRenderPass,
         vkGetRenderAreaGranularity,
-        vkCreateCommandPool,
-        vkDestroyCommandPool,
-        vkResetCommandPool,
-        vkAllocateCommandBuffers,
-        vkFreeCommandBuffers,
-        vkBeginCommandBuffer,
-        vkEndCommandBuffer,
-        vkResetCommandBuffer,
-        vkCmdBindPipeline,
         vkCmdSetViewport,
         vkCmdSetScissor,
         vkCmdSetLineWidth,
@@ -107,40 +128,19 @@ public class VKCapabilitiesDevice {
         vkCmdSetStencilCompareMask,
         vkCmdSetStencilWriteMask,
         vkCmdSetStencilReference,
-        vkCmdBindDescriptorSets,
         vkCmdBindIndexBuffer,
         vkCmdBindVertexBuffers,
         vkCmdDraw,
         vkCmdDrawIndexed,
         vkCmdDrawIndirect,
         vkCmdDrawIndexedIndirect,
-        vkCmdDispatch,
-        vkCmdDispatchIndirect,
-        vkCmdCopyBuffer,
-        vkCmdCopyImage,
         vkCmdBlitImage,
-        vkCmdCopyBufferToImage,
-        vkCmdCopyImageToBuffer,
-        vkCmdUpdateBuffer,
-        vkCmdFillBuffer,
-        vkCmdClearColorImage,
         vkCmdClearDepthStencilImage,
         vkCmdClearAttachments,
         vkCmdResolveImage,
-        vkCmdSetEvent,
-        vkCmdResetEvent,
-        vkCmdWaitEvents,
-        vkCmdPipelineBarrier,
-        vkCmdBeginQuery,
-        vkCmdEndQuery,
-        vkCmdResetQueryPool,
-        vkCmdWriteTimestamp,
-        vkCmdCopyQueryPoolResults,
-        vkCmdPushConstants,
         vkCmdBeginRenderPass,
         vkCmdNextSubpass,
-        vkCmdEndRenderPass,
-        vkCmdExecuteCommands;
+        vkCmdEndRenderPass;
 
     /** Function pointers for VK11 */
     public final long
@@ -148,34 +148,34 @@ public class VKCapabilitiesDevice {
         vkBindImageMemory2,
         vkGetDeviceGroupPeerMemoryFeatures,
         vkCmdSetDeviceMask,
-        vkCmdDispatchBase,
         vkGetImageMemoryRequirements2,
         vkGetBufferMemoryRequirements2,
         vkGetImageSparseMemoryRequirements2,
         vkTrimCommandPool,
         vkGetDeviceQueue2,
-        vkCreateSamplerYcbcrConversion,
-        vkDestroySamplerYcbcrConversion,
+        vkCmdDispatchBase,
         vkCreateDescriptorUpdateTemplate,
         vkDestroyDescriptorUpdateTemplate,
         vkUpdateDescriptorSetWithTemplate,
-        vkGetDescriptorSetLayoutSupport;
+        vkGetDescriptorSetLayoutSupport,
+        vkCreateSamplerYcbcrConversion,
+        vkDestroySamplerYcbcrConversion;
 
     /** Function pointers for VK12 */
     public final long
-        vkCmdDrawIndirectCount,
-        vkCmdDrawIndexedIndirectCount,
-        vkCreateRenderPass2,
-        vkCmdBeginRenderPass2,
-        vkCmdNextSubpass2,
-        vkCmdEndRenderPass2,
         vkResetQueryPool,
         vkGetSemaphoreCounterValue,
         vkWaitSemaphores,
         vkSignalSemaphore,
         vkGetBufferDeviceAddress,
         vkGetBufferOpaqueCaptureAddress,
-        vkGetDeviceMemoryOpaqueCaptureAddress;
+        vkGetDeviceMemoryOpaqueCaptureAddress,
+        vkCmdDrawIndirectCount,
+        vkCmdDrawIndexedIndirectCount,
+        vkCreateRenderPass2,
+        vkCmdBeginRenderPass2,
+        vkCmdNextSubpass2,
+        vkCmdEndRenderPass2;
 
     /** Function pointers for VK13 */
     public final long
@@ -183,9 +183,6 @@ public class VKCapabilitiesDevice {
         vkDestroyPrivateDataSlot,
         vkSetPrivateData,
         vkGetPrivateData,
-        vkCmdSetEvent2,
-        vkCmdResetEvent2,
-        vkCmdWaitEvents2,
         vkCmdPipelineBarrier2,
         vkCmdWriteTimestamp2,
         vkQueueSubmit2,
@@ -193,6 +190,12 @@ public class VKCapabilitiesDevice {
         vkCmdCopyImage2,
         vkCmdCopyBufferToImage2,
         vkCmdCopyImageToBuffer2,
+        vkGetDeviceBufferMemoryRequirements,
+        vkGetDeviceImageMemoryRequirements,
+        vkGetDeviceImageSparseMemoryRequirements,
+        vkCmdSetEvent2,
+        vkCmdResetEvent2,
+        vkCmdWaitEvents2,
         vkCmdBlitImage2,
         vkCmdResolveImage2,
         vkCmdBeginRendering,
@@ -211,14 +214,38 @@ public class VKCapabilitiesDevice {
         vkCmdSetStencilOp,
         vkCmdSetRasterizerDiscardEnable,
         vkCmdSetDepthBiasEnable,
-        vkCmdSetPrimitiveRestartEnable,
-        vkGetDeviceBufferMemoryRequirements,
-        vkGetDeviceImageMemoryRequirements,
-        vkGetDeviceImageSparseMemoryRequirements;
+        vkCmdSetPrimitiveRestartEnable;
+
+    /** Function pointers for VK14 */
+    public final long
+        vkMapMemory2,
+        vkUnmapMemory2,
+        vkGetDeviceImageSubresourceLayout,
+        vkGetImageSubresourceLayout2,
+        vkCopyMemoryToImage,
+        vkCopyImageToMemory,
+        vkCopyImageToImage,
+        vkTransitionImageLayout,
+        vkCmdPushDescriptorSet,
+        vkCmdPushDescriptorSetWithTemplate,
+        vkCmdBindDescriptorSets2,
+        vkCmdPushConstants2,
+        vkCmdPushDescriptorSet2,
+        vkCmdPushDescriptorSetWithTemplate2,
+        vkCmdSetLineStipple,
+        vkCmdBindIndexBuffer2,
+        vkGetRenderingAreaGranularity,
+        vkCmdSetRenderingAttachmentLocations,
+        vkCmdSetRenderingInputAttachmentIndices;
+
+    /** Function pointers for AMD_anti_lag */
+    public final long
+        vkAntiLagUpdateAMD;
 
     /** Function pointers for AMD_buffer_marker */
     public final long
-        vkCmdWriteBufferMarkerAMD;
+        vkCmdWriteBufferMarkerAMD,
+        vkCmdWriteBufferMarker2AMD;
 
     /** Function pointers for AMD_display_native_hdr */
     public final long
@@ -248,6 +275,31 @@ public class VKCapabilitiesDevice {
         vkGetAndroidHardwareBufferPropertiesANDROID,
         vkGetMemoryAndroidHardwareBufferANDROID;
 
+    /** Function pointers for ARM_data_graph */
+    public final long
+        vkCreateDataGraphPipelinesARM,
+        vkCreateDataGraphPipelineSessionARM,
+        vkGetDataGraphPipelineSessionBindPointRequirementsARM,
+        vkGetDataGraphPipelineSessionMemoryRequirementsARM,
+        vkBindDataGraphPipelineSessionMemoryARM,
+        vkDestroyDataGraphPipelineSessionARM,
+        vkCmdDispatchDataGraphARM,
+        vkGetDataGraphPipelineAvailablePropertiesARM,
+        vkGetDataGraphPipelinePropertiesARM;
+
+    /** Function pointers for ARM_tensors */
+    public final long
+        vkCreateTensorARM,
+        vkDestroyTensorARM,
+        vkCreateTensorViewARM,
+        vkDestroyTensorViewARM,
+        vkGetTensorMemoryRequirementsARM,
+        vkBindTensorMemoryARM,
+        vkGetDeviceTensorMemoryRequirementsARM,
+        vkCmdCopyTensorARM,
+        vkGetTensorOpaqueCaptureDescriptorDataARM,
+        vkGetTensorViewOpaqueCaptureDescriptorDataARM;
+
     /** Function pointers for EXT_attachment_feedback_loop_dynamic_state */
     public final long
         vkCmdSetAttachmentFeedbackLoopEnableEXT;
@@ -269,6 +321,10 @@ public class VKCapabilitiesDevice {
         vkCmdBeginConditionalRenderingEXT,
         vkCmdEndConditionalRenderingEXT;
 
+    /** Function pointers for EXT_custom_resolve */
+    public final long
+        vkCmdBeginCustomResolveEXT;
+
     /** Function pointers for EXT_debug_marker */
     public final long
         vkDebugMarkerSetObjectTagEXT,
@@ -280,6 +336,10 @@ public class VKCapabilitiesDevice {
     /** Function pointers for EXT_depth_bias_control */
     public final long
         vkCmdSetDepthBias2EXT;
+
+    /** Function pointers for EXT_depth_clamp_control */
+    public final long
+        vkCmdSetDepthClampRangeEXT;
 
     /** Function pointers for EXT_descriptor_buffer */
     public final long
@@ -295,9 +355,33 @@ public class VKCapabilitiesDevice {
         vkGetSamplerOpaqueCaptureDescriptorDataEXT,
         vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT;
 
+    /** Function pointers for EXT_descriptor_heap */
+    public final long
+        vkWriteSamplerDescriptorsEXT,
+        vkWriteResourceDescriptorsEXT,
+        vkCmdBindSamplerHeapEXT,
+        vkCmdBindResourceHeapEXT,
+        vkCmdPushDataEXT,
+        vkGetImageOpaqueCaptureDataEXT,
+        vkRegisterCustomBorderColorEXT,
+        vkUnregisterCustomBorderColorEXT,
+        vkGetTensorOpaqueCaptureDataARM;
+
     /** Function pointers for EXT_device_fault */
     public final long
         vkGetDeviceFaultInfoEXT;
+
+    /** Function pointers for EXT_device_generated_commands */
+    public final long
+        vkGetGeneratedCommandsMemoryRequirementsEXT,
+        vkCmdPreprocessGeneratedCommandsEXT,
+        vkCmdExecuteGeneratedCommandsEXT,
+        vkCreateIndirectCommandsLayoutEXT,
+        vkDestroyIndirectCommandsLayoutEXT,
+        vkCreateIndirectExecutionSetEXT,
+        vkDestroyIndirectExecutionSetEXT,
+        vkUpdateIndirectExecutionSetPipelineEXT,
+        vkUpdateIndirectExecutionSetShaderEXT;
 
     /** Function pointers for EXT_discard_rectangles */
     public final long
@@ -337,7 +421,6 @@ public class VKCapabilitiesDevice {
 
     /** Function pointers for EXT_extended_dynamic_state3 */
     public final long
-        vkCmdSetTessellationDomainOriginEXT,
         vkCmdSetDepthClampEnableEXT,
         vkCmdSetPolygonModeEXT,
         vkCmdSetRasterizationSamplesEXT,
@@ -348,6 +431,7 @@ public class VKCapabilitiesDevice {
         vkCmdSetColorBlendEnableEXT,
         vkCmdSetColorBlendEquationEXT,
         vkCmdSetColorWriteMaskEXT,
+        vkCmdSetTessellationDomainOriginEXT,
         vkCmdSetRasterizationStreamEXT,
         vkCmdSetConservativeRasterizationModeEXT,
         vkCmdSetExtraPrimitiveOverestimationSizeEXT,
@@ -372,6 +456,15 @@ public class VKCapabilitiesDevice {
     /** Function pointers for EXT_external_memory_host */
     public final long
         vkGetMemoryHostPointerPropertiesEXT;
+
+    /** Function pointers for EXT_external_memory_metal */
+    public final long
+        vkGetMemoryMetalHandleEXT,
+        vkGetMemoryMetalHandlePropertiesEXT;
+
+    /** Function pointers for EXT_fragment_density_map_offset */
+    public final long
+        vkCmdEndRendering2EXT;
 
     /** Function pointers for EXT_full_screen_exclusive */
     public final long
@@ -402,6 +495,11 @@ public class VKCapabilitiesDevice {
     /** Function pointers for EXT_line_rasterization */
     public final long
         vkCmdSetLineStippleEXT;
+
+    /** Function pointers for EXT_memory_decompression */
+    public final long
+        vkCmdDecompressMemoryEXT,
+        vkCmdDecompressMemoryIndirectCountEXT;
 
     /** Function pointers for EXT_mesh_shader */
     public final long
@@ -442,6 +540,13 @@ public class VKCapabilitiesDevice {
     /** Function pointers for EXT_pipeline_properties */
     public final long
         vkGetPipelinePropertiesEXT;
+
+    /** Function pointers for EXT_present_timing */
+    public final long
+        vkSetSwapchainPresentTimingQueueSizeEXT,
+        vkGetSwapchainTimingPropertiesEXT,
+        vkGetSwapchainTimeDomainPropertiesEXT,
+        vkGetPastPresentationTimingEXT;
 
     /** Function pointers for EXT_private_data */
     public final long
@@ -548,6 +653,10 @@ public class VKCapabilitiesDevice {
         vkGetBufferOpaqueCaptureAddressKHR,
         vkGetDeviceMemoryOpaqueCaptureAddressKHR;
 
+    /** Function pointers for KHR_calibrated_timestamps */
+    public final long
+        vkGetCalibratedTimestampsKHR;
+
     /** Function pointers for KHR_copy_commands2 */
     public final long
         vkCmdCopyBuffer2KHR,
@@ -556,6 +665,11 @@ public class VKCapabilitiesDevice {
         vkCmdCopyImageToBuffer2KHR,
         vkCmdBlitImage2KHR,
         vkCmdResolveImage2KHR;
+
+    /** Function pointers for KHR_copy_memory_indirect */
+    public final long
+        vkCmdCopyMemoryIndirectKHR,
+        vkCmdCopyMemoryToImageIndirectKHR;
 
     /** Function pointers for KHR_create_renderpass2 */
     public final long
@@ -602,6 +716,11 @@ public class VKCapabilitiesDevice {
         vkCmdBeginRenderingKHR,
         vkCmdEndRenderingKHR;
 
+    /** Function pointers for KHR_dynamic_rendering_local_read */
+    public final long
+        vkCmdSetRenderingAttachmentLocationsKHR,
+        vkCmdSetRenderingInputAttachmentIndicesKHR;
+
     /** Function pointers for KHR_external_fence_fd */
     public final long
         vkImportFenceFdKHR,
@@ -642,9 +761,17 @@ public class VKCapabilitiesDevice {
         vkGetBufferMemoryRequirements2KHR,
         vkGetImageSparseMemoryRequirements2KHR;
 
+    /** Function pointers for KHR_line_rasterization */
+    public final long
+        vkCmdSetLineStippleKHR;
+
     /** Function pointers for KHR_maintenance1 */
     public final long
         vkTrimCommandPoolKHR;
+
+    /** Function pointers for KHR_maintenance10 */
+    public final long
+        vkCmdEndRendering2KHR;
 
     /** Function pointers for KHR_maintenance3 */
     public final long
@@ -663,6 +790,15 @@ public class VKCapabilitiesDevice {
         vkGetDeviceImageSubresourceLayoutKHR,
         vkGetImageSubresourceLayout2KHR;
 
+    /** Function pointers for KHR_maintenance6 */
+    public final long
+        vkCmdBindDescriptorSets2KHR,
+        vkCmdPushConstants2KHR,
+        vkCmdPushDescriptorSet2KHR,
+        vkCmdPushDescriptorSetWithTemplate2KHR,
+        vkCmdSetDescriptorBufferOffsets2EXT,
+        vkCmdBindDescriptorBufferEmbeddedSamplers2EXT;
+
     /** Function pointers for KHR_map_memory2 */
     public final long
         vkMapMemory2KHR,
@@ -673,6 +809,14 @@ public class VKCapabilitiesDevice {
         vkAcquireProfilingLockKHR,
         vkReleaseProfilingLockKHR;
 
+    /** Function pointers for KHR_pipeline_binary */
+    public final long
+        vkCreatePipelineBinariesKHR,
+        vkDestroyPipelineBinaryKHR,
+        vkGetPipelineKeyKHR,
+        vkGetPipelineBinaryDataKHR,
+        vkReleaseCapturedPipelineDataKHR;
+
     /** Function pointers for KHR_pipeline_executable_properties */
     public final long
         vkGetPipelineExecutablePropertiesKHR,
@@ -682,6 +826,10 @@ public class VKCapabilitiesDevice {
     /** Function pointers for KHR_present_wait */
     public final long
         vkWaitForPresentKHR;
+
+    /** Function pointers for KHR_present_wait2 */
+    public final long
+        vkWaitForPresent2KHR;
 
     /** Function pointers for KHR_push_descriptor */
     public final long
@@ -718,6 +866,10 @@ public class VKCapabilitiesDevice {
         vkAcquireNextImageKHR,
         vkQueuePresentKHR;
 
+    /** Function pointers for KHR_swapchain_maintenance1 */
+    public final long
+        vkReleaseSwapchainImagesKHR;
+
     /** Function pointers for KHR_synchronization2 */
     public final long
         vkCmdSetEvent2KHR,
@@ -725,9 +877,7 @@ public class VKCapabilitiesDevice {
         vkCmdWaitEvents2KHR,
         vkCmdPipelineBarrier2KHR,
         vkCmdWriteTimestamp2KHR,
-        vkQueueSubmit2KHR,
-        vkCmdWriteBufferMarker2AMD,
-        vkGetQueueCheckpointData2NV;
+        vkQueueSubmit2KHR;
 
     /** Function pointers for KHR_timeline_semaphore */
     public final long
@@ -761,15 +911,39 @@ public class VKCapabilitiesDevice {
     public final long
         vkCmdSetViewportWScalingNV;
 
+    /** Function pointers for NV_cluster_acceleration_structure */
+    public final long
+        vkGetClusterAccelerationStructureBuildSizesNV,
+        vkCmdBuildClusterAccelerationStructureIndirectNV;
+
+    /** Function pointers for NV_compute_occupancy_priority */
+    public final long
+        vkCmdSetComputeOccupancyPriorityNV;
+
+    /** Function pointers for NV_cooperative_vector */
+    public final long
+        vkConvertCooperativeVectorMatrixNV,
+        vkCmdConvertCooperativeVectorMatrixNV;
+
     /** Function pointers for NV_copy_memory_indirect */
     public final long
         vkCmdCopyMemoryIndirectNV,
         vkCmdCopyMemoryToImageIndirectNV;
 
+    /** Function pointers for NV_cuda_kernel_launch */
+    public final long
+        vkCreateCudaModuleNV,
+        vkGetCudaModuleCacheNV,
+        vkCreateCudaFunctionNV,
+        vkDestroyCudaModuleNV,
+        vkDestroyCudaFunctionNV,
+        vkCmdCudaLaunchKernelNV;
+
     /** Function pointers for NV_device_diagnostic_checkpoints */
     public final long
         vkCmdSetCheckpointNV,
-        vkGetQueueCheckpointDataNV;
+        vkGetQueueCheckpointDataNV,
+        vkGetQueueCheckpointData2NV;
 
     /** Function pointers for NV_device_generated_commands */
     public final long
@@ -786,6 +960,12 @@ public class VKCapabilitiesDevice {
         vkCmdUpdatePipelineIndirectBufferNV,
         vkGetPipelineIndirectDeviceAddressNV;
 
+    /** Function pointers for NV_external_compute_queue */
+    public final long
+        vkCreateExternalComputeQueueNV,
+        vkDestroyExternalComputeQueueNV,
+        vkGetExternalComputeQueueDataNV;
+
     /** Function pointers for NV_external_memory_rdma */
     public final long
         vkGetMemoryRemoteAddressNV;
@@ -797,6 +977,14 @@ public class VKCapabilitiesDevice {
     /** Function pointers for NV_fragment_shading_rate_enums */
     public final long
         vkCmdSetFragmentShadingRateEnumNV;
+
+    /** Function pointers for NV_low_latency2 */
+    public final long
+        vkSetLatencySleepModeNV,
+        vkLatencySleepNV,
+        vkSetLatencyMarkerNV,
+        vkGetLatencyTimingsNV,
+        vkQueueNotifyOutOfBandNV;
 
     /** Function pointers for NV_memory_decompression */
     public final long
@@ -815,6 +1003,11 @@ public class VKCapabilitiesDevice {
         vkDestroyOpticalFlowSessionNV,
         vkBindOpticalFlowSessionImageNV,
         vkCmdOpticalFlowExecuteNV;
+
+    /** Function pointers for NV_partitioned_acceleration_structure */
+    public final long
+        vkGetPartitionedAccelerationStructuresBuildSizesNV,
+        vkCmdBuildPartitionedAccelerationStructuresNV;
 
     /** Function pointers for NV_ray_tracing */
     public final long
@@ -853,12 +1046,24 @@ public class VKCapabilitiesDevice {
     /** Function pointers for NVX_image_view_handle */
     public final long
         vkGetImageViewHandleNVX,
-        vkGetImageViewAddressNVX;
+        vkGetImageViewHandle64NVX,
+        vkGetImageViewAddressNVX,
+        vkGetDeviceCombinedImageSamplerIndexNVX;
+
+    /** Function pointers for QCOM_tile_memory_heap */
+    public final long
+        vkCmdBindTileMemoryQCOM;
 
     /** Function pointers for QCOM_tile_properties */
     public final long
         vkGetFramebufferTilePropertiesQCOM,
         vkGetDynamicRenderingTilePropertiesQCOM;
+
+    /** Function pointers for QCOM_tile_shading */
+    public final long
+        vkCmdDispatchTileQCOM,
+        vkCmdBeginPerTileExecutionQCOM,
+        vkCmdEndPerTileExecutionQCOM;
 
     /** Function pointers for VALVE_descriptor_set_host_mapping */
     public final long
@@ -868,626 +1073,828 @@ public class VKCapabilitiesDevice {
     /** The Vulkan API version number. */
     public final int apiVersion;
 
-    /** When true, {@link VK10} is supported. */
+    /** When true, {@code VK10} is supported. */
     public final boolean Vulkan10;
-    /** When true, {@link VK11} is supported. */
+    /** When true, {@code VK11} is supported. */
     public final boolean Vulkan11;
-    /** When true, {@link VK12} is supported. */
+    /** When true, {@code VK12} is supported. */
     public final boolean Vulkan12;
-    /** When true, {@link VK13} is supported. */
+    /** When true, {@code VK13} is supported. */
     public final boolean Vulkan13;
-    /** When true, {@link AMDBufferMarker} is supported. */
+    /** When true, {@code VK14} is supported. */
+    public final boolean Vulkan14;
+    /** When true, {@code AMD_anti_lag} is supported. */
+    public final boolean VK_AMD_anti_lag;
+    /** When true, {@code AMD_buffer_marker} is supported. */
     public final boolean VK_AMD_buffer_marker;
-    /** When true, {@link AMDDeviceCoherentMemory} is supported. */
+    /** When true, {@code AMD_device_coherent_memory} is supported. */
     public final boolean VK_AMD_device_coherent_memory;
-    /** When true, {@link AMDDisplayNativeHdr} is supported. */
+    /** When true, {@code AMD_display_native_hdr} is supported. */
     public final boolean VK_AMD_display_native_hdr;
-    /** When true, {@link AMDDrawIndirectCount} is supported. */
+    /** When true, {@code AMD_draw_indirect_count} is supported. */
     public final boolean VK_AMD_draw_indirect_count;
-    /** When true, {@link AMDGCNShader} is supported. */
+    /** When true, {@code AMD_gcn_shader} is supported. */
     public final boolean VK_AMD_gcn_shader;
-    /** When true, {@link AMDGPUShaderHalfFloat} is supported. */
+    /** When true, {@code AMD_gpu_shader_half_float} is supported. */
     public final boolean VK_AMD_gpu_shader_half_float;
-    /** When true, {@link AMDGPUShaderInt16} is supported. */
+    /** When true, {@code AMD_gpu_shader_int16} is supported. */
     public final boolean VK_AMD_gpu_shader_int16;
-    /** When true, {@link AMDMemoryOverallocationBehavior} is supported. */
+    /** When true, {@code AMD_memory_overallocation_behavior} is supported. */
     public final boolean VK_AMD_memory_overallocation_behavior;
-    /** When true, {@link AMDMixedAttachmentSamples} is supported. */
+    /** When true, {@code AMD_mixed_attachment_samples} is supported. */
     public final boolean VK_AMD_mixed_attachment_samples;
-    /** When true, {@link AMDNegativeViewportHeight} is supported. */
+    /** When true, {@code AMD_negative_viewport_height} is supported. */
     public final boolean VK_AMD_negative_viewport_height;
-    /** When true, {@link AMDPipelineCompilerControl} is supported. */
+    /** When true, {@code AMD_pipeline_compiler_control} is supported. */
     public final boolean VK_AMD_pipeline_compiler_control;
-    /** When true, {@link AMDRasterizationOrder} is supported. */
+    /** When true, {@code AMD_rasterization_order} is supported. */
     public final boolean VK_AMD_rasterization_order;
-    /** When true, {@link AMDShaderBallot} is supported. */
+    /** When true, {@code AMD_shader_ballot} is supported. */
     public final boolean VK_AMD_shader_ballot;
-    /** When true, {@link AMDShaderCoreProperties} is supported. */
+    /** When true, {@code AMD_shader_core_properties} is supported. */
     public final boolean VK_AMD_shader_core_properties;
-    /** When true, {@link AMDShaderCoreProperties2} is supported. */
+    /** When true, {@code AMD_shader_core_properties2} is supported. */
     public final boolean VK_AMD_shader_core_properties2;
-    /** When true, {@link AMDShaderEarlyAndLateFragmentTests} is supported. */
+    /** When true, {@code AMD_shader_early_and_late_fragment_tests} is supported. */
     public final boolean VK_AMD_shader_early_and_late_fragment_tests;
-    /** When true, {@link AMDShaderExplicitVertexParameter} is supported. */
+    /** When true, {@code AMD_shader_explicit_vertex_parameter} is supported. */
     public final boolean VK_AMD_shader_explicit_vertex_parameter;
-    /** When true, {@link AMDShaderFragmentMask} is supported. */
+    /** When true, {@code AMD_shader_fragment_mask} is supported. */
     public final boolean VK_AMD_shader_fragment_mask;
-    /** When true, {@link AMDShaderImageLoadStoreLod} is supported. */
+    /** When true, {@code AMD_shader_image_load_store_lod} is supported. */
     public final boolean VK_AMD_shader_image_load_store_lod;
-    /** When true, {@link AMDShaderInfo} is supported. */
+    /** When true, {@code AMD_shader_info} is supported. */
     public final boolean VK_AMD_shader_info;
-    /** When true, {@link AMDShaderTrinaryMinmax} is supported. */
+    /** When true, {@code AMD_shader_trinary_minmax} is supported. */
     public final boolean VK_AMD_shader_trinary_minmax;
-    /** When true, {@link AMDTextureGatherBiasLod} is supported. */
+    /** When true, {@code AMD_texture_gather_bias_lod} is supported. */
     public final boolean VK_AMD_texture_gather_bias_lod;
-    /** When true, {@link AMDXShaderEnqueue} is supported. */
+    /** When true, {@code AMDX_dense_geometry_format} is supported. */
+    public final boolean VK_AMDX_dense_geometry_format;
+    /** When true, {@code AMDX_shader_enqueue} is supported. */
     public final boolean VK_AMDX_shader_enqueue;
-    /** When true, {@link ANDROIDExternalMemoryAndroidHardwareBuffer} is supported. */
+    /** When true, {@code ANDROID_external_format_resolve} is supported. */
+    public final boolean VK_ANDROID_external_format_resolve;
+    /** When true, {@code ANDROID_external_memory_android_hardware_buffer} is supported. */
     public final boolean VK_ANDROID_external_memory_android_hardware_buffer;
-    /** When true, {@link ARMRasterizationOrderAttachmentAccess} is supported. */
+    /** When true, {@code ARM_data_graph} is supported. */
+    public final boolean VK_ARM_data_graph;
+    /** When true, {@code ARM_format_pack} is supported. */
+    public final boolean VK_ARM_format_pack;
+    /** When true, {@code ARM_performance_counters_by_region} is supported. */
+    public final boolean VK_ARM_performance_counters_by_region;
+    /** When true, {@code ARM_pipeline_opacity_micromap} is supported. */
+    public final boolean VK_ARM_pipeline_opacity_micromap;
+    /** When true, {@code ARM_rasterization_order_attachment_access} is supported. */
     public final boolean VK_ARM_rasterization_order_attachment_access;
-    /** When true, {@link ARMShaderCoreBuiltins} is supported. */
+    /** When true, {@code ARM_render_pass_striped} is supported. */
+    public final boolean VK_ARM_render_pass_striped;
+    /** When true, {@code ARM_scheduling_controls} is supported. */
+    public final boolean VK_ARM_scheduling_controls;
+    /** When true, {@code ARM_shader_core_builtins} is supported. */
     public final boolean VK_ARM_shader_core_builtins;
-    /** When true, {@link ARMShaderCoreProperties} is supported. */
+    /** When true, {@code ARM_shader_core_properties} is supported. */
     public final boolean VK_ARM_shader_core_properties;
-    /** When true, {@link EXT4444Formats} is supported. */
+    /** When true, {@code ARM_tensors} is supported. */
+    public final boolean VK_ARM_tensors;
+    /** When true, {@code EXT_4444_formats} is supported. */
     public final boolean VK_EXT_4444_formats;
-    /** When true, {@link EXTAstcDecodeMode} is supported. */
+    /** When true, {@code EXT_astc_decode_mode} is supported. */
     public final boolean VK_EXT_astc_decode_mode;
-    /** When true, {@link EXTAttachmentFeedbackLoopDynamicState} is supported. */
+    /** When true, {@code EXT_attachment_feedback_loop_dynamic_state} is supported. */
     public final boolean VK_EXT_attachment_feedback_loop_dynamic_state;
-    /** When true, {@link EXTAttachmentFeedbackLoopLayout} is supported. */
+    /** When true, {@code EXT_attachment_feedback_loop_layout} is supported. */
     public final boolean VK_EXT_attachment_feedback_loop_layout;
-    /** When true, {@link EXTBlendOperationAdvanced} is supported. */
+    /** When true, {@code EXT_blend_operation_advanced} is supported. */
     public final boolean VK_EXT_blend_operation_advanced;
-    /** When true, {@link EXTBorderColorSwizzle} is supported. */
+    /** When true, {@code EXT_border_color_swizzle} is supported. */
     public final boolean VK_EXT_border_color_swizzle;
-    /** When true, {@link EXTBufferDeviceAddress} is supported. */
+    /** When true, {@code EXT_buffer_device_address} is supported. */
     public final boolean VK_EXT_buffer_device_address;
-    /** When true, {@link EXTCalibratedTimestamps} is supported. */
+    /** When true, {@code EXT_calibrated_timestamps} is supported. */
     public final boolean VK_EXT_calibrated_timestamps;
-    /** When true, {@link EXTColorWriteEnable} is supported. */
+    /** When true, {@code EXT_color_write_enable} is supported. */
     public final boolean VK_EXT_color_write_enable;
-    /** When true, {@link EXTConditionalRendering} is supported. */
+    /** When true, {@code EXT_conditional_rendering} is supported. */
     public final boolean VK_EXT_conditional_rendering;
-    /** When true, {@link EXTConservativeRasterization} is supported. */
+    /** When true, {@code EXT_conservative_rasterization} is supported. */
     public final boolean VK_EXT_conservative_rasterization;
-    /** When true, {@link EXTCustomBorderColor} is supported. */
+    /** When true, {@code EXT_custom_border_color} is supported. */
     public final boolean VK_EXT_custom_border_color;
-    /** When true, {@link EXTDebugMarker} is supported. */
+    /** When true, {@code EXT_custom_resolve} is supported. */
+    public final boolean VK_EXT_custom_resolve;
+    /** When true, {@code EXT_debug_marker} is supported. */
     public final boolean VK_EXT_debug_marker;
-    /** When true, {@link EXTDepthBiasControl} is supported. */
+    /** When true, {@code EXT_depth_bias_control} is supported. */
     public final boolean VK_EXT_depth_bias_control;
-    /** When true, {@link EXTDepthClampZeroOne} is supported. */
+    /** When true, {@code EXT_depth_clamp_control} is supported. */
+    public final boolean VK_EXT_depth_clamp_control;
+    /** When true, {@code EXT_depth_clamp_zero_one} is supported. */
     public final boolean VK_EXT_depth_clamp_zero_one;
-    /** When true, {@link EXTDepthClipControl} is supported. */
+    /** When true, {@code EXT_depth_clip_control} is supported. */
     public final boolean VK_EXT_depth_clip_control;
-    /** When true, {@link EXTDepthClipEnable} is supported. */
+    /** When true, {@code EXT_depth_clip_enable} is supported. */
     public final boolean VK_EXT_depth_clip_enable;
-    /** When true, {@link EXTDepthRangeUnrestricted} is supported. */
+    /** When true, {@code EXT_depth_range_unrestricted} is supported. */
     public final boolean VK_EXT_depth_range_unrestricted;
-    /** When true, {@link EXTDescriptorBuffer} is supported. */
+    /** When true, {@code EXT_descriptor_buffer} is supported. */
     public final boolean VK_EXT_descriptor_buffer;
-    /** When true, {@link EXTDescriptorIndexing} is supported. */
+    /** When true, {@code EXT_descriptor_heap} is supported. */
+    public final boolean VK_EXT_descriptor_heap;
+    /** When true, {@code EXT_descriptor_indexing} is supported. */
     public final boolean VK_EXT_descriptor_indexing;
-    /** When true, {@link EXTDeviceAddressBindingReport} is supported. */
+    /** When true, {@code EXT_device_address_binding_report} is supported. */
     public final boolean VK_EXT_device_address_binding_report;
-    /** When true, {@link EXTDeviceFault} is supported. */
+    /** When true, {@code EXT_device_fault} is supported. */
     public final boolean VK_EXT_device_fault;
-    /** When true, {@link EXTDeviceMemoryReport} is supported. */
+    /** When true, {@code EXT_device_generated_commands} is supported. */
+    public final boolean VK_EXT_device_generated_commands;
+    /** When true, {@code EXT_device_memory_report} is supported. */
     public final boolean VK_EXT_device_memory_report;
-    /** When true, {@link EXTDiscardRectangles} is supported. */
+    /** When true, {@code EXT_discard_rectangles} is supported. */
     public final boolean VK_EXT_discard_rectangles;
-    /** When true, {@link EXTDisplayControl} is supported. */
+    /** When true, {@code EXT_display_control} is supported. */
     public final boolean VK_EXT_display_control;
-    /** When true, {@link EXTDynamicRenderingUnusedAttachments} is supported. */
+    /** When true, {@code EXT_dynamic_rendering_unused_attachments} is supported. */
     public final boolean VK_EXT_dynamic_rendering_unused_attachments;
-    /** When true, {@link EXTExtendedDynamicState} is supported. */
+    /** When true, {@code EXT_extended_dynamic_state} is supported. */
     public final boolean VK_EXT_extended_dynamic_state;
-    /** When true, {@link EXTExtendedDynamicState2} is supported. */
+    /** When true, {@code EXT_extended_dynamic_state2} is supported. */
     public final boolean VK_EXT_extended_dynamic_state2;
-    /** When true, {@link EXTExtendedDynamicState3} is supported. */
+    /** When true, {@code EXT_extended_dynamic_state3} is supported. */
     public final boolean VK_EXT_extended_dynamic_state3;
-    /** When true, {@link EXTExternalMemoryAcquireUnmodified} is supported. */
+    /** When true, {@code EXT_external_memory_acquire_unmodified} is supported. */
     public final boolean VK_EXT_external_memory_acquire_unmodified;
-    /** When true, {@link EXTExternalMemoryDmaBuf} is supported. */
+    /** When true, {@code EXT_external_memory_dma_buf} is supported. */
     public final boolean VK_EXT_external_memory_dma_buf;
-    /** When true, {@link EXTExternalMemoryHost} is supported. */
+    /** When true, {@code EXT_external_memory_host} is supported. */
     public final boolean VK_EXT_external_memory_host;
-    /** When true, {@link EXTFilterCubic} is supported. */
+    /** When true, {@code EXT_external_memory_metal} is supported. */
+    public final boolean VK_EXT_external_memory_metal;
+    /** When true, {@code EXT_filter_cubic} is supported. */
     public final boolean VK_EXT_filter_cubic;
-    /** When true, {@link EXTFragmentDensityMap} is supported. */
+    /** When true, {@code EXT_fragment_density_map} is supported. */
     public final boolean VK_EXT_fragment_density_map;
-    /** When true, {@link EXTFragmentDensityMap2} is supported. */
+    /** When true, {@code EXT_fragment_density_map2} is supported. */
     public final boolean VK_EXT_fragment_density_map2;
-    /** When true, {@link EXTFragmentShaderInterlock} is supported. */
+    /** When true, {@code EXT_fragment_density_map_offset} is supported. */
+    public final boolean VK_EXT_fragment_density_map_offset;
+    /** When true, {@code EXT_fragment_shader_interlock} is supported. */
     public final boolean VK_EXT_fragment_shader_interlock;
-    /** When true, {@link EXTFrameBoundary} is supported. */
+    /** When true, {@code EXT_frame_boundary} is supported. */
     public final boolean VK_EXT_frame_boundary;
-    /** When true, {@link EXTFullScreenExclusive} is supported. */
+    /** When true, {@code EXT_full_screen_exclusive} is supported. */
     public final boolean VK_EXT_full_screen_exclusive;
-    /** When true, {@link EXTGlobalPriority} is supported. */
+    /** When true, {@code EXT_global_priority} is supported. */
     public final boolean VK_EXT_global_priority;
-    /** When true, {@link EXTGlobalPriorityQuery} is supported. */
+    /** When true, {@code EXT_global_priority_query} is supported. */
     public final boolean VK_EXT_global_priority_query;
-    /** When true, {@link EXTGraphicsPipelineLibrary} is supported. */
+    /** When true, {@code EXT_graphics_pipeline_library} is supported. */
     public final boolean VK_EXT_graphics_pipeline_library;
-    /** When true, {@link EXTHdrMetadata} is supported. */
+    /** When true, {@code EXT_hdr_metadata} is supported. */
     public final boolean VK_EXT_hdr_metadata;
-    /** When true, {@link EXTHostImageCopy} is supported. */
+    /** When true, {@code EXT_host_image_copy} is supported. */
     public final boolean VK_EXT_host_image_copy;
-    /** When true, {@link EXTHostQueryReset} is supported. */
+    /** When true, {@code EXT_host_query_reset} is supported. */
     public final boolean VK_EXT_host_query_reset;
-    /** When true, {@link EXTImage2dViewOf3d} is supported. */
+    /** When true, {@code EXT_image_2d_view_of_3d} is supported. */
     public final boolean VK_EXT_image_2d_view_of_3d;
-    /** When true, {@link EXTImageCompressionControl} is supported. */
+    /** When true, {@code EXT_image_compression_control} is supported. */
     public final boolean VK_EXT_image_compression_control;
-    /** When true, {@link EXTImageCompressionControlSwapchain} is supported. */
+    /** When true, {@code EXT_image_compression_control_swapchain} is supported. */
     public final boolean VK_EXT_image_compression_control_swapchain;
-    /** When true, {@link EXTImageDrmFormatModifier} is supported. */
+    /** When true, {@code EXT_image_drm_format_modifier} is supported. */
     public final boolean VK_EXT_image_drm_format_modifier;
-    /** When true, {@link EXTImageRobustness} is supported. */
+    /** When true, {@code EXT_image_robustness} is supported. */
     public final boolean VK_EXT_image_robustness;
-    /** When true, {@link EXTImageSlicedViewOf3d} is supported. */
+    /** When true, {@code EXT_image_sliced_view_of_3d} is supported. */
     public final boolean VK_EXT_image_sliced_view_of_3d;
-    /** When true, {@link EXTImageViewMinLod} is supported. */
+    /** When true, {@code EXT_image_view_min_lod} is supported. */
     public final boolean VK_EXT_image_view_min_lod;
-    /** When true, {@link EXTIndexTypeUint8} is supported. */
+    /** When true, {@code EXT_index_type_uint8} is supported. */
     public final boolean VK_EXT_index_type_uint8;
-    /** When true, {@link EXTInlineUniformBlock} is supported. */
+    /** When true, {@code EXT_inline_uniform_block} is supported. */
     public final boolean VK_EXT_inline_uniform_block;
-    /** When true, {@link EXTLegacyDithering} is supported. */
+    /** When true, {@code EXT_legacy_dithering} is supported. */
     public final boolean VK_EXT_legacy_dithering;
-    /** When true, {@link EXTLineRasterization} is supported. */
+    /** When true, {@code EXT_legacy_vertex_attributes} is supported. */
+    public final boolean VK_EXT_legacy_vertex_attributes;
+    /** When true, {@code EXT_line_rasterization} is supported. */
     public final boolean VK_EXT_line_rasterization;
-    /** When true, {@link EXTLoadStoreOpNone} is supported. */
+    /** When true, {@code EXT_load_store_op_none} is supported. */
     public final boolean VK_EXT_load_store_op_none;
-    /** When true, {@link EXTMemoryBudget} is supported. */
+    /** When true, {@code EXT_map_memory_placed} is supported. */
+    public final boolean VK_EXT_map_memory_placed;
+    /** When true, {@code EXT_memory_budget} is supported. */
     public final boolean VK_EXT_memory_budget;
-    /** When true, {@link EXTMemoryPriority} is supported. */
+    /** When true, {@code EXT_memory_decompression} is supported. */
+    public final boolean VK_EXT_memory_decompression;
+    /** When true, {@code EXT_memory_priority} is supported. */
     public final boolean VK_EXT_memory_priority;
-    /** When true, {@link EXTMeshShader} is supported. */
+    /** When true, {@code EXT_mesh_shader} is supported. */
     public final boolean VK_EXT_mesh_shader;
-    /** When true, {@link EXTMetalObjects} is supported. */
+    /** When true, {@code EXT_metal_objects} is supported. */
     public final boolean VK_EXT_metal_objects;
-    /** When true, {@link EXTMultiDraw} is supported. */
+    /** When true, {@code EXT_multi_draw} is supported. */
     public final boolean VK_EXT_multi_draw;
-    /** When true, {@link EXTMultisampledRenderToSingleSampled} is supported. */
+    /** When true, {@code EXT_multisampled_render_to_single_sampled} is supported. */
     public final boolean VK_EXT_multisampled_render_to_single_sampled;
-    /** When true, {@link EXTMutableDescriptorType} is supported. */
+    /** When true, {@code EXT_mutable_descriptor_type} is supported. */
     public final boolean VK_EXT_mutable_descriptor_type;
-    /** When true, {@link EXTNonSeamlessCubeMap} is supported. */
+    /** When true, {@code EXT_nested_command_buffer} is supported. */
+    public final boolean VK_EXT_nested_command_buffer;
+    /** When true, {@code EXT_non_seamless_cube_map} is supported. */
     public final boolean VK_EXT_non_seamless_cube_map;
-    /** When true, {@link EXTOpacityMicromap} is supported. */
+    /** When true, {@code EXT_opacity_micromap} is supported. */
     public final boolean VK_EXT_opacity_micromap;
-    /** When true, {@link EXTPageableDeviceLocalMemory} is supported. */
+    /** When true, {@code EXT_pageable_device_local_memory} is supported. */
     public final boolean VK_EXT_pageable_device_local_memory;
-    /** When true, {@link EXTPciBusInfo} is supported. */
+    /** When true, {@code EXT_pci_bus_info} is supported. */
     public final boolean VK_EXT_pci_bus_info;
-    /** When true, {@link EXTPhysicalDeviceDrm} is supported. */
+    /** When true, {@code EXT_physical_device_drm} is supported. */
     public final boolean VK_EXT_physical_device_drm;
-    /** When true, {@link EXTPipelineCreationCacheControl} is supported. */
+    /** When true, {@code EXT_pipeline_creation_cache_control} is supported. */
     public final boolean VK_EXT_pipeline_creation_cache_control;
-    /** When true, {@link EXTPipelineCreationFeedback} is supported. */
+    /** When true, {@code EXT_pipeline_creation_feedback} is supported. */
     public final boolean VK_EXT_pipeline_creation_feedback;
-    /** When true, {@link EXTPipelineLibraryGroupHandles} is supported. */
+    /** When true, {@code EXT_pipeline_library_group_handles} is supported. */
     public final boolean VK_EXT_pipeline_library_group_handles;
-    /** When true, {@link EXTPipelineProperties} is supported. */
+    /** When true, {@code EXT_pipeline_properties} is supported. */
     public final boolean VK_EXT_pipeline_properties;
-    /** When true, {@link EXTPipelineProtectedAccess} is supported. */
+    /** When true, {@code EXT_pipeline_protected_access} is supported. */
     public final boolean VK_EXT_pipeline_protected_access;
-    /** When true, {@link EXTPipelineRobustness} is supported. */
+    /** When true, {@code EXT_pipeline_robustness} is supported. */
     public final boolean VK_EXT_pipeline_robustness;
-    /** When true, {@link EXTPostDepthCoverage} is supported. */
+    /** When true, {@code EXT_post_depth_coverage} is supported. */
     public final boolean VK_EXT_post_depth_coverage;
-    /** When true, {@link EXTPrimitiveTopologyListRestart} is supported. */
+    /** When true, {@code EXT_present_mode_fifo_latest_ready} is supported. */
+    public final boolean VK_EXT_present_mode_fifo_latest_ready;
+    /** When true, {@code EXT_present_timing} is supported. */
+    public final boolean VK_EXT_present_timing;
+    /** When true, {@code EXT_primitive_topology_list_restart} is supported. */
     public final boolean VK_EXT_primitive_topology_list_restart;
-    /** When true, {@link EXTPrimitivesGeneratedQuery} is supported. */
+    /** When true, {@code EXT_primitives_generated_query} is supported. */
     public final boolean VK_EXT_primitives_generated_query;
-    /** When true, {@link EXTPrivateData} is supported. */
+    /** When true, {@code EXT_private_data} is supported. */
     public final boolean VK_EXT_private_data;
-    /** When true, {@link EXTProvokingVertex} is supported. */
+    /** When true, {@code EXT_provoking_vertex} is supported. */
     public final boolean VK_EXT_provoking_vertex;
-    /** When true, {@link EXTQueueFamilyForeign} is supported. */
+    /** When true, {@code EXT_queue_family_foreign} is supported. */
     public final boolean VK_EXT_queue_family_foreign;
-    /** When true, {@link EXTRasterizationOrderAttachmentAccess} is supported. */
+    /** When true, {@code EXT_rasterization_order_attachment_access} is supported. */
     public final boolean VK_EXT_rasterization_order_attachment_access;
-    /** When true, {@link EXTRgba10x6Formats} is supported. */
+    /** When true, {@code EXT_ray_tracing_invocation_reorder} is supported. */
+    public final boolean VK_EXT_ray_tracing_invocation_reorder;
+    /** When true, {@code EXT_rgba10x6_formats} is supported. */
     public final boolean VK_EXT_rgba10x6_formats;
-    /** When true, {@link EXTRobustness2} is supported. */
+    /** When true, {@code EXT_robustness2} is supported. */
     public final boolean VK_EXT_robustness2;
-    /** When true, {@link EXTSampleLocations} is supported. */
+    /** When true, {@code EXT_sample_locations} is supported. */
     public final boolean VK_EXT_sample_locations;
-    /** When true, {@link EXTSamplerFilterMinmax} is supported. */
+    /** When true, {@code EXT_sampler_filter_minmax} is supported. */
     public final boolean VK_EXT_sampler_filter_minmax;
-    /** When true, {@link EXTScalarBlockLayout} is supported. */
+    /** When true, {@code EXT_scalar_block_layout} is supported. */
     public final boolean VK_EXT_scalar_block_layout;
-    /** When true, {@link EXTSeparateStencilUsage} is supported. */
+    /** When true, {@code EXT_separate_stencil_usage} is supported. */
     public final boolean VK_EXT_separate_stencil_usage;
-    /** When true, {@link EXTShaderAtomicFloat} is supported. */
+    /** When true, {@code EXT_shader_64bit_indexing} is supported. */
+    public final boolean VK_EXT_shader_64bit_indexing;
+    /** When true, {@code EXT_shader_atomic_float} is supported. */
     public final boolean VK_EXT_shader_atomic_float;
-    /** When true, {@link EXTShaderAtomicFloat2} is supported. */
+    /** When true, {@code EXT_shader_atomic_float2} is supported. */
     public final boolean VK_EXT_shader_atomic_float2;
-    /** When true, {@link EXTShaderDemoteToHelperInvocation} is supported. */
+    /** When true, {@code EXT_shader_demote_to_helper_invocation} is supported. */
     public final boolean VK_EXT_shader_demote_to_helper_invocation;
-    /** When true, {@link EXTShaderImageAtomicInt64} is supported. */
+    /** When true, {@code EXT_shader_float8} is supported. */
+    public final boolean VK_EXT_shader_float8;
+    /** When true, {@code EXT_shader_image_atomic_int64} is supported. */
     public final boolean VK_EXT_shader_image_atomic_int64;
-    /** When true, {@link EXTShaderModuleIdentifier} is supported. */
+    /** When true, {@code EXT_shader_long_vector} is supported. */
+    public final boolean VK_EXT_shader_long_vector;
+    /** When true, {@code EXT_shader_module_identifier} is supported. */
     public final boolean VK_EXT_shader_module_identifier;
-    /** When true, {@link EXTShaderObject} is supported. */
+    /** When true, {@code EXT_shader_object} is supported. */
     public final boolean VK_EXT_shader_object;
-    /** When true, {@link EXTShaderStencilExport} is supported. */
+    /** When true, {@code EXT_shader_replicated_composites} is supported. */
+    public final boolean VK_EXT_shader_replicated_composites;
+    /** When true, {@code EXT_shader_stencil_export} is supported. */
     public final boolean VK_EXT_shader_stencil_export;
-    /** When true, {@link EXTShaderSubgroupBallot} is supported. */
+    /** When true, {@code EXT_shader_subgroup_ballot} is supported. */
     public final boolean VK_EXT_shader_subgroup_ballot;
-    /** When true, {@link EXTShaderSubgroupVote} is supported. */
+    /** When true, {@code EXT_shader_subgroup_partitioned} is supported. */
+    public final boolean VK_EXT_shader_subgroup_partitioned;
+    /** When true, {@code EXT_shader_subgroup_vote} is supported. */
     public final boolean VK_EXT_shader_subgroup_vote;
-    /** When true, {@link EXTShaderTileImage} is supported. */
+    /** When true, {@code EXT_shader_tile_image} is supported. */
     public final boolean VK_EXT_shader_tile_image;
-    /** When true, {@link EXTShaderViewportIndexLayer} is supported. */
+    /** When true, {@code EXT_shader_uniform_buffer_unsized_array} is supported. */
+    public final boolean VK_EXT_shader_uniform_buffer_unsized_array;
+    /** When true, {@code EXT_shader_viewport_index_layer} is supported. */
     public final boolean VK_EXT_shader_viewport_index_layer;
-    /** When true, {@link EXTSubgroupSizeControl} is supported. */
+    /** When true, {@code EXT_subgroup_size_control} is supported. */
     public final boolean VK_EXT_subgroup_size_control;
-    /** When true, {@link EXTSubpassMergeFeedback} is supported. */
+    /** When true, {@code EXT_subpass_merge_feedback} is supported. */
     public final boolean VK_EXT_subpass_merge_feedback;
-    /** When true, {@link EXTSwapchainMaintenance1} is supported. */
+    /** When true, {@code EXT_swapchain_maintenance1} is supported. */
     public final boolean VK_EXT_swapchain_maintenance1;
-    /** When true, {@link EXTTexelBufferAlignment} is supported. */
+    /** When true, {@code EXT_texel_buffer_alignment} is supported. */
     public final boolean VK_EXT_texel_buffer_alignment;
-    /** When true, {@link EXTTextureCompressionAstcHdr} is supported. */
+    /** When true, {@code EXT_texture_compression_astc_3d} is supported. */
+    public final boolean VK_EXT_texture_compression_astc_3d;
+    /** When true, {@code EXT_texture_compression_astc_hdr} is supported. */
     public final boolean VK_EXT_texture_compression_astc_hdr;
-    /** When true, {@link EXTToolingInfo} is supported. */
+    /** When true, {@code EXT_tooling_info} is supported. */
     public final boolean VK_EXT_tooling_info;
-    /** When true, {@link EXTTransformFeedback} is supported. */
+    /** When true, {@code EXT_transform_feedback} is supported. */
     public final boolean VK_EXT_transform_feedback;
-    /** When true, {@link EXTValidationCache} is supported. */
+    /** When true, {@code EXT_validation_cache} is supported. */
     public final boolean VK_EXT_validation_cache;
-    /** When true, {@link EXTVertexAttributeDivisor} is supported. */
+    /** When true, {@code EXT_vertex_attribute_divisor} is supported. */
     public final boolean VK_EXT_vertex_attribute_divisor;
-    /** When true, {@link EXTVertexInputDynamicState} is supported. */
+    /** When true, {@code EXT_vertex_attribute_robustness} is supported. */
+    public final boolean VK_EXT_vertex_attribute_robustness;
+    /** When true, {@code EXT_vertex_input_dynamic_state} is supported. */
     public final boolean VK_EXT_vertex_input_dynamic_state;
-    /** When true, {@link EXTVideoEncodeH264} is supported. */
-    public final boolean VK_EXT_video_encode_h264;
-    /** When true, {@link EXTVideoEncodeH265} is supported. */
-    public final boolean VK_EXT_video_encode_h265;
-    /** When true, {@link EXTYcbcr2plane444Formats} is supported. */
+    /** When true, {@code EXT_ycbcr_2plane_444_formats} is supported. */
     public final boolean VK_EXT_ycbcr_2plane_444_formats;
-    /** When true, {@link EXTYcbcrImageArrays} is supported. */
+    /** When true, {@code EXT_ycbcr_image_arrays} is supported. */
     public final boolean VK_EXT_ycbcr_image_arrays;
-    /** When true, {@link GOOGLEDecorateString} is supported. */
+    /** When true, {@code EXT_zero_initialize_device_memory} is supported. */
+    public final boolean VK_EXT_zero_initialize_device_memory;
+    /** When true, {@code GOOGLE_decorate_string} is supported. */
     public final boolean VK_GOOGLE_decorate_string;
-    /** When true, {@link GOOGLEDisplayTiming} is supported. */
+    /** When true, {@code GOOGLE_display_timing} is supported. */
     public final boolean VK_GOOGLE_display_timing;
-    /** When true, {@link GOOGLEHlslFunctionality1} is supported. */
+    /** When true, {@code GOOGLE_hlsl_functionality1} is supported. */
     public final boolean VK_GOOGLE_hlsl_functionality1;
-    /** When true, {@link GOOGLEUserType} is supported. */
+    /** When true, {@code GOOGLE_user_type} is supported. */
     public final boolean VK_GOOGLE_user_type;
-    /** When true, {@link HUAWEIClusterCullingShader} is supported. */
+    /** When true, {@code HUAWEI_cluster_culling_shader} is supported. */
     public final boolean VK_HUAWEI_cluster_culling_shader;
-    /** When true, {@link HUAWEIInvocationMask} is supported. */
+    /** When true, {@code HUAWEI_hdr_vivid} is supported. */
+    public final boolean VK_HUAWEI_hdr_vivid;
+    /** When true, {@code HUAWEI_invocation_mask} is supported. */
     public final boolean VK_HUAWEI_invocation_mask;
-    /** When true, {@link HUAWEISubpassShading} is supported. */
+    /** When true, {@code HUAWEI_subpass_shading} is supported. */
     public final boolean VK_HUAWEI_subpass_shading;
-    /** When true, {@link IMGFilterCubic} is supported. */
+    /** When true, {@code IMG_filter_cubic} is supported. */
     public final boolean VK_IMG_filter_cubic;
-    /** When true, {@link IMGFormatPVRTC} is supported. */
+    /** When true, {@code IMG_format_pvrtc} is supported. */
     public final boolean VK_IMG_format_pvrtc;
-    /** When true, {@link INTELPerformanceQuery} is supported. */
+    /** When true, {@code IMG_relaxed_line_rasterization} is supported. */
+    public final boolean VK_IMG_relaxed_line_rasterization;
+    /** When true, {@code INTEL_performance_query} is supported. */
     public final boolean VK_INTEL_performance_query;
-    /** When true, {@link INTELShaderIntegerFunctions2} is supported. */
+    /** When true, {@code INTEL_shader_integer_functions2} is supported. */
     public final boolean VK_INTEL_shader_integer_functions2;
-    /** When true, {@link KHR16bitStorage} is supported. */
+    /** When true, {@code KHR_16bit_storage} is supported. */
     public final boolean VK_KHR_16bit_storage;
-    /** When true, {@link KHR8bitStorage} is supported. */
+    /** When true, {@code KHR_8bit_storage} is supported. */
     public final boolean VK_KHR_8bit_storage;
-    /** When true, {@link KHRAccelerationStructure} is supported. */
+    /** When true, {@code KHR_acceleration_structure} is supported. */
     public final boolean VK_KHR_acceleration_structure;
-    /** When true, {@link KHRBindMemory2} is supported. */
+    /** When true, {@code KHR_bind_memory2} is supported. */
     public final boolean VK_KHR_bind_memory2;
-    /** When true, {@link KHRBufferDeviceAddress} is supported. */
+    /** When true, {@code KHR_buffer_device_address} is supported. */
     public final boolean VK_KHR_buffer_device_address;
-    /** When true, {@link KHRCooperativeMatrix} is supported. */
+    /** When true, {@code KHR_calibrated_timestamps} is supported. */
+    public final boolean VK_KHR_calibrated_timestamps;
+    /** When true, {@code KHR_compute_shader_derivatives} is supported. */
+    public final boolean VK_KHR_compute_shader_derivatives;
+    /** When true, {@code KHR_cooperative_matrix} is supported. */
     public final boolean VK_KHR_cooperative_matrix;
-    /** When true, {@link KHRCopyCommands2} is supported. */
+    /** When true, {@code KHR_copy_commands2} is supported. */
     public final boolean VK_KHR_copy_commands2;
-    /** When true, {@link KHRCreateRenderpass2} is supported. */
+    /** When true, {@code KHR_copy_memory_indirect} is supported. */
+    public final boolean VK_KHR_copy_memory_indirect;
+    /** When true, {@code KHR_create_renderpass2} is supported. */
     public final boolean VK_KHR_create_renderpass2;
-    /** When true, {@link KHRDedicatedAllocation} is supported. */
+    /** When true, {@code KHR_dedicated_allocation} is supported. */
     public final boolean VK_KHR_dedicated_allocation;
-    /** When true, {@link KHRDeferredHostOperations} is supported. */
+    /** When true, {@code KHR_deferred_host_operations} is supported. */
     public final boolean VK_KHR_deferred_host_operations;
-    /** When true, {@link KHRDepthStencilResolve} is supported. */
+    /** When true, {@code KHR_depth_clamp_zero_one} is supported. */
+    public final boolean VK_KHR_depth_clamp_zero_one;
+    /** When true, {@code KHR_depth_stencil_resolve} is supported. */
     public final boolean VK_KHR_depth_stencil_resolve;
-    /** When true, {@link KHRDescriptorUpdateTemplate} is supported. */
+    /** When true, {@code KHR_descriptor_update_template} is supported. */
     public final boolean VK_KHR_descriptor_update_template;
-    /** When true, {@link KHRDeviceGroup} is supported. */
+    /** When true, {@code KHR_device_group} is supported. */
     public final boolean VK_KHR_device_group;
-    /** When true, {@link KHRDisplaySwapchain} is supported. */
+    /** When true, {@code KHR_display_swapchain} is supported. */
     public final boolean VK_KHR_display_swapchain;
-    /** When true, {@link KHRDrawIndirectCount} is supported. */
+    /** When true, {@code KHR_draw_indirect_count} is supported. */
     public final boolean VK_KHR_draw_indirect_count;
-    /** When true, {@link KHRDriverProperties} is supported. */
+    /** When true, {@code KHR_driver_properties} is supported. */
     public final boolean VK_KHR_driver_properties;
-    /** When true, {@link KHRDynamicRendering} is supported. */
+    /** When true, {@code KHR_dynamic_rendering} is supported. */
     public final boolean VK_KHR_dynamic_rendering;
-    /** When true, {@link KHRExternalFence} is supported. */
+    /** When true, {@code KHR_dynamic_rendering_local_read} is supported. */
+    public final boolean VK_KHR_dynamic_rendering_local_read;
+    /** When true, {@code KHR_external_fence} is supported. */
     public final boolean VK_KHR_external_fence;
-    /** When true, {@link KHRExternalFenceFd} is supported. */
+    /** When true, {@code KHR_external_fence_fd} is supported. */
     public final boolean VK_KHR_external_fence_fd;
-    /** When true, {@link KHRExternalFenceWin32} is supported. */
+    /** When true, {@code KHR_external_fence_win32} is supported. */
     public final boolean VK_KHR_external_fence_win32;
-    /** When true, {@link KHRExternalMemory} is supported. */
+    /** When true, {@code KHR_external_memory} is supported. */
     public final boolean VK_KHR_external_memory;
-    /** When true, {@link KHRExternalMemoryFd} is supported. */
+    /** When true, {@code KHR_external_memory_fd} is supported. */
     public final boolean VK_KHR_external_memory_fd;
-    /** When true, {@link KHRExternalMemoryWin32} is supported. */
+    /** When true, {@code KHR_external_memory_win32} is supported. */
     public final boolean VK_KHR_external_memory_win32;
-    /** When true, {@link KHRExternalSemaphore} is supported. */
+    /** When true, {@code KHR_external_semaphore} is supported. */
     public final boolean VK_KHR_external_semaphore;
-    /** When true, {@link KHRExternalSemaphoreFd} is supported. */
+    /** When true, {@code KHR_external_semaphore_fd} is supported. */
     public final boolean VK_KHR_external_semaphore_fd;
-    /** When true, {@link KHRExternalSemaphoreWin32} is supported. */
+    /** When true, {@code KHR_external_semaphore_win32} is supported. */
     public final boolean VK_KHR_external_semaphore_win32;
-    /** When true, {@link KHRFormatFeatureFlags2} is supported. */
+    /** When true, {@code KHR_format_feature_flags2} is supported. */
     public final boolean VK_KHR_format_feature_flags2;
-    /** When true, {@link KHRFragmentShaderBarycentric} is supported. */
+    /** When true, {@code KHR_fragment_shader_barycentric} is supported. */
     public final boolean VK_KHR_fragment_shader_barycentric;
-    /** When true, {@link KHRFragmentShadingRate} is supported. */
+    /** When true, {@code KHR_fragment_shading_rate} is supported. */
     public final boolean VK_KHR_fragment_shading_rate;
-    /** When true, {@link KHRGetMemoryRequirements2} is supported. */
+    /** When true, {@code KHR_get_memory_requirements2} is supported. */
     public final boolean VK_KHR_get_memory_requirements2;
-    /** When true, {@link KHRGlobalPriority} is supported. */
+    /** When true, {@code KHR_global_priority} is supported. */
     public final boolean VK_KHR_global_priority;
-    /** When true, {@link KHRImageFormatList} is supported. */
+    /** When true, {@code KHR_image_format_list} is supported. */
     public final boolean VK_KHR_image_format_list;
-    /** When true, {@link KHRImagelessFramebuffer} is supported. */
+    /** When true, {@code KHR_imageless_framebuffer} is supported. */
     public final boolean VK_KHR_imageless_framebuffer;
-    /** When true, {@link KHRIncrementalPresent} is supported. */
+    /** When true, {@code KHR_incremental_present} is supported. */
     public final boolean VK_KHR_incremental_present;
-    /** When true, {@link KHRMaintenance1} is supported. */
+    /** When true, {@code KHR_index_type_uint8} is supported. */
+    public final boolean VK_KHR_index_type_uint8;
+    /** When true, {@code KHR_internally_synchronized_queues} is supported. */
+    public final boolean VK_KHR_internally_synchronized_queues;
+    /** When true, {@code KHR_line_rasterization} is supported. */
+    public final boolean VK_KHR_line_rasterization;
+    /** When true, {@code KHR_load_store_op_none} is supported. */
+    public final boolean VK_KHR_load_store_op_none;
+    /** When true, {@code KHR_maintenance1} is supported. */
     public final boolean VK_KHR_maintenance1;
-    /** When true, {@link KHRMaintenance2} is supported. */
+    /** When true, {@code KHR_maintenance10} is supported. */
+    public final boolean VK_KHR_maintenance10;
+    /** When true, {@code KHR_maintenance2} is supported. */
     public final boolean VK_KHR_maintenance2;
-    /** When true, {@link KHRMaintenance3} is supported. */
+    /** When true, {@code KHR_maintenance3} is supported. */
     public final boolean VK_KHR_maintenance3;
-    /** When true, {@link KHRMaintenance4} is supported. */
+    /** When true, {@code KHR_maintenance4} is supported. */
     public final boolean VK_KHR_maintenance4;
-    /** When true, {@link KHRMaintenance5} is supported. */
+    /** When true, {@code KHR_maintenance5} is supported. */
     public final boolean VK_KHR_maintenance5;
-    /** When true, {@link KHRMapMemory2} is supported. */
+    /** When true, {@code KHR_maintenance6} is supported. */
+    public final boolean VK_KHR_maintenance6;
+    /** When true, {@code KHR_maintenance7} is supported. */
+    public final boolean VK_KHR_maintenance7;
+    /** When true, {@code KHR_maintenance8} is supported. */
+    public final boolean VK_KHR_maintenance8;
+    /** When true, {@code KHR_maintenance9} is supported. */
+    public final boolean VK_KHR_maintenance9;
+    /** When true, {@code KHR_map_memory2} is supported. */
     public final boolean VK_KHR_map_memory2;
-    /** When true, {@link KHRMultiview} is supported. */
+    /** When true, {@code KHR_multiview} is supported. */
     public final boolean VK_KHR_multiview;
-    /** When true, {@link KHRPerformanceQuery} is supported. */
+    /** When true, {@code KHR_performance_query} is supported. */
     public final boolean VK_KHR_performance_query;
-    /** When true, {@link KHRPipelineExecutableProperties} is supported. */
+    /** When true, {@code KHR_pipeline_binary} is supported. */
+    public final boolean VK_KHR_pipeline_binary;
+    /** When true, {@code KHR_pipeline_executable_properties} is supported. */
     public final boolean VK_KHR_pipeline_executable_properties;
-    /** When true, {@link KHRPipelineLibrary} is supported. */
+    /** When true, {@code KHR_pipeline_library} is supported. */
     public final boolean VK_KHR_pipeline_library;
-    /** When true, {@link KHRPortabilitySubset} is supported. */
+    /** When true, {@code KHR_portability_subset} is supported. */
     public final boolean VK_KHR_portability_subset;
-    /** When true, {@link KHRPresentId} is supported. */
+    /** When true, {@code KHR_present_id} is supported. */
     public final boolean VK_KHR_present_id;
-    /** When true, {@link KHRPresentWait} is supported. */
+    /** When true, {@code KHR_present_id2} is supported. */
+    public final boolean VK_KHR_present_id2;
+    /** When true, {@code KHR_present_mode_fifo_latest_ready} is supported. */
+    public final boolean VK_KHR_present_mode_fifo_latest_ready;
+    /** When true, {@code KHR_present_wait} is supported. */
     public final boolean VK_KHR_present_wait;
-    /** When true, {@link KHRPushDescriptor} is supported. */
+    /** When true, {@code KHR_present_wait2} is supported. */
+    public final boolean VK_KHR_present_wait2;
+    /** When true, {@code KHR_push_descriptor} is supported. */
     public final boolean VK_KHR_push_descriptor;
-    /** When true, {@link KHRRayQuery} is supported. */
+    /** When true, {@code KHR_ray_query} is supported. */
     public final boolean VK_KHR_ray_query;
-    /** When true, {@link KHRRayTracingMaintenance1} is supported. */
+    /** When true, {@code KHR_ray_tracing_maintenance1} is supported. */
     public final boolean VK_KHR_ray_tracing_maintenance1;
-    /** When true, {@link KHRRayTracingPipeline} is supported. */
+    /** When true, {@code KHR_ray_tracing_pipeline} is supported. */
     public final boolean VK_KHR_ray_tracing_pipeline;
-    /** When true, {@link KHRRayTracingPositionFetch} is supported. */
+    /** When true, {@code KHR_ray_tracing_position_fetch} is supported. */
     public final boolean VK_KHR_ray_tracing_position_fetch;
-    /** When true, {@link KHRRelaxedBlockLayout} is supported. */
+    /** When true, {@code KHR_relaxed_block_layout} is supported. */
     public final boolean VK_KHR_relaxed_block_layout;
-    /** When true, {@link KHRSamplerMirrorClampToEdge} is supported. */
+    /** When true, {@code KHR_robustness2} is supported. */
+    public final boolean VK_KHR_robustness2;
+    /** When true, {@code KHR_sampler_mirror_clamp_to_edge} is supported. */
     public final boolean VK_KHR_sampler_mirror_clamp_to_edge;
-    /** When true, {@link KHRSamplerYcbcrConversion} is supported. */
+    /** When true, {@code KHR_sampler_ycbcr_conversion} is supported. */
     public final boolean VK_KHR_sampler_ycbcr_conversion;
-    /** When true, {@link KHRSeparateDepthStencilLayouts} is supported. */
+    /** When true, {@code KHR_separate_depth_stencil_layouts} is supported. */
     public final boolean VK_KHR_separate_depth_stencil_layouts;
-    /** When true, {@link KHRShaderAtomicInt64} is supported. */
+    /** When true, {@code KHR_shader_atomic_int64} is supported. */
     public final boolean VK_KHR_shader_atomic_int64;
-    /** When true, {@link KHRShaderClock} is supported. */
+    /** When true, {@code KHR_shader_bfloat16} is supported. */
+    public final boolean VK_KHR_shader_bfloat16;
+    /** When true, {@code KHR_shader_clock} is supported. */
     public final boolean VK_KHR_shader_clock;
-    /** When true, {@link KHRShaderDrawParameters} is supported. */
+    /** When true, {@code KHR_shader_draw_parameters} is supported. */
     public final boolean VK_KHR_shader_draw_parameters;
-    /** When true, {@link KHRShaderFloat16Int8} is supported. */
+    /** When true, {@code KHR_shader_expect_assume} is supported. */
+    public final boolean VK_KHR_shader_expect_assume;
+    /** When true, {@code KHR_shader_float16_int8} is supported. */
     public final boolean VK_KHR_shader_float16_int8;
-    /** When true, {@link KHRShaderFloatControls} is supported. */
+    /** When true, {@code KHR_shader_float_controls} is supported. */
     public final boolean VK_KHR_shader_float_controls;
-    /** When true, {@link KHRShaderIntegerDotProduct} is supported. */
+    /** When true, {@code KHR_shader_float_controls2} is supported. */
+    public final boolean VK_KHR_shader_float_controls2;
+    /** When true, {@code KHR_shader_fma} is supported. */
+    public final boolean VK_KHR_shader_fma;
+    /** When true, {@code KHR_shader_integer_dot_product} is supported. */
     public final boolean VK_KHR_shader_integer_dot_product;
-    /** When true, {@link KHRShaderNonSemanticInfo} is supported. */
+    /** When true, {@code KHR_shader_maximal_reconvergence} is supported. */
+    public final boolean VK_KHR_shader_maximal_reconvergence;
+    /** When true, {@code KHR_shader_non_semantic_info} is supported. */
     public final boolean VK_KHR_shader_non_semantic_info;
-    /** When true, {@link KHRShaderSubgroupExtendedTypes} is supported. */
+    /** When true, {@code KHR_shader_quad_control} is supported. */
+    public final boolean VK_KHR_shader_quad_control;
+    /** When true, {@code KHR_shader_relaxed_extended_instruction} is supported. */
+    public final boolean VK_KHR_shader_relaxed_extended_instruction;
+    /** When true, {@code KHR_shader_subgroup_extended_types} is supported. */
     public final boolean VK_KHR_shader_subgroup_extended_types;
-    /** When true, {@link KHRShaderSubgroupUniformControlFlow} is supported. */
+    /** When true, {@code KHR_shader_subgroup_rotate} is supported. */
+    public final boolean VK_KHR_shader_subgroup_rotate;
+    /** When true, {@code KHR_shader_subgroup_uniform_control_flow} is supported. */
     public final boolean VK_KHR_shader_subgroup_uniform_control_flow;
-    /** When true, {@link KHRShaderTerminateInvocation} is supported. */
+    /** When true, {@code KHR_shader_terminate_invocation} is supported. */
     public final boolean VK_KHR_shader_terminate_invocation;
-    /** When true, {@link KHRSharedPresentableImage} is supported. */
+    /** When true, {@code KHR_shader_untyped_pointers} is supported. */
+    public final boolean VK_KHR_shader_untyped_pointers;
+    /** When true, {@code KHR_shared_presentable_image} is supported. */
     public final boolean VK_KHR_shared_presentable_image;
-    /** When true, {@link KHRSpirv14} is supported. */
+    /** When true, {@code KHR_spirv_1_4} is supported. */
     public final boolean VK_KHR_spirv_1_4;
-    /** When true, {@link KHRStorageBufferStorageClass} is supported. */
+    /** When true, {@code KHR_storage_buffer_storage_class} is supported. */
     public final boolean VK_KHR_storage_buffer_storage_class;
-    /** When true, {@link KHRSwapchain} is supported. */
+    /** When true, {@code KHR_swapchain} is supported. */
     public final boolean VK_KHR_swapchain;
-    /** When true, {@link KHRSwapchainMutableFormat} is supported. */
+    /** When true, {@code KHR_swapchain_maintenance1} is supported. */
+    public final boolean VK_KHR_swapchain_maintenance1;
+    /** When true, {@code KHR_swapchain_mutable_format} is supported. */
     public final boolean VK_KHR_swapchain_mutable_format;
-    /** When true, {@link KHRSynchronization2} is supported. */
+    /** When true, {@code KHR_synchronization2} is supported. */
     public final boolean VK_KHR_synchronization2;
-    /** When true, {@link KHRTimelineSemaphore} is supported. */
+    /** When true, {@code KHR_timeline_semaphore} is supported. */
     public final boolean VK_KHR_timeline_semaphore;
-    /** When true, {@link KHRUniformBufferStandardLayout} is supported. */
+    /** When true, {@code KHR_unified_image_layouts} is supported. */
+    public final boolean VK_KHR_unified_image_layouts;
+    /** When true, {@code KHR_uniform_buffer_standard_layout} is supported. */
     public final boolean VK_KHR_uniform_buffer_standard_layout;
-    /** When true, {@link KHRVariablePointers} is supported. */
+    /** When true, {@code KHR_variable_pointers} is supported. */
     public final boolean VK_KHR_variable_pointers;
-    /** When true, {@link KHRVideoDecodeH264} is supported. */
+    /** When true, {@code KHR_vertex_attribute_divisor} is supported. */
+    public final boolean VK_KHR_vertex_attribute_divisor;
+    /** When true, {@code KHR_video_decode_av1} is supported. */
+    public final boolean VK_KHR_video_decode_av1;
+    /** When true, {@code KHR_video_decode_h264} is supported. */
     public final boolean VK_KHR_video_decode_h264;
-    /** When true, {@link KHRVideoDecodeH265} is supported. */
+    /** When true, {@code KHR_video_decode_h265} is supported. */
     public final boolean VK_KHR_video_decode_h265;
-    /** When true, {@link KHRVideoDecodeQueue} is supported. */
+    /** When true, {@code KHR_video_decode_queue} is supported. */
     public final boolean VK_KHR_video_decode_queue;
-    /** When true, {@link KHRVideoEncodeQueue} is supported. */
+    /** When true, {@code KHR_video_decode_vp9} is supported. */
+    public final boolean VK_KHR_video_decode_vp9;
+    /** When true, {@code KHR_video_encode_av1} is supported. */
+    public final boolean VK_KHR_video_encode_av1;
+    /** When true, {@code KHR_video_encode_h264} is supported. */
+    public final boolean VK_KHR_video_encode_h264;
+    /** When true, {@code KHR_video_encode_h265} is supported. */
+    public final boolean VK_KHR_video_encode_h265;
+    /** When true, {@code KHR_video_encode_intra_refresh} is supported. */
+    public final boolean VK_KHR_video_encode_intra_refresh;
+    /** When true, {@code KHR_video_encode_quantization_map} is supported. */
+    public final boolean VK_KHR_video_encode_quantization_map;
+    /** When true, {@code KHR_video_encode_queue} is supported. */
     public final boolean VK_KHR_video_encode_queue;
-    /** When true, {@link KHRVideoQueue} is supported. */
+    /** When true, {@code KHR_video_maintenance1} is supported. */
+    public final boolean VK_KHR_video_maintenance1;
+    /** When true, {@code KHR_video_maintenance2} is supported. */
+    public final boolean VK_KHR_video_maintenance2;
+    /** When true, {@code KHR_video_queue} is supported. */
     public final boolean VK_KHR_video_queue;
-    /** When true, {@link KHRVulkanMemoryModel} is supported. */
+    /** When true, {@code KHR_vulkan_memory_model} is supported. */
     public final boolean VK_KHR_vulkan_memory_model;
-    /** When true, {@link KHRWin32KeyedMutex} is supported. */
+    /** When true, {@code KHR_win32_keyed_mutex} is supported. */
     public final boolean VK_KHR_win32_keyed_mutex;
-    /** When true, {@link KHRWorkgroupMemoryExplicitLayout} is supported. */
+    /** When true, {@code KHR_workgroup_memory_explicit_layout} is supported. */
     public final boolean VK_KHR_workgroup_memory_explicit_layout;
-    /** When true, {@link KHRZeroInitializeWorkgroupMemory} is supported. */
+    /** When true, {@code KHR_zero_initialize_workgroup_memory} is supported. */
     public final boolean VK_KHR_zero_initialize_workgroup_memory;
-    /** When true, {@link MSFTLayeredDriver} is supported. */
+    /** When true, {@code MESA_image_alignment_control} is supported. */
+    public final boolean VK_MESA_image_alignment_control;
+    /** When true, {@code MSFT_layered_driver} is supported. */
     public final boolean VK_MSFT_layered_driver;
-    /** When true, {@link NVAcquireWinrtDisplay} is supported. */
+    /** When true, {@code NV_acquire_winrt_display} is supported. */
     public final boolean VK_NV_acquire_winrt_display;
-    /** When true, {@link NVClipSpaceWScaling} is supported. */
+    /** When true, {@code NV_clip_space_w_scaling} is supported. */
     public final boolean VK_NV_clip_space_w_scaling;
-    /** When true, {@link NVComputeShaderDerivatives} is supported. */
+    /** When true, {@code NV_cluster_acceleration_structure} is supported. */
+    public final boolean VK_NV_cluster_acceleration_structure;
+    /** When true, {@code NV_command_buffer_inheritance} is supported. */
+    public final boolean VK_NV_command_buffer_inheritance;
+    /** When true, {@code NV_compute_occupancy_priority} is supported. */
+    public final boolean VK_NV_compute_occupancy_priority;
+    /** When true, {@code NV_compute_shader_derivatives} is supported. */
     public final boolean VK_NV_compute_shader_derivatives;
-    /** When true, {@link NVCooperativeMatrix} is supported. */
+    /** When true, {@code NV_cooperative_matrix} is supported. */
     public final boolean VK_NV_cooperative_matrix;
-    /** When true, {@link NVCopyMemoryIndirect} is supported. */
+    /** When true, {@code NV_cooperative_matrix2} is supported. */
+    public final boolean VK_NV_cooperative_matrix2;
+    /** When true, {@code NV_cooperative_vector} is supported. */
+    public final boolean VK_NV_cooperative_vector;
+    /** When true, {@code NV_copy_memory_indirect} is supported. */
     public final boolean VK_NV_copy_memory_indirect;
-    /** When true, {@link NVCornerSampledImage} is supported. */
+    /** When true, {@code NV_corner_sampled_image} is supported. */
     public final boolean VK_NV_corner_sampled_image;
-    /** When true, {@link NVCoverageReductionMode} is supported. */
+    /** When true, {@code NV_coverage_reduction_mode} is supported. */
     public final boolean VK_NV_coverage_reduction_mode;
-    /** When true, {@link NVDedicatedAllocation} is supported. */
+    /** When true, {@code NV_cuda_kernel_launch} is supported. */
+    public final boolean VK_NV_cuda_kernel_launch;
+    /** When true, {@code NV_dedicated_allocation} is supported. */
     public final boolean VK_NV_dedicated_allocation;
-    /** When true, {@link NVDedicatedAllocationImageAliasing} is supported. */
+    /** When true, {@code NV_dedicated_allocation_image_aliasing} is supported. */
     public final boolean VK_NV_dedicated_allocation_image_aliasing;
-    /** When true, {@link NVDescriptorPoolOverallocation} is supported. */
+    /** When true, {@code NV_descriptor_pool_overallocation} is supported. */
     public final boolean VK_NV_descriptor_pool_overallocation;
-    /** When true, {@link NVDeviceDiagnosticCheckpoints} is supported. */
+    /** When true, {@code NV_device_diagnostic_checkpoints} is supported. */
     public final boolean VK_NV_device_diagnostic_checkpoints;
-    /** When true, {@link NVDeviceDiagnosticsConfig} is supported. */
+    /** When true, {@code NV_device_diagnostics_config} is supported. */
     public final boolean VK_NV_device_diagnostics_config;
-    /** When true, {@link NVDeviceGeneratedCommands} is supported. */
+    /** When true, {@code NV_device_generated_commands} is supported. */
     public final boolean VK_NV_device_generated_commands;
-    /** When true, {@link NVDeviceGeneratedCommandsCompute} is supported. */
+    /** When true, {@code NV_device_generated_commands_compute} is supported. */
     public final boolean VK_NV_device_generated_commands_compute;
-    /** When true, {@link NVDisplacementMicromap} is supported. */
+    /** When true, {@code NV_displacement_micromap} is supported. */
     public final boolean VK_NV_displacement_micromap;
-    /** When true, {@link NVExternalMemory} is supported. */
+    /** When true, {@code NV_extended_sparse_address_space} is supported. */
+    public final boolean VK_NV_extended_sparse_address_space;
+    /** When true, {@code NV_external_compute_queue} is supported. */
+    public final boolean VK_NV_external_compute_queue;
+    /** When true, {@code NV_external_memory} is supported. */
     public final boolean VK_NV_external_memory;
-    /** When true, {@link NVExternalMemoryRdma} is supported. */
+    /** When true, {@code NV_external_memory_rdma} is supported. */
     public final boolean VK_NV_external_memory_rdma;
-    /** When true, {@link NVExternalMemoryWin32} is supported. */
+    /** When true, {@code NV_external_memory_win32} is supported. */
     public final boolean VK_NV_external_memory_win32;
-    /** When true, {@link NVFillRectangle} is supported. */
+    /** When true, {@code NV_fill_rectangle} is supported. */
     public final boolean VK_NV_fill_rectangle;
-    /** When true, {@link NVFragmentCoverageToColor} is supported. */
+    /** When true, {@code NV_fragment_coverage_to_color} is supported. */
     public final boolean VK_NV_fragment_coverage_to_color;
-    /** When true, {@link NVFragmentShaderBarycentric} is supported. */
+    /** When true, {@code NV_fragment_shader_barycentric} is supported. */
     public final boolean VK_NV_fragment_shader_barycentric;
-    /** When true, {@link NVFragmentShadingRateEnums} is supported. */
+    /** When true, {@code NV_fragment_shading_rate_enums} is supported. */
     public final boolean VK_NV_fragment_shading_rate_enums;
-    /** When true, {@link NVFramebufferMixedSamples} is supported. */
+    /** When true, {@code NV_framebuffer_mixed_samples} is supported. */
     public final boolean VK_NV_framebuffer_mixed_samples;
-    /** When true, {@link NVGeometryShaderPassthrough} is supported. */
+    /** When true, {@code NV_geometry_shader_passthrough} is supported. */
     public final boolean VK_NV_geometry_shader_passthrough;
-    /** When true, {@link NVGLSLShader} is supported. */
+    /** When true, {@code NV_glsl_shader} is supported. */
     public final boolean VK_NV_glsl_shader;
-    /** When true, {@link NVInheritedViewportScissor} is supported. */
+    /** When true, {@code NV_inherited_viewport_scissor} is supported. */
     public final boolean VK_NV_inherited_viewport_scissor;
-    /** When true, {@link NVLinearColorAttachment} is supported. */
+    /** When true, {@code NV_linear_color_attachment} is supported. */
     public final boolean VK_NV_linear_color_attachment;
-    /** When true, {@link NVLowLatency} is supported. */
+    /** When true, {@code NV_low_latency} is supported. */
     public final boolean VK_NV_low_latency;
-    /** When true, {@link NVMemoryDecompression} is supported. */
+    /** When true, {@code NV_low_latency2} is supported. */
+    public final boolean VK_NV_low_latency2;
+    /** When true, {@code NV_memory_decompression} is supported. */
     public final boolean VK_NV_memory_decompression;
-    /** When true, {@link NVMeshShader} is supported. */
+    /** When true, {@code NV_mesh_shader} is supported. */
     public final boolean VK_NV_mesh_shader;
-    /** When true, {@link NVOpticalFlow} is supported. */
+    /** When true, {@code NV_optical_flow} is supported. */
     public final boolean VK_NV_optical_flow;
-    /** When true, {@link NVPresentBarrier} is supported. */
+    /** When true, {@code NV_partitioned_acceleration_structure} is supported. */
+    public final boolean VK_NV_partitioned_acceleration_structure;
+    /** When true, {@code NV_per_stage_descriptor_set} is supported. */
+    public final boolean VK_NV_per_stage_descriptor_set;
+    /** When true, {@code NV_present_barrier} is supported. */
     public final boolean VK_NV_present_barrier;
-    /** When true, {@link NVRayTracing} is supported. */
+    /** When true, {@code NV_present_metering} is supported. */
+    public final boolean VK_NV_present_metering;
+    /** When true, {@code NV_push_constant_bank} is supported. */
+    public final boolean VK_NV_push_constant_bank;
+    /** When true, {@code NV_raw_access_chains} is supported. */
+    public final boolean VK_NV_raw_access_chains;
+    /** When true, {@code NV_ray_tracing} is supported. */
     public final boolean VK_NV_ray_tracing;
-    /** When true, {@link NVRayTracingInvocationReorder} is supported. */
+    /** When true, {@code NV_ray_tracing_invocation_reorder} is supported. */
     public final boolean VK_NV_ray_tracing_invocation_reorder;
-    /** When true, {@link NVRayTracingMotionBlur} is supported. */
+    /** When true, {@code NV_ray_tracing_linear_swept_spheres} is supported. */
+    public final boolean VK_NV_ray_tracing_linear_swept_spheres;
+    /** When true, {@code NV_ray_tracing_motion_blur} is supported. */
     public final boolean VK_NV_ray_tracing_motion_blur;
-    /** When true, {@link NVRepresentativeFragmentTest} is supported. */
+    /** When true, {@code NV_ray_tracing_validation} is supported. */
+    public final boolean VK_NV_ray_tracing_validation;
+    /** When true, {@code NV_representative_fragment_test} is supported. */
     public final boolean VK_NV_representative_fragment_test;
-    /** When true, {@link NVSampleMaskOverrideCoverage} is supported. */
+    /** When true, {@code NV_sample_mask_override_coverage} is supported. */
     public final boolean VK_NV_sample_mask_override_coverage;
-    /** When true, {@link NVScissorExclusive} is supported. */
+    /** When true, {@code NV_scissor_exclusive} is supported. */
     public final boolean VK_NV_scissor_exclusive;
-    /** When true, {@link NVShaderImageFootprint} is supported. */
+    /** When true, {@code NV_shader_atomic_float16_vector} is supported. */
+    public final boolean VK_NV_shader_atomic_float16_vector;
+    /** When true, {@code NV_shader_image_footprint} is supported. */
     public final boolean VK_NV_shader_image_footprint;
-    /** When true, {@link NVShaderSmBuiltins} is supported. */
+    /** When true, {@code NV_shader_sm_builtins} is supported. */
     public final boolean VK_NV_shader_sm_builtins;
-    /** When true, {@link NVShaderSubgroupPartitioned} is supported. */
+    /** When true, {@code NV_shader_subgroup_partitioned} is supported. */
     public final boolean VK_NV_shader_subgroup_partitioned;
-    /** When true, {@link NVShadingRateImage} is supported. */
+    /** When true, {@code NV_shading_rate_image} is supported. */
     public final boolean VK_NV_shading_rate_image;
-    /** When true, {@link NVViewportArray2} is supported. */
+    /** When true, {@code NV_viewport_array2} is supported. */
     public final boolean VK_NV_viewport_array2;
-    /** When true, {@link NVViewportSwizzle} is supported. */
+    /** When true, {@code NV_viewport_swizzle} is supported. */
     public final boolean VK_NV_viewport_swizzle;
-    /** When true, {@link NVWin32KeyedMutex} is supported. */
+    /** When true, {@code NV_win32_keyed_mutex} is supported. */
     public final boolean VK_NV_win32_keyed_mutex;
-    /** When true, {@link NVXBinaryImport} is supported. */
+    /** When true, {@code NVX_binary_import} is supported. */
     public final boolean VK_NVX_binary_import;
-    /** When true, {@link NVXImageViewHandle} is supported. */
+    /** When true, {@code NVX_image_view_handle} is supported. */
     public final boolean VK_NVX_image_view_handle;
-    /** When true, {@link NVXMultiviewPerViewAttributes} is supported. */
+    /** When true, {@code NVX_multiview_per_view_attributes} is supported. */
     public final boolean VK_NVX_multiview_per_view_attributes;
-    /** When true, {@link QCOMFilterCubicClamp} is supported. */
+    /** When true, {@code QCOM_cooperative_matrix_conversion} is supported. */
+    public final boolean VK_QCOM_cooperative_matrix_conversion;
+    /** When true, {@code QCOM_data_graph_model} is supported. */
+    public final boolean VK_QCOM_data_graph_model;
+    /** When true, {@code QCOM_filter_cubic_clamp} is supported. */
     public final boolean VK_QCOM_filter_cubic_clamp;
-    /** When true, {@link QCOMFilterCubicWeights} is supported. */
+    /** When true, {@code QCOM_filter_cubic_weights} is supported. */
     public final boolean VK_QCOM_filter_cubic_weights;
-    /** When true, {@link QCOMFragmentDensityMapOffset} is supported. */
+    /** When true, {@code QCOM_fragment_density_map_offset} is supported. */
     public final boolean VK_QCOM_fragment_density_map_offset;
-    /** When true, {@link QCOMImageProcessing} is supported. */
+    /** When true, {@code QCOM_image_processing} is supported. */
     public final boolean VK_QCOM_image_processing;
-    /** When true, {@link QCOMImageProcessing2} is supported. */
+    /** When true, {@code QCOM_image_processing2} is supported. */
     public final boolean VK_QCOM_image_processing2;
-    /** When true, {@link QCOMMultiviewPerViewRenderAreas} is supported. */
+    /** When true, {@code QCOM_multiview_per_view_render_areas} is supported. */
     public final boolean VK_QCOM_multiview_per_view_render_areas;
-    /** When true, {@link QCOMMultiviewPerViewViewports} is supported. */
+    /** When true, {@code QCOM_multiview_per_view_viewports} is supported. */
     public final boolean VK_QCOM_multiview_per_view_viewports;
-    /** When true, {@link QCOMRenderPassShaderResolve} is supported. */
+    /** When true, {@code QCOM_render_pass_shader_resolve} is supported. */
     public final boolean VK_QCOM_render_pass_shader_resolve;
-    /** When true, {@link QCOMRenderPassStoreOps} is supported. */
+    /** When true, {@code QCOM_render_pass_store_ops} is supported. */
     public final boolean VK_QCOM_render_pass_store_ops;
-    /** When true, {@link QCOMRenderPassTransform} is supported. */
+    /** When true, {@code QCOM_render_pass_transform} is supported. */
     public final boolean VK_QCOM_render_pass_transform;
-    /** When true, {@link QCOMRotatedCopyCommands} is supported. */
+    /** When true, {@code QCOM_rotated_copy_commands} is supported. */
     public final boolean VK_QCOM_rotated_copy_commands;
-    /** When true, {@link QCOMTileProperties} is supported. */
+    /** When true, {@code QCOM_tile_memory_heap} is supported. */
+    public final boolean VK_QCOM_tile_memory_heap;
+    /** When true, {@code QCOM_tile_properties} is supported. */
     public final boolean VK_QCOM_tile_properties;
-    /** When true, {@link QCOMYcbcrDegamma} is supported. */
+    /** When true, {@code QCOM_tile_shading} is supported. */
+    public final boolean VK_QCOM_tile_shading;
+    /** When true, {@code QCOM_ycbcr_degamma} is supported. */
     public final boolean VK_QCOM_ycbcr_degamma;
-    /** When true, {@link SECAmigoProfiling} is supported. */
+    /** When true, {@code SEC_amigo_profiling} is supported. */
     public final boolean VK_SEC_amigo_profiling;
+    /** When true, {@code SEC_pipeline_cache_incremental_mode} is supported. */
+    public final boolean VK_SEC_pipeline_cache_incremental_mode;
+    /** When true, {@code STD_vulkan_video_codec_av1} is supported. */
+    public final boolean STD_VIDEO_STD_vulkan_video_codec_av1;
     /** When true, {@code STD_vulkan_video_codec_h264} is supported. */
-    public final boolean STD_vulkan_video_codec_h264;
+    public final boolean STD_VIDEO_STD_vulkan_video_codec_h264;
     /** When true, {@code STD_vulkan_video_codec_h265} is supported. */
-    public final boolean STD_vulkan_video_codec_h265;
-    /** When true, {@link VALVEDescriptorSetHostMapping} is supported. */
+    public final boolean STD_VIDEO_STD_vulkan_video_codec_h265;
+    /** When true, {@code STD_vulkan_video_codec_vp9} is supported. */
+    public final boolean STD_VIDEO_STD_vulkan_video_codec_vp9;
+    /** When true, {@code VALVE_descriptor_set_host_mapping} is supported. */
     public final boolean VK_VALVE_descriptor_set_host_mapping;
-    /** When true, {@link VALVEMutableDescriptorType} is supported. */
+    /** When true, {@code VALVE_fragment_density_map_layered} is supported. */
+    public final boolean VK_VALVE_fragment_density_map_layered;
+    /** When true, {@code VALVE_mutable_descriptor_type} is supported. */
     public final boolean VK_VALVE_mutable_descriptor_type;
+    /** When true, {@code VALVE_video_encode_rgb_conversion} is supported. */
+    public final boolean VK_VALVE_video_encode_rgb_conversion;
 
     VKCapabilitiesDevice(FunctionProvider provider, VKCapabilitiesInstance capsInstance, int apiVersion, Set<String> ext) {
         this.apiVersion = apiVersion;
 
-        long[] caps = new long[532];
+        long[] caps = new long[647];
 
         Vulkan10 = check_VK10(provider, caps, ext);
         Vulkan11 = check_VK11(provider, caps, ext);
         Vulkan12 = check_VK12(provider, caps, ext);
         Vulkan13 = check_VK13(provider, caps, ext);
+        Vulkan14 = check_VK14(provider, caps, ext);
+        VK_AMD_anti_lag = check_AMD_anti_lag(provider, caps, ext);
         VK_AMD_buffer_marker = check_AMD_buffer_marker(provider, caps, ext);
         VK_AMD_device_coherent_memory = ext.contains("VK_AMD_device_coherent_memory");
         VK_AMD_display_native_hdr = check_AMD_display_native_hdr(provider, caps, ext);
@@ -1510,11 +1917,20 @@ public class VKCapabilitiesDevice {
         VK_AMD_shader_info = check_AMD_shader_info(provider, caps, ext);
         VK_AMD_shader_trinary_minmax = ext.contains("VK_AMD_shader_trinary_minmax");
         VK_AMD_texture_gather_bias_lod = ext.contains("VK_AMD_texture_gather_bias_lod");
+        VK_AMDX_dense_geometry_format = ext.contains("VK_AMDX_dense_geometry_format");
         VK_AMDX_shader_enqueue = check_AMDX_shader_enqueue(provider, caps, ext);
+        VK_ANDROID_external_format_resolve = ext.contains("VK_ANDROID_external_format_resolve");
         VK_ANDROID_external_memory_android_hardware_buffer = check_ANDROID_external_memory_android_hardware_buffer(provider, caps, ext);
+        VK_ARM_data_graph = check_ARM_data_graph(provider, caps, ext);
+        VK_ARM_format_pack = ext.contains("VK_ARM_format_pack");
+        VK_ARM_performance_counters_by_region = ext.contains("VK_ARM_performance_counters_by_region");
+        VK_ARM_pipeline_opacity_micromap = ext.contains("VK_ARM_pipeline_opacity_micromap");
         VK_ARM_rasterization_order_attachment_access = ext.contains("VK_ARM_rasterization_order_attachment_access");
+        VK_ARM_render_pass_striped = ext.contains("VK_ARM_render_pass_striped");
+        VK_ARM_scheduling_controls = ext.contains("VK_ARM_scheduling_controls");
         VK_ARM_shader_core_builtins = ext.contains("VK_ARM_shader_core_builtins");
         VK_ARM_shader_core_properties = ext.contains("VK_ARM_shader_core_properties");
+        VK_ARM_tensors = check_ARM_tensors(provider, caps, ext);
         VK_EXT_4444_formats = ext.contains("VK_EXT_4444_formats");
         VK_EXT_astc_decode_mode = ext.contains("VK_EXT_astc_decode_mode");
         VK_EXT_attachment_feedback_loop_dynamic_state = check_EXT_attachment_feedback_loop_dynamic_state(provider, caps, ext);
@@ -1527,16 +1943,20 @@ public class VKCapabilitiesDevice {
         VK_EXT_conditional_rendering = check_EXT_conditional_rendering(provider, caps, ext);
         VK_EXT_conservative_rasterization = ext.contains("VK_EXT_conservative_rasterization");
         VK_EXT_custom_border_color = ext.contains("VK_EXT_custom_border_color");
+        VK_EXT_custom_resolve = check_EXT_custom_resolve(provider, caps, ext);
         VK_EXT_debug_marker = check_EXT_debug_marker(provider, caps, ext);
         VK_EXT_depth_bias_control = check_EXT_depth_bias_control(provider, caps, ext);
+        VK_EXT_depth_clamp_control = check_EXT_depth_clamp_control(provider, caps, ext);
         VK_EXT_depth_clamp_zero_one = ext.contains("VK_EXT_depth_clamp_zero_one");
         VK_EXT_depth_clip_control = ext.contains("VK_EXT_depth_clip_control");
         VK_EXT_depth_clip_enable = ext.contains("VK_EXT_depth_clip_enable");
         VK_EXT_depth_range_unrestricted = ext.contains("VK_EXT_depth_range_unrestricted");
         VK_EXT_descriptor_buffer = check_EXT_descriptor_buffer(provider, caps, ext);
+        VK_EXT_descriptor_heap = check_EXT_descriptor_heap(provider, caps, ext);
         VK_EXT_descriptor_indexing = ext.contains("VK_EXT_descriptor_indexing");
         VK_EXT_device_address_binding_report = ext.contains("VK_EXT_device_address_binding_report");
         VK_EXT_device_fault = check_EXT_device_fault(provider, caps, ext);
+        VK_EXT_device_generated_commands = check_EXT_device_generated_commands(provider, caps, ext);
         VK_EXT_device_memory_report = ext.contains("VK_EXT_device_memory_report");
         VK_EXT_discard_rectangles = check_EXT_discard_rectangles(provider, caps, ext);
         VK_EXT_display_control = check_EXT_display_control(provider, caps, ext);
@@ -1547,9 +1967,11 @@ public class VKCapabilitiesDevice {
         VK_EXT_external_memory_acquire_unmodified = ext.contains("VK_EXT_external_memory_acquire_unmodified");
         VK_EXT_external_memory_dma_buf = ext.contains("VK_EXT_external_memory_dma_buf");
         VK_EXT_external_memory_host = check_EXT_external_memory_host(provider, caps, ext);
+        VK_EXT_external_memory_metal = check_EXT_external_memory_metal(provider, caps, ext);
         VK_EXT_filter_cubic = ext.contains("VK_EXT_filter_cubic");
         VK_EXT_fragment_density_map = ext.contains("VK_EXT_fragment_density_map");
         VK_EXT_fragment_density_map2 = ext.contains("VK_EXT_fragment_density_map2");
+        VK_EXT_fragment_density_map_offset = check_EXT_fragment_density_map_offset(provider, caps, ext);
         VK_EXT_fragment_shader_interlock = ext.contains("VK_EXT_fragment_shader_interlock");
         VK_EXT_frame_boundary = ext.contains("VK_EXT_frame_boundary");
         VK_EXT_full_screen_exclusive = check_EXT_full_screen_exclusive(provider, caps, ext);
@@ -1569,15 +1991,19 @@ public class VKCapabilitiesDevice {
         VK_EXT_index_type_uint8 = ext.contains("VK_EXT_index_type_uint8");
         VK_EXT_inline_uniform_block = ext.contains("VK_EXT_inline_uniform_block");
         VK_EXT_legacy_dithering = ext.contains("VK_EXT_legacy_dithering");
+        VK_EXT_legacy_vertex_attributes = ext.contains("VK_EXT_legacy_vertex_attributes");
         VK_EXT_line_rasterization = check_EXT_line_rasterization(provider, caps, ext);
         VK_EXT_load_store_op_none = ext.contains("VK_EXT_load_store_op_none");
+        VK_EXT_map_memory_placed = ext.contains("VK_EXT_map_memory_placed");
         VK_EXT_memory_budget = ext.contains("VK_EXT_memory_budget");
+        VK_EXT_memory_decompression = check_EXT_memory_decompression(provider, caps, ext);
         VK_EXT_memory_priority = ext.contains("VK_EXT_memory_priority");
         VK_EXT_mesh_shader = check_EXT_mesh_shader(provider, caps, ext);
         VK_EXT_metal_objects = check_EXT_metal_objects(provider, caps, ext);
         VK_EXT_multi_draw = check_EXT_multi_draw(provider, caps, ext);
         VK_EXT_multisampled_render_to_single_sampled = ext.contains("VK_EXT_multisampled_render_to_single_sampled");
         VK_EXT_mutable_descriptor_type = ext.contains("VK_EXT_mutable_descriptor_type");
+        VK_EXT_nested_command_buffer = ext.contains("VK_EXT_nested_command_buffer");
         VK_EXT_non_seamless_cube_map = ext.contains("VK_EXT_non_seamless_cube_map");
         VK_EXT_opacity_micromap = check_EXT_opacity_micromap(provider, caps, ext);
         VK_EXT_pageable_device_local_memory = check_EXT_pageable_device_local_memory(provider, caps, ext);
@@ -1590,52 +2016,64 @@ public class VKCapabilitiesDevice {
         VK_EXT_pipeline_protected_access = ext.contains("VK_EXT_pipeline_protected_access");
         VK_EXT_pipeline_robustness = ext.contains("VK_EXT_pipeline_robustness");
         VK_EXT_post_depth_coverage = ext.contains("VK_EXT_post_depth_coverage");
+        VK_EXT_present_mode_fifo_latest_ready = ext.contains("VK_EXT_present_mode_fifo_latest_ready");
+        VK_EXT_present_timing = check_EXT_present_timing(provider, caps, ext);
         VK_EXT_primitive_topology_list_restart = ext.contains("VK_EXT_primitive_topology_list_restart");
         VK_EXT_primitives_generated_query = ext.contains("VK_EXT_primitives_generated_query");
         VK_EXT_private_data = check_EXT_private_data(provider, caps, ext);
         VK_EXT_provoking_vertex = ext.contains("VK_EXT_provoking_vertex");
         VK_EXT_queue_family_foreign = ext.contains("VK_EXT_queue_family_foreign");
         VK_EXT_rasterization_order_attachment_access = ext.contains("VK_EXT_rasterization_order_attachment_access");
+        VK_EXT_ray_tracing_invocation_reorder = ext.contains("VK_EXT_ray_tracing_invocation_reorder");
         VK_EXT_rgba10x6_formats = ext.contains("VK_EXT_rgba10x6_formats");
         VK_EXT_robustness2 = ext.contains("VK_EXT_robustness2");
         VK_EXT_sample_locations = check_EXT_sample_locations(provider, caps, ext);
         VK_EXT_sampler_filter_minmax = ext.contains("VK_EXT_sampler_filter_minmax");
         VK_EXT_scalar_block_layout = ext.contains("VK_EXT_scalar_block_layout");
         VK_EXT_separate_stencil_usage = ext.contains("VK_EXT_separate_stencil_usage");
+        VK_EXT_shader_64bit_indexing = ext.contains("VK_EXT_shader_64bit_indexing");
         VK_EXT_shader_atomic_float = ext.contains("VK_EXT_shader_atomic_float");
         VK_EXT_shader_atomic_float2 = ext.contains("VK_EXT_shader_atomic_float2");
         VK_EXT_shader_demote_to_helper_invocation = ext.contains("VK_EXT_shader_demote_to_helper_invocation");
+        VK_EXT_shader_float8 = ext.contains("VK_EXT_shader_float8");
         VK_EXT_shader_image_atomic_int64 = ext.contains("VK_EXT_shader_image_atomic_int64");
+        VK_EXT_shader_long_vector = ext.contains("VK_EXT_shader_long_vector");
         VK_EXT_shader_module_identifier = check_EXT_shader_module_identifier(provider, caps, ext);
         VK_EXT_shader_object = check_EXT_shader_object(provider, caps, ext);
+        VK_EXT_shader_replicated_composites = ext.contains("VK_EXT_shader_replicated_composites");
         VK_EXT_shader_stencil_export = ext.contains("VK_EXT_shader_stencil_export");
         VK_EXT_shader_subgroup_ballot = ext.contains("VK_EXT_shader_subgroup_ballot");
+        VK_EXT_shader_subgroup_partitioned = ext.contains("VK_EXT_shader_subgroup_partitioned");
         VK_EXT_shader_subgroup_vote = ext.contains("VK_EXT_shader_subgroup_vote");
         VK_EXT_shader_tile_image = ext.contains("VK_EXT_shader_tile_image");
+        VK_EXT_shader_uniform_buffer_unsized_array = ext.contains("VK_EXT_shader_uniform_buffer_unsized_array");
         VK_EXT_shader_viewport_index_layer = ext.contains("VK_EXT_shader_viewport_index_layer");
         VK_EXT_subgroup_size_control = ext.contains("VK_EXT_subgroup_size_control");
         VK_EXT_subpass_merge_feedback = ext.contains("VK_EXT_subpass_merge_feedback");
         VK_EXT_swapchain_maintenance1 = check_EXT_swapchain_maintenance1(provider, caps, ext);
         VK_EXT_texel_buffer_alignment = ext.contains("VK_EXT_texel_buffer_alignment");
+        VK_EXT_texture_compression_astc_3d = ext.contains("VK_EXT_texture_compression_astc_3d");
         VK_EXT_texture_compression_astc_hdr = ext.contains("VK_EXT_texture_compression_astc_hdr");
         VK_EXT_tooling_info = ext.contains("VK_EXT_tooling_info");
         VK_EXT_transform_feedback = check_EXT_transform_feedback(provider, caps, ext);
         VK_EXT_validation_cache = check_EXT_validation_cache(provider, caps, ext);
         VK_EXT_vertex_attribute_divisor = ext.contains("VK_EXT_vertex_attribute_divisor");
+        VK_EXT_vertex_attribute_robustness = ext.contains("VK_EXT_vertex_attribute_robustness");
         VK_EXT_vertex_input_dynamic_state = check_EXT_vertex_input_dynamic_state(provider, caps, ext);
-        VK_EXT_video_encode_h264 = ext.contains("VK_EXT_video_encode_h264");
-        VK_EXT_video_encode_h265 = ext.contains("VK_EXT_video_encode_h265");
         VK_EXT_ycbcr_2plane_444_formats = ext.contains("VK_EXT_ycbcr_2plane_444_formats");
         VK_EXT_ycbcr_image_arrays = ext.contains("VK_EXT_ycbcr_image_arrays");
+        VK_EXT_zero_initialize_device_memory = ext.contains("VK_EXT_zero_initialize_device_memory");
         VK_GOOGLE_decorate_string = ext.contains("VK_GOOGLE_decorate_string");
         VK_GOOGLE_display_timing = check_GOOGLE_display_timing(provider, caps, ext);
         VK_GOOGLE_hlsl_functionality1 = ext.contains("VK_GOOGLE_hlsl_functionality1");
         VK_GOOGLE_user_type = ext.contains("VK_GOOGLE_user_type");
         VK_HUAWEI_cluster_culling_shader = check_HUAWEI_cluster_culling_shader(provider, caps, ext);
+        VK_HUAWEI_hdr_vivid = ext.contains("VK_HUAWEI_hdr_vivid");
         VK_HUAWEI_invocation_mask = check_HUAWEI_invocation_mask(provider, caps, ext);
         VK_HUAWEI_subpass_shading = check_HUAWEI_subpass_shading(provider, caps, ext);
         VK_IMG_filter_cubic = ext.contains("VK_IMG_filter_cubic");
         VK_IMG_format_pvrtc = ext.contains("VK_IMG_format_pvrtc");
+        VK_IMG_relaxed_line_rasterization = ext.contains("VK_IMG_relaxed_line_rasterization");
         VK_INTEL_performance_query = check_INTEL_performance_query(provider, caps, ext);
         VK_INTEL_shader_integer_functions2 = ext.contains("VK_INTEL_shader_integer_functions2");
         VK_KHR_16bit_storage = ext.contains("VK_KHR_16bit_storage");
@@ -1643,11 +2081,15 @@ public class VKCapabilitiesDevice {
         VK_KHR_acceleration_structure = check_KHR_acceleration_structure(provider, caps, ext);
         VK_KHR_bind_memory2 = check_KHR_bind_memory2(provider, caps, ext);
         VK_KHR_buffer_device_address = check_KHR_buffer_device_address(provider, caps, ext);
+        VK_KHR_calibrated_timestamps = check_KHR_calibrated_timestamps(provider, caps, ext);
+        VK_KHR_compute_shader_derivatives = ext.contains("VK_KHR_compute_shader_derivatives");
         VK_KHR_cooperative_matrix = ext.contains("VK_KHR_cooperative_matrix");
         VK_KHR_copy_commands2 = check_KHR_copy_commands2(provider, caps, ext);
+        VK_KHR_copy_memory_indirect = check_KHR_copy_memory_indirect(provider, caps, ext);
         VK_KHR_create_renderpass2 = check_KHR_create_renderpass2(provider, caps, ext);
         VK_KHR_dedicated_allocation = ext.contains("VK_KHR_dedicated_allocation");
         VK_KHR_deferred_host_operations = check_KHR_deferred_host_operations(provider, caps, ext);
+        VK_KHR_depth_clamp_zero_one = ext.contains("VK_KHR_depth_clamp_zero_one");
         VK_KHR_depth_stencil_resolve = ext.contains("VK_KHR_depth_stencil_resolve");
         VK_KHR_descriptor_update_template = check_KHR_descriptor_update_template(provider, caps, ext);
         VK_KHR_device_group = check_KHR_device_group(provider, caps, ext);
@@ -1655,6 +2097,7 @@ public class VKCapabilitiesDevice {
         VK_KHR_draw_indirect_count = check_KHR_draw_indirect_count(provider, caps, ext);
         VK_KHR_driver_properties = ext.contains("VK_KHR_driver_properties");
         VK_KHR_dynamic_rendering = check_KHR_dynamic_rendering(provider, caps, ext);
+        VK_KHR_dynamic_rendering_local_read = check_KHR_dynamic_rendering_local_read(provider, caps, ext);
         VK_KHR_external_fence = ext.contains("VK_KHR_external_fence");
         VK_KHR_external_fence_fd = check_KHR_external_fence_fd(provider, caps, ext);
         VK_KHR_external_fence_win32 = check_KHR_external_fence_win32(provider, caps, ext);
@@ -1672,64 +2115,106 @@ public class VKCapabilitiesDevice {
         VK_KHR_image_format_list = ext.contains("VK_KHR_image_format_list");
         VK_KHR_imageless_framebuffer = ext.contains("VK_KHR_imageless_framebuffer");
         VK_KHR_incremental_present = ext.contains("VK_KHR_incremental_present");
+        VK_KHR_index_type_uint8 = ext.contains("VK_KHR_index_type_uint8");
+        VK_KHR_internally_synchronized_queues = ext.contains("VK_KHR_internally_synchronized_queues");
+        VK_KHR_line_rasterization = check_KHR_line_rasterization(provider, caps, ext);
+        VK_KHR_load_store_op_none = ext.contains("VK_KHR_load_store_op_none");
         VK_KHR_maintenance1 = check_KHR_maintenance1(provider, caps, ext);
+        VK_KHR_maintenance10 = check_KHR_maintenance10(provider, caps, ext);
         VK_KHR_maintenance2 = ext.contains("VK_KHR_maintenance2");
         VK_KHR_maintenance3 = check_KHR_maintenance3(provider, caps, ext);
         VK_KHR_maintenance4 = check_KHR_maintenance4(provider, caps, ext);
         VK_KHR_maintenance5 = check_KHR_maintenance5(provider, caps, ext);
+        VK_KHR_maintenance6 = check_KHR_maintenance6(provider, caps, ext);
+        VK_KHR_maintenance7 = ext.contains("VK_KHR_maintenance7");
+        VK_KHR_maintenance8 = ext.contains("VK_KHR_maintenance8");
+        VK_KHR_maintenance9 = ext.contains("VK_KHR_maintenance9");
         VK_KHR_map_memory2 = check_KHR_map_memory2(provider, caps, ext);
         VK_KHR_multiview = ext.contains("VK_KHR_multiview");
         VK_KHR_performance_query = check_KHR_performance_query(provider, caps, ext);
+        VK_KHR_pipeline_binary = check_KHR_pipeline_binary(provider, caps, ext);
         VK_KHR_pipeline_executable_properties = check_KHR_pipeline_executable_properties(provider, caps, ext);
         VK_KHR_pipeline_library = ext.contains("VK_KHR_pipeline_library");
         VK_KHR_portability_subset = ext.contains("VK_KHR_portability_subset");
         VK_KHR_present_id = ext.contains("VK_KHR_present_id");
+        VK_KHR_present_id2 = ext.contains("VK_KHR_present_id2");
+        VK_KHR_present_mode_fifo_latest_ready = ext.contains("VK_KHR_present_mode_fifo_latest_ready");
         VK_KHR_present_wait = check_KHR_present_wait(provider, caps, ext);
+        VK_KHR_present_wait2 = check_KHR_present_wait2(provider, caps, ext);
         VK_KHR_push_descriptor = check_KHR_push_descriptor(provider, caps, ext);
         VK_KHR_ray_query = ext.contains("VK_KHR_ray_query");
         VK_KHR_ray_tracing_maintenance1 = check_KHR_ray_tracing_maintenance1(provider, caps, ext);
         VK_KHR_ray_tracing_pipeline = check_KHR_ray_tracing_pipeline(provider, caps, ext);
         VK_KHR_ray_tracing_position_fetch = ext.contains("VK_KHR_ray_tracing_position_fetch");
         VK_KHR_relaxed_block_layout = ext.contains("VK_KHR_relaxed_block_layout");
+        VK_KHR_robustness2 = ext.contains("VK_KHR_robustness2");
         VK_KHR_sampler_mirror_clamp_to_edge = ext.contains("VK_KHR_sampler_mirror_clamp_to_edge");
         VK_KHR_sampler_ycbcr_conversion = check_KHR_sampler_ycbcr_conversion(provider, caps, ext);
         VK_KHR_separate_depth_stencil_layouts = ext.contains("VK_KHR_separate_depth_stencil_layouts");
         VK_KHR_shader_atomic_int64 = ext.contains("VK_KHR_shader_atomic_int64");
+        VK_KHR_shader_bfloat16 = ext.contains("VK_KHR_shader_bfloat16");
         VK_KHR_shader_clock = ext.contains("VK_KHR_shader_clock");
         VK_KHR_shader_draw_parameters = ext.contains("VK_KHR_shader_draw_parameters");
+        VK_KHR_shader_expect_assume = ext.contains("VK_KHR_shader_expect_assume");
         VK_KHR_shader_float16_int8 = ext.contains("VK_KHR_shader_float16_int8");
         VK_KHR_shader_float_controls = ext.contains("VK_KHR_shader_float_controls");
+        VK_KHR_shader_float_controls2 = ext.contains("VK_KHR_shader_float_controls2");
+        VK_KHR_shader_fma = ext.contains("VK_KHR_shader_fma");
         VK_KHR_shader_integer_dot_product = ext.contains("VK_KHR_shader_integer_dot_product");
+        VK_KHR_shader_maximal_reconvergence = ext.contains("VK_KHR_shader_maximal_reconvergence");
         VK_KHR_shader_non_semantic_info = ext.contains("VK_KHR_shader_non_semantic_info");
+        VK_KHR_shader_quad_control = ext.contains("VK_KHR_shader_quad_control");
+        VK_KHR_shader_relaxed_extended_instruction = ext.contains("VK_KHR_shader_relaxed_extended_instruction");
         VK_KHR_shader_subgroup_extended_types = ext.contains("VK_KHR_shader_subgroup_extended_types");
+        VK_KHR_shader_subgroup_rotate = ext.contains("VK_KHR_shader_subgroup_rotate");
         VK_KHR_shader_subgroup_uniform_control_flow = ext.contains("VK_KHR_shader_subgroup_uniform_control_flow");
         VK_KHR_shader_terminate_invocation = ext.contains("VK_KHR_shader_terminate_invocation");
+        VK_KHR_shader_untyped_pointers = ext.contains("VK_KHR_shader_untyped_pointers");
         VK_KHR_shared_presentable_image = check_KHR_shared_presentable_image(provider, caps, ext);
         VK_KHR_spirv_1_4 = ext.contains("VK_KHR_spirv_1_4");
         VK_KHR_storage_buffer_storage_class = ext.contains("VK_KHR_storage_buffer_storage_class");
         VK_KHR_swapchain = check_KHR_swapchain(provider, caps, ext);
+        VK_KHR_swapchain_maintenance1 = check_KHR_swapchain_maintenance1(provider, caps, ext);
         VK_KHR_swapchain_mutable_format = ext.contains("VK_KHR_swapchain_mutable_format");
         VK_KHR_synchronization2 = check_KHR_synchronization2(provider, caps, ext);
         VK_KHR_timeline_semaphore = check_KHR_timeline_semaphore(provider, caps, ext);
+        VK_KHR_unified_image_layouts = ext.contains("VK_KHR_unified_image_layouts");
         VK_KHR_uniform_buffer_standard_layout = ext.contains("VK_KHR_uniform_buffer_standard_layout");
         VK_KHR_variable_pointers = ext.contains("VK_KHR_variable_pointers");
+        VK_KHR_vertex_attribute_divisor = ext.contains("VK_KHR_vertex_attribute_divisor");
+        VK_KHR_video_decode_av1 = ext.contains("VK_KHR_video_decode_av1");
         VK_KHR_video_decode_h264 = ext.contains("VK_KHR_video_decode_h264");
         VK_KHR_video_decode_h265 = ext.contains("VK_KHR_video_decode_h265");
         VK_KHR_video_decode_queue = check_KHR_video_decode_queue(provider, caps, ext);
+        VK_KHR_video_decode_vp9 = ext.contains("VK_KHR_video_decode_vp9");
+        VK_KHR_video_encode_av1 = ext.contains("VK_KHR_video_encode_av1");
+        VK_KHR_video_encode_h264 = ext.contains("VK_KHR_video_encode_h264");
+        VK_KHR_video_encode_h265 = ext.contains("VK_KHR_video_encode_h265");
+        VK_KHR_video_encode_intra_refresh = ext.contains("VK_KHR_video_encode_intra_refresh");
+        VK_KHR_video_encode_quantization_map = ext.contains("VK_KHR_video_encode_quantization_map");
         VK_KHR_video_encode_queue = check_KHR_video_encode_queue(provider, caps, ext);
+        VK_KHR_video_maintenance1 = ext.contains("VK_KHR_video_maintenance1");
+        VK_KHR_video_maintenance2 = ext.contains("VK_KHR_video_maintenance2");
         VK_KHR_video_queue = check_KHR_video_queue(provider, caps, ext);
         VK_KHR_vulkan_memory_model = ext.contains("VK_KHR_vulkan_memory_model");
         VK_KHR_win32_keyed_mutex = ext.contains("VK_KHR_win32_keyed_mutex");
         VK_KHR_workgroup_memory_explicit_layout = ext.contains("VK_KHR_workgroup_memory_explicit_layout");
         VK_KHR_zero_initialize_workgroup_memory = ext.contains("VK_KHR_zero_initialize_workgroup_memory");
+        VK_MESA_image_alignment_control = ext.contains("VK_MESA_image_alignment_control");
         VK_MSFT_layered_driver = ext.contains("VK_MSFT_layered_driver");
         VK_NV_acquire_winrt_display = ext.contains("VK_NV_acquire_winrt_display");
         VK_NV_clip_space_w_scaling = check_NV_clip_space_w_scaling(provider, caps, ext);
+        VK_NV_cluster_acceleration_structure = check_NV_cluster_acceleration_structure(provider, caps, ext);
+        VK_NV_command_buffer_inheritance = ext.contains("VK_NV_command_buffer_inheritance");
+        VK_NV_compute_occupancy_priority = check_NV_compute_occupancy_priority(provider, caps, ext);
         VK_NV_compute_shader_derivatives = ext.contains("VK_NV_compute_shader_derivatives");
         VK_NV_cooperative_matrix = ext.contains("VK_NV_cooperative_matrix");
+        VK_NV_cooperative_matrix2 = ext.contains("VK_NV_cooperative_matrix2");
+        VK_NV_cooperative_vector = check_NV_cooperative_vector(provider, caps, ext);
         VK_NV_copy_memory_indirect = check_NV_copy_memory_indirect(provider, caps, ext);
         VK_NV_corner_sampled_image = ext.contains("VK_NV_corner_sampled_image");
         VK_NV_coverage_reduction_mode = ext.contains("VK_NV_coverage_reduction_mode");
+        VK_NV_cuda_kernel_launch = check_NV_cuda_kernel_launch(provider, caps, ext);
         VK_NV_dedicated_allocation = ext.contains("VK_NV_dedicated_allocation");
         VK_NV_dedicated_allocation_image_aliasing = ext.contains("VK_NV_dedicated_allocation_image_aliasing");
         VK_NV_descriptor_pool_overallocation = ext.contains("VK_NV_descriptor_pool_overallocation");
@@ -1738,6 +2223,8 @@ public class VKCapabilitiesDevice {
         VK_NV_device_generated_commands = check_NV_device_generated_commands(provider, caps, ext);
         VK_NV_device_generated_commands_compute = check_NV_device_generated_commands_compute(provider, caps, ext);
         VK_NV_displacement_micromap = ext.contains("VK_NV_displacement_micromap");
+        VK_NV_extended_sparse_address_space = ext.contains("VK_NV_extended_sparse_address_space");
+        VK_NV_external_compute_queue = check_NV_external_compute_queue(provider, caps, ext);
         VK_NV_external_memory = ext.contains("VK_NV_external_memory");
         VK_NV_external_memory_rdma = check_NV_external_memory_rdma(provider, caps, ext);
         VK_NV_external_memory_win32 = check_NV_external_memory_win32(provider, caps, ext);
@@ -1751,16 +2238,25 @@ public class VKCapabilitiesDevice {
         VK_NV_inherited_viewport_scissor = ext.contains("VK_NV_inherited_viewport_scissor");
         VK_NV_linear_color_attachment = ext.contains("VK_NV_linear_color_attachment");
         VK_NV_low_latency = ext.contains("VK_NV_low_latency");
+        VK_NV_low_latency2 = check_NV_low_latency2(provider, caps, ext);
         VK_NV_memory_decompression = check_NV_memory_decompression(provider, caps, ext);
         VK_NV_mesh_shader = check_NV_mesh_shader(provider, caps, ext);
         VK_NV_optical_flow = check_NV_optical_flow(provider, caps, ext);
+        VK_NV_partitioned_acceleration_structure = check_NV_partitioned_acceleration_structure(provider, caps, ext);
+        VK_NV_per_stage_descriptor_set = ext.contains("VK_NV_per_stage_descriptor_set");
         VK_NV_present_barrier = ext.contains("VK_NV_present_barrier");
+        VK_NV_present_metering = ext.contains("VK_NV_present_metering");
+        VK_NV_push_constant_bank = ext.contains("VK_NV_push_constant_bank");
+        VK_NV_raw_access_chains = ext.contains("VK_NV_raw_access_chains");
         VK_NV_ray_tracing = check_NV_ray_tracing(provider, caps, ext);
         VK_NV_ray_tracing_invocation_reorder = ext.contains("VK_NV_ray_tracing_invocation_reorder");
+        VK_NV_ray_tracing_linear_swept_spheres = ext.contains("VK_NV_ray_tracing_linear_swept_spheres");
         VK_NV_ray_tracing_motion_blur = ext.contains("VK_NV_ray_tracing_motion_blur");
+        VK_NV_ray_tracing_validation = ext.contains("VK_NV_ray_tracing_validation");
         VK_NV_representative_fragment_test = ext.contains("VK_NV_representative_fragment_test");
         VK_NV_sample_mask_override_coverage = ext.contains("VK_NV_sample_mask_override_coverage");
         VK_NV_scissor_exclusive = check_NV_scissor_exclusive(provider, caps, ext);
+        VK_NV_shader_atomic_float16_vector = ext.contains("VK_NV_shader_atomic_float16_vector");
         VK_NV_shader_image_footprint = ext.contains("VK_NV_shader_image_footprint");
         VK_NV_shader_sm_builtins = ext.contains("VK_NV_shader_sm_builtins");
         VK_NV_shader_subgroup_partitioned = ext.contains("VK_NV_shader_subgroup_partitioned");
@@ -1771,6 +2267,8 @@ public class VKCapabilitiesDevice {
         VK_NVX_binary_import = check_NVX_binary_import(provider, caps, ext);
         VK_NVX_image_view_handle = check_NVX_image_view_handle(provider, caps, ext);
         VK_NVX_multiview_per_view_attributes = ext.contains("VK_NVX_multiview_per_view_attributes");
+        VK_QCOM_cooperative_matrix_conversion = ext.contains("VK_QCOM_cooperative_matrix_conversion");
+        VK_QCOM_data_graph_model = ext.contains("VK_QCOM_data_graph_model");
         VK_QCOM_filter_cubic_clamp = ext.contains("VK_QCOM_filter_cubic_clamp");
         VK_QCOM_filter_cubic_weights = ext.contains("VK_QCOM_filter_cubic_weights");
         VK_QCOM_fragment_density_map_offset = ext.contains("VK_QCOM_fragment_density_map_offset");
@@ -1782,13 +2280,20 @@ public class VKCapabilitiesDevice {
         VK_QCOM_render_pass_store_ops = ext.contains("VK_QCOM_render_pass_store_ops");
         VK_QCOM_render_pass_transform = ext.contains("VK_QCOM_render_pass_transform");
         VK_QCOM_rotated_copy_commands = ext.contains("VK_QCOM_rotated_copy_commands");
+        VK_QCOM_tile_memory_heap = check_QCOM_tile_memory_heap(provider, caps, ext);
         VK_QCOM_tile_properties = check_QCOM_tile_properties(provider, caps, ext);
+        VK_QCOM_tile_shading = check_QCOM_tile_shading(provider, caps, ext);
         VK_QCOM_ycbcr_degamma = ext.contains("VK_QCOM_ycbcr_degamma");
         VK_SEC_amigo_profiling = ext.contains("VK_SEC_amigo_profiling");
-        STD_vulkan_video_codec_h264 = ext.contains("STD_vulkan_video_codec_h264");
-        STD_vulkan_video_codec_h265 = ext.contains("STD_vulkan_video_codec_h265");
+        VK_SEC_pipeline_cache_incremental_mode = ext.contains("VK_SEC_pipeline_cache_incremental_mode");
+        STD_VIDEO_STD_vulkan_video_codec_av1 = ext.contains("STD_VIDEO_STD_vulkan_video_codec_av1");
+        STD_VIDEO_STD_vulkan_video_codec_h264 = ext.contains("STD_VIDEO_STD_vulkan_video_codec_h264");
+        STD_VIDEO_STD_vulkan_video_codec_h265 = ext.contains("STD_VIDEO_STD_vulkan_video_codec_h265");
+        STD_VIDEO_STD_vulkan_video_codec_vp9 = ext.contains("STD_VIDEO_STD_vulkan_video_codec_vp9");
         VK_VALVE_descriptor_set_host_mapping = check_VALVE_descriptor_set_host_mapping(provider, caps, ext);
+        VK_VALVE_fragment_density_map_layered = ext.contains("VK_VALVE_fragment_density_map_layered");
         VK_VALVE_mutable_descriptor_type = ext.contains("VK_VALVE_mutable_descriptor_type");
+        VK_VALVE_video_encode_rgb_conversion = ext.contains("VK_VALVE_video_encode_rgb_conversion");
 
         vkGetDeviceProcAddr = caps[0];
         vkDestroyDevice = caps[1];
@@ -1816,512 +2321,627 @@ public class VKCapabilitiesDevice {
         vkWaitForFences = caps[23];
         vkCreateSemaphore = caps[24];
         vkDestroySemaphore = caps[25];
-        vkCreateEvent = caps[26];
-        vkDestroyEvent = caps[27];
-        vkGetEventStatus = caps[28];
-        vkSetEvent = caps[29];
-        vkResetEvent = caps[30];
-        vkCreateQueryPool = caps[31];
-        vkDestroyQueryPool = caps[32];
-        vkGetQueryPoolResults = caps[33];
-        vkCreateBuffer = caps[34];
-        vkDestroyBuffer = caps[35];
-        vkCreateBufferView = caps[36];
-        vkDestroyBufferView = caps[37];
-        vkCreateImage = caps[38];
-        vkDestroyImage = caps[39];
-        vkGetImageSubresourceLayout = caps[40];
-        vkCreateImageView = caps[41];
-        vkDestroyImageView = caps[42];
-        vkCreateShaderModule = caps[43];
-        vkDestroyShaderModule = caps[44];
-        vkCreatePipelineCache = caps[45];
-        vkDestroyPipelineCache = caps[46];
-        vkGetPipelineCacheData = caps[47];
-        vkMergePipelineCaches = caps[48];
-        vkCreateGraphicsPipelines = caps[49];
-        vkCreateComputePipelines = caps[50];
-        vkDestroyPipeline = caps[51];
-        vkCreatePipelineLayout = caps[52];
-        vkDestroyPipelineLayout = caps[53];
-        vkCreateSampler = caps[54];
-        vkDestroySampler = caps[55];
-        vkCreateDescriptorSetLayout = caps[56];
-        vkDestroyDescriptorSetLayout = caps[57];
-        vkCreateDescriptorPool = caps[58];
-        vkDestroyDescriptorPool = caps[59];
-        vkResetDescriptorPool = caps[60];
-        vkAllocateDescriptorSets = caps[61];
-        vkFreeDescriptorSets = caps[62];
-        vkUpdateDescriptorSets = caps[63];
-        vkCreateFramebuffer = caps[64];
-        vkDestroyFramebuffer = caps[65];
-        vkCreateRenderPass = caps[66];
-        vkDestroyRenderPass = caps[67];
-        vkGetRenderAreaGranularity = caps[68];
-        vkCreateCommandPool = caps[69];
-        vkDestroyCommandPool = caps[70];
-        vkResetCommandPool = caps[71];
-        vkAllocateCommandBuffers = caps[72];
-        vkFreeCommandBuffers = caps[73];
-        vkBeginCommandBuffer = caps[74];
-        vkEndCommandBuffer = caps[75];
-        vkResetCommandBuffer = caps[76];
-        vkCmdBindPipeline = caps[77];
-        vkCmdSetViewport = caps[78];
-        vkCmdSetScissor = caps[79];
-        vkCmdSetLineWidth = caps[80];
-        vkCmdSetDepthBias = caps[81];
-        vkCmdSetBlendConstants = caps[82];
-        vkCmdSetDepthBounds = caps[83];
-        vkCmdSetStencilCompareMask = caps[84];
-        vkCmdSetStencilWriteMask = caps[85];
-        vkCmdSetStencilReference = caps[86];
-        vkCmdBindDescriptorSets = caps[87];
-        vkCmdBindIndexBuffer = caps[88];
-        vkCmdBindVertexBuffers = caps[89];
-        vkCmdDraw = caps[90];
-        vkCmdDrawIndexed = caps[91];
-        vkCmdDrawIndirect = caps[92];
-        vkCmdDrawIndexedIndirect = caps[93];
-        vkCmdDispatch = caps[94];
-        vkCmdDispatchIndirect = caps[95];
-        vkCmdCopyBuffer = caps[96];
-        vkCmdCopyImage = caps[97];
-        vkCmdBlitImage = caps[98];
-        vkCmdCopyBufferToImage = caps[99];
-        vkCmdCopyImageToBuffer = caps[100];
-        vkCmdUpdateBuffer = caps[101];
-        vkCmdFillBuffer = caps[102];
-        vkCmdClearColorImage = caps[103];
-        vkCmdClearDepthStencilImage = caps[104];
-        vkCmdClearAttachments = caps[105];
-        vkCmdResolveImage = caps[106];
-        vkCmdSetEvent = caps[107];
-        vkCmdResetEvent = caps[108];
-        vkCmdWaitEvents = caps[109];
-        vkCmdPipelineBarrier = caps[110];
-        vkCmdBeginQuery = caps[111];
-        vkCmdEndQuery = caps[112];
-        vkCmdResetQueryPool = caps[113];
-        vkCmdWriteTimestamp = caps[114];
-        vkCmdCopyQueryPoolResults = caps[115];
-        vkCmdPushConstants = caps[116];
-        vkCmdBeginRenderPass = caps[117];
-        vkCmdNextSubpass = caps[118];
-        vkCmdEndRenderPass = caps[119];
-        vkCmdExecuteCommands = caps[120];
+        vkCreateQueryPool = caps[26];
+        vkDestroyQueryPool = caps[27];
+        vkGetQueryPoolResults = caps[28];
+        vkCreateBuffer = caps[29];
+        vkDestroyBuffer = caps[30];
+        vkCreateImage = caps[31];
+        vkDestroyImage = caps[32];
+        vkGetImageSubresourceLayout = caps[33];
+        vkCreateImageView = caps[34];
+        vkDestroyImageView = caps[35];
+        vkCreateCommandPool = caps[36];
+        vkDestroyCommandPool = caps[37];
+        vkResetCommandPool = caps[38];
+        vkAllocateCommandBuffers = caps[39];
+        vkFreeCommandBuffers = caps[40];
+        vkBeginCommandBuffer = caps[41];
+        vkEndCommandBuffer = caps[42];
+        vkResetCommandBuffer = caps[43];
+        vkCmdCopyBuffer = caps[44];
+        vkCmdCopyImage = caps[45];
+        vkCmdCopyBufferToImage = caps[46];
+        vkCmdCopyImageToBuffer = caps[47];
+        vkCmdUpdateBuffer = caps[48];
+        vkCmdFillBuffer = caps[49];
+        vkCmdPipelineBarrier = caps[50];
+        vkCmdBeginQuery = caps[51];
+        vkCmdEndQuery = caps[52];
+        vkCmdResetQueryPool = caps[53];
+        vkCmdWriteTimestamp = caps[54];
+        vkCmdCopyQueryPoolResults = caps[55];
+        vkCmdExecuteCommands = caps[56];
+        vkCreateEvent = caps[57];
+        vkDestroyEvent = caps[58];
+        vkGetEventStatus = caps[59];
+        vkSetEvent = caps[60];
+        vkResetEvent = caps[61];
+        vkCreateBufferView = caps[62];
+        vkDestroyBufferView = caps[63];
+        vkCreateShaderModule = caps[64];
+        vkDestroyShaderModule = caps[65];
+        vkCreatePipelineCache = caps[66];
+        vkDestroyPipelineCache = caps[67];
+        vkGetPipelineCacheData = caps[68];
+        vkMergePipelineCaches = caps[69];
+        vkCreateComputePipelines = caps[70];
+        vkDestroyPipeline = caps[71];
+        vkCreatePipelineLayout = caps[72];
+        vkDestroyPipelineLayout = caps[73];
+        vkCreateSampler = caps[74];
+        vkDestroySampler = caps[75];
+        vkCreateDescriptorSetLayout = caps[76];
+        vkDestroyDescriptorSetLayout = caps[77];
+        vkCreateDescriptorPool = caps[78];
+        vkDestroyDescriptorPool = caps[79];
+        vkResetDescriptorPool = caps[80];
+        vkAllocateDescriptorSets = caps[81];
+        vkFreeDescriptorSets = caps[82];
+        vkUpdateDescriptorSets = caps[83];
+        vkCmdBindPipeline = caps[84];
+        vkCmdBindDescriptorSets = caps[85];
+        vkCmdClearColorImage = caps[86];
+        vkCmdDispatch = caps[87];
+        vkCmdDispatchIndirect = caps[88];
+        vkCmdSetEvent = caps[89];
+        vkCmdResetEvent = caps[90];
+        vkCmdWaitEvents = caps[91];
+        vkCmdPushConstants = caps[92];
+        vkCreateGraphicsPipelines = caps[93];
+        vkCreateFramebuffer = caps[94];
+        vkDestroyFramebuffer = caps[95];
+        vkCreateRenderPass = caps[96];
+        vkDestroyRenderPass = caps[97];
+        vkGetRenderAreaGranularity = caps[98];
+        vkCmdSetViewport = caps[99];
+        vkCmdSetScissor = caps[100];
+        vkCmdSetLineWidth = caps[101];
+        vkCmdSetDepthBias = caps[102];
+        vkCmdSetBlendConstants = caps[103];
+        vkCmdSetDepthBounds = caps[104];
+        vkCmdSetStencilCompareMask = caps[105];
+        vkCmdSetStencilWriteMask = caps[106];
+        vkCmdSetStencilReference = caps[107];
+        vkCmdBindIndexBuffer = caps[108];
+        vkCmdBindVertexBuffers = caps[109];
+        vkCmdDraw = caps[110];
+        vkCmdDrawIndexed = caps[111];
+        vkCmdDrawIndirect = caps[112];
+        vkCmdDrawIndexedIndirect = caps[113];
+        vkCmdBlitImage = caps[114];
+        vkCmdClearDepthStencilImage = caps[115];
+        vkCmdClearAttachments = caps[116];
+        vkCmdResolveImage = caps[117];
+        vkCmdBeginRenderPass = caps[118];
+        vkCmdNextSubpass = caps[119];
+        vkCmdEndRenderPass = caps[120];
         vkBindBufferMemory2 = caps[121];
         vkBindImageMemory2 = caps[122];
         vkGetDeviceGroupPeerMemoryFeatures = caps[123];
         vkCmdSetDeviceMask = caps[124];
-        vkCmdDispatchBase = caps[125];
-        vkGetImageMemoryRequirements2 = caps[126];
-        vkGetBufferMemoryRequirements2 = caps[127];
-        vkGetImageSparseMemoryRequirements2 = caps[128];
-        vkTrimCommandPool = caps[129];
-        vkGetDeviceQueue2 = caps[130];
-        vkCreateSamplerYcbcrConversion = caps[131];
-        vkDestroySamplerYcbcrConversion = caps[132];
-        vkCreateDescriptorUpdateTemplate = caps[133];
-        vkDestroyDescriptorUpdateTemplate = caps[134];
-        vkUpdateDescriptorSetWithTemplate = caps[135];
-        vkGetDescriptorSetLayoutSupport = caps[136];
-        vkCmdDrawIndirectCount = caps[137];
-        vkCmdDrawIndexedIndirectCount = caps[138];
-        vkCreateRenderPass2 = caps[139];
-        vkCmdBeginRenderPass2 = caps[140];
-        vkCmdNextSubpass2 = caps[141];
-        vkCmdEndRenderPass2 = caps[142];
-        vkResetQueryPool = caps[143];
-        vkGetSemaphoreCounterValue = caps[144];
-        vkWaitSemaphores = caps[145];
-        vkSignalSemaphore = caps[146];
-        vkGetBufferDeviceAddress = caps[147];
-        vkGetBufferOpaqueCaptureAddress = caps[148];
-        vkGetDeviceMemoryOpaqueCaptureAddress = caps[149];
+        vkGetImageMemoryRequirements2 = caps[125];
+        vkGetBufferMemoryRequirements2 = caps[126];
+        vkGetImageSparseMemoryRequirements2 = caps[127];
+        vkTrimCommandPool = caps[128];
+        vkGetDeviceQueue2 = caps[129];
+        vkCmdDispatchBase = caps[130];
+        vkCreateDescriptorUpdateTemplate = caps[131];
+        vkDestroyDescriptorUpdateTemplate = caps[132];
+        vkUpdateDescriptorSetWithTemplate = caps[133];
+        vkGetDescriptorSetLayoutSupport = caps[134];
+        vkCreateSamplerYcbcrConversion = caps[135];
+        vkDestroySamplerYcbcrConversion = caps[136];
+        vkResetQueryPool = caps[137];
+        vkGetSemaphoreCounterValue = caps[138];
+        vkWaitSemaphores = caps[139];
+        vkSignalSemaphore = caps[140];
+        vkGetBufferDeviceAddress = caps[141];
+        vkGetBufferOpaqueCaptureAddress = caps[142];
+        vkGetDeviceMemoryOpaqueCaptureAddress = caps[143];
+        vkCmdDrawIndirectCount = caps[144];
+        vkCmdDrawIndexedIndirectCount = caps[145];
+        vkCreateRenderPass2 = caps[146];
+        vkCmdBeginRenderPass2 = caps[147];
+        vkCmdNextSubpass2 = caps[148];
+        vkCmdEndRenderPass2 = caps[149];
         vkCreatePrivateDataSlot = caps[150];
         vkDestroyPrivateDataSlot = caps[151];
         vkSetPrivateData = caps[152];
         vkGetPrivateData = caps[153];
-        vkCmdSetEvent2 = caps[154];
-        vkCmdResetEvent2 = caps[155];
-        vkCmdWaitEvents2 = caps[156];
-        vkCmdPipelineBarrier2 = caps[157];
-        vkCmdWriteTimestamp2 = caps[158];
-        vkQueueSubmit2 = caps[159];
-        vkCmdCopyBuffer2 = caps[160];
-        vkCmdCopyImage2 = caps[161];
-        vkCmdCopyBufferToImage2 = caps[162];
-        vkCmdCopyImageToBuffer2 = caps[163];
-        vkCmdBlitImage2 = caps[164];
-        vkCmdResolveImage2 = caps[165];
-        vkCmdBeginRendering = caps[166];
-        vkCmdEndRendering = caps[167];
-        vkCmdSetCullMode = caps[168];
-        vkCmdSetFrontFace = caps[169];
-        vkCmdSetPrimitiveTopology = caps[170];
-        vkCmdSetViewportWithCount = caps[171];
-        vkCmdSetScissorWithCount = caps[172];
-        vkCmdBindVertexBuffers2 = caps[173];
-        vkCmdSetDepthTestEnable = caps[174];
-        vkCmdSetDepthWriteEnable = caps[175];
-        vkCmdSetDepthCompareOp = caps[176];
-        vkCmdSetDepthBoundsTestEnable = caps[177];
-        vkCmdSetStencilTestEnable = caps[178];
-        vkCmdSetStencilOp = caps[179];
-        vkCmdSetRasterizerDiscardEnable = caps[180];
-        vkCmdSetDepthBiasEnable = caps[181];
-        vkCmdSetPrimitiveRestartEnable = caps[182];
-        vkGetDeviceBufferMemoryRequirements = caps[183];
-        vkGetDeviceImageMemoryRequirements = caps[184];
-        vkGetDeviceImageSparseMemoryRequirements = caps[185];
-        vkCmdWriteBufferMarkerAMD = caps[186];
-        vkSetLocalDimmingAMD = caps[187];
-        vkCmdDrawIndirectCountAMD = caps[188];
-        vkCmdDrawIndexedIndirectCountAMD = caps[189];
-        vkGetShaderInfoAMD = caps[190];
-        vkCreateExecutionGraphPipelinesAMDX = caps[191];
-        vkGetExecutionGraphPipelineScratchSizeAMDX = caps[192];
-        vkGetExecutionGraphPipelineNodeIndexAMDX = caps[193];
-        vkCmdInitializeGraphScratchMemoryAMDX = caps[194];
-        vkCmdDispatchGraphAMDX = caps[195];
-        vkCmdDispatchGraphIndirectAMDX = caps[196];
-        vkCmdDispatchGraphIndirectCountAMDX = caps[197];
-        vkGetAndroidHardwareBufferPropertiesANDROID = caps[198];
-        vkGetMemoryAndroidHardwareBufferANDROID = caps[199];
-        vkCmdSetAttachmentFeedbackLoopEnableEXT = caps[200];
-        vkGetBufferDeviceAddressEXT = caps[201];
-        vkGetCalibratedTimestampsEXT = caps[202];
-        vkCmdSetColorWriteEnableEXT = caps[203];
-        vkCmdBeginConditionalRenderingEXT = caps[204];
-        vkCmdEndConditionalRenderingEXT = caps[205];
-        vkDebugMarkerSetObjectTagEXT = caps[206];
-        vkDebugMarkerSetObjectNameEXT = caps[207];
-        vkCmdDebugMarkerBeginEXT = caps[208];
-        vkCmdDebugMarkerEndEXT = caps[209];
-        vkCmdDebugMarkerInsertEXT = caps[210];
-        vkCmdSetDepthBias2EXT = caps[211];
-        vkGetDescriptorSetLayoutSizeEXT = caps[212];
-        vkGetDescriptorSetLayoutBindingOffsetEXT = caps[213];
-        vkGetDescriptorEXT = caps[214];
-        vkCmdBindDescriptorBuffersEXT = caps[215];
-        vkCmdSetDescriptorBufferOffsetsEXT = caps[216];
-        vkCmdBindDescriptorBufferEmbeddedSamplersEXT = caps[217];
-        vkGetBufferOpaqueCaptureDescriptorDataEXT = caps[218];
-        vkGetImageOpaqueCaptureDescriptorDataEXT = caps[219];
-        vkGetImageViewOpaqueCaptureDescriptorDataEXT = caps[220];
-        vkGetSamplerOpaqueCaptureDescriptorDataEXT = caps[221];
-        vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT = caps[222];
-        vkGetDeviceFaultInfoEXT = caps[223];
-        vkCmdSetDiscardRectangleEXT = caps[224];
-        vkCmdSetDiscardRectangleEnableEXT = caps[225];
-        vkCmdSetDiscardRectangleModeEXT = caps[226];
-        vkDisplayPowerControlEXT = caps[227];
-        vkRegisterDeviceEventEXT = caps[228];
-        vkRegisterDisplayEventEXT = caps[229];
-        vkGetSwapchainCounterEXT = caps[230];
-        vkCmdSetCullModeEXT = caps[231];
-        vkCmdSetFrontFaceEXT = caps[232];
-        vkCmdSetPrimitiveTopologyEXT = caps[233];
-        vkCmdSetViewportWithCountEXT = caps[234];
-        vkCmdSetScissorWithCountEXT = caps[235];
-        vkCmdBindVertexBuffers2EXT = caps[236];
-        vkCmdSetDepthTestEnableEXT = caps[237];
-        vkCmdSetDepthWriteEnableEXT = caps[238];
-        vkCmdSetDepthCompareOpEXT = caps[239];
-        vkCmdSetDepthBoundsTestEnableEXT = caps[240];
-        vkCmdSetStencilTestEnableEXT = caps[241];
-        vkCmdSetStencilOpEXT = caps[242];
-        vkCmdSetPatchControlPointsEXT = caps[243];
-        vkCmdSetRasterizerDiscardEnableEXT = caps[244];
-        vkCmdSetDepthBiasEnableEXT = caps[245];
-        vkCmdSetLogicOpEXT = caps[246];
-        vkCmdSetPrimitiveRestartEnableEXT = caps[247];
-        vkCmdSetTessellationDomainOriginEXT = caps[248];
-        vkCmdSetDepthClampEnableEXT = caps[249];
-        vkCmdSetPolygonModeEXT = caps[250];
-        vkCmdSetRasterizationSamplesEXT = caps[251];
-        vkCmdSetSampleMaskEXT = caps[252];
-        vkCmdSetAlphaToCoverageEnableEXT = caps[253];
-        vkCmdSetAlphaToOneEnableEXT = caps[254];
-        vkCmdSetLogicOpEnableEXT = caps[255];
-        vkCmdSetColorBlendEnableEXT = caps[256];
-        vkCmdSetColorBlendEquationEXT = caps[257];
-        vkCmdSetColorWriteMaskEXT = caps[258];
-        vkCmdSetRasterizationStreamEXT = caps[259];
-        vkCmdSetConservativeRasterizationModeEXT = caps[260];
-        vkCmdSetExtraPrimitiveOverestimationSizeEXT = caps[261];
-        vkCmdSetDepthClipEnableEXT = caps[262];
-        vkCmdSetSampleLocationsEnableEXT = caps[263];
-        vkCmdSetColorBlendAdvancedEXT = caps[264];
-        vkCmdSetProvokingVertexModeEXT = caps[265];
-        vkCmdSetLineRasterizationModeEXT = caps[266];
-        vkCmdSetLineStippleEnableEXT = caps[267];
-        vkCmdSetDepthClipNegativeOneToOneEXT = caps[268];
-        vkCmdSetViewportWScalingEnableNV = caps[269];
-        vkCmdSetViewportSwizzleNV = caps[270];
-        vkCmdSetCoverageToColorEnableNV = caps[271];
-        vkCmdSetCoverageToColorLocationNV = caps[272];
-        vkCmdSetCoverageModulationModeNV = caps[273];
-        vkCmdSetCoverageModulationTableEnableNV = caps[274];
-        vkCmdSetCoverageModulationTableNV = caps[275];
-        vkCmdSetShadingRateImageEnableNV = caps[276];
-        vkCmdSetRepresentativeFragmentTestEnableNV = caps[277];
-        vkCmdSetCoverageReductionModeNV = caps[278];
-        vkGetMemoryHostPointerPropertiesEXT = caps[279];
-        vkAcquireFullScreenExclusiveModeEXT = caps[280];
-        vkReleaseFullScreenExclusiveModeEXT = caps[281];
-        vkGetDeviceGroupSurfacePresentModes2EXT = caps[282];
-        vkSetHdrMetadataEXT = caps[283];
-        vkCopyMemoryToImageEXT = caps[284];
-        vkCopyImageToMemoryEXT = caps[285];
-        vkCopyImageToImageEXT = caps[286];
-        vkTransitionImageLayoutEXT = caps[287];
-        vkGetImageSubresourceLayout2EXT = caps[288];
-        vkResetQueryPoolEXT = caps[289];
-        vkGetImageDrmFormatModifierPropertiesEXT = caps[290];
-        vkCmdSetLineStippleEXT = caps[291];
-        vkCmdDrawMeshTasksEXT = caps[292];
-        vkCmdDrawMeshTasksIndirectEXT = caps[293];
-        vkCmdDrawMeshTasksIndirectCountEXT = caps[294];
-        vkExportMetalObjectsEXT = caps[295];
-        vkCmdDrawMultiEXT = caps[296];
-        vkCmdDrawMultiIndexedEXT = caps[297];
-        vkCreateMicromapEXT = caps[298];
-        vkDestroyMicromapEXT = caps[299];
-        vkCmdBuildMicromapsEXT = caps[300];
-        vkBuildMicromapsEXT = caps[301];
-        vkCopyMicromapEXT = caps[302];
-        vkCopyMicromapToMemoryEXT = caps[303];
-        vkCopyMemoryToMicromapEXT = caps[304];
-        vkWriteMicromapsPropertiesEXT = caps[305];
-        vkCmdCopyMicromapEXT = caps[306];
-        vkCmdCopyMicromapToMemoryEXT = caps[307];
-        vkCmdCopyMemoryToMicromapEXT = caps[308];
-        vkCmdWriteMicromapsPropertiesEXT = caps[309];
-        vkGetDeviceMicromapCompatibilityEXT = caps[310];
-        vkGetMicromapBuildSizesEXT = caps[311];
-        vkSetDeviceMemoryPriorityEXT = caps[312];
-        vkGetPipelinePropertiesEXT = caps[313];
-        vkCreatePrivateDataSlotEXT = caps[314];
-        vkDestroyPrivateDataSlotEXT = caps[315];
-        vkSetPrivateDataEXT = caps[316];
-        vkGetPrivateDataEXT = caps[317];
-        vkCmdSetSampleLocationsEXT = caps[318];
-        vkGetShaderModuleIdentifierEXT = caps[319];
-        vkGetShaderModuleCreateInfoIdentifierEXT = caps[320];
-        vkCreateShadersEXT = caps[321];
-        vkDestroyShaderEXT = caps[322];
-        vkGetShaderBinaryDataEXT = caps[323];
-        vkCmdBindShadersEXT = caps[324];
-        vkCmdSetVertexInputEXT = caps[325];
-        vkReleaseSwapchainImagesEXT = caps[326];
-        vkCmdBindTransformFeedbackBuffersEXT = caps[327];
-        vkCmdBeginTransformFeedbackEXT = caps[328];
-        vkCmdEndTransformFeedbackEXT = caps[329];
-        vkCmdBeginQueryIndexedEXT = caps[330];
-        vkCmdEndQueryIndexedEXT = caps[331];
-        vkCmdDrawIndirectByteCountEXT = caps[332];
-        vkCreateValidationCacheEXT = caps[333];
-        vkDestroyValidationCacheEXT = caps[334];
-        vkMergeValidationCachesEXT = caps[335];
-        vkGetValidationCacheDataEXT = caps[336];
-        vkGetRefreshCycleDurationGOOGLE = caps[337];
-        vkGetPastPresentationTimingGOOGLE = caps[338];
-        vkCmdDrawClusterHUAWEI = caps[339];
-        vkCmdDrawClusterIndirectHUAWEI = caps[340];
-        vkCmdBindInvocationMaskHUAWEI = caps[341];
-        vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI = caps[342];
-        vkCmdSubpassShadingHUAWEI = caps[343];
-        vkInitializePerformanceApiINTEL = caps[344];
-        vkUninitializePerformanceApiINTEL = caps[345];
-        vkCmdSetPerformanceMarkerINTEL = caps[346];
-        vkCmdSetPerformanceStreamMarkerINTEL = caps[347];
-        vkCmdSetPerformanceOverrideINTEL = caps[348];
-        vkAcquirePerformanceConfigurationINTEL = caps[349];
-        vkReleasePerformanceConfigurationINTEL = caps[350];
-        vkQueueSetPerformanceConfigurationINTEL = caps[351];
-        vkGetPerformanceParameterINTEL = caps[352];
-        vkCreateAccelerationStructureKHR = caps[353];
-        vkDestroyAccelerationStructureKHR = caps[354];
-        vkCmdBuildAccelerationStructuresKHR = caps[355];
-        vkCmdBuildAccelerationStructuresIndirectKHR = caps[356];
-        vkBuildAccelerationStructuresKHR = caps[357];
-        vkCopyAccelerationStructureKHR = caps[358];
-        vkCopyAccelerationStructureToMemoryKHR = caps[359];
-        vkCopyMemoryToAccelerationStructureKHR = caps[360];
-        vkWriteAccelerationStructuresPropertiesKHR = caps[361];
-        vkCmdCopyAccelerationStructureKHR = caps[362];
-        vkCmdCopyAccelerationStructureToMemoryKHR = caps[363];
-        vkCmdCopyMemoryToAccelerationStructureKHR = caps[364];
-        vkGetAccelerationStructureDeviceAddressKHR = caps[365];
-        vkCmdWriteAccelerationStructuresPropertiesKHR = caps[366];
-        vkGetDeviceAccelerationStructureCompatibilityKHR = caps[367];
-        vkGetAccelerationStructureBuildSizesKHR = caps[368];
-        vkBindBufferMemory2KHR = caps[369];
-        vkBindImageMemory2KHR = caps[370];
-        vkGetBufferDeviceAddressKHR = caps[371];
-        vkGetBufferOpaqueCaptureAddressKHR = caps[372];
-        vkGetDeviceMemoryOpaqueCaptureAddressKHR = caps[373];
-        vkCmdCopyBuffer2KHR = caps[374];
-        vkCmdCopyImage2KHR = caps[375];
-        vkCmdCopyBufferToImage2KHR = caps[376];
-        vkCmdCopyImageToBuffer2KHR = caps[377];
-        vkCmdBlitImage2KHR = caps[378];
-        vkCmdResolveImage2KHR = caps[379];
-        vkCreateRenderPass2KHR = caps[380];
-        vkCmdBeginRenderPass2KHR = caps[381];
-        vkCmdNextSubpass2KHR = caps[382];
-        vkCmdEndRenderPass2KHR = caps[383];
-        vkCreateDeferredOperationKHR = caps[384];
-        vkDestroyDeferredOperationKHR = caps[385];
-        vkGetDeferredOperationMaxConcurrencyKHR = caps[386];
-        vkGetDeferredOperationResultKHR = caps[387];
-        vkDeferredOperationJoinKHR = caps[388];
-        vkCreateDescriptorUpdateTemplateKHR = caps[389];
-        vkDestroyDescriptorUpdateTemplateKHR = caps[390];
-        vkUpdateDescriptorSetWithTemplateKHR = caps[391];
-        vkCmdPushDescriptorSetWithTemplateKHR = caps[392];
-        vkGetDeviceGroupPeerMemoryFeaturesKHR = caps[393];
-        vkCmdSetDeviceMaskKHR = caps[394];
-        vkCmdDispatchBaseKHR = caps[395];
-        vkGetDeviceGroupPresentCapabilitiesKHR = caps[396];
-        vkGetDeviceGroupSurfacePresentModesKHR = caps[397];
-        vkAcquireNextImage2KHR = caps[398];
-        vkCreateSharedSwapchainsKHR = caps[399];
-        vkCmdDrawIndirectCountKHR = caps[400];
-        vkCmdDrawIndexedIndirectCountKHR = caps[401];
-        vkCmdBeginRenderingKHR = caps[402];
-        vkCmdEndRenderingKHR = caps[403];
-        vkImportFenceFdKHR = caps[404];
-        vkGetFenceFdKHR = caps[405];
-        vkImportFenceWin32HandleKHR = caps[406];
-        vkGetFenceWin32HandleKHR = caps[407];
-        vkGetMemoryFdKHR = caps[408];
-        vkGetMemoryFdPropertiesKHR = caps[409];
-        vkGetMemoryWin32HandleKHR = caps[410];
-        vkGetMemoryWin32HandlePropertiesKHR = caps[411];
-        vkImportSemaphoreFdKHR = caps[412];
-        vkGetSemaphoreFdKHR = caps[413];
-        vkImportSemaphoreWin32HandleKHR = caps[414];
-        vkGetSemaphoreWin32HandleKHR = caps[415];
-        vkCmdSetFragmentShadingRateKHR = caps[416];
-        vkGetImageMemoryRequirements2KHR = caps[417];
-        vkGetBufferMemoryRequirements2KHR = caps[418];
-        vkGetImageSparseMemoryRequirements2KHR = caps[419];
-        vkTrimCommandPoolKHR = caps[420];
-        vkGetDescriptorSetLayoutSupportKHR = caps[421];
-        vkGetDeviceBufferMemoryRequirementsKHR = caps[422];
-        vkGetDeviceImageMemoryRequirementsKHR = caps[423];
-        vkGetDeviceImageSparseMemoryRequirementsKHR = caps[424];
-        vkCmdBindIndexBuffer2KHR = caps[425];
-        vkGetRenderingAreaGranularityKHR = caps[426];
-        vkGetDeviceImageSubresourceLayoutKHR = caps[427];
-        vkGetImageSubresourceLayout2KHR = caps[428];
-        vkMapMemory2KHR = caps[429];
-        vkUnmapMemory2KHR = caps[430];
-        vkAcquireProfilingLockKHR = caps[431];
-        vkReleaseProfilingLockKHR = caps[432];
-        vkGetPipelineExecutablePropertiesKHR = caps[433];
-        vkGetPipelineExecutableStatisticsKHR = caps[434];
-        vkGetPipelineExecutableInternalRepresentationsKHR = caps[435];
-        vkWaitForPresentKHR = caps[436];
-        vkCmdPushDescriptorSetKHR = caps[437];
-        vkCmdTraceRaysIndirect2KHR = caps[438];
-        vkCmdTraceRaysKHR = caps[439];
-        vkCreateRayTracingPipelinesKHR = caps[440];
-        vkGetRayTracingShaderGroupHandlesKHR = caps[441];
-        vkGetRayTracingCaptureReplayShaderGroupHandlesKHR = caps[442];
-        vkCmdTraceRaysIndirectKHR = caps[443];
-        vkGetRayTracingShaderGroupStackSizeKHR = caps[444];
-        vkCmdSetRayTracingPipelineStackSizeKHR = caps[445];
-        vkCreateSamplerYcbcrConversionKHR = caps[446];
-        vkDestroySamplerYcbcrConversionKHR = caps[447];
-        vkGetSwapchainStatusKHR = caps[448];
-        vkCreateSwapchainKHR = caps[449];
-        vkDestroySwapchainKHR = caps[450];
-        vkGetSwapchainImagesKHR = caps[451];
-        vkAcquireNextImageKHR = caps[452];
-        vkQueuePresentKHR = caps[453];
-        vkCmdSetEvent2KHR = caps[454];
-        vkCmdResetEvent2KHR = caps[455];
-        vkCmdWaitEvents2KHR = caps[456];
-        vkCmdPipelineBarrier2KHR = caps[457];
-        vkCmdWriteTimestamp2KHR = caps[458];
-        vkQueueSubmit2KHR = caps[459];
-        vkCmdWriteBufferMarker2AMD = caps[460];
-        vkGetQueueCheckpointData2NV = caps[461];
-        vkGetSemaphoreCounterValueKHR = caps[462];
-        vkWaitSemaphoresKHR = caps[463];
-        vkSignalSemaphoreKHR = caps[464];
-        vkCmdDecodeVideoKHR = caps[465];
-        vkGetEncodedVideoSessionParametersKHR = caps[466];
-        vkCmdEncodeVideoKHR = caps[467];
-        vkCreateVideoSessionKHR = caps[468];
-        vkDestroyVideoSessionKHR = caps[469];
-        vkGetVideoSessionMemoryRequirementsKHR = caps[470];
-        vkBindVideoSessionMemoryKHR = caps[471];
-        vkCreateVideoSessionParametersKHR = caps[472];
-        vkUpdateVideoSessionParametersKHR = caps[473];
-        vkDestroyVideoSessionParametersKHR = caps[474];
-        vkCmdBeginVideoCodingKHR = caps[475];
-        vkCmdEndVideoCodingKHR = caps[476];
-        vkCmdControlVideoCodingKHR = caps[477];
-        vkCmdSetViewportWScalingNV = caps[478];
-        vkCmdCopyMemoryIndirectNV = caps[479];
-        vkCmdCopyMemoryToImageIndirectNV = caps[480];
-        vkCmdSetCheckpointNV = caps[481];
-        vkGetQueueCheckpointDataNV = caps[482];
-        vkGetGeneratedCommandsMemoryRequirementsNV = caps[483];
-        vkCmdPreprocessGeneratedCommandsNV = caps[484];
-        vkCmdExecuteGeneratedCommandsNV = caps[485];
-        vkCmdBindPipelineShaderGroupNV = caps[486];
-        vkCreateIndirectCommandsLayoutNV = caps[487];
-        vkDestroyIndirectCommandsLayoutNV = caps[488];
-        vkGetPipelineIndirectMemoryRequirementsNV = caps[489];
-        vkCmdUpdatePipelineIndirectBufferNV = caps[490];
-        vkGetPipelineIndirectDeviceAddressNV = caps[491];
-        vkGetMemoryRemoteAddressNV = caps[492];
-        vkGetMemoryWin32HandleNV = caps[493];
-        vkCmdSetFragmentShadingRateEnumNV = caps[494];
-        vkCmdDecompressMemoryNV = caps[495];
-        vkCmdDecompressMemoryIndirectCountNV = caps[496];
-        vkCmdDrawMeshTasksNV = caps[497];
-        vkCmdDrawMeshTasksIndirectNV = caps[498];
-        vkCmdDrawMeshTasksIndirectCountNV = caps[499];
-        vkCreateOpticalFlowSessionNV = caps[500];
-        vkDestroyOpticalFlowSessionNV = caps[501];
-        vkBindOpticalFlowSessionImageNV = caps[502];
-        vkCmdOpticalFlowExecuteNV = caps[503];
-        vkCreateAccelerationStructureNV = caps[504];
-        vkDestroyAccelerationStructureNV = caps[505];
-        vkGetAccelerationStructureMemoryRequirementsNV = caps[506];
-        vkBindAccelerationStructureMemoryNV = caps[507];
-        vkCmdBuildAccelerationStructureNV = caps[508];
-        vkCmdCopyAccelerationStructureNV = caps[509];
-        vkCmdTraceRaysNV = caps[510];
-        vkCreateRayTracingPipelinesNV = caps[511];
-        vkGetRayTracingShaderGroupHandlesNV = caps[512];
-        vkGetAccelerationStructureHandleNV = caps[513];
-        vkCmdWriteAccelerationStructuresPropertiesNV = caps[514];
-        vkCompileDeferredNV = caps[515];
-        vkCmdSetExclusiveScissorEnableNV = caps[516];
-        vkCmdSetExclusiveScissorNV = caps[517];
-        vkCmdBindShadingRateImageNV = caps[518];
-        vkCmdSetViewportShadingRatePaletteNV = caps[519];
-        vkCmdSetCoarseSampleOrderNV = caps[520];
-        vkCreateCuModuleNVX = caps[521];
-        vkCreateCuFunctionNVX = caps[522];
-        vkDestroyCuModuleNVX = caps[523];
-        vkDestroyCuFunctionNVX = caps[524];
-        vkCmdCuLaunchKernelNVX = caps[525];
-        vkGetImageViewHandleNVX = caps[526];
-        vkGetImageViewAddressNVX = caps[527];
-        vkGetFramebufferTilePropertiesQCOM = caps[528];
-        vkGetDynamicRenderingTilePropertiesQCOM = caps[529];
-        vkGetDescriptorSetLayoutHostMappingInfoVALVE = caps[530];
-        vkGetDescriptorSetHostMappingVALVE = caps[531];
+        vkCmdPipelineBarrier2 = caps[154];
+        vkCmdWriteTimestamp2 = caps[155];
+        vkQueueSubmit2 = caps[156];
+        vkCmdCopyBuffer2 = caps[157];
+        vkCmdCopyImage2 = caps[158];
+        vkCmdCopyBufferToImage2 = caps[159];
+        vkCmdCopyImageToBuffer2 = caps[160];
+        vkGetDeviceBufferMemoryRequirements = caps[161];
+        vkGetDeviceImageMemoryRequirements = caps[162];
+        vkGetDeviceImageSparseMemoryRequirements = caps[163];
+        vkCmdSetEvent2 = caps[164];
+        vkCmdResetEvent2 = caps[165];
+        vkCmdWaitEvents2 = caps[166];
+        vkCmdBlitImage2 = caps[167];
+        vkCmdResolveImage2 = caps[168];
+        vkCmdBeginRendering = caps[169];
+        vkCmdEndRendering = caps[170];
+        vkCmdSetCullMode = caps[171];
+        vkCmdSetFrontFace = caps[172];
+        vkCmdSetPrimitiveTopology = caps[173];
+        vkCmdSetViewportWithCount = caps[174];
+        vkCmdSetScissorWithCount = caps[175];
+        vkCmdBindVertexBuffers2 = caps[176];
+        vkCmdSetDepthTestEnable = caps[177];
+        vkCmdSetDepthWriteEnable = caps[178];
+        vkCmdSetDepthCompareOp = caps[179];
+        vkCmdSetDepthBoundsTestEnable = caps[180];
+        vkCmdSetStencilTestEnable = caps[181];
+        vkCmdSetStencilOp = caps[182];
+        vkCmdSetRasterizerDiscardEnable = caps[183];
+        vkCmdSetDepthBiasEnable = caps[184];
+        vkCmdSetPrimitiveRestartEnable = caps[185];
+        vkMapMemory2 = caps[186];
+        vkUnmapMemory2 = caps[187];
+        vkGetDeviceImageSubresourceLayout = caps[188];
+        vkGetImageSubresourceLayout2 = caps[189];
+        vkCopyMemoryToImage = caps[190];
+        vkCopyImageToMemory = caps[191];
+        vkCopyImageToImage = caps[192];
+        vkTransitionImageLayout = caps[193];
+        vkCmdPushDescriptorSet = caps[194];
+        vkCmdPushDescriptorSetWithTemplate = caps[195];
+        vkCmdBindDescriptorSets2 = caps[196];
+        vkCmdPushConstants2 = caps[197];
+        vkCmdPushDescriptorSet2 = caps[198];
+        vkCmdPushDescriptorSetWithTemplate2 = caps[199];
+        vkCmdSetLineStipple = caps[200];
+        vkCmdBindIndexBuffer2 = caps[201];
+        vkGetRenderingAreaGranularity = caps[202];
+        vkCmdSetRenderingAttachmentLocations = caps[203];
+        vkCmdSetRenderingInputAttachmentIndices = caps[204];
+        vkAntiLagUpdateAMD = caps[205];
+        vkCmdWriteBufferMarkerAMD = caps[206];
+        vkCmdWriteBufferMarker2AMD = caps[207];
+        vkSetLocalDimmingAMD = caps[208];
+        vkCmdDrawIndirectCountAMD = caps[209];
+        vkCmdDrawIndexedIndirectCountAMD = caps[210];
+        vkGetShaderInfoAMD = caps[211];
+        vkCreateExecutionGraphPipelinesAMDX = caps[212];
+        vkGetExecutionGraphPipelineScratchSizeAMDX = caps[213];
+        vkGetExecutionGraphPipelineNodeIndexAMDX = caps[214];
+        vkCmdInitializeGraphScratchMemoryAMDX = caps[215];
+        vkCmdDispatchGraphAMDX = caps[216];
+        vkCmdDispatchGraphIndirectAMDX = caps[217];
+        vkCmdDispatchGraphIndirectCountAMDX = caps[218];
+        vkGetAndroidHardwareBufferPropertiesANDROID = caps[219];
+        vkGetMemoryAndroidHardwareBufferANDROID = caps[220];
+        vkCreateDataGraphPipelinesARM = caps[221];
+        vkCreateDataGraphPipelineSessionARM = caps[222];
+        vkGetDataGraphPipelineSessionBindPointRequirementsARM = caps[223];
+        vkGetDataGraphPipelineSessionMemoryRequirementsARM = caps[224];
+        vkBindDataGraphPipelineSessionMemoryARM = caps[225];
+        vkDestroyDataGraphPipelineSessionARM = caps[226];
+        vkCmdDispatchDataGraphARM = caps[227];
+        vkGetDataGraphPipelineAvailablePropertiesARM = caps[228];
+        vkGetDataGraphPipelinePropertiesARM = caps[229];
+        vkCreateTensorARM = caps[230];
+        vkDestroyTensorARM = caps[231];
+        vkCreateTensorViewARM = caps[232];
+        vkDestroyTensorViewARM = caps[233];
+        vkGetTensorMemoryRequirementsARM = caps[234];
+        vkBindTensorMemoryARM = caps[235];
+        vkGetDeviceTensorMemoryRequirementsARM = caps[236];
+        vkCmdCopyTensorARM = caps[237];
+        vkGetTensorOpaqueCaptureDescriptorDataARM = caps[238];
+        vkGetTensorViewOpaqueCaptureDescriptorDataARM = caps[239];
+        vkCmdSetAttachmentFeedbackLoopEnableEXT = caps[240];
+        vkGetBufferDeviceAddressEXT = caps[241];
+        vkGetCalibratedTimestampsEXT = caps[242];
+        vkCmdSetColorWriteEnableEXT = caps[243];
+        vkCmdBeginConditionalRenderingEXT = caps[244];
+        vkCmdEndConditionalRenderingEXT = caps[245];
+        vkCmdBeginCustomResolveEXT = caps[246];
+        vkDebugMarkerSetObjectTagEXT = caps[247];
+        vkDebugMarkerSetObjectNameEXT = caps[248];
+        vkCmdDebugMarkerBeginEXT = caps[249];
+        vkCmdDebugMarkerEndEXT = caps[250];
+        vkCmdDebugMarkerInsertEXT = caps[251];
+        vkCmdSetDepthBias2EXT = caps[252];
+        vkCmdSetDepthClampRangeEXT = caps[253];
+        vkGetDescriptorSetLayoutSizeEXT = caps[254];
+        vkGetDescriptorSetLayoutBindingOffsetEXT = caps[255];
+        vkGetDescriptorEXT = caps[256];
+        vkCmdBindDescriptorBuffersEXT = caps[257];
+        vkCmdSetDescriptorBufferOffsetsEXT = caps[258];
+        vkCmdBindDescriptorBufferEmbeddedSamplersEXT = caps[259];
+        vkGetBufferOpaqueCaptureDescriptorDataEXT = caps[260];
+        vkGetImageOpaqueCaptureDescriptorDataEXT = caps[261];
+        vkGetImageViewOpaqueCaptureDescriptorDataEXT = caps[262];
+        vkGetSamplerOpaqueCaptureDescriptorDataEXT = caps[263];
+        vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT = caps[264];
+        vkWriteSamplerDescriptorsEXT = caps[265];
+        vkWriteResourceDescriptorsEXT = caps[266];
+        vkCmdBindSamplerHeapEXT = caps[267];
+        vkCmdBindResourceHeapEXT = caps[268];
+        vkCmdPushDataEXT = caps[269];
+        vkGetImageOpaqueCaptureDataEXT = caps[270];
+        vkRegisterCustomBorderColorEXT = caps[271];
+        vkUnregisterCustomBorderColorEXT = caps[272];
+        vkGetTensorOpaqueCaptureDataARM = caps[273];
+        vkGetDeviceFaultInfoEXT = caps[274];
+        vkGetGeneratedCommandsMemoryRequirementsEXT = caps[275];
+        vkCmdPreprocessGeneratedCommandsEXT = caps[276];
+        vkCmdExecuteGeneratedCommandsEXT = caps[277];
+        vkCreateIndirectCommandsLayoutEXT = caps[278];
+        vkDestroyIndirectCommandsLayoutEXT = caps[279];
+        vkCreateIndirectExecutionSetEXT = caps[280];
+        vkDestroyIndirectExecutionSetEXT = caps[281];
+        vkUpdateIndirectExecutionSetPipelineEXT = caps[282];
+        vkUpdateIndirectExecutionSetShaderEXT = caps[283];
+        vkCmdSetDiscardRectangleEXT = caps[284];
+        vkCmdSetDiscardRectangleEnableEXT = caps[285];
+        vkCmdSetDiscardRectangleModeEXT = caps[286];
+        vkDisplayPowerControlEXT = caps[287];
+        vkRegisterDeviceEventEXT = caps[288];
+        vkRegisterDisplayEventEXT = caps[289];
+        vkGetSwapchainCounterEXT = caps[290];
+        vkCmdSetCullModeEXT = caps[291];
+        vkCmdSetFrontFaceEXT = caps[292];
+        vkCmdSetPrimitiveTopologyEXT = caps[293];
+        vkCmdSetViewportWithCountEXT = caps[294];
+        vkCmdSetScissorWithCountEXT = caps[295];
+        vkCmdBindVertexBuffers2EXT = caps[296];
+        vkCmdSetDepthTestEnableEXT = caps[297];
+        vkCmdSetDepthWriteEnableEXT = caps[298];
+        vkCmdSetDepthCompareOpEXT = caps[299];
+        vkCmdSetDepthBoundsTestEnableEXT = caps[300];
+        vkCmdSetStencilTestEnableEXT = caps[301];
+        vkCmdSetStencilOpEXT = caps[302];
+        vkCmdSetPatchControlPointsEXT = caps[303];
+        vkCmdSetRasterizerDiscardEnableEXT = caps[304];
+        vkCmdSetDepthBiasEnableEXT = caps[305];
+        vkCmdSetLogicOpEXT = caps[306];
+        vkCmdSetPrimitiveRestartEnableEXT = caps[307];
+        vkCmdSetDepthClampEnableEXT = caps[308];
+        vkCmdSetPolygonModeEXT = caps[309];
+        vkCmdSetRasterizationSamplesEXT = caps[310];
+        vkCmdSetSampleMaskEXT = caps[311];
+        vkCmdSetAlphaToCoverageEnableEXT = caps[312];
+        vkCmdSetAlphaToOneEnableEXT = caps[313];
+        vkCmdSetLogicOpEnableEXT = caps[314];
+        vkCmdSetColorBlendEnableEXT = caps[315];
+        vkCmdSetColorBlendEquationEXT = caps[316];
+        vkCmdSetColorWriteMaskEXT = caps[317];
+        vkCmdSetTessellationDomainOriginEXT = caps[318];
+        vkCmdSetRasterizationStreamEXT = caps[319];
+        vkCmdSetConservativeRasterizationModeEXT = caps[320];
+        vkCmdSetExtraPrimitiveOverestimationSizeEXT = caps[321];
+        vkCmdSetDepthClipEnableEXT = caps[322];
+        vkCmdSetSampleLocationsEnableEXT = caps[323];
+        vkCmdSetColorBlendAdvancedEXT = caps[324];
+        vkCmdSetProvokingVertexModeEXT = caps[325];
+        vkCmdSetLineRasterizationModeEXT = caps[326];
+        vkCmdSetLineStippleEnableEXT = caps[327];
+        vkCmdSetDepthClipNegativeOneToOneEXT = caps[328];
+        vkCmdSetViewportWScalingEnableNV = caps[329];
+        vkCmdSetViewportSwizzleNV = caps[330];
+        vkCmdSetCoverageToColorEnableNV = caps[331];
+        vkCmdSetCoverageToColorLocationNV = caps[332];
+        vkCmdSetCoverageModulationModeNV = caps[333];
+        vkCmdSetCoverageModulationTableEnableNV = caps[334];
+        vkCmdSetCoverageModulationTableNV = caps[335];
+        vkCmdSetShadingRateImageEnableNV = caps[336];
+        vkCmdSetRepresentativeFragmentTestEnableNV = caps[337];
+        vkCmdSetCoverageReductionModeNV = caps[338];
+        vkGetMemoryHostPointerPropertiesEXT = caps[339];
+        vkGetMemoryMetalHandleEXT = caps[340];
+        vkGetMemoryMetalHandlePropertiesEXT = caps[341];
+        vkCmdEndRendering2EXT = caps[342];
+        vkAcquireFullScreenExclusiveModeEXT = caps[343];
+        vkReleaseFullScreenExclusiveModeEXT = caps[344];
+        vkGetDeviceGroupSurfacePresentModes2EXT = caps[345];
+        vkSetHdrMetadataEXT = caps[346];
+        vkCopyMemoryToImageEXT = caps[347];
+        vkCopyImageToMemoryEXT = caps[348];
+        vkCopyImageToImageEXT = caps[349];
+        vkTransitionImageLayoutEXT = caps[350];
+        vkGetImageSubresourceLayout2EXT = caps[351];
+        vkResetQueryPoolEXT = caps[352];
+        vkGetImageDrmFormatModifierPropertiesEXT = caps[353];
+        vkCmdSetLineStippleEXT = caps[354];
+        vkCmdDecompressMemoryEXT = caps[355];
+        vkCmdDecompressMemoryIndirectCountEXT = caps[356];
+        vkCmdDrawMeshTasksEXT = caps[357];
+        vkCmdDrawMeshTasksIndirectEXT = caps[358];
+        vkCmdDrawMeshTasksIndirectCountEXT = caps[359];
+        vkExportMetalObjectsEXT = caps[360];
+        vkCmdDrawMultiEXT = caps[361];
+        vkCmdDrawMultiIndexedEXT = caps[362];
+        vkCreateMicromapEXT = caps[363];
+        vkDestroyMicromapEXT = caps[364];
+        vkCmdBuildMicromapsEXT = caps[365];
+        vkBuildMicromapsEXT = caps[366];
+        vkCopyMicromapEXT = caps[367];
+        vkCopyMicromapToMemoryEXT = caps[368];
+        vkCopyMemoryToMicromapEXT = caps[369];
+        vkWriteMicromapsPropertiesEXT = caps[370];
+        vkCmdCopyMicromapEXT = caps[371];
+        vkCmdCopyMicromapToMemoryEXT = caps[372];
+        vkCmdCopyMemoryToMicromapEXT = caps[373];
+        vkCmdWriteMicromapsPropertiesEXT = caps[374];
+        vkGetDeviceMicromapCompatibilityEXT = caps[375];
+        vkGetMicromapBuildSizesEXT = caps[376];
+        vkSetDeviceMemoryPriorityEXT = caps[377];
+        vkGetPipelinePropertiesEXT = caps[378];
+        vkSetSwapchainPresentTimingQueueSizeEXT = caps[379];
+        vkGetSwapchainTimingPropertiesEXT = caps[380];
+        vkGetSwapchainTimeDomainPropertiesEXT = caps[381];
+        vkGetPastPresentationTimingEXT = caps[382];
+        vkCreatePrivateDataSlotEXT = caps[383];
+        vkDestroyPrivateDataSlotEXT = caps[384];
+        vkSetPrivateDataEXT = caps[385];
+        vkGetPrivateDataEXT = caps[386];
+        vkCmdSetSampleLocationsEXT = caps[387];
+        vkGetShaderModuleIdentifierEXT = caps[388];
+        vkGetShaderModuleCreateInfoIdentifierEXT = caps[389];
+        vkCreateShadersEXT = caps[390];
+        vkDestroyShaderEXT = caps[391];
+        vkGetShaderBinaryDataEXT = caps[392];
+        vkCmdBindShadersEXT = caps[393];
+        vkCmdSetVertexInputEXT = caps[394];
+        vkReleaseSwapchainImagesEXT = caps[395];
+        vkCmdBindTransformFeedbackBuffersEXT = caps[396];
+        vkCmdBeginTransformFeedbackEXT = caps[397];
+        vkCmdEndTransformFeedbackEXT = caps[398];
+        vkCmdBeginQueryIndexedEXT = caps[399];
+        vkCmdEndQueryIndexedEXT = caps[400];
+        vkCmdDrawIndirectByteCountEXT = caps[401];
+        vkCreateValidationCacheEXT = caps[402];
+        vkDestroyValidationCacheEXT = caps[403];
+        vkMergeValidationCachesEXT = caps[404];
+        vkGetValidationCacheDataEXT = caps[405];
+        vkGetRefreshCycleDurationGOOGLE = caps[406];
+        vkGetPastPresentationTimingGOOGLE = caps[407];
+        vkCmdDrawClusterHUAWEI = caps[408];
+        vkCmdDrawClusterIndirectHUAWEI = caps[409];
+        vkCmdBindInvocationMaskHUAWEI = caps[410];
+        vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI = caps[411];
+        vkCmdSubpassShadingHUAWEI = caps[412];
+        vkInitializePerformanceApiINTEL = caps[413];
+        vkUninitializePerformanceApiINTEL = caps[414];
+        vkCmdSetPerformanceMarkerINTEL = caps[415];
+        vkCmdSetPerformanceStreamMarkerINTEL = caps[416];
+        vkCmdSetPerformanceOverrideINTEL = caps[417];
+        vkAcquirePerformanceConfigurationINTEL = caps[418];
+        vkReleasePerformanceConfigurationINTEL = caps[419];
+        vkQueueSetPerformanceConfigurationINTEL = caps[420];
+        vkGetPerformanceParameterINTEL = caps[421];
+        vkCreateAccelerationStructureKHR = caps[422];
+        vkDestroyAccelerationStructureKHR = caps[423];
+        vkCmdBuildAccelerationStructuresKHR = caps[424];
+        vkCmdBuildAccelerationStructuresIndirectKHR = caps[425];
+        vkBuildAccelerationStructuresKHR = caps[426];
+        vkCopyAccelerationStructureKHR = caps[427];
+        vkCopyAccelerationStructureToMemoryKHR = caps[428];
+        vkCopyMemoryToAccelerationStructureKHR = caps[429];
+        vkWriteAccelerationStructuresPropertiesKHR = caps[430];
+        vkCmdCopyAccelerationStructureKHR = caps[431];
+        vkCmdCopyAccelerationStructureToMemoryKHR = caps[432];
+        vkCmdCopyMemoryToAccelerationStructureKHR = caps[433];
+        vkGetAccelerationStructureDeviceAddressKHR = caps[434];
+        vkCmdWriteAccelerationStructuresPropertiesKHR = caps[435];
+        vkGetDeviceAccelerationStructureCompatibilityKHR = caps[436];
+        vkGetAccelerationStructureBuildSizesKHR = caps[437];
+        vkBindBufferMemory2KHR = caps[438];
+        vkBindImageMemory2KHR = caps[439];
+        vkGetBufferDeviceAddressKHR = caps[440];
+        vkGetBufferOpaqueCaptureAddressKHR = caps[441];
+        vkGetDeviceMemoryOpaqueCaptureAddressKHR = caps[442];
+        vkGetCalibratedTimestampsKHR = caps[443];
+        vkCmdCopyBuffer2KHR = caps[444];
+        vkCmdCopyImage2KHR = caps[445];
+        vkCmdCopyBufferToImage2KHR = caps[446];
+        vkCmdCopyImageToBuffer2KHR = caps[447];
+        vkCmdBlitImage2KHR = caps[448];
+        vkCmdResolveImage2KHR = caps[449];
+        vkCmdCopyMemoryIndirectKHR = caps[450];
+        vkCmdCopyMemoryToImageIndirectKHR = caps[451];
+        vkCreateRenderPass2KHR = caps[452];
+        vkCmdBeginRenderPass2KHR = caps[453];
+        vkCmdNextSubpass2KHR = caps[454];
+        vkCmdEndRenderPass2KHR = caps[455];
+        vkCreateDeferredOperationKHR = caps[456];
+        vkDestroyDeferredOperationKHR = caps[457];
+        vkGetDeferredOperationMaxConcurrencyKHR = caps[458];
+        vkGetDeferredOperationResultKHR = caps[459];
+        vkDeferredOperationJoinKHR = caps[460];
+        vkCreateDescriptorUpdateTemplateKHR = caps[461];
+        vkDestroyDescriptorUpdateTemplateKHR = caps[462];
+        vkUpdateDescriptorSetWithTemplateKHR = caps[463];
+        vkCmdPushDescriptorSetWithTemplateKHR = caps[464];
+        vkGetDeviceGroupPeerMemoryFeaturesKHR = caps[465];
+        vkCmdSetDeviceMaskKHR = caps[466];
+        vkCmdDispatchBaseKHR = caps[467];
+        vkGetDeviceGroupPresentCapabilitiesKHR = caps[468];
+        vkGetDeviceGroupSurfacePresentModesKHR = caps[469];
+        vkAcquireNextImage2KHR = caps[470];
+        vkCreateSharedSwapchainsKHR = caps[471];
+        vkCmdDrawIndirectCountKHR = caps[472];
+        vkCmdDrawIndexedIndirectCountKHR = caps[473];
+        vkCmdBeginRenderingKHR = caps[474];
+        vkCmdEndRenderingKHR = caps[475];
+        vkCmdSetRenderingAttachmentLocationsKHR = caps[476];
+        vkCmdSetRenderingInputAttachmentIndicesKHR = caps[477];
+        vkImportFenceFdKHR = caps[478];
+        vkGetFenceFdKHR = caps[479];
+        vkImportFenceWin32HandleKHR = caps[480];
+        vkGetFenceWin32HandleKHR = caps[481];
+        vkGetMemoryFdKHR = caps[482];
+        vkGetMemoryFdPropertiesKHR = caps[483];
+        vkGetMemoryWin32HandleKHR = caps[484];
+        vkGetMemoryWin32HandlePropertiesKHR = caps[485];
+        vkImportSemaphoreFdKHR = caps[486];
+        vkGetSemaphoreFdKHR = caps[487];
+        vkImportSemaphoreWin32HandleKHR = caps[488];
+        vkGetSemaphoreWin32HandleKHR = caps[489];
+        vkCmdSetFragmentShadingRateKHR = caps[490];
+        vkGetImageMemoryRequirements2KHR = caps[491];
+        vkGetBufferMemoryRequirements2KHR = caps[492];
+        vkGetImageSparseMemoryRequirements2KHR = caps[493];
+        vkCmdSetLineStippleKHR = caps[494];
+        vkTrimCommandPoolKHR = caps[495];
+        vkCmdEndRendering2KHR = caps[496];
+        vkGetDescriptorSetLayoutSupportKHR = caps[497];
+        vkGetDeviceBufferMemoryRequirementsKHR = caps[498];
+        vkGetDeviceImageMemoryRequirementsKHR = caps[499];
+        vkGetDeviceImageSparseMemoryRequirementsKHR = caps[500];
+        vkCmdBindIndexBuffer2KHR = caps[501];
+        vkGetRenderingAreaGranularityKHR = caps[502];
+        vkGetDeviceImageSubresourceLayoutKHR = caps[503];
+        vkGetImageSubresourceLayout2KHR = caps[504];
+        vkCmdBindDescriptorSets2KHR = caps[505];
+        vkCmdPushConstants2KHR = caps[506];
+        vkCmdPushDescriptorSet2KHR = caps[507];
+        vkCmdPushDescriptorSetWithTemplate2KHR = caps[508];
+        vkCmdSetDescriptorBufferOffsets2EXT = caps[509];
+        vkCmdBindDescriptorBufferEmbeddedSamplers2EXT = caps[510];
+        vkMapMemory2KHR = caps[511];
+        vkUnmapMemory2KHR = caps[512];
+        vkAcquireProfilingLockKHR = caps[513];
+        vkReleaseProfilingLockKHR = caps[514];
+        vkCreatePipelineBinariesKHR = caps[515];
+        vkDestroyPipelineBinaryKHR = caps[516];
+        vkGetPipelineKeyKHR = caps[517];
+        vkGetPipelineBinaryDataKHR = caps[518];
+        vkReleaseCapturedPipelineDataKHR = caps[519];
+        vkGetPipelineExecutablePropertiesKHR = caps[520];
+        vkGetPipelineExecutableStatisticsKHR = caps[521];
+        vkGetPipelineExecutableInternalRepresentationsKHR = caps[522];
+        vkWaitForPresentKHR = caps[523];
+        vkWaitForPresent2KHR = caps[524];
+        vkCmdPushDescriptorSetKHR = caps[525];
+        vkCmdTraceRaysIndirect2KHR = caps[526];
+        vkCmdTraceRaysKHR = caps[527];
+        vkCreateRayTracingPipelinesKHR = caps[528];
+        vkGetRayTracingShaderGroupHandlesKHR = caps[529];
+        vkGetRayTracingCaptureReplayShaderGroupHandlesKHR = caps[530];
+        vkCmdTraceRaysIndirectKHR = caps[531];
+        vkGetRayTracingShaderGroupStackSizeKHR = caps[532];
+        vkCmdSetRayTracingPipelineStackSizeKHR = caps[533];
+        vkCreateSamplerYcbcrConversionKHR = caps[534];
+        vkDestroySamplerYcbcrConversionKHR = caps[535];
+        vkGetSwapchainStatusKHR = caps[536];
+        vkCreateSwapchainKHR = caps[537];
+        vkDestroySwapchainKHR = caps[538];
+        vkGetSwapchainImagesKHR = caps[539];
+        vkAcquireNextImageKHR = caps[540];
+        vkQueuePresentKHR = caps[541];
+        vkReleaseSwapchainImagesKHR = caps[542];
+        vkCmdSetEvent2KHR = caps[543];
+        vkCmdResetEvent2KHR = caps[544];
+        vkCmdWaitEvents2KHR = caps[545];
+        vkCmdPipelineBarrier2KHR = caps[546];
+        vkCmdWriteTimestamp2KHR = caps[547];
+        vkQueueSubmit2KHR = caps[548];
+        vkGetSemaphoreCounterValueKHR = caps[549];
+        vkWaitSemaphoresKHR = caps[550];
+        vkSignalSemaphoreKHR = caps[551];
+        vkCmdDecodeVideoKHR = caps[552];
+        vkGetEncodedVideoSessionParametersKHR = caps[553];
+        vkCmdEncodeVideoKHR = caps[554];
+        vkCreateVideoSessionKHR = caps[555];
+        vkDestroyVideoSessionKHR = caps[556];
+        vkGetVideoSessionMemoryRequirementsKHR = caps[557];
+        vkBindVideoSessionMemoryKHR = caps[558];
+        vkCreateVideoSessionParametersKHR = caps[559];
+        vkUpdateVideoSessionParametersKHR = caps[560];
+        vkDestroyVideoSessionParametersKHR = caps[561];
+        vkCmdBeginVideoCodingKHR = caps[562];
+        vkCmdEndVideoCodingKHR = caps[563];
+        vkCmdControlVideoCodingKHR = caps[564];
+        vkCmdSetViewportWScalingNV = caps[565];
+        vkGetClusterAccelerationStructureBuildSizesNV = caps[566];
+        vkCmdBuildClusterAccelerationStructureIndirectNV = caps[567];
+        vkCmdSetComputeOccupancyPriorityNV = caps[568];
+        vkConvertCooperativeVectorMatrixNV = caps[569];
+        vkCmdConvertCooperativeVectorMatrixNV = caps[570];
+        vkCmdCopyMemoryIndirectNV = caps[571];
+        vkCmdCopyMemoryToImageIndirectNV = caps[572];
+        vkCreateCudaModuleNV = caps[573];
+        vkGetCudaModuleCacheNV = caps[574];
+        vkCreateCudaFunctionNV = caps[575];
+        vkDestroyCudaModuleNV = caps[576];
+        vkDestroyCudaFunctionNV = caps[577];
+        vkCmdCudaLaunchKernelNV = caps[578];
+        vkCmdSetCheckpointNV = caps[579];
+        vkGetQueueCheckpointDataNV = caps[580];
+        vkGetQueueCheckpointData2NV = caps[581];
+        vkGetGeneratedCommandsMemoryRequirementsNV = caps[582];
+        vkCmdPreprocessGeneratedCommandsNV = caps[583];
+        vkCmdExecuteGeneratedCommandsNV = caps[584];
+        vkCmdBindPipelineShaderGroupNV = caps[585];
+        vkCreateIndirectCommandsLayoutNV = caps[586];
+        vkDestroyIndirectCommandsLayoutNV = caps[587];
+        vkGetPipelineIndirectMemoryRequirementsNV = caps[588];
+        vkCmdUpdatePipelineIndirectBufferNV = caps[589];
+        vkGetPipelineIndirectDeviceAddressNV = caps[590];
+        vkCreateExternalComputeQueueNV = caps[591];
+        vkDestroyExternalComputeQueueNV = caps[592];
+        vkGetExternalComputeQueueDataNV = caps[593];
+        vkGetMemoryRemoteAddressNV = caps[594];
+        vkGetMemoryWin32HandleNV = caps[595];
+        vkCmdSetFragmentShadingRateEnumNV = caps[596];
+        vkSetLatencySleepModeNV = caps[597];
+        vkLatencySleepNV = caps[598];
+        vkSetLatencyMarkerNV = caps[599];
+        vkGetLatencyTimingsNV = caps[600];
+        vkQueueNotifyOutOfBandNV = caps[601];
+        vkCmdDecompressMemoryNV = caps[602];
+        vkCmdDecompressMemoryIndirectCountNV = caps[603];
+        vkCmdDrawMeshTasksNV = caps[604];
+        vkCmdDrawMeshTasksIndirectNV = caps[605];
+        vkCmdDrawMeshTasksIndirectCountNV = caps[606];
+        vkCreateOpticalFlowSessionNV = caps[607];
+        vkDestroyOpticalFlowSessionNV = caps[608];
+        vkBindOpticalFlowSessionImageNV = caps[609];
+        vkCmdOpticalFlowExecuteNV = caps[610];
+        vkGetPartitionedAccelerationStructuresBuildSizesNV = caps[611];
+        vkCmdBuildPartitionedAccelerationStructuresNV = caps[612];
+        vkCreateAccelerationStructureNV = caps[613];
+        vkDestroyAccelerationStructureNV = caps[614];
+        vkGetAccelerationStructureMemoryRequirementsNV = caps[615];
+        vkBindAccelerationStructureMemoryNV = caps[616];
+        vkCmdBuildAccelerationStructureNV = caps[617];
+        vkCmdCopyAccelerationStructureNV = caps[618];
+        vkCmdTraceRaysNV = caps[619];
+        vkCreateRayTracingPipelinesNV = caps[620];
+        vkGetRayTracingShaderGroupHandlesNV = caps[621];
+        vkGetAccelerationStructureHandleNV = caps[622];
+        vkCmdWriteAccelerationStructuresPropertiesNV = caps[623];
+        vkCompileDeferredNV = caps[624];
+        vkCmdSetExclusiveScissorEnableNV = caps[625];
+        vkCmdSetExclusiveScissorNV = caps[626];
+        vkCmdBindShadingRateImageNV = caps[627];
+        vkCmdSetViewportShadingRatePaletteNV = caps[628];
+        vkCmdSetCoarseSampleOrderNV = caps[629];
+        vkCreateCuModuleNVX = caps[630];
+        vkCreateCuFunctionNVX = caps[631];
+        vkDestroyCuModuleNVX = caps[632];
+        vkDestroyCuFunctionNVX = caps[633];
+        vkCmdCuLaunchKernelNVX = caps[634];
+        vkGetImageViewHandleNVX = caps[635];
+        vkGetImageViewHandle64NVX = caps[636];
+        vkGetImageViewAddressNVX = caps[637];
+        vkGetDeviceCombinedImageSamplerIndexNVX = caps[638];
+        vkCmdBindTileMemoryQCOM = caps[639];
+        vkGetFramebufferTilePropertiesQCOM = caps[640];
+        vkGetDynamicRenderingTilePropertiesQCOM = caps[641];
+        vkCmdDispatchTileQCOM = caps[642];
+        vkCmdBeginPerTileExecutionQCOM = caps[643];
+        vkCmdEndPerTileExecutionQCOM = caps[644];
+        vkGetDescriptorSetLayoutHostMappingInfoVALVE = caps[645];
+        vkGetDescriptorSetHostMappingVALVE = caps[646];
     }
 
     private static boolean check_VK10(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2339,23 +2959,22 @@ public class VKCapabilitiesDevice {
             "vkFreeMemory", "vkMapMemory", "vkUnmapMemory", "vkFlushMappedMemoryRanges", "vkInvalidateMappedMemoryRanges", "vkGetDeviceMemoryCommitment", 
             "vkBindBufferMemory", "vkBindImageMemory", "vkGetBufferMemoryRequirements", "vkGetImageMemoryRequirements", "vkGetImageSparseMemoryRequirements", 
             "vkQueueBindSparse", "vkCreateFence", "vkDestroyFence", "vkResetFences", "vkGetFenceStatus", "vkWaitForFences", "vkCreateSemaphore", 
-            "vkDestroySemaphore", "vkCreateEvent", "vkDestroyEvent", "vkGetEventStatus", "vkSetEvent", "vkResetEvent", "vkCreateQueryPool", 
-            "vkDestroyQueryPool", "vkGetQueryPoolResults", "vkCreateBuffer", "vkDestroyBuffer", "vkCreateBufferView", "vkDestroyBufferView", "vkCreateImage", 
-            "vkDestroyImage", "vkGetImageSubresourceLayout", "vkCreateImageView", "vkDestroyImageView", "vkCreateShaderModule", "vkDestroyShaderModule", 
-            "vkCreatePipelineCache", "vkDestroyPipelineCache", "vkGetPipelineCacheData", "vkMergePipelineCaches", "vkCreateGraphicsPipelines", 
-            "vkCreateComputePipelines", "vkDestroyPipeline", "vkCreatePipelineLayout", "vkDestroyPipelineLayout", "vkCreateSampler", "vkDestroySampler", 
-            "vkCreateDescriptorSetLayout", "vkDestroyDescriptorSetLayout", "vkCreateDescriptorPool", "vkDestroyDescriptorPool", "vkResetDescriptorPool", 
-            "vkAllocateDescriptorSets", "vkFreeDescriptorSets", "vkUpdateDescriptorSets", "vkCreateFramebuffer", "vkDestroyFramebuffer", "vkCreateRenderPass", 
-            "vkDestroyRenderPass", "vkGetRenderAreaGranularity", "vkCreateCommandPool", "vkDestroyCommandPool", "vkResetCommandPool", 
-            "vkAllocateCommandBuffers", "vkFreeCommandBuffers", "vkBeginCommandBuffer", "vkEndCommandBuffer", "vkResetCommandBuffer", "vkCmdBindPipeline", 
-            "vkCmdSetViewport", "vkCmdSetScissor", "vkCmdSetLineWidth", "vkCmdSetDepthBias", "vkCmdSetBlendConstants", "vkCmdSetDepthBounds", 
-            "vkCmdSetStencilCompareMask", "vkCmdSetStencilWriteMask", "vkCmdSetStencilReference", "vkCmdBindDescriptorSets", "vkCmdBindIndexBuffer", 
-            "vkCmdBindVertexBuffers", "vkCmdDraw", "vkCmdDrawIndexed", "vkCmdDrawIndirect", "vkCmdDrawIndexedIndirect", "vkCmdDispatch", 
-            "vkCmdDispatchIndirect", "vkCmdCopyBuffer", "vkCmdCopyImage", "vkCmdBlitImage", "vkCmdCopyBufferToImage", "vkCmdCopyImageToBuffer", 
-            "vkCmdUpdateBuffer", "vkCmdFillBuffer", "vkCmdClearColorImage", "vkCmdClearDepthStencilImage", "vkCmdClearAttachments", "vkCmdResolveImage", 
-            "vkCmdSetEvent", "vkCmdResetEvent", "vkCmdWaitEvents", "vkCmdPipelineBarrier", "vkCmdBeginQuery", "vkCmdEndQuery", "vkCmdResetQueryPool", 
-            "vkCmdWriteTimestamp", "vkCmdCopyQueryPoolResults", "vkCmdPushConstants", "vkCmdBeginRenderPass", "vkCmdNextSubpass", "vkCmdEndRenderPass", 
-            "vkCmdExecuteCommands"
+            "vkDestroySemaphore", "vkCreateQueryPool", "vkDestroyQueryPool", "vkGetQueryPoolResults", "vkCreateBuffer", "vkDestroyBuffer", "vkCreateImage", 
+            "vkDestroyImage", "vkGetImageSubresourceLayout", "vkCreateImageView", "vkDestroyImageView", "vkCreateCommandPool", "vkDestroyCommandPool", 
+            "vkResetCommandPool", "vkAllocateCommandBuffers", "vkFreeCommandBuffers", "vkBeginCommandBuffer", "vkEndCommandBuffer", "vkResetCommandBuffer", 
+            "vkCmdCopyBuffer", "vkCmdCopyImage", "vkCmdCopyBufferToImage", "vkCmdCopyImageToBuffer", "vkCmdUpdateBuffer", "vkCmdFillBuffer", 
+            "vkCmdPipelineBarrier", "vkCmdBeginQuery", "vkCmdEndQuery", "vkCmdResetQueryPool", "vkCmdWriteTimestamp", "vkCmdCopyQueryPoolResults", 
+            "vkCmdExecuteCommands", "vkCreateEvent", "vkDestroyEvent", "vkGetEventStatus", "vkSetEvent", "vkResetEvent", "vkCreateBufferView", 
+            "vkDestroyBufferView", "vkCreateShaderModule", "vkDestroyShaderModule", "vkCreatePipelineCache", "vkDestroyPipelineCache", "vkGetPipelineCacheData", 
+            "vkMergePipelineCaches", "vkCreateComputePipelines", "vkDestroyPipeline", "vkCreatePipelineLayout", "vkDestroyPipelineLayout", "vkCreateSampler", 
+            "vkDestroySampler", "vkCreateDescriptorSetLayout", "vkDestroyDescriptorSetLayout", "vkCreateDescriptorPool", "vkDestroyDescriptorPool", 
+            "vkResetDescriptorPool", "vkAllocateDescriptorSets", "vkFreeDescriptorSets", "vkUpdateDescriptorSets", "vkCmdBindPipeline", 
+            "vkCmdBindDescriptorSets", "vkCmdClearColorImage", "vkCmdDispatch", "vkCmdDispatchIndirect", "vkCmdSetEvent", "vkCmdResetEvent", "vkCmdWaitEvents", 
+            "vkCmdPushConstants", "vkCreateGraphicsPipelines", "vkCreateFramebuffer", "vkDestroyFramebuffer", "vkCreateRenderPass", "vkDestroyRenderPass", 
+            "vkGetRenderAreaGranularity", "vkCmdSetViewport", "vkCmdSetScissor", "vkCmdSetLineWidth", "vkCmdSetDepthBias", "vkCmdSetBlendConstants", 
+            "vkCmdSetDepthBounds", "vkCmdSetStencilCompareMask", "vkCmdSetStencilWriteMask", "vkCmdSetStencilReference", "vkCmdBindIndexBuffer", 
+            "vkCmdBindVertexBuffers", "vkCmdDraw", "vkCmdDrawIndexed", "vkCmdDrawIndirect", "vkCmdDrawIndexedIndirect", "vkCmdBlitImage", 
+            "vkCmdClearDepthStencilImage", "vkCmdClearAttachments", "vkCmdResolveImage", "vkCmdBeginRenderPass", "vkCmdNextSubpass", "vkCmdEndRenderPass"
         ) || reportMissing("VK", "Vulkan10");
     }
 
@@ -2367,10 +2986,10 @@ public class VKCapabilitiesDevice {
         return checkFunctions(provider, caps, new int[] {
             121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136
         },
-            "vkBindBufferMemory2", "vkBindImageMemory2", "vkGetDeviceGroupPeerMemoryFeatures", "vkCmdSetDeviceMask", "vkCmdDispatchBase", 
-            "vkGetImageMemoryRequirements2", "vkGetBufferMemoryRequirements2", "vkGetImageSparseMemoryRequirements2", "vkTrimCommandPool", "vkGetDeviceQueue2", 
-            "vkCreateSamplerYcbcrConversion", "vkDestroySamplerYcbcrConversion", "vkCreateDescriptorUpdateTemplate", "vkDestroyDescriptorUpdateTemplate", 
-            "vkUpdateDescriptorSetWithTemplate", "vkGetDescriptorSetLayoutSupport"
+            "vkBindBufferMemory2", "vkBindImageMemory2", "vkGetDeviceGroupPeerMemoryFeatures", "vkCmdSetDeviceMask", "vkGetImageMemoryRequirements2", 
+            "vkGetBufferMemoryRequirements2", "vkGetImageSparseMemoryRequirements2", "vkTrimCommandPool", "vkGetDeviceQueue2", "vkCmdDispatchBase", 
+            "vkCreateDescriptorUpdateTemplate", "vkDestroyDescriptorUpdateTemplate", "vkUpdateDescriptorSetWithTemplate", "vkGetDescriptorSetLayoutSupport", 
+            "vkCreateSamplerYcbcrConversion", "vkDestroySamplerYcbcrConversion"
         ) || reportMissing("VK", "Vulkan11");
     }
 
@@ -2382,9 +3001,9 @@ public class VKCapabilitiesDevice {
         return checkFunctions(provider, caps, new int[] {
             137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149
         },
-            "vkCmdDrawIndirectCount", "vkCmdDrawIndexedIndirectCount", "vkCreateRenderPass2", "vkCmdBeginRenderPass2", "vkCmdNextSubpass2", 
-            "vkCmdEndRenderPass2", "vkResetQueryPool", "vkGetSemaphoreCounterValue", "vkWaitSemaphores", "vkSignalSemaphore", "vkGetBufferDeviceAddress", 
-            "vkGetBufferOpaqueCaptureAddress", "vkGetDeviceMemoryOpaqueCaptureAddress"
+            "vkResetQueryPool", "vkGetSemaphoreCounterValue", "vkWaitSemaphores", "vkSignalSemaphore", "vkGetBufferDeviceAddress", 
+            "vkGetBufferOpaqueCaptureAddress", "vkGetDeviceMemoryOpaqueCaptureAddress", "vkCmdDrawIndirectCount", "vkCmdDrawIndexedIndirectCount", 
+            "vkCreateRenderPass2", "vkCmdBeginRenderPass2", "vkCmdNextSubpass2", "vkCmdEndRenderPass2"
         ) || reportMissing("VK", "Vulkan12");
     }
 
@@ -2397,14 +3016,41 @@ public class VKCapabilitiesDevice {
             150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 
             179, 180, 181, 182, 183, 184, 185
         },
-            "vkCreatePrivateDataSlot", "vkDestroyPrivateDataSlot", "vkSetPrivateData", "vkGetPrivateData", "vkCmdSetEvent2", "vkCmdResetEvent2", 
-            "vkCmdWaitEvents2", "vkCmdPipelineBarrier2", "vkCmdWriteTimestamp2", "vkQueueSubmit2", "vkCmdCopyBuffer2", "vkCmdCopyImage2", 
-            "vkCmdCopyBufferToImage2", "vkCmdCopyImageToBuffer2", "vkCmdBlitImage2", "vkCmdResolveImage2", "vkCmdBeginRendering", "vkCmdEndRendering", 
-            "vkCmdSetCullMode", "vkCmdSetFrontFace", "vkCmdSetPrimitiveTopology", "vkCmdSetViewportWithCount", "vkCmdSetScissorWithCount", 
-            "vkCmdBindVertexBuffers2", "vkCmdSetDepthTestEnable", "vkCmdSetDepthWriteEnable", "vkCmdSetDepthCompareOp", "vkCmdSetDepthBoundsTestEnable", 
-            "vkCmdSetStencilTestEnable", "vkCmdSetStencilOp", "vkCmdSetRasterizerDiscardEnable", "vkCmdSetDepthBiasEnable", "vkCmdSetPrimitiveRestartEnable", 
-            "vkGetDeviceBufferMemoryRequirements", "vkGetDeviceImageMemoryRequirements", "vkGetDeviceImageSparseMemoryRequirements"
+            "vkCreatePrivateDataSlot", "vkDestroyPrivateDataSlot", "vkSetPrivateData", "vkGetPrivateData", "vkCmdPipelineBarrier2", "vkCmdWriteTimestamp2", 
+            "vkQueueSubmit2", "vkCmdCopyBuffer2", "vkCmdCopyImage2", "vkCmdCopyBufferToImage2", "vkCmdCopyImageToBuffer2", 
+            "vkGetDeviceBufferMemoryRequirements", "vkGetDeviceImageMemoryRequirements", "vkGetDeviceImageSparseMemoryRequirements", "vkCmdSetEvent2", 
+            "vkCmdResetEvent2", "vkCmdWaitEvents2", "vkCmdBlitImage2", "vkCmdResolveImage2", "vkCmdBeginRendering", "vkCmdEndRendering", "vkCmdSetCullMode", 
+            "vkCmdSetFrontFace", "vkCmdSetPrimitiveTopology", "vkCmdSetViewportWithCount", "vkCmdSetScissorWithCount", "vkCmdBindVertexBuffers2", 
+            "vkCmdSetDepthTestEnable", "vkCmdSetDepthWriteEnable", "vkCmdSetDepthCompareOp", "vkCmdSetDepthBoundsTestEnable", "vkCmdSetStencilTestEnable", 
+            "vkCmdSetStencilOp", "vkCmdSetRasterizerDiscardEnable", "vkCmdSetDepthBiasEnable", "vkCmdSetPrimitiveRestartEnable"
         ) || reportMissing("VK", "Vulkan13");
+    }
+
+    private static boolean check_VK14(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("Vulkan14")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204
+        },
+            "vkMapMemory2", "vkUnmapMemory2", "vkGetDeviceImageSubresourceLayout", "vkGetImageSubresourceLayout2", "vkCopyMemoryToImage", "vkCopyImageToMemory", 
+            "vkCopyImageToImage", "vkTransitionImageLayout", "vkCmdPushDescriptorSet", "vkCmdPushDescriptorSetWithTemplate", "vkCmdBindDescriptorSets2", 
+            "vkCmdPushConstants2", "vkCmdPushDescriptorSet2", "vkCmdPushDescriptorSetWithTemplate2", "vkCmdSetLineStipple", "vkCmdBindIndexBuffer2", 
+            "vkGetRenderingAreaGranularity", "vkCmdSetRenderingAttachmentLocations", "vkCmdSetRenderingInputAttachmentIndices"
+        ) || reportMissing("VK", "Vulkan14");
+    }
+
+    private static boolean check_AMD_anti_lag(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_AMD_anti_lag")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            205
+        },
+            "vkAntiLagUpdateAMD"
+        ) || reportMissing("VK", "VK_AMD_anti_lag");
     }
 
     private static boolean check_AMD_buffer_marker(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2412,10 +3058,12 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
+        int flag0 = ext.contains("Vulkan13") || ext.contains("VK_KHR_synchronization2") ? 0 : Integer.MIN_VALUE;
+
         return checkFunctions(provider, caps, new int[] {
-            186
+            206, flag0 + 207
         },
-            "vkCmdWriteBufferMarkerAMD"
+            "vkCmdWriteBufferMarkerAMD", "vkCmdWriteBufferMarker2AMD"
         ) || reportMissing("VK", "VK_AMD_buffer_marker");
     }
 
@@ -2425,7 +3073,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            187
+            208
         },
             "vkSetLocalDimmingAMD"
         ) || reportMissing("VK", "VK_AMD_display_native_hdr");
@@ -2437,7 +3085,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            188, 189
+            209, 210
         },
             "vkCmdDrawIndirectCountAMD", "vkCmdDrawIndexedIndirectCountAMD"
         ) || reportMissing("VK", "VK_AMD_draw_indirect_count");
@@ -2449,7 +3097,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            190
+            211
         },
             "vkGetShaderInfoAMD"
         ) || reportMissing("VK", "VK_AMD_shader_info");
@@ -2461,7 +3109,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            191, 192, 193, 194, 195, 196, 197
+            212, 213, 214, 215, 216, 217, 218
         },
             "vkCreateExecutionGraphPipelinesAMDX", "vkGetExecutionGraphPipelineScratchSizeAMDX", "vkGetExecutionGraphPipelineNodeIndexAMDX", 
             "vkCmdInitializeGraphScratchMemoryAMDX", "vkCmdDispatchGraphAMDX", "vkCmdDispatchGraphIndirectAMDX", "vkCmdDispatchGraphIndirectCountAMDX"
@@ -2474,10 +3122,40 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            198, 199
+            219, 220
         },
             "vkGetAndroidHardwareBufferPropertiesANDROID", "vkGetMemoryAndroidHardwareBufferANDROID"
         ) || reportMissing("VK", "VK_ANDROID_external_memory_android_hardware_buffer");
+    }
+
+    private static boolean check_ARM_data_graph(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_ARM_data_graph")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            221, 222, 223, 224, 225, 226, 227, 228, 229
+        },
+            "vkCreateDataGraphPipelinesARM", "vkCreateDataGraphPipelineSessionARM", "vkGetDataGraphPipelineSessionBindPointRequirementsARM", 
+            "vkGetDataGraphPipelineSessionMemoryRequirementsARM", "vkBindDataGraphPipelineSessionMemoryARM", "vkDestroyDataGraphPipelineSessionARM", 
+            "vkCmdDispatchDataGraphARM", "vkGetDataGraphPipelineAvailablePropertiesARM", "vkGetDataGraphPipelinePropertiesARM"
+        ) || reportMissing("VK", "VK_ARM_data_graph");
+    }
+
+    private static boolean check_ARM_tensors(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_ARM_tensors")) {
+            return false;
+        }
+
+        int flag0 = ext.contains("VK_EXT_descriptor_buffer") ? 0 : Integer.MIN_VALUE;
+
+        return checkFunctions(provider, caps, new int[] {
+            230, 231, 232, 233, 234, 235, 236, 237, flag0 + 238, flag0 + 239
+        },
+            "vkCreateTensorARM", "vkDestroyTensorARM", "vkCreateTensorViewARM", "vkDestroyTensorViewARM", "vkGetTensorMemoryRequirementsARM", 
+            "vkBindTensorMemoryARM", "vkGetDeviceTensorMemoryRequirementsARM", "vkCmdCopyTensorARM", "vkGetTensorOpaqueCaptureDescriptorDataARM", 
+            "vkGetTensorViewOpaqueCaptureDescriptorDataARM"
+        ) || reportMissing("VK", "VK_ARM_tensors");
     }
 
     private static boolean check_EXT_attachment_feedback_loop_dynamic_state(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2486,7 +3164,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            200
+            240
         },
             "vkCmdSetAttachmentFeedbackLoopEnableEXT"
         ) || reportMissing("VK", "VK_EXT_attachment_feedback_loop_dynamic_state");
@@ -2498,7 +3176,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            201
+            241
         },
             "vkGetBufferDeviceAddressEXT"
         ) || reportMissing("VK", "VK_EXT_buffer_device_address");
@@ -2510,7 +3188,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            202
+            242
         },
             "vkGetCalibratedTimestampsEXT"
         ) || reportMissing("VK", "VK_EXT_calibrated_timestamps");
@@ -2522,7 +3200,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            203
+            243
         },
             "vkCmdSetColorWriteEnableEXT"
         ) || reportMissing("VK", "VK_EXT_color_write_enable");
@@ -2534,10 +3212,24 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            204, 205
+            244, 245
         },
             "vkCmdBeginConditionalRenderingEXT", "vkCmdEndConditionalRenderingEXT"
         ) || reportMissing("VK", "VK_EXT_conditional_rendering");
+    }
+
+    private static boolean check_EXT_custom_resolve(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_custom_resolve")) {
+            return false;
+        }
+
+        int flag0 = ext.contains("VK_KHR_dynamic_rendering") || ext.contains("Vulkan13") ? 0 : Integer.MIN_VALUE;
+
+        return checkFunctions(provider, caps, new int[] {
+            flag0 + 246
+        },
+            "vkCmdBeginCustomResolveEXT"
+        ) || reportMissing("VK", "VK_EXT_custom_resolve");
     }
 
     private static boolean check_EXT_debug_marker(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2546,7 +3238,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            206, 207, 208, 209, 210
+            247, 248, 249, 250, 251
         },
             "vkDebugMarkerSetObjectTagEXT", "vkDebugMarkerSetObjectNameEXT", "vkCmdDebugMarkerBeginEXT", "vkCmdDebugMarkerEndEXT", "vkCmdDebugMarkerInsertEXT"
         ) || reportMissing("VK", "VK_EXT_debug_marker");
@@ -2558,10 +3250,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            211
+            252
         },
             "vkCmdSetDepthBias2EXT"
         ) || reportMissing("VK", "VK_EXT_depth_bias_control");
+    }
+
+    private static boolean check_EXT_depth_clamp_control(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_depth_clamp_control")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            253
+        },
+            "vkCmdSetDepthClampRangeEXT"
+        ) || reportMissing("VK", "VK_EXT_depth_clamp_control");
     }
 
     private static boolean check_EXT_descriptor_buffer(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2572,7 +3276,7 @@ public class VKCapabilitiesDevice {
         int flag0 = ext.contains("VK_KHR_acceleration_structure") || ext.contains("VK_NV_ray_tracing") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            212, 213, 214, 215, 216, 217, 218, 219, 220, 221, flag0 + 222
+            254, 255, 256, 257, 258, 259, 260, 261, 262, 263, flag0 + 264
         },
             "vkGetDescriptorSetLayoutSizeEXT", "vkGetDescriptorSetLayoutBindingOffsetEXT", "vkGetDescriptorEXT", "vkCmdBindDescriptorBuffersEXT", 
             "vkCmdSetDescriptorBufferOffsetsEXT", "vkCmdBindDescriptorBufferEmbeddedSamplersEXT", "vkGetBufferOpaqueCaptureDescriptorDataEXT", 
@@ -2581,16 +3285,46 @@ public class VKCapabilitiesDevice {
         ) || reportMissing("VK", "VK_EXT_descriptor_buffer");
     }
 
+    private static boolean check_EXT_descriptor_heap(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_descriptor_heap")) {
+            return false;
+        }
+
+        int flag0 = ext.contains("VK_EXT_custom_border_color") ? 0 : Integer.MIN_VALUE;
+        int flag2 = ext.contains("VK_ARM_tensors") ? 0 : Integer.MIN_VALUE;
+
+        return checkFunctions(provider, caps, new int[] {
+            265, 266, 267, 268, 269, 270, flag0 + 271, flag0 + 272, flag2 + 273
+        },
+            "vkWriteSamplerDescriptorsEXT", "vkWriteResourceDescriptorsEXT", "vkCmdBindSamplerHeapEXT", "vkCmdBindResourceHeapEXT", "vkCmdPushDataEXT", 
+            "vkGetImageOpaqueCaptureDataEXT", "vkRegisterCustomBorderColorEXT", "vkUnregisterCustomBorderColorEXT", "vkGetTensorOpaqueCaptureDataARM"
+        ) || reportMissing("VK", "VK_EXT_descriptor_heap");
+    }
+
     private static boolean check_EXT_device_fault(FunctionProvider provider, long[] caps, Set<String> ext) {
         if (!ext.contains("VK_EXT_device_fault")) {
             return false;
         }
 
         return checkFunctions(provider, caps, new int[] {
-            223
+            274
         },
             "vkGetDeviceFaultInfoEXT"
         ) || reportMissing("VK", "VK_EXT_device_fault");
+    }
+
+    private static boolean check_EXT_device_generated_commands(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_device_generated_commands")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            275, 276, 277, 278, 279, 280, 281, 282, 283
+        },
+            "vkGetGeneratedCommandsMemoryRequirementsEXT", "vkCmdPreprocessGeneratedCommandsEXT", "vkCmdExecuteGeneratedCommandsEXT", 
+            "vkCreateIndirectCommandsLayoutEXT", "vkDestroyIndirectCommandsLayoutEXT", "vkCreateIndirectExecutionSetEXT", "vkDestroyIndirectExecutionSetEXT", 
+            "vkUpdateIndirectExecutionSetPipelineEXT", "vkUpdateIndirectExecutionSetShaderEXT"
+        ) || reportMissing("VK", "VK_EXT_device_generated_commands");
     }
 
     private static boolean check_EXT_discard_rectangles(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2599,7 +3333,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            224, 225, 226
+            284, 285, 286
         },
             "vkCmdSetDiscardRectangleEXT", "vkCmdSetDiscardRectangleEnableEXT", "vkCmdSetDiscardRectangleModeEXT"
         ) || reportMissing("VK", "VK_EXT_discard_rectangles");
@@ -2611,7 +3345,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            227, 228, 229, 230
+            287, 288, 289, 290
         },
             "vkDisplayPowerControlEXT", "vkRegisterDeviceEventEXT", "vkRegisterDisplayEventEXT", "vkGetSwapchainCounterEXT"
         ) || reportMissing("VK", "VK_EXT_display_control");
@@ -2623,7 +3357,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242
+            291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302
         },
             "vkCmdSetCullModeEXT", "vkCmdSetFrontFaceEXT", "vkCmdSetPrimitiveTopologyEXT", "vkCmdSetViewportWithCountEXT", "vkCmdSetScissorWithCountEXT", 
             "vkCmdBindVertexBuffers2EXT", "vkCmdSetDepthTestEnableEXT", "vkCmdSetDepthWriteEnableEXT", "vkCmdSetDepthCompareOpEXT", 
@@ -2637,7 +3371,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            243, 244, 245, 246, 247
+            303, 304, 305, 306, 307
         },
             "vkCmdSetPatchControlPointsEXT", "vkCmdSetRasterizerDiscardEnableEXT", "vkCmdSetDepthBiasEnableEXT", "vkCmdSetLogicOpEXT", 
             "vkCmdSetPrimitiveRestartEnableEXT"
@@ -2649,21 +3383,31 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
-        int flag0 = ext.contains("VK_NV_clip_space_w_scaling") ? 0 : Integer.MIN_VALUE;
-        int flag1 = ext.contains("VK_NV_viewport_swizzle") ? 0 : Integer.MIN_VALUE;
-        int flag2 = ext.contains("VK_NV_fragment_coverage_to_color") ? 0 : Integer.MIN_VALUE;
-        int flag4 = ext.contains("VK_NV_framebuffer_mixed_samples") ? 0 : Integer.MIN_VALUE;
-        int flag7 = ext.contains("VK_NV_shading_rate_image") ? 0 : Integer.MIN_VALUE;
-        int flag8 = ext.contains("VK_NV_representative_fragment_test") ? 0 : Integer.MIN_VALUE;
-        int flag9 = ext.contains("VK_NV_coverage_reduction_mode") ? 0 : Integer.MIN_VALUE;
+        int flag0 = ext.contains("VK_KHR_maintenance2") || ext.contains("Vulkan11") ? 0 : Integer.MIN_VALUE;
+        int flag1 = ext.contains("VK_EXT_transform_feedback") ? 0 : Integer.MIN_VALUE;
+        int flag2 = ext.contains("VK_EXT_conservative_rasterization") ? 0 : Integer.MIN_VALUE;
+        int flag4 = ext.contains("VK_EXT_depth_clip_enable") ? 0 : Integer.MIN_VALUE;
+        int flag5 = ext.contains("VK_EXT_sample_locations") ? 0 : Integer.MIN_VALUE;
+        int flag6 = ext.contains("VK_EXT_blend_operation_advanced") ? 0 : Integer.MIN_VALUE;
+        int flag7 = ext.contains("VK_EXT_provoking_vertex") ? 0 : Integer.MIN_VALUE;
+        int flag8 = ext.contains("VK_EXT_line_rasterization") ? 0 : Integer.MIN_VALUE;
+        int flag10 = ext.contains("VK_EXT_depth_clip_control") ? 0 : Integer.MIN_VALUE;
+        int flag11 = ext.contains("VK_NV_clip_space_w_scaling") ? 0 : Integer.MIN_VALUE;
+        int flag12 = ext.contains("VK_NV_viewport_swizzle") ? 0 : Integer.MIN_VALUE;
+        int flag13 = ext.contains("VK_NV_fragment_coverage_to_color") ? 0 : Integer.MIN_VALUE;
+        int flag15 = ext.contains("VK_NV_framebuffer_mixed_samples") ? 0 : Integer.MIN_VALUE;
+        int flag18 = ext.contains("VK_NV_shading_rate_image") ? 0 : Integer.MIN_VALUE;
+        int flag19 = ext.contains("VK_NV_representative_fragment_test") ? 0 : Integer.MIN_VALUE;
+        int flag20 = ext.contains("VK_NV_coverage_reduction_mode") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, flag0 + 269, flag1 + 270, flag2 + 271, 
-            flag2 + 272, flag4 + 273, flag4 + 274, flag4 + 275, flag7 + 276, flag8 + 277, flag9 + 278
+            308, 309, 310, 311, 312, 313, 314, 315, 316, 317, flag0 + 318, flag1 + 319, flag2 + 320, flag2 + 321, flag4 + 322, flag5 + 323, flag6 + 324, 
+            flag7 + 325, flag8 + 326, flag8 + 327, flag10 + 328, flag11 + 329, flag12 + 330, flag13 + 331, flag13 + 332, flag15 + 333, flag15 + 334, 
+            flag15 + 335, flag18 + 336, flag19 + 337, flag20 + 338
         },
-            "vkCmdSetTessellationDomainOriginEXT", "vkCmdSetDepthClampEnableEXT", "vkCmdSetPolygonModeEXT", "vkCmdSetRasterizationSamplesEXT", 
-            "vkCmdSetSampleMaskEXT", "vkCmdSetAlphaToCoverageEnableEXT", "vkCmdSetAlphaToOneEnableEXT", "vkCmdSetLogicOpEnableEXT", 
-            "vkCmdSetColorBlendEnableEXT", "vkCmdSetColorBlendEquationEXT", "vkCmdSetColorWriteMaskEXT", "vkCmdSetRasterizationStreamEXT", 
+            "vkCmdSetDepthClampEnableEXT", "vkCmdSetPolygonModeEXT", "vkCmdSetRasterizationSamplesEXT", "vkCmdSetSampleMaskEXT", 
+            "vkCmdSetAlphaToCoverageEnableEXT", "vkCmdSetAlphaToOneEnableEXT", "vkCmdSetLogicOpEnableEXT", "vkCmdSetColorBlendEnableEXT", 
+            "vkCmdSetColorBlendEquationEXT", "vkCmdSetColorWriteMaskEXT", "vkCmdSetTessellationDomainOriginEXT", "vkCmdSetRasterizationStreamEXT", 
             "vkCmdSetConservativeRasterizationModeEXT", "vkCmdSetExtraPrimitiveOverestimationSizeEXT", "vkCmdSetDepthClipEnableEXT", 
             "vkCmdSetSampleLocationsEnableEXT", "vkCmdSetColorBlendAdvancedEXT", "vkCmdSetProvokingVertexModeEXT", "vkCmdSetLineRasterizationModeEXT", 
             "vkCmdSetLineStippleEnableEXT", "vkCmdSetDepthClipNegativeOneToOneEXT", "vkCmdSetViewportWScalingEnableNV", "vkCmdSetViewportSwizzleNV", 
@@ -2679,10 +3423,34 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            279
+            339
         },
             "vkGetMemoryHostPointerPropertiesEXT"
         ) || reportMissing("VK", "VK_EXT_external_memory_host");
+    }
+
+    private static boolean check_EXT_external_memory_metal(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_external_memory_metal")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            340, 341
+        },
+            "vkGetMemoryMetalHandleEXT", "vkGetMemoryMetalHandlePropertiesEXT"
+        ) || reportMissing("VK", "VK_EXT_external_memory_metal");
+    }
+
+    private static boolean check_EXT_fragment_density_map_offset(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_fragment_density_map_offset")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            342
+        },
+            "vkCmdEndRendering2EXT"
+        ) || reportMissing("VK", "VK_EXT_fragment_density_map_offset");
     }
 
     private static boolean check_EXT_full_screen_exclusive(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2693,7 +3461,7 @@ public class VKCapabilitiesDevice {
         int flag0 = ext.contains("VK_KHR_device_group") || ext.contains("Vulkan11") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            280, 281, flag0 + 282
+            343, 344, flag0 + 345
         },
             "vkAcquireFullScreenExclusiveModeEXT", "vkReleaseFullScreenExclusiveModeEXT", "vkGetDeviceGroupSurfacePresentModes2EXT"
         ) || reportMissing("VK", "VK_EXT_full_screen_exclusive");
@@ -2705,7 +3473,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            283
+            346
         },
             "vkSetHdrMetadataEXT"
         ) || reportMissing("VK", "VK_EXT_hdr_metadata");
@@ -2717,7 +3485,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            284, 285, 286, 287, 288
+            347, 348, 349, 350, 351
         },
             "vkCopyMemoryToImageEXT", "vkCopyImageToMemoryEXT", "vkCopyImageToImageEXT", "vkTransitionImageLayoutEXT", "vkGetImageSubresourceLayout2EXT"
         ) || reportMissing("VK", "VK_EXT_host_image_copy");
@@ -2729,7 +3497,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            289
+            352
         },
             "vkResetQueryPoolEXT"
         ) || reportMissing("VK", "VK_EXT_host_query_reset");
@@ -2741,7 +3509,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            288
+            351
         },
             "vkGetImageSubresourceLayout2EXT"
         ) || reportMissing("VK", "VK_EXT_image_compression_control");
@@ -2753,7 +3521,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            290
+            353
         },
             "vkGetImageDrmFormatModifierPropertiesEXT"
         ) || reportMissing("VK", "VK_EXT_image_drm_format_modifier");
@@ -2765,10 +3533,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            291
+            354
         },
             "vkCmdSetLineStippleEXT"
         ) || reportMissing("VK", "VK_EXT_line_rasterization");
+    }
+
+    private static boolean check_EXT_memory_decompression(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_memory_decompression")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            355, 356
+        },
+            "vkCmdDecompressMemoryEXT", "vkCmdDecompressMemoryIndirectCountEXT"
+        ) || reportMissing("VK", "VK_EXT_memory_decompression");
     }
 
     private static boolean check_EXT_mesh_shader(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2776,8 +3556,10 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
+        int flag0 = ext.contains("Vulkan12") || ext.contains("VK_KHR_draw_indirect_count") || ext.contains("VK_AMD_draw_indirect_count") ? 0 : Integer.MIN_VALUE;
+
         return checkFunctions(provider, caps, new int[] {
-            292, 293, 294
+            357, 358, flag0 + 359
         },
             "vkCmdDrawMeshTasksEXT", "vkCmdDrawMeshTasksIndirectEXT", "vkCmdDrawMeshTasksIndirectCountEXT"
         ) || reportMissing("VK", "VK_EXT_mesh_shader");
@@ -2789,7 +3571,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            295
+            360
         },
             "vkExportMetalObjectsEXT"
         ) || reportMissing("VK", "VK_EXT_metal_objects");
@@ -2801,7 +3583,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            296, 297
+            361, 362
         },
             "vkCmdDrawMultiEXT", "vkCmdDrawMultiIndexedEXT"
         ) || reportMissing("VK", "VK_EXT_multi_draw");
@@ -2813,7 +3595,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311
+            363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376
         },
             "vkCreateMicromapEXT", "vkDestroyMicromapEXT", "vkCmdBuildMicromapsEXT", "vkBuildMicromapsEXT", "vkCopyMicromapEXT", "vkCopyMicromapToMemoryEXT", 
             "vkCopyMemoryToMicromapEXT", "vkWriteMicromapsPropertiesEXT", "vkCmdCopyMicromapEXT", "vkCmdCopyMicromapToMemoryEXT", 
@@ -2827,7 +3609,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            312
+            377
         },
             "vkSetDeviceMemoryPriorityEXT"
         ) || reportMissing("VK", "VK_EXT_pageable_device_local_memory");
@@ -2839,10 +3621,23 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            313
+            378
         },
             "vkGetPipelinePropertiesEXT"
         ) || reportMissing("VK", "VK_EXT_pipeline_properties");
+    }
+
+    private static boolean check_EXT_present_timing(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_EXT_present_timing")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            379, 380, 381, 382
+        },
+            "vkSetSwapchainPresentTimingQueueSizeEXT", "vkGetSwapchainTimingPropertiesEXT", "vkGetSwapchainTimeDomainPropertiesEXT", 
+            "vkGetPastPresentationTimingEXT"
+        ) || reportMissing("VK", "VK_EXT_present_timing");
     }
 
     private static boolean check_EXT_private_data(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -2851,7 +3646,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            314, 315, 316, 317
+            383, 384, 385, 386
         },
             "vkCreatePrivateDataSlotEXT", "vkDestroyPrivateDataSlotEXT", "vkSetPrivateDataEXT", "vkGetPrivateDataEXT"
         ) || reportMissing("VK", "VK_EXT_private_data");
@@ -2863,7 +3658,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            318
+            387
         },
             "vkCmdSetSampleLocationsEXT"
         ) || reportMissing("VK", "VK_EXT_sample_locations");
@@ -2875,7 +3670,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            319, 320
+            388, 389
         },
             "vkGetShaderModuleIdentifierEXT", "vkGetShaderModuleCreateInfoIdentifierEXT"
         ) || reportMissing("VK", "VK_EXT_shader_module_identifier");
@@ -2886,18 +3681,28 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
-        int flag0 = ext.contains("VK_NV_clip_space_w_scaling") ? 0 : Integer.MIN_VALUE;
-        int flag1 = ext.contains("VK_NV_viewport_swizzle") ? 0 : Integer.MIN_VALUE;
-        int flag2 = ext.contains("VK_NV_fragment_coverage_to_color") ? 0 : Integer.MIN_VALUE;
-        int flag4 = ext.contains("VK_NV_framebuffer_mixed_samples") ? 0 : Integer.MIN_VALUE;
-        int flag7 = ext.contains("VK_NV_shading_rate_image") ? 0 : Integer.MIN_VALUE;
-        int flag8 = ext.contains("VK_NV_representative_fragment_test") ? 0 : Integer.MIN_VALUE;
-        int flag9 = ext.contains("VK_NV_coverage_reduction_mode") ? 0 : Integer.MIN_VALUE;
+        int flag0 = ext.contains("VK_EXT_transform_feedback") ? 0 : Integer.MIN_VALUE;
+        int flag1 = ext.contains("VK_EXT_conservative_rasterization") ? 0 : Integer.MIN_VALUE;
+        int flag3 = ext.contains("VK_EXT_depth_clip_enable") ? 0 : Integer.MIN_VALUE;
+        int flag4 = ext.contains("VK_EXT_sample_locations") ? 0 : Integer.MIN_VALUE;
+        int flag5 = ext.contains("VK_EXT_blend_operation_advanced") ? 0 : Integer.MIN_VALUE;
+        int flag6 = ext.contains("VK_EXT_provoking_vertex") ? 0 : Integer.MIN_VALUE;
+        int flag7 = ext.contains("VK_EXT_line_rasterization") ? 0 : Integer.MIN_VALUE;
+        int flag9 = ext.contains("VK_EXT_depth_clip_control") ? 0 : Integer.MIN_VALUE;
+        int flag10 = ext.contains("VK_NV_clip_space_w_scaling") ? 0 : Integer.MIN_VALUE;
+        int flag11 = ext.contains("VK_NV_viewport_swizzle") ? 0 : Integer.MIN_VALUE;
+        int flag12 = ext.contains("VK_NV_fragment_coverage_to_color") ? 0 : Integer.MIN_VALUE;
+        int flag14 = ext.contains("VK_NV_framebuffer_mixed_samples") ? 0 : Integer.MIN_VALUE;
+        int flag17 = ext.contains("VK_NV_shading_rate_image") ? 0 : Integer.MIN_VALUE;
+        int flag18 = ext.contains("VK_NV_representative_fragment_test") ? 0 : Integer.MIN_VALUE;
+        int flag19 = ext.contains("VK_NV_coverage_reduction_mode") ? 0 : Integer.MIN_VALUE;
+        int flag20 = ext.contains("VK_EXT_depth_clamp_control") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            321, 322, 323, 324, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 325, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 
-            255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, flag0 + 269, flag1 + 270, flag2 + 271, flag2 + 272, flag4 + 273, flag4 + 274, 
-            flag4 + 275, flag7 + 276, flag8 + 277, flag9 + 278
+            390, 391, 392, 393, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 394, 303, 304, 305, 306, 307, 318, 308, 309, 310, 311, 312, 313, 
+            314, 315, 316, 317, flag0 + 319, flag1 + 320, flag1 + 321, flag3 + 322, flag4 + 323, flag5 + 324, flag6 + 325, flag7 + 326, flag7 + 327, 
+            flag9 + 328, flag10 + 329, flag11 + 330, flag12 + 331, flag12 + 332, flag14 + 333, flag14 + 334, flag14 + 335, flag17 + 336, flag18 + 337, 
+            flag19 + 338, flag20 + 253
         },
             "vkCreateShadersEXT", "vkDestroyShaderEXT", "vkGetShaderBinaryDataEXT", "vkCmdBindShadersEXT", "vkCmdSetCullModeEXT", "vkCmdSetFrontFaceEXT", 
             "vkCmdSetPrimitiveTopologyEXT", "vkCmdSetViewportWithCountEXT", "vkCmdSetScissorWithCountEXT", "vkCmdBindVertexBuffers2EXT", 
@@ -2912,7 +3717,7 @@ public class VKCapabilitiesDevice {
             "vkCmdSetLineStippleEnableEXT", "vkCmdSetDepthClipNegativeOneToOneEXT", "vkCmdSetViewportWScalingEnableNV", "vkCmdSetViewportSwizzleNV", 
             "vkCmdSetCoverageToColorEnableNV", "vkCmdSetCoverageToColorLocationNV", "vkCmdSetCoverageModulationModeNV", 
             "vkCmdSetCoverageModulationTableEnableNV", "vkCmdSetCoverageModulationTableNV", "vkCmdSetShadingRateImageEnableNV", 
-            "vkCmdSetRepresentativeFragmentTestEnableNV", "vkCmdSetCoverageReductionModeNV"
+            "vkCmdSetRepresentativeFragmentTestEnableNV", "vkCmdSetCoverageReductionModeNV", "vkCmdSetDepthClampRangeEXT"
         ) || reportMissing("VK", "VK_EXT_shader_object");
     }
 
@@ -2922,7 +3727,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            326
+            395
         },
             "vkReleaseSwapchainImagesEXT"
         ) || reportMissing("VK", "VK_EXT_swapchain_maintenance1");
@@ -2934,7 +3739,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            327, 328, 329, 330, 331, 332
+            396, 397, 398, 399, 400, 401
         },
             "vkCmdBindTransformFeedbackBuffersEXT", "vkCmdBeginTransformFeedbackEXT", "vkCmdEndTransformFeedbackEXT", "vkCmdBeginQueryIndexedEXT", 
             "vkCmdEndQueryIndexedEXT", "vkCmdDrawIndirectByteCountEXT"
@@ -2947,7 +3752,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            333, 334, 335, 336
+            402, 403, 404, 405
         },
             "vkCreateValidationCacheEXT", "vkDestroyValidationCacheEXT", "vkMergeValidationCachesEXT", "vkGetValidationCacheDataEXT"
         ) || reportMissing("VK", "VK_EXT_validation_cache");
@@ -2959,7 +3764,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            325
+            394
         },
             "vkCmdSetVertexInputEXT"
         ) || reportMissing("VK", "VK_EXT_vertex_input_dynamic_state");
@@ -2971,7 +3776,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            337, 338
+            406, 407
         },
             "vkGetRefreshCycleDurationGOOGLE", "vkGetPastPresentationTimingGOOGLE"
         ) || reportMissing("VK", "VK_GOOGLE_display_timing");
@@ -2983,7 +3788,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            339, 340
+            408, 409
         },
             "vkCmdDrawClusterHUAWEI", "vkCmdDrawClusterIndirectHUAWEI"
         ) || reportMissing("VK", "VK_HUAWEI_cluster_culling_shader");
@@ -2995,7 +3800,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            341
+            410
         },
             "vkCmdBindInvocationMaskHUAWEI"
         ) || reportMissing("VK", "VK_HUAWEI_invocation_mask");
@@ -3007,7 +3812,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            342, 343
+            411, 412
         },
             "vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI", "vkCmdSubpassShadingHUAWEI"
         ) || reportMissing("VK", "VK_HUAWEI_subpass_shading");
@@ -3019,7 +3824,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            344, 345, 346, 347, 348, 349, 350, 351, 352
+            413, 414, 415, 416, 417, 418, 419, 420, 421
         },
             "vkInitializePerformanceApiINTEL", "vkUninitializePerformanceApiINTEL", "vkCmdSetPerformanceMarkerINTEL", "vkCmdSetPerformanceStreamMarkerINTEL", 
             "vkCmdSetPerformanceOverrideINTEL", "vkAcquirePerformanceConfigurationINTEL", "vkReleasePerformanceConfigurationINTEL", 
@@ -3033,7 +3838,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368
+            422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437
         },
             "vkCreateAccelerationStructureKHR", "vkDestroyAccelerationStructureKHR", "vkCmdBuildAccelerationStructuresKHR", 
             "vkCmdBuildAccelerationStructuresIndirectKHR", "vkBuildAccelerationStructuresKHR", "vkCopyAccelerationStructureKHR", 
@@ -3050,7 +3855,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            369, 370
+            438, 439
         },
             "vkBindBufferMemory2KHR", "vkBindImageMemory2KHR"
         ) || reportMissing("VK", "VK_KHR_bind_memory2");
@@ -3062,10 +3867,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            371, 372, 373
+            440, 441, 442
         },
             "vkGetBufferDeviceAddressKHR", "vkGetBufferOpaqueCaptureAddressKHR", "vkGetDeviceMemoryOpaqueCaptureAddressKHR"
         ) || reportMissing("VK", "VK_KHR_buffer_device_address");
+    }
+
+    private static boolean check_KHR_calibrated_timestamps(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_calibrated_timestamps")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            443
+        },
+            "vkGetCalibratedTimestampsKHR"
+        ) || reportMissing("VK", "VK_KHR_calibrated_timestamps");
     }
 
     private static boolean check_KHR_copy_commands2(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3074,11 +3891,23 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            374, 375, 376, 377, 378, 379
+            444, 445, 446, 447, 448, 449
         },
             "vkCmdCopyBuffer2KHR", "vkCmdCopyImage2KHR", "vkCmdCopyBufferToImage2KHR", "vkCmdCopyImageToBuffer2KHR", "vkCmdBlitImage2KHR", 
             "vkCmdResolveImage2KHR"
         ) || reportMissing("VK", "VK_KHR_copy_commands2");
+    }
+
+    private static boolean check_KHR_copy_memory_indirect(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_copy_memory_indirect")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            450, 451
+        },
+            "vkCmdCopyMemoryIndirectKHR", "vkCmdCopyMemoryToImageIndirectKHR"
+        ) || reportMissing("VK", "VK_KHR_copy_memory_indirect");
     }
 
     private static boolean check_KHR_create_renderpass2(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3087,7 +3916,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            380, 381, 382, 383
+            452, 453, 454, 455
         },
             "vkCreateRenderPass2KHR", "vkCmdBeginRenderPass2KHR", "vkCmdNextSubpass2KHR", "vkCmdEndRenderPass2KHR"
         ) || reportMissing("VK", "VK_KHR_create_renderpass2");
@@ -3099,7 +3928,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            384, 385, 386, 387, 388
+            456, 457, 458, 459, 460
         },
             "vkCreateDeferredOperationKHR", "vkDestroyDeferredOperationKHR", "vkGetDeferredOperationMaxConcurrencyKHR", "vkGetDeferredOperationResultKHR", 
             "vkDeferredOperationJoinKHR"
@@ -3114,7 +3943,7 @@ public class VKCapabilitiesDevice {
         int flag0 = ext.contains("VK_KHR_push_descriptor") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            389, 390, 391, flag0 + 392
+            461, 462, 463, flag0 + 464
         },
             "vkCreateDescriptorUpdateTemplateKHR", "vkDestroyDescriptorUpdateTemplateKHR", "vkUpdateDescriptorSetWithTemplateKHR", 
             "vkCmdPushDescriptorSetWithTemplateKHR"
@@ -3130,7 +3959,7 @@ public class VKCapabilitiesDevice {
         int flag2 = ext.contains("VK_KHR_swapchain") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            393, 394, 395, flag0 + 396, flag0 + 397, flag2 + 398
+            465, 466, 467, flag0 + 468, flag0 + 469, flag2 + 470
         },
             "vkGetDeviceGroupPeerMemoryFeaturesKHR", "vkCmdSetDeviceMaskKHR", "vkCmdDispatchBaseKHR", "vkGetDeviceGroupPresentCapabilitiesKHR", 
             "vkGetDeviceGroupSurfacePresentModesKHR", "vkAcquireNextImage2KHR"
@@ -3143,7 +3972,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            399
+            471
         },
             "vkCreateSharedSwapchainsKHR"
         ) || reportMissing("VK", "VK_KHR_display_swapchain");
@@ -3155,7 +3984,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            400, 401
+            472, 473
         },
             "vkCmdDrawIndirectCountKHR", "vkCmdDrawIndexedIndirectCountKHR"
         ) || reportMissing("VK", "VK_KHR_draw_indirect_count");
@@ -3167,10 +3996,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            402, 403
+            474, 475
         },
             "vkCmdBeginRenderingKHR", "vkCmdEndRenderingKHR"
         ) || reportMissing("VK", "VK_KHR_dynamic_rendering");
+    }
+
+    private static boolean check_KHR_dynamic_rendering_local_read(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_dynamic_rendering_local_read")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            476, 477
+        },
+            "vkCmdSetRenderingAttachmentLocationsKHR", "vkCmdSetRenderingInputAttachmentIndicesKHR"
+        ) || reportMissing("VK", "VK_KHR_dynamic_rendering_local_read");
     }
 
     private static boolean check_KHR_external_fence_fd(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3179,7 +4020,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            404, 405
+            478, 479
         },
             "vkImportFenceFdKHR", "vkGetFenceFdKHR"
         ) || reportMissing("VK", "VK_KHR_external_fence_fd");
@@ -3191,7 +4032,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            406, 407
+            480, 481
         },
             "vkImportFenceWin32HandleKHR", "vkGetFenceWin32HandleKHR"
         ) || reportMissing("VK", "VK_KHR_external_fence_win32");
@@ -3203,7 +4044,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            408, 409
+            482, 483
         },
             "vkGetMemoryFdKHR", "vkGetMemoryFdPropertiesKHR"
         ) || reportMissing("VK", "VK_KHR_external_memory_fd");
@@ -3215,7 +4056,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            410, 411
+            484, 485
         },
             "vkGetMemoryWin32HandleKHR", "vkGetMemoryWin32HandlePropertiesKHR"
         ) || reportMissing("VK", "VK_KHR_external_memory_win32");
@@ -3227,7 +4068,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            412, 413
+            486, 487
         },
             "vkImportSemaphoreFdKHR", "vkGetSemaphoreFdKHR"
         ) || reportMissing("VK", "VK_KHR_external_semaphore_fd");
@@ -3239,7 +4080,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            414, 415
+            488, 489
         },
             "vkImportSemaphoreWin32HandleKHR", "vkGetSemaphoreWin32HandleKHR"
         ) || reportMissing("VK", "VK_KHR_external_semaphore_win32");
@@ -3251,7 +4092,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            416
+            490
         },
             "vkCmdSetFragmentShadingRateKHR"
         ) || reportMissing("VK", "VK_KHR_fragment_shading_rate");
@@ -3263,10 +4104,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            417, 418, 419
+            491, 492, 493
         },
             "vkGetImageMemoryRequirements2KHR", "vkGetBufferMemoryRequirements2KHR", "vkGetImageSparseMemoryRequirements2KHR"
         ) || reportMissing("VK", "VK_KHR_get_memory_requirements2");
+    }
+
+    private static boolean check_KHR_line_rasterization(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_line_rasterization")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            494
+        },
+            "vkCmdSetLineStippleKHR"
+        ) || reportMissing("VK", "VK_KHR_line_rasterization");
     }
 
     private static boolean check_KHR_maintenance1(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3275,10 +4128,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            420
+            495
         },
             "vkTrimCommandPoolKHR"
         ) || reportMissing("VK", "VK_KHR_maintenance1");
+    }
+
+    private static boolean check_KHR_maintenance10(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_maintenance10")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            496
+        },
+            "vkCmdEndRendering2KHR"
+        ) || reportMissing("VK", "VK_KHR_maintenance10");
     }
 
     private static boolean check_KHR_maintenance3(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3287,7 +4152,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            421
+            497
         },
             "vkGetDescriptorSetLayoutSupportKHR"
         ) || reportMissing("VK", "VK_KHR_maintenance3");
@@ -3299,7 +4164,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            422, 423, 424
+            498, 499, 500
         },
             "vkGetDeviceBufferMemoryRequirementsKHR", "vkGetDeviceImageMemoryRequirementsKHR", "vkGetDeviceImageSparseMemoryRequirementsKHR"
         ) || reportMissing("VK", "VK_KHR_maintenance4");
@@ -3311,10 +4176,26 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            425, 426, 427, 428
+            501, 502, 503, 504
         },
             "vkCmdBindIndexBuffer2KHR", "vkGetRenderingAreaGranularityKHR", "vkGetDeviceImageSubresourceLayoutKHR", "vkGetImageSubresourceLayout2KHR"
         ) || reportMissing("VK", "VK_KHR_maintenance5");
+    }
+
+    private static boolean check_KHR_maintenance6(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_maintenance6")) {
+            return false;
+        }
+
+        int flag0 = ext.contains("VK_KHR_push_descriptor") ? 0 : Integer.MIN_VALUE;
+        int flag2 = ext.contains("VK_EXT_descriptor_buffer") ? 0 : Integer.MIN_VALUE;
+
+        return checkFunctions(provider, caps, new int[] {
+            505, 506, flag0 + 507, flag0 + 508, flag2 + 509, flag2 + 510
+        },
+            "vkCmdBindDescriptorSets2KHR", "vkCmdPushConstants2KHR", "vkCmdPushDescriptorSet2KHR", "vkCmdPushDescriptorSetWithTemplate2KHR", 
+            "vkCmdSetDescriptorBufferOffsets2EXT", "vkCmdBindDescriptorBufferEmbeddedSamplers2EXT"
+        ) || reportMissing("VK", "VK_KHR_maintenance6");
     }
 
     private static boolean check_KHR_map_memory2(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3323,7 +4204,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            429, 430
+            511, 512
         },
             "vkMapMemory2KHR", "vkUnmapMemory2KHR"
         ) || reportMissing("VK", "VK_KHR_map_memory2");
@@ -3335,10 +4216,23 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            431, 432
+            513, 514
         },
             "vkAcquireProfilingLockKHR", "vkReleaseProfilingLockKHR"
         ) || reportMissing("VK", "VK_KHR_performance_query");
+    }
+
+    private static boolean check_KHR_pipeline_binary(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_pipeline_binary")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            515, 516, 517, 518, 519
+        },
+            "vkCreatePipelineBinariesKHR", "vkDestroyPipelineBinaryKHR", "vkGetPipelineKeyKHR", "vkGetPipelineBinaryDataKHR", 
+            "vkReleaseCapturedPipelineDataKHR"
+        ) || reportMissing("VK", "VK_KHR_pipeline_binary");
     }
 
     private static boolean check_KHR_pipeline_executable_properties(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3347,7 +4241,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            433, 434, 435
+            520, 521, 522
         },
             "vkGetPipelineExecutablePropertiesKHR", "vkGetPipelineExecutableStatisticsKHR", "vkGetPipelineExecutableInternalRepresentationsKHR"
         ) || reportMissing("VK", "VK_KHR_pipeline_executable_properties");
@@ -3359,10 +4253,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            436
+            523
         },
             "vkWaitForPresentKHR"
         ) || reportMissing("VK", "VK_KHR_present_wait");
+    }
+
+    private static boolean check_KHR_present_wait2(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_present_wait2")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            524
+        },
+            "vkWaitForPresent2KHR"
+        ) || reportMissing("VK", "VK_KHR_present_wait2");
     }
 
     private static boolean check_KHR_push_descriptor(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3373,7 +4279,7 @@ public class VKCapabilitiesDevice {
         int flag0 = ext.contains("Vulkan11") || ext.contains("VK_KHR_descriptor_update_template") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            437, flag0 + 392
+            525, flag0 + 464
         },
             "vkCmdPushDescriptorSetKHR", "vkCmdPushDescriptorSetWithTemplateKHR"
         ) || reportMissing("VK", "VK_KHR_push_descriptor");
@@ -3387,7 +4293,7 @@ public class VKCapabilitiesDevice {
         int flag0 = ext.contains("VK_KHR_ray_tracing_pipeline") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            flag0 + 438
+            flag0 + 526
         },
             "vkCmdTraceRaysIndirect2KHR"
         ) || reportMissing("VK", "VK_KHR_ray_tracing_maintenance1");
@@ -3399,7 +4305,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            439, 440, 441, 442, 443, 444, 445
+            527, 528, 529, 530, 531, 532, 533
         },
             "vkCmdTraceRaysKHR", "vkCreateRayTracingPipelinesKHR", "vkGetRayTracingShaderGroupHandlesKHR", "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR", 
             "vkCmdTraceRaysIndirectKHR", "vkGetRayTracingShaderGroupStackSizeKHR", "vkCmdSetRayTracingPipelineStackSizeKHR"
@@ -3412,7 +4318,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            446, 447
+            534, 535
         },
             "vkCreateSamplerYcbcrConversionKHR", "vkDestroySamplerYcbcrConversionKHR"
         ) || reportMissing("VK", "VK_KHR_sampler_ycbcr_conversion");
@@ -3424,7 +4330,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            448
+            536
         },
             "vkGetSwapchainStatusKHR"
         ) || reportMissing("VK", "VK_KHR_shared_presentable_image");
@@ -3438,11 +4344,23 @@ public class VKCapabilitiesDevice {
         int flag0 = ext.contains("Vulkan11") ? 0 : Integer.MIN_VALUE;
 
         return checkFunctions(provider, caps, new int[] {
-            449, 450, 451, 452, 453, flag0 + 396, flag0 + 397, flag0 + 398
+            537, 538, 539, 540, 541, flag0 + 468, flag0 + 469, flag0 + 470
         },
             "vkCreateSwapchainKHR", "vkDestroySwapchainKHR", "vkGetSwapchainImagesKHR", "vkAcquireNextImageKHR", "vkQueuePresentKHR", 
             "vkGetDeviceGroupPresentCapabilitiesKHR", "vkGetDeviceGroupSurfacePresentModesKHR", "vkAcquireNextImage2KHR"
         ) || reportMissing("VK", "VK_KHR_swapchain");
+    }
+
+    private static boolean check_KHR_swapchain_maintenance1(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_KHR_swapchain_maintenance1")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            542
+        },
+            "vkReleaseSwapchainImagesKHR"
+        ) || reportMissing("VK", "VK_KHR_swapchain_maintenance1");
     }
 
     private static boolean check_KHR_synchronization2(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3450,14 +4368,10 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
-        int flag0 = ext.contains("VK_AMD_buffer_marker") ? 0 : Integer.MIN_VALUE;
-        int flag1 = ext.contains("VK_NV_device_diagnostic_checkpoints") ? 0 : Integer.MIN_VALUE;
-
         return checkFunctions(provider, caps, new int[] {
-            454, 455, 456, 457, 458, 459, flag0 + 460, flag1 + 461
+            543, 544, 545, 546, 547, 548
         },
-            "vkCmdSetEvent2KHR", "vkCmdResetEvent2KHR", "vkCmdWaitEvents2KHR", "vkCmdPipelineBarrier2KHR", "vkCmdWriteTimestamp2KHR", "vkQueueSubmit2KHR", 
-            "vkCmdWriteBufferMarker2AMD", "vkGetQueueCheckpointData2NV"
+            "vkCmdSetEvent2KHR", "vkCmdResetEvent2KHR", "vkCmdWaitEvents2KHR", "vkCmdPipelineBarrier2KHR", "vkCmdWriteTimestamp2KHR", "vkQueueSubmit2KHR"
         ) || reportMissing("VK", "VK_KHR_synchronization2");
     }
 
@@ -3467,7 +4381,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            462, 463, 464
+            549, 550, 551
         },
             "vkGetSemaphoreCounterValueKHR", "vkWaitSemaphoresKHR", "vkSignalSemaphoreKHR"
         ) || reportMissing("VK", "VK_KHR_timeline_semaphore");
@@ -3479,7 +4393,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            465
+            552
         },
             "vkCmdDecodeVideoKHR"
         ) || reportMissing("VK", "VK_KHR_video_decode_queue");
@@ -3491,7 +4405,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            466, 467
+            553, 554
         },
             "vkGetEncodedVideoSessionParametersKHR", "vkCmdEncodeVideoKHR"
         ) || reportMissing("VK", "VK_KHR_video_encode_queue");
@@ -3503,7 +4417,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            468, 469, 470, 471, 472, 473, 474, 475, 476, 477
+            555, 556, 557, 558, 559, 560, 561, 562, 563, 564
         },
             "vkCreateVideoSessionKHR", "vkDestroyVideoSessionKHR", "vkGetVideoSessionMemoryRequirementsKHR", "vkBindVideoSessionMemoryKHR", 
             "vkCreateVideoSessionParametersKHR", "vkUpdateVideoSessionParametersKHR", "vkDestroyVideoSessionParametersKHR", "vkCmdBeginVideoCodingKHR", 
@@ -3517,10 +4431,46 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            478
+            565
         },
             "vkCmdSetViewportWScalingNV"
         ) || reportMissing("VK", "VK_NV_clip_space_w_scaling");
+    }
+
+    private static boolean check_NV_cluster_acceleration_structure(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_cluster_acceleration_structure")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            566, 567
+        },
+            "vkGetClusterAccelerationStructureBuildSizesNV", "vkCmdBuildClusterAccelerationStructureIndirectNV"
+        ) || reportMissing("VK", "VK_NV_cluster_acceleration_structure");
+    }
+
+    private static boolean check_NV_compute_occupancy_priority(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_compute_occupancy_priority")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            568
+        },
+            "vkCmdSetComputeOccupancyPriorityNV"
+        ) || reportMissing("VK", "VK_NV_compute_occupancy_priority");
+    }
+
+    private static boolean check_NV_cooperative_vector(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_cooperative_vector")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            569, 570
+        },
+            "vkConvertCooperativeVectorMatrixNV", "vkCmdConvertCooperativeVectorMatrixNV"
+        ) || reportMissing("VK", "VK_NV_cooperative_vector");
     }
 
     private static boolean check_NV_copy_memory_indirect(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3529,10 +4479,23 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            479, 480
+            571, 572
         },
             "vkCmdCopyMemoryIndirectNV", "vkCmdCopyMemoryToImageIndirectNV"
         ) || reportMissing("VK", "VK_NV_copy_memory_indirect");
+    }
+
+    private static boolean check_NV_cuda_kernel_launch(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_cuda_kernel_launch")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            573, 574, 575, 576, 577, 578
+        },
+            "vkCreateCudaModuleNV", "vkGetCudaModuleCacheNV", "vkCreateCudaFunctionNV", "vkDestroyCudaModuleNV", "vkDestroyCudaFunctionNV", 
+            "vkCmdCudaLaunchKernelNV"
+        ) || reportMissing("VK", "VK_NV_cuda_kernel_launch");
     }
 
     private static boolean check_NV_device_diagnostic_checkpoints(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3540,10 +4503,12 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
+        int flag0 = ext.contains("Vulkan13") || ext.contains("VK_KHR_synchronization2") ? 0 : Integer.MIN_VALUE;
+
         return checkFunctions(provider, caps, new int[] {
-            481, 482
+            579, 580, flag0 + 581
         },
-            "vkCmdSetCheckpointNV", "vkGetQueueCheckpointDataNV"
+            "vkCmdSetCheckpointNV", "vkGetQueueCheckpointDataNV", "vkGetQueueCheckpointData2NV"
         ) || reportMissing("VK", "VK_NV_device_diagnostic_checkpoints");
     }
 
@@ -3553,7 +4518,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            483, 484, 485, 486, 487, 488
+            582, 583, 584, 585, 586, 587
         },
             "vkGetGeneratedCommandsMemoryRequirementsNV", "vkCmdPreprocessGeneratedCommandsNV", "vkCmdExecuteGeneratedCommandsNV", 
             "vkCmdBindPipelineShaderGroupNV", "vkCreateIndirectCommandsLayoutNV", "vkDestroyIndirectCommandsLayoutNV"
@@ -3566,10 +4531,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            489, 490, 491
+            588, 589, 590
         },
             "vkGetPipelineIndirectMemoryRequirementsNV", "vkCmdUpdatePipelineIndirectBufferNV", "vkGetPipelineIndirectDeviceAddressNV"
         ) || reportMissing("VK", "VK_NV_device_generated_commands_compute");
+    }
+
+    private static boolean check_NV_external_compute_queue(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_external_compute_queue")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            591, 592, 593
+        },
+            "vkCreateExternalComputeQueueNV", "vkDestroyExternalComputeQueueNV", "vkGetExternalComputeQueueDataNV"
+        ) || reportMissing("VK", "VK_NV_external_compute_queue");
     }
 
     private static boolean check_NV_external_memory_rdma(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3578,7 +4555,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            492
+            594
         },
             "vkGetMemoryRemoteAddressNV"
         ) || reportMissing("VK", "VK_NV_external_memory_rdma");
@@ -3590,7 +4567,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            493
+            595
         },
             "vkGetMemoryWin32HandleNV"
         ) || reportMissing("VK", "VK_NV_external_memory_win32");
@@ -3602,10 +4579,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            494
+            596
         },
             "vkCmdSetFragmentShadingRateEnumNV"
         ) || reportMissing("VK", "VK_NV_fragment_shading_rate_enums");
+    }
+
+    private static boolean check_NV_low_latency2(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_low_latency2")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            597, 598, 599, 600, 601
+        },
+            "vkSetLatencySleepModeNV", "vkLatencySleepNV", "vkSetLatencyMarkerNV", "vkGetLatencyTimingsNV", "vkQueueNotifyOutOfBandNV"
+        ) || reportMissing("VK", "VK_NV_low_latency2");
     }
 
     private static boolean check_NV_memory_decompression(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3614,7 +4603,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            495, 496
+            602, 603
         },
             "vkCmdDecompressMemoryNV", "vkCmdDecompressMemoryIndirectCountNV"
         ) || reportMissing("VK", "VK_NV_memory_decompression");
@@ -3625,8 +4614,10 @@ public class VKCapabilitiesDevice {
             return false;
         }
 
+        int flag0 = ext.contains("Vulkan12") || ext.contains("VK_KHR_draw_indirect_count") || ext.contains("VK_AMD_draw_indirect_count") ? 0 : Integer.MIN_VALUE;
+
         return checkFunctions(provider, caps, new int[] {
-            497, 498, 499
+            604, 605, flag0 + 606
         },
             "vkCmdDrawMeshTasksNV", "vkCmdDrawMeshTasksIndirectNV", "vkCmdDrawMeshTasksIndirectCountNV"
         ) || reportMissing("VK", "VK_NV_mesh_shader");
@@ -3638,10 +4629,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            500, 501, 502, 503
+            607, 608, 609, 610
         },
             "vkCreateOpticalFlowSessionNV", "vkDestroyOpticalFlowSessionNV", "vkBindOpticalFlowSessionImageNV", "vkCmdOpticalFlowExecuteNV"
         ) || reportMissing("VK", "VK_NV_optical_flow");
+    }
+
+    private static boolean check_NV_partitioned_acceleration_structure(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_NV_partitioned_acceleration_structure")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            611, 612
+        },
+            "vkGetPartitionedAccelerationStructuresBuildSizesNV", "vkCmdBuildPartitionedAccelerationStructuresNV"
+        ) || reportMissing("VK", "VK_NV_partitioned_acceleration_structure");
     }
 
     private static boolean check_NV_ray_tracing(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3650,7 +4653,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515
+            613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623, 624
         },
             "vkCreateAccelerationStructureNV", "vkDestroyAccelerationStructureNV", "vkGetAccelerationStructureMemoryRequirementsNV", 
             "vkBindAccelerationStructureMemoryNV", "vkCmdBuildAccelerationStructureNV", "vkCmdCopyAccelerationStructureNV", "vkCmdTraceRaysNV", 
@@ -3665,7 +4668,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            516, 517
+            625, 626
         },
             "vkCmdSetExclusiveScissorEnableNV", "vkCmdSetExclusiveScissorNV"
         ) || reportMissing("VK", "VK_NV_scissor_exclusive");
@@ -3677,7 +4680,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            518, 519, 520
+            627, 628, 629
         },
             "vkCmdBindShadingRateImageNV", "vkCmdSetViewportShadingRatePaletteNV", "vkCmdSetCoarseSampleOrderNV"
         ) || reportMissing("VK", "VK_NV_shading_rate_image");
@@ -3689,7 +4692,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            521, 522, 523, 524, 525
+            630, 631, 632, 633, 634
         },
             "vkCreateCuModuleNVX", "vkCreateCuFunctionNVX", "vkDestroyCuModuleNVX", "vkDestroyCuFunctionNVX", "vkCmdCuLaunchKernelNVX"
         ) || reportMissing("VK", "VK_NVX_binary_import");
@@ -3701,10 +4704,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            526, 527
+            635, 636, 637, 638
         },
-            "vkGetImageViewHandleNVX", "vkGetImageViewAddressNVX"
+            "vkGetImageViewHandleNVX", "vkGetImageViewHandle64NVX", "vkGetImageViewAddressNVX", "vkGetDeviceCombinedImageSamplerIndexNVX"
         ) || reportMissing("VK", "VK_NVX_image_view_handle");
+    }
+
+    private static boolean check_QCOM_tile_memory_heap(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_QCOM_tile_memory_heap")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            639
+        },
+            "vkCmdBindTileMemoryQCOM"
+        ) || reportMissing("VK", "VK_QCOM_tile_memory_heap");
     }
 
     private static boolean check_QCOM_tile_properties(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3713,10 +4728,22 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            528, 529
+            640, 641
         },
             "vkGetFramebufferTilePropertiesQCOM", "vkGetDynamicRenderingTilePropertiesQCOM"
         ) || reportMissing("VK", "VK_QCOM_tile_properties");
+    }
+
+    private static boolean check_QCOM_tile_shading(FunctionProvider provider, long[] caps, Set<String> ext) {
+        if (!ext.contains("VK_QCOM_tile_shading")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            642, 643, 644
+        },
+            "vkCmdDispatchTileQCOM", "vkCmdBeginPerTileExecutionQCOM", "vkCmdEndPerTileExecutionQCOM"
+        ) || reportMissing("VK", "VK_QCOM_tile_shading");
     }
 
     private static boolean check_VALVE_descriptor_set_host_mapping(FunctionProvider provider, long[] caps, Set<String> ext) {
@@ -3725,7 +4752,7 @@ public class VKCapabilitiesDevice {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            530, 531
+            645, 646
         },
             "vkGetDescriptorSetLayoutHostMappingInfoVALVE", "vkGetDescriptorSetHostMappingVALVE"
         ) || reportMissing("VK", "VK_VALVE_descriptor_set_host_mapping");

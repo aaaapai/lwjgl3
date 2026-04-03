@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Union specifying a const device or host address.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkAccelerationStructureGeometryAabbsDataKHR}, {@link VkAccelerationStructureGeometryInstancesDataKHR}, {@link VkAccelerationStructureGeometryMotionTrianglesDataNV}, {@link VkAccelerationStructureGeometryTrianglesDataKHR}, {@link VkAccelerationStructureTrianglesDisplacementMicromapNV}, {@link VkAccelerationStructureTrianglesOpacityMicromapEXT}, {@link VkCopyMemoryToAccelerationStructureInfoKHR}, {@link VkCopyMemoryToMicromapInfoEXT}, {@link VkMicromapBuildInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union VkDeviceOrHostAddressConstKHR {
- *     VkDeviceAddress {@link #deviceAddress};
- *     void const * {@link #hostAddress};
- * }</code></pre>
+ *     VkDeviceAddress deviceAddress;
+ *     void const * hostAddress;
+ * }}</pre>
  */
 public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressConstKHR> implements NativeResource {
 
@@ -78,16 +70,16 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a buffer device address as returned by the {@link KHRBufferDeviceAddress#vkGetBufferDeviceAddressKHR GetBufferDeviceAddressKHR} command. */
+    /** @return the value of the {@code deviceAddress} field. */
     @NativeType("VkDeviceAddress")
     public long deviceAddress() { return ndeviceAddress(address()); }
-    /** a const host memory address. */
+    /** @return the value of the {@code hostAddress} field. */
     @NativeType("void const *")
     public long hostAddress() { return nhostAddress(address()); }
 
-    /** Sets the specified value to the {@link #deviceAddress} field. */
+    /** Sets the specified value to the {@code deviceAddress} field. */
     public VkDeviceOrHostAddressConstKHR deviceAddress(@NativeType("VkDeviceAddress") long value) { ndeviceAddress(address(), value); return this; }
-    /** Sets the specified value to the {@link #hostAddress} field. */
+    /** Sets the specified value to the {@code hostAddress} field. */
     public VkDeviceOrHostAddressConstKHR hostAddress(@NativeType("void const *") long value) { nhostAddress(address(), value); return this; }
 
     /**
@@ -126,8 +118,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceOrHostAddressConstKHR createSafe(long address) {
+    public static @Nullable VkDeviceOrHostAddressConstKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceOrHostAddressConstKHR(address, null);
     }
 
@@ -170,8 +161,7 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceOrHostAddressConstKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceOrHostAddressConstKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -216,12 +206,12 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
     // -----------------------------------
 
     /** Unsafe version of {@link #deviceAddress}. */
-    public static long ndeviceAddress(long struct) { return UNSAFE.getLong(null, struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS); }
+    public static long ndeviceAddress(long struct) { return memGetLong(struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS); }
     /** Unsafe version of {@link #hostAddress}. */
     public static long nhostAddress(long struct) { return memGetAddress(struct + VkDeviceOrHostAddressConstKHR.HOSTADDRESS); }
 
     /** Unsafe version of {@link #deviceAddress(long) deviceAddress}. */
-    public static void ndeviceAddress(long struct, long value) { UNSAFE.putLong(null, struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS, value); }
+    public static void ndeviceAddress(long struct, long value) { memPutLong(struct + VkDeviceOrHostAddressConstKHR.DEVICEADDRESS, value); }
     /** Unsafe version of {@link #hostAddress(long) hostAddress}. */
     public static void nhostAddress(long struct, long value) { memPutAddress(struct + VkDeviceOrHostAddressConstKHR.HOSTADDRESS, value); }
 
@@ -259,20 +249,25 @@ public class VkDeviceOrHostAddressConstKHR extends Struct<VkDeviceOrHostAddressC
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceOrHostAddressConstKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceOrHostAddressConstKHR#deviceAddress} field. */
+        /** @return the value of the {@code deviceAddress} field. */
         @NativeType("VkDeviceAddress")
         public long deviceAddress() { return VkDeviceOrHostAddressConstKHR.ndeviceAddress(address()); }
-        /** @return the value of the {@link VkDeviceOrHostAddressConstKHR#hostAddress} field. */
+        /** @return the value of the {@code hostAddress} field. */
         @NativeType("void const *")
         public long hostAddress() { return VkDeviceOrHostAddressConstKHR.nhostAddress(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceOrHostAddressConstKHR#deviceAddress} field. */
+        /** Sets the specified value to the {@code deviceAddress} field. */
         public VkDeviceOrHostAddressConstKHR.Buffer deviceAddress(@NativeType("VkDeviceAddress") long value) { VkDeviceOrHostAddressConstKHR.ndeviceAddress(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceOrHostAddressConstKHR#hostAddress} field. */
+        /** Sets the specified value to the {@code hostAddress} field. */
         public VkDeviceOrHostAddressConstKHR.Buffer hostAddress(@NativeType("void const *") long value) { VkDeviceOrHostAddressConstKHR.nhostAddress(address(), value); return this; }
 
     }

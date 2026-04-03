@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Stub description of VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VALVEDescriptorSetHostMapping#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 descriptorSetHostMapping;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE extends Struct<VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE> implements NativeResource {
 
@@ -152,8 +142,7 @@ public class VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE extends Struc
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE(address, null);
     }
 
@@ -196,8 +185,7 @@ public class VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE extends Struc
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +230,18 @@ public class VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE extends Struc
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.PNEXT); }
     /** Unsafe version of {@link #descriptorSetHostMapping}. */
-    public static int ndescriptorSetHostMapping(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.DESCRIPTORSETHOSTMAPPING); }
+    public static int ndescriptorSetHostMapping(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.DESCRIPTORSETHOSTMAPPING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.PNEXT, value); }
     /** Unsafe version of {@link #descriptorSetHostMapping(boolean) descriptorSetHostMapping}. */
-    public static void ndescriptorSetHostMapping(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.DESCRIPTORSETHOSTMAPPING, value); }
+    public static void ndescriptorSetHostMapping(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE.DESCRIPTORSETHOSTMAPPING, value); }
 
     // -----------------------------------
 
@@ -286,6 +274,11 @@ public class VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE extends Struc
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,21 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying input data for a single shader group command token.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The current bound graphics pipeline, as well as the pipelines it may reference, <b>must</b> have been created with {@link NVDeviceGeneratedCommands#VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV}</li>
- * <li>The {@code index} <b>must</b> be within range of the accessible shader groups of the current bound graphics pipeline. See {@link NVDeviceGeneratedCommands#vkCmdBindPipelineShaderGroupNV CmdBindPipelineShaderGroupNV} for further details</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBindShaderGroupIndirectCommandNV {
- *     uint32_t {@link #groupIndex};
- * }</code></pre>
+ *     uint32_t groupIndex;
+ * }}</pre>
  */
 public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroupIndirectCommandNV> implements NativeResource {
 
@@ -77,11 +66,11 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** specifies which shader group of the current bound graphics pipeline is used. */
+    /** @return the value of the {@code groupIndex} field. */
     @NativeType("uint32_t")
     public int groupIndex() { return ngroupIndex(address()); }
 
-    /** Sets the specified value to the {@link #groupIndex} field. */
+    /** Sets the specified value to the {@code groupIndex} field. */
     public VkBindShaderGroupIndirectCommandNV groupIndex(@NativeType("uint32_t") int value) { ngroupIndex(address(), value); return this; }
 
     /**
@@ -120,8 +109,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindShaderGroupIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkBindShaderGroupIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkBindShaderGroupIndirectCommandNV(address, null);
     }
 
@@ -164,8 +152,7 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBindShaderGroupIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkBindShaderGroupIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -210,10 +197,10 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
     // -----------------------------------
 
     /** Unsafe version of {@link #groupIndex}. */
-    public static int ngroupIndex(long struct) { return UNSAFE.getInt(null, struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX); }
+    public static int ngroupIndex(long struct) { return memGetInt(struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX); }
 
     /** Unsafe version of {@link #groupIndex(int) groupIndex}. */
-    public static void ngroupIndex(long struct, int value) { UNSAFE.putInt(null, struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX, value); }
+    public static void ngroupIndex(long struct, int value) { memPutInt(struct + VkBindShaderGroupIndirectCommandNV.GROUPINDEX, value); }
 
     // -----------------------------------
 
@@ -249,15 +236,20 @@ public class VkBindShaderGroupIndirectCommandNV extends Struct<VkBindShaderGroup
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBindShaderGroupIndirectCommandNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBindShaderGroupIndirectCommandNV#groupIndex} field. */
+        /** @return the value of the {@code groupIndex} field. */
         @NativeType("uint32_t")
         public int groupIndex() { return VkBindShaderGroupIndirectCommandNV.ngroupIndex(address()); }
 
-        /** Sets the specified value to the {@link VkBindShaderGroupIndirectCommandNV#groupIndex} field. */
+        /** Sets the specified value to the {@code groupIndex} field. */
         public VkBindShaderGroupIndirectCommandNV.Buffer groupIndex(@NativeType("uint32_t") int value) { VkBindShaderGroupIndirectCommandNV.ngroupIndex(address(), value); return this; }
 
     }

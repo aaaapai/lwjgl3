@@ -11,11 +11,15 @@
     </exec>
 
 <!--
-    <condition property="macosx-version-min" value="11.0" else="10.9">
+    <condition property="macosx-version-min" value="11.0" else="10.11">
+        <isset property="build.arch.arm"/>
+    </condition>
+    <condition property="macosx-version-min-vma" value="11.0" else="10.13">
         <isset property="build.arch.arm"/>
     </condition>
 -->
     <property name="ios-version-min" value="14.0"/>
+    <property name="ios-version-min-vma" value="14.0"/>
     <property name="build.arch.arm" value="true"/>
 
     <property name="module.lwjgl.rel" value="../../../../${module.lwjgl}"/>
@@ -26,6 +30,7 @@
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="relative" default="true"/>
+        <attribute name="macos" default="${macosx-version-mi}"/>
         <element name="source" implicit="true" optional="true"/>
         <sequential>
             <local name="cpp"/>
@@ -36,8 +41,9 @@
             <mkdir dir="@{dest}"/>
             <apply dir="@{dest}" executable="${clang}" dest="@{dest}" skipemptyfilesets="true" failonerror="true" parallel="true" taskname="Compiler">
                 <arg line="-c -ObjC" unless:set="cpp"/>
-                <arg line="-c -std=c++14" if:set="cpp"/>
-                <arg line="-O3 -flto -fPIC @{flags} -DNDEBUG -DLWJGL_MACOS -DLWJGL_${build.arch} -isysroot ${sdkroot} -miphoneos-version-min=${ios-version-min}"/>
+                <arg line="-c -std=c++20" if:set="cpp"/>
+                <arg line="-O3 -flto=auto -fPIC @{flags} -DNDEBUG -DLWJGL_MACOS -DLWJGL_${build.arch} -isysroot ${sdkroot} -miphoneos-version-min=${ios-version-min}"/>
+                <arg line="-target x64-apple-darwin -arch x86_64" unless:set="build.arch.arm"/>
                 <arg line="-target aarch64-apple-darwin -arch arm64" if:set="build.arch.arm"/>
 
                 <arg value="-I${jni.headers}"/>
@@ -51,7 +57,7 @@
                 <source/>
                 <fileset dir="." includes="${src.generated}/*" if:true="@{simple}"/>
 
-                <regexpmapper from="(\w+)\.(?:c(?:c|pp)?|m)$" to="\1.o"/>
+                <regexpmapper from="([\w\-]+)\.(?:c(?:c|pp)?|m)$" to="\1.o"/>
             </apply>
         </sequential>
     </macrodef>
@@ -62,6 +68,7 @@
         <attribute name="lang" default="c"/>
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
+        <attribute name="macos" default="${ios-version-min}"/>
         <element name="beforeCompile" optional="true"/>
         <element name="source" optional="true"/>
         <element name="beforeLink" optional="true"/>
@@ -83,7 +90,7 @@
             <property name="dest" value="${bin.native}/@{module}"/>
 
             <beforeCompile/>
-            <compile lang="@{lang}" flags="@{flags}" simple="@{simple}">
+            <compile lang="@{lang}" flags="@{flags}" simple="@{simple}" macos="@{macos}">
                 <source/>
             </compile>
 
@@ -135,7 +142,13 @@
     </macrodef>
 
     <target name="compile-native-platform">
-        <echo message="${sdkroot}" taskname="SDK Root"/>
+        <sequential if:set="clang.version.print">
+            <echo message="${sdkroot}" taskname="SDK Root"/>
+            <exec executable="sh" logError="true" failonerror="false" taskname="Compiler">
+                <arg line="-o pipefail -c"/>
+                <arg value='clang --version | grep "clang version"'/>
+            </exec>
+        </sequential>
 
         <parallel threadsPerProcessor="2">
 
@@ -145,7 +158,7 @@
                 <arg value="-I${src.main.rel}/libffi"/>
                 <arg value="-I${src.main.rel}/libffi/aarch64" if:set="build.arch.arm64"/>
                 <arg value="-I${src.main.rel}/libffi/arm" if:set="build.arch.arm32"/>
-                <arg value="-I${src.main.rel}/libffi/x86" unless:set="build.arch.arm"/>
+                <arg value="-I${src.main.rel}/libffi/x86" if:set="build.arch.x64|x86"/>
                 <!-- for libffi/x86/ffitarget.h -->
                 <arg value="-DX86_64" if:set="build.arch.x64"/>
                 <fileset dir=".">
@@ -167,9 +180,6 @@
                 </fileset>
             </link>
         </build>
-
-        <!-- LIBDIVIDE -->
-        <build_simple module="libdivide"/>
 
         <!-- LLVM -->
         <build_simple module="llvm"/>
@@ -196,21 +206,23 @@
             </beforeCompile>
         </build>
 
-        <!-- Meow -->
-        <sequential if:true="${binding.meow}">
-            <local name="meow.flags"/>
-            <condition property="meow.flags" value="" else="-maes">
-                <isset property="build.arch.arm"/>
-            </condition>
-            <build module="meow" simple="true" flags="-Werror -Wfatal-errors ${meow.flags}"/>
-        </sequential>
-
         <!-- meshoptimizer -->
-        <build module="meshoptimizer" simple="true" linker="clang++" if:true="${binding.meshoptimizer}">
+        <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
             <beforeCompile>
                 <compile lang="c++" flags="-DMESHOPTIMIZER_NO_WRAPPERS">
                     <arg value="-I${src.main.rel}"/>
                     <fileset dir="." includes="${src.main}/*.cpp"/>
+                </compile>
+            </beforeCompile>
+        </build>
+
+        <!-- msdfgen -->
+        <build module="msdfgen" simple="true" linker="clang++" if:true="${binding.msdfgen}">
+            <beforeCompile>
+                <compile flags="-DMSDFGEN_DYNAMIC_FREETYPE" lang="c++">
+                    <arg value="-I${src.main.rel}"/>
+                    <fileset dir="." includes="${src.main}/core/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/ext/*.cpp"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -248,14 +260,14 @@
         <!-- OpenGL ES -->
         <build_simple module="opengles"/>
 
-        <!-- OpenVR -->
-        <build_simple module="openvr"/>
-
         <!-- Par -->
         <build_simple module="par"/>
 
         <!-- Remotery -->
         <build module="remotery" simple="true" if:true="${binding.remotery}">
+            <source>
+                <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
+            </source>
             <link>
                 <arg line="-framework Foundation"/>
             </link>
@@ -264,8 +276,14 @@
         <!-- rpmalloc -->
         <build_simple module="rpmalloc"/>
 
-        <!-- SSE -->
-        <build_simple module="sse"/>
+        <!-- spng -->
+        <build module="spng" simple="true" if:true="${binding.spng}">
+            <source>
+                <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
+                <arg value="-msse4.1" if:set="build.arch.x64"/>
+                <fileset dir="." includes="${module.lwjgl}/core/src/main/c/dependencies/miniz/*.c"/>
+            </source>
+        </build>
 
         <!-- stb -->
         <build_simple module="stb"/>
@@ -275,12 +293,12 @@
             <beforeCompile>
                 <compile lang="c++">
                     <arg value="-I${src.main.rel}"/>
+                    <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
                     <fileset dir="." includes="${src.main}/*.cc"/>
                     <fileset dir="." includes="${src.generated}/*.cpp"/>
                 </compile>
                 <compile>
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/miniz.c"/>
+                    <fileset dir="." includes="${module.lwjgl}/core/src/main/c/dependencies/miniz/*.c"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -295,38 +313,8 @@
             </beforeCompile>
         </build>
 
-        <!-- AMD Tootle -->
-        <build module="tootle" lang="c++" if:true="${binding.tootle}">
-            <beforeCompile>
-                <compile flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
-                </compile>
-                <compile lang="c++" flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <arg value="-I${src.main.rel}/include"/>
-                    <arg value="-I${src.main.rel}/RayTracer"/>
-                    <arg value="-I${src.main.rel}/RayTracer/JRT"/>
-                    <arg value="-I${src.main.rel}/RayTracer/Math"/>
-                    <fileset dir=".">
-                        <include name="${src.main}/*.cpp"/>
-                        <exclude name="${src.main}/d3d*.cpp"/>
-                        <exclude name="${src.main}/gdi*.cpp"/>
-                    </fileset>
-                    <fileset dir="." includes="${src.main}/RayTracer/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/JRT/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/Math/*.cpp"/>
-                </compile>
-            </beforeCompile>
-            <source>
-                <arg value="-D_LINUX"/>
-                <arg value="-I${src.main.rel}/include"/>
-                <fileset dir="." includes="${src.generated}/*.cpp"/>
-            </source>
-        </build>
-
         <!-- Vulkan Memory Allocator -->
-        <build module="vma" lang="c++" if:true="${binding.vma}">
+        <build module="vma" lang="c++" macos="${ios-version-min-vma}" if:true="${binding.vma}">
             <source>
                 <arg value="-I${src.main.rel}"/>
                 <arg value="-I${module.lwjgl.rel}/vulkan/src/main/c"/>
@@ -359,10 +347,6 @@
                     <fileset dir="." includes="${module.lwjgl}/xxhash/src/main/c/xxhash.c"/>
                 </compile>
             </beforeCompile>
-            <source>
-                <arg value="-I${src.main.rel}/common"/>
-                <arg value="-I${src.main.rel}/dictBuilder"/>
-            </source>
         </build>
 
         </parallel>
@@ -391,8 +375,8 @@
             <update-dependency module="jemalloc" artifact="libjemalloc.dylib"/>
             <update-dependency module="ktx" artifact="libktx.dylib"/>
             <update-dependency module="openal" artifact="libopenal.dylib"/>
-            <update-dependency module="openvr" artifact="libopenvr_api.dylib"/>
             <update-dependency module="opus" artifact="libopus.dylib"/>
+            <update-dependency module="sdl" artifact="libSDL3.dylib"/>
             <update-dependency module="shaderc" artifact="libshaderc.dylib"/>
             <update-dependency module="spvc" artifact="libspirv-cross.dylib"/>
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,36 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing a remote accessible address export operation.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code handleType} <b>must</b> have been included in {@link VkExportMemoryAllocateInfo}{@code ::handleTypes} when {@code memory} was created</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code memory} <b>must</b> be a valid {@code VkDeviceMemory} handle</li>
- * <li>{@code handleType} <b>must</b> be a valid {@code VkExternalMemoryHandleTypeFlagBits} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link NVExternalMemoryRdma#vkGetMemoryRemoteAddressNV GetMemoryRemoteAddressNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryGetRemoteAddressInfoNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDeviceMemory {@link #memory};
- *     VkExternalMemoryHandleTypeFlagBits {@link #handleType};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDeviceMemory memory;
+ *     VkExternalMemoryHandleTypeFlagBits handleType;
+ * }}</pre>
  */
 public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddressInfoNV> implements NativeResource {
 
@@ -101,28 +78,28 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the memory object from which the remote accessible address will be exported. */
+    /** @return the value of the {@code memory} field. */
     @NativeType("VkDeviceMemory")
     public long memory() { return nmemory(address()); }
-    /** the type of handle requested. */
+    /** @return the value of the {@code handleType} field. */
     @NativeType("VkExternalMemoryHandleTypeFlagBits")
     public int handleType() { return nhandleType(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryGetRemoteAddressInfoNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV} value to the {@code sType} field. */
     public VkMemoryGetRemoteAddressInfoNV sType$Default() { return sType(NVExternalMemoryRdma.VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryGetRemoteAddressInfoNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #memory} field. */
+    /** Sets the specified value to the {@code memory} field. */
     public VkMemoryGetRemoteAddressInfoNV memory(@NativeType("VkDeviceMemory") long value) { nmemory(address(), value); return this; }
-    /** Sets the specified value to the {@link #handleType} field. */
+    /** Sets the specified value to the {@code handleType} field. */
     public VkMemoryGetRemoteAddressInfoNV handleType(@NativeType("VkExternalMemoryHandleTypeFlagBits") int value) { nhandleType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -176,8 +153,7 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryGetRemoteAddressInfoNV createSafe(long address) {
+    public static @Nullable VkMemoryGetRemoteAddressInfoNV createSafe(long address) {
         return address == NULL ? null : new VkMemoryGetRemoteAddressInfoNV(address, null);
     }
 
@@ -220,8 +196,7 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryGetRemoteAddressInfoNV.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryGetRemoteAddressInfoNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -266,22 +241,22 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryGetRemoteAddressInfoNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMemoryGetRemoteAddressInfoNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMemoryGetRemoteAddressInfoNV.PNEXT); }
     /** Unsafe version of {@link #memory}. */
-    public static long nmemory(long struct) { return UNSAFE.getLong(null, struct + VkMemoryGetRemoteAddressInfoNV.MEMORY); }
+    public static long nmemory(long struct) { return memGetLong(struct + VkMemoryGetRemoteAddressInfoNV.MEMORY); }
     /** Unsafe version of {@link #handleType}. */
-    public static int nhandleType(long struct) { return UNSAFE.getInt(null, struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE); }
+    public static int nhandleType(long struct) { return memGetInt(struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryGetRemoteAddressInfoNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMemoryGetRemoteAddressInfoNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMemoryGetRemoteAddressInfoNV.PNEXT, value); }
     /** Unsafe version of {@link #memory(long) memory}. */
-    public static void nmemory(long struct, long value) { UNSAFE.putLong(null, struct + VkMemoryGetRemoteAddressInfoNV.MEMORY, value); }
+    public static void nmemory(long struct, long value) { memPutLong(struct + VkMemoryGetRemoteAddressInfoNV.MEMORY, value); }
     /** Unsafe version of {@link #handleType(int) handleType}. */
-    public static void nhandleType(long struct, int value) { UNSAFE.putInt(null, struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE, value); }
+    public static void nhandleType(long struct, int value) { memPutInt(struct + VkMemoryGetRemoteAddressInfoNV.HANDLETYPE, value); }
 
     // -----------------------------------
 
@@ -317,32 +292,37 @@ public class VkMemoryGetRemoteAddressInfoNV extends Struct<VkMemoryGetRemoteAddr
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryGetRemoteAddressInfoNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryGetRemoteAddressInfoNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryGetRemoteAddressInfoNV.nsType(address()); }
-        /** @return the value of the {@link VkMemoryGetRemoteAddressInfoNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMemoryGetRemoteAddressInfoNV.npNext(address()); }
-        /** @return the value of the {@link VkMemoryGetRemoteAddressInfoNV#memory} field. */
+        /** @return the value of the {@code memory} field. */
         @NativeType("VkDeviceMemory")
         public long memory() { return VkMemoryGetRemoteAddressInfoNV.nmemory(address()); }
-        /** @return the value of the {@link VkMemoryGetRemoteAddressInfoNV#handleType} field. */
+        /** @return the value of the {@code handleType} field. */
         @NativeType("VkExternalMemoryHandleTypeFlagBits")
         public int handleType() { return VkMemoryGetRemoteAddressInfoNV.nhandleType(address()); }
 
-        /** Sets the specified value to the {@link VkMemoryGetRemoteAddressInfoNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryGetRemoteAddressInfoNV.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryGetRemoteAddressInfoNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV} value to the {@link VkMemoryGetRemoteAddressInfoNV#sType} field. */
+        /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV} value to the {@code sType} field. */
         public VkMemoryGetRemoteAddressInfoNV.Buffer sType$Default() { return sType(NVExternalMemoryRdma.VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV); }
-        /** Sets the specified value to the {@link VkMemoryGetRemoteAddressInfoNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryGetRemoteAddressInfoNV.Buffer pNext(@NativeType("void const *") long value) { VkMemoryGetRemoteAddressInfoNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryGetRemoteAddressInfoNV#memory} field. */
+        /** Sets the specified value to the {@code memory} field. */
         public VkMemoryGetRemoteAddressInfoNV.Buffer memory(@NativeType("VkDeviceMemory") long value) { VkMemoryGetRemoteAddressInfoNV.nmemory(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryGetRemoteAddressInfoNV#handleType} field. */
+        /** Sets the specified value to the {@code handleType} field. */
         public VkMemoryGetRemoteAddressInfoNV.Buffer handleType(@NativeType("VkExternalMemoryHandleTypeFlagBits") int value) { VkMemoryGetRemoteAddressInfoNV.nhandleType(address(), value); return this; }
 
     }

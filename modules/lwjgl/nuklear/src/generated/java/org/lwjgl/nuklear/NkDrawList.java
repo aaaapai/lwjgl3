@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_draw_list {
  *     {@link NkRect struct nk_rect} clip_rect;
@@ -139,17 +137,14 @@ public class NkDrawList extends Struct<NkDrawList> implements NativeResource {
     @NativeType("struct nk_convert_config")
     public NkConvertConfig config() { return nconfig(address()); }
     /** @return a {@link NkBuffer} view of the struct pointed to by the {@code buffer} field. */
-    @Nullable
     @NativeType("struct nk_buffer *")
-    public NkBuffer buffer() { return nbuffer(address()); }
+    public @Nullable NkBuffer buffer() { return nbuffer(address()); }
     /** @return a {@link NkBuffer} view of the struct pointed to by the {@code vertices} field. */
-    @Nullable
     @NativeType("struct nk_buffer *")
-    public NkBuffer vertices() { return nvertices(address()); }
+    public @Nullable NkBuffer vertices() { return nvertices(address()); }
     /** @return a {@link NkBuffer} view of the struct pointed to by the {@code elements} field. */
-    @Nullable
     @NativeType("struct nk_buffer *")
-    public NkBuffer elements() { return nelements(address()); }
+    public @Nullable NkBuffer elements() { return nelements(address()); }
     /** @return the value of the {@code element_count} field. */
     @NativeType("unsigned int")
     public int element_count() { return nelement_count(address()); }
@@ -202,8 +197,7 @@ public class NkDrawList extends Struct<NkDrawList> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkDrawList createSafe(long address) {
+    public static @Nullable NkDrawList createSafe(long address) {
         return address == NULL ? null : new NkDrawList(address, null);
     }
 
@@ -246,29 +240,9 @@ public class NkDrawList extends Struct<NkDrawList> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkDrawList.Buffer createSafe(long address, int capacity) {
+    public static NkDrawList.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkDrawList mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkDrawList callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkDrawList mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkDrawList callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkDrawList.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkDrawList.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkDrawList.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkDrawList.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code NkDrawList} instance allocated on the specified {@link MemoryStack}.
@@ -321,27 +295,27 @@ public class NkDrawList extends Struct<NkDrawList> implements NativeResource {
     /** Unsafe version of {@link #config}. */
     public static NkConvertConfig nconfig(long struct) { return NkConvertConfig.create(struct + NkDrawList.CONFIG); }
     /** Unsafe version of {@link #buffer}. */
-    @Nullable public static NkBuffer nbuffer(long struct) { return NkBuffer.createSafe(memGetAddress(struct + NkDrawList.BUFFER)); }
+    public static @Nullable NkBuffer nbuffer(long struct) { return NkBuffer.createSafe(memGetAddress(struct + NkDrawList.BUFFER)); }
     /** Unsafe version of {@link #vertices}. */
-    @Nullable public static NkBuffer nvertices(long struct) { return NkBuffer.createSafe(memGetAddress(struct + NkDrawList.VERTICES)); }
+    public static @Nullable NkBuffer nvertices(long struct) { return NkBuffer.createSafe(memGetAddress(struct + NkDrawList.VERTICES)); }
     /** Unsafe version of {@link #elements}. */
-    @Nullable public static NkBuffer nelements(long struct) { return NkBuffer.createSafe(memGetAddress(struct + NkDrawList.ELEMENTS)); }
+    public static @Nullable NkBuffer nelements(long struct) { return NkBuffer.createSafe(memGetAddress(struct + NkDrawList.ELEMENTS)); }
     /** Unsafe version of {@link #element_count}. */
-    public static int nelement_count(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.ELEMENT_COUNT); }
+    public static int nelement_count(long struct) { return memGetInt(struct + NkDrawList.ELEMENT_COUNT); }
     /** Unsafe version of {@link #vertex_count}. */
-    public static int nvertex_count(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.VERTEX_COUNT); }
+    public static int nvertex_count(long struct) { return memGetInt(struct + NkDrawList.VERTEX_COUNT); }
     /** Unsafe version of {@link #cmd_count}. */
-    public static int ncmd_count(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.CMD_COUNT); }
+    public static int ncmd_count(long struct) { return memGetInt(struct + NkDrawList.CMD_COUNT); }
     /** Unsafe version of {@link #cmd_offset}. */
     public static long ncmd_offset(long struct) { return memGetAddress(struct + NkDrawList.CMD_OFFSET); }
     /** Unsafe version of {@link #path_count}. */
-    public static int npath_count(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.PATH_COUNT); }
+    public static int npath_count(long struct) { return memGetInt(struct + NkDrawList.PATH_COUNT); }
     /** Unsafe version of {@link #path_offset}. */
-    public static int npath_offset(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.PATH_OFFSET); }
+    public static int npath_offset(long struct) { return memGetInt(struct + NkDrawList.PATH_OFFSET); }
     /** Unsafe version of {@link #line_AA}. */
-    public static int nline_AA(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.LINE_AA); }
+    public static int nline_AA(long struct) { return memGetInt(struct + NkDrawList.LINE_AA); }
     /** Unsafe version of {@link #shape_AA}. */
-    public static int nshape_AA(long struct) { return UNSAFE.getInt(null, struct + NkDrawList.SHAPE_AA); }
+    public static int nshape_AA(long struct) { return memGetInt(struct + NkDrawList.SHAPE_AA); }
     /** Unsafe version of {@link #userdata}. */
     public static NkHandle nuserdata(long struct) { return NkHandle.create(struct + NkDrawList.USERDATA); }
 
@@ -379,6 +353,11 @@ public class NkDrawList extends Struct<NkDrawList> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkDrawList getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -396,17 +375,14 @@ public class NkDrawList extends Struct<NkDrawList> implements NativeResource {
         @NativeType("struct nk_convert_config")
         public NkConvertConfig config() { return NkDrawList.nconfig(address()); }
         /** @return a {@link NkBuffer} view of the struct pointed to by the {@code buffer} field. */
-        @Nullable
         @NativeType("struct nk_buffer *")
-        public NkBuffer buffer() { return NkDrawList.nbuffer(address()); }
+        public @Nullable NkBuffer buffer() { return NkDrawList.nbuffer(address()); }
         /** @return a {@link NkBuffer} view of the struct pointed to by the {@code vertices} field. */
-        @Nullable
         @NativeType("struct nk_buffer *")
-        public NkBuffer vertices() { return NkDrawList.nvertices(address()); }
+        public @Nullable NkBuffer vertices() { return NkDrawList.nvertices(address()); }
         /** @return a {@link NkBuffer} view of the struct pointed to by the {@code elements} field. */
-        @Nullable
         @NativeType("struct nk_buffer *")
-        public NkBuffer elements() { return NkDrawList.nelements(address()); }
+        public @Nullable NkBuffer elements() { return NkDrawList.nelements(address()); }
         /** @return the value of the {@code element_count} field. */
         @NativeType("unsigned int")
         public int element_count() { return NkDrawList.nelement_count(address()); }

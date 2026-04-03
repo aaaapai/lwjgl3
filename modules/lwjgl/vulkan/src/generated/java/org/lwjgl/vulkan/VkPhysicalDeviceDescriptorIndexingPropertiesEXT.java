@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceDescriptorIndexingProperties}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDescriptorIndexingPropertiesEXT {
  *     VkStructureType sType;
  *     void * pNext;
@@ -47,7 +43,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t maxDescriptorSetUpdateAfterBindSampledImages;
  *     uint32_t maxDescriptorSetUpdateAfterBindStorageImages;
  *     uint32_t maxDescriptorSetUpdateAfterBindInputAttachments;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceDescriptorIndexingPropertiesEXT extends VkPhysicalDeviceDescriptorIndexingProperties {
 
@@ -128,8 +124,7 @@ public class VkPhysicalDeviceDescriptorIndexingPropertiesEXT extends VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDescriptorIndexingPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDescriptorIndexingPropertiesEXT(address, null);
     }
 
@@ -172,29 +167,9 @@ public class VkPhysicalDeviceDescriptorIndexingPropertiesEXT extends VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceDescriptorIndexingPropertiesEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkPhysicalDeviceDescriptorIndexingPropertiesEXT} instance allocated on the specified {@link MemoryStack}.
@@ -265,6 +240,11 @@ public class VkPhysicalDeviceDescriptorIndexingPropertiesEXT extends VkPhysicalD
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

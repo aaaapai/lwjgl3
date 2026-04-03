@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,16 +18,12 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.*;
 
 /**
- * See {@link XrSwapchainImageVulkanKHR}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSwapchainImageVulkan2KHR {
  *     XrStructureType type;
  *     void * next;
  *     VkImage image;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrSwapchainImageVulkan2KHR extends XrSwapchainImageVulkanKHR {
 
@@ -108,9 +104,13 @@ public class XrSwapchainImageVulkan2KHR extends XrSwapchainImageVulkanKHR {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageVulkan2KHR createSafe(long address) {
+    public static @Nullable XrSwapchainImageVulkan2KHR createSafe(long address) {
         return address == NULL ? null : new XrSwapchainImageVulkan2KHR(address, null);
+    }
+
+    /** Downcasts the specified {@code XrSwapchainImageBaseHeader} instance to {@code XrSwapchainImageVulkan2KHR}. */
+    public static XrSwapchainImageVulkan2KHR create(XrSwapchainImageBaseHeader value) {
+        return new XrSwapchainImageVulkan2KHR(value.address(), __getContainer(value));
     }
 
     /**
@@ -152,9 +152,13 @@ public class XrSwapchainImageVulkan2KHR extends XrSwapchainImageVulkanKHR {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainImageVulkan2KHR.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainImageVulkan2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
+    }
+
+    /** Downcasts the specified {@code XrSwapchainImageBaseHeader.Buffer} instance to {@code XrSwapchainImageVulkan2KHR.Buffer}. */
+    public static XrSwapchainImageVulkan2KHR.Buffer create(XrSwapchainImageBaseHeader.Buffer value) {
+        return new XrSwapchainImageVulkan2KHR.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -226,6 +230,11 @@ public class XrSwapchainImageVulkan2KHR extends XrSwapchainImageVulkanKHR {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

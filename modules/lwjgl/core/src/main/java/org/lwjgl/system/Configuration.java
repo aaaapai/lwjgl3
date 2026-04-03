@@ -4,9 +4,9 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.system.MemoryUtil.*;
 
-import javax.annotation.*;
 import java.io.*;
 import java.util.function.*;
 
@@ -24,8 +24,8 @@ public class Configuration<T> {
      * <p>It may contain one or more directory paths, separated by {@link File#pathSeparator}.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.librarypath</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic<br>
+     * Property: <b>org.lwjgl.librarypath</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic<br>
      */
     public static final Configuration<String> LIBRARY_PATH = new Configuration<>("org.lwjgl.librarypath", StateInit.STRING);
 
@@ -72,11 +72,11 @@ public class Configuration<T> {
     /**
      * Changes the temporary directory name created by LWJGL when extracting shared libraries from JAR files.
      *
-     * <p>If this option is not set, it defaults to <code>lwjgl_&lt;user name&gt;</code>.</p>
+     * <p>If this option is not set, it defaults to {@code lwjgl_<user name>}.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.SharedLibraryExtractDirectory</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic<br>
+     * Property: <b>org.lwjgl.system.SharedLibraryExtractDirectory</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic<br>
      */
     public static final Configuration<String> SHARED_LIBRARY_EXTRACT_DIRECTORY = new Configuration<>(
         "org.lwjgl.system.SharedLibraryExtractDirectory",
@@ -94,16 +94,16 @@ public class Configuration<T> {
      * <li>{@code Files.createTempDirectory("lwjgl", "")}</li>
      * </ul>
      *
-     * where:
+     * <p>where:</p>
      *
-     * <pre><code>
+     * <pre>{@code
      * extractDir = Configuration.SHARED_LIBRARY_EXTRACT_DIRECTORY
      * version = Version.getVersion().replace(' ', '-')
-     * </code></pre>
+     * }</pre>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.SharedLibraryExtractPath</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.system.SharedLibraryExtractPath</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<String> SHARED_LIBRARY_EXTRACT_PATH = new Configuration<>(
         "org.lwjgl.system.SharedLibraryExtractPath",
@@ -115,8 +115,8 @@ public class Configuration<T> {
      * {@link #SHARED_LIBRARY_EXTRACT_PATH}, then loaded from there.
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.SharedLibraryExtractForce</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.system.SharedLibraryExtractForce</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<Boolean> SHARED_LIBRARY_EXTRACT_FORCE = new Configuration<>(
         "org.lwjgl.system.SharedLibraryExtractForce",
@@ -127,8 +127,8 @@ public class Configuration<T> {
      * EXPERIMENTAL: Emulates {@link System#loadLibrary} behavior in {@link Library#loadNative(Class, String, String, boolean) Library.loadNative}.
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.EmulateSystemLoadLibrary</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.system.EmulateSystemLoadLibrary</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<Boolean> EMULATE_SYSTEM_LOADLIBRARY = new Configuration<>(
         "org.lwjgl.system.EmulateSystemLoadLibrary",
@@ -141,8 +141,8 @@ public class Configuration<T> {
      * <p>It can be an absolute path.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.libname</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.libname</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<String> LIBRARY_NAME = new Configuration<>("org.lwjgl.libname", StateInit.STRING);
 
@@ -176,8 +176,8 @@ public class Configuration<T> {
      * <p>This value is also used for the LWJGL-managed, thread-local, {@link MemoryStack} instances. If this option is not set, it defaults to 64.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.stackSize</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.system.stackSize</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Integer> STACK_SIZE = new Configuration<>("org.lwjgl.system.stackSize", StateInit.INT);
 
@@ -190,8 +190,8 @@ public class Configuration<T> {
      * <p>If this option is not set, it defaults to 8192. Setting the value to 0 will disable the array cache.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.arrayTLCSize</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.system.arrayTLCSize</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Integer> ARRAY_TLC_SIZE = new Configuration<>("org.lwjgl.system.arrayTLCSize", StateInit.INT);
 
@@ -205,12 +205,14 @@ public class Configuration<T> {
      * <ul>
      *     <li>229 for Java 8</li>
      *     <li>230 for Java 9 to Java 18</li>
-     *     <li>231 for Java 19 or higher</li>
+     *     <li>231 for Java 19 to Java 20</li>
+     *     <li>232 for Java 21 to Java 23</li>
+     *     <li>233 for Java 24 or higher</li>
      * </ul>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.system.JNINativeInterfaceSize</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.system.JNINativeInterfaceSize</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Integer> JNI_NATIVE_INTERFACE_FUNCTION_COUNT = new Configuration<>("org.lwjgl.system.JNINativeInterfaceSize", StateInit.INT);
 
@@ -221,8 +223,8 @@ public class Configuration<T> {
      * they may be disabled for release builds.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.NoChecks</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.NoChecks</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DISABLE_CHECKS = new Configuration<>("org.lwjgl.util.NoChecks", StateInit.BOOLEAN);
 
@@ -233,10 +235,24 @@ public class Configuration<T> {
      * incompatible library must be loaded.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.NoFunctionChecks</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.util.NoFunctionChecks</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<Boolean> DISABLE_FUNCTION_CHECKS = new Configuration<>("org.lwjgl.util.NoFunctionChecks", StateInit.BOOLEAN);
+
+    /**
+     * Set to true to disable LWJGL's shared library hash checks.
+     *
+     * <p>LWJGL compares the shared library hash stored in the classpath, with the hash of the actual library loaded at runtime. These checks print a simple
+     * warning when there's a hash mismatch, to help diagnose installation/classpath issues. It is not a security feature.</p>
+     *
+     * <p>If this option is not set, it defaults to the value of {@link #DISABLE_CHECKS}.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.util.NoLibraryChecks</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<Boolean> DISABLE_HASH_CHECKS = new Configuration<>("org.lwjgl.util.NoHashChecks", StateInit.BOOLEAN);
 
     /**
      * Set to true to enable LWJGL's debug mode.
@@ -245,8 +261,8 @@ public class Configuration<T> {
      * performance-wise).</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.Debug</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.Debug</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DEBUG = new Configuration<>("org.lwjgl.util.Debug", StateInit.BOOLEAN);
 
@@ -256,10 +272,21 @@ public class Configuration<T> {
      * <p>This option requires {@link #DEBUG} to be enabled.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugLoader</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.DebugLoader</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DEBUG_LOADER = new Configuration<>("org.lwjgl.util.DebugLoader", StateInit.BOOLEAN);
+
+    /**
+     * When enabled, enables debug output in the bindings generator.
+     *
+     * <p>Output will be printed to the {@link #DEBUG_STREAM}. This option requires {@link #DEBUG} to be enabled.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.util.DebugGenerator</b>
+     * <br> &nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<Boolean> DEBUG_GENERATOR = new Configuration<>("org.lwjgl.util.DebugGenerator", StateInit.BOOLEAN);
 
     /**
      * Can be set to override the default {@link APIUtil#DEBUG_STREAM}.
@@ -270,9 +297,9 @@ public class Configuration<T> {
      * <p>When set programmatically, it can also be a {@link PrintStream} instance.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugStream</b><br>
-     * &nbsp; &nbsp; Type: String or a {@link PrintStream} instance<br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.DebugStream</b>
+     * <br>&nbsp; &nbsp; Type: String or a {@link PrintStream} instance
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Object> DEBUG_STREAM = new Configuration<>("org.lwjgl.util.DebugStream", StateInit.STRING);
 
@@ -286,8 +313,8 @@ public class Configuration<T> {
      * the JVM option {@code -XX:MaxJavaStackTraceDepth=d} (where {@code d >= 6}) can be used to reduce the overhead.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugAllocator</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.DebugAllocator</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DEBUG_MEMORY_ALLOCATOR = new Configuration<>("org.lwjgl.util.DebugAllocator", StateInit.BOOLEAN);
 
@@ -297,8 +324,8 @@ public class Configuration<T> {
      * <p>If this option is not set, it defaults to true.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugAllocator.internal</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.DebugAllocator.internal</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DEBUG_MEMORY_ALLOCATOR_INTERNAL = new Configuration<>("org.lwjgl.util.DebugAllocator.internal", StateInit.BOOLEAN);
 
@@ -318,8 +345,8 @@ public class Configuration<T> {
      * included.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugAllocator.fast</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.util.DebugAllocator.fast</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<Boolean> DEBUG_MEMORY_ALLOCATOR_FAST = new Configuration<>("org.lwjgl.util.DebugAllocator.fast", StateInit.BOOLEAN);
 
@@ -333,8 +360,8 @@ public class Configuration<T> {
      * serious issue, the JVM option {@code -XX:MaxJavaStackTraceDepth=d} (where {@code d >= 5}) can be used to reduce the overhead.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugStack</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.DebugStack</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DEBUG_STACK = new Configuration<>("org.lwjgl.util.DebugStack", StateInit.BOOLEAN);
 
@@ -346,10 +373,99 @@ public class Configuration<T> {
      * <p>This option requires {@link #DEBUG} to be enabled.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.util.DebugFunctions</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.util.DebugFunctions</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> DEBUG_FUNCTIONS = new Configuration<>("org.lwjgl.util.DebugFunctions", StateInit.BOOLEAN);
+
+    // -- FFM INTEROP OPTIONS
+
+    /**
+     * Can be set to override the default nullable annotation used by the bindings generator.
+     *
+     * <p>Supported values:</p>
+     * <ul>
+     * <li><em>auto</em> - LWJGL will try calling {@link Class#forName} with a list of popular nullable annotation classes. The first one available will become
+     * the default nullable annotation.</li>
+     * <li><em>none</em> - No nullable annotation will be set by default. If necessary, the {@code FFMConfig} builder can be used to configure a nullable
+     * annotation per binding.</li>
+     * <li><em>&lt;classpath&gt;</em> - An annotation class.</li>
+     * </ul>
+     *
+     * <p>If this option is not set, it defaults to {@code auto}. When set programmatically, it can also be an
+     * {@link java.lang.annotation.Annotation Annotation} {@code class}.</p>
+     *
+     * <p>The configured nullable annotation must also satisfy the following requirements:</p>
+     * <ul>
+     *     <li>It must have a {@link java.lang.annotation.RetentionPolicy#RUNTIME RUNTIME} {@link java.lang.annotation.Retention Retention} policy.</li>
+     *     <li>It must {@link java.lang.annotation.Target Target} either {@link java.lang.annotation.ElementType#TYPE_USE TYPE_USE} or both
+     *     {@link java.lang.annotation.ElementType#METHOD METHOD} and {@link java.lang.annotation.ElementType#PARAMETER PARAMETER}.</li>
+     * </ul>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.system.ffm.nullable</b><br>
+     * &nbsp; &nbsp; Type: String<br>
+     * &nbsp; &nbsp;Usage: Static</p>
+     */
+    public static final Configuration<Object> FFM_DEFAULT_NULLABLE_ANNOTATION = new Configuration<>("org.lwjgl.system.ffm.nullable", StateInit.STRING);
+
+    /**
+     * Can be set to override the default {@code Arena} type used to allocate upcalls with the FFM backend.
+     *
+     * <p>Supported values:</p>
+     * <ul>
+     * <li><em>auto</em> - Creates a GC managed arena for each upcall. Upcalls can be used and freed from any thread, but resource release timing depends on
+     * overall GC activity, like managed NIO buffers.</li>
+     * <li><em>confined</em> - Creates a thread-confined arena for each upcall. Upcalls can be used and freed only from the thread that created them, but
+     * resource release happens immediately when the upcall is freed.</li>
+     * <li><em>shared</em> - Creates a thread-shared arena for each upcall. Upcalls can be used and freed from any thread, resource release happens immediately
+     * when the upcall is freed, but the upcall allocation and release process is very expensive.</li>
+     * </ul>
+     *
+     * <p>If this option is not set, it defaults to {@code auto}, which should be acceptable for most existing LWJGL applications that do not instantiate
+     * upcalls in excessive numbers.</p>
+     *
+     * <p>For new applications, it is recommended to use the {@code ffmScoped*} methods when creating upcalls. Within the scope of such a call, LWJGL will use
+     * the specified arena to allocate upcalls and this option becomes irrelevant.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.system.ffm.upcall.arena</b><br>
+     * &nbsp; &nbsp; Type: String<br>
+     * &nbsp; &nbsp;Usage: Static</p>
+     */
+    public static final Configuration<String> FFM_UPCALL_ARENA = new Configuration<>("org.lwjgl.system.ffm.upcall.arena", StateInit.STRING);
+
+    /**
+     * When set to true, uncaught exceptions from upcalls with the FFM backend will be caught and passed to {@link #FFM_UPCALL_EXCEPTION_HANDLER}.
+     *
+     * <p>If this option is not set, it defaults to true.</p>
+     *
+     * <p>Uncaught exceptions in FFM upcalls will terminate the JVM, but this option may be disabled when creating upcalls that handle exceptions
+     * internally.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.system.fmm.upcall.exception.catch</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<Boolean> FFM_UPCALL_EXCEPTION_CATCH = new Configuration<>("org.lwjgl.system.ffm.upcall.exception.catch", StateInit.BOOLEAN);
+
+    /**
+     * Can be set to override the exception handler used for uncaught exceptions from upcalls with the FFM backend.
+     *
+     * <p>Supported values:</p>
+     * <ul>
+     * <li><em>default</em> - Prints a warning message and the exception stacktrace to {@link APIUtil#DEBUG_STREAM}.</li>
+     * <li><em>&lt;classpath&gt;</em> - A class that implements the {@link Consumer Consumer&lt;Throwable&gt;} interface. It will be instantiated using reflection.</li>
+     * </ul>
+     *
+     * <p>When set programmatically, it can also be a {@link Consumer Consumer&lt;Throwable&gt;} instance.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.system.ffm.upcall.exception.handler</b><br>
+     * &nbsp; &nbsp; Type: String or a {@link Consumer Consumer&lt;Throwable&gt;} instance<br>
+     * &nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<Object> FFM_UPCALL_EXCEPTION_HANDLER = new Configuration<>("org.lwjgl.system.ffm.upcall.exception.handler", StateInit.STRING);
 
     // -- ASSIMP
 
@@ -364,51 +480,6 @@ public class Configuration<T> {
     /** Similar to {@link #LIBRARY_NAME} for the BGFX library (<b>org.lwjgl.bgfx.libname</b>). */
     public static final Configuration<String> BGFX_LIBRARY_NAME = new Configuration<>("org.lwjgl.bgfx.libname", StateInit.STRING);
 
-    // -- CUDA
-
-    /** Similar to {@link #LIBRARY_NAME} for the CUDA Driver library &ndash; nvcuda (<b>org.lwjgl.cuda.libname</b>). */
-    public static final Configuration<String> CUDA_LIBRARY_NAME = new Configuration<>("org.lwjgl.cuda.libname", StateInit.STRING);
-
-    /**
-     * This option can be used to force a specific CUDA Toolkit version.
-     *
-     * <p>By default, when LWJGL detects multiple CUDA Toolkits, it will use the toolkit with the greatest version.</p>
-     *
-     * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.cuda.toolkit.version</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
-     */
-    public static final Configuration<String> CUDA_TOOLKIT_VERSION = new Configuration<>("org.lwjgl.cuda.toolkit.version", StateInit.STRING);
-
-    /**
-     * This option can be used to load toolkit libraries from a non-standard installation folder.
-     *
-     * <p>By default, LWJGL will try to detect CUDA Toolkits in the default installation folder.</p>
-     *
-     * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.cuda.toolkit.path</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
-     */
-    public static final Configuration<String> CUDA_TOOLKIT_PATH = new Configuration<>("org.lwjgl.cuda.toolkit.path", StateInit.STRING);
-
-    /** Similar to {@link #LIBRARY_NAME} for the CUDA NVRTC library (<b>org.lwjgl.cuda.nvrtc.libname</b>). */
-    public static final Configuration<String> CUDA_NVRTC_LIBRARY_NAME = new Configuration<>("org.lwjgl.cuda.nvrtc.libname", StateInit.STRING);
-
-    /** Similar to {@link #LIBRARY_NAME} for the CUDA NVRTC Builtins library (<b>org.lwjgl.cuda.nvrtc-builtins.libname</b>). */
-    public static final Configuration<String> CUDA_NVRTC_BUILTINS_LIBRARY_NAME = new Configuration<>("org.lwjgl.cuda.nvrtc-builtins.libname", StateInit.STRING);
-
-    /**
-     * To enable per-thread synchronization, set this option to {@code true} before initializing the CUDA driver.
-     *
-     * <p>By default, CUDA uses the legacy default stream. To check if the CUDA driver supports PTDS, call
-     * {@code org.lwjgl.cuda.CUDA.isPerThreadDefaultStreamSupported()}</p>
-     *
-     * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.cuda.ptds</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
-     */
-    public static final Configuration<Boolean> CUDA_API_PER_THREAD_DEFAULT_STREAM = new Configuration<>("org.lwjgl.cuda.ptds", StateInit.BOOLEAN);
-
     // -- EGL
 
     /**
@@ -417,13 +488,27 @@ public class Configuration<T> {
      * <p>By default, LWJGL will automatically initialize the EGL library when it is first accessed.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.egl.explicitInit</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.egl.explicitInit</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> EGL_EXPLICIT_INIT = new Configuration<>("org.lwjgl.egl.explicitInit", StateInit.BOOLEAN);
 
     /** Similar to {@link #LIBRARY_NAME} for the EGL library (<b>org.lwjgl.egl.libname</b>). */
     public static final Configuration<String> EGL_LIBRARY_NAME = new Configuration<>("org.lwjgl.egl.libname", StateInit.STRING);
+
+    /** Returns the default EGL library names for the current platform. */
+    public static String[] EGL_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libEGL.so.1"};
+            case MACOSX:
+                return new String[] {"EGL"};
+            case WINDOWS:
+                return new String[] {"libEGL", "EGL"};
+        }
+        throw new IllegalStateException();
+    }
 
     /** Similar to {@link #OPENGL_EXTENSION_FILTER} for the EGL library (<b>org.lwjgl.egl.extensionFilter</b>). */
     public static final Configuration<Object> EGL_EXTENSION_FILTER = new Configuration<>("org.lwjgl.egl.extensionFilter", StateInit.STRING);
@@ -457,8 +542,8 @@ public class Configuration<T> {
      * <p>The JVM can be launched with {@code -XstartOnFirstThread} to make the main thread the first thread of the process.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.glfw.checkThread0</b><br>
-     * &nbsp; &nbsp;Usage: Dynamic</p>
+     * Property: <b>org.lwjgl.glfw.checkThread0</b>
+     * <br>&nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<Boolean> GLFW_CHECK_THREAD0 = new Configuration<>("org.lwjgl.glfw.checkThread0", StateInit.BOOLEAN);
 
@@ -522,8 +607,8 @@ public class Configuration<T> {
      * Set to true to enable NativeFileDialog's XDG Desktop Portal backend on Linux.
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.nfd.linux.portal</b><br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.nfd.linux.portal</b>
+     * <br>&nbsp; &nbsp;Usage: Static</p>
      */
     public static final Configuration<Boolean> NFD_LINUX_PORTAL = new Configuration<>("org.lwjgl.nfd.linux.portal", StateInit.BOOLEAN);
 
@@ -562,6 +647,37 @@ public class Configuration<T> {
     /** Similar to {@link #LIBRARY_NAME} for the OpenGL library (<b>org.lwjgl.opengl.libname</b>). */
     public static final Configuration<String> OPENGL_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengl.libname", StateInit.STRING);
 
+    /** Returns the default OpenGL library names for the current platform. */
+    public static String[] OPENGL_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libGLX.so.0", "libGL.so.1", "libGL.so"};
+            case MACOSX:
+                return new String[] {"/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"};
+            case WINDOWS:
+                return new String[] {"opengl32"};
+        }
+        throw new IllegalStateException();
+    }
+
+    /** Similar to {@link #LIBRARY_NAME} for the OSMesa library (<b>org.lwjgl.opengl.osmesa.libname</b>). */
+    public static final Configuration<String> OPENGL_OSMESA_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengl.osmesa.libname", StateInit.STRING);
+
+    /** Returns the default OSMEsa library names for the current platform. */
+    public static String[] OPENGL_OSMESA_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libOSMesa.so.8", "libOSMesa.so.6", "libOSMesa.so"};
+            case MACOSX:
+                return new String[] {"libOSMesa.8.dylib"};
+            case WINDOWS:
+                return new String[] {"libOSMesa", "OSMesa"};
+        }
+        throw new IllegalStateException();
+    }
+
     /**
      * Can be used to limit the maximum available OpenGL version.
      *
@@ -569,9 +685,10 @@ public class Configuration<T> {
      * programmatically, it can also be an {@link APIUtil.APIVersion} instance.</p>
      *
      * <p style="font-family: monospace">
-     * Property: <b>org.lwjgl.opengl.maxVersion</b><br>
-     * &nbsp; &nbsp; Type: String (M.n) or an {@link APIUtil.APIVersion} instance<br>
-     * &nbsp; &nbsp;Usage: Static</p>
+     * Property: <b>org.lwjgl.opengl.maxVersion</b>
+     * <br>&nbsp; &nbsp; Type: String (M.n) or an {@link APIUtil.APIVersion} instance
+     * <br>&nbsp; &nbsp;Usage:
+     * Static</p>
      */
     public static final Configuration<Object> OPENGL_MAXVERSION = new Configuration<>("org.lwjgl.opengl.maxVersion", StateInit.STRING);
 
@@ -592,6 +709,29 @@ public class Configuration<T> {
      */
     public static final Configuration<Object> OPENGL_EXTENSION_FILTER = new Configuration<>("org.lwjgl.opengl.extensionFilter", StateInit.STRING);
 
+    /**
+     * Defines the API that manages OpenGL contexts.
+     *
+     * <p>Supported values:</p>
+     * <ul>
+     * <li><em>native</em> - context management is provided by the native platform.<br>
+     * <li><em>EGL</em> - context management is provided by EGL.</li>
+     * <li><em>OSMesa</em> - context management is provided by OSMesa.</li>
+     * </ul>
+     *
+     * <p>If this option is not set, LWJGL will attempt to use the native platform API. If the native platform API is not available, it will attempt to use EGL
+     * and then OSMesa.</p>
+     *
+     * <p>If this option is not set and Wayland is detected ({@code XDG_SESSION_TYPE == "wayland"} and {@code WAYLAND_DISPLAY} is defined) on Linux and
+     * FreeBSD, then EGL becomes the default choice.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.opengl.contextAPI</b><br>
+     * &nbsp; &nbsp; Type: String<br>
+     * &nbsp; &nbsp;Usage: Dynamic</p>
+     */
+    public static final Configuration<String> OPENGL_CONTEXT_API = new Configuration<>("org.lwjgl.opengl.contextAPI", StateInit.STRING);
+
     // -- OPENGL ES
 
     /** Similar to {@link #EGL_EXPLICIT_INIT} for the OpenGL ES library (<b>org.lwjgl.opengles.explicitInit</b>). */
@@ -599,6 +739,20 @@ public class Configuration<T> {
 
     /** Similar to {@link #LIBRARY_NAME} for the OpenGL ES library (<b>org.lwjgl.opengles.libname</b>). */
     public static final Configuration<String> OPENGLES_LIBRARY_NAME = new Configuration<>("org.lwjgl.opengles.libname", StateInit.STRING);
+
+    /** Returns the default OpenGL ES library names for the current platform. */
+    public static String[] OPENGLES_LIBRARY_NAME_DEFAULTS() {
+        switch (Platform.get()) {
+            case FREEBSD:
+            case LINUX:
+                return new String[] {"libGLESv2.so.2"};
+            case MACOSX:
+                return new String[] {"GLESv2"};
+            case WINDOWS:
+                return new String[] {"libGLESv2", "GLESv2"};
+        }
+        throw new IllegalStateException();
+    }
 
     /** Similar to {@link #OPENGL_MAXVERSION} for the OpenGL ES library (<b>org.lwjgl.opengles.maxVersion</b>). */
     public static final Configuration<Object> OPENGLES_MAXVERSION = new Configuration<>("org.lwjgl.opengles.maxVersion", StateInit.STRING);
@@ -613,9 +767,11 @@ public class Configuration<T> {
      * <ul>
      * <li><em>EGL</em> - context management is provided by EGL.</li>
      * <li><em>native</em> - context management is provided by the native platform.<br>
+     * <li><em>OSMesa</em> - context management is provided by OSMesa.<br>
      * </ul>
      *
-     * <p>If this option is not set, LWJGL will first attempt to use EGL. If EGL is not available, it will attempt to use the native platform API.</p>
+     * <p>If this option is not set, LWJGL will first attempt to use EGL. If EGL is not available, it will attempt to use the native platform API and then
+     * OSMesa.</p>
      *
      * <p style="font-family: monospace">
      * Property: <b>org.lwjgl.opengl.contextAPI</b><br>
@@ -623,11 +779,6 @@ public class Configuration<T> {
      * &nbsp; &nbsp;Usage: Dynamic</p>
      */
     public static final Configuration<String> OPENGLES_CONTEXT_API = new Configuration<>("org.lwjgl.opengles.contextAPI", StateInit.STRING);
-
-    // -- OPENVR
-
-    /** Similar to {@link #LIBRARY_NAME} for the OpenVR library (<b>org.lwjgl.openvr.libname</b>). */
-    public static final Configuration<String> OPENVR_LIBRARY_NAME = new Configuration<>("org.lwjgl.openvr.libname", StateInit.STRING);
 
     // -- OpenXR
 
@@ -642,10 +793,52 @@ public class Configuration<T> {
     /** Similar to {@link #LIBRARY_NAME} for the Opus library (<b>org.lwjgl.opus.libname</b>). */
     public static final Configuration<String> OPUS_LIBRARY_NAME = new Configuration<>("org.lwjgl.opus.libname", StateInit.STRING);
 
+    // -- RENDERDOC
+
+    /** Similar to {@link #LIBRARY_NAME} for the RenderDoc library (<b>org.lwjgl.renderdoc.libname</b>). */
+    public static final Configuration<String> RENDERDOC_LIBRARY_NAME = new Configuration<>("org.lwjgl.renderdoc.libname", StateInit.STRING);
+
+    // -- SDL
+
+    /** Similar to {@link #LIBRARY_NAME} for the SDL library (<b>org.lwjgl.sdl.libname</b>). */
+    public static final Configuration<String> SDL_LIBRARY_NAME = new Configuration<>("org.lwjgl.sdl.libname", StateInit.STRING);
+
     // -- SHADERC
 
     /** Similar to {@link #LIBRARY_NAME} for the Shaderc libshaderc library (<b>org.lwjgl.shaderc.libname</b>). */
     public static final Configuration<String> SHADERC_LIBRARY_NAME = new Configuration<>("org.lwjgl.shaderc.libname", StateInit.STRING);
+
+    /**
+     * Similar to {@link #LIBRARY_NAME} for the glslang library (<b>org.lwjgl.shaderc.glslang.libname</b>).
+     *
+     * <p>The Shaderc shared library provided by LWJGL is built with the glslang API exposed. This option can be set to use the glslang bindings with a
+     * third-party shared library.</p>
+     */
+    public static final Configuration<String> GLSLANG_LIBRARY_NAME = new Configuration<>("org.lwjgl.shaderc.glslang.libname", StateInit.STRING);
+
+    /**
+     * Similar to {@link #LIBRARY_NAME} for the glslang default resource limits library (<b>org.lwjgl.shaderc.glslang_resource.libname</b>).
+     *
+     * <p>The Shaderc shared library provided by LWJGL is built with the glslang API exposed. This option can be set to use the glslang bindings with a
+     * third-party shared library.</p>
+     */
+    public static final Configuration<String> GLSLANG_RESOURCE_LIBRARY_NAME = new Configuration<>("org.lwjgl.shaderc.glslang_resource.libname", StateInit.STRING);
+
+    /**
+     * Similar to {@link #LIBRARY_NAME} for the SPIRV Tools library (<b>org.lwjgl.shaderc.spirv_tools.libname</b>).
+     *
+     * <p>The Shaderc shared library provided by LWJGL is built with the SPIRV Tools API exposed. This option can be set to use the SPIRV Tools bindings with a
+     * third-party shared library.</p>
+     */
+    public static final Configuration<String> SPIRV_TOOLS_LIBRARY_NAME = new Configuration<>("org.lwjgl.shaderc.spirv_tools.libname", StateInit.STRING);
+
+    /**
+     * Similar to {@link #LIBRARY_NAME} for the SPIRV Tools Optimizer library (<b>org.lwjgl.shaderc.spirv_tools_optimizer.libname</b>).
+     *
+     * <p>The Shaderc shared library provided by LWJGL is built with the SPIRV Tools API exposed. This option can be set to use the SPIRV Tools bindings with a
+     * third-party shared library.</p>
+     */
+    public static final Configuration<String> SPIRV_TOOLS_OPTIMIZER_LIBRARY_NAME = new Configuration<>("org.lwjgl.shaderc.spirv_tools_optimizer.libname", StateInit.STRING);
 
     // -- SPVC
 
@@ -660,7 +853,7 @@ public class Configuration<T> {
     /** Similar to {@link #LIBRARY_NAME} for the Vulkan library (<b>org.lwjgl.vulkan.libname</b>). */
     public static final Configuration<String> VULKAN_LIBRARY_NAME = new Configuration<>("org.lwjgl.vulkan.libname", StateInit.STRING);
 
-    private interface StateInit<T> extends Function<String, T> {
+    private interface StateInit<T> extends Function<String, @Nullable T> {
         StateInit<Boolean> BOOLEAN = property -> {
             String value = System.getProperty(property);
             return value == null ? null : Boolean.parseBoolean(value);
@@ -673,8 +866,7 @@ public class Configuration<T> {
 
     private final String property;
 
-    @Nullable
-    private volatile T state;
+    private volatile @Nullable T state;
 
     Configuration(String property, StateInit<? extends T> init) {
         this.property = property;
@@ -699,8 +891,7 @@ public class Configuration<T> {
      *
      * <p>If the option value has not been set, null will be returned.</p>
      */
-    @Nullable
-    public T get() {
+    public @Nullable T get() {
         return state;
     }
 

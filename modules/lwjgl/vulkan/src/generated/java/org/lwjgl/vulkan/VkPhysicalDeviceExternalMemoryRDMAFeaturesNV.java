@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the external memory RDMA features supported by the implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceExternalMemoryRDMAFeaturesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #externalMemoryRDMA};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 externalMemoryRDMA;
+ * }}</pre>
  */
 public class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends Struct<VkPhysicalDeviceExternalMemoryRDMAFeaturesNV> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation has support for the {@link NVExternalMemoryRdma#VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV} memory property and the {@link NVExternalMemoryRdma#VK_EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV} external memory handle type. */
+    /** @return the value of the {@code externalMemoryRDMA} field. */
     @NativeType("VkBool32")
     public boolean externalMemoryRDMA() { return nexternalMemoryRDMA(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV sType$Default() { return sType(NVExternalMemoryRdma.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #externalMemoryRDMA} field. */
+    /** Sets the specified value to the {@code externalMemoryRDMA} field. */
     public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV externalMemoryRDMA(@NativeType("VkBool32") boolean value) { nexternalMemoryRDMA(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalMemoryRDMAFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceExternalMemoryRDMAFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceExternalMemoryRDMAFeaturesNV(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #externalMemoryRDMA}. */
-    public static int nexternalMemoryRDMA(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.EXTERNALMEMORYRDMA); }
+    public static int nexternalMemoryRDMA(long struct) { return memGetInt(struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.EXTERNALMEMORYRDMA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #externalMemoryRDMA(boolean) externalMemoryRDMA}. */
-    public static void nexternalMemoryRDMA(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.EXTERNALMEMORYRDMA, value); }
+    public static void nexternalMemoryRDMA(long struct, int value) { memPutInt(struct + VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.EXTERNALMEMORYRDMA, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceExternalMemoryRDMAFeaturesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#externalMemoryRDMA} field. */
+        /** @return the value of the {@code externalMemoryRDMA} field. */
         @NativeType("VkBool32")
         public boolean externalMemoryRDMA() { return VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.nexternalMemoryRDMA(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV} value to the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#sType} field. */
+        /** Sets the {@link NVExternalMemoryRdma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.Buffer sType$Default() { return sType(NVExternalMemoryRdma.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceExternalMemoryRDMAFeaturesNV#externalMemoryRDMA} field. */
+        /** Sets the specified value to the {@code externalMemoryRDMA} field. */
         public VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.Buffer externalMemoryRDMA(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.nexternalMemoryRDMA(address(), value ? 1 : 0); return this; }
 
     }

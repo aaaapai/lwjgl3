@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct meshopt_OverdrawStatistics {
  *     unsigned int pixels_covered;
  *     unsigned int pixels_shaded;
- *     float {@link #overdraw};
- * }</code></pre>
+ *     float overdraw;
+ * }}</pre>
  */
 @NativeType("struct meshopt_OverdrawStatistics")
 public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics> implements NativeResource {
@@ -83,7 +81,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     /** @return the value of the {@code pixels_shaded} field. */
     @NativeType("unsigned int")
     public int pixels_shaded() { return npixels_shaded(address()); }
-    /** shaded pixels / covered pixels; best case 1.0 */
+    /** @return the value of the {@code overdraw} field. */
     public float overdraw() { return noverdraw(address()); }
 
     // -----------------------------------
@@ -110,8 +108,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptOverdrawStatistics createSafe(long address) {
+    public static @Nullable MeshoptOverdrawStatistics createSafe(long address) {
         return address == NULL ? null : new MeshoptOverdrawStatistics(address, null);
     }
 
@@ -154,8 +151,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptOverdrawStatistics.Buffer createSafe(long address, int capacity) {
+    public static MeshoptOverdrawStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -200,11 +196,11 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
     // -----------------------------------
 
     /** Unsafe version of {@link #pixels_covered}. */
-    public static int npixels_covered(long struct) { return UNSAFE.getInt(null, struct + MeshoptOverdrawStatistics.PIXELS_COVERED); }
+    public static int npixels_covered(long struct) { return memGetInt(struct + MeshoptOverdrawStatistics.PIXELS_COVERED); }
     /** Unsafe version of {@link #pixels_shaded}. */
-    public static int npixels_shaded(long struct) { return UNSAFE.getInt(null, struct + MeshoptOverdrawStatistics.PIXELS_SHADED); }
+    public static int npixels_shaded(long struct) { return memGetInt(struct + MeshoptOverdrawStatistics.PIXELS_SHADED); }
     /** Unsafe version of {@link #overdraw}. */
-    public static float noverdraw(long struct) { return UNSAFE.getFloat(null, struct + MeshoptOverdrawStatistics.OVERDRAW); }
+    public static float noverdraw(long struct) { return memGetFloat(struct + MeshoptOverdrawStatistics.OVERDRAW); }
 
     // -----------------------------------
 
@@ -240,6 +236,11 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MeshoptOverdrawStatistics getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -250,7 +251,7 @@ public class MeshoptOverdrawStatistics extends Struct<MeshoptOverdrawStatistics>
         /** @return the value of the {@code pixels_shaded} field. */
         @NativeType("unsigned int")
         public int pixels_shaded() { return MeshoptOverdrawStatistics.npixels_shaded(address()); }
-        /** @return the value of the {@link MeshoptOverdrawStatistics#overdraw} field. */
+        /** @return the value of the {@code overdraw} field. */
         public float overdraw() { return MeshoptOverdrawStatistics.noverdraw(address()); }
 
     }

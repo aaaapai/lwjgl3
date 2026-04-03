@@ -4,12 +4,12 @@
  */
 package org.lwjgl.opencl;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 import org.testng.*;
 import org.testng.annotations.*;
 
-import javax.annotation.*;
 import java.nio.*;
 import java.util.concurrent.*;
 
@@ -21,20 +21,13 @@ import static org.testng.Assert.*;
 @Test(singleThreaded = true)
 public class CLTest {
 
-    @Nullable
-    private static CLContextCallback CONTEXT_CALLBACK;
+    private static @Nullable CLContextCallback CONTEXT_CALLBACK;
 
     @BeforeClass
     private void createCL() {
+        Configuration.OPENCL_EXPLICIT_INIT.set(true);
         try {
-            CL.getFunctionProvider();
-
-            try (MemoryStack stack = stackPush()) {
-                IntBuffer pi = stack.mallocInt(1);
-                checkCLError(clGetPlatformIDs(null, pi));
-            }
-
-            CL.destroy();
+            testLifecycle();
         } catch (Throwable t) {
             throw new SkipException("Skipped because OpenCL initialization failed [" + t.getMessage() + "]");
         }
@@ -69,12 +62,12 @@ public class CLTest {
     }
 
     private static void contextTest(ContextTest test) {
-        try {
-            CONTEXT_CALLBACK = CLContextCallback.create((errinfo, private_info, cb, user_data) -> {
-                System.err.println("[LWJGL] cl_context_callback");
-                System.err.println("\tInfo: " + memUTF8(errinfo));
-            });
+        CONTEXT_CALLBACK = CLContextCallback.create((errinfo, private_info, cb, user_data) -> {
+            System.err.println("[LWJGL] cl_context_callback");
+            System.err.println("\tInfo: " + memUTF8(errinfo));
+        });
 
+        try {
             CL.create();
 
             try (MemoryStack stack = stackPush()) {

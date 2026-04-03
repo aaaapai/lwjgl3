@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkBufferCopy2}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBufferCopy2KHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkDeviceSize srcOffset;
  *     VkDeviceSize dstOffset;
  *     VkDeviceSize size;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkBufferCopy2KHR extends VkBufferCopy2 {
 
@@ -123,8 +119,7 @@ public class VkBufferCopy2KHR extends VkBufferCopy2 {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy2KHR createSafe(long address) {
+    public static @Nullable VkBufferCopy2KHR createSafe(long address) {
         return address == NULL ? null : new VkBufferCopy2KHR(address, null);
     }
 
@@ -167,8 +162,7 @@ public class VkBufferCopy2KHR extends VkBufferCopy2 {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCopy2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkBufferCopy2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,6 +235,11 @@ public class VkBufferCopy2KHR extends VkBufferCopy2 {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,15 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing a generic socket address.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct sockaddr {
- *     sa_family_t {@link #sa_family};
- *     char {@link #sa_data}[14];
- * }</code></pre>
+ *     sa_family_t sa_family;
+ *     char sa_data[14];
+ * }}</pre>
  */
 @NativeType("struct sockaddr")
 public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
@@ -76,21 +72,21 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** address family and length */
+    /** @return the value of the {@code sa_family} field. */
     @NativeType("sa_family_t")
     public short sa_family() { return nsa_family(address()); }
-    /** address data */
+    /** @return a {@link ByteBuffer} view of the {@code sa_data} field. */
     @NativeType("char[14]")
     public ByteBuffer sa_data() { return nsa_data(address()); }
-    /** address data */
+    /** @return the value at the specified index of the {@code sa_data} field. */
     @NativeType("char")
     public byte sa_data(int index) { return nsa_data(address(), index); }
 
-    /** Sets the specified value to the {@link #sa_family} field. */
+    /** Sets the specified value to the {@code sa_family} field. */
     public Sockaddr sa_family(@NativeType("sa_family_t") short value) { nsa_family(address(), value); return this; }
-    /** Copies the specified {@link ByteBuffer} to the {@link #sa_data} field. */
+    /** Copies the specified {@link ByteBuffer} to the {@code sa_data} field. */
     public Sockaddr sa_data(@NativeType("char[14]") ByteBuffer value) { nsa_data(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #sa_data} field. */
+    /** Sets the specified value at the specified index of the {@code sa_data} field. */
     public Sockaddr sa_data(int index, @NativeType("char") byte value) { nsa_data(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -140,8 +136,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Sockaddr createSafe(long address) {
+    public static @Nullable Sockaddr createSafe(long address) {
         return address == NULL ? null : new Sockaddr(address, null);
     }
 
@@ -184,8 +179,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static Sockaddr.Buffer createSafe(long address, int capacity) {
+    public static Sockaddr.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -230,16 +224,16 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #sa_family}. */
-    public static short nsa_family(long struct) { return UNSAFE.getShort(null, struct + Sockaddr.SA_FAMILY); }
+    public static short nsa_family(long struct) { return memGetShort(struct + Sockaddr.SA_FAMILY); }
     /** Unsafe version of {@link #sa_data}. */
     public static ByteBuffer nsa_data(long struct) { return memByteBuffer(struct + Sockaddr.SA_DATA, 14); }
     /** Unsafe version of {@link #sa_data(int) sa_data}. */
     public static byte nsa_data(long struct, int index) {
-        return UNSAFE.getByte(null, struct + Sockaddr.SA_DATA + check(index, 14) * 1);
+        return memGetByte(struct + Sockaddr.SA_DATA + check(index, 14) * 1);
     }
 
     /** Unsafe version of {@link #sa_family(short) sa_family}. */
-    public static void nsa_family(long struct, short value) { UNSAFE.putShort(null, struct + Sockaddr.SA_FAMILY, value); }
+    public static void nsa_family(long struct, short value) { memPutShort(struct + Sockaddr.SA_FAMILY, value); }
     /** Unsafe version of {@link #sa_data(ByteBuffer) sa_data}. */
     public static void nsa_data(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 14); }
@@ -247,7 +241,7 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
     }
     /** Unsafe version of {@link #sa_data(int, byte) sa_data}. */
     public static void nsa_data(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + Sockaddr.SA_DATA + check(index, 14) * 1, value);
+        memPutByte(struct + Sockaddr.SA_DATA + check(index, 14) * 1, value);
     }
 
     // -----------------------------------
@@ -284,25 +278,30 @@ public class Sockaddr extends Struct<Sockaddr> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected Sockaddr getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link Sockaddr#sa_family} field. */
+        /** @return the value of the {@code sa_family} field. */
         @NativeType("sa_family_t")
         public short sa_family() { return Sockaddr.nsa_family(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link Sockaddr#sa_data} field. */
+        /** @return a {@link ByteBuffer} view of the {@code sa_data} field. */
         @NativeType("char[14]")
         public ByteBuffer sa_data() { return Sockaddr.nsa_data(address()); }
-        /** @return the value at the specified index of the {@link Sockaddr#sa_data} field. */
+        /** @return the value at the specified index of the {@code sa_data} field. */
         @NativeType("char")
         public byte sa_data(int index) { return Sockaddr.nsa_data(address(), index); }
 
-        /** Sets the specified value to the {@link Sockaddr#sa_family} field. */
+        /** Sets the specified value to the {@code sa_family} field. */
         public Sockaddr.Buffer sa_family(@NativeType("sa_family_t") short value) { Sockaddr.nsa_family(address(), value); return this; }
-        /** Copies the specified {@link ByteBuffer} to the {@link Sockaddr#sa_data} field. */
+        /** Copies the specified {@link ByteBuffer} to the {@code sa_data} field. */
         public Sockaddr.Buffer sa_data(@NativeType("char[14]") ByteBuffer value) { Sockaddr.nsa_data(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link Sockaddr#sa_data} field. */
+        /** Sets the specified value at the specified index of the {@code sa_data} field. */
         public Sockaddr.Buffer sa_data(int index, @NativeType("char") byte value) { Sockaddr.nsa_data(address(), index, value); return this; }
 
     }

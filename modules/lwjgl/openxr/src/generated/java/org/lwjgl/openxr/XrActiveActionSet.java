@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,29 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes an active action set.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure defines a single active action set and subaction path combination. Applications <b>can</b> provide a list of these structures to the {@link XR10#xrSyncActions SyncActions} function.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code actionSet} <b>must</b> be a valid {@code XrActionSet} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrActionsSyncInfo}, {@link XR10#xrSyncActions SyncActions}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrActiveActionSet {
- *     XrActionSet {@link #actionSet};
- *     XrPath {@link #subactionPath};
- * }</code></pre>
+ *     XrActionSet actionSet;
+ *     XrPath subactionPath;
+ * }}</pre>
  */
 public class XrActiveActionSet extends Struct<XrActiveActionSet> implements NativeResource {
 
@@ -89,16 +71,16 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the handle of the action set to activate. */
+    /** @return the value of the {@code actionSet} field. */
     @NativeType("XrActionSet")
     public long actionSet() { return nactionSet(address()); }
-    /** a subaction path that was declared when one or more actions in the action set was created or {@link XR10#XR_NULL_PATH NULL_PATH}. If the application wants to activate the action set on more than one subaction path, it <b>can</b> include additional {@link XrActiveActionSet} structs with the other {@code subactionPath} values. Using {@link XR10#XR_NULL_PATH NULL_PATH} as the value for {@code subactionPath}, acts as a wildcard for all subaction paths on the actions in the action set. If the subaction path was not specified on any of the actions in the actionSet when that action was created, the runtime <b>must</b> return {@link XR10#XR_ERROR_PATH_UNSUPPORTED ERROR_PATH_UNSUPPORTED}. */
+    /** @return the value of the {@code subactionPath} field. */
     @NativeType("XrPath")
     public long subactionPath() { return nsubactionPath(address()); }
 
-    /** Sets the specified value to the {@link #actionSet} field. */
+    /** Sets the specified value to the {@code actionSet} field. */
     public XrActiveActionSet actionSet(XrActionSet value) { nactionSet(address(), value); return this; }
-    /** Sets the specified value to the {@link #subactionPath} field. */
+    /** Sets the specified value to the {@code subactionPath} field. */
     public XrActiveActionSet subactionPath(@NativeType("XrPath") long value) { nsubactionPath(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -148,8 +130,7 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSet createSafe(long address) {
+    public static @Nullable XrActiveActionSet createSafe(long address) {
         return address == NULL ? null : new XrActiveActionSet(address, null);
     }
 
@@ -192,8 +173,7 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActiveActionSet.Buffer createSafe(long address, int capacity) {
+    public static XrActiveActionSet.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,12 +220,12 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
     /** Unsafe version of {@link #actionSet}. */
     public static long nactionSet(long struct) { return memGetAddress(struct + XrActiveActionSet.ACTIONSET); }
     /** Unsafe version of {@link #subactionPath}. */
-    public static long nsubactionPath(long struct) { return UNSAFE.getLong(null, struct + XrActiveActionSet.SUBACTIONPATH); }
+    public static long nsubactionPath(long struct) { return memGetLong(struct + XrActiveActionSet.SUBACTIONPATH); }
 
     /** Unsafe version of {@link #actionSet(XrActionSet) actionSet}. */
     public static void nactionSet(long struct, XrActionSet value) { memPutAddress(struct + XrActiveActionSet.ACTIONSET, value.address()); }
     /** Unsafe version of {@link #subactionPath(long) subactionPath}. */
-    public static void nsubactionPath(long struct, long value) { UNSAFE.putLong(null, struct + XrActiveActionSet.SUBACTIONPATH, value); }
+    public static void nsubactionPath(long struct, long value) { memPutLong(struct + XrActiveActionSet.SUBACTIONPATH, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -290,20 +270,25 @@ public class XrActiveActionSet extends Struct<XrActiveActionSet> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrActiveActionSet getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrActiveActionSet#actionSet} field. */
+        /** @return the value of the {@code actionSet} field. */
         @NativeType("XrActionSet")
         public long actionSet() { return XrActiveActionSet.nactionSet(address()); }
-        /** @return the value of the {@link XrActiveActionSet#subactionPath} field. */
+        /** @return the value of the {@code subactionPath} field. */
         @NativeType("XrPath")
         public long subactionPath() { return XrActiveActionSet.nsubactionPath(address()); }
 
-        /** Sets the specified value to the {@link XrActiveActionSet#actionSet} field. */
+        /** Sets the specified value to the {@code actionSet} field. */
         public XrActiveActionSet.Buffer actionSet(XrActionSet value) { XrActiveActionSet.nactionSet(address(), value); return this; }
-        /** Sets the specified value to the {@link XrActiveActionSet#subactionPath} field. */
+        /** Sets the specified value to the {@code subactionPath} field. */
         public XrActiveActionSet.Buffer subactionPath(@NativeType("XrPath") long value) { XrActiveActionSet.nsubactionPath(address(), value); return this; }
 
     }

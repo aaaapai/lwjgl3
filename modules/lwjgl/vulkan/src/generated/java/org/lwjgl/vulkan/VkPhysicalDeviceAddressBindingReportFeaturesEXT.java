@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the virtual allocation reporting feature supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDeviceAddressBindingReport#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceAddressBindingReportFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #reportAddressBinding};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 reportAddressBinding;
+ * }}</pre>
  */
 public class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends Struct<VkPhysicalDeviceAddressBindingReportFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends Struct<VkPh
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether this implementation supports reporting the binding of GPU virtual address ranges to Vulkan objects. */
+    /** @return the value of the {@code reportAddressBinding} field. */
     @NativeType("VkBool32")
     public boolean reportAddressBinding() { return nreportAddressBinding(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceAddressBindingReportFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDeviceAddressBindingReport#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDeviceAddressBindingReport#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceAddressBindingReportFeaturesEXT sType$Default() { return sType(EXTDeviceAddressBindingReport.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceAddressBindingReportFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #reportAddressBinding} field. */
+    /** Sets the specified value to the {@code reportAddressBinding} field. */
     public VkPhysicalDeviceAddressBindingReportFeaturesEXT reportAddressBinding(@NativeType("VkBool32") boolean value) { nreportAddressBinding(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAddressBindingReportFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceAddressBindingReportFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceAddressBindingReportFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAddressBindingReportFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceAddressBindingReportFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #reportAddressBinding}. */
-    public static int nreportAddressBinding(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.REPORTADDRESSBINDING); }
+    public static int nreportAddressBinding(long struct) { return memGetInt(struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.REPORTADDRESSBINDING); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #reportAddressBinding(boolean) reportAddressBinding}. */
-    public static void nreportAddressBinding(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.REPORTADDRESSBINDING, value); }
+    public static void nreportAddressBinding(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAddressBindingReportFeaturesEXT.REPORTADDRESSBINDING, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends Struct<VkPh
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceAddressBindingReportFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceAddressBindingReportFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceAddressBindingReportFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#reportAddressBinding} field. */
+        /** @return the value of the {@code reportAddressBinding} field. */
         @NativeType("VkBool32")
         public boolean reportAddressBinding() { return VkPhysicalDeviceAddressBindingReportFeaturesEXT.nreportAddressBinding(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceAddressBindingReportFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceAddressBindingReportFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDeviceAddressBindingReport#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT} value to the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTDeviceAddressBindingReport#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceAddressBindingReportFeaturesEXT.Buffer sType$Default() { return sType(EXTDeviceAddressBindingReport.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceAddressBindingReportFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceAddressBindingReportFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceAddressBindingReportFeaturesEXT#reportAddressBinding} field. */
+        /** Sets the specified value to the {@code reportAddressBinding} field. */
         public VkPhysicalDeviceAddressBindingReportFeaturesEXT.Buffer reportAddressBinding(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceAddressBindingReportFeaturesEXT.nreportAddressBinding(address(), value ? 1 : 0); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing timeline semaphore features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceTimelineSemaphoreFeatures} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceTimelineSemaphoreFeatures} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceTimelineSemaphoreFeatures {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #timelineSemaphore};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 timelineSemaphore;
+ * }}</pre>
  */
 public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysicalDeviceTimelineSemaphoreFeatures> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether semaphores created with a {@code VkSemaphoreType} of {@link VK12#VK_SEMAPHORE_TYPE_TIMELINE SEMAPHORE_TYPE_TIMELINE} are supported. */
+    /** @return the value of the {@code timelineSemaphore} field. */
     @NativeType("VkBool32")
     public boolean timelineSemaphore() { return ntimelineSemaphore(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceTimelineSemaphoreFeatures sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDeviceTimelineSemaphoreFeatures sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceTimelineSemaphoreFeatures pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #timelineSemaphore} field. */
+    /** Sets the specified value to the {@code timelineSemaphore} field. */
     public VkPhysicalDeviceTimelineSemaphoreFeatures timelineSemaphore(@NativeType("VkBool32") boolean value) { ntimelineSemaphore(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTimelineSemaphoreFeatures createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceTimelineSemaphoreFeatures createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceTimelineSemaphoreFeatures(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceTimelineSemaphoreFeatures.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceTimelineSemaphoreFeatures.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.PNEXT); }
     /** Unsafe version of {@link #timelineSemaphore}. */
-    public static int ntimelineSemaphore(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE); }
+    public static int ntimelineSemaphore(long struct) { return memGetInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.PNEXT, value); }
     /** Unsafe version of {@link #timelineSemaphore(boolean) timelineSemaphore}. */
-    public static void ntimelineSemaphore(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE, value); }
+    public static void ntimelineSemaphore(long struct, int value) { memPutInt(struct + VkPhysicalDeviceTimelineSemaphoreFeatures.TIMELINESEMAPHORE, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceTimelineSemaphoreFeatures extends Struct<VkPhysical
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceTimelineSemaphoreFeatures getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceTimelineSemaphoreFeatures.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceTimelineSemaphoreFeatures.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#timelineSemaphore} field. */
+        /** @return the value of the {@code timelineSemaphore} field. */
         @NativeType("VkBool32")
         public boolean timelineSemaphore() { return VkPhysicalDeviceTimelineSemaphoreFeatures.ntimelineSemaphore(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceTimelineSemaphoreFeatures.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceTimelineSemaphoreFeatures.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES} value to the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDeviceTimelineSemaphoreFeatures.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceTimelineSemaphoreFeatures.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceTimelineSemaphoreFeatures.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceTimelineSemaphoreFeatures#timelineSemaphore} field. */
+        /** Sets the specified value to the {@code timelineSemaphore} field. */
         public VkPhysicalDeviceTimelineSemaphoreFeatures.Buffer timelineSemaphore(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceTimelineSemaphoreFeatures.ntimelineSemaphore(address(), value ? 1 : 0); return this; }
 
     }

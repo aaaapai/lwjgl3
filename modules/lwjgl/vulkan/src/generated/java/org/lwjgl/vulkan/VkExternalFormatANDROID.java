@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing an Android hardware buffer external format.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code externalFormat} is zero, the effect is as if the {@link VkExternalFormatANDROID} structure was not present. Otherwise, the {@code image} will have the specified external format.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code externalFormat} <b>must</b> be 0 or a value returned in the {@code externalFormat} member of {@link VkAndroidHardwareBufferFormatPropertiesANDROID} by an earlier call to {@link ANDROIDExternalMemoryAndroidHardwareBuffer#vkGetAndroidHardwareBufferPropertiesANDROID GetAndroidHardwareBufferPropertiesANDROID}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExternalFormatANDROID {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint64_t {@link #externalFormat};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint64_t externalFormat;
+ * }}</pre>
  */
 public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> implements NativeResource {
 
@@ -94,23 +74,23 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** an implementation-defined identifier for the external format */
+    /** @return the value of the {@code externalFormat} field. */
     @NativeType("uint64_t")
     public long externalFormat() { return nexternalFormat(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkExternalFormatANDROID sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID} value to the {@link #sType} field. */
+    /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID} value to the {@code sType} field. */
     public VkExternalFormatANDROID sType$Default() { return sType(ANDROIDExternalMemoryAndroidHardwareBuffer.VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkExternalFormatANDROID pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #externalFormat} field. */
+    /** Sets the specified value to the {@code externalFormat} field. */
     public VkExternalFormatANDROID externalFormat(@NativeType("uint64_t") long value) { nexternalFormat(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFormatANDROID createSafe(long address) {
+    public static @Nullable VkExternalFormatANDROID createSafe(long address) {
         return address == NULL ? null : new VkExternalFormatANDROID(address, null);
     }
 
@@ -206,8 +185,7 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFormatANDROID.Buffer createSafe(long address, int capacity) {
+    public static VkExternalFormatANDROID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkExternalFormatANDROID.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkExternalFormatANDROID.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkExternalFormatANDROID.PNEXT); }
     /** Unsafe version of {@link #externalFormat}. */
-    public static long nexternalFormat(long struct) { return UNSAFE.getLong(null, struct + VkExternalFormatANDROID.EXTERNALFORMAT); }
+    public static long nexternalFormat(long struct) { return memGetLong(struct + VkExternalFormatANDROID.EXTERNALFORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkExternalFormatANDROID.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkExternalFormatANDROID.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkExternalFormatANDROID.PNEXT, value); }
     /** Unsafe version of {@link #externalFormat(long) externalFormat}. */
-    public static void nexternalFormat(long struct, long value) { UNSAFE.putLong(null, struct + VkExternalFormatANDROID.EXTERNALFORMAT, value); }
+    public static void nexternalFormat(long struct, long value) { memPutLong(struct + VkExternalFormatANDROID.EXTERNALFORMAT, value); }
 
     // -----------------------------------
 
@@ -299,27 +277,32 @@ public class VkExternalFormatANDROID extends Struct<VkExternalFormatANDROID> imp
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExternalFormatANDROID getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExternalFormatANDROID#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkExternalFormatANDROID.nsType(address()); }
-        /** @return the value of the {@link VkExternalFormatANDROID#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkExternalFormatANDROID.npNext(address()); }
-        /** @return the value of the {@link VkExternalFormatANDROID#externalFormat} field. */
+        /** @return the value of the {@code externalFormat} field. */
         @NativeType("uint64_t")
         public long externalFormat() { return VkExternalFormatANDROID.nexternalFormat(address()); }
 
-        /** Sets the specified value to the {@link VkExternalFormatANDROID#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkExternalFormatANDROID.Buffer sType(@NativeType("VkStructureType") int value) { VkExternalFormatANDROID.nsType(address(), value); return this; }
-        /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID} value to the {@link VkExternalFormatANDROID#sType} field. */
+        /** Sets the {@link ANDROIDExternalMemoryAndroidHardwareBuffer#VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID} value to the {@code sType} field. */
         public VkExternalFormatANDROID.Buffer sType$Default() { return sType(ANDROIDExternalMemoryAndroidHardwareBuffer.VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID); }
-        /** Sets the specified value to the {@link VkExternalFormatANDROID#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkExternalFormatANDROID.Buffer pNext(@NativeType("void *") long value) { VkExternalFormatANDROID.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExternalFormatANDROID#externalFormat} field. */
+        /** Sets the specified value to the {@code externalFormat} field. */
         public VkExternalFormatANDROID.Buffer externalFormat(@NativeType("uint64_t") long value) { VkExternalFormatANDROID.nexternalFormat(address(), value); return this; }
 
     }

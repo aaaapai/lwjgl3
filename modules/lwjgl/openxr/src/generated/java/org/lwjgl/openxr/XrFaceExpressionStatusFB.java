@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the status of facial expression weights.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the returned {@code isValid} is {@link XR10#XR_FALSE FALSE}, then it indicates that the face tracker failed to track or lost track of the face, or the application lost focus, or the consent for face tracking was denied.</p>
- * 
- * <p>If the returned {@code isValid} is {@link XR10#XR_TRUE TRUE}, the runtime <b>must</b> return all weights (or all weights except eyes related weights, see {@code isEyeFollowingBlendshapesValid}).</p>
- * 
- * <p>If the returned {@code isEyeFollowingBlendshapesValid} is {@link XR10#XR_FALSE FALSE}, then it indicates that the eye tracking driving blendshapes with prefix {@code XR_FACE_EXPRESSION_EYES_LOOK_*} lost track or the consent for eye tracking was denied.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBFaceTracking XR_FB_face_tracking} extension <b>must</b> be enabled prior to using {@link XrFaceExpressionStatusFB}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrFaceExpressionWeightsFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFaceExpressionStatusFB {
- *     XrBool32 {@link #isValid};
- *     XrBool32 {@link #isEyeFollowingBlendshapesValid};
- * }</code></pre>
+ *     XrBool32 isValid;
+ *     XrBool32 isEyeFollowingBlendshapesValid;
+ * }}</pre>
  */
 public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> implements NativeResource {
 
@@ -92,16 +70,16 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an {@code XrBool32} which indicates that the tracked expression weights are valid. */
+    /** @return the value of the {@code isValid} field. */
     @NativeType("XrBool32")
     public boolean isValid() { return nisValid(address()) != 0; }
-    /** an {@code XrBool32} which indicates if the 8 expression weights with prefix {@code XR_FACE_EXPRESSION_EYES_LOOK_*} are valid. */
+    /** @return the value of the {@code isEyeFollowingBlendshapesValid} field. */
     @NativeType("XrBool32")
     public boolean isEyeFollowingBlendshapesValid() { return nisEyeFollowingBlendshapesValid(address()) != 0; }
 
-    /** Sets the specified value to the {@link #isValid} field. */
+    /** Sets the specified value to the {@code isValid} field. */
     public XrFaceExpressionStatusFB isValid(@NativeType("XrBool32") boolean value) { nisValid(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #isEyeFollowingBlendshapesValid} field. */
+    /** Sets the specified value to the {@code isEyeFollowingBlendshapesValid} field. */
     public XrFaceExpressionStatusFB isEyeFollowingBlendshapesValid(@NativeType("XrBool32") boolean value) { nisEyeFollowingBlendshapesValid(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -151,8 +129,7 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceExpressionStatusFB createSafe(long address) {
+    public static @Nullable XrFaceExpressionStatusFB createSafe(long address) {
         return address == NULL ? null : new XrFaceExpressionStatusFB(address, null);
     }
 
@@ -195,8 +172,7 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceExpressionStatusFB.Buffer createSafe(long address, int capacity) {
+    public static XrFaceExpressionStatusFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -241,14 +217,14 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
     // -----------------------------------
 
     /** Unsafe version of {@link #isValid}. */
-    public static int nisValid(long struct) { return UNSAFE.getInt(null, struct + XrFaceExpressionStatusFB.ISVALID); }
+    public static int nisValid(long struct) { return memGetInt(struct + XrFaceExpressionStatusFB.ISVALID); }
     /** Unsafe version of {@link #isEyeFollowingBlendshapesValid}. */
-    public static int nisEyeFollowingBlendshapesValid(long struct) { return UNSAFE.getInt(null, struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID); }
+    public static int nisEyeFollowingBlendshapesValid(long struct) { return memGetInt(struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID); }
 
     /** Unsafe version of {@link #isValid(boolean) isValid}. */
-    public static void nisValid(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceExpressionStatusFB.ISVALID, value); }
+    public static void nisValid(long struct, int value) { memPutInt(struct + XrFaceExpressionStatusFB.ISVALID, value); }
     /** Unsafe version of {@link #isEyeFollowingBlendshapesValid(boolean) isEyeFollowingBlendshapesValid}. */
-    public static void nisEyeFollowingBlendshapesValid(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID, value); }
+    public static void nisEyeFollowingBlendshapesValid(long struct, int value) { memPutInt(struct + XrFaceExpressionStatusFB.ISEYEFOLLOWINGBLENDSHAPESVALID, value); }
 
     // -----------------------------------
 
@@ -284,20 +260,25 @@ public class XrFaceExpressionStatusFB extends Struct<XrFaceExpressionStatusFB> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrFaceExpressionStatusFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFaceExpressionStatusFB#isValid} field. */
+        /** @return the value of the {@code isValid} field. */
         @NativeType("XrBool32")
         public boolean isValid() { return XrFaceExpressionStatusFB.nisValid(address()) != 0; }
-        /** @return the value of the {@link XrFaceExpressionStatusFB#isEyeFollowingBlendshapesValid} field. */
+        /** @return the value of the {@code isEyeFollowingBlendshapesValid} field. */
         @NativeType("XrBool32")
         public boolean isEyeFollowingBlendshapesValid() { return XrFaceExpressionStatusFB.nisEyeFollowingBlendshapesValid(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrFaceExpressionStatusFB#isValid} field. */
+        /** Sets the specified value to the {@code isValid} field. */
         public XrFaceExpressionStatusFB.Buffer isValid(@NativeType("XrBool32") boolean value) { XrFaceExpressionStatusFB.nisValid(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XrFaceExpressionStatusFB#isEyeFollowingBlendshapesValid} field. */
+        /** Sets the specified value to the {@code isEyeFollowingBlendshapesValid} field. */
         public XrFaceExpressionStatusFB.Buffer isEyeFollowingBlendshapesValid(@NativeType("XrBool32") boolean value) { XrFaceExpressionStatusFB.nisEyeFollowingBlendshapesValid(address(), value ? 1 : 0); return this; }
 
     }

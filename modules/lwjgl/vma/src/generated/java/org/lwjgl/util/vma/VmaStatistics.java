@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Calculated statistics of memory usage e.g. in a specific memory type, heap, custom pool, or total.
- * 
- * <p>These are fast to calculate.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaStatistics {
- *     uint32_t {@link #blockCount};
- *     uint32_t {@link #allocationCount};
- *     VkDeviceSize {@link #blockBytes};
- *     VkDeviceSize {@link #allocationBytes};
- * }</code></pre>
- *
- * @see Vma#vmaGetHeapBudgets
- * @see Vma#vmaGetPoolStatistics
+ *     uint32_t blockCount;
+ *     uint32_t allocationCount;
+ *     VkDeviceSize blockBytes;
+ *     VkDeviceSize allocationBytes;
+ * }}</pre>
  */
 public class VmaStatistics extends Struct<VmaStatistics> implements NativeResource {
 
@@ -87,31 +78,16 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** number of {@code VkDeviceMemory} objects - Vulkan memory blocks allocated */
+    /** @return the value of the {@code blockCount} field. */
     @NativeType("uint32_t")
     public int blockCount() { return nblockCount(address()); }
-    /**
-     * number of {@code VmaAllocation} objects allocated.
-     * 
-     * <p>Dedicated allocations have their own blocks, so each one adds 1 to {@code allocationCount} as well as {@code blockCount}.</p>
-     */
+    /** @return the value of the {@code allocationCount} field. */
     @NativeType("uint32_t")
     public int allocationCount() { return nallocationCount(address()); }
-    /**
-     * number of bytes allocated in {@code VkDeviceMemory} blocks.
-     * 
-     * <p>To avoid confusion, please be aware that what Vulkan calls an "allocation" - a whole {@code VkDeviceMemory} object (e.g. as in
-     * {@code VkPhysicalDeviceLimits::maxMemoryAllocationCount}) is called a "block" in VMA, while VMA calls "allocation" a {@code VmaAllocation} object that
-     * represents a memory region sub-allocated from such block, usually for a single buffer or image.</p>
-     */
+    /** @return the value of the {@code blockBytes} field. */
     @NativeType("VkDeviceSize")
     public long blockBytes() { return nblockBytes(address()); }
-    /**
-     * total number of bytes occupied by all {@code VmaAllocation} objects.
-     * 
-     * <p>Always less or equal than {@code blockBytes}. Difference {@code (blockBytes - allocationBytes)} is the amount of memory allocated from Vulkan but
-     * unused by any {@code VmaAllocation}.</p>
-     */
+    /** @return the value of the {@code allocationBytes} field. */
     @NativeType("VkDeviceSize")
     public long allocationBytes() { return nallocationBytes(address()); }
 
@@ -139,8 +115,7 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaStatistics createSafe(long address) {
+    public static @Nullable VmaStatistics createSafe(long address) {
         return address == NULL ? null : new VmaStatistics(address, null);
     }
 
@@ -183,8 +158,7 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaStatistics.Buffer createSafe(long address, int capacity) {
+    public static VmaStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,13 +203,13 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
     // -----------------------------------
 
     /** Unsafe version of {@link #blockCount}. */
-    public static int nblockCount(long struct) { return UNSAFE.getInt(null, struct + VmaStatistics.BLOCKCOUNT); }
+    public static int nblockCount(long struct) { return memGetInt(struct + VmaStatistics.BLOCKCOUNT); }
     /** Unsafe version of {@link #allocationCount}. */
-    public static int nallocationCount(long struct) { return UNSAFE.getInt(null, struct + VmaStatistics.ALLOCATIONCOUNT); }
+    public static int nallocationCount(long struct) { return memGetInt(struct + VmaStatistics.ALLOCATIONCOUNT); }
     /** Unsafe version of {@link #blockBytes}. */
-    public static long nblockBytes(long struct) { return UNSAFE.getLong(null, struct + VmaStatistics.BLOCKBYTES); }
+    public static long nblockBytes(long struct) { return memGetLong(struct + VmaStatistics.BLOCKBYTES); }
     /** Unsafe version of {@link #allocationBytes}. */
-    public static long nallocationBytes(long struct) { return UNSAFE.getLong(null, struct + VmaStatistics.ALLOCATIONBYTES); }
+    public static long nallocationBytes(long struct) { return memGetLong(struct + VmaStatistics.ALLOCATIONBYTES); }
 
     // -----------------------------------
 
@@ -271,20 +245,25 @@ public class VmaStatistics extends Struct<VmaStatistics> implements NativeResour
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaStatistics getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VmaStatistics#blockCount} field. */
+        /** @return the value of the {@code blockCount} field. */
         @NativeType("uint32_t")
         public int blockCount() { return VmaStatistics.nblockCount(address()); }
-        /** @return the value of the {@link VmaStatistics#allocationCount} field. */
+        /** @return the value of the {@code allocationCount} field. */
         @NativeType("uint32_t")
         public int allocationCount() { return VmaStatistics.nallocationCount(address()); }
-        /** @return the value of the {@link VmaStatistics#blockBytes} field. */
+        /** @return the value of the {@code blockBytes} field. */
         @NativeType("VkDeviceSize")
         public long blockBytes() { return VmaStatistics.nblockBytes(address()); }
-        /** @return the value of the {@link VmaStatistics#allocationBytes} field. */
+        /** @return the value of the {@code allocationBytes} field. */
         @NativeType("VkDeviceSize")
         public long allocationBytes() { return VmaStatistics.nallocationBytes(address()); }
 

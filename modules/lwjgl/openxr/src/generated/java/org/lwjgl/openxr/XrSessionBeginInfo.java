@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Struct containing session begin info.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_SESSION_BEGIN_INFO TYPE_SESSION_BEGIN_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a>. See also: {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT}</li>
- * <li>{@code primaryViewConfigurationType} <b>must</b> be a valid {@code XrViewConfigurationType} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrBeginSession BeginSession}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSessionBeginInfo {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrViewConfigurationType {@link #primaryViewConfigurationType};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrViewConfigurationType primaryViewConfigurationType;
+ * }}</pre>
  */
 public class XrSessionBeginInfo extends Struct<XrSessionBeginInfo> implements NativeResource {
 
@@ -90,25 +74,25 @@ public class XrSessionBeginInfo extends Struct<XrSessionBeginInfo> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrViewConfigurationType} to use during this session to provide images for the form factor’s primary displays. */
+    /** @return the value of the {@code primaryViewConfigurationType} field. */
     @NativeType("XrViewConfigurationType")
     public int primaryViewConfigurationType() { return nprimaryViewConfigurationType(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSessionBeginInfo type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_SESSION_BEGIN_INFO TYPE_SESSION_BEGIN_INFO} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_SESSION_BEGIN_INFO TYPE_SESSION_BEGIN_INFO} value to the {@code type} field. */
     public XrSessionBeginInfo type$Default() { return type(XR10.XR_TYPE_SESSION_BEGIN_INFO); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSessionBeginInfo next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT} value to the {@code next} chain. */
     public XrSessionBeginInfo next(XrSecondaryViewConfigurationSessionBeginInfoMSFT value) { return this.next(value.next(this.next()).address()); }
-    /** Sets the specified value to the {@link #primaryViewConfigurationType} field. */
+    /** Sets the specified value to the {@code primaryViewConfigurationType} field. */
     public XrSessionBeginInfo primaryViewConfigurationType(@NativeType("XrViewConfigurationType") int value) { nprimaryViewConfigurationType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -160,8 +144,7 @@ public class XrSessionBeginInfo extends Struct<XrSessionBeginInfo> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSessionBeginInfo createSafe(long address) {
+    public static @Nullable XrSessionBeginInfo createSafe(long address) {
         return address == NULL ? null : new XrSessionBeginInfo(address, null);
     }
 
@@ -204,8 +187,7 @@ public class XrSessionBeginInfo extends Struct<XrSessionBeginInfo> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSessionBeginInfo.Buffer createSafe(long address, int capacity) {
+    public static XrSessionBeginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -250,18 +232,18 @@ public class XrSessionBeginInfo extends Struct<XrSessionBeginInfo> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSessionBeginInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSessionBeginInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSessionBeginInfo.NEXT); }
     /** Unsafe version of {@link #primaryViewConfigurationType}. */
-    public static int nprimaryViewConfigurationType(long struct) { return UNSAFE.getInt(null, struct + XrSessionBeginInfo.PRIMARYVIEWCONFIGURATIONTYPE); }
+    public static int nprimaryViewConfigurationType(long struct) { return memGetInt(struct + XrSessionBeginInfo.PRIMARYVIEWCONFIGURATIONTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSessionBeginInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSessionBeginInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSessionBeginInfo.NEXT, value); }
     /** Unsafe version of {@link #primaryViewConfigurationType(int) primaryViewConfigurationType}. */
-    public static void nprimaryViewConfigurationType(long struct, int value) { UNSAFE.putInt(null, struct + XrSessionBeginInfo.PRIMARYVIEWCONFIGURATIONTYPE, value); }
+    public static void nprimaryViewConfigurationType(long struct, int value) { memPutInt(struct + XrSessionBeginInfo.PRIMARYVIEWCONFIGURATIONTYPE, value); }
 
     // -----------------------------------
 
@@ -297,29 +279,34 @@ public class XrSessionBeginInfo extends Struct<XrSessionBeginInfo> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSessionBeginInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSessionBeginInfo#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSessionBeginInfo.ntype(address()); }
-        /** @return the value of the {@link XrSessionBeginInfo#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSessionBeginInfo.nnext(address()); }
-        /** @return the value of the {@link XrSessionBeginInfo#primaryViewConfigurationType} field. */
+        /** @return the value of the {@code primaryViewConfigurationType} field. */
         @NativeType("XrViewConfigurationType")
         public int primaryViewConfigurationType() { return XrSessionBeginInfo.nprimaryViewConfigurationType(address()); }
 
-        /** Sets the specified value to the {@link XrSessionBeginInfo#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSessionBeginInfo.Buffer type(@NativeType("XrStructureType") int value) { XrSessionBeginInfo.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_SESSION_BEGIN_INFO TYPE_SESSION_BEGIN_INFO} value to the {@link XrSessionBeginInfo#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_SESSION_BEGIN_INFO TYPE_SESSION_BEGIN_INFO} value to the {@code type} field. */
         public XrSessionBeginInfo.Buffer type$Default() { return type(XR10.XR_TYPE_SESSION_BEGIN_INFO); }
-        /** Sets the specified value to the {@link XrSessionBeginInfo#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSessionBeginInfo.Buffer next(@NativeType("void const *") long value) { XrSessionBeginInfo.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrSecondaryViewConfigurationSessionBeginInfoMSFT} value to the {@code next} chain. */
         public XrSessionBeginInfo.Buffer next(XrSecondaryViewConfigurationSessionBeginInfoMSFT value) { return this.next(value.next(this.next()).address()); }
-        /** Sets the specified value to the {@link XrSessionBeginInfo#primaryViewConfigurationType} field. */
+        /** Sets the specified value to the {@code primaryViewConfigurationType} field. */
         public XrSessionBeginInfo.Buffer primaryViewConfigurationType(@NativeType("XrViewConfigurationType") int value) { XrSessionBeginInfo.nprimaryViewConfigurationType(address(), value); return this; }
 
     }

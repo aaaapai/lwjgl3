@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Event indicating a query has finished.
- * 
- * <h5>Description</h5>
- * 
- * <p>It indicates a query request has completed and specifies the request result. This event <b>must</b> be delivered when a query has completed, regardless of the number of results found. If any results have been found, then this event <b>must</b> be delivered after any {@link XrEventDataSpaceQueryResultsAvailableFB} events have been delivered.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityQuery XR_FB_spatial_entity_query} extension <b>must</b> be enabled prior to using {@link XrEventDataSpaceQueryCompleteFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataSpaceQueryCompleteFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrAsyncRequestIdFB {@link #requestId};
- *     XrResult {@link #result};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrAsyncRequestIdFB requestId;
+ *     XrResult result;
+ * }}</pre>
  */
 public class XrEventDataSpaceQueryCompleteFB extends Struct<XrEventDataSpaceQueryCompleteFB> implements NativeResource {
 
@@ -94,24 +78,24 @@ public class XrEventDataSpaceQueryCompleteFB extends Struct<XrEventDataSpaceQuer
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the ID of the asynchronous query request. */
+    /** @return the value of the {@code requestId} field. */
     @NativeType("XrAsyncRequestIdFB")
     public long requestId() { return nrequestId(address()); }
-    /** an {@code XrResult} that determines if the request succeeded or if an error occurred. */
+    /** @return the value of the {@code result} field. */
     @NativeType("XrResult")
     public int result() { return nresult(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataSpaceQueryCompleteFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB} value to the {@code type} field. */
     public XrEventDataSpaceQueryCompleteFB type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataSpaceQueryCompleteFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -161,8 +145,7 @@ public class XrEventDataSpaceQueryCompleteFB extends Struct<XrEventDataSpaceQuer
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpaceQueryCompleteFB createSafe(long address) {
+    public static @Nullable XrEventDataSpaceQueryCompleteFB createSafe(long address) {
         return address == NULL ? null : new XrEventDataSpaceQueryCompleteFB(address, null);
     }
 
@@ -210,8 +193,7 @@ public class XrEventDataSpaceQueryCompleteFB extends Struct<XrEventDataSpaceQuer
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataSpaceQueryCompleteFB.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataSpaceQueryCompleteFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -261,16 +243,16 @@ public class XrEventDataSpaceQueryCompleteFB extends Struct<XrEventDataSpaceQuer
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpaceQueryCompleteFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataSpaceQueryCompleteFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataSpaceQueryCompleteFB.NEXT); }
     /** Unsafe version of {@link #requestId}. */
-    public static long nrequestId(long struct) { return UNSAFE.getLong(null, struct + XrEventDataSpaceQueryCompleteFB.REQUESTID); }
+    public static long nrequestId(long struct) { return memGetLong(struct + XrEventDataSpaceQueryCompleteFB.REQUESTID); }
     /** Unsafe version of {@link #result}. */
-    public static int nresult(long struct) { return UNSAFE.getInt(null, struct + XrEventDataSpaceQueryCompleteFB.RESULT); }
+    public static int nresult(long struct) { return memGetInt(struct + XrEventDataSpaceQueryCompleteFB.RESULT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataSpaceQueryCompleteFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataSpaceQueryCompleteFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataSpaceQueryCompleteFB.NEXT, value); }
 
@@ -308,28 +290,33 @@ public class XrEventDataSpaceQueryCompleteFB extends Struct<XrEventDataSpaceQuer
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataSpaceQueryCompleteFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataSpaceQueryCompleteFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataSpaceQueryCompleteFB.ntype(address()); }
-        /** @return the value of the {@link XrEventDataSpaceQueryCompleteFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataSpaceQueryCompleteFB.nnext(address()); }
-        /** @return the value of the {@link XrEventDataSpaceQueryCompleteFB#requestId} field. */
+        /** @return the value of the {@code requestId} field. */
         @NativeType("XrAsyncRequestIdFB")
         public long requestId() { return XrEventDataSpaceQueryCompleteFB.nrequestId(address()); }
-        /** @return the value of the {@link XrEventDataSpaceQueryCompleteFB#result} field. */
+        /** @return the value of the {@code result} field. */
         @NativeType("XrResult")
         public int result() { return XrEventDataSpaceQueryCompleteFB.nresult(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataSpaceQueryCompleteFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataSpaceQueryCompleteFB.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataSpaceQueryCompleteFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB} value to the {@link XrEventDataSpaceQueryCompleteFB#type} field. */
+        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB} value to the {@code type} field. */
         public XrEventDataSpaceQueryCompleteFB.Buffer type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB); }
-        /** Sets the specified value to the {@link XrEventDataSpaceQueryCompleteFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataSpaceQueryCompleteFB.Buffer next(@NativeType("void const *") long value) { XrEventDataSpaceQueryCompleteFB.nnext(address(), value); return this; }
 
     }

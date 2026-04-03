@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceScalarBlockLayoutFeatures}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceScalarBlockLayoutFeaturesEXT {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 scalarBlockLayout;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceScalarBlockLayoutFeaturesEXT extends VkPhysicalDeviceScalarBlockLayoutFeatures {
 
@@ -111,8 +107,7 @@ public class VkPhysicalDeviceScalarBlockLayoutFeaturesEXT extends VkPhysicalDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceScalarBlockLayoutFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceScalarBlockLayoutFeaturesEXT(address, null);
     }
 
@@ -155,29 +150,9 @@ public class VkPhysicalDeviceScalarBlockLayoutFeaturesEXT extends VkPhysicalDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceScalarBlockLayoutFeaturesEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkPhysicalDeviceScalarBlockLayoutFeaturesEXT} instance allocated on the specified {@link MemoryStack}.
@@ -248,6 +223,11 @@ public class VkPhysicalDeviceScalarBlockLayoutFeaturesEXT extends VkPhysicalDevi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

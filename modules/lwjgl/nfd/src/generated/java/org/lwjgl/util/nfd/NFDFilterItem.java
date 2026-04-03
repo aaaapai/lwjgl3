@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.nfd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nfdfilteritem_t {
  *     nfdchar_t const * name;
  *     nfdchar_t const * spec;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nfdfilteritem_t")
 public class NFDFilterItem extends Struct<NFDFilterItem> implements NativeResource {
@@ -139,8 +137,7 @@ public class NFDFilterItem extends Struct<NFDFilterItem> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NFDFilterItem createSafe(long address) {
+    public static @Nullable NFDFilterItem createSafe(long address) {
         return address == NULL ? null : new NFDFilterItem(address, null);
     }
 
@@ -183,8 +180,7 @@ public class NFDFilterItem extends Struct<NFDFilterItem> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NFDFilterItem.Buffer createSafe(long address, int capacity) {
+    public static NFDFilterItem.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,6 +285,11 @@ public class NFDFilterItem extends Struct<NFDFilterItem> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

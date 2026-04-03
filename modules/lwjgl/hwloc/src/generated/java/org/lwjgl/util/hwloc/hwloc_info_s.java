@@ -5,25 +5,25 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
+import org.lwjgl.*;
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hwloc_info_s {
  *     char * name;
  *     char * value;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct hwloc_info_s")
-public class hwloc_info_s extends Struct<hwloc_info_s> {
+public class hwloc_info_s extends Struct<hwloc_info_s> implements NativeResource {
 
     /** The struct size in bytes. */
     public static final int SIZEOF;
@@ -86,15 +86,58 @@ public class hwloc_info_s extends Struct<hwloc_info_s> {
 
     // -----------------------------------
 
+    /** Returns a new {@code hwloc_info_s} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed. */
+    public static hwloc_info_s malloc() {
+        return new hwloc_info_s(nmemAllocChecked(SIZEOF), null);
+    }
+
+    /** Returns a new {@code hwloc_info_s} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed. */
+    public static hwloc_info_s calloc() {
+        return new hwloc_info_s(nmemCallocChecked(1, SIZEOF), null);
+    }
+
+    /** Returns a new {@code hwloc_info_s} instance allocated with {@link BufferUtils}. */
+    public static hwloc_info_s create() {
+        ByteBuffer container = BufferUtils.createByteBuffer(SIZEOF);
+        return new hwloc_info_s(memAddress(container), container);
+    }
+
     /** Returns a new {@code hwloc_info_s} instance for the specified memory address. */
     public static hwloc_info_s create(long address) {
         return new hwloc_info_s(address, null);
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_info_s createSafe(long address) {
+    public static @Nullable hwloc_info_s createSafe(long address) {
         return address == NULL ? null : new hwloc_info_s(address, null);
+    }
+
+    /**
+     * Returns a new {@link hwloc_info_s.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static hwloc_info_s.Buffer malloc(int capacity) {
+        return new Buffer(nmemAllocChecked(__checkMalloc(capacity, SIZEOF)), capacity);
+    }
+
+    /**
+     * Returns a new {@link hwloc_info_s.Buffer} instance allocated with {@link MemoryUtil#memCalloc memCalloc}. The instance must be explicitly freed.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static hwloc_info_s.Buffer calloc(int capacity) {
+        return new Buffer(nmemCallocChecked(capacity, SIZEOF), capacity);
+    }
+
+    /**
+     * Returns a new {@link hwloc_info_s.Buffer} instance allocated with {@link BufferUtils}.
+     *
+     * @param capacity the buffer capacity
+     */
+    public static hwloc_info_s.Buffer create(int capacity) {
+        ByteBuffer container = __create(capacity, SIZEOF);
+        return new Buffer(memAddress(container), container, -1, 0, capacity, capacity);
     }
 
     /**
@@ -108,9 +151,46 @@ public class hwloc_info_s extends Struct<hwloc_info_s> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_info_s.Buffer createSafe(long address, int capacity) {
+    public static hwloc_info_s.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
+    }
+
+    /**
+     * Returns a new {@code hwloc_info_s} instance allocated on the specified {@link MemoryStack}.
+     *
+     * @param stack the stack from which to allocate
+     */
+    public static hwloc_info_s malloc(MemoryStack stack) {
+        return new hwloc_info_s(stack.nmalloc(ALIGNOF, SIZEOF), null);
+    }
+
+    /**
+     * Returns a new {@code hwloc_info_s} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
+     *
+     * @param stack the stack from which to allocate
+     */
+    public static hwloc_info_s calloc(MemoryStack stack) {
+        return new hwloc_info_s(stack.ncalloc(ALIGNOF, 1, SIZEOF), null);
+    }
+
+    /**
+     * Returns a new {@link hwloc_info_s.Buffer} instance allocated on the specified {@link MemoryStack}.
+     *
+     * @param stack    the stack from which to allocate
+     * @param capacity the buffer capacity
+     */
+    public static hwloc_info_s.Buffer malloc(int capacity, MemoryStack stack) {
+        return new Buffer(stack.nmalloc(ALIGNOF, capacity * SIZEOF), capacity);
+    }
+
+    /**
+     * Returns a new {@link hwloc_info_s.Buffer} instance allocated on the specified {@link MemoryStack} and initializes all its bits to zero.
+     *
+     * @param stack    the stack from which to allocate
+     * @param capacity the buffer capacity
+     */
+    public static hwloc_info_s.Buffer calloc(int capacity, MemoryStack stack) {
+        return new Buffer(stack.ncalloc(ALIGNOF, capacity, SIZEOF), capacity);
     }
 
     // -----------------------------------
@@ -127,7 +207,7 @@ public class hwloc_info_s extends Struct<hwloc_info_s> {
     // -----------------------------------
 
     /** An array of {@link hwloc_info_s} structs. */
-    public static class Buffer extends StructBuffer<hwloc_info_s, Buffer> {
+    public static class Buffer extends StructBuffer<hwloc_info_s, Buffer> implements NativeResource {
 
         private static final hwloc_info_s ELEMENT_FACTORY = hwloc_info_s.create(-1L);
 
@@ -155,6 +235,11 @@ public class hwloc_info_s extends Struct<hwloc_info_s> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,32 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specifies desired attributes of the system.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSystemGetInfo} structure specifies attributes about a system as desired by an application.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_SYSTEM_GET_INFO TYPE_SYSTEM_GET_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code formFactor} <b>must</b> be a valid {@code XrFormFactor} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrGetSystem GetSystem}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemGetInfo {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrFormFactor {@link #formFactor};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrFormFactor formFactor;
+ * }}</pre>
  */
 public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeResource {
 
@@ -94,23 +74,23 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrFormFactor} requested by the application. */
+    /** @return the value of the {@code formFactor} field. */
     @NativeType("XrFormFactor")
     public int formFactor() { return nformFactor(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSystemGetInfo type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_SYSTEM_GET_INFO TYPE_SYSTEM_GET_INFO} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_SYSTEM_GET_INFO TYPE_SYSTEM_GET_INFO} value to the {@code type} field. */
     public XrSystemGetInfo type$Default() { return type(XR10.XR_TYPE_SYSTEM_GET_INFO); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSystemGetInfo next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #formFactor} field. */
+    /** Sets the specified value to the {@code formFactor} field. */
     public XrSystemGetInfo formFactor(@NativeType("XrFormFactor") int value) { nformFactor(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,8 +142,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemGetInfo createSafe(long address) {
+    public static @Nullable XrSystemGetInfo createSafe(long address) {
         return address == NULL ? null : new XrSystemGetInfo(address, null);
     }
 
@@ -206,8 +185,7 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemGetInfo.Buffer createSafe(long address, int capacity) {
+    public static XrSystemGetInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -252,18 +230,18 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemGetInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemGetInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemGetInfo.NEXT); }
     /** Unsafe version of {@link #formFactor}. */
-    public static int nformFactor(long struct) { return UNSAFE.getInt(null, struct + XrSystemGetInfo.FORMFACTOR); }
+    public static int nformFactor(long struct) { return memGetInt(struct + XrSystemGetInfo.FORMFACTOR); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemGetInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemGetInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemGetInfo.NEXT, value); }
     /** Unsafe version of {@link #formFactor(int) formFactor}. */
-    public static void nformFactor(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemGetInfo.FORMFACTOR, value); }
+    public static void nformFactor(long struct, int value) { memPutInt(struct + XrSystemGetInfo.FORMFACTOR, value); }
 
     // -----------------------------------
 
@@ -299,27 +277,32 @@ public class XrSystemGetInfo extends Struct<XrSystemGetInfo> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSystemGetInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSystemGetInfo#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSystemGetInfo.ntype(address()); }
-        /** @return the value of the {@link XrSystemGetInfo#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSystemGetInfo.nnext(address()); }
-        /** @return the value of the {@link XrSystemGetInfo#formFactor} field. */
+        /** @return the value of the {@code formFactor} field. */
         @NativeType("XrFormFactor")
         public int formFactor() { return XrSystemGetInfo.nformFactor(address()); }
 
-        /** Sets the specified value to the {@link XrSystemGetInfo#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSystemGetInfo.Buffer type(@NativeType("XrStructureType") int value) { XrSystemGetInfo.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_SYSTEM_GET_INFO TYPE_SYSTEM_GET_INFO} value to the {@link XrSystemGetInfo#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_SYSTEM_GET_INFO TYPE_SYSTEM_GET_INFO} value to the {@code type} field. */
         public XrSystemGetInfo.Buffer type$Default() { return type(XR10.XR_TYPE_SYSTEM_GET_INFO); }
-        /** Sets the specified value to the {@link XrSystemGetInfo#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSystemGetInfo.Buffer next(@NativeType("void const *") long value) { XrSystemGetInfo.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSystemGetInfo#formFactor} field. */
+        /** Sets the specified value to the {@code formFactor} field. */
         public XrSystemGetInfo.Buffer formFactor(@NativeType("XrFormFactor") int value) { XrSystemGetInfo.nformFactor(address(), value); return this; }
 
     }

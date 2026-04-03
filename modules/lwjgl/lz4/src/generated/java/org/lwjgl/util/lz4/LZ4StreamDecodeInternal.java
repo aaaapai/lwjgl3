@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.lz4;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,15 +14,13 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct LZ4_streamDecode_t_internal {
  *     LZ4_byte const * externalDict;
  *     LZ4_byte const * prefixEnd;
  *     size_t extDictSize;
  *     size_t prefixSize;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct LZ4_streamDecode_t_internal")
 public class LZ4StreamDecodeInternal extends Struct<LZ4StreamDecodeInternal> {
@@ -79,18 +77,10 @@ public class LZ4StreamDecodeInternal extends Struct<LZ4StreamDecodeInternal> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code externalDict} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code externalDict} field. */
     @NativeType("LZ4_byte const *")
     public ByteBuffer externalDict(int capacity) { return nexternalDict(address(), capacity); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code prefixEnd} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code prefixEnd} field. */
     @NativeType("LZ4_byte const *")
     public ByteBuffer prefixEnd(int capacity) { return nprefixEnd(address(), capacity); }
     /** @return the value of the {@code extDictSize} field. */
@@ -108,8 +98,7 @@ public class LZ4StreamDecodeInternal extends Struct<LZ4StreamDecodeInternal> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4StreamDecodeInternal createSafe(long address) {
+    public static @Nullable LZ4StreamDecodeInternal createSafe(long address) {
         return address == NULL ? null : new LZ4StreamDecodeInternal(address, null);
     }
 
@@ -124,8 +113,7 @@ public class LZ4StreamDecodeInternal extends Struct<LZ4StreamDecodeInternal> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static LZ4StreamDecodeInternal.Buffer createSafe(long address, int capacity) {
+    public static LZ4StreamDecodeInternal.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -174,22 +162,19 @@ public class LZ4StreamDecodeInternal extends Struct<LZ4StreamDecodeInternal> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected LZ4StreamDecodeInternal getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code externalDict} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code externalDict} field. */
         @NativeType("LZ4_byte const *")
         public ByteBuffer externalDict(int capacity) { return LZ4StreamDecodeInternal.nexternalDict(address(), capacity); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code prefixEnd} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code prefixEnd} field. */
         @NativeType("LZ4_byte const *")
         public ByteBuffer prefixEnd(int capacity) { return LZ4StreamDecodeInternal.nprefixEnd(address(), capacity); }
         /** @return the value of the {@code extDictSize} field. */

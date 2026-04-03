@@ -5,7 +5,7 @@
  */
 package org.lwjgl.fmod;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES {
  *     char const * name;
  *     FMOD_DSP * dsp;
- * }</code></pre>
+ * }}</pre>
  */
 public class FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES extends Struct<FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES> implements NativeResource {
 
@@ -135,8 +133,7 @@ public class FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES extends Struct<FMOD_STUDIO_P
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES createSafe(long address) {
+    public static @Nullable FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES createSafe(long address) {
         return address == NULL ? null : new FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES(address, null);
     }
 
@@ -179,8 +176,7 @@ public class FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES extends Struct<FMOD_STUDIO_P
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES.Buffer createSafe(long address, int capacity) {
+    public static FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -280,6 +276,11 @@ public class FMOD_STUDIO_PLUGIN_INSTANCE_PROPERTIES extends Struct<FMOD_STUDIO_P
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

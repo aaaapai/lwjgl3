@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,14 +17,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Uniquely identifies a CXFile, that refers to the same underlying file, across an indexing session.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXFileUniqueID {
  *     unsigned long long data[3];
- * }</code></pre>
+ * }}</pre>
  */
 public class CXFileUniqueID extends Struct<CXFileUniqueID> implements NativeResource {
 
@@ -102,8 +98,7 @@ public class CXFileUniqueID extends Struct<CXFileUniqueID> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXFileUniqueID createSafe(long address) {
+    public static @Nullable CXFileUniqueID createSafe(long address) {
         return address == NULL ? null : new CXFileUniqueID(address, null);
     }
 
@@ -146,29 +141,9 @@ public class CXFileUniqueID extends Struct<CXFileUniqueID> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXFileUniqueID.Buffer createSafe(long address, int capacity) {
+    public static CXFileUniqueID.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXFileUniqueID.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXFileUniqueID} instance allocated on the specified {@link MemoryStack}.
@@ -214,7 +189,7 @@ public class CXFileUniqueID extends Struct<CXFileUniqueID> implements NativeReso
     public static LongBuffer ndata(long struct) { return memLongBuffer(struct + CXFileUniqueID.DATA, 3); }
     /** Unsafe version of {@link #data(int) data}. */
     public static long ndata(long struct, int index) {
-        return UNSAFE.getLong(null, struct + CXFileUniqueID.DATA + check(index, 3) * 8);
+        return memGetLong(struct + CXFileUniqueID.DATA + check(index, 3) * 8);
     }
 
     // -----------------------------------
@@ -248,6 +223,11 @@ public class CXFileUniqueID extends Struct<CXFileUniqueID> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * System property for eye tracking.
- * 
- * <h5>Description</h5>
- * 
- * <p>An application <b>can</b> inspect whether the system is capable of eye tracking input by extending the {@link XrSystemProperties} with {@link XrSystemEyeTrackingPropertiesFB} structure when calling {@link XR10#xrGetSystemProperties GetSystemProperties}.</p>
- * 
- * <p>If a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportsEyeTracking}, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link FBEyeTrackingSocial#xrCreateEyeTrackerFB CreateEyeTrackerFB}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBEyeTrackingSocial XR_FB_eye_tracking_social} extension <b>must</b> be enabled prior to using {@link XrSystemEyeTrackingPropertiesFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBEyeTrackingSocial#XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemEyeTrackingPropertiesFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrBool32 {@link #supportsEyeTracking};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrBool32 supportsEyeTracking;
+ * }}</pre>
  */
 public class XrSystemEyeTrackingPropertiesFB extends Struct<XrSystemEyeTrackingPropertiesFB> implements NativeResource {
 
@@ -92,21 +74,21 @@ public class XrSystemEyeTrackingPropertiesFB extends Struct<XrSystemEyeTrackingP
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** an {@code XrBool32}, indicating if the current system is capable of receiving eye tracking input. */
+    /** @return the value of the {@code supportsEyeTracking} field. */
     @NativeType("XrBool32")
     public boolean supportsEyeTracking() { return nsupportsEyeTracking(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSystemEyeTrackingPropertiesFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB} value to the {@code type} field. */
     public XrSystemEyeTrackingPropertiesFB type$Default() { return type(FBEyeTrackingSocial.XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSystemEyeTrackingPropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +138,7 @@ public class XrSystemEyeTrackingPropertiesFB extends Struct<XrSystemEyeTrackingP
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemEyeTrackingPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemEyeTrackingPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemEyeTrackingPropertiesFB(address, null);
     }
 
@@ -200,8 +181,7 @@ public class XrSystemEyeTrackingPropertiesFB extends Struct<XrSystemEyeTrackingP
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemEyeTrackingPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemEyeTrackingPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +226,14 @@ public class XrSystemEyeTrackingPropertiesFB extends Struct<XrSystemEyeTrackingP
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemEyeTrackingPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemEyeTrackingPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemEyeTrackingPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsEyeTracking}. */
-    public static int nsupportsEyeTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemEyeTrackingPropertiesFB.SUPPORTSEYETRACKING); }
+    public static int nsupportsEyeTracking(long struct) { return memGetInt(struct + XrSystemEyeTrackingPropertiesFB.SUPPORTSEYETRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemEyeTrackingPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemEyeTrackingPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemEyeTrackingPropertiesFB.NEXT, value); }
 
@@ -291,25 +271,30 @@ public class XrSystemEyeTrackingPropertiesFB extends Struct<XrSystemEyeTrackingP
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSystemEyeTrackingPropertiesFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSystemEyeTrackingPropertiesFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSystemEyeTrackingPropertiesFB.ntype(address()); }
-        /** @return the value of the {@link XrSystemEyeTrackingPropertiesFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSystemEyeTrackingPropertiesFB.nnext(address()); }
-        /** @return the value of the {@link XrSystemEyeTrackingPropertiesFB#supportsEyeTracking} field. */
+        /** @return the value of the {@code supportsEyeTracking} field. */
         @NativeType("XrBool32")
         public boolean supportsEyeTracking() { return XrSystemEyeTrackingPropertiesFB.nsupportsEyeTracking(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrSystemEyeTrackingPropertiesFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSystemEyeTrackingPropertiesFB.Buffer type(@NativeType("XrStructureType") int value) { XrSystemEyeTrackingPropertiesFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB} value to the {@link XrSystemEyeTrackingPropertiesFB#type} field. */
+        /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB} value to the {@code type} field. */
         public XrSystemEyeTrackingPropertiesFB.Buffer type$Default() { return type(FBEyeTrackingSocial.XR_TYPE_SYSTEM_EYE_TRACKING_PROPERTIES_FB); }
-        /** Sets the specified value to the {@link XrSystemEyeTrackingPropertiesFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSystemEyeTrackingPropertiesFB.Buffer next(@NativeType("void *") long value) { XrSystemEyeTrackingPropertiesFB.nnext(address(), value); return this; }
 
     }

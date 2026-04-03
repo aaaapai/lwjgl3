@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,36 +19,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.EXTShaderModuleIdentifier.*;
 
 /**
- * A unique identifier for a shader module.
- * 
- * <h5>Description</h5>
- * 
- * <p>Any returned values beyond the first {@code identifierSize} bytes are undefined. Implementations <b>must</b> return an {@code identifierSize} greater than 0, and less-or-equal to {@link EXTShaderModuleIdentifier#VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT}.</p>
- * 
- * <p>Two identifiers are considered equal if {@code identifierSize} is equal and the first {@code identifierSize} bytes of {@code identifier} compare equal.</p>
- * 
- * <p>Implementations <b>may</b> return a different {@code identifierSize} for different modules. Implementations <b>should</b> ensure that {@code identifierSize} is large enough to uniquely define a shader module.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTShaderModuleIdentifier#vkGetShaderModuleCreateInfoIdentifierEXT GetShaderModuleCreateInfoIdentifierEXT}, {@link EXTShaderModuleIdentifier#vkGetShaderModuleIdentifierEXT GetShaderModuleIdentifierEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkShaderModuleIdentifierEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #identifierSize};
- *     uint8_t {@link #identifier}[VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT];
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t identifierSize;
+ *     uint8_t identifier[VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT];
+ * }}</pre>
  */
 public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifierEXT> implements NativeResource {
 
@@ -104,27 +81,27 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the size, in bytes, of valid data returned in {@code identifier}. */
+    /** @return the value of the {@code identifierSize} field. */
     @NativeType("uint32_t")
     public int identifierSize() { return nidentifierSize(address()); }
-    /** a buffer of opaque data specifying an identifier. */
+    /** @return a {@link ByteBuffer} view of the {@code identifier} field. */
     @NativeType("uint8_t[VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT]")
     public ByteBuffer identifier() { return nidentifier(address()); }
-    /** a buffer of opaque data specifying an identifier. */
+    /** @return the value at the specified index of the {@code identifier} field. */
     @NativeType("uint8_t")
     public byte identifier(int index) { return nidentifier(address(), index); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkShaderModuleIdentifierEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT} value to the {@code sType} field. */
     public VkShaderModuleIdentifierEXT sType$Default() { return sType(EXTShaderModuleIdentifier.VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkShaderModuleIdentifierEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -174,8 +151,7 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderModuleIdentifierEXT createSafe(long address) {
+    public static @Nullable VkShaderModuleIdentifierEXT createSafe(long address) {
         return address == NULL ? null : new VkShaderModuleIdentifierEXT(address, null);
     }
 
@@ -218,8 +194,7 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderModuleIdentifierEXT.Buffer createSafe(long address, int capacity) {
+    public static VkShaderModuleIdentifierEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,20 +239,20 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkShaderModuleIdentifierEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkShaderModuleIdentifierEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkShaderModuleIdentifierEXT.PNEXT); }
     /** Unsafe version of {@link #identifierSize}. */
-    public static int nidentifierSize(long struct) { return UNSAFE.getInt(null, struct + VkShaderModuleIdentifierEXT.IDENTIFIERSIZE); }
+    public static int nidentifierSize(long struct) { return memGetInt(struct + VkShaderModuleIdentifierEXT.IDENTIFIERSIZE); }
     /** Unsafe version of {@link #identifier}. */
-    public static ByteBuffer nidentifier(long struct) { return memByteBuffer(struct + VkShaderModuleIdentifierEXT.IDENTIFIER, VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT); }
+    public static ByteBuffer nidentifier(long struct) { return memByteBuffer(struct + VkShaderModuleIdentifierEXT.IDENTIFIER, nidentifierSize(struct)); }
     /** Unsafe version of {@link #identifier(int) identifier}. */
     public static byte nidentifier(long struct, int index) {
-        return UNSAFE.getByte(null, struct + VkShaderModuleIdentifierEXT.IDENTIFIER + check(index, VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT) * 1);
+        return memGetByte(struct + VkShaderModuleIdentifierEXT.IDENTIFIER + check(index, VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT) * 1);
     }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkShaderModuleIdentifierEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkShaderModuleIdentifierEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkShaderModuleIdentifierEXT.PNEXT, value); }
 
@@ -315,31 +290,36 @@ public class VkShaderModuleIdentifierEXT extends Struct<VkShaderModuleIdentifier
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkShaderModuleIdentifierEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkShaderModuleIdentifierEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkShaderModuleIdentifierEXT.nsType(address()); }
-        /** @return the value of the {@link VkShaderModuleIdentifierEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkShaderModuleIdentifierEXT.npNext(address()); }
-        /** @return the value of the {@link VkShaderModuleIdentifierEXT#identifierSize} field. */
+        /** @return the value of the {@code identifierSize} field. */
         @NativeType("uint32_t")
         public int identifierSize() { return VkShaderModuleIdentifierEXT.nidentifierSize(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link VkShaderModuleIdentifierEXT#identifier} field. */
+        /** @return a {@link ByteBuffer} view of the {@code identifier} field. */
         @NativeType("uint8_t[VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT]")
         public ByteBuffer identifier() { return VkShaderModuleIdentifierEXT.nidentifier(address()); }
-        /** @return the value at the specified index of the {@link VkShaderModuleIdentifierEXT#identifier} field. */
+        /** @return the value at the specified index of the {@code identifier} field. */
         @NativeType("uint8_t")
         public byte identifier(int index) { return VkShaderModuleIdentifierEXT.nidentifier(address(), index); }
 
-        /** Sets the specified value to the {@link VkShaderModuleIdentifierEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkShaderModuleIdentifierEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkShaderModuleIdentifierEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT} value to the {@link VkShaderModuleIdentifierEXT#sType} field. */
+        /** Sets the {@link EXTShaderModuleIdentifier#VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT} value to the {@code sType} field. */
         public VkShaderModuleIdentifierEXT.Buffer sType$Default() { return sType(EXTShaderModuleIdentifier.VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT); }
-        /** Sets the specified value to the {@link VkShaderModuleIdentifierEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkShaderModuleIdentifierEXT.Buffer pNext(@NativeType("void *") long value) { VkShaderModuleIdentifierEXT.npNext(address(), value); return this; }
 
     }

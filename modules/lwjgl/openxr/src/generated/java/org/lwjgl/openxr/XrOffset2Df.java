@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Float offset in two dimensions.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure is used for component values that may be fractional (floating-point). If used to represent physical distances, values <b>must</b> be in meters.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrExtent2Df}, {@link XrRect2Df}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrOffset2Df {
- *     float {@link #x};
- *     float {@link #y};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ * }}</pre>
  */
 public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
 
@@ -82,14 +70,14 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the floating-point offset in the x direction. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the floating-point offset in the y direction. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public XrOffset2Df x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public XrOffset2Df y(float value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -139,8 +127,7 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset2Df createSafe(long address) {
+    public static @Nullable XrOffset2Df createSafe(long address) {
         return address == NULL ? null : new XrOffset2Df(address, null);
     }
 
@@ -183,8 +170,7 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrOffset2Df.Buffer createSafe(long address, int capacity) {
+    public static XrOffset2Df.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,14 +215,14 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrOffset2Df.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrOffset2Df.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrOffset2Df.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrOffset2Df.Y); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset2Df.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrOffset2Df.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrOffset2Df.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrOffset2Df.Y, value); }
 
     // -----------------------------------
 
@@ -272,18 +258,23 @@ public class XrOffset2Df extends Struct<XrOffset2Df> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrOffset2Df getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrOffset2Df#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return XrOffset2Df.nx(address()); }
-        /** @return the value of the {@link XrOffset2Df#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return XrOffset2Df.ny(address()); }
 
-        /** Sets the specified value to the {@link XrOffset2Df#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public XrOffset2Df.Buffer x(float value) { XrOffset2Df.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link XrOffset2Df#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public XrOffset2Df.Buffer y(float value) { XrOffset2Df.ny(address(), value); return this; }
 
     }

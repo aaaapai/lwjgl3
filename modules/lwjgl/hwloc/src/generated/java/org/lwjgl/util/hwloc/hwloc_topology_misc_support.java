@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,12 +14,10 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hwloc_topology_misc_support {
  *     unsigned char imported_support;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct hwloc_topology_misc_support")
 public class hwloc_topology_misc_support extends Struct<hwloc_topology_misc_support> {
@@ -79,8 +77,7 @@ public class hwloc_topology_misc_support extends Struct<hwloc_topology_misc_supp
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_misc_support createSafe(long address) {
+    public static @Nullable hwloc_topology_misc_support createSafe(long address) {
         return address == NULL ? null : new hwloc_topology_misc_support(address, null);
     }
 
@@ -95,15 +92,14 @@ public class hwloc_topology_misc_support extends Struct<hwloc_topology_misc_supp
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_topology_misc_support.Buffer createSafe(long address, int capacity) {
+    public static hwloc_topology_misc_support.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #imported_support}. */
-    public static boolean nimported_support(long struct) { return UNSAFE.getByte(null, struct + hwloc_topology_misc_support.IMPORTED_SUPPORT) != 0; }
+    public static boolean nimported_support(long struct) { return memGetByte(struct + hwloc_topology_misc_support.IMPORTED_SUPPORT) != 0; }
 
     // -----------------------------------
 
@@ -136,6 +132,11 @@ public class hwloc_topology_misc_support extends Struct<hwloc_topology_misc_supp
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -88,7 +88,7 @@ public final class CLGLInteropDemo {
 
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        if (Platform.get() == Platform.MACOSX) {
+        if (glfwGetPlatform() == GLFW_PLATFORM_COCOA) {
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         } else {
@@ -167,7 +167,7 @@ public final class CLGLInteropDemo {
         CyclicBarrier  barrier = new CyclicBarrier(windows.length + 1);
 
         for (int i = 0; i < threads.length; i++) {
-            int deviceType = i == 1 || !hasGPU ? CL_DEVICE_TYPE_CPU : CL_DEVICE_TYPE_GPU;
+            long deviceType = i == 1 || !hasGPU ? CL_DEVICE_TYPE_CPU : CL_DEVICE_TYPE_GPU;
 
             String     ID     = platformID + " - " + (deviceType == CL_DEVICE_TYPE_CPU ? "CPU" : "GPU");
             GLFWWindow window = new GLFWWindow(glfwCreateWindow(initWidth, initHeight, ID, NULL, NULL), ID, new CountDownLatch(1));
@@ -272,7 +272,7 @@ public final class CLGLInteropDemo {
         }
     }
 
-    private static List<Long> getDevices(long platform, int deviceType) {
+    private static List<Long> getDevices(long platform, long deviceType) {
         List<Long> devices;
         try (MemoryStack stack = stackPush()) {
             IntBuffer pi      = stack.mallocInt(1);

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,8 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_configuration_stacks {
  *     {@link NkConfigStackStyleItem struct nk_config_stack_style_item} style_items;
@@ -121,8 +119,7 @@ class NkConfigurationStacks extends Struct<NkConfigurationStacks> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkConfigurationStacks createSafe(long address) {
+    public static @Nullable NkConfigurationStacks createSafe(long address) {
         return address == NULL ? null : new NkConfigurationStacks(address, null);
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -19,30 +19,12 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.openxr.FBPassthrough.*;
 
 /**
- * A layer color map.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrPassthroughColorMapMonoToMonoFB} lets applications define a map which replaces each input luminance value in the passthrough imagery with a grayscale color value defined in {@code textureColorMap}. The map is applied before any additional effects (such as edges) are rendered on top.</p>
- * 
- * <p>{@link XrPassthroughColorMapMonoToMonoFB} is provided in the {@code next} chain of {@link XrPassthroughStyleFB}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrPassthroughColorMapMonoToMonoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrPassthroughColorMapMonoToMonoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint8_t {@link #textureColorMap}[XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB];
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint8_t textureColorMap[XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB];
+ * }}</pre>
  */
 public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColorMapMonoToMonoFB> implements NativeResource {
 
@@ -95,28 +77,28 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an array of {@code uint8_t} grayscale color values to which the passthrough luminance values are mapped. */
+    /** @return a {@link ByteBuffer} view of the {@code textureColorMap} field. */
     @NativeType("uint8_t[XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB]")
     public ByteBuffer textureColorMap() { return ntextureColorMap(address()); }
-    /** an array of {@code uint8_t} grayscale color values to which the passthrough luminance values are mapped. */
+    /** @return the value at the specified index of the {@code textureColorMap} field. */
     @NativeType("uint8_t")
     public byte textureColorMap(int index) { return ntextureColorMap(address(), index); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrPassthroughColorMapMonoToMonoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBPassthrough#XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBPassthrough#XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB} value to the {@code type} field. */
     public XrPassthroughColorMapMonoToMonoFB type$Default() { return type(FBPassthrough.XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrPassthroughColorMapMonoToMonoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Copies the specified {@link ByteBuffer} to the {@link #textureColorMap} field. */
+    /** Copies the specified {@link ByteBuffer} to the {@code textureColorMap} field. */
     public XrPassthroughColorMapMonoToMonoFB textureColorMap(@NativeType("uint8_t[XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB]") ByteBuffer value) { ntextureColorMap(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #textureColorMap} field. */
+    /** Sets the specified value at the specified index of the {@code textureColorMap} field. */
     public XrPassthroughColorMapMonoToMonoFB textureColorMap(int index, @NativeType("uint8_t") byte value) { ntextureColorMap(address(), index, value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -168,8 +150,7 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapMonoToMonoFB createSafe(long address) {
+    public static @Nullable XrPassthroughColorMapMonoToMonoFB createSafe(long address) {
         return address == NULL ? null : new XrPassthroughColorMapMonoToMonoFB(address, null);
     }
 
@@ -212,8 +193,7 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrPassthroughColorMapMonoToMonoFB.Buffer createSafe(long address, int capacity) {
+    public static XrPassthroughColorMapMonoToMonoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,18 +238,18 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrPassthroughColorMapMonoToMonoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrPassthroughColorMapMonoToMonoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrPassthroughColorMapMonoToMonoFB.NEXT); }
     /** Unsafe version of {@link #textureColorMap}. */
     public static ByteBuffer ntextureColorMap(long struct) { return memByteBuffer(struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB); }
     /** Unsafe version of {@link #textureColorMap(int) textureColorMap}. */
     public static byte ntextureColorMap(long struct, int index) {
-        return UNSAFE.getByte(null, struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1);
+        return memGetByte(struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1);
     }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrPassthroughColorMapMonoToMonoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrPassthroughColorMapMonoToMonoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrPassthroughColorMapMonoToMonoFB.NEXT, value); }
     /** Unsafe version of {@link #textureColorMap(ByteBuffer) textureColorMap}. */
@@ -279,7 +259,7 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
     }
     /** Unsafe version of {@link #textureColorMap(int, byte) textureColorMap}. */
     public static void ntextureColorMap(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1, value);
+        memPutByte(struct + XrPassthroughColorMapMonoToMonoFB.TEXTURECOLORMAP + check(index, XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB) * 1, value);
     }
 
     // -----------------------------------
@@ -316,32 +296,37 @@ public class XrPassthroughColorMapMonoToMonoFB extends Struct<XrPassthroughColor
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrPassthroughColorMapMonoToMonoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrPassthroughColorMapMonoToMonoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrPassthroughColorMapMonoToMonoFB.ntype(address()); }
-        /** @return the value of the {@link XrPassthroughColorMapMonoToMonoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrPassthroughColorMapMonoToMonoFB.nnext(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link XrPassthroughColorMapMonoToMonoFB#textureColorMap} field. */
+        /** @return a {@link ByteBuffer} view of the {@code textureColorMap} field. */
         @NativeType("uint8_t[XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB]")
         public ByteBuffer textureColorMap() { return XrPassthroughColorMapMonoToMonoFB.ntextureColorMap(address()); }
-        /** @return the value at the specified index of the {@link XrPassthroughColorMapMonoToMonoFB#textureColorMap} field. */
+        /** @return the value at the specified index of the {@code textureColorMap} field. */
         @NativeType("uint8_t")
         public byte textureColorMap(int index) { return XrPassthroughColorMapMonoToMonoFB.ntextureColorMap(address(), index); }
 
-        /** Sets the specified value to the {@link XrPassthroughColorMapMonoToMonoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrPassthroughColorMapMonoToMonoFB.Buffer type(@NativeType("XrStructureType") int value) { XrPassthroughColorMapMonoToMonoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBPassthrough#XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB} value to the {@link XrPassthroughColorMapMonoToMonoFB#type} field. */
+        /** Sets the {@link FBPassthrough#XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB} value to the {@code type} field. */
         public XrPassthroughColorMapMonoToMonoFB.Buffer type$Default() { return type(FBPassthrough.XR_TYPE_PASSTHROUGH_COLOR_MAP_MONO_TO_MONO_FB); }
-        /** Sets the specified value to the {@link XrPassthroughColorMapMonoToMonoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrPassthroughColorMapMonoToMonoFB.Buffer next(@NativeType("void const *") long value) { XrPassthroughColorMapMonoToMonoFB.nnext(address(), value); return this; }
-        /** Copies the specified {@link ByteBuffer} to the {@link XrPassthroughColorMapMonoToMonoFB#textureColorMap} field. */
+        /** Copies the specified {@link ByteBuffer} to the {@code textureColorMap} field. */
         public XrPassthroughColorMapMonoToMonoFB.Buffer textureColorMap(@NativeType("uint8_t[XR_PASSTHROUGH_COLOR_MAP_MONO_SIZE_FB]") ByteBuffer value) { XrPassthroughColorMapMonoToMonoFB.ntextureColorMap(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link XrPassthroughColorMapMonoToMonoFB#textureColorMap} field. */
+        /** Sets the specified value at the specified index of the {@code textureColorMap} field. */
         public XrPassthroughColorMapMonoToMonoFB.Buffer textureColorMap(int index, @NativeType("uint8_t") byte value) { XrPassthroughColorMapMonoToMonoFB.ntextureColorMap(address(), index, value); return this; }
 
     }

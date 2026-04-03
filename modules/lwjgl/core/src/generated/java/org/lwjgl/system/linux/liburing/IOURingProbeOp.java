@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct io_uring_probe_op {
  *     __u8 op;
  *     __u8 resv;
- *     __u16 {@link #flags};
+ *     __u16 flags;
  *     __u32 resv2;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct io_uring_probe_op")
 public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeResource {
@@ -84,36 +82,22 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     /** @return the value of the {@code op} field. */
     @NativeType("__u8")
     public byte op() { return nop(address()); }
-    /** @return the value of the {@code resv} field. */
-    @NativeType("__u8")
-    public byte resv() { return nresv(address()); }
-    /** one or more of:<br><table><tr><td>{@link LibIOURing#IO_URING_OP_SUPPORTED}</td></tr></table> */
+    /** @return the value of the {@code flags} field. */
     @NativeType("__u16")
     public short flags() { return nflags(address()); }
-    /** @return the value of the {@code resv2} field. */
-    @NativeType("__u32")
-    public int resv2() { return nresv2(address()); }
 
     /** Sets the specified value to the {@code op} field. */
     public IOURingProbeOp op(@NativeType("__u8") byte value) { nop(address(), value); return this; }
-    /** Sets the specified value to the {@code resv} field. */
-    public IOURingProbeOp resv(@NativeType("__u8") byte value) { nresv(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public IOURingProbeOp flags(@NativeType("__u16") short value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@code resv2} field. */
-    public IOURingProbeOp resv2(@NativeType("__u32") int value) { nresv2(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingProbeOp set(
         byte op,
-        byte resv,
-        short flags,
-        int resv2
+        short flags
     ) {
         op(op);
-        resv(resv);
         flags(flags);
-        resv2(resv2);
 
         return this;
     }
@@ -154,8 +138,7 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingProbeOp createSafe(long address) {
+    public static @Nullable IOURingProbeOp createSafe(long address) {
         return address == NULL ? null : new IOURingProbeOp(address, null);
     }
 
@@ -198,8 +181,7 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingProbeOp.Buffer createSafe(long address, int capacity) {
+    public static IOURingProbeOp.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,22 +226,18 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #op}. */
-    public static byte nop(long struct) { return UNSAFE.getByte(null, struct + IOURingProbeOp.OP); }
-    /** Unsafe version of {@link #resv}. */
-    public static byte nresv(long struct) { return UNSAFE.getByte(null, struct + IOURingProbeOp.RESV); }
+    public static byte nop(long struct) { return memGetByte(struct + IOURingProbeOp.OP); }
+    public static byte nresv(long struct) { return memGetByte(struct + IOURingProbeOp.RESV); }
     /** Unsafe version of {@link #flags}. */
-    public static short nflags(long struct) { return UNSAFE.getShort(null, struct + IOURingProbeOp.FLAGS); }
-    /** Unsafe version of {@link #resv2}. */
-    public static int nresv2(long struct) { return UNSAFE.getInt(null, struct + IOURingProbeOp.RESV2); }
+    public static short nflags(long struct) { return memGetShort(struct + IOURingProbeOp.FLAGS); }
+    public static int nresv2(long struct) { return memGetInt(struct + IOURingProbeOp.RESV2); }
 
     /** Unsafe version of {@link #op(byte) op}. */
-    public static void nop(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbeOp.OP, value); }
-    /** Unsafe version of {@link #resv(byte) resv}. */
-    public static void nresv(long struct, byte value) { UNSAFE.putByte(null, struct + IOURingProbeOp.RESV, value); }
+    public static void nop(long struct, byte value) { memPutByte(struct + IOURingProbeOp.OP, value); }
+    public static void nresv(long struct, byte value) { memPutByte(struct + IOURingProbeOp.RESV, value); }
     /** Unsafe version of {@link #flags(short) flags}. */
-    public static void nflags(long struct, short value) { UNSAFE.putShort(null, struct + IOURingProbeOp.FLAGS, value); }
-    /** Unsafe version of {@link #resv2(int) resv2}. */
-    public static void nresv2(long struct, int value) { UNSAFE.putInt(null, struct + IOURingProbeOp.RESV2, value); }
+    public static void nflags(long struct, short value) { memPutShort(struct + IOURingProbeOp.FLAGS, value); }
+    public static void nresv2(long struct, int value) { memPutInt(struct + IOURingProbeOp.RESV2, value); }
 
     // -----------------------------------
 
@@ -295,6 +273,11 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected IOURingProbeOp getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -302,24 +285,14 @@ public class IOURingProbeOp extends Struct<IOURingProbeOp> implements NativeReso
         /** @return the value of the {@code op} field. */
         @NativeType("__u8")
         public byte op() { return IOURingProbeOp.nop(address()); }
-        /** @return the value of the {@code resv} field. */
-        @NativeType("__u8")
-        public byte resv() { return IOURingProbeOp.nresv(address()); }
-        /** @return the value of the {@link IOURingProbeOp#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("__u16")
         public short flags() { return IOURingProbeOp.nflags(address()); }
-        /** @return the value of the {@code resv2} field. */
-        @NativeType("__u32")
-        public int resv2() { return IOURingProbeOp.nresv2(address()); }
 
         /** Sets the specified value to the {@code op} field. */
         public IOURingProbeOp.Buffer op(@NativeType("__u8") byte value) { IOURingProbeOp.nop(address(), value); return this; }
-        /** Sets the specified value to the {@code resv} field. */
-        public IOURingProbeOp.Buffer resv(@NativeType("__u8") byte value) { IOURingProbeOp.nresv(address(), value); return this; }
-        /** Sets the specified value to the {@link IOURingProbeOp#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public IOURingProbeOp.Buffer flags(@NativeType("__u16") short value) { IOURingProbeOp.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@code resv2} field. */
-        public IOURingProbeOp.Buffer resv2(@NativeType("__u32") int value) { IOURingProbeOp.nresv2(address(), value); return this; }
 
     }
 

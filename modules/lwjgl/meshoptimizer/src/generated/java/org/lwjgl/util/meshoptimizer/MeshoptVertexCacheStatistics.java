@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct meshopt_VertexCacheStatistics {
  *     unsigned int vertices_transformed;
  *     unsigned int warps_executed;
- *     float {@link #acmr};
- *     float {@link #atvr};
- * }</code></pre>
+ *     float acmr;
+ *     float atvr;
+ * }}</pre>
  */
 @NativeType("struct meshopt_VertexCacheStatistics")
 public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStatistics> implements NativeResource {
@@ -87,9 +85,9 @@ public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStati
     /** @return the value of the {@code warps_executed} field. */
     @NativeType("unsigned int")
     public int warps_executed() { return nwarps_executed(address()); }
-    /** transformed vertices / triangle count; best case 0.5, worst case 3.0, optimum depends on topology */
+    /** @return the value of the {@code acmr} field. */
     public float acmr() { return nacmr(address()); }
-    /** transformed vertices / vertex count; best case 1.0, worst case 6.0, optimum is 1.0 (each vertex is transformed once) */
+    /** @return the value of the {@code atvr} field. */
     public float atvr() { return natvr(address()); }
 
     // -----------------------------------
@@ -116,8 +114,7 @@ public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptVertexCacheStatistics createSafe(long address) {
+    public static @Nullable MeshoptVertexCacheStatistics createSafe(long address) {
         return address == NULL ? null : new MeshoptVertexCacheStatistics(address, null);
     }
 
@@ -160,8 +157,7 @@ public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptVertexCacheStatistics.Buffer createSafe(long address, int capacity) {
+    public static MeshoptVertexCacheStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -206,13 +202,13 @@ public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStati
     // -----------------------------------
 
     /** Unsafe version of {@link #vertices_transformed}. */
-    public static int nvertices_transformed(long struct) { return UNSAFE.getInt(null, struct + MeshoptVertexCacheStatistics.VERTICES_TRANSFORMED); }
+    public static int nvertices_transformed(long struct) { return memGetInt(struct + MeshoptVertexCacheStatistics.VERTICES_TRANSFORMED); }
     /** Unsafe version of {@link #warps_executed}. */
-    public static int nwarps_executed(long struct) { return UNSAFE.getInt(null, struct + MeshoptVertexCacheStatistics.WARPS_EXECUTED); }
+    public static int nwarps_executed(long struct) { return memGetInt(struct + MeshoptVertexCacheStatistics.WARPS_EXECUTED); }
     /** Unsafe version of {@link #acmr}. */
-    public static float nacmr(long struct) { return UNSAFE.getFloat(null, struct + MeshoptVertexCacheStatistics.ACMR); }
+    public static float nacmr(long struct) { return memGetFloat(struct + MeshoptVertexCacheStatistics.ACMR); }
     /** Unsafe version of {@link #atvr}. */
-    public static float natvr(long struct) { return UNSAFE.getFloat(null, struct + MeshoptVertexCacheStatistics.ATVR); }
+    public static float natvr(long struct) { return memGetFloat(struct + MeshoptVertexCacheStatistics.ATVR); }
 
     // -----------------------------------
 
@@ -248,6 +244,11 @@ public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MeshoptVertexCacheStatistics getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -258,9 +259,9 @@ public class MeshoptVertexCacheStatistics extends Struct<MeshoptVertexCacheStati
         /** @return the value of the {@code warps_executed} field. */
         @NativeType("unsigned int")
         public int warps_executed() { return MeshoptVertexCacheStatistics.nwarps_executed(address()); }
-        /** @return the value of the {@link MeshoptVertexCacheStatistics#acmr} field. */
+        /** @return the value of the {@code acmr} field. */
         public float acmr() { return MeshoptVertexCacheStatistics.nacmr(address()); }
-        /** @return the value of the {@link MeshoptVertexCacheStatistics#atvr} field. */
+        /** @return the value of the {@code atvr} field. */
         public float atvr() { return MeshoptVertexCacheStatistics.natvr(address()); }
 
     }

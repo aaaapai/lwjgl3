@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Notifies the application than the active interaction profile has changed.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrEventDataInteractionProfileChanged} event is sent to the application to notify it that the active input form factor for one or more top level user paths has changed. This event <b>must</b> only be sent for interaction profiles that the application indicated its support for via {@link XR10#xrSuggestInteractionProfileBindings SuggestInteractionProfileBindings}. This event <b>must</b> only be sent for running sessions.</p>
- * 
- * <p>The application <b>can</b> call {@link XR10#xrGetCurrentInteractionProfile GetCurrentInteractionProfile} if it wants to change its own behavior based on the active hardware.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrGetCurrentInteractionProfile GetCurrentInteractionProfile}, {@link XR10#xrSuggestInteractionProfileBindings SuggestInteractionProfileBindings}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataInteractionProfileChanged {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSession {@link #session};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSession session;
+ * }}</pre>
  */
 public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInteractionProfileChanged> implements NativeResource {
 
@@ -95,21 +74,21 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrSession} for which at least one of the interaction profiles for a top level path has changed. */
+    /** @return the value of the {@code session} field. */
     @NativeType("XrSession")
     public long session() { return nsession(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataInteractionProfileChanged type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED} value to the {@code type} field. */
     public XrEventDataInteractionProfileChanged type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataInteractionProfileChanged next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -159,8 +138,7 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataInteractionProfileChanged createSafe(long address) {
+    public static @Nullable XrEventDataInteractionProfileChanged createSafe(long address) {
         return address == NULL ? null : new XrEventDataInteractionProfileChanged(address, null);
     }
 
@@ -208,8 +186,7 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataInteractionProfileChanged.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataInteractionProfileChanged.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -259,14 +236,14 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataInteractionProfileChanged.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataInteractionProfileChanged.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataInteractionProfileChanged.NEXT); }
     /** Unsafe version of {@link #session}. */
     public static long nsession(long struct) { return memGetAddress(struct + XrEventDataInteractionProfileChanged.SESSION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataInteractionProfileChanged.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataInteractionProfileChanged.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataInteractionProfileChanged.NEXT, value); }
 
@@ -304,25 +281,30 @@ public class XrEventDataInteractionProfileChanged extends Struct<XrEventDataInte
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataInteractionProfileChanged getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataInteractionProfileChanged#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataInteractionProfileChanged.ntype(address()); }
-        /** @return the value of the {@link XrEventDataInteractionProfileChanged#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataInteractionProfileChanged.nnext(address()); }
-        /** @return the value of the {@link XrEventDataInteractionProfileChanged#session} field. */
+        /** @return the value of the {@code session} field. */
         @NativeType("XrSession")
         public long session() { return XrEventDataInteractionProfileChanged.nsession(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataInteractionProfileChanged#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataInteractionProfileChanged.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataInteractionProfileChanged.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED} value to the {@link XrEventDataInteractionProfileChanged#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED} value to the {@code type} field. */
         public XrEventDataInteractionProfileChanged.Buffer type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED); }
-        /** Sets the specified value to the {@link XrEventDataInteractionProfileChanged#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataInteractionProfileChanged.Buffer next(@NativeType("void const *") long value) { XrEventDataInteractionProfileChanged.nnext(address(), value); return this; }
 
     }

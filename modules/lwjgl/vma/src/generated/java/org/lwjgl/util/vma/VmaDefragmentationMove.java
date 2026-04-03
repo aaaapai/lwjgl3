@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.vma;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,16 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Single move of an allocation to be done for defragmentation.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VmaDefragmentationMove {
- *     VmaDefragmentationMoveOperation {@link #operation};
- *     VmaAllocation {@link #srcAllocation};
- *     VmaAllocation {@link #dstTmpAllocation};
- * }</code></pre>
+ *     VmaDefragmentationMoveOperation operation;
+ *     VmaAllocation srcAllocation;
+ *     VmaAllocation dstTmpAllocation;
+ * }}</pre>
  */
 public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> implements NativeResource {
 
@@ -79,31 +75,21 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * operation to be performed on the allocation by {@link Vma#vmaEndDefragmentationPass EndDefragmentationPass}.
-     * 
-     * <p>Default value is {@link Vma#VMA_DEFRAGMENTATION_MOVE_OPERATION_COPY DEFRAGMENTATION_MOVE_OPERATION_COPY}. You can modify it.</p>
-     */
+    /** @return the value of the {@code operation} field. */
     @NativeType("VmaDefragmentationMoveOperation")
     public int operation() { return noperation(address()); }
-    /** allocation that should be moved */
+    /** @return the value of the {@code srcAllocation} field. */
     @NativeType("VmaAllocation")
     public long srcAllocation() { return nsrcAllocation(address()); }
-    /**
-     * temporary allocation pointing to destination memory that will replace {@code srcAllocation}.
-     * 
-     * <p>Warning: Do not store this allocation in your data structures! It exists only temporarily, for the duration of the defragmentation pass, to be used for
-     * binding new buffer/image to the destination memory using e.g. {@link Vma#vmaBindBufferMemory BindBufferMemory}. {@link Vma#vmaEndDefragmentationPass EndDefragmentationPass} will destroy it and make
-     * {@code srcAllocation} point to this memory.</p>
-     */
+    /** @return the value of the {@code dstTmpAllocation} field. */
     @NativeType("VmaAllocation")
     public long dstTmpAllocation() { return ndstTmpAllocation(address()); }
 
-    /** Sets the specified value to the {@link #operation} field. */
+    /** Sets the specified value to the {@code operation} field. */
     public VmaDefragmentationMove operation(@NativeType("VmaDefragmentationMoveOperation") int value) { noperation(address(), value); return this; }
-    /** Sets the specified value to the {@link #srcAllocation} field. */
+    /** Sets the specified value to the {@code srcAllocation} field. */
     public VmaDefragmentationMove srcAllocation(@NativeType("VmaAllocation") long value) { nsrcAllocation(address(), value); return this; }
-    /** Sets the specified value to the {@link #dstTmpAllocation} field. */
+    /** Sets the specified value to the {@code dstTmpAllocation} field. */
     public VmaDefragmentationMove dstTmpAllocation(@NativeType("VmaAllocation") long value) { ndstTmpAllocation(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -155,8 +141,7 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDefragmentationMove createSafe(long address) {
+    public static @Nullable VmaDefragmentationMove createSafe(long address) {
         return address == NULL ? null : new VmaDefragmentationMove(address, null);
     }
 
@@ -199,8 +184,7 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VmaDefragmentationMove.Buffer createSafe(long address, int capacity) {
+    public static VmaDefragmentationMove.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -245,14 +229,14 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
     // -----------------------------------
 
     /** Unsafe version of {@link #operation}. */
-    public static int noperation(long struct) { return UNSAFE.getInt(null, struct + VmaDefragmentationMove.OPERATION); }
+    public static int noperation(long struct) { return memGetInt(struct + VmaDefragmentationMove.OPERATION); }
     /** Unsafe version of {@link #srcAllocation}. */
     public static long nsrcAllocation(long struct) { return memGetAddress(struct + VmaDefragmentationMove.SRCALLOCATION); }
     /** Unsafe version of {@link #dstTmpAllocation}. */
     public static long ndstTmpAllocation(long struct) { return memGetAddress(struct + VmaDefragmentationMove.DSTTMPALLOCATION); }
 
     /** Unsafe version of {@link #operation(int) operation}. */
-    public static void noperation(long struct, int value) { UNSAFE.putInt(null, struct + VmaDefragmentationMove.OPERATION, value); }
+    public static void noperation(long struct, int value) { memPutInt(struct + VmaDefragmentationMove.OPERATION, value); }
     /** Unsafe version of {@link #srcAllocation(long) srcAllocation}. */
     public static void nsrcAllocation(long struct, long value) { memPutAddress(struct + VmaDefragmentationMove.SRCALLOCATION, check(value)); }
     /** Unsafe version of {@link #dstTmpAllocation(long) dstTmpAllocation}. */
@@ -302,25 +286,30 @@ public class VmaDefragmentationMove extends Struct<VmaDefragmentationMove> imple
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VmaDefragmentationMove getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VmaDefragmentationMove#operation} field. */
+        /** @return the value of the {@code operation} field. */
         @NativeType("VmaDefragmentationMoveOperation")
         public int operation() { return VmaDefragmentationMove.noperation(address()); }
-        /** @return the value of the {@link VmaDefragmentationMove#srcAllocation} field. */
+        /** @return the value of the {@code srcAllocation} field. */
         @NativeType("VmaAllocation")
         public long srcAllocation() { return VmaDefragmentationMove.nsrcAllocation(address()); }
-        /** @return the value of the {@link VmaDefragmentationMove#dstTmpAllocation} field. */
+        /** @return the value of the {@code dstTmpAllocation} field. */
         @NativeType("VmaAllocation")
         public long dstTmpAllocation() { return VmaDefragmentationMove.ndstTmpAllocation(address()); }
 
-        /** Sets the specified value to the {@link VmaDefragmentationMove#operation} field. */
+        /** Sets the specified value to the {@code operation} field. */
         public VmaDefragmentationMove.Buffer operation(@NativeType("VmaDefragmentationMoveOperation") int value) { VmaDefragmentationMove.noperation(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationMove#srcAllocation} field. */
+        /** Sets the specified value to the {@code srcAllocation} field. */
         public VmaDefragmentationMove.Buffer srcAllocation(@NativeType("VmaAllocation") long value) { VmaDefragmentationMove.nsrcAllocation(address(), value); return this; }
-        /** Sets the specified value to the {@link VmaDefragmentationMove#dstTmpAllocation} field. */
+        /** Sets the specified value to the {@code dstTmpAllocation} field. */
         public VmaDefragmentationMove.Buffer dstTmpAllocation(@NativeType("VmaAllocation") long value) { VmaDefragmentationMove.ndstTmpAllocation(address(), value); return this; }
 
     }

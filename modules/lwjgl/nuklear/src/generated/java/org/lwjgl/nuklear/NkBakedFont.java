@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_baked_font {
- *     float {@link #height};
- *     float {@link #ascent};
- *     float {@link #descent};
- *     nk_rune {@link #glyph_offset};
- *     nk_rune {@link #glyph_count};
- *     nk_rune const * {@link #ranges};
- * }</code></pre>
+ *     float height;
+ *     float ascent;
+ *     float descent;
+ *     nk_rune glyph_offset;
+ *     nk_rune glyph_count;
+ *     nk_rune const * ranges;
+ * }}</pre>
  */
 @NativeType("struct nk_baked_font")
 public class NkBakedFont extends Struct<NkBakedFont> implements NativeResource {
@@ -89,38 +87,33 @@ public class NkBakedFont extends Struct<NkBakedFont> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** height of the font */
+    /** @return the value of the {@code height} field. */
     public float height() { return nheight(address()); }
-    /** font glyph ascent */
+    /** @return the value of the {@code ascent} field. */
     public float ascent() { return nascent(address()); }
-    /** font glyph descent */
+    /** @return the value of the {@code descent} field. */
     public float descent() { return ndescent(address()); }
-    /** glyph array offset inside the font glyph baking output array */
+    /** @return the value of the {@code glyph_offset} field. */
     @NativeType("nk_rune")
     public int glyph_offset() { return nglyph_offset(address()); }
-    /** number of glyphs of this font inside the glyph baking array output */
+    /** @return the value of the {@code glyph_count} field. */
     @NativeType("nk_rune")
     public int glyph_count() { return nglyph_count(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return font codepoint ranges as pairs of (from/to) and 0 as last element
-     */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code ranges} field. */
     @NativeType("nk_rune const *")
-    public IntBuffer ranges(int capacity) { return nranges(address(), capacity); }
+    public @Nullable IntBuffer ranges(int capacity) { return nranges(address(), capacity); }
 
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public NkBakedFont height(float value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #ascent} field. */
+    /** Sets the specified value to the {@code ascent} field. */
     public NkBakedFont ascent(float value) { nascent(address(), value); return this; }
-    /** Sets the specified value to the {@link #descent} field. */
+    /** Sets the specified value to the {@code descent} field. */
     public NkBakedFont descent(float value) { ndescent(address(), value); return this; }
-    /** Sets the specified value to the {@link #glyph_offset} field. */
+    /** Sets the specified value to the {@code glyph_offset} field. */
     public NkBakedFont glyph_offset(@NativeType("nk_rune") int value) { nglyph_offset(address(), value); return this; }
-    /** Sets the specified value to the {@link #glyph_count} field. */
+    /** Sets the specified value to the {@code glyph_count} field. */
     public NkBakedFont glyph_count(@NativeType("nk_rune") int value) { nglyph_count(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #ranges} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code ranges} field. */
     public NkBakedFont ranges(@Nullable @NativeType("nk_rune const *") IntBuffer value) { nranges(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +171,7 @@ public class NkBakedFont extends Struct<NkBakedFont> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkBakedFont createSafe(long address) {
+    public static @Nullable NkBakedFont createSafe(long address) {
         return address == NULL ? null : new NkBakedFont(address, null);
     }
 
@@ -222,8 +214,7 @@ public class NkBakedFont extends Struct<NkBakedFont> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkBakedFont.Buffer createSafe(long address, int capacity) {
+    public static NkBakedFont.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,28 +259,28 @@ public class NkBakedFont extends Struct<NkBakedFont> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #height}. */
-    public static float nheight(long struct) { return UNSAFE.getFloat(null, struct + NkBakedFont.HEIGHT); }
+    public static float nheight(long struct) { return memGetFloat(struct + NkBakedFont.HEIGHT); }
     /** Unsafe version of {@link #ascent}. */
-    public static float nascent(long struct) { return UNSAFE.getFloat(null, struct + NkBakedFont.ASCENT); }
+    public static float nascent(long struct) { return memGetFloat(struct + NkBakedFont.ASCENT); }
     /** Unsafe version of {@link #descent}. */
-    public static float ndescent(long struct) { return UNSAFE.getFloat(null, struct + NkBakedFont.DESCENT); }
+    public static float ndescent(long struct) { return memGetFloat(struct + NkBakedFont.DESCENT); }
     /** Unsafe version of {@link #glyph_offset}. */
-    public static int nglyph_offset(long struct) { return UNSAFE.getInt(null, struct + NkBakedFont.GLYPH_OFFSET); }
+    public static int nglyph_offset(long struct) { return memGetInt(struct + NkBakedFont.GLYPH_OFFSET); }
     /** Unsafe version of {@link #glyph_count}. */
-    public static int nglyph_count(long struct) { return UNSAFE.getInt(null, struct + NkBakedFont.GLYPH_COUNT); }
+    public static int nglyph_count(long struct) { return memGetInt(struct + NkBakedFont.GLYPH_COUNT); }
     /** Unsafe version of {@link #ranges(int) ranges}. */
-    @Nullable public static IntBuffer nranges(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + NkBakedFont.RANGES), capacity); }
+    public static @Nullable IntBuffer nranges(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + NkBakedFont.RANGES), capacity); }
 
     /** Unsafe version of {@link #height(float) height}. */
-    public static void nheight(long struct, float value) { UNSAFE.putFloat(null, struct + NkBakedFont.HEIGHT, value); }
+    public static void nheight(long struct, float value) { memPutFloat(struct + NkBakedFont.HEIGHT, value); }
     /** Unsafe version of {@link #ascent(float) ascent}. */
-    public static void nascent(long struct, float value) { UNSAFE.putFloat(null, struct + NkBakedFont.ASCENT, value); }
+    public static void nascent(long struct, float value) { memPutFloat(struct + NkBakedFont.ASCENT, value); }
     /** Unsafe version of {@link #descent(float) descent}. */
-    public static void ndescent(long struct, float value) { UNSAFE.putFloat(null, struct + NkBakedFont.DESCENT, value); }
+    public static void ndescent(long struct, float value) { memPutFloat(struct + NkBakedFont.DESCENT, value); }
     /** Unsafe version of {@link #glyph_offset(int) glyph_offset}. */
-    public static void nglyph_offset(long struct, int value) { UNSAFE.putInt(null, struct + NkBakedFont.GLYPH_OFFSET, value); }
+    public static void nglyph_offset(long struct, int value) { memPutInt(struct + NkBakedFont.GLYPH_OFFSET, value); }
     /** Unsafe version of {@link #glyph_count(int) glyph_count}. */
-    public static void nglyph_count(long struct, int value) { UNSAFE.putInt(null, struct + NkBakedFont.GLYPH_COUNT, value); }
+    public static void nglyph_count(long struct, int value) { memPutInt(struct + NkBakedFont.GLYPH_COUNT, value); }
     /** Unsafe version of {@link #ranges(IntBuffer) ranges}. */
     public static void nranges(long struct, @Nullable IntBuffer value) { memPutAddress(struct + NkBakedFont.RANGES, memAddressSafe(value)); }
 
@@ -327,42 +318,42 @@ public class NkBakedFont extends Struct<NkBakedFont> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected NkBakedFont getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NkBakedFont#height} field. */
+        /** @return the value of the {@code height} field. */
         public float height() { return NkBakedFont.nheight(address()); }
-        /** @return the value of the {@link NkBakedFont#ascent} field. */
+        /** @return the value of the {@code ascent} field. */
         public float ascent() { return NkBakedFont.nascent(address()); }
-        /** @return the value of the {@link NkBakedFont#descent} field. */
+        /** @return the value of the {@code descent} field. */
         public float descent() { return NkBakedFont.ndescent(address()); }
-        /** @return the value of the {@link NkBakedFont#glyph_offset} field. */
+        /** @return the value of the {@code glyph_offset} field. */
         @NativeType("nk_rune")
         public int glyph_offset() { return NkBakedFont.nglyph_offset(address()); }
-        /** @return the value of the {@link NkBakedFont#glyph_count} field. */
+        /** @return the value of the {@code glyph_count} field. */
         @NativeType("nk_rune")
         public int glyph_count() { return NkBakedFont.nglyph_count(address()); }
-        /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@link NkBakedFont#ranges} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code ranges} field. */
         @NativeType("nk_rune const *")
-        public IntBuffer ranges(int capacity) { return NkBakedFont.nranges(address(), capacity); }
+        public @Nullable IntBuffer ranges(int capacity) { return NkBakedFont.nranges(address(), capacity); }
 
-        /** Sets the specified value to the {@link NkBakedFont#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public NkBakedFont.Buffer height(float value) { NkBakedFont.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@link NkBakedFont#ascent} field. */
+        /** Sets the specified value to the {@code ascent} field. */
         public NkBakedFont.Buffer ascent(float value) { NkBakedFont.nascent(address(), value); return this; }
-        /** Sets the specified value to the {@link NkBakedFont#descent} field. */
+        /** Sets the specified value to the {@code descent} field. */
         public NkBakedFont.Buffer descent(float value) { NkBakedFont.ndescent(address(), value); return this; }
-        /** Sets the specified value to the {@link NkBakedFont#glyph_offset} field. */
+        /** Sets the specified value to the {@code glyph_offset} field. */
         public NkBakedFont.Buffer glyph_offset(@NativeType("nk_rune") int value) { NkBakedFont.nglyph_offset(address(), value); return this; }
-        /** Sets the specified value to the {@link NkBakedFont#glyph_count} field. */
+        /** Sets the specified value to the {@code glyph_count} field. */
         public NkBakedFont.Buffer glyph_count(@NativeType("nk_rune") int value) { NkBakedFont.nglyph_count(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link NkBakedFont#ranges} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code ranges} field. */
         public NkBakedFont.Buffer ranges(@Nullable @NativeType("nk_rune const *") IntBuffer value) { NkBakedFont.nranges(address(), value); return this; }
 
     }

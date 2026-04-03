@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,21 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for passing texture information to {@link KTX#ktxTexture1_Create Texture1_Create} and {@link KTX#ktxTexture2_Create Texture2_Create}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ktxTextureCreateInfo {
- *     ktx_uint32_t {@link #glInternalformat};
- *     ktx_uint32_t {@link #vkFormat};
- *     ktx_uint32_t * {@link #pDfd};
- *     ktx_uint32_t {@link #baseWidth};
- *     ktx_uint32_t {@link #baseHeight};
- *     ktx_uint32_t {@link #baseDepth};
- *     ktx_uint32_t {@link #numDimensions};
- *     ktx_uint32_t {@link #numLevels};
- *     ktx_uint32_t {@link #numLayers};
- *     ktx_uint32_t {@link #numFaces};
- *     ktx_bool_t {@link #isArray};
- *     ktx_bool_t {@link #generateMipmaps};
- * }</code></pre>
+ *     ktx_uint32_t glInternalformat;
+ *     ktx_uint32_t vkFormat;
+ *     ktx_uint32_t * pDfd;
+ *     ktx_uint32_t baseWidth;
+ *     ktx_uint32_t baseHeight;
+ *     ktx_uint32_t baseDepth;
+ *     ktx_uint32_t numDimensions;
+ *     ktx_uint32_t numLevels;
+ *     ktx_uint32_t numLayers;
+ *     ktx_uint32_t numFaces;
+ *     ktx_bool_t isArray;
+ *     ktx_bool_t generateMipmaps;
+ * }}</pre>
  */
 public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implements NativeResource {
 
@@ -114,71 +110,66 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** internal format for the texture, e.g., {@code GL_RGB8}. Ignored when creating a {@code ktxTexture2}. */
+    /** @return the value of the {@code glInternalformat} field. */
     @NativeType("ktx_uint32_t")
     public int glInternalformat() { return nglInternalformat(address()); }
-    /** {@code vkFormat} for texture. Ignored when creating a {@code ktxTexture1}. */
+    /** @return the value of the {@code vkFormat} field. */
     @NativeType("ktx_uint32_t")
     public int vkFormat() { return nvkFormat(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return pointer to DFD. Used only when creating a {@code ktxTexture2} and only if {@code vkFormat} is {@code VK_FORMAT_UNDEFINED}.
-     */
-    @Nullable
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code pDfd} field. */
     @NativeType("ktx_uint32_t *")
-    public IntBuffer pDfd(int capacity) { return npDfd(address(), capacity); }
-    /** width of the base level of the texture */
+    public @Nullable IntBuffer pDfd(int capacity) { return npDfd(address(), capacity); }
+    /** @return the value of the {@code baseWidth} field. */
     @NativeType("ktx_uint32_t")
     public int baseWidth() { return nbaseWidth(address()); }
-    /** height of the base level of the texture */
+    /** @return the value of the {@code baseHeight} field. */
     @NativeType("ktx_uint32_t")
     public int baseHeight() { return nbaseHeight(address()); }
-    /** depth of the base level of the texture */
+    /** @return the value of the {@code baseDepth} field. */
     @NativeType("ktx_uint32_t")
     public int baseDepth() { return nbaseDepth(address()); }
-    /** number of dimensions in the texture, 1, 2 or 3 */
+    /** @return the value of the {@code numDimensions} field. */
     @NativeType("ktx_uint32_t")
     public int numDimensions() { return nnumDimensions(address()); }
-    /** number of mip levels in the texture. Should be 1 if {@code generateMipmaps} is {@link KTX#KTX_TRUE TRUE}. */
+    /** @return the value of the {@code numLevels} field. */
     @NativeType("ktx_uint32_t")
     public int numLevels() { return nnumLevels(address()); }
-    /** number of array layers in the texture */
+    /** @return the value of the {@code numLayers} field. */
     @NativeType("ktx_uint32_t")
     public int numLayers() { return nnumLayers(address()); }
-    /** number of faces: 6 for cube maps, 1 otherwise */
+    /** @return the value of the {@code numFaces} field. */
     @NativeType("ktx_uint32_t")
     public int numFaces() { return nnumFaces(address()); }
-    /** set to {@link KTX#KTX_TRUE TRUE} if the texture is to be an array texture. Means OpenGL will use a {@code GL_TEXTURE_*_ARRAY} target. */
+    /** @return the value of the {@code isArray} field. */
     @NativeType("ktx_bool_t")
     public boolean isArray() { return nisArray(address()); }
-    /** set to {@link KTX#KTX_TRUE TRUE} if mipmaps should be generated for the texture when loading into a 3D API */
+    /** @return the value of the {@code generateMipmaps} field. */
     @NativeType("ktx_bool_t")
     public boolean generateMipmaps() { return ngenerateMipmaps(address()); }
 
-    /** Sets the specified value to the {@link #glInternalformat} field. */
+    /** Sets the specified value to the {@code glInternalformat} field. */
     public ktxTextureCreateInfo glInternalformat(@NativeType("ktx_uint32_t") int value) { nglInternalformat(address(), value); return this; }
-    /** Sets the specified value to the {@link #vkFormat} field. */
+    /** Sets the specified value to the {@code vkFormat} field. */
     public ktxTextureCreateInfo vkFormat(@NativeType("ktx_uint32_t") int value) { nvkFormat(address(), value); return this; }
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #pDfd} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code pDfd} field. */
     public ktxTextureCreateInfo pDfd(@Nullable @NativeType("ktx_uint32_t *") IntBuffer value) { npDfd(address(), value); return this; }
-    /** Sets the specified value to the {@link #baseWidth} field. */
+    /** Sets the specified value to the {@code baseWidth} field. */
     public ktxTextureCreateInfo baseWidth(@NativeType("ktx_uint32_t") int value) { nbaseWidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #baseHeight} field. */
+    /** Sets the specified value to the {@code baseHeight} field. */
     public ktxTextureCreateInfo baseHeight(@NativeType("ktx_uint32_t") int value) { nbaseHeight(address(), value); return this; }
-    /** Sets the specified value to the {@link #baseDepth} field. */
+    /** Sets the specified value to the {@code baseDepth} field. */
     public ktxTextureCreateInfo baseDepth(@NativeType("ktx_uint32_t") int value) { nbaseDepth(address(), value); return this; }
-    /** Sets the specified value to the {@link #numDimensions} field. */
+    /** Sets the specified value to the {@code numDimensions} field. */
     public ktxTextureCreateInfo numDimensions(@NativeType("ktx_uint32_t") int value) { nnumDimensions(address(), value); return this; }
-    /** Sets the specified value to the {@link #numLevels} field. */
+    /** Sets the specified value to the {@code numLevels} field. */
     public ktxTextureCreateInfo numLevels(@NativeType("ktx_uint32_t") int value) { nnumLevels(address(), value); return this; }
-    /** Sets the specified value to the {@link #numLayers} field. */
+    /** Sets the specified value to the {@code numLayers} field. */
     public ktxTextureCreateInfo numLayers(@NativeType("ktx_uint32_t") int value) { nnumLayers(address(), value); return this; }
-    /** Sets the specified value to the {@link #numFaces} field. */
+    /** Sets the specified value to the {@code numFaces} field. */
     public ktxTextureCreateInfo numFaces(@NativeType("ktx_uint32_t") int value) { nnumFaces(address(), value); return this; }
-    /** Sets the specified value to the {@link #isArray} field. */
+    /** Sets the specified value to the {@code isArray} field. */
     public ktxTextureCreateInfo isArray(@NativeType("ktx_bool_t") boolean value) { nisArray(address(), value); return this; }
-    /** Sets the specified value to the {@link #generateMipmaps} field. */
+    /** Sets the specified value to the {@code generateMipmaps} field. */
     public ktxTextureCreateInfo generateMipmaps(@NativeType("ktx_bool_t") boolean value) { ngenerateMipmaps(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -248,8 +239,7 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxTextureCreateInfo createSafe(long address) {
+    public static @Nullable ktxTextureCreateInfo createSafe(long address) {
         return address == NULL ? null : new ktxTextureCreateInfo(address, null);
     }
 
@@ -292,8 +282,7 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxTextureCreateInfo.Buffer createSafe(long address, int capacity) {
+    public static ktxTextureCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -338,54 +327,54 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
     // -----------------------------------
 
     /** Unsafe version of {@link #glInternalformat}. */
-    public static int nglInternalformat(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.GLINTERNALFORMAT); }
+    public static int nglInternalformat(long struct) { return memGetInt(struct + ktxTextureCreateInfo.GLINTERNALFORMAT); }
     /** Unsafe version of {@link #vkFormat}. */
-    public static int nvkFormat(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.VKFORMAT); }
+    public static int nvkFormat(long struct) { return memGetInt(struct + ktxTextureCreateInfo.VKFORMAT); }
     /** Unsafe version of {@link #pDfd(int) pDfd}. */
-    @Nullable public static IntBuffer npDfd(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + ktxTextureCreateInfo.PDFD), capacity); }
+    public static @Nullable IntBuffer npDfd(long struct, int capacity) { return memIntBufferSafe(memGetAddress(struct + ktxTextureCreateInfo.PDFD), capacity); }
     /** Unsafe version of {@link #baseWidth}. */
-    public static int nbaseWidth(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.BASEWIDTH); }
+    public static int nbaseWidth(long struct) { return memGetInt(struct + ktxTextureCreateInfo.BASEWIDTH); }
     /** Unsafe version of {@link #baseHeight}. */
-    public static int nbaseHeight(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.BASEHEIGHT); }
+    public static int nbaseHeight(long struct) { return memGetInt(struct + ktxTextureCreateInfo.BASEHEIGHT); }
     /** Unsafe version of {@link #baseDepth}. */
-    public static int nbaseDepth(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.BASEDEPTH); }
+    public static int nbaseDepth(long struct) { return memGetInt(struct + ktxTextureCreateInfo.BASEDEPTH); }
     /** Unsafe version of {@link #numDimensions}. */
-    public static int nnumDimensions(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMDIMENSIONS); }
+    public static int nnumDimensions(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMDIMENSIONS); }
     /** Unsafe version of {@link #numLevels}. */
-    public static int nnumLevels(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMLEVELS); }
+    public static int nnumLevels(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMLEVELS); }
     /** Unsafe version of {@link #numLayers}. */
-    public static int nnumLayers(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMLAYERS); }
+    public static int nnumLayers(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMLAYERS); }
     /** Unsafe version of {@link #numFaces}. */
-    public static int nnumFaces(long struct) { return UNSAFE.getInt(null, struct + ktxTextureCreateInfo.NUMFACES); }
+    public static int nnumFaces(long struct) { return memGetInt(struct + ktxTextureCreateInfo.NUMFACES); }
     /** Unsafe version of {@link #isArray}. */
-    public static boolean nisArray(long struct) { return UNSAFE.getByte(null, struct + ktxTextureCreateInfo.ISARRAY) != 0; }
+    public static boolean nisArray(long struct) { return memGetByte(struct + ktxTextureCreateInfo.ISARRAY) != 0; }
     /** Unsafe version of {@link #generateMipmaps}. */
-    public static boolean ngenerateMipmaps(long struct) { return UNSAFE.getByte(null, struct + ktxTextureCreateInfo.GENERATEMIPMAPS) != 0; }
+    public static boolean ngenerateMipmaps(long struct) { return memGetByte(struct + ktxTextureCreateInfo.GENERATEMIPMAPS) != 0; }
 
     /** Unsafe version of {@link #glInternalformat(int) glInternalformat}. */
-    public static void nglInternalformat(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.GLINTERNALFORMAT, value); }
+    public static void nglInternalformat(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.GLINTERNALFORMAT, value); }
     /** Unsafe version of {@link #vkFormat(int) vkFormat}. */
-    public static void nvkFormat(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.VKFORMAT, value); }
+    public static void nvkFormat(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.VKFORMAT, value); }
     /** Unsafe version of {@link #pDfd(IntBuffer) pDfd}. */
     public static void npDfd(long struct, @Nullable IntBuffer value) { memPutAddress(struct + ktxTextureCreateInfo.PDFD, memAddressSafe(value)); }
     /** Unsafe version of {@link #baseWidth(int) baseWidth}. */
-    public static void nbaseWidth(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.BASEWIDTH, value); }
+    public static void nbaseWidth(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.BASEWIDTH, value); }
     /** Unsafe version of {@link #baseHeight(int) baseHeight}. */
-    public static void nbaseHeight(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.BASEHEIGHT, value); }
+    public static void nbaseHeight(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.BASEHEIGHT, value); }
     /** Unsafe version of {@link #baseDepth(int) baseDepth}. */
-    public static void nbaseDepth(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.BASEDEPTH, value); }
+    public static void nbaseDepth(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.BASEDEPTH, value); }
     /** Unsafe version of {@link #numDimensions(int) numDimensions}. */
-    public static void nnumDimensions(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMDIMENSIONS, value); }
+    public static void nnumDimensions(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMDIMENSIONS, value); }
     /** Unsafe version of {@link #numLevels(int) numLevels}. */
-    public static void nnumLevels(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMLEVELS, value); }
+    public static void nnumLevels(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMLEVELS, value); }
     /** Unsafe version of {@link #numLayers(int) numLayers}. */
-    public static void nnumLayers(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMLAYERS, value); }
+    public static void nnumLayers(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMLAYERS, value); }
     /** Unsafe version of {@link #numFaces(int) numFaces}. */
-    public static void nnumFaces(long struct, int value) { UNSAFE.putInt(null, struct + ktxTextureCreateInfo.NUMFACES, value); }
+    public static void nnumFaces(long struct, int value) { memPutInt(struct + ktxTextureCreateInfo.NUMFACES, value); }
     /** Unsafe version of {@link #isArray(boolean) isArray}. */
-    public static void nisArray(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxTextureCreateInfo.ISARRAY, value ? (byte)1 : (byte)0); }
+    public static void nisArray(long struct, boolean value) { memPutByte(struct + ktxTextureCreateInfo.ISARRAY, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #generateMipmaps(boolean) generateMipmaps}. */
-    public static void ngenerateMipmaps(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxTextureCreateInfo.GENERATEMIPMAPS, value ? (byte)1 : (byte)0); }
+    public static void ngenerateMipmaps(long struct, boolean value) { memPutByte(struct + ktxTextureCreateInfo.GENERATEMIPMAPS, value ? (byte)1 : (byte)0); }
 
     // -----------------------------------
 
@@ -421,75 +410,75 @@ public class ktxTextureCreateInfo extends Struct<ktxTextureCreateInfo> implement
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ktxTextureCreateInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ktxTextureCreateInfo#glInternalformat} field. */
+        /** @return the value of the {@code glInternalformat} field. */
         @NativeType("ktx_uint32_t")
         public int glInternalformat() { return ktxTextureCreateInfo.nglInternalformat(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#vkFormat} field. */
+        /** @return the value of the {@code vkFormat} field. */
         @NativeType("ktx_uint32_t")
         public int vkFormat() { return ktxTextureCreateInfo.nvkFormat(address()); }
-        /**
-         * @return a {@link IntBuffer} view of the data pointed to by the {@link ktxTextureCreateInfo#pDfd} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
-        @Nullable
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code pDfd} field. */
         @NativeType("ktx_uint32_t *")
-        public IntBuffer pDfd(int capacity) { return ktxTextureCreateInfo.npDfd(address(), capacity); }
-        /** @return the value of the {@link ktxTextureCreateInfo#baseWidth} field. */
+        public @Nullable IntBuffer pDfd(int capacity) { return ktxTextureCreateInfo.npDfd(address(), capacity); }
+        /** @return the value of the {@code baseWidth} field. */
         @NativeType("ktx_uint32_t")
         public int baseWidth() { return ktxTextureCreateInfo.nbaseWidth(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#baseHeight} field. */
+        /** @return the value of the {@code baseHeight} field. */
         @NativeType("ktx_uint32_t")
         public int baseHeight() { return ktxTextureCreateInfo.nbaseHeight(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#baseDepth} field. */
+        /** @return the value of the {@code baseDepth} field. */
         @NativeType("ktx_uint32_t")
         public int baseDepth() { return ktxTextureCreateInfo.nbaseDepth(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#numDimensions} field. */
+        /** @return the value of the {@code numDimensions} field. */
         @NativeType("ktx_uint32_t")
         public int numDimensions() { return ktxTextureCreateInfo.nnumDimensions(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#numLevels} field. */
+        /** @return the value of the {@code numLevels} field. */
         @NativeType("ktx_uint32_t")
         public int numLevels() { return ktxTextureCreateInfo.nnumLevels(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#numLayers} field. */
+        /** @return the value of the {@code numLayers} field. */
         @NativeType("ktx_uint32_t")
         public int numLayers() { return ktxTextureCreateInfo.nnumLayers(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#numFaces} field. */
+        /** @return the value of the {@code numFaces} field. */
         @NativeType("ktx_uint32_t")
         public int numFaces() { return ktxTextureCreateInfo.nnumFaces(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#isArray} field. */
+        /** @return the value of the {@code isArray} field. */
         @NativeType("ktx_bool_t")
         public boolean isArray() { return ktxTextureCreateInfo.nisArray(address()); }
-        /** @return the value of the {@link ktxTextureCreateInfo#generateMipmaps} field. */
+        /** @return the value of the {@code generateMipmaps} field. */
         @NativeType("ktx_bool_t")
         public boolean generateMipmaps() { return ktxTextureCreateInfo.ngenerateMipmaps(address()); }
 
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#glInternalformat} field. */
+        /** Sets the specified value to the {@code glInternalformat} field. */
         public ktxTextureCreateInfo.Buffer glInternalformat(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nglInternalformat(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#vkFormat} field. */
+        /** Sets the specified value to the {@code vkFormat} field. */
         public ktxTextureCreateInfo.Buffer vkFormat(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nvkFormat(address(), value); return this; }
-        /** Sets the address of the specified {@link IntBuffer} to the {@link ktxTextureCreateInfo#pDfd} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code pDfd} field. */
         public ktxTextureCreateInfo.Buffer pDfd(@Nullable @NativeType("ktx_uint32_t *") IntBuffer value) { ktxTextureCreateInfo.npDfd(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#baseWidth} field. */
+        /** Sets the specified value to the {@code baseWidth} field. */
         public ktxTextureCreateInfo.Buffer baseWidth(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nbaseWidth(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#baseHeight} field. */
+        /** Sets the specified value to the {@code baseHeight} field. */
         public ktxTextureCreateInfo.Buffer baseHeight(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nbaseHeight(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#baseDepth} field. */
+        /** Sets the specified value to the {@code baseDepth} field. */
         public ktxTextureCreateInfo.Buffer baseDepth(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nbaseDepth(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#numDimensions} field. */
+        /** Sets the specified value to the {@code numDimensions} field. */
         public ktxTextureCreateInfo.Buffer numDimensions(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nnumDimensions(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#numLevels} field. */
+        /** Sets the specified value to the {@code numLevels} field. */
         public ktxTextureCreateInfo.Buffer numLevels(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nnumLevels(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#numLayers} field. */
+        /** Sets the specified value to the {@code numLayers} field. */
         public ktxTextureCreateInfo.Buffer numLayers(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nnumLayers(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#numFaces} field. */
+        /** Sets the specified value to the {@code numFaces} field. */
         public ktxTextureCreateInfo.Buffer numFaces(@NativeType("ktx_uint32_t") int value) { ktxTextureCreateInfo.nnumFaces(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#isArray} field. */
+        /** Sets the specified value to the {@code isArray} field. */
         public ktxTextureCreateInfo.Buffer isArray(@NativeType("ktx_bool_t") boolean value) { ktxTextureCreateInfo.nisArray(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxTextureCreateInfo#generateMipmaps} field. */
+        /** Sets the specified value to the {@code generateMipmaps} field. */
         public ktxTextureCreateInfo.Buffer generateMipmaps(@NativeType("ktx_bool_t") boolean value) { ktxTextureCreateInfo.ngenerateMipmaps(address(), value); return this; }
 
     }

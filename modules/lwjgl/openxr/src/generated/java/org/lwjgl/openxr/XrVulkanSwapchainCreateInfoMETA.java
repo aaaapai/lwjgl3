@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,31 +18,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.*;
 
 /**
- * Debug utils object name info.
- * 
- * <h5>Description</h5>
- * 
- * <p>The runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} if any bit of either {@code additionalCreateFlags} or {@code additionalUsageFlags} is not supported.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAVulkanSwapchainCreateInfo XR_META_vulkan_swapchain_create_info} extension <b>must</b> be enabled prior to using {@link XrVulkanSwapchainCreateInfoMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAVulkanSwapchainCreateInfo#XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code additionalCreateFlags} <b>must</b> be a valid {@code VkImageCreateFlags} value</li>
- * <li>{@code additionalUsageFlags} <b>must</b> be a valid {@code VkImageUsageFlags} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVulkanSwapchainCreateInfoMETA {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     VkImageCreateFlags {@link #additionalCreateFlags};
- *     VkImageUsageFlags {@link #additionalUsageFlags};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     VkImageCreateFlags additionalCreateFlags;
+ *     VkImageUsageFlags additionalUsageFlags;
+ * }}</pre>
  */
 public class XrVulkanSwapchainCreateInfoMETA extends Struct<XrVulkanSwapchainCreateInfoMETA> implements NativeResource {
 
@@ -98,28 +80,28 @@ public class XrVulkanSwapchainCreateInfoMETA extends Struct<XrVulkanSwapchainCre
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** a bitmask of {@code VkImageCreateFlags} describing additional parameters of an image. */
+    /** @return the value of the {@code additionalCreateFlags} field. */
     @NativeType("VkImageCreateFlags")
     public int additionalCreateFlags() { return nadditionalCreateFlags(address()); }
-    /** a bitmask of {@code VkImageUsageFlags} describing additional parameters of an image. */
+    /** @return the value of the {@code additionalUsageFlags} field. */
     @NativeType("VkImageUsageFlags")
     public int additionalUsageFlags() { return nadditionalUsageFlags(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVulkanSwapchainCreateInfoMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAVulkanSwapchainCreateInfo#XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META} value to the {@link #type} field. */
+    /** Sets the {@link METAVulkanSwapchainCreateInfo#XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META} value to the {@code type} field. */
     public XrVulkanSwapchainCreateInfoMETA type$Default() { return type(METAVulkanSwapchainCreateInfo.XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVulkanSwapchainCreateInfoMETA next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #additionalCreateFlags} field. */
+    /** Sets the specified value to the {@code additionalCreateFlags} field. */
     public XrVulkanSwapchainCreateInfoMETA additionalCreateFlags(@NativeType("VkImageCreateFlags") int value) { nadditionalCreateFlags(address(), value); return this; }
-    /** Sets the specified value to the {@link #additionalUsageFlags} field. */
+    /** Sets the specified value to the {@code additionalUsageFlags} field. */
     public XrVulkanSwapchainCreateInfoMETA additionalUsageFlags(@NativeType("VkImageUsageFlags") int value) { nadditionalUsageFlags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -173,8 +155,7 @@ public class XrVulkanSwapchainCreateInfoMETA extends Struct<XrVulkanSwapchainCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanSwapchainCreateInfoMETA createSafe(long address) {
+    public static @Nullable XrVulkanSwapchainCreateInfoMETA createSafe(long address) {
         return address == NULL ? null : new XrVulkanSwapchainCreateInfoMETA(address, null);
     }
 
@@ -217,8 +198,7 @@ public class XrVulkanSwapchainCreateInfoMETA extends Struct<XrVulkanSwapchainCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVulkanSwapchainCreateInfoMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVulkanSwapchainCreateInfoMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,22 +243,22 @@ public class XrVulkanSwapchainCreateInfoMETA extends Struct<XrVulkanSwapchainCre
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVulkanSwapchainCreateInfoMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVulkanSwapchainCreateInfoMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVulkanSwapchainCreateInfoMETA.NEXT); }
     /** Unsafe version of {@link #additionalCreateFlags}. */
-    public static int nadditionalCreateFlags(long struct) { return UNSAFE.getInt(null, struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALCREATEFLAGS); }
+    public static int nadditionalCreateFlags(long struct) { return memGetInt(struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALCREATEFLAGS); }
     /** Unsafe version of {@link #additionalUsageFlags}. */
-    public static int nadditionalUsageFlags(long struct) { return UNSAFE.getInt(null, struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALUSAGEFLAGS); }
+    public static int nadditionalUsageFlags(long struct) { return memGetInt(struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALUSAGEFLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanSwapchainCreateInfoMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVulkanSwapchainCreateInfoMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVulkanSwapchainCreateInfoMETA.NEXT, value); }
     /** Unsafe version of {@link #additionalCreateFlags(int) additionalCreateFlags}. */
-    public static void nadditionalCreateFlags(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALCREATEFLAGS, value); }
+    public static void nadditionalCreateFlags(long struct, int value) { memPutInt(struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALCREATEFLAGS, value); }
     /** Unsafe version of {@link #additionalUsageFlags(int) additionalUsageFlags}. */
-    public static void nadditionalUsageFlags(long struct, int value) { UNSAFE.putInt(null, struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALUSAGEFLAGS, value); }
+    public static void nadditionalUsageFlags(long struct, int value) { memPutInt(struct + XrVulkanSwapchainCreateInfoMETA.ADDITIONALUSAGEFLAGS, value); }
 
     // -----------------------------------
 
@@ -314,32 +294,37 @@ public class XrVulkanSwapchainCreateInfoMETA extends Struct<XrVulkanSwapchainCre
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVulkanSwapchainCreateInfoMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVulkanSwapchainCreateInfoMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVulkanSwapchainCreateInfoMETA.ntype(address()); }
-        /** @return the value of the {@link XrVulkanSwapchainCreateInfoMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrVulkanSwapchainCreateInfoMETA.nnext(address()); }
-        /** @return the value of the {@link XrVulkanSwapchainCreateInfoMETA#additionalCreateFlags} field. */
+        /** @return the value of the {@code additionalCreateFlags} field. */
         @NativeType("VkImageCreateFlags")
         public int additionalCreateFlags() { return XrVulkanSwapchainCreateInfoMETA.nadditionalCreateFlags(address()); }
-        /** @return the value of the {@link XrVulkanSwapchainCreateInfoMETA#additionalUsageFlags} field. */
+        /** @return the value of the {@code additionalUsageFlags} field. */
         @NativeType("VkImageUsageFlags")
         public int additionalUsageFlags() { return XrVulkanSwapchainCreateInfoMETA.nadditionalUsageFlags(address()); }
 
-        /** Sets the specified value to the {@link XrVulkanSwapchainCreateInfoMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVulkanSwapchainCreateInfoMETA.Buffer type(@NativeType("XrStructureType") int value) { XrVulkanSwapchainCreateInfoMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAVulkanSwapchainCreateInfo#XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META} value to the {@link XrVulkanSwapchainCreateInfoMETA#type} field. */
+        /** Sets the {@link METAVulkanSwapchainCreateInfo#XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META} value to the {@code type} field. */
         public XrVulkanSwapchainCreateInfoMETA.Buffer type$Default() { return type(METAVulkanSwapchainCreateInfo.XR_TYPE_VULKAN_SWAPCHAIN_CREATE_INFO_META); }
-        /** Sets the specified value to the {@link XrVulkanSwapchainCreateInfoMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVulkanSwapchainCreateInfoMETA.Buffer next(@NativeType("void const *") long value) { XrVulkanSwapchainCreateInfoMETA.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVulkanSwapchainCreateInfoMETA#additionalCreateFlags} field. */
+        /** Sets the specified value to the {@code additionalCreateFlags} field. */
         public XrVulkanSwapchainCreateInfoMETA.Buffer additionalCreateFlags(@NativeType("VkImageCreateFlags") int value) { XrVulkanSwapchainCreateInfoMETA.nadditionalCreateFlags(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVulkanSwapchainCreateInfoMETA#additionalUsageFlags} field. */
+        /** Sets the specified value to the {@code additionalUsageFlags} field. */
         public XrVulkanSwapchainCreateInfoMETA.Buffer additionalUsageFlags(@NativeType("VkImageUsageFlags") int value) { XrVulkanSwapchainCreateInfoMETA.nadditionalUsageFlags(address(), value); return this; }
 
     }

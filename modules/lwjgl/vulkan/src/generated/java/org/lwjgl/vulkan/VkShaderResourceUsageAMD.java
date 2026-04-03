@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,22 +14,14 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Resource usage information about a particular shader within a pipeline.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkShaderStatisticsInfoAMD}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkShaderResourceUsageAMD {
- *     uint32_t {@link #numUsedVgprs};
- *     uint32_t {@link #numUsedSgprs};
- *     uint32_t {@link #ldsSizePerLocalWorkGroup};
- *     size_t {@link #ldsUsageSizeInBytes};
- *     size_t {@link #scratchMemUsageInBytes};
- * }</code></pre>
+ *     uint32_t numUsedVgprs;
+ *     uint32_t numUsedSgprs;
+ *     uint32_t ldsSizePerLocalWorkGroup;
+ *     size_t ldsUsageSizeInBytes;
+ *     size_t scratchMemUsageInBytes;
+ * }}</pre>
  */
 public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
 
@@ -88,19 +80,19 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of vector instruction general-purpose registers used by this shader. */
+    /** @return the value of the {@code numUsedVgprs} field. */
     @NativeType("uint32_t")
     public int numUsedVgprs() { return nnumUsedVgprs(address()); }
-    /** the number of scalar instruction general-purpose registers used by this shader. */
+    /** @return the value of the {@code numUsedSgprs} field. */
     @NativeType("uint32_t")
     public int numUsedSgprs() { return nnumUsedSgprs(address()); }
-    /** the maximum local data store size per work group in bytes. */
+    /** @return the value of the {@code ldsSizePerLocalWorkGroup} field. */
     @NativeType("uint32_t")
     public int ldsSizePerLocalWorkGroup() { return nldsSizePerLocalWorkGroup(address()); }
-    /** the LDS usage size in bytes per work group by this shader. */
+    /** @return the value of the {@code ldsUsageSizeInBytes} field. */
     @NativeType("size_t")
     public long ldsUsageSizeInBytes() { return nldsUsageSizeInBytes(address()); }
-    /** the scratch memory usage in bytes by this shader. */
+    /** @return the value of the {@code scratchMemUsageInBytes} field. */
     @NativeType("size_t")
     public long scratchMemUsageInBytes() { return nscratchMemUsageInBytes(address()); }
 
@@ -112,8 +104,7 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderResourceUsageAMD createSafe(long address) {
+    public static @Nullable VkShaderResourceUsageAMD createSafe(long address) {
         return address == NULL ? null : new VkShaderResourceUsageAMD(address, null);
     }
 
@@ -128,19 +119,18 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkShaderResourceUsageAMD.Buffer createSafe(long address, int capacity) {
+    public static VkShaderResourceUsageAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #numUsedVgprs}. */
-    public static int nnumUsedVgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderResourceUsageAMD.NUMUSEDVGPRS); }
+    public static int nnumUsedVgprs(long struct) { return memGetInt(struct + VkShaderResourceUsageAMD.NUMUSEDVGPRS); }
     /** Unsafe version of {@link #numUsedSgprs}. */
-    public static int nnumUsedSgprs(long struct) { return UNSAFE.getInt(null, struct + VkShaderResourceUsageAMD.NUMUSEDSGPRS); }
+    public static int nnumUsedSgprs(long struct) { return memGetInt(struct + VkShaderResourceUsageAMD.NUMUSEDSGPRS); }
     /** Unsafe version of {@link #ldsSizePerLocalWorkGroup}. */
-    public static int nldsSizePerLocalWorkGroup(long struct) { return UNSAFE.getInt(null, struct + VkShaderResourceUsageAMD.LDSSIZEPERLOCALWORKGROUP); }
+    public static int nldsSizePerLocalWorkGroup(long struct) { return memGetInt(struct + VkShaderResourceUsageAMD.LDSSIZEPERLOCALWORKGROUP); }
     /** Unsafe version of {@link #ldsUsageSizeInBytes}. */
     public static long nldsUsageSizeInBytes(long struct) { return memGetAddress(struct + VkShaderResourceUsageAMD.LDSUSAGESIZEINBYTES); }
     /** Unsafe version of {@link #scratchMemUsageInBytes}. */
@@ -180,23 +170,28 @@ public class VkShaderResourceUsageAMD extends Struct<VkShaderResourceUsageAMD> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkShaderResourceUsageAMD getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkShaderResourceUsageAMD#numUsedVgprs} field. */
+        /** @return the value of the {@code numUsedVgprs} field. */
         @NativeType("uint32_t")
         public int numUsedVgprs() { return VkShaderResourceUsageAMD.nnumUsedVgprs(address()); }
-        /** @return the value of the {@link VkShaderResourceUsageAMD#numUsedSgprs} field. */
+        /** @return the value of the {@code numUsedSgprs} field. */
         @NativeType("uint32_t")
         public int numUsedSgprs() { return VkShaderResourceUsageAMD.nnumUsedSgprs(address()); }
-        /** @return the value of the {@link VkShaderResourceUsageAMD#ldsSizePerLocalWorkGroup} field. */
+        /** @return the value of the {@code ldsSizePerLocalWorkGroup} field. */
         @NativeType("uint32_t")
         public int ldsSizePerLocalWorkGroup() { return VkShaderResourceUsageAMD.nldsSizePerLocalWorkGroup(address()); }
-        /** @return the value of the {@link VkShaderResourceUsageAMD#ldsUsageSizeInBytes} field. */
+        /** @return the value of the {@code ldsUsageSizeInBytes} field. */
         @NativeType("size_t")
         public long ldsUsageSizeInBytes() { return VkShaderResourceUsageAMD.nldsUsageSizeInBytes(address()); }
-        /** @return the value of the {@link VkShaderResourceUsageAMD#scratchMemUsageInBytes} field. */
+        /** @return the value of the {@code scratchMemUsageInBytes} field. */
         @NativeType("size_t")
         public long scratchMemUsageInBytes() { return VkShaderResourceUsageAMD.nscratchMemUsageInBytes(address()); }
 

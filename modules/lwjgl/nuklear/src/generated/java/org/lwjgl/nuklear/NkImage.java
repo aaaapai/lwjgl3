@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_image {
  *     {@link NkHandle nk_handle} handle;
@@ -162,8 +160,7 @@ public class NkImage extends Struct<NkImage> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkImage createSafe(long address) {
+    public static @Nullable NkImage createSafe(long address) {
         return address == NULL ? null : new NkImage(address, null);
     }
 
@@ -206,29 +203,9 @@ public class NkImage extends Struct<NkImage> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkImage.Buffer createSafe(long address, int capacity) {
+    public static NkImage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkImage mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkImage callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkImage mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkImage callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkImage.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkImage.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkImage.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkImage.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code NkImage} instance allocated on the specified {@link MemoryStack}.
@@ -273,22 +250,22 @@ public class NkImage extends Struct<NkImage> implements NativeResource {
     /** Unsafe version of {@link #handle}. */
     public static NkHandle nhandle(long struct) { return NkHandle.create(struct + NkImage.HANDLE); }
     /** Unsafe version of {@link #w}. */
-    public static short nw(long struct) { return UNSAFE.getShort(null, struct + NkImage.W); }
+    public static short nw(long struct) { return memGetShort(struct + NkImage.W); }
     /** Unsafe version of {@link #h}. */
-    public static short nh(long struct) { return UNSAFE.getShort(null, struct + NkImage.H); }
+    public static short nh(long struct) { return memGetShort(struct + NkImage.H); }
     /** Unsafe version of {@link #region}. */
     public static ShortBuffer nregion(long struct) { return memShortBuffer(struct + NkImage.REGION, 4); }
     /** Unsafe version of {@link #region(int) region}. */
     public static short nregion(long struct, int index) {
-        return UNSAFE.getShort(null, struct + NkImage.REGION + check(index, 4) * 2);
+        return memGetShort(struct + NkImage.REGION + check(index, 4) * 2);
     }
 
     /** Unsafe version of {@link #handle(NkHandle) handle}. */
     public static void nhandle(long struct, NkHandle value) { memCopy(value.address(), struct + NkImage.HANDLE, NkHandle.SIZEOF); }
     /** Unsafe version of {@link #w(short) w}. */
-    public static void nw(long struct, short value) { UNSAFE.putShort(null, struct + NkImage.W, value); }
+    public static void nw(long struct, short value) { memPutShort(struct + NkImage.W, value); }
     /** Unsafe version of {@link #h(short) h}. */
-    public static void nh(long struct, short value) { UNSAFE.putShort(null, struct + NkImage.H, value); }
+    public static void nh(long struct, short value) { memPutShort(struct + NkImage.H, value); }
     /** Unsafe version of {@link #region(ShortBuffer) region}. */
     public static void nregion(long struct, ShortBuffer value) {
         if (CHECKS) { checkGT(value, 4); }
@@ -296,7 +273,7 @@ public class NkImage extends Struct<NkImage> implements NativeResource {
     }
     /** Unsafe version of {@link #region(int, short) region}. */
     public static void nregion(long struct, int index, short value) {
-        UNSAFE.putShort(null, struct + NkImage.REGION + check(index, 4) * 2, value);
+        memPutShort(struct + NkImage.REGION + check(index, 4) * 2, value);
     }
 
     // -----------------------------------
@@ -330,6 +307,11 @@ public class NkImage extends Struct<NkImage> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

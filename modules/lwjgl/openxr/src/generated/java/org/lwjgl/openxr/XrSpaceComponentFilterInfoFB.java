@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Filters for entities with specific components enabled.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSpaceComponentFilterInfoFB} structure is a filter an application <b>can</b> use to find {@code XrSpace} entities which have the {@code componentType} enabled, to include or exclude them from a query.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntityQuery XR_FB_spatial_entity_query} extension <b>must</b> be enabled prior to using {@link XrSpaceComponentFilterInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntityQuery#XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB TYPE_SPACE_COMPONENT_FILTER_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code componentType} <b>must</b> be a valid {@code XrSpaceComponentTypeFB} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSpaceFilterInfoBaseHeaderFB}, {@link XrSpaceQueryInfoFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceComponentFilterInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpaceComponentTypeFB {@link #componentType};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpaceComponentTypeFB componentType;
+ * }}</pre>
  */
 public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterInfoFB> implements NativeResource {
 
@@ -95,23 +74,23 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrSpaceComponentTypeFB} to query for. */
+    /** @return the value of the {@code componentType} field. */
     @NativeType("XrSpaceComponentTypeFB")
     public int componentType() { return ncomponentType(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceComponentFilterInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB TYPE_SPACE_COMPONENT_FILTER_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB TYPE_SPACE_COMPONENT_FILTER_INFO_FB} value to the {@code type} field. */
     public XrSpaceComponentFilterInfoFB type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceComponentFilterInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #componentType} field. */
+    /** Sets the specified value to the {@code componentType} field. */
     public XrSpaceComponentFilterInfoFB componentType(@NativeType("XrSpaceComponentTypeFB") int value) { ncomponentType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +142,7 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentFilterInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceComponentFilterInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceComponentFilterInfoFB(address, null);
     }
 
@@ -212,8 +190,7 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceComponentFilterInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceComponentFilterInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,18 +240,18 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentFilterInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceComponentFilterInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceComponentFilterInfoFB.NEXT); }
     /** Unsafe version of {@link #componentType}. */
-    public static int ncomponentType(long struct) { return UNSAFE.getInt(null, struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE); }
+    public static int ncomponentType(long struct) { return memGetInt(struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentFilterInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceComponentFilterInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceComponentFilterInfoFB.NEXT, value); }
     /** Unsafe version of {@link #componentType(int) componentType}. */
-    public static void ncomponentType(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE, value); }
+    public static void ncomponentType(long struct, int value) { memPutInt(struct + XrSpaceComponentFilterInfoFB.COMPONENTTYPE, value); }
 
     // -----------------------------------
 
@@ -310,27 +287,32 @@ public class XrSpaceComponentFilterInfoFB extends Struct<XrSpaceComponentFilterI
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceComponentFilterInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceComponentFilterInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceComponentFilterInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrSpaceComponentFilterInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpaceComponentFilterInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrSpaceComponentFilterInfoFB#componentType} field. */
+        /** @return the value of the {@code componentType} field. */
         @NativeType("XrSpaceComponentTypeFB")
         public int componentType() { return XrSpaceComponentFilterInfoFB.ncomponentType(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceComponentFilterInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceComponentFilterInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceComponentFilterInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB TYPE_SPACE_COMPONENT_FILTER_INFO_FB} value to the {@link XrSpaceComponentFilterInfoFB#type} field. */
+        /** Sets the {@link FBSpatialEntityQuery#XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB TYPE_SPACE_COMPONENT_FILTER_INFO_FB} value to the {@code type} field. */
         public XrSpaceComponentFilterInfoFB.Buffer type$Default() { return type(FBSpatialEntityQuery.XR_TYPE_SPACE_COMPONENT_FILTER_INFO_FB); }
-        /** Sets the specified value to the {@link XrSpaceComponentFilterInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceComponentFilterInfoFB.Buffer next(@NativeType("void const *") long value) { XrSpaceComponentFilterInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSpaceComponentFilterInfoFB#componentType} field. */
+        /** Sets the specified value to the {@code componentType} field. */
         public XrSpaceComponentFilterInfoFB.Buffer componentType(@NativeType("XrSpaceComponentTypeFB") int value) { XrSpaceComponentFilterInfoFB.ncomponentType(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,30 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Stub description of VkCuFunctionCreateInfoNVX.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVXBinaryImport#VK_STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code module} <b>must</b> be a valid {@code VkCuModuleNVX} handle</li>
- * <li>{@code pName} <b>must</b> be a null-terminated UTF-8 string</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link NVXBinaryImport#vkCreateCuFunctionNVX CreateCuFunctionNVX}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkCuFunctionCreateInfoNVX {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkCuModuleNVX module;
  *     char const * pName;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkCuFunctionCreateInfoNVX extends Struct<VkCuFunctionCreateInfoNVX> implements NativeResource {
 
@@ -174,8 +157,7 @@ public class VkCuFunctionCreateInfoNVX extends Struct<VkCuFunctionCreateInfoNVX>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCuFunctionCreateInfoNVX createSafe(long address) {
+    public static @Nullable VkCuFunctionCreateInfoNVX createSafe(long address) {
         return address == NULL ? null : new VkCuFunctionCreateInfoNVX(address, null);
     }
 
@@ -218,8 +200,7 @@ public class VkCuFunctionCreateInfoNVX extends Struct<VkCuFunctionCreateInfoNVX>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCuFunctionCreateInfoNVX.Buffer createSafe(long address, int capacity) {
+    public static VkCuFunctionCreateInfoNVX.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +245,22 @@ public class VkCuFunctionCreateInfoNVX extends Struct<VkCuFunctionCreateInfoNVX>
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkCuFunctionCreateInfoNVX.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkCuFunctionCreateInfoNVX.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkCuFunctionCreateInfoNVX.PNEXT); }
     /** Unsafe version of {@link #module}. */
-    public static long nmodule(long struct) { return UNSAFE.getLong(null, struct + VkCuFunctionCreateInfoNVX.MODULE); }
+    public static long nmodule(long struct) { return memGetLong(struct + VkCuFunctionCreateInfoNVX.MODULE); }
     /** Unsafe version of {@link #pName}. */
     public static ByteBuffer npName(long struct) { return memByteBufferNT1(memGetAddress(struct + VkCuFunctionCreateInfoNVX.PNAME)); }
     /** Unsafe version of {@link #pNameString}. */
     public static String npNameString(long struct) { return memUTF8(memGetAddress(struct + VkCuFunctionCreateInfoNVX.PNAME)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkCuFunctionCreateInfoNVX.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkCuFunctionCreateInfoNVX.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkCuFunctionCreateInfoNVX.PNEXT, value); }
     /** Unsafe version of {@link #module(long) module}. */
-    public static void nmodule(long struct, long value) { UNSAFE.putLong(null, struct + VkCuFunctionCreateInfoNVX.MODULE, value); }
+    public static void nmodule(long struct, long value) { memPutLong(struct + VkCuFunctionCreateInfoNVX.MODULE, value); }
     /** Unsafe version of {@link #pName(ByteBuffer) pName}. */
     public static void npName(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -326,6 +307,11 @@ public class VkCuFunctionCreateInfoNVX extends Struct<VkCuFunctionCreateInfoNVX>
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

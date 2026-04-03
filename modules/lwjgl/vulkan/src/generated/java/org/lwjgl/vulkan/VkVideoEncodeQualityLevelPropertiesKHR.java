@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the video encode quality level properties.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264QualityLevelPropertiesEXT} or {@link VkVideoEncodeH265QualityLevelPropertiesEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRVideoEncodeQueue#vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR GetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoEncodeQualityLevelPropertiesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkVideoEncodeRateControlModeFlagBitsKHR {@link #preferredRateControlMode};
- *     uint32_t {@link #preferredRateControlLayerCount};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkVideoEncodeRateControlModeFlagBitsKHR preferredRateControlMode;
+ *     uint32_t preferredRateControlLayerCount;
+ * }}</pre>
  */
 public class VkVideoEncodeQualityLevelPropertiesKHR extends Struct<VkVideoEncodeQualityLevelPropertiesKHR> implements NativeResource {
 
@@ -94,29 +78,31 @@ public class VkVideoEncodeQualityLevelPropertiesKHR extends Struct<VkVideoEncode
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkVideoEncodeRateControlModeFlagBitsKHR} value indicating the preferred rate control mode to use with the video encode quality level. */
+    /** @return the value of the {@code preferredRateControlMode} field. */
     @NativeType("VkVideoEncodeRateControlModeFlagBitsKHR")
     public int preferredRateControlMode() { return npreferredRateControlMode(address()); }
-    /** indicates the preferred number of rate control layers to use with the quality level. */
+    /** @return the value of the {@code preferredRateControlLayerCount} field. */
     @NativeType("uint32_t")
     public int preferredRateControlLayerCount() { return npreferredRateControlLayerCount(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoEncodeQualityLevelPropertiesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR} value to the {@code sType} field. */
     public VkVideoEncodeQualityLevelPropertiesKHR sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoEncodeQualityLevelPropertiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkVideoEncodeH264QualityLevelPropertiesEXT} value to the {@code pNext} chain. */
-    public VkVideoEncodeQualityLevelPropertiesKHR pNext(VkVideoEncodeH264QualityLevelPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH265QualityLevelPropertiesEXT} value to the {@code pNext} chain. */
-    public VkVideoEncodeQualityLevelPropertiesKHR pNext(VkVideoEncodeH265QualityLevelPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeAV1QualityLevelPropertiesKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeQualityLevelPropertiesKHR pNext(VkVideoEncodeAV1QualityLevelPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH264QualityLevelPropertiesKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeQualityLevelPropertiesKHR pNext(VkVideoEncodeH264QualityLevelPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265QualityLevelPropertiesKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeQualityLevelPropertiesKHR pNext(VkVideoEncodeH265QualityLevelPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     /** Initializes this struct with the specified values. */
     public VkVideoEncodeQualityLevelPropertiesKHR set(
@@ -165,8 +151,7 @@ public class VkVideoEncodeQualityLevelPropertiesKHR extends Struct<VkVideoEncode
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeQualityLevelPropertiesKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeQualityLevelPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeQualityLevelPropertiesKHR(address, null);
     }
 
@@ -209,8 +194,7 @@ public class VkVideoEncodeQualityLevelPropertiesKHR extends Struct<VkVideoEncode
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeQualityLevelPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeQualityLevelPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,16 +239,16 @@ public class VkVideoEncodeQualityLevelPropertiesKHR extends Struct<VkVideoEncode
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeQualityLevelPropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeQualityLevelPropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeQualityLevelPropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #preferredRateControlMode}. */
-    public static int npreferredRateControlMode(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeQualityLevelPropertiesKHR.PREFERREDRATECONTROLMODE); }
+    public static int npreferredRateControlMode(long struct) { return memGetInt(struct + VkVideoEncodeQualityLevelPropertiesKHR.PREFERREDRATECONTROLMODE); }
     /** Unsafe version of {@link #preferredRateControlLayerCount}. */
-    public static int npreferredRateControlLayerCount(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeQualityLevelPropertiesKHR.PREFERREDRATECONTROLLAYERCOUNT); }
+    public static int npreferredRateControlLayerCount(long struct) { return memGetInt(struct + VkVideoEncodeQualityLevelPropertiesKHR.PREFERREDRATECONTROLLAYERCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeQualityLevelPropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeQualityLevelPropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeQualityLevelPropertiesKHR.PNEXT, value); }
 
@@ -302,33 +286,40 @@ public class VkVideoEncodeQualityLevelPropertiesKHR extends Struct<VkVideoEncode
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEncodeQualityLevelPropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoEncodeQualityLevelPropertiesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoEncodeQualityLevelPropertiesKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoEncodeQualityLevelPropertiesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkVideoEncodeQualityLevelPropertiesKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoEncodeQualityLevelPropertiesKHR#preferredRateControlMode} field. */
+        /** @return the value of the {@code preferredRateControlMode} field. */
         @NativeType("VkVideoEncodeRateControlModeFlagBitsKHR")
         public int preferredRateControlMode() { return VkVideoEncodeQualityLevelPropertiesKHR.npreferredRateControlMode(address()); }
-        /** @return the value of the {@link VkVideoEncodeQualityLevelPropertiesKHR#preferredRateControlLayerCount} field. */
+        /** @return the value of the {@code preferredRateControlLayerCount} field. */
         @NativeType("uint32_t")
         public int preferredRateControlLayerCount() { return VkVideoEncodeQualityLevelPropertiesKHR.npreferredRateControlLayerCount(address()); }
 
-        /** Sets the specified value to the {@link VkVideoEncodeQualityLevelPropertiesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoEncodeQualityLevelPropertiesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoEncodeQualityLevelPropertiesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR} value to the {@link VkVideoEncodeQualityLevelPropertiesKHR#sType} field. */
+        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR} value to the {@code sType} field. */
         public VkVideoEncodeQualityLevelPropertiesKHR.Buffer sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR); }
-        /** Sets the specified value to the {@link VkVideoEncodeQualityLevelPropertiesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoEncodeQualityLevelPropertiesKHR.Buffer pNext(@NativeType("void *") long value) { VkVideoEncodeQualityLevelPropertiesKHR.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkVideoEncodeH264QualityLevelPropertiesEXT} value to the {@code pNext} chain. */
-        public VkVideoEncodeQualityLevelPropertiesKHR.Buffer pNext(VkVideoEncodeH264QualityLevelPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH265QualityLevelPropertiesEXT} value to the {@code pNext} chain. */
-        public VkVideoEncodeQualityLevelPropertiesKHR.Buffer pNext(VkVideoEncodeH265QualityLevelPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeAV1QualityLevelPropertiesKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeQualityLevelPropertiesKHR.Buffer pNext(VkVideoEncodeAV1QualityLevelPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH264QualityLevelPropertiesKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeQualityLevelPropertiesKHR.Buffer pNext(VkVideoEncodeH264QualityLevelPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265QualityLevelPropertiesKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeQualityLevelPropertiesKHR.Buffer pNext(VkVideoEncodeH265QualityLevelPropertiesKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,34 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a buffer for descriptor capture.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code buffer} <b>must</b> have been created with {@link EXTDescriptorBuffer#VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT} set in {@link VkBufferCreateInfo}{@code ::flags}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code buffer} <b>must</b> be a valid {@code VkBuffer} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTDescriptorBuffer#vkGetBufferOpaqueCaptureDescriptorDataEXT GetBufferOpaqueCaptureDescriptorDataEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBufferCaptureDescriptorDataInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBuffer {@link #buffer};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBuffer buffer;
+ * }}</pre>
  */
 public class VkBufferCaptureDescriptorDataInfoEXT extends Struct<VkBufferCaptureDescriptorDataInfoEXT> implements NativeResource {
 
@@ -96,23 +74,23 @@ public class VkBufferCaptureDescriptorDataInfoEXT extends Struct<VkBufferCapture
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the {@code VkBuffer} handle of the buffer to get opaque capture data for. */
+    /** @return the value of the {@code buffer} field. */
     @NativeType("VkBuffer")
     public long buffer() { return nbuffer(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkBufferCaptureDescriptorDataInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@code sType} field. */
     public VkBufferCaptureDescriptorDataInfoEXT sType$Default() { return sType(EXTDescriptorBuffer.VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkBufferCaptureDescriptorDataInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #buffer} field. */
+    /** Sets the specified value to the {@code buffer} field. */
     public VkBufferCaptureDescriptorDataInfoEXT buffer(@NativeType("VkBuffer") long value) { nbuffer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -164,8 +142,7 @@ public class VkBufferCaptureDescriptorDataInfoEXT extends Struct<VkBufferCapture
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCaptureDescriptorDataInfoEXT createSafe(long address) {
+    public static @Nullable VkBufferCaptureDescriptorDataInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkBufferCaptureDescriptorDataInfoEXT(address, null);
     }
 
@@ -208,8 +185,7 @@ public class VkBufferCaptureDescriptorDataInfoEXT extends Struct<VkBufferCapture
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBufferCaptureDescriptorDataInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkBufferCaptureDescriptorDataInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -254,18 +230,18 @@ public class VkBufferCaptureDescriptorDataInfoEXT extends Struct<VkBufferCapture
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBufferCaptureDescriptorDataInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBufferCaptureDescriptorDataInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBufferCaptureDescriptorDataInfoEXT.PNEXT); }
     /** Unsafe version of {@link #buffer}. */
-    public static long nbuffer(long struct) { return UNSAFE.getLong(null, struct + VkBufferCaptureDescriptorDataInfoEXT.BUFFER); }
+    public static long nbuffer(long struct) { return memGetLong(struct + VkBufferCaptureDescriptorDataInfoEXT.BUFFER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBufferCaptureDescriptorDataInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBufferCaptureDescriptorDataInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBufferCaptureDescriptorDataInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #buffer(long) buffer}. */
-    public static void nbuffer(long struct, long value) { UNSAFE.putLong(null, struct + VkBufferCaptureDescriptorDataInfoEXT.BUFFER, value); }
+    public static void nbuffer(long struct, long value) { memPutLong(struct + VkBufferCaptureDescriptorDataInfoEXT.BUFFER, value); }
 
     // -----------------------------------
 
@@ -301,27 +277,32 @@ public class VkBufferCaptureDescriptorDataInfoEXT extends Struct<VkBufferCapture
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBufferCaptureDescriptorDataInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBufferCaptureDescriptorDataInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkBufferCaptureDescriptorDataInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkBufferCaptureDescriptorDataInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkBufferCaptureDescriptorDataInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkBufferCaptureDescriptorDataInfoEXT#buffer} field. */
+        /** @return the value of the {@code buffer} field. */
         @NativeType("VkBuffer")
         public long buffer() { return VkBufferCaptureDescriptorDataInfoEXT.nbuffer(address()); }
 
-        /** Sets the specified value to the {@link VkBufferCaptureDescriptorDataInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkBufferCaptureDescriptorDataInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkBufferCaptureDescriptorDataInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@link VkBufferCaptureDescriptorDataInfoEXT#sType} field. */
+        /** Sets the {@link EXTDescriptorBuffer#VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT} value to the {@code sType} field. */
         public VkBufferCaptureDescriptorDataInfoEXT.Buffer sType$Default() { return sType(EXTDescriptorBuffer.VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT); }
-        /** Sets the specified value to the {@link VkBufferCaptureDescriptorDataInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkBufferCaptureDescriptorDataInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkBufferCaptureDescriptorDataInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBufferCaptureDescriptorDataInfoEXT#buffer} field. */
+        /** Sets the specified value to the {@code buffer} field. */
         public VkBufferCaptureDescriptorDataInfoEXT.Buffer buffer(@NativeType("VkBuffer") long value) { VkBufferCaptureDescriptorDataInfoEXT.nbuffer(address(), value); return this; }
 
     }

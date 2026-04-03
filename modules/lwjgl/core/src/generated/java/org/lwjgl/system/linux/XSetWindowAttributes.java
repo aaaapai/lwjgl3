@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Data structure for setting window attributes.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XSetWindowAttributes {
  *     Pixmap background_pixmap;
  *     unsigned long background_pixel;
@@ -37,7 +33,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     Bool override_redirect;
  *     Colormap colormap;
  *     Cursor cursor;
- * }</code></pre>
+ * }}</pre>
  */
 public class XSetWindowAttributes extends Struct<XSetWindowAttributes> implements NativeResource {
 
@@ -271,8 +267,7 @@ public class XSetWindowAttributes extends Struct<XSetWindowAttributes> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSetWindowAttributes createSafe(long address) {
+    public static @Nullable XSetWindowAttributes createSafe(long address) {
         return address == NULL ? null : new XSetWindowAttributes(address, null);
     }
 
@@ -315,29 +310,9 @@ public class XSetWindowAttributes extends Struct<XSetWindowAttributes> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XSetWindowAttributes.Buffer createSafe(long address, int capacity) {
+    public static XSetWindowAttributes.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSetWindowAttributes.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XSetWindowAttributes} instance allocated on the specified {@link MemoryStack}.
@@ -388,23 +363,23 @@ public class XSetWindowAttributes extends Struct<XSetWindowAttributes> implement
     /** Unsafe version of {@link #border_pixel}. */
     public static long nborder_pixel(long struct) { return memGetCLong(struct + XSetWindowAttributes.BORDER_PIXEL); }
     /** Unsafe version of {@link #bit_gravity}. */
-    public static int nbit_gravity(long struct) { return UNSAFE.getInt(null, struct + XSetWindowAttributes.BIT_GRAVITY); }
+    public static int nbit_gravity(long struct) { return memGetInt(struct + XSetWindowAttributes.BIT_GRAVITY); }
     /** Unsafe version of {@link #win_gravity}. */
-    public static int nwin_gravity(long struct) { return UNSAFE.getInt(null, struct + XSetWindowAttributes.WIN_GRAVITY); }
+    public static int nwin_gravity(long struct) { return memGetInt(struct + XSetWindowAttributes.WIN_GRAVITY); }
     /** Unsafe version of {@link #backing_store}. */
-    public static int nbacking_store(long struct) { return UNSAFE.getInt(null, struct + XSetWindowAttributes.BACKING_STORE); }
+    public static int nbacking_store(long struct) { return memGetInt(struct + XSetWindowAttributes.BACKING_STORE); }
     /** Unsafe version of {@link #backing_planes}. */
     public static long nbacking_planes(long struct) { return memGetCLong(struct + XSetWindowAttributes.BACKING_PLANES); }
     /** Unsafe version of {@link #backing_pixel}. */
     public static long nbacking_pixel(long struct) { return memGetCLong(struct + XSetWindowAttributes.BACKING_PIXEL); }
     /** Unsafe version of {@link #save_under}. */
-    public static int nsave_under(long struct) { return UNSAFE.getInt(null, struct + XSetWindowAttributes.SAVE_UNDER); }
+    public static int nsave_under(long struct) { return memGetInt(struct + XSetWindowAttributes.SAVE_UNDER); }
     /** Unsafe version of {@link #event_mask}. */
     public static long nevent_mask(long struct) { return memGetCLong(struct + XSetWindowAttributes.EVENT_MASK); }
     /** Unsafe version of {@link #do_not_propagate_mask}. */
     public static long ndo_not_propagate_mask(long struct) { return memGetCLong(struct + XSetWindowAttributes.DO_NOT_PROPAGATE_MASK); }
     /** Unsafe version of {@link #override_redirect}. */
-    public static int noverride_redirect(long struct) { return UNSAFE.getInt(null, struct + XSetWindowAttributes.OVERRIDE_REDIRECT); }
+    public static int noverride_redirect(long struct) { return memGetInt(struct + XSetWindowAttributes.OVERRIDE_REDIRECT); }
     /** Unsafe version of {@link #colormap}. */
     public static long ncolormap(long struct) { return memGetCLong(struct + XSetWindowAttributes.COLORMAP); }
     /** Unsafe version of {@link #cursor}. */
@@ -419,23 +394,23 @@ public class XSetWindowAttributes extends Struct<XSetWindowAttributes> implement
     /** Unsafe version of {@link #border_pixel(long) border_pixel}. */
     public static void nborder_pixel(long struct, long value) { memPutCLong(struct + XSetWindowAttributes.BORDER_PIXEL, value); }
     /** Unsafe version of {@link #bit_gravity(int) bit_gravity}. */
-    public static void nbit_gravity(long struct, int value) { UNSAFE.putInt(null, struct + XSetWindowAttributes.BIT_GRAVITY, value); }
+    public static void nbit_gravity(long struct, int value) { memPutInt(struct + XSetWindowAttributes.BIT_GRAVITY, value); }
     /** Unsafe version of {@link #win_gravity(int) win_gravity}. */
-    public static void nwin_gravity(long struct, int value) { UNSAFE.putInt(null, struct + XSetWindowAttributes.WIN_GRAVITY, value); }
+    public static void nwin_gravity(long struct, int value) { memPutInt(struct + XSetWindowAttributes.WIN_GRAVITY, value); }
     /** Unsafe version of {@link #backing_store(int) backing_store}. */
-    public static void nbacking_store(long struct, int value) { UNSAFE.putInt(null, struct + XSetWindowAttributes.BACKING_STORE, value); }
+    public static void nbacking_store(long struct, int value) { memPutInt(struct + XSetWindowAttributes.BACKING_STORE, value); }
     /** Unsafe version of {@link #backing_planes(long) backing_planes}. */
     public static void nbacking_planes(long struct, long value) { memPutCLong(struct + XSetWindowAttributes.BACKING_PLANES, value); }
     /** Unsafe version of {@link #backing_pixel(long) backing_pixel}. */
     public static void nbacking_pixel(long struct, long value) { memPutCLong(struct + XSetWindowAttributes.BACKING_PIXEL, value); }
     /** Unsafe version of {@link #save_under(boolean) save_under}. */
-    public static void nsave_under(long struct, int value) { UNSAFE.putInt(null, struct + XSetWindowAttributes.SAVE_UNDER, value); }
+    public static void nsave_under(long struct, int value) { memPutInt(struct + XSetWindowAttributes.SAVE_UNDER, value); }
     /** Unsafe version of {@link #event_mask(long) event_mask}. */
     public static void nevent_mask(long struct, long value) { memPutCLong(struct + XSetWindowAttributes.EVENT_MASK, value); }
     /** Unsafe version of {@link #do_not_propagate_mask(long) do_not_propagate_mask}. */
     public static void ndo_not_propagate_mask(long struct, long value) { memPutCLong(struct + XSetWindowAttributes.DO_NOT_PROPAGATE_MASK, value); }
     /** Unsafe version of {@link #override_redirect(boolean) override_redirect}. */
-    public static void noverride_redirect(long struct, int value) { UNSAFE.putInt(null, struct + XSetWindowAttributes.OVERRIDE_REDIRECT, value); }
+    public static void noverride_redirect(long struct, int value) { memPutInt(struct + XSetWindowAttributes.OVERRIDE_REDIRECT, value); }
     /** Unsafe version of {@link #colormap(long) colormap}. */
     public static void ncolormap(long struct, long value) { memPutCLong(struct + XSetWindowAttributes.COLORMAP, value); }
     /** Unsafe version of {@link #cursor(long) cursor}. */
@@ -472,6 +447,11 @@ public class XSetWindowAttributes extends Struct<XSetWindowAttributes> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

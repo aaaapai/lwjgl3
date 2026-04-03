@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Properties of the physical device for ray tracing.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <p>Limits specified by this structure <b>must</b> match those specified with the same name in {@link VkPhysicalDeviceRayTracingPropertiesNV}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceRayTracingPipelinePropertiesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #shaderGroupHandleSize};
- *     uint32_t {@link #maxRayRecursionDepth};
- *     uint32_t {@link #maxShaderGroupStride};
- *     uint32_t {@link #shaderGroupBaseAlignment};
- *     uint32_t {@link #shaderGroupHandleCaptureReplaySize};
- *     uint32_t {@link #maxRayDispatchInvocationCount};
- *     uint32_t {@link #shaderGroupHandleAlignment};
- *     uint32_t {@link #maxRayHitAttributeSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t shaderGroupHandleSize;
+ *     uint32_t maxRayRecursionDepth;
+ *     uint32_t maxShaderGroupStride;
+ *     uint32_t shaderGroupBaseAlignment;
+ *     uint32_t shaderGroupHandleCaptureReplaySize;
+ *     uint32_t maxRayDispatchInvocationCount;
+ *     uint32_t shaderGroupHandleAlignment;
+ *     uint32_t maxRayHitAttributeSize;
+ * }}</pre>
  */
 public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPhysicalDeviceRayTracingPipelinePropertiesKHR> implements NativeResource {
 
@@ -118,42 +102,42 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the size in bytes of the shader header. */
+    /** @return the value of the {@code shaderGroupHandleSize} field. */
     @NativeType("uint32_t")
     public int shaderGroupHandleSize() { return nshaderGroupHandleSize(address()); }
-    /** the maximum number of levels of ray recursion allowed in a trace command. */
+    /** @return the value of the {@code maxRayRecursionDepth} field. */
     @NativeType("uint32_t")
     public int maxRayRecursionDepth() { return nmaxRayRecursionDepth(address()); }
-    /** the maximum stride in bytes allowed between shader groups in the shader binding table. */
+    /** @return the value of the {@code maxShaderGroupStride} field. */
     @NativeType("uint32_t")
     public int maxShaderGroupStride() { return nmaxShaderGroupStride(address()); }
-    /** the <b>required</b> alignment in bytes for the base of the shader binding table. */
+    /** @return the value of the {@code shaderGroupBaseAlignment} field. */
     @NativeType("uint32_t")
     public int shaderGroupBaseAlignment() { return nshaderGroupBaseAlignment(address()); }
-    /** the number of bytes for the information required to do capture and replay for shader group handles. */
+    /** @return the value of the {@code shaderGroupHandleCaptureReplaySize} field. */
     @NativeType("uint32_t")
     public int shaderGroupHandleCaptureReplaySize() { return nshaderGroupHandleCaptureReplaySize(address()); }
-    /** the maximum number of ray generation shader invocations which <b>may</b> be produced by a single {@link KHRRayTracingPipeline#vkCmdTraceRaysIndirectKHR CmdTraceRaysIndirectKHR} or {@link KHRRayTracingPipeline#vkCmdTraceRaysKHR CmdTraceRaysKHR} command. */
+    /** @return the value of the {@code maxRayDispatchInvocationCount} field. */
     @NativeType("uint32_t")
     public int maxRayDispatchInvocationCount() { return nmaxRayDispatchInvocationCount(address()); }
-    /** the <b>required</b> alignment in bytes for each shader binding table entry. The value <b>must</b> be a power of two. */
+    /** @return the value of the {@code shaderGroupHandleAlignment} field. */
     @NativeType("uint32_t")
     public int shaderGroupHandleAlignment() { return nshaderGroupHandleAlignment(address()); }
-    /** the maximum size in bytes for a ray attribute structure */
+    /** @return the value of the {@code maxRayHitAttributeSize} field. */
     @NativeType("uint32_t")
     public int maxRayHitAttributeSize() { return nmaxRayHitAttributeSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceRayTracingPipelinePropertiesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR} value to the {@code sType} field. */
     public VkPhysicalDeviceRayTracingPipelinePropertiesKHR sType$Default() { return sType(KHRRayTracingPipeline.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceRayTracingPipelinePropertiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -203,8 +187,7 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPipelinePropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceRayTracingPipelinePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceRayTracingPipelinePropertiesKHR(address, null);
     }
 
@@ -247,8 +230,7 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceRayTracingPipelinePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceRayTracingPipelinePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -293,28 +275,28 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.PNEXT); }
     /** Unsafe version of {@link #shaderGroupHandleSize}. */
-    public static int nshaderGroupHandleSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLESIZE); }
+    public static int nshaderGroupHandleSize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLESIZE); }
     /** Unsafe version of {@link #maxRayRecursionDepth}. */
-    public static int nmaxRayRecursionDepth(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYRECURSIONDEPTH); }
+    public static int nmaxRayRecursionDepth(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYRECURSIONDEPTH); }
     /** Unsafe version of {@link #maxShaderGroupStride}. */
-    public static int nmaxShaderGroupStride(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXSHADERGROUPSTRIDE); }
+    public static int nmaxShaderGroupStride(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXSHADERGROUPSTRIDE); }
     /** Unsafe version of {@link #shaderGroupBaseAlignment}. */
-    public static int nshaderGroupBaseAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPBASEALIGNMENT); }
+    public static int nshaderGroupBaseAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPBASEALIGNMENT); }
     /** Unsafe version of {@link #shaderGroupHandleCaptureReplaySize}. */
-    public static int nshaderGroupHandleCaptureReplaySize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLECAPTUREREPLAYSIZE); }
+    public static int nshaderGroupHandleCaptureReplaySize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLECAPTUREREPLAYSIZE); }
     /** Unsafe version of {@link #maxRayDispatchInvocationCount}. */
-    public static int nmaxRayDispatchInvocationCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYDISPATCHINVOCATIONCOUNT); }
+    public static int nmaxRayDispatchInvocationCount(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYDISPATCHINVOCATIONCOUNT); }
     /** Unsafe version of {@link #shaderGroupHandleAlignment}. */
-    public static int nshaderGroupHandleAlignment(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLEALIGNMENT); }
+    public static int nshaderGroupHandleAlignment(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.SHADERGROUPHANDLEALIGNMENT); }
     /** Unsafe version of {@link #maxRayHitAttributeSize}. */
-    public static int nmaxRayHitAttributeSize(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYHITATTRIBUTESIZE); }
+    public static int nmaxRayHitAttributeSize(long struct) { return memGetInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.MAXRAYHITATTRIBUTESIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceRayTracingPipelinePropertiesKHR.PNEXT, value); }
 
@@ -352,46 +334,51 @@ public class VkPhysicalDeviceRayTracingPipelinePropertiesKHR extends Struct<VkPh
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceRayTracingPipelinePropertiesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#shaderGroupHandleSize} field. */
+        /** @return the value of the {@code shaderGroupHandleSize} field. */
         @NativeType("uint32_t")
         public int shaderGroupHandleSize() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nshaderGroupHandleSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#maxRayRecursionDepth} field. */
+        /** @return the value of the {@code maxRayRecursionDepth} field. */
         @NativeType("uint32_t")
         public int maxRayRecursionDepth() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nmaxRayRecursionDepth(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#maxShaderGroupStride} field. */
+        /** @return the value of the {@code maxShaderGroupStride} field. */
         @NativeType("uint32_t")
         public int maxShaderGroupStride() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nmaxShaderGroupStride(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#shaderGroupBaseAlignment} field. */
+        /** @return the value of the {@code shaderGroupBaseAlignment} field. */
         @NativeType("uint32_t")
         public int shaderGroupBaseAlignment() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nshaderGroupBaseAlignment(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#shaderGroupHandleCaptureReplaySize} field. */
+        /** @return the value of the {@code shaderGroupHandleCaptureReplaySize} field. */
         @NativeType("uint32_t")
         public int shaderGroupHandleCaptureReplaySize() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nshaderGroupHandleCaptureReplaySize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#maxRayDispatchInvocationCount} field. */
+        /** @return the value of the {@code maxRayDispatchInvocationCount} field. */
         @NativeType("uint32_t")
         public int maxRayDispatchInvocationCount() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nmaxRayDispatchInvocationCount(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#shaderGroupHandleAlignment} field. */
+        /** @return the value of the {@code shaderGroupHandleAlignment} field. */
         @NativeType("uint32_t")
         public int shaderGroupHandleAlignment() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nshaderGroupHandleAlignment(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#maxRayHitAttributeSize} field. */
+        /** @return the value of the {@code maxRayHitAttributeSize} field. */
         @NativeType("uint32_t")
         public int maxRayHitAttributeSize() { return VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nmaxRayHitAttributeSize(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceRayTracingPipelinePropertiesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceRayTracingPipelinePropertiesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR} value to the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#sType} field. */
+        /** Sets the {@link KHRRayTracingPipeline#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR} value to the {@code sType} field. */
         public VkPhysicalDeviceRayTracingPipelinePropertiesKHR.Buffer sType$Default() { return sType(KHRRayTracingPipeline.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceRayTracingPipelinePropertiesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceRayTracingPipelinePropertiesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceRayTracingPipelinePropertiesKHR.npNext(address(), value); return this; }
 
     }

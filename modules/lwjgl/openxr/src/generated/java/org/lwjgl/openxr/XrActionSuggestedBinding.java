@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,25 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Suggested binding for a single action.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code action} <b>must</b> be a valid {@code XrAction} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrInteractionProfileSuggestedBinding}, {@link XR10#xrSuggestInteractionProfileBindings SuggestInteractionProfileBindings}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrActionSuggestedBinding {
- *     XrAction {@link #action};
- *     XrPath {@link #binding};
- * }</code></pre>
+ *     XrAction action;
+ *     XrPath binding;
+ * }}</pre>
  */
 public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> implements NativeResource {
 
@@ -85,16 +71,16 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrAction} handle for an action */
+    /** @return the value of the {@code action} field. */
     @NativeType("XrAction")
     public long action() { return naction(address()); }
-    /** the {@code XrPath} of a binding for the action specified in {@code action}. This path is any top level user path plus input source path, for example pathname:/user/hand/right/input/trigger/click. See <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#input-suggested-bindings">suggested bindings</a> for more details. */
+    /** @return the value of the {@code binding} field. */
     @NativeType("XrPath")
     public long binding() { return nbinding(address()); }
 
-    /** Sets the specified value to the {@link #action} field. */
+    /** Sets the specified value to the {@code action} field. */
     public XrActionSuggestedBinding action(XrAction value) { naction(address(), value); return this; }
-    /** Sets the specified value to the {@link #binding} field. */
+    /** Sets the specified value to the {@code binding} field. */
     public XrActionSuggestedBinding binding(@NativeType("XrPath") long value) { nbinding(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -144,8 +130,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSuggestedBinding createSafe(long address) {
+    public static @Nullable XrActionSuggestedBinding createSafe(long address) {
         return address == NULL ? null : new XrActionSuggestedBinding(address, null);
     }
 
@@ -188,8 +173,7 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionSuggestedBinding.Buffer createSafe(long address, int capacity) {
+    public static XrActionSuggestedBinding.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,12 +220,12 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
     /** Unsafe version of {@link #action}. */
     public static long naction(long struct) { return memGetAddress(struct + XrActionSuggestedBinding.ACTION); }
     /** Unsafe version of {@link #binding}. */
-    public static long nbinding(long struct) { return UNSAFE.getLong(null, struct + XrActionSuggestedBinding.BINDING); }
+    public static long nbinding(long struct) { return memGetLong(struct + XrActionSuggestedBinding.BINDING); }
 
     /** Unsafe version of {@link #action(XrAction) action}. */
     public static void naction(long struct, XrAction value) { memPutAddress(struct + XrActionSuggestedBinding.ACTION, value.address()); }
     /** Unsafe version of {@link #binding(long) binding}. */
-    public static void nbinding(long struct, long value) { UNSAFE.putLong(null, struct + XrActionSuggestedBinding.BINDING, value); }
+    public static void nbinding(long struct, long value) { memPutLong(struct + XrActionSuggestedBinding.BINDING, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -286,20 +270,25 @@ public class XrActionSuggestedBinding extends Struct<XrActionSuggestedBinding> i
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrActionSuggestedBinding getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrActionSuggestedBinding#action} field. */
+        /** @return the value of the {@code action} field. */
         @NativeType("XrAction")
         public long action() { return XrActionSuggestedBinding.naction(address()); }
-        /** @return the value of the {@link XrActionSuggestedBinding#binding} field. */
+        /** @return the value of the {@code binding} field. */
         @NativeType("XrPath")
         public long binding() { return XrActionSuggestedBinding.nbinding(address()); }
 
-        /** Sets the specified value to the {@link XrActionSuggestedBinding#action} field. */
+        /** Sets the specified value to the {@code action} field. */
         public XrActionSuggestedBinding.Buffer action(XrAction value) { XrActionSuggestedBinding.naction(address(), value); return this; }
-        /** Sets the specified value to the {@link XrActionSuggestedBinding#binding} field. */
+        /** Sets the specified value to the {@code binding} field. */
         public XrActionSuggestedBinding.Buffer binding(@NativeType("XrPath") long value) { XrActionSuggestedBinding.nbinding(address(), value); return this; }
 
     }

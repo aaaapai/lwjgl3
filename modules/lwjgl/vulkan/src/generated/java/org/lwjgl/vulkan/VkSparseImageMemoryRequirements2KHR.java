@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkSparseImageMemoryRequirements2}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkSparseImageMemoryRequirements2KHR {
  *     VkStructureType sType;
@@ -106,8 +102,7 @@ public class VkSparseImageMemoryRequirements2KHR extends VkSparseImageMemoryRequ
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageMemoryRequirements2KHR createSafe(long address) {
+    public static @Nullable VkSparseImageMemoryRequirements2KHR createSafe(long address) {
         return address == NULL ? null : new VkSparseImageMemoryRequirements2KHR(address, null);
     }
 
@@ -150,29 +145,9 @@ public class VkSparseImageMemoryRequirements2KHR extends VkSparseImageMemoryRequ
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSparseImageMemoryRequirements2KHR.Buffer createSafe(long address, int capacity) {
+    public static VkSparseImageMemoryRequirements2KHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSparseImageMemoryRequirements2KHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkSparseImageMemoryRequirements2KHR} instance allocated on the specified {@link MemoryStack}.
@@ -243,6 +218,11 @@ public class VkSparseImageMemoryRequirements2KHR extends VkSparseImageMemoryRequ
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

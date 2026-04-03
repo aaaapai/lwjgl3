@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct io_uring_buf {
  *     __u64 addr;
  *     __u32 len;
  *     __u16 bid;
  *     __u16 resv;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct io_uring_buf")
 public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
@@ -90,9 +88,6 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     /** @return the value of the {@code bid} field. */
     @NativeType("__u16")
     public short bid() { return nbid(address()); }
-    /** @return the value of the {@code resv} field. */
-    @NativeType("__u16")
-    public short resv() { return nresv(address()); }
 
     /** Sets the specified value to the {@code addr} field. */
     public IOURingBuf addr(@NativeType("__u64") long value) { naddr(address(), value); return this; }
@@ -100,20 +95,16 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     public IOURingBuf len(@NativeType("__u32") int value) { nlen(address(), value); return this; }
     /** Sets the specified value to the {@code bid} field. */
     public IOURingBuf bid(@NativeType("__u16") short value) { nbid(address(), value); return this; }
-    /** Sets the specified value to the {@code resv} field. */
-    public IOURingBuf resv(@NativeType("__u16") short value) { nresv(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingBuf set(
         long addr,
         int len,
-        short bid,
-        short resv
+        short bid
     ) {
         addr(addr);
         len(len);
         bid(bid);
-        resv(resv);
 
         return this;
     }
@@ -154,8 +145,7 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBuf createSafe(long address) {
+    public static @Nullable IOURingBuf createSafe(long address) {
         return address == NULL ? null : new IOURingBuf(address, null);
     }
 
@@ -198,8 +188,7 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOURingBuf.Buffer createSafe(long address, int capacity) {
+    public static IOURingBuf.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,22 +233,20 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #addr}. */
-    public static long naddr(long struct) { return UNSAFE.getLong(null, struct + IOURingBuf.ADDR); }
+    public static long naddr(long struct) { return memGetLong(struct + IOURingBuf.ADDR); }
     /** Unsafe version of {@link #len}. */
-    public static int nlen(long struct) { return UNSAFE.getInt(null, struct + IOURingBuf.LEN); }
+    public static int nlen(long struct) { return memGetInt(struct + IOURingBuf.LEN); }
     /** Unsafe version of {@link #bid}. */
-    public static short nbid(long struct) { return UNSAFE.getShort(null, struct + IOURingBuf.BID); }
-    /** Unsafe version of {@link #resv}. */
-    public static short nresv(long struct) { return UNSAFE.getShort(null, struct + IOURingBuf.RESV); }
+    public static short nbid(long struct) { return memGetShort(struct + IOURingBuf.BID); }
+    public static short nresv(long struct) { return memGetShort(struct + IOURingBuf.RESV); }
 
     /** Unsafe version of {@link #addr(long) addr}. */
-    public static void naddr(long struct, long value) { UNSAFE.putLong(null, struct + IOURingBuf.ADDR, value); }
+    public static void naddr(long struct, long value) { memPutLong(struct + IOURingBuf.ADDR, value); }
     /** Unsafe version of {@link #len(int) len}. */
-    public static void nlen(long struct, int value) { UNSAFE.putInt(null, struct + IOURingBuf.LEN, value); }
+    public static void nlen(long struct, int value) { memPutInt(struct + IOURingBuf.LEN, value); }
     /** Unsafe version of {@link #bid(short) bid}. */
-    public static void nbid(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBuf.BID, value); }
-    /** Unsafe version of {@link #resv(short) resv}. */
-    public static void nresv(long struct, short value) { UNSAFE.putShort(null, struct + IOURingBuf.RESV, value); }
+    public static void nbid(long struct, short value) { memPutShort(struct + IOURingBuf.BID, value); }
+    public static void nresv(long struct, short value) { memPutShort(struct + IOURingBuf.RESV, value); }
 
     // -----------------------------------
 
@@ -295,6 +282,11 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected IOURingBuf getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -308,9 +300,6 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
         /** @return the value of the {@code bid} field. */
         @NativeType("__u16")
         public short bid() { return IOURingBuf.nbid(address()); }
-        /** @return the value of the {@code resv} field. */
-        @NativeType("__u16")
-        public short resv() { return IOURingBuf.nresv(address()); }
 
         /** Sets the specified value to the {@code addr} field. */
         public IOURingBuf.Buffer addr(@NativeType("__u64") long value) { IOURingBuf.naddr(address(), value); return this; }
@@ -318,8 +307,6 @@ public class IOURingBuf extends Struct<IOURingBuf> implements NativeResource {
         public IOURingBuf.Buffer len(@NativeType("__u32") int value) { IOURingBuf.nlen(address(), value); return this; }
         /** Sets the specified value to the {@code bid} field. */
         public IOURingBuf.Buffer bid(@NativeType("__u16") short value) { IOURingBuf.nbid(address(), value); return this; }
-        /** Sets the specified value to the {@code resv} field. */
-        public IOURingBuf.Buffer resv(@NativeType("__u16") short value) { IOURingBuf.nresv(address(), value); return this; }
 
     }
 

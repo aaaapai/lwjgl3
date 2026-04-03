@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,17 +14,13 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A small structure used to contain the basic glyph metrics returned by the {@link FT_Incremental_GetGlyphMetricsFunc} method.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_Incremental_MetricsRec {
  *     FT_Long bearing_x;
  *     FT_Long bearing_y;
  *     FT_Long advance;
  *     FT_Long advance_v;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct FT_Incremental_MetricsRec")
 public class FT_Incremental_Metrics extends Struct<FT_Incremental_Metrics> {
@@ -102,8 +98,7 @@ public class FT_Incremental_Metrics extends Struct<FT_Incremental_Metrics> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Incremental_Metrics createSafe(long address) {
+    public static @Nullable FT_Incremental_Metrics createSafe(long address) {
         return address == NULL ? null : new FT_Incremental_Metrics(address, null);
     }
 
@@ -118,8 +113,7 @@ public class FT_Incremental_Metrics extends Struct<FT_Incremental_Metrics> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_Incremental_Metrics.Buffer createSafe(long address, int capacity) {
+    public static FT_Incremental_Metrics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -165,6 +159,11 @@ public class FT_Incremental_Metrics extends Struct<FT_Incremental_Metrics> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

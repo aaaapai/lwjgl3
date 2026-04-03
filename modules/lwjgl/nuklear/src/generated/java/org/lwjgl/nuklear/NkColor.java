@@ -5,7 +5,7 @@
  */
 package org.lwjgl.nuklear;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct nk_color {
  *     nk_byte r;
  *     nk_byte g;
  *     nk_byte b;
  *     nk_byte a;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct nk_color")
 public class NkColor extends Struct<NkColor> implements NativeResource {
@@ -154,8 +152,7 @@ public class NkColor extends Struct<NkColor> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkColor createSafe(long address) {
+    public static @Nullable NkColor createSafe(long address) {
         return address == NULL ? null : new NkColor(address, null);
     }
 
@@ -198,29 +195,9 @@ public class NkColor extends Struct<NkColor> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static NkColor.Buffer createSafe(long address, int capacity) {
+    public static NkColor.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkColor mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkColor callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkColor mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkColor callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkColor.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkColor.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkColor.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkColor.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code NkColor} instance allocated on the specified {@link MemoryStack}.
@@ -263,22 +240,22 @@ public class NkColor extends Struct<NkColor> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static byte nr(long struct) { return UNSAFE.getByte(null, struct + NkColor.R); }
+    public static byte nr(long struct) { return memGetByte(struct + NkColor.R); }
     /** Unsafe version of {@link #g}. */
-    public static byte ng(long struct) { return UNSAFE.getByte(null, struct + NkColor.G); }
+    public static byte ng(long struct) { return memGetByte(struct + NkColor.G); }
     /** Unsafe version of {@link #b}. */
-    public static byte nb(long struct) { return UNSAFE.getByte(null, struct + NkColor.B); }
+    public static byte nb(long struct) { return memGetByte(struct + NkColor.B); }
     /** Unsafe version of {@link #a}. */
-    public static byte na(long struct) { return UNSAFE.getByte(null, struct + NkColor.A); }
+    public static byte na(long struct) { return memGetByte(struct + NkColor.A); }
 
     /** Unsafe version of {@link #r(byte) r}. */
-    public static void nr(long struct, byte value) { UNSAFE.putByte(null, struct + NkColor.R, value); }
+    public static void nr(long struct, byte value) { memPutByte(struct + NkColor.R, value); }
     /** Unsafe version of {@link #g(byte) g}. */
-    public static void ng(long struct, byte value) { UNSAFE.putByte(null, struct + NkColor.G, value); }
+    public static void ng(long struct, byte value) { memPutByte(struct + NkColor.G, value); }
     /** Unsafe version of {@link #b(byte) b}. */
-    public static void nb(long struct, byte value) { UNSAFE.putByte(null, struct + NkColor.B, value); }
+    public static void nb(long struct, byte value) { memPutByte(struct + NkColor.B, value); }
     /** Unsafe version of {@link #a(byte) a}. */
-    public static void na(long struct, byte value) { UNSAFE.putByte(null, struct + NkColor.A, value); }
+    public static void na(long struct, byte value) { memPutByte(struct + NkColor.A, value); }
 
     // -----------------------------------
 
@@ -311,6 +288,11 @@ public class NkColor extends Struct<NkColor> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

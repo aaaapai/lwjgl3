@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * State for a single animation.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAVirtualKeyboard XR_META_virtual_keyboard} extension <b>must</b> be enabled prior to using {@link XrVirtualKeyboardAnimationStateMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrVirtualKeyboardModelAnimationStatesMETA}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVirtualKeyboardAnimationStateMETA {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     int32_t {@link #animationIndex};
- *     float {@link #fraction};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     int32_t animationIndex;
+ *     float fraction;
+ * }}</pre>
  */
 public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboardAnimationStateMETA> implements NativeResource {
 
@@ -94,27 +78,27 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the index of the animation to use for the render model. */
+    /** @return the value of the {@code animationIndex} field. */
     @NativeType("int32_t")
     public int animationIndex() { return nanimationIndex(address()); }
-    /** the normalized value between the start and end time of the animation. */
+    /** @return the value of the {@code fraction} field. */
     public float fraction() { return nfraction(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrVirtualKeyboardAnimationStateMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META} value to the {@link #type} field. */
+    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META} value to the {@code type} field. */
     public XrVirtualKeyboardAnimationStateMETA type$Default() { return type(METAVirtualKeyboard.XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrVirtualKeyboardAnimationStateMETA next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #animationIndex} field. */
+    /** Sets the specified value to the {@code animationIndex} field. */
     public XrVirtualKeyboardAnimationStateMETA animationIndex(@NativeType("int32_t") int value) { nanimationIndex(address(), value); return this; }
-    /** Sets the specified value to the {@link #fraction} field. */
+    /** Sets the specified value to the {@code fraction} field. */
     public XrVirtualKeyboardAnimationStateMETA fraction(float value) { nfraction(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -168,8 +152,7 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardAnimationStateMETA createSafe(long address) {
+    public static @Nullable XrVirtualKeyboardAnimationStateMETA createSafe(long address) {
         return address == NULL ? null : new XrVirtualKeyboardAnimationStateMETA(address, null);
     }
 
@@ -212,8 +195,7 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVirtualKeyboardAnimationStateMETA.Buffer createSafe(long address, int capacity) {
+    public static XrVirtualKeyboardAnimationStateMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -258,22 +240,22 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardAnimationStateMETA.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrVirtualKeyboardAnimationStateMETA.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrVirtualKeyboardAnimationStateMETA.NEXT); }
     /** Unsafe version of {@link #animationIndex}. */
-    public static int nanimationIndex(long struct) { return UNSAFE.getInt(null, struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX); }
+    public static int nanimationIndex(long struct) { return memGetInt(struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX); }
     /** Unsafe version of {@link #fraction}. */
-    public static float nfraction(long struct) { return UNSAFE.getFloat(null, struct + XrVirtualKeyboardAnimationStateMETA.FRACTION); }
+    public static float nfraction(long struct) { return memGetFloat(struct + XrVirtualKeyboardAnimationStateMETA.FRACTION); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardAnimationStateMETA.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrVirtualKeyboardAnimationStateMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrVirtualKeyboardAnimationStateMETA.NEXT, value); }
     /** Unsafe version of {@link #animationIndex(int) animationIndex}. */
-    public static void nanimationIndex(long struct, int value) { UNSAFE.putInt(null, struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX, value); }
+    public static void nanimationIndex(long struct, int value) { memPutInt(struct + XrVirtualKeyboardAnimationStateMETA.ANIMATIONINDEX, value); }
     /** Unsafe version of {@link #fraction(float) fraction}. */
-    public static void nfraction(long struct, float value) { UNSAFE.putFloat(null, struct + XrVirtualKeyboardAnimationStateMETA.FRACTION, value); }
+    public static void nfraction(long struct, float value) { memPutFloat(struct + XrVirtualKeyboardAnimationStateMETA.FRACTION, value); }
 
     // -----------------------------------
 
@@ -309,31 +291,36 @@ public class XrVirtualKeyboardAnimationStateMETA extends Struct<XrVirtualKeyboar
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVirtualKeyboardAnimationStateMETA getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVirtualKeyboardAnimationStateMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrVirtualKeyboardAnimationStateMETA.ntype(address()); }
-        /** @return the value of the {@link XrVirtualKeyboardAnimationStateMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrVirtualKeyboardAnimationStateMETA.nnext(address()); }
-        /** @return the value of the {@link XrVirtualKeyboardAnimationStateMETA#animationIndex} field. */
+        /** @return the value of the {@code animationIndex} field. */
         @NativeType("int32_t")
         public int animationIndex() { return XrVirtualKeyboardAnimationStateMETA.nanimationIndex(address()); }
-        /** @return the value of the {@link XrVirtualKeyboardAnimationStateMETA#fraction} field. */
+        /** @return the value of the {@code fraction} field. */
         public float fraction() { return XrVirtualKeyboardAnimationStateMETA.nfraction(address()); }
 
-        /** Sets the specified value to the {@link XrVirtualKeyboardAnimationStateMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrVirtualKeyboardAnimationStateMETA.Buffer type(@NativeType("XrStructureType") int value) { XrVirtualKeyboardAnimationStateMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META} value to the {@link XrVirtualKeyboardAnimationStateMETA#type} field. */
+        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META} value to the {@code type} field. */
         public XrVirtualKeyboardAnimationStateMETA.Buffer type$Default() { return type(METAVirtualKeyboard.XR_TYPE_VIRTUAL_KEYBOARD_ANIMATION_STATE_META); }
-        /** Sets the specified value to the {@link XrVirtualKeyboardAnimationStateMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrVirtualKeyboardAnimationStateMETA.Buffer next(@NativeType("void *") long value) { XrVirtualKeyboardAnimationStateMETA.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVirtualKeyboardAnimationStateMETA#animationIndex} field. */
+        /** Sets the specified value to the {@code animationIndex} field. */
         public XrVirtualKeyboardAnimationStateMETA.Buffer animationIndex(@NativeType("int32_t") int value) { XrVirtualKeyboardAnimationStateMETA.nanimationIndex(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVirtualKeyboardAnimationStateMETA#fraction} field. */
+        /** Sets the specified value to the {@code fraction} field. */
         public XrVirtualKeyboardAnimationStateMETA.Buffer fraction(float value) { XrVirtualKeyboardAnimationStateMETA.nfraction(address(), value); return this; }
 
     }

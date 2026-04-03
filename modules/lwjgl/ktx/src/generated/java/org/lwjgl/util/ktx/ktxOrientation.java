@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,16 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Struct describing the logical orientation of an image.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ktxOrientation {
- *     ktxOrientationX {@link #x};
- *     ktxOrientationY {@link #y};
- *     ktxOrientationZ {@link #z};
- * }</code></pre>
+ *     ktxOrientationX x;
+ *     ktxOrientationY y;
+ *     ktxOrientationZ z;
+ * }}</pre>
  */
 @NativeType("struct ktxOrientation")
 public class ktxOrientation extends Struct<ktxOrientation> {
@@ -77,13 +73,13 @@ public class ktxOrientation extends Struct<ktxOrientation> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** orientation in X */
+    /** @return the value of the {@code x} field. */
     @NativeType("ktxOrientationX")
     public int x() { return nx(address()); }
-    /** orientation in Y */
+    /** @return the value of the {@code y} field. */
     @NativeType("ktxOrientationY")
     public int y() { return ny(address()); }
-    /** orientation in Z */
+    /** @return the value of the {@code z} field. */
     @NativeType("ktxOrientationZ")
     public int z() { return nz(address()); }
 
@@ -95,8 +91,7 @@ public class ktxOrientation extends Struct<ktxOrientation> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxOrientation createSafe(long address) {
+    public static @Nullable ktxOrientation createSafe(long address) {
         return address == NULL ? null : new ktxOrientation(address, null);
     }
 
@@ -111,19 +106,18 @@ public class ktxOrientation extends Struct<ktxOrientation> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxOrientation.Buffer createSafe(long address, int capacity) {
+    public static ktxOrientation.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static int nx(long struct) { return UNSAFE.getInt(null, struct + ktxOrientation.X); }
+    public static int nx(long struct) { return memGetInt(struct + ktxOrientation.X); }
     /** Unsafe version of {@link #y}. */
-    public static int ny(long struct) { return UNSAFE.getInt(null, struct + ktxOrientation.Y); }
+    public static int ny(long struct) { return memGetInt(struct + ktxOrientation.Y); }
     /** Unsafe version of {@link #z}. */
-    public static int nz(long struct) { return UNSAFE.getInt(null, struct + ktxOrientation.Z); }
+    public static int nz(long struct) { return memGetInt(struct + ktxOrientation.Z); }
 
     // -----------------------------------
 
@@ -159,17 +153,22 @@ public class ktxOrientation extends Struct<ktxOrientation> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ktxOrientation getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ktxOrientation#x} field. */
+        /** @return the value of the {@code x} field. */
         @NativeType("ktxOrientationX")
         public int x() { return ktxOrientation.nx(address()); }
-        /** @return the value of the {@link ktxOrientation#y} field. */
+        /** @return the value of the {@code y} field. */
         @NativeType("ktxOrientationY")
         public int y() { return ktxOrientation.ny(address()); }
-        /** @return the value of the {@link ktxOrientation#z} field. */
+        /** @return the value of the {@code z} field. */
         @NativeType("ktxOrientationZ")
         public int z() { return ktxOrientation.nz(address()); }
 

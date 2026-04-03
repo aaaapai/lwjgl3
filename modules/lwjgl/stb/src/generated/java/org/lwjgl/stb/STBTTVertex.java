@@ -5,7 +5,7 @@
  */
 package org.lwjgl.stb;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Vertex data.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stbtt_vertex {
  *     stbtt_vertex_type x;
  *     stbtt_vertex_type y;
@@ -29,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     stbtt_vertex_type cx1;
  *     stbtt_vertex_type cy1;
  *     unsigned char type;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct stbtt_vertex")
 public class STBTTVertex extends Struct<STBTTVertex> implements NativeResource {
@@ -141,8 +137,7 @@ public class STBTTVertex extends Struct<STBTTVertex> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTVertex createSafe(long address) {
+    public static @Nullable STBTTVertex createSafe(long address) {
         return address == NULL ? null : new STBTTVertex(address, null);
     }
 
@@ -185,29 +180,9 @@ public class STBTTVertex extends Struct<STBTTVertex> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static STBTTVertex.Buffer createSafe(long address, int capacity) {
+    public static STBTTVertex.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTVertex.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBTTVertex} instance allocated on the specified {@link MemoryStack}.
@@ -250,19 +225,19 @@ public class STBTTVertex extends Struct<STBTTVertex> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + STBTTVertex.X); }
+    public static short nx(long struct) { return memGetShort(struct + STBTTVertex.X); }
     /** Unsafe version of {@link #y}. */
-    public static short ny(long struct) { return UNSAFE.getShort(null, struct + STBTTVertex.Y); }
+    public static short ny(long struct) { return memGetShort(struct + STBTTVertex.Y); }
     /** Unsafe version of {@link #cx}. */
-    public static short ncx(long struct) { return UNSAFE.getShort(null, struct + STBTTVertex.CX); }
+    public static short ncx(long struct) { return memGetShort(struct + STBTTVertex.CX); }
     /** Unsafe version of {@link #cy}. */
-    public static short ncy(long struct) { return UNSAFE.getShort(null, struct + STBTTVertex.CY); }
+    public static short ncy(long struct) { return memGetShort(struct + STBTTVertex.CY); }
     /** Unsafe version of {@link #cx1}. */
-    public static short ncx1(long struct) { return UNSAFE.getShort(null, struct + STBTTVertex.CX1); }
+    public static short ncx1(long struct) { return memGetShort(struct + STBTTVertex.CX1); }
     /** Unsafe version of {@link #cy1}. */
-    public static short ncy1(long struct) { return UNSAFE.getShort(null, struct + STBTTVertex.CY1); }
+    public static short ncy1(long struct) { return memGetShort(struct + STBTTVertex.CY1); }
     /** Unsafe version of {@link #type}. */
-    public static byte ntype(long struct) { return UNSAFE.getByte(null, struct + STBTTVertex.TYPE); }
+    public static byte ntype(long struct) { return memGetByte(struct + STBTTVertex.TYPE); }
 
     // -----------------------------------
 
@@ -295,6 +270,11 @@ public class STBTTVertex extends Struct<STBTTVertex> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

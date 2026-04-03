@@ -5,7 +5,7 @@
  */
 package org.lwjgl.odbc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct DBDATETIME {
  *     LONG dtdays;
  *     ULONG dttime;
- * }</code></pre>
+ * }}</pre>
  */
 public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
 
@@ -131,8 +129,7 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DBDATETIME createSafe(long address) {
+    public static @Nullable DBDATETIME createSafe(long address) {
         return address == NULL ? null : new DBDATETIME(address, null);
     }
 
@@ -175,29 +172,9 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static DBDATETIME.Buffer createSafe(long address, int capacity) {
+    public static DBDATETIME.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static DBDATETIME.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code DBDATETIME} instance allocated on the specified {@link MemoryStack}.
@@ -240,14 +217,14 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #dtdays}. */
-    public static int ndtdays(long struct) { return UNSAFE.getInt(null, struct + DBDATETIME.DTDAYS); }
+    public static int ndtdays(long struct) { return memGetInt(struct + DBDATETIME.DTDAYS); }
     /** Unsafe version of {@link #dttime}. */
-    public static int ndttime(long struct) { return UNSAFE.getInt(null, struct + DBDATETIME.DTTIME); }
+    public static int ndttime(long struct) { return memGetInt(struct + DBDATETIME.DTTIME); }
 
     /** Unsafe version of {@link #dtdays(int) dtdays}. */
-    public static void ndtdays(long struct, int value) { UNSAFE.putInt(null, struct + DBDATETIME.DTDAYS, value); }
+    public static void ndtdays(long struct, int value) { memPutInt(struct + DBDATETIME.DTDAYS, value); }
     /** Unsafe version of {@link #dttime(int) dttime}. */
-    public static void ndttime(long struct, int value) { UNSAFE.putInt(null, struct + DBDATETIME.DTTIME, value); }
+    public static void ndttime(long struct, int value) { memPutInt(struct + DBDATETIME.DTTIME, value); }
 
     // -----------------------------------
 
@@ -280,6 +257,11 @@ public class DBDATETIME extends Struct<DBDATETIME> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

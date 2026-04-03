@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,14 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XTimeCoord {
- *     Time {@link #time};
- *     short {@link #x};
- *     short {@link #y};
- * }</code></pre>
+ *     Time time;
+ *     short x;
+ *     short y;
+ * }}</pre>
  */
 public class XTimeCoord extends Struct<XTimeCoord> {
 
@@ -74,12 +72,12 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the time, in milliseconds */
+    /** @return the value of the {@code time} field. */
     @NativeType("Time")
     public long time() { return ntime(address()); }
-    /** the x coordinate of the pointer relative to the origin of the specified window */
+    /** @return the value of the {@code x} field. */
     public short x() { return nx(address()); }
-    /** the y coordinate of the pointer relative to the origin of the specified window */
+    /** @return the value of the {@code y} field. */
     public short y() { return ny(address()); }
 
     // -----------------------------------
@@ -90,8 +88,7 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XTimeCoord createSafe(long address) {
+    public static @Nullable XTimeCoord createSafe(long address) {
         return address == NULL ? null : new XTimeCoord(address, null);
     }
 
@@ -106,8 +103,7 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XTimeCoord.Buffer createSafe(long address, int capacity) {
+    public static XTimeCoord.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -116,9 +112,9 @@ public class XTimeCoord extends Struct<XTimeCoord> {
     /** Unsafe version of {@link #time}. */
     public static long ntime(long struct) { return memGetCLong(struct + XTimeCoord.TIME); }
     /** Unsafe version of {@link #x}. */
-    public static short nx(long struct) { return UNSAFE.getShort(null, struct + XTimeCoord.X); }
+    public static short nx(long struct) { return memGetShort(struct + XTimeCoord.X); }
     /** Unsafe version of {@link #y}. */
-    public static short ny(long struct) { return UNSAFE.getShort(null, struct + XTimeCoord.Y); }
+    public static short ny(long struct) { return memGetShort(struct + XTimeCoord.Y); }
 
     // -----------------------------------
 
@@ -154,16 +150,21 @@ public class XTimeCoord extends Struct<XTimeCoord> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XTimeCoord getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XTimeCoord#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("Time")
         public long time() { return XTimeCoord.ntime(address()); }
-        /** @return the value of the {@link XTimeCoord#x} field. */
+        /** @return the value of the {@code x} field. */
         public short x() { return XTimeCoord.nx(address()); }
-        /** @return the value of the {@link XTimeCoord#y} field. */
+        /** @return the value of the {@code y} field. */
         public short y() { return XTimeCoord.ny(address()); }
 
     }

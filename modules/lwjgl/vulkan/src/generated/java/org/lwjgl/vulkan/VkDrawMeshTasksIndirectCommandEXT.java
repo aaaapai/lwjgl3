@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,37 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a mesh tasks draw indirect command.
- * 
- * <h5>Description</h5>
- * 
- * <p>The members of {@link VkDrawMeshTasksIndirectCommandEXT} have the same meaning as the similarly named parameters of {@link EXTMeshShader#vkCmdDrawMeshTasksEXT CmdDrawMeshTasksEXT}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} contains a shader using the {@code TaskEXT} {@code Execution} {@code Model}, {@code groupCountX} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxTaskWorkGroupCount}[0]</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} contains a shader using the {@code TaskEXT} {@code Execution} {@code Model}, {@code groupCountY} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxTaskWorkGroupCount}[1]</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} contains a shader using the {@code TaskEXT} {@code Execution} {@code Model}, {@code groupCountZ} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxTaskWorkGroupCount}[2]</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} contains a shader using the {@code TaskEXT} {@code Execution} {@code Model}, The product of {@code groupCountX}, {@code groupCountY} and {@code groupCountZ} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxTaskWorkGroupTotalCount}</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} does not contain a shader using the {@code TaskEXT} {@code Execution} {@code Model}, {@code groupCountX} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxMeshWorkGroupCount}[0]</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} does not contain a shader using the {@code TaskEXT} {@code Execution} {@code Model}, {@code groupCountY} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxMeshWorkGroupCount}[1]</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} does not contain a shader using the {@code TaskEXT} {@code Execution} {@code Model}, {@code groupCountZ} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxMeshWorkGroupCount}[2]</li>
- * <li>If the current pipeline bound to {@link VK10#VK_PIPELINE_BIND_POINT_GRAPHICS PIPELINE_BIND_POINT_GRAPHICS} does not contain a shader using the {@code TaskEXT} {@code Execution} {@code Model}, The product of {@code groupCountX}, {@code groupCountY} and {@code groupCountZ} <b>must</b> be less than or equal to {@link VkPhysicalDeviceMeshShaderPropertiesEXT}{@code ::maxMeshWorkGroupTotalCount}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTMeshShader#vkCmdDrawMeshTasksIndirectEXT CmdDrawMeshTasksIndirectEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDrawMeshTasksIndirectCommandEXT {
- *     uint32_t {@link #groupCountX};
- *     uint32_t {@link #groupCountY};
- *     uint32_t {@link #groupCountZ};
- * }</code></pre>
+ *     uint32_t groupCountX;
+ *     uint32_t groupCountY;
+ *     uint32_t groupCountZ;
+ * }}</pre>
  */
 public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksIndirectCommandEXT> implements NativeResource {
 
@@ -99,21 +74,21 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of local workgroups to dispatch in the X dimension. */
+    /** @return the value of the {@code groupCountX} field. */
     @NativeType("uint32_t")
     public int groupCountX() { return ngroupCountX(address()); }
-    /** the number of local workgroups to dispatch in the Y dimension. */
+    /** @return the value of the {@code groupCountY} field. */
     @NativeType("uint32_t")
     public int groupCountY() { return ngroupCountY(address()); }
-    /** the number of local workgroups to dispatch in the Z dimension. */
+    /** @return the value of the {@code groupCountZ} field. */
     @NativeType("uint32_t")
     public int groupCountZ() { return ngroupCountZ(address()); }
 
-    /** Sets the specified value to the {@link #groupCountX} field. */
+    /** Sets the specified value to the {@code groupCountX} field. */
     public VkDrawMeshTasksIndirectCommandEXT groupCountX(@NativeType("uint32_t") int value) { ngroupCountX(address(), value); return this; }
-    /** Sets the specified value to the {@link #groupCountY} field. */
+    /** Sets the specified value to the {@code groupCountY} field. */
     public VkDrawMeshTasksIndirectCommandEXT groupCountY(@NativeType("uint32_t") int value) { ngroupCountY(address(), value); return this; }
-    /** Sets the specified value to the {@link #groupCountZ} field. */
+    /** Sets the specified value to the {@code groupCountZ} field. */
     public VkDrawMeshTasksIndirectCommandEXT groupCountZ(@NativeType("uint32_t") int value) { ngroupCountZ(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -165,8 +140,7 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandEXT createSafe(long address) {
+    public static @Nullable VkDrawMeshTasksIndirectCommandEXT createSafe(long address) {
         return address == NULL ? null : new VkDrawMeshTasksIndirectCommandEXT(address, null);
     }
 
@@ -209,8 +183,7 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDrawMeshTasksIndirectCommandEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDrawMeshTasksIndirectCommandEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +228,18 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
     // -----------------------------------
 
     /** Unsafe version of {@link #groupCountX}. */
-    public static int ngroupCountX(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX); }
+    public static int ngroupCountX(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX); }
     /** Unsafe version of {@link #groupCountY}. */
-    public static int ngroupCountY(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY); }
+    public static int ngroupCountY(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY); }
     /** Unsafe version of {@link #groupCountZ}. */
-    public static int ngroupCountZ(long struct) { return UNSAFE.getInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ); }
+    public static int ngroupCountZ(long struct) { return memGetInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ); }
 
     /** Unsafe version of {@link #groupCountX(int) groupCountX}. */
-    public static void ngroupCountX(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX, value); }
+    public static void ngroupCountX(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTX, value); }
     /** Unsafe version of {@link #groupCountY(int) groupCountY}. */
-    public static void ngroupCountY(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY, value); }
+    public static void ngroupCountY(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTY, value); }
     /** Unsafe version of {@link #groupCountZ(int) groupCountZ}. */
-    public static void ngroupCountZ(long struct, int value) { UNSAFE.putInt(null, struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ, value); }
+    public static void ngroupCountZ(long struct, int value) { memPutInt(struct + VkDrawMeshTasksIndirectCommandEXT.GROUPCOUNTZ, value); }
 
     // -----------------------------------
 
@@ -302,25 +275,30 @@ public class VkDrawMeshTasksIndirectCommandEXT extends Struct<VkDrawMeshTasksInd
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDrawMeshTasksIndirectCommandEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDrawMeshTasksIndirectCommandEXT#groupCountX} field. */
+        /** @return the value of the {@code groupCountX} field. */
         @NativeType("uint32_t")
         public int groupCountX() { return VkDrawMeshTasksIndirectCommandEXT.ngroupCountX(address()); }
-        /** @return the value of the {@link VkDrawMeshTasksIndirectCommandEXT#groupCountY} field. */
+        /** @return the value of the {@code groupCountY} field. */
         @NativeType("uint32_t")
         public int groupCountY() { return VkDrawMeshTasksIndirectCommandEXT.ngroupCountY(address()); }
-        /** @return the value of the {@link VkDrawMeshTasksIndirectCommandEXT#groupCountZ} field. */
+        /** @return the value of the {@code groupCountZ} field. */
         @NativeType("uint32_t")
         public int groupCountZ() { return VkDrawMeshTasksIndirectCommandEXT.ngroupCountZ(address()); }
 
-        /** Sets the specified value to the {@link VkDrawMeshTasksIndirectCommandEXT#groupCountX} field. */
+        /** Sets the specified value to the {@code groupCountX} field. */
         public VkDrawMeshTasksIndirectCommandEXT.Buffer groupCountX(@NativeType("uint32_t") int value) { VkDrawMeshTasksIndirectCommandEXT.ngroupCountX(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDrawMeshTasksIndirectCommandEXT#groupCountY} field. */
+        /** Sets the specified value to the {@code groupCountY} field. */
         public VkDrawMeshTasksIndirectCommandEXT.Buffer groupCountY(@NativeType("uint32_t") int value) { VkDrawMeshTasksIndirectCommandEXT.ngroupCountY(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDrawMeshTasksIndirectCommandEXT#groupCountZ} field. */
+        /** Sets the specified value to the {@code groupCountZ} field. */
         public VkDrawMeshTasksIndirectCommandEXT.Buffer groupCountZ(@NativeType("uint32_t") int value) { VkDrawMeshTasksIndirectCommandEXT.ngroupCountZ(address(), value); return this; }
 
     }

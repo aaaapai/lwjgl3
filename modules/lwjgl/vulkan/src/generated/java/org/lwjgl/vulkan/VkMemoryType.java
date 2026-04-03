@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,19 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Structure specifying memory type.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPhysicalDeviceMemoryProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryType {
- *     VkMemoryPropertyFlags {@link #propertyFlags};
- *     uint32_t {@link #heapIndex};
- * }</code></pre>
+ *     VkMemoryPropertyFlags propertyFlags;
+ *     uint32_t heapIndex;
+ * }}</pre>
  */
 public class VkMemoryType extends Struct<VkMemoryType> {
 
@@ -76,10 +68,10 @@ public class VkMemoryType extends Struct<VkMemoryType> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitmask of {@code VkMemoryPropertyFlagBits} of properties for this memory type. */
+    /** @return the value of the {@code propertyFlags} field. */
     @NativeType("VkMemoryPropertyFlags")
     public int propertyFlags() { return npropertyFlags(address()); }
-    /** describes which memory heap this memory type corresponds to, and <b>must</b> be less than {@code memoryHeapCount} from the {@link VkPhysicalDeviceMemoryProperties} structure. */
+    /** @return the value of the {@code heapIndex} field. */
     @NativeType("uint32_t")
     public int heapIndex() { return nheapIndex(address()); }
 
@@ -91,8 +83,7 @@ public class VkMemoryType extends Struct<VkMemoryType> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryType createSafe(long address) {
+    public static @Nullable VkMemoryType createSafe(long address) {
         return address == NULL ? null : new VkMemoryType(address, null);
     }
 
@@ -107,17 +98,16 @@ public class VkMemoryType extends Struct<VkMemoryType> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryType.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryType.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #propertyFlags}. */
-    public static int npropertyFlags(long struct) { return UNSAFE.getInt(null, struct + VkMemoryType.PROPERTYFLAGS); }
+    public static int npropertyFlags(long struct) { return memGetInt(struct + VkMemoryType.PROPERTYFLAGS); }
     /** Unsafe version of {@link #heapIndex}. */
-    public static int nheapIndex(long struct) { return UNSAFE.getInt(null, struct + VkMemoryType.HEAPINDEX); }
+    public static int nheapIndex(long struct) { return memGetInt(struct + VkMemoryType.HEAPINDEX); }
 
     // -----------------------------------
 
@@ -153,14 +143,19 @@ public class VkMemoryType extends Struct<VkMemoryType> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryType getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryType#propertyFlags} field. */
+        /** @return the value of the {@code propertyFlags} field. */
         @NativeType("VkMemoryPropertyFlags")
         public int propertyFlags() { return VkMemoryType.npropertyFlags(address()); }
-        /** @return the value of the {@link VkMemoryType#heapIndex} field. */
+        /** @return the value of the {@code heapIndex} field. */
         @NativeType("uint32_t")
         public int heapIndex() { return VkMemoryType.nheapIndex(address()); }
 

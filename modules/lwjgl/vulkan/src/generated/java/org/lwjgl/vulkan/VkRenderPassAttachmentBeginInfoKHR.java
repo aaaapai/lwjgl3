@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkRenderPassAttachmentBeginInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRenderPassAttachmentBeginInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     uint32_t attachmentCount;
  *     VkImageView const * pAttachments;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkRenderPassAttachmentBeginInfoKHR extends VkRenderPassAttachmentBeginInfo {
 
@@ -113,8 +109,7 @@ public class VkRenderPassAttachmentBeginInfoKHR extends VkRenderPassAttachmentBe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassAttachmentBeginInfoKHR createSafe(long address) {
+    public static @Nullable VkRenderPassAttachmentBeginInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRenderPassAttachmentBeginInfoKHR(address, null);
     }
 
@@ -157,29 +152,9 @@ public class VkRenderPassAttachmentBeginInfoKHR extends VkRenderPassAttachmentBe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassAttachmentBeginInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassAttachmentBeginInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassAttachmentBeginInfoKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkRenderPassAttachmentBeginInfoKHR} instance allocated on the specified {@link MemoryStack}.
@@ -250,6 +225,11 @@ public class VkRenderPassAttachmentBeginInfoKHR extends VkRenderPassAttachmentBe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

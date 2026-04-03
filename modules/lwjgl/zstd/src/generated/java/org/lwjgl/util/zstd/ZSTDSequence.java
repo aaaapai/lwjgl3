@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.zstd;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_Sequence {
- *     unsigned int {@link #offset};
- *     unsigned int {@link #litLength};
- *     unsigned int {@link #matchLength};
- *     unsigned int {@link #rep};
- * }</code></pre>
+ *     unsigned int offset;
+ *     unsigned int litLength;
+ *     unsigned int matchLength;
+ *     unsigned int rep;
+ * }}</pre>
  */
 @NativeType("struct ZSTD_Sequence")
 public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource {
@@ -81,45 +79,16 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * the offset of the match. (NOT the same as the offset code)
-     * 
-     * <p>If {@code offset == 0} and {@code matchLength == 0}, this sequence represents the last literals in the block of {@code litLength} size.</p>
-     */
+    /** @return the value of the {@code offset} field. */
     @NativeType("unsigned int")
     public int offset() { return noffset(address()); }
-    /** literal length of the sequence */
+    /** @return the value of the {@code litLength} field. */
     @NativeType("unsigned int")
     public int litLength() { return nlitLength(address()); }
-    /**
-     * match length of the sequence.
-     * 
-     * <p>Note: Users of this API may provide a sequence with {@code matchLength == litLength == offset == 0}. In this case, we will treat the sequence as a
-     * marker for a block boundary.</p>
-     */
+    /** @return the value of the {@code matchLength} field. */
     @NativeType("unsigned int")
     public int matchLength() { return nmatchLength(address()); }
-    /**
-     * Represents which repeat offset is represented by the field {@code offset}. Ranges from {@code [0, 3]}.
-     * 
-     * <p>Repeat offsets are essentially previous offsets from previous sequences sorted in recency order. For more detail, see
-     * {@code doc/zstd_compression_format.md}.</p>
-     * 
-     * <pre><code>
-     * If rep == 0, then offset does not contain a repeat offset.
-     * If rep &gt; 0:
-     *     If litLength != 0:
-     *         rep == 1 --&gt; offset == repeat_offset_1
-     *         rep == 2 --&gt; offset == repeat_offset_2
-     *         rep == 3 --&gt; offset == repeat_offset_3
-     *     If litLength == 0:
-     *         rep == 1 --&gt; offset == repeat_offset_2
-     *         rep == 2 --&gt; offset == repeat_offset_3
-     *         rep == 3 --&gt; offset == repeat_offset_1 - 1</code></pre>
-     * 
-     * <p>Note: This field is optional. {@link ZstdX#ZSTD_generateSequences generateSequences} will calculate the value of {@code rep}, but repeat offsets do not necessarily need to be calculated
-     * from an external sequence provider's perspective. For example, {@link ZstdX#ZSTD_compressSequences compressSequences} does not use this {@code rep} field at all (as of now).</p>
-     */
+    /** @return the value of the {@code rep} field. */
     @NativeType("unsigned int")
     public int rep() { return nrep(address()); }
 
@@ -147,8 +116,7 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDSequence createSafe(long address) {
+    public static @Nullable ZSTDSequence createSafe(long address) {
         return address == NULL ? null : new ZSTDSequence(address, null);
     }
 
@@ -191,8 +159,7 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ZSTDSequence.Buffer createSafe(long address, int capacity) {
+    public static ZSTDSequence.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -237,13 +204,13 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
     // -----------------------------------
 
     /** Unsafe version of {@link #offset}. */
-    public static int noffset(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.OFFSET); }
+    public static int noffset(long struct) { return memGetInt(struct + ZSTDSequence.OFFSET); }
     /** Unsafe version of {@link #litLength}. */
-    public static int nlitLength(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.LITLENGTH); }
+    public static int nlitLength(long struct) { return memGetInt(struct + ZSTDSequence.LITLENGTH); }
     /** Unsafe version of {@link #matchLength}. */
-    public static int nmatchLength(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.MATCHLENGTH); }
+    public static int nmatchLength(long struct) { return memGetInt(struct + ZSTDSequence.MATCHLENGTH); }
     /** Unsafe version of {@link #rep}. */
-    public static int nrep(long struct) { return UNSAFE.getInt(null, struct + ZSTDSequence.REP); }
+    public static int nrep(long struct) { return memGetInt(struct + ZSTDSequence.REP); }
 
     // -----------------------------------
 
@@ -279,20 +246,25 @@ public class ZSTDSequence extends Struct<ZSTDSequence> implements NativeResource
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ZSTDSequence getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZSTDSequence#offset} field. */
+        /** @return the value of the {@code offset} field. */
         @NativeType("unsigned int")
         public int offset() { return ZSTDSequence.noffset(address()); }
-        /** @return the value of the {@link ZSTDSequence#litLength} field. */
+        /** @return the value of the {@code litLength} field. */
         @NativeType("unsigned int")
         public int litLength() { return ZSTDSequence.nlitLength(address()); }
-        /** @return the value of the {@link ZSTDSequence#matchLength} field. */
+        /** @return the value of the {@code matchLength} field. */
         @NativeType("unsigned int")
         public int matchLength() { return ZSTDSequence.nmatchLength(address()); }
-        /** @return the value of the {@link ZSTDSequence#rep} field. */
+        /** @return the value of the {@code rep} field. */
         @NativeType("unsigned int")
         public int rep() { return ZSTDSequence.nrep(address()); }
 

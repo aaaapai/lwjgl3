@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan.video;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct StdVideoH265VpsFlags {
  *     uint32_t vps_temporal_id_nesting_flag : 1;
  *     uint32_t vps_sub_layer_ordering_info_present_flag : 1;
  *     uint32_t vps_timing_info_present_flag : 1;
  *     uint32_t vps_poc_proportional_to_timing_flag : 1;
- * }</code></pre>
+ * }}</pre>
  */
 public class StdVideoH265VpsFlags extends Struct<StdVideoH265VpsFlags> implements NativeResource {
 
@@ -144,8 +142,7 @@ public class StdVideoH265VpsFlags extends Struct<StdVideoH265VpsFlags> implement
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265VpsFlags createSafe(long address) {
+    public static @Nullable StdVideoH265VpsFlags createSafe(long address) {
         return address == NULL ? null : new StdVideoH265VpsFlags(address, null);
     }
 
@@ -188,8 +185,7 @@ public class StdVideoH265VpsFlags extends Struct<StdVideoH265VpsFlags> implement
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static StdVideoH265VpsFlags.Buffer createSafe(long address, int capacity) {
+    public static StdVideoH265VpsFlags.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -233,7 +229,7 @@ public class StdVideoH265VpsFlags extends Struct<StdVideoH265VpsFlags> implement
 
     // -----------------------------------
 
-    public static int nbitfield0(long struct) { return UNSAFE.getInt(null, struct + StdVideoH265VpsFlags.BITFIELD0); }
+    public static int nbitfield0(long struct) { return memGetInt(struct + StdVideoH265VpsFlags.BITFIELD0); }
     /** Unsafe version of {@link #vps_temporal_id_nesting_flag}. */
     public static int nvps_temporal_id_nesting_flag(long struct) { return nbitfield0(struct) & 0x00_00_00_01; }
     /** Unsafe version of {@link #vps_sub_layer_ordering_info_present_flag}. */
@@ -243,7 +239,7 @@ public class StdVideoH265VpsFlags extends Struct<StdVideoH265VpsFlags> implement
     /** Unsafe version of {@link #vps_poc_proportional_to_timing_flag}. */
     public static int nvps_poc_proportional_to_timing_flag(long struct) { return (nbitfield0(struct) & 0x00_00_00_08) >>> 3; }
 
-    public static void nbitfield0(long struct, int value) { UNSAFE.putInt(null, struct + StdVideoH265VpsFlags.BITFIELD0, value); }
+    public static void nbitfield0(long struct, int value) { memPutInt(struct + StdVideoH265VpsFlags.BITFIELD0, value); }
     /** Unsafe version of {@link #vps_temporal_id_nesting_flag(boolean) vps_temporal_id_nesting_flag}. */
     public static void nvps_temporal_id_nesting_flag(long struct, int value) { nbitfield0(struct, (nbitfield0(struct) & 0xFF_FF_FF_FE) | (value & 0x00_00_00_01)); }
     /** Unsafe version of {@link #vps_sub_layer_ordering_info_present_flag(boolean) vps_sub_layer_ordering_info_present_flag}. */
@@ -284,6 +280,11 @@ public class StdVideoH265VpsFlags extends Struct<StdVideoH265VpsFlags> implement
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

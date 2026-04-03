@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether the implementation supports multi draw functionality.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceMultiDrawFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceMultiDrawFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMultiDraw#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceMultiDrawFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #multiDraw};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 multiDraw;
+ * }}</pre>
  */
 public class VkPhysicalDeviceMultiDrawFeaturesEXT extends Struct<VkPhysicalDeviceMultiDrawFeaturesEXT> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceMultiDrawFeaturesEXT extends Struct<VkPhysicalDevic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports {@link EXTMultiDraw#vkCmdDrawMultiEXT CmdDrawMultiEXT} and {@link EXTMultiDraw#vkCmdDrawMultiIndexedEXT CmdDrawMultiIndexedEXT}. */
+    /** @return the value of the {@code multiDraw} field. */
     @NativeType("VkBool32")
     public boolean multiDraw() { return nmultiDraw(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceMultiDrawFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMultiDraw#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMultiDraw#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceMultiDrawFeaturesEXT sType$Default() { return sType(EXTMultiDraw.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceMultiDrawFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #multiDraw} field. */
+    /** Sets the specified value to the {@code multiDraw} field. */
     public VkPhysicalDeviceMultiDrawFeaturesEXT multiDraw(@NativeType("VkBool32") boolean value) { nmultiDraw(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceMultiDrawFeaturesEXT extends Struct<VkPhysicalDevic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiDrawFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMultiDrawFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMultiDrawFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceMultiDrawFeaturesEXT extends Struct<VkPhysicalDevic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiDrawFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMultiDrawFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceMultiDrawFeaturesEXT extends Struct<VkPhysicalDevic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiDrawFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiDrawFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMultiDrawFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #multiDraw}. */
-    public static int nmultiDraw(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiDrawFeaturesEXT.MULTIDRAW); }
+    public static int nmultiDraw(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiDrawFeaturesEXT.MULTIDRAW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiDrawFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiDrawFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMultiDrawFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #multiDraw(boolean) multiDraw}. */
-    public static void nmultiDraw(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiDrawFeaturesEXT.MULTIDRAW, value); }
+    public static void nmultiDraw(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiDrawFeaturesEXT.MULTIDRAW, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceMultiDrawFeaturesEXT extends Struct<VkPhysicalDevic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceMultiDrawFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceMultiDrawFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMultiDrawFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#multiDraw} field. */
+        /** @return the value of the {@code multiDraw} field. */
         @NativeType("VkBool32")
         public boolean multiDraw() { return VkPhysicalDeviceMultiDrawFeaturesEXT.nmultiDraw(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceMultiDrawFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceMultiDrawFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMultiDraw#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT} value to the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTMultiDraw#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceMultiDrawFeaturesEXT.Buffer sType$Default() { return sType(EXTMultiDraw.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceMultiDrawFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceMultiDrawFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMultiDrawFeaturesEXT#multiDraw} field. */
+        /** Sets the specified value to the {@code multiDraw} field. */
         public VkPhysicalDeviceMultiDrawFeaturesEXT.Buffer multiDraw(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceMultiDrawFeaturesEXT.nmultiDraw(address(), value ? 1 : 0); return this; }
 
     }

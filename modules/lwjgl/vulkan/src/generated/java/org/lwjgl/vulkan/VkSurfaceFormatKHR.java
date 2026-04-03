@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing a supported swapchain format-color space pair.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSurfaceFormat2KHR}, {@link KHRSurface#vkGetPhysicalDeviceSurfaceFormatsKHR GetPhysicalDeviceSurfaceFormatsKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSurfaceFormatKHR {
- *     VkFormat {@link #format};
- *     VkColorSpaceKHR {@link #colorSpace};
- * }</code></pre>
+ *     VkFormat format;
+ *     VkColorSpaceKHR colorSpace;
+ * }}</pre>
  */
 public class VkSurfaceFormatKHR extends Struct<VkSurfaceFormatKHR> implements NativeResource {
 
@@ -78,10 +70,10 @@ public class VkSurfaceFormatKHR extends Struct<VkSurfaceFormatKHR> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkFormat} that is compatible with the specified surface. */
+    /** @return the value of the {@code format} field. */
     @NativeType("VkFormat")
     public int format() { return nformat(address()); }
-    /** a presentation {@code VkColorSpaceKHR} that is compatible with the surface. */
+    /** @return the value of the {@code colorSpace} field. */
     @NativeType("VkColorSpaceKHR")
     public int colorSpace() { return ncolorSpace(address()); }
 
@@ -109,8 +101,7 @@ public class VkSurfaceFormatKHR extends Struct<VkSurfaceFormatKHR> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceFormatKHR createSafe(long address) {
+    public static @Nullable VkSurfaceFormatKHR createSafe(long address) {
         return address == NULL ? null : new VkSurfaceFormatKHR(address, null);
     }
 
@@ -153,29 +144,9 @@ public class VkSurfaceFormatKHR extends Struct<VkSurfaceFormatKHR> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceFormatKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceFormatKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormatKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkSurfaceFormatKHR} instance allocated on the specified {@link MemoryStack}.
@@ -218,9 +189,9 @@ public class VkSurfaceFormatKHR extends Struct<VkSurfaceFormatKHR> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceFormatKHR.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + VkSurfaceFormatKHR.FORMAT); }
     /** Unsafe version of {@link #colorSpace}. */
-    public static int ncolorSpace(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceFormatKHR.COLORSPACE); }
+    public static int ncolorSpace(long struct) { return memGetInt(struct + VkSurfaceFormatKHR.COLORSPACE); }
 
     // -----------------------------------
 
@@ -256,14 +227,19 @@ public class VkSurfaceFormatKHR extends Struct<VkSurfaceFormatKHR> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSurfaceFormatKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSurfaceFormatKHR#format} field. */
+        /** @return the value of the {@code format} field. */
         @NativeType("VkFormat")
         public int format() { return VkSurfaceFormatKHR.nformat(address()); }
-        /** @return the value of the {@link VkSurfaceFormatKHR#colorSpace} field. */
+        /** @return the value of the {@code colorSpace} field. */
         @NativeType("VkColorSpaceKHR")
         public int colorSpace() { return VkSurfaceFormatKHR.ncolorSpace(address()); }
 

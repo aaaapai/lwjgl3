@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the ray tracing opacity micromap features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceOpacityMicromapFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #micromap};
- *     VkBool32 {@link #micromapCaptureReplay};
- *     VkBool32 {@link #micromapHostCommands};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 micromap;
+ *     VkBool32 micromapCaptureReplay;
+ *     VkBool32 micromapHostCommands;
+ * }}</pre>
  */
 public class VkPhysicalDeviceOpacityMicromapFeaturesEXT extends Struct<VkPhysicalDeviceOpacityMicromapFeaturesEXT> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDeviceOpacityMicromapFeaturesEXT extends Struct<VkPhysica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports the micromap array feature. */
+    /** @return the value of the {@code micromap} field. */
     @NativeType("VkBool32")
     public boolean micromap() { return nmicromap(address()) != 0; }
-    /** indicates whether the implementation supports capture and replay of addresses for micromap arrays. */
+    /** @return the value of the {@code micromapCaptureReplay} field. */
     @NativeType("VkBool32")
     public boolean micromapCaptureReplay() { return nmicromapCaptureReplay(address()) != 0; }
-    /** indicates whether the implementation supports host side micromap array commands. */
+    /** @return the value of the {@code micromapHostCommands} field. */
     @NativeType("VkBool32")
     public boolean micromapHostCommands() { return nmicromapHostCommands(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceOpacityMicromapFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceOpacityMicromapFeaturesEXT sType$Default() { return sType(EXTOpacityMicromap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceOpacityMicromapFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #micromap} field. */
+    /** Sets the specified value to the {@code micromap} field. */
     public VkPhysicalDeviceOpacityMicromapFeaturesEXT micromap(@NativeType("VkBool32") boolean value) { nmicromap(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #micromapCaptureReplay} field. */
+    /** Sets the specified value to the {@code micromapCaptureReplay} field. */
     public VkPhysicalDeviceOpacityMicromapFeaturesEXT micromapCaptureReplay(@NativeType("VkBool32") boolean value) { nmicromapCaptureReplay(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #micromapHostCommands} field. */
+    /** Sets the specified value to the {@code micromapHostCommands} field. */
     public VkPhysicalDeviceOpacityMicromapFeaturesEXT micromapHostCommands(@NativeType("VkBool32") boolean value) { nmicromapHostCommands(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDeviceOpacityMicromapFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpacityMicromapFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceOpacityMicromapFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceOpacityMicromapFeaturesEXT(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDeviceOpacityMicromapFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceOpacityMicromapFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +252,26 @@ public class VkPhysicalDeviceOpacityMicromapFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #micromap}. */
-    public static int nmicromap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAP); }
+    public static int nmicromap(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAP); }
     /** Unsafe version of {@link #micromapCaptureReplay}. */
-    public static int nmicromapCaptureReplay(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPCAPTUREREPLAY); }
+    public static int nmicromapCaptureReplay(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPCAPTUREREPLAY); }
     /** Unsafe version of {@link #micromapHostCommands}. */
-    public static int nmicromapHostCommands(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPHOSTCOMMANDS); }
+    public static int nmicromapHostCommands(long struct) { return memGetInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPHOSTCOMMANDS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #micromap(boolean) micromap}. */
-    public static void nmicromap(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAP, value); }
+    public static void nmicromap(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAP, value); }
     /** Unsafe version of {@link #micromapCaptureReplay(boolean) micromapCaptureReplay}. */
-    public static void nmicromapCaptureReplay(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPCAPTUREREPLAY, value); }
+    public static void nmicromapCaptureReplay(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPCAPTUREREPLAY, value); }
     /** Unsafe version of {@link #micromapHostCommands(boolean) micromapHostCommands}. */
-    public static void nmicromapHostCommands(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPHOSTCOMMANDS, value); }
+    public static void nmicromapHostCommands(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpacityMicromapFeaturesEXT.MICROMAPHOSTCOMMANDS, value); }
 
     // -----------------------------------
 
@@ -323,37 +307,42 @@ public class VkPhysicalDeviceOpacityMicromapFeaturesEXT extends Struct<VkPhysica
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceOpacityMicromapFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceOpacityMicromapFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceOpacityMicromapFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#micromap} field. */
+        /** @return the value of the {@code micromap} field. */
         @NativeType("VkBool32")
         public boolean micromap() { return VkPhysicalDeviceOpacityMicromapFeaturesEXT.nmicromap(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#micromapCaptureReplay} field. */
+        /** @return the value of the {@code micromapCaptureReplay} field. */
         @NativeType("VkBool32")
         public boolean micromapCaptureReplay() { return VkPhysicalDeviceOpacityMicromapFeaturesEXT.nmicromapCaptureReplay(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#micromapHostCommands} field. */
+        /** @return the value of the {@code micromapHostCommands} field. */
         @NativeType("VkBool32")
         public boolean micromapHostCommands() { return VkPhysicalDeviceOpacityMicromapFeaturesEXT.nmicromapHostCommands(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceOpacityMicromapFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT} value to the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer sType$Default() { return sType(EXTOpacityMicromap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceOpacityMicromapFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#micromap} field. */
+        /** Sets the specified value to the {@code micromap} field. */
         public VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer micromap(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceOpacityMicromapFeaturesEXT.nmicromap(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#micromapCaptureReplay} field. */
+        /** Sets the specified value to the {@code micromapCaptureReplay} field. */
         public VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer micromapCaptureReplay(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceOpacityMicromapFeaturesEXT.nmicromapCaptureReplay(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpacityMicromapFeaturesEXT#micromapHostCommands} field. */
+        /** Sets the specified value to the {@code micromapHostCommands} field. */
         public VkPhysicalDeviceOpacityMicromapFeaturesEXT.Buffer micromapHostCommands(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceOpacityMicromapFeaturesEXT.nmicromapHostCommands(address(), value ? 1 : 0); return this; }
 
     }

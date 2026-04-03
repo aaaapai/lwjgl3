@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.windows;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines the coordinates of the upper-left and lower-right corners of a rectangle.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct RECT {
- *     LONG {@link #left};
- *     LONG {@link #top};
- *     LONG {@link #right};
- *     LONG {@link #bottom};
- * }</code></pre>
+ *     LONG left;
+ *     LONG top;
+ *     LONG right;
+ *     LONG bottom;
+ * }}</pre>
  */
 public class RECT extends Struct<RECT> implements NativeResource {
 
@@ -82,26 +78,26 @@ public class RECT extends Struct<RECT> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x-coordinate of the upper-left corner of the rectangle */
+    /** @return the value of the {@code left} field. */
     @NativeType("LONG")
     public int left() { return nleft(address()); }
-    /** the y-coordinate of the upper-left corner of the rectangle */
+    /** @return the value of the {@code top} field. */
     @NativeType("LONG")
     public int top() { return ntop(address()); }
-    /** the x-coordinate of the lower-right corner of the rectangle */
+    /** @return the value of the {@code right} field. */
     @NativeType("LONG")
     public int right() { return nright(address()); }
-    /** the y-coordinate of the lower-right corner of the rectangle */
+    /** @return the value of the {@code bottom} field. */
     @NativeType("LONG")
     public int bottom() { return nbottom(address()); }
 
-    /** Sets the specified value to the {@link #left} field. */
+    /** Sets the specified value to the {@code left} field. */
     public RECT left(@NativeType("LONG") int value) { nleft(address(), value); return this; }
-    /** Sets the specified value to the {@link #top} field. */
+    /** Sets the specified value to the {@code top} field. */
     public RECT top(@NativeType("LONG") int value) { ntop(address(), value); return this; }
-    /** Sets the specified value to the {@link #right} field. */
+    /** Sets the specified value to the {@code right} field. */
     public RECT right(@NativeType("LONG") int value) { nright(address(), value); return this; }
-    /** Sets the specified value to the {@link #bottom} field. */
+    /** Sets the specified value to the {@code bottom} field. */
     public RECT bottom(@NativeType("LONG") int value) { nbottom(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -155,8 +151,7 @@ public class RECT extends Struct<RECT> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RECT createSafe(long address) {
+    public static @Nullable RECT createSafe(long address) {
         return address == NULL ? null : new RECT(address, null);
     }
 
@@ -199,29 +194,9 @@ public class RECT extends Struct<RECT> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static RECT.Buffer createSafe(long address, int capacity) {
+    public static RECT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static RECT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static RECT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static RECT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static RECT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static RECT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static RECT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static RECT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static RECT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code RECT} instance allocated on the specified {@link MemoryStack}.
@@ -264,22 +239,22 @@ public class RECT extends Struct<RECT> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #left}. */
-    public static int nleft(long struct) { return UNSAFE.getInt(null, struct + RECT.LEFT); }
+    public static int nleft(long struct) { return memGetInt(struct + RECT.LEFT); }
     /** Unsafe version of {@link #top}. */
-    public static int ntop(long struct) { return UNSAFE.getInt(null, struct + RECT.TOP); }
+    public static int ntop(long struct) { return memGetInt(struct + RECT.TOP); }
     /** Unsafe version of {@link #right}. */
-    public static int nright(long struct) { return UNSAFE.getInt(null, struct + RECT.RIGHT); }
+    public static int nright(long struct) { return memGetInt(struct + RECT.RIGHT); }
     /** Unsafe version of {@link #bottom}. */
-    public static int nbottom(long struct) { return UNSAFE.getInt(null, struct + RECT.BOTTOM); }
+    public static int nbottom(long struct) { return memGetInt(struct + RECT.BOTTOM); }
 
     /** Unsafe version of {@link #left(int) left}. */
-    public static void nleft(long struct, int value) { UNSAFE.putInt(null, struct + RECT.LEFT, value); }
+    public static void nleft(long struct, int value) { memPutInt(struct + RECT.LEFT, value); }
     /** Unsafe version of {@link #top(int) top}. */
-    public static void ntop(long struct, int value) { UNSAFE.putInt(null, struct + RECT.TOP, value); }
+    public static void ntop(long struct, int value) { memPutInt(struct + RECT.TOP, value); }
     /** Unsafe version of {@link #right(int) right}. */
-    public static void nright(long struct, int value) { UNSAFE.putInt(null, struct + RECT.RIGHT, value); }
+    public static void nright(long struct, int value) { memPutInt(struct + RECT.RIGHT, value); }
     /** Unsafe version of {@link #bottom(int) bottom}. */
-    public static void nbottom(long struct, int value) { UNSAFE.putInt(null, struct + RECT.BOTTOM, value); }
+    public static void nbottom(long struct, int value) { memPutInt(struct + RECT.BOTTOM, value); }
 
     // -----------------------------------
 
@@ -315,30 +290,35 @@ public class RECT extends Struct<RECT> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected RECT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link RECT#left} field. */
+        /** @return the value of the {@code left} field. */
         @NativeType("LONG")
         public int left() { return RECT.nleft(address()); }
-        /** @return the value of the {@link RECT#top} field. */
+        /** @return the value of the {@code top} field. */
         @NativeType("LONG")
         public int top() { return RECT.ntop(address()); }
-        /** @return the value of the {@link RECT#right} field. */
+        /** @return the value of the {@code right} field. */
         @NativeType("LONG")
         public int right() { return RECT.nright(address()); }
-        /** @return the value of the {@link RECT#bottom} field. */
+        /** @return the value of the {@code bottom} field. */
         @NativeType("LONG")
         public int bottom() { return RECT.nbottom(address()); }
 
-        /** Sets the specified value to the {@link RECT#left} field. */
+        /** Sets the specified value to the {@code left} field. */
         public RECT.Buffer left(@NativeType("LONG") int value) { RECT.nleft(address(), value); return this; }
-        /** Sets the specified value to the {@link RECT#top} field. */
+        /** Sets the specified value to the {@code top} field. */
         public RECT.Buffer top(@NativeType("LONG") int value) { RECT.ntop(address(), value); return this; }
-        /** Sets the specified value to the {@link RECT#right} field. */
+        /** Sets the specified value to the {@code right} field. */
         public RECT.Buffer right(@NativeType("LONG") int value) { RECT.nright(address(), value); return this; }
-        /** Sets the specified value to the {@link RECT#bottom} field. */
+        /** Sets the specified value to the {@code bottom} field. */
         public RECT.Buffer bottom(@NativeType("LONG") int value) { RECT.nbottom(address(), value); return this; }
 
     }

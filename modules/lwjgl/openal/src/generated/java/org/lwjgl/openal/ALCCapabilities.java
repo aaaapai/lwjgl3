@@ -12,7 +12,6 @@ import java.util.function.IntFunction;
 
 import static org.lwjgl.system.Checks.*;
 
-/** Defines the capabilities of the OpenAL Context API. */
 public final class ALCCapabilities {
 
     // ALC10
@@ -40,6 +39,10 @@ public final class ALCCapabilities {
         alcCaptureStart,
         alcCaptureStop,
         alcCaptureSamples;
+
+    // EXT_direct_context
+    public final long
+        alcGetProcAddress2;
 
     // EXT_thread_local_context
     public final long
@@ -70,48 +73,56 @@ public final class ALCCapabilities {
     public final long
         alcReopenDeviceSOFT;
 
-    /** When true, {@link ALC10} is supported. */
+    // SOFT_system_events
+    public final long
+        alcEventIsSupportedSOFT,
+        alcEventControlSOFT,
+        alcEventCallbackSOFT;
+
+    /** When true, {@code ALC10} is supported. */
     public final boolean OpenALC10;
-    /** When true, {@link ALC11} is supported. */
+    /** When true, {@code ALC11} is supported. */
     public final boolean OpenALC11;
-    /** When true, {@link SOFTLoopbackBformat} is supported. */
+    /** When true, {@code ALC_SOFT_loopback_bformat} is supported. */
     public final boolean OpenALC_SOFT_loopback_bformat;
-    /** When true, {@link EnumerateAllExt} is supported. */
+    /** When true, {@code ENUMERATE_ALL_EXT} is supported. */
     public final boolean ALC_ENUMERATE_ALL_EXT;
-    /**
-     * An OpenAL 1.1 implementation will always support the {@code ALC_ENUMERATION_EXT} extension. This extension provides for enumeration of the available OpenAL devices
-     * through {@link ALC10#alcGetString GetString}. An {@link ALC10#alcGetString GetString} query of {@link ALC10#ALC_DEVICE_SPECIFIER DEVICE_SPECIFIER} with a {@code NULL} device passed in will return a list of devices. Each
-     * device name will be separated by a single {@code NULL} character and the list will be terminated with two {@code NULL} characters.
-     */
+    /** When true, {@code ENUMERATION_EXT} is supported. */
     public final boolean ALC_ENUMERATION_EXT;
-    /** When true, {@link EXTCapture} is supported. */
+    /** When true, {@code EXT_CAPTURE} is supported. */
     public final boolean ALC_EXT_CAPTURE;
-    /** When true, {@link EXTDedicated} is supported. */
+    /** When true, {@code EXT_debug} is supported. */
+    public final boolean ALC_EXT_debug;
+    /** When true, {@code EXT_DEDICATED} is supported. */
     public final boolean ALC_EXT_DEDICATED;
-    /** When true, {@link EXTDefaultFilterOrder} is supported. */
+    /** When true, {@code EXT_DEFAULT_FILTER_ORDER} is supported. */
     public final boolean ALC_EXT_DEFAULT_FILTER_ORDER;
-    /** When true, {@link EXTDisconnect} is supported. */
+    /** When true, {@code EXT_direct_context} is supported. */
+    public final boolean ALC_EXT_direct_context;
+    /** When true, {@code EXT_disconnect} is supported. */
     public final boolean ALC_EXT_disconnect;
-    /** When true, {@link EXTEfx} is supported. */
+    /** When true, {@code EXT_EFX} is supported. */
     public final boolean ALC_EXT_EFX;
-    /** When true, {@link EXTThreadLocalContext} is supported. */
+    /** When true, {@code EXT_thread_local_context} is supported. */
     public final boolean ALC_EXT_thread_local_context;
-    /** When true, {@link LOKIAudioChannel} is supported. */
+    /** When true, {@code LOKI_audio_channel} is supported. */
     public final boolean ALC_LOKI_audio_channel;
-    /** When true, {@link SOFTDeviceClock} is supported. */
+    /** When true, {@code SOFT_device_clock} is supported. */
     public final boolean ALC_SOFT_device_clock;
-    /** When true, {@link SOFTHRTF} is supported. */
+    /** When true, {@code SOFT_HRTF} is supported. */
     public final boolean ALC_SOFT_HRTF;
-    /** When true, {@link SOFTLoopback} is supported. */
+    /** When true, {@code SOFT_loopback} is supported. */
     public final boolean ALC_SOFT_loopback;
-    /** When true, {@link SOFTOutputLimiter} is supported. */
+    /** When true, {@code SOFT_output_limiter} is supported. */
     public final boolean ALC_SOFT_output_limiter;
-    /** When true, {@link SOFTOutputMode} is supported. */
+    /** When true, {@code SOFT_output_mode} is supported. */
     public final boolean ALC_SOFT_output_mode;
-    /** When true, {@link SOFTPauseDevice} is supported. */
+    /** When true, {@code SOFT_pause_device} is supported. */
     public final boolean ALC_SOFT_pause_device;
-    /** When true, {@link SOFTReopenDevice} is supported. */
+    /** When true, {@code SOFT_reopen_device} is supported. */
     public final boolean ALC_SOFT_reopen_device;
+    /** When true, {@code SOFT_system_events} is supported. */
+    public final boolean ALC_SOFT_system_events;
 
     /** Device handle. */
     final long device;
@@ -122,7 +133,7 @@ public final class ALCCapabilities {
     ALCCapabilities(FunctionProviderLocal provider, long device, Set<String> ext, IntFunction<PointerBuffer> bufferFactory) {
         this.device = device;
 
-        PointerBuffer caps = bufferFactory.apply(31);
+        PointerBuffer caps = bufferFactory.apply(35);
 
         OpenALC10 = check_ALC10(provider, device, caps, ext);
         OpenALC11 = check_ALC11(provider, device, caps, ext);
@@ -130,8 +141,10 @@ public final class ALCCapabilities {
         ALC_ENUMERATE_ALL_EXT = ext.contains("ALC_ENUMERATE_ALL_EXT");
         ALC_ENUMERATION_EXT = ext.contains("ALC_ENUMERATION_EXT");
         ALC_EXT_CAPTURE = check_EXT_CAPTURE(provider, device, caps, ext);
+        ALC_EXT_debug = ext.contains("ALC_EXT_debug");
         ALC_EXT_DEDICATED = ext.contains("ALC_EXT_DEDICATED");
         ALC_EXT_DEFAULT_FILTER_ORDER = ext.contains("ALC_EXT_DEFAULT_FILTER_ORDER");
+        ALC_EXT_direct_context = check_EXT_direct_context(provider, device, caps, ext);
         ALC_EXT_disconnect = ext.contains("ALC_EXT_disconnect");
         ALC_EXT_EFX = ext.contains("ALC_EXT_EFX");
         ALC_EXT_thread_local_context = check_EXT_thread_local_context(provider, device, caps, ext);
@@ -143,6 +156,7 @@ public final class ALCCapabilities {
         ALC_SOFT_output_mode = ext.contains("ALC_SOFT_output_mode");
         ALC_SOFT_pause_device = check_SOFT_pause_device(provider, device, caps, ext);
         ALC_SOFT_reopen_device = check_SOFT_reopen_device(provider, device, caps, ext);
+        ALC_SOFT_system_events = check_SOFT_system_events(provider, device, caps, ext);
 
         alcOpenDevice = caps.get(0);
         alcCloseDevice = caps.get(1);
@@ -164,17 +178,21 @@ public final class ALCCapabilities {
         alcCaptureStart = caps.get(17);
         alcCaptureStop = caps.get(18);
         alcCaptureSamples = caps.get(19);
-        alcSetThreadContext = caps.get(20);
-        alcGetThreadContext = caps.get(21);
-        alcGetInteger64vSOFT = caps.get(22);
-        alcGetStringiSOFT = caps.get(23);
-        alcResetDeviceSOFT = caps.get(24);
-        alcLoopbackOpenDeviceSOFT = caps.get(25);
-        alcIsRenderFormatSupportedSOFT = caps.get(26);
-        alcRenderSamplesSOFT = caps.get(27);
-        alcDevicePauseSOFT = caps.get(28);
-        alcDeviceResumeSOFT = caps.get(29);
-        alcReopenDeviceSOFT = caps.get(30);
+        alcGetProcAddress2 = caps.get(20);
+        alcSetThreadContext = caps.get(21);
+        alcGetThreadContext = caps.get(22);
+        alcGetInteger64vSOFT = caps.get(23);
+        alcGetStringiSOFT = caps.get(24);
+        alcResetDeviceSOFT = caps.get(25);
+        alcLoopbackOpenDeviceSOFT = caps.get(26);
+        alcIsRenderFormatSupportedSOFT = caps.get(27);
+        alcRenderSamplesSOFT = caps.get(28);
+        alcDevicePauseSOFT = caps.get(29);
+        alcDeviceResumeSOFT = caps.get(30);
+        alcReopenDeviceSOFT = caps.get(31);
+        alcEventIsSupportedSOFT = caps.get(32);
+        alcEventControlSOFT = caps.get(33);
+        alcEventCallbackSOFT = caps.get(34);
 
         addresses = ThreadLocalUtil.setupAddressBuffer(caps);
     }
@@ -222,13 +240,25 @@ public final class ALCCapabilities {
         ) || reportMissing("ALC", "ALC_EXT_CAPTURE");
     }
 
+    private static boolean check_EXT_direct_context(FunctionProviderLocal provider, long device, PointerBuffer caps, Set<String> ext) {
+        if (!ext.contains("ALC_EXT_direct_context")) {
+            return false;
+        }
+
+        return checkFunctions(provider, device, caps, new int[] {
+            20
+        },
+            "alcGetProcAddress2"
+        ) || reportMissing("ALC", "ALC_EXT_direct_context");
+    }
+
     private static boolean check_EXT_thread_local_context(FunctionProviderLocal provider, long device, PointerBuffer caps, Set<String> ext) {
         if (!ext.contains("ALC_EXT_thread_local_context")) {
             return false;
         }
 
         return checkFunctions(provider, device, caps, new int[] {
-            20, 21
+            21, 22
         },
             "alcSetThreadContext", "alcGetThreadContext"
         ) || reportMissing("ALC", "ALC_EXT_thread_local_context");
@@ -240,7 +270,7 @@ public final class ALCCapabilities {
         }
 
         return checkFunctions(provider, device, caps, new int[] {
-            22
+            23
         },
             "alcGetInteger64vSOFT"
         ) || reportMissing("ALC", "ALC_SOFT_device_clock");
@@ -252,7 +282,7 @@ public final class ALCCapabilities {
         }
 
         return checkFunctions(provider, device, caps, new int[] {
-            23, 24
+            24, 25
         },
             "alcGetStringiSOFT", "alcResetDeviceSOFT"
         ) || reportMissing("ALC", "ALC_SOFT_HRTF");
@@ -264,7 +294,7 @@ public final class ALCCapabilities {
         }
 
         return checkFunctions(provider, device, caps, new int[] {
-            25, 26, 27
+            26, 27, 28
         },
             "alcLoopbackOpenDeviceSOFT", "alcIsRenderFormatSupportedSOFT", "alcRenderSamplesSOFT"
         ) || reportMissing("ALC", "ALC_SOFT_loopback");
@@ -276,7 +306,7 @@ public final class ALCCapabilities {
         }
 
         return checkFunctions(provider, device, caps, new int[] {
-            28, 29
+            29, 30
         },
             "alcDevicePauseSOFT", "alcDeviceResumeSOFT"
         ) || reportMissing("ALC", "ALC_SOFT_pause_device");
@@ -288,10 +318,22 @@ public final class ALCCapabilities {
         }
 
         return checkFunctions(provider, device, caps, new int[] {
-            30
+            31
         },
             "alcReopenDeviceSOFT"
         ) || reportMissing("ALC", "ALC_SOFT_reopen_device");
+    }
+
+    private static boolean check_SOFT_system_events(FunctionProviderLocal provider, long device, PointerBuffer caps, Set<String> ext) {
+        if (!ext.contains("ALC_SOFT_system_events")) {
+            return false;
+        }
+
+        return checkFunctions(provider, device, caps, new int[] {
+            32, 33, 34
+        },
+            "alcEventIsSupportedSOFT", "alcEventControlSOFT", "alcEventCallbackSOFT"
+        ) || reportMissing("ALC", "ALC_SOFT_system_events");
     }
 
 }

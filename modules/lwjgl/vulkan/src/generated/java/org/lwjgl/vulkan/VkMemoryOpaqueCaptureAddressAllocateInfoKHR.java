@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,16 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkMemoryOpaqueCaptureAddressAllocateInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryOpaqueCaptureAddressAllocateInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     uint64_t opaqueCaptureAddress;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkMemoryOpaqueCaptureAddressAllocateInfoKHR extends VkMemoryOpaqueCaptureAddressAllocateInfo {
 
@@ -111,8 +107,7 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfoKHR extends VkMemoryOpaqueC
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryOpaqueCaptureAddressAllocateInfoKHR createSafe(long address) {
+    public static @Nullable VkMemoryOpaqueCaptureAddressAllocateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkMemoryOpaqueCaptureAddressAllocateInfoKHR(address, null);
     }
 
@@ -155,8 +150,7 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfoKHR extends VkMemoryOpaqueC
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryOpaqueCaptureAddressAllocateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryOpaqueCaptureAddressAllocateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -229,6 +223,11 @@ public class VkMemoryOpaqueCaptureAddressAllocateInfoKHR extends VkMemoryOpaqueC
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A single result of code completion.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXCompletionResult {
- *     enum CXCursorKind {@link #CursorKind};
- *     CXCompletionString {@link #CompletionString};
- * }</code></pre>
+ *     enum CXCursorKind CursorKind;
+ *     CXCompletionString CompletionString;
+ * }}</pre>
  */
 public class CXCompletionResult extends Struct<CXCompletionResult> implements NativeResource {
 
@@ -74,15 +70,10 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * the kind of entity that this completion refers to.
-     * 
-     * <p>The cursor kind will be a macro, keyword, or a declaration (one of the {@code *Decl} cursor kinds), describing the entity that the completion is
-     * referring to.</p>
-     */
+    /** @return the value of the {@code CursorKind} field. */
     @NativeType("enum CXCursorKind")
     public int CursorKind() { return nCursorKind(address()); }
-    /** the code-completion string that describes how to insert this code-completion result into the editing buffer */
+    /** @return the value of the {@code CompletionString} field. */
     @NativeType("CXCompletionString")
     public long CompletionString() { return nCompletionString(address()); }
 
@@ -110,8 +101,7 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCompletionResult createSafe(long address) {
+    public static @Nullable CXCompletionResult createSafe(long address) {
         return address == NULL ? null : new CXCompletionResult(address, null);
     }
 
@@ -154,29 +144,9 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXCompletionResult.Buffer createSafe(long address, int capacity) {
+    public static CXCompletionResult.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCompletionResult.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXCompletionResult} instance allocated on the specified {@link MemoryStack}.
@@ -219,7 +189,7 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #CursorKind}. */
-    public static int nCursorKind(long struct) { return UNSAFE.getInt(null, struct + CXCompletionResult.CURSORKIND); }
+    public static int nCursorKind(long struct) { return memGetInt(struct + CXCompletionResult.CURSORKIND); }
     /** Unsafe version of {@link #CompletionString}. */
     public static long nCompletionString(long struct) { return memGetAddress(struct + CXCompletionResult.COMPLETIONSTRING); }
 
@@ -257,14 +227,19 @@ public class CXCompletionResult extends Struct<CXCompletionResult> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected CXCompletionResult getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CXCompletionResult#CursorKind} field. */
+        /** @return the value of the {@code CursorKind} field. */
         @NativeType("enum CXCursorKind")
         public int CursorKind() { return CXCompletionResult.nCursorKind(address()); }
-        /** @return the value of the {@link CXCompletionResult#CompletionString} field. */
+        /** @return the value of the {@code CompletionString} field. */
         @NativeType("CXCompletionString")
         public long CompletionString() { return CXCompletionResult.nCompletionString(address()); }
 

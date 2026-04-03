@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure indicating support for present id.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDevicePresentIdFeaturesKHR} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDevicePresentIdFeaturesKHR} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRPresentId#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDevicePresentIdFeaturesKHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #presentId};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 presentId;
+ * }}</pre>
  */
 public class VkPhysicalDevicePresentIdFeaturesKHR extends Struct<VkPhysicalDevicePresentIdFeaturesKHR> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDevicePresentIdFeaturesKHR extends Struct<VkPhysicalDevic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports specifying present ID values in the {@link VkPresentIdKHR} extension to the {@link VkPresentInfoKHR} struct. */
+    /** @return the value of the {@code presentId} field. */
     @NativeType("VkBool32")
     public boolean presentId() { return npresentId(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDevicePresentIdFeaturesKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRPresentId#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRPresentId#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR} value to the {@code sType} field. */
     public VkPhysicalDevicePresentIdFeaturesKHR sType$Default() { return sType(KHRPresentId.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDevicePresentIdFeaturesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #presentId} field. */
+    /** Sets the specified value to the {@code presentId} field. */
     public VkPhysicalDevicePresentIdFeaturesKHR presentId(@NativeType("VkBool32") boolean value) { npresentId(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDevicePresentIdFeaturesKHR extends Struct<VkPhysicalDevic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePresentIdFeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDevicePresentIdFeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDevicePresentIdFeaturesKHR(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDevicePresentIdFeaturesKHR extends Struct<VkPhysicalDevic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDevicePresentIdFeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDevicePresentIdFeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDevicePresentIdFeaturesKHR extends Struct<VkPhysicalDevic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePresentIdFeaturesKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDevicePresentIdFeaturesKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDevicePresentIdFeaturesKHR.PNEXT); }
     /** Unsafe version of {@link #presentId}. */
-    public static int npresentId(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDevicePresentIdFeaturesKHR.PRESENTID); }
+    public static int npresentId(long struct) { return memGetInt(struct + VkPhysicalDevicePresentIdFeaturesKHR.PRESENTID); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePresentIdFeaturesKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDevicePresentIdFeaturesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDevicePresentIdFeaturesKHR.PNEXT, value); }
     /** Unsafe version of {@link #presentId(boolean) presentId}. */
-    public static void npresentId(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDevicePresentIdFeaturesKHR.PRESENTID, value); }
+    public static void npresentId(long struct, int value) { memPutInt(struct + VkPhysicalDevicePresentIdFeaturesKHR.PRESENTID, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDevicePresentIdFeaturesKHR extends Struct<VkPhysicalDevic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDevicePresentIdFeaturesKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDevicePresentIdFeaturesKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDevicePresentIdFeaturesKHR.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePresentIdFeaturesKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDevicePresentIdFeaturesKHR.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDevicePresentIdFeaturesKHR#presentId} field. */
+        /** @return the value of the {@code presentId} field. */
         @NativeType("VkBool32")
         public boolean presentId() { return VkPhysicalDevicePresentIdFeaturesKHR.npresentId(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDevicePresentIdFeaturesKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDevicePresentIdFeaturesKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDevicePresentIdFeaturesKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRPresentId#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR} value to the {@link VkPhysicalDevicePresentIdFeaturesKHR#sType} field. */
+        /** Sets the {@link KHRPresentId#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR} value to the {@code sType} field. */
         public VkPhysicalDevicePresentIdFeaturesKHR.Buffer sType$Default() { return sType(KHRPresentId.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR); }
-        /** Sets the specified value to the {@link VkPhysicalDevicePresentIdFeaturesKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDevicePresentIdFeaturesKHR.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDevicePresentIdFeaturesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDevicePresentIdFeaturesKHR#presentId} field. */
+        /** Sets the specified value to the {@code presentId} field. */
         public VkPhysicalDevicePresentIdFeaturesKHR.Buffer presentId(@NativeType("VkBool32") boolean value) { VkPhysicalDevicePresentIdFeaturesKHR.npresentId(address(), value ? 1 : 0); return this; }
 
     }

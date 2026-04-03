@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,15 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Interface which remaps vertex inputs to a fixed semantic name to make linking easier.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_hlsl_vertex_attribute_remap {
  *     unsigned int location;
  *     char const * semantic;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct spvc_hlsl_vertex_attribute_remap")
 public class SpvcHlslVertexAttributeRemap extends Struct<SpvcHlslVertexAttributeRemap> implements NativeResource {
@@ -138,8 +134,7 @@ public class SpvcHlslVertexAttributeRemap extends Struct<SpvcHlslVertexAttribute
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcHlslVertexAttributeRemap createSafe(long address) {
+    public static @Nullable SpvcHlslVertexAttributeRemap createSafe(long address) {
         return address == NULL ? null : new SpvcHlslVertexAttributeRemap(address, null);
     }
 
@@ -182,8 +177,7 @@ public class SpvcHlslVertexAttributeRemap extends Struct<SpvcHlslVertexAttribute
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcHlslVertexAttributeRemap.Buffer createSafe(long address, int capacity) {
+    public static SpvcHlslVertexAttributeRemap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -228,14 +222,14 @@ public class SpvcHlslVertexAttributeRemap extends Struct<SpvcHlslVertexAttribute
     // -----------------------------------
 
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + SpvcHlslVertexAttributeRemap.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + SpvcHlslVertexAttributeRemap.LOCATION); }
     /** Unsafe version of {@link #semantic}. */
     public static ByteBuffer nsemantic(long struct) { return memByteBufferNT1(memGetAddress(struct + SpvcHlslVertexAttributeRemap.SEMANTIC)); }
     /** Unsafe version of {@link #semanticString}. */
     public static String nsemanticString(long struct) { return memUTF8(memGetAddress(struct + SpvcHlslVertexAttributeRemap.SEMANTIC)); }
 
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHlslVertexAttributeRemap.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + SpvcHlslVertexAttributeRemap.LOCATION, value); }
     /** Unsafe version of {@link #semantic(ByteBuffer) semantic}. */
     public static void nsemantic(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -282,6 +276,11 @@ public class SpvcHlslVertexAttributeRemap extends Struct<SpvcHlslVertexAttribute
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

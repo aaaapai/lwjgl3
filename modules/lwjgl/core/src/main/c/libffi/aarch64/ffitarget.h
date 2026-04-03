@@ -54,18 +54,8 @@ typedef enum ffi_abi
 #endif
 
   // LWJGL
-  //FFI_WIN64 = -1,
-  FFI_GNUW64 = -1,
-  FFI_UNIX64 = -1,
-  FFI_EFI64 = -1,
-  //FFI_SYSV = -1,
-  FFI_STDCALL = -1,
-  FFI_THISCALL = -1,
-  FFI_FASTCALL = -1,
-  FFI_MS_CDECL = -1,
-  FFI_PASCAL = -1,
-  FFI_REGISTER = -1,
-  FFI_VFP = -1,
+  #define HAS_FFI_SYSV 1
+  #define HAS_FFI_WIN64 1
   } ffi_abi;
 #endif
 
@@ -97,8 +87,8 @@ typedef enum ffi_abi
 
 #if defined (__APPLE__)
 #define FFI_EXTRA_CIF_FIELDS unsigned aarch64_nfixedargs
-#elif !defined(_WIN32)
-/* iOS and Windows reserve x18 for the system.  Disable Go closures until
+#elif !defined(_WIN32) && !defined(__ANDROID__)
+/* iOS, Windows and Android reserve x18 for the system.  Disable Go closures until
    a new static chain is chosen.  */
 #define FFI_GO_CLOSURES 1
 #endif

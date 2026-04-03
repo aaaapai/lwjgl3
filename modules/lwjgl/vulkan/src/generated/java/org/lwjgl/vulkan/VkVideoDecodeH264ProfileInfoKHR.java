@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -18,24 +18,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.vulkan.video.*;
 
 /**
- * Structure specifying H.264 decode-specific video profile parameters.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR}</li>
- * <li>If {@code pictureLayout} is not 0, {@code pictureLayout} <b>must</b> be a valid {@code VkVideoDecodeH264PictureLayoutFlagBitsKHR} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoDecodeH264ProfileInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     StdVideoH264ProfileIdc {@link #stdProfileIdc};
- *     VkVideoDecodeH264PictureLayoutFlagBitsKHR {@link #pictureLayout};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     StdVideoH264ProfileIdc stdProfileIdc;
+ *     VkVideoDecodeH264PictureLayoutFlagBitsKHR pictureLayout;
+ * }}</pre>
  */
 public class VkVideoDecodeH264ProfileInfoKHR extends Struct<VkVideoDecodeH264ProfileInfoKHR> implements NativeResource {
 
@@ -91,28 +80,28 @@ public class VkVideoDecodeH264ProfileInfoKHR extends Struct<VkVideoDecodeH264Pro
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code StdVideoH264ProfileIdc} value specifying the H.264 codec profile IDC, as defined in section A.2 of the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#itu-t-h264">ITU-T H.264 Specification</a>. */
+    /** @return the value of the {@code stdProfileIdc} field. */
     @NativeType("StdVideoH264ProfileIdc")
     public int stdProfileIdc() { return nstdProfileIdc(address()); }
-    /** a {@code VkVideoDecodeH264PictureLayoutFlagBitsKHR} value specifying the picture layout used by the H.264 video sequence to be decoded. */
+    /** @return the value of the {@code pictureLayout} field. */
     @NativeType("VkVideoDecodeH264PictureLayoutFlagBitsKHR")
     public int pictureLayout() { return npictureLayout(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoDecodeH264ProfileInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR} value to the {@code sType} field. */
     public VkVideoDecodeH264ProfileInfoKHR sType$Default() { return sType(KHRVideoDecodeH264.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoDecodeH264ProfileInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #stdProfileIdc} field. */
+    /** Sets the specified value to the {@code stdProfileIdc} field. */
     public VkVideoDecodeH264ProfileInfoKHR stdProfileIdc(@NativeType("StdVideoH264ProfileIdc") int value) { nstdProfileIdc(address(), value); return this; }
-    /** Sets the specified value to the {@link #pictureLayout} field. */
+    /** Sets the specified value to the {@code pictureLayout} field. */
     public VkVideoDecodeH264ProfileInfoKHR pictureLayout(@NativeType("VkVideoDecodeH264PictureLayoutFlagBitsKHR") int value) { npictureLayout(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -166,8 +155,7 @@ public class VkVideoDecodeH264ProfileInfoKHR extends Struct<VkVideoDecodeH264Pro
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264ProfileInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoDecodeH264ProfileInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoDecodeH264ProfileInfoKHR(address, null);
     }
 
@@ -210,8 +198,7 @@ public class VkVideoDecodeH264ProfileInfoKHR extends Struct<VkVideoDecodeH264Pro
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoDecodeH264ProfileInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoDecodeH264ProfileInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,22 +243,22 @@ public class VkVideoDecodeH264ProfileInfoKHR extends Struct<VkVideoDecodeH264Pro
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264ProfileInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoDecodeH264ProfileInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoDecodeH264ProfileInfoKHR.PNEXT); }
     /** Unsafe version of {@link #stdProfileIdc}. */
-    public static int nstdProfileIdc(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264ProfileInfoKHR.STDPROFILEIDC); }
+    public static int nstdProfileIdc(long struct) { return memGetInt(struct + VkVideoDecodeH264ProfileInfoKHR.STDPROFILEIDC); }
     /** Unsafe version of {@link #pictureLayout}. */
-    public static int npictureLayout(long struct) { return UNSAFE.getInt(null, struct + VkVideoDecodeH264ProfileInfoKHR.PICTURELAYOUT); }
+    public static int npictureLayout(long struct) { return memGetInt(struct + VkVideoDecodeH264ProfileInfoKHR.PICTURELAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264ProfileInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoDecodeH264ProfileInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoDecodeH264ProfileInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #stdProfileIdc(int) stdProfileIdc}. */
-    public static void nstdProfileIdc(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264ProfileInfoKHR.STDPROFILEIDC, value); }
+    public static void nstdProfileIdc(long struct, int value) { memPutInt(struct + VkVideoDecodeH264ProfileInfoKHR.STDPROFILEIDC, value); }
     /** Unsafe version of {@link #pictureLayout(int) pictureLayout}. */
-    public static void npictureLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoDecodeH264ProfileInfoKHR.PICTURELAYOUT, value); }
+    public static void npictureLayout(long struct, int value) { memPutInt(struct + VkVideoDecodeH264ProfileInfoKHR.PICTURELAYOUT, value); }
 
     // -----------------------------------
 
@@ -307,32 +294,37 @@ public class VkVideoDecodeH264ProfileInfoKHR extends Struct<VkVideoDecodeH264Pro
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoDecodeH264ProfileInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoDecodeH264ProfileInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoDecodeH264ProfileInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264ProfileInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoDecodeH264ProfileInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264ProfileInfoKHR#stdProfileIdc} field. */
+        /** @return the value of the {@code stdProfileIdc} field. */
         @NativeType("StdVideoH264ProfileIdc")
         public int stdProfileIdc() { return VkVideoDecodeH264ProfileInfoKHR.nstdProfileIdc(address()); }
-        /** @return the value of the {@link VkVideoDecodeH264ProfileInfoKHR#pictureLayout} field. */
+        /** @return the value of the {@code pictureLayout} field. */
         @NativeType("VkVideoDecodeH264PictureLayoutFlagBitsKHR")
         public int pictureLayout() { return VkVideoDecodeH264ProfileInfoKHR.npictureLayout(address()); }
 
-        /** Sets the specified value to the {@link VkVideoDecodeH264ProfileInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoDecodeH264ProfileInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoDecodeH264ProfileInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR} value to the {@link VkVideoDecodeH264ProfileInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoDecodeH264#VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR} value to the {@code sType} field. */
         public VkVideoDecodeH264ProfileInfoKHR.Buffer sType$Default() { return sType(KHRVideoDecodeH264.VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkVideoDecodeH264ProfileInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoDecodeH264ProfileInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoDecodeH264ProfileInfoKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoDecodeH264ProfileInfoKHR#stdProfileIdc} field. */
+        /** Sets the specified value to the {@code stdProfileIdc} field. */
         public VkVideoDecodeH264ProfileInfoKHR.Buffer stdProfileIdc(@NativeType("StdVideoH264ProfileIdc") int value) { VkVideoDecodeH264ProfileInfoKHR.nstdProfileIdc(address(), value); return this; }
-        /** Sets the specified value to the {@link VkVideoDecodeH264ProfileInfoKHR#pictureLayout} field. */
+        /** Sets the specified value to the {@code pictureLayout} field. */
         public VkVideoDecodeH264ProfileInfoKHR.Buffer pictureLayout(@NativeType("VkVideoDecodeH264PictureLayoutFlagBitsKHR") int value) { VkVideoDecodeH264ProfileInfoKHR.npictureLayout(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.llvm;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,18 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Identifies a half-open character range in the source code.
- * 
- * <p>Use {@link ClangIndex#clang_getRangeStart getRangeStart} and {@link ClangIndex#clang_getRangeEnd getRangeEnd} to retrieve the starting and end locations from a source range, respectively.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXSourceRange {
  *     void const * ptr_data[2];
  *     unsigned begin_int_data;
  *     unsigned end_int_data;
- * }</code></pre>
+ * }}</pre>
  */
 public class CXSourceRange extends Struct<CXSourceRange> implements NativeResource {
 
@@ -118,8 +112,7 @@ public class CXSourceRange extends Struct<CXSourceRange> implements NativeResour
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceRange createSafe(long address) {
+    public static @Nullable CXSourceRange createSafe(long address) {
         return address == NULL ? null : new CXSourceRange(address, null);
     }
 
@@ -162,29 +155,9 @@ public class CXSourceRange extends Struct<CXSourceRange> implements NativeResour
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static CXSourceRange.Buffer createSafe(long address, int capacity) {
+    public static CXSourceRange.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXSourceRange.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXSourceRange} instance allocated on the specified {@link MemoryStack}.
@@ -233,9 +206,9 @@ public class CXSourceRange extends Struct<CXSourceRange> implements NativeResour
         return memGetAddress(struct + CXSourceRange.PTR_DATA + check(index, 2) * POINTER_SIZE);
     }
     /** Unsafe version of {@link #begin_int_data}. */
-    public static int nbegin_int_data(long struct) { return UNSAFE.getInt(null, struct + CXSourceRange.BEGIN_INT_DATA); }
+    public static int nbegin_int_data(long struct) { return memGetInt(struct + CXSourceRange.BEGIN_INT_DATA); }
     /** Unsafe version of {@link #end_int_data}. */
-    public static int nend_int_data(long struct) { return UNSAFE.getInt(null, struct + CXSourceRange.END_INT_DATA); }
+    public static int nend_int_data(long struct) { return memGetInt(struct + CXSourceRange.END_INT_DATA); }
 
     // -----------------------------------
 
@@ -268,6 +241,11 @@ public class CXSourceRange extends Struct<CXSourceRange> implements NativeResour
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

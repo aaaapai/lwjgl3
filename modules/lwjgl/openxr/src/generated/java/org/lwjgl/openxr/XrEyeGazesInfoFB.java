@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,34 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the information to get eye gaze.
- * 
- * <h5>Description</h5>
- * 
- * <p>The application <b>should</b> request a time equal to the predicted display time for the rendered frame. The system will employ appropriate modeling to provide eye gaze at this time.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBEyeTrackingSocial XR_FB_eye_tracking_social} extension <b>must</b> be enabled prior to using {@link XrEyeGazesInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBEyeTrackingSocial#XR_TYPE_EYE_GAZES_INFO_FB TYPE_EYE_GAZES_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code baseSpace} <b>must</b> be a valid {@code XrSpace} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBEyeTrackingSocial#xrGetEyeGazesFB GetEyeGazesFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEyeGazesInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrSpace {@link #baseSpace};
- *     XrTime {@link #time};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrSpace baseSpace;
+ *     XrTime time;
+ * }}</pre>
  */
 public class XrEyeGazesInfoFB extends Struct<XrEyeGazesInfoFB> implements NativeResource {
 
@@ -100,28 +79,28 @@ public class XrEyeGazesInfoFB extends Struct<XrEyeGazesInfoFB> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrSpace} within which the returned eye poses will be represented. */
+    /** @return the value of the {@code baseSpace} field. */
     @NativeType("XrSpace")
     public long baseSpace() { return nbaseSpace(address()); }
-    /** an {@code XrTime} at which the eye gaze information is requested. */
+    /** @return the value of the {@code time} field. */
     @NativeType("XrTime")
     public long time() { return ntime(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEyeGazesInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_EYE_GAZES_INFO_FB TYPE_EYE_GAZES_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_EYE_GAZES_INFO_FB TYPE_EYE_GAZES_INFO_FB} value to the {@code type} field. */
     public XrEyeGazesInfoFB type$Default() { return type(FBEyeTrackingSocial.XR_TYPE_EYE_GAZES_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEyeGazesInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #baseSpace} field. */
+    /** Sets the specified value to the {@code baseSpace} field. */
     public XrEyeGazesInfoFB baseSpace(XrSpace value) { nbaseSpace(address(), value); return this; }
-    /** Sets the specified value to the {@link #time} field. */
+    /** Sets the specified value to the {@code time} field. */
     public XrEyeGazesInfoFB time(@NativeType("XrTime") long value) { ntime(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -175,8 +154,7 @@ public class XrEyeGazesInfoFB extends Struct<XrEyeGazesInfoFB> implements Native
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEyeGazesInfoFB createSafe(long address) {
+    public static @Nullable XrEyeGazesInfoFB createSafe(long address) {
         return address == NULL ? null : new XrEyeGazesInfoFB(address, null);
     }
 
@@ -219,8 +197,7 @@ public class XrEyeGazesInfoFB extends Struct<XrEyeGazesInfoFB> implements Native
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEyeGazesInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrEyeGazesInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -265,22 +242,22 @@ public class XrEyeGazesInfoFB extends Struct<XrEyeGazesInfoFB> implements Native
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEyeGazesInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEyeGazesInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEyeGazesInfoFB.NEXT); }
     /** Unsafe version of {@link #baseSpace}. */
     public static long nbaseSpace(long struct) { return memGetAddress(struct + XrEyeGazesInfoFB.BASESPACE); }
     /** Unsafe version of {@link #time}. */
-    public static long ntime(long struct) { return UNSAFE.getLong(null, struct + XrEyeGazesInfoFB.TIME); }
+    public static long ntime(long struct) { return memGetLong(struct + XrEyeGazesInfoFB.TIME); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEyeGazesInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEyeGazesInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEyeGazesInfoFB.NEXT, value); }
     /** Unsafe version of {@link #baseSpace(XrSpace) baseSpace}. */
     public static void nbaseSpace(long struct, XrSpace value) { memPutAddress(struct + XrEyeGazesInfoFB.BASESPACE, value.address()); }
     /** Unsafe version of {@link #time(long) time}. */
-    public static void ntime(long struct, long value) { UNSAFE.putLong(null, struct + XrEyeGazesInfoFB.TIME, value); }
+    public static void ntime(long struct, long value) { memPutLong(struct + XrEyeGazesInfoFB.TIME, value); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -325,32 +302,37 @@ public class XrEyeGazesInfoFB extends Struct<XrEyeGazesInfoFB> implements Native
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEyeGazesInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEyeGazesInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEyeGazesInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrEyeGazesInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEyeGazesInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrEyeGazesInfoFB#baseSpace} field. */
+        /** @return the value of the {@code baseSpace} field. */
         @NativeType("XrSpace")
         public long baseSpace() { return XrEyeGazesInfoFB.nbaseSpace(address()); }
-        /** @return the value of the {@link XrEyeGazesInfoFB#time} field. */
+        /** @return the value of the {@code time} field. */
         @NativeType("XrTime")
         public long time() { return XrEyeGazesInfoFB.ntime(address()); }
 
-        /** Sets the specified value to the {@link XrEyeGazesInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEyeGazesInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrEyeGazesInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_EYE_GAZES_INFO_FB TYPE_EYE_GAZES_INFO_FB} value to the {@link XrEyeGazesInfoFB#type} field. */
+        /** Sets the {@link FBEyeTrackingSocial#XR_TYPE_EYE_GAZES_INFO_FB TYPE_EYE_GAZES_INFO_FB} value to the {@code type} field. */
         public XrEyeGazesInfoFB.Buffer type$Default() { return type(FBEyeTrackingSocial.XR_TYPE_EYE_GAZES_INFO_FB); }
-        /** Sets the specified value to the {@link XrEyeGazesInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEyeGazesInfoFB.Buffer next(@NativeType("void const *") long value) { XrEyeGazesInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEyeGazesInfoFB#baseSpace} field. */
+        /** Sets the specified value to the {@code baseSpace} field. */
         public XrEyeGazesInfoFB.Buffer baseSpace(XrSpace value) { XrEyeGazesInfoFB.nbaseSpace(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEyeGazesInfoFB#time} field. */
+        /** Sets the specified value to the {@code time} field. */
         public XrEyeGazesInfoFB.Buffer time(@NativeType("XrTime") long value) { XrEyeGazesInfoFB.ntime(address(), value); return this; }
 
     }

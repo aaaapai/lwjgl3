@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,19 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Structure specifying a memory heap.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPhysicalDeviceMemoryProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryHeap {
- *     VkDeviceSize {@link #size};
- *     VkMemoryHeapFlags {@link #flags};
- * }</code></pre>
+ *     VkDeviceSize size;
+ *     VkMemoryHeapFlags flags;
+ * }}</pre>
  */
 public class VkMemoryHeap extends Struct<VkMemoryHeap> {
 
@@ -76,10 +68,10 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the total memory size in bytes in the heap. */
+    /** @return the value of the {@code size} field. */
     @NativeType("VkDeviceSize")
     public long size() { return nsize(address()); }
-    /** a bitmask of {@code VkMemoryHeapFlagBits} specifying attribute flags for the heap. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkMemoryHeapFlags")
     public int flags() { return nflags(address()); }
 
@@ -91,8 +83,7 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryHeap createSafe(long address) {
+    public static @Nullable VkMemoryHeap createSafe(long address) {
         return address == NULL ? null : new VkMemoryHeap(address, null);
     }
 
@@ -107,17 +98,16 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMemoryHeap.Buffer createSafe(long address, int capacity) {
+    public static VkMemoryHeap.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #size}. */
-    public static long nsize(long struct) { return UNSAFE.getLong(null, struct + VkMemoryHeap.SIZE); }
+    public static long nsize(long struct) { return memGetLong(struct + VkMemoryHeap.SIZE); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + VkMemoryHeap.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + VkMemoryHeap.FLAGS); }
 
     // -----------------------------------
 
@@ -153,14 +143,19 @@ public class VkMemoryHeap extends Struct<VkMemoryHeap> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMemoryHeap getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryHeap#size} field. */
+        /** @return the value of the {@code size} field. */
         @NativeType("VkDeviceSize")
         public long size() { return VkMemoryHeap.nsize(address()); }
-        /** @return the value of the {@link VkMemoryHeap#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkMemoryHeapFlags")
         public int flags() { return VkMemoryHeap.nflags(address()); }
 

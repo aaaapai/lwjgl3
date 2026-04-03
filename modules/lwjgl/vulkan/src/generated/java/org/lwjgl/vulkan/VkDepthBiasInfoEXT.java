@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,40 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying depth bias parameters.
- * 
- * <h5>Description</h5>
- * 
- * <p>If {@code pNext} does not contain a {@link VkDepthBiasRepresentationInfoEXT} structure, then this command is equivalent to including a {@link VkDepthBiasRepresentationInfoEXT} with {@code depthBiasExact} set to {@link VK10#VK_FALSE FALSE} and {@code depthBiasRepresentation} set to {@link EXTDepthBiasControl#VK_DEPTH_BIAS_REPRESENTATION_LEAST_REPRESENTABLE_VALUE_FORMAT_EXT DEPTH_BIAS_REPRESENTATION_LEAST_REPRESENTABLE_VALUE_FORMAT_EXT}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthBiasClamp">{@code depthBiasClamp}</a> feature is not enabled, {@code depthBiasClamp} <b>must</b> be {@code 0.0}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDepthBiasControl#VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkDepthBiasRepresentationInfoEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTDepthBiasControl#vkCmdSetDepthBias2EXT CmdSetDepthBias2EXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDepthBiasInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     float {@link #depthBiasConstantFactor};
- *     float {@link #depthBiasClamp};
- *     float {@link #depthBiasSlopeFactor};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     float depthBiasConstantFactor;
+ *     float depthBiasClamp;
+ *     float depthBiasSlopeFactor;
+ * }}</pre>
  */
 public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements NativeResource {
 
@@ -108,32 +82,32 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a scalar factor controlling the constant depth value added to each fragment. */
+    /** @return the value of the {@code depthBiasConstantFactor} field. */
     public float depthBiasConstantFactor() { return ndepthBiasConstantFactor(address()); }
-    /** the maximum (or minimum) depth bias of a fragment. */
+    /** @return the value of the {@code depthBiasClamp} field. */
     public float depthBiasClamp() { return ndepthBiasClamp(address()); }
-    /** a scalar factor applied to a fragment’s slope in depth bias calculations. */
+    /** @return the value of the {@code depthBiasSlopeFactor} field. */
     public float depthBiasSlopeFactor() { return ndepthBiasSlopeFactor(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDepthBiasInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDepthBiasControl#VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDepthBiasControl#VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT} value to the {@code sType} field. */
     public VkDepthBiasInfoEXT sType$Default() { return sType(EXTDepthBiasControl.VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDepthBiasInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkDepthBiasRepresentationInfoEXT} value to the {@code pNext} chain. */
     public VkDepthBiasInfoEXT pNext(VkDepthBiasRepresentationInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Sets the specified value to the {@link #depthBiasConstantFactor} field. */
+    /** Sets the specified value to the {@code depthBiasConstantFactor} field. */
     public VkDepthBiasInfoEXT depthBiasConstantFactor(float value) { ndepthBiasConstantFactor(address(), value); return this; }
-    /** Sets the specified value to the {@link #depthBiasClamp} field. */
+    /** Sets the specified value to the {@code depthBiasClamp} field. */
     public VkDepthBiasInfoEXT depthBiasClamp(float value) { ndepthBiasClamp(address(), value); return this; }
-    /** Sets the specified value to the {@link #depthBiasSlopeFactor} field. */
+    /** Sets the specified value to the {@code depthBiasSlopeFactor} field. */
     public VkDepthBiasInfoEXT depthBiasSlopeFactor(float value) { ndepthBiasSlopeFactor(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -189,8 +163,7 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthBiasInfoEXT createSafe(long address) {
+    public static @Nullable VkDepthBiasInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkDepthBiasInfoEXT(address, null);
     }
 
@@ -233,8 +206,7 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDepthBiasInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkDepthBiasInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -279,26 +251,26 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkDepthBiasInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkDepthBiasInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkDepthBiasInfoEXT.PNEXT); }
     /** Unsafe version of {@link #depthBiasConstantFactor}. */
-    public static float ndepthBiasConstantFactor(long struct) { return UNSAFE.getFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR); }
+    public static float ndepthBiasConstantFactor(long struct) { return memGetFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR); }
     /** Unsafe version of {@link #depthBiasClamp}. */
-    public static float ndepthBiasClamp(long struct) { return UNSAFE.getFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP); }
+    public static float ndepthBiasClamp(long struct) { return memGetFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP); }
     /** Unsafe version of {@link #depthBiasSlopeFactor}. */
-    public static float ndepthBiasSlopeFactor(long struct) { return UNSAFE.getFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR); }
+    public static float ndepthBiasSlopeFactor(long struct) { return memGetFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkDepthBiasInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkDepthBiasInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkDepthBiasInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #depthBiasConstantFactor(float) depthBiasConstantFactor}. */
-    public static void ndepthBiasConstantFactor(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR, value); }
+    public static void ndepthBiasConstantFactor(long struct, float value) { memPutFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCONSTANTFACTOR, value); }
     /** Unsafe version of {@link #depthBiasClamp(float) depthBiasClamp}. */
-    public static void ndepthBiasClamp(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP, value); }
+    public static void ndepthBiasClamp(long struct, float value) { memPutFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASCLAMP, value); }
     /** Unsafe version of {@link #depthBiasSlopeFactor(float) depthBiasSlopeFactor}. */
-    public static void ndepthBiasSlopeFactor(long struct, float value) { UNSAFE.putFloat(null, struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR, value); }
+    public static void ndepthBiasSlopeFactor(long struct, float value) { memPutFloat(struct + VkDepthBiasInfoEXT.DEPTHBIASSLOPEFACTOR, value); }
 
     // -----------------------------------
 
@@ -334,36 +306,41 @@ public class VkDepthBiasInfoEXT extends Struct<VkDepthBiasInfoEXT> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDepthBiasInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDepthBiasInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDepthBiasInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkDepthBiasInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDepthBiasInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkDepthBiasInfoEXT#depthBiasConstantFactor} field. */
+        /** @return the value of the {@code depthBiasConstantFactor} field. */
         public float depthBiasConstantFactor() { return VkDepthBiasInfoEXT.ndepthBiasConstantFactor(address()); }
-        /** @return the value of the {@link VkDepthBiasInfoEXT#depthBiasClamp} field. */
+        /** @return the value of the {@code depthBiasClamp} field. */
         public float depthBiasClamp() { return VkDepthBiasInfoEXT.ndepthBiasClamp(address()); }
-        /** @return the value of the {@link VkDepthBiasInfoEXT#depthBiasSlopeFactor} field. */
+        /** @return the value of the {@code depthBiasSlopeFactor} field. */
         public float depthBiasSlopeFactor() { return VkDepthBiasInfoEXT.ndepthBiasSlopeFactor(address()); }
 
-        /** Sets the specified value to the {@link VkDepthBiasInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDepthBiasInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkDepthBiasInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDepthBiasControl#VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT} value to the {@link VkDepthBiasInfoEXT#sType} field. */
+        /** Sets the {@link EXTDepthBiasControl#VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT} value to the {@code sType} field. */
         public VkDepthBiasInfoEXT.Buffer sType$Default() { return sType(EXTDepthBiasControl.VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT); }
-        /** Sets the specified value to the {@link VkDepthBiasInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDepthBiasInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkDepthBiasInfoEXT.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkDepthBiasRepresentationInfoEXT} value to the {@code pNext} chain. */
         public VkDepthBiasInfoEXT.Buffer pNext(VkDepthBiasRepresentationInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Sets the specified value to the {@link VkDepthBiasInfoEXT#depthBiasConstantFactor} field. */
+        /** Sets the specified value to the {@code depthBiasConstantFactor} field. */
         public VkDepthBiasInfoEXT.Buffer depthBiasConstantFactor(float value) { VkDepthBiasInfoEXT.ndepthBiasConstantFactor(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDepthBiasInfoEXT#depthBiasClamp} field. */
+        /** Sets the specified value to the {@code depthBiasClamp} field. */
         public VkDepthBiasInfoEXT.Buffer depthBiasClamp(float value) { VkDepthBiasInfoEXT.ndepthBiasClamp(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDepthBiasInfoEXT#depthBiasSlopeFactor} field. */
+        /** Sets the specified value to the {@code depthBiasSlopeFactor} field. */
         public VkDepthBiasInfoEXT.Buffer depthBiasSlopeFactor(float value) { VkDepthBiasInfoEXT.ndepthBiasSlopeFactor(address(), value); return this; }
 
     }

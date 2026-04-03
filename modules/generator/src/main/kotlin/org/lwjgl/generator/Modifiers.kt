@@ -53,6 +53,11 @@ abstract class ModifierTarget<T : TemplateModifier> {
 
     internal fun hasModifiers() = _modifiers !== EMPTY_MODIFIERS
 
+    fun clearModifiers() {
+        @Suppress("UNCHECKED_CAST")
+        _modifiers = EMPTY_MODIFIERS as MutableMap<KClass<out T>, T>
+    }
+
     internal fun setModifiers(vararg modifiers: T) {
         if (!hasModifiers())
             this._modifiers = HashMap(modifiers.size)
@@ -79,7 +84,7 @@ abstract class ModifierTarget<T : TemplateModifier> {
     inline infix fun <reified M : T> has(modifier: M) = modifiers[M::class] === modifier
 
     inline fun <reified M : T> has() = modifiers.containsKey(M::class)
-    inline fun <reified M : T> has(predicate: M.() -> Boolean) = (modifiers[M::class] as M?)?.predicate() ?: false
+    inline fun <reified M : T> has(predicate: M.() -> Boolean) = (modifiers[M::class] as M?)?.predicate() == true
     inline fun <reified M : T> get() = modifiers[M::class] as M
 
 }

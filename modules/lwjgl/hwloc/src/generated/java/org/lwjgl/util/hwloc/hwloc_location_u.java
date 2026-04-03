@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.hwloc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,13 +14,11 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union hwloc_location_u {
  *     hwloc_cpuset_t cpuset;
  *     hwloc_obj_t object;
- * }</code></pre>
+ * }}</pre>
  */
 public class hwloc_location_u extends Struct<hwloc_location_u> {
 
@@ -85,8 +83,7 @@ public class hwloc_location_u extends Struct<hwloc_location_u> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_location_u createSafe(long address) {
+    public static @Nullable hwloc_location_u createSafe(long address) {
         return address == NULL ? null : new hwloc_location_u(address, null);
     }
 
@@ -101,8 +98,7 @@ public class hwloc_location_u extends Struct<hwloc_location_u> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hwloc_location_u.Buffer createSafe(long address, int capacity) {
+    public static hwloc_location_u.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -144,6 +140,11 @@ public class hwloc_location_u extends Struct<hwloc_location_u> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

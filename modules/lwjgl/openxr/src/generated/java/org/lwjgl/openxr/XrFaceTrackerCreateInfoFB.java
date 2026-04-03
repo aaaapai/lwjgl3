@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Information to create a facial expression handle.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrFaceTrackerCreateInfoFB} structure describes the information to create an {@code XrFaceTrackerFB} handle.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBFaceTracking XR_FB_face_tracking} extension <b>must</b> be enabled prior to using {@link XrFaceTrackerCreateInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBFaceTracking#XR_TYPE_FACE_TRACKER_CREATE_INFO_FB TYPE_FACE_TRACKER_CREATE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code faceExpressionSet} <b>must</b> be a valid {@code XrFaceExpressionSetFB} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBFaceTracking#xrCreateFaceTrackerFB CreateFaceTrackerFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFaceTrackerCreateInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrFaceExpressionSetFB {@link #faceExpressionSet};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrFaceExpressionSetFB faceExpressionSet;
+ * }}</pre>
  */
 public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB> implements NativeResource {
 
@@ -95,23 +74,23 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrFaceExpressionSetFB} that describe the set of blend shapes to retrieve. */
+    /** @return the value of the {@code faceExpressionSet} field. */
     @NativeType("XrFaceExpressionSetFB")
     public int faceExpressionSet() { return nfaceExpressionSet(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrFaceTrackerCreateInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBFaceTracking#XR_TYPE_FACE_TRACKER_CREATE_INFO_FB TYPE_FACE_TRACKER_CREATE_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBFaceTracking#XR_TYPE_FACE_TRACKER_CREATE_INFO_FB TYPE_FACE_TRACKER_CREATE_INFO_FB} value to the {@code type} field. */
     public XrFaceTrackerCreateInfoFB type$Default() { return type(FBFaceTracking.XR_TYPE_FACE_TRACKER_CREATE_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrFaceTrackerCreateInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #faceExpressionSet} field. */
+    /** Sets the specified value to the {@code faceExpressionSet} field. */
     public XrFaceTrackerCreateInfoFB faceExpressionSet(@NativeType("XrFaceExpressionSetFB") int value) { nfaceExpressionSet(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +142,7 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceTrackerCreateInfoFB createSafe(long address) {
+    public static @Nullable XrFaceTrackerCreateInfoFB createSafe(long address) {
         return address == NULL ? null : new XrFaceTrackerCreateInfoFB(address, null);
     }
 
@@ -207,8 +185,7 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFaceTrackerCreateInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrFaceTrackerCreateInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +230,18 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFaceTrackerCreateInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFaceTrackerCreateInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFaceTrackerCreateInfoFB.NEXT); }
     /** Unsafe version of {@link #faceExpressionSet}. */
-    public static int nfaceExpressionSet(long struct) { return UNSAFE.getInt(null, struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET); }
+    public static int nfaceExpressionSet(long struct) { return memGetInt(struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceTrackerCreateInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFaceTrackerCreateInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFaceTrackerCreateInfoFB.NEXT, value); }
     /** Unsafe version of {@link #faceExpressionSet(int) faceExpressionSet}. */
-    public static void nfaceExpressionSet(long struct, int value) { UNSAFE.putInt(null, struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET, value); }
+    public static void nfaceExpressionSet(long struct, int value) { memPutInt(struct + XrFaceTrackerCreateInfoFB.FACEEXPRESSIONSET, value); }
 
     // -----------------------------------
 
@@ -300,27 +277,32 @@ public class XrFaceTrackerCreateInfoFB extends Struct<XrFaceTrackerCreateInfoFB>
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrFaceTrackerCreateInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFaceTrackerCreateInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrFaceTrackerCreateInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrFaceTrackerCreateInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrFaceTrackerCreateInfoFB.nnext(address()); }
-        /** @return the value of the {@link XrFaceTrackerCreateInfoFB#faceExpressionSet} field. */
+        /** @return the value of the {@code faceExpressionSet} field. */
         @NativeType("XrFaceExpressionSetFB")
         public int faceExpressionSet() { return XrFaceTrackerCreateInfoFB.nfaceExpressionSet(address()); }
 
-        /** Sets the specified value to the {@link XrFaceTrackerCreateInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrFaceTrackerCreateInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrFaceTrackerCreateInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBFaceTracking#XR_TYPE_FACE_TRACKER_CREATE_INFO_FB TYPE_FACE_TRACKER_CREATE_INFO_FB} value to the {@link XrFaceTrackerCreateInfoFB#type} field. */
+        /** Sets the {@link FBFaceTracking#XR_TYPE_FACE_TRACKER_CREATE_INFO_FB TYPE_FACE_TRACKER_CREATE_INFO_FB} value to the {@code type} field. */
         public XrFaceTrackerCreateInfoFB.Buffer type$Default() { return type(FBFaceTracking.XR_TYPE_FACE_TRACKER_CREATE_INFO_FB); }
-        /** Sets the specified value to the {@link XrFaceTrackerCreateInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrFaceTrackerCreateInfoFB.Buffer next(@NativeType("void const *") long value) { XrFaceTrackerCreateInfoFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrFaceTrackerCreateInfoFB#faceExpressionSet} field. */
+        /** Sets the specified value to the {@code faceExpressionSet} field. */
         public XrFaceTrackerCreateInfoFB.Buffer faceExpressionSet(@NativeType("XrFaceExpressionSetFB") int value) { XrFaceTrackerCreateInfoFB.nfaceExpressionSet(address(), value); return this; }
 
     }

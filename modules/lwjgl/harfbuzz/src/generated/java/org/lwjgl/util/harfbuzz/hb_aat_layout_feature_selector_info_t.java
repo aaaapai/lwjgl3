@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure representing a setting for an {@code hb_aat_layout_feature_type_t}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_aat_layout_feature_selector_info_t {
- *     hb_ot_name_id_t {@link #name_id};
- *     hb_aat_layout_feature_selector_t {@link #enable};
- *     hb_aat_layout_feature_selector_t {@link #disable};
+ *     hb_ot_name_id_t name_id;
+ *     hb_aat_layout_feature_selector_t enable;
+ *     hb_aat_layout_feature_selector_t disable;
  *     unsigned int reserved;
- * }</code></pre>
+ * }}</pre>
  */
 public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_feature_selector_info_t> implements NativeResource {
 
@@ -82,21 +78,21 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the selector's name identifier */
+    /** @return the value of the {@code name_id} field. */
     @NativeType("hb_ot_name_id_t")
     public int name_id() { return nname_id(address()); }
-    /** the value to turn the selector on disable */
+    /** @return the value of the {@code enable} field. */
     @NativeType("hb_aat_layout_feature_selector_t")
     public int enable() { return nenable(address()); }
-    /** the value to turn the selector off */
+    /** @return the value of the {@code disable} field. */
     @NativeType("hb_aat_layout_feature_selector_t")
     public int disable() { return ndisable(address()); }
 
-    /** Sets the specified value to the {@link #name_id} field. */
+    /** Sets the specified value to the {@code name_id} field. */
     public hb_aat_layout_feature_selector_info_t name_id(@NativeType("hb_ot_name_id_t") int value) { nname_id(address(), value); return this; }
-    /** Sets the specified value to the {@link #enable} field. */
+    /** Sets the specified value to the {@code enable} field. */
     public hb_aat_layout_feature_selector_info_t enable(@NativeType("hb_aat_layout_feature_selector_t") int value) { nenable(address(), value); return this; }
-    /** Sets the specified value to the {@link #disable} field. */
+    /** Sets the specified value to the {@code disable} field. */
     public hb_aat_layout_feature_selector_info_t disable(@NativeType("hb_aat_layout_feature_selector_t") int value) { ndisable(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -148,8 +144,7 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_aat_layout_feature_selector_info_t createSafe(long address) {
+    public static @Nullable hb_aat_layout_feature_selector_info_t createSafe(long address) {
         return address == NULL ? null : new hb_aat_layout_feature_selector_info_t(address, null);
     }
 
@@ -192,8 +187,7 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_aat_layout_feature_selector_info_t.Buffer createSafe(long address, int capacity) {
+    public static hb_aat_layout_feature_selector_info_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -238,20 +232,20 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
     // -----------------------------------
 
     /** Unsafe version of {@link #name_id}. */
-    public static int nname_id(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.NAME_ID); }
+    public static int nname_id(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.NAME_ID); }
     /** Unsafe version of {@link #enable}. */
-    public static int nenable(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.ENABLE); }
+    public static int nenable(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.ENABLE); }
     /** Unsafe version of {@link #disable}. */
-    public static int ndisable(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.DISABLE); }
-    public static int nreserved(long struct) { return UNSAFE.getInt(null, struct + hb_aat_layout_feature_selector_info_t.RESERVED); }
+    public static int ndisable(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.DISABLE); }
+    public static int nreserved(long struct) { return memGetInt(struct + hb_aat_layout_feature_selector_info_t.RESERVED); }
 
     /** Unsafe version of {@link #name_id(int) name_id}. */
-    public static void nname_id(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.NAME_ID, value); }
+    public static void nname_id(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.NAME_ID, value); }
     /** Unsafe version of {@link #enable(int) enable}. */
-    public static void nenable(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.ENABLE, value); }
+    public static void nenable(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.ENABLE, value); }
     /** Unsafe version of {@link #disable(int) disable}. */
-    public static void ndisable(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.DISABLE, value); }
-    public static void nreserved(long struct, int value) { UNSAFE.putInt(null, struct + hb_aat_layout_feature_selector_info_t.RESERVED, value); }
+    public static void ndisable(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.DISABLE, value); }
+    public static void nreserved(long struct, int value) { memPutInt(struct + hb_aat_layout_feature_selector_info_t.RESERVED, value); }
 
     // -----------------------------------
 
@@ -287,25 +281,30 @@ public class hb_aat_layout_feature_selector_info_t extends Struct<hb_aat_layout_
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_aat_layout_feature_selector_info_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_aat_layout_feature_selector_info_t#name_id} field. */
+        /** @return the value of the {@code name_id} field. */
         @NativeType("hb_ot_name_id_t")
         public int name_id() { return hb_aat_layout_feature_selector_info_t.nname_id(address()); }
-        /** @return the value of the {@link hb_aat_layout_feature_selector_info_t#enable} field. */
+        /** @return the value of the {@code enable} field. */
         @NativeType("hb_aat_layout_feature_selector_t")
         public int enable() { return hb_aat_layout_feature_selector_info_t.nenable(address()); }
-        /** @return the value of the {@link hb_aat_layout_feature_selector_info_t#disable} field. */
+        /** @return the value of the {@code disable} field. */
         @NativeType("hb_aat_layout_feature_selector_t")
         public int disable() { return hb_aat_layout_feature_selector_info_t.ndisable(address()); }
 
-        /** Sets the specified value to the {@link hb_aat_layout_feature_selector_info_t#name_id} field. */
+        /** Sets the specified value to the {@code name_id} field. */
         public hb_aat_layout_feature_selector_info_t.Buffer name_id(@NativeType("hb_ot_name_id_t") int value) { hb_aat_layout_feature_selector_info_t.nname_id(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_aat_layout_feature_selector_info_t#enable} field. */
+        /** Sets the specified value to the {@code enable} field. */
         public hb_aat_layout_feature_selector_info_t.Buffer enable(@NativeType("hb_aat_layout_feature_selector_t") int value) { hb_aat_layout_feature_selector_info_t.nenable(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_aat_layout_feature_selector_info_t#disable} field. */
+        /** Sets the specified value to the {@code disable} field. */
         public hb_aat_layout_feature_selector_info_t.Buffer disable(@NativeType("hb_aat_layout_feature_selector_t") int value) { hb_aat_layout_feature_selector_info_t.ndisable(address(), value); return this; }
 
     }

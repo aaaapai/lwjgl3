@@ -4,17 +4,19 @@
  */
 package org.lwjgl.system;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
+
 import java.nio.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
 public final class SharedLibraryUtil {
 
+    private SharedLibraryUtil() {}
+
     private static native int getLibraryPath(long pLib, long sOut, int bufSize);
 
-    @Nullable
-    public static String getLibraryPath(long pLib) {
+    public static @Nullable String getLibraryPath(long pLib) {
         int maxLen = 256;
 
         ByteBuffer buffer = memAlloc(maxLen);

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,40 +16,26 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the Vulkan 1.3 features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceVulkan13Features} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceVulkan13Features} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceVulkan13Features {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #robustImageAccess};
- *     VkBool32 {@link #inlineUniformBlock};
- *     VkBool32 {@link #descriptorBindingInlineUniformBlockUpdateAfterBind};
- *     VkBool32 {@link #pipelineCreationCacheControl};
- *     VkBool32 {@link #privateData};
- *     VkBool32 {@link #shaderDemoteToHelperInvocation};
- *     VkBool32 {@link #shaderTerminateInvocation};
- *     VkBool32 {@link #subgroupSizeControl};
- *     VkBool32 {@link #computeFullSubgroups};
- *     VkBool32 {@link #synchronization2};
- *     VkBool32 {@link #textureCompressionASTC_HDR};
- *     VkBool32 {@link #shaderZeroInitializeWorkgroupMemory};
- *     VkBool32 {@link #dynamicRendering};
- *     VkBool32 {@link #shaderIntegerDotProduct};
- *     VkBool32 {@link #maintenance4};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 robustImageAccess;
+ *     VkBool32 inlineUniformBlock;
+ *     VkBool32 descriptorBindingInlineUniformBlockUpdateAfterBind;
+ *     VkBool32 pipelineCreationCacheControl;
+ *     VkBool32 privateData;
+ *     VkBool32 shaderDemoteToHelperInvocation;
+ *     VkBool32 shaderTerminateInvocation;
+ *     VkBool32 subgroupSizeControl;
+ *     VkBool32 computeFullSubgroups;
+ *     VkBool32 synchronization2;
+ *     VkBool32 textureCompressionASTC_HDR;
+ *     VkBool32 shaderZeroInitializeWorkgroupMemory;
+ *     VkBool32 dynamicRendering;
+ *     VkBool32 shaderIntegerDotProduct;
+ *     VkBool32 maintenance4;
+ * }}</pre>
  */
 public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVulkan13Features> implements NativeResource {
 
@@ -144,143 +130,93 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether image accesses are tightly bounds-checked against the dimensions of the image view. <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-input-validation">Invalid texels</a> resulting from out of bounds image loads will be replaced as described in <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-replacement">Texel Replacement</a>, with either <code>(0,0,1)</code> or <code>(0,0,0)</code> values inserted for missing G, B, or A components based on the format. */
+    /** @return the value of the {@code robustImageAccess} field. */
     @NativeType("VkBool32")
     public boolean robustImageAccess() { return nrobustImageAccess(address()) != 0; }
-    /** indicates whether the implementation supports inline uniform block descriptors. If this feature is not enabled, {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK} <b>must</b> not be used. */
+    /** @return the value of the {@code inlineUniformBlock} field. */
     @NativeType("VkBool32")
     public boolean inlineUniformBlock() { return ninlineUniformBlock(address()) != 0; }
-    /** indicates whether the implementation supports updating inline uniform block descriptors after a set is bound. If this feature is not enabled, {@link VK12#VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT} <b>must</b> not be used with {@link VK13#VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK}. */
+    /** @return the value of the {@code descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
     @NativeType("VkBool32")
     public boolean descriptorBindingInlineUniformBlockUpdateAfterBind() { return ndescriptorBindingInlineUniformBlockUpdateAfterBind(address()) != 0; }
-    /**
-     * indicates that the implementation supports:
-     * 
-     * <ul>
-     * <li>The following <b>can</b> be used in stext:Vk*PipelineCreateInfo{@code ::flags}:
-     * 
-     * <ul>
-     * <li>{@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT}</li>
-     * <li>{@link VK13#VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT}</li>
-     * </ul>
-     * </li>
-     * <li>The following <b>can</b> be used in {@link VkPipelineCacheCreateInfo}{@code ::flags}:
-     * 
-     * <ul>
-     * <li>{@link VK13#VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT}</li>
-     * </ul>
-     * </li>
-     * </ul>
-     */
+    /** @return the value of the {@code pipelineCreationCacheControl} field. */
     @NativeType("VkBool32")
     public boolean pipelineCreationCacheControl() { return npipelineCreationCacheControl(address()) != 0; }
-    /** indicates whether the implementation supports private data. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#private-data">Private Data</a>. */
+    /** @return the value of the {@code privateData} field. */
     @NativeType("VkBool32")
     public boolean privateData() { return nprivateData(address()) != 0; }
-    /** indicates whether the implementation supports the SPIR-V {@code DemoteToHelperInvocationEXT} capability. */
+    /** @return the value of the {@code shaderDemoteToHelperInvocation} field. */
     @NativeType("VkBool32")
     public boolean shaderDemoteToHelperInvocation() { return nshaderDemoteToHelperInvocation(address()) != 0; }
-    /** specifies whether the implementation supports SPIR-V modules that use the {@code SPV_KHR_terminate_invocation} extension. */
+    /** @return the value of the {@code shaderTerminateInvocation} field. */
     @NativeType("VkBool32")
     public boolean shaderTerminateInvocation() { return nshaderTerminateInvocation(address()) != 0; }
-    /** indicates whether the implementation supports controlling shader subgroup sizes via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT} flag and the {@link VkPipelineShaderStageRequiredSubgroupSizeCreateInfo} structure. */
+    /** @return the value of the {@code subgroupSizeControl} field. */
     @NativeType("VkBool32")
     public boolean subgroupSizeControl() { return nsubgroupSizeControl(address()) != 0; }
-    /** indicates whether the implementation supports requiring full subgroups in compute , mesh, or task shaders via the {@link VK13#VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT} flag. */
+    /** @return the value of the {@code computeFullSubgroups} field. */
     @NativeType("VkBool32")
     public boolean computeFullSubgroups() { return ncomputeFullSubgroups(address()) != 0; }
-    /** indicates whether the implementation supports the new set of synchronization commands introduced in {@link KHRSynchronization2 VK_KHR_synchronization2}. */
+    /** @return the value of the {@code synchronization2} field. */
     @NativeType("VkBool32")
     public boolean synchronization2() { return nsynchronization2(address()) != 0; }
-    /**
-     * indicates whether all of the ASTC HDR compressed texture formats are supported. If this feature is enabled, then the {@link VK10#VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT FORMAT_FEATURE_SAMPLED_IMAGE_BIT}, {@link VK10#VK_FORMAT_FEATURE_BLIT_SRC_BIT FORMAT_FEATURE_BLIT_SRC_BIT} and {@link VK10#VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT} features <b>must</b> be supported in {@code optimalTilingFeatures} for the following formats:
-     * 
-     * <ul>
-     * <li>{@link VK13#VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK FORMAT_ASTC_4x4_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_5x4_SFLOAT_BLOCK FORMAT_ASTC_5x4_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_5x5_SFLOAT_BLOCK FORMAT_ASTC_5x5_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_6x5_SFLOAT_BLOCK FORMAT_ASTC_6x5_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_6x6_SFLOAT_BLOCK FORMAT_ASTC_6x6_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_8x5_SFLOAT_BLOCK FORMAT_ASTC_8x5_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_8x6_SFLOAT_BLOCK FORMAT_ASTC_8x6_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_8x8_SFLOAT_BLOCK FORMAT_ASTC_8x8_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_10x5_SFLOAT_BLOCK FORMAT_ASTC_10x5_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_10x6_SFLOAT_BLOCK FORMAT_ASTC_10x6_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_10x8_SFLOAT_BLOCK FORMAT_ASTC_10x8_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_10x10_SFLOAT_BLOCK FORMAT_ASTC_10x10_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK FORMAT_ASTC_12x10_SFLOAT_BLOCK}</li>
-     * <li>{@link VK13#VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK FORMAT_ASTC_12x12_SFLOAT_BLOCK}</li>
-     * </ul>
-     * 
-     * <p>To query for additional properties, or if the feature is not enabled, {@link VK10#vkGetPhysicalDeviceFormatProperties GetPhysicalDeviceFormatProperties} and {@link VK10#vkGetPhysicalDeviceImageFormatProperties GetPhysicalDeviceImageFormatProperties} <b>can</b> be used to check for supported properties of individual formats as normal.</p>
-     */
+    /** @return the value of the {@code textureCompressionASTC_HDR} field. */
     @NativeType("VkBool32")
     public boolean textureCompressionASTC_HDR() { return ntextureCompressionASTC_HDR(address()) != 0; }
-    /** specifies whether the implementation supports initializing a variable in Workgroup storage class. */
+    /** @return the value of the {@code shaderZeroInitializeWorkgroupMemory} field. */
     @NativeType("VkBool32")
     public boolean shaderZeroInitializeWorkgroupMemory() { return nshaderZeroInitializeWorkgroupMemory(address()) != 0; }
-    /** specifies that the implementation supports dynamic render pass instances using the {@link VK13#vkCmdBeginRendering CmdBeginRendering} command. */
+    /** @return the value of the {@code dynamicRendering} field. */
     @NativeType("VkBool32")
     public boolean dynamicRendering() { return ndynamicRendering(address()) != 0; }
-    /** specifies whether shader modules <b>can</b> declare the {@code DotProductInputAllKHR}, {@code DotProductInput4x8BitKHR}, {@code DotProductInput4x8BitPackedKHR} and {@code DotProductKHR} capabilities. */
+    /** @return the value of the {@code shaderIntegerDotProduct} field. */
     @NativeType("VkBool32")
     public boolean shaderIntegerDotProduct() { return nshaderIntegerDotProduct(address()) != 0; }
-    /**
-     * indicates that the implementation supports the following:
-     * 
-     * <ul>
-     * <li>The application <b>may</b> destroy a {@code VkPipelineLayout} object immediately after using it to create another object.</li>
-     * <li>{@code LocalSizeId} <b>can</b> be used as an alternative to {@code LocalSize} to specify the local workgroup size with specialization constants.</li>
-     * <li>Images created with identical creation parameters will always have the same alignment requirements.</li>
-     * <li>The size memory requirement of a buffer or image is never greater than that of another buffer or image created with a greater or equal size.</li>
-     * <li>Push constants do not have to be initialized before they are dynamically accessed.</li>
-     * <li>The interface matching rules allow a larger output vector to match with a smaller input vector, with additional values being discarded.</li>
-     * </ul>
-     */
+    /** @return the value of the {@code maintenance4} field. */
     @NativeType("VkBool32")
     public boolean maintenance4() { return nmaintenance4(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceVulkan13Features sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDeviceVulkan13Features sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceVulkan13Features pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #robustImageAccess} field. */
+    /** Sets the specified value to the {@code robustImageAccess} field. */
     public VkPhysicalDeviceVulkan13Features robustImageAccess(@NativeType("VkBool32") boolean value) { nrobustImageAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #inlineUniformBlock} field. */
+    /** Sets the specified value to the {@code inlineUniformBlock} field. */
     public VkPhysicalDeviceVulkan13Features inlineUniformBlock(@NativeType("VkBool32") boolean value) { ninlineUniformBlock(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
+    /** Sets the specified value to the {@code descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
     public VkPhysicalDeviceVulkan13Features descriptorBindingInlineUniformBlockUpdateAfterBind(@NativeType("VkBool32") boolean value) { ndescriptorBindingInlineUniformBlockUpdateAfterBind(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #pipelineCreationCacheControl} field. */
+    /** Sets the specified value to the {@code pipelineCreationCacheControl} field. */
     public VkPhysicalDeviceVulkan13Features pipelineCreationCacheControl(@NativeType("VkBool32") boolean value) { npipelineCreationCacheControl(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #privateData} field. */
+    /** Sets the specified value to the {@code privateData} field. */
     public VkPhysicalDeviceVulkan13Features privateData(@NativeType("VkBool32") boolean value) { nprivateData(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderDemoteToHelperInvocation} field. */
+    /** Sets the specified value to the {@code shaderDemoteToHelperInvocation} field. */
     public VkPhysicalDeviceVulkan13Features shaderDemoteToHelperInvocation(@NativeType("VkBool32") boolean value) { nshaderDemoteToHelperInvocation(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderTerminateInvocation} field. */
+    /** Sets the specified value to the {@code shaderTerminateInvocation} field. */
     public VkPhysicalDeviceVulkan13Features shaderTerminateInvocation(@NativeType("VkBool32") boolean value) { nshaderTerminateInvocation(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #subgroupSizeControl} field. */
+    /** Sets the specified value to the {@code subgroupSizeControl} field. */
     public VkPhysicalDeviceVulkan13Features subgroupSizeControl(@NativeType("VkBool32") boolean value) { nsubgroupSizeControl(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #computeFullSubgroups} field. */
+    /** Sets the specified value to the {@code computeFullSubgroups} field. */
     public VkPhysicalDeviceVulkan13Features computeFullSubgroups(@NativeType("VkBool32") boolean value) { ncomputeFullSubgroups(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #synchronization2} field. */
+    /** Sets the specified value to the {@code synchronization2} field. */
     public VkPhysicalDeviceVulkan13Features synchronization2(@NativeType("VkBool32") boolean value) { nsynchronization2(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #textureCompressionASTC_HDR} field. */
+    /** Sets the specified value to the {@code textureCompressionASTC_HDR} field. */
     public VkPhysicalDeviceVulkan13Features textureCompressionASTC_HDR(@NativeType("VkBool32") boolean value) { ntextureCompressionASTC_HDR(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderZeroInitializeWorkgroupMemory} field. */
+    /** Sets the specified value to the {@code shaderZeroInitializeWorkgroupMemory} field. */
     public VkPhysicalDeviceVulkan13Features shaderZeroInitializeWorkgroupMemory(@NativeType("VkBool32") boolean value) { nshaderZeroInitializeWorkgroupMemory(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #dynamicRendering} field. */
+    /** Sets the specified value to the {@code dynamicRendering} field. */
     public VkPhysicalDeviceVulkan13Features dynamicRendering(@NativeType("VkBool32") boolean value) { ndynamicRendering(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderIntegerDotProduct} field. */
+    /** Sets the specified value to the {@code shaderIntegerDotProduct} field. */
     public VkPhysicalDeviceVulkan13Features shaderIntegerDotProduct(@NativeType("VkBool32") boolean value) { nshaderIntegerDotProduct(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #maintenance4} field. */
+    /** Sets the specified value to the {@code maintenance4} field. */
     public VkPhysicalDeviceVulkan13Features maintenance4(@NativeType("VkBool32") boolean value) { nmaintenance4(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -360,8 +296,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkan13Features createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceVulkan13Features createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceVulkan13Features(address, null);
     }
 
@@ -404,8 +339,7 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceVulkan13Features.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceVulkan13Features.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -450,74 +384,74 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceVulkan13Features.PNEXT); }
     /** Unsafe version of {@link #robustImageAccess}. */
-    public static int nrobustImageAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.ROBUSTIMAGEACCESS); }
+    public static int nrobustImageAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.ROBUSTIMAGEACCESS); }
     /** Unsafe version of {@link #inlineUniformBlock}. */
-    public static int ninlineUniformBlock(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.INLINEUNIFORMBLOCK); }
+    public static int ninlineUniformBlock(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.INLINEUNIFORMBLOCK); }
     /** Unsafe version of {@link #descriptorBindingInlineUniformBlockUpdateAfterBind}. */
-    public static int ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND); }
+    public static int ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND); }
     /** Unsafe version of {@link #pipelineCreationCacheControl}. */
-    public static int npipelineCreationCacheControl(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.PIPELINECREATIONCACHECONTROL); }
+    public static int npipelineCreationCacheControl(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.PIPELINECREATIONCACHECONTROL); }
     /** Unsafe version of {@link #privateData}. */
-    public static int nprivateData(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.PRIVATEDATA); }
+    public static int nprivateData(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.PRIVATEDATA); }
     /** Unsafe version of {@link #shaderDemoteToHelperInvocation}. */
-    public static int nshaderDemoteToHelperInvocation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERDEMOTETOHELPERINVOCATION); }
+    public static int nshaderDemoteToHelperInvocation(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.SHADERDEMOTETOHELPERINVOCATION); }
     /** Unsafe version of {@link #shaderTerminateInvocation}. */
-    public static int nshaderTerminateInvocation(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERTERMINATEINVOCATION); }
+    public static int nshaderTerminateInvocation(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.SHADERTERMINATEINVOCATION); }
     /** Unsafe version of {@link #subgroupSizeControl}. */
-    public static int nsubgroupSizeControl(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.SUBGROUPSIZECONTROL); }
+    public static int nsubgroupSizeControl(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.SUBGROUPSIZECONTROL); }
     /** Unsafe version of {@link #computeFullSubgroups}. */
-    public static int ncomputeFullSubgroups(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.COMPUTEFULLSUBGROUPS); }
+    public static int ncomputeFullSubgroups(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.COMPUTEFULLSUBGROUPS); }
     /** Unsafe version of {@link #synchronization2}. */
-    public static int nsynchronization2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.SYNCHRONIZATION2); }
+    public static int nsynchronization2(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.SYNCHRONIZATION2); }
     /** Unsafe version of {@link #textureCompressionASTC_HDR}. */
-    public static int ntextureCompressionASTC_HDR(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.TEXTURECOMPRESSIONASTC_HDR); }
+    public static int ntextureCompressionASTC_HDR(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.TEXTURECOMPRESSIONASTC_HDR); }
     /** Unsafe version of {@link #shaderZeroInitializeWorkgroupMemory}. */
-    public static int nshaderZeroInitializeWorkgroupMemory(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERZEROINITIALIZEWORKGROUPMEMORY); }
+    public static int nshaderZeroInitializeWorkgroupMemory(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.SHADERZEROINITIALIZEWORKGROUPMEMORY); }
     /** Unsafe version of {@link #dynamicRendering}. */
-    public static int ndynamicRendering(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.DYNAMICRENDERING); }
+    public static int ndynamicRendering(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.DYNAMICRENDERING); }
     /** Unsafe version of {@link #shaderIntegerDotProduct}. */
-    public static int nshaderIntegerDotProduct(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERINTEGERDOTPRODUCT); }
+    public static int nshaderIntegerDotProduct(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.SHADERINTEGERDOTPRODUCT); }
     /** Unsafe version of {@link #maintenance4}. */
-    public static int nmaintenance4(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceVulkan13Features.MAINTENANCE4); }
+    public static int nmaintenance4(long struct) { return memGetInt(struct + VkPhysicalDeviceVulkan13Features.MAINTENANCE4); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceVulkan13Features.PNEXT, value); }
     /** Unsafe version of {@link #robustImageAccess(boolean) robustImageAccess}. */
-    public static void nrobustImageAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.ROBUSTIMAGEACCESS, value); }
+    public static void nrobustImageAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.ROBUSTIMAGEACCESS, value); }
     /** Unsafe version of {@link #inlineUniformBlock(boolean) inlineUniformBlock}. */
-    public static void ninlineUniformBlock(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.INLINEUNIFORMBLOCK, value); }
+    public static void ninlineUniformBlock(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.INLINEUNIFORMBLOCK, value); }
     /** Unsafe version of {@link #descriptorBindingInlineUniformBlockUpdateAfterBind(boolean) descriptorBindingInlineUniformBlockUpdateAfterBind}. */
-    public static void ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND, value); }
+    public static void ndescriptorBindingInlineUniformBlockUpdateAfterBind(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.DESCRIPTORBINDINGINLINEUNIFORMBLOCKUPDATEAFTERBIND, value); }
     /** Unsafe version of {@link #pipelineCreationCacheControl(boolean) pipelineCreationCacheControl}. */
-    public static void npipelineCreationCacheControl(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.PIPELINECREATIONCACHECONTROL, value); }
+    public static void npipelineCreationCacheControl(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.PIPELINECREATIONCACHECONTROL, value); }
     /** Unsafe version of {@link #privateData(boolean) privateData}. */
-    public static void nprivateData(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.PRIVATEDATA, value); }
+    public static void nprivateData(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.PRIVATEDATA, value); }
     /** Unsafe version of {@link #shaderDemoteToHelperInvocation(boolean) shaderDemoteToHelperInvocation}. */
-    public static void nshaderDemoteToHelperInvocation(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERDEMOTETOHELPERINVOCATION, value); }
+    public static void nshaderDemoteToHelperInvocation(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.SHADERDEMOTETOHELPERINVOCATION, value); }
     /** Unsafe version of {@link #shaderTerminateInvocation(boolean) shaderTerminateInvocation}. */
-    public static void nshaderTerminateInvocation(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERTERMINATEINVOCATION, value); }
+    public static void nshaderTerminateInvocation(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.SHADERTERMINATEINVOCATION, value); }
     /** Unsafe version of {@link #subgroupSizeControl(boolean) subgroupSizeControl}. */
-    public static void nsubgroupSizeControl(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.SUBGROUPSIZECONTROL, value); }
+    public static void nsubgroupSizeControl(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.SUBGROUPSIZECONTROL, value); }
     /** Unsafe version of {@link #computeFullSubgroups(boolean) computeFullSubgroups}. */
-    public static void ncomputeFullSubgroups(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.COMPUTEFULLSUBGROUPS, value); }
+    public static void ncomputeFullSubgroups(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.COMPUTEFULLSUBGROUPS, value); }
     /** Unsafe version of {@link #synchronization2(boolean) synchronization2}. */
-    public static void nsynchronization2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.SYNCHRONIZATION2, value); }
+    public static void nsynchronization2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.SYNCHRONIZATION2, value); }
     /** Unsafe version of {@link #textureCompressionASTC_HDR(boolean) textureCompressionASTC_HDR}. */
-    public static void ntextureCompressionASTC_HDR(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.TEXTURECOMPRESSIONASTC_HDR, value); }
+    public static void ntextureCompressionASTC_HDR(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.TEXTURECOMPRESSIONASTC_HDR, value); }
     /** Unsafe version of {@link #shaderZeroInitializeWorkgroupMemory(boolean) shaderZeroInitializeWorkgroupMemory}. */
-    public static void nshaderZeroInitializeWorkgroupMemory(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERZEROINITIALIZEWORKGROUPMEMORY, value); }
+    public static void nshaderZeroInitializeWorkgroupMemory(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.SHADERZEROINITIALIZEWORKGROUPMEMORY, value); }
     /** Unsafe version of {@link #dynamicRendering(boolean) dynamicRendering}. */
-    public static void ndynamicRendering(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.DYNAMICRENDERING, value); }
+    public static void ndynamicRendering(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.DYNAMICRENDERING, value); }
     /** Unsafe version of {@link #shaderIntegerDotProduct(boolean) shaderIntegerDotProduct}. */
-    public static void nshaderIntegerDotProduct(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.SHADERINTEGERDOTPRODUCT, value); }
+    public static void nshaderIntegerDotProduct(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.SHADERINTEGERDOTPRODUCT, value); }
     /** Unsafe version of {@link #maintenance4(boolean) maintenance4}. */
-    public static void nmaintenance4(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceVulkan13Features.MAINTENANCE4, value); }
+    public static void nmaintenance4(long struct, int value) { memPutInt(struct + VkPhysicalDeviceVulkan13Features.MAINTENANCE4, value); }
 
     // -----------------------------------
 
@@ -553,97 +487,102 @@ public class VkPhysicalDeviceVulkan13Features extends Struct<VkPhysicalDeviceVul
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceVulkan13Features getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceVulkan13Features.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceVulkan13Features.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#robustImageAccess} field. */
+        /** @return the value of the {@code robustImageAccess} field. */
         @NativeType("VkBool32")
         public boolean robustImageAccess() { return VkPhysicalDeviceVulkan13Features.nrobustImageAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#inlineUniformBlock} field. */
+        /** @return the value of the {@code inlineUniformBlock} field. */
         @NativeType("VkBool32")
         public boolean inlineUniformBlock() { return VkPhysicalDeviceVulkan13Features.ninlineUniformBlock(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
+        /** @return the value of the {@code descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
         @NativeType("VkBool32")
         public boolean descriptorBindingInlineUniformBlockUpdateAfterBind() { return VkPhysicalDeviceVulkan13Features.ndescriptorBindingInlineUniformBlockUpdateAfterBind(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#pipelineCreationCacheControl} field. */
+        /** @return the value of the {@code pipelineCreationCacheControl} field. */
         @NativeType("VkBool32")
         public boolean pipelineCreationCacheControl() { return VkPhysicalDeviceVulkan13Features.npipelineCreationCacheControl(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#privateData} field. */
+        /** @return the value of the {@code privateData} field. */
         @NativeType("VkBool32")
         public boolean privateData() { return VkPhysicalDeviceVulkan13Features.nprivateData(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#shaderDemoteToHelperInvocation} field. */
+        /** @return the value of the {@code shaderDemoteToHelperInvocation} field. */
         @NativeType("VkBool32")
         public boolean shaderDemoteToHelperInvocation() { return VkPhysicalDeviceVulkan13Features.nshaderDemoteToHelperInvocation(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#shaderTerminateInvocation} field. */
+        /** @return the value of the {@code shaderTerminateInvocation} field. */
         @NativeType("VkBool32")
         public boolean shaderTerminateInvocation() { return VkPhysicalDeviceVulkan13Features.nshaderTerminateInvocation(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#subgroupSizeControl} field. */
+        /** @return the value of the {@code subgroupSizeControl} field. */
         @NativeType("VkBool32")
         public boolean subgroupSizeControl() { return VkPhysicalDeviceVulkan13Features.nsubgroupSizeControl(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#computeFullSubgroups} field. */
+        /** @return the value of the {@code computeFullSubgroups} field. */
         @NativeType("VkBool32")
         public boolean computeFullSubgroups() { return VkPhysicalDeviceVulkan13Features.ncomputeFullSubgroups(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#synchronization2} field. */
+        /** @return the value of the {@code synchronization2} field. */
         @NativeType("VkBool32")
         public boolean synchronization2() { return VkPhysicalDeviceVulkan13Features.nsynchronization2(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#textureCompressionASTC_HDR} field. */
+        /** @return the value of the {@code textureCompressionASTC_HDR} field. */
         @NativeType("VkBool32")
         public boolean textureCompressionASTC_HDR() { return VkPhysicalDeviceVulkan13Features.ntextureCompressionASTC_HDR(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#shaderZeroInitializeWorkgroupMemory} field. */
+        /** @return the value of the {@code shaderZeroInitializeWorkgroupMemory} field. */
         @NativeType("VkBool32")
         public boolean shaderZeroInitializeWorkgroupMemory() { return VkPhysicalDeviceVulkan13Features.nshaderZeroInitializeWorkgroupMemory(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#dynamicRendering} field. */
+        /** @return the value of the {@code dynamicRendering} field. */
         @NativeType("VkBool32")
         public boolean dynamicRendering() { return VkPhysicalDeviceVulkan13Features.ndynamicRendering(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#shaderIntegerDotProduct} field. */
+        /** @return the value of the {@code shaderIntegerDotProduct} field. */
         @NativeType("VkBool32")
         public boolean shaderIntegerDotProduct() { return VkPhysicalDeviceVulkan13Features.nshaderIntegerDotProduct(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceVulkan13Features#maintenance4} field. */
+        /** @return the value of the {@code maintenance4} field. */
         @NativeType("VkBool32")
         public boolean maintenance4() { return VkPhysicalDeviceVulkan13Features.nmaintenance4(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceVulkan13Features.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES} value to the {@link VkPhysicalDeviceVulkan13Features#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceVulkan13Features.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#robustImageAccess} field. */
+        /** Sets the specified value to the {@code robustImageAccess} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer robustImageAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nrobustImageAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#inlineUniformBlock} field. */
+        /** Sets the specified value to the {@code inlineUniformBlock} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer inlineUniformBlock(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.ninlineUniformBlock(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
+        /** Sets the specified value to the {@code descriptorBindingInlineUniformBlockUpdateAfterBind} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer descriptorBindingInlineUniformBlockUpdateAfterBind(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.ndescriptorBindingInlineUniformBlockUpdateAfterBind(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#pipelineCreationCacheControl} field. */
+        /** Sets the specified value to the {@code pipelineCreationCacheControl} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer pipelineCreationCacheControl(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.npipelineCreationCacheControl(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#privateData} field. */
+        /** Sets the specified value to the {@code privateData} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer privateData(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nprivateData(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#shaderDemoteToHelperInvocation} field. */
+        /** Sets the specified value to the {@code shaderDemoteToHelperInvocation} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer shaderDemoteToHelperInvocation(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nshaderDemoteToHelperInvocation(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#shaderTerminateInvocation} field. */
+        /** Sets the specified value to the {@code shaderTerminateInvocation} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer shaderTerminateInvocation(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nshaderTerminateInvocation(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#subgroupSizeControl} field. */
+        /** Sets the specified value to the {@code subgroupSizeControl} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer subgroupSizeControl(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nsubgroupSizeControl(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#computeFullSubgroups} field. */
+        /** Sets the specified value to the {@code computeFullSubgroups} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer computeFullSubgroups(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.ncomputeFullSubgroups(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#synchronization2} field. */
+        /** Sets the specified value to the {@code synchronization2} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer synchronization2(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nsynchronization2(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#textureCompressionASTC_HDR} field. */
+        /** Sets the specified value to the {@code textureCompressionASTC_HDR} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer textureCompressionASTC_HDR(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.ntextureCompressionASTC_HDR(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#shaderZeroInitializeWorkgroupMemory} field. */
+        /** Sets the specified value to the {@code shaderZeroInitializeWorkgroupMemory} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer shaderZeroInitializeWorkgroupMemory(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nshaderZeroInitializeWorkgroupMemory(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#dynamicRendering} field. */
+        /** Sets the specified value to the {@code dynamicRendering} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer dynamicRendering(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.ndynamicRendering(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#shaderIntegerDotProduct} field. */
+        /** Sets the specified value to the {@code shaderIntegerDotProduct} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer shaderIntegerDotProduct(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nshaderIntegerDotProduct(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceVulkan13Features#maintenance4} field. */
+        /** Sets the specified value to the {@code maintenance4} field. */
         public VkPhysicalDeviceVulkan13Features.Buffer maintenance4(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceVulkan13Features.nmaintenance4(address(), value ? 1 : 0); return this; }
 
     }

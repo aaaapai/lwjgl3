@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing various implementation-defined properties introduced with VK_KHR_maintenance4.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceMaintenance4Properties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceMaintenance4Properties {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkDeviceSize {@link #maxBufferSize};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkDeviceSize maxBufferSize;
+ * }}</pre>
  */
 public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDeviceMaintenance4Properties> implements NativeResource {
 
@@ -88,21 +74,21 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum size {@code VkBuffer} that <b>can</b> be created. */
+    /** @return the value of the {@code maxBufferSize} field. */
     @NativeType("VkDeviceSize")
     public long maxBufferSize() { return nmaxBufferSize(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceMaintenance4Properties sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES} value to the {@code sType} field. */
     public VkPhysicalDeviceMaintenance4Properties sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceMaintenance4Properties pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +138,7 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance4Properties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMaintenance4Properties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMaintenance4Properties(address, null);
     }
 
@@ -196,8 +181,7 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMaintenance4Properties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMaintenance4Properties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +226,14 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMaintenance4Properties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMaintenance4Properties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMaintenance4Properties.PNEXT); }
     /** Unsafe version of {@link #maxBufferSize}. */
-    public static long nmaxBufferSize(long struct) { return UNSAFE.getLong(null, struct + VkPhysicalDeviceMaintenance4Properties.MAXBUFFERSIZE); }
+    public static long nmaxBufferSize(long struct) { return memGetLong(struct + VkPhysicalDeviceMaintenance4Properties.MAXBUFFERSIZE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMaintenance4Properties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMaintenance4Properties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMaintenance4Properties.PNEXT, value); }
 
@@ -287,25 +271,30 @@ public class VkPhysicalDeviceMaintenance4Properties extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceMaintenance4Properties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance4Properties#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceMaintenance4Properties.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance4Properties#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMaintenance4Properties.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMaintenance4Properties#maxBufferSize} field. */
+        /** @return the value of the {@code maxBufferSize} field. */
         @NativeType("VkDeviceSize")
         public long maxBufferSize() { return VkPhysicalDeviceMaintenance4Properties.nmaxBufferSize(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance4Properties#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceMaintenance4Properties.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceMaintenance4Properties.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES} value to the {@link VkPhysicalDeviceMaintenance4Properties#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES} value to the {@code sType} field. */
         public VkPhysicalDeviceMaintenance4Properties.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceMaintenance4Properties#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceMaintenance4Properties.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceMaintenance4Properties.npNext(address(), value); return this; }
 
     }

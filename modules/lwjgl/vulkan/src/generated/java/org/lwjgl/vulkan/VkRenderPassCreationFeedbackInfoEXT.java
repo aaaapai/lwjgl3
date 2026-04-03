@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,18 +14,10 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Feedback about the creation of a render pass.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRenderPassCreationFeedbackCreateInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRenderPassCreationFeedbackInfoEXT {
- *     uint32_t {@link #postMergeSubpassCount};
- * }</code></pre>
+ *     uint32_t postMergeSubpassCount;
+ * }}</pre>
  */
 public class VkRenderPassCreationFeedbackInfoEXT extends Struct<VkRenderPassCreationFeedbackInfoEXT> {
 
@@ -72,7 +64,7 @@ public class VkRenderPassCreationFeedbackInfoEXT extends Struct<VkRenderPassCrea
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the subpass count after merge. */
+    /** @return the value of the {@code postMergeSubpassCount} field. */
     @NativeType("uint32_t")
     public int postMergeSubpassCount() { return npostMergeSubpassCount(address()); }
 
@@ -84,8 +76,7 @@ public class VkRenderPassCreationFeedbackInfoEXT extends Struct<VkRenderPassCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreationFeedbackInfoEXT createSafe(long address) {
+    public static @Nullable VkRenderPassCreationFeedbackInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkRenderPassCreationFeedbackInfoEXT(address, null);
     }
 
@@ -100,15 +91,14 @@ public class VkRenderPassCreationFeedbackInfoEXT extends Struct<VkRenderPassCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassCreationFeedbackInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassCreationFeedbackInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #postMergeSubpassCount}. */
-    public static int npostMergeSubpassCount(long struct) { return UNSAFE.getInt(null, struct + VkRenderPassCreationFeedbackInfoEXT.POSTMERGESUBPASSCOUNT); }
+    public static int npostMergeSubpassCount(long struct) { return memGetInt(struct + VkRenderPassCreationFeedbackInfoEXT.POSTMERGESUBPASSCOUNT); }
 
     // -----------------------------------
 
@@ -144,11 +134,16 @@ public class VkRenderPassCreationFeedbackInfoEXT extends Struct<VkRenderPassCrea
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkRenderPassCreationFeedbackInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkRenderPassCreationFeedbackInfoEXT#postMergeSubpassCount} field. */
+        /** @return the value of the {@code postMergeSubpassCount} field. */
         @NativeType("uint32_t")
         public int postMergeSubpassCount() { return VkRenderPassCreationFeedbackInfoEXT.npostMergeSubpassCount(address()); }
 

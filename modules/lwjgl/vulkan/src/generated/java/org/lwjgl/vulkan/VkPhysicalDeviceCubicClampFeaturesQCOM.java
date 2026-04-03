@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing cubic clamp features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceCubicClampFeaturesQCOM} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceCubicClampFeaturesQCOM} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMFilterCubicClamp#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceCubicClampFeaturesQCOM {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkBool32 {@link #cubicRangeClamp};
- * }</code></pre>
+ *     VkBool32 cubicRangeClamp;
+ * }}</pre>
  */
 public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDeviceCubicClampFeaturesQCOM> implements NativeResource {
 
@@ -94,7 +80,7 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports cubic filtering in combination with a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-texel-range-clamp">texel range clamp</a>. */
+    /** @return the value of the {@code cubicRangeClamp} field. */
     @NativeType("VkBool32")
     public boolean cubicRangeClamp() { return ncubicRangeClamp(address()) != 0; }
 
@@ -104,7 +90,7 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
     public VkPhysicalDeviceCubicClampFeaturesQCOM sType$Default() { return sType(QCOMFilterCubicClamp.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceCubicClampFeaturesQCOM pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #cubicRangeClamp} field. */
+    /** Sets the specified value to the {@code cubicRangeClamp} field. */
     public VkPhysicalDeviceCubicClampFeaturesQCOM cubicRangeClamp(@NativeType("VkBool32") boolean value) { ncubicRangeClamp(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCubicClampFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCubicClampFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCubicClampFeaturesQCOM(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCubicClampFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCubicClampFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCubicClampFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCubicClampFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCubicClampFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #cubicRangeClamp}. */
-    public static int ncubicRangeClamp(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCubicClampFeaturesQCOM.CUBICRANGECLAMP); }
+    public static int ncubicRangeClamp(long struct) { return memGetInt(struct + VkPhysicalDeviceCubicClampFeaturesQCOM.CUBICRANGECLAMP); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCubicClampFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCubicClampFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCubicClampFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #cubicRangeClamp(boolean) cubicRangeClamp}. */
-    public static void ncubicRangeClamp(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCubicClampFeaturesQCOM.CUBICRANGECLAMP, value); }
+    public static void ncubicRangeClamp(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCubicClampFeaturesQCOM.CUBICRANGECLAMP, value); }
 
     // -----------------------------------
 
@@ -293,6 +277,11 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceCubicClampFeaturesQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -303,7 +292,7 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceCubicClampFeaturesQCOM.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCubicClampFeaturesQCOM#cubicRangeClamp} field. */
+        /** @return the value of the {@code cubicRangeClamp} field. */
         @NativeType("VkBool32")
         public boolean cubicRangeClamp() { return VkPhysicalDeviceCubicClampFeaturesQCOM.ncubicRangeClamp(address()) != 0; }
 
@@ -313,7 +302,7 @@ public class VkPhysicalDeviceCubicClampFeaturesQCOM extends Struct<VkPhysicalDev
         public VkPhysicalDeviceCubicClampFeaturesQCOM.Buffer sType$Default() { return sType(QCOMFilterCubicClamp.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceCubicClampFeaturesQCOM.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceCubicClampFeaturesQCOM.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCubicClampFeaturesQCOM#cubicRangeClamp} field. */
+        /** Sets the specified value to the {@code cubicRangeClamp} field. */
         public VkPhysicalDeviceCubicClampFeaturesQCOM.Buffer cubicRangeClamp(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceCubicClampFeaturesQCOM.ncubicRangeClamp(address(), value ? 1 : 0); return this; }
 
     }

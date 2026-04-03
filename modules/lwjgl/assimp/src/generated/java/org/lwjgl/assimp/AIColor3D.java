@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,16 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Represents a color in Red-Green-Blue space.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiColor3D {
- *     float {@link #r};
- *     float {@link #g};
- *     float {@link #b};
- * }</code></pre>
+ *     float r;
+ *     float g;
+ *     float b;
+ * }}</pre>
  */
 @NativeType("struct aiColor3D")
 public class AIColor3D extends Struct<AIColor3D> {
@@ -77,11 +73,11 @@ public class AIColor3D extends Struct<AIColor3D> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** The red color value */
+    /** @return the value of the {@code r} field. */
     public float r() { return nr(address()); }
-    /** The green color value */
+    /** @return the value of the {@code g} field. */
     public float g() { return ng(address()); }
-    /** The blue color value */
+    /** @return the value of the {@code b} field. */
     public float b() { return nb(address()); }
 
     // -----------------------------------
@@ -92,8 +88,7 @@ public class AIColor3D extends Struct<AIColor3D> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIColor3D createSafe(long address) {
+    public static @Nullable AIColor3D createSafe(long address) {
         return address == NULL ? null : new AIColor3D(address, null);
     }
 
@@ -108,19 +103,18 @@ public class AIColor3D extends Struct<AIColor3D> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIColor3D.Buffer createSafe(long address, int capacity) {
+    public static AIColor3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static float nr(long struct) { return UNSAFE.getFloat(null, struct + AIColor3D.R); }
+    public static float nr(long struct) { return memGetFloat(struct + AIColor3D.R); }
     /** Unsafe version of {@link #g}. */
-    public static float ng(long struct) { return UNSAFE.getFloat(null, struct + AIColor3D.G); }
+    public static float ng(long struct) { return memGetFloat(struct + AIColor3D.G); }
     /** Unsafe version of {@link #b}. */
-    public static float nb(long struct) { return UNSAFE.getFloat(null, struct + AIColor3D.B); }
+    public static float nb(long struct) { return memGetFloat(struct + AIColor3D.B); }
 
     // -----------------------------------
 
@@ -156,15 +150,20 @@ public class AIColor3D extends Struct<AIColor3D> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected AIColor3D getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIColor3D#r} field. */
+        /** @return the value of the {@code r} field. */
         public float r() { return AIColor3D.nr(address()); }
-        /** @return the value of the {@link AIColor3D#g} field. */
+        /** @return the value of the {@code g} field. */
         public float g() { return AIColor3D.ng(address()); }
-        /** @return the value of the {@link AIColor3D#b} field. */
+        /** @return the value of the {@code b} field. */
         public float b() { return AIColor3D.nb(address()); }
 
     }

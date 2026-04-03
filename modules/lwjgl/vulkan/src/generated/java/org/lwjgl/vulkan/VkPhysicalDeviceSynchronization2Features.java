@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether the implementation supports v2 synchronization commands.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceSynchronization2Features} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceSynchronization2Features} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceSynchronization2Features {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #synchronization2};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 synchronization2;
+ * }}</pre>
  */
 public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalDeviceSynchronization2Features> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports the new set of synchronization commands introduced in {@link KHRSynchronization2 VK_KHR_synchronization2}. */
+    /** @return the value of the {@code synchronization2} field. */
     @NativeType("VkBool32")
     public boolean synchronization2() { return nsynchronization2(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceSynchronization2Features sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES} value to the {@link #sType} field. */
+    /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES} value to the {@code sType} field. */
     public VkPhysicalDeviceSynchronization2Features sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceSynchronization2Features pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #synchronization2} field. */
+    /** Sets the specified value to the {@code synchronization2} field. */
     public VkPhysicalDeviceSynchronization2Features synchronization2(@NativeType("VkBool32") boolean value) { nsynchronization2(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSynchronization2Features createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceSynchronization2Features createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceSynchronization2Features(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceSynchronization2Features.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceSynchronization2Features.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSynchronization2Features.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSynchronization2Features.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSynchronization2Features.PNEXT); }
     /** Unsafe version of {@link #synchronization2}. */
-    public static int nsynchronization2(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2); }
+    public static int nsynchronization2(long struct) { return memGetInt(struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSynchronization2Features.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSynchronization2Features.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSynchronization2Features.PNEXT, value); }
     /** Unsafe version of {@link #synchronization2(boolean) synchronization2}. */
-    public static void nsynchronization2(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2, value); }
+    public static void nsynchronization2(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSynchronization2Features.SYNCHRONIZATION2, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceSynchronization2Features extends Struct<VkPhysicalD
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceSynchronization2Features getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceSynchronization2Features#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceSynchronization2Features.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSynchronization2Features#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceSynchronization2Features.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSynchronization2Features#synchronization2} field. */
+        /** @return the value of the {@code synchronization2} field. */
         @NativeType("VkBool32")
         public boolean synchronization2() { return VkPhysicalDeviceSynchronization2Features.nsynchronization2(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceSynchronization2Features#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceSynchronization2Features.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceSynchronization2Features.nsType(address(), value); return this; }
-        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES} value to the {@link VkPhysicalDeviceSynchronization2Features#sType} field. */
+        /** Sets the {@link VK13#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES} value to the {@code sType} field. */
         public VkPhysicalDeviceSynchronization2Features.Buffer sType$Default() { return sType(VK13.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceSynchronization2Features#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceSynchronization2Features.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceSynchronization2Features.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceSynchronization2Features#synchronization2} field. */
+        /** Sets the specified value to the {@code synchronization2} field. */
         public VkPhysicalDeviceSynchronization2Features.Buffer synchronization2(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceSynchronization2Features.nsynchronization2(address(), value ? 1 : 0); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,40 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying pipeline libraries to use when creating a pipeline.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>Each element of {@code pLibraries} <b>must</b> have been created with {@link KHRPipelineLibrary#VK_PIPELINE_CREATE_LIBRARY_BIT_KHR PIPELINE_CREATE_LIBRARY_BIT_KHR}</li>
- * <li>If any library in {@code pLibraries} was created with a shader stage with {@link VkPipelineShaderStageModuleIdentifierCreateInfoEXT} and {@code identifierSize} not equal to 0, the pipeline <b>must</b> be created with the {@link VK13#VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT} flag set</li>
- * <li>If any element of {@code pLibraries} was created with {@link EXTDescriptorBuffer#VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT}, all elements <b>must</b> have been created with {@link EXTDescriptorBuffer#VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT}</li>
- * <li>If {@code pipeline} is being created with {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT}, every element of {@code pLibraries} <b>must</b> have been created with {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT}</li>
- * <li>If {@code pipeline} is being created without {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT}, every element of {@code pLibraries} <b>must</b> have been created without {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT}</li>
- * <li>If {@code pipeline} is being created with {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT}, every element of {@code pLibraries} <b>must</b> have been created with {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT}</li>
- * <li>If {@code pipeline} is being created without {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT}, every element of {@code pLibraries} <b>must</b> have been created without {@link EXTPipelineProtectedAccess#VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRPipelineLibrary#VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR}</li>
- * <li>If {@code libraryCount} is not 0, {@code pLibraries} <b>must</b> be a valid pointer to an array of {@code libraryCount} valid {@code VkPipeline} handles</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExecutionGraphPipelineCreateInfoAMDX}, {@link VkRayTracingPipelineCreateInfoKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineLibraryCreateInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     uint32_t {@link #libraryCount};
- *     VkPipeline const * {@link #pLibraries};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     uint32_t libraryCount;
+ *     VkPipeline const * pLibraries;
+ * }}</pre>
  */
 public class VkPipelineLibraryCreateInfoKHR extends Struct<VkPipelineLibraryCreateInfoKHR> implements NativeResource {
 
@@ -106,27 +79,26 @@ public class VkPipelineLibraryCreateInfoKHR extends Struct<VkPipelineLibraryCrea
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the number of pipeline libraries in {@code pLibraries}. */
+    /** @return the value of the {@code libraryCount} field. */
     @NativeType("uint32_t")
     public int libraryCount() { return nlibraryCount(address()); }
-    /** a pointer to an array of {@code VkPipeline} structures specifying pipeline libraries to use when creating a pipeline. */
-    @Nullable
+    /** @return a {@link LongBuffer} view of the data pointed to by the {@code pLibraries} field. */
     @NativeType("VkPipeline const *")
-    public LongBuffer pLibraries() { return npLibraries(address()); }
+    public @Nullable LongBuffer pLibraries() { return npLibraries(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineLibraryCreateInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRPipelineLibrary#VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRPipelineLibrary#VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR} value to the {@code sType} field. */
     public VkPipelineLibraryCreateInfoKHR sType$Default() { return sType(KHRPipelineLibrary.VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineLibraryCreateInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the address of the specified {@link LongBuffer} to the {@link #pLibraries} field. */
+    /** Sets the address of the specified {@link LongBuffer} to the {@code pLibraries} field. */
     public VkPipelineLibraryCreateInfoKHR pLibraries(@Nullable @NativeType("VkPipeline const *") LongBuffer value) { npLibraries(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +150,7 @@ public class VkPipelineLibraryCreateInfoKHR extends Struct<VkPipelineLibraryCrea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineLibraryCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkPipelineLibraryCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkPipelineLibraryCreateInfoKHR(address, null);
     }
 
@@ -222,8 +193,7 @@ public class VkPipelineLibraryCreateInfoKHR extends Struct<VkPipelineLibraryCrea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineLibraryCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineLibraryCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,20 +238,20 @@ public class VkPipelineLibraryCreateInfoKHR extends Struct<VkPipelineLibraryCrea
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineLibraryCreateInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineLibraryCreateInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineLibraryCreateInfoKHR.PNEXT); }
     /** Unsafe version of {@link #libraryCount}. */
-    public static int nlibraryCount(long struct) { return UNSAFE.getInt(null, struct + VkPipelineLibraryCreateInfoKHR.LIBRARYCOUNT); }
+    public static int nlibraryCount(long struct) { return memGetInt(struct + VkPipelineLibraryCreateInfoKHR.LIBRARYCOUNT); }
     /** Unsafe version of {@link #pLibraries() pLibraries}. */
-    @Nullable public static LongBuffer npLibraries(long struct) { return memLongBufferSafe(memGetAddress(struct + VkPipelineLibraryCreateInfoKHR.PLIBRARIES), nlibraryCount(struct)); }
+    public static @Nullable LongBuffer npLibraries(long struct) { return memLongBufferSafe(memGetAddress(struct + VkPipelineLibraryCreateInfoKHR.PLIBRARIES), nlibraryCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineLibraryCreateInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineLibraryCreateInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineLibraryCreateInfoKHR.PNEXT, value); }
     /** Sets the specified value to the {@code libraryCount} field of the specified {@code struct}. */
-    public static void nlibraryCount(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineLibraryCreateInfoKHR.LIBRARYCOUNT, value); }
+    public static void nlibraryCount(long struct, int value) { memPutInt(struct + VkPipelineLibraryCreateInfoKHR.LIBRARYCOUNT, value); }
     /** Unsafe version of {@link #pLibraries(LongBuffer) pLibraries}. */
     public static void npLibraries(long struct, @Nullable LongBuffer value) { memPutAddress(struct + VkPipelineLibraryCreateInfoKHR.PLIBRARIES, memAddressSafe(value)); nlibraryCount(struct, value == null ? 0 : value.remaining()); }
 
@@ -330,31 +300,35 @@ public class VkPipelineLibraryCreateInfoKHR extends Struct<VkPipelineLibraryCrea
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineLibraryCreateInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineLibraryCreateInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineLibraryCreateInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkPipelineLibraryCreateInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineLibraryCreateInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkPipelineLibraryCreateInfoKHR#libraryCount} field. */
+        /** @return the value of the {@code libraryCount} field. */
         @NativeType("uint32_t")
         public int libraryCount() { return VkPipelineLibraryCreateInfoKHR.nlibraryCount(address()); }
-        /** @return a {@link LongBuffer} view of the data pointed to by the {@link VkPipelineLibraryCreateInfoKHR#pLibraries} field. */
-        @Nullable
+        /** @return a {@link LongBuffer} view of the data pointed to by the {@code pLibraries} field. */
         @NativeType("VkPipeline const *")
-        public LongBuffer pLibraries() { return VkPipelineLibraryCreateInfoKHR.npLibraries(address()); }
+        public @Nullable LongBuffer pLibraries() { return VkPipelineLibraryCreateInfoKHR.npLibraries(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineLibraryCreateInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineLibraryCreateInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineLibraryCreateInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRPipelineLibrary#VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR} value to the {@link VkPipelineLibraryCreateInfoKHR#sType} field. */
+        /** Sets the {@link KHRPipelineLibrary#VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR} value to the {@code sType} field. */
         public VkPipelineLibraryCreateInfoKHR.Buffer sType$Default() { return sType(KHRPipelineLibrary.VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR); }
-        /** Sets the specified value to the {@link VkPipelineLibraryCreateInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineLibraryCreateInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkPipelineLibraryCreateInfoKHR.npNext(address(), value); return this; }
-        /** Sets the address of the specified {@link LongBuffer} to the {@link VkPipelineLibraryCreateInfoKHR#pLibraries} field. */
+        /** Sets the address of the specified {@link LongBuffer} to the {@code pLibraries} field. */
         public VkPipelineLibraryCreateInfoKHR.Buffer pLibraries(@Nullable @NativeType("VkPipeline const *") LongBuffer value) { VkPipelineLibraryCreateInfoKHR.npLibraries(address(), value); return this; }
 
     }

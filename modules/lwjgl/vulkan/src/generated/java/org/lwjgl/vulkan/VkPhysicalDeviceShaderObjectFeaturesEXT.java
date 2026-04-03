@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether shader objects can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceShaderObjectFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceShaderObjectFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTShaderObject#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShaderObjectFeaturesEXT {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkBool32 {@link #shaderObject};
- * }</code></pre>
+ *     VkBool32 shaderObject;
+ * }}</pre>
  */
 public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDeviceShaderObjectFeaturesEXT> implements NativeResource {
 
@@ -94,7 +80,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#shaders-objects">shader objects</a>. */
+    /** @return the value of the {@code shaderObject} field. */
     @NativeType("VkBool32")
     public boolean shaderObject() { return nshaderObject(address()) != 0; }
 
@@ -104,7 +90,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     public VkPhysicalDeviceShaderObjectFeaturesEXT sType$Default() { return sType(EXTShaderObject.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceShaderObjectFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #shaderObject} field. */
+    /** Sets the specified value to the {@code shaderObject} field. */
     public VkPhysicalDeviceShaderObjectFeaturesEXT shaderObject(@NativeType("VkBool32") boolean value) { nshaderObject(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderObjectFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderObjectFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderObjectFeaturesEXT(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderObjectFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderObjectFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderObject}. */
-    public static int nshaderObject(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT); }
+    public static int nshaderObject(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #shaderObject(boolean) shaderObject}. */
-    public static void nshaderObject(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT, value); }
+    public static void nshaderObject(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderObjectFeaturesEXT.SHADEROBJECT, value); }
 
     // -----------------------------------
 
@@ -293,6 +277,11 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceShaderObjectFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -303,7 +292,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceShaderObjectFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderObjectFeaturesEXT#shaderObject} field. */
+        /** @return the value of the {@code shaderObject} field. */
         @NativeType("VkBool32")
         public boolean shaderObject() { return VkPhysicalDeviceShaderObjectFeaturesEXT.nshaderObject(address()) != 0; }
 
@@ -313,7 +302,7 @@ public class VkPhysicalDeviceShaderObjectFeaturesEXT extends Struct<VkPhysicalDe
         public VkPhysicalDeviceShaderObjectFeaturesEXT.Buffer sType$Default() { return sType(EXTShaderObject.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceShaderObjectFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShaderObjectFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderObjectFeaturesEXT#shaderObject} field. */
+        /** Sets the specified value to the {@code shaderObject} field. */
         public VkPhysicalDeviceShaderObjectFeaturesEXT.Buffer shaderObject(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderObjectFeaturesEXT.nshaderObject(address(), value ? 1 : 0); return this; }
 
     }

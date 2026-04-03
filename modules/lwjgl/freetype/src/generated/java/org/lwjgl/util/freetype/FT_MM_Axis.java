@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,16 +14,12 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure to model a given axis in design space for Multiple Masters fonts.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_MM_Axis {
  *     FT_String * name;
  *     FT_Long minimum;
  *     FT_Long maximum;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_MM_Axis extends Struct<FT_MM_Axis> {
 
@@ -97,8 +93,7 @@ public class FT_MM_Axis extends Struct<FT_MM_Axis> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_MM_Axis createSafe(long address) {
+    public static @Nullable FT_MM_Axis createSafe(long address) {
         return address == NULL ? null : new FT_MM_Axis(address, null);
     }
 
@@ -113,8 +108,7 @@ public class FT_MM_Axis extends Struct<FT_MM_Axis> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_MM_Axis.Buffer createSafe(long address, int capacity) {
+    public static FT_MM_Axis.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -160,6 +154,11 @@ public class FT_MM_Axis extends Struct<FT_MM_Axis> {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

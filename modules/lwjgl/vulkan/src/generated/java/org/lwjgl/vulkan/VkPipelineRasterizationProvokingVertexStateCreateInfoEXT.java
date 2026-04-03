@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,35 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying provoking vertex mode used by a graphics pipeline.
- * 
- * <h5>Description</h5>
- * 
- * <p>If this struct is not provided when creating the pipeline, the pipeline will use the {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT} mode.</p>
- * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#limits-provokingVertexModePerPipeline">{@code provokingVertexModePerPipeline}</a> limit is {@link VK10#VK_FALSE FALSE}, then all pipelines bound within a render pass instance <b>must</b> have the same {@code provokingVertexMode}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code provokingVertexMode} is {@link EXTProvokingVertex#VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT}, then the <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-provokingVertexLast">{@code provokingVertexLast}</a> feature <b>must</b> be enabled</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTProvokingVertex#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT}</li>
- * <li>{@code provokingVertexMode} <b>must</b> be a valid {@code VkProvokingVertexModeEXT} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineRasterizationProvokingVertexStateCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkProvokingVertexModeEXT {@link #provokingVertexMode};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkProvokingVertexModeEXT provokingVertexMode;
+ * }}</pre>
  */
 public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends Struct<VkPipelineRasterizationProvokingVertexStateCreateInfoEXT> implements NativeResource {
 
@@ -97,23 +74,23 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkProvokingVertexModeEXT} value selecting the provoking vertex mode. */
+    /** @return the value of the {@code provokingVertexMode} field. */
     @NativeType("VkProvokingVertexModeEXT")
     public int provokingVertexMode() { return nprovokingVertexMode(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTProvokingVertex#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTProvokingVertex#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT sType$Default() { return sType(EXTProvokingVertex.VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #provokingVertexMode} field. */
+    /** Sets the specified value to the {@code provokingVertexMode} field. */
     public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT provokingVertexMode(@NativeType("VkProvokingVertexModeEXT") int value) { nprovokingVertexMode(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -165,8 +142,7 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationProvokingVertexStateCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineRasterizationProvokingVertexStateCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineRasterizationProvokingVertexStateCreateInfoEXT(address, null);
     }
 
@@ -209,8 +185,7 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -255,18 +230,18 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #provokingVertexMode}. */
-    public static int nprovokingVertexMode(long struct) { return UNSAFE.getInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE); }
+    public static int nprovokingVertexMode(long struct) { return memGetInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #provokingVertexMode(int) provokingVertexMode}. */
-    public static void nprovokingVertexMode(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE, value); }
+    public static void nprovokingVertexMode(long struct, int value) { memPutInt(struct + VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.PROVOKINGVERTEXMODE, value); }
 
     // -----------------------------------
 
@@ -302,27 +277,32 @@ public class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends St
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineRasterizationProvokingVertexStateCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#provokingVertexMode} field. */
+        /** @return the value of the {@code provokingVertexMode} field. */
         @NativeType("VkProvokingVertexModeEXT")
         public int provokingVertexMode() { return VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.nprovokingVertexMode(address()); }
 
-        /** Sets the specified value to the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTProvokingVertex#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT} value to the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTProvokingVertex#VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.Buffer sType$Default() { return sType(EXTProvokingVertex.VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineRasterizationProvokingVertexStateCreateInfoEXT#provokingVertexMode} field. */
+        /** Sets the specified value to the {@code provokingVertexMode} field. */
         public VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.Buffer provokingVertexMode(@NativeType("VkProvokingVertexModeEXT") int value) { VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.nprovokingVertexMode(address(), value); return this; }
 
     }

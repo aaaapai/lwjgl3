@@ -79,10 +79,10 @@ class Code(
             NO_STATEMENTS !== javaFinally
 
     internal fun hasStatements(statements: List<Statement>, alternative: Boolean, arrays: Boolean) =
-        if (statements === NO_STATEMENTS) false else statements.any { it.applyTo.filter(alternative, arrays) }
+        if (statements === NO_STATEMENTS) false else statements.any { (_, applyTo) -> applyTo.filter(alternative, arrays) }
 
     internal fun getStatements(statements: List<Statement>, alternative: Boolean, arrays: Boolean) =
-        if (statements === NO_STATEMENTS) statements else statements.filter { it.applyTo.filter(alternative, arrays) }
+        if (statements === NO_STATEMENTS) statements else statements.filter { (_, applyTo) -> applyTo.filter(alternative, arrays) }
 
     private fun List<Statement>.append(other: List<Statement>) =
         if (this === NO_STATEMENTS && other === NO_STATEMENTS) NO_STATEMENTS else this + other
@@ -116,7 +116,36 @@ class Code(
     )
 }
 
-val SaveErrno = Code(nativeAfterCall = "${t}saveErrno();")
+enum class CaptureCallState(val param: Parameter, val code: Code) {
+    @Suppress("EnumEntryName")
+    errno(
+        Check(1)..nullable..Parameter(int.p, "_errno"),
+        Code(nativeAfterCall = "${t}if (_errno != NULL) *_errno = errno;")
+    ),
+    GetLastError(
+        Check(1)..nullable..Parameter(
+            IntegerType("DWORD", PrimitiveMapping.INT).p,
+            "_GetLastError"
+        ),
+        Code(nativeAfterCall = "${t}if (_GetLastError != NULL) *_GetLastError = GetLastError();")
+    );
+
+    companion object {
+        internal fun apply(func: Func): Func {
+            if (func.parameters.isNotEmpty()) {
+                when (func.parameters[0]) {
+                    errno.param        -> errno.code..func
+                    GetLastError.param -> GetLastError.code..func
+                }
+            }
+            return func
+        }
+
+        internal fun matches(param: Parameter) =
+            param === errno.param ||
+            param === GetLastError.param
+    }
+}
 
 fun statement(code: String, applyTo: ApplyTo = ApplyTo.BOTH): List<Code.Statement> = arrayListOf(Code.Statement(code, applyTo))
 

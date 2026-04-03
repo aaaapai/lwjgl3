@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,17 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkCommandBufferSubmitInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkCommandBufferSubmitInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
  *     VkCommandBuffer commandBuffer;
  *     uint32_t deviceMask;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkCommandBufferSubmitInfoKHR extends VkCommandBufferSubmitInfo {
 
@@ -118,8 +114,7 @@ public class VkCommandBufferSubmitInfoKHR extends VkCommandBufferSubmitInfo {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferSubmitInfoKHR createSafe(long address) {
+    public static @Nullable VkCommandBufferSubmitInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkCommandBufferSubmitInfoKHR(address, null);
     }
 
@@ -162,8 +157,7 @@ public class VkCommandBufferSubmitInfoKHR extends VkCommandBufferSubmitInfo {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkCommandBufferSubmitInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkCommandBufferSubmitInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -236,6 +230,11 @@ public class VkCommandBufferSubmitInfoKHR extends VkCommandBufferSubmitInfo {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Vulkan API version requirements.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrGraphicsRequirementsVulkanKHR} is populated by {@link KHRVulkanEnable#xrGetVulkanGraphicsRequirementsKHR GetVulkanGraphicsRequirementsKHR} with the runtime’s Vulkan API version requirements.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link KHRVulkanEnable XR_KHR_vulkan_enable} extension <b>must</b> be enabled prior to using {@link XrGraphicsRequirementsVulkanKHR}</li>
- * <li>{@code type} <b>must</b> be {@link KHRVulkanEnable#XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRVulkanEnable2#xrGetVulkanGraphicsRequirements2KHR GetVulkanGraphicsRequirements2KHR}, {@link KHRVulkanEnable#xrGetVulkanGraphicsRequirementsKHR GetVulkanGraphicsRequirementsKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrGraphicsRequirementsVulkanKHR {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrVersion {@link #minApiVersionSupported};
- *     XrVersion {@link #maxApiVersionSupported};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrVersion minApiVersionSupported;
+ *     XrVersion maxApiVersionSupported;
+ * }}</pre>
  */
 public class XrGraphicsRequirementsVulkanKHR extends Struct<XrGraphicsRequirementsVulkanKHR> implements NativeResource {
 
@@ -98,28 +78,28 @@ public class XrGraphicsRequirementsVulkanKHR extends Struct<XrGraphicsRequiremen
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the minimum Vulkan Instance API version that the runtime supports. Uses {@link XR10#XR_MAKE_VERSION} on major and minor API version, ignoring any patch version component. */
+    /** @return the value of the {@code minApiVersionSupported} field. */
     @NativeType("XrVersion")
     public long minApiVersionSupported() { return nminApiVersionSupported(address()); }
-    /** the maximum Vulkan Instance API version that the runtime has been tested on and is known to support. Newer Vulkan Instance API versions might work if they are compatible. Uses {@link XR10#XR_MAKE_VERSION} on major and minor API version, ignoring any patch version component. */
+    /** @return the value of the {@code maxApiVersionSupported} field. */
     @NativeType("XrVersion")
     public long maxApiVersionSupported() { return nmaxApiVersionSupported(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrGraphicsRequirementsVulkanKHR type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link KHRVulkanEnable#XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR} value to the {@link #type} field. */
+    /** Sets the {@link KHRVulkanEnable#XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR} value to the {@code type} field. */
     public XrGraphicsRequirementsVulkanKHR type$Default() { return type(KHRVulkanEnable.XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrGraphicsRequirementsVulkanKHR next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #minApiVersionSupported} field. */
+    /** Sets the specified value to the {@code minApiVersionSupported} field. */
     public XrGraphicsRequirementsVulkanKHR minApiVersionSupported(@NativeType("XrVersion") long value) { nminApiVersionSupported(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxApiVersionSupported} field. */
+    /** Sets the specified value to the {@code maxApiVersionSupported} field. */
     public XrGraphicsRequirementsVulkanKHR maxApiVersionSupported(@NativeType("XrVersion") long value) { nmaxApiVersionSupported(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -173,8 +153,7 @@ public class XrGraphicsRequirementsVulkanKHR extends Struct<XrGraphicsRequiremen
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsRequirementsVulkanKHR createSafe(long address) {
+    public static @Nullable XrGraphicsRequirementsVulkanKHR createSafe(long address) {
         return address == NULL ? null : new XrGraphicsRequirementsVulkanKHR(address, null);
     }
 
@@ -217,8 +196,7 @@ public class XrGraphicsRequirementsVulkanKHR extends Struct<XrGraphicsRequiremen
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrGraphicsRequirementsVulkanKHR.Buffer createSafe(long address, int capacity) {
+    public static XrGraphicsRequirementsVulkanKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -263,22 +241,22 @@ public class XrGraphicsRequirementsVulkanKHR extends Struct<XrGraphicsRequiremen
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrGraphicsRequirementsVulkanKHR.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrGraphicsRequirementsVulkanKHR.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrGraphicsRequirementsVulkanKHR.NEXT); }
     /** Unsafe version of {@link #minApiVersionSupported}. */
-    public static long nminApiVersionSupported(long struct) { return UNSAFE.getLong(null, struct + XrGraphicsRequirementsVulkanKHR.MINAPIVERSIONSUPPORTED); }
+    public static long nminApiVersionSupported(long struct) { return memGetLong(struct + XrGraphicsRequirementsVulkanKHR.MINAPIVERSIONSUPPORTED); }
     /** Unsafe version of {@link #maxApiVersionSupported}. */
-    public static long nmaxApiVersionSupported(long struct) { return UNSAFE.getLong(null, struct + XrGraphicsRequirementsVulkanKHR.MAXAPIVERSIONSUPPORTED); }
+    public static long nmaxApiVersionSupported(long struct) { return memGetLong(struct + XrGraphicsRequirementsVulkanKHR.MAXAPIVERSIONSUPPORTED); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrGraphicsRequirementsVulkanKHR.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrGraphicsRequirementsVulkanKHR.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrGraphicsRequirementsVulkanKHR.NEXT, value); }
     /** Unsafe version of {@link #minApiVersionSupported(long) minApiVersionSupported}. */
-    public static void nminApiVersionSupported(long struct, long value) { UNSAFE.putLong(null, struct + XrGraphicsRequirementsVulkanKHR.MINAPIVERSIONSUPPORTED, value); }
+    public static void nminApiVersionSupported(long struct, long value) { memPutLong(struct + XrGraphicsRequirementsVulkanKHR.MINAPIVERSIONSUPPORTED, value); }
     /** Unsafe version of {@link #maxApiVersionSupported(long) maxApiVersionSupported}. */
-    public static void nmaxApiVersionSupported(long struct, long value) { UNSAFE.putLong(null, struct + XrGraphicsRequirementsVulkanKHR.MAXAPIVERSIONSUPPORTED, value); }
+    public static void nmaxApiVersionSupported(long struct, long value) { memPutLong(struct + XrGraphicsRequirementsVulkanKHR.MAXAPIVERSIONSUPPORTED, value); }
 
     // -----------------------------------
 
@@ -314,32 +292,37 @@ public class XrGraphicsRequirementsVulkanKHR extends Struct<XrGraphicsRequiremen
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrGraphicsRequirementsVulkanKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrGraphicsRequirementsVulkanKHR#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrGraphicsRequirementsVulkanKHR.ntype(address()); }
-        /** @return the value of the {@link XrGraphicsRequirementsVulkanKHR#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrGraphicsRequirementsVulkanKHR.nnext(address()); }
-        /** @return the value of the {@link XrGraphicsRequirementsVulkanKHR#minApiVersionSupported} field. */
+        /** @return the value of the {@code minApiVersionSupported} field. */
         @NativeType("XrVersion")
         public long minApiVersionSupported() { return XrGraphicsRequirementsVulkanKHR.nminApiVersionSupported(address()); }
-        /** @return the value of the {@link XrGraphicsRequirementsVulkanKHR#maxApiVersionSupported} field. */
+        /** @return the value of the {@code maxApiVersionSupported} field. */
         @NativeType("XrVersion")
         public long maxApiVersionSupported() { return XrGraphicsRequirementsVulkanKHR.nmaxApiVersionSupported(address()); }
 
-        /** Sets the specified value to the {@link XrGraphicsRequirementsVulkanKHR#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrGraphicsRequirementsVulkanKHR.Buffer type(@NativeType("XrStructureType") int value) { XrGraphicsRequirementsVulkanKHR.ntype(address(), value); return this; }
-        /** Sets the {@link KHRVulkanEnable#XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR} value to the {@link XrGraphicsRequirementsVulkanKHR#type} field. */
+        /** Sets the {@link KHRVulkanEnable#XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR} value to the {@code type} field. */
         public XrGraphicsRequirementsVulkanKHR.Buffer type$Default() { return type(KHRVulkanEnable.XR_TYPE_GRAPHICS_REQUIREMENTS_VULKAN_KHR); }
-        /** Sets the specified value to the {@link XrGraphicsRequirementsVulkanKHR#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrGraphicsRequirementsVulkanKHR.Buffer next(@NativeType("void *") long value) { XrGraphicsRequirementsVulkanKHR.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrGraphicsRequirementsVulkanKHR#minApiVersionSupported} field. */
+        /** Sets the specified value to the {@code minApiVersionSupported} field. */
         public XrGraphicsRequirementsVulkanKHR.Buffer minApiVersionSupported(@NativeType("XrVersion") long value) { XrGraphicsRequirementsVulkanKHR.nminApiVersionSupported(address(), value); return this; }
-        /** Sets the specified value to the {@link XrGraphicsRequirementsVulkanKHR#maxApiVersionSupported} field. */
+        /** Sets the specified value to the {@code maxApiVersionSupported} field. */
         public XrGraphicsRequirementsVulkanKHR.Buffer maxApiVersionSupported(@NativeType("XrVersion") long value) { XrGraphicsRequirementsVulkanKHR.nmaxApiVersionSupported(address(), value); return this; }
 
     }

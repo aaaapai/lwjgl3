@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing image processing features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceImageProcessingFeaturesQCOM} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceImageProcessingFeaturesQCOM {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #textureSampleWeighted};
- *     VkBool32 {@link #textureBoxFilter};
- *     VkBool32 {@link #textureBlockMatch};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 textureSampleWeighted;
+ *     VkBool32 textureBoxFilter;
+ *     VkBool32 textureBlockMatch;
+ * }}</pre>
  */
 public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysicalDeviceImageProcessingFeaturesQCOM> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports shader modules that declare the {@code TextureSampleWeightedQCOM} capability. */
+    /** @return the value of the {@code textureSampleWeighted} field. */
     @NativeType("VkBool32")
     public boolean textureSampleWeighted() { return ntextureSampleWeighted(address()) != 0; }
-    /** indicates that the implementation supports shader modules that declare the {@code TextureBoxFilterQCOM} capability. */
+    /** @return the value of the {@code textureBoxFilter} field. */
     @NativeType("VkBool32")
     public boolean textureBoxFilter() { return ntextureBoxFilter(address()) != 0; }
-    /** indicates that the implementation supports shader modules that declare the {@code TextureBlockMatchQCOM} capability. */
+    /** @return the value of the {@code textureBlockMatch} field. */
     @NativeType("VkBool32")
     public boolean textureBlockMatch() { return ntextureBlockMatch(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceImageProcessingFeaturesQCOM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM} value to the {@link #sType} field. */
+    /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM} value to the {@code sType} field. */
     public VkPhysicalDeviceImageProcessingFeaturesQCOM sType$Default() { return sType(QCOMImageProcessing.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceImageProcessingFeaturesQCOM pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #textureSampleWeighted} field. */
+    /** Sets the specified value to the {@code textureSampleWeighted} field. */
     public VkPhysicalDeviceImageProcessingFeaturesQCOM textureSampleWeighted(@NativeType("VkBool32") boolean value) { ntextureSampleWeighted(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #textureBoxFilter} field. */
+    /** Sets the specified value to the {@code textureBoxFilter} field. */
     public VkPhysicalDeviceImageProcessingFeaturesQCOM textureBoxFilter(@NativeType("VkBool32") boolean value) { ntextureBoxFilter(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #textureBlockMatch} field. */
+    /** Sets the specified value to the {@code textureBlockMatch} field. */
     public VkPhysicalDeviceImageProcessingFeaturesQCOM textureBlockMatch(@NativeType("VkBool32") boolean value) { ntextureBlockMatch(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessingFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceImageProcessingFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceImageProcessingFeaturesQCOM(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceImageProcessingFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +252,26 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #textureSampleWeighted}. */
-    public static int ntextureSampleWeighted(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED); }
+    public static int ntextureSampleWeighted(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED); }
     /** Unsafe version of {@link #textureBoxFilter}. */
-    public static int ntextureBoxFilter(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER); }
+    public static int ntextureBoxFilter(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER); }
     /** Unsafe version of {@link #textureBlockMatch}. */
-    public static int ntextureBlockMatch(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH); }
+    public static int ntextureBlockMatch(long struct) { return memGetInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #textureSampleWeighted(boolean) textureSampleWeighted}. */
-    public static void ntextureSampleWeighted(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED, value); }
+    public static void ntextureSampleWeighted(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTURESAMPLEWEIGHTED, value); }
     /** Unsafe version of {@link #textureBoxFilter(boolean) textureBoxFilter}. */
-    public static void ntextureBoxFilter(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER, value); }
+    public static void ntextureBoxFilter(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBOXFILTER, value); }
     /** Unsafe version of {@link #textureBlockMatch(boolean) textureBlockMatch}. */
-    public static void ntextureBlockMatch(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH, value); }
+    public static void ntextureBlockMatch(long struct, int value) { memPutInt(struct + VkPhysicalDeviceImageProcessingFeaturesQCOM.TEXTUREBLOCKMATCH, value); }
 
     // -----------------------------------
 
@@ -323,37 +307,42 @@ public class VkPhysicalDeviceImageProcessingFeaturesQCOM extends Struct<VkPhysic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceImageProcessingFeaturesQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceImageProcessingFeaturesQCOM.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceImageProcessingFeaturesQCOM.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#textureSampleWeighted} field. */
+        /** @return the value of the {@code textureSampleWeighted} field. */
         @NativeType("VkBool32")
         public boolean textureSampleWeighted() { return VkPhysicalDeviceImageProcessingFeaturesQCOM.ntextureSampleWeighted(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#textureBoxFilter} field. */
+        /** @return the value of the {@code textureBoxFilter} field. */
         @NativeType("VkBool32")
         public boolean textureBoxFilter() { return VkPhysicalDeviceImageProcessingFeaturesQCOM.ntextureBoxFilter(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#textureBlockMatch} field. */
+        /** @return the value of the {@code textureBlockMatch} field. */
         @NativeType("VkBool32")
         public boolean textureBlockMatch() { return VkPhysicalDeviceImageProcessingFeaturesQCOM.ntextureBlockMatch(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceImageProcessingFeaturesQCOM.nsType(address(), value); return this; }
-        /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM} value to the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#sType} field. */
+        /** Sets the {@link QCOMImageProcessing#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM} value to the {@code sType} field. */
         public VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer sType$Default() { return sType(QCOMImageProcessing.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceImageProcessingFeaturesQCOM.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#textureSampleWeighted} field. */
+        /** Sets the specified value to the {@code textureSampleWeighted} field. */
         public VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer textureSampleWeighted(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceImageProcessingFeaturesQCOM.ntextureSampleWeighted(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#textureBoxFilter} field. */
+        /** Sets the specified value to the {@code textureBoxFilter} field. */
         public VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer textureBoxFilter(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceImageProcessingFeaturesQCOM.ntextureBoxFilter(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageProcessingFeaturesQCOM#textureBlockMatch} field. */
+        /** Sets the specified value to the {@code textureBlockMatch} field. */
         public VkPhysicalDeviceImageProcessingFeaturesQCOM.Buffer textureBlockMatch(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceImageProcessingFeaturesQCOM.ntextureBlockMatch(address(), value ? 1 : 0); return this; }
 
     }

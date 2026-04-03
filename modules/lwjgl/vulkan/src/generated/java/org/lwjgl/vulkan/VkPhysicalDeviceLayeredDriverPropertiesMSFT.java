@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing information about driver layering for a physical device.
- * 
- * <h5>Description</h5>
- * 
- * <p>These are properties of the driver layering information of a physical device.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link MSFTLayeredDriver#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceLayeredDriverPropertiesMSFT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkLayeredDriverUnderlyingApiMSFT {@link #underlyingAPI};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkLayeredDriverUnderlyingApiMSFT underlyingAPI;
+ * }}</pre>
  */
 public class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends Struct<VkPhysicalDeviceLayeredDriverPropertiesMSFT> implements NativeResource {
 
@@ -88,21 +74,21 @@ public class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkLayeredDriverUnderlyingApiMSFT} value indicating which underlying API is used to implement the layered driver, or {@link MSFTLayeredDriver#VK_LAYERED_DRIVER_UNDERLYING_API_NONE_MSFT LAYERED_DRIVER_UNDERLYING_API_NONE_MSFT} if the driver is not layered. */
+    /** @return the value of the {@code underlyingAPI} field. */
     @NativeType("VkLayeredDriverUnderlyingApiMSFT")
     public int underlyingAPI() { return nunderlyingAPI(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceLayeredDriverPropertiesMSFT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link MSFTLayeredDriver#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT} value to the {@link #sType} field. */
+    /** Sets the {@link MSFTLayeredDriver#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT} value to the {@code sType} field. */
     public VkPhysicalDeviceLayeredDriverPropertiesMSFT sType$Default() { return sType(MSFTLayeredDriver.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceLayeredDriverPropertiesMSFT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +138,7 @@ public class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLayeredDriverPropertiesMSFT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceLayeredDriverPropertiesMSFT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceLayeredDriverPropertiesMSFT(address, null);
     }
 
@@ -196,8 +181,7 @@ public class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends Struct<VkPhysic
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceLayeredDriverPropertiesMSFT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceLayeredDriverPropertiesMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +226,14 @@ public class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends Struct<VkPhysic
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.PNEXT); }
     /** Unsafe version of {@link #underlyingAPI}. */
-    public static int nunderlyingAPI(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.UNDERLYINGAPI); }
+    public static int nunderlyingAPI(long struct) { return memGetInt(struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.UNDERLYINGAPI); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceLayeredDriverPropertiesMSFT.PNEXT, value); }
 
@@ -287,25 +271,30 @@ public class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends Struct<VkPhysic
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceLayeredDriverPropertiesMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceLayeredDriverPropertiesMSFT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceLayeredDriverPropertiesMSFT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceLayeredDriverPropertiesMSFT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceLayeredDriverPropertiesMSFT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceLayeredDriverPropertiesMSFT#underlyingAPI} field. */
+        /** @return the value of the {@code underlyingAPI} field. */
         @NativeType("VkLayeredDriverUnderlyingApiMSFT")
         public int underlyingAPI() { return VkPhysicalDeviceLayeredDriverPropertiesMSFT.nunderlyingAPI(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceLayeredDriverPropertiesMSFT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceLayeredDriverPropertiesMSFT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceLayeredDriverPropertiesMSFT.nsType(address(), value); return this; }
-        /** Sets the {@link MSFTLayeredDriver#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT} value to the {@link VkPhysicalDeviceLayeredDriverPropertiesMSFT#sType} field. */
+        /** Sets the {@link MSFTLayeredDriver#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT} value to the {@code sType} field. */
         public VkPhysicalDeviceLayeredDriverPropertiesMSFT.Buffer sType$Default() { return sType(MSFTLayeredDriver.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceLayeredDriverPropertiesMSFT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceLayeredDriverPropertiesMSFT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceLayeredDriverPropertiesMSFT.npNext(address(), value); return this; }
 
     }

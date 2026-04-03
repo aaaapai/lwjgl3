@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,23 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure used for NVIDIA Reflex Support.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVLowLatency#VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV}</li>
- * <li>{@code pQueriedLowLatencyData} <b>must</b> be a pointer value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkQueryLowLatencySupportNV {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     void * {@link #pQueriedLowLatencyData};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     void * pQueriedLowLatencyData;
+ * }}</pre>
  */
 public class VkQueryLowLatencySupportNV extends Struct<VkQueryLowLatencySupportNV> implements NativeResource {
 
@@ -86,23 +75,23 @@ public class VkQueryLowLatencySupportNV extends Struct<VkQueryLowLatencySupportN
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** used for NVIDIA Reflex Support. */
+    /** @return the value of the {@code pQueriedLowLatencyData} field. */
     @NativeType("void *")
     public long pQueriedLowLatencyData() { return npQueriedLowLatencyData(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkQueryLowLatencySupportNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVLowLatency#VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVLowLatency#VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV} value to the {@code sType} field. */
     public VkQueryLowLatencySupportNV sType$Default() { return sType(NVLowLatency.VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkQueryLowLatencySupportNV pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #pQueriedLowLatencyData} field. */
+    /** Sets the specified value to the {@code pQueriedLowLatencyData} field. */
     public VkQueryLowLatencySupportNV pQueriedLowLatencyData(@NativeType("void *") long value) { npQueriedLowLatencyData(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -154,8 +143,7 @@ public class VkQueryLowLatencySupportNV extends Struct<VkQueryLowLatencySupportN
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryLowLatencySupportNV createSafe(long address) {
+    public static @Nullable VkQueryLowLatencySupportNV createSafe(long address) {
         return address == NULL ? null : new VkQueryLowLatencySupportNV(address, null);
     }
 
@@ -198,8 +186,7 @@ public class VkQueryLowLatencySupportNV extends Struct<VkQueryLowLatencySupportN
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkQueryLowLatencySupportNV.Buffer createSafe(long address, int capacity) {
+    public static VkQueryLowLatencySupportNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,14 +231,14 @@ public class VkQueryLowLatencySupportNV extends Struct<VkQueryLowLatencySupportN
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkQueryLowLatencySupportNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkQueryLowLatencySupportNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkQueryLowLatencySupportNV.PNEXT); }
     /** Unsafe version of {@link #pQueriedLowLatencyData}. */
     public static long npQueriedLowLatencyData(long struct) { return memGetAddress(struct + VkQueryLowLatencySupportNV.PQUERIEDLOWLATENCYDATA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkQueryLowLatencySupportNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkQueryLowLatencySupportNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkQueryLowLatencySupportNV.PNEXT, value); }
     /** Unsafe version of {@link #pQueriedLowLatencyData(long) pQueriedLowLatencyData}. */
@@ -300,27 +287,32 @@ public class VkQueryLowLatencySupportNV extends Struct<VkQueryLowLatencySupportN
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkQueryLowLatencySupportNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkQueryLowLatencySupportNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkQueryLowLatencySupportNV.nsType(address()); }
-        /** @return the value of the {@link VkQueryLowLatencySupportNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkQueryLowLatencySupportNV.npNext(address()); }
-        /** @return the value of the {@link VkQueryLowLatencySupportNV#pQueriedLowLatencyData} field. */
+        /** @return the value of the {@code pQueriedLowLatencyData} field. */
         @NativeType("void *")
         public long pQueriedLowLatencyData() { return VkQueryLowLatencySupportNV.npQueriedLowLatencyData(address()); }
 
-        /** Sets the specified value to the {@link VkQueryLowLatencySupportNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkQueryLowLatencySupportNV.Buffer sType(@NativeType("VkStructureType") int value) { VkQueryLowLatencySupportNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVLowLatency#VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV} value to the {@link VkQueryLowLatencySupportNV#sType} field. */
+        /** Sets the {@link NVLowLatency#VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV} value to the {@code sType} field. */
         public VkQueryLowLatencySupportNV.Buffer sType$Default() { return sType(NVLowLatency.VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV); }
-        /** Sets the specified value to the {@link VkQueryLowLatencySupportNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkQueryLowLatencySupportNV.Buffer pNext(@NativeType("void const *") long value) { VkQueryLowLatencySupportNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkQueryLowLatencySupportNV#pQueriedLowLatencyData} field. */
+        /** Sets the specified value to the {@code pQueriedLowLatencyData} field. */
         public VkQueryLowLatencySupportNV.Buffer pQueriedLowLatencyData(@NativeType("void *") long value) { VkQueryLowLatencySupportNV.npQueriedLowLatencyData(address(), value); return this; }
 
     }

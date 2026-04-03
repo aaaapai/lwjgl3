@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying image blit cubic weight info.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMFilterCubicWeights#VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM}</li>
- * <li>{@code cubicWeights} <b>must</b> be a valid {@code VkCubicFilterWeightsQCOM} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkBlitImageCubicWeightsInfoQCOM {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkCubicFilterWeightsQCOM {@link #cubicWeights};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkCubicFilterWeightsQCOM cubicWeights;
+ * }}</pre>
  */
 public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeightsInfoQCOM> implements NativeResource {
 
@@ -85,23 +74,23 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkCubicFilterWeightsQCOM} value controlling cubic filter weights for the blit. */
+    /** @return the value of the {@code cubicWeights} field. */
     @NativeType("VkCubicFilterWeightsQCOM")
     public int cubicWeights() { return ncubicWeights(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkBlitImageCubicWeightsInfoQCOM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link QCOMFilterCubicWeights#VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM} value to the {@link #sType} field. */
+    /** Sets the {@link QCOMFilterCubicWeights#VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM} value to the {@code sType} field. */
     public VkBlitImageCubicWeightsInfoQCOM sType$Default() { return sType(QCOMFilterCubicWeights.VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkBlitImageCubicWeightsInfoQCOM pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #cubicWeights} field. */
+    /** Sets the specified value to the {@code cubicWeights} field. */
     public VkBlitImageCubicWeightsInfoQCOM cubicWeights(@NativeType("VkCubicFilterWeightsQCOM") int value) { ncubicWeights(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -153,8 +142,7 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBlitImageCubicWeightsInfoQCOM createSafe(long address) {
+    public static @Nullable VkBlitImageCubicWeightsInfoQCOM createSafe(long address) {
         return address == NULL ? null : new VkBlitImageCubicWeightsInfoQCOM(address, null);
     }
 
@@ -197,8 +185,7 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkBlitImageCubicWeightsInfoQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkBlitImageCubicWeightsInfoQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -243,18 +230,18 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkBlitImageCubicWeightsInfoQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkBlitImageCubicWeightsInfoQCOM.PNEXT); }
     /** Unsafe version of {@link #cubicWeights}. */
-    public static int ncubicWeights(long struct) { return UNSAFE.getInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS); }
+    public static int ncubicWeights(long struct) { return memGetInt(struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkBlitImageCubicWeightsInfoQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkBlitImageCubicWeightsInfoQCOM.PNEXT, value); }
     /** Unsafe version of {@link #cubicWeights(int) cubicWeights}. */
-    public static void ncubicWeights(long struct, int value) { UNSAFE.putInt(null, struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS, value); }
+    public static void ncubicWeights(long struct, int value) { memPutInt(struct + VkBlitImageCubicWeightsInfoQCOM.CUBICWEIGHTS, value); }
 
     // -----------------------------------
 
@@ -290,27 +277,32 @@ public class VkBlitImageCubicWeightsInfoQCOM extends Struct<VkBlitImageCubicWeig
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkBlitImageCubicWeightsInfoQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBlitImageCubicWeightsInfoQCOM#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkBlitImageCubicWeightsInfoQCOM.nsType(address()); }
-        /** @return the value of the {@link VkBlitImageCubicWeightsInfoQCOM#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkBlitImageCubicWeightsInfoQCOM.npNext(address()); }
-        /** @return the value of the {@link VkBlitImageCubicWeightsInfoQCOM#cubicWeights} field. */
+        /** @return the value of the {@code cubicWeights} field. */
         @NativeType("VkCubicFilterWeightsQCOM")
         public int cubicWeights() { return VkBlitImageCubicWeightsInfoQCOM.ncubicWeights(address()); }
 
-        /** Sets the specified value to the {@link VkBlitImageCubicWeightsInfoQCOM#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkBlitImageCubicWeightsInfoQCOM.Buffer sType(@NativeType("VkStructureType") int value) { VkBlitImageCubicWeightsInfoQCOM.nsType(address(), value); return this; }
-        /** Sets the {@link QCOMFilterCubicWeights#VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM} value to the {@link VkBlitImageCubicWeightsInfoQCOM#sType} field. */
+        /** Sets the {@link QCOMFilterCubicWeights#VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM} value to the {@code sType} field. */
         public VkBlitImageCubicWeightsInfoQCOM.Buffer sType$Default() { return sType(QCOMFilterCubicWeights.VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM); }
-        /** Sets the specified value to the {@link VkBlitImageCubicWeightsInfoQCOM#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkBlitImageCubicWeightsInfoQCOM.Buffer pNext(@NativeType("void const *") long value) { VkBlitImageCubicWeightsInfoQCOM.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkBlitImageCubicWeightsInfoQCOM#cubicWeights} field. */
+        /** Sets the specified value to the {@code cubicWeights} field. */
         public VkBlitImageCubicWeightsInfoQCOM.Buffer cubicWeights(@NativeType("VkCubicFilterWeightsQCOM") int value) { VkBlitImageCubicWeightsInfoQCOM.ncubicWeights(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure indicating support for a render feedback loop image layout.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTAttachmentFeedbackLoopLayout#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #attachmentFeedbackLoopLayout};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 attachmentFeedbackLoopLayout;
+ * }}</pre>
  */
 public class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Struct<VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT> implements NativeResource {
 
@@ -84,23 +74,23 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Str
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports using {@link EXTAttachmentFeedbackLoopLayout#VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT} image layout for images created with {@link EXTAttachmentFeedbackLoopLayout#VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT}. */
+    /** @return the value of the {@code attachmentFeedbackLoopLayout} field. */
     @NativeType("VkBool32")
     public boolean attachmentFeedbackLoopLayout() { return nattachmentFeedbackLoopLayout(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTAttachmentFeedbackLoopLayout#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTAttachmentFeedbackLoopLayout#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT sType$Default() { return sType(EXTAttachmentFeedbackLoopLayout.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #attachmentFeedbackLoopLayout} field. */
+    /** Sets the specified value to the {@code attachmentFeedbackLoopLayout} field. */
     public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT attachmentFeedbackLoopLayout(@NativeType("VkBool32") boolean value) { nattachmentFeedbackLoopLayout(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -152,8 +142,7 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Str
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT(address, null);
     }
 
@@ -196,8 +185,7 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Str
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,18 +230,18 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Str
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #attachmentFeedbackLoopLayout}. */
-    public static int nattachmentFeedbackLoopLayout(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.ATTACHMENTFEEDBACKLOOPLAYOUT); }
+    public static int nattachmentFeedbackLoopLayout(long struct) { return memGetInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.ATTACHMENTFEEDBACKLOOPLAYOUT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #attachmentFeedbackLoopLayout(boolean) attachmentFeedbackLoopLayout}. */
-    public static void nattachmentFeedbackLoopLayout(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.ATTACHMENTFEEDBACKLOOPLAYOUT, value); }
+    public static void nattachmentFeedbackLoopLayout(long struct, int value) { memPutInt(struct + VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.ATTACHMENTFEEDBACKLOOPLAYOUT, value); }
 
     // -----------------------------------
 
@@ -289,27 +277,32 @@ public class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Str
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#attachmentFeedbackLoopLayout} field. */
+        /** @return the value of the {@code attachmentFeedbackLoopLayout} field. */
         @NativeType("VkBool32")
         public boolean attachmentFeedbackLoopLayout() { return VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.nattachmentFeedbackLoopLayout(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTAttachmentFeedbackLoopLayout#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT} value to the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTAttachmentFeedbackLoopLayout#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.Buffer sType$Default() { return sType(EXTAttachmentFeedbackLoopLayout.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT#attachmentFeedbackLoopLayout} field. */
+        /** Sets the specified value to the {@code attachmentFeedbackLoopLayout} field. */
         public VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.Buffer attachmentFeedbackLoopLayout(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT.nattachmentFeedbackLoopLayout(address(), value ? 1 : 0); return this; }
 
     }

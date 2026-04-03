@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Four-dimensional vector.
- * 
- * <h5>Description</h5>
- * 
- * <p>If used to represent physical distances, {@code x}, {@code y}, and {@code z} values <b>must</b> be in meters.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrHandTrackingMeshFB}, {@link XrPosef}, {@link XrQuaternionf}, {@link XrVector2f}, {@link XrVector3f}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrVector4f {
- *     float {@link #x};
- *     float {@link #y};
- *     float {@link #z};
- *     float {@link #w};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ *     float z;
+ *     float w;
+ * }}</pre>
  */
 public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
 
@@ -90,22 +78,22 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the x coordinate of the vector. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the y coordinate of the vector. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
-    /** the z coordinate of the vector. */
+    /** @return the value of the {@code z} field. */
     public float z() { return nz(address()); }
-    /** the w coordinate of the vector. */
+    /** @return the value of the {@code w} field. */
     public float w() { return nw(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public XrVector4f x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public XrVector4f y(float value) { ny(address(), value); return this; }
-    /** Sets the specified value to the {@link #z} field. */
+    /** Sets the specified value to the {@code z} field. */
     public XrVector4f z(float value) { nz(address(), value); return this; }
-    /** Sets the specified value to the {@link #w} field. */
+    /** Sets the specified value to the {@code w} field. */
     public XrVector4f w(float value) { nw(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -159,8 +147,7 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector4f createSafe(long address) {
+    public static @Nullable XrVector4f createSafe(long address) {
         return address == NULL ? null : new XrVector4f(address, null);
     }
 
@@ -203,8 +190,7 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrVector4f.Buffer createSafe(long address, int capacity) {
+    public static XrVector4f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -249,22 +235,22 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #x}. */
-    public static float nx(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.X); }
+    public static float nx(long struct) { return memGetFloat(struct + XrVector4f.X); }
     /** Unsafe version of {@link #y}. */
-    public static float ny(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.Y); }
+    public static float ny(long struct) { return memGetFloat(struct + XrVector4f.Y); }
     /** Unsafe version of {@link #z}. */
-    public static float nz(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.Z); }
+    public static float nz(long struct) { return memGetFloat(struct + XrVector4f.Z); }
     /** Unsafe version of {@link #w}. */
-    public static float nw(long struct) { return UNSAFE.getFloat(null, struct + XrVector4f.W); }
+    public static float nw(long struct) { return memGetFloat(struct + XrVector4f.W); }
 
     /** Unsafe version of {@link #x(float) x}. */
-    public static void nx(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.X, value); }
+    public static void nx(long struct, float value) { memPutFloat(struct + XrVector4f.X, value); }
     /** Unsafe version of {@link #y(float) y}. */
-    public static void ny(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.Y, value); }
+    public static void ny(long struct, float value) { memPutFloat(struct + XrVector4f.Y, value); }
     /** Unsafe version of {@link #z(float) z}. */
-    public static void nz(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.Z, value); }
+    public static void nz(long struct, float value) { memPutFloat(struct + XrVector4f.Z, value); }
     /** Unsafe version of {@link #w(float) w}. */
-    public static void nw(long struct, float value) { UNSAFE.putFloat(null, struct + XrVector4f.W, value); }
+    public static void nw(long struct, float value) { memPutFloat(struct + XrVector4f.W, value); }
 
     // -----------------------------------
 
@@ -300,26 +286,31 @@ public class XrVector4f extends Struct<XrVector4f> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrVector4f getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrVector4f#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return XrVector4f.nx(address()); }
-        /** @return the value of the {@link XrVector4f#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return XrVector4f.ny(address()); }
-        /** @return the value of the {@link XrVector4f#z} field. */
+        /** @return the value of the {@code z} field. */
         public float z() { return XrVector4f.nz(address()); }
-        /** @return the value of the {@link XrVector4f#w} field. */
+        /** @return the value of the {@code w} field. */
         public float w() { return XrVector4f.nw(address()); }
 
-        /** Sets the specified value to the {@link XrVector4f#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public XrVector4f.Buffer x(float value) { XrVector4f.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVector4f#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public XrVector4f.Buffer y(float value) { XrVector4f.ny(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVector4f#z} field. */
+        /** Sets the specified value to the {@code z} field. */
         public XrVector4f.Buffer z(float value) { XrVector4f.nz(address(), value); return this; }
-        /** Sets the specified value to the {@link XrVector4f#w} field. */
+        /** Sets the specified value to the {@code w} field. */
         public XrVector4f.Buffer w(float value) { XrVector4f.nw(address(), value); return this; }
 
     }

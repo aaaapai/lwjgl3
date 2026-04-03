@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Event indicating events were lost.
- * 
- * <h5>Description</h5>
- * 
- * <p>Receiving the {@link XrEventDataEventsLost} event structure indicates that the event queue overflowed and some events were removed at the position within the queue at which this event was found.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrEventDataBaseHeader}, {@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataEventsLost {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     uint32_t {@link #lostEventCount};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     uint32_t lostEventCount;
+ * }}</pre>
  */
 public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> implements NativeResource {
 
@@ -93,21 +74,21 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the number of events which have overflowed since the last call to {@link XR10#xrPollEvent PollEvent}. */
+    /** @return the value of the {@code lostEventCount} field. */
     @NativeType("uint32_t")
     public int lostEventCount() { return nlostEventCount(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataEventsLost type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST} value to the {@code type} field. */
     public XrEventDataEventsLost type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_EVENTS_LOST); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataEventsLost next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -157,8 +138,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataEventsLost createSafe(long address) {
+    public static @Nullable XrEventDataEventsLost createSafe(long address) {
         return address == NULL ? null : new XrEventDataEventsLost(address, null);
     }
 
@@ -206,8 +186,7 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrEventDataEventsLost.Buffer createSafe(long address, int capacity) {
+    public static XrEventDataEventsLost.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,14 +236,14 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrEventDataEventsLost.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrEventDataEventsLost.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrEventDataEventsLost.NEXT); }
     /** Unsafe version of {@link #lostEventCount}. */
-    public static int nlostEventCount(long struct) { return UNSAFE.getInt(null, struct + XrEventDataEventsLost.LOSTEVENTCOUNT); }
+    public static int nlostEventCount(long struct) { return memGetInt(struct + XrEventDataEventsLost.LOSTEVENTCOUNT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrEventDataEventsLost.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataEventsLost.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataEventsLost.NEXT, value); }
 
@@ -302,25 +281,30 @@ public class XrEventDataEventsLost extends Struct<XrEventDataEventsLost> impleme
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrEventDataEventsLost getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataEventsLost#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataEventsLost.ntype(address()); }
-        /** @return the value of the {@link XrEventDataEventsLost#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataEventsLost.nnext(address()); }
-        /** @return the value of the {@link XrEventDataEventsLost#lostEventCount} field. */
+        /** @return the value of the {@code lostEventCount} field. */
         @NativeType("uint32_t")
         public int lostEventCount() { return XrEventDataEventsLost.nlostEventCount(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataEventsLost#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataEventsLost.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataEventsLost.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST} value to the {@link XrEventDataEventsLost#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST} value to the {@code type} field. */
         public XrEventDataEventsLost.Buffer type$Default() { return type(XR10.XR_TYPE_EVENT_DATA_EVENTS_LOST); }
-        /** Sets the specified value to the {@link XrEventDataEventsLost#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataEventsLost.Buffer next(@NativeType("void const *") long value) { XrEventDataEventsLost.nnext(address(), value); return this; }
 
     }

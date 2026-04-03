@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether custom border colors can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTCustomBorderColor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceCustomBorderColorFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #customBorderColors};
- *     VkBool32 {@link #customBorderColorWithoutFormat};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 customBorderColors;
+ *     VkBool32 customBorderColorWithoutFormat;
+ * }}</pre>
  */
 public class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends Struct<VkPhysicalDeviceCustomBorderColorFeaturesEXT> implements NativeResource {
 
@@ -92,35 +78,28 @@ public class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /**
-     * indicates that the implementation supports providing a {@code borderColor} value with one of the following values at sampler creation time:
-     * 
-     * <ul>
-     * <li>{@link EXTCustomBorderColor#VK_BORDER_COLOR_FLOAT_CUSTOM_EXT BORDER_COLOR_FLOAT_CUSTOM_EXT}</li>
-     * <li>{@link EXTCustomBorderColor#VK_BORDER_COLOR_INT_CUSTOM_EXT BORDER_COLOR_INT_CUSTOM_EXT}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code customBorderColors} field. */
     @NativeType("VkBool32")
     public boolean customBorderColors() { return ncustomBorderColors(address()) != 0; }
-    /** indicates that explicit formats are not required for custom border colors and the value of the {@code format} member of the {@link VkSamplerCustomBorderColorCreateInfoEXT} structure <b>may</b> be {@link VK10#VK_FORMAT_UNDEFINED FORMAT_UNDEFINED}. If this feature bit is not set, applications <b>must</b> provide the {@code VkFormat} of the image view(s) being sampled by this sampler in the {@code format} member of the {@link VkSamplerCustomBorderColorCreateInfoEXT} structure. */
+    /** @return the value of the {@code customBorderColorWithoutFormat} field. */
     @NativeType("VkBool32")
     public boolean customBorderColorWithoutFormat() { return ncustomBorderColorWithoutFormat(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceCustomBorderColorFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTCustomBorderColor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTCustomBorderColor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceCustomBorderColorFeaturesEXT sType$Default() { return sType(EXTCustomBorderColor.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceCustomBorderColorFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #customBorderColors} field. */
+    /** Sets the specified value to the {@code customBorderColors} field. */
     public VkPhysicalDeviceCustomBorderColorFeaturesEXT customBorderColors(@NativeType("VkBool32") boolean value) { ncustomBorderColors(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #customBorderColorWithoutFormat} field. */
+    /** Sets the specified value to the {@code customBorderColorWithoutFormat} field. */
     public VkPhysicalDeviceCustomBorderColorFeaturesEXT customBorderColorWithoutFormat(@NativeType("VkBool32") boolean value) { ncustomBorderColorWithoutFormat(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -174,8 +153,7 @@ public class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCustomBorderColorFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCustomBorderColorFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCustomBorderColorFeaturesEXT(address, null);
     }
 
@@ -218,8 +196,7 @@ public class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCustomBorderColorFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCustomBorderColorFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -264,22 +241,22 @@ public class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #customBorderColors}. */
-    public static int ncustomBorderColors(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORS); }
+    public static int ncustomBorderColors(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORS); }
     /** Unsafe version of {@link #customBorderColorWithoutFormat}. */
-    public static int ncustomBorderColorWithoutFormat(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORWITHOUTFORMAT); }
+    public static int ncustomBorderColorWithoutFormat(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORWITHOUTFORMAT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #customBorderColors(boolean) customBorderColors}. */
-    public static void ncustomBorderColors(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORS, value); }
+    public static void ncustomBorderColors(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORS, value); }
     /** Unsafe version of {@link #customBorderColorWithoutFormat(boolean) customBorderColorWithoutFormat}. */
-    public static void ncustomBorderColorWithoutFormat(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORWITHOUTFORMAT, value); }
+    public static void ncustomBorderColorWithoutFormat(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCustomBorderColorFeaturesEXT.CUSTOMBORDERCOLORWITHOUTFORMAT, value); }
 
     // -----------------------------------
 
@@ -315,32 +292,37 @@ public class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceCustomBorderColorFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceCustomBorderColorFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceCustomBorderColorFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#customBorderColors} field. */
+        /** @return the value of the {@code customBorderColors} field. */
         @NativeType("VkBool32")
         public boolean customBorderColors() { return VkPhysicalDeviceCustomBorderColorFeaturesEXT.ncustomBorderColors(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#customBorderColorWithoutFormat} field. */
+        /** @return the value of the {@code customBorderColorWithoutFormat} field. */
         @NativeType("VkBool32")
         public boolean customBorderColorWithoutFormat() { return VkPhysicalDeviceCustomBorderColorFeaturesEXT.ncustomBorderColorWithoutFormat(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceCustomBorderColorFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceCustomBorderColorFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTCustomBorderColor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT} value to the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTCustomBorderColor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceCustomBorderColorFeaturesEXT.Buffer sType$Default() { return sType(EXTCustomBorderColor.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceCustomBorderColorFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceCustomBorderColorFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#customBorderColors} field. */
+        /** Sets the specified value to the {@code customBorderColors} field. */
         public VkPhysicalDeviceCustomBorderColorFeaturesEXT.Buffer customBorderColors(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceCustomBorderColorFeaturesEXT.ncustomBorderColors(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCustomBorderColorFeaturesEXT#customBorderColorWithoutFormat} field. */
+        /** Sets the specified value to the {@code customBorderColorWithoutFormat} field. */
         public VkPhysicalDeviceCustomBorderColorFeaturesEXT.Buffer customBorderColorWithoutFormat(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceCustomBorderColorFeaturesEXT.ncustomBorderColorWithoutFormat(address(), value ? 1 : 0); return this; }
 
     }

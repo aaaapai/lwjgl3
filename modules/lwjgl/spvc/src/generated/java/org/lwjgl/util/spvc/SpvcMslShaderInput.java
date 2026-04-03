@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,22 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines MSL characteristics of an input variable at a particular location.
- * 
- * <p>After compilation, it is possible to query whether or not this location was used. If {@code vecsize} is nonzero, it must be greater than or equal to
- * the {@code vecsize} declared in the shader, or behavior is undefined.</p>
- * 
- * <p>Deprecated; use {@code spvc_msl_shader_interface_var_2}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_msl_shader_input {
  *     unsigned location;
  *     spvc_msl_vertex_format format;
  *     SpvBuiltIn builtin;
  *     unsigned vecsize;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct spvc_msl_shader_input")
 public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements NativeResource {
@@ -161,8 +152,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcMslShaderInput createSafe(long address) {
+    public static @Nullable SpvcMslShaderInput createSafe(long address) {
         return address == NULL ? null : new SpvcMslShaderInput(address, null);
     }
 
@@ -205,8 +195,7 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcMslShaderInput.Buffer createSafe(long address, int capacity) {
+    public static SpvcMslShaderInput.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,22 +240,22 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #location}. */
-    public static int nlocation(long struct) { return UNSAFE.getInt(null, struct + SpvcMslShaderInput.LOCATION); }
+    public static int nlocation(long struct) { return memGetInt(struct + SpvcMslShaderInput.LOCATION); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + SpvcMslShaderInput.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + SpvcMslShaderInput.FORMAT); }
     /** Unsafe version of {@link #builtin}. */
-    public static int nbuiltin(long struct) { return UNSAFE.getInt(null, struct + SpvcMslShaderInput.BUILTIN); }
+    public static int nbuiltin(long struct) { return memGetInt(struct + SpvcMslShaderInput.BUILTIN); }
     /** Unsafe version of {@link #vecsize}. */
-    public static int nvecsize(long struct) { return UNSAFE.getInt(null, struct + SpvcMslShaderInput.VECSIZE); }
+    public static int nvecsize(long struct) { return memGetInt(struct + SpvcMslShaderInput.VECSIZE); }
 
     /** Unsafe version of {@link #location(int) location}. */
-    public static void nlocation(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslShaderInput.LOCATION, value); }
+    public static void nlocation(long struct, int value) { memPutInt(struct + SpvcMslShaderInput.LOCATION, value); }
     /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslShaderInput.FORMAT, value); }
+    public static void nformat(long struct, int value) { memPutInt(struct + SpvcMslShaderInput.FORMAT, value); }
     /** Unsafe version of {@link #builtin(int) builtin}. */
-    public static void nbuiltin(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslShaderInput.BUILTIN, value); }
+    public static void nbuiltin(long struct, int value) { memPutInt(struct + SpvcMslShaderInput.BUILTIN, value); }
     /** Unsafe version of {@link #vecsize(int) vecsize}. */
-    public static void nvecsize(long struct, int value) { UNSAFE.putInt(null, struct + SpvcMslShaderInput.VECSIZE, value); }
+    public static void nvecsize(long struct, int value) { memPutInt(struct + SpvcMslShaderInput.VECSIZE, value); }
 
     // -----------------------------------
 
@@ -299,6 +288,11 @@ public class SpvcMslShaderInput extends Struct<SpvcMslShaderInput> implements Na
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

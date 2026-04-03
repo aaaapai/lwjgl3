@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Pose action metadata.
- * 
- * <h5>Description</h5>
- * 
- * <p>A pose action <b>must</b> not be bound to multiple input sources, according to <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#multiple_inputs">the previously defined rule</a>.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_ACTION_STATE_POSE TYPE_ACTION_STATE_POSE}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrGetActionStatePose GetActionStatePose}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrActionStatePose {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrBool32 {@link #isActive};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrBool32 isActive;
+ * }}</pre>
  */
 public class XrActionStatePose extends Struct<XrActionStatePose> implements NativeResource {
 
@@ -93,23 +74,23 @@ public class XrActionStatePose extends Struct<XrActionStatePose> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** {@link XR10#XR_TRUE TRUE} if and only if there exists an input source that is being tracked by this pose action. */
+    /** @return the value of the {@code isActive} field. */
     @NativeType("XrBool32")
     public boolean isActive() { return nisActive(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrActionStatePose type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_ACTION_STATE_POSE TYPE_ACTION_STATE_POSE} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_ACTION_STATE_POSE TYPE_ACTION_STATE_POSE} value to the {@code type} field. */
     public XrActionStatePose type$Default() { return type(XR10.XR_TYPE_ACTION_STATE_POSE); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrActionStatePose next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #isActive} field. */
+    /** Sets the specified value to the {@code isActive} field. */
     public XrActionStatePose isActive(@NativeType("XrBool32") boolean value) { nisActive(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -161,8 +142,7 @@ public class XrActionStatePose extends Struct<XrActionStatePose> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStatePose createSafe(long address) {
+    public static @Nullable XrActionStatePose createSafe(long address) {
         return address == NULL ? null : new XrActionStatePose(address, null);
     }
 
@@ -205,8 +185,7 @@ public class XrActionStatePose extends Struct<XrActionStatePose> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrActionStatePose.Buffer createSafe(long address, int capacity) {
+    public static XrActionStatePose.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,18 +230,18 @@ public class XrActionStatePose extends Struct<XrActionStatePose> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrActionStatePose.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrActionStatePose.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrActionStatePose.NEXT); }
     /** Unsafe version of {@link #isActive}. */
-    public static int nisActive(long struct) { return UNSAFE.getInt(null, struct + XrActionStatePose.ISACTIVE); }
+    public static int nisActive(long struct) { return memGetInt(struct + XrActionStatePose.ISACTIVE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStatePose.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrActionStatePose.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrActionStatePose.NEXT, value); }
     /** Unsafe version of {@link #isActive(boolean) isActive}. */
-    public static void nisActive(long struct, int value) { UNSAFE.putInt(null, struct + XrActionStatePose.ISACTIVE, value); }
+    public static void nisActive(long struct, int value) { memPutInt(struct + XrActionStatePose.ISACTIVE, value); }
 
     // -----------------------------------
 
@@ -298,27 +277,32 @@ public class XrActionStatePose extends Struct<XrActionStatePose> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrActionStatePose getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrActionStatePose#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrActionStatePose.ntype(address()); }
-        /** @return the value of the {@link XrActionStatePose#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrActionStatePose.nnext(address()); }
-        /** @return the value of the {@link XrActionStatePose#isActive} field. */
+        /** @return the value of the {@code isActive} field. */
         @NativeType("XrBool32")
         public boolean isActive() { return XrActionStatePose.nisActive(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrActionStatePose#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrActionStatePose.Buffer type(@NativeType("XrStructureType") int value) { XrActionStatePose.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_ACTION_STATE_POSE TYPE_ACTION_STATE_POSE} value to the {@link XrActionStatePose#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_ACTION_STATE_POSE TYPE_ACTION_STATE_POSE} value to the {@code type} field. */
         public XrActionStatePose.Buffer type$Default() { return type(XR10.XR_TYPE_ACTION_STATE_POSE); }
-        /** Sets the specified value to the {@link XrActionStatePose#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrActionStatePose.Buffer next(@NativeType("void *") long value) { XrActionStatePose.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrActionStatePose#isActive} field. */
+        /** Sets the specified value to the {@code isActive} field. */
         public XrActionStatePose.Buffer isActive(@NativeType("XrBool32") boolean value) { XrActionStatePose.nisActive(address(), value ? 1 : 0); return this; }
 
     }

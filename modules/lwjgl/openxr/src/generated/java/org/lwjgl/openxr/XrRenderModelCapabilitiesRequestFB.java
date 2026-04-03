@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A render model system property.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrRenderModelCapabilitiesRequestFB} contains information about the render capabilities requested for a model. {@link XrRenderModelCapabilitiesRequestFB} <b>must</b> be set in the structure chain of the {@code next} pointer on the {@link XrRenderModelPropertiesFB} passed into the {@link FBRenderModel#xrGetRenderModelPropertiesFB GetRenderModelPropertiesFB} call. The {@code flags} on {@link XrRenderModelCapabilitiesRequestFB} represent an acknowledgement of being able to handle the individual model capability levels. If no {@link XrRenderModelCapabilitiesRequestFB} is on the structure chain then the runtime <b>should</b> treat it as if a value of {@link FBRenderModel#XR_RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB RENDER_MODEL_SUPPORTS_GLTF_2_0_SUBSET_1_BIT_FB} was set. If the runtime does not have a model available that matches any of the supports flags set, then it <b>must</b> return a {@link FBRenderModel#XR_RENDER_MODEL_UNAVAILABLE_FB RENDER_MODEL_UNAVAILABLE_FB} result.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBRenderModel XR_FB_render_model} extension <b>must</b> be enabled prior to using {@link XrRenderModelCapabilitiesRequestFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBRenderModel#XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrRenderModelCapabilitiesRequestFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrRenderModelFlagsFB {@link #flags};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrRenderModelFlagsFB flags;
+ * }}</pre>
  */
 public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapabilitiesRequestFB> implements NativeResource {
 
@@ -90,30 +74,34 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a bit mask of the model complexities that the application is able to support. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("XrRenderModelFlagsFB")
     public long flags() { return nflags(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrRenderModelCapabilitiesRequestFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB} value to the {@code type} field. */
     public XrRenderModelCapabilitiesRequestFB type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrRenderModelCapabilitiesRequestFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
+    /** Sets the specified value to the {@code flags} field. */
+    public XrRenderModelCapabilitiesRequestFB flags(@NativeType("XrRenderModelFlagsFB") long value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrRenderModelCapabilitiesRequestFB set(
         int type,
-        long next
+        long next,
+        long flags
     ) {
         type(type);
         next(next);
+        flags(flags);
 
         return this;
     }
@@ -154,8 +142,7 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelCapabilitiesRequestFB createSafe(long address) {
+    public static @Nullable XrRenderModelCapabilitiesRequestFB createSafe(long address) {
         return address == NULL ? null : new XrRenderModelCapabilitiesRequestFB(address, null);
     }
 
@@ -198,8 +185,7 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrRenderModelCapabilitiesRequestFB.Buffer createSafe(long address, int capacity) {
+    public static XrRenderModelCapabilitiesRequestFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -244,16 +230,18 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrRenderModelCapabilitiesRequestFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrRenderModelCapabilitiesRequestFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrRenderModelCapabilitiesRequestFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrRenderModelCapabilitiesRequestFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrRenderModelCapabilitiesRequestFB.FLAGS); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrRenderModelCapabilitiesRequestFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrRenderModelCapabilitiesRequestFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrRenderModelCapabilitiesRequestFB.NEXT, value); }
+    /** Unsafe version of {@link #flags(long) flags}. */
+    public static void nflags(long struct, long value) { memPutLong(struct + XrRenderModelCapabilitiesRequestFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -289,26 +277,33 @@ public class XrRenderModelCapabilitiesRequestFB extends Struct<XrRenderModelCapa
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrRenderModelCapabilitiesRequestFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrRenderModelCapabilitiesRequestFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrRenderModelCapabilitiesRequestFB.ntype(address()); }
-        /** @return the value of the {@link XrRenderModelCapabilitiesRequestFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrRenderModelCapabilitiesRequestFB.nnext(address()); }
-        /** @return the value of the {@link XrRenderModelCapabilitiesRequestFB#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("XrRenderModelFlagsFB")
         public long flags() { return XrRenderModelCapabilitiesRequestFB.nflags(address()); }
 
-        /** Sets the specified value to the {@link XrRenderModelCapabilitiesRequestFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrRenderModelCapabilitiesRequestFB.Buffer type(@NativeType("XrStructureType") int value) { XrRenderModelCapabilitiesRequestFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB} value to the {@link XrRenderModelCapabilitiesRequestFB#type} field. */
+        /** Sets the {@link FBRenderModel#XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB} value to the {@code type} field. */
         public XrRenderModelCapabilitiesRequestFB.Buffer type$Default() { return type(FBRenderModel.XR_TYPE_RENDER_MODEL_CAPABILITIES_REQUEST_FB); }
-        /** Sets the specified value to the {@link XrRenderModelCapabilitiesRequestFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrRenderModelCapabilitiesRequestFB.Buffer next(@NativeType("void *") long value) { XrRenderModelCapabilitiesRequestFB.nnext(address(), value); return this; }
+        /** Sets the specified value to the {@code flags} field. */
+        public XrRenderModelCapabilitiesRequestFB.Buffer flags(@NativeType("XrRenderModelFlagsFB") long value) { XrRenderModelCapabilitiesRequestFB.nflags(address(), value); return this; }
 
     }
 

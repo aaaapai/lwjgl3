@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_hlsl_resource_binding_mapping {
  *     unsigned register_space;
  *     unsigned register_binding;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct spvc_hlsl_resource_binding_mapping")
 public class SpvcHLSLResourceBindingMapping extends Struct<SpvcHLSLResourceBindingMapping> implements NativeResource {
@@ -132,8 +130,7 @@ public class SpvcHLSLResourceBindingMapping extends Struct<SpvcHLSLResourceBindi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcHLSLResourceBindingMapping createSafe(long address) {
+    public static @Nullable SpvcHLSLResourceBindingMapping createSafe(long address) {
         return address == NULL ? null : new SpvcHLSLResourceBindingMapping(address, null);
     }
 
@@ -176,8 +173,7 @@ public class SpvcHLSLResourceBindingMapping extends Struct<SpvcHLSLResourceBindi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcHLSLResourceBindingMapping.Buffer createSafe(long address, int capacity) {
+    public static SpvcHLSLResourceBindingMapping.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -222,14 +218,14 @@ public class SpvcHLSLResourceBindingMapping extends Struct<SpvcHLSLResourceBindi
     // -----------------------------------
 
     /** Unsafe version of {@link #register_space}. */
-    public static int nregister_space(long struct) { return UNSAFE.getInt(null, struct + SpvcHLSLResourceBindingMapping.REGISTER_SPACE); }
+    public static int nregister_space(long struct) { return memGetInt(struct + SpvcHLSLResourceBindingMapping.REGISTER_SPACE); }
     /** Unsafe version of {@link #register_binding}. */
-    public static int nregister_binding(long struct) { return UNSAFE.getInt(null, struct + SpvcHLSLResourceBindingMapping.REGISTER_BINDING); }
+    public static int nregister_binding(long struct) { return memGetInt(struct + SpvcHLSLResourceBindingMapping.REGISTER_BINDING); }
 
     /** Unsafe version of {@link #register_space(int) register_space}. */
-    public static void nregister_space(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHLSLResourceBindingMapping.REGISTER_SPACE, value); }
+    public static void nregister_space(long struct, int value) { memPutInt(struct + SpvcHLSLResourceBindingMapping.REGISTER_SPACE, value); }
     /** Unsafe version of {@link #register_binding(int) register_binding}. */
-    public static void nregister_binding(long struct, int value) { UNSAFE.putInt(null, struct + SpvcHLSLResourceBindingMapping.REGISTER_BINDING, value); }
+    public static void nregister_binding(long struct, int value) { memPutInt(struct + SpvcHLSLResourceBindingMapping.REGISTER_BINDING, value); }
 
     // -----------------------------------
 
@@ -262,6 +258,11 @@ public class SpvcHLSLResourceBindingMapping extends Struct<SpvcHLSLResourceBindi
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

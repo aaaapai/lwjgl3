@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.ktx;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,48 +17,34 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for passing extended parameters to {@link KTX#ktxTexture2_CompressBasisEx Texture2_CompressBasisEx}.
- * 
- * <p>If you only want default values, use {@link KTX#ktxTexture2_CompressBasis Texture2_CompressBasis}. Here, at a minimum you must initialize the structure as follows:</p>
- * 
- * <pre><code>
- *   ktxBasisParams params = {0};
- *   params.structSize = sizeof(params);
- *   params.compressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;</code></pre>
- * 
- * <p>{@code compressionLevel} has to be explicitly set because 0 is a valid {@code compressionLevel} but is not the default used by the BasisU encoder
- * when no value is set. Only the other settings that are to be non-default must be non-zero.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ktxBasisParams {
- *     ktx_uint32_t {@link #structSize};
- *     ktx_bool_t {@link #uastc};
- *     ktx_bool_t {@link #verbose};
- *     ktx_bool_t {@link #noSSE};
- *     ktx_uint32_t {@link #threadCount};
- *     ktx_uint32_t {@link #compressionLevel};
- *     ktx_uint32_t {@link #qualityLevel};
- *     ktx_uint32_t {@link #maxEndpoints};
- *     float {@link #endpointRDOThreshold};
- *     ktx_uint32_t {@link #maxSelectors};
- *     float {@link #selectorRDOThreshold};
- *     char {@link #inputSwizzle}[4];
- *     ktx_bool_t {@link #normalMap};
- *     ktx_bool_t {@link #separateRGToRGB_A};
- *     ktx_bool_t {@link #preSwizzle};
- *     ktx_bool_t {@link #noEndpointRDO};
- *     ktx_bool_t {@link #noSelectorRDO};
- *     ktx_pack_uastc_flags {@link #uastcFlags};
- *     ktx_bool_t {@link #uastcRDO};
- *     float {@link #uastcRDOQualityScalar};
- *     ktx_uint32_t {@link #uastcRDODictSize};
- *     float {@link #uastcRDOMaxSmoothBlockErrorScale};
- *     float {@link #uastcRDOMaxSmoothBlockStdDev};
- *     ktx_bool_t {@link #uastcRDODontFavorSimplerModes};
- *     ktx_bool_t {@link #uastcRDONoMultithreading};
- * }</code></pre>
+ *     ktx_uint32_t structSize;
+ *     ktx_bool_t uastc;
+ *     ktx_bool_t verbose;
+ *     ktx_bool_t noSSE;
+ *     ktx_uint32_t threadCount;
+ *     ktx_uint32_t compressionLevel;
+ *     ktx_uint32_t qualityLevel;
+ *     ktx_uint32_t maxEndpoints;
+ *     float endpointRDOThreshold;
+ *     ktx_uint32_t maxSelectors;
+ *     float selectorRDOThreshold;
+ *     char inputSwizzle[4];
+ *     ktx_bool_t normalMap;
+ *     ktx_bool_t separateRGToRGB_A;
+ *     ktx_bool_t preSwizzle;
+ *     ktx_bool_t noEndpointRDO;
+ *     ktx_bool_t noSelectorRDO;
+ *     ktx_pack_uastc_flags uastcFlags;
+ *     ktx_bool_t uastcRDO;
+ *     float uastcRDOQualityScalar;
+ *     ktx_uint32_t uastcRDODictSize;
+ *     float uastcRDOMaxSmoothBlockErrorScale;
+ *     float uastcRDOMaxSmoothBlockStdDev;
+ *     ktx_bool_t uastcRDODontFavorSimplerModes;
+ *     ktx_bool_t uastcRDONoMultithreading;
+ * }}</pre>
  */
 public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeResource {
 
@@ -177,219 +163,131 @@ public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * Size of this struct.
-     * 
-     * <p>Used so library can tell which version of struct is being passed.</p>
-     */
+    /** @return the value of the {@code structSize} field. */
     @NativeType("ktx_uint32_t")
     public int structSize() { return nstructSize(address()); }
-    /** True to use UASTC base, false to use ETC1S base. */
+    /** @return the value of the {@code uastc} field. */
     @NativeType("ktx_bool_t")
     public boolean uastc() { return nuastc(address()); }
-    /**
-     * If true, prints Basis Universal encoder operation details to {@code stdout}.
-     * 
-     * <p>Not recommended for GUI apps.</p>
-     */
+    /** @return the value of the {@code verbose} field. */
     @NativeType("ktx_bool_t")
     public boolean verbose() { return nverbose(address()); }
-    /**
-     * True to forbid use of the SSE instruction set.
-     * 
-     * <p>Ignored if CPU does not support SSE.</p>
-     */
+    /** @return the value of the {@code noSSE} field. */
     @NativeType("ktx_bool_t")
     public boolean noSSE() { return nnoSSE(address()); }
-    /** Number of threads used for compression. Default is 1. */
+    /** @return the value of the {@code threadCount} field. */
     @NativeType("ktx_uint32_t")
     public int threadCount() { return nthreadCount(address()); }
-    /**
-     * Encoding speed vs. quality tradeoff.
-     * 
-     * <p>Range is {@code [0,5]}. Higher values are slower, but give higher quality. There is no default. Callers must explicitly set this value. Callers can use
-     * {@link KTX#KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL ETC1S_DEFAULT_COMPRESSION_LEVEL} as a default value. Currently this is 2.</p>
-     */
+    /** @return the value of the {@code compressionLevel} field. */
     @NativeType("ktx_uint32_t")
     public int compressionLevel() { return ncompressionLevel(address()); }
-    /**
-     * Compression quality.
-     * 
-     * <p>Range is {@code [1,255]}. Lower gives better compression/lower quality/faster. Higher gives less compression/higher quality/slower. This automatically
-     * determines values for {@code maxEndpoints}, {@code maxSelectors}, {@code endpointRDOThreshold} and {@code selectorRDOThreshold} for the target quality
-     * level. Setting these parameters overrides the values determined by {@code qualityLevel} which defaults to 128 if neither it nor both of
-     * {@code maxEndpoints} and {@code maxSelectors} have been set.</p>
-     * 
-     * <p>Note: Both of {@code maxEndpoints} and {@code maxSelectors} must be set for them to have any effect. {@code qualityLevel will} only determine values
-     * for {@code endpointRDOThreshold} and {@code selectorRDOThreshold} when its value exceeds 128, otherwise their defaults will be used.</p>
-     */
+    /** @return the value of the {@code qualityLevel} field. */
     @NativeType("ktx_uint32_t")
     public int qualityLevel() { return nqualityLevel(address()); }
-    /**
-     * Manually set the max number of color endpoint clusters.
-     * 
-     * <p>Range is {@code [1,16128]}. Default is 0, unset. If this is set, {@code maxSelectors} must also be set, otherwise the value will be ignored.</p>
-     */
+    /** @return the value of the {@code maxEndpoints} field. */
     @NativeType("ktx_uint32_t")
     public int maxEndpoints() { return nmaxEndpoints(address()); }
-    /**
-     * Set endpoint RDO quality threshold.
-     * 
-     * <p>The default is 1.25. Lower is higher quality but less quality per output bit (try {@code [1.0,3.0]}). This will override the value chosen by
-     * {@code qualityLevel}.</p>
-     */
+    /** @return the value of the {@code endpointRDOThreshold} field. */
     public float endpointRDOThreshold() { return nendpointRDOThreshold(address()); }
-    /**
-     * Manually set the max number of color selector clusters.
-     * 
-     * <p>Range is {@code [1,16128]}. Default is 0, unset. If this is set, {@code maxEndpoints} must also be set, otherwise the value will be ignored.</p>
-     */
+    /** @return the value of the {@code maxSelectors} field. */
     @NativeType("ktx_uint32_t")
     public int maxSelectors() { return nmaxSelectors(address()); }
-    /**
-     * Set selector RDO quality threshold.
-     * 
-     * <p>The default is 1.5. Lower is higher quality but less quality per output bit (try {@code [1.0,3.0]}). This will override the value chosen by
-     * {@code qualityLevel}.</p>
-     */
+    /** @return the value of the {@code selectorRDOThreshold} field. */
     public float selectorRDOThreshold() { return nselectorRDOThreshold(address()); }
-    /**
-     * A swizzle to apply before encoding.
-     * 
-     * <p>It must match the regular expression {@code /^[rgba01]{4}$/}. If both this and {@code preSwizzle} are specified {@link KTX#ktxTexture2_CompressBasisEx Texture2_CompressBasisEx} will raise
-     * {@link KTX#KTX_INVALID_OPERATION INVALID_OPERATION}.</p>
-     */
+    /** @return a {@link ByteBuffer} view of the {@code inputSwizzle} field. */
     @NativeType("char[4]")
     public ByteBuffer inputSwizzle() { return ninputSwizzle(address()); }
-    /**
-     * A swizzle to apply before encoding.
-     * 
-     * <p>It must match the regular expression {@code /^[rgba01]{4}$/}. If both this and {@code preSwizzle} are specified {@link KTX#ktxTexture2_CompressBasisEx Texture2_CompressBasisEx} will raise
-     * {@link KTX#KTX_INVALID_OPERATION INVALID_OPERATION}.</p>
-     */
+    /** @return the value at the specified index of the {@code inputSwizzle} field. */
     @NativeType("char")
     public byte inputSwizzle(int index) { return ninputSwizzle(address(), index); }
-    /**
-     * Tunes codec parameters for better quality on normal maps (no selector RDO, no endpoint RDO) and sets the texture's DFD appropriately.
-     * 
-     * <p>Only valid for linear textures.</p>
-     */
+    /** @return the value of the {@code normalMap} field. */
     @NativeType("ktx_bool_t")
     public boolean normalMap() { return nnormalMap(address()); }
-    /** deprecated */
+    /** @return the value of the {@code separateRGToRGB_A} field. */
     @NativeType("ktx_bool_t")
     public boolean separateRGToRGB_A() { return nseparateRGToRGB_A(address()); }
-    /**
-     * If the texture has {@code KTXswizzle} metadata, apply it before compressing.
-     * 
-     * <p>Swizzling, like {@code rabb} may yield drastically different error metrics if done after supercompression.</p>
-     */
+    /** @return the value of the {@code preSwizzle} field. */
     @NativeType("ktx_bool_t")
     public boolean preSwizzle() { return npreSwizzle(address()); }
-    /**
-     * Disable endpoint rate distortion optimizations.
-     * 
-     * <p>Slightly faster, less noisy output, but lower quality per output bit. Default is {@link KTX#KTX_FALSE FALSE}.</p>
-     */
+    /** @return the value of the {@code noEndpointRDO} field. */
     @NativeType("ktx_bool_t")
     public boolean noEndpointRDO() { return nnoEndpointRDO(address()); }
-    /**
-     * Disable selector rate distortion optimizations.
-     * 
-     * <p>Slightly faster, less noisy output, but lower quality per output bit. Default is {@link KTX#KTX_FALSE FALSE}.</p>
-     */
+    /** @return the value of the {@code noSelectorRDO} field. */
     @NativeType("ktx_bool_t")
     public boolean noSelectorRDO() { return nnoSelectorRDO(address()); }
-    /** A set of {@code ktx_pack_uastc_flag_bits_e} controlling UASTC encoding. */
+    /** @return the value of the {@code uastcFlags} field. */
     @NativeType("ktx_pack_uastc_flags")
     public int uastcFlags() { return nuastcFlags(address()); }
-    /** Enable Rate Distortion Optimization (RDO) post-processing. */
+    /** @return the value of the {@code uastcRDO} field. */
     @NativeType("ktx_bool_t")
     public boolean uastcRDO() { return nuastcRDO(address()); }
-    /**
-     * UASTC RDO quality scalar (lambda).
-     * 
-     * <p>Lower values yield higher quality/larger LZ compressed files, higher values yield lower quality/smaller LZ compressed files. A good range to try is
-     * {@code [.2,4]}. Full range is {@code [.001,50.0]}. Default is 1.0.</p>
-     */
+    /** @return the value of the {@code uastcRDOQualityScalar} field. */
     public float uastcRDOQualityScalar() { return nuastcRDOQualityScalar(address()); }
-    /**
-     * UASTC RDO dictionary size in bytes.
-     * 
-     * <p>Default is 4096. Lower values=faster, but give less compression. Range is {@code [64,65536]}.</p>
-     */
+    /** @return the value of the {@code uastcRDODictSize} field. */
     @NativeType("ktx_uint32_t")
     public int uastcRDODictSize() { return nuastcRDODictSize(address()); }
-    /**
-     * UASTC RDO max smooth block error scale.
-     * 
-     * <p>Range is {@code [1,300]}. Default is 10.0, 1.0 is disabled. Larger values suppress more artifacts (and allocate more bits) on smooth blocks.</p>
-     */
+    /** @return the value of the {@code uastcRDOMaxSmoothBlockErrorScale} field. */
     public float uastcRDOMaxSmoothBlockErrorScale() { return nuastcRDOMaxSmoothBlockErrorScale(address()); }
-    /**
-     * UASTC RDO max smooth block standard deviation.
-     * 
-     * <p>Range is {@code [.01,65536.0]}. Default is 18.0. Larger values expand the range of blocks considered smooth.</p>
-     */
+    /** @return the value of the {@code uastcRDOMaxSmoothBlockStdDev} field. */
     public float uastcRDOMaxSmoothBlockStdDev() { return nuastcRDOMaxSmoothBlockStdDev(address()); }
-    /** Do not favor simpler UASTC modes in RDO mode. */
+    /** @return the value of the {@code uastcRDODontFavorSimplerModes} field. */
     @NativeType("ktx_bool_t")
     public boolean uastcRDODontFavorSimplerModes() { return nuastcRDODontFavorSimplerModes(address()); }
-    /** Disable RDO multithreading (slightly higher compression, deterministic). */
+    /** @return the value of the {@code uastcRDONoMultithreading} field. */
     @NativeType("ktx_bool_t")
     public boolean uastcRDONoMultithreading() { return nuastcRDONoMultithreading(address()); }
 
-    /** Sets the specified value to the {@link #structSize} field. */
+    /** Sets the specified value to the {@code structSize} field. */
     public ktxBasisParams structSize(@NativeType("ktx_uint32_t") int value) { nstructSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastc} field. */
+    /** Sets the specified value to the {@code uastc} field. */
     public ktxBasisParams uastc(@NativeType("ktx_bool_t") boolean value) { nuastc(address(), value); return this; }
-    /** Sets the specified value to the {@link #verbose} field. */
+    /** Sets the specified value to the {@code verbose} field. */
     public ktxBasisParams verbose(@NativeType("ktx_bool_t") boolean value) { nverbose(address(), value); return this; }
-    /** Sets the specified value to the {@link #noSSE} field. */
+    /** Sets the specified value to the {@code noSSE} field. */
     public ktxBasisParams noSSE(@NativeType("ktx_bool_t") boolean value) { nnoSSE(address(), value); return this; }
-    /** Sets the specified value to the {@link #threadCount} field. */
+    /** Sets the specified value to the {@code threadCount} field. */
     public ktxBasisParams threadCount(@NativeType("ktx_uint32_t") int value) { nthreadCount(address(), value); return this; }
-    /** Sets the specified value to the {@link #compressionLevel} field. */
+    /** Sets the specified value to the {@code compressionLevel} field. */
     public ktxBasisParams compressionLevel(@NativeType("ktx_uint32_t") int value) { ncompressionLevel(address(), value); return this; }
-    /** Sets the specified value to the {@link #qualityLevel} field. */
+    /** Sets the specified value to the {@code qualityLevel} field. */
     public ktxBasisParams qualityLevel(@NativeType("ktx_uint32_t") int value) { nqualityLevel(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxEndpoints} field. */
+    /** Sets the specified value to the {@code maxEndpoints} field. */
     public ktxBasisParams maxEndpoints(@NativeType("ktx_uint32_t") int value) { nmaxEndpoints(address(), value); return this; }
-    /** Sets the specified value to the {@link #endpointRDOThreshold} field. */
+    /** Sets the specified value to the {@code endpointRDOThreshold} field. */
     public ktxBasisParams endpointRDOThreshold(float value) { nendpointRDOThreshold(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxSelectors} field. */
+    /** Sets the specified value to the {@code maxSelectors} field. */
     public ktxBasisParams maxSelectors(@NativeType("ktx_uint32_t") int value) { nmaxSelectors(address(), value); return this; }
-    /** Sets the specified value to the {@link #selectorRDOThreshold} field. */
+    /** Sets the specified value to the {@code selectorRDOThreshold} field. */
     public ktxBasisParams selectorRDOThreshold(float value) { nselectorRDOThreshold(address(), value); return this; }
-    /** Copies the specified {@link ByteBuffer} to the {@link #inputSwizzle} field. */
+    /** Copies the specified {@link ByteBuffer} to the {@code inputSwizzle} field. */
     public ktxBasisParams inputSwizzle(@NativeType("char[4]") ByteBuffer value) { ninputSwizzle(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #inputSwizzle} field. */
+    /** Sets the specified value at the specified index of the {@code inputSwizzle} field. */
     public ktxBasisParams inputSwizzle(int index, @NativeType("char") byte value) { ninputSwizzle(address(), index, value); return this; }
-    /** Sets the specified value to the {@link #normalMap} field. */
+    /** Sets the specified value to the {@code normalMap} field. */
     public ktxBasisParams normalMap(@NativeType("ktx_bool_t") boolean value) { nnormalMap(address(), value); return this; }
-    /** Sets the specified value to the {@link #separateRGToRGB_A} field. */
+    /** Sets the specified value to the {@code separateRGToRGB_A} field. */
     public ktxBasisParams separateRGToRGB_A(@NativeType("ktx_bool_t") boolean value) { nseparateRGToRGB_A(address(), value); return this; }
-    /** Sets the specified value to the {@link #preSwizzle} field. */
+    /** Sets the specified value to the {@code preSwizzle} field. */
     public ktxBasisParams preSwizzle(@NativeType("ktx_bool_t") boolean value) { npreSwizzle(address(), value); return this; }
-    /** Sets the specified value to the {@link #noEndpointRDO} field. */
+    /** Sets the specified value to the {@code noEndpointRDO} field. */
     public ktxBasisParams noEndpointRDO(@NativeType("ktx_bool_t") boolean value) { nnoEndpointRDO(address(), value); return this; }
-    /** Sets the specified value to the {@link #noSelectorRDO} field. */
+    /** Sets the specified value to the {@code noSelectorRDO} field. */
     public ktxBasisParams noSelectorRDO(@NativeType("ktx_bool_t") boolean value) { nnoSelectorRDO(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcFlags} field. */
+    /** Sets the specified value to the {@code uastcFlags} field. */
     public ktxBasisParams uastcFlags(@NativeType("ktx_pack_uastc_flags") int value) { nuastcFlags(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDO} field. */
+    /** Sets the specified value to the {@code uastcRDO} field. */
     public ktxBasisParams uastcRDO(@NativeType("ktx_bool_t") boolean value) { nuastcRDO(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDOQualityScalar} field. */
+    /** Sets the specified value to the {@code uastcRDOQualityScalar} field. */
     public ktxBasisParams uastcRDOQualityScalar(float value) { nuastcRDOQualityScalar(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDODictSize} field. */
+    /** Sets the specified value to the {@code uastcRDODictSize} field. */
     public ktxBasisParams uastcRDODictSize(@NativeType("ktx_uint32_t") int value) { nuastcRDODictSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDOMaxSmoothBlockErrorScale} field. */
+    /** Sets the specified value to the {@code uastcRDOMaxSmoothBlockErrorScale} field. */
     public ktxBasisParams uastcRDOMaxSmoothBlockErrorScale(float value) { nuastcRDOMaxSmoothBlockErrorScale(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDOMaxSmoothBlockStdDev} field. */
+    /** Sets the specified value to the {@code uastcRDOMaxSmoothBlockStdDev} field. */
     public ktxBasisParams uastcRDOMaxSmoothBlockStdDev(float value) { nuastcRDOMaxSmoothBlockStdDev(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDODontFavorSimplerModes} field. */
+    /** Sets the specified value to the {@code uastcRDODontFavorSimplerModes} field. */
     public ktxBasisParams uastcRDODontFavorSimplerModes(@NativeType("ktx_bool_t") boolean value) { nuastcRDODontFavorSimplerModes(address(), value); return this; }
-    /** Sets the specified value to the {@link #uastcRDONoMultithreading} field. */
+    /** Sets the specified value to the {@code uastcRDONoMultithreading} field. */
     public ktxBasisParams uastcRDONoMultithreading(@NativeType("ktx_bool_t") boolean value) { nuastcRDONoMultithreading(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -485,8 +383,7 @@ public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxBasisParams createSafe(long address) {
+    public static @Nullable ktxBasisParams createSafe(long address) {
         return address == NULL ? null : new ktxBasisParams(address, null);
     }
 
@@ -529,8 +426,7 @@ public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static ktxBasisParams.Buffer createSafe(long address, int capacity) {
+    public static ktxBasisParams.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -575,82 +471,82 @@ public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #structSize}. */
-    public static int nstructSize(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.STRUCTSIZE); }
+    public static int nstructSize(long struct) { return memGetInt(struct + ktxBasisParams.STRUCTSIZE); }
     /** Unsafe version of {@link #uastc}. */
-    public static boolean nuastc(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.UASTC) != 0; }
+    public static boolean nuastc(long struct) { return memGetByte(struct + ktxBasisParams.UASTC) != 0; }
     /** Unsafe version of {@link #verbose}. */
-    public static boolean nverbose(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.VERBOSE) != 0; }
+    public static boolean nverbose(long struct) { return memGetByte(struct + ktxBasisParams.VERBOSE) != 0; }
     /** Unsafe version of {@link #noSSE}. */
-    public static boolean nnoSSE(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.NOSSE) != 0; }
+    public static boolean nnoSSE(long struct) { return memGetByte(struct + ktxBasisParams.NOSSE) != 0; }
     /** Unsafe version of {@link #threadCount}. */
-    public static int nthreadCount(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.THREADCOUNT); }
+    public static int nthreadCount(long struct) { return memGetInt(struct + ktxBasisParams.THREADCOUNT); }
     /** Unsafe version of {@link #compressionLevel}. */
-    public static int ncompressionLevel(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.COMPRESSIONLEVEL); }
+    public static int ncompressionLevel(long struct) { return memGetInt(struct + ktxBasisParams.COMPRESSIONLEVEL); }
     /** Unsafe version of {@link #qualityLevel}. */
-    public static int nqualityLevel(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.QUALITYLEVEL); }
+    public static int nqualityLevel(long struct) { return memGetInt(struct + ktxBasisParams.QUALITYLEVEL); }
     /** Unsafe version of {@link #maxEndpoints}. */
-    public static int nmaxEndpoints(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.MAXENDPOINTS); }
+    public static int nmaxEndpoints(long struct) { return memGetInt(struct + ktxBasisParams.MAXENDPOINTS); }
     /** Unsafe version of {@link #endpointRDOThreshold}. */
-    public static float nendpointRDOThreshold(long struct) { return UNSAFE.getFloat(null, struct + ktxBasisParams.ENDPOINTRDOTHRESHOLD); }
+    public static float nendpointRDOThreshold(long struct) { return memGetFloat(struct + ktxBasisParams.ENDPOINTRDOTHRESHOLD); }
     /** Unsafe version of {@link #maxSelectors}. */
-    public static int nmaxSelectors(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.MAXSELECTORS); }
+    public static int nmaxSelectors(long struct) { return memGetInt(struct + ktxBasisParams.MAXSELECTORS); }
     /** Unsafe version of {@link #selectorRDOThreshold}. */
-    public static float nselectorRDOThreshold(long struct) { return UNSAFE.getFloat(null, struct + ktxBasisParams.SELECTORRDOTHRESHOLD); }
+    public static float nselectorRDOThreshold(long struct) { return memGetFloat(struct + ktxBasisParams.SELECTORRDOTHRESHOLD); }
     /** Unsafe version of {@link #inputSwizzle}. */
     public static ByteBuffer ninputSwizzle(long struct) { return memByteBuffer(struct + ktxBasisParams.INPUTSWIZZLE, 4); }
     /** Unsafe version of {@link #inputSwizzle(int) inputSwizzle}. */
     public static byte ninputSwizzle(long struct, int index) {
-        return UNSAFE.getByte(null, struct + ktxBasisParams.INPUTSWIZZLE + check(index, 4) * 1);
+        return memGetByte(struct + ktxBasisParams.INPUTSWIZZLE + check(index, 4) * 1);
     }
     /** Unsafe version of {@link #normalMap}. */
-    public static boolean nnormalMap(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.NORMALMAP) != 0; }
+    public static boolean nnormalMap(long struct) { return memGetByte(struct + ktxBasisParams.NORMALMAP) != 0; }
     /** Unsafe version of {@link #separateRGToRGB_A}. */
-    public static boolean nseparateRGToRGB_A(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.SEPARATERGTORGB_A) != 0; }
+    public static boolean nseparateRGToRGB_A(long struct) { return memGetByte(struct + ktxBasisParams.SEPARATERGTORGB_A) != 0; }
     /** Unsafe version of {@link #preSwizzle}. */
-    public static boolean npreSwizzle(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.PRESWIZZLE) != 0; }
+    public static boolean npreSwizzle(long struct) { return memGetByte(struct + ktxBasisParams.PRESWIZZLE) != 0; }
     /** Unsafe version of {@link #noEndpointRDO}. */
-    public static boolean nnoEndpointRDO(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.NOENDPOINTRDO) != 0; }
+    public static boolean nnoEndpointRDO(long struct) { return memGetByte(struct + ktxBasisParams.NOENDPOINTRDO) != 0; }
     /** Unsafe version of {@link #noSelectorRDO}. */
-    public static boolean nnoSelectorRDO(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.NOSELECTORRDO) != 0; }
+    public static boolean nnoSelectorRDO(long struct) { return memGetByte(struct + ktxBasisParams.NOSELECTORRDO) != 0; }
     /** Unsafe version of {@link #uastcFlags}. */
-    public static int nuastcFlags(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.UASTCFLAGS); }
+    public static int nuastcFlags(long struct) { return memGetInt(struct + ktxBasisParams.UASTCFLAGS); }
     /** Unsafe version of {@link #uastcRDO}. */
-    public static boolean nuastcRDO(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.UASTCRDO) != 0; }
+    public static boolean nuastcRDO(long struct) { return memGetByte(struct + ktxBasisParams.UASTCRDO) != 0; }
     /** Unsafe version of {@link #uastcRDOQualityScalar}. */
-    public static float nuastcRDOQualityScalar(long struct) { return UNSAFE.getFloat(null, struct + ktxBasisParams.UASTCRDOQUALITYSCALAR); }
+    public static float nuastcRDOQualityScalar(long struct) { return memGetFloat(struct + ktxBasisParams.UASTCRDOQUALITYSCALAR); }
     /** Unsafe version of {@link #uastcRDODictSize}. */
-    public static int nuastcRDODictSize(long struct) { return UNSAFE.getInt(null, struct + ktxBasisParams.UASTCRDODICTSIZE); }
+    public static int nuastcRDODictSize(long struct) { return memGetInt(struct + ktxBasisParams.UASTCRDODICTSIZE); }
     /** Unsafe version of {@link #uastcRDOMaxSmoothBlockErrorScale}. */
-    public static float nuastcRDOMaxSmoothBlockErrorScale(long struct) { return UNSAFE.getFloat(null, struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKERRORSCALE); }
+    public static float nuastcRDOMaxSmoothBlockErrorScale(long struct) { return memGetFloat(struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKERRORSCALE); }
     /** Unsafe version of {@link #uastcRDOMaxSmoothBlockStdDev}. */
-    public static float nuastcRDOMaxSmoothBlockStdDev(long struct) { return UNSAFE.getFloat(null, struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKSTDDEV); }
+    public static float nuastcRDOMaxSmoothBlockStdDev(long struct) { return memGetFloat(struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKSTDDEV); }
     /** Unsafe version of {@link #uastcRDODontFavorSimplerModes}. */
-    public static boolean nuastcRDODontFavorSimplerModes(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.UASTCRDODONTFAVORSIMPLERMODES) != 0; }
+    public static boolean nuastcRDODontFavorSimplerModes(long struct) { return memGetByte(struct + ktxBasisParams.UASTCRDODONTFAVORSIMPLERMODES) != 0; }
     /** Unsafe version of {@link #uastcRDONoMultithreading}. */
-    public static boolean nuastcRDONoMultithreading(long struct) { return UNSAFE.getByte(null, struct + ktxBasisParams.UASTCRDONOMULTITHREADING) != 0; }
+    public static boolean nuastcRDONoMultithreading(long struct) { return memGetByte(struct + ktxBasisParams.UASTCRDONOMULTITHREADING) != 0; }
 
     /** Unsafe version of {@link #structSize(int) structSize}. */
-    public static void nstructSize(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.STRUCTSIZE, value); }
+    public static void nstructSize(long struct, int value) { memPutInt(struct + ktxBasisParams.STRUCTSIZE, value); }
     /** Unsafe version of {@link #uastc(boolean) uastc}. */
-    public static void nuastc(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.UASTC, value ? (byte)1 : (byte)0); }
+    public static void nuastc(long struct, boolean value) { memPutByte(struct + ktxBasisParams.UASTC, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #verbose(boolean) verbose}. */
-    public static void nverbose(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.VERBOSE, value ? (byte)1 : (byte)0); }
+    public static void nverbose(long struct, boolean value) { memPutByte(struct + ktxBasisParams.VERBOSE, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #noSSE(boolean) noSSE}. */
-    public static void nnoSSE(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.NOSSE, value ? (byte)1 : (byte)0); }
+    public static void nnoSSE(long struct, boolean value) { memPutByte(struct + ktxBasisParams.NOSSE, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #threadCount(int) threadCount}. */
-    public static void nthreadCount(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.THREADCOUNT, value); }
+    public static void nthreadCount(long struct, int value) { memPutInt(struct + ktxBasisParams.THREADCOUNT, value); }
     /** Unsafe version of {@link #compressionLevel(int) compressionLevel}. */
-    public static void ncompressionLevel(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.COMPRESSIONLEVEL, value); }
+    public static void ncompressionLevel(long struct, int value) { memPutInt(struct + ktxBasisParams.COMPRESSIONLEVEL, value); }
     /** Unsafe version of {@link #qualityLevel(int) qualityLevel}. */
-    public static void nqualityLevel(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.QUALITYLEVEL, value); }
+    public static void nqualityLevel(long struct, int value) { memPutInt(struct + ktxBasisParams.QUALITYLEVEL, value); }
     /** Unsafe version of {@link #maxEndpoints(int) maxEndpoints}. */
-    public static void nmaxEndpoints(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.MAXENDPOINTS, value); }
+    public static void nmaxEndpoints(long struct, int value) { memPutInt(struct + ktxBasisParams.MAXENDPOINTS, value); }
     /** Unsafe version of {@link #endpointRDOThreshold(float) endpointRDOThreshold}. */
-    public static void nendpointRDOThreshold(long struct, float value) { UNSAFE.putFloat(null, struct + ktxBasisParams.ENDPOINTRDOTHRESHOLD, value); }
+    public static void nendpointRDOThreshold(long struct, float value) { memPutFloat(struct + ktxBasisParams.ENDPOINTRDOTHRESHOLD, value); }
     /** Unsafe version of {@link #maxSelectors(int) maxSelectors}. */
-    public static void nmaxSelectors(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.MAXSELECTORS, value); }
+    public static void nmaxSelectors(long struct, int value) { memPutInt(struct + ktxBasisParams.MAXSELECTORS, value); }
     /** Unsafe version of {@link #selectorRDOThreshold(float) selectorRDOThreshold}. */
-    public static void nselectorRDOThreshold(long struct, float value) { UNSAFE.putFloat(null, struct + ktxBasisParams.SELECTORRDOTHRESHOLD, value); }
+    public static void nselectorRDOThreshold(long struct, float value) { memPutFloat(struct + ktxBasisParams.SELECTORRDOTHRESHOLD, value); }
     /** Unsafe version of {@link #inputSwizzle(ByteBuffer) inputSwizzle}. */
     public static void ninputSwizzle(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 4); }
@@ -658,34 +554,34 @@ public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeReso
     }
     /** Unsafe version of {@link #inputSwizzle(int, byte) inputSwizzle}. */
     public static void ninputSwizzle(long struct, int index, byte value) {
-        UNSAFE.putByte(null, struct + ktxBasisParams.INPUTSWIZZLE + check(index, 4) * 1, value);
+        memPutByte(struct + ktxBasisParams.INPUTSWIZZLE + check(index, 4) * 1, value);
     }
     /** Unsafe version of {@link #normalMap(boolean) normalMap}. */
-    public static void nnormalMap(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.NORMALMAP, value ? (byte)1 : (byte)0); }
+    public static void nnormalMap(long struct, boolean value) { memPutByte(struct + ktxBasisParams.NORMALMAP, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #separateRGToRGB_A(boolean) separateRGToRGB_A}. */
-    public static void nseparateRGToRGB_A(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.SEPARATERGTORGB_A, value ? (byte)1 : (byte)0); }
+    public static void nseparateRGToRGB_A(long struct, boolean value) { memPutByte(struct + ktxBasisParams.SEPARATERGTORGB_A, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #preSwizzle(boolean) preSwizzle}. */
-    public static void npreSwizzle(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.PRESWIZZLE, value ? (byte)1 : (byte)0); }
+    public static void npreSwizzle(long struct, boolean value) { memPutByte(struct + ktxBasisParams.PRESWIZZLE, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #noEndpointRDO(boolean) noEndpointRDO}. */
-    public static void nnoEndpointRDO(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.NOENDPOINTRDO, value ? (byte)1 : (byte)0); }
+    public static void nnoEndpointRDO(long struct, boolean value) { memPutByte(struct + ktxBasisParams.NOENDPOINTRDO, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #noSelectorRDO(boolean) noSelectorRDO}. */
-    public static void nnoSelectorRDO(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.NOSELECTORRDO, value ? (byte)1 : (byte)0); }
+    public static void nnoSelectorRDO(long struct, boolean value) { memPutByte(struct + ktxBasisParams.NOSELECTORRDO, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #uastcFlags(int) uastcFlags}. */
-    public static void nuastcFlags(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.UASTCFLAGS, value); }
+    public static void nuastcFlags(long struct, int value) { memPutInt(struct + ktxBasisParams.UASTCFLAGS, value); }
     /** Unsafe version of {@link #uastcRDO(boolean) uastcRDO}. */
-    public static void nuastcRDO(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.UASTCRDO, value ? (byte)1 : (byte)0); }
+    public static void nuastcRDO(long struct, boolean value) { memPutByte(struct + ktxBasisParams.UASTCRDO, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #uastcRDOQualityScalar(float) uastcRDOQualityScalar}. */
-    public static void nuastcRDOQualityScalar(long struct, float value) { UNSAFE.putFloat(null, struct + ktxBasisParams.UASTCRDOQUALITYSCALAR, value); }
+    public static void nuastcRDOQualityScalar(long struct, float value) { memPutFloat(struct + ktxBasisParams.UASTCRDOQUALITYSCALAR, value); }
     /** Unsafe version of {@link #uastcRDODictSize(int) uastcRDODictSize}. */
-    public static void nuastcRDODictSize(long struct, int value) { UNSAFE.putInt(null, struct + ktxBasisParams.UASTCRDODICTSIZE, value); }
+    public static void nuastcRDODictSize(long struct, int value) { memPutInt(struct + ktxBasisParams.UASTCRDODICTSIZE, value); }
     /** Unsafe version of {@link #uastcRDOMaxSmoothBlockErrorScale(float) uastcRDOMaxSmoothBlockErrorScale}. */
-    public static void nuastcRDOMaxSmoothBlockErrorScale(long struct, float value) { UNSAFE.putFloat(null, struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKERRORSCALE, value); }
+    public static void nuastcRDOMaxSmoothBlockErrorScale(long struct, float value) { memPutFloat(struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKERRORSCALE, value); }
     /** Unsafe version of {@link #uastcRDOMaxSmoothBlockStdDev(float) uastcRDOMaxSmoothBlockStdDev}. */
-    public static void nuastcRDOMaxSmoothBlockStdDev(long struct, float value) { UNSAFE.putFloat(null, struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKSTDDEV, value); }
+    public static void nuastcRDOMaxSmoothBlockStdDev(long struct, float value) { memPutFloat(struct + ktxBasisParams.UASTCRDOMAXSMOOTHBLOCKSTDDEV, value); }
     /** Unsafe version of {@link #uastcRDODontFavorSimplerModes(boolean) uastcRDODontFavorSimplerModes}. */
-    public static void nuastcRDODontFavorSimplerModes(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.UASTCRDODONTFAVORSIMPLERMODES, value ? (byte)1 : (byte)0); }
+    public static void nuastcRDODontFavorSimplerModes(long struct, boolean value) { memPutByte(struct + ktxBasisParams.UASTCRDODONTFAVORSIMPLERMODES, value ? (byte)1 : (byte)0); }
     /** Unsafe version of {@link #uastcRDONoMultithreading(boolean) uastcRDONoMultithreading}. */
-    public static void nuastcRDONoMultithreading(long struct, boolean value) { UNSAFE.putByte(null, struct + ktxBasisParams.UASTCRDONOMULTITHREADING, value ? (byte)1 : (byte)0); }
+    public static void nuastcRDONoMultithreading(long struct, boolean value) { memPutByte(struct + ktxBasisParams.UASTCRDONOMULTITHREADING, value ? (byte)1 : (byte)0); }
 
     // -----------------------------------
 
@@ -721,135 +617,140 @@ public class ktxBasisParams extends Struct<ktxBasisParams> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected ktxBasisParams getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ktxBasisParams#structSize} field. */
+        /** @return the value of the {@code structSize} field. */
         @NativeType("ktx_uint32_t")
         public int structSize() { return ktxBasisParams.nstructSize(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastc} field. */
+        /** @return the value of the {@code uastc} field. */
         @NativeType("ktx_bool_t")
         public boolean uastc() { return ktxBasisParams.nuastc(address()); }
-        /** @return the value of the {@link ktxBasisParams#verbose} field. */
+        /** @return the value of the {@code verbose} field. */
         @NativeType("ktx_bool_t")
         public boolean verbose() { return ktxBasisParams.nverbose(address()); }
-        /** @return the value of the {@link ktxBasisParams#noSSE} field. */
+        /** @return the value of the {@code noSSE} field. */
         @NativeType("ktx_bool_t")
         public boolean noSSE() { return ktxBasisParams.nnoSSE(address()); }
-        /** @return the value of the {@link ktxBasisParams#threadCount} field. */
+        /** @return the value of the {@code threadCount} field. */
         @NativeType("ktx_uint32_t")
         public int threadCount() { return ktxBasisParams.nthreadCount(address()); }
-        /** @return the value of the {@link ktxBasisParams#compressionLevel} field. */
+        /** @return the value of the {@code compressionLevel} field. */
         @NativeType("ktx_uint32_t")
         public int compressionLevel() { return ktxBasisParams.ncompressionLevel(address()); }
-        /** @return the value of the {@link ktxBasisParams#qualityLevel} field. */
+        /** @return the value of the {@code qualityLevel} field. */
         @NativeType("ktx_uint32_t")
         public int qualityLevel() { return ktxBasisParams.nqualityLevel(address()); }
-        /** @return the value of the {@link ktxBasisParams#maxEndpoints} field. */
+        /** @return the value of the {@code maxEndpoints} field. */
         @NativeType("ktx_uint32_t")
         public int maxEndpoints() { return ktxBasisParams.nmaxEndpoints(address()); }
-        /** @return the value of the {@link ktxBasisParams#endpointRDOThreshold} field. */
+        /** @return the value of the {@code endpointRDOThreshold} field. */
         public float endpointRDOThreshold() { return ktxBasisParams.nendpointRDOThreshold(address()); }
-        /** @return the value of the {@link ktxBasisParams#maxSelectors} field. */
+        /** @return the value of the {@code maxSelectors} field. */
         @NativeType("ktx_uint32_t")
         public int maxSelectors() { return ktxBasisParams.nmaxSelectors(address()); }
-        /** @return the value of the {@link ktxBasisParams#selectorRDOThreshold} field. */
+        /** @return the value of the {@code selectorRDOThreshold} field. */
         public float selectorRDOThreshold() { return ktxBasisParams.nselectorRDOThreshold(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link ktxBasisParams#inputSwizzle} field. */
+        /** @return a {@link ByteBuffer} view of the {@code inputSwizzle} field. */
         @NativeType("char[4]")
         public ByteBuffer inputSwizzle() { return ktxBasisParams.ninputSwizzle(address()); }
-        /** @return the value at the specified index of the {@link ktxBasisParams#inputSwizzle} field. */
+        /** @return the value at the specified index of the {@code inputSwizzle} field. */
         @NativeType("char")
         public byte inputSwizzle(int index) { return ktxBasisParams.ninputSwizzle(address(), index); }
-        /** @return the value of the {@link ktxBasisParams#normalMap} field. */
+        /** @return the value of the {@code normalMap} field. */
         @NativeType("ktx_bool_t")
         public boolean normalMap() { return ktxBasisParams.nnormalMap(address()); }
-        /** @return the value of the {@link ktxBasisParams#separateRGToRGB_A} field. */
+        /** @return the value of the {@code separateRGToRGB_A} field. */
         @NativeType("ktx_bool_t")
         public boolean separateRGToRGB_A() { return ktxBasisParams.nseparateRGToRGB_A(address()); }
-        /** @return the value of the {@link ktxBasisParams#preSwizzle} field. */
+        /** @return the value of the {@code preSwizzle} field. */
         @NativeType("ktx_bool_t")
         public boolean preSwizzle() { return ktxBasisParams.npreSwizzle(address()); }
-        /** @return the value of the {@link ktxBasisParams#noEndpointRDO} field. */
+        /** @return the value of the {@code noEndpointRDO} field. */
         @NativeType("ktx_bool_t")
         public boolean noEndpointRDO() { return ktxBasisParams.nnoEndpointRDO(address()); }
-        /** @return the value of the {@link ktxBasisParams#noSelectorRDO} field. */
+        /** @return the value of the {@code noSelectorRDO} field. */
         @NativeType("ktx_bool_t")
         public boolean noSelectorRDO() { return ktxBasisParams.nnoSelectorRDO(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcFlags} field. */
+        /** @return the value of the {@code uastcFlags} field. */
         @NativeType("ktx_pack_uastc_flags")
         public int uastcFlags() { return ktxBasisParams.nuastcFlags(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDO} field. */
+        /** @return the value of the {@code uastcRDO} field. */
         @NativeType("ktx_bool_t")
         public boolean uastcRDO() { return ktxBasisParams.nuastcRDO(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDOQualityScalar} field. */
+        /** @return the value of the {@code uastcRDOQualityScalar} field. */
         public float uastcRDOQualityScalar() { return ktxBasisParams.nuastcRDOQualityScalar(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDODictSize} field. */
+        /** @return the value of the {@code uastcRDODictSize} field. */
         @NativeType("ktx_uint32_t")
         public int uastcRDODictSize() { return ktxBasisParams.nuastcRDODictSize(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDOMaxSmoothBlockErrorScale} field. */
+        /** @return the value of the {@code uastcRDOMaxSmoothBlockErrorScale} field. */
         public float uastcRDOMaxSmoothBlockErrorScale() { return ktxBasisParams.nuastcRDOMaxSmoothBlockErrorScale(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDOMaxSmoothBlockStdDev} field. */
+        /** @return the value of the {@code uastcRDOMaxSmoothBlockStdDev} field. */
         public float uastcRDOMaxSmoothBlockStdDev() { return ktxBasisParams.nuastcRDOMaxSmoothBlockStdDev(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDODontFavorSimplerModes} field. */
+        /** @return the value of the {@code uastcRDODontFavorSimplerModes} field. */
         @NativeType("ktx_bool_t")
         public boolean uastcRDODontFavorSimplerModes() { return ktxBasisParams.nuastcRDODontFavorSimplerModes(address()); }
-        /** @return the value of the {@link ktxBasisParams#uastcRDONoMultithreading} field. */
+        /** @return the value of the {@code uastcRDONoMultithreading} field. */
         @NativeType("ktx_bool_t")
         public boolean uastcRDONoMultithreading() { return ktxBasisParams.nuastcRDONoMultithreading(address()); }
 
-        /** Sets the specified value to the {@link ktxBasisParams#structSize} field. */
+        /** Sets the specified value to the {@code structSize} field. */
         public ktxBasisParams.Buffer structSize(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.nstructSize(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastc} field. */
+        /** Sets the specified value to the {@code uastc} field. */
         public ktxBasisParams.Buffer uastc(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nuastc(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#verbose} field. */
+        /** Sets the specified value to the {@code verbose} field. */
         public ktxBasisParams.Buffer verbose(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nverbose(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#noSSE} field. */
+        /** Sets the specified value to the {@code noSSE} field. */
         public ktxBasisParams.Buffer noSSE(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nnoSSE(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#threadCount} field. */
+        /** Sets the specified value to the {@code threadCount} field. */
         public ktxBasisParams.Buffer threadCount(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.nthreadCount(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#compressionLevel} field. */
+        /** Sets the specified value to the {@code compressionLevel} field. */
         public ktxBasisParams.Buffer compressionLevel(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.ncompressionLevel(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#qualityLevel} field. */
+        /** Sets the specified value to the {@code qualityLevel} field. */
         public ktxBasisParams.Buffer qualityLevel(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.nqualityLevel(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#maxEndpoints} field. */
+        /** Sets the specified value to the {@code maxEndpoints} field. */
         public ktxBasisParams.Buffer maxEndpoints(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.nmaxEndpoints(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#endpointRDOThreshold} field. */
+        /** Sets the specified value to the {@code endpointRDOThreshold} field. */
         public ktxBasisParams.Buffer endpointRDOThreshold(float value) { ktxBasisParams.nendpointRDOThreshold(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#maxSelectors} field. */
+        /** Sets the specified value to the {@code maxSelectors} field. */
         public ktxBasisParams.Buffer maxSelectors(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.nmaxSelectors(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#selectorRDOThreshold} field. */
+        /** Sets the specified value to the {@code selectorRDOThreshold} field. */
         public ktxBasisParams.Buffer selectorRDOThreshold(float value) { ktxBasisParams.nselectorRDOThreshold(address(), value); return this; }
-        /** Copies the specified {@link ByteBuffer} to the {@link ktxBasisParams#inputSwizzle} field. */
+        /** Copies the specified {@link ByteBuffer} to the {@code inputSwizzle} field. */
         public ktxBasisParams.Buffer inputSwizzle(@NativeType("char[4]") ByteBuffer value) { ktxBasisParams.ninputSwizzle(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link ktxBasisParams#inputSwizzle} field. */
+        /** Sets the specified value at the specified index of the {@code inputSwizzle} field. */
         public ktxBasisParams.Buffer inputSwizzle(int index, @NativeType("char") byte value) { ktxBasisParams.ninputSwizzle(address(), index, value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#normalMap} field. */
+        /** Sets the specified value to the {@code normalMap} field. */
         public ktxBasisParams.Buffer normalMap(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nnormalMap(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#separateRGToRGB_A} field. */
+        /** Sets the specified value to the {@code separateRGToRGB_A} field. */
         public ktxBasisParams.Buffer separateRGToRGB_A(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nseparateRGToRGB_A(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#preSwizzle} field. */
+        /** Sets the specified value to the {@code preSwizzle} field. */
         public ktxBasisParams.Buffer preSwizzle(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.npreSwizzle(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#noEndpointRDO} field. */
+        /** Sets the specified value to the {@code noEndpointRDO} field. */
         public ktxBasisParams.Buffer noEndpointRDO(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nnoEndpointRDO(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#noSelectorRDO} field. */
+        /** Sets the specified value to the {@code noSelectorRDO} field. */
         public ktxBasisParams.Buffer noSelectorRDO(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nnoSelectorRDO(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcFlags} field. */
+        /** Sets the specified value to the {@code uastcFlags} field. */
         public ktxBasisParams.Buffer uastcFlags(@NativeType("ktx_pack_uastc_flags") int value) { ktxBasisParams.nuastcFlags(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDO} field. */
+        /** Sets the specified value to the {@code uastcRDO} field. */
         public ktxBasisParams.Buffer uastcRDO(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nuastcRDO(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDOQualityScalar} field. */
+        /** Sets the specified value to the {@code uastcRDOQualityScalar} field. */
         public ktxBasisParams.Buffer uastcRDOQualityScalar(float value) { ktxBasisParams.nuastcRDOQualityScalar(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDODictSize} field. */
+        /** Sets the specified value to the {@code uastcRDODictSize} field. */
         public ktxBasisParams.Buffer uastcRDODictSize(@NativeType("ktx_uint32_t") int value) { ktxBasisParams.nuastcRDODictSize(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDOMaxSmoothBlockErrorScale} field. */
+        /** Sets the specified value to the {@code uastcRDOMaxSmoothBlockErrorScale} field. */
         public ktxBasisParams.Buffer uastcRDOMaxSmoothBlockErrorScale(float value) { ktxBasisParams.nuastcRDOMaxSmoothBlockErrorScale(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDOMaxSmoothBlockStdDev} field. */
+        /** Sets the specified value to the {@code uastcRDOMaxSmoothBlockStdDev} field. */
         public ktxBasisParams.Buffer uastcRDOMaxSmoothBlockStdDev(float value) { ktxBasisParams.nuastcRDOMaxSmoothBlockStdDev(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDODontFavorSimplerModes} field. */
+        /** Sets the specified value to the {@code uastcRDODontFavorSimplerModes} field. */
         public ktxBasisParams.Buffer uastcRDODontFavorSimplerModes(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nuastcRDODontFavorSimplerModes(address(), value); return this; }
-        /** Sets the specified value to the {@link ktxBasisParams#uastcRDONoMultithreading} field. */
+        /** Sets the specified value to the {@code uastcRDONoMultithreading} field. */
         public ktxBasisParams.Buffer uastcRDONoMultithreading(@NativeType("ktx_bool_t") boolean value) { ktxBasisParams.nuastcRDONoMultithreading(address(), value); return this; }
 
     }

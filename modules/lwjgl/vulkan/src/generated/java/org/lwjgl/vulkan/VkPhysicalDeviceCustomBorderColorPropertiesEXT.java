@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether custom border colors can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceCustomBorderColorPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTCustomBorderColor#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceCustomBorderColorPropertiesEXT {
  *     VkStructureType sType;
  *     void * pNext;
- *     uint32_t {@link #maxCustomBorderColorSamplers};
- * }</code></pre>
+ *     uint32_t maxCustomBorderColorSamplers;
+ * }}</pre>
  */
 public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhysicalDeviceCustomBorderColorPropertiesEXT> implements NativeResource {
 
@@ -94,7 +80,7 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates the maximum number of samplers with custom border colors which <b>can</b> simultaneously exist on a device. */
+    /** @return the value of the {@code maxCustomBorderColorSamplers} field. */
     @NativeType("uint32_t")
     public int maxCustomBorderColorSamplers() { return nmaxCustomBorderColorSamplers(address()); }
 
@@ -152,8 +138,7 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCustomBorderColorPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceCustomBorderColorPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceCustomBorderColorPropertiesEXT(address, null);
     }
 
@@ -196,8 +181,7 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceCustomBorderColorPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceCustomBorderColorPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +226,14 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxCustomBorderColorSamplers}. */
-    public static int nmaxCustomBorderColorSamplers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.MAXCUSTOMBORDERCOLORSAMPLERS); }
+    public static int nmaxCustomBorderColorSamplers(long struct) { return memGetInt(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.MAXCUSTOMBORDERCOLORSAMPLERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCustomBorderColorPropertiesEXT.PNEXT, value); }
 
@@ -287,6 +271,11 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceCustomBorderColorPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -297,7 +286,7 @@ public class VkPhysicalDeviceCustomBorderColorPropertiesEXT extends Struct<VkPhy
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceCustomBorderColorPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCustomBorderColorPropertiesEXT#maxCustomBorderColorSamplers} field. */
+        /** @return the value of the {@code maxCustomBorderColorSamplers} field. */
         @NativeType("uint32_t")
         public int maxCustomBorderColorSamplers() { return VkPhysicalDeviceCustomBorderColorPropertiesEXT.nmaxCustomBorderColorSamplers(address()); }
 

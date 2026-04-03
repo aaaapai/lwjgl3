@@ -4,13 +4,14 @@
  */
 package org.lwjgl.system;
 
+import org.jspecify.annotations.*;
 import org.lwjgl.*;
+import org.lwjgl.system.freebsd.*;
 import org.lwjgl.system.libffi.*;
 import org.lwjgl.system.linux.*;
 import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
 
-import javax.annotation.*;
 import java.io.*;
 import java.lang.reflect.*;
 import java.nio.*;
@@ -22,7 +23,6 @@ import java.util.stream.*;
 
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.wrap;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
@@ -58,7 +58,9 @@ public final class APIUtil {
         Object state = Configuration.DEBUG_STREAM.get();
         if (state instanceof String) {
             try {
-                Supplier<PrintStream> factory = (Supplier<PrintStream>)Class.forName((String)state).getConstructor().newInstance();
+                Supplier<PrintStream> factory = (Supplier<PrintStream>)Class.forName((String)state)
+                    .getDeclaredConstructor()
+                    .newInstance();
                 debugStream = factory.get();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -122,12 +124,14 @@ public final class APIUtil {
 
     public static SharedLibrary apiCreateLibrary(String name) {
         switch (Platform.get()) {
-            case WINDOWS:
-                return new WindowsLibrary(name);
+            case FREEBSD:
+                return new FreeBSDLibrary(name);
             case LINUX:
                 return new LinuxLibrary(name);
             case MACOSX:
                 return MacOSXLibrary.create(name);
+            case WINDOWS:
+                return new WindowsLibrary(name);
             default:
                 throw new IllegalStateException();
         }
@@ -159,12 +163,11 @@ public final class APIUtil {
         }
     }
 
-    @Nullable
-    public static ByteBuffer apiGetMappedBuffer(@Nullable ByteBuffer buffer, long mappedAddress, int capacity) {
+    public static @Nullable ByteBuffer apiGetMappedBuffer(@Nullable ByteBuffer buffer, long mappedAddress, int capacity) {
         if (buffer != null && memAddress(buffer) == mappedAddress && buffer.capacity() == capacity) {
             return buffer;
         }
-        return mappedAddress == NULL ? null : wrap(BUFFER_BYTE, mappedAddress, capacity).order(NATIVE_ORDER);
+        return mappedAddress == NULL ? null : wrapBufferByte(mappedAddress, capacity);
     }
 
     public static long apiGetBytes(int elements, int elementShift) {
@@ -192,11 +195,9 @@ public final class APIUtil {
         public final int minor;
 
         /** Returns the API revision. May be null. */
-        @Nullable
-        public final String revision;
+        public final @Nullable String revision;
         /** Returns the API implementation-specific versioning information. May be null. */
-        @Nullable
-        public final String implementation;
+        public final @Nullable String implementation;
 
         public APIVersion(int major, int minor) {
             this(major, minor, null, null);
@@ -267,8 +268,7 @@ public final class APIUtil {
      *
      * @param option the option to query
      */
-    @Nullable
-    public static APIVersion apiParseVersion(Configuration<?> option) {
+    public static @Nullable APIVersion apiParseVersion(Configuration<?> option) {
         APIVersion version;
 
         Object state = option.get();
@@ -318,7 +318,9 @@ public final class APIUtil {
             String s = (String)value;
             if (s.indexOf('.') != -1) { // classpath
                 try {
-                    @SuppressWarnings("unchecked") Predicate<String> predicate = (Predicate<String>)Class.forName(s).newInstance();
+                    @SuppressWarnings("unchecked") Predicate<String> predicate = (Predicate<String>)Class.forName(s)
+                        .getDeclaredConstructor()
+                        .newInstance();
                     extensions.removeIf(predicate);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -368,10 +370,6 @@ public final class APIUtil {
         int TOKEN_MODIFIERS = Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL;
 
         for (Class<?> tokenClass : tokenClasses) {
-            if (tokenClass == null) {
-                continue;
-            }
-
             for (Field field : tokenClass.getDeclaredFields()) {
                 // Get only <public static final int> fields.
                 if ((field.getModifiers() & TOKEN_MODIFIERS) == TOKEN_MODIFIERS && field.getType() == int.class) {
@@ -616,6 +614,8 @@ public final class APIUtil {
             .elements(elementBuffer);
     }
 
+    /** Allocates and prepares a libffi CIF using the default ABI. */
+    public static FFICIF apiCreateCIF(FFIType rtype, FFIType... atypes) { return apiCreateCIF(FFI_DEFAULT_ABI, rtype, atypes); }
     /** Allocates and prepares a libffi CIF. */
     public static FFICIF apiCreateCIF(int abi, FFIType rtype, FFIType... atypes) {
         // These CIFs will never be deallocated, use the allocator directly to ignore them when detecting memory leaks.
@@ -636,6 +636,8 @@ public final class APIUtil {
         return cif;
     }
 
+    /** Allocates and prepares a libffi var CIF using the default ABI. */
+    public static FFICIF apiCreateCIFVar(int nfixedargs, FFIType rtype, FFIType... atypes) { return apiCreateCIFVar(FFI_DEFAULT_ABI, nfixedargs, rtype, atypes); }
     /** Allocates and prepares a libffi var CIF. */
     public static FFICIF apiCreateCIFVar(int abi, int nfixedargs, FFIType rtype, FFIType... atypes) {
         // These CIFs will never be deallocated, use the allocator directly to ignore them when detecting memory leaks.
@@ -657,7 +659,7 @@ public final class APIUtil {
     }
 
     public static int apiStdcall() {
-        return Platform.get() == Platform.WINDOWS && Pointer.BITS32 ? FFI_STDCALL : FFI_DEFAULT_ABI;
+        return BITS64 || Platform.get() != Platform.WINDOWS ? FFI_DEFAULT_ABI : FFI_STDCALL;
     }
 
     public static void apiClosureRet(long ret, boolean __result) { memPutAddress(ret, __result ? 1L : 0L); }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * System property for face tracking.
- * 
- * <h5>Description</h5>
- * 
- * <p>An application <b>can</b> inspect whether the system is capable of receiving face tracking input by extending the {@link XrSystemProperties} with {@link XrSystemFaceTrackingPropertiesFB} structure when calling {@link XR10#xrGetSystemProperties GetSystemProperties}.</p>
- * 
- * <p>If a runtime returns {@link XR10#XR_FALSE FALSE} for {@code supportsFaceTracking}, the runtime <b>must</b> return {@link XR10#XR_ERROR_FEATURE_UNSUPPORTED ERROR_FEATURE_UNSUPPORTED} from {@link FBFaceTracking#xrCreateFaceTrackerFB CreateFaceTrackerFB}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBFaceTracking XR_FB_face_tracking} extension <b>must</b> be enabled prior to using {@link XrSystemFaceTrackingPropertiesFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBFaceTracking#XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSystemFaceTrackingPropertiesFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrBool32 {@link #supportsFaceTracking};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrBool32 supportsFaceTracking;
+ * }}</pre>
  */
 public class XrSystemFaceTrackingPropertiesFB extends Struct<XrSystemFaceTrackingPropertiesFB> implements NativeResource {
 
@@ -92,21 +74,21 @@ public class XrSystemFaceTrackingPropertiesFB extends Struct<XrSystemFaceTrackin
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** an {@code XrBool32}, indicating if current system is capable of receiving face tracking input. */
+    /** @return the value of the {@code supportsFaceTracking} field. */
     @NativeType("XrBool32")
     public boolean supportsFaceTracking() { return nsupportsFaceTracking(address()) != 0; }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSystemFaceTrackingPropertiesFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBFaceTracking#XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBFaceTracking#XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB} value to the {@code type} field. */
     public XrSystemFaceTrackingPropertiesFB type$Default() { return type(FBFaceTracking.XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSystemFaceTrackingPropertiesFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +138,7 @@ public class XrSystemFaceTrackingPropertiesFB extends Struct<XrSystemFaceTrackin
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFaceTrackingPropertiesFB createSafe(long address) {
+    public static @Nullable XrSystemFaceTrackingPropertiesFB createSafe(long address) {
         return address == NULL ? null : new XrSystemFaceTrackingPropertiesFB(address, null);
     }
 
@@ -200,8 +181,7 @@ public class XrSystemFaceTrackingPropertiesFB extends Struct<XrSystemFaceTrackin
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSystemFaceTrackingPropertiesFB.Buffer createSafe(long address, int capacity) {
+    public static XrSystemFaceTrackingPropertiesFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,14 +226,14 @@ public class XrSystemFaceTrackingPropertiesFB extends Struct<XrSystemFaceTrackin
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSystemFaceTrackingPropertiesFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSystemFaceTrackingPropertiesFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSystemFaceTrackingPropertiesFB.NEXT); }
     /** Unsafe version of {@link #supportsFaceTracking}. */
-    public static int nsupportsFaceTracking(long struct) { return UNSAFE.getInt(null, struct + XrSystemFaceTrackingPropertiesFB.SUPPORTSFACETRACKING); }
+    public static int nsupportsFaceTracking(long struct) { return memGetInt(struct + XrSystemFaceTrackingPropertiesFB.SUPPORTSFACETRACKING); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSystemFaceTrackingPropertiesFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSystemFaceTrackingPropertiesFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSystemFaceTrackingPropertiesFB.NEXT, value); }
 
@@ -291,25 +271,30 @@ public class XrSystemFaceTrackingPropertiesFB extends Struct<XrSystemFaceTrackin
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSystemFaceTrackingPropertiesFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSystemFaceTrackingPropertiesFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSystemFaceTrackingPropertiesFB.ntype(address()); }
-        /** @return the value of the {@link XrSystemFaceTrackingPropertiesFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSystemFaceTrackingPropertiesFB.nnext(address()); }
-        /** @return the value of the {@link XrSystemFaceTrackingPropertiesFB#supportsFaceTracking} field. */
+        /** @return the value of the {@code supportsFaceTracking} field. */
         @NativeType("XrBool32")
         public boolean supportsFaceTracking() { return XrSystemFaceTrackingPropertiesFB.nsupportsFaceTracking(address()) != 0; }
 
-        /** Sets the specified value to the {@link XrSystemFaceTrackingPropertiesFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSystemFaceTrackingPropertiesFB.Buffer type(@NativeType("XrStructureType") int value) { XrSystemFaceTrackingPropertiesFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBFaceTracking#XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB} value to the {@link XrSystemFaceTrackingPropertiesFB#type} field. */
+        /** Sets the {@link FBFaceTracking#XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB} value to the {@code type} field. */
         public XrSystemFaceTrackingPropertiesFB.Buffer type$Default() { return type(FBFaceTracking.XR_TYPE_SYSTEM_FACE_TRACKING_PROPERTIES_FB); }
-        /** Sets the specified value to the {@link XrSystemFaceTrackingPropertiesFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSystemFaceTrackingPropertiesFB.Buffer next(@NativeType("void *") long value) { XrSystemFaceTrackingPropertiesFB.nnext(address(), value); return this; }
 
     }

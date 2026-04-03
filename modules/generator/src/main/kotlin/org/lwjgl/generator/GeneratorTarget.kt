@@ -91,18 +91,22 @@ internal class Preamble {
     }
 
     internal fun printNative(writer: PrintWriter) {
-        nativeDirectives.filter { it.beforeIncludes }.forEach {
-            writer.println(it.expression)
-        }
+        nativeDirectives
+            .filter { (_, beforeIncludes) -> beforeIncludes }
+            .forEach { (expression) ->
+                writer.println(expression)
+            }
 
         writer.println("#include \"common_tools.h\"")
         nativeImports.forEach {
             writer.println("#include $it")
         }
 
-        nativeDirectives.filter { !it.beforeIncludes }.forEach {
-            writer.println(it.expression)
-        }
+        nativeDirectives
+            .filter { (_, beforeIncludes) -> !beforeIncludes }
+            .forEach { (expression) ->
+                writer.println(expression)
+            }
     }
 
 }
@@ -137,7 +141,7 @@ abstract class GeneratorTarget(
         ).let { (JAVA, NATIVE) -> """($JAVA)?(?<!&)([@\\]?#{1,2})($NATIVE+(?:\((?:(?:, )?$JAVA)*\))?)""".toRegex() }
     }
 
-    private fun getSourceFileName(): String? {
+    internal open fun getSourceFileName(): String? {
         // Nasty hack to retrieve the source file that defines this template, without having to specify it explictly.
         // This enables incremental builds to work even with arbitrary file names or when multiple templates are bundled
         // in the same file (e.g. ExtensionFlags).
@@ -147,16 +151,27 @@ abstract class GeneratorTarget(
             return t.stackTrace.asSequence()
                 .filter { !it.className.startsWith("org.lwjgl.generator.") }
                 .mapNotNull { it.fileName }
-                .filter { it.endsWith(".kt") && !(this is NativeClass && it.endsWith("Binding.kt")) }
-                .firstOrNull()
+                .firstOrNull { it.endsWith(".kt") && !(this is NativeClass && it.endsWith("Binding.kt")) }
         }
     }
 
+    internal var lmt: Long = 0L
     internal val sourceFile = getSourceFileName()
-    internal open fun getLastModified(root: String): Long = Paths.get(root, sourceFile).let {
-        if (Files.isRegularFile(it)) it else
-            throw IllegalStateException("The source file for template ${module.packageKotlin}.$className does not exist ($it).")
-    }.lastModified
+    internal open fun getLastModified(root: String, fileName: String): Long {
+        val path = Paths.get(root, fileName)
+        if (Files.isRegularFile(path)) {
+            return path.lastModified
+        }
+
+        // Kotlin upper-cases the first letter of the file name, try lower-casing it.
+        // This is necessary on case-sensitive file systems.
+        val lc = Paths.get(root, "${fileName[0].lowercaseChar()}${fileName.substring(1)}")
+        if (Files.isRegularFile(lc)) {
+            return lc.lastModified
+        }
+
+        throw IllegalStateException("The source file for template ${module.packageKotlin}.$className does not exist ($path).")
+    }
 
     var subpackage: String? = null
     val packageName get() = if (subpackage == null) module.packageName else "${module.packageName}.$subpackage"
@@ -168,10 +183,6 @@ abstract class GeneratorTarget(
             }
             field = access
         }
-
-    var documentation: String? = null
-    var see: Array<String>? = null
-    var since: String = ""
 
     internal val preamble = Preamble()
 
@@ -185,19 +196,6 @@ abstract class GeneratorTarget(
         return this
     }
 
-    protected fun linksFromRegex(pattern: String) = pattern.toRegex().let { regex ->
-        Generator.tokens[module]!!
-            .asSequence()
-            .mapNotNull { if (regex.matches(it.key)) it.key else null }
-            .joinToString(" #", prefix = "#")
-            .let {
-                if (it.length == 1)
-                    throw IllegalStateException("Failed to match any tokens with regex: $pattern")
-                else
-                    it
-            }
-    }
-
     infix fun Int.x(other: Int) = this * other
 
     protected fun PrintWriter.generateJavaPreamble() {
@@ -205,30 +203,16 @@ abstract class GeneratorTarget(
         println("package $packageName;\n")
 
         preamble.printJava(this)
-
-        val documentation = this@GeneratorTarget.documentation
-        if (documentation != null)
-            println(processDocumentation(documentation).toJavaDoc(indentation = "", see = see, since = since))
     }
 
     abstract fun PrintWriter.generateJava()
 
     open fun processDocumentation(documentation: String, forcePackage: Boolean = false): String {
-        processSeeLinks("", "", forcePackage)
         return processDocumentation(documentation, "", "", forcePackage)
     }
 
     open fun getFieldLink(field: String): String? = null
     open fun getMethodLink(method: String): String? = null
-
-    protected fun processSeeLinks(prefixConstant: String, prefixMethod: String, forcePackage: Boolean = false) {
-        val see = this.see
-        if (see != null) {
-            for (i in see.indices) {
-                see[i] = processDocumentation(see[i], prefixConstant, prefixMethod, forcePackage, false)
-            }
-        }
-    }
 
     protected fun processDocumentation(
         documentation: String,
@@ -347,8 +331,7 @@ abstract class GeneratorTargetNative(
     internal val nativeFileNameJNI = packageName
         .splitToSequence('.')
         .plus(className)
-        .map { it.asJNIName }
-        .joinToString("_")
+        .joinToString("_") { it.asJNIName }
 
     open val skipNative = false
     var cpp = false
@@ -377,8 +360,8 @@ fun packageInfo(
         override fun PrintWriter.generateJava() {
             print(HEADER)
             println()
-            println(processDocumentation(documentation, forcePackage = true).toJavaDoc(indentation = "", see = see, since = since))
-            println("""@org.lwjgl.system.NonnullDefault
+            println(processDocumentation(documentation, forcePackage = true).toJavaDoc(indentation = ""))
+            println("""@org.jspecify.annotations.NullMarked
 package $packageName;
 """)
         }

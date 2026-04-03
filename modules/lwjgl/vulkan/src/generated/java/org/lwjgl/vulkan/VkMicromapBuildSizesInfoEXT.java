@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,29 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying build sizes for a micromap.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link EXTOpacityMicromap#vkGetMicromapBuildSizesEXT GetMicromapBuildSizesEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMicromapBuildSizesInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkDeviceSize {@link #micromapSize};
- *     VkDeviceSize {@link #buildScratchSize};
- *     VkBool32 {@link #discardable};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkDeviceSize micromapSize;
+ *     VkDeviceSize buildScratchSize;
+ *     VkBool32 discardable;
+ * }}</pre>
  */
 public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfoEXT> implements NativeResource {
 
@@ -97,33 +82,33 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the size in bytes required in a {@code VkMicromapEXT} for a build or update operation. */
+    /** @return the value of the {@code micromapSize} field. */
     @NativeType("VkDeviceSize")
     public long micromapSize() { return nmicromapSize(address()); }
-    /** the size in bytes required in a scratch buffer for a build operation. */
+    /** @return the value of the {@code buildScratchSize} field. */
     @NativeType("VkDeviceSize")
     public long buildScratchSize() { return nbuildScratchSize(address()); }
-    /** indicates whether or not the micromap object may be destroyed after an acceleration structure build or update. A false value means that acceleration structures built with this micromap <b>may</b> contain references to the data contained therein, and the application <b>must</b> not destroy the micromap until ray traversal has concluded. A true value means that the information in the micromap will be copied by value into the acceleration structure, and the micromap <b>may</b> be destroyed after the acceleration structure build concludes. */
+    /** @return the value of the {@code discardable} field. */
     @NativeType("VkBool32")
     public boolean discardable() { return ndiscardable(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMicromapBuildSizesInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT} value to the {@code sType} field. */
     public VkMicromapBuildSizesInfoEXT sType$Default() { return sType(EXTOpacityMicromap.VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMicromapBuildSizesInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #micromapSize} field. */
+    /** Sets the specified value to the {@code micromapSize} field. */
     public VkMicromapBuildSizesInfoEXT micromapSize(@NativeType("VkDeviceSize") long value) { nmicromapSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #buildScratchSize} field. */
+    /** Sets the specified value to the {@code buildScratchSize} field. */
     public VkMicromapBuildSizesInfoEXT buildScratchSize(@NativeType("VkDeviceSize") long value) { nbuildScratchSize(address(), value); return this; }
-    /** Sets the specified value to the {@link #discardable} field. */
+    /** Sets the specified value to the {@code discardable} field. */
     public VkMicromapBuildSizesInfoEXT discardable(@NativeType("VkBool32") boolean value) { ndiscardable(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -179,8 +164,7 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildSizesInfoEXT createSafe(long address) {
+    public static @Nullable VkMicromapBuildSizesInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkMicromapBuildSizesInfoEXT(address, null);
     }
 
@@ -223,8 +207,7 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkMicromapBuildSizesInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkMicromapBuildSizesInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,26 +252,26 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildSizesInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkMicromapBuildSizesInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkMicromapBuildSizesInfoEXT.PNEXT); }
     /** Unsafe version of {@link #micromapSize}. */
-    public static long nmicromapSize(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE); }
+    public static long nmicromapSize(long struct) { return memGetLong(struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE); }
     /** Unsafe version of {@link #buildScratchSize}. */
-    public static long nbuildScratchSize(long struct) { return UNSAFE.getLong(null, struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE); }
+    public static long nbuildScratchSize(long struct) { return memGetLong(struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE); }
     /** Unsafe version of {@link #discardable}. */
-    public static int ndiscardable(long struct) { return UNSAFE.getInt(null, struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE); }
+    public static int ndiscardable(long struct) { return memGetInt(struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildSizesInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkMicromapBuildSizesInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkMicromapBuildSizesInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #micromapSize(long) micromapSize}. */
-    public static void nmicromapSize(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE, value); }
+    public static void nmicromapSize(long struct, long value) { memPutLong(struct + VkMicromapBuildSizesInfoEXT.MICROMAPSIZE, value); }
     /** Unsafe version of {@link #buildScratchSize(long) buildScratchSize}. */
-    public static void nbuildScratchSize(long struct, long value) { UNSAFE.putLong(null, struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE, value); }
+    public static void nbuildScratchSize(long struct, long value) { memPutLong(struct + VkMicromapBuildSizesInfoEXT.BUILDSCRATCHSIZE, value); }
     /** Unsafe version of {@link #discardable(boolean) discardable}. */
-    public static void ndiscardable(long struct, int value) { UNSAFE.putInt(null, struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE, value); }
+    public static void ndiscardable(long struct, int value) { memPutInt(struct + VkMicromapBuildSizesInfoEXT.DISCARDABLE, value); }
 
     // -----------------------------------
 
@@ -324,37 +307,42 @@ public class VkMicromapBuildSizesInfoEXT extends Struct<VkMicromapBuildSizesInfo
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkMicromapBuildSizesInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMicromapBuildSizesInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMicromapBuildSizesInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkMicromapBuildSizesInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMicromapBuildSizesInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkMicromapBuildSizesInfoEXT#micromapSize} field. */
+        /** @return the value of the {@code micromapSize} field. */
         @NativeType("VkDeviceSize")
         public long micromapSize() { return VkMicromapBuildSizesInfoEXT.nmicromapSize(address()); }
-        /** @return the value of the {@link VkMicromapBuildSizesInfoEXT#buildScratchSize} field. */
+        /** @return the value of the {@code buildScratchSize} field. */
         @NativeType("VkDeviceSize")
         public long buildScratchSize() { return VkMicromapBuildSizesInfoEXT.nbuildScratchSize(address()); }
-        /** @return the value of the {@link VkMicromapBuildSizesInfoEXT#discardable} field. */
+        /** @return the value of the {@code discardable} field. */
         @NativeType("VkBool32")
         public boolean discardable() { return VkMicromapBuildSizesInfoEXT.ndiscardable(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkMicromapBuildSizesInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMicromapBuildSizesInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkMicromapBuildSizesInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT} value to the {@link VkMicromapBuildSizesInfoEXT#sType} field. */
+        /** Sets the {@link EXTOpacityMicromap#VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT} value to the {@code sType} field. */
         public VkMicromapBuildSizesInfoEXT.Buffer sType$Default() { return sType(EXTOpacityMicromap.VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT); }
-        /** Sets the specified value to the {@link VkMicromapBuildSizesInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMicromapBuildSizesInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkMicromapBuildSizesInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildSizesInfoEXT#micromapSize} field. */
+        /** Sets the specified value to the {@code micromapSize} field. */
         public VkMicromapBuildSizesInfoEXT.Buffer micromapSize(@NativeType("VkDeviceSize") long value) { VkMicromapBuildSizesInfoEXT.nmicromapSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildSizesInfoEXT#buildScratchSize} field. */
+        /** Sets the specified value to the {@code buildScratchSize} field. */
         public VkMicromapBuildSizesInfoEXT.Buffer buildScratchSize(@NativeType("VkDeviceSize") long value) { VkMicromapBuildSizesInfoEXT.nbuildScratchSize(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMicromapBuildSizesInfoEXT#discardable} field. */
+        /** Sets the specified value to the {@code discardable} field. */
         public VkMicromapBuildSizesInfoEXT.Buffer discardable(@NativeType("VkBool32") boolean value) { VkMicromapBuildSizesInfoEXT.ndiscardable(address(), value ? 1 : 0); return this; }
 
     }

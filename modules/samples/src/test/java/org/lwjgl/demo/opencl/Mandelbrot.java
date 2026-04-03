@@ -18,6 +18,7 @@ import static org.lwjgl.demo.opencl.CLGLInteropDemo.*;
 import static org.lwjgl.demo.opencl.InfoUtil.*;
 import static org.lwjgl.demo.util.IOUtil.*;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFWNativeEGL.*;
 import static org.lwjgl.glfw.GLFWNativeGLX.*;
 import static org.lwjgl.glfw.GLFWNativeWGL.*;
 import static org.lwjgl.glfw.GLFWNativeX11.*;
@@ -140,7 +141,7 @@ public class Mandelbrot {
 
     Callback debugProc;
 
-    public Mandelbrot(long platform, CLCapabilities platformCaps, GLFWWindow window, int deviceType, boolean debugGL, int maxIterations) {
+    public Mandelbrot(long platform, CLCapabilities platformCaps, GLFWWindow window, long deviceType, boolean debugGL, int maxIterations) {
         this.platform = platform;
 
         this.window = window;
@@ -194,12 +195,22 @@ public class Mandelbrot {
                         .put(CL_WGL_HDC_KHR)
                         .put(wglGetCurrentDC());
                     break;
+                case FREEBSD:
                 case LINUX:
-                    ctxProps
-                        .put(CL_GL_CONTEXT_KHR)
-                        .put(glfwGetGLXContext(window.handle))
-                        .put(CL_GLX_DISPLAY_KHR)
-                        .put(glfwGetX11Display());
+                    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+                        ctxProps
+                            .put(CL_GL_CONTEXT_KHR)
+                            .put(glfwGetEGLContext(window.handle))
+                            .put(CL_EGL_DISPLAY_KHR)
+                            .put(glfwGetEGLDisplay());
+                    } else {
+                        ctxProps
+                            .put(CL_GL_CONTEXT_KHR)
+                            .put(glfwGetGLXContext(window.handle))
+                            .put(CL_GLX_DISPLAY_KHR)
+                            .put(glfwGetX11Display());
+                    }
+
                     break;
                 case MACOSX:
                     ctxProps
@@ -456,7 +467,7 @@ public class Mandelbrot {
         });
     }
 
-    private static long getDevice(long platform, CLCapabilities platformCaps, int deviceType) {
+    private static long getDevice(long platform, CLCapabilities platformCaps, long deviceType) {
         try (MemoryStack stack = stackPush()) {
             IntBuffer pi = stack.mallocInt(1);
             checkCLError(clGetDeviceIDs(platform, deviceType, null, pi));

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,48 +16,34 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing descriptor indexing properties that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceDescriptorIndexingProperties} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDescriptorIndexingProperties {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     uint32_t {@link #maxUpdateAfterBindDescriptorsInAllPools};
- *     VkBool32 {@link #shaderUniformBufferArrayNonUniformIndexingNative};
- *     VkBool32 {@link #shaderSampledImageArrayNonUniformIndexingNative};
- *     VkBool32 {@link #shaderStorageBufferArrayNonUniformIndexingNative};
- *     VkBool32 {@link #shaderStorageImageArrayNonUniformIndexingNative};
- *     VkBool32 {@link #shaderInputAttachmentArrayNonUniformIndexingNative};
- *     VkBool32 {@link #robustBufferAccessUpdateAfterBind};
- *     VkBool32 {@link #quadDivergentImplicitLod};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindSamplers};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindUniformBuffers};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindStorageBuffers};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindSampledImages};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindStorageImages};
- *     uint32_t {@link #maxPerStageDescriptorUpdateAfterBindInputAttachments};
- *     uint32_t {@link #maxPerStageUpdateAfterBindResources};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindSamplers};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindUniformBuffers};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindUniformBuffersDynamic};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindStorageBuffers};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindStorageBuffersDynamic};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindSampledImages};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindStorageImages};
- *     uint32_t {@link #maxDescriptorSetUpdateAfterBindInputAttachments};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     uint32_t maxUpdateAfterBindDescriptorsInAllPools;
+ *     VkBool32 shaderUniformBufferArrayNonUniformIndexingNative;
+ *     VkBool32 shaderSampledImageArrayNonUniformIndexingNative;
+ *     VkBool32 shaderStorageBufferArrayNonUniformIndexingNative;
+ *     VkBool32 shaderStorageImageArrayNonUniformIndexingNative;
+ *     VkBool32 shaderInputAttachmentArrayNonUniformIndexingNative;
+ *     VkBool32 robustBufferAccessUpdateAfterBind;
+ *     VkBool32 quadDivergentImplicitLod;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindSamplers;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindUniformBuffers;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindStorageBuffers;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindSampledImages;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindStorageImages;
+ *     uint32_t maxPerStageDescriptorUpdateAfterBindInputAttachments;
+ *     uint32_t maxPerStageUpdateAfterBindResources;
+ *     uint32_t maxDescriptorSetUpdateAfterBindSamplers;
+ *     uint32_t maxDescriptorSetUpdateAfterBindUniformBuffers;
+ *     uint32_t maxDescriptorSetUpdateAfterBindUniformBuffersDynamic;
+ *     uint32_t maxDescriptorSetUpdateAfterBindStorageBuffers;
+ *     uint32_t maxDescriptorSetUpdateAfterBindStorageBuffersDynamic;
+ *     uint32_t maxDescriptorSetUpdateAfterBindSampledImages;
+ *     uint32_t maxDescriptorSetUpdateAfterBindStorageImages;
+ *     uint32_t maxDescriptorSetUpdateAfterBindInputAttachments;
+ * }}</pre>
  */
 public class VkPhysicalDeviceDescriptorIndexingProperties extends Struct<VkPhysicalDeviceDescriptorIndexingProperties> implements NativeResource {
 
@@ -176,87 +162,87 @@ public class VkPhysicalDeviceDescriptorIndexingProperties extends Struct<VkPhysi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the maximum number of descriptors (summed over all descriptor types) that <b>can</b> be created across all pools that are created with the {@link VK12#VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} bit set. Pool creation <b>may</b> fail when this limit is exceeded, or when the space this limit represents is unable to satisfy a pool creation due to fragmentation. */
+    /** @return the value of the {@code maxUpdateAfterBindDescriptorsInAllPools} field. */
     @NativeType("uint32_t")
     public int maxUpdateAfterBindDescriptorsInAllPools() { return nmaxUpdateAfterBindDescriptorsInAllPools(address()); }
-    /** a boolean value indicating whether uniform buffer descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of uniform buffers <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** @return the value of the {@code shaderUniformBufferArrayNonUniformIndexingNative} field. */
     @NativeType("VkBool32")
     public boolean shaderUniformBufferArrayNonUniformIndexingNative() { return nshaderUniformBufferArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether sampler and image descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of samplers or images <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** @return the value of the {@code shaderSampledImageArrayNonUniformIndexingNative} field. */
     @NativeType("VkBool32")
     public boolean shaderSampledImageArrayNonUniformIndexingNative() { return nshaderSampledImageArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether storage buffer descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of storage buffers <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** @return the value of the {@code shaderStorageBufferArrayNonUniformIndexingNative} field. */
     @NativeType("VkBool32")
     public boolean shaderStorageBufferArrayNonUniformIndexingNative() { return nshaderStorageBufferArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether storage image descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of storage images <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** @return the value of the {@code shaderStorageImageArrayNonUniformIndexingNative} field. */
     @NativeType("VkBool32")
     public boolean shaderStorageImageArrayNonUniformIndexingNative() { return nshaderStorageImageArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether input attachment descriptors natively support nonuniform indexing. If this is {@link VK10#VK_FALSE FALSE}, then a single dynamic instance of an instruction that nonuniformly indexes an array of input attachments <b>may</b> execute multiple times in order to access all the descriptors. */
+    /** @return the value of the {@code shaderInputAttachmentArrayNonUniformIndexingNative} field. */
     @NativeType("VkBool32")
     public boolean shaderInputAttachmentArrayNonUniformIndexingNative() { return nshaderInputAttachmentArrayNonUniformIndexingNative(address()) != 0; }
-    /** a boolean value indicating whether <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-robustBufferAccess">{@code robustBufferAccess}</a> <b>can</b> be enabled on a device simultaneously with {@code descriptorBindingUniformBufferUpdateAfterBind}, {@code descriptorBindingStorageBufferUpdateAfterBind}, {@code descriptorBindingUniformTexelBufferUpdateAfterBind}, and/or {@code descriptorBindingStorageTexelBufferUpdateAfterBind}. If this is {@link VK10#VK_FALSE FALSE}, then either {@code robustBufferAccess} <b>must</b> be disabled or all of these update-after-bind features <b>must</b> be disabled. */
+    /** @return the value of the {@code robustBufferAccessUpdateAfterBind} field. */
     @NativeType("VkBool32")
     public boolean robustBufferAccessUpdateAfterBind() { return nrobustBufferAccessUpdateAfterBind(address()) != 0; }
-    /** a boolean value indicating whether implicit LOD calculations for image operations have well-defined results when the image and/or sampler objects used for the instruction are not uniform within a quad. See <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-derivative-image-operations">Derivative Image Operations</a>. */
+    /** @return the value of the {@code quadDivergentImplicitLod} field. */
     @NativeType("VkBool32")
     public boolean quadDivergentImplicitLod() { return nquadDivergentImplicitLod(address()) != 0; }
-    /** similar to {@code maxPerStageDescriptorSamplers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindSamplers} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindSamplers() { return nmaxPerStageDescriptorUpdateAfterBindSamplers(address()); }
-    /** similar to {@code maxPerStageDescriptorUniformBuffers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindUniformBuffers} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindUniformBuffers() { return nmaxPerStageDescriptorUpdateAfterBindUniformBuffers(address()); }
-    /** similar to {@code maxPerStageDescriptorStorageBuffers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindStorageBuffers} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindStorageBuffers() { return nmaxPerStageDescriptorUpdateAfterBindStorageBuffers(address()); }
-    /** similar to {@code maxPerStageDescriptorSampledImages} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindSampledImages} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindSampledImages() { return nmaxPerStageDescriptorUpdateAfterBindSampledImages(address()); }
-    /** similar to {@code maxPerStageDescriptorStorageImages} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindStorageImages} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindStorageImages() { return nmaxPerStageDescriptorUpdateAfterBindStorageImages(address()); }
-    /** similar to {@code maxPerStageDescriptorInputAttachments} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindInputAttachments} field. */
     @NativeType("uint32_t")
     public int maxPerStageDescriptorUpdateAfterBindInputAttachments() { return nmaxPerStageDescriptorUpdateAfterBindInputAttachments(address()); }
-    /** similar to {@code maxPerStageResources} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxPerStageUpdateAfterBindResources} field. */
     @NativeType("uint32_t")
     public int maxPerStageUpdateAfterBindResources() { return nmaxPerStageUpdateAfterBindResources(address()); }
-    /** similar to {@code maxDescriptorSetSamplers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindSamplers} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindSamplers() { return nmaxDescriptorSetUpdateAfterBindSamplers(address()); }
-    /** similar to {@code maxDescriptorSetUniformBuffers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindUniformBuffers} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindUniformBuffers() { return nmaxDescriptorSetUpdateAfterBindUniformBuffers(address()); }
-    /** similar to {@code maxDescriptorSetUniformBuffersDynamic} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. While an application <b>can</b> allocate dynamic uniform buffer descriptors from a pool created with the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT}, bindings for these descriptors <b>must</b> not be present in any descriptor set layout that includes bindings created with {@link VK12#VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT}. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindUniformBuffersDynamic} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindUniformBuffersDynamic() { return nmaxDescriptorSetUpdateAfterBindUniformBuffersDynamic(address()); }
-    /** similar to {@code maxDescriptorSetStorageBuffers} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindStorageBuffers} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindStorageBuffers() { return nmaxDescriptorSetUpdateAfterBindStorageBuffers(address()); }
-    /** similar to {@code maxDescriptorSetStorageBuffersDynamic} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. While an application <b>can</b> allocate dynamic storage buffer descriptors from a pool created with the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT}, bindings for these descriptors <b>must</b> not be present in any descriptor set layout that includes bindings created with {@link VK12#VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT}. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindStorageBuffersDynamic} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindStorageBuffersDynamic() { return nmaxDescriptorSetUpdateAfterBindStorageBuffersDynamic(address()); }
-    /** similar to {@code maxDescriptorSetSampledImages} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindSampledImages} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindSampledImages() { return nmaxDescriptorSetUpdateAfterBindSampledImages(address()); }
-    /** similar to {@code maxDescriptorSetStorageImages} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindStorageImages} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindStorageImages() { return nmaxDescriptorSetUpdateAfterBindStorageImages(address()); }
-    /** similar to {@code maxDescriptorSetInputAttachments} but counts descriptors from descriptor sets created with or without the {@link VK12#VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT} bit set. */
+    /** @return the value of the {@code maxDescriptorSetUpdateAfterBindInputAttachments} field. */
     @NativeType("uint32_t")
     public int maxDescriptorSetUpdateAfterBindInputAttachments() { return nmaxDescriptorSetUpdateAfterBindInputAttachments(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceDescriptorIndexingProperties sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES} value to the {@code sType} field. */
     public VkPhysicalDeviceDescriptorIndexingProperties sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceDescriptorIndexingProperties pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -306,8 +292,7 @@ public class VkPhysicalDeviceDescriptorIndexingProperties extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorIndexingProperties createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDescriptorIndexingProperties createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDescriptorIndexingProperties(address, null);
     }
 
@@ -350,8 +335,7 @@ public class VkPhysicalDeviceDescriptorIndexingProperties extends Struct<VkPhysi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDescriptorIndexingProperties.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDescriptorIndexingProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -396,58 +380,58 @@ public class VkPhysicalDeviceDescriptorIndexingProperties extends Struct<VkPhysi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDescriptorIndexingProperties.PNEXT); }
     /** Unsafe version of {@link #maxUpdateAfterBindDescriptorsInAllPools}. */
-    public static int nmaxUpdateAfterBindDescriptorsInAllPools(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXUPDATEAFTERBINDDESCRIPTORSINALLPOOLS); }
+    public static int nmaxUpdateAfterBindDescriptorsInAllPools(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXUPDATEAFTERBINDDESCRIPTORSINALLPOOLS); }
     /** Unsafe version of {@link #shaderUniformBufferArrayNonUniformIndexingNative}. */
-    public static int nshaderUniformBufferArrayNonUniformIndexingNative(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERUNIFORMBUFFERARRAYNONUNIFORMINDEXINGNATIVE); }
+    public static int nshaderUniformBufferArrayNonUniformIndexingNative(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERUNIFORMBUFFERARRAYNONUNIFORMINDEXINGNATIVE); }
     /** Unsafe version of {@link #shaderSampledImageArrayNonUniformIndexingNative}. */
-    public static int nshaderSampledImageArrayNonUniformIndexingNative(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERSAMPLEDIMAGEARRAYNONUNIFORMINDEXINGNATIVE); }
+    public static int nshaderSampledImageArrayNonUniformIndexingNative(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERSAMPLEDIMAGEARRAYNONUNIFORMINDEXINGNATIVE); }
     /** Unsafe version of {@link #shaderStorageBufferArrayNonUniformIndexingNative}. */
-    public static int nshaderStorageBufferArrayNonUniformIndexingNative(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERSTORAGEBUFFERARRAYNONUNIFORMINDEXINGNATIVE); }
+    public static int nshaderStorageBufferArrayNonUniformIndexingNative(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERSTORAGEBUFFERARRAYNONUNIFORMINDEXINGNATIVE); }
     /** Unsafe version of {@link #shaderStorageImageArrayNonUniformIndexingNative}. */
-    public static int nshaderStorageImageArrayNonUniformIndexingNative(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERSTORAGEIMAGEARRAYNONUNIFORMINDEXINGNATIVE); }
+    public static int nshaderStorageImageArrayNonUniformIndexingNative(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERSTORAGEIMAGEARRAYNONUNIFORMINDEXINGNATIVE); }
     /** Unsafe version of {@link #shaderInputAttachmentArrayNonUniformIndexingNative}. */
-    public static int nshaderInputAttachmentArrayNonUniformIndexingNative(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERINPUTATTACHMENTARRAYNONUNIFORMINDEXINGNATIVE); }
+    public static int nshaderInputAttachmentArrayNonUniformIndexingNative(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.SHADERINPUTATTACHMENTARRAYNONUNIFORMINDEXINGNATIVE); }
     /** Unsafe version of {@link #robustBufferAccessUpdateAfterBind}. */
-    public static int nrobustBufferAccessUpdateAfterBind(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.ROBUSTBUFFERACCESSUPDATEAFTERBIND); }
+    public static int nrobustBufferAccessUpdateAfterBind(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.ROBUSTBUFFERACCESSUPDATEAFTERBIND); }
     /** Unsafe version of {@link #quadDivergentImplicitLod}. */
-    public static int nquadDivergentImplicitLod(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.QUADDIVERGENTIMPLICITLOD); }
+    public static int nquadDivergentImplicitLod(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.QUADDIVERGENTIMPLICITLOD); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindSamplers}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindSamplers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSAMPLERS); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindSamplers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSAMPLERS); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindUniformBuffers}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindUniformBuffers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDUNIFORMBUFFERS); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindUniformBuffers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDUNIFORMBUFFERS); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindStorageBuffers}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindStorageBuffers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSTORAGEBUFFERS); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindStorageBuffers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSTORAGEBUFFERS); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindSampledImages}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindSampledImages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSAMPLEDIMAGES); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindSampledImages(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSAMPLEDIMAGES); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindStorageImages}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindStorageImages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSTORAGEIMAGES); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindStorageImages(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDSTORAGEIMAGES); }
     /** Unsafe version of {@link #maxPerStageDescriptorUpdateAfterBindInputAttachments}. */
-    public static int nmaxPerStageDescriptorUpdateAfterBindInputAttachments(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDINPUTATTACHMENTS); }
+    public static int nmaxPerStageDescriptorUpdateAfterBindInputAttachments(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEDESCRIPTORUPDATEAFTERBINDINPUTATTACHMENTS); }
     /** Unsafe version of {@link #maxPerStageUpdateAfterBindResources}. */
-    public static int nmaxPerStageUpdateAfterBindResources(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEUPDATEAFTERBINDRESOURCES); }
+    public static int nmaxPerStageUpdateAfterBindResources(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXPERSTAGEUPDATEAFTERBINDRESOURCES); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindSamplers}. */
-    public static int nmaxDescriptorSetUpdateAfterBindSamplers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSAMPLERS); }
+    public static int nmaxDescriptorSetUpdateAfterBindSamplers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSAMPLERS); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindUniformBuffers}. */
-    public static int nmaxDescriptorSetUpdateAfterBindUniformBuffers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDUNIFORMBUFFERS); }
+    public static int nmaxDescriptorSetUpdateAfterBindUniformBuffers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDUNIFORMBUFFERS); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindUniformBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindUniformBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDUNIFORMBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindUniformBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDUNIFORMBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindStorageBuffers}. */
-    public static int nmaxDescriptorSetUpdateAfterBindStorageBuffers(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSTORAGEBUFFERS); }
+    public static int nmaxDescriptorSetUpdateAfterBindStorageBuffers(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSTORAGEBUFFERS); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindStorageBuffersDynamic}. */
-    public static int nmaxDescriptorSetUpdateAfterBindStorageBuffersDynamic(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSTORAGEBUFFERSDYNAMIC); }
+    public static int nmaxDescriptorSetUpdateAfterBindStorageBuffersDynamic(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSTORAGEBUFFERSDYNAMIC); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindSampledImages}. */
-    public static int nmaxDescriptorSetUpdateAfterBindSampledImages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSAMPLEDIMAGES); }
+    public static int nmaxDescriptorSetUpdateAfterBindSampledImages(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSAMPLEDIMAGES); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindStorageImages}. */
-    public static int nmaxDescriptorSetUpdateAfterBindStorageImages(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSTORAGEIMAGES); }
+    public static int nmaxDescriptorSetUpdateAfterBindStorageImages(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDSTORAGEIMAGES); }
     /** Unsafe version of {@link #maxDescriptorSetUpdateAfterBindInputAttachments}. */
-    public static int nmaxDescriptorSetUpdateAfterBindInputAttachments(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDINPUTATTACHMENTS); }
+    public static int nmaxDescriptorSetUpdateAfterBindInputAttachments(long struct) { return memGetInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.MAXDESCRIPTORSETUPDATEAFTERBINDINPUTATTACHMENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDescriptorIndexingProperties.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDescriptorIndexingProperties.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDescriptorIndexingProperties.PNEXT, value); }
 
@@ -485,91 +469,96 @@ public class VkPhysicalDeviceDescriptorIndexingProperties extends Struct<VkPhysi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceDescriptorIndexingProperties getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceDescriptorIndexingProperties.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceDescriptorIndexingProperties.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxUpdateAfterBindDescriptorsInAllPools} field. */
+        /** @return the value of the {@code maxUpdateAfterBindDescriptorsInAllPools} field. */
         @NativeType("uint32_t")
         public int maxUpdateAfterBindDescriptorsInAllPools() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxUpdateAfterBindDescriptorsInAllPools(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#shaderUniformBufferArrayNonUniformIndexingNative} field. */
+        /** @return the value of the {@code shaderUniformBufferArrayNonUniformIndexingNative} field. */
         @NativeType("VkBool32")
         public boolean shaderUniformBufferArrayNonUniformIndexingNative() { return VkPhysicalDeviceDescriptorIndexingProperties.nshaderUniformBufferArrayNonUniformIndexingNative(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#shaderSampledImageArrayNonUniformIndexingNative} field. */
+        /** @return the value of the {@code shaderSampledImageArrayNonUniformIndexingNative} field. */
         @NativeType("VkBool32")
         public boolean shaderSampledImageArrayNonUniformIndexingNative() { return VkPhysicalDeviceDescriptorIndexingProperties.nshaderSampledImageArrayNonUniformIndexingNative(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#shaderStorageBufferArrayNonUniformIndexingNative} field. */
+        /** @return the value of the {@code shaderStorageBufferArrayNonUniformIndexingNative} field. */
         @NativeType("VkBool32")
         public boolean shaderStorageBufferArrayNonUniformIndexingNative() { return VkPhysicalDeviceDescriptorIndexingProperties.nshaderStorageBufferArrayNonUniformIndexingNative(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#shaderStorageImageArrayNonUniformIndexingNative} field. */
+        /** @return the value of the {@code shaderStorageImageArrayNonUniformIndexingNative} field. */
         @NativeType("VkBool32")
         public boolean shaderStorageImageArrayNonUniformIndexingNative() { return VkPhysicalDeviceDescriptorIndexingProperties.nshaderStorageImageArrayNonUniformIndexingNative(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#shaderInputAttachmentArrayNonUniformIndexingNative} field. */
+        /** @return the value of the {@code shaderInputAttachmentArrayNonUniformIndexingNative} field. */
         @NativeType("VkBool32")
         public boolean shaderInputAttachmentArrayNonUniformIndexingNative() { return VkPhysicalDeviceDescriptorIndexingProperties.nshaderInputAttachmentArrayNonUniformIndexingNative(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#robustBufferAccessUpdateAfterBind} field. */
+        /** @return the value of the {@code robustBufferAccessUpdateAfterBind} field. */
         @NativeType("VkBool32")
         public boolean robustBufferAccessUpdateAfterBind() { return VkPhysicalDeviceDescriptorIndexingProperties.nrobustBufferAccessUpdateAfterBind(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#quadDivergentImplicitLod} field. */
+        /** @return the value of the {@code quadDivergentImplicitLod} field. */
         @NativeType("VkBool32")
         public boolean quadDivergentImplicitLod() { return VkPhysicalDeviceDescriptorIndexingProperties.nquadDivergentImplicitLod(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageDescriptorUpdateAfterBindSamplers} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindSamplers} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindSamplers() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageDescriptorUpdateAfterBindSamplers(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageDescriptorUpdateAfterBindUniformBuffers} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindUniformBuffers} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindUniformBuffers() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageDescriptorUpdateAfterBindUniformBuffers(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageDescriptorUpdateAfterBindStorageBuffers} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindStorageBuffers} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindStorageBuffers() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageDescriptorUpdateAfterBindStorageBuffers(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageDescriptorUpdateAfterBindSampledImages} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindSampledImages} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindSampledImages() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageDescriptorUpdateAfterBindSampledImages(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageDescriptorUpdateAfterBindStorageImages} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindStorageImages} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindStorageImages() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageDescriptorUpdateAfterBindStorageImages(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageDescriptorUpdateAfterBindInputAttachments} field. */
+        /** @return the value of the {@code maxPerStageDescriptorUpdateAfterBindInputAttachments} field. */
         @NativeType("uint32_t")
         public int maxPerStageDescriptorUpdateAfterBindInputAttachments() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageDescriptorUpdateAfterBindInputAttachments(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxPerStageUpdateAfterBindResources} field. */
+        /** @return the value of the {@code maxPerStageUpdateAfterBindResources} field. */
         @NativeType("uint32_t")
         public int maxPerStageUpdateAfterBindResources() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxPerStageUpdateAfterBindResources(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindSamplers} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindSamplers} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindSamplers() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindSamplers(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindUniformBuffers} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindUniformBuffers} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindUniformBuffers() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindUniformBuffers(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindUniformBuffersDynamic} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindUniformBuffersDynamic} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindUniformBuffersDynamic() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindUniformBuffersDynamic(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindStorageBuffers} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindStorageBuffers} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindStorageBuffers() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindStorageBuffers(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindStorageBuffersDynamic} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindStorageBuffersDynamic} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindStorageBuffersDynamic() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindStorageBuffersDynamic(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindSampledImages} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindSampledImages} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindSampledImages() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindSampledImages(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindStorageImages} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindStorageImages} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindStorageImages() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindStorageImages(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDescriptorIndexingProperties#maxDescriptorSetUpdateAfterBindInputAttachments} field. */
+        /** @return the value of the {@code maxDescriptorSetUpdateAfterBindInputAttachments} field. */
         @NativeType("uint32_t")
         public int maxDescriptorSetUpdateAfterBindInputAttachments() { return VkPhysicalDeviceDescriptorIndexingProperties.nmaxDescriptorSetUpdateAfterBindInputAttachments(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceDescriptorIndexingProperties#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceDescriptorIndexingProperties.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceDescriptorIndexingProperties.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES} value to the {@link VkPhysicalDeviceDescriptorIndexingProperties#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES} value to the {@code sType} field. */
         public VkPhysicalDeviceDescriptorIndexingProperties.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDescriptorIndexingProperties#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceDescriptorIndexingProperties.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceDescriptorIndexingProperties.npNext(address(), value); return this; }
 
     }

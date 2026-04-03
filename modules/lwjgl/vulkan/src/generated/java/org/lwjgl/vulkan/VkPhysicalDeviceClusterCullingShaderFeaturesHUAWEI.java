@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether cluster culling shader is enabled.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #clustercullingShader};
- *     VkBool32 {@link #multiviewClusterCullingShader};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 clustercullingShader;
+ *     VkBool32 multiviewClusterCullingShader;
+ * }}</pre>
  */
 public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI> implements NativeResource {
 
@@ -92,28 +78,30 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** specifies whether cluster culling shader is supported. */
+    /** @return the value of the {@code clustercullingShader} field. */
     @NativeType("VkBool32")
     public boolean clustercullingShader() { return nclustercullingShader(address()) != 0; }
-    /** specifies whether multiview is supported. */
+    /** @return the value of the {@code multiviewClusterCullingShader} field. */
     @NativeType("VkBool32")
     public boolean multiviewClusterCullingShader() { return nmultiviewClusterCullingShader(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI} value to the {@link #sType} field. */
+    /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI} value to the {@code sType} field. */
     public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI sType$Default() { return sType(HUAWEIClusterCullingShader.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #clustercullingShader} field. */
+    /** Prepends the specified {@link VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI} value to the {@code pNext} chain. */
+    public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI pNext(VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Sets the specified value to the {@code clustercullingShader} field. */
     public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI clustercullingShader(@NativeType("VkBool32") boolean value) { nclustercullingShader(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #multiviewClusterCullingShader} field. */
+    /** Sets the specified value to the {@code multiviewClusterCullingShader} field. */
     public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI multiviewClusterCullingShader(@NativeType("VkBool32") boolean value) { nmultiviewClusterCullingShader(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +155,7 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI(address, null);
     }
 
@@ -211,8 +198,7 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,22 +243,22 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.PNEXT); }
     /** Unsafe version of {@link #clustercullingShader}. */
-    public static int nclustercullingShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER); }
+    public static int nclustercullingShader(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER); }
     /** Unsafe version of {@link #multiviewClusterCullingShader}. */
-    public static int nmultiviewClusterCullingShader(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER); }
+    public static int nmultiviewClusterCullingShader(long struct) { return memGetInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.PNEXT, value); }
     /** Unsafe version of {@link #clustercullingShader(boolean) clustercullingShader}. */
-    public static void nclustercullingShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER, value); }
+    public static void nclustercullingShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.CLUSTERCULLINGSHADER, value); }
     /** Unsafe version of {@link #multiviewClusterCullingShader(boolean) multiviewClusterCullingShader}. */
-    public static void nmultiviewClusterCullingShader(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER, value); }
+    public static void nmultiviewClusterCullingShader(long struct, int value) { memPutInt(struct + VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.MULTIVIEWCLUSTERCULLINGSHADER, value); }
 
     // -----------------------------------
 
@@ -308,32 +294,39 @@ public class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends Struct<V
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#clustercullingShader} field. */
+        /** @return the value of the {@code clustercullingShader} field. */
         @NativeType("VkBool32")
         public boolean clustercullingShader() { return VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.nclustercullingShader(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#multiviewClusterCullingShader} field. */
+        /** @return the value of the {@code multiviewClusterCullingShader} field. */
         @NativeType("VkBool32")
         public boolean multiviewClusterCullingShader() { return VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.nmultiviewClusterCullingShader(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.nsType(address(), value); return this; }
-        /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI} value to the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#sType} field. */
+        /** Sets the {@link HUAWEIClusterCullingShader#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI} value to the {@code sType} field. */
         public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer sType$Default() { return sType(HUAWEIClusterCullingShader.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#clustercullingShader} field. */
+        /** Prepends the specified {@link VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI} value to the {@code pNext} chain. */
+        public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer pNext(VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Sets the specified value to the {@code clustercullingShader} field. */
         public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer clustercullingShader(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.nclustercullingShader(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI#multiviewClusterCullingShader} field. */
+        /** Sets the specified value to the {@code multiviewClusterCullingShader} field. */
         public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.Buffer multiviewClusterCullingShader(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.nmultiviewClusterCullingShader(address(), value ? 1 : 0); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,30 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Wait frame information structure.
- * 
- * <h5>Description</h5>
- * 
- * <p>Because this structure only exists to support extension-specific structures, {@link XR10#xrWaitFrame WaitFrame} <b>must</b> accept a {@code NULL} argument for {@code frameWaitInfo} for applications that are not using any relevant extensions.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be {@link XR10#XR_TYPE_FRAME_WAIT_INFO TYPE_FRAME_WAIT_INFO}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrFrameState}, {@link XR10#xrWaitFrame WaitFrame}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFrameWaitInfo {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ * }}</pre>
  */
 public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeResource {
 
@@ -89,18 +70,18 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrFrameWaitInfo type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link XR10#XR_TYPE_FRAME_WAIT_INFO TYPE_FRAME_WAIT_INFO} value to the {@link #type} field. */
+    /** Sets the {@link XR10#XR_TYPE_FRAME_WAIT_INFO TYPE_FRAME_WAIT_INFO} value to the {@code type} field. */
     public XrFrameWaitInfo type$Default() { return type(XR10.XR_TYPE_FRAME_WAIT_INFO); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrFrameWaitInfo next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -150,8 +131,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrameWaitInfo createSafe(long address) {
+    public static @Nullable XrFrameWaitInfo createSafe(long address) {
         return address == NULL ? null : new XrFrameWaitInfo(address, null);
     }
 
@@ -194,8 +174,7 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFrameWaitInfo.Buffer createSafe(long address, int capacity) {
+    public static XrFrameWaitInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -240,12 +219,12 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFrameWaitInfo.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFrameWaitInfo.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFrameWaitInfo.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFrameWaitInfo.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFrameWaitInfo.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFrameWaitInfo.NEXT, value); }
 
@@ -283,22 +262,27 @@ public class XrFrameWaitInfo extends Struct<XrFrameWaitInfo> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrFrameWaitInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFrameWaitInfo#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrFrameWaitInfo.ntype(address()); }
-        /** @return the value of the {@link XrFrameWaitInfo#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrFrameWaitInfo.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrFrameWaitInfo#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrFrameWaitInfo.Buffer type(@NativeType("XrStructureType") int value) { XrFrameWaitInfo.ntype(address(), value); return this; }
-        /** Sets the {@link XR10#XR_TYPE_FRAME_WAIT_INFO TYPE_FRAME_WAIT_INFO} value to the {@link XrFrameWaitInfo#type} field. */
+        /** Sets the {@link XR10#XR_TYPE_FRAME_WAIT_INFO TYPE_FRAME_WAIT_INFO} value to the {@code type} field. */
         public XrFrameWaitInfo.Buffer type$Default() { return type(XR10.XR_TYPE_FRAME_WAIT_INFO); }
-        /** Sets the specified value to the {@link XrFrameWaitInfo#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrFrameWaitInfo.Buffer next(@NativeType("void const *") long value) { XrFrameWaitInfo.nnext(address(), value); return this; }
 
     }

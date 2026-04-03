@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,25 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Scene object.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstanding XR_MSFT_scene_understanding} extension <b>must</b> be enabled prior to using {@link XrSceneObjectMSFT}</li>
- * <li>{@code objectType} <b>must</b> be a valid {@code XrSceneObjectTypeMSFT} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSceneObjectsMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSceneObjectMSFT {
- *     XrSceneObjectTypeMSFT {@link #objectType};
- * }</code></pre>
+ *     XrSceneObjectTypeMSFT objectType;
+ * }}</pre>
  */
 public class XrSceneObjectMSFT extends Struct<XrSceneObjectMSFT> implements NativeResource {
 
@@ -81,11 +66,11 @@ public class XrSceneObjectMSFT extends Struct<XrSceneObjectMSFT> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the type of the object specified by {@code XrSceneObjectTypeMSFT}. */
+    /** @return the value of the {@code objectType} field. */
     @NativeType("XrSceneObjectTypeMSFT")
     public int objectType() { return nobjectType(address()); }
 
-    /** Sets the specified value to the {@link #objectType} field. */
+    /** Sets the specified value to the {@code objectType} field. */
     public XrSceneObjectMSFT objectType(@NativeType("XrSceneObjectTypeMSFT") int value) { nobjectType(address(), value); return this; }
 
     /**
@@ -124,8 +109,7 @@ public class XrSceneObjectMSFT extends Struct<XrSceneObjectMSFT> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneObjectMSFT createSafe(long address) {
+    public static @Nullable XrSceneObjectMSFT createSafe(long address) {
         return address == NULL ? null : new XrSceneObjectMSFT(address, null);
     }
 
@@ -168,8 +152,7 @@ public class XrSceneObjectMSFT extends Struct<XrSceneObjectMSFT> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSceneObjectMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrSceneObjectMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -214,10 +197,10 @@ public class XrSceneObjectMSFT extends Struct<XrSceneObjectMSFT> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #objectType}. */
-    public static int nobjectType(long struct) { return UNSAFE.getInt(null, struct + XrSceneObjectMSFT.OBJECTTYPE); }
+    public static int nobjectType(long struct) { return memGetInt(struct + XrSceneObjectMSFT.OBJECTTYPE); }
 
     /** Unsafe version of {@link #objectType(int) objectType}. */
-    public static void nobjectType(long struct, int value) { UNSAFE.putInt(null, struct + XrSceneObjectMSFT.OBJECTTYPE, value); }
+    public static void nobjectType(long struct, int value) { memPutInt(struct + XrSceneObjectMSFT.OBJECTTYPE, value); }
 
     // -----------------------------------
 
@@ -253,15 +236,20 @@ public class XrSceneObjectMSFT extends Struct<XrSceneObjectMSFT> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSceneObjectMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSceneObjectMSFT#objectType} field. */
+        /** @return the value of the {@code objectType} field. */
         @NativeType("XrSceneObjectTypeMSFT")
         public int objectType() { return XrSceneObjectMSFT.nobjectType(address()); }
 
-        /** Sets the specified value to the {@link XrSceneObjectMSFT#objectType} field. */
+        /** Sets the specified value to the {@code objectType} field. */
         public XrSceneObjectMSFT.Buffer objectType(@NativeType("XrSceneObjectTypeMSFT") int value) { XrSceneObjectMSFT.nobjectType(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPipelineCreationFeedbackCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkPipelineCreationFeedbackCreateInfoEXT {
  *     VkStructureType sType;
@@ -65,7 +61,7 @@ public class VkPipelineCreationFeedbackCreateInfoEXT extends VkPipelineCreationF
     public VkPipelineCreationFeedbackCreateInfoEXT pPipelineCreationFeedback(@NativeType("VkPipelineCreationFeedback *") VkPipelineCreationFeedback value) { npPipelineCreationFeedback(address(), value); return this; }
     /** Sets the address of the specified {@link VkPipelineCreationFeedback.Buffer} to the {@code pPipelineStageCreationFeedbacks} field. */
     @Override
-    public VkPipelineCreationFeedbackCreateInfoEXT pPipelineStageCreationFeedbacks(@Nullable @NativeType("VkPipelineCreationFeedback *") VkPipelineCreationFeedback.Buffer value) { npPipelineStageCreationFeedbacks(address(), value); return this; }
+    public VkPipelineCreationFeedbackCreateInfoEXT pPipelineStageCreationFeedbacks(@NativeType("VkPipelineCreationFeedback *") VkPipelineCreationFeedback.@Nullable Buffer value) { npPipelineStageCreationFeedbacks(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     @Override
@@ -73,7 +69,7 @@ public class VkPipelineCreationFeedbackCreateInfoEXT extends VkPipelineCreationF
         int sType,
         long pNext,
         VkPipelineCreationFeedback pPipelineCreationFeedback,
-        @Nullable VkPipelineCreationFeedback.Buffer pPipelineStageCreationFeedbacks
+        VkPipelineCreationFeedback.@Nullable Buffer pPipelineStageCreationFeedbacks
     ) {
         sType(sType);
         pNext(pNext);
@@ -119,8 +115,7 @@ public class VkPipelineCreationFeedbackCreateInfoEXT extends VkPipelineCreationF
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedbackCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineCreationFeedbackCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineCreationFeedbackCreateInfoEXT(address, null);
     }
 
@@ -163,29 +158,9 @@ public class VkPipelineCreationFeedbackCreateInfoEXT extends VkPipelineCreationF
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineCreationFeedbackCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineCreationFeedbackCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPipelineCreationFeedbackCreateInfoEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkPipelineCreationFeedbackCreateInfoEXT} instance allocated on the specified {@link MemoryStack}.
@@ -259,6 +234,11 @@ public class VkPipelineCreationFeedbackCreateInfoEXT extends VkPipelineCreationF
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineCreationFeedbackCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -277,7 +257,7 @@ public class VkPipelineCreationFeedbackCreateInfoEXT extends VkPipelineCreationF
         public VkPipelineCreationFeedbackCreateInfoEXT.Buffer pPipelineCreationFeedback(@NativeType("VkPipelineCreationFeedback *") VkPipelineCreationFeedback value) { VkPipelineCreationFeedbackCreateInfoEXT.npPipelineCreationFeedback(address(), value); return this; }
         /** Sets the address of the specified {@link VkPipelineCreationFeedback.Buffer} to the {@code pPipelineStageCreationFeedbacks} field. */
         @Override
-        public VkPipelineCreationFeedbackCreateInfoEXT.Buffer pPipelineStageCreationFeedbacks(@Nullable @NativeType("VkPipelineCreationFeedback *") VkPipelineCreationFeedback.Buffer value) { VkPipelineCreationFeedbackCreateInfoEXT.npPipelineStageCreationFeedbacks(address(), value); return this; }
+        public VkPipelineCreationFeedbackCreateInfoEXT.Buffer pPipelineStageCreationFeedbacks(@NativeType("VkPipelineCreationFeedback *") VkPipelineCreationFeedback.@Nullable Buffer value) { VkPipelineCreationFeedbackCreateInfoEXT.npPipelineStageCreationFeedbacks(address(), value); return this; }
 
     }
 

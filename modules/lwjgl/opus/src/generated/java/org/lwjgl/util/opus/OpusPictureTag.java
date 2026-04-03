@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.opus;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,23 +16,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The contents of a {@code METADATA_BLOCK_PICTURE} tag.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct OpusPictureTag {
- *     opus_int32 {@link #type};
- *     char * {@link #mime_type};
- *     char * {@link #description};
- *     opus_uint32 {@link #width};
- *     opus_uint32 {@link #height};
- *     opus_uint32 {@link #depth};
- *     opus_uint32 {@link #colors};
- *     opus_uint32 {@link #data_length};
- *     unsigned char * {@link #data};
- *     int {@link #format};
- * }</code></pre>
+ *     opus_int32 type;
+ *     char * mime_type;
+ *     char * description;
+ *     opus_uint32 width;
+ *     opus_uint32 height;
+ *     opus_uint32 depth;
+ *     opus_uint32 colors;
+ *     opus_uint32 data_length;
+ *     unsigned char * data;
+ *     int format;
+ * }}</pre>
  */
 public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeResource {
 
@@ -106,73 +102,37 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * the picture type according to the ID3v2 APIC frame:
-     * 
-     * <ol>
-     * <li>Other</li>
-     * <li>32x32 pixels 'file icon' (PNG only)</li>
-     * <li>Other file icon</li>
-     * <li>Cover (front)</li>
-     * <li>Cover (back)</li>
-     * <li>Leaflet page</li>
-     * <li>Media (e.g. label side of CD)</li>
-     * <li>Lead artist/lead performer/soloist</li>
-     * <li>Artist/performer</li>
-     * <li>Conductor</li>
-     * <li>Band/Orchestra</li>
-     * <li>Composer</li>
-     * <li>Lyricist/text writer</li>
-     * <li>Recording Location</li>
-     * <li>During recording</li>
-     * <li>During performance</li>
-     * <li>Movie/video screen capture</li>
-     * <li>A bright colored fish</li>
-     * <li>Illustration</li>
-     * <li>Band/artist logotype</li>
-     * <li>Publisher/Studio logotype</li>
-     * </ol>
-     * 
-     * <p>Others are reserved and should not be used. There may only be one each of picture type 1 and 2 in a file.</p>
-     */
+    /** @return the value of the {@code type} field. */
     @NativeType("opus_int32")
     public int type() { return ntype(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return the MIME type of the picture, in printable ASCII characters {@code 0x20-0x7E}.
-     *         
-     *         <p>The MIME type may also be {@code "-->"} to signify that the data part is a URL pointing to the picture instead of the picture data itself. In this
-     *         case, a terminating {@code NUL} is appended to the URL string in {@code #data}, but {@code #data_length} is set to the length of the string excluding
-     *         that terminating {@code NUL}.</p>
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code mime_type} field. */
     @NativeType("char *")
     public ByteBuffer mime_type(int capacity) { return nmime_type(address(), capacity); }
-    /** the description of the picture, in UTF-8 */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code description} field. */
     @NativeType("char *")
     public ByteBuffer description() { return ndescription(address()); }
-    /** the description of the picture, in UTF-8 */
+    /** @return the null-terminated string pointed to by the {@code description} field. */
     @NativeType("char *")
     public String descriptionString() { return ndescriptionString(address()); }
-    /** the width of the picture in pixels */
+    /** @return the value of the {@code width} field. */
     @NativeType("opus_uint32")
     public int width() { return nwidth(address()); }
-    /** the height of the picture in pixels */
+    /** @return the value of the {@code height} field. */
     @NativeType("opus_uint32")
     public int height() { return nheight(address()); }
-    /** the color depth of the picture in bits-per-pixel (<em> not</em> bits-per-channel) */
+    /** @return the value of the {@code depth} field. */
     @NativeType("opus_uint32")
     public int depth() { return ndepth(address()); }
-    /** for indexed-color pictures (e.g., GIF), the number of colors used, or 0 for non-indexed pictures. */
+    /** @return the value of the {@code colors} field. */
     @NativeType("opus_uint32")
     public int colors() { return ncolors(address()); }
-    /** the length of the picture data in bytes */
+    /** @return the value of the {@code data_length} field. */
     @NativeType("opus_uint32")
     public int data_length() { return ndata_length(address()); }
-    /** the binary picture data */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
     @NativeType("unsigned char *")
     public ByteBuffer data() { return ndata(address()); }
-    /** the format of the picture data, if known. One of:<br><table><tr><td>{@link OpusFile#OP_PIC_FORMAT_UNKNOWN PIC_FORMAT_UNKNOWN}</td><td>{@link OpusFile#OP_PIC_FORMAT_URL PIC_FORMAT_URL}</td><td>{@link OpusFile#OP_PIC_FORMAT_JPEG PIC_FORMAT_JPEG}</td><td>{@link OpusFile#OP_PIC_FORMAT_PNG PIC_FORMAT_PNG}</td><td>{@link OpusFile#OP_PIC_FORMAT_GIF PIC_FORMAT_GIF}</td></tr></table> */
+    /** @return the value of the {@code format} field. */
     public int format() { return nformat(address()); }
 
     // -----------------------------------
@@ -199,8 +159,7 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OpusPictureTag createSafe(long address) {
+    public static @Nullable OpusPictureTag createSafe(long address) {
         return address == NULL ? null : new OpusPictureTag(address, null);
     }
 
@@ -243,8 +202,7 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static OpusPictureTag.Buffer createSafe(long address, int capacity) {
+    public static OpusPictureTag.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -289,7 +247,7 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + OpusPictureTag.TYPE); }
     /** Unsafe version of {@link #mime_type(int) mime_type}. */
     public static ByteBuffer nmime_type(long struct, int capacity) { return memByteBuffer(memGetAddress(struct + OpusPictureTag.MIME_TYPE), capacity); }
     /** Unsafe version of {@link #description}. */
@@ -297,19 +255,19 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
     /** Unsafe version of {@link #descriptionString}. */
     public static String ndescriptionString(long struct) { return memUTF8(memGetAddress(struct + OpusPictureTag.DESCRIPTION)); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + OpusPictureTag.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + OpusPictureTag.HEIGHT); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + OpusPictureTag.DEPTH); }
     /** Unsafe version of {@link #colors}. */
-    public static int ncolors(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.COLORS); }
+    public static int ncolors(long struct) { return memGetInt(struct + OpusPictureTag.COLORS); }
     /** Unsafe version of {@link #data_length}. */
-    public static int ndata_length(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.DATA_LENGTH); }
+    public static int ndata_length(long struct) { return memGetInt(struct + OpusPictureTag.DATA_LENGTH); }
     /** Unsafe version of {@link #data() data}. */
     public static ByteBuffer ndata(long struct) { return memByteBuffer(memGetAddress(struct + OpusPictureTag.DATA), ndata_length(struct)); }
     /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return UNSAFE.getInt(null, struct + OpusPictureTag.FORMAT); }
+    public static int nformat(long struct) { return memGetInt(struct + OpusPictureTag.FORMAT); }
 
     // -----------------------------------
 
@@ -345,45 +303,46 @@ public class OpusPictureTag extends Struct<OpusPictureTag> implements NativeReso
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected OpusPictureTag getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link OpusPictureTag#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("opus_int32")
         public int type() { return OpusPictureTag.ntype(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@link OpusPictureTag#mime_type} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code mime_type} field. */
         @NativeType("char *")
         public ByteBuffer mime_type(int capacity) { return OpusPictureTag.nmime_type(address(), capacity); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link OpusPictureTag#description} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code description} field. */
         @NativeType("char *")
         public ByteBuffer description() { return OpusPictureTag.ndescription(address()); }
-        /** @return the null-terminated string pointed to by the {@link OpusPictureTag#description} field. */
+        /** @return the null-terminated string pointed to by the {@code description} field. */
         @NativeType("char *")
         public String descriptionString() { return OpusPictureTag.ndescriptionString(address()); }
-        /** @return the value of the {@link OpusPictureTag#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("opus_uint32")
         public int width() { return OpusPictureTag.nwidth(address()); }
-        /** @return the value of the {@link OpusPictureTag#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("opus_uint32")
         public int height() { return OpusPictureTag.nheight(address()); }
-        /** @return the value of the {@link OpusPictureTag#depth} field. */
+        /** @return the value of the {@code depth} field. */
         @NativeType("opus_uint32")
         public int depth() { return OpusPictureTag.ndepth(address()); }
-        /** @return the value of the {@link OpusPictureTag#colors} field. */
+        /** @return the value of the {@code colors} field. */
         @NativeType("opus_uint32")
         public int colors() { return OpusPictureTag.ncolors(address()); }
-        /** @return the value of the {@link OpusPictureTag#data_length} field. */
+        /** @return the value of the {@code data_length} field. */
         @NativeType("opus_uint32")
         public int data_length() { return OpusPictureTag.ndata_length(address()); }
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link OpusPictureTag#data} field. */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code data} field. */
         @NativeType("unsigned char *")
         public ByteBuffer data() { return OpusPictureTag.ndata(address()); }
-        /** @return the value of the {@link OpusPictureTag#format} field. */
+        /** @return the value of the {@code format} field. */
         public int format() { return OpusPictureTag.nformat(address()); }
 
     }

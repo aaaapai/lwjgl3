@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying image format properties.
- * 
- * <h5>Description</h5>
- * 
- * <p>The bits reported in {@code linearTilingFeatures}, {@code optimalTilingFeatures} and {@code bufferFeatures} <b>must</b> include the bits reported in the corresponding fields of {@link VkFormatProperties2}{@code ::formatProperties}.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK13#VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3 STRUCTURE_TYPE_FORMAT_PROPERTIES_3}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkFormatProperties3 {
  *     VkStructureType sType;
  *     void * pNext;
- *     VkFormatFeatureFlags2 {@link #linearTilingFeatures};
- *     VkFormatFeatureFlags2 {@link #optimalTilingFeatures};
- *     VkFormatFeatureFlags2 {@link #bufferFeatures};
- * }</code></pre>
+ *     VkFormatFeatureFlags2 linearTilingFeatures;
+ *     VkFormatFeatureFlags2 optimalTilingFeatures;
+ *     VkFormatFeatureFlags2 bufferFeatures;
+ * }}</pre>
  */
 public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements NativeResource {
 
@@ -102,13 +88,13 @@ public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements 
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkFormatFeatureFlagBits2} specifying features supported by images created with a {@code tiling} parameter of {@link VK10#VK_IMAGE_TILING_LINEAR IMAGE_TILING_LINEAR}. */
+    /** @return the value of the {@code linearTilingFeatures} field. */
     @NativeType("VkFormatFeatureFlags2")
     public long linearTilingFeatures() { return nlinearTilingFeatures(address()); }
-    /** a bitmask of {@code VkFormatFeatureFlagBits2} specifying features supported by images created with a {@code tiling} parameter of {@link VK10#VK_IMAGE_TILING_OPTIMAL IMAGE_TILING_OPTIMAL}. */
+    /** @return the value of the {@code optimalTilingFeatures} field. */
     @NativeType("VkFormatFeatureFlags2")
     public long optimalTilingFeatures() { return noptimalTilingFeatures(address()); }
-    /** a bitmask of {@code VkFormatFeatureFlagBits2} specifying features supported by buffers. */
+    /** @return the value of the {@code bufferFeatures} field. */
     @NativeType("VkFormatFeatureFlags2")
     public long bufferFeatures() { return nbufferFeatures(address()); }
 
@@ -166,8 +152,7 @@ public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements 
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFormatProperties3 createSafe(long address) {
+    public static @Nullable VkFormatProperties3 createSafe(long address) {
         return address == NULL ? null : new VkFormatProperties3(address, null);
     }
 
@@ -210,8 +195,7 @@ public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements 
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkFormatProperties3.Buffer createSafe(long address, int capacity) {
+    public static VkFormatProperties3.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -256,18 +240,18 @@ public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements 
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkFormatProperties3.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkFormatProperties3.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkFormatProperties3.PNEXT); }
     /** Unsafe version of {@link #linearTilingFeatures}. */
-    public static long nlinearTilingFeatures(long struct) { return UNSAFE.getLong(null, struct + VkFormatProperties3.LINEARTILINGFEATURES); }
+    public static long nlinearTilingFeatures(long struct) { return memGetLong(struct + VkFormatProperties3.LINEARTILINGFEATURES); }
     /** Unsafe version of {@link #optimalTilingFeatures}. */
-    public static long noptimalTilingFeatures(long struct) { return UNSAFE.getLong(null, struct + VkFormatProperties3.OPTIMALTILINGFEATURES); }
+    public static long noptimalTilingFeatures(long struct) { return memGetLong(struct + VkFormatProperties3.OPTIMALTILINGFEATURES); }
     /** Unsafe version of {@link #bufferFeatures}. */
-    public static long nbufferFeatures(long struct) { return UNSAFE.getLong(null, struct + VkFormatProperties3.BUFFERFEATURES); }
+    public static long nbufferFeatures(long struct) { return memGetLong(struct + VkFormatProperties3.BUFFERFEATURES); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkFormatProperties3.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkFormatProperties3.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkFormatProperties3.PNEXT, value); }
 
@@ -305,6 +289,11 @@ public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements 
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkFormatProperties3 getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -315,13 +304,13 @@ public class VkFormatProperties3 extends Struct<VkFormatProperties3> implements 
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkFormatProperties3.npNext(address()); }
-        /** @return the value of the {@link VkFormatProperties3#linearTilingFeatures} field. */
+        /** @return the value of the {@code linearTilingFeatures} field. */
         @NativeType("VkFormatFeatureFlags2")
         public long linearTilingFeatures() { return VkFormatProperties3.nlinearTilingFeatures(address()); }
-        /** @return the value of the {@link VkFormatProperties3#optimalTilingFeatures} field. */
+        /** @return the value of the {@code optimalTilingFeatures} field. */
         @NativeType("VkFormatFeatureFlags2")
         public long optimalTilingFeatures() { return VkFormatProperties3.noptimalTilingFeatures(address()); }
-        /** @return the value of the {@link VkFormatProperties3#bufferFeatures} field. */
+        /** @return the value of the {@code bufferFeatures} field. */
         @NativeType("VkFormatFeatureFlags2")
         public long bufferFeatures() { return VkFormatProperties3.nbufferFeatures(address()); }
 

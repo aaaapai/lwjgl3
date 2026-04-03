@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,11 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkRenderPassMultiviewCreateInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRenderPassMultiviewCreateInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
@@ -31,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int32_t const * pViewOffsets;
  *     uint32_t correlationMaskCount;
  *     uint32_t const * pCorrelationMasks;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkRenderPassMultiviewCreateInfoKHR extends VkRenderPassMultiviewCreateInfo {
 
@@ -127,8 +123,7 @@ public class VkRenderPassMultiviewCreateInfoKHR extends VkRenderPassMultiviewCre
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassMultiviewCreateInfoKHR createSafe(long address) {
+    public static @Nullable VkRenderPassMultiviewCreateInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkRenderPassMultiviewCreateInfoKHR(address, null);
     }
 
@@ -171,29 +166,9 @@ public class VkRenderPassMultiviewCreateInfoKHR extends VkRenderPassMultiviewCre
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkRenderPassMultiviewCreateInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkRenderPassMultiviewCreateInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRenderPassMultiviewCreateInfoKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkRenderPassMultiviewCreateInfoKHR} instance allocated on the specified {@link MemoryStack}.
@@ -264,6 +239,11 @@ public class VkRenderPassMultiviewCreateInfoKHR extends VkRenderPassMultiviewCre
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

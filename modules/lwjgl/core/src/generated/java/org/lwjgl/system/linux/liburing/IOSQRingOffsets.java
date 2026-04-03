@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.linux.liburing;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Filled with the offset for {@code mmap(2)}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct io_sqring_offsets {
  *     __u32 head;
  *     __u32 tail;
@@ -30,8 +26,8 @@ import static org.lwjgl.system.MemoryStack.*;
  *     __u32 dropped;
  *     __u32 array;
  *     __u32 resv1;
- *     __u64 resv2;
- * }</code></pre>
+ *     __u64 user_addr;
+ * }}</pre>
  */
 @NativeType("struct io_sqring_offsets")
 public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeResource {
@@ -52,7 +48,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         DROPPED,
         ARRAY,
         RESV1,
-        RESV2;
+        USER_ADDR;
 
     static {
         Layout layout = __struct(
@@ -78,7 +74,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         DROPPED = layout.offsetof(5);
         ARRAY = layout.offsetof(6);
         RESV1 = layout.offsetof(7);
-        RESV2 = layout.offsetof(8);
+        USER_ADDR = layout.offsetof(8);
     }
 
     protected IOSQRingOffsets(long address, @Nullable ByteBuffer container) {
@@ -124,6 +120,9 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     /** @return the value of the {@code array} field. */
     @NativeType("__u32")
     public int array() { return narray(address()); }
+    /** @return the value of the {@code user_addr} field. */
+    @NativeType("__u64")
+    public long user_addr() { return nuser_addr(address()); }
 
     /** Sets the specified value to the {@code head} field. */
     public IOSQRingOffsets head(@NativeType("__u32") int value) { nhead(address(), value); return this; }
@@ -139,6 +138,8 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     public IOSQRingOffsets dropped(@NativeType("__u32") int value) { ndropped(address(), value); return this; }
     /** Sets the specified value to the {@code array} field. */
     public IOSQRingOffsets array(@NativeType("__u32") int value) { narray(address(), value); return this; }
+    /** Sets the specified value to the {@code user_addr} field. */
+    public IOSQRingOffsets user_addr(@NativeType("__u64") long value) { nuser_addr(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOSQRingOffsets set(
@@ -148,7 +149,8 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         int ring_entries,
         int flags,
         int dropped,
-        int array
+        int array,
+        long user_addr
     ) {
         head(head);
         tail(tail);
@@ -157,6 +159,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         flags(flags);
         dropped(dropped);
         array(array);
+        user_addr(user_addr);
 
         return this;
     }
@@ -197,8 +200,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOSQRingOffsets createSafe(long address) {
+    public static @Nullable IOSQRingOffsets createSafe(long address) {
         return address == NULL ? null : new IOSQRingOffsets(address, null);
     }
 
@@ -241,8 +243,7 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static IOSQRingOffsets.Buffer createSafe(long address, int capacity) {
+    public static IOSQRingOffsets.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -287,38 +288,40 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #head}. */
-    public static int nhead(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.HEAD); }
+    public static int nhead(long struct) { return memGetInt(struct + IOSQRingOffsets.HEAD); }
     /** Unsafe version of {@link #tail}. */
-    public static int ntail(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.TAIL); }
+    public static int ntail(long struct) { return memGetInt(struct + IOSQRingOffsets.TAIL); }
     /** Unsafe version of {@link #ring_mask}. */
-    public static int nring_mask(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.RING_MASK); }
+    public static int nring_mask(long struct) { return memGetInt(struct + IOSQRingOffsets.RING_MASK); }
     /** Unsafe version of {@link #ring_entries}. */
-    public static int nring_entries(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.RING_ENTRIES); }
+    public static int nring_entries(long struct) { return memGetInt(struct + IOSQRingOffsets.RING_ENTRIES); }
     /** Unsafe version of {@link #flags}. */
-    public static int nflags(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.FLAGS); }
+    public static int nflags(long struct) { return memGetInt(struct + IOSQRingOffsets.FLAGS); }
     /** Unsafe version of {@link #dropped}. */
-    public static int ndropped(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.DROPPED); }
+    public static int ndropped(long struct) { return memGetInt(struct + IOSQRingOffsets.DROPPED); }
     /** Unsafe version of {@link #array}. */
-    public static int narray(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.ARRAY); }
-    public static int nresv1(long struct) { return UNSAFE.getInt(null, struct + IOSQRingOffsets.RESV1); }
-    public static long nresv2(long struct) { return UNSAFE.getLong(null, struct + IOSQRingOffsets.RESV2); }
+    public static int narray(long struct) { return memGetInt(struct + IOSQRingOffsets.ARRAY); }
+    public static int nresv1(long struct) { return memGetInt(struct + IOSQRingOffsets.RESV1); }
+    /** Unsafe version of {@link #user_addr}. */
+    public static long nuser_addr(long struct) { return memGetLong(struct + IOSQRingOffsets.USER_ADDR); }
 
     /** Unsafe version of {@link #head(int) head}. */
-    public static void nhead(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.HEAD, value); }
+    public static void nhead(long struct, int value) { memPutInt(struct + IOSQRingOffsets.HEAD, value); }
     /** Unsafe version of {@link #tail(int) tail}. */
-    public static void ntail(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.TAIL, value); }
+    public static void ntail(long struct, int value) { memPutInt(struct + IOSQRingOffsets.TAIL, value); }
     /** Unsafe version of {@link #ring_mask(int) ring_mask}. */
-    public static void nring_mask(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.RING_MASK, value); }
+    public static void nring_mask(long struct, int value) { memPutInt(struct + IOSQRingOffsets.RING_MASK, value); }
     /** Unsafe version of {@link #ring_entries(int) ring_entries}. */
-    public static void nring_entries(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.RING_ENTRIES, value); }
+    public static void nring_entries(long struct, int value) { memPutInt(struct + IOSQRingOffsets.RING_ENTRIES, value); }
     /** Unsafe version of {@link #flags(int) flags}. */
-    public static void nflags(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.FLAGS, value); }
+    public static void nflags(long struct, int value) { memPutInt(struct + IOSQRingOffsets.FLAGS, value); }
     /** Unsafe version of {@link #dropped(int) dropped}. */
-    public static void ndropped(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.DROPPED, value); }
+    public static void ndropped(long struct, int value) { memPutInt(struct + IOSQRingOffsets.DROPPED, value); }
     /** Unsafe version of {@link #array(int) array}. */
-    public static void narray(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.ARRAY, value); }
-    public static void nresv1(long struct, int value) { UNSAFE.putInt(null, struct + IOSQRingOffsets.RESV1, value); }
-    public static void nresv2(long struct, long value) { UNSAFE.putLong(null, struct + IOSQRingOffsets.RESV2, value); }
+    public static void narray(long struct, int value) { memPutInt(struct + IOSQRingOffsets.ARRAY, value); }
+    public static void nresv1(long struct, int value) { memPutInt(struct + IOSQRingOffsets.RESV1, value); }
+    /** Unsafe version of {@link #user_addr(long) user_addr}. */
+    public static void nuser_addr(long struct, long value) { memPutLong(struct + IOSQRingOffsets.USER_ADDR, value); }
 
     // -----------------------------------
 
@@ -354,6 +357,11 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected IOSQRingOffsets getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -379,6 +387,9 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         /** @return the value of the {@code array} field. */
         @NativeType("__u32")
         public int array() { return IOSQRingOffsets.narray(address()); }
+        /** @return the value of the {@code user_addr} field. */
+        @NativeType("__u64")
+        public long user_addr() { return IOSQRingOffsets.nuser_addr(address()); }
 
         /** Sets the specified value to the {@code head} field. */
         public IOSQRingOffsets.Buffer head(@NativeType("__u32") int value) { IOSQRingOffsets.nhead(address(), value); return this; }
@@ -394,6 +405,8 @@ public class IOSQRingOffsets extends Struct<IOSQRingOffsets> implements NativeRe
         public IOSQRingOffsets.Buffer dropped(@NativeType("__u32") int value) { IOSQRingOffsets.ndropped(address(), value); return this; }
         /** Sets the specified value to the {@code array} field. */
         public IOSQRingOffsets.Buffer array(@NativeType("__u32") int value) { IOSQRingOffsets.narray(address(), value); return this; }
+        /** Sets the specified value to the {@code user_addr} field. */
+        public IOSQRingOffsets.Buffer user_addr(@NativeType("__u64") long value) { IOSQRingOffsets.nuser_addr(address(), value); return this; }
 
     }
 

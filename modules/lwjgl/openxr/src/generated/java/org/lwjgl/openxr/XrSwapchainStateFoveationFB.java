@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,27 +17,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Foveation swapchain state,xrefs=.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBFoveation XR_FB_foveation} extension <b>must</b> be enabled prior to using {@link XrSwapchainStateFoveationFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBFoveation#XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB TYPE_SWAPCHAIN_STATE_FOVEATION_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * <li>{@code profile} <b>must</b> be a valid {@code XrFoveationProfileFB} handle</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSwapchainStateFoveationFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrSwapchainStateFoveationFlagsFB {@link #flags};
- *     XrFoveationProfileFB {@link #profile};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrSwapchainStateFoveationFlagsFB flags;
+ *     XrFoveationProfileFB profile;
+ * }}</pre>
  */
 public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveationFB> implements NativeResource {
 
@@ -93,28 +79,28 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** a bitmask of {@code XrSwapchainStateFoveationFlagBitsFB} which indicate various characteristics of how and when the foveation properties of the swapchain <b>must</b> be updated. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("XrSwapchainStateFoveationFlagsFB")
     public long flags() { return nflags(address()); }
-    /** an {@code XrFoveationProfileFB} defining the desired foveation properties to be applied to the swapchain. */
+    /** @return the value of the {@code profile} field. */
     @NativeType("XrFoveationProfileFB")
     public long profile() { return nprofile(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSwapchainStateFoveationFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBFoveation#XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB TYPE_SWAPCHAIN_STATE_FOVEATION_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBFoveation#XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB TYPE_SWAPCHAIN_STATE_FOVEATION_FB} value to the {@code type} field. */
     public XrSwapchainStateFoveationFB type$Default() { return type(FBFoveation.XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSwapchainStateFoveationFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public XrSwapchainStateFoveationFB flags(@NativeType("XrSwapchainStateFoveationFlagsFB") long value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #profile} field. */
+    /** Sets the specified value to the {@code profile} field. */
     public XrSwapchainStateFoveationFB profile(XrFoveationProfileFB value) { nprofile(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -168,8 +154,7 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateFoveationFB createSafe(long address) {
+    public static @Nullable XrSwapchainStateFoveationFB createSafe(long address) {
         return address == NULL ? null : new XrSwapchainStateFoveationFB(address, null);
     }
 
@@ -217,8 +202,7 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateFoveationFB.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainStateFoveationFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,20 +252,20 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateFoveationFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainStateFoveationFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainStateFoveationFB.NEXT); }
     /** Unsafe version of {@link #flags}. */
-    public static long nflags(long struct) { return UNSAFE.getLong(null, struct + XrSwapchainStateFoveationFB.FLAGS); }
+    public static long nflags(long struct) { return memGetLong(struct + XrSwapchainStateFoveationFB.FLAGS); }
     /** Unsafe version of {@link #profile}. */
     public static long nprofile(long struct) { return memGetAddress(struct + XrSwapchainStateFoveationFB.PROFILE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateFoveationFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainStateFoveationFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainStateFoveationFB.NEXT, value); }
     /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { UNSAFE.putLong(null, struct + XrSwapchainStateFoveationFB.FLAGS, value); }
+    public static void nflags(long struct, long value) { memPutLong(struct + XrSwapchainStateFoveationFB.FLAGS, value); }
     /** Unsafe version of {@link #profile(XrFoveationProfileFB) profile}. */
     public static void nprofile(long struct, XrFoveationProfileFB value) { memPutAddress(struct + XrSwapchainStateFoveationFB.PROFILE, value.address()); }
 
@@ -328,32 +312,37 @@ public class XrSwapchainStateFoveationFB extends Struct<XrSwapchainStateFoveatio
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSwapchainStateFoveationFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSwapchainStateFoveationFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSwapchainStateFoveationFB.ntype(address()); }
-        /** @return the value of the {@link XrSwapchainStateFoveationFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSwapchainStateFoveationFB.nnext(address()); }
-        /** @return the value of the {@link XrSwapchainStateFoveationFB#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("XrSwapchainStateFoveationFlagsFB")
         public long flags() { return XrSwapchainStateFoveationFB.nflags(address()); }
-        /** @return the value of the {@link XrSwapchainStateFoveationFB#profile} field. */
+        /** @return the value of the {@code profile} field. */
         @NativeType("XrFoveationProfileFB")
         public long profile() { return XrSwapchainStateFoveationFB.nprofile(address()); }
 
-        /** Sets the specified value to the {@link XrSwapchainStateFoveationFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSwapchainStateFoveationFB.Buffer type(@NativeType("XrStructureType") int value) { XrSwapchainStateFoveationFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBFoveation#XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB TYPE_SWAPCHAIN_STATE_FOVEATION_FB} value to the {@link XrSwapchainStateFoveationFB#type} field. */
+        /** Sets the {@link FBFoveation#XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB TYPE_SWAPCHAIN_STATE_FOVEATION_FB} value to the {@code type} field. */
         public XrSwapchainStateFoveationFB.Buffer type$Default() { return type(FBFoveation.XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB); }
-        /** Sets the specified value to the {@link XrSwapchainStateFoveationFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSwapchainStateFoveationFB.Buffer next(@NativeType("void *") long value) { XrSwapchainStateFoveationFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateFoveationFB#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public XrSwapchainStateFoveationFB.Buffer flags(@NativeType("XrSwapchainStateFoveationFlagsFB") long value) { XrSwapchainStateFoveationFB.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateFoveationFB#profile} field. */
+        /** Sets the specified value to the {@code profile} field. */
         public XrSwapchainStateFoveationFB.Buffer profile(XrFoveationProfileFB value) { XrSwapchainStateFoveationFB.nprofile(address(), value); return this; }
 
     }

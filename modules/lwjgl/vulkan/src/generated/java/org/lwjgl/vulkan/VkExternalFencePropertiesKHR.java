@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,18 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkExternalFenceProperties}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExternalFencePropertiesKHR {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkExternalFenceHandleTypeFlags exportFromImportedHandleTypes;
  *     VkExternalFenceHandleTypeFlags compatibleHandleTypes;
  *     VkExternalFenceFeatureFlags externalFenceFeatures;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkExternalFencePropertiesKHR extends VkExternalFenceProperties {
 
@@ -108,8 +104,7 @@ public class VkExternalFencePropertiesKHR extends VkExternalFenceProperties {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFencePropertiesKHR createSafe(long address) {
+    public static @Nullable VkExternalFencePropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkExternalFencePropertiesKHR(address, null);
     }
 
@@ -152,29 +147,9 @@ public class VkExternalFencePropertiesKHR extends VkExternalFenceProperties {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExternalFencePropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkExternalFencePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExternalFencePropertiesKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkExternalFencePropertiesKHR} instance allocated on the specified {@link MemoryStack}.
@@ -245,6 +220,11 @@ public class VkExternalFencePropertiesKHR extends VkExternalFenceProperties {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

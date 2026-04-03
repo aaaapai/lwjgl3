@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.spvc;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct spvc_entry_point {
  *     SpvExecutionModel execution_model;
  *     char const * name;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct spvc_entry_point")
 public class SpvcEntryPoint extends Struct<SpvcEntryPoint> implements NativeResource {
@@ -136,8 +134,7 @@ public class SpvcEntryPoint extends Struct<SpvcEntryPoint> implements NativeReso
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcEntryPoint createSafe(long address) {
+    public static @Nullable SpvcEntryPoint createSafe(long address) {
         return address == NULL ? null : new SpvcEntryPoint(address, null);
     }
 
@@ -180,8 +177,7 @@ public class SpvcEntryPoint extends Struct<SpvcEntryPoint> implements NativeReso
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static SpvcEntryPoint.Buffer createSafe(long address, int capacity) {
+    public static SpvcEntryPoint.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -226,14 +222,14 @@ public class SpvcEntryPoint extends Struct<SpvcEntryPoint> implements NativeReso
     // -----------------------------------
 
     /** Unsafe version of {@link #execution_model}. */
-    public static int nexecution_model(long struct) { return UNSAFE.getInt(null, struct + SpvcEntryPoint.EXECUTION_MODEL); }
+    public static int nexecution_model(long struct) { return memGetInt(struct + SpvcEntryPoint.EXECUTION_MODEL); }
     /** Unsafe version of {@link #name}. */
     public static ByteBuffer nname(long struct) { return memByteBufferNT1(memGetAddress(struct + SpvcEntryPoint.NAME)); }
     /** Unsafe version of {@link #nameString}. */
     public static String nnameString(long struct) { return memUTF8(memGetAddress(struct + SpvcEntryPoint.NAME)); }
 
     /** Unsafe version of {@link #execution_model(int) execution_model}. */
-    public static void nexecution_model(long struct, int value) { UNSAFE.putInt(null, struct + SpvcEntryPoint.EXECUTION_MODEL, value); }
+    public static void nexecution_model(long struct, int value) { memPutInt(struct + SpvcEntryPoint.EXECUTION_MODEL, value); }
     /** Unsafe version of {@link #name(ByteBuffer) name}. */
     public static void nname(long struct, ByteBuffer value) {
         if (CHECKS) { checkNT1(value); }
@@ -280,6 +276,11 @@ public class SpvcEntryPoint extends Struct<SpvcEntryPoint> implements NativeReso
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

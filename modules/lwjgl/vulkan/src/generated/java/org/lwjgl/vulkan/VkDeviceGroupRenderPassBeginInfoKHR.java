@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkDeviceGroupRenderPassBeginInfo}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkDeviceGroupRenderPassBeginInfoKHR {
  *     VkStructureType sType;
@@ -65,7 +61,7 @@ public class VkDeviceGroupRenderPassBeginInfoKHR extends VkDeviceGroupRenderPass
     public VkDeviceGroupRenderPassBeginInfoKHR deviceMask(@NativeType("uint32_t") int value) { ndeviceMask(address(), value); return this; }
     /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@code pDeviceRenderAreas} field. */
     @Override
-    public VkDeviceGroupRenderPassBeginInfoKHR pDeviceRenderAreas(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { npDeviceRenderAreas(address(), value); return this; }
+    public VkDeviceGroupRenderPassBeginInfoKHR pDeviceRenderAreas(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { npDeviceRenderAreas(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     @Override
@@ -73,7 +69,7 @@ public class VkDeviceGroupRenderPassBeginInfoKHR extends VkDeviceGroupRenderPass
         int sType,
         long pNext,
         int deviceMask,
-        @Nullable VkRect2D.Buffer pDeviceRenderAreas
+        VkRect2D.@Nullable Buffer pDeviceRenderAreas
     ) {
         sType(sType);
         pNext(pNext);
@@ -119,8 +115,7 @@ public class VkDeviceGroupRenderPassBeginInfoKHR extends VkDeviceGroupRenderPass
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupRenderPassBeginInfoKHR createSafe(long address) {
+    public static @Nullable VkDeviceGroupRenderPassBeginInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkDeviceGroupRenderPassBeginInfoKHR(address, null);
     }
 
@@ -163,29 +158,9 @@ public class VkDeviceGroupRenderPassBeginInfoKHR extends VkDeviceGroupRenderPass
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkDeviceGroupRenderPassBeginInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkDeviceGroupRenderPassBeginInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceGroupRenderPassBeginInfoKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkDeviceGroupRenderPassBeginInfoKHR} instance allocated on the specified {@link MemoryStack}.
@@ -259,6 +234,11 @@ public class VkDeviceGroupRenderPassBeginInfoKHR extends VkDeviceGroupRenderPass
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkDeviceGroupRenderPassBeginInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -277,7 +257,7 @@ public class VkDeviceGroupRenderPassBeginInfoKHR extends VkDeviceGroupRenderPass
         public VkDeviceGroupRenderPassBeginInfoKHR.Buffer deviceMask(@NativeType("uint32_t") int value) { VkDeviceGroupRenderPassBeginInfoKHR.ndeviceMask(address(), value); return this; }
         /** Sets the address of the specified {@link VkRect2D.Buffer} to the {@code pDeviceRenderAreas} field. */
         @Override
-        public VkDeviceGroupRenderPassBeginInfoKHR.Buffer pDeviceRenderAreas(@Nullable @NativeType("VkRect2D const *") VkRect2D.Buffer value) { VkDeviceGroupRenderPassBeginInfoKHR.npDeviceRenderAreas(address(), value); return this; }
+        public VkDeviceGroupRenderPassBeginInfoKHR.Buffer pDeviceRenderAreas(@NativeType("VkRect2D const *") VkRect2D.@Nullable Buffer value) { VkDeviceGroupRenderPassBeginInfoKHR.npDeviceRenderAreas(address(), value); return this; }
 
     }
 

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing present barrier capabilities of a surface.
- * 
- * <h5>Description</h5>
- * 
- * <p>This structure <b>can</b> be included in the {@code pNext} chain of {@link VkSurfaceCapabilities2KHR} to determine support for present barrier access. If {@code presentBarrierSupported} is {@link VK10#VK_FALSE FALSE}, it indicates that the present barrier feature is not obtainable for this surface.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVPresentBarrier#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSurfaceCapabilitiesPresentBarrierNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #presentBarrierSupported};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 presentBarrierSupported;
+ * }}</pre>
  */
 public class VkSurfaceCapabilitiesPresentBarrierNV extends Struct<VkSurfaceCapabilitiesPresentBarrierNV> implements NativeResource {
 
@@ -88,34 +74,30 @@ public class VkSurfaceCapabilitiesPresentBarrierNV extends Struct<VkSurfaceCapab
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a boolean describing whether the surface is able to make use of the present barrier feature. */
+    /** @return the value of the {@code presentBarrierSupported} field. */
     @NativeType("VkBool32")
     public boolean presentBarrierSupported() { return npresentBarrierSupported(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSurfaceCapabilitiesPresentBarrierNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVPresentBarrier#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVPresentBarrier#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV} value to the {@code sType} field. */
     public VkSurfaceCapabilitiesPresentBarrierNV sType$Default() { return sType(NVPresentBarrier.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSurfaceCapabilitiesPresentBarrierNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #presentBarrierSupported} field. */
-    public VkSurfaceCapabilitiesPresentBarrierNV presentBarrierSupported(@NativeType("VkBool32") boolean value) { npresentBarrierSupported(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkSurfaceCapabilitiesPresentBarrierNV set(
         int sType,
-        long pNext,
-        boolean presentBarrierSupported
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        presentBarrierSupported(presentBarrierSupported);
 
         return this;
     }
@@ -156,8 +138,7 @@ public class VkSurfaceCapabilitiesPresentBarrierNV extends Struct<VkSurfaceCapab
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesPresentBarrierNV createSafe(long address) {
+    public static @Nullable VkSurfaceCapabilitiesPresentBarrierNV createSafe(long address) {
         return address == NULL ? null : new VkSurfaceCapabilitiesPresentBarrierNV(address, null);
     }
 
@@ -200,8 +181,7 @@ public class VkSurfaceCapabilitiesPresentBarrierNV extends Struct<VkSurfaceCapab
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSurfaceCapabilitiesPresentBarrierNV.Buffer createSafe(long address, int capacity) {
+    public static VkSurfaceCapabilitiesPresentBarrierNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +226,16 @@ public class VkSurfaceCapabilitiesPresentBarrierNV extends Struct<VkSurfaceCapab
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesPresentBarrierNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesPresentBarrierNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSurfaceCapabilitiesPresentBarrierNV.PNEXT); }
     /** Unsafe version of {@link #presentBarrierSupported}. */
-    public static int npresentBarrierSupported(long struct) { return UNSAFE.getInt(null, struct + VkSurfaceCapabilitiesPresentBarrierNV.PRESENTBARRIERSUPPORTED); }
+    public static int npresentBarrierSupported(long struct) { return memGetInt(struct + VkSurfaceCapabilitiesPresentBarrierNV.PRESENTBARRIERSUPPORTED); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilitiesPresentBarrierNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSurfaceCapabilitiesPresentBarrierNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSurfaceCapabilitiesPresentBarrierNV.PNEXT, value); }
-    /** Unsafe version of {@link #presentBarrierSupported(boolean) presentBarrierSupported}. */
-    public static void npresentBarrierSupported(long struct, int value) { UNSAFE.putInt(null, struct + VkSurfaceCapabilitiesPresentBarrierNV.PRESENTBARRIERSUPPORTED, value); }
 
     // -----------------------------------
 
@@ -293,28 +271,31 @@ public class VkSurfaceCapabilitiesPresentBarrierNV extends Struct<VkSurfaceCapab
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSurfaceCapabilitiesPresentBarrierNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSurfaceCapabilitiesPresentBarrierNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSurfaceCapabilitiesPresentBarrierNV.nsType(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesPresentBarrierNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkSurfaceCapabilitiesPresentBarrierNV.npNext(address()); }
-        /** @return the value of the {@link VkSurfaceCapabilitiesPresentBarrierNV#presentBarrierSupported} field. */
+        /** @return the value of the {@code presentBarrierSupported} field. */
         @NativeType("VkBool32")
         public boolean presentBarrierSupported() { return VkSurfaceCapabilitiesPresentBarrierNV.npresentBarrierSupported(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkSurfaceCapabilitiesPresentBarrierNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSurfaceCapabilitiesPresentBarrierNV.Buffer sType(@NativeType("VkStructureType") int value) { VkSurfaceCapabilitiesPresentBarrierNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVPresentBarrier#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV} value to the {@link VkSurfaceCapabilitiesPresentBarrierNV#sType} field. */
+        /** Sets the {@link NVPresentBarrier#VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV} value to the {@code sType} field. */
         public VkSurfaceCapabilitiesPresentBarrierNV.Buffer sType$Default() { return sType(NVPresentBarrier.VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV); }
-        /** Sets the specified value to the {@link VkSurfaceCapabilitiesPresentBarrierNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSurfaceCapabilitiesPresentBarrierNV.Buffer pNext(@NativeType("void *") long value) { VkSurfaceCapabilitiesPresentBarrierNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSurfaceCapabilitiesPresentBarrierNV#presentBarrierSupported} field. */
-        public VkSurfaceCapabilitiesPresentBarrierNV.Buffer presentBarrierSupported(@NativeType("VkBool32") boolean value) { VkSurfaceCapabilitiesPresentBarrierNV.npresentBarrierSupported(address(), value ? 1 : 0); return this; }
 
     }
 

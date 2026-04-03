@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing multidraw limits of an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceMultiDrawPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMultiDraw#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceMultiDrawPropertiesEXT {
  *     VkStructureType sType;
  *     void * pNext;
- *     uint32_t {@link #maxMultiDrawCount};
- * }</code></pre>
+ *     uint32_t maxMultiDrawCount;
+ * }}</pre>
  */
 public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDeviceMultiDrawPropertiesEXT> implements NativeResource {
 
@@ -94,7 +80,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
     /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates the maximum number of draw calls which <b>can</b> be batched into a single multidraw. */
+    /** @return the value of the {@code maxMultiDrawCount} field. */
     @NativeType("uint32_t")
     public int maxMultiDrawCount() { return nmaxMultiDrawCount(address()); }
 
@@ -152,8 +138,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiDrawPropertiesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceMultiDrawPropertiesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceMultiDrawPropertiesEXT(address, null);
     }
 
@@ -196,8 +181,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceMultiDrawPropertiesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceMultiDrawPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -242,14 +226,14 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiDrawPropertiesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiDrawPropertiesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceMultiDrawPropertiesEXT.PNEXT); }
     /** Unsafe version of {@link #maxMultiDrawCount}. */
-    public static int nmaxMultiDrawCount(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceMultiDrawPropertiesEXT.MAXMULTIDRAWCOUNT); }
+    public static int nmaxMultiDrawCount(long struct) { return memGetInt(struct + VkPhysicalDeviceMultiDrawPropertiesEXT.MAXMULTIDRAWCOUNT); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceMultiDrawPropertiesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceMultiDrawPropertiesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceMultiDrawPropertiesEXT.PNEXT, value); }
 
@@ -287,6 +271,11 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceMultiDrawPropertiesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -297,7 +286,7 @@ public class VkPhysicalDeviceMultiDrawPropertiesEXT extends Struct<VkPhysicalDev
         /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceMultiDrawPropertiesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceMultiDrawPropertiesEXT#maxMultiDrawCount} field. */
+        /** @return the value of the {@code maxMultiDrawCount} field. */
         @NativeType("uint32_t")
         public int maxMultiDrawCount() { return VkPhysicalDeviceMultiDrawPropertiesEXT.nmaxMultiDrawCount(address()); }
 

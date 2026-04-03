@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created pipeline depth clip control state.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#features-depthClipControl">{@code depthClipControl}</a> is not enabled, {@code negativeOneToOne} <b>must</b> be {@link VK10#VK_FALSE FALSE}</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPipelineViewportDepthClipControlCreateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkBool32 {@link #negativeOneToOne};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkBool32 negativeOneToOne;
+ * }}</pre>
  */
 public class VkPipelineViewportDepthClipControlCreateInfoEXT extends Struct<VkPipelineViewportDepthClipControlCreateInfoEXT> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkPipelineViewportDepthClipControlCreateInfoEXT extends Struct<VkPi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** sets the <code>z<sub>m</sub></code> in the <em>view volume</em> to <code>-w<sub>c</sub></code> */
+    /** @return the value of the {@code negativeOneToOne} field. */
     @NativeType("VkBool32")
     public boolean negativeOneToOne() { return nnegativeOneToOne(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPipelineViewportDepthClipControlCreateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT} value to the {@code sType} field. */
     public VkPipelineViewportDepthClipControlCreateInfoEXT sType$Default() { return sType(EXTDepthClipControl.VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPipelineViewportDepthClipControlCreateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #negativeOneToOne} field. */
+    /** Sets the specified value to the {@code negativeOneToOne} field. */
     public VkPipelineViewportDepthClipControlCreateInfoEXT negativeOneToOne(@NativeType("VkBool32") boolean value) { nnegativeOneToOne(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkPipelineViewportDepthClipControlCreateInfoEXT extends Struct<VkPi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineViewportDepthClipControlCreateInfoEXT createSafe(long address) {
+    public static @Nullable VkPipelineViewportDepthClipControlCreateInfoEXT createSafe(long address) {
         return address == NULL ? null : new VkPipelineViewportDepthClipControlCreateInfoEXT(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkPipelineViewportDepthClipControlCreateInfoEXT extends Struct<VkPi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPipelineViewportDepthClipControlCreateInfoEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPipelineViewportDepthClipControlCreateInfoEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +230,18 @@ public class VkPipelineViewportDepthClipControlCreateInfoEXT extends Struct<VkPi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPipelineViewportDepthClipControlCreateInfoEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPipelineViewportDepthClipControlCreateInfoEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPipelineViewportDepthClipControlCreateInfoEXT.PNEXT); }
     /** Unsafe version of {@link #negativeOneToOne}. */
-    public static int nnegativeOneToOne(long struct) { return UNSAFE.getInt(null, struct + VkPipelineViewportDepthClipControlCreateInfoEXT.NEGATIVEONETOONE); }
+    public static int nnegativeOneToOne(long struct) { return memGetInt(struct + VkPipelineViewportDepthClipControlCreateInfoEXT.NEGATIVEONETOONE); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineViewportDepthClipControlCreateInfoEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPipelineViewportDepthClipControlCreateInfoEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPipelineViewportDepthClipControlCreateInfoEXT.PNEXT, value); }
     /** Unsafe version of {@link #negativeOneToOne(boolean) negativeOneToOne}. */
-    public static void nnegativeOneToOne(long struct, int value) { UNSAFE.putInt(null, struct + VkPipelineViewportDepthClipControlCreateInfoEXT.NEGATIVEONETOONE, value); }
+    public static void nnegativeOneToOne(long struct, int value) { memPutInt(struct + VkPipelineViewportDepthClipControlCreateInfoEXT.NEGATIVEONETOONE, value); }
 
     // -----------------------------------
 
@@ -295,27 +277,32 @@ public class VkPipelineViewportDepthClipControlCreateInfoEXT extends Struct<VkPi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPipelineViewportDepthClipControlCreateInfoEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPipelineViewportDepthClipControlCreateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkPipelineViewportDepthClipControlCreateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#negativeOneToOne} field. */
+        /** @return the value of the {@code negativeOneToOne} field. */
         @NativeType("VkBool32")
         public boolean negativeOneToOne() { return VkPipelineViewportDepthClipControlCreateInfoEXT.nnegativeOneToOne(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPipelineViewportDepthClipControlCreateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPipelineViewportDepthClipControlCreateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT} value to the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#sType} field. */
+        /** Sets the {@link EXTDepthClipControl#VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT} value to the {@code sType} field. */
         public VkPipelineViewportDepthClipControlCreateInfoEXT.Buffer sType$Default() { return sType(EXTDepthClipControl.VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPipelineViewportDepthClipControlCreateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkPipelineViewportDepthClipControlCreateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPipelineViewportDepthClipControlCreateInfoEXT#negativeOneToOne} field. */
+        /** Sets the specified value to the {@code negativeOneToOne} field. */
         public VkPipelineViewportDepthClipControlCreateInfoEXT.Buffer negativeOneToOne(@NativeType("VkBool32") boolean value) { VkPipelineViewportDepthClipControlCreateInfoEXT.nnegativeOneToOne(address(), value ? 1 : 0); return this; }
 
     }

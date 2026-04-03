@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying input data for a single state flag command token.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSetStateFlagsIndirectCommandNV {
- *     uint32_t {@link #data};
- * }</code></pre>
+ *     uint32_t data;
+ * }}</pre>
  */
 public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndirectCommandNV> implements NativeResource {
 
@@ -70,17 +66,11 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * encodes packed state that this command alters.
-     * 
-     * <ul>
-     * <li>Bit 0: If set represents {@link VK10#VK_FRONT_FACE_CLOCKWISE FRONT_FACE_CLOCKWISE}, otherwise {@link VK10#VK_FRONT_FACE_COUNTER_CLOCKWISE FRONT_FACE_COUNTER_CLOCKWISE}</li>
-     * </ul>
-     */
+    /** @return the value of the {@code data} field. */
     @NativeType("uint32_t")
     public int data() { return ndata(address()); }
 
-    /** Sets the specified value to the {@link #data} field. */
+    /** Sets the specified value to the {@code data} field. */
     public VkSetStateFlagsIndirectCommandNV data(@NativeType("uint32_t") int value) { ndata(address(), value); return this; }
 
     /**
@@ -119,8 +109,7 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetStateFlagsIndirectCommandNV createSafe(long address) {
+    public static @Nullable VkSetStateFlagsIndirectCommandNV createSafe(long address) {
         return address == NULL ? null : new VkSetStateFlagsIndirectCommandNV(address, null);
     }
 
@@ -163,8 +152,7 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSetStateFlagsIndirectCommandNV.Buffer createSafe(long address, int capacity) {
+    public static VkSetStateFlagsIndirectCommandNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -209,10 +197,10 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
     // -----------------------------------
 
     /** Unsafe version of {@link #data}. */
-    public static int ndata(long struct) { return UNSAFE.getInt(null, struct + VkSetStateFlagsIndirectCommandNV.DATA); }
+    public static int ndata(long struct) { return memGetInt(struct + VkSetStateFlagsIndirectCommandNV.DATA); }
 
     /** Unsafe version of {@link #data(int) data}. */
-    public static void ndata(long struct, int value) { UNSAFE.putInt(null, struct + VkSetStateFlagsIndirectCommandNV.DATA, value); }
+    public static void ndata(long struct, int value) { memPutInt(struct + VkSetStateFlagsIndirectCommandNV.DATA, value); }
 
     // -----------------------------------
 
@@ -248,15 +236,20 @@ public class VkSetStateFlagsIndirectCommandNV extends Struct<VkSetStateFlagsIndi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSetStateFlagsIndirectCommandNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSetStateFlagsIndirectCommandNV#data} field. */
+        /** @return the value of the {@code data} field. */
         @NativeType("uint32_t")
         public int data() { return VkSetStateFlagsIndirectCommandNV.ndata(address()); }
 
-        /** Sets the specified value to the {@link VkSetStateFlagsIndirectCommandNV#data} field. */
+        /** Sets the specified value to the {@code data} field. */
         public VkSetStateFlagsIndirectCommandNV.Buffer data(@NativeType("uint32_t") int value) { VkSetStateFlagsIndirectCommandNV.ndata(address(), value); return this; }
 
     }

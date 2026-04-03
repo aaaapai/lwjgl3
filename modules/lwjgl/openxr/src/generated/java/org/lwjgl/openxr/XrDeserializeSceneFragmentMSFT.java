@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Deserialize Scene Fragment.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link MSFTSceneUnderstandingSerialization XR_MSFT_scene_understanding_serialization} extension <b>must</b> be enabled prior to using {@link XrDeserializeSceneFragmentMSFT}</li>
- * <li>If {@code bufferSize} is not 0, {@code buffer} <b>must</b> be a pointer to an array of {@code bufferSize} {@code uint8_t} values</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrSceneDeserializeInfoMSFT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrDeserializeSceneFragmentMSFT {
- *     uint32_t {@link #bufferSize};
- *     uint8_t const * {@link #buffer};
- * }</code></pre>
+ *     uint32_t bufferSize;
+ *     uint8_t const * buffer;
+ * }}</pre>
  */
 public class XrDeserializeSceneFragmentMSFT extends Struct<XrDeserializeSceneFragmentMSFT> implements NativeResource {
 
@@ -85,17 +70,16 @@ public class XrDeserializeSceneFragmentMSFT extends Struct<XrDeserializeSceneFra
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the size of the {@code buffer} array. */
+    /** @return the value of the {@code bufferSize} field. */
     @NativeType("uint32_t")
     public int bufferSize() { return nbufferSize(address()); }
-    /** an array of {@code uint_8} data for the scene fragment to be deserialized. */
-    @Nullable
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code buffer} field. */
     @NativeType("uint8_t const *")
-    public ByteBuffer buffer() { return nbuffer(address()); }
+    public @Nullable ByteBuffer buffer() { return nbuffer(address()); }
 
-    /** Sets the specified value to the {@link #bufferSize} field. */
+    /** Sets the specified value to the {@code bufferSize} field. */
     public XrDeserializeSceneFragmentMSFT bufferSize(@NativeType("uint32_t") int value) { nbufferSize(address(), value); return this; }
-    /** Sets the address of the specified {@link ByteBuffer} to the {@link #buffer} field. */
+    /** Sets the address of the specified {@link ByteBuffer} to the {@code buffer} field. */
     public XrDeserializeSceneFragmentMSFT buffer(@Nullable @NativeType("uint8_t const *") ByteBuffer value) { nbuffer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -145,8 +129,7 @@ public class XrDeserializeSceneFragmentMSFT extends Struct<XrDeserializeSceneFra
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDeserializeSceneFragmentMSFT createSafe(long address) {
+    public static @Nullable XrDeserializeSceneFragmentMSFT createSafe(long address) {
         return address == NULL ? null : new XrDeserializeSceneFragmentMSFT(address, null);
     }
 
@@ -189,8 +172,7 @@ public class XrDeserializeSceneFragmentMSFT extends Struct<XrDeserializeSceneFra
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDeserializeSceneFragmentMSFT.Buffer createSafe(long address, int capacity) {
+    public static XrDeserializeSceneFragmentMSFT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -235,12 +217,12 @@ public class XrDeserializeSceneFragmentMSFT extends Struct<XrDeserializeSceneFra
     // -----------------------------------
 
     /** Unsafe version of {@link #bufferSize}. */
-    public static int nbufferSize(long struct) { return UNSAFE.getInt(null, struct + XrDeserializeSceneFragmentMSFT.BUFFERSIZE); }
+    public static int nbufferSize(long struct) { return memGetInt(struct + XrDeserializeSceneFragmentMSFT.BUFFERSIZE); }
     /** Unsafe version of {@link #buffer() buffer}. */
-    @Nullable public static ByteBuffer nbuffer(long struct) { return memByteBufferSafe(memGetAddress(struct + XrDeserializeSceneFragmentMSFT.BUFFER), nbufferSize(struct)); }
+    public static @Nullable ByteBuffer nbuffer(long struct) { return memByteBufferSafe(memGetAddress(struct + XrDeserializeSceneFragmentMSFT.BUFFER), nbufferSize(struct)); }
 
     /** Sets the specified value to the {@code bufferSize} field of the specified {@code struct}. */
-    public static void nbufferSize(long struct, int value) { UNSAFE.putInt(null, struct + XrDeserializeSceneFragmentMSFT.BUFFERSIZE, value); }
+    public static void nbufferSize(long struct, int value) { memPutInt(struct + XrDeserializeSceneFragmentMSFT.BUFFERSIZE, value); }
     /** Unsafe version of {@link #buffer(ByteBuffer) buffer}. */
     public static void nbuffer(long struct, @Nullable ByteBuffer value) { memPutAddress(struct + XrDeserializeSceneFragmentMSFT.BUFFER, memAddressSafe(value)); if (value != null) { nbufferSize(struct, value.remaining()); } }
 
@@ -278,21 +260,25 @@ public class XrDeserializeSceneFragmentMSFT extends Struct<XrDeserializeSceneFra
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrDeserializeSceneFragmentMSFT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrDeserializeSceneFragmentMSFT#bufferSize} field. */
+        /** @return the value of the {@code bufferSize} field. */
         @NativeType("uint32_t")
         public int bufferSize() { return XrDeserializeSceneFragmentMSFT.nbufferSize(address()); }
-        /** @return a {@link ByteBuffer} view of the data pointed to by the {@link XrDeserializeSceneFragmentMSFT#buffer} field. */
-        @Nullable
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code buffer} field. */
         @NativeType("uint8_t const *")
-        public ByteBuffer buffer() { return XrDeserializeSceneFragmentMSFT.nbuffer(address()); }
+        public @Nullable ByteBuffer buffer() { return XrDeserializeSceneFragmentMSFT.nbuffer(address()); }
 
-        /** Sets the specified value to the {@link XrDeserializeSceneFragmentMSFT#bufferSize} field. */
+        /** Sets the specified value to the {@code bufferSize} field. */
         public XrDeserializeSceneFragmentMSFT.Buffer bufferSize(@NativeType("uint32_t") int value) { XrDeserializeSceneFragmentMSFT.nbufferSize(address(), value); return this; }
-        /** Sets the address of the specified {@link ByteBuffer} to the {@link XrDeserializeSceneFragmentMSFT#buffer} field. */
+        /** Sets the address of the specified {@link ByteBuffer} to the {@code buffer} field. */
         public XrDeserializeSceneFragmentMSFT.Buffer buffer(@Nullable @NativeType("uint8_t const *") ByteBuffer value) { XrDeserializeSceneFragmentMSFT.nbuffer(address(), value); return this; }
 
     }

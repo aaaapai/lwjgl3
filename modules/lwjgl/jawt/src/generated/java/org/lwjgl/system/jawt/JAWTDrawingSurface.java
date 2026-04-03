@@ -5,7 +5,7 @@
  */
 package org.lwjgl.system.jawt;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -14,21 +14,15 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Structure for containing the underlying drawing information of a component.
- * 
- * <p>All operations on a JAWT_DrawingSurface MUST be performed from the same thread as the call to {@code GetDrawingSurface}.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct JAWT_DrawingSurface {
- *     JNIEnv * {@link #env};
- *     jobject {@link #target};
+ *     JNIEnv * env;
+ *     jobject target;
  *     void * Lock;
  *     void * GetDrawingSurfaceInfo;
  *     void * FreeDrawingSurfaceInfo;
  *     void * Unlock;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct JAWT_DrawingSurface")
 public class JAWTDrawingSurface extends Struct<JAWTDrawingSurface> {
@@ -91,15 +85,10 @@ public class JAWTDrawingSurface extends Struct<JAWTDrawingSurface> {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * Cached reference to the Java environment of the calling thread.
-     * 
-     * <p>If Lock(), Unlock(), GetDrawingSurfaceInfo() or FreeDrawingSurfaceInfo() are called from a different thread, this data member should be set before
-     * calling those functions.</p>
-     */
+    /** @return the value of the {@code env} field. */
     @NativeType("JNIEnv *")
     public long env() { return nenv(address()); }
-    /** Cached reference to the target object. */
+    /** @return the value of the {@code target} field. */
     @NativeType("jobject")
     public long target() { return ntarget(address()); }
     /** @return the value of the {@code Lock} field. */
@@ -123,8 +112,7 @@ public class JAWTDrawingSurface extends Struct<JAWTDrawingSurface> {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTDrawingSurface createSafe(long address) {
+    public static @Nullable JAWTDrawingSurface createSafe(long address) {
         return address == NULL ? null : new JAWTDrawingSurface(address, null);
     }
 
@@ -139,8 +127,7 @@ public class JAWTDrawingSurface extends Struct<JAWTDrawingSurface> {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static JAWTDrawingSurface.Buffer createSafe(long address, int capacity) {
+    public static JAWTDrawingSurface.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -193,14 +180,19 @@ public class JAWTDrawingSurface extends Struct<JAWTDrawingSurface> {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected JAWTDrawingSurface getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link JAWTDrawingSurface#env} field. */
+        /** @return the value of the {@code env} field. */
         @NativeType("JNIEnv *")
         public long env() { return JAWTDrawingSurface.nenv(address()); }
-        /** @return the value of the {@link JAWTDrawingSurface#target} field. */
+        /** @return the value of the {@code target} field. */
         @NativeType("jobject")
         public long target() { return JAWTDrawingSurface.ntarget(address()); }
         /** @return the value of the {@code Lock} field. */

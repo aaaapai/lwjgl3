@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,31 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Base header for swapchain update state.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSwapchainStateBaseHeaderFB} is a base structure that can be overridden by a specific stext:XrSwapchainState* child structure.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSwapchainUpdateState XR_FB_swapchain_update_state} extension <b>must</b> be enabled prior to using {@link XrSwapchainStateBaseHeaderFB}</li>
- * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link FBFoveation#XR_TYPE_SWAPCHAIN_STATE_FOVEATION_FB TYPE_SWAPCHAIN_STATE_FOVEATION_FB}, {@link FBSwapchainUpdateStateOpenGLES#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB TYPE_SWAPCHAIN_STATE_SAMPLER_OPENGL_ES_FB}, {@link FBSwapchainUpdateStateVulkan#XR_TYPE_SWAPCHAIN_STATE_SAMPLER_VULKAN_FB TYPE_SWAPCHAIN_STATE_SAMPLER_VULKAN_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBSwapchainUpdateState#xrGetSwapchainStateFB GetSwapchainStateFB}, {@link FBSwapchainUpdateState#xrUpdateSwapchainFB UpdateSwapchainFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSwapchainStateBaseHeaderFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ * }}</pre>
  */
 public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHeaderFB> implements NativeResource {
 
@@ -90,16 +70,16 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. This base structure itself has no associated {@code XrStructureType} value. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSwapchainStateBaseHeaderFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSwapchainStateBaseHeaderFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -149,8 +129,7 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateBaseHeaderFB createSafe(long address) {
+    public static @Nullable XrSwapchainStateBaseHeaderFB createSafe(long address) {
         return address == NULL ? null : new XrSwapchainStateBaseHeaderFB(address, null);
     }
 
@@ -208,8 +187,7 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSwapchainStateBaseHeaderFB.Buffer createSafe(long address, int capacity) {
+    public static XrSwapchainStateBaseHeaderFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -269,12 +247,12 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSwapchainStateBaseHeaderFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSwapchainStateBaseHeaderFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSwapchainStateBaseHeaderFB.NEXT); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSwapchainStateBaseHeaderFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSwapchainStateBaseHeaderFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSwapchainStateBaseHeaderFB.NEXT, value); }
 
@@ -312,20 +290,25 @@ public class XrSwapchainStateBaseHeaderFB extends Struct<XrSwapchainStateBaseHea
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSwapchainStateBaseHeaderFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSwapchainStateBaseHeaderFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSwapchainStateBaseHeaderFB.ntype(address()); }
-        /** @return the value of the {@link XrSwapchainStateBaseHeaderFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSwapchainStateBaseHeaderFB.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrSwapchainStateBaseHeaderFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSwapchainStateBaseHeaderFB.Buffer type(@NativeType("XrStructureType") int value) { XrSwapchainStateBaseHeaderFB.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainStateBaseHeaderFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSwapchainStateBaseHeaderFB.Buffer next(@NativeType("void *") long value) { XrSwapchainStateBaseHeaderFB.nnext(address(), value); return this; }
 
     }

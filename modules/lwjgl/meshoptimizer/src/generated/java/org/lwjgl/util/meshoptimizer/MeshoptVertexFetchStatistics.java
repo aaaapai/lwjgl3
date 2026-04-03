@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.meshoptimizer;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct meshopt_VertexFetchStatistics {
  *     unsigned int bytes_fetched;
- *     float {@link #overfetch};
- * }</code></pre>
+ *     float overfetch;
+ * }}</pre>
  */
 @NativeType("struct meshopt_VertexFetchStatistics")
 public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStatistics> implements NativeResource {
@@ -76,7 +74,7 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     /** @return the value of the {@code bytes_fetched} field. */
     @NativeType("unsigned int")
     public int bytes_fetched() { return nbytes_fetched(address()); }
-    /** fetched bytes / vertex buffer size; best case 1.0 (each byte is fetched once) */
+    /** @return the value of the {@code overfetch} field. */
     public float overfetch() { return noverfetch(address()); }
 
     // -----------------------------------
@@ -103,8 +101,7 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptVertexFetchStatistics createSafe(long address) {
+    public static @Nullable MeshoptVertexFetchStatistics createSafe(long address) {
         return address == NULL ? null : new MeshoptVertexFetchStatistics(address, null);
     }
 
@@ -147,8 +144,7 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static MeshoptVertexFetchStatistics.Buffer createSafe(long address, int capacity) {
+    public static MeshoptVertexFetchStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -193,9 +189,9 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
     // -----------------------------------
 
     /** Unsafe version of {@link #bytes_fetched}. */
-    public static int nbytes_fetched(long struct) { return UNSAFE.getInt(null, struct + MeshoptVertexFetchStatistics.BYTES_FETCHED); }
+    public static int nbytes_fetched(long struct) { return memGetInt(struct + MeshoptVertexFetchStatistics.BYTES_FETCHED); }
     /** Unsafe version of {@link #overfetch}. */
-    public static float noverfetch(long struct) { return UNSAFE.getFloat(null, struct + MeshoptVertexFetchStatistics.OVERFETCH); }
+    public static float noverfetch(long struct) { return memGetFloat(struct + MeshoptVertexFetchStatistics.OVERFETCH); }
 
     // -----------------------------------
 
@@ -231,6 +227,11 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected MeshoptVertexFetchStatistics getElementFactory() {
             return ELEMENT_FACTORY;
         }
@@ -238,7 +239,7 @@ public class MeshoptVertexFetchStatistics extends Struct<MeshoptVertexFetchStati
         /** @return the value of the {@code bytes_fetched} field. */
         @NativeType("unsigned int")
         public int bytes_fetched() { return MeshoptVertexFetchStatistics.nbytes_fetched(address()); }
-        /** @return the value of the {@link MeshoptVertexFetchStatistics#overfetch} field. */
+        /** @return the value of the {@code overfetch} field. */
         public float overfetch() { return MeshoptVertexFetchStatistics.noverfetch(address()); }
 
     }

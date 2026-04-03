@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.freetype;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct FT_SfntName {
  *     FT_UShort platform_id;
  *     FT_UShort encoding_id;
@@ -26,7 +24,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     FT_UShort name_id;
  *     FT_Byte * string;
  *     FT_UInt string_len;
- * }</code></pre>
+ * }}</pre>
  */
 public class FT_SfntName extends Struct<FT_SfntName> implements NativeResource {
 
@@ -131,8 +129,7 @@ public class FT_SfntName extends Struct<FT_SfntName> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_SfntName createSafe(long address) {
+    public static @Nullable FT_SfntName createSafe(long address) {
         return address == NULL ? null : new FT_SfntName(address, null);
     }
 
@@ -175,8 +172,7 @@ public class FT_SfntName extends Struct<FT_SfntName> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static FT_SfntName.Buffer createSafe(long address, int capacity) {
+    public static FT_SfntName.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -221,17 +217,17 @@ public class FT_SfntName extends Struct<FT_SfntName> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #platform_id}. */
-    public static short nplatform_id(long struct) { return UNSAFE.getShort(null, struct + FT_SfntName.PLATFORM_ID); }
+    public static short nplatform_id(long struct) { return memGetShort(struct + FT_SfntName.PLATFORM_ID); }
     /** Unsafe version of {@link #encoding_id}. */
-    public static short nencoding_id(long struct) { return UNSAFE.getShort(null, struct + FT_SfntName.ENCODING_ID); }
+    public static short nencoding_id(long struct) { return memGetShort(struct + FT_SfntName.ENCODING_ID); }
     /** Unsafe version of {@link #language_id}. */
-    public static short nlanguage_id(long struct) { return UNSAFE.getShort(null, struct + FT_SfntName.LANGUAGE_ID); }
+    public static short nlanguage_id(long struct) { return memGetShort(struct + FT_SfntName.LANGUAGE_ID); }
     /** Unsafe version of {@link #name_id}. */
-    public static short nname_id(long struct) { return UNSAFE.getShort(null, struct + FT_SfntName.NAME_ID); }
+    public static short nname_id(long struct) { return memGetShort(struct + FT_SfntName.NAME_ID); }
     /** Unsafe version of {@link #string() string}. */
     public static ByteBuffer nstring(long struct) { return memByteBuffer(memGetAddress(struct + FT_SfntName.STRING), nstring_len(struct)); }
     /** Unsafe version of {@link #string_len}. */
-    public static int nstring_len(long struct) { return UNSAFE.getInt(null, struct + FT_SfntName.STRING_LEN); }
+    public static int nstring_len(long struct) { return memGetInt(struct + FT_SfntName.STRING_LEN); }
 
     // -----------------------------------
 
@@ -264,6 +260,11 @@ public class FT_SfntName extends Struct<FT_SfntName> implements NativeResource {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

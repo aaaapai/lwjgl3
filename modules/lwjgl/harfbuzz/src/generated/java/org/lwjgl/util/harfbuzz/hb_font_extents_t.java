@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Font-wide extent values, measured in font units.
- * 
- * <p>Note that typically {@code ascender} is positive and {@code descender} negative, in coordinate systems that grow up.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_font_extents_t {
- *     hb_position_t {@link #ascender};
- *     hb_position_t {@link #descender};
- *     hb_position_t {@link #line_gap};
+ *     hb_position_t ascender;
+ *     hb_position_t descender;
+ *     hb_position_t line_gap;
  *     hb_position_t reserved9;
  *     hb_position_t reserved8;
  *     hb_position_t reserved7;
@@ -36,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     hb_position_t reserved3;
  *     hb_position_t reserved2;
  *     hb_position_t reserved1;
- * }</code></pre>
+ * }}</pre>
  */
 public class hb_font_extents_t extends Struct<hb_font_extents_t> implements NativeResource {
 
@@ -116,21 +110,21 @@ public class hb_font_extents_t extends Struct<hb_font_extents_t> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the height of typographic ascenders */
+    /** @return the value of the {@code ascender} field. */
     @NativeType("hb_position_t")
     public int ascender() { return nascender(address()); }
-    /** the depth of typographic descenders */
+    /** @return the value of the {@code descender} field. */
     @NativeType("hb_position_t")
     public int descender() { return ndescender(address()); }
-    /** the suggested line-spacing gap */
+    /** @return the value of the {@code line_gap} field. */
     @NativeType("hb_position_t")
     public int line_gap() { return nline_gap(address()); }
 
-    /** Sets the specified value to the {@link #ascender} field. */
+    /** Sets the specified value to the {@code ascender} field. */
     public hb_font_extents_t ascender(@NativeType("hb_position_t") int value) { nascender(address(), value); return this; }
-    /** Sets the specified value to the {@link #descender} field. */
+    /** Sets the specified value to the {@code descender} field. */
     public hb_font_extents_t descender(@NativeType("hb_position_t") int value) { ndescender(address(), value); return this; }
-    /** Sets the specified value to the {@link #line_gap} field. */
+    /** Sets the specified value to the {@code line_gap} field. */
     public hb_font_extents_t line_gap(@NativeType("hb_position_t") int value) { nline_gap(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -182,8 +176,7 @@ public class hb_font_extents_t extends Struct<hb_font_extents_t> implements Nati
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_font_extents_t createSafe(long address) {
+    public static @Nullable hb_font_extents_t createSafe(long address) {
         return address == NULL ? null : new hb_font_extents_t(address, null);
     }
 
@@ -226,8 +219,7 @@ public class hb_font_extents_t extends Struct<hb_font_extents_t> implements Nati
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_font_extents_t.Buffer createSafe(long address, int capacity) {
+    public static hb_font_extents_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -272,36 +264,36 @@ public class hb_font_extents_t extends Struct<hb_font_extents_t> implements Nati
     // -----------------------------------
 
     /** Unsafe version of {@link #ascender}. */
-    public static int nascender(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.ASCENDER); }
+    public static int nascender(long struct) { return memGetInt(struct + hb_font_extents_t.ASCENDER); }
     /** Unsafe version of {@link #descender}. */
-    public static int ndescender(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.DESCENDER); }
+    public static int ndescender(long struct) { return memGetInt(struct + hb_font_extents_t.DESCENDER); }
     /** Unsafe version of {@link #line_gap}. */
-    public static int nline_gap(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.LINE_GAP); }
-    public static int nreserved9(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED9); }
-    public static int nreserved8(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED8); }
-    public static int nreserved7(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED7); }
-    public static int nreserved6(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED6); }
-    public static int nreserved5(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED5); }
-    public static int nreserved4(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED4); }
-    public static int nreserved3(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED3); }
-    public static int nreserved2(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED2); }
-    public static int nreserved1(long struct) { return UNSAFE.getInt(null, struct + hb_font_extents_t.RESERVED1); }
+    public static int nline_gap(long struct) { return memGetInt(struct + hb_font_extents_t.LINE_GAP); }
+    public static int nreserved9(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED9); }
+    public static int nreserved8(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED8); }
+    public static int nreserved7(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED7); }
+    public static int nreserved6(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED6); }
+    public static int nreserved5(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED5); }
+    public static int nreserved4(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED4); }
+    public static int nreserved3(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED3); }
+    public static int nreserved2(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED2); }
+    public static int nreserved1(long struct) { return memGetInt(struct + hb_font_extents_t.RESERVED1); }
 
     /** Unsafe version of {@link #ascender(int) ascender}. */
-    public static void nascender(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.ASCENDER, value); }
+    public static void nascender(long struct, int value) { memPutInt(struct + hb_font_extents_t.ASCENDER, value); }
     /** Unsafe version of {@link #descender(int) descender}. */
-    public static void ndescender(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.DESCENDER, value); }
+    public static void ndescender(long struct, int value) { memPutInt(struct + hb_font_extents_t.DESCENDER, value); }
     /** Unsafe version of {@link #line_gap(int) line_gap}. */
-    public static void nline_gap(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.LINE_GAP, value); }
-    public static void nreserved9(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED9, value); }
-    public static void nreserved8(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED8, value); }
-    public static void nreserved7(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED7, value); }
-    public static void nreserved6(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED6, value); }
-    public static void nreserved5(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED5, value); }
-    public static void nreserved4(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED4, value); }
-    public static void nreserved3(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED3, value); }
-    public static void nreserved2(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED2, value); }
-    public static void nreserved1(long struct, int value) { UNSAFE.putInt(null, struct + hb_font_extents_t.RESERVED1, value); }
+    public static void nline_gap(long struct, int value) { memPutInt(struct + hb_font_extents_t.LINE_GAP, value); }
+    public static void nreserved9(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED9, value); }
+    public static void nreserved8(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED8, value); }
+    public static void nreserved7(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED7, value); }
+    public static void nreserved6(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED6, value); }
+    public static void nreserved5(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED5, value); }
+    public static void nreserved4(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED4, value); }
+    public static void nreserved3(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED3, value); }
+    public static void nreserved2(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED2, value); }
+    public static void nreserved1(long struct, int value) { memPutInt(struct + hb_font_extents_t.RESERVED1, value); }
 
     // -----------------------------------
 
@@ -337,25 +329,30 @@ public class hb_font_extents_t extends Struct<hb_font_extents_t> implements Nati
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_font_extents_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_font_extents_t#ascender} field. */
+        /** @return the value of the {@code ascender} field. */
         @NativeType("hb_position_t")
         public int ascender() { return hb_font_extents_t.nascender(address()); }
-        /** @return the value of the {@link hb_font_extents_t#descender} field. */
+        /** @return the value of the {@code descender} field. */
         @NativeType("hb_position_t")
         public int descender() { return hb_font_extents_t.ndescender(address()); }
-        /** @return the value of the {@link hb_font_extents_t#line_gap} field. */
+        /** @return the value of the {@code line_gap} field. */
         @NativeType("hb_position_t")
         public int line_gap() { return hb_font_extents_t.nline_gap(address()); }
 
-        /** Sets the specified value to the {@link hb_font_extents_t#ascender} field. */
+        /** Sets the specified value to the {@code ascender} field. */
         public hb_font_extents_t.Buffer ascender(@NativeType("hb_position_t") int value) { hb_font_extents_t.nascender(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_font_extents_t#descender} field. */
+        /** Sets the specified value to the {@code descender} field. */
         public hb_font_extents_t.Buffer descender(@NativeType("hb_position_t") int value) { hb_font_extents_t.ndescender(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_font_extents_t#line_gap} field. */
+        /** Sets the specified value to the {@code line_gap} field. */
         public hb_font_extents_t.Buffer line_gap(@NativeType("hb_position_t") int value) { hb_font_extents_t.nline_gap(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,39 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes a request to share some number of spatial entities.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSpaceShareInfoFB} structure describes a request to share one or more spatial entities with one or more users.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBSpatialEntitySharing XR_FB_spatial_entity_sharing} extension <b>must</b> be enabled prior to using {@link XrSpaceShareInfoFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBSpatialEntitySharing#XR_TYPE_SPACE_SHARE_INFO_FB TYPE_SPACE_SHARE_INFO_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code spaces} <b>must</b> be a pointer to an array of {@code spaceCount} {@code XrSpace} handles</li>
- * <li>{@code users} <b>must</b> be a pointer to an array of {@code userCount} {@code XrSpaceUserFB} handles</li>
- * <li>The {@code spaceCount} parameter <b>must</b> be greater than 0</li>
- * <li>The {@code userCount} parameter <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBSpatialEntitySharing#xrShareSpacesFB ShareSpacesFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSpaceShareInfoFB {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
+ *     XrStructureType type;
+ *     void const * next;
  *     uint32_t spaceCount;
  *     XrSpace * spaces;
  *     uint32_t userCount;
  *     XrSpaceUserFB * users;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements NativeResource {
 
@@ -111,10 +87,10 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. {@code spaceCount} is the number of elements in the {@code spaces} list. {@code spaces} is a list containing all spatial entities to be shared. {@code userCount} is the number of elements in the {@code users} list. {@code users} is a list of the users with which the {@code spaces} will: be shared. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
     /** @return the value of the {@code spaceCount} field. */
@@ -130,11 +106,11 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
     @NativeType("XrSpaceUserFB *")
     public PointerBuffer users() { return nusers(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSpaceShareInfoFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBSpatialEntitySharing#XR_TYPE_SPACE_SHARE_INFO_FB TYPE_SPACE_SHARE_INFO_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBSpatialEntitySharing#XR_TYPE_SPACE_SHARE_INFO_FB TYPE_SPACE_SHARE_INFO_FB} value to the {@code type} field. */
     public XrSpaceShareInfoFB type$Default() { return type(FBSpatialEntitySharing.XR_TYPE_SPACE_SHARE_INFO_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSpaceShareInfoFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Sets the address of the specified {@link PointerBuffer} to the {@code spaces} field. */
     public XrSpaceShareInfoFB spaces(@NativeType("XrSpace *") PointerBuffer value) { nspaces(address(), value); return this; }
@@ -192,8 +168,7 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceShareInfoFB createSafe(long address) {
+    public static @Nullable XrSpaceShareInfoFB createSafe(long address) {
         return address == NULL ? null : new XrSpaceShareInfoFB(address, null);
     }
 
@@ -236,8 +211,7 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrSpaceShareInfoFB.Buffer createSafe(long address, int capacity) {
+    public static XrSpaceShareInfoFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -282,28 +256,28 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrSpaceShareInfoFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrSpaceShareInfoFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrSpaceShareInfoFB.NEXT); }
     /** Unsafe version of {@link #spaceCount}. */
-    public static int nspaceCount(long struct) { return UNSAFE.getInt(null, struct + XrSpaceShareInfoFB.SPACECOUNT); }
+    public static int nspaceCount(long struct) { return memGetInt(struct + XrSpaceShareInfoFB.SPACECOUNT); }
     /** Unsafe version of {@link #spaces() spaces}. */
     public static PointerBuffer nspaces(long struct) { return memPointerBuffer(memGetAddress(struct + XrSpaceShareInfoFB.SPACES), nspaceCount(struct)); }
     /** Unsafe version of {@link #userCount}. */
-    public static int nuserCount(long struct) { return UNSAFE.getInt(null, struct + XrSpaceShareInfoFB.USERCOUNT); }
+    public static int nuserCount(long struct) { return memGetInt(struct + XrSpaceShareInfoFB.USERCOUNT); }
     /** Unsafe version of {@link #users() users}. */
     public static PointerBuffer nusers(long struct) { return memPointerBuffer(memGetAddress(struct + XrSpaceShareInfoFB.USERS), nuserCount(struct)); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceShareInfoFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrSpaceShareInfoFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrSpaceShareInfoFB.NEXT, value); }
     /** Sets the specified value to the {@code spaceCount} field of the specified {@code struct}. */
-    public static void nspaceCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceShareInfoFB.SPACECOUNT, value); }
+    public static void nspaceCount(long struct, int value) { memPutInt(struct + XrSpaceShareInfoFB.SPACECOUNT, value); }
     /** Unsafe version of {@link #spaces(PointerBuffer) spaces}. */
     public static void nspaces(long struct, PointerBuffer value) { memPutAddress(struct + XrSpaceShareInfoFB.SPACES, memAddress(value)); nspaceCount(struct, value.remaining()); }
     /** Sets the specified value to the {@code userCount} field of the specified {@code struct}. */
-    public static void nuserCount(long struct, int value) { UNSAFE.putInt(null, struct + XrSpaceShareInfoFB.USERCOUNT, value); }
+    public static void nuserCount(long struct, int value) { memPutInt(struct + XrSpaceShareInfoFB.USERCOUNT, value); }
     /** Unsafe version of {@link #users(PointerBuffer) users}. */
     public static void nusers(long struct, PointerBuffer value) { memPutAddress(struct + XrSpaceShareInfoFB.USERS, memAddress(value)); nuserCount(struct, value.remaining()); }
 
@@ -351,14 +325,19 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrSpaceShareInfoFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSpaceShareInfoFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSpaceShareInfoFB.ntype(address()); }
-        /** @return the value of the {@link XrSpaceShareInfoFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrSpaceShareInfoFB.nnext(address()); }
         /** @return the value of the {@code spaceCount} field. */
@@ -374,11 +353,11 @@ public class XrSpaceShareInfoFB extends Struct<XrSpaceShareInfoFB> implements Na
         @NativeType("XrSpaceUserFB *")
         public PointerBuffer users() { return XrSpaceShareInfoFB.nusers(address()); }
 
-        /** Sets the specified value to the {@link XrSpaceShareInfoFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSpaceShareInfoFB.Buffer type(@NativeType("XrStructureType") int value) { XrSpaceShareInfoFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBSpatialEntitySharing#XR_TYPE_SPACE_SHARE_INFO_FB TYPE_SPACE_SHARE_INFO_FB} value to the {@link XrSpaceShareInfoFB#type} field. */
+        /** Sets the {@link FBSpatialEntitySharing#XR_TYPE_SPACE_SHARE_INFO_FB TYPE_SPACE_SHARE_INFO_FB} value to the {@code type} field. */
         public XrSpaceShareInfoFB.Buffer type$Default() { return type(FBSpatialEntitySharing.XR_TYPE_SPACE_SHARE_INFO_FB); }
-        /** Sets the specified value to the {@link XrSpaceShareInfoFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSpaceShareInfoFB.Buffer next(@NativeType("void const *") long value) { XrSpaceShareInfoFB.nnext(address(), value); return this; }
         /** Sets the address of the specified {@link PointerBuffer} to the {@code spaces} field. */
         public XrSpaceShareInfoFB.Buffer spaces(@NativeType("XrSpace *") PointerBuffer value) { XrSpaceShareInfoFB.nspaces(address(), value); return this; }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.egl;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -15,17 +15,8 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Native bindings to the <a href="https://www.khronos.org/registry/EGL/extensions/EXT/EGL_EXT_image_dma_buf_import_modifiers.txt">EXT_image_dma_buf_import_modifiers</a> extension.
- * 
- * <p>This extension builds on {@link EXTImageDMABufImport EXT_image_dma_buf_import}, in order to support format modifiers used for tiling, compression, and additional non-linear
- * modes. It also adds support for a fourth auxiliary plane, and queries for the implementation-supported types.</p>
- * 
- * <p>Requires {@link EXTImageDMABufImport EXT_image_dma_buf_import}.</p>
- */
 public class EXTImageDMABufImportModifiers {
 
-    /** Accepted as an attribute in the {@code attrib_list} parameter of {@link KHRImageBase#eglCreateImageKHR CreateImageKHR}. */
     public static final int
         EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT = 0x3443,
         EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT = 0x3444,
@@ -45,6 +36,7 @@ public class EXTImageDMABufImportModifiers {
 
     // --- [ eglQueryDmaBufFormatsEXT ] ---
 
+    /** {@code EGLBoolean eglQueryDmaBufFormatsEXT(EGLDisplay dpy, EGLint max_formats, EGLint * formats, EGLint * num_formats)} */
     public static int neglQueryDmaBufFormatsEXT(long dpy, int max_formats, long formats, long num_formats) {
         long __functionAddress = EGL.getCapabilities().eglQueryDmaBufFormatsEXT;
         if (CHECKS) {
@@ -54,8 +46,9 @@ public class EXTImageDMABufImportModifiers {
         return callPPPI(dpy, max_formats, formats, num_formats, __functionAddress);
     }
 
+    /** {@code EGLBoolean eglQueryDmaBufFormatsEXT(EGLDisplay dpy, EGLint max_formats, EGLint * formats, EGLint * num_formats)} */
     @NativeType("EGLBoolean")
-    public static boolean eglQueryDmaBufFormatsEXT(@NativeType("EGLDisplay") long dpy, @Nullable @NativeType("EGLint *") IntBuffer formats, @NativeType("EGLint *") IntBuffer num_formats) {
+    public static boolean eglQueryDmaBufFormatsEXT(@NativeType("EGLDisplay") long dpy, @NativeType("EGLint *") @Nullable IntBuffer formats, @NativeType("EGLint *") IntBuffer num_formats) {
         if (CHECKS) {
             check(num_formats, 1);
         }
@@ -64,6 +57,7 @@ public class EXTImageDMABufImportModifiers {
 
     // --- [ eglQueryDmaBufModifiersEXT ] ---
 
+    /** {@code EGLBoolean eglQueryDmaBufModifiersEXT(EGLDisplay dpy, EGLint format, EGLint max_modifiers, EGLuint64KHR * modifiers, EGLBoolean * external_only, EGLint * num_modifiers)} */
     public static int neglQueryDmaBufModifiersEXT(long dpy, int format, int max_modifiers, long modifiers, long external_only, long num_modifiers) {
         long __functionAddress = EGL.getCapabilities().eglQueryDmaBufModifiersEXT;
         if (CHECKS) {
@@ -73,8 +67,9 @@ public class EXTImageDMABufImportModifiers {
         return callPPPPI(dpy, format, max_modifiers, modifiers, external_only, num_modifiers, __functionAddress);
     }
 
+    /** {@code EGLBoolean eglQueryDmaBufModifiersEXT(EGLDisplay dpy, EGLint format, EGLint max_modifiers, EGLuint64KHR * modifiers, EGLBoolean * external_only, EGLint * num_modifiers)} */
     @NativeType("EGLBoolean")
-    public static boolean eglQueryDmaBufModifiersEXT(@NativeType("EGLDisplay") long dpy, @NativeType("EGLint") int format, @Nullable @NativeType("EGLuint64KHR *") LongBuffer modifiers, @Nullable @NativeType("EGLBoolean *") IntBuffer external_only, @NativeType("EGLint *") IntBuffer num_modifiers) {
+    public static boolean eglQueryDmaBufModifiersEXT(@NativeType("EGLDisplay") long dpy, @NativeType("EGLint") int format, @NativeType("EGLuint64KHR *") @Nullable LongBuffer modifiers, @NativeType("EGLBoolean *") @Nullable IntBuffer external_only, @NativeType("EGLint *") IntBuffer num_modifiers) {
         if (CHECKS) {
             checkSafe(external_only, remainingSafe(modifiers));
             check(num_modifiers, 1);
@@ -82,9 +77,9 @@ public class EXTImageDMABufImportModifiers {
         return neglQueryDmaBufModifiersEXT(dpy, format, remainingSafe(modifiers), memAddressSafe(modifiers), memAddressSafe(external_only), memAddress(num_modifiers)) != 0;
     }
 
-    /** Array version of: {@link #eglQueryDmaBufFormatsEXT QueryDmaBufFormatsEXT} */
+    /** {@code EGLBoolean eglQueryDmaBufFormatsEXT(EGLDisplay dpy, EGLint max_formats, EGLint * formats, EGLint * num_formats)} */
     @NativeType("EGLBoolean")
-    public static boolean eglQueryDmaBufFormatsEXT(@NativeType("EGLDisplay") long dpy, @Nullable @NativeType("EGLint *") int[] formats, @NativeType("EGLint *") int[] num_formats) {
+    public static boolean eglQueryDmaBufFormatsEXT(@NativeType("EGLDisplay") long dpy, @NativeType("EGLint *") int @Nullable [] formats, @NativeType("EGLint *") int[] num_formats) {
         long __functionAddress = EGL.getCapabilities().eglQueryDmaBufFormatsEXT;
         if (CHECKS) {
             check(__functionAddress);
@@ -94,9 +89,9 @@ public class EXTImageDMABufImportModifiers {
         return callPPPI(dpy, lengthSafe(formats), formats, num_formats, __functionAddress) != 0;
     }
 
-    /** Array version of: {@link #eglQueryDmaBufModifiersEXT QueryDmaBufModifiersEXT} */
+    /** {@code EGLBoolean eglQueryDmaBufModifiersEXT(EGLDisplay dpy, EGLint format, EGLint max_modifiers, EGLuint64KHR * modifiers, EGLBoolean * external_only, EGLint * num_modifiers)} */
     @NativeType("EGLBoolean")
-    public static boolean eglQueryDmaBufModifiersEXT(@NativeType("EGLDisplay") long dpy, @NativeType("EGLint") int format, @Nullable @NativeType("EGLuint64KHR *") long[] modifiers, @Nullable @NativeType("EGLBoolean *") int[] external_only, @NativeType("EGLint *") int[] num_modifiers) {
+    public static boolean eglQueryDmaBufModifiersEXT(@NativeType("EGLDisplay") long dpy, @NativeType("EGLint") int format, @NativeType("EGLuint64KHR *") long @Nullable [] modifiers, @NativeType("EGLBoolean *") int @Nullable [] external_only, @NativeType("EGLint *") int[] num_modifiers) {
         long __functionAddress = EGL.getCapabilities().eglQueryDmaBufModifiersEXT;
         if (CHECKS) {
             check(__functionAddress);

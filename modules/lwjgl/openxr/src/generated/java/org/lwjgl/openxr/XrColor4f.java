@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,27 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Color Vector.
- * 
- * <h5>Description</h5>
- * 
- * <p>Unless otherwise specified, colors are encoded as linear (not with sRGB nor other gamma compression) values with individual components being in the range of 0.0 through 1.0, and without the RGB components being premultiplied by the alpha component.</p>
- * 
- * <p>If color encoding is specified as being premultiplied by the alpha component, the RGB components are set to zero if the alpha component is zero.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XrCompositionLayerColorScaleBiasKHR}, {@link XrPassthroughColorMapMonoToRgbaFB}, {@link XrPassthroughStyleFB}, {@link XrSwapchainStateSamplerOpenGLESFB}, {@link XrSwapchainStateSamplerVulkanFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrColor4f {
- *     float {@link #r};
- *     float {@link #g};
- *     float {@link #b};
- *     float {@link #a};
- * }</code></pre>
+ *     float r;
+ *     float g;
+ *     float b;
+ *     float a;
+ * }}</pre>
  */
 public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
 
@@ -92,22 +78,22 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the red component of the color. */
+    /** @return the value of the {@code r} field. */
     public float r() { return nr(address()); }
-    /** the green component of the color. */
+    /** @return the value of the {@code g} field. */
     public float g() { return ng(address()); }
-    /** the blue component of the color. */
+    /** @return the value of the {@code b} field. */
     public float b() { return nb(address()); }
-    /** the alpha component of the color. */
+    /** @return the value of the {@code a} field. */
     public float a() { return na(address()); }
 
-    /** Sets the specified value to the {@link #r} field. */
+    /** Sets the specified value to the {@code r} field. */
     public XrColor4f r(float value) { nr(address(), value); return this; }
-    /** Sets the specified value to the {@link #g} field. */
+    /** Sets the specified value to the {@code g} field. */
     public XrColor4f g(float value) { ng(address(), value); return this; }
-    /** Sets the specified value to the {@link #b} field. */
+    /** Sets the specified value to the {@code b} field. */
     public XrColor4f b(float value) { nb(address(), value); return this; }
-    /** Sets the specified value to the {@link #a} field. */
+    /** Sets the specified value to the {@code a} field. */
     public XrColor4f a(float value) { na(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -161,8 +147,7 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrColor4f createSafe(long address) {
+    public static @Nullable XrColor4f createSafe(long address) {
         return address == NULL ? null : new XrColor4f(address, null);
     }
 
@@ -205,8 +190,7 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrColor4f.Buffer createSafe(long address, int capacity) {
+    public static XrColor4f.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -251,22 +235,22 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #r}. */
-    public static float nr(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.R); }
+    public static float nr(long struct) { return memGetFloat(struct + XrColor4f.R); }
     /** Unsafe version of {@link #g}. */
-    public static float ng(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.G); }
+    public static float ng(long struct) { return memGetFloat(struct + XrColor4f.G); }
     /** Unsafe version of {@link #b}. */
-    public static float nb(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.B); }
+    public static float nb(long struct) { return memGetFloat(struct + XrColor4f.B); }
     /** Unsafe version of {@link #a}. */
-    public static float na(long struct) { return UNSAFE.getFloat(null, struct + XrColor4f.A); }
+    public static float na(long struct) { return memGetFloat(struct + XrColor4f.A); }
 
     /** Unsafe version of {@link #r(float) r}. */
-    public static void nr(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.R, value); }
+    public static void nr(long struct, float value) { memPutFloat(struct + XrColor4f.R, value); }
     /** Unsafe version of {@link #g(float) g}. */
-    public static void ng(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.G, value); }
+    public static void ng(long struct, float value) { memPutFloat(struct + XrColor4f.G, value); }
     /** Unsafe version of {@link #b(float) b}. */
-    public static void nb(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.B, value); }
+    public static void nb(long struct, float value) { memPutFloat(struct + XrColor4f.B, value); }
     /** Unsafe version of {@link #a(float) a}. */
-    public static void na(long struct, float value) { UNSAFE.putFloat(null, struct + XrColor4f.A, value); }
+    public static void na(long struct, float value) { memPutFloat(struct + XrColor4f.A, value); }
 
     // -----------------------------------
 
@@ -302,26 +286,31 @@ public class XrColor4f extends Struct<XrColor4f> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrColor4f getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrColor4f#r} field. */
+        /** @return the value of the {@code r} field. */
         public float r() { return XrColor4f.nr(address()); }
-        /** @return the value of the {@link XrColor4f#g} field. */
+        /** @return the value of the {@code g} field. */
         public float g() { return XrColor4f.ng(address()); }
-        /** @return the value of the {@link XrColor4f#b} field. */
+        /** @return the value of the {@code b} field. */
         public float b() { return XrColor4f.nb(address()); }
-        /** @return the value of the {@link XrColor4f#a} field. */
+        /** @return the value of the {@code a} field. */
         public float a() { return XrColor4f.na(address()); }
 
-        /** Sets the specified value to the {@link XrColor4f#r} field. */
+        /** Sets the specified value to the {@code r} field. */
         public XrColor4f.Buffer r(float value) { XrColor4f.nr(address(), value); return this; }
-        /** Sets the specified value to the {@link XrColor4f#g} field. */
+        /** Sets the specified value to the {@code g} field. */
         public XrColor4f.Buffer g(float value) { XrColor4f.ng(address(), value); return this; }
-        /** Sets the specified value to the {@link XrColor4f#b} field. */
+        /** Sets the specified value to the {@code b} field. */
         public XrColor4f.Buffer b(float value) { XrColor4f.nb(address(), value); return this; }
-        /** Sets the specified value to the {@link XrColor4f#a} field. */
+        /** Sets the specified value to the {@code a} field. */
         public XrColor4f.Buffer a(float value) { XrColor4f.na(address(), value); return this; }
 
     }

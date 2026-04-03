@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Information to create a facial tracker handle.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrFacialTrackerCreateInfoHTC} structure describes the information to create an {@code XrFacialTrackerHTC} handle.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link HTCFacialTracking XR_HTC_facial_tracking} extension <b>must</b> be enabled prior to using {@link XrFacialTrackerCreateInfoHTC}</li>
- * <li>{@code type} <b>must</b> be {@link HTCFacialTracking#XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC TYPE_FACIAL_TRACKER_CREATE_INFO_HTC}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code facialTrackingType} <b>must</b> be a valid {@code XrFacialTrackingTypeHTC} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link HTCFacialTracking#xrCreateFacialTrackerHTC CreateFacialTrackerHTC}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFacialTrackerCreateInfoHTC {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrFacialTrackingTypeHTC {@link #facialTrackingType};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrFacialTrackingTypeHTC facialTrackingType;
+ * }}</pre>
  */
 public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateInfoHTC> implements NativeResource {
 
@@ -95,23 +74,23 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** an {@code XrFacialTrackingTypeHTC} which describes which type of facial tracking should be used for this handle. */
+    /** @return the value of the {@code facialTrackingType} field. */
     @NativeType("XrFacialTrackingTypeHTC")
     public int facialTrackingType() { return nfacialTrackingType(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrFacialTrackerCreateInfoHTC type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC TYPE_FACIAL_TRACKER_CREATE_INFO_HTC} value to the {@link #type} field. */
+    /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC TYPE_FACIAL_TRACKER_CREATE_INFO_HTC} value to the {@code type} field. */
     public XrFacialTrackerCreateInfoHTC type$Default() { return type(HTCFacialTracking.XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrFacialTrackerCreateInfoHTC next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #facialTrackingType} field. */
+    /** Sets the specified value to the {@code facialTrackingType} field. */
     public XrFacialTrackerCreateInfoHTC facialTrackingType(@NativeType("XrFacialTrackingTypeHTC") int value) { nfacialTrackingType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -163,8 +142,7 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialTrackerCreateInfoHTC createSafe(long address) {
+    public static @Nullable XrFacialTrackerCreateInfoHTC createSafe(long address) {
         return address == NULL ? null : new XrFacialTrackerCreateInfoHTC(address, null);
     }
 
@@ -207,8 +185,7 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrFacialTrackerCreateInfoHTC.Buffer createSafe(long address, int capacity) {
+    public static XrFacialTrackerCreateInfoHTC.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,18 +230,18 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrFacialTrackerCreateInfoHTC.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrFacialTrackerCreateInfoHTC.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrFacialTrackerCreateInfoHTC.NEXT); }
     /** Unsafe version of {@link #facialTrackingType}. */
-    public static int nfacialTrackingType(long struct) { return UNSAFE.getInt(null, struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE); }
+    public static int nfacialTrackingType(long struct) { return memGetInt(struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialTrackerCreateInfoHTC.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrFacialTrackerCreateInfoHTC.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrFacialTrackerCreateInfoHTC.NEXT, value); }
     /** Unsafe version of {@link #facialTrackingType(int) facialTrackingType}. */
-    public static void nfacialTrackingType(long struct, int value) { UNSAFE.putInt(null, struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE, value); }
+    public static void nfacialTrackingType(long struct, int value) { memPutInt(struct + XrFacialTrackerCreateInfoHTC.FACIALTRACKINGTYPE, value); }
 
     // -----------------------------------
 
@@ -300,27 +277,32 @@ public class XrFacialTrackerCreateInfoHTC extends Struct<XrFacialTrackerCreateIn
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrFacialTrackerCreateInfoHTC getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFacialTrackerCreateInfoHTC#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrFacialTrackerCreateInfoHTC.ntype(address()); }
-        /** @return the value of the {@link XrFacialTrackerCreateInfoHTC#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrFacialTrackerCreateInfoHTC.nnext(address()); }
-        /** @return the value of the {@link XrFacialTrackerCreateInfoHTC#facialTrackingType} field. */
+        /** @return the value of the {@code facialTrackingType} field. */
         @NativeType("XrFacialTrackingTypeHTC")
         public int facialTrackingType() { return XrFacialTrackerCreateInfoHTC.nfacialTrackingType(address()); }
 
-        /** Sets the specified value to the {@link XrFacialTrackerCreateInfoHTC#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrFacialTrackerCreateInfoHTC.Buffer type(@NativeType("XrStructureType") int value) { XrFacialTrackerCreateInfoHTC.ntype(address(), value); return this; }
-        /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC TYPE_FACIAL_TRACKER_CREATE_INFO_HTC} value to the {@link XrFacialTrackerCreateInfoHTC#type} field. */
+        /** Sets the {@link HTCFacialTracking#XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC TYPE_FACIAL_TRACKER_CREATE_INFO_HTC} value to the {@code type} field. */
         public XrFacialTrackerCreateInfoHTC.Buffer type$Default() { return type(HTCFacialTracking.XR_TYPE_FACIAL_TRACKER_CREATE_INFO_HTC); }
-        /** Sets the specified value to the {@link XrFacialTrackerCreateInfoHTC#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrFacialTrackerCreateInfoHTC.Buffer next(@NativeType("void const *") long value) { XrFacialTrackerCreateInfoHTC.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrFacialTrackerCreateInfoHTC#facialTrackingType} field. */
+        /** Sets the specified value to the {@code facialTrackingType} field. */
         public XrFacialTrackerCreateInfoHTC.Buffer facialTrackingType(@NativeType("XrFacialTrackingTypeHTC") int value) { XrFacialTrackerCreateInfoHTC.nfacialTrackingType(address(), value); return this; }
 
     }

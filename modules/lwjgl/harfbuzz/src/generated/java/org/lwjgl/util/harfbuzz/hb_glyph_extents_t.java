@@ -5,7 +5,7 @@
  */
 package org.lwjgl.util.harfbuzz;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,19 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Glyph extent values, measured in font units.
- * 
- * <p>Note that {@code height} is negative, in coordinate systems that grow up.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct hb_glyph_extents_t {
- *     hb_position_t {@link #x_bearing};
- *     hb_position_t {@link #y_bearing};
- *     hb_position_t {@link #width};
- *     hb_position_t {@link #height};
- * }</code></pre>
+ *     hb_position_t x_bearing;
+ *     hb_position_t y_bearing;
+ *     hb_position_t width;
+ *     hb_position_t height;
+ * }}</pre>
  */
 public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements NativeResource {
 
@@ -84,26 +78,26 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** distance from the x-origin to the left extremum of the glyph */
+    /** @return the value of the {@code x_bearing} field. */
     @NativeType("hb_position_t")
     public int x_bearing() { return nx_bearing(address()); }
-    /** distance from the top extremum of the glyph to the y-origin */
+    /** @return the value of the {@code y_bearing} field. */
     @NativeType("hb_position_t")
     public int y_bearing() { return ny_bearing(address()); }
-    /** distance from the left extremum of the glyph to the right extremum */
+    /** @return the value of the {@code width} field. */
     @NativeType("hb_position_t")
     public int width() { return nwidth(address()); }
-    /** distance from the top extremum of the glyph to the bottom extremum */
+    /** @return the value of the {@code height} field. */
     @NativeType("hb_position_t")
     public int height() { return nheight(address()); }
 
-    /** Sets the specified value to the {@link #x_bearing} field. */
+    /** Sets the specified value to the {@code x_bearing} field. */
     public hb_glyph_extents_t x_bearing(@NativeType("hb_position_t") int value) { nx_bearing(address(), value); return this; }
-    /** Sets the specified value to the {@link #y_bearing} field. */
+    /** Sets the specified value to the {@code y_bearing} field. */
     public hb_glyph_extents_t y_bearing(@NativeType("hb_position_t") int value) { ny_bearing(address(), value); return this; }
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public hb_glyph_extents_t width(@NativeType("hb_position_t") int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public hb_glyph_extents_t height(@NativeType("hb_position_t") int value) { nheight(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -157,8 +151,7 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_extents_t createSafe(long address) {
+    public static @Nullable hb_glyph_extents_t createSafe(long address) {
         return address == NULL ? null : new hb_glyph_extents_t(address, null);
     }
 
@@ -201,8 +194,7 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static hb_glyph_extents_t.Buffer createSafe(long address, int capacity) {
+    public static hb_glyph_extents_t.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,22 +239,22 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #x_bearing}. */
-    public static int nx_bearing(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.X_BEARING); }
+    public static int nx_bearing(long struct) { return memGetInt(struct + hb_glyph_extents_t.X_BEARING); }
     /** Unsafe version of {@link #y_bearing}. */
-    public static int ny_bearing(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.Y_BEARING); }
+    public static int ny_bearing(long struct) { return memGetInt(struct + hb_glyph_extents_t.Y_BEARING); }
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + hb_glyph_extents_t.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + hb_glyph_extents_t.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + hb_glyph_extents_t.HEIGHT); }
 
     /** Unsafe version of {@link #x_bearing(int) x_bearing}. */
-    public static void nx_bearing(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.X_BEARING, value); }
+    public static void nx_bearing(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.X_BEARING, value); }
     /** Unsafe version of {@link #y_bearing(int) y_bearing}. */
-    public static void ny_bearing(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.Y_BEARING, value); }
+    public static void ny_bearing(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.Y_BEARING, value); }
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + hb_glyph_extents_t.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + hb_glyph_extents_t.HEIGHT, value); }
 
     // -----------------------------------
 
@@ -298,30 +290,35 @@ public class hb_glyph_extents_t extends Struct<hb_glyph_extents_t> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected hb_glyph_extents_t getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link hb_glyph_extents_t#x_bearing} field. */
+        /** @return the value of the {@code x_bearing} field. */
         @NativeType("hb_position_t")
         public int x_bearing() { return hb_glyph_extents_t.nx_bearing(address()); }
-        /** @return the value of the {@link hb_glyph_extents_t#y_bearing} field. */
+        /** @return the value of the {@code y_bearing} field. */
         @NativeType("hb_position_t")
         public int y_bearing() { return hb_glyph_extents_t.ny_bearing(address()); }
-        /** @return the value of the {@link hb_glyph_extents_t#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("hb_position_t")
         public int width() { return hb_glyph_extents_t.nwidth(address()); }
-        /** @return the value of the {@link hb_glyph_extents_t#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("hb_position_t")
         public int height() { return hb_glyph_extents_t.nheight(address()); }
 
-        /** Sets the specified value to the {@link hb_glyph_extents_t#x_bearing} field. */
+        /** Sets the specified value to the {@code x_bearing} field. */
         public hb_glyph_extents_t.Buffer x_bearing(@NativeType("hb_position_t") int value) { hb_glyph_extents_t.nx_bearing(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_glyph_extents_t#y_bearing} field. */
+        /** Sets the specified value to the {@code y_bearing} field. */
         public hb_glyph_extents_t.Buffer y_bearing(@NativeType("hb_position_t") int value) { hb_glyph_extents_t.ny_bearing(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_glyph_extents_t#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public hb_glyph_extents_t.Buffer width(@NativeType("hb_position_t") int value) { hb_glyph_extents_t.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link hb_glyph_extents_t#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public hb_glyph_extents_t.Buffer height(@NativeType("hb_position_t") int value) { hb_glyph_extents_t.nheight(address(), value); return this; }
 
     }

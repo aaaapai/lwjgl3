@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing tile image features supported by the implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceShaderTileImageFeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTShaderTileImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShaderTileImageFeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #shaderTileImageColorReadAccess};
- *     VkBool32 {@link #shaderTileImageDepthReadAccess};
- *     VkBool32 {@link #shaderTileImageStencilReadAccess};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 shaderTileImageColorReadAccess;
+ *     VkBool32 shaderTileImageDepthReadAccess;
+ *     VkBool32 shaderTileImageStencilReadAccess;
+ * }}</pre>
  */
 public class VkPhysicalDeviceShaderTileImageFeaturesEXT extends Struct<VkPhysicalDeviceShaderTileImageFeaturesEXT> implements NativeResource {
 
@@ -96,33 +82,33 @@ public class VkPhysicalDeviceShaderTileImageFeaturesEXT extends Struct<VkPhysica
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates that the implementation supports the {@code TileImageColorReadAccessEXT} SPIR-V capability. */
+    /** @return the value of the {@code shaderTileImageColorReadAccess} field. */
     @NativeType("VkBool32")
     public boolean shaderTileImageColorReadAccess() { return nshaderTileImageColorReadAccess(address()) != 0; }
-    /** indicates that the implementation supports the {@code TileImageDepthReadAccessEXT} SPIR-V capability. */
+    /** @return the value of the {@code shaderTileImageDepthReadAccess} field. */
     @NativeType("VkBool32")
     public boolean shaderTileImageDepthReadAccess() { return nshaderTileImageDepthReadAccess(address()) != 0; }
-    /** indicates that the implementation supports the {@code TileImageStencilReadAccessEXT} SPIR-V capability. */
+    /** @return the value of the {@code shaderTileImageStencilReadAccess} field. */
     @NativeType("VkBool32")
     public boolean shaderTileImageStencilReadAccess() { return nshaderTileImageStencilReadAccess(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceShaderTileImageFeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTShaderTileImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTShaderTileImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceShaderTileImageFeaturesEXT sType$Default() { return sType(EXTShaderTileImage.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceShaderTileImageFeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #shaderTileImageColorReadAccess} field. */
+    /** Sets the specified value to the {@code shaderTileImageColorReadAccess} field. */
     public VkPhysicalDeviceShaderTileImageFeaturesEXT shaderTileImageColorReadAccess(@NativeType("VkBool32") boolean value) { nshaderTileImageColorReadAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderTileImageDepthReadAccess} field. */
+    /** Sets the specified value to the {@code shaderTileImageDepthReadAccess} field. */
     public VkPhysicalDeviceShaderTileImageFeaturesEXT shaderTileImageDepthReadAccess(@NativeType("VkBool32") boolean value) { nshaderTileImageDepthReadAccess(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #shaderTileImageStencilReadAccess} field. */
+    /** Sets the specified value to the {@code shaderTileImageStencilReadAccess} field. */
     public VkPhysicalDeviceShaderTileImageFeaturesEXT shaderTileImageStencilReadAccess(@NativeType("VkBool32") boolean value) { nshaderTileImageStencilReadAccess(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -178,8 +164,7 @@ public class VkPhysicalDeviceShaderTileImageFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderTileImageFeaturesEXT createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderTileImageFeaturesEXT createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderTileImageFeaturesEXT(address, null);
     }
 
@@ -222,8 +207,7 @@ public class VkPhysicalDeviceShaderTileImageFeaturesEXT extends Struct<VkPhysica
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderTileImageFeaturesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -268,26 +252,26 @@ public class VkPhysicalDeviceShaderTileImageFeaturesEXT extends Struct<VkPhysica
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.PNEXT); }
     /** Unsafe version of {@link #shaderTileImageColorReadAccess}. */
-    public static int nshaderTileImageColorReadAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGECOLORREADACCESS); }
+    public static int nshaderTileImageColorReadAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGECOLORREADACCESS); }
     /** Unsafe version of {@link #shaderTileImageDepthReadAccess}. */
-    public static int nshaderTileImageDepthReadAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGEDEPTHREADACCESS); }
+    public static int nshaderTileImageDepthReadAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGEDEPTHREADACCESS); }
     /** Unsafe version of {@link #shaderTileImageStencilReadAccess}. */
-    public static int nshaderTileImageStencilReadAccess(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGESTENCILREADACCESS); }
+    public static int nshaderTileImageStencilReadAccess(long struct) { return memGetInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGESTENCILREADACCESS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.PNEXT, value); }
     /** Unsafe version of {@link #shaderTileImageColorReadAccess(boolean) shaderTileImageColorReadAccess}. */
-    public static void nshaderTileImageColorReadAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGECOLORREADACCESS, value); }
+    public static void nshaderTileImageColorReadAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGECOLORREADACCESS, value); }
     /** Unsafe version of {@link #shaderTileImageDepthReadAccess(boolean) shaderTileImageDepthReadAccess}. */
-    public static void nshaderTileImageDepthReadAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGEDEPTHREADACCESS, value); }
+    public static void nshaderTileImageDepthReadAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGEDEPTHREADACCESS, value); }
     /** Unsafe version of {@link #shaderTileImageStencilReadAccess(boolean) shaderTileImageStencilReadAccess}. */
-    public static void nshaderTileImageStencilReadAccess(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGESTENCILREADACCESS, value); }
+    public static void nshaderTileImageStencilReadAccess(long struct, int value) { memPutInt(struct + VkPhysicalDeviceShaderTileImageFeaturesEXT.SHADERTILEIMAGESTENCILREADACCESS, value); }
 
     // -----------------------------------
 
@@ -323,37 +307,42 @@ public class VkPhysicalDeviceShaderTileImageFeaturesEXT extends Struct<VkPhysica
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceShaderTileImageFeaturesEXT getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceShaderTileImageFeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceShaderTileImageFeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#shaderTileImageColorReadAccess} field. */
+        /** @return the value of the {@code shaderTileImageColorReadAccess} field. */
         @NativeType("VkBool32")
         public boolean shaderTileImageColorReadAccess() { return VkPhysicalDeviceShaderTileImageFeaturesEXT.nshaderTileImageColorReadAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#shaderTileImageDepthReadAccess} field. */
+        /** @return the value of the {@code shaderTileImageDepthReadAccess} field. */
         @NativeType("VkBool32")
         public boolean shaderTileImageDepthReadAccess() { return VkPhysicalDeviceShaderTileImageFeaturesEXT.nshaderTileImageDepthReadAccess(address()) != 0; }
-        /** @return the value of the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#shaderTileImageStencilReadAccess} field. */
+        /** @return the value of the {@code shaderTileImageStencilReadAccess} field. */
         @NativeType("VkBool32")
         public boolean shaderTileImageStencilReadAccess() { return VkPhysicalDeviceShaderTileImageFeaturesEXT.nshaderTileImageStencilReadAccess(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceShaderTileImageFeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTShaderTileImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT} value to the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#sType} field. */
+        /** Sets the {@link EXTShaderTileImage#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer sType$Default() { return sType(EXTShaderTileImage.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceShaderTileImageFeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#shaderTileImageColorReadAccess} field. */
+        /** Sets the specified value to the {@code shaderTileImageColorReadAccess} field. */
         public VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer shaderTileImageColorReadAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderTileImageFeaturesEXT.nshaderTileImageColorReadAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#shaderTileImageDepthReadAccess} field. */
+        /** Sets the specified value to the {@code shaderTileImageDepthReadAccess} field. */
         public VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer shaderTileImageDepthReadAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderTileImageFeaturesEXT.nshaderTileImageDepthReadAccess(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceShaderTileImageFeaturesEXT#shaderTileImageStencilReadAccess} field. */
+        /** Sets the specified value to the {@code shaderTileImageStencilReadAccess} field. */
         public VkPhysicalDeviceShaderTileImageFeaturesEXT.Buffer shaderTileImageStencilReadAccess(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceShaderTileImageFeaturesEXT.nshaderTileImageStencilReadAccess(address(), value ? 1 : 0); return this; }
 
     }

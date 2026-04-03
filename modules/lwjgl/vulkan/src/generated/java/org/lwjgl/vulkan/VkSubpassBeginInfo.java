@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying subpass begin information.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO STRUCTURE_TYPE_SUBPASS_BEGIN_INFO}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code contents} <b>must</b> be a valid {@code VkSubpassContents} value</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK12#vkCmdBeginRenderPass2 CmdBeginRenderPass2}, {@link KHRCreateRenderpass2#vkCmdBeginRenderPass2KHR CmdBeginRenderPass2KHR}, {@link VK12#vkCmdNextSubpass2 CmdNextSubpass2}, {@link KHRCreateRenderpass2#vkCmdNextSubpass2KHR CmdNextSubpass2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSubpassBeginInfo {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkSubpassContents {@link #contents};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkSubpassContents contents;
+ * }}</pre>
  */
 public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements NativeResource {
 
@@ -90,23 +74,23 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkSubpassContents} value specifying how the commands in the next subpass will be provided. */
+    /** @return the value of the {@code contents} field. */
     @NativeType("VkSubpassContents")
     public int contents() { return ncontents(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSubpassBeginInfo sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO STRUCTURE_TYPE_SUBPASS_BEGIN_INFO} value to the {@link #sType} field. */
+    /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO STRUCTURE_TYPE_SUBPASS_BEGIN_INFO} value to the {@code sType} field. */
     public VkSubpassBeginInfo sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSubpassBeginInfo pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #contents} field. */
+    /** Sets the specified value to the {@code contents} field. */
     public VkSubpassBeginInfo contents(@NativeType("VkSubpassContents") int value) { ncontents(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -158,8 +142,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassBeginInfo createSafe(long address) {
+    public static @Nullable VkSubpassBeginInfo createSafe(long address) {
         return address == NULL ? null : new VkSubpassBeginInfo(address, null);
     }
 
@@ -202,8 +185,7 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSubpassBeginInfo.Buffer createSafe(long address, int capacity) {
+    public static VkSubpassBeginInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,18 +230,18 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkSubpassBeginInfo.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkSubpassBeginInfo.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkSubpassBeginInfo.PNEXT); }
     /** Unsafe version of {@link #contents}. */
-    public static int ncontents(long struct) { return UNSAFE.getInt(null, struct + VkSubpassBeginInfo.CONTENTS); }
+    public static int ncontents(long struct) { return memGetInt(struct + VkSubpassBeginInfo.CONTENTS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassBeginInfo.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkSubpassBeginInfo.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkSubpassBeginInfo.PNEXT, value); }
     /** Unsafe version of {@link #contents(int) contents}. */
-    public static void ncontents(long struct, int value) { UNSAFE.putInt(null, struct + VkSubpassBeginInfo.CONTENTS, value); }
+    public static void ncontents(long struct, int value) { memPutInt(struct + VkSubpassBeginInfo.CONTENTS, value); }
 
     // -----------------------------------
 
@@ -295,27 +277,32 @@ public class VkSubpassBeginInfo extends Struct<VkSubpassBeginInfo> implements Na
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkSubpassBeginInfo getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSubpassBeginInfo#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSubpassBeginInfo.nsType(address()); }
-        /** @return the value of the {@link VkSubpassBeginInfo#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkSubpassBeginInfo.npNext(address()); }
-        /** @return the value of the {@link VkSubpassBeginInfo#contents} field. */
+        /** @return the value of the {@code contents} field. */
         @NativeType("VkSubpassContents")
         public int contents() { return VkSubpassBeginInfo.ncontents(address()); }
 
-        /** Sets the specified value to the {@link VkSubpassBeginInfo#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSubpassBeginInfo.Buffer sType(@NativeType("VkStructureType") int value) { VkSubpassBeginInfo.nsType(address(), value); return this; }
-        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO STRUCTURE_TYPE_SUBPASS_BEGIN_INFO} value to the {@link VkSubpassBeginInfo#sType} field. */
+        /** Sets the {@link VK12#VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO STRUCTURE_TYPE_SUBPASS_BEGIN_INFO} value to the {@code sType} field. */
         public VkSubpassBeginInfo.Buffer sType$Default() { return sType(VK12.VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO); }
-        /** Sets the specified value to the {@link VkSubpassBeginInfo#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSubpassBeginInfo.Buffer pNext(@NativeType("void const *") long value) { VkSubpassBeginInfo.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSubpassBeginInfo#contents} field. */
+        /** Sets the specified value to the {@code contents} field. */
         public VkSubpassBeginInfo.Buffer contents(@NativeType("VkSubpassContents") int value) { VkSubpassBeginInfo.ncontents(address(), value); return this; }
 
     }

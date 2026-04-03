@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing Y′C<sub>B</sub>C<sub>R</sub> degamma features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link QCOMYcbcrDegamma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceYcbcrDegammaFeaturesQCOM {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #ycbcrDegamma};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 ycbcrDegamma;
+ * }}</pre>
  */
 public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalDeviceYcbcrDegammaFeaturesQCOM> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#textures-ycbcr-degamma">Y′C<sub>B</sub>C<sub>R</sub> degamma</a>. */
+    /** @return the value of the {@code ycbcrDegamma} field. */
     @NativeType("VkBool32")
     public boolean ycbcrDegamma() { return nycbcrDegamma(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link QCOMYcbcrDegamma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM} value to the {@link #sType} field. */
+    /** Sets the {@link QCOMYcbcrDegamma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM} value to the {@code sType} field. */
     public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM sType$Default() { return sType(QCOMYcbcrDegamma.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #ycbcrDegamma} field. */
+    /** Sets the specified value to the {@code ycbcrDegamma} field. */
     public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM ycbcrDegamma(@NativeType("VkBool32") boolean value) { nycbcrDegamma(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceYcbcrDegammaFeaturesQCOM createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceYcbcrDegammaFeaturesQCOM createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceYcbcrDegammaFeaturesQCOM(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.PNEXT); }
     /** Unsafe version of {@link #ycbcrDegamma}. */
-    public static int nycbcrDegamma(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA); }
+    public static int nycbcrDegamma(long struct) { return memGetInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.PNEXT, value); }
     /** Unsafe version of {@link #ycbcrDegamma(boolean) ycbcrDegamma}. */
-    public static void nycbcrDegamma(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA, value); }
+    public static void nycbcrDegamma(long struct, int value) { memPutInt(struct + VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.YCBCRDEGAMMA, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends Struct<VkPhysicalD
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceYcbcrDegammaFeaturesQCOM getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#ycbcrDegamma} field. */
+        /** @return the value of the {@code ycbcrDegamma} field. */
         @NativeType("VkBool32")
         public boolean ycbcrDegamma() { return VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.nycbcrDegamma(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.nsType(address(), value); return this; }
-        /** Sets the {@link QCOMYcbcrDegamma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM} value to the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#sType} field. */
+        /** Sets the {@link QCOMYcbcrDegamma#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM} value to the {@code sType} field. */
         public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.Buffer sType$Default() { return sType(QCOMYcbcrDegamma.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceYcbcrDegammaFeaturesQCOM#ycbcrDegamma} field. */
+        /** Sets the specified value to the {@code ycbcrDegamma} field. */
         public VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.Buffer ycbcrDegamma(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.nycbcrDegamma(address(), value ? 1 : 0); return this; }
 
     }

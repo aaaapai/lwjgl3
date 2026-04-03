@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,33 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters for retrieving encoded video session parameter data.
- * 
- * <h5>Description</h5>
- * 
- * <p>Depending on the used video encode operation, additional codec-specific structures <b>may</b> need to be included in the {@code pNext} chain of this structure to identify the specific video session parameters to retrieve encoded parameter data for, as described in the corresponding sections.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkVideoEncodeH264SessionParametersGetInfoEXT} or {@link VkVideoEncodeH265SessionParametersGetInfoEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * <li>{@code videoSessionParameters} <b>must</b> be a valid {@code VkVideoSessionParametersKHR} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link KHRVideoEncodeQueue#vkGetEncodedVideoSessionParametersKHR GetEncodedVideoSessionParametersKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkVideoEncodeSessionParametersGetInfoKHR {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkVideoSessionParametersKHR {@link #videoSessionParameters};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkVideoSessionParametersKHR videoSessionParameters;
+ * }}</pre>
  */
 public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEncodeSessionParametersGetInfoKHR> implements NativeResource {
 
@@ -95,27 +74,27 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the {@code VkVideoSessionParametersKHR} object to retrieve encoded parameter data from. */
+    /** @return the value of the {@code videoSessionParameters} field. */
     @NativeType("VkVideoSessionParametersKHR")
     public long videoSessionParameters() { return nvideoSessionParameters(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkVideoEncodeSessionParametersGetInfoKHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR} value to the {@code sType} field. */
     public VkVideoEncodeSessionParametersGetInfoKHR sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkVideoEncodeSessionParametersGetInfoKHR pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Prepends the specified {@link VkVideoEncodeH264SessionParametersGetInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoEncodeSessionParametersGetInfoKHR pNext(VkVideoEncodeH264SessionParametersGetInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Prepends the specified {@link VkVideoEncodeH265SessionParametersGetInfoEXT} value to the {@code pNext} chain. */
-    public VkVideoEncodeSessionParametersGetInfoKHR pNext(VkVideoEncodeH265SessionParametersGetInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-    /** Sets the specified value to the {@link #videoSessionParameters} field. */
+    /** Prepends the specified {@link VkVideoEncodeH264SessionParametersGetInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeSessionParametersGetInfoKHR pNext(VkVideoEncodeH264SessionParametersGetInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkVideoEncodeH265SessionParametersGetInfoKHR} value to the {@code pNext} chain. */
+    public VkVideoEncodeSessionParametersGetInfoKHR pNext(VkVideoEncodeH265SessionParametersGetInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Sets the specified value to the {@code videoSessionParameters} field. */
     public VkVideoEncodeSessionParametersGetInfoKHR videoSessionParameters(@NativeType("VkVideoSessionParametersKHR") long value) { nvideoSessionParameters(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -167,8 +146,7 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeSessionParametersGetInfoKHR createSafe(long address) {
+    public static @Nullable VkVideoEncodeSessionParametersGetInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkVideoEncodeSessionParametersGetInfoKHR(address, null);
     }
 
@@ -211,8 +189,7 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkVideoEncodeSessionParametersGetInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkVideoEncodeSessionParametersGetInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -257,18 +234,18 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkVideoEncodeSessionParametersGetInfoKHR.PNEXT); }
     /** Unsafe version of {@link #videoSessionParameters}. */
-    public static long nvideoSessionParameters(long struct) { return UNSAFE.getLong(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS); }
+    public static long nvideoSessionParameters(long struct) { return memGetLong(struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeSessionParametersGetInfoKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeSessionParametersGetInfoKHR.PNEXT, value); }
     /** Unsafe version of {@link #videoSessionParameters(long) videoSessionParameters}. */
-    public static void nvideoSessionParameters(long struct, long value) { UNSAFE.putLong(null, struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS, value); }
+    public static void nvideoSessionParameters(long struct, long value) { memPutLong(struct + VkVideoEncodeSessionParametersGetInfoKHR.VIDEOSESSIONPARAMETERS, value); }
 
     // -----------------------------------
 
@@ -304,31 +281,36 @@ public class VkVideoEncodeSessionParametersGetInfoKHR extends Struct<VkVideoEnco
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkVideoEncodeSessionParametersGetInfoKHR getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkVideoEncodeSessionParametersGetInfoKHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkVideoEncodeSessionParametersGetInfoKHR.nsType(address()); }
-        /** @return the value of the {@link VkVideoEncodeSessionParametersGetInfoKHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkVideoEncodeSessionParametersGetInfoKHR.npNext(address()); }
-        /** @return the value of the {@link VkVideoEncodeSessionParametersGetInfoKHR#videoSessionParameters} field. */
+        /** @return the value of the {@code videoSessionParameters} field. */
         @NativeType("VkVideoSessionParametersKHR")
         public long videoSessionParameters() { return VkVideoEncodeSessionParametersGetInfoKHR.nvideoSessionParameters(address()); }
 
-        /** Sets the specified value to the {@link VkVideoEncodeSessionParametersGetInfoKHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkVideoEncodeSessionParametersGetInfoKHR.Buffer sType(@NativeType("VkStructureType") int value) { VkVideoEncodeSessionParametersGetInfoKHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR} value to the {@link VkVideoEncodeSessionParametersGetInfoKHR#sType} field. */
+        /** Sets the {@link KHRVideoEncodeQueue#VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR} value to the {@code sType} field. */
         public VkVideoEncodeSessionParametersGetInfoKHR.Buffer sType$Default() { return sType(KHRVideoEncodeQueue.VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR); }
-        /** Sets the specified value to the {@link VkVideoEncodeSessionParametersGetInfoKHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkVideoEncodeSessionParametersGetInfoKHR.Buffer pNext(@NativeType("void const *") long value) { VkVideoEncodeSessionParametersGetInfoKHR.npNext(address(), value); return this; }
-        /** Prepends the specified {@link VkVideoEncodeH264SessionParametersGetInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoEncodeSessionParametersGetInfoKHR.Buffer pNext(VkVideoEncodeH264SessionParametersGetInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Prepends the specified {@link VkVideoEncodeH265SessionParametersGetInfoEXT} value to the {@code pNext} chain. */
-        public VkVideoEncodeSessionParametersGetInfoKHR.Buffer pNext(VkVideoEncodeH265SessionParametersGetInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
-        /** Sets the specified value to the {@link VkVideoEncodeSessionParametersGetInfoKHR#videoSessionParameters} field. */
+        /** Prepends the specified {@link VkVideoEncodeH264SessionParametersGetInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeSessionParametersGetInfoKHR.Buffer pNext(VkVideoEncodeH264SessionParametersGetInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkVideoEncodeH265SessionParametersGetInfoKHR} value to the {@code pNext} chain. */
+        public VkVideoEncodeSessionParametersGetInfoKHR.Buffer pNext(VkVideoEncodeH265SessionParametersGetInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Sets the specified value to the {@code videoSessionParameters} field. */
         public VkVideoEncodeSessionParametersGetInfoKHR.Buffer videoSessionParameters(@NativeType("VkVideoSessionParametersKHR") long value) { VkVideoEncodeSessionParametersGetInfoKHR.nvideoSessionParameters(address(), value); return this; }
 
     }

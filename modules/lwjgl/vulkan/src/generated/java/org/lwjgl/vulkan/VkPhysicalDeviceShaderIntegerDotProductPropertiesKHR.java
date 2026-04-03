@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceShaderIntegerDotProductProperties}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR {
  *     VkStructureType sType;
  *     void * pNext;
@@ -54,7 +50,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     VkBool32 integerDotProductAccumulatingSaturating64BitUnsignedAccelerated;
  *     VkBool32 integerDotProductAccumulatingSaturating64BitSignedAccelerated;
  *     VkBool32 integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR extends VkPhysicalDeviceShaderIntegerDotProductProperties {
 
@@ -135,8 +131,7 @@ public class VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR extends VkPhys
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR(address, null);
     }
 
@@ -179,8 +174,7 @@ public class VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR extends VkPhys
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -253,6 +247,11 @@ public class VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR extends VkPhys
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

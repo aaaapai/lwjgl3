@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the ray tracing displacement micromap features that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVDisplacementMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceDisplacementMicromapFeaturesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #displacementMicromap};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 displacementMicromap;
+ * }}</pre>
  */
 public class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends Struct<VkPhysicalDeviceDisplacementMicromapFeaturesNV> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends Struct<VkPhy
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports the displacement micromap feature. */
+    /** @return the value of the {@code displacementMicromap} field. */
     @NativeType("VkBool32")
     public boolean displacementMicromap() { return ndisplacementMicromap(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceDisplacementMicromapFeaturesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVDisplacementMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVDisplacementMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceDisplacementMicromapFeaturesNV sType$Default() { return sType(NVDisplacementMicromap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceDisplacementMicromapFeaturesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #displacementMicromap} field. */
+    /** Sets the specified value to the {@code displacementMicromap} field. */
     public VkPhysicalDeviceDisplacementMicromapFeaturesNV displacementMicromap(@NativeType("VkBool32") boolean value) { ndisplacementMicromap(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends Struct<VkPhy
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDisplacementMicromapFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceDisplacementMicromapFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceDisplacementMicromapFeaturesNV(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends Struct<VkPhy
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceDisplacementMicromapFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceDisplacementMicromapFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends Struct<VkPhy
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #displacementMicromap}. */
-    public static int ndisplacementMicromap(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.DISPLACEMENTMICROMAP); }
+    public static int ndisplacementMicromap(long struct) { return memGetInt(struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.DISPLACEMENTMICROMAP); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #displacementMicromap(boolean) displacementMicromap}. */
-    public static void ndisplacementMicromap(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.DISPLACEMENTMICROMAP, value); }
+    public static void ndisplacementMicromap(long struct, int value) { memPutInt(struct + VkPhysicalDeviceDisplacementMicromapFeaturesNV.DISPLACEMENTMICROMAP, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends Struct<VkPhy
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceDisplacementMicromapFeaturesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceDisplacementMicromapFeaturesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceDisplacementMicromapFeaturesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#displacementMicromap} field. */
+        /** @return the value of the {@code displacementMicromap} field. */
         @NativeType("VkBool32")
         public boolean displacementMicromap() { return VkPhysicalDeviceDisplacementMicromapFeaturesNV.ndisplacementMicromap(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceDisplacementMicromapFeaturesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceDisplacementMicromapFeaturesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVDisplacementMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV} value to the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#sType} field. */
+        /** Sets the {@link NVDisplacementMicromap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceDisplacementMicromapFeaturesNV.Buffer sType$Default() { return sType(NVDisplacementMicromap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceDisplacementMicromapFeaturesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceDisplacementMicromapFeaturesNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceDisplacementMicromapFeaturesNV#displacementMicromap} field. */
+        /** Sets the specified value to the {@code displacementMicromap} field. */
         public VkPhysicalDeviceDisplacementMicromapFeaturesNV.Buffer displacementMicromap(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceDisplacementMicromapFeaturesNV.ndisplacementMicromap(address(), value ? 1 : 0); return this; }
 
     }

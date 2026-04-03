@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkPhysicalDeviceShaderFloat16Int8Features}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceFloat16Int8FeaturesKHR {
  *     VkStructureType sType;
  *     void * pNext;
  *     VkBool32 shaderFloat16;
  *     VkBool32 shaderInt8;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkPhysicalDeviceFloat16Int8FeaturesKHR extends VkPhysicalDeviceShaderFloat16Int8Features {
 
@@ -117,8 +113,7 @@ public class VkPhysicalDeviceFloat16Int8FeaturesKHR extends VkPhysicalDeviceShad
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFloat16Int8FeaturesKHR createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceFloat16Int8FeaturesKHR createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceFloat16Int8FeaturesKHR(address, null);
     }
 
@@ -161,29 +156,9 @@ public class VkPhysicalDeviceFloat16Int8FeaturesKHR extends VkPhysicalDeviceShad
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceFloat16Int8FeaturesKHR.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceFloat16Int8FeaturesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFloat16Int8FeaturesKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkPhysicalDeviceFloat16Int8FeaturesKHR} instance allocated on the specified {@link MemoryStack}.
@@ -254,6 +229,11 @@ public class VkPhysicalDeviceFloat16Int8FeaturesKHR extends VkPhysicalDeviceShad
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.assimp;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,14 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Represents an opaque set of settings to be used during importing.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiPropertyStore {
  *     char sentinel;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct aiPropertyStore")
 public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeResource {
@@ -114,8 +110,7 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIPropertyStore createSafe(long address) {
+    public static @Nullable AIPropertyStore createSafe(long address) {
         return address == NULL ? null : new AIPropertyStore(address, null);
     }
 
@@ -158,29 +153,9 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static AIPropertyStore.Buffer createSafe(long address, int capacity) {
+    public static AIPropertyStore.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIPropertyStore.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code AIPropertyStore} instance allocated on the specified {@link MemoryStack}.
@@ -223,10 +198,10 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
     // -----------------------------------
 
     /** Unsafe version of {@link #sentinel}. */
-    public static byte nsentinel(long struct) { return UNSAFE.getByte(null, struct + AIPropertyStore.SENTINEL); }
+    public static byte nsentinel(long struct) { return memGetByte(struct + AIPropertyStore.SENTINEL); }
 
     /** Unsafe version of {@link #sentinel(byte) sentinel}. */
-    public static void nsentinel(long struct, byte value) { UNSAFE.putByte(null, struct + AIPropertyStore.SENTINEL, value); }
+    public static void nsentinel(long struct, byte value) { memPutByte(struct + AIPropertyStore.SENTINEL, value); }
 
     // -----------------------------------
 
@@ -259,6 +234,11 @@ public class AIPropertyStore extends Struct<AIPropertyStore> implements NativeRe
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

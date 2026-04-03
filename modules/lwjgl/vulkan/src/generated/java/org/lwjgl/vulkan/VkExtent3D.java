@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,20 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a three-dimensional extent.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkBufferImageCopy}, {@link VkBufferImageCopy2}, {@link VkCopyMemoryToImageIndirectCommandNV}, {@link VkImageCopy}, {@link VkImageCopy2}, {@link VkImageCreateInfo}, {@link VkImageFormatProperties}, {@link VkImageResolve}, {@link VkImageResolve2}, {@link VkImageToMemoryCopyEXT}, {@link VkMemoryToImageCopyEXT}, {@link VkQueueFamilyProperties}, {@link VkSparseImageFormatProperties}, {@link VkSparseImageMemoryBind}, {@link VkTilePropertiesQCOM}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExtent3D {
- *     uint32_t {@link #width};
- *     uint32_t {@link #height};
- *     uint32_t {@link #depth};
- * }</code></pre>
+ *     uint32_t width;
+ *     uint32_t height;
+ *     uint32_t depth;
+ * }}</pre>
  */
 public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
 
@@ -82,21 +74,21 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the width of the extent. */
+    /** @return the value of the {@code width} field. */
     @NativeType("uint32_t")
     public int width() { return nwidth(address()); }
-    /** the height of the extent. */
+    /** @return the value of the {@code height} field. */
     @NativeType("uint32_t")
     public int height() { return nheight(address()); }
-    /** the depth of the extent. */
+    /** @return the value of the {@code depth} field. */
     @NativeType("uint32_t")
     public int depth() { return ndepth(address()); }
 
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public VkExtent3D width(@NativeType("uint32_t") int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public VkExtent3D height(@NativeType("uint32_t") int value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #depth} field. */
+    /** Sets the specified value to the {@code depth} field. */
     public VkExtent3D depth(@NativeType("uint32_t") int value) { ndepth(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -148,8 +140,7 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent3D createSafe(long address) {
+    public static @Nullable VkExtent3D createSafe(long address) {
         return address == NULL ? null : new VkExtent3D(address, null);
     }
 
@@ -192,29 +183,9 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkExtent3D.Buffer createSafe(long address, int capacity) {
+    public static VkExtent3D.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtent3D.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkExtent3D} instance allocated on the specified {@link MemoryStack}.
@@ -257,18 +228,18 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
     // -----------------------------------
 
     /** Unsafe version of {@link #width}. */
-    public static int nwidth(long struct) { return UNSAFE.getInt(null, struct + VkExtent3D.WIDTH); }
+    public static int nwidth(long struct) { return memGetInt(struct + VkExtent3D.WIDTH); }
     /** Unsafe version of {@link #height}. */
-    public static int nheight(long struct) { return UNSAFE.getInt(null, struct + VkExtent3D.HEIGHT); }
+    public static int nheight(long struct) { return memGetInt(struct + VkExtent3D.HEIGHT); }
     /** Unsafe version of {@link #depth}. */
-    public static int ndepth(long struct) { return UNSAFE.getInt(null, struct + VkExtent3D.DEPTH); }
+    public static int ndepth(long struct) { return memGetInt(struct + VkExtent3D.DEPTH); }
 
     /** Unsafe version of {@link #width(int) width}. */
-    public static void nwidth(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent3D.WIDTH, value); }
+    public static void nwidth(long struct, int value) { memPutInt(struct + VkExtent3D.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */
-    public static void nheight(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent3D.HEIGHT, value); }
+    public static void nheight(long struct, int value) { memPutInt(struct + VkExtent3D.HEIGHT, value); }
     /** Unsafe version of {@link #depth(int) depth}. */
-    public static void ndepth(long struct, int value) { UNSAFE.putInt(null, struct + VkExtent3D.DEPTH, value); }
+    public static void ndepth(long struct, int value) { memPutInt(struct + VkExtent3D.DEPTH, value); }
 
     // -----------------------------------
 
@@ -304,25 +275,30 @@ public class VkExtent3D extends Struct<VkExtent3D> implements NativeResource {
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkExtent3D getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkExtent3D#width} field. */
+        /** @return the value of the {@code width} field. */
         @NativeType("uint32_t")
         public int width() { return VkExtent3D.nwidth(address()); }
-        /** @return the value of the {@link VkExtent3D#height} field. */
+        /** @return the value of the {@code height} field. */
         @NativeType("uint32_t")
         public int height() { return VkExtent3D.nheight(address()); }
-        /** @return the value of the {@link VkExtent3D#depth} field. */
+        /** @return the value of the {@code depth} field. */
         @NativeType("uint32_t")
         public int depth() { return VkExtent3D.ndepth(address()); }
 
-        /** Sets the specified value to the {@link VkExtent3D#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public VkExtent3D.Buffer width(@NativeType("uint32_t") int value) { VkExtent3D.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExtent3D#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public VkExtent3D.Buffer height(@NativeType("uint32_t") int value) { VkExtent3D.nheight(address(), value); return this; }
-        /** Sets the specified value to the {@link VkExtent3D#depth} field. */
+        /** Sets the specified value to the {@code depth} field. */
         public VkExtent3D.Buffer depth(@NativeType("uint32_t") int value) { VkExtent3D.ndepth(address(), value); return this; }
 
     }

@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -17,11 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkSemaphoreWaitInfo}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSemaphoreWaitInfoKHR {
  *     VkStructureType sType;
  *     void const * pNext;
@@ -29,7 +25,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     uint32_t semaphoreCount;
  *     VkSemaphore const * pSemaphores;
  *     uint64_t const * pValues;
- * }</code></pre>
+ * }}</pre>
  */
 public class VkSemaphoreWaitInfoKHR extends VkSemaphoreWaitInfo {
 
@@ -130,8 +126,7 @@ public class VkSemaphoreWaitInfoKHR extends VkSemaphoreWaitInfo {
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreWaitInfoKHR createSafe(long address) {
+    public static @Nullable VkSemaphoreWaitInfoKHR createSafe(long address) {
         return address == NULL ? null : new VkSemaphoreWaitInfoKHR(address, null);
     }
 
@@ -174,8 +169,7 @@ public class VkSemaphoreWaitInfoKHR extends VkSemaphoreWaitInfo {
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkSemaphoreWaitInfoKHR.Buffer createSafe(long address, int capacity) {
+    public static VkSemaphoreWaitInfoKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -248,6 +242,11 @@ public class VkSemaphoreWaitInfoKHR extends VkSemaphoreWaitInfo {
         @Override
         protected Buffer self() {
             return this;
+        }
+
+        @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
         }
 
         @Override

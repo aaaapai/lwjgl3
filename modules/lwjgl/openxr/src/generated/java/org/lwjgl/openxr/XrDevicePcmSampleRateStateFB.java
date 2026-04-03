@@ -5,7 +5,7 @@
  */
 package org.lwjgl.openxr;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,28 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Information about the device sample rate.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBHapticPcm XR_FB_haptic_pcm} extension <b>must</b> be enabled prior to using {@link XrDevicePcmSampleRateStateFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBHapticPcm#XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://www.khronos.org/registry/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link FBHapticPcm#xrGetDeviceSampleRateFB GetDeviceSampleRateFB}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrDevicePcmSampleRateStateFB {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     float {@link #sampleRate};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     float sampleRate;
+ * }}</pre>
  */
 public class XrDevicePcmSampleRateStateFB extends Struct<XrDevicePcmSampleRateStateFB> implements NativeResource {
 
@@ -90,22 +74,22 @@ public class XrDevicePcmSampleRateStateFB extends Struct<XrDevicePcmSampleRateSt
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** the sample rate of the currently bound device which can play a haptic effect */
+    /** @return the value of the {@code sampleRate} field. */
     public float sampleRate() { return nsampleRate(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrDevicePcmSampleRateStateFB type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link FBHapticPcm#XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB} value to the {@link #type} field. */
+    /** Sets the {@link FBHapticPcm#XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB} value to the {@code type} field. */
     public XrDevicePcmSampleRateStateFB type$Default() { return type(FBHapticPcm.XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrDevicePcmSampleRateStateFB next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #sampleRate} field. */
+    /** Sets the specified value to the {@code sampleRate} field. */
     public XrDevicePcmSampleRateStateFB sampleRate(float value) { nsampleRate(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -157,8 +141,7 @@ public class XrDevicePcmSampleRateStateFB extends Struct<XrDevicePcmSampleRateSt
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDevicePcmSampleRateStateFB createSafe(long address) {
+    public static @Nullable XrDevicePcmSampleRateStateFB createSafe(long address) {
         return address == NULL ? null : new XrDevicePcmSampleRateStateFB(address, null);
     }
 
@@ -201,8 +184,7 @@ public class XrDevicePcmSampleRateStateFB extends Struct<XrDevicePcmSampleRateSt
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static XrDevicePcmSampleRateStateFB.Buffer createSafe(long address, int capacity) {
+    public static XrDevicePcmSampleRateStateFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -247,18 +229,18 @@ public class XrDevicePcmSampleRateStateFB extends Struct<XrDevicePcmSampleRateSt
     // -----------------------------------
 
     /** Unsafe version of {@link #type}. */
-    public static int ntype(long struct) { return UNSAFE.getInt(null, struct + XrDevicePcmSampleRateStateFB.TYPE); }
+    public static int ntype(long struct) { return memGetInt(struct + XrDevicePcmSampleRateStateFB.TYPE); }
     /** Unsafe version of {@link #next}. */
     public static long nnext(long struct) { return memGetAddress(struct + XrDevicePcmSampleRateStateFB.NEXT); }
     /** Unsafe version of {@link #sampleRate}. */
-    public static float nsampleRate(long struct) { return UNSAFE.getFloat(null, struct + XrDevicePcmSampleRateStateFB.SAMPLERATE); }
+    public static float nsampleRate(long struct) { return memGetFloat(struct + XrDevicePcmSampleRateStateFB.SAMPLERATE); }
 
     /** Unsafe version of {@link #type(int) type}. */
-    public static void ntype(long struct, int value) { UNSAFE.putInt(null, struct + XrDevicePcmSampleRateStateFB.TYPE, value); }
+    public static void ntype(long struct, int value) { memPutInt(struct + XrDevicePcmSampleRateStateFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrDevicePcmSampleRateStateFB.NEXT, value); }
     /** Unsafe version of {@link #sampleRate(float) sampleRate}. */
-    public static void nsampleRate(long struct, float value) { UNSAFE.putFloat(null, struct + XrDevicePcmSampleRateStateFB.SAMPLERATE, value); }
+    public static void nsampleRate(long struct, float value) { memPutFloat(struct + XrDevicePcmSampleRateStateFB.SAMPLERATE, value); }
 
     // -----------------------------------
 
@@ -294,26 +276,31 @@ public class XrDevicePcmSampleRateStateFB extends Struct<XrDevicePcmSampleRateSt
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected XrDevicePcmSampleRateStateFB getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrDevicePcmSampleRateStateFB#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrDevicePcmSampleRateStateFB.ntype(address()); }
-        /** @return the value of the {@link XrDevicePcmSampleRateStateFB#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrDevicePcmSampleRateStateFB.nnext(address()); }
-        /** @return the value of the {@link XrDevicePcmSampleRateStateFB#sampleRate} field. */
+        /** @return the value of the {@code sampleRate} field. */
         public float sampleRate() { return XrDevicePcmSampleRateStateFB.nsampleRate(address()); }
 
-        /** Sets the specified value to the {@link XrDevicePcmSampleRateStateFB#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrDevicePcmSampleRateStateFB.Buffer type(@NativeType("XrStructureType") int value) { XrDevicePcmSampleRateStateFB.ntype(address(), value); return this; }
-        /** Sets the {@link FBHapticPcm#XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB} value to the {@link XrDevicePcmSampleRateStateFB#type} field. */
+        /** Sets the {@link FBHapticPcm#XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB} value to the {@code type} field. */
         public XrDevicePcmSampleRateStateFB.Buffer type$Default() { return type(FBHapticPcm.XR_TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB); }
-        /** Sets the specified value to the {@link XrDevicePcmSampleRateStateFB#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrDevicePcmSampleRateStateFB.Buffer next(@NativeType("void *") long value) { XrDevicePcmSampleRateStateFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrDevicePcmSampleRateStateFB#sampleRate} field. */
+        /** Sets the specified value to the {@code sampleRate} field. */
         public XrDevicePcmSampleRateStateFB.Buffer sampleRate(float value) { XrDevicePcmSampleRateStateFB.nsampleRate(address(), value); return this; }
 
     }

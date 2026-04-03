@@ -5,7 +5,7 @@
  */
 package org.lwjgl.vulkan;
 
-import javax.annotation.*;
+import org.jspecify.annotations.*;
 
 import java.nio.*;
 
@@ -16,26 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the optical flow features supported by the implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceOpticalFlowFeaturesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceOpticalFlowFeaturesNV} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVOpticalFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceOpticalFlowFeaturesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #opticalFlow};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 opticalFlow;
+ * }}</pre>
  */
 public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDeviceOpticalFlowFeaturesNV> implements NativeResource {
 
@@ -88,23 +74,23 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** indicates whether the implementation supports optical flow. */
+    /** @return the value of the {@code opticalFlow} field. */
     @NativeType("VkBool32")
     public boolean opticalFlow() { return nopticalFlow(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceOpticalFlowFeaturesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV} value to the {@link #sType} field. */
+    /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV} value to the {@code sType} field. */
     public VkPhysicalDeviceOpticalFlowFeaturesNV sType$Default() { return sType(NVOpticalFlow.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceOpticalFlowFeaturesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #opticalFlow} field. */
+    /** Sets the specified value to the {@code opticalFlow} field. */
     public VkPhysicalDeviceOpticalFlowFeaturesNV opticalFlow(@NativeType("VkBool32") boolean value) { nopticalFlow(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -156,8 +142,7 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     }
 
     /** Like {@link #create(long) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpticalFlowFeaturesNV createSafe(long address) {
+    public static @Nullable VkPhysicalDeviceOpticalFlowFeaturesNV createSafe(long address) {
         return address == NULL ? null : new VkPhysicalDeviceOpticalFlowFeaturesNV(address, null);
     }
 
@@ -200,8 +185,7 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     }
 
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
-    @Nullable
-    public static VkPhysicalDeviceOpticalFlowFeaturesNV.Buffer createSafe(long address, int capacity) {
+    public static VkPhysicalDeviceOpticalFlowFeaturesNV.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
@@ -246,18 +230,18 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
     // -----------------------------------
 
     /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE); }
+    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE); }
     /** Unsafe version of {@link #pNext}. */
     public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.PNEXT); }
     /** Unsafe version of {@link #opticalFlow}. */
-    public static int nopticalFlow(long struct) { return UNSAFE.getInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW); }
+    public static int nopticalFlow(long struct) { return memGetInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE, value); }
+    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.PNEXT, value); }
     /** Unsafe version of {@link #opticalFlow(boolean) opticalFlow}. */
-    public static void nopticalFlow(long struct, int value) { UNSAFE.putInt(null, struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW, value); }
+    public static void nopticalFlow(long struct, int value) { memPutInt(struct + VkPhysicalDeviceOpticalFlowFeaturesNV.OPTICALFLOW, value); }
 
     // -----------------------------------
 
@@ -293,27 +277,32 @@ public class VkPhysicalDeviceOpticalFlowFeaturesNV extends Struct<VkPhysicalDevi
         }
 
         @Override
+        protected Buffer create(long address, @Nullable ByteBuffer container, int mark, int position, int limit, int capacity) {
+            return new Buffer(address, container, mark, position, limit, capacity);
+        }
+
+        @Override
         protected VkPhysicalDeviceOpticalFlowFeaturesNV getElementFactory() {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceOpticalFlowFeaturesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceOpticalFlowFeaturesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#opticalFlow} field. */
+        /** @return the value of the {@code opticalFlow} field. */
         @NativeType("VkBool32")
         public boolean opticalFlow() { return VkPhysicalDeviceOpticalFlowFeaturesNV.nopticalFlow(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceOpticalFlowFeaturesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceOpticalFlowFeaturesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV} value to the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#sType} field. */
+        /** Sets the {@link NVOpticalFlow#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV} value to the {@code sType} field. */
         public VkPhysicalDeviceOpticalFlowFeaturesNV.Buffer sType$Default() { return sType(NVOpticalFlow.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceOpticalFlowFeaturesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceOpticalFlowFeaturesNV.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceOpticalFlowFeaturesNV#opticalFlow} field. */
+        /** Sets the specified value to the {@code opticalFlow} field. */
         public VkPhysicalDeviceOpticalFlowFeaturesNV.Buffer opticalFlow(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceOpticalFlowFeaturesNV.nopticalFlow(address(), value ? 1 : 0); return this; }
 
     }
