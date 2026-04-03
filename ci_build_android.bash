@@ -131,7 +131,7 @@ yes | ant -Dplatform.linux=true \
   -Dbuild.type=release/3.4.1 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
-  -Djdk21=true \
+  -Djdk25=true \
   compile compile-native release
 # shaderc, vulkan, spvc, and vma can be reenabled if needed but for now, including them just leads to conflicts and crashes cause cinnabar overrides it.
 

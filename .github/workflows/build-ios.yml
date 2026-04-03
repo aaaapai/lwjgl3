@@ -15,7 +15,7 @@ jobs:
         distribution: zulu
         java-version: |
             8
-            21
+            25
 
     - name: Install dependencies
       run: |
