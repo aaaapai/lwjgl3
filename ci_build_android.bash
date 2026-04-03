@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.4.6
+export LIBFFI_VERSION=3.5.2
 export ANDROID=1
 #export LWJGL_BUILD_ARCH=arm64
 
@@ -44,7 +44,7 @@ fi
 
 if [ "$SKIP_FREETYPE" != "1" ]; then
   #!/bin/bash
-  export BUILD_FREETYPE_VERSION=2.13.3
+  export BUILD_FREETYPE_VERSION=2.14.1
   wget https://downloads.sourceforge.net/project/freetype/freetype2/$BUILD_FREETYPE_VERSION/freetype-$BUILD_FREETYPE_VERSION.tar.gz
   tar xf freetype-$BUILD_FREETYPE_VERSION.tar.gz
   rm  freetype-$BUILD_FREETYPE_VERSION.tar.gz
@@ -75,6 +75,7 @@ if [ "$SKIP_FREETYPE" != "1" ]; then
 fi
 
 # Download libraries
+# TODO: UPDATE OPENAL, IT IS OUTDATED
 POJAV_NATIVES="https://github.com/AngelAuraMC/Amethyst-Android/raw/34fe895c4d6117b50dd19a69819cd5430de6fc06/app_pojavlauncher/src/main/jniLibs/$NDK_ABI"
 wget -nc $POJAV_NATIVES/libopenal.so -P $LWJGL_NATIVE/openal
 wget -nc "https://github.com/AngelAuraMC/shaderc/releases/latest/download/libshaderc-$NDK_ABI.zip"
@@ -127,7 +128,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.vulkan=false \
   -Dbinding.vma=false \
   -Dbinding.spvc=false \
-  -Dbuild.type=release/3.3.6 \
+  -Dbuild.type=release/3.4.1 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   -Djdk21=true \

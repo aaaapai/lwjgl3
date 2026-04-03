@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.4.6
+export LIBFFI_VERSION=3.5.2
 export LWJGL_BUILD_ARCH=arm64
 
 LWJGL_NATIVE=bin/libs/native/macos/$LWJGL_BUILD_ARCH/org/lwjgl
@@ -83,7 +83,7 @@ yes | ant -Dplatform.macos=true \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbuild.type=release/3.3.6 \
+  -Dbuild.type=release/3.4.1 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   -Djdk21=true \
