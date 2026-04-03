@@ -125,6 +125,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
   -Dbinding.shaderc=false \
+  -Dbinding.sdl=false \
   -Dbinding.vulkan=false \
   -Dbinding.vma=false \
   -Dbinding.spvc=false \
