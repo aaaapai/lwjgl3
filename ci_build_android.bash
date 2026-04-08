@@ -98,7 +98,6 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.hwloc=false \
   -Dbinding.jawt=false \
   -Dbinding.jemalloc=true \
-  -Dbinding.jemalloc=true \
   -Dbinding.ktx=false \
   -Dbinding.libdivide=false \
   -Dbinding.llvm=false \
@@ -120,17 +119,16 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.par=false \
   -Dbinding.remotery=false \
   -Dbinding.rpmalloc=false \
-  -Dbinding.spvc=true \
   -Dbinding.sse=false \
   -Dbinding.tinyexr=false \
   -Dbinding.tootle=false \
   -Dbinding.xxhash=false \
   -Dbinding.yoga=false \
   -Dbinding.zstd=false \
-  -Dbinding.shaderc=false \
-  -Dbinding.vulkan=false \
-  -Dbinding.vma=false \
-  -Dbinding.spvc=false \
+  -Dbinding.shaderc=true \
+  -Dbinding.vulkan=true \
+  -Dbinding.vma=true \
+  -Dbinding.spvc=true \
   -Dbuild.type=release/3.3.6 \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
@@ -141,7 +139,7 @@ yes | ant -Dplatform.linux=true \
 # Copy native libraries
 rm -rf bin/out; mkdir bin/out
 find $LWJGL_NATIVE -name 'liblwjgl*.so' -exec cp {} bin/out/ \;
-# cp $LWJGL_NATIVE/shaderc/libshaderc.so bin/out/
+cp $LWJGL_NATIVE/shaderc/libshaderc.so bin/out/
 if [ -e "$LWJGL_NATIVE/libfreetype.so" ]; then
   cp $LWJGL_NATIVE/libfreetype.so bin/out/
 fi
