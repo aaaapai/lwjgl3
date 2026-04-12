@@ -54,22 +54,22 @@ jobs:
       uses: actions/download-artifact@v8
       with:
           name: lwjgl-3.4.1-android-natives-arm64
-          path: .github/workflows/android/assets/components/lwjgl-3.4.1-natives/arm64-v8a
+          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a
     - name: Download built native artifacts (arm32)
       uses: actions/download-artifact@v8
       with:
           name: lwjgl-3.4.1-android-natives-arm32
-          path: .github/workflows/android/assets/components/lwjgl-3.4.1-natives/armeabi-v7a
+          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a
     - name: Download built native artifacts (x64)
       uses: actions/download-artifact@v8
       with:
           name: lwjgl-3.4.1-android-natives-x64
-          path: .github/workflows/android/assets/components/lwjgl-3.4.1-natives/x86_64
+          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/x86_64
     - name: Download built native artifacts (x86)
       uses: actions/download-artifact@v8
       with:
           name: lwjgl-3.4.1-android-natives-x86
-          path: .github/workflows/android/assets/components/lwjgl-3.4.1-natives/x86
+          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/x86
     - name: Compile into one AAR
       run: |
           cd $GITHUB_WORKSPACE/.github/workflows/android
