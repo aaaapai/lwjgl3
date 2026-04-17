@@ -1605,7 +1605,8 @@
 
             <release-module name="core" native-library="lwjgl" title="Core"/>
 
-            <sequential if:set="jdk25">
+            <sequential if:set="dontRunThisBecauseItsNotUsed">
+            <!-- <sequential if:set="jdk25"> -->
                 <!-- Generate module-info override for JDK 25 without the FFM backend -->
                 <java
                         classname="org.lwjgl.system.ffm.FFM"
