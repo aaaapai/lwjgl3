@@ -3252,4 +3252,8 @@ public final class MemoryUtil {
         return target;
     }
 
+    public static int getAndAddInt(long offset, int delta) {
+        return UNSAFE.getAndAddInt(null, offset, delta);
+    }
+    
 }
