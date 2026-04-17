@@ -561,7 +561,7 @@ public class KHRSwapchain {
             check(__functionAddress);
             VkPresentInfoKHR.validate(pPresentInfo);
         }
-        VK.updateFps();
+        VK.onVKFrame();
         return callPPI(queue.address(), pPresentInfo, __functionAddress);
     }
 

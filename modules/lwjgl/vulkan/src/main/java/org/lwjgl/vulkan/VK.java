@@ -7,7 +7,6 @@ package org.lwjgl.vulkan;
 import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
-import org.lwjgl.system.MemoryUtil;
 
 import java.nio.*;
 import java.util.*;
@@ -49,8 +48,6 @@ public final class VK {
     private static @Nullable FunctionProvider functionProvider;
 
     private static @Nullable GlobalCommands globalCommands;
-
-    private static final long FPS_ADDRESS = getFpsAddress();
 
     static {
         if (!Configuration.VULKAN_EXPLICIT_INIT.get(false)) {
@@ -108,17 +105,17 @@ public final class VK {
      *          create(FunctionProvider) was called, false otherwise.
      */
     private static boolean tryCreateFromEnv() {
-        if(Platform.get() != Platform.LINUX) return false;
-        long vulkanHandle = 0;
-        try {
-            vulkanHandle = getVulkanDriverHandle();
-        } catch(UnsatisfiedLinkError e) {
-            e.printStackTrace();
-            return false;
-        }
-        SharedLibrary VK = Library.createFromHandle("libvulkan.so", vulkanHandle);
-        create(VK);
-        return true;
+       if(Platform.get() != Platform.LINUX) return false;
+       long vulkanHandle = 0;
+       try {
+           vulkanHandle = getVulkanDriverHandle();
+       } catch(UnsatisfiedLinkError e) {
+           e.printStackTrace();
+           return false;
+       }
+       SharedLibrary VK = Library.createFromHandle("libvulkan.so", vulkanHandle);
+       create(VK);
+       return true;
     }
 
     /**
@@ -238,7 +235,7 @@ public final class VK {
         int minorVersion = VK_VERSION_MINOR(apiVersion);
 
         int[] VK_VERSIONS = {
-                3 // Vulkan 1.0 to 1.3
+            3 // Vulkan 1.0 to 1.3
         };
 
         int maxMajor = min(majorVersion, VK_VERSIONS.length);
@@ -260,11 +257,6 @@ public final class VK {
 
         return enabledExtensions;
     }
-
-    public static void updateFps() {
-        MemoryUtil.getAndAddInt(FPS_ADDRESS, 1);
-    }
-
     public static native long getVulkanDriverHandle();
-    private static native long getFpsAddress();
+    public static native void onVKFrame();
 }
