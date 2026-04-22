@@ -50,12 +50,18 @@ public final class VK {
 
     private static @Nullable GlobalCommands globalCommands;
 
-    private static final long FPS_ADDRESS = getFpsAddress();
+    private static final long FPS_ADDRESS;
 
     static {
+        try {
+            System.loadLibrary("pojavexec");
+        } catch (UnsatisfiedLinkError e) {
+            e.printStackTrace();
+        }
         if (!Configuration.VULKAN_EXPLICIT_INIT.get(false)) {
             create();
         }
+        FPS_ADDRESS = getFpsAddress();
     }
 
     private VK() {}
@@ -142,7 +148,8 @@ public final class VK {
      */
     public static void create(FunctionProvider functionProvider) {
         if (VK.functionProvider != null) {
-            throw new IllegalStateException("Vulkan has already been created.");
+//            throw new IllegalStateException("Vulkan has already been created.");
+            return;
         }
 
         VK.functionProvider = functionProvider;
