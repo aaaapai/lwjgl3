@@ -344,8 +344,15 @@ public final class GL {
         long currentContext;
         // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
         Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+
+        int GLFW_CLIENT_API = 0x00022001;
+        int GLFW_OPENGL_API = 0x00030001;
+        glfwClass.getDeclaredMethod("glfwWindowHint", int.class, int.class)
+                .invoke(null, GLFW_CLIENT_API, GLFW_OPENGL_API);
+    
         currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
-        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class)
+                .invoke(null, new Object[]{currentContext});
     }
 
     /**
