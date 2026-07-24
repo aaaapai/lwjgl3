@@ -7,6 +7,7 @@ package org.lwjgl.opengl;
 import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
+import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
 
 import java.nio.*;
@@ -89,32 +90,41 @@ public final class GL {
 
     /** Loads the OpenGL native library, using the default library name. */
     public static void create() {
-        SharedLibrary GL = null;
-
-        String contextAPI = Configuration.OPENGL_CONTEXT_API.get();
-
-        boolean tryEGL = "EGL".equals(contextAPI) || (contextAPI == null && isWayland());
-        if (tryEGL) {
-            GL = loadEGL();
-        } else if ("OSMesa".equals(contextAPI)) {
-            GL = loadOSMesa();
+        SharedLibrary GL;
+        switch (Platform.get()) {
+            case LINUX:
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
+                break;
+            case MACOSX:
+                // Configuration does not get updated if the value changes, so we have to update it here
+                Configuration.OPENGL_LIBRARY_NAME.set(System.getProperty("org.lwjgl.opengl.libname"));
+                String override = Configuration.OPENGL_LIBRARY_NAME.get();
+                GL = override != null
+                    ? Library.loadNative(GL.class, "org.lwjgl.opengl", override)
+                    : MacOSXLibrary.getWithIdentifier("com.apple.opengl");
+                break;
+            case WINDOWS:
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "opengl32");
+                break;
+            default:
+                throw new IllegalStateException();
         }
 
-        if (GL == null) {
-            GL = loadNative();
-            if (GL == null && !"native".equals(contextAPI)) {
-                if (!tryEGL) {
-                    GL = loadEGL();
-                }
-                if (GL == null && !"OSMesa".equals(contextAPI)) {
-                    GL = loadOSMesa();
-                }
-            }
-        }
-
-        if (GL == null) {
-            throw new IllegalStateException("There is no OpenGL context management API available.");
-        }
+        // if (GL == null) {
+        //     GL = loadNative();
+        //     if (GL == null && !"native".equals(contextAPI)) {
+        //         if (!tryEGL) {
+        //             GL = loadEGL();
+        //         }
+        //         if (GL == null && !"OSMesa".equals(contextAPI)) {
+        //             GL = loadOSMesa();
+        //         }
+        //     }
+        // }
+        //
+        // if (GL == null) {
+        //     throw new IllegalStateException("There is no OpenGL context management API available.");
+        // }
 
         create(GL);
     }
@@ -329,6 +339,15 @@ public final class GL {
         }
     }
 
+    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
+    private static void fixPojavGLContext() throws Exception {
+        long currentContext;
+        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
+        Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+        currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
+        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+    }
+
     /**
      * Creates a new {@link GLCapabilities} instance for the OpenGL context that is current in the current thread.
      *
@@ -393,6 +412,14 @@ public final class GL {
         FunctionProvider functionProvider = GL.functionProvider;
         if (functionProvider == null) {
             throw new IllegalStateException("OpenGL library has not been loaded.");
+        }
+
+        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
+            try {
+                fixPojavGLContext();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // We don't have a current ContextCapabilities when this method is called

@@ -64,6 +64,7 @@ public final class VK {
      * @see #create(String)
      */
     public static void create() {
+        if(tryCreateFromEnv()) return;
         SharedLibrary VK;
         switch (Platform.get()) {
             case FREEBSD:
@@ -96,6 +97,28 @@ public final class VK {
         create(VK);
         // Avoid "unloaded signature classes" when calling VK functions that accept VkAllocationCallbacks, which is usually null.
         VkAllocationCallbacks.createSafe(NULL);
+    }
+
+    /**
+     * Attempt to get a pointer to the Vulkan shared library
+     * from the enviroinment.
+     * This is used by Pojav to provide the correct Vulkan driver
+     * on Adreno devices.
+     * @returns true when the library handle was found, parsed and
+     *          create(FunctionProvider) was called, false otherwise.
+     */
+    private static boolean tryCreateFromEnv() {
+       if(Platform.get() != Platform.LINUX) return false;
+       long vulkanHandle = 0;
+       try {
+           vulkanHandle = getVulkanDriverHandle();
+       } catch(UnsatisfiedLinkError e) {
+           e.printStackTrace();
+           return false;
+       }
+       SharedLibrary VK = Library.createFromHandle("libvulkan.so", vulkanHandle);
+       create(VK);
+       return true;
     }
 
     /**
@@ -249,4 +272,5 @@ public final class VK {
         apiLog("[Vulkan] Detected unsupported Vulkan version: " + majorVersion + '.' + minorVersion);
     }
 
+    public static native long getVulkanDriverHandle();
 }

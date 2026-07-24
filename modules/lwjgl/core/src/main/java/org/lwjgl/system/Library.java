@@ -21,6 +21,9 @@ import java.util.regex.*;
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.Checks.*;
 
+import org.lwjgl.system.linux.LinuxLibrary;
+import org.lwjgl.system.windows.WindowsLibrary;
+
 /**
  * Initializes the LWJGL shared library and handles loading additional shared libraries.
  *
@@ -52,6 +55,16 @@ public final class Library {
             );
         }
 
+        try {
+            // pojavexec is used to bridge GLFW with Android/iOS and loading vulkan driver for Android.
+            if (Platform.get() == Platform.MACOSX) {
+                System.load(System.getenv("BUNDLE_PATH") + "/AngelAuraAmethyst");
+            } else if (Platform.get() == Platform.LINUX) {
+                System.loadLibrary("pojavexec");
+            }
+        } catch (UnsatisfiedLinkError e) {
+            e.printStackTrace();
+        }
         loadSystem("org.lwjgl", JNI_LIBRARY_NAME);
     }
 
@@ -447,6 +460,17 @@ public final class Library {
                 return fallback.get();
             }
             throw t; // original error
+        }
+    }
+
+    public static SharedLibrary createFromHandle(String name, long handle) {
+        switch (Platform.get()) {
+            case WINDOWS:
+                return new WindowsLibrary(name, handle);
+            case LINUX:
+                return new LinuxLibrary(name, handle);
+            default:
+                throw new IllegalStateException();
         }
     }
 
