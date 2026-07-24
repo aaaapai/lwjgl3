@@ -48,17 +48,17 @@ jobs:
     - name: Download built native artifacts (arm64)
       uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-arm64
+          name: lwjgl-android-natives-arm64
           path: .github/workflows/android/assets/app_runtime/lwjgl/natives/arm64-v8a
     - name: Download built native artifacts (arm32)
       uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-arm32
+          name: lwjgl-android-natives-arm32
           path: .github/workflows/android/assets/app_runtime/lwjgl/natives/armeabi-v7a
     - name: Download built native artifacts (x64)
       uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-x64
+          name: lwjgl-android-natives-x64
           path: .github/workflows/android/assets/app_runtime/lwjgl/natives/x86_64
     - name: Download built native artifacts (x86)
       uses: actions/download-artifact@main
