@@ -25,6 +25,7 @@
  *
  **************************************************************************/
 #include "miniz.h"
+#include <stdio.h>
 
 #ifndef MINIZ_NO_ARCHIVE_APIS
 
