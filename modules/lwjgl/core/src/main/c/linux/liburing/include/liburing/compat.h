@@ -32,3 +32,5 @@ struct open_how {
 #endif
 
 #endif
+
+#endif /* LIBURING_COMPAT_H */
