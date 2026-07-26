@@ -29,6 +29,13 @@
 
 #ifndef MINIZ_NO_ARCHIVE_APIS
 
+#if defined(__ANDROID__) && __ANDROID_API__ < 24 && defined(__arm__)
+#include "compat_file.h"
+#define ftello compat_ftello
+#define fseeko compat_fseeko
+#endif
+
+#define 
 #ifdef __cplusplus
 extern "C"
 {
