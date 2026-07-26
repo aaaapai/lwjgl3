@@ -82,7 +82,7 @@ public class Display {
 
         mode = desktopDisplayMode = new DisplayMode(monitorWidth, monitorHeight, monitorBitPerPixel, monitorRefreshRate);
         LWJGLUtil.log("Initial mode: " + desktopDisplayMode);
-        if("opengles2".equals(System.getenv("POJAV_RENDERER"))) GLContext.initCapabilities();
+        if("ooooooopengles114514".equals(System.getenv("POJAV_RENDERER"))) GLContext.initCapabilities();
     }
     
     public static void setSwapInterval(int value) {
