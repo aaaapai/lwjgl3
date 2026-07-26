@@ -16,6 +16,10 @@ import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.ARBVertexShader.*;
+
+
 public class ARBVertexProgram {
 
     static { GL.initialize(); }
@@ -1041,6 +1045,52 @@ public class ARBVertexProgram {
     /** {@code void glGetVertexAttribivARB(GLuint index, GLenum pname, GLint * params)} */
     public static void glGetVertexAttribivARB(@NativeType("GLuint") int index, @NativeType("GLenum") int pname, @NativeType("GLint *") int[] params) {
         ARBVertexShader.glGetVertexAttribivARB(index, pname, params);
+    }
+
+// --- glVertexAttribPointerARB 便捷重载 ---
+
+    public static void glVertexAttribPointerARB(int index, int size, boolean normalized, int stride, DoubleBuffer buffer) {
+        glVertexAttribPointerARB(index, size, GL_DOUBLE, normalized, stride, memAddress(buffer));
+    }
+
+    public static void glVertexAttribPointerARB(int index, int size, boolean normalized, int stride, FloatBuffer buffer) {
+        ARBVertexShader.glVertexAttribPointerARB(index, size, GL_FLOAT, normalized, stride, buffer);
+    }
+
+    public static void glVertexAttribPointerARB(int index, int size, boolean unsigned, boolean normalized, int stride, ByteBuffer buffer) {
+        int type = unsigned ? GL_UNSIGNED_BYTE : GL_BYTE;
+        ARBVertexShader.glVertexAttribPointerARB(index, size, type, normalized, stride, buffer);
+    }
+
+    public static void glVertexAttribPointerARB(int index, int size, boolean unsigned, boolean normalized, int stride, ShortBuffer buffer) {
+        int type = unsigned ? GL_UNSIGNED_SHORT : GL_SHORT;
+        ARBVertexShader.glVertexAttribPointerARB(index, size, type, normalized, stride, buffer);
+    }
+
+    public static void glVertexAttribPointerARB(int index, int size, boolean unsigned, boolean normalized, int stride, IntBuffer buffer) {
+        int type = unsigned ? GL_UNSIGNED_INT : GL_INT;
+        ARBVertexShader.glVertexAttribPointerARB(index, size, type, normalized, stride, buffer);
+    }
+
+    // --- glGetVertexAttribARB 重命名重载 ---
+
+    public static void glGetVertexAttribARB(int index, int pname, FloatBuffer params) {
+        ARBVertexShader.glGetVertexAttribfvARB(index, pname, params);
+    }
+
+    public static void glGetVertexAttribARB(int index, int pname, DoubleBuffer params) {
+        ARBVertexShader.glGetVertexAttribdvARB(index, pname, params);
+    }
+
+    public static void glGetVertexAttribARB(int index, int pname, IntBuffer params) {
+        ARBVertexShader.glGetVertexAttribivARB(index, pname, params);
+    }
+
+    // --- glGetVertexAttribPointerARB 返回 ByteBuffer ---
+
+    public static ByteBuffer glGetVertexAttribPointerARB(int index, int pname, long result_size) {
+        long address = ARBVertexShader.glGetVertexAttribPointerARB(index, pname);
+        return MemoryUtil.memByteBuffer(address, (int) result_size);
     }
 
 }
