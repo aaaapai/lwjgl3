@@ -35,7 +35,6 @@
 #define fseeko compat_fseeko
 #endif
 
-#define 
 #ifdef __cplusplus
 extern "C"
 {
