@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-java@main
       with:
         distribution: zulu
-        java-version: 27
+        java-version: 27-ea
 
     - name: Build for Android ${{matrix.arch}}
       run: |
