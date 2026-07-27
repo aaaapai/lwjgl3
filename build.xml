@@ -581,7 +581,9 @@
 
         <compileBinding binding="ktx">
             <classpath>
-                <pathelement path="${bin.lwjgl}/vulkan"/>
+                <pathelement path="${bin.lwjgl}/glfw"/>
+                <pathelement path="${bin.lwjgl}/openal"/>
+                <pathelement path="${bin.lwjgl}/opengl"/>
             </classpath>
         </compileBinding>
 

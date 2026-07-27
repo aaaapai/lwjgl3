@@ -13,4 +13,4 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name = 'lwjgl-3.4.1-natives'
+rootProject.name = 'lwjgl3-natives'

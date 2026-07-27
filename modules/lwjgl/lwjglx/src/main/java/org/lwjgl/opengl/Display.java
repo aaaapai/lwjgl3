@@ -664,8 +664,7 @@ public class Display {
 
             @Override
             public float getPixelScaleFactor() {
-                // TODO Auto-generated method stub
-                return 0;
+                return 1f;
             }
 
             @Override
@@ -1061,6 +1060,30 @@ public class Display {
         return display_impl;
     }
 
+    /**
+    * @return this method will return the pixel scale factor of the Display window.
+    *
+    * This method should be used when running in high DPI mode. In such modes Operating
+    * Systems will scale the Display window to avoid the window shrinking due to high
+    * resolutions. The OpenGL frame buffer will however use the higher resolution and
+    * not be scaled to match the Display window size.
+    *
+    * OpenGL methods that require pixel dependent values e.g. glViewport, glTexImage2D,
+    * glReadPixels, glScissor, glLineWidth, glRenderbufferStorage, etc can convert the
+    * scaled Display and Mouse coordinates to the correct high resolution value by
+    * multiplying them by the pixel scale factor.
+    *
+    * e.g. Display.getWidth() * Display.getPixelScaleFactor() will return the high DPI
+    * width of the OpenGL frame buffer. Whereas Display.getWidth() will be the same as
+    * the OpenGL frame buffer in non high DPI mode.
+    *
+    * Where high DPI mode is not available this method will just return 1.0f therefore
+    * not have any effect on values that are multiplied by it.
+    */
+    public static float getPixelScaleFactor() {
+        return display_impl.getPixelScaleFactor();
+    }
+    
     static class Window {
         static long handle;
 

@@ -9,6 +9,7 @@ import org.lwjgl.*;
 import org.lwjgl.system.*;
 import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
+import org.lwjgl.system.macosx.*;
 
 import java.nio.*;
 import java.util.*;
