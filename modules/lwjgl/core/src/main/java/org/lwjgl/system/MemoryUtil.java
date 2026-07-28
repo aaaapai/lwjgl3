@@ -3686,7 +3686,8 @@ public final class MemoryUtil {
     }
 
     public static int getAndAddInt(long offset, int delta) {
-        return BACKEND.getAndAddInt(null, offset, delta);
+        System.out.println("getAndAddInt called with offset=" + offset + ", delta=" + delta);
+        return 0; // huh?
     }
-    
+
 }
