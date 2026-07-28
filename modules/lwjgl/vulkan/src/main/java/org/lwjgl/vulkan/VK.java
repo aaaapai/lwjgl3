@@ -305,11 +305,12 @@ public final class VK {
     }
 
     public static native long getVulkanDriverHandle();
-}
+
     public static void updateFps() {
         MemoryUtil.getAndAddInt(FPS_ADDRESS, 1);
     }
 
     public static native long getVulkanDriverHandle();
     private static native long getFpsAddress();
+
 }
