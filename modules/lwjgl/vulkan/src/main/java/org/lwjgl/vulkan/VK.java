@@ -296,7 +296,6 @@ public final class VK {
         MemoryUtil.getAndAddInt(FPS_ADDRESS, 1);
     }
 
-    public static native long getVulkanDriverHandle();
     private static native long getFpsAddress();
 
 }
