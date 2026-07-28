@@ -3686,7 +3686,7 @@ public final class MemoryUtil {
     }
 
     public static int getAndAddInt(long offset, int delta) {
-        return UNSAFE.getAndAddInt(null, offset, delta);
+        return BACKEND.getAndAddInt(null, offset, delta);
     }
     
 }
