@@ -19,7 +19,6 @@ public abstract class Struct<SELF extends Struct<SELF>> extends Pointer.Default 
 
     protected static final int DEFAULT_PACK_ALIGNMENT = Platform.get() == Platform.WINDOWS ? 8 : 0x4000_0000;
     protected static final int DEFAULT_ALIGN_AS       = 0;
-    protected static final sun.misc.Unsafe UNSAFE;
 
     static {
         Library.initialize();
