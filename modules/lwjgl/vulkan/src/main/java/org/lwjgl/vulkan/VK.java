@@ -153,20 +153,6 @@ public final class VK {
     }
 
     /**
-     * Loads the Vulkan shared library, using the specified library name.
-     *
-     * <p>The {@link FunctionProvider} instance created by this method can only be used to retrieve global commands and commands exposed statically by the
-     * Vulkan shared library.</p>
-     *
-     * @param libName the shared library name
-     *
-     * @see #create(FunctionProvider)
-     */
-    public static void create(String libName) {
-        create(Library.loadNative(VK.class, "org.lwjgl.vulkan", libName));
-    }
-
-    /**
      * Initializes Vulkan with the specified {@link FunctionProvider}. This method can be used to implement custom Vulkan library loading.
      *
      * @param functionProvider the provider of Vulkan function addresses
