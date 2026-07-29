@@ -202,51 +202,9 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1extende
     return (jint)stbir_resize_extended_split(resize, split_start, split_count);
 }
 
-/* 
-* ==============================
-* 兼容层函数实现（保持旧API）
-* 来自 https://github.com/aaaapai/lwjgl3/blob/main/modules/lwjgl/stb/src/generated/c/org_lwjgl_stb_STBImageResize.c
-* ==============================
-*/
-
-JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1uint8(JNIEnv *__env, jclass clazz, 
-    jlong input_pixelsAddress, jint input_w, jint input_h, jint input_stride_in_bytes,
-    jlong output_pixelsAddress, jint output_w, jint output_h, jint output_stride_in_bytes, 
-    jint num_channels) {
-    
-    unsigned char const *input_pixels = (unsigned char const *)(uintptr_t)input_pixelsAddress;
-    unsigned char *output_pixels = (unsigned char *)(uintptr_t)output_pixelsAddress;
-    UNUSED_PARAMS(__env, clazz)
-    
-    // 通道数到像素布局的映射
-    stbir_pixel_layout pixel_type;
-    switch (num_channels) {
-        case 1:
-            pixel_type = STBIR_1CHANNEL;
-            break;
-        case 2:
-            pixel_type = STBIR_2CHANNEL;
-            break;
-        case 3:
-            pixel_type = STBIR_RGB;
-            break;
-        case 4:
-            pixel_type = STBIR_RGBA;
-            break;
-        default:
-            pixel_type = STBIR_4CHANNEL;
-            break;
-    }
-    
-    // 使用线性色彩空间进行缩放
-    unsigned char *result = stbir_resize_uint8_linear(
-        input_pixels, input_w, input_h, input_stride_in_bytes,
-        output_pixels, output_w, output_h, output_stride_in_bytes,
-        pixel_type
-    );
-    
-    return (jint)(result != NULL);
-}
+// ==============================
+// 兼容层函数实现（保持旧API）
+// ==============================
 
 // 1. stbir_resize_float (旧版本)
 JNIEXPORT jint JNICALL Java_org_lwjgl_stb_STBImageResize_nstbir_1resize_1float__JIIIJIIII(
