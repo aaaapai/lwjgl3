@@ -59,10 +59,10 @@ public final class Library {
             loadSystem("org.lwjgl", JNI_LIBRARY_NAME);
 
             // pojavexec is used to bridge GLFW with Android/iOS and loading vulkan driver for Android.
-            /*System.loadLibrary("pojavexec");
+            //System.loadLibrary("pojavexec");
         } catch (UnsatisfiedLinkError e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     private Library() {}
