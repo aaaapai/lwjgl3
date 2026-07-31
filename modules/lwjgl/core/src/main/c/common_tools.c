@@ -209,14 +209,14 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
     return JNI_VERSION_1_8;
 }
 JNIEXPORT jint JNICALL JNI_Onload_lwjgl(JavaVM *vm, void *reserved)
-    __attribute__((alias("JNI_OnLoad")));
+    __attribute__((alias("JNI_Onload")));
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
     UNUSED_PARAMS(vm, reserved);
     tlsDestroy();
 }
 JNIEXPORT jint JNICALL JNI_OnUnload_lwjgl(JavaVM *vm, void *reserved)
-    __attribute__((alias("JNI_OnUnLoad")));
+    __attribute__((alias("JNI_OnUnload")));
 
 // Intentionally empty functions for benchmarking purposes
 JNIEXPORT void JNICALL org_lwjgl_system_noop(void) {}
