@@ -92,7 +92,6 @@ public final class GL {
 
     /** Loads the OpenGL native library, using the default library name. */
     public static void create() {
-
         SharedLibrary GL = null;
 
         String contextAPI = Configuration.OPENGL_CONTEXT_API.get();
@@ -104,15 +103,17 @@ public final class GL {
             GL = loadOSMesa();
         }
 
-        /*if (GL == null) {
-        switch (Platform.get()) {
-            case LINUX:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
-                break;
-            default:
-                throw new IllegalStateException();
+        if (GL == null) {
+            GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
+            if (GL == null && !"native".equals(contextAPI)) {
+                if (!tryEGL) {
+                    GL = loadEGL();
+                }
+                if (GL == null && !"OSMesa".equals(contextAPI)) {
+                    GL = loadOSMesa();
+                }
+            }
         }
-        }*/
 
         if (GL == null) {
             throw new IllegalStateException("There is no OpenGL context management API available.");
