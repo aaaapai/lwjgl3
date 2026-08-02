@@ -79,4 +79,4 @@ jobs:
       uses: actions/upload-artifact@main
       with: 
           name: lwjgl-android-natives-aar
-          path: .github/workflows/android/build/outputs/aar/lwjgl-natives-release.aar
+          path: .github/workflows/android/**/build/outputs/aar/lwjgl-natives-release.aar
