@@ -95,12 +95,21 @@ public final class GL {
 
         SharedLibrary GL = null;
 
+        boolean tryEGL = "EGL".equals(contextAPI) || (contextAPI == null && isWayland());
+        if (tryEGL) {
+            GL = loadEGL();
+        } else if ("OSMesa".equals(contextAPI)) {
+            GL = loadOSMesa();
+        }
+
+        if (GL == null) {
         switch (Platform.get()) {
             case LINUX:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
                 break;
             default:
                 throw new IllegalStateException();
+        }
         }
 
         if (GL == null) {
