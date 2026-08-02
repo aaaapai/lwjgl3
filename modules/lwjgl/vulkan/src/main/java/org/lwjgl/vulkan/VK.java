@@ -7,6 +7,7 @@ package org.lwjgl.vulkan;
 import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
+import org.lwjgl.system.MemoryUtil;
 
 import java.nio.*;
 import java.util.*;
@@ -50,10 +51,18 @@ public final class VK {
 
     private static @Nullable GlobalCommands globalCommands;
 
+    private static final long FPS_ADDRESS;
+
     static {
+        try {
+            // System.loadLibrary("pojavexec");
+        } catch (UnsatisfiedLinkError e) {
+            e.printStackTrace();
+        }
         if (!Configuration.VULKAN_EXPLICIT_INIT.get(false)) {
             create();
         }
+        FPS_ADDRESS = getFpsAddress();
     }
 
     private VK() { }
@@ -95,6 +104,8 @@ public final class VK {
                 throw new IllegalStateException();
         }
         create(VK);
+        // Avoid "unloaded signature classes" when calling VK functions that accept VkAllocationCallbacks, which is usually null.
+        VkAllocationCallbacks.createSafe(NULL);
     }
 
     /**
@@ -106,31 +117,17 @@ public final class VK {
      *          create(FunctionProvider) was called, false otherwise.
      */
     private static boolean tryCreateFromEnv() {
-       if(Platform.get() != Platform.LINUX) return false;
-       long vulkanHandle = 0;
-       try {
-           vulkanHandle = getVulkanDriverHandle();
-       } catch(UnsatisfiedLinkError e) { 
-           e.printStackTrace();
-           return false;
-       }
-       SharedLibrary VK = Library.createFromHandle("libvulkan.so", vulkanHandle);
-       create(VK);
-       return true;
-    }
-
-    /**
-     * Loads the Vulkan shared library, using the specified library name.
-     *
-     * <p>The {@link FunctionProvider} instance created by this method can only be used to retrieve global commands and commands exposed statically by the
-     * Vulkan shared library.</p>
-     *
-     * @param libName the shared library name
-     *
-     * @see #create(FunctionProvider)
-     */
-    public static void create(String libName) {
-        create(Library.loadNative(VK.class, "org.lwjgl.vulkan", libName));
+        if(Platform.get() != Platform.LINUX) return false;
+        long vulkanHandle = 0;
+        try {
+            vulkanHandle = getVulkanDriverHandle();
+        } catch(UnsatisfiedLinkError e) {
+            e.printStackTrace();
+            return false;
+        }
+        SharedLibrary VK = Library.createFromHandle("libvulkan.so", vulkanHandle);
+        create(VK);
+        return true;
     }
 
     /**
@@ -140,7 +137,8 @@ public final class VK {
      */
     public static void create(FunctionProvider functionProvider) {
         if (VK.functionProvider != null) {
-            throw new IllegalStateException("Vulkan has already been created.");
+//            throw new IllegalStateException("Vulkan has already been created.");
+            return;
         }
 
         VK.functionProvider = functionProvider;
@@ -270,5 +268,12 @@ public final class VK {
         apiLog("[Vulkan] Detected unsupported Vulkan version: " + majorVersion + '.' + minorVersion);
     }
 
-    // public static native long getVulkanDriverHandle();
+    public static native long getVulkanDriverHandle();
+
+    public static void updateFps() {
+        MemoryUtil.getAndAddInt(FPS_ADDRESS, 1);
+    }
+
+    private static native long getFpsAddress();
+
 }
