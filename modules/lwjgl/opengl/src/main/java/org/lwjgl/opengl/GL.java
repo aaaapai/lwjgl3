@@ -92,27 +92,26 @@ public final class GL {
 
     /** Loads the OpenGL native library, using the default library name. */
     public static void create() {
+
         SharedLibrary GL = null;
 
-        String contextAPI = Configuration.OPENGL_CONTEXT_API.get();
-
-        boolean tryEGL = "EGL".equals(contextAPI) || (contextAPI == null && isWayland());
-        if (tryEGL) {
-            GL = loadEGL();
-        } else if ("OSMesa".equals(contextAPI)) {
-            GL = loadOSMesa();
-        }
-
-        if (GL == null) {
-            GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
-            if (GL == null && !"native".equals(contextAPI)) {
-                if (!tryEGL) {
-                    GL = loadEGL();
-                }
-                if (GL == null && !"OSMesa".equals(contextAPI)) {
-                    GL = loadOSMesa();
-                }
-            }
+        switch (Platform.get()) {
+            case LINUX:
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
+                break;
+            case MACOSX:
+                // Configuration does not get updated if the value changes, so we have to update it here
+                Configuration.OPENGL_LIBRARY_NAME.set(System.getProperty("org.lwjgl.opengl.libname"));
+                String override = Configuration.OPENGL_LIBRARY_NAME.get();
+                GL = override != null
+                    ? Library.loadNative(GL.class, "org.lwjgl.opengl", override)
+                    : MacOSXLibrary.getWithIdentifier("com.apple.opengl");
+                break;
+            case WINDOWS:
+                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "opengl32");
+                break;
+            default:
+                throw new IllegalStateException();
         }
 
         if (GL == null) {
