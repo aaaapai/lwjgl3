@@ -342,14 +342,16 @@ public final class GL {
 
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
     private static void fixPojavGLContext() {
+        if (!Boolean.getBoolean("org.lwjgl.opengl.pojavFixGLContext")) {
+            return;
+        }
 
         if (Platform.get() != Platform.LINUX) {
             return;
         }
         String renderer = System.getenv("POJAV_RENDERER");
         String beta = System.getenv("POJAV_BETA_RENDERER");
-        String tag = System.getenv("TAG_RENDERER");
-        if (renderer == null && beta == null && tag == null) {
+        if (renderer == null && beta == null) {
             return;
         }
 
@@ -363,7 +365,6 @@ public final class GL {
             }
             glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, mainContext);
         } catch (ClassNotFoundException ignored) {
-            // GLFW not present, skip
         } catch (Exception e) {
             e.printStackTrace();
         }
