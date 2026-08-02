@@ -341,12 +341,32 @@ public final class GL {
     }
 
     /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
-    private static void fixPojavGLContext() throws Exception {
-        long currentContext;
-        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
-        Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
-        currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
-        glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+    private static void fixPojavGLContext() {
+
+        if (Platform.get() != Platform.LINUX) {
+            return;
+        }
+        String renderer = System.getenv("POJAV_RENDERER");
+        String beta = System.getenv("POJAV_BETA_RENDERER");
+        String tag = System.getenv("TAG_RENDERER");
+        if (renderer == null && beta == null && tag == null) {
+            return;
+        }
+
+        try {
+            Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
+            java.lang.reflect.Field mainContextField = glfwClass.getDeclaredField("mainContext");
+            mainContextField.setAccessible(true);
+            long mainContext = (long) mainContextField.get(null);
+            if (mainContext == 0) {
+                return;
+            }
+            glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, mainContext);
+        } catch (ClassNotFoundException ignored) {
+            // GLFW not present, skip
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
