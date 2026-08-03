@@ -18,7 +18,7 @@ public class Sys {
             if (Platform.get() == Platform.MACOSX) {
                 System.load(System.getenv("BUNDLE_PATH") + "/AngelAuraAmethyst");
             } else if (Platform.get() == Platform.LINUX) {
-                System.loadLibrary("pojavexec");
+                // System.loadLibrary("pojavexec");
             }
         } catch (UnsatisfiedLinkError e) {
             e.printStackTrace();
