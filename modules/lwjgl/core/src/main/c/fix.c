@@ -2,48 +2,90 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <jni.h>
+#include <stdbool.h>
+#include <string.h>
 
-// 函数指针，缓存原始实现
+// ---- 缓存 pojavexec 中的函数指针 ----
 static long (*original_getVulkanDriverHandle)(void) = NULL;
 static long (*original_getFpsAddress)(void) = NULL;
+static int   (*original_linker_ns_load)(const char* lib_search_path) = NULL;
+static void* (*original_linker_ns_dlopen)(const char* name, int flag) = NULL;
+static void* (*original_linker_ns_dlopen_unique)(const char* tmpdir, const char* name, int flags) = NULL;
 
-// 加载 pojavexec 中的符号（仅当库已加载时）
+// 加载所有符号（只执行一次，使用 RTLD_NOLOAD）
 static void load_pojavexec_symbols(void) {
-    if (original_getVulkanDriverHandle != NULL && original_getFpsAddress != NULL) {
-        return; // 已缓存
-    }
-
-    // 使用 RTLD_NOLOAD 避免重复加载，只获取已加载的句柄
-    void *handle = dlopen("libpojavexec.so", RTLD_NOLOAD | RTLD_GLOBAL);
-    if (!handle) {
-        // 库未加载，无法获取符号
-        fprintf(stderr, "[LWJGL] libpojavexec.so not loaded, cannot provide Vulkan driver handle.\n");
+    if (original_getVulkanDriverHandle && original_getFpsAddress &&
+        original_linker_ns_load && original_linker_ns_dlopen &&
+        original_linker_ns_dlopen_unique) {
         return;
     }
 
-    // 获取原始函数指针（符号名与 Java native 方法相同）
-    original_getVulkanDriverHandle = (long (*)(void)) dlsym(handle, "Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle");
-    original_getFpsAddress = (long (*)(void)) dlsym(handle, "Java_org_lwjgl_vulkan_VK_getFpsAddress");
+    void *handle = dlopen("libpojavexec.so", RTLD_NOLOAD | RTLD_GLOBAL);
+    if (!handle) {
+        fprintf(stderr, "[LWJGL] libpojavexec.so not loaded, cannot provide required symbols.\n");
+        return;
+    }
 
-    // 注意：不要 dlclose(handle)，因为我们需要保持库存活，且后续调用符号仍有效
+    original_getVulkanDriverHandle = (long (*)(void)) dlsym(handle, "Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle");
+    original_getFpsAddress         = (long (*)(void)) dlsym(handle, "Java_org_lwjgl_vulkan_VK_getFpsAddress");
+    original_linker_ns_load        = (int (*)(const char*)) dlsym(handle, "linker_ns_load");
+    original_linker_ns_dlopen      = (void* (*)(const char*, int)) dlsym(handle, "linker_ns_dlopen");
+    original_linker_ns_dlopen_unique = (void* (*)(const char*, const char*, int)) dlsym(handle, "linker_ns_dlopen_unique");
+
+    // 不要 dlclose(handle)
 }
 
 EXTERN_C_ENTER
 
+// ---- Vulkan 相关 ----
 JNIEXPORT jlong JNICALL Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(JNIEnv *env, jclass clazz) {
     load_pojavexec_symbols();
-    if (original_getVulkanDriverHandle == NULL) {
-        return 0;
-    }
+    if (!original_getVulkanDriverHandle) return 0;
     return (jlong) original_getVulkanDriverHandle();
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_vulkan_VK_getFpsAddress(JNIEnv *env, jclass clazz) {
     load_pojavexec_symbols();
-    if (original_getFpsAddress == NULL) {
+    if (!original_getFpsAddress) return 0;
+    return (jlong) original_getFpsAddress();
+}
+
+JNIEXPORT jlong JNICALL Java_org_lwjgl_opengl_GL_nLoadOpenGL(JNIEnv *env, jclass clazz, jstring libName) {
+    load_pojavexec_symbols();
+    if (!original_linker_ns_load || !original_linker_ns_dlopen) {
+        fprintf(stderr, "[LWJGL] linker_ns functions not available.\n");
         return 0;
     }
-    return (jlong) original_getFpsAddress();
+
+    const char *cLibName = (*env)->GetStringUTFChars(env, libName, NULL);
+    if (!cLibName) return 0;
+
+    const char *searchPath = getenv("LD_LIBRARY_PATH");
+    if (!searchPath || strlen(searchPath) == 0) {
+        searchPath = "/vendor/lib64:/system/lib64";
+    }
+
+    static int ns_loaded = 0;
+    if (!ns_loaded) {
+        if (original_linker_ns_load(searchPath)) {
+            ns_loaded = 1;
+        } else {
+            fprintf(stderr, "[LWJGL] Failed to load namespace with path: %s\n", searchPath);
+            (*env)->ReleaseStringUTFChars(env, libName, cLibName);
+            return 0;
+        }
+    }
+
+    void *handle = original_linker_ns_dlopen(cLibName, RTLD_LAZY | RTLD_GLOBAL);
+    (*env)->ReleaseStringUTFChars(env, libName, cLibName);
+
+    if (!handle) {
+        fprintf(stderr, "[LWJGL] Failed to dlopen %s via namespace.\n", cLibName);
+        return 0;
+    }
+
+    return (jlong)(uintptr_t)handle;
 }
 
 EXTERN_C_EXIT
