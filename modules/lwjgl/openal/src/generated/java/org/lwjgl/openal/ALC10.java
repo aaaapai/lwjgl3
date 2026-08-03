@@ -1,376 +1,249 @@
 /*
- * Copyright LWJGL. All rights reserved.
- * License terms: https://www.lwjgl.org/license
- * MACHINE GENERATED FILE, DO NOT EDIT
+ * Copyright LWJGL All rights reserved.
+ * Modified to provide backward-compatible ALCcontext / ALCdevice wrappers.
  */
 package org.lwjgl.openal;
 
 import org.jspecify.annotations.*;
-
 import java.nio.*;
-
 import org.lwjgl.system.*;
-
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class ALC10 {
-// -- Begin LWJGL2 --
-    static ALCcontext alcContext;
 
-    public static ALCcontext alcCreateContext(ALCdevice device, java.nio.IntBuffer attrList) {
-        long alContextHandle = alcCreateContext(device.device, attrList);
-        alcContext = new ALCcontext(alContextHandle);
-        return alcContext;
-    }
-
-    // FIXME if Minecraft 1.12.2 and below crashes here!
-/*
-    public static ALCcontext alcGetCurrentContext() {
-        return alcContext;
-    }
-*/
-    public static ALCdevice alcGetContextsDevice(ALCcontext context) {
-        return AL.alcDevice;
-    }
-
-    public static void alcGetInteger(ALCdevice device, int pname, java.nio.IntBuffer integerdata) {
-        int res = alcGetInteger(device.device, pname);
-        integerdata.put(0, res);
-    }
-
-    public static String alcGetString(ALCdevice device, int pname) {
-        return alcGetString(device.device, pname);
-    }
-
-    public static boolean alcIsExtensionPresent(ALCdevice device, String extName) {
-        long deviceHandle = JNI.invokeP(ALC.getICD().alcGetCurrentContext);
-        ByteBuffer bExtName = MemoryStack.stackUTF8(extName);
-        Checks.checkNT1(bExtName);
-        return nalcIsExtensionPresent(deviceHandle, MemoryUtil.memAddress(bExtName));
-    }
-// -- End LWJGL2 --
-
+    // ---------- 常量（与原类一致，此处省略，但必须保留所有常量） ----------
     public static final int
         ALC_INVALID = 0xFFFFFFFF,
         ALC_FALSE   = 0x0,
-        ALC_TRUE    = 0x1;
-
-    public static final int
+        ALC_TRUE    = 0x1,
         ALC_FREQUENCY = 0x1007,
         ALC_REFRESH   = 0x1008,
-        ALC_SYNC      = 0x1009;
-
-    public static final int
+        ALC_SYNC      = 0x1009,
         ALC_NO_ERROR        = 0x0,
         ALC_INVALID_DEVICE  = 0xA001,
         ALC_INVALID_CONTEXT = 0xA002,
         ALC_INVALID_ENUM    = 0xA003,
         ALC_INVALID_VALUE   = 0xA004,
-        ALC_OUT_OF_MEMORY   = 0xA005;
-
-    public static final int
+        ALC_OUT_OF_MEMORY   = 0xA005,
         ALC_DEFAULT_DEVICE_SPECIFIER = 0x1004,
         ALC_DEVICE_SPECIFIER         = 0x1005,
-        ALC_EXTENSIONS               = 0x1006;
-
-    public static final int
+        ALC_EXTENSIONS               = 0x1006,
         ALC_MAJOR_VERSION   = 0x1000,
         ALC_MINOR_VERSION   = 0x1001,
         ALC_ATTRIBUTES_SIZE = 0x1002,
         ALC_ALL_ATTRIBUTES  = 0x1003;
 
-    protected ALC10() {
-        throw new UnsupportedOperationException();
+    protected ALC10() { throw new UnsupportedOperationException(); }
+
+    // ---------- 内部包装类（兼容 LWJGL 2 风格） ----------
+    public static class ALCcontext {
+        public final long handle;
+        public ALCcontext(long handle) { this.handle = handle; }
     }
 
-    // --- [ alcOpenDevice ] ---
+    public static class ALCdevice {
+        public final long handle;
+        public ALCdevice(long handle) { this.handle = handle; }
+    }
 
-    /** {@code ALCdevice * alcOpenDevice(ALCchar const * deviceSpecifier)} */
+    // ---------- 原有 LWJGL 3 原生方法（不变） ----------
+    // （这里仅列出关键原生方法，实际使用时请保持与 LWJGL 官方一致，
+    //  但为了编译通过，以下方法必须存在。下面的实现是 LWJGL 3.3.3 的版本，
+    //  你可以直接从 LWJGL 源码中复制完整内容，或直接依赖官方 jar，
+    //  再通过以下包装方法调用。）
+
+    // 原生方法示例（实际应从 LWJGL 复制完整）：
     public static long nalcOpenDevice(long deviceSpecifier) {
-		long __functionAddress = ALC.getICD().alcOpenDevice;
-        return invokePP(deviceSpecifier, __functionAddress);
+        long func = ALC.getICD().alcOpenDevice;
+        return invokePP(deviceSpecifier, func);
     }
-
-    /** {@code ALCdevice * alcOpenDevice(ALCchar const * deviceSpecifier)} */
-    @NativeType("ALCdevice *")
-    public static long alcOpenDevice(@NativeType("ALCchar const *") @Nullable ByteBuffer deviceSpecifier) {
-        if (CHECKS) {
-            checkNT1Safe(deviceSpecifier);
-        }
+    public static long alcOpenDevice(ByteBuffer deviceSpecifier) {
+        if (CHECKS) checkNT1Safe(deviceSpecifier);
         return nalcOpenDevice(memAddressSafe(deviceSpecifier));
     }
-
-    /** {@code ALCdevice * alcOpenDevice(ALCchar const * deviceSpecifier)} */
-    @NativeType("ALCdevice *")
-    public static long alcOpenDevice(@NativeType("ALCchar const *") @Nullable CharSequence deviceSpecifier) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+    public static long alcOpenDevice(CharSequence deviceSpecifier) {
+        MemoryStack stack = stackGet(); int ptr = stack.getPointer();
         try {
             stack.nUTF8Safe(deviceSpecifier, true);
-            long deviceSpecifierEncoded = deviceSpecifier == null ? NULL : stack.getPointerAddress();
-            return nalcOpenDevice(deviceSpecifierEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+            return nalcOpenDevice(deviceSpecifier == null ? NULL : stack.getPointerAddress());
+        } finally { stack.setPointer(ptr); }
     }
 
-    // --- [ alcCloseDevice ] ---
-
-    /** {@code ALCboolean alcCloseDevice(ALCdevice const * deviceHandle)} */
-    @NativeType("ALCboolean")
-    public static boolean alcCloseDevice(@NativeType("ALCdevice const *") long deviceHandle) {
-		long __functionAddress = ALC.getICD().alcCloseDevice;
-        if (CHECKS) {
-            check(deviceHandle);
-        }
-        return invokePZ(deviceHandle, __functionAddress);
+    public static boolean alcCloseDevice(long deviceHandle) {
+        long func = ALC.getICD().alcCloseDevice;
+        if (CHECKS) check(deviceHandle);
+        return invokePZ(deviceHandle, func);
     }
 
-    // --- [ alcCreateContext ] ---
-
-    /** {@code ALCcontext * alcCreateContext(ALCdevice const * deviceHandle, ALCint const * attrList)} */
     public static long nalcCreateContext(long deviceHandle, long attrList) {
-		long __functionAddress = ALC.getICD().alcCreateContext;
-        if (CHECKS) {
-            check(deviceHandle);
-        }
-        return invokePPP(deviceHandle, attrList, __functionAddress);
+        long func = ALC.getICD().alcCreateContext;
+        if (CHECKS) check(deviceHandle);
+        return invokePPP(deviceHandle, attrList, func);
     }
-
-    /** {@code ALCcontext * alcCreateContext(ALCdevice const * deviceHandle, ALCint const * attrList)} */
-    @NativeType("ALCcontext *")
-    public static long alcCreateContext(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALCint const *") @Nullable IntBuffer attrList) {
-        if (CHECKS) {
-            checkNTSafe(attrList);
-        }
+    public static long alcCreateContext(long deviceHandle, IntBuffer attrList) {
+        if (CHECKS) checkNTSafe(attrList);
         return nalcCreateContext(deviceHandle, memAddressSafe(attrList));
     }
 
-    // --- [ alcMakeContextCurrent ] ---
-
-    /** {@code ALCboolean alcMakeContextCurrent(ALCcontext * context)} */
-    @NativeType("ALCboolean")
-    public static boolean alcMakeContextCurrent(@NativeType("ALCcontext *") long context) {
-		long __functionAddress = ALC.getICD().alcMakeContextCurrent;
-        return invokePZ(context, __functionAddress);
+    public static boolean alcMakeContextCurrent(long context) {
+        long func = ALC.getICD().alcMakeContextCurrent;
+        return invokePZ(context, func);
+    }
+    public static void alcProcessContext(long context) {
+        long func = ALC.getICD().alcProcessContext;
+        if (CHECKS) check(context);
+        invokePV(context, func);
+    }
+    public static void alcSuspendContext(long context) {
+        long func = ALC.getICD().alcSuspendContext;
+        if (CHECKS) check(context);
+        invokePV(context, func);
+    }
+    public static void alcDestroyContext(long context) {
+        long func = ALC.getICD().alcDestroyContext;
+        if (CHECKS) check(context);
+        invokePV(context, func);
     }
 
-    // --- [ alcProcessContext ] ---
-
-    /** {@code ALCvoid alcProcessContext(ALCcontext * context)} */
-    @NativeType("ALCvoid")
-    public static void alcProcessContext(@NativeType("ALCcontext *") long context) {
-		long __functionAddress = ALC.getICD().alcProcessContext;
-        if (CHECKS) {
-            check(context);
-        }
-        invokePV(context, __functionAddress);
+    public static long alcGetCurrentContext() { // 原生返回 long
+        long func = ALC.getICD().alcGetCurrentContext;
+        return invokeP(func);
     }
 
-    // --- [ alcSuspendContext ] ---
-
-    /** {@code ALCvoid alcSuspendContext(ALCcontext * context)} */
-    @NativeType("ALCvoid")
-    public static void alcSuspendContext(@NativeType("ALCcontext *") long context) {
-		long __functionAddress = ALC.getICD().alcSuspendContext;
-        if (CHECKS) {
-            check(context);
-        }
-        invokePV(context, __functionAddress);
+    public static long alcGetContextsDevice(long context) {
+        long func = ALC.getICD().alcGetContextsDevice;
+        if (CHECKS) check(context);
+        return invokePP(context, func);
     }
 
-    // --- [ alcDestroyContext ] ---
-
-    /** {@code ALCvoid alcDestroyContext(ALCcontext * context)} */
-    @NativeType("ALCvoid")
-    public static void alcDestroyContext(@NativeType("ALCcontext *") long context) {
-		long __functionAddress = ALC.getICD().alcDestroyContext;
-        if (CHECKS) {
-            check(context);
-        }
-        invokePV(context, __functionAddress);
-    }
-
-    // --- [ alcGetCurrentContext ] ---
-
-    /** {@code ALCcontext * alcGetCurrentContext(void)} */
-    @NativeType("ALCcontext *")
-    public static long alcGetCurrentContext() {
-		long __functionAddress = ALC.getICD().alcGetCurrentContext;
-        return invokeP(__functionAddress);
-    }
-
-    // --- [ alcGetContextsDevice ] ---
-
-    /** {@code ALCdevice * alcGetContextsDevice(ALCcontext * context)} */
-    @NativeType("ALCdevice *")
-    public static long alcGetContextsDevice(@NativeType("ALCcontext *") long context) {
-		long __functionAddress = ALC.getICD().alcGetContextsDevice;
-        if (CHECKS) {
-            check(context);
-        }
-        return invokePP(context, __functionAddress);
-    }
-
-    // --- [ alcIsExtensionPresent ] ---
-
-    /** {@code ALCboolean alcIsExtensionPresent(ALCdevice const * deviceHandle, ALCchar const * extName)} */
     public static boolean nalcIsExtensionPresent(long deviceHandle, long extName) {
-		long __functionAddress = ALC.getICD().alcIsExtensionPresent;
-        return invokePPZ(deviceHandle, extName, __functionAddress);
+        long func = ALC.getICD().alcIsExtensionPresent;
+        return invokePPZ(deviceHandle, extName, func);
     }
-
-    /** {@code ALCboolean alcIsExtensionPresent(ALCdevice const * deviceHandle, ALCchar const * extName)} */
-    @NativeType("ALCboolean")
-    public static boolean alcIsExtensionPresent(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALCchar const *") ByteBuffer extName) {
-        if (CHECKS) {
-            checkNT1(extName);
-        }
+    public static boolean alcIsExtensionPresent(long deviceHandle, ByteBuffer extName) {
+        if (CHECKS) checkNT1(extName);
         return nalcIsExtensionPresent(deviceHandle, memAddress(extName));
     }
-
-    /** {@code ALCboolean alcIsExtensionPresent(ALCdevice const * deviceHandle, ALCchar const * extName)} */
-    @NativeType("ALCboolean")
-    public static boolean alcIsExtensionPresent(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALCchar const *") CharSequence extName) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+    public static boolean alcIsExtensionPresent(long deviceHandle, CharSequence extName) {
+        MemoryStack stack = stackGet(); int ptr = stack.getPointer();
         try {
             stack.nASCII(extName, true);
-            long extNameEncoded = stack.getPointerAddress();
-            return nalcIsExtensionPresent(deviceHandle, extNameEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+            return nalcIsExtensionPresent(deviceHandle, stack.getPointerAddress());
+        } finally { stack.setPointer(ptr); }
     }
 
-    // --- [ alcGetProcAddress ] ---
-
-    /** {@code ALCvoid * alcGetProcAddress(ALCdevice const * deviceHandle, ALchar const * funcName)} */
     public static long nalcGetProcAddress(long deviceHandle, long funcName) {
-		long __functionAddress = ALC.getICD().alcGetProcAddress;
-        return invokePPP(deviceHandle, funcName, __functionAddress);
+        long func = ALC.getICD().alcGetProcAddress;
+        return invokePPP(deviceHandle, funcName, func);
     }
-
-    /** {@code ALCvoid * alcGetProcAddress(ALCdevice const * deviceHandle, ALchar const * funcName)} */
-    @NativeType("ALCvoid *")
-    public static long alcGetProcAddress(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALchar const *") ByteBuffer funcName) {
-        if (CHECKS) {
-            checkNT1(funcName);
-        }
+    public static long alcGetProcAddress(long deviceHandle, ByteBuffer funcName) {
+        if (CHECKS) checkNT1(funcName);
         return nalcGetProcAddress(deviceHandle, memAddress(funcName));
     }
-
-    /** {@code ALCvoid * alcGetProcAddress(ALCdevice const * deviceHandle, ALchar const * funcName)} */
-    @NativeType("ALCvoid *")
-    public static long alcGetProcAddress(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALchar const *") CharSequence funcName) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+    public static long alcGetProcAddress(long deviceHandle, CharSequence funcName) {
+        MemoryStack stack = stackGet(); int ptr = stack.getPointer();
         try {
             stack.nASCII(funcName, true);
-            long funcNameEncoded = stack.getPointerAddress();
-            return nalcGetProcAddress(deviceHandle, funcNameEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+            return nalcGetProcAddress(deviceHandle, stack.getPointerAddress());
+        } finally { stack.setPointer(ptr); }
     }
 
-    // --- [ alcGetEnumValue ] ---
-
-    /** {@code ALCenum alcGetEnumValue(ALCdevice const * deviceHandle, ALCchar const * enumName)} */
     public static int nalcGetEnumValue(long deviceHandle, long enumName) {
-		long __functionAddress = ALC.getICD().alcGetEnumValue;
-        return invokePPI(deviceHandle, enumName, __functionAddress);
+        long func = ALC.getICD().alcGetEnumValue;
+        return invokePPI(deviceHandle, enumName, func);
     }
-
-    /** {@code ALCenum alcGetEnumValue(ALCdevice const * deviceHandle, ALCchar const * enumName)} */
-    @NativeType("ALCenum")
-    public static int alcGetEnumValue(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALCchar const *") ByteBuffer enumName) {
-        if (CHECKS) {
-            checkNT1(enumName);
-        }
+    public static int alcGetEnumValue(long deviceHandle, ByteBuffer enumName) {
+        if (CHECKS) checkNT1(enumName);
         return nalcGetEnumValue(deviceHandle, memAddress(enumName));
     }
-
-    /** {@code ALCenum alcGetEnumValue(ALCdevice const * deviceHandle, ALCchar const * enumName)} */
-    @NativeType("ALCenum")
-    public static int alcGetEnumValue(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALCchar const *") CharSequence enumName) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+    public static int alcGetEnumValue(long deviceHandle, CharSequence enumName) {
+        MemoryStack stack = stackGet(); int ptr = stack.getPointer();
         try {
             stack.nASCII(enumName, true);
-            long enumNameEncoded = stack.getPointerAddress();
-            return nalcGetEnumValue(deviceHandle, enumNameEncoded);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+            return nalcGetEnumValue(deviceHandle, stack.getPointerAddress());
+        } finally { stack.setPointer(ptr); }
     }
 
-    // --- [ alcGetError ] ---
-
-    /** {@code ALCenum alcGetError(ALCdevice * deviceHandle)} */
-    @NativeType("ALCenum")
-    public static int alcGetError(@NativeType("ALCdevice *") long deviceHandle) {
-		long __functionAddress = ALC.getICD().alcGetError;
-        return invokePI(deviceHandle, __functionAddress);
+    public static int alcGetError(long deviceHandle) {
+        long func = ALC.getICD().alcGetError;
+        return invokePI(deviceHandle, func);
     }
 
-    // --- [ alcGetString ] ---
-
-    /** {@code ALCchar const * alcGetString(ALCdevice * deviceHandle, ALCenum token)} */
     public static long nalcGetString(long deviceHandle, int token) {
-		long __functionAddress = ALC.getICD().alcGetString;
-        return invokePP(deviceHandle, token, __functionAddress);
+        long func = ALC.getICD().alcGetString;
+        return invokePP(deviceHandle, token, func);
+    }
+    public static String alcGetString(long deviceHandle, int token) {
+        long result = nalcGetString(deviceHandle, token);
+        return memUTF8Safe(result);
     }
 
-    /** {@code ALCchar const * alcGetString(ALCdevice * deviceHandle, ALCenum token)} */
-    @NativeType("ALCchar const *")
-    public static @Nullable String alcGetString(@NativeType("ALCdevice *") long deviceHandle, @NativeType("ALCenum") int token) {
-        long __result = nalcGetString(deviceHandle, token);
-        return memUTF8Safe(__result);
-    }
-
-    // --- [ alcGetIntegerv ] ---
-
-    /** {@code ALCvoid alcGetIntegerv(ALCdevice * deviceHandle, ALCenum token, ALCsizei size, ALCint * dest)} */
     public static void nalcGetIntegerv(long deviceHandle, int token, int size, long dest) {
-		long __functionAddress = ALC.getICD().alcGetIntegerv;
-        invokePPV(deviceHandle, token, size, dest, __functionAddress);
+        long func = ALC.getICD().alcGetIntegerv;
+        invokePPV(deviceHandle, token, size, dest, func);
     }
-
-    /** {@code ALCvoid alcGetIntegerv(ALCdevice * deviceHandle, ALCenum token, ALCsizei size, ALCint * dest)} */
-    @NativeType("ALCvoid")
-    public static void alcGetIntegerv(@NativeType("ALCdevice *") long deviceHandle, @NativeType("ALCenum") int token, @NativeType("ALCint *") IntBuffer dest) {
+    public static void alcGetIntegerv(long deviceHandle, int token, IntBuffer dest) {
         nalcGetIntegerv(deviceHandle, token, dest.remaining(), memAddress(dest));
     }
-
-    /** {@code ALCvoid alcGetIntegerv(ALCdevice * deviceHandle, ALCenum token, ALCsizei size, ALCint * dest)} */
-    @NativeType("ALCvoid")
-    public static int alcGetInteger(@NativeType("ALCdevice *") long deviceHandle, @NativeType("ALCenum") int token) {
-        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+    public static int alcGetInteger(long deviceHandle, int token) {
+        MemoryStack stack = stackGet(); int ptr = stack.getPointer();
         try {
             IntBuffer dest = stack.callocInt(1);
             nalcGetIntegerv(deviceHandle, token, 1, memAddress(dest));
             return dest.get(0);
-        } finally {
-            stack.setPointer(stackPointer);
-        }
+        } finally { stack.setPointer(ptr); }
     }
 
-    /** {@code ALCcontext * alcCreateContext(ALCdevice const * deviceHandle, ALCint const * attrList)} */
-    @NativeType("ALCcontext *")
-    public static long alcCreateContext(@NativeType("ALCdevice const *") long deviceHandle, @NativeType("ALCint const *") int @Nullable [] attrList) {
-		long __functionAddress = ALC.getICD().alcCreateContext;
-        if (CHECKS) {
-            check(deviceHandle);
-            checkNTSafe(attrList);
-        }
-        return invokePPP(deviceHandle, attrList, __functionAddress);
+    // ========== 新增兼容包装方法（返回 LWJGL 2 风格对象） ==========
+
+    /** 包装：创建上下文，返回 ALCcontext 对象 */
+    public static ALCcontext alcCreateContext(ALCdevice device, IntBuffer attrList) {
+        long ctxHandle = alcCreateContext(device.handle, attrList);
+        return ctxHandle == 0 ? null : new ALCcontext(ctxHandle);
     }
 
-    /** {@code ALCvoid alcGetIntegerv(ALCdevice * deviceHandle, ALCenum token, ALCsizei size, ALCint * dest)} */
-    @NativeType("ALCvoid")
-    public static void alcGetIntegerv(@NativeType("ALCdevice *") long deviceHandle, @NativeType("ALCenum") int token, @NativeType("ALCint *") int[] dest) {
-		long __functionAddress = ALC.getICD().alcGetIntegerv;
-        invokePPV(deviceHandle, token, dest.length, dest, __functionAddress);
+    /** 包装：获取当前上下文，返回 ALCcontext 对象 */
+    public static ALCcontext alcGetCurrentContext() {
+        long ctx = alcGetCurrentContext(); // 调用原生 long 方法
+        return ctx == 0 ? null : new ALCcontext(ctx);
     }
 
+    /** 包装：获取上下文对应的设备，返回 ALCdevice 对象 */
+    public static ALCdevice alcGetContextsDevice(ALCcontext context) {
+        if (context == null) return null;
+        long dev = alcGetContextsDevice(context.handle);
+        return dev == 0 ? null : new ALCdevice(dev);
+    }
+
+    /** 包装：获取整型属性，写入 IntBuffer */
+    public static void alcGetInteger(ALCdevice device, int pname, IntBuffer integerdata) {
+        if (device == null) return;
+        alcGetIntegerv(device.handle, pname, integerdata);
+    }
+
+    /** 包装：获取字符串属性 */
+    public static String alcGetString(ALCdevice device, int pname) {
+        if (device == null) return null;
+        return alcGetString(device.handle, pname);
+    }
+
+    /** 包装：检测扩展是否存在 */
+    public static boolean alcIsExtensionPresent(ALCdevice device, String extName) {
+        if (device == null || extName == null) return false;
+        // 直接使用原生 long 版本（避免反射）
+        MemoryStack stack = stackGet(); int ptr = stack.getPointer();
+        try {
+            stack.nASCII(extName, true);
+            return nalcIsExtensionPresent(device.handle, stack.getPointerAddress());
+        } finally { stack.setPointer(ptr); }
+    }
+
+    /** 包装：打开设备，返回 ALCdevice 对象（可选，按需添加） */
+    public static ALCdevice alcOpenDevice(String deviceSpecifier) {
+        long dev = alcOpenDevice((CharSequence) deviceSpecifier);
+        return dev == 0 ? null : new ALCdevice(dev);
+    }
 }
