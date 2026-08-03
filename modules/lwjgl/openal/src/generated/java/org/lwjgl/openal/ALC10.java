@@ -28,11 +28,11 @@ public class ALC10 {
     }
     
     // FIXME if Minecraft 1.12.2 and below crashes here!
-/*
+
     public static ALCcontext alcGetCurrentContext() {
         return alcContext;
     }
-*/
+
     public static ALCdevice alcGetContextsDevice(ALCcontext context) {
         return AL.alcDevice;
     }
