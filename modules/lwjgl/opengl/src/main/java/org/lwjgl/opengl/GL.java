@@ -90,37 +90,57 @@ public final class GL {
     private static native long getGraphicsBufferAddr();
     private static native int[] getNativeWidthHeight();
 
-    /** Loads the OpenGL native library, using the default library name. */
-    public static void create() {
-        SharedLibrary GL = null;
+// 在 GL 类中添加 native 方法声明（可在任意位置，通常放在静态块附近）
+private static native long nLoadOpenGL(String libName);
 
-        String contextAPI = Configuration.OPENGL_CONTEXT_API.get();
-
-        boolean tryEGL = "EGL".equals(contextAPI) || (contextAPI == null && isWayland());
-        if (tryEGL) {
-            GL = loadEGL();
-        } else if ("OSMesa".equals(contextAPI)) {
-            GL = loadOSMesa();
+/**
+ * Loads the OpenGL native library, using the default library name.
+ */
+public static void create() {
+    // 优先使用用户指定的库名，由 C 层加载
+    String specifiedLib = Configuration.OPENGL_LIBRARY_NAME.get();
+    if (specifiedLib != null) {
+        long handle = nLoadOpenGL(specifiedLib);
+        if (handle != 0) {
+            // 包装句柄为 SharedLibrary，注意需要指定库名用于日志等
+            SharedLibrary GL = Library.createFromHandle(specifiedLib, handle);
+            create(GL);
+            return;
+        } else {
+            apiLog("[GL] Failed to load specified OpenGL library: " + specifiedLib + " via native dlopen. Falling back.");
         }
+    }
 
-        if (GL == null) {
-            GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
-            if (GL == null && !"native".equals(contextAPI)) {
-                if (!tryEGL) {
-                    GL = loadEGL();
-                }
-                if (GL == null && !"OSMesa".equals(contextAPI)) {
-                    GL = loadOSMesa();
-                }
+    // 原有加载逻辑（保留作为回退）
+    SharedLibrary GL = null;
+
+    String contextAPI = Configuration.OPENGL_CONTEXT_API.get();
+
+    boolean tryEGL = "EGL".equals(contextAPI) || (contextAPI == null && isWayland());
+    if (tryEGL) {
+        GL = loadEGL();
+    } else if ("OSMesa".equals(contextAPI)) {
+        GL = loadOSMesa();
+    }
+
+    if (GL == null) {
+        GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
+        if (GL == null && !"native".equals(contextAPI)) {
+            if (!tryEGL) {
+                GL = loadEGL();
+            }
+            if (GL == null && !"OSMesa".equals(contextAPI)) {
+                GL = loadOSMesa();
             }
         }
-
-        if (GL == null) {
-            throw new IllegalStateException("There is no OpenGL context management API available.");
-        }
-
-        create(GL);
     }
+
+    if (GL == null) {
+        throw new IllegalStateException("There is no OpenGL context management API available.");
+    }
+
+    create(GL);
+}
 
     private static boolean isWayland() {
         switch (Platform.get()) {
