@@ -946,8 +946,8 @@ public class Display {
                 glfwSetWindowIcon(Window.handle, new GLFWImage.Buffer(icons[0]));
             }
         } catch (Exception e) {
-            LWJGLUtil.log("Couldn't set icon");
-            e.printStackTrace();
+            // LWJGLUtil.log("Couldn't set icon");
+            // e.printStackTrace();
         }
         return 0;
     }
