@@ -6,53 +6,76 @@
 #include <stdbool.h>
 #include <string.h>
 
-// ---- 缓存 pojavexec 中的函数指针 ----
+// ---- 缓存函数指针 ----
 static long (*original_getVulkanDriverHandle)(void) = NULL;
 static long (*original_getFpsAddress)(void) = NULL;
 static int   (*original_linker_ns_load)(const char* lib_search_path) = NULL;
 static void* (*original_linker_ns_dlopen)(const char* name, int flag) = NULL;
 static void* (*original_linker_ns_dlopen_unique)(const char* tmpdir, const char* name, int flags) = NULL;
 
-// 加载所有符号（只执行一次，使用 RTLD_NOLOAD）
-static void load_pojavexec_symbols(void) {
+// 辅助：尝试获取已加载的库，若不存在则主动加载
+static void* try_dlopen(const char* name) {
+    void* handle = dlopen(name, RTLD_NOLOAD | RTLD_GLOBAL);
+    if (!handle) {
+        // 未加载，则主动加载
+        handle = dlopen(name, RTLD_GLOBAL);
+    }
+    return handle;
+}
+
+// 加载所有符号（只执行一次）
+static void load_all_symbols(void) {
+    // 如果所有符号都已加载，直接返回
     if (original_getVulkanDriverHandle && original_getFpsAddress &&
         original_linker_ns_load && original_linker_ns_dlopen &&
         original_linker_ns_dlopen_unique) {
         return;
     }
 
-    void *handle = dlopen("libpojavexec.so", RTLD_NOLOAD | RTLD_GLOBAL);
-    if (!handle) {
-        fprintf(stderr, "[LWJGL] libpojavexec.so not loaded, cannot provide required symbols.\n");
-        return;
+    // 1. 从 libpojavexec.so 加载 Vulkan 相关函数
+    void *pojav_handle = try_dlopen("libpojavexec.so");
+    if (pojav_handle) {
+        if (!original_getVulkanDriverHandle)
+            original_getVulkanDriverHandle = (long (*)(void)) dlsym(pojav_handle, "Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle");
+        if (!original_getFpsAddress)
+            original_getFpsAddress = (long (*)(void)) dlsym(pojav_handle, "Java_org_lwjgl_vulkan_VK_getFpsAddress");
+        // 注意：不要 dlclose(pojav_handle)，保留引用
+    } else {
+        fprintf(stderr, "[LWJGL] libpojavexec.so cannot be opened, Vulkan functions unavailable.\n");
     }
 
-    original_getVulkanDriverHandle = (long (*)(void)) dlsym(handle, "Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle");
-    original_getFpsAddress         = (long (*)(void)) dlsym(handle, "Java_org_lwjgl_vulkan_VK_getFpsAddress");
-    original_linker_ns_load        = (int (*)(const char*)) dlsym(handle, "linker_ns_load");
-    original_linker_ns_dlopen      = (void* (*)(const char*, int)) dlsym(handle, "linker_ns_dlopen");
-    original_linker_ns_dlopen_unique = (void* (*)(const char*, const char*, int)) dlsym(handle, "linker_ns_dlopen_unique");
-
-    // 不要 dlclose(handle)
+    // 2. 从 libdriver_helper.so 加载 linker 命名空间函数
+    void *driver_handle = try_dlopen("libdriver_helper.so");
+    if (driver_handle) {
+        if (!original_linker_ns_load)
+            original_linker_ns_load = (int (*)(const char*)) dlsym(driver_handle, "linker_ns_load");
+        if (!original_linker_ns_dlopen)
+            original_linker_ns_dlopen = (void* (*)(const char*, int)) dlsym(driver_handle, "linker_ns_dlopen");
+        if (!original_linker_ns_dlopen_unique)
+            original_linker_ns_dlopen_unique = (void* (*)(const char*, const char*, int)) dlsym(driver_handle, "linker_ns_dlopen_unique");
+        // 同样不要 dlclose(driver_handle)
+    } else {
+        fprintf(stderr, "[LWJGL] libdriver_helper.so cannot be opened, linker namespace functions unavailable.\n");
+    }
 }
 
 EXTERN_C_ENTER
 
 // ---- Vulkan 相关 ----
 JNIEXPORT jlong JNICALL Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(JNIEnv *env, jclass clazz) {
-    load_pojavexec_symbols();
+    load_all_symbols();
     if (!original_getVulkanDriverHandle) return 0;
     return (jlong) original_getVulkanDriverHandle();
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_vulkan_VK_getFpsAddress(JNIEnv *env, jclass clazz) {
-    load_pojavexec_symbols();
+    load_all_symbols();
     if (!original_getFpsAddress) return 0;
     return (jlong) original_getFpsAddress();
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_opengl_GL_nLoadOpenGL(JNIEnv *env, jclass clazz, jstring libName) {
-    load_pojavexec_symbols();
+    load_all_symbols();
     if (!original_linker_ns_load || !original_linker_ns_dlopen) {
         fprintf(stderr, "[LWJGL] linker_ns functions not available.\n");
         return 0;
