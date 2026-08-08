@@ -53,11 +53,11 @@ public final class VK {
     private static final long FPS_ADDRESS;
 
     static {
-        try {
+        /*try {
             System.loadLibrary("pojavexec");
         } catch (UnsatisfiedLinkError e) {
             e.printStackTrace();
-        }
+        }*/
         if (!Configuration.VULKAN_EXPLICIT_INIT.get(false)) {
             create();
         }
