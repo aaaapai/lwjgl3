@@ -89,8 +89,22 @@ public final class GL {
     }
 
     /** Loads the OpenGL native library, using the default library name. */
+    private static native long nLoadOpenGL(String libName);
     public static void create() {
-        SharedLibrary GL;
+        SharedLibrary GL = null;
+
+        String specifiedLib = Configuration.OPENGL_LIBRARY_NAME.get();
+        if (specifiedLib != null) {
+            long handle = nLoadOpenGL(specifiedLib);
+            if (handle != 0) {
+                GL = Library.createFromHandle(specifiedLib, handle);
+                create(GL);
+                return;
+            } else {
+                apiLog("[GL] Failed to load specified OpenGL library: " + specifiedLib + " via native dlopen. Falling back.");
+            }
+        }
+
         switch (Platform.get()) {
             case LINUX:
                 GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
