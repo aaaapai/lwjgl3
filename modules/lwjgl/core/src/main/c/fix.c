@@ -12,12 +12,32 @@ static long (*original_getFpsAddress)(void) = NULL;
 static void* try_dlopen(const char* name) {
     void* handle = dlopen(name, RTLD_NOLOAD | RTLD_GLOBAL);
     if (!handle) {
-        handle = dlopen(name, RTLD_GLOBAL);
+        handle = dlopen(name, RTLD_GLOBAL | RTLD_LAZY);
     }
     return handle;
 }
 
-// 加载 Vulkan 函数指针（只执行一次）
+static void init_pojav(void) {
+    static int initialized = 0;
+    if (initialized) return;
+    initialized = 1;
+
+    void* handle = try_dlopen("libpojavexec.so");
+    if (!handle) {
+        fprintf(stderr, "[LWJGL] Failed to dlopen libpojavexec.so for init: %s\n", dlerror());
+        return;
+    }
+
+    int (*pojavInit)(void) = (int (*)(void)) dlsym(handle, "pojavInit");
+    if (!pojavInit) {
+        fprintf(stderr, "[LWJGL] Cannot find pojavInit: %s\n", dlerror());
+        return;
+    }
+
+    int ret = pojavInit();
+    fprintf(stderr, "[LWJGL] pojavInit returned %d\n", ret);
+}
+
 static void load_vulkan_symbols(void) {
     if (original_getVulkanDriverHandle && original_getFpsAddress)
         return;
@@ -35,7 +55,6 @@ static void load_vulkan_symbols(void) {
 
 EXTERN_C_ENTER
 
-// ---- Vulkan 相关 JNI 方法 ----
 JNIEXPORT jlong JNICALL Java_org_lwjgl_vulkan_VK_getVulkanDriverHandle(JNIEnv *env, jclass clazz) {
     load_vulkan_symbols();
     if (!original_getVulkanDriverHandle) return 0;
@@ -48,13 +67,13 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_vulkan_VK_getFpsAddress(JNIEnv *env, jcla
     return (jlong) original_getFpsAddress();
 }
 
-// ---- OpenGL 加载（直接使用 dlopen，无需命名空间） ----
 JNIEXPORT jlong JNICALL Java_org_lwjgl_opengl_GL_nLoadOpenGL(JNIEnv *env, jclass clazz, jstring libName) {
+    init_pojav();
+
     const char *cLibName = (*env)->GetStringUTFChars(env, libName, NULL);
     if (!cLibName) return 0;
 
-    // 直接 dlopen，不依赖命名空间
-    void *handle = dlopen(cLibName, RTLD_LAZY | RTLD_GLOBAL);
+    void *handle = try_dlopen(cLibName);
     (*env)->ReleaseStringUTFChars(env, libName, cLibName);
 
     if (!handle) {
