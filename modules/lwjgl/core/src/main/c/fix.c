@@ -5,9 +5,31 @@
 #include <jni.h>
 #include <stdbool.h>
 #include <string.h>
+#include <signal.h>
+#include <setjmp.h>
 
-static long (*original_getVulkanDriverHandle)(void) = NULL;
-static long (*original_getFpsAddress)(void) = NULL;
+static sigjmp_buf jmp_buffer;
+
+static void sigsegv_handler(int sig, siginfo_t *info, void *context) {
+    fprintf(stderr, "[LWJGL] Caught SIGSEGV at address %p, jumping back...\n", info->si_addr);
+    siglongjmp(jmp_buffer, 1);
+}
+
+static void install_signal_handler(void) {
+    static int installed = 0;
+    if (installed) return;
+    installed = 1;
+
+    struct sigaction sa;
+    sa.sa_sigaction = sigsegv_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_SIGINFO;
+    if (sigaction(SIGSEGV, &sa, NULL) == -1) {
+        fprintf(stderr, "[LWJGL] Failed to install signal handler\n");
+    } else {
+        fprintf(stderr, "[LWJGL] Signal handler installed for SIGSEGV\n");
+    }
+}
 
 static void* try_dlopen(const char* name) {
     void* handle = dlopen(name, RTLD_NOLOAD | RTLD_GLOBAL);
@@ -22,6 +44,8 @@ static void init_pojav(void) {
     if (initialized) return;
     initialized = 1;
 
+    install_signal_handler();
+
     void* handle = try_dlopen("libpojavexec.so");
     if (!handle) {
         fprintf(stderr, "[LWJGL] Failed to dlopen libpojavexec.so for init: %s\n", dlerror());
@@ -34,8 +58,14 @@ static void init_pojav(void) {
         return;
     }
 
-    int ret = pojavInit();
-    fprintf(stderr, "[LWJGL] pojavInit returned %d\n", ret);
+    if (sigsetjmp(jmp_buffer, 1) == 0) {
+        int ret = pojavInit();
+        fprintf(stderr, "[LWJGL] pojavInit returned %d\n", ret);
+    } else {
+        // 如果 pojavInit 内部发生 SIGSEGV，跳转到这里
+        fprintf(stderr, "[LWJGL] SIGSEGV occurred inside pojavInit, ignoring and continuing...\n");
+        // 尝试重新初始化或跳过
+    }
 }
 
 static void load_vulkan_symbols(void) {
