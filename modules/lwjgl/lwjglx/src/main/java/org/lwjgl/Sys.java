@@ -18,7 +18,7 @@ public class Sys {
             if (Platform.get() == Platform.MACOSX) {
                 System.load(System.getenv("BUNDLE_PATH") + "/AngelAuraAmethyst");
             } else if (Platform.get() == Platform.LINUX) {
-                System.loadLibrary("pojavexec");
+                // System.loadLibrary("pojavexec");
             }
         } catch (UnsatisfiedLinkError e) {
             e.printStackTrace();
@@ -92,4 +92,9 @@ public class Sys {
 	public static String getClipboard() {
 		return GLFW.glfwGetClipboardString(GLFW.glfwGetPrimaryMonitor());
 	}
+
+	public static boolean is64Bit() {
+        String osArch = System.getProperty("os.arch");
+        return osArch.contains("64") || osArch.startsWith("armv8");
+    }
 }

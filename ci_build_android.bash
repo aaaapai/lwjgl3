@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
-export LIBFFI_VERSION=3.5.2
 export ANDROID=1
+export LWJGL_BUILD_OFFLINE=1
+export ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME
+
 #export LWJGL_BUILD_ARCH=arm64
 
 # Setup env
@@ -12,8 +14,8 @@ elif [ "$LWJGL_BUILD_ARCH" == "arm32" ]; then
 elif [ "$LWJGL_BUILD_ARCH" == "x86" ]; then
   export NDK_ABI=x86 NDK_TARGET=i686
   # Workaround: LWJGL 3 lacks of x86 Linux libraries
-  mkdir -p bin/libs/native/linux/x86/org/lwjgl/{freetype,glfw}
-  touch bin/libs/native/linux/x86/org/lwjgl/{freetype/libfreetype.so,glfw/libglfw.so}
+  mkdir -p bin/libs/native/linux/x86/org/lwjgl/{freetype,glfw,jemalloc}
+  touch bin/libs/native/linux/x86/org/lwjgl/{freetype/libfreetype.so,glfw/libglfw.so,jemalloc/libjemalloc.so,libshaderc.so}
 elif [ "$LWJGL_BUILD_ARCH" == "x64" ]; then
   export NDK_ABI=x86_64 NDK_TARGET=x86_64
 fi
@@ -27,15 +29,14 @@ mkdir -p $LWJGL_NATIVE
 if [ "$SKIP_LIBFFI" != "1" ]; then
   # Get libffi
   if [ ! -d libffi ]; then
-    wget https://github.com/libffi/libffi/releases/download/v$LIBFFI_VERSION/libffi-$LIBFFI_VERSION.tar.gz
-    tar xvf libffi-$LIBFFI_VERSION.tar.gz
-    mv libffi-$LIBFFI_VERSION libffi
+    git clone --depth 1 https://github.com/aaaapai/libffi ${PWD}/libffi
   fi
   cd libffi
 
   # Build libffi
-  bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++ --disable-multi-os-directory
-  make -j4
+  ./autogen.sh
+  bash configure --host=$TARGET --prefix=$PWD/$NDK_TARGET-unknown-linux-android$NDK_SUFFIX CC=${TARGET}21-clang CXX=${TARGET}21-clang++
+  make -j6
   cd ..
 
   # Copy libffi
@@ -43,13 +44,10 @@ if [ "$SKIP_LIBFFI" != "1" ]; then
 fi
 
 if [ "$SKIP_FREETYPE" != "1" ]; then
-  #!/bin/bash
-  export BUILD_FREETYPE_VERSION=2.14.1
-  wget https://downloads.sourceforge.net/project/freetype/freetype2/$BUILD_FREETYPE_VERSION/freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  tar xf freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  rm  freetype-$BUILD_FREETYPE_VERSION.tar.gz
-  cd freetype-$BUILD_FREETYPE_VERSION
+  git clone --depth 1 https://github.com/LWJGL-CI/freetype
+  cd freetype
 
+  ./autogen.sh
   export CC=$NDK_TARGET-linux-android${NDK_SUFFIX}21-clang
 
   ./configure \
@@ -63,13 +61,13 @@ if [ "$SKIP_FREETYPE" != "1" ]; then
     --enable-static=no \
     --enable-shared=yes 
 
-  make -j4
+  make -j6
   make install
   llvm-strip ./build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so
   
   cd ..
-  cp   freetype-$BUILD_FREETYPE_VERSION/build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so $LWJGL_NATIVE/
-  rm -rf freetype-$BUILD_FREETYPE_VERSION
+  cp   freetype/build_android-$LWJGL_BUILD_ARCH/lib/libfreetype.so $LWJGL_NATIVE/
+  rm -rf freetype
   unset BUILD_FREETYPE_VERSION
   unset CC
 fi
@@ -90,15 +88,16 @@ ant -version
 yes | ant init # Needed to download deps like kotlinc. We can't have this run offline, else jspecify fails to compile the kotlin properly and the missing annotations cause compile errors.
 export LWJGL_BUILD_OFFLINE=true
 yes | ant -Dplatform.linux=true \
+  -Dbuild.version=3.4.3 \
   -Dbinding.assimp=false \
   -Dbinding.bgfx=false \
   -Dbinding.cuda=false \
-  -Dbinding.egl=false \
+  -Dbinding.egl=true \
   -Dbinding.fmod=false \
   -Dbinding.harfbuzz=false \
   -Dbinding.hwloc=false \
   -Dbinding.jawt=false \
-  -Dbinding.jemalloc=false \
+  -Dbinding.jemalloc=true \
   -Dbinding.ktx=false \
   -Dbinding.libdivide=false \
   -Dbinding.llvm=false \
@@ -110,7 +109,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.nfd=false \
   -Dbinding.nuklear=false \
   -Dbinding.odbc=false \
-  -Dbinding.opengles=false \
+  -Dbinding.opengles=true \
   -Dbinding.opencl=false \
   -Dbinding.openvr=false \
   -Dbinding.openxr=false \
@@ -132,7 +131,7 @@ yes | ant -Dplatform.linux=true \
   -Dbinding.vulkan=true \
   -Dbinding.vma=true \
   -Dbinding.spvc=true \
-  -Dbuild.type=release/3.4.1 \
+  -Dbuild.type=nightly \
   -Djavadoc.skip=true \
   -Dnashorn.args="--no-deprecation-warning" \
   -Djdk25=true \

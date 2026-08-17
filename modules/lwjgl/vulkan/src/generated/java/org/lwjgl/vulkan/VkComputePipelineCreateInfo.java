@@ -46,6 +46,8 @@ public class VkComputePipelineCreateInfo extends Struct<VkComputePipelineCreateI
         BASEPIPELINEINDEX;
 
     static {
+        VkPipelineShaderStageCreateInfo.createSafe(NULL);
+
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
@@ -137,6 +139,8 @@ public class VkComputePipelineCreateInfo extends Struct<VkComputePipelineCreateI
     public VkComputePipelineCreateInfo pNext(VkPipelineRobustnessCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSubpassShadingPipelineCreateInfoHUAWEI} value to the {@code pNext} chain. */
     public VkComputePipelineCreateInfo pNext(VkSubpassShadingPipelineCreateInfoHUAWEI value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkValidationFeaturesEXT} value to the {@code pNext} chain. */
+    public VkComputePipelineCreateInfo pNext(VkValidationFeaturesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@code flags} field. */
     public VkComputePipelineCreateInfo flags(@NativeType("VkPipelineCreateFlags") int value) { nflags(address(), value); return this; }
     /** Copies the specified {@link VkPipelineShaderStageCreateInfo} to the {@code stage} field. */
@@ -253,6 +257,25 @@ public class VkComputePipelineCreateInfo extends Struct<VkComputePipelineCreateI
     public static VkComputePipelineCreateInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
+
+    // -----------------------------------
+
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo mallocStack() { return malloc(stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo callocStack() { return calloc(stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo mallocStack(MemoryStack stack) { return malloc(stack); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo callocStack(MemoryStack stack) { return calloc(stack); }
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
+    @Deprecated public static VkComputePipelineCreateInfo.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkComputePipelineCreateInfo} instance allocated on the specified {@link MemoryStack}.
@@ -423,6 +446,8 @@ public class VkComputePipelineCreateInfo extends Struct<VkComputePipelineCreateI
         public VkComputePipelineCreateInfo.Buffer pNext(VkPipelineRobustnessCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSubpassShadingPipelineCreateInfoHUAWEI} value to the {@code pNext} chain. */
         public VkComputePipelineCreateInfo.Buffer pNext(VkSubpassShadingPipelineCreateInfoHUAWEI value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkValidationFeaturesEXT} value to the {@code pNext} chain. */
+        public VkComputePipelineCreateInfo.Buffer pNext(VkValidationFeaturesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@code flags} field. */
         public VkComputePipelineCreateInfo.Buffer flags(@NativeType("VkPipelineCreateFlags") int value) { VkComputePipelineCreateInfo.nflags(address(), value); return this; }
         /** Copies the specified {@link VkPipelineShaderStageCreateInfo} to the {@code stage} field. */

@@ -7,7 +7,6 @@ package org.lwjgl.opengl;
 import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
-import org.lwjgl.system.macosx.*;
 import org.lwjgl.system.windows.*;
 
 import java.nio.*;
@@ -88,46 +87,60 @@ public final class GL {
         // intentionally empty to trigger static initializer
     }
 
-    /** Loads the OpenGL native library, using the default library name. */
-    public static void create() {
-        SharedLibrary GL;
-        switch (Platform.get()) {
-            case LINUX:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
-                break;
-            case MACOSX:
-                // Configuration does not get updated if the value changes, so we have to update it here
-                Configuration.OPENGL_LIBRARY_NAME.set(System.getProperty("org.lwjgl.opengl.libname"));
-                String override = Configuration.OPENGL_LIBRARY_NAME.get();
-                GL = override != null
-                    ? Library.loadNative(GL.class, "org.lwjgl.opengl", override)
-                    : MacOSXLibrary.getWithIdentifier("com.apple.opengl");
-                break;
-            case WINDOWS:
-                GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "opengl32");
-                break;
-            default:
-                throw new IllegalStateException();
+    private static native long getGraphicsBufferAddr();
+    private static native int[] getNativeWidthHeight();
+
+// 在 GL 类中添加 native 方法声明（可在任意位置，通常放在静态块附近）
+private static native long nLoadOpenGL(String libName);
+
+/**
+ * Loads the OpenGL native library, using the default library name.
+ */
+public static void create() {
+    // 优先使用用户指定的库名，由 C 层加载
+    String specifiedLib = Configuration.OPENGL_LIBRARY_NAME.get();
+    if (specifiedLib != null) {
+        long handle = nLoadOpenGL(specifiedLib);
+        if (handle != 0) {
+            // 包装句柄为 SharedLibrary，注意需要指定库名用于日志等
+            SharedLibrary GL = Library.createFromHandle(specifiedLib, handle);
+            create(GL);
+            return;
+        } else {
+            apiLog("[GL] Failed to load specified OpenGL library: " + specifiedLib + " via native dlopen. Falling back.");
         }
-
-        // if (GL == null) {
-        //     GL = loadNative();
-        //     if (GL == null && !"native".equals(contextAPI)) {
-        //         if (!tryEGL) {
-        //             GL = loadEGL();
-        //         }
-        //         if (GL == null && !"OSMesa".equals(contextAPI)) {
-        //             GL = loadOSMesa();
-        //         }
-        //     }
-        // }
-        //
-        // if (GL == null) {
-        //     throw new IllegalStateException("There is no OpenGL context management API available.");
-        // }
-
-        create(GL);
     }
+
+    // 原有加载逻辑（保留作为回退）
+    SharedLibrary GL = null;
+
+    String contextAPI = Configuration.OPENGL_CONTEXT_API.get();
+
+    boolean tryEGL = "EGL".equals(contextAPI) || (contextAPI == null && isWayland());
+    if (tryEGL) {
+        GL = loadEGL();
+    } else if ("OSMesa".equals(contextAPI)) {
+        GL = loadOSMesa();
+    }
+
+    if (GL == null) {
+        GL = Library.loadNative(GL.class, "org.lwjgl.opengl", Configuration.OPENGL_LIBRARY_NAME, "libGLX.so.0", "libGL.so.1", "libGL.so");
+        if (GL == null && !"native".equals(contextAPI)) {
+            if (!tryEGL) {
+                GL = loadEGL();
+            }
+            if (GL == null && !"OSMesa".equals(contextAPI)) {
+                GL = loadOSMesa();
+            }
+        }
+    }
+
+    if (GL == null) {
+        throw new IllegalStateException("There is no OpenGL context management API available.");
+    }
+
+    create(GL);
+}
 
     private static boolean isWayland() {
         switch (Platform.get()) {
@@ -199,6 +212,9 @@ public final class GL {
                     }
                     if (GetProcAddress == NULL) {
                         GetProcAddress = library.getFunctionAddress("eglGetProcAddress");
+                    }
+                    if (GetProcAddress == NULL) {
+                        GetProcAddress = library.getFunctionAddress("eglGetProcAddressARB");
                     }
                     if (GetProcAddress == NULL) {
                         GetProcAddress = library.getFunctionAddress("OSMesaGetProcAddress");
@@ -339,13 +355,41 @@ public final class GL {
         }
     }
 
-    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
-    private static void fixPojavGLContext() throws Exception {
+    private static void IsUseBuffer(boolean buffer) throws Exception {
+        if (!buffer) System.out.println("[LWJGL] Frame buffers are not used");
+
+        System.out.println("[LWJGL] Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit");
         long currentContext;
-        // Workaround glCheckFramebufferStatus issue on 1.13+ 64-bit
         Class<?> glfwClass = Class.forName("org.lwjgl.glfw.GLFW");
         currentContext = (long)glfwClass.getDeclaredField("mainContext").get(null);
         glfwClass.getDeclaredMethod("glfwMakeContextCurrent", long.class).invoke(null, new Object[]{currentContext});
+    }
+
+    /** PojavLauncher(Android): sets the OpenGL context again to workaround framebuffer issue */
+    private static void fixGLContext() throws Exception {
+        String libName = System.getProperty("org.lwjgl.opengl.libname");
+
+        if (Platform.get() == Platform.LINUX
+           && libName.startsWith("libOSMesa")
+           && System.getenv("GL_WORKAROUND_FRAMEBUFFER") != null
+           && System.getenv("ALLOW_GL_EXP") != null)
+        {
+
+            System.out.println("[LWJGL] Experimental settings found, tried to workaround framebuffer");
+
+            if (!"default".equals(System.getenv("BRIDGE_CONFIG")) || System.getenv("DCLAT_FRAMEBUFFER") != null)
+            {
+
+                System.out.println("[LWJGL] Repair GL Context for Mesa renderer, workaround frame buffer");
+                long currentContext;
+                int[] dims = getNativeWidthHeight();
+                currentContext = callJ(functionProvider.getFunctionAddress("OSMesaGetCurrentContext"));
+                callJPI(currentContext,getGraphicsBufferAddr(),GL_UNSIGNED_BYTE,dims[0],dims[1],functionProvider.getFunctionAddress("OSMesaMakeCurrent"));
+
+            } else IsUseBuffer(false);
+
+        } else IsUseBuffer(true);
+
     }
 
     /**
@@ -414,9 +458,9 @@ public final class GL {
             throw new IllegalStateException("OpenGL library has not been loaded.");
         }
 
-        if (Platform.get() == Platform.LINUX && System.getenv("POJAV_RENDERER") != null) {
+        if (Platform.get() == Platform.LINUX && (System.getenv("TAG_RENDERER") != null || System.getenv("POJAV_BETA_RENDERER") != null || System.getenv("POJAV_RENDERER") != null)) {
             try {
-                fixPojavGLContext();
+                fixGLContext();
             } catch (Exception e) {
                 e.printStackTrace();
             }

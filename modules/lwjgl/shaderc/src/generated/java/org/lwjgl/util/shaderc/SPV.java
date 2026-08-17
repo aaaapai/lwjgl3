@@ -238,7 +238,8 @@ public class SPV {
         SPV_OPERAND_TYPE_OPTIONAL_TENSOR_OPERANDS                      = 104,
         SPV_OPERAND_TYPE_OPTIONAL_CAPABILITY                           = 105,
         SPV_OPERAND_TYPE_VARIABLE_CAPABILITY                           = 106,
-        SPV_OPERAND_TYPE_NUM_OPERAND_TYPES                             = 107;
+        SPV_OPERAND_TYPE_GATHER_MODES                                  = 107,
+        SPV_OPERAND_TYPE_NUM_OPERAND_TYPES                             = 108;
 
     public static final int
         SPV_EXT_INST_TYPE_NONE                                     = 0,
@@ -251,11 +252,13 @@ public class SPV {
         SPV_EXT_INST_TYPE_DEBUGINFO                                = 7,
         SPV_EXT_INST_TYPE_OPENCL_DEBUGINFO_100                     = 8,
         SPV_EXT_INST_TYPE_NONSEMANTIC_CLSPVREFLECTION              = 9,
-        SPV_EXT_INST_TYPE_NONSEMANTIC_SHADER_DEBUGINFO_100         = 10,
-        SPV_EXT_INST_TYPE_NONSEMANTIC_VKSPREFLECTION               = 11,
-        SPV_EXT_INST_TYPE_TOSA_001000_1                            = 12,
-        SPV_EXT_INST_TYPE_ARM_MOTION_ENGINE_100                    = 13,
-        SPV_EXT_INST_TYPE_NONSEMANTIC_UNKNOWN                      = 14;
+        SPV_EXT_INST_TYPE_NONSEMANTIC_GRAPH_DEBUGINFO              = 10,
+        SPV_EXT_INST_TYPE_NONSEMANTIC_SHADER_DEBUGINFO_100         = 11,
+        SPV_EXT_INST_TYPE_NONSEMANTIC_VKSPREFLECTION               = 12,
+        SPV_EXT_INST_TYPE_TOSA_001000_1                            = 13,
+        SPV_EXT_INST_TYPE_ARM_MOTION_ENGINE_100                    = 14,
+        SPV_EXT_INST_TYPE_ARM_EXPERIMENTAL_ML_OPERATIONS           = 15,
+        SPV_EXT_INST_TYPE_NONSEMANTIC_UNKNOWN                      = 16;
 
     public static final int
         SPV_NUMBER_NONE         = 0,
@@ -264,29 +267,35 @@ public class SPV {
         SPV_NUMBER_FLOATING     = 3;
 
     public static final int
-        SPV_FP_ENCODING_UNKNOWN          = 0,
-        SPV_FP_ENCODING_IEEE754_BINARY16 = 1,
-        SPV_FP_ENCODING_IEEE754_BINARY32 = 2,
-        SPV_FP_ENCODING_IEEE754_BINARY64 = 3,
-        SPV_FP_ENCODING_BFLOAT16         = 4,
-        SPV_FP_ENCODING_FLOAT8_E4M3      = 5,
-        SPV_FP_ENCODING_FLOAT8_E5M2      = 6;
+        SPV_FP_ENCODING_UNKNOWN              = 0,
+        SPV_FP_ENCODING_IEEE754_BINARY16     = 1,
+        SPV_FP_ENCODING_IEEE754_BINARY32     = 2,
+        SPV_FP_ENCODING_IEEE754_BINARY64     = 3,
+        SPV_FP_ENCODING_BFLOAT16             = 4,
+        SPV_FP_ENCODING_FLOAT8_E4M3          = 5,
+        SPV_FP_ENCODING_FLOAT8_E5M2          = 6,
+        SPV_FP_ENCODING_FLOAT6_E2M3          = 7,
+        SPV_FP_ENCODING_FLOAT6_E3M2          = 8,
+        SPV_FP_ENCODING_FLOAT4_E2M1          = 9,
+        SPV_FP_ENCODING_FLOAT8_UNSIGNED_E8M0 = 10,
+        SPV_FP_ENCODING_MXINT8               = 11;
 
     public static final int
         SPV_TEXT_TO_BINARY_OPTION_NONE                 = 1 << 0,
         SPV_TEXT_TO_BINARY_OPTION_PRESERVE_NUMERIC_IDS = 1 << 1;
 
     public static final int
-        SPV_BINARY_TO_TEXT_OPTION_NONE             = 1 << 0,
-        SPV_BINARY_TO_TEXT_OPTION_PRINT            = 1 << 1,
-        SPV_BINARY_TO_TEXT_OPTION_COLOR            = 1 << 2,
-        SPV_BINARY_TO_TEXT_OPTION_INDENT           = 1 << 3,
-        SPV_BINARY_TO_TEXT_OPTION_SHOW_BYTE_OFFSET = 1 << 4,
-        SPV_BINARY_TO_TEXT_OPTION_NO_HEADER        = 1 << 5,
-        SPV_BINARY_TO_TEXT_OPTION_FRIENDLY_NAMES   = 1 << 6,
-        SPV_BINARY_TO_TEXT_OPTION_COMMENT          = 1 << 7,
-        SPV_BINARY_TO_TEXT_OPTION_NESTED_INDENT    = 1 << 8,
-        SPV_BINARY_TO_TEXT_OPTION_REORDER_BLOCKS   = 1 << 9;
+        SPV_BINARY_TO_TEXT_OPTION_NONE                   = 1 << 0,
+        SPV_BINARY_TO_TEXT_OPTION_PRINT                  = 1 << 1,
+        SPV_BINARY_TO_TEXT_OPTION_COLOR                  = 1 << 2,
+        SPV_BINARY_TO_TEXT_OPTION_INDENT                 = 1 << 3,
+        SPV_BINARY_TO_TEXT_OPTION_SHOW_BYTE_OFFSET       = 1 << 4,
+        SPV_BINARY_TO_TEXT_OPTION_NO_HEADER              = 1 << 5,
+        SPV_BINARY_TO_TEXT_OPTION_FRIENDLY_NAMES         = 1 << 6,
+        SPV_BINARY_TO_TEXT_OPTION_COMMENT                = 1 << 7,
+        SPV_BINARY_TO_TEXT_OPTION_NESTED_INDENT          = 1 << 8,
+        SPV_BINARY_TO_TEXT_OPTION_REORDER_BLOCKS         = 1 << 9,
+        SPV_BINARY_TO_TEXT_OPTION_HANDLE_UNKNOWN_OPCODES = 1 << 10;
 
     public static final int kDefaultMaxIdBound = 0x3FFFFF;
 

@@ -61,6 +61,6 @@ public final class SharedDrawable extends DrawableGL {
 
     @Override
     public void makeCurrent() throws LWJGLException {
-        //stub
+        context.makeCurrent();
     }
 }

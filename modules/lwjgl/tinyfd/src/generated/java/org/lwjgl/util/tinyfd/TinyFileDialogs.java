@@ -34,6 +34,7 @@ public class TinyFileDialogs {
         tinyfd_silent             = "tinyfd_silent",
         tinyfd_allowCursesDialogs = "tinyfd_allowCursesDialogs",
         tinyfd_forceConsole       = "tinyfd_forceConsole",
+        tinyfd_assumeGraphicDisplay = "tinyfd_assumeGraphicDisplay",
         tinyfd_winUtf8            = "tinyfd_winUtf8";
 
     protected TinyFileDialogs() {
@@ -188,6 +189,16 @@ public class TinyFileDialogs {
             stack.setPointer(stackPointer);
         }
     }
+
+@NativeType("int")
+public static boolean tinyfd_messageBox(@NativeType("char const *") @Nullable ByteBuffer aTitle, @NativeType("char const *") @Nullable ByteBuffer aMessage, @NativeType("char const *") ByteBuffer aDialogType, @NativeType("char const *") ByteBuffer aIconType, @NativeType("int") boolean aDefaultButton) {
+    return tinyfd_messageBox(aTitle, aMessage, aDialogType, aIconType, aDefaultButton ? 1 : 0) != 0;
+}
+
+@NativeType("int")
+public static boolean tinyfd_messageBox(@NativeType("char const *") @Nullable CharSequence aTitle, @NativeType("char const *") @Nullable CharSequence aMessage, @NativeType("char const *") CharSequence aDialogType, @NativeType("char const *") CharSequence aIconType, @NativeType("int") boolean aDefaultButton) {
+    return tinyfd_messageBox(aTitle, aMessage, aDialogType, aIconType, aDefaultButton ? 1 : 0) != 0;
+}
 
     // --- [ tinyfd_inputBox ] ---
 

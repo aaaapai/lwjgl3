@@ -38,6 +38,9 @@ public class CXIdxAttrInfo extends Struct<CXIdxAttrInfo> implements NativeResour
         LOC;
 
     static {
+        CXCursor.createSafe(NULL);
+        CXIdxLoc.createSafe(NULL);
+
         Layout layout = __struct(
             __member(4),
             __member(CXCursor.SIZEOF, CXCursor.ALIGNOF),
@@ -152,6 +155,25 @@ public class CXIdxAttrInfo extends Struct<CXIdxAttrInfo> implements NativeResour
     public static CXIdxAttrInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
+
+    // -----------------------------------
+
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo mallocStack() { return malloc(stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo callocStack() { return calloc(stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo mallocStack(MemoryStack stack) { return malloc(stack); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo callocStack(MemoryStack stack) { return calloc(stack); }
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
+    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
+    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
+    @Deprecated public static CXIdxAttrInfo.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXIdxAttrInfo} instance allocated on the specified {@link MemoryStack}.

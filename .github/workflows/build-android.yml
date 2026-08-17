@@ -1,6 +1,6 @@
 name: Android build
 
-on: [workflow_dispatch, push]
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -12,15 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
 
     - name: set up JDK
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@main
       with:
-        distribution: temurin
-        java-version: |
-            8
-            25
+        distribution: zulu
+        java-version: 27-ea
 
     - name: Build for Android ${{matrix.arch}}
       run: |
@@ -30,52 +28,55 @@ jobs:
 
     - name: Upload modules release output
       if: ${{matrix.arch == 'arm64'}} # Only upload this once
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@main
       with:
-        name: lwjgl-3.4.1-android-modules
+        name: lwjgl-android-modules
         path: bin/RELEASE
 
     - name: Upload native build output
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@main
       with:
-        name: lwjgl-3.4.1-android-natives-${{matrix.arch}}
+        name: lwjgl-android-natives-${{matrix.arch}}
         path: bin/out
+
   aar:
     needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-    - uses: gradle/actions/setup-gradle@v4
+      uses: actions/checkout@main
+
+    - uses: gradle/actions/setup-gradle@main
       with:
         validate-wrappers: false
         gradle-version: "8.14.3"
+
     - name: Download built native artifacts (arm64)
-      uses: actions/download-artifact@v8
+      uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-arm64
-          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a
+          name: lwjgl-android-natives-arm64
+          path: .github/workflows/android/assets/app_runtime/lwjgl/natives/arm64-v8a
     - name: Download built native artifacts (arm32)
-      uses: actions/download-artifact@v8
+      uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-arm32
-          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a
+          name: lwjgl-android-natives-arm32
+          path: .github/workflows/android/assets/app_runtime/lwjgl/natives/armeabi-v7a
     - name: Download built native artifacts (x64)
-      uses: actions/download-artifact@v8
+      uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-x64
-          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/x86_64
+          name: lwjgl-android-natives-x64
+          path: .github/workflows/android/assets/app_runtime/lwjgl/natives/x86_64
     - name: Download built native artifacts (x86)
-      uses: actions/download-artifact@v8
+      uses: actions/download-artifact@main
       with:
-          name: lwjgl-3.4.1-android-natives-x86
-          path: .github/workflows/android/assets/app_runtime/lwjgl/3.4.1/natives/x86
+          name: lwjgl-android-natives-x86
+          path: .github/workflows/android/assets/app_runtime/lwjgl/natives/x86
     - name: Compile into one AAR
       run: |
           cd $GITHUB_WORKSPACE/.github/workflows/android
           gradle assembleRelease
     - name: Upload AAR
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@main
       with: 
-          name: lwjgl-3.4.1-android-natives-aar
-          path: .github/workflows/android/build/outputs/aar/lwjgl-3.4.1-natives-release.aar
+          name: lwjgl-android-natives-aar
+          path: .github/workflows/android/**/build/outputs/aar/lwjgl-natives-release.aar

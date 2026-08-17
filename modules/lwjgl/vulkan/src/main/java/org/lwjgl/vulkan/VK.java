@@ -7,6 +7,7 @@ package org.lwjgl.vulkan;
 import org.jspecify.annotations.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
+import org.lwjgl.system.MemoryUtil;
 
 import java.nio.*;
 import java.util.*;
@@ -50,15 +51,18 @@ public final class VK {
 
     private static @Nullable GlobalCommands globalCommands;
 
+    private static final long FPS_ADDRESS;
+
     static {
         try {
-            System.loadLibrary("pojavexec");
+            // System.loadLibrary("pojavexec");
         } catch (UnsatisfiedLinkError e) {
             e.printStackTrace();
         }
         if (!Configuration.VULKAN_EXPLICIT_INIT.get(false)) {
             create();
         }
+        FPS_ADDRESS = getFpsAddress();
     }
 
     private VK() { }
@@ -100,6 +104,8 @@ public final class VK {
                 throw new IllegalStateException();
         }
         create(VK);
+        // Avoid "unloaded signature classes" when calling VK functions that accept VkAllocationCallbacks, which is usually null.
+        VkAllocationCallbacks.createSafe(NULL);
     }
 
     /**
@@ -107,7 +113,7 @@ public final class VK {
      * from the enviroinment.
      * This is used by Pojav to provide the correct Vulkan driver
      * on Adreno devices.
-     * @returns true when the library handle was found, parsed and
+     * @returns true when the library handle was found, parsed and 
      *          create(FunctionProvider) was called, false otherwise.
      */
     private static boolean tryCreateFromEnv() {
@@ -277,5 +283,9 @@ public final class VK {
     }
 
     public static native long getVulkanDriverHandle();
+
     public static native void updateFps();
+
+    private static native long getFpsAddress();
+
 }

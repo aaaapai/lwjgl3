@@ -52,8 +52,8 @@
                 <arg line="-c -std=gnu++2a" if:set="cpp"/>
                 <arg line="-m64" if:set="build.arch.x64"/>
                 <arg line="-m32 -mfpmath=sse -msse -msse2" if:set="build.arch.x86"/>
-                <arg line="-O3 -flto=auto -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
-                <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE"/>
+                <arg line="-O3 -flto -mllvm -polly -fPIC @{flags} -pthread -DNDEBUG -DLWJGL_LINUX -DLWJGL_${build.arch}"/>
+                <arg line="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE -D__USE_BSD -D_BSD_SOURCE -mllvm -inlinehint-threshold=100000"/>
                 <arg line="-D_FILE_OFFSET_BITS=64"/>
 
                 <arg value="-I${jni.headers}"/>
@@ -157,7 +157,7 @@
 
                 <arg line="-l:libc++abi.a -l:libc++_static.a" if:set="force-cpp-static-linking"/>
                 <arg line="-z noexecstack"/>
-                <arg line="-O3 -flto -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
+                <arg line="-O3 -flto -Wl,--gc-sections -fPIC -pthread -o ${lib.arch}/lib${name}.so"/>
 
                 <arg line="-Wl,--no-undefined"/>
                 <arg line="-Wl,--version-script,${version.script}"/>
@@ -195,6 +195,7 @@
         <build module="core" flags="-Werror -Wfatal-errors -Wall -Wextra -pedantic -Wno-zero-length-array -Wno-gnu-statement-expression">
             <beforeCompile>
                 <compile>
+                    
                     <arg value="-I${src.main.rel}/${platform}/liburing"/>
                     <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
                     <arg value="-DCONFIG_HAVE_MEMFD_CREATE"/>
@@ -207,6 +208,7 @@
                 <arg value="-I${src.main.rel}/libffi/arm" if:set="build.arch.arm32"/>
                 <arg value="-I${src.main.rel}/libffi/x86" if:set="build.arch.x64|x86"/>
                 <arg value="-DX86_64" if:set="build.arch.x64"/> <!-- for libffi/x86/ffitarget.h -->
+                <arg value="-DPOWERPC" if:set="build.arch.ppc64le"/> <!-- for libffi/ppc64le/ffitarget.h -->
                 <arg value="-I${src.main.rel}/${platform}/liburing"/>
                 <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
                 <fileset dir=".">
@@ -484,9 +486,13 @@
             <update-dependency module="freetype" artifact="libfreetype.so"/>
             <update-dependency module="glfw" artifact="libglfw.so"/>
             <update-dependency module="harfbuzz" artifact="libharfbuzz.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-gpu.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-raster.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-vector.so"/>
             <update-dependency module="hwloc" artifact="libhwloc.so"/>
             <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
             <update-dependency module="ktx" artifact="libktx.so"/>
+            <update-dependency module="mimalloc" artifact="libmimalloc.so"/>
             <update-dependency module="openal" artifact="libopenal.so"/>
             <update-dependency module="openxr" artifact="libopenxr_loader.so"/>
             <update-dependency module="opus" artifact="libopus.so"/>
