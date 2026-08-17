@@ -116,4 +116,19 @@ JNIEXPORT void JNICALL Java_org_lwjgl_glfw_CallbackBridge_nativeSetCursorShape(_
     original_nativeSetCursorShape(env, clazz, shape);
 }
 
+JNIEXPORT jlong JNICALL Java_org_lwjgl_sdl_SDL_nLoadSDL(JNIEnv *env, jclass clazz, jstring libName) {
+    const char *cLibName = (*env)->GetStringUTFChars(env, libName, NULL);
+    if (!cLibName) return 0;
+
+    void *handle = try_dlopen(cLibName);
+    (*env)->ReleaseStringUTFChars(env, libName, cLibName);
+
+    if (!handle) {
+        fprintf(stderr, "[SDL] Failed to dlopen %s: %s\n", cLibName, dlerror());
+        return 0;
+    }
+
+    return (jlong)(uintptr_t)handle;
+}
+
 EXTERN_C_EXIT
