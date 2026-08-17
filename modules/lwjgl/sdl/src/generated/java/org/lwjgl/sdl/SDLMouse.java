@@ -239,6 +239,7 @@ public class SDLMouse {
 
     // --- [ SDL_SetWindowRelativeMouseMode ] ---
 
+    private static native void nativeSetGrabbing(boolean grab);
     /** {@code bool SDL_SetWindowRelativeMouseMode(SDL_Window * window, bool enabled)} */
     @NativeType("bool")
     public static boolean SDL_SetWindowRelativeMouseMode(@NativeType("SDL_Window *") long window, @NativeType("bool") boolean enabled) {
@@ -246,7 +247,9 @@ public class SDLMouse {
         if (CHECKS) {
             check(window);
         }
-        return invokePZ(window, enabled, __functionAddress);
+        boolean result = invokePZ(window, enabled, __functionAddress);
+        nativeSetGrabbing(enabled);
+        return result;
     }
 
     // --- [ SDL_GetWindowRelativeMouseMode ] ---
