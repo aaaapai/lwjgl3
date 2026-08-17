@@ -69,9 +69,11 @@ public class SDLInit {
 
     // --- [ SDL_Init ] ---
 
+    private static native void nativeNotifyLauncher(int type, int... action);
     /** {@code bool SDL_Init(SDL_InitFlags flags)} */
     @NativeType("bool")
     public static boolean SDL_Init(@NativeType("SDL_InitFlags") int flags) {
+        nativeNotifyLauncher(CallbackBridge.SDL, CallbackBridge.INIT);
         long __functionAddress = Functions.Init;
         return invokeZ(flags, __functionAddress);
     }
