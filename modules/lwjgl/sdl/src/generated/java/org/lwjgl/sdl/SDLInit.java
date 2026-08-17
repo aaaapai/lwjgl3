@@ -50,6 +50,8 @@ public class SDLInit {
         SDL_INIT_CAMERA   = 0x00010000;
 
     public static final int
+        TYPE_INIT = 0,
+        ACTIONS_INIT = 0,
         SDL_APP_CONTINUE = 0,
         SDL_APP_SUCCESS  = 1,
         SDL_APP_FAILURE  = 2;
@@ -73,7 +75,7 @@ public class SDLInit {
     /** {@code bool SDL_Init(SDL_InitFlags flags)} */
     @NativeType("bool")
     public static boolean SDL_Init(@NativeType("SDL_InitFlags") int flags) {
-        nativeNotifyLauncher(CallbackBridge.SDL, CallbackBridge.INIT);
+        nativeNotifyLauncher(TYPE_INIT, ACTIONS_INIT);
         long __functionAddress = Functions.Init;
         return invokeZ(flags, __functionAddress);
     }
