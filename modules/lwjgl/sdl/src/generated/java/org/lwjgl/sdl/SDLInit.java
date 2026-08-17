@@ -75,9 +75,10 @@ public class SDLInit {
     /** {@code bool SDL_Init(SDL_InitFlags flags)} */
     @NativeType("bool")
     public static boolean SDL_Init(@NativeType("SDL_InitFlags") int flags) {
-        nativeNotifyLauncher(TYPE_INIT, ACTIONS_INIT);
         long __functionAddress = Functions.Init;
-        return invokeZ(flags, __functionAddress);
+        boolean result = invokeZ(flags, __functionAddress);
+        nativeNotifyLauncher(TYPE_INIT, ACTIONS_INIT);
+        return result;
     }
 
     // --- [ SDL_InitSubSystem ] ---
